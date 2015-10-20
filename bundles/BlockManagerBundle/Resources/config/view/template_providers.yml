@@ -1,0 +1,18 @@
+parameters:
+    netgen_block_manager.view.template_provider.block.class: Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider
+    netgen_block_manager.view.template_provider.layout.class: Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider
+
+services:
+    netgen_block_manager.view.template_provider.block:
+        class: %netgen_block_manager.view.template_provider.block.class%
+        arguments:
+            - %netgen_block_manager.default.blocks%
+        tags:
+            - { name: netgen_block_manager.view.template_provider, type: 'Netgen\BlockManager\View\BlockView' }
+
+    netgen_block_manager.view.template_provider.layout:
+        class: %netgen_block_manager.view.template_provider.layout.class%
+        arguments:
+            - %netgen_block_manager.default.layouts%
+        tags:
+            - { name: netgen_block_manager.view.template_provider, type: 'Netgen\BlockManager\View\LayoutView' }

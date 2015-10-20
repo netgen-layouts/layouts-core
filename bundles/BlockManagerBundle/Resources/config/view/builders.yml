@@ -1,0 +1,14 @@
+parameters:
+    netgen_block_manager.view.builder.block.class: Netgen\BlockManager\View\Builder\BlockViewBuilder
+    netgen_block_manager.view.builder.layout.class: Netgen\BlockManager\View\Builder\LayoutViewBuilder
+
+services:
+    netgen_block_manager.view.builder.block:
+        class: %netgen_block_manager.view.builder.block.class%
+        tags:
+            - { name: netgen_block_manager.view.builder, type: 'Netgen\BlockManager\Core\Values\Page\Block' }
+
+    netgen_block_manager.view.builder.layout:
+        class: %netgen_block_manager.view.builder.layout.class%
+        tags:
+            - { name: netgen_block_manager.view.builder, type: 'Netgen\BlockManager\Core\Values\Page\Layout' }

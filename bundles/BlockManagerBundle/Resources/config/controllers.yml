@@ -1,0 +1,19 @@
+parameters:
+    netgen_block_manager.controller.rest.base.class: Netgen\Bundle\BlockManagerBundle\Controller\REST\Controller
+    netgen_block_manager.controller.rest.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\REST\LayoutController
+    netgen_block_manager.controller.rest.block.class: Netgen\Bundle\BlockManagerBundle\Controller\REST\BlockController
+
+services:
+    netgen_block_manager.controller.rest.base:
+        class: %netgen_block_manager.controller.rest.base.class%
+        abstract: true
+        calls:
+            - [setContainer, [@service_container]]
+
+    netgen_block_manager.controller.rest.layout:
+        class: %netgen_block_manager.controller.rest.layout.class%
+        parent: netgen_block_manager.controller.rest.base
+
+    netgen_block_manager.controller.rest.block:
+        class: %netgen_block_manager.controller.rest.block.class%
+        parent: netgen_block_manager.controller.rest.base

@@ -1,0 +1,16 @@
+parameters:
+    netgen_block_manager.default.layouts:
+        3_zones_a:
+            name: '3 zones A'
+            zones:
+                top_left:
+                    name: 'Top left'
+                    allowed_blocks: ['title', 'paragraph']
+                top_right:
+                    name: 'Top right'
+                bottom:
+                    name: 'Bottom'
+            content_types: ['ng_frontpage', 'ng_landing_page']
+            templates:
+                view: 'NetgenBlockManagerBundle:layout:3_zones_a.html.twig'
+                manager: 'NetgenBlockManagerBundle:layout/manager:3_zones_a.html.twig'

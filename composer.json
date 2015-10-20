@@ -1,0 +1,22 @@
+{
+    "name": "netgen/block-manager",
+    "description": "Netgen Block Manager",
+    "authors": [
+        {
+            "name": "Netgen",
+            "homepage": "http://www.netgenlabs.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "^2.5",
+        "jms/serializer-bundle": "^1.0",
+        "doctrine/doctrine-bundle": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Netgen\\BlockManager\\": "lib/",
+            "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
+            "Netgen\\Bundle\\EzPublishBlockManagerBundle\\": "bundles/EzPublishBlockManagerBundle/"
+        }
+    }
+}

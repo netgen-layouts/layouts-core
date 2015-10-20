@@ -1,0 +1,12 @@
+parameters:
+    netgen_block_manager.view.renderer.twig.class: Netgen\BlockManager\View\Renderer\TwigViewRenderer
+
+services:
+    netgen_block_manager.view.renderer.twig:
+        class: %netgen_block_manager.view.renderer.twig.class%
+        arguments:
+            - @netgen_block_manager.registry.view_template_provider
+            - @twig
+
+    netgen_block_manager.view.renderer:
+        alias: netgen_block_manager.view.renderer.twig

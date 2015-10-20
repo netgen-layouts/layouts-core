@@ -1,0 +1,14 @@
+parameters:
+    netgen_block_manager.block_definition.title.class: Netgen\BlockManager\BlockDefinition\Title
+    netgen_block_manager.block_definition.paragraph.class: Netgen\BlockManager\BlockDefinition\Paragraph
+
+services:
+    netgen_block_manager.block_definition.title:
+        class: %netgen_block_manager.block_definition.title.class%
+        tags:
+            - { name: netgen_block_manager.block_definition }
+
+    netgen_block_manager.block_definition.paragraph:
+        class: %netgen_block_manager.block_definition.paragraph.class%
+        tags:
+            - { name: netgen_block_manager.block_definition }

@@ -1,0 +1,23 @@
+parameters:
+    netgen_block_manager.registry.block_definition.array_based.class: Netgen\BlockManager\Registry\BlockDefinitionRegistry\ArrayBased
+    netgen_block_manager.registry.view_builder.array_based.class: Netgen\BlockManager\Registry\ViewBuilderRegistry\ArrayBased
+    netgen_block_manager.registry.view_template_provider.array_based.class: Netgen\BlockManager\Registry\ViewTemplateProviderRegistry\ArrayBased
+
+services:
+    netgen_block_manager.registry.block_definition.array_based:
+        class: %netgen_block_manager.registry.block_definition.array_based.class%
+
+    netgen_block_manager.registry.view_builder.array_based:
+        class: %netgen_block_manager.registry.view_builder.array_based.class%
+
+    netgen_block_manager.registry.view_template_provider.array_based:
+        class: %netgen_block_manager.registry.view_template_provider.array_based.class%
+
+    netgen_block_manager.registry.block_definition:
+        alias: netgen_block_manager.registry.block_definition.array_based
+
+    netgen_block_manager.registry.view_builder:
+        alias: netgen_block_manager.registry.view_builder.array_based
+
+    netgen_block_manager.registry.view_template_provider:
+        alias: netgen_block_manager.registry.view_template_provider.array_based

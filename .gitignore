@@ -1,0 +1,7 @@
+.idea/
+CodeCoverage/
+vendor/
+composer.phar
+composer.lock
+phpunit.phar
+.php_cs.cache
