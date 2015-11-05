@@ -24,7 +24,7 @@ class Mapper
                     'zoneId' => (int)$dataItem['zone_id'],
                     'definitionIdentifier' => $dataItem['definition_identifier'],
                     'parameters' => !empty($dataItem['parameters']) ?
-                        json_decode($dataItem['parameters']) :
+                        json_decode($dataItem['parameters'], true) :
                         array(),
                     'viewType' => $dataItem['view_type'],
                 )
