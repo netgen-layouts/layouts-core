@@ -10,7 +10,7 @@ services:
         arguments:
             - %netgen_block_manager.default.blocks%
         tags:
-            - { name: jms_serializer.subscribing }
+            - { name: jms_serializer.subscribing_handler }
 
     netgen_block_manager.serializer.block_view:
         class: %netgen_block_manager.serializer.block_view.class%
@@ -18,14 +18,14 @@ services:
         arguments:
             - @netgen_block_manager.view.renderer
         tags:
-            - { name: jms_serializer.subscribing }
+            - { name: jms_serializer.subscribing_handler }
 
     netgen_block_manager.serializer.layout:
         class: %netgen_block_manager.serializer.layout.class%
         arguments:
             - %netgen_block_manager.default.layouts%
         tags:
-            - { name: jms_serializer.subscribing }
+            - { name: jms_serializer.subscribing_handler }
 
     netgen_block_manager.serializer.layout_view:
         class: %netgen_block_manager.serializer.layout_view.class%
@@ -33,4 +33,4 @@ services:
         arguments:
             - @netgen_block_manager.view.renderer
         tags:
-            - { name: jms_serializer.subscribing }
+            - { name: jms_serializer.subscribing_handler }
