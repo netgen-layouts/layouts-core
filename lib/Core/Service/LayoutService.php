@@ -84,26 +84,14 @@ class LayoutService implements LayoutServiceInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, APILayout $parentLayout = null)
     {
-        if ($layoutCreateStruct->parentId !== null) {
-            if (!is_int($layoutCreateStruct->parentId) && !is_string($layoutCreateStruct->parentId)) {
-                throw new InvalidArgumentException(
-                    'layoutCreateStruct->parentId',
-                    $layoutCreateStruct->parentId,
-                    'Value must be an integer or a string.'
-                );
-            }
-
-            // Try to load the parent layout to verify that it exists
-            $this->loadLayout($layoutCreateStruct->parentId);
-        }
-
         if (!is_string($layoutCreateStruct->layoutIdentifier)) {
             throw new InvalidArgumentException(
                 'layoutCreateStruct->layoutIdentifier',
@@ -152,7 +140,10 @@ class LayoutService implements LayoutServiceInterface
             }
         }
 
-        $createdLayout = $this->handler->createLayout($layoutCreateStruct);
+        $createdLayout = $this->handler->createLayout(
+            $layoutCreateStruct,
+            $parentLayout !== null ? $parentLayout->getId() : null
+        );
         $zones = $this->handler->loadLayoutZones($createdLayout->id);
 
         return $this->buildDomainLayoutObject($createdLayout, $zones);
@@ -192,18 +183,13 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param string $layoutIdentifier
      * @param string[] $zoneIdentifiers
-     * @param int|string $parentId
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct(
-        $layoutIdentifier,
-        $zoneIdentifiers = array(),
-        $parentId = null
-    ) {
+    public function newLayoutCreateStruct($layoutIdentifier, array $zoneIdentifiers)
+    {
         return new LayoutCreateStruct(
             array(
-                'parentId' => $parentId,
                 'layoutIdentifier' => $layoutIdentifier,
                 'zoneIdentifiers' => $zoneIdentifiers,
             )

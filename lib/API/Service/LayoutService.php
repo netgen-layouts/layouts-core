@@ -33,12 +33,13 @@ interface LayoutService
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null);
 
     /**
      * Copies a specified layout.
@@ -60,9 +61,9 @@ interface LayoutService
      * Creates a new layout create struct.
      *
      * @param string $layoutIdentifier
-     * @param int|mixed $parentId
+     * @param string[] $zoneIdentifiers
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($layoutIdentifier, $parentId = null);
+    public function newLayoutCreateStruct($layoutIdentifier, array $zoneIdentifiers);
 }

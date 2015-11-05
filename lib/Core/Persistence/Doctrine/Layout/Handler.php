@@ -119,16 +119,17 @@ class Handler implements LayoutHandlerInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param int|string $parentLayoutId
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null)
     {
         $currentTimeStamp = time();
 
         $query = $this->createLayoutInsertQuery(
             array(
-                'parent_id' => $layoutCreateStruct->parentId,
+                'parent_id' => $parentLayoutId,
                 'identifier' => $layoutCreateStruct->layoutIdentifier,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
