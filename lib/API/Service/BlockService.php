@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\API\Service;
 
-use Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;

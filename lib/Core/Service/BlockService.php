@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
