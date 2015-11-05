@@ -1,23 +1,23 @@
 <?php
 
-namespace Netgen\BlockManager\SerializerHandler;
+namespace Netgen\BlockManager\Serializer;
 
-use JMS\Serializer\JsonSerializationVisitor;
+use JMS\Serializer\VisitorInterface;
 use JMS\Serializer\SerializationContext;
 
-abstract class SerializerHandler
+abstract class Serializer
 {
     /**
      * Serializes the value.
      *
-     * @param \JMS\Serializer\JsonSerializationVisitor $visitor
+     * @param \JMS\Serializer\VisitorInterface $visitor
      * @param mixed $value
      * @param array $type
      * @param \JMS\Serializer\SerializationContext $context
      *
      * @return array|\ArrayObject
      */
-    public function serialize(JsonSerializationVisitor $visitor, $value, array $type, SerializationContext $context)
+    public function serialize(VisitorInterface $visitor, $value, array $type, SerializationContext $context)
     {
         return $visitor->visitArray(
             $this->getValueData($value),

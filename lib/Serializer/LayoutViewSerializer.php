@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\SerializerHandler\Json;
+namespace Netgen\BlockManager\Serializer;
 
 use JMS\Serializer\GraphNavigator;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\Renderer\ViewRenderer;
 
-class LayoutViewSerializerHandler extends LayoutSerializerHandler
+class LayoutViewSerializer extends LayoutSerializer
 {
     /**
      * @var \Netgen\BlockManager\View\Renderer\ViewRenderer

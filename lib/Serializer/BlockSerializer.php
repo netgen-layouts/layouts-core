@@ -1,26 +1,25 @@
 <?php
 
-namespace Netgen\BlockManager\SerializerHandler\Json;
+namespace Netgen\BlockManager\Serializer;
 
-use Netgen\BlockManager\SerializerHandler\SerializerHandler;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\GraphNavigator;
 
-class LayoutSerializerHandler extends SerializerHandler implements SubscribingHandlerInterface
+class BlockSerializer extends Serializer implements SubscribingHandlerInterface
 {
     /**
      * @var array
      */
-    protected $layoutConfig;
+    protected $blockConfig;
 
     /**
      * Constructor.
      *
-     * @param array $layoutConfig
+     * @param array $blockConfig
      */
-    public function __construct(array $layoutConfig)
+    public function __construct(array $blockConfig)
     {
-        $this->layoutConfig = $layoutConfig;
+        $this->blockConfig = $blockConfig;
     }
 
     /**
@@ -36,7 +35,7 @@ class LayoutSerializerHandler extends SerializerHandler implements SubscribingHa
             array(
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'format' => 'json',
-                'type' => 'Netgen\BlockManager\Core\Values\Page\Layout',
+                'type' => 'Netgen\BlockManager\Core\Values\Page\Block',
                 'method' => 'serialize',
             ),
         );
@@ -45,19 +44,21 @@ class LayoutSerializerHandler extends SerializerHandler implements SubscribingHa
     /**
      * Returns the data that will be serialized.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $value
+     * @param \Netgen\BlockManager\API\Values\Page\Block $value
      *
      * @return array
      */
     public function getValueData($value)
     {
+        $blockDefinitionIdentifier = $value->getDefinitionIdentifier();
+
         return array(
             'id' => $value->getId(),
-            'parent_id' => $value->getParentId(),
-            'identifier' => $value->getIdentifier(),
-            'created_at' => $value->getCreated(),
-            'updated_at' => $value->getModified(),
-            'title' => $this->layoutConfig[$value->getIdentifier()]['name'],
+            'definition_identifier' => $blockDefinitionIdentifier,
+            'title' => $this->blockConfig[$blockDefinitionIdentifier]['name'],
+            'zone_id' => $value->getZoneId(),
+            'parameters' => $value->getParameters(),
+            'view_type' => $value->getViewType(),
         );
     }
 }

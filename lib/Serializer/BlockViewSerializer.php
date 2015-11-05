@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\SerializerHandler\Json;
+namespace Netgen\BlockManager\Serializer;
 
 use JMS\Serializer\GraphNavigator;
 use Netgen\BlockManager\View\Renderer\ViewRenderer;
 
-class BlockViewSerializerHandler extends BlockSerializerHandler
+class BlockViewSerializer extends BlockSerializer
 {
     /**
      * @var \Netgen\BlockManager\View\Renderer\ViewRenderer
