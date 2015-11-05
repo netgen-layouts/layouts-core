@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View\Builder;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
@@ -9,6 +10,21 @@ use InvalidArgumentException;
 
 class LayoutViewBuilder implements ViewBuilder
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
+     */
+    public function __construct(BlockService $blockService)
+    {
+        $this->blockService = $blockService;
+    }
+
     /**
      * Builds the view.
      *
@@ -31,6 +47,7 @@ class LayoutViewBuilder implements ViewBuilder
         $layoutView->setContext($context);
 
         $parameters['layout'] = $value;
+        $parameters['blocks'] = $this->blockService->loadLayoutBlocks($value);
         $layoutView->setParameters($parameters);
 
         return $layoutView;
