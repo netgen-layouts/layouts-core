@@ -78,10 +78,10 @@ interface BlockService
     /**
      * Creates a new block create struct.
      *
-     * @param \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface $blockDefinition
+     * @param string $definitionIdentifier
      * @param string $viewType
      *
      * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
      */
-    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition, $viewType);
+    public function newBlockCreateStruct($definitionIdentifier, $viewType);
 }
