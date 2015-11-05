@@ -23,13 +23,13 @@ class Mapper
                     'id' => (int)$dataItem['id'],
                     'zoneId' => (int)$dataItem['zone_id'],
                     'definitionIdentifier' => $dataItem['definition_identifier'],
-                    'parameters' => array(),
+                    'parameters' => !empty($dataItem['parameters']) ?
+                        json_decode($dataItem['parameters']) :
+                        array(),
                     'viewType' => $dataItem['view_type'],
                 )
             );
         }
-
-        // @TODO load parameters
 
         return $blocks;
     }

@@ -44,7 +44,7 @@ class Handler implements BlockHandlerInterface
     public function loadBlock($blockId)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type')
+        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'parameters')
             ->from('ngbm_block')
             ->where(
                 $query->expr()->eq('id', ':block_id')
@@ -71,7 +71,7 @@ class Handler implements BlockHandlerInterface
     public function loadZoneBlocks($zoneId)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type')
+        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'parameters')
             ->from('ngbm_block')
             ->where(
                 $query->expr()->eq('zone_id', ':zone_id')
@@ -101,10 +101,9 @@ class Handler implements BlockHandlerInterface
                 'zone_id' => $zoneId,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
+                'parameters' => $blockCreateStruct->getParameters(),
             )
         );
-
-        // @TODO create parameters
 
         $query->execute();
 
@@ -128,10 +127,9 @@ class Handler implements BlockHandlerInterface
                 'zone_id' => $zoneId,
                 'definition_identifier' => $originalBlock->definitionIdentifier,
                 'view_type' => $originalBlock->viewType,
+                'parameters' => $originalBlock->parameters,
             )
         );
-
-        // @TODO copy parameters
 
         $query->execute();
 
@@ -198,10 +196,12 @@ class Handler implements BlockHandlerInterface
                     'zone_id' => ':zone_id',
                     'definition_identifier' => ':definition_identifier',
                     'view_type' => ':view_type',
+                    'parameters' => ':parameters',
                 )
             )
             ->setParameter('zone_id', $parameters['zone_id'], TYPE::INTEGER)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], TYPE::STRING)
-            ->setParameter('view_type', $parameters['view_type'], TYPE::STRING);
+            ->setParameter('view_type', $parameters['view_type'], TYPE::STRING)
+            ->setParameter('parameters', $parameters['parameters'], TYPE::JSON_ARRAY);
     }
 }

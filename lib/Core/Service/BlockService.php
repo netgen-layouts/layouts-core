@@ -6,7 +6,8 @@ use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface;
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
@@ -98,7 +99,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, APIZone $zone)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, APIZone $zone)
     {
         $createdBlock = $this->blockHandler->createBlock($blockCreateStruct, $zone->getId());
 
