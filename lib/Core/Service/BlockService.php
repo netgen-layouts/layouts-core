@@ -194,8 +194,8 @@ class BlockService implements BlockServiceInterface
                 'id' => $persistenceBlock->id,
                 'zoneId' => $persistenceBlock->zoneId,
                 'definitionIdentifier' => $persistenceBlock->definitionIdentifier,
-                'viewType' => $persistenceBlock->viewType,
                 'parameters' => $persistenceBlock->parameters,
+                'viewType' => $persistenceBlock->viewType,
             )
         );
 
