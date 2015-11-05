@@ -14,6 +14,8 @@ interface BlockService
      *
      * @param int|string $blockId
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If block ID has an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function loadBlock($blockId);
@@ -42,6 +44,8 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Zone $zone);
@@ -53,6 +57,8 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function copyBlock(Block $block, Zone $zone = null);
@@ -62,6 +68,8 @@ interface BlockService
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */

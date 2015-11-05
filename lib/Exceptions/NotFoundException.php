@@ -7,7 +7,7 @@ use Exception;
 class NotFoundException extends Exception
 {
     /**
-     * Creates new not found exception.
+     * Creates a new not found exception.
      *
      * @param string $what
      * @param int|string $identifier

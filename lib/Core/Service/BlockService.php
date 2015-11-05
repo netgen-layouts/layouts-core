@@ -12,7 +12,7 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
-use InvalidArgumentException;
+use Netgen\BlockManager\Exceptions\InvalidArgumentException;
 
 class BlockService implements BlockServiceInterface
 {
@@ -43,10 +43,20 @@ class BlockService implements BlockServiceInterface
      *
      * @param int|string $blockId
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If block ID has an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function loadBlock($blockId)
     {
+        if (!is_int($blockId) && !is_string($blockId)) {
+            throw new InvalidArgumentException('blockId', $blockId, 'Value must be an integer or a string.');
+        }
+
+        if (empty($blockId)) {
+            throw new InvalidArgumentException('blockId', $blockId, 'Value must not be empty.');
+        }
+
         return $this->buildDomainBlockObject(
             $this->blockHandler->loadBlock($blockId)
         );
@@ -96,10 +106,44 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, APIZone $zone)
     {
+        if (!is_string($blockCreateStruct->definitionIdentifier)) {
+            throw new InvalidArgumentException(
+                'blockCreateStruct->definitionIdentifier',
+                $blockCreateStruct->definitionIdentifier,
+                'Value must be a string.'
+            );
+        }
+
+        if (empty($blockCreateStruct->definitionIdentifier)) {
+            throw new InvalidArgumentException(
+                'blockCreateStruct->definitionIdentifier',
+                $blockCreateStruct->definitionIdentifier,
+                'Value must not be empty.'
+            );
+        }
+
+        if (!is_string($blockCreateStruct->viewType)) {
+            throw new InvalidArgumentException(
+                'blockCreateStruct->viewType',
+                $blockCreateStruct->viewType,
+                'Value must be a string.'
+            );
+        }
+
+        if (empty($blockCreateStruct->viewType)) {
+            throw new InvalidArgumentException(
+                'blockCreateStruct->viewType',
+                $blockCreateStruct->viewType,
+                'Value must not be empty.'
+            );
+        }
+
         $createdBlock = $this->blockHandler->createBlock($blockCreateStruct, $zone->getId());
 
         return $this->buildDomainBlockObject($createdBlock);
@@ -112,14 +156,20 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function copyBlock(APIBlock $block, APIZone $zone = null)
     {
         if ($zone instanceof APIZone) {
             $originalZone = $this->layoutService->loadZone($block->getZoneId());
-            if ($originalZone->getLayoutId() !== $zone->getLayoutId()) {
-                throw new InvalidArgumentException('Block cannot be copied to a different layout');
+            if ($zone->getLayoutId() !== $originalZone->getLayoutId()) {
+                throw new InvalidArgumentException(
+                    'zone->layoutId',
+                    $zone->getLayoutId(),
+                    'Block cannot be copied to a different layout.'
+                );
             }
         }
 
@@ -137,13 +187,19 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function moveBlock(APIBlock $block, APIZone $zone)
     {
         $originalZone = $this->layoutService->loadZone($block->getZoneId());
-        if ($originalZone->getLayoutId() !== $zone->getLayoutId()) {
-            throw new InvalidArgumentException('Block cannot be moved to a different layout');
+        if ($zone->getLayoutId() !== $originalZone->getLayoutId()) {
+            throw new InvalidArgumentException(
+                'zone->layoutId',
+                $zone->getLayoutId(),
+                'Block cannot be moved to a different layout.'
+            );
         }
 
         $movedBlock = $this->blockHandler->moveBlock($block->getId(), $zone->getId());

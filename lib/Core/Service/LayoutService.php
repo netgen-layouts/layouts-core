@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
+use Netgen\BlockManager\Exceptions\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -10,6 +11,7 @@ use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
+use Netgen\BlockManager\Exceptions\InvalidArgumentException;
 use DateTime;
 
 class LayoutService implements LayoutServiceInterface
@@ -34,10 +36,20 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param int|string $layoutId
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout ID has an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function loadLayout($layoutId)
     {
+        if (!is_int($layoutId) && !is_string($layoutId)) {
+            throw new InvalidArgumentException('layoutId', $layoutId, 'Value must be an integer or a string.');
+        }
+
+        if (empty($layoutId)) {
+            throw new InvalidArgumentException('layoutId', $layoutId, 'Value must not be empty.');
+        }
+
         $layout = $this->handler->loadLayout($layoutId);
         $zones = $this->handler->loadLayoutZones($layout->id);
 
@@ -49,10 +61,20 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param int|string $zoneId
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If zone ID has an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
     public function loadZone($zoneId)
     {
+        if (!is_int($zoneId) && !is_string($zoneId)) {
+            throw new InvalidArgumentException('zoneId', $zoneId, 'Value must be an integer or a string.');
+        }
+
+        if (empty($zoneId)) {
+            throw new InvalidArgumentException('zoneId', $zoneId, 'Value must not be empty.');
+        }
+
         return $this->buildDomainZoneObject(
             $this->handler->loadZone($zoneId)
         );
@@ -63,10 +85,73 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
+        if ($layoutCreateStruct->parentId !== null) {
+            if (!is_int($layoutCreateStruct->parentId) && !is_string($layoutCreateStruct->parentId)) {
+                throw new InvalidArgumentException(
+                    'layoutCreateStruct->parentId',
+                    $layoutCreateStruct->parentId,
+                    'Value must be an integer or a string.'
+                );
+            }
+
+            // Try to load the parent layout to verify that it exists
+            $this->loadLayout($layoutCreateStruct->parentId);
+        }
+
+        if (!is_string($layoutCreateStruct->layoutIdentifier)) {
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->layoutIdentifier',
+                $layoutCreateStruct->layoutIdentifier, 'Value must be a string.');
+        }
+
+        if (empty($layoutCreateStruct->layoutIdentifier)) {
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->layoutIdentifier',
+                $layoutCreateStruct->layoutIdentifier,
+                'Value must not be empty.'
+            );
+        }
+
+        if (!is_array($layoutCreateStruct->zoneIdentifiers)) {
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->zoneIdentifiers',
+                $layoutCreateStruct->zoneIdentifiers,
+                'Value must be an array.'
+            );
+        }
+
+        if (empty($layoutCreateStruct->zoneIdentifiers)) {
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->zoneIdentifiers',
+                $layoutCreateStruct->zoneIdentifiers,
+                'Value must not be empty.'
+            );
+        }
+
+        foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
+            if (!is_string($zoneIdentifier)) {
+                throw new InvalidArgumentException(
+                    'layoutCreateStruct->zoneIdentifiers',
+                    $layoutCreateStruct->zoneIdentifiers,
+                    'All values must be strings.'
+                );
+            }
+
+            if (empty($zoneIdentifier)) {
+                throw new InvalidArgumentException(
+                    'layoutCreateStruct->zoneIdentifiers',
+                    $layoutCreateStruct->zoneIdentifiers,
+                    'None of the values can be empty.'
+                );
+            }
+        }
+
         $createdLayout = $this->handler->createLayout($layoutCreateStruct);
         $zones = $this->handler->loadLayoutZones($createdLayout->id);
 

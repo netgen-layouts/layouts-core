@@ -12,6 +12,8 @@ interface LayoutService
      *
      * @param int|string $layoutId
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout ID has an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function loadLayout($layoutId);
@@ -21,6 +23,8 @@ interface LayoutService
      *
      * @param int|string $zoneId
      *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If zone ID has an invalid or empty value
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
     public function loadZone($zoneId);
@@ -29,6 +33,8 @@ interface LayoutService
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
