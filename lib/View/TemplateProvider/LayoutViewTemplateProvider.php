@@ -40,7 +40,7 @@ class LayoutViewTemplateProvider implements ViewTemplateProvider
         $layoutIdentifier = $layout->getIdentifier();
         $context = $view->getContext();
 
-        if (!empty($this->config[$layoutIdentifier]["{$context}_template"])) {
+        if (empty($this->config[$layoutIdentifier]['templates'][$context])) {
             throw new InvalidArgumentException(
                 sprintf(
                     'No template could be found for layout with identifier "%s"',
