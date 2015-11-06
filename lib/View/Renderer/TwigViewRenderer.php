@@ -43,7 +43,9 @@ class TwigViewRenderer implements ViewRenderer
     {
         if ($view->getTemplate() === null) {
             $viewTemplateProvider = $this->viewTemplateProviderRegistry->getViewTemplateProvider($view);
-            $viewTemplateProvider->provideTemplate($view);
+            $view->setTemplate(
+                $viewTemplateProvider->provideTemplate($view)
+            );
         }
 
         return $this->twig->render(

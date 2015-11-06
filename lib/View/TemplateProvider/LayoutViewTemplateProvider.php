@@ -50,8 +50,6 @@ class LayoutViewTemplateProvider implements ViewTemplateProvider
             );
         }
 
-        $view->setTemplate(
-            $this->config[$layoutIdentifier]['templates'][$context]
-        );
+        return $this->config[$layoutIdentifier]['templates'][$context];
     }
 }

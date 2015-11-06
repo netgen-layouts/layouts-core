@@ -51,8 +51,6 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
             );
         }
 
-        $view->setTemplate(
-            $this->config[$definitionIdentifier]['templates'][$viewType][$context]
-        );
+        return $this->config[$definitionIdentifier]['templates'][$viewType][$context];
     }
 }
