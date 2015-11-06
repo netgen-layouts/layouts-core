@@ -14,8 +14,8 @@
         <testsuite name="Netgen\BlockManager\API">
             <directory>lib/API/Tests</directory>
         </testsuite>
-        <testsuite name="Netgen\BlockManager\Core">
-            <directory>lib/Core/Tests</directory>
+        <testsuite name="Netgen\BlockManager\BlockDefinition">
+            <directory>lib/BlockDefinition/Tests</directory>
         </testsuite>
     </testsuites>
 
