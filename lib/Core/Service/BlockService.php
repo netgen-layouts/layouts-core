@@ -280,7 +280,7 @@ class BlockService implements BlockServiceInterface
      */
     public function newBlockUpdateStruct()
     {
-        return new BlockCreateStruct();
+        return new BlockUpdateStruct();
     }
 
     /**
