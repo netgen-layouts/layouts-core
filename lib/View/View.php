@@ -78,4 +78,14 @@ abstract class View implements ViewInterface
     {
         $this->parameters = $parameters;
     }
+
+    /**
+     * Adds parameters to the view.
+     *
+     * @param array $parameters
+     */
+    public function addParameters(array $parameters = array())
+    {
+        $this->parameters = $parameters + $this->parameters;
+    }
 }

@@ -45,4 +45,11 @@ interface ViewInterface
      * @param array $parameters
      */
     public function setParameters(array $parameters = array());
+
+    /**
+     * Adds parameters to the view.
+     *
+     * @param array $parameters
+     */
+    public function addParameters(array $parameters = array());
 }
