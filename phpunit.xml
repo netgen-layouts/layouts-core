@@ -17,6 +17,9 @@
         <testsuite name="Netgen\BlockManager\BlockDefinition">
             <directory>lib/BlockDefinition/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Exceptions">
+            <directory>lib/Exceptions/Tests</directory>
+        </testsuite>
     </testsuites>
 
     <filter>
