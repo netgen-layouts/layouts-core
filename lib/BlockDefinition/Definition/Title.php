@@ -1,8 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\BlockDefinition;
+namespace Netgen\BlockManager\BlockDefinition\Definition;
 
-class Title extends BlockDefinition implements BlockDefinitionInterface
+use Netgen\BlockManager\BlockDefinition\BlockDefinition;
+use Netgen\BlockManager\BlockDefinition\Parameters;
+
+class Title extends BlockDefinition
 {
     /**
      * Returns block definition identifier.
@@ -21,18 +24,21 @@ class Title extends BlockDefinition implements BlockDefinitionInterface
      */
     public function getParameters()
     {
-        return array(
-            new Parameters\Select(
-                'tag',
-                'Tag',
-                array(
-                    'multiple' => false,
-                    'options' => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
+        return array_merge(
+            array(
+                new Parameters\Select(
+                    'tag',
+                    'Tag',
+                    array(
+                        'multiple' => false,
+                        'options' => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
+                    ),
+                    'h2'
                 ),
-                'h2'
+                new Parameters\Text('title', 'Title', null, 'Title'),
             ),
-            new Parameters\Text('title', 'Title', null, 'Title'),
-        ) + parent::getParameters();
+            parent::getParameters()
+        );
     }
 
     /**

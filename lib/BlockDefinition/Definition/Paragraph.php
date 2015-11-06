@@ -1,8 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\BlockDefinition;
+namespace Netgen\BlockManager\BlockDefinition\Definition;
 
-class Paragraph extends BlockDefinition implements BlockDefinitionInterface
+use Netgen\BlockManager\BlockDefinition\BlockDefinition;
+use Netgen\BlockManager\BlockDefinition\Parameters;
+
+class Paragraph extends BlockDefinition
 {
     /**
      * Returns block definition identifier.
@@ -21,14 +24,17 @@ class Paragraph extends BlockDefinition implements BlockDefinitionInterface
      */
     public function getParameters()
     {
-        return  array(
-            new Parameters\Text(
-                'content',
-                'Content',
-                null,
-                'Text'
+        return array_merge(
+            array(
+                new Parameters\Text(
+                    'content',
+                    'Content',
+                    null,
+                    'Text'
+                ),
             ),
-        ) + parent::getParameters();
+            parent::getParameters()
+        );
     }
 
     /**
