@@ -20,6 +20,11 @@ abstract class View implements ViewInterface
     protected $parameters = array();
 
     /**
+     * @var array
+     */
+    protected $internalParameters = array();
+
+    /**
      * Returns the view context.
      *
      * @return string
@@ -66,7 +71,7 @@ abstract class View implements ViewInterface
      */
     public function getParameters()
     {
-        return $this->parameters;
+        return $this->internalParameters + $this->parameters;
     }
 
     /**

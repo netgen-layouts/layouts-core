@@ -29,6 +29,6 @@ class LayoutView extends View implements LayoutViewInterface
     public function setLayout(Layout $layout)
     {
         $this->layout = $layout;
-        $this->parameters['layout'] = $this->layout;
+        $this->internalParameters['layout'] = $this->layout;
     }
 }
