@@ -43,11 +43,16 @@ class LayoutViewBuilder implements ViewBuilder
         }
 
         $layoutView = new LayoutView();
+
         $layoutView->setLayout($value);
         $layoutView->setContext($context);
-
-        $parameters['blocks'] = $this->blockService->loadLayoutBlocks($value);
         $layoutView->setParameters($parameters);
+
+        $layoutView->addParameters(
+            array(
+                'blocks' => $this->blockService->loadLayoutBlocks($value)
+            )
+        );
 
         return $layoutView;
     }

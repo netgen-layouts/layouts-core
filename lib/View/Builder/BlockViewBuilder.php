@@ -27,9 +27,9 @@ class BlockViewBuilder implements ViewBuilder
         }
 
         $blockView = new BlockView();
+
         $blockView->setBlock($value);
         $blockView->setContext($context);
-
         $blockView->setParameters($parameters);
 
         return $blockView;
