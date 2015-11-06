@@ -33,7 +33,7 @@ class LayoutViewTemplateProvider implements ViewTemplateProvider
     public function provideTemplate(ViewInterface $view)
     {
         if (!$view instanceof LayoutView) {
-            return;
+            throw new InvalidArgumentException('Layout view template provider can only provide templates to layout views');
         }
 
         $layout = $view->getLayout();

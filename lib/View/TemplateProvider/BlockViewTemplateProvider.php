@@ -33,7 +33,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
     public function provideTemplate(ViewInterface $view)
     {
         if (!$view instanceof BlockView) {
-            return;
+            throw new InvalidArgumentException('Block view template provider can only provide templates to block views');
         }
 
         $block = $view->getBlock();
