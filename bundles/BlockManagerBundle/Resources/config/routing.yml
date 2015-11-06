@@ -1,9 +1,3 @@
-netgen_block_manager_rest_v1_load_block:
-    path: /block/{blockId}
-    defaults:
-        _controller: netgen_block_manager.controller.rest.block:getBlock
-
-netgen_block_manager_rest_v1_load_layout:
-    path: /layout/{layoutId}
-    defaults:
-        _controller: netgen_block_manager.controller.rest.layout:getLayout
+netgen_block_manager_api_v1:
+    resource: "routing/api_v1.yml"
+    prefix: /api/v1
