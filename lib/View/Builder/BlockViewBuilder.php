@@ -30,7 +30,6 @@ class BlockViewBuilder implements ViewBuilder
         $blockView->setBlock($value);
         $blockView->setContext($context);
 
-        $parameters['block'] = $value;
         $blockView->setParameters($parameters);
 
         return $blockView;

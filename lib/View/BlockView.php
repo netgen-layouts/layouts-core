@@ -29,5 +29,6 @@ class BlockView extends View implements BlockViewInterface
     public function setBlock(Block $block)
     {
         $this->block = $block;
+        $this->parameters['block'] = $this->block;
     }
 }
