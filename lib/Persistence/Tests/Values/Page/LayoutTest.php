@@ -1,0 +1,31 @@
+<?php
+
+namespace Netgen\BlockManager\Persistence\Tests\Values;
+
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use PHPUnit_Framework_TestCase;
+
+class LayoutTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Values\Layout::__construct
+     */
+    public function testSetProperties()
+    {
+        $layout = new Layout(
+            array(
+                'id' => 42,
+                'parentId' => 84,
+                'identifier' => '3_zones_a',
+                'created' => 123,
+                'modified' => 456
+            )
+        );
+
+        self::assertEquals(42, $layout->id);
+        self::assertEquals(84, $layout->parentId);
+        self::assertEquals('3_zones_a', $layout->identifier);
+        self::assertEquals(123, $layout->created);
+        self::assertEquals(456, $layout->modified);
+    }
+}

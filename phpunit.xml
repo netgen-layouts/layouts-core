@@ -20,6 +20,9 @@
         <testsuite name="Netgen\BlockManager\Exceptions">
             <directory>lib/Exceptions/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Persistence">
+            <directory>lib/Persistence/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\BlockManager\View">
             <directory>lib/View/Tests</directory>
         </testsuite>
