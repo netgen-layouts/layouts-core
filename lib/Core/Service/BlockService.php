@@ -44,6 +44,7 @@ class BlockService implements BlockServiceInterface
      * @param int|string $blockId
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If block ID has an invalid or empty value
+     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */

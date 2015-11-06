@@ -37,6 +37,7 @@ class LayoutService implements LayoutServiceInterface
      * @param int|string $layoutId
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout ID has an invalid or empty value
+     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -62,6 +63,7 @@ class LayoutService implements LayoutServiceInterface
      * @param int|string $zoneId
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If zone ID has an invalid or empty value
+     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
