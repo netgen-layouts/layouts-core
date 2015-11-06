@@ -22,7 +22,7 @@ class BlockDefinition extends BaseBlockDefinition
      *
      * @return array
      */
-    public function getValues( array $parameters = array() )
+    public function getValues(array $parameters = array())
     {
     }
 }

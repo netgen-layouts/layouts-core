@@ -38,7 +38,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     {
         $layoutViewBuilder = new LayoutViewTemplateProvider(
             array(
-                '3_zones_a' => array()
+                '3_zones_a' => array(),
             )
         );
 
@@ -54,9 +54,9 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             array(
                 '3_zones_a' => array(
                     'templates' => array(
-                        'manager' => 'some_template.html.twig'
-                    )
-                )
+                        'manager' => 'some_template.html.twig',
+                    ),
+                ),
             )
         );
 
@@ -65,7 +65,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns the layout view used for testing
+     * Returns the layout view used for testing.
      *
      * @return \Netgen\BlockManager\View\LayoutView
      */
@@ -73,7 +73,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     {
         $layout = new Layout(
             array(
-                'identifier' => '3_zones_a'
+                'identifier' => '3_zones_a',
             )
         );
 

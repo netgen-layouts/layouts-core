@@ -57,7 +57,7 @@ class LayoutViewBuilderTest extends PHPUnit_Framework_TestCase
             array(
                 'layout' => $layout,
                 'some_param' => 'some_value',
-                'blocks' => $layoutBlocks
+                'blocks' => $layoutBlocks,
             ),
             $view->getParameters()
         );

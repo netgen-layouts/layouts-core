@@ -24,7 +24,7 @@ class BlockTest extends PHPUnit_Framework_TestCase
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value'
+                    'some_other_param' => 'some_other_value',
                 ),
                 'viewType' => 'default',
             )

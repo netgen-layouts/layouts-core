@@ -32,7 +32,7 @@ class LayoutTest extends PHPUnit_Framework_TestCase
                 'identifier' => '3_zones_a',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
-                'zones' => array('top_left', 'top_right')
+                'zones' => array('top_left', 'top_right'),
             )
         );
 

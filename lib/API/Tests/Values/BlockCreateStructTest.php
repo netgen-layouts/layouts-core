@@ -20,7 +20,7 @@ class BlockCreateStructTest extends PHPUnit_Framework_TestCase
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
-                )
+                ),
             )
         );
 

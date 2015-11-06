@@ -38,7 +38,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     {
         $blockViewBuilder = new BlockViewTemplateProvider(
             array(
-                'paragraph' => array()
+                'paragraph' => array(),
             )
         );
 
@@ -55,9 +55,9 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             array(
                 'paragraph' => array(
                     'templates' => array(
-                        'default' => array()
-                    )
-                )
+                        'default' => array(),
+                    ),
+                ),
             )
         );
 
@@ -74,10 +74,10 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
                 'paragraph' => array(
                     'templates' => array(
                         'default' => array(
-                            'manager' => 'some_template.html.twig'
-                        )
-                    )
-                )
+                            'manager' => 'some_template.html.twig',
+                        ),
+                    ),
+                ),
             )
         );
 
@@ -86,7 +86,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns the block view used for testing
+     * Returns the block view used for testing.
      *
      * @return \Netgen\BlockManager\View\BlockView
      */
@@ -95,7 +95,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
         $block = new Block(
             array(
                 'definitionIdentifier' => 'paragraph',
-                'viewType' => 'default'
+                'viewType' => 'default',
             )
         );
 

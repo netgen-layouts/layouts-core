@@ -43,7 +43,7 @@ class BlockViewBuilderTest extends PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'block' => $block,
-                'some_param' => 'some_value'
+                'some_param' => 'some_value',
             ),
             $view->getParameters()
         );

@@ -18,7 +18,7 @@ class LayoutTest extends PHPUnit_Framework_TestCase
                 'parentId' => 84,
                 'identifier' => '3_zones_a',
                 'created' => 123,
-                'modified' => 456
+                'modified' => 456,
             )
         );
 

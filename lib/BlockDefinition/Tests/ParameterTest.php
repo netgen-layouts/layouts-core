@@ -21,7 +21,7 @@ class ParameterTest extends PHPUnit_Framework_TestCase
             'Parameter',
             array(
                 'some_attribute' => 'some_value',
-                'some_other_attribute' => 'some_other_value'
+                'some_other_attribute' => 'some_other_value',
             ),
             'default'
         );
@@ -31,7 +31,7 @@ class ParameterTest extends PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'some_attribute' => 'some_value',
-                'some_other_attribute' => 'some_other_value'
+                'some_other_attribute' => 'some_other_value',
             ),
             $parameter->getAttributes()
         );

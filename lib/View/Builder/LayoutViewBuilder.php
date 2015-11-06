@@ -50,7 +50,7 @@ class LayoutViewBuilder implements ViewBuilder
 
         $layoutView->addParameters(
             array(
-                'blocks' => $this->blockService->loadLayoutBlocks($value)
+                'blocks' => $this->blockService->loadLayoutBlocks($value),
             )
         );
 
