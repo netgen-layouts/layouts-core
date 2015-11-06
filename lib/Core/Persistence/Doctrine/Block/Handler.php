@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
 
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Exceptions\NotFoundException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
@@ -108,6 +109,43 @@ class Handler implements BlockHandlerInterface
         $query->execute();
 
         return $this->loadBlock($this->connection->lastInsertId());
+    }
+
+    /**
+     * Updates a block with specified ID.
+     *
+     * @param int|string $blockId
+     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct)
+    {
+        $block = $this->loadBlock($blockId);
+        $blockParameters = array_merge($block->parameters, $blockUpdateStruct->getParameters());
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('ngbm_block')
+            ->set('view_type', ':view_type')
+            ->set('parameters', ':parameters')
+            ->where(
+                $query->expr()->eq('id', ':block_id')
+            )
+            ->setParameter('block_id', $block->id, TYPE::INTEGER)
+            ->setParameter(
+                'view_type',
+                $blockUpdateStruct->viewType !== null ?
+                    $blockUpdateStruct->viewType :
+                    $block->viewType,
+                TYPE::STRING
+            )
+            ->setParameter('parameters', $blockParameters, TYPE::JSON_ARRAY);
+
+        $query->execute();
+
+        return $this->loadBlock($blockId);
     }
 
     /**

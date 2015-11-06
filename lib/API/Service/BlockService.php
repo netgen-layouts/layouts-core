@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -52,6 +53,18 @@ interface BlockService
     public function createBlock(BlockCreateStruct $blockCreateStruct, Zone $zone);
 
     /**
+     * Updates a specified block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If update struct properties have an invalid or empty value
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct);
+
+    /**
      * Copies a specified block. If zone is specified, copied block will be
      * placed in it, otherwise, it will be placed in the same zone where source block is.
      *
@@ -92,4 +105,11 @@ interface BlockService
      * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
      */
     public function newBlockCreateStruct($definitionIdentifier, $viewType);
+
+    /**
+     * Creates a new block update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
+     */
+    public function newBlockUpdateStruct();
 }

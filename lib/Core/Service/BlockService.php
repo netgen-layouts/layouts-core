@@ -6,7 +6,9 @@ use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
+use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
@@ -151,6 +153,41 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Updates a specified block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If update struct properties have an invalid or empty value
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function updateBlock(APIBlock $block, APIBlockUpdateStruct $blockUpdateStruct)
+    {
+        if ($blockUpdateStruct->viewType !== null) {
+            if (!is_string($blockUpdateStruct->viewType)) {
+                throw new InvalidArgumentException(
+                    'blockUpdateStruct->viewType',
+                    $blockUpdateStruct->viewType,
+                    'Value must be a string.'
+                );
+            }
+
+            if (empty($blockUpdateStruct->viewType)) {
+                throw new InvalidArgumentException(
+                    'blockUpdateStruct->viewType',
+                    $blockUpdateStruct->viewType,
+                    'Value must not be empty.'
+                );
+            }
+        }
+
+        $updatedBlock = $this->blockHandler->updateBlock($block->getId(), $blockUpdateStruct);
+
+        return $this->buildDomainBlockObject($updatedBlock);
+    }
+
+    /**
      * Copies a specified block. If zone is specified, copied block will be
      * placed in it, otherwise, it will be placed in the same zone where source block is.
      *
@@ -234,6 +271,16 @@ class BlockService implements BlockServiceInterface
                 'viewType' => $viewType,
             )
         );
+    }
+
+    /**
+     * Creates a new block update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
+     */
+    public function newBlockUpdateStruct()
+    {
+        return new BlockCreateStruct();
     }
 
     /**

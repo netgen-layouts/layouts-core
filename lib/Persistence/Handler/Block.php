@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 
 interface Block
 {
@@ -33,6 +34,16 @@ interface Block
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId);
+
+    /**
+     * Updates a block with specified ID.
+     *
+     * @param int|string $blockId
+     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct);
 
     /**
      * Copies a block with specified ID to a zone with specified ID.
