@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\BlockDefinition;
 
-abstract class BlockDefinition
+abstract class BlockDefinition implements BlockDefinitionInterface
 {
     /**
      * Returns the array specifying block parameters.
