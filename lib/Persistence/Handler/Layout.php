@@ -47,10 +47,11 @@ interface Layout
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param string $newLayoutIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId);
+    public function copyLayout($layoutId, $newLayoutIdentifier);
 
     /**
      * Deletes a layout with specified ID.

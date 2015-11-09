@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
+use Netgen\BlockManager\Exceptions\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -88,6 +89,7 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     *                                                                  If layout with same identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -143,15 +145,42 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Copies a specified layout.
+     * Copies a specified layout. If layout identifier is provided, the layout will
+     * have that identifier set. Otherwise, the new layout will have a "copy_of_<oldLayoutIdentifier>"
+     * identifier
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $newLayoutIdentifier
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout with provided identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(APILayout $layout)
+    public function copyLayout(APILayout $layout, $newLayoutIdentifier = null)
     {
-        $copiedLayout = $this->handler->copyLayout($layout->getId());
+        if ($newLayoutIdentifier !== null) {
+            if (!is_string($newLayoutIdentifier)) {
+                throw new InvalidArgumentException(
+                    'newLayoutIdentifier',
+                    $newLayoutIdentifier, 'Value must be a string.');
+            }
+
+            if (empty($newLayoutIdentifier)) {
+                throw new InvalidArgumentException(
+                    'newLayoutIdentifier',
+                    $newLayoutIdentifier,
+                    'Value must not be empty.'
+                );
+            }
+        }
+
+        $copiedLayout = $this->handler->copyLayout(
+            $layout->getId(),
+            $newLayoutIdentifier !== null ?
+                $newLayoutIdentifier :
+                'copy_of_' . $layout->getIdentifier()
+        );
+
         $zones = $this->handler->loadLayoutZones($copiedLayout->id);
 
         // @TODO Copy blocks and block items

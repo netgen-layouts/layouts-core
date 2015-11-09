@@ -223,13 +223,13 @@ class HandlerTest extends PHPUnit_Framework_TestCase
     {
         $handler = $this->createLayoutHandler();
 
-        $copiedLayout = $handler->copyLayout(1);
+        $copiedLayout = $handler->copyLayout(1, 'new_layout_identifier');
 
         self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $copiedLayout);
 
         self::assertEquals(3, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
-        self::assertEquals('3_zones_a', $copiedLayout->identifier);
+        self::assertEquals('new_layout_identifier', $copiedLayout->identifier);
 
         self::assertInternalType('int', $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->created);

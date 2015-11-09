@@ -157,10 +157,11 @@ class Handler implements LayoutHandlerInterface
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param string $newLayoutIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId)
+    public function copyLayout($layoutId, $newLayoutIdentifier)
     {
         $originalLayout = $this->loadLayout($layoutId);
         $originalZones = $this->loadLayoutZones($layoutId);
@@ -170,7 +171,7 @@ class Handler implements LayoutHandlerInterface
         $query = $this->createLayoutInsertQuery(
             array(
                 'parent_id' => $originalLayout->parentId,
-                'identifier' => $originalLayout->identifier,
+                'identifier' => $newLayoutIdentifier,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
             )

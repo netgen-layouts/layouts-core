@@ -38,19 +38,25 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     *                                                                  If layout with same identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null);
 
     /**
-     * Copies a specified layout.
+     * Copies a specified layout. If layout identifier is provided, the layout will
+     * have that identifier set. Otherwise, the new layout will have a "copy_of_<oldLayoutIdentifier>"
+     * identifier
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $newLayoutIdentifier
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout with provided identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout);
+    public function copyLayout(Layout $layout, $newLayoutIdentifier = null);
 
     /**
      * Deletes a specified layout.
