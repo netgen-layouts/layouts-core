@@ -9,13 +9,13 @@ use DateTime;
 class LayoutTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout::__construct
-     * @covers \Netgen\BlockManager\API\Values\Layout::getId
-     * @covers \Netgen\BlockManager\API\Values\Layout::getParentId
-     * @covers \Netgen\BlockManager\API\Values\Layout::getIdentifier
-     * @covers \Netgen\BlockManager\API\Values\Layout::getCreated
-     * @covers \Netgen\BlockManager\API\Values\Layout::getModified
-     * @covers \Netgen\BlockManager\API\Values\Layout::getZones
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getParentId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      */
     public function testSetProperties()
     {

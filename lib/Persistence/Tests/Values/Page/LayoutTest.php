@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 class LayoutTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Layout::__construct
+     * @covers \Netgen\BlockManager\Persistence\Values\Page\Layout::__construct
      */
     public function testSetProperties()
     {

@@ -8,12 +8,12 @@ use PHPUnit_Framework_TestCase;
 class BlockTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block::getId
-     * @covers \Netgen\BlockManager\API\Values\Block::getZoneId
-     * @covers \Netgen\BlockManager\API\Values\Block::getDefinitionIdentifier
-     * @covers \Netgen\BlockManager\API\Values\Block::getParameters
-     * @covers \Netgen\BlockManager\API\Values\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      */
     public function testSetProperties()
     {

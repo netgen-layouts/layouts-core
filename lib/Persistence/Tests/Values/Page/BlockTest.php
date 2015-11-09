@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 class BlockTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Block::__construct
+     * @covers \Netgen\BlockManager\Persistence\Values\Page\Block::__construct
      */
     public function testSetProperties()
     {

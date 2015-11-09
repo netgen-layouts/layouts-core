@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\View\Tests\Builder;
+namespace Netgen\BlockManager\View\Tests\TemplateProvider;
 
 use Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase;
 class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\Builder\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNotBlockView()
@@ -21,7 +21,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNoBlockDefinition()
@@ -31,7 +31,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNoViewType()
@@ -46,7 +46,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNoContext()
@@ -65,7 +65,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      */
     public function testBuildView()
     {

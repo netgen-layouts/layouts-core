@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\View\Tests\Builder;
+namespace Netgen\BlockManager\View\Tests\TemplateProvider;
 
 use Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase;
 class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\Builder\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNotLayoutView()
@@ -21,7 +21,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNoLayoutIdentifier()
@@ -31,7 +31,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testBuildViewThrowsInvalidArgumentExceptionIfNoContext()
@@ -46,7 +46,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Builder\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      */
     public function testBuildView()
     {

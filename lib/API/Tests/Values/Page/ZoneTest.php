@@ -8,10 +8,10 @@ use PHPUnit_Framework_TestCase;
 class ZoneTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Zone::__construct
-     * @covers \Netgen\BlockManager\API\Values\Zone::getId
-     * @covers \Netgen\BlockManager\API\Values\Zone::getLayoutId
-     * @covers \Netgen\BlockManager\API\Values\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
      */
     public function testSetProperties()
     {

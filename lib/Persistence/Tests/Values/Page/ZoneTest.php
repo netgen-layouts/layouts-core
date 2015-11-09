@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 class ZoneTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Zone::__construct
+     * @covers \Netgen\BlockManager\Persistence\Values\Page\Zone::__construct
      */
     public function testSetProperties()
     {
