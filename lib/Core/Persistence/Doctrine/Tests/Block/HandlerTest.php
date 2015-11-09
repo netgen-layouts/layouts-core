@@ -17,7 +17,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadBlock()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         self::assertEquals(
             new Block(
@@ -41,7 +41,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadBlockThrowsNotFoundException()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
         $handler->loadBlock(PHP_INT_MAX);
     }
 
@@ -50,7 +50,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadZoneBlocks()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         self::assertEquals(
             array(
@@ -86,7 +86,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadZoneBlocksForNonExistingZone()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
         self::assertEquals(array(), $handler->loadZoneBlocks(PHP_INT_MAX));
     }
 
@@ -96,7 +96,7 @@ class HandlerTest extends TestCase
      */
     public function testCreateBlock()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
@@ -124,7 +124,7 @@ class HandlerTest extends TestCase
      */
     public function testUpdateBlock()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->viewType = 'large';
@@ -152,7 +152,7 @@ class HandlerTest extends TestCase
      */
     public function testCopyBlock()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         self::assertEquals(
             new Block(
@@ -175,7 +175,7 @@ class HandlerTest extends TestCase
      */
     public function testCopyBlockToDifferentZone()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         self::assertEquals(
             new Block(
@@ -198,7 +198,7 @@ class HandlerTest extends TestCase
      */
     public function testMoveBlock()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         self::assertEquals(
             new Block(
@@ -222,19 +222,9 @@ class HandlerTest extends TestCase
      */
     public function testDeleteBlock()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createBlockHandler();
 
         $handler->deleteBlock(1);
         $handler->loadBlock(1);
-    }
-
-    /**
-     * Returns the block handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\Block
-     */
-    protected function createHandler()
-    {
-        return new Handler($this->databaseConnection, new Mapper());
     }
 }

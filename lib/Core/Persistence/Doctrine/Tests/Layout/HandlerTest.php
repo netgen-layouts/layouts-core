@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Tests\Doctrine\Layout;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Tests\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Exceptions\NotFoundException;
@@ -18,7 +16,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadLayout()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         self::assertEquals(
             new Layout(
@@ -40,7 +38,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
         $handler->loadLayout(PHP_INT_MAX);
     }
 
@@ -49,7 +47,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadZone()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         self::assertEquals(
             new Zone(
@@ -69,7 +67,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadZoneThrowsNotFoundException()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
         $handler->loadZone(PHP_INT_MAX);
     }
 
@@ -78,7 +76,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadLayoutZones()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         self::assertEquals(
             array(
@@ -113,7 +111,7 @@ class HandlerTest extends TestCase
      */
     public function testLoadLayoutZonesForNonExistingLayout()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
         self::assertEquals(array(), $handler->loadLayoutZones(PHP_INT_MAX));
     }
 
@@ -124,7 +122,7 @@ class HandlerTest extends TestCase
      */
     public function testCreateLayout()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->layoutIdentifier = 'new_layout';
@@ -172,7 +170,7 @@ class HandlerTest extends TestCase
      */
     public function testCreateLayoutWithParentLayout()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->layoutIdentifier = 'new_layout';
@@ -220,7 +218,7 @@ class HandlerTest extends TestCase
      */
     public function testCopyLayout()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         $copiedLayout = $handler->copyLayout(1);
 
@@ -269,7 +267,7 @@ class HandlerTest extends TestCase
      */
     public function testDeleteLayout()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createLayoutHandler();
 
         $layoutZones = $handler->loadLayoutZones(1);
 
@@ -302,15 +300,5 @@ class HandlerTest extends TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
-    }
-
-    /**
-     * Returns the layout handler under test.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\Layout
-     */
-    protected function createHandler()
-    {
-        return new Handler($this->databaseConnection, new Mapper());
     }
 }
