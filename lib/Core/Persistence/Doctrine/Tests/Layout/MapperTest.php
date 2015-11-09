@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Persistence\Tests\Doctrine\Layout;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use PHPUnit_Framework_TestCase;
 
 class MapperTest extends PHPUnit_Framework_TestCase
@@ -53,5 +54,44 @@ class MapperTest extends PHPUnit_Framework_TestCase
 
         $mapper = new Mapper();
         self::assertEquals($expectedData, $mapper->mapLayouts($data));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper::mapZones
+     */
+    public function testMapZones()
+    {
+        $data = array(
+            array(
+                'id' => 1,
+                'layout_id' => 1,
+                'identifier' => 'top_left'
+            ),
+            array(
+                'id' => 2,
+                'layout_id' => 1,
+                'identifier' => 'top_right'
+            ),
+        );
+
+        $expectedData = array(
+            new Zone(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'identifier' => 'top_left',
+                )
+            ),
+            new Zone(
+                array(
+                    'id' => 2,
+                    'layoutId' => 1,
+                    'identifier' => 'top_right',
+                )
+            ),
+        );
+
+        $mapper = new Mapper();
+        self::assertEquals($expectedData, $mapper->mapZones($data));
     }
 }

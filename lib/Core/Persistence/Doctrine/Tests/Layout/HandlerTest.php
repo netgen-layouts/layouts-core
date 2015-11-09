@@ -13,6 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Page\Zone;
 class HandlerTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::__construct
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayout
      */
     public function testLoadLayout()
@@ -34,6 +35,16 @@ class HandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayout
+     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     */
+    public function testLoadLayoutThrowsNotFoundException()
+    {
+        $handler = $this->createHandler();
+        $handler->loadLayout(PHP_INT_MAX);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
      */
     public function testLoadZone()
@@ -50,6 +61,16 @@ class HandlerTest extends TestCase
             ),
             $handler->loadZone(1)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
+     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     */
+    public function testLoadZoneThrowsNotFoundException()
+    {
+        $handler = $this->createHandler();
+        $handler->loadZone(PHP_INT_MAX);
     }
 
     /**
@@ -88,7 +109,18 @@ class HandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayoutZones
+     */
+    public function testLoadLayoutZonesForNonExistingLayout()
+    {
+        $handler = $this->createHandler();
+        self::assertEquals(array(), $handler->loadLayoutZones(PHP_INT_MAX));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
      */
     public function testCreateLayout()
     {
@@ -135,6 +167,8 @@ class HandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
      */
     public function testCreateLayoutWithParentLayout()
     {
@@ -181,6 +215,8 @@ class HandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
      */
     public function testCopyLayout()
     {

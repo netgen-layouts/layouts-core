@@ -13,6 +13,7 @@ class HandlerTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::__construct
      */
     public function testLoadBlock()
     {
@@ -32,6 +33,16 @@ class HandlerTest extends TestCase
             ),
             $handler->loadBlock(1)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
+     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     */
+    public function testLoadBlockThrowsNotFoundException()
+    {
+        $handler = $this->createHandler();
+        $handler->loadBlock(PHP_INT_MAX);
     }
 
     /**
@@ -71,7 +82,17 @@ class HandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadZoneBlocks
+     */
+    public function testLoadZoneBlocksForNonExistingZone()
+    {
+        $handler = $this->createHandler();
+        self::assertEquals(array(), $handler->loadZoneBlocks(PHP_INT_MAX));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlockInsertQuery
      */
     public function testCreateBlock()
     {
@@ -127,6 +148,7 @@ class HandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::copyBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlockInsertQuery
      */
     public function testCopyBlock()
     {
