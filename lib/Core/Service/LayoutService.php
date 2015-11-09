@@ -161,17 +161,14 @@ class LayoutService implements LayoutServiceInterface
             }
         }
 
-        try
-        {
+        try {
             $this->loadLayoutByIdentifier($layoutCreateStruct->layoutIdentifier);
             throw new InvalidArgumentException(
                 'layoutCreateStruct->layoutIdentifier',
                 $layoutCreateStruct->layoutIdentifier,
                 'Layout with provided identifier already exists.'
             );
-        }
-        catch ( NotFoundException $e )
-        {
+        } catch (NotFoundException $e) {
             // Do nothing
         }
 
@@ -187,7 +184,7 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Copies a specified layout. If layout identifier is provided, the layout will
      * have that identifier set. Otherwise, the new layout will have a "copy_of_<oldLayoutIdentifier>"
-     * identifier
+     * identifier.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $newLayoutIdentifier
@@ -213,17 +210,14 @@ class LayoutService implements LayoutServiceInterface
                 );
             }
 
-            try
-            {
+            try {
                 $this->loadLayoutByIdentifier($newLayoutIdentifier);
                 throw new InvalidArgumentException(
                     'newLayoutIdentifier',
                     $newLayoutIdentifier,
                     'Layout with provided identifier already exists.'
                 );
-            }
-            catch ( NotFoundException $e )
-            {
+            } catch (NotFoundException $e) {
                 // Do nothing
             }
         }

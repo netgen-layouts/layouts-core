@@ -59,7 +59,7 @@ interface LayoutService
     /**
      * Copies a specified layout. If layout identifier is provided, the layout will
      * have that identifier set. Otherwise, the new layout will have a "copy_of_<oldLayoutIdentifier>"
-     * identifier
+     * identifier.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $newLayoutIdentifier
