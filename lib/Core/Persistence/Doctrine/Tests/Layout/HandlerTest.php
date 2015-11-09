@@ -46,6 +46,37 @@ class HandlerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayoutByIdentifier
+     */
+    public function testLoadLayoutByIdentifier()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Layout(
+                array(
+                    'id' => 1,
+                    'parentId' => null,
+                    'identifier' => '3_zones_a',
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                )
+            ),
+            $handler->loadLayoutByIdentifier('3_zones_a')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayoutByIdentifier
+     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     */
+    public function testLoadLayoutByIdentifierThrowsNotFoundException()
+    {
+        $handler = $this->createLayoutHandler();
+        $handler->loadLayoutByIdentifier('non_existing_layout');
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
      */
     public function testLoadZone()

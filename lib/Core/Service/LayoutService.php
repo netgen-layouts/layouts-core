@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\Exceptions\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -12,6 +11,7 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Exceptions\InvalidArgumentException;
+use Netgen\BlockManager\Exceptions\NotFoundException;
 use DateTime;
 
 class LayoutService implements LayoutServiceInterface
@@ -52,6 +52,32 @@ class LayoutService implements LayoutServiceInterface
         }
 
         $layout = $this->handler->loadLayout($layoutId);
+        $zones = $this->handler->loadLayoutZones($layout->id);
+
+        return $this->buildDomainLayoutObject($layout, $zones);
+    }
+
+    /**
+     * Loads a layout with specified identifier.
+     *
+     * @param string $layoutIdentifier
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout identifier has an invalid or empty value
+     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If layout with specified identifier does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function loadLayoutByIdentifier($layoutIdentifier)
+    {
+        if (!is_string($layoutIdentifier)) {
+            throw new InvalidArgumentException('layoutId', $layoutIdentifier, 'Value must be a string.');
+        }
+
+        if (empty($layoutIdentifier)) {
+            throw new InvalidArgumentException('layoutId', $layoutIdentifier, 'Value must not be empty.');
+        }
+
+        $layout = $this->handler->loadLayoutByIdentifier($layoutIdentifier);
         $zones = $this->handler->loadLayoutZones($layout->id);
 
         return $this->buildDomainLayoutObject($layout, $zones);

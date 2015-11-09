@@ -20,6 +20,18 @@ interface LayoutService
     public function loadLayout($layoutId);
 
     /**
+     * Loads a layout with specified identifier.
+     *
+     * @param string $layoutIdentifier
+     *
+     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If layout identifier has an invalid or empty value
+     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If layout with specified identifier does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function loadLayoutByIdentifier($layoutIdentifier);
+
+    /**
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId

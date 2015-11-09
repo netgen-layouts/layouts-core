@@ -62,6 +62,35 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
+     * Loads a layout with specified identifier.
+     *
+     * @param string $layoutIdentifier
+     *
+     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If layout with specified identifier does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function loadLayoutByIdentifier($layoutIdentifier)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('id', 'parent_id', 'identifier', 'created', 'modified')
+            ->from('ngbm_layout')
+            ->where(
+                $query->expr()->eq('identifier', ':layout_identifier')
+            )
+            ->setParameter('layout_identifier', $layoutIdentifier, Type::STRING);
+
+        $data = $query->execute()->fetchAll();
+        if (empty($data)) {
+            throw new NotFoundException('layout', $layoutIdentifier);
+        }
+
+        $data = $this->mapper->mapLayouts($data);
+
+        return reset($data);
+    }
+
+    /**
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
