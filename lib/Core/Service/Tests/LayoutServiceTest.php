@@ -531,8 +531,19 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testDeleteLayout()
     {
         $layoutService = $this->createLayoutService();
+        $blockService = $this->createBlockService();
 
         $layout = $layoutService->loadLayout(1);
+
+        // We need to delete the blocks and block items from zones
+        // to be able to delete the zones themselves
+        foreach ($layout->getZones() as $zone) {
+            $zoneBlocks = $blockService->loadZoneBlocks($zone);
+            foreach ($zoneBlocks as $block) {
+                $blockService->deleteBlock($block);
+            }
+        }
+
         $layoutService->deleteLayout($layout);
 
         foreach ($layout->getZones() as $zone) {

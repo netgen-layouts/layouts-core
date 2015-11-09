@@ -10,7 +10,7 @@ CREATE TABLE `ngbm_layout` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_ngbm_layout_identifier` (`identifier`),
   KEY `idx_ngbm_layout_parent_id` (`parent_id`),
-  CONSTRAINT `idx_ngbm_layout_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `ngbm_layout` (`id`)
+  CONSTRAINT `fk_ngbm_layout_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `ngbm_layout` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ngbm_zone`;
@@ -20,7 +20,7 @@ CREATE TABLE `ngbm_zone` (
   `identifier` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ngbm_zone_layout_id` (`layout_id`),
-  CONSTRAINT `idx_ngbm_zone_layout_id` FOREIGN KEY (`layout_id`) REFERENCES `ngbm_layout` (`id`)
+  CONSTRAINT `fk_ngbm_zone_layout_id` FOREIGN KEY (`layout_id`) REFERENCES `ngbm_layout` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ngbm_block`;
@@ -32,7 +32,7 @@ CREATE TABLE `ngbm_block` (
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ngbm_block_zone_id` (`zone_id`),
-  CONSTRAINT `idx_ngbm_block_zone_id` FOREIGN KEY (`zone_id`) REFERENCES `ngbm_zone` (`id`)
+  CONSTRAINT `fk_ngbm_block_zone_id` FOREIGN KEY (`zone_id`) REFERENCES `ngbm_zone` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;
