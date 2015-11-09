@@ -13,6 +13,7 @@ abstract class LayoutServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::buildDomainLayoutObject
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::buildDomainZoneObject
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDateTime
      */
     public function testLoadLayout()
     {
@@ -311,7 +312,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(3, $copiedLayout->getId());
         self::assertNull($copiedLayout->getParentId());
-        self::assertEquals('3_zones_a', $copiedLayout->getIdentifier());
+        self::assertEquals('copy_of_3_zones_a', $copiedLayout->getIdentifier());
 
         self::assertInstanceOf('DateTime', $copiedLayout->getCreated());
         self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
@@ -345,6 +346,80 @@ abstract class LayoutServiceTest extends ServiceTest
             ),
             $copiedLayout->getZones()
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     */
+    public function testCopyLayoutWithProvidedIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layout = $layoutService->loadLayout(1);
+        $copiedLayout = $layoutService->copyLayout($layout, 'new_layout_identifier');
+
+        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $copiedLayout);
+
+        self::assertEquals(3, $copiedLayout->getId());
+        self::assertNull($copiedLayout->getParentId());
+        self::assertEquals('new_layout_identifier', $copiedLayout->getIdentifier());
+
+        self::assertInstanceOf('DateTime', $copiedLayout->getCreated());
+        self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
+
+        self::assertInstanceOf('DateTime', $copiedLayout->getModified());
+        self::assertGreaterThan(0, $copiedLayout->getModified()->getTimestamp());
+
+        self::assertEquals(
+            array(
+                new Zone(
+                    array(
+                        'id' => 7,
+                        'layoutId' => $copiedLayout->getId(),
+                        'identifier' => 'top_left',
+                    )
+                ),
+                new Zone(
+                    array(
+                        'id' => 8,
+                        'layoutId' => $copiedLayout->getId(),
+                        'identifier' => 'top_right',
+                    )
+                ),
+                new Zone(
+                    array(
+                        'id' => 9,
+                        'layoutId' => $copiedLayout->getId(),
+                        'identifier' => 'bottom',
+                    )
+                ),
+            ),
+            $copiedLayout->getZones()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     */
+    public function testCopyLayoutZoneThrowsInvalidArgumentExceptionOnInvalidIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layout = $layoutService->loadLayout(1);
+        $layoutService->copyLayout($layout, 42);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     */
+    public function testCopyLayoutZoneThrowsInvalidArgumentExceptionOnEmptyIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layout = $layoutService->loadLayout(1);
+        $layoutService->copyLayout($layout, '');
     }
 
     /**
