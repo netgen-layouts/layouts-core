@@ -208,6 +208,8 @@ class Handler implements LayoutHandlerInterface
             )
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
+        $query->execute();
+
         $query->delete('ngbm_layout')
             ->where(
                 $query->expr()->eq('id', ':layout_id')
