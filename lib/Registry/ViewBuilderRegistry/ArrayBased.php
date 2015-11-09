@@ -48,6 +48,6 @@ class ArrayBased implements ViewBuilderRegistry
      */
     public function getViewBuilders()
     {
-        return $this->getViewBuilders();
+        return $this->viewBuilders;
     }
 }
