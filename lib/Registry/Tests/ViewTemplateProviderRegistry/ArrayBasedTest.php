@@ -26,7 +26,7 @@ class ArrayBasedTest extends PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'Netgen\BlockManager\View\BlockView' => $templateProvider
+                'Netgen\BlockManager\View\BlockView' => $templateProvider,
             ),
             $registry->getViewTemplateProviders()
         );
