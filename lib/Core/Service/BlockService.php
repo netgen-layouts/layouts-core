@@ -240,6 +240,14 @@ class BlockService implements BlockServiceInterface
             );
         }
 
+        if ($block->getZoneId() === $zone->getId()) {
+            throw new InvalidArgumentException(
+                'zone->id',
+                $zone->getId(),
+                'Block is already in specified zone.'
+            );
+        }
+
         $movedBlock = $this->blockHandler->moveBlock($block->getId(), $zone->getId());
 
         return $this->buildDomainBlockObject($movedBlock);
