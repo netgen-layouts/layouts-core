@@ -23,6 +23,9 @@
         <testsuite name="Netgen\BlockManager\Persistence">
             <directory>lib/Persistence/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Registry">
+            <directory>lib/Registry/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\BlockManager\View">
             <directory>lib/View/Tests</directory>
         </testsuite>
