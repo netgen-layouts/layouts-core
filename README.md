@@ -7,7 +7,9 @@ Netgen Block Manager
 
 # Running tests
 
-Running unit tests requires an empty database to be created. After you create the database, run the tests with:
+You can run unit tests by simply calling `phpunit` from the repo root. This will use an in memory SQLite database.
+
+You can also run unit tests on a real database. After you create the database, run the tests with:
 
 ```
 $ DATABASE=mysql://root@localhost/ngbm phpunit

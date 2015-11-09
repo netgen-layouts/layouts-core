@@ -14,6 +14,11 @@ class TestCase extends PHPUnit_Framework_TestCase
     protected $databaseUri;
 
     /**
+     * @var string
+     */
+    protected $databaseServer;
+
+    /**
      * @var \Doctrine\DBAL\Connection
      */
     protected $databaseConnection;
@@ -25,10 +30,14 @@ class TestCase extends PHPUnit_Framework_TestCase
     {
         $databaseUri = getenv('DATABASE');
         if (empty($databaseUri)) {
-            $this->markTestSkipped('Database connection is needed to run this test');
+            $databaseUri = 'sqlite://:memory:';
+            // $this->markTestSkipped('Database connection is needed to run this test');
         }
 
         $this->databaseUri = $databaseUri;
+
+        preg_match('/^(?<db>.+):\/\//', $this->databaseUri, $matches);
+        $this->databaseServer = $matches['db'];
 
         $this->createDatabaseConnection();
         $this->createDatabaseSchema();
@@ -52,7 +61,7 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function createDatabaseSchema()
     {
-        $schema = file_get_contents(__DIR__ . '/_fixtures/schema/schema.mysql.sql');
+        $schema = file_get_contents(__DIR__ . '/_fixtures/schema/schema.' . $this->databaseServer . '.sql');
         $sqlQueries = explode(';', $schema);
 
         foreach ($sqlQueries as $sqlQuery) {
@@ -62,6 +71,9 @@ class TestCase extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Inserts database fixtures.
+     */
     protected function insertDatabaseFixtures()
     {
         $data = require __DIR__ . '/_fixtures/data.php';
