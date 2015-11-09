@@ -1,0 +1,218 @@
+<?php
+
+namespace Netgen\BlockManager\Core\Persistence\Tests\Doctrine\Block;
+
+use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Tests\TestCase;
+use Netgen\BlockManager\Core\Values\BlockCreateStruct;
+use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\Block;
+
+class HandlerTest extends TestCase
+{
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
+     */
+    public function testLoadBlock()
+    {
+        $handler = $this->createHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'zoneId' => 2,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                )
+            ),
+            $handler->loadBlock(1)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadZoneBlocks
+     */
+    public function testLoadZoneBlocks()
+    {
+        $handler = $this->createHandler();
+
+        self::assertEquals(
+            array(
+                new Block(
+                    array(
+                        'id' => 1,
+                        'zoneId' => 2,
+                        'definitionIdentifier' => 'paragraph',
+                        'parameters' => array(
+                            'some_param' => 'some_value',
+                        ),
+                        'viewType' => 'default',
+                    )
+                ),
+                new Block(
+                    array(
+                        'id' => 2,
+                        'zoneId' => 2,
+                        'definitionIdentifier' => 'title',
+                        'parameters' => array(
+                            'other_param' => 'other_value',
+                        ),
+                        'viewType' => 'small',
+                    )
+                ),
+            ),
+            $handler->loadZoneBlocks(2)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlock
+     */
+    public function testCreateBlock()
+    {
+        $handler = $this->createHandler();
+
+        $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->setParameter('a_param', 'A value');
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'zoneId' => 3,
+                    'definitionIdentifier' => 'new_block',
+                    'parameters' => array(
+                        'a_param' => 'A value',
+                    ),
+                    'viewType' => 'large',
+                )
+            ),
+            $handler->createBlock($blockCreateStruct, 3)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::updateBlock
+     */
+    public function testUpdateBlock()
+    {
+        $handler = $this->createHandler();
+
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->viewType = 'large';
+        $blockUpdateStruct->setParameter('a_param', 'A value');
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'zoneId' => 2,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'a_param' => 'A value',
+                    ),
+                    'viewType' => 'large',
+                )
+            ),
+            $handler->updateBlock(1, $blockUpdateStruct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::copyBlock
+     */
+    public function testCopyBlock()
+    {
+        $handler = $this->createHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'zoneId' => 2,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                )
+            ),
+            $handler->copyBlock(1, 2)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::copyBlock
+     */
+    public function testCopyBlockToDifferentZone()
+    {
+        $handler = $this->createHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'zoneId' => 3,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                )
+            ),
+            $handler->copyBlock(1, 3)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::moveBlock
+     */
+    public function testMoveBlock()
+    {
+        $handler = $this->createHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'zoneId' => 3,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                )
+            ),
+            $handler->moveBlock(1, 3)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteBlock
+     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     */
+    public function testDeleteBlock()
+    {
+        $handler = $this->createHandler();
+
+        $handler->deleteBlock(1);
+        $handler->loadBlock(1);
+    }
+
+    /**
+     * Returns the block handler under test.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\Block
+     */
+    protected function createHandler()
+    {
+        return new Handler($this->databaseConnection, new Mapper());
+    }
+}
