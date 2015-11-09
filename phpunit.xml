@@ -43,6 +43,8 @@
             <exclude>
                 <directory>lib/Tests</directory>
                 <directory>lib/*/Tests</directory>
+                <directory>lib/*/*/Tests</directory>
+                <directory>lib/*/*/*/Tests</directory>
                 <directory>bundles/*/*Bundle/Tests</directory>
                 <directory>bundles/*/*Bundle/*/Tests</directory>
                 <directory>bundles/*/*Bundle/Resources</directory>
