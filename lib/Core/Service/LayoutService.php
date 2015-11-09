@@ -119,7 +119,7 @@ class LayoutService implements LayoutServiceInterface
             if (!is_string($zoneIdentifier)) {
                 throw new InvalidArgumentException(
                     'layoutCreateStruct->zoneIdentifiers',
-                    $layoutCreateStruct->zoneIdentifiers,
+                    $zoneIdentifier,
                     'All values must be strings.'
                 );
             }
@@ -127,7 +127,7 @@ class LayoutService implements LayoutServiceInterface
             if (empty($zoneIdentifier)) {
                 throw new InvalidArgumentException(
                     'layoutCreateStruct->zoneIdentifiers',
-                    $layoutCreateStruct->zoneIdentifiers,
+                    $zoneIdentifier,
                     'None of the values can be empty.'
                 );
             }
