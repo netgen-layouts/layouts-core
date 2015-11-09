@@ -65,12 +65,12 @@ class MapperTest extends PHPUnit_Framework_TestCase
             array(
                 'id' => 1,
                 'layout_id' => 1,
-                'identifier' => 'top_left'
+                'identifier' => 'top_left',
             ),
             array(
                 'id' => 2,
                 'layout_id' => 1,
-                'identifier' => 'top_right'
+                'identifier' => 'top_right',
             ),
         );
 
