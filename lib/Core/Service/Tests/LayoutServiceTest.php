@@ -7,8 +7,8 @@ use Netgen\BlockManager\Core\Values\Page\Zone;
 abstract class LayoutServiceTest extends ServiceTest
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadLayout
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
      */
     public function testLoadLayout()
     {
