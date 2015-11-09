@@ -125,11 +125,15 @@ class LayoutViewSerializer extends LayoutSerializer
     {
         $positions = array();
 
-        foreach ($layoutView->getParameters()['blocks'] as $zoneIdentifier => $blocks) {
+        foreach ($layoutView->getLayout()->getZones() as $zone) {
             $blocksInZone = array();
-            foreach ($blocks as $block) {
-                /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-                $blocksInZone[] = array('block_id' => $block->getId());
+            $zoneIdentifier = $zone->getIdentifier();
+
+            if (!empty($layoutView->getParameters()['blocks'][$zoneIdentifier])) {
+                foreach ($layoutView->getParameters()['blocks'][$zoneIdentifier] as $block) {
+                    /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
+                    $blocksInZone[] = array('block_id' => $block->getId());
+                }
             }
 
             $positions[] = array(
