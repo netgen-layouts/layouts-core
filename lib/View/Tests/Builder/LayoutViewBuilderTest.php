@@ -11,19 +11,7 @@ use PHPUnit_Framework_TestCase;
 class LayoutViewBuilderTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\Builder\LayoutViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
-     */
-    public function testBuildViewThrowsInvalidArgumentException()
-    {
-        $layoutViewBuilder = new LayoutViewBuilder(
-            $this->getMock('Netgen\BlockManager\API\Service\BlockService')
-        );
-
-        $layoutViewBuilder->buildView(new Value());
-    }
-
-    /**
+     * @covers \Netgen\BlockManager\View\Builder\LayoutViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\Builder\LayoutViewBuilder::buildView
      */
     public function testBuildView()
@@ -61,5 +49,18 @@ class LayoutViewBuilderTest extends PHPUnit_Framework_TestCase
             ),
             $view->getParameters()
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Builder\LayoutViewBuilder::buildView
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBuildViewThrowsInvalidArgumentException()
+    {
+        $layoutViewBuilder = new LayoutViewBuilder(
+            $this->getMock('Netgen\BlockManager\API\Service\BlockService')
+        );
+
+        $layoutViewBuilder->buildView(new Value());
     }
 }

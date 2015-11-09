@@ -11,16 +11,6 @@ class BlockViewBuilderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\Builder\BlockViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
-     */
-    public function testBuildViewThrowsInvalidArgumentException()
-    {
-        $blockViewBuilder = new BlockViewBuilder();
-        $blockViewBuilder->buildView(new Value());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\Builder\BlockViewBuilder::buildView
      */
     public function testBuildView()
     {
@@ -47,5 +37,15 @@ class BlockViewBuilderTest extends PHPUnit_Framework_TestCase
             ),
             $view->getParameters()
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\Builder\BlockViewBuilder::buildView
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBuildViewThrowsInvalidArgumentException()
+    {
+        $blockViewBuilder = new BlockViewBuilder();
+        $blockViewBuilder->buildView(new Value());
     }
 }
