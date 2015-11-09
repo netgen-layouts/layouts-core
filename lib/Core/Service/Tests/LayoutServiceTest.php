@@ -92,6 +92,85 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
+     */
+    public function testLoadLayoutByIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layout = $layoutService->loadLayoutByIdentifier('3_zones_a');
+
+        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $layout);
+
+        self::assertEquals(1, $layout->getId());
+        self::assertNull($layout->getParentId());
+        self::assertEquals('3_zones_a', $layout->getIdentifier());
+
+        self::assertInstanceOf('DateTime', $layout->getCreated());
+        self::assertGreaterThan(0, $layout->getCreated()->getTimestamp());
+
+        self::assertInstanceOf('DateTime', $layout->getModified());
+        self::assertGreaterThan(0, $layout->getModified()->getTimestamp());
+
+        self::assertEquals(
+            array(
+                new Zone(
+                    array(
+                        'id' => 1,
+                        'layoutId' => $layout->getId(),
+                        'identifier' => 'top_left',
+                    )
+                ),
+                new Zone(
+                    array(
+                        'id' => 2,
+                        'layoutId' => $layout->getId(),
+                        'identifier' => 'top_right',
+                    )
+                ),
+                new Zone(
+                    array(
+                        'id' => 3,
+                        'layoutId' => $layout->getId(),
+                        'identifier' => 'bottom',
+                    )
+                ),
+            ),
+            $layout->getZones()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
+     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     */
+    public function testLoadLayoutThrowsInvalidArgumentExceptionOnInvalidIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+        $layoutService->loadLayoutByIdentifier(42);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
+     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     */
+    public function testLoadLayoutThrowsInvalidArgumentExceptionOnEmptyIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+        $layoutService->loadLayoutByIdentifier('');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
+     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     */
+    public function testLoadLayoutByIdentifierThrowsNotFoundException()
+    {
+        $layoutService = $this->createLayoutService();
+        $layoutService->loadLayoutByIdentifier('non_existing');
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
      */
     public function testLoadZone()
