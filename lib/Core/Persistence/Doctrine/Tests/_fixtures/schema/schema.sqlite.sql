@@ -26,6 +26,7 @@ CREATE TABLE `ngbm_block` (
   FOREIGN KEY (`zone_id`) REFERENCES `ngbm_zone` (`id`)
 );
 
+CREATE UNIQUE INDEX `idx_ngbm_layout_identifier` ON `ngbm_layout` ( `identifier` );
 CREATE INDEX `idx_ngbm_layout_parent_id` ON `ngbm_layout` ( `parent_id` );
 CREATE INDEX `idx_ngbm_zone_layout_id` ON `ngbm_zone` ( `layout_id` );
 CREATE INDEX `idx_ngbm_block_zone_id` ON `ngbm_block` ( `zone_id` );

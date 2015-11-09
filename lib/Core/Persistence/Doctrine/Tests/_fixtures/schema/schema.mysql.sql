@@ -8,6 +8,7 @@ CREATE TABLE `ngbm_layout` (
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_ngbm_layout_identifier` (`identifier`),
   KEY `idx_ngbm_layout_parent_id` (`parent_id`),
   CONSTRAINT `idx_ngbm_layout_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `ngbm_layout` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
