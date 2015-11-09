@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Core\Persistence\Tests\Doctrine\Block;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use PHPUnit_Framework_TestCase;
 
-class MapperTest extends \PHPUnit_Framework_TestCase
+class MapperTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper::mapBlocks
