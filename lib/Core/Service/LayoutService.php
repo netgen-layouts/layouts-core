@@ -107,18 +107,10 @@ class LayoutService implements LayoutServiceInterface
             );
         }
 
-        if (!is_array($layoutCreateStruct->zoneIdentifiers)) {
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->zoneIdentifiers',
-                $layoutCreateStruct->zoneIdentifiers,
-                'Value must be an array.'
-            );
-        }
-
         if (empty($layoutCreateStruct->zoneIdentifiers)) {
             throw new InvalidArgumentException(
                 'layoutCreateStruct->zoneIdentifiers',
-                $layoutCreateStruct->zoneIdentifiers,
+                '',
                 'Value must not be empty.'
             );
         }
