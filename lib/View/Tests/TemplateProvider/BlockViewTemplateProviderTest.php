@@ -65,6 +65,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::__construct
      * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      */
     public function testBuildView()

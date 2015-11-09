@@ -8,8 +8,8 @@ use PHPUnit_Framework_TestCase;
 class BlockUpdateStructTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::__construct
-     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameters
      */
     public function testSetProperties()
     {
@@ -34,18 +34,47 @@ class BlockUpdateStructTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::setParameters
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::setParameters
      */
     public function testSetParameters()
     {
         $blockUpdateStruct = new BlockUpdateStruct();
-        $blockUpdateStruct->setParameter('some_param', 'some_value');
+        $blockUpdateStruct->setParameters(
+            array(
+                'some_param' => 'some_value',
+                'some_other_param' => 'some_other_value',
+            )
+        );
 
-        self::assertEquals(array('some_param' => 'some_value'), $blockUpdateStruct->getParameters());
+        self::assertEquals(
+            array(
+                'some_param' => 'some_value',
+                'some_other_param' => 'some_other_value',
+            ),
+            $blockUpdateStruct->getParameters()
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::setParameters
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::setParameter
+     */
+    public function testSetParameter()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->setParameter('some_param', 'some_value');
+        $blockUpdateStruct->setParameter('some_other_param', 'some_other_value');
+
+        self::assertEquals(
+            array(
+                'some_param' => 'some_value',
+                'some_other_param' => 'some_other_value',
+            ),
+            $blockUpdateStruct->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::setParameter
      */
     public function testOverwriteParameters()
     {

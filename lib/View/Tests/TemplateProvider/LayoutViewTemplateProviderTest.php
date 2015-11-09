@@ -46,6 +46,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::__construct
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      */
     public function testBuildView()

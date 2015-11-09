@@ -9,6 +9,7 @@ use PHPUnit_Framework_TestCase;
 class TwigViewRendererTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\View\Renderer\TwigViewRenderer::__construct
      * @covers \Netgen\BlockManager\View\Renderer\TwigViewRenderer::renderView
      */
     public function testRenderView()
