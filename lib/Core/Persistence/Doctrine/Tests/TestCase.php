@@ -8,9 +8,8 @@ use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler as BlockHandler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper as BlockMapper;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
-use PHPUnit_Framework_TestCase;
 
-class TestCase extends PHPUnit_Framework_TestCase
+trait TestCase
 {
     /**
      * @var string

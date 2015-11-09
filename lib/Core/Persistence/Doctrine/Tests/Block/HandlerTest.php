@@ -2,15 +2,16 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Tests\Doctrine\Block;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Tests\TestCase;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use PHPUnit_Framework_TestCase;
 
-class HandlerTest extends TestCase
+class HandlerTest extends PHPUnit_Framework_TestCase
 {
+    use TestCase;
+
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::__construct
