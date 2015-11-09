@@ -226,6 +226,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
      * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
+     *                                                                  If target zone is the same as current zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -284,7 +285,7 @@ class BlockService implements BlockServiceInterface
     /**
      * Creates a new block update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
+     * @return \Netgen\BlockManager\API\Values\BlockUpdateStruct
      */
     public function newBlockUpdateStruct()
     {
