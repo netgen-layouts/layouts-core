@@ -133,15 +133,15 @@ class Handler implements BlockHandlerInterface
             ->where(
                 $query->expr()->eq('id', ':block_id')
             )
-            ->setParameter('block_id', $block->id, TYPE::INTEGER)
+            ->setParameter('block_id', $block->id, Type::INTEGER)
             ->setParameter(
                 'view_type',
                 $blockUpdateStruct->viewType !== null ?
                     $blockUpdateStruct->viewType :
                     $block->viewType,
-                TYPE::STRING
+                Type::STRING
             )
-            ->setParameter('parameters', $blockParameters, TYPE::JSON_ARRAY);
+            ->setParameter('parameters', $blockParameters, Type::JSON_ARRAY);
 
         $query->execute();
 
@@ -192,8 +192,8 @@ class Handler implements BlockHandlerInterface
             ->where(
                 $query->expr()->eq('id', ':block_id')
             )
-            ->setParameter('block_id', $blockId, TYPE::INTEGER)
-            ->setParameter('zone_id', $zoneId, TYPE::INTEGER);
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('zone_id', $zoneId, Type::INTEGER);
 
         $query->execute();
 
@@ -213,7 +213,7 @@ class Handler implements BlockHandlerInterface
             ->where(
                 $query->expr()->eq('id', ':block_id')
             )
-            ->setParameter('block_id', $blockId, TYPE::INTEGER);
+            ->setParameter('block_id', $blockId, Type::INTEGER);
 
         $query->execute();
     }
@@ -237,9 +237,9 @@ class Handler implements BlockHandlerInterface
                     'parameters' => ':parameters',
                 )
             )
-            ->setParameter('zone_id', $parameters['zone_id'], TYPE::INTEGER)
-            ->setParameter('definition_identifier', $parameters['definition_identifier'], TYPE::STRING)
-            ->setParameter('view_type', $parameters['view_type'], TYPE::STRING)
-            ->setParameter('parameters', $parameters['parameters'], TYPE::JSON_ARRAY);
+            ->setParameter('zone_id', $parameters['zone_id'], Type::INTEGER)
+            ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
+            ->setParameter('view_type', $parameters['view_type'], Type::STRING)
+            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
     }
 }

@@ -206,13 +206,13 @@ class Handler implements LayoutHandlerInterface
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layoutId, TYPE::INTEGER);
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         $query->delete('ngbm_layout')
             ->where(
                 $query->expr()->eq('id', ':layout_id')
             )
-            ->setParameter('layout_id', $layoutId, TYPE::INTEGER);
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         $query->execute();
     }
@@ -236,10 +236,10 @@ class Handler implements LayoutHandlerInterface
                     'modified' => ':modified',
                 )
             )
-            ->setParameter('parent_id', $parameters['parent_id'], TYPE::INTEGER)
-            ->setParameter('identifier', $parameters['identifier'], TYPE::STRING)
-            ->setParameter('created', $parameters['created'], TYPE::INTEGER)
-            ->setParameter('modified', $parameters['modified'], TYPE::INTEGER);
+            ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
+            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
+            ->setParameter('created', $parameters['created'], Type::INTEGER)
+            ->setParameter('modified', $parameters['modified'], Type::INTEGER);
     }
 
     /**
@@ -259,7 +259,7 @@ class Handler implements LayoutHandlerInterface
                     'identifier' => ':identifier',
                 )
             )
-            ->setParameter('layout_id', $parameters['layout_id'], TYPE::INTEGER)
-            ->setParameter('identifier', $parameters['identifier'], TYPE::STRING);
+            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
+            ->setParameter('identifier', $parameters['identifier'], Type::STRING);
     }
 }
