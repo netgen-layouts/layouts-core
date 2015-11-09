@@ -122,7 +122,7 @@ class Handler implements BlockHandlerInterface
     public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct)
     {
         $block = $this->loadBlock($blockId);
-        $blockParameters = array_merge($block->parameters, $blockUpdateStruct->getParameters());
+        $blockParameters = $blockUpdateStruct->getParameters();
 
         $query = $this->connection->createQueryBuilder();
 
@@ -141,7 +141,11 @@ class Handler implements BlockHandlerInterface
                     $block->viewType,
                 Type::STRING
             )
-            ->setParameter('parameters', $blockParameters, Type::JSON_ARRAY);
+            ->setParameter(
+                'parameters',
+                $blockParameters !== null ? $blockParameters : $block->parameters,
+                Type::JSON_ARRAY
+            );
 
         $query->execute();
 
