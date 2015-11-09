@@ -299,6 +299,18 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     */
+    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnExistingIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
+        $layoutService->createLayout($layoutCreateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout()
@@ -420,6 +432,18 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $layout = $layoutService->loadLayout(1);
         $layoutService->copyLayout($layout, '');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     */
+    public function testCopyLayoutZoneThrowsInvalidArgumentExceptionOnExistingIdentifier()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layout = $layoutService->loadLayout(1);
+        $layoutService->copyLayout($layout, '3_zones_a');
     }
 
     /**

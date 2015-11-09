@@ -161,6 +161,20 @@ class LayoutService implements LayoutServiceInterface
             }
         }
 
+        try
+        {
+            $this->loadLayoutByIdentifier($layoutCreateStruct->layoutIdentifier);
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->layoutIdentifier',
+                $layoutCreateStruct->layoutIdentifier,
+                'Layout with provided identifier already exists.'
+            );
+        }
+        catch ( NotFoundException $e )
+        {
+            // Do nothing
+        }
+
         $createdLayout = $this->handler->createLayout(
             $layoutCreateStruct,
             $parentLayout !== null ? $parentLayout->getId() : null
@@ -197,6 +211,20 @@ class LayoutService implements LayoutServiceInterface
                     $newLayoutIdentifier,
                     'Value must not be empty.'
                 );
+            }
+
+            try
+            {
+                $this->loadLayoutByIdentifier($newLayoutIdentifier);
+                throw new InvalidArgumentException(
+                    'newLayoutIdentifier',
+                    $newLayoutIdentifier,
+                    'Layout with provided identifier already exists.'
+                );
+            }
+            catch ( NotFoundException $e )
+            {
+                // Do nothing
             }
         }
 
