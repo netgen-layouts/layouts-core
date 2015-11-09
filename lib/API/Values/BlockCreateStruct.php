@@ -15,6 +15,13 @@ abstract class BlockCreateStruct extends Value
     public $viewType;
 
     /**
+     * Sets the parameters to the struct.
+     *
+     * @param array $parameters
+     */
+    abstract public function setParameters(array $parameters);
+
+    /**
      * Sets the parameter to the struct.
      *
      * @param string $parameterName
