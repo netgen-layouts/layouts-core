@@ -1,14 +1,18 @@
 parameters:
-    netgen_block_manager.block_definition.title.class: Netgen\BlockManager\BlockDefinition\Definition\Title
-    netgen_block_manager.block_definition.paragraph.class: Netgen\BlockManager\BlockDefinition\Definition\Paragraph
+    netgen_block_manager.block_definition.registry.class: Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry
+    netgen_block_manager.block_definition.definition.title.class: Netgen\BlockManager\BlockDefinition\Definition\Title
+    netgen_block_manager.block_definition.definition.paragraph.class: Netgen\BlockManager\BlockDefinition\Definition\Paragraph
 
 services:
-    netgen_block_manager.block_definition.title:
-        class: %netgen_block_manager.block_definition.title.class%
+    netgen_block_manager.block_definition.registry:
+        class: %netgen_block_manager.block_definition.registry.class%
+
+    netgen_block_manager.block_definition.definition.title:
+        class: %netgen_block_manager.block_definition.definition.title.class%
         tags:
             - { name: netgen_block_manager.block_definition }
 
-    netgen_block_manager.block_definition.paragraph:
-        class: %netgen_block_manager.block_definition.paragraph.class%
+    netgen_block_manager.block_definition.definition.paragraph:
+        class: %netgen_block_manager.block_definition.definition.paragraph.class%
         tags:
             - { name: netgen_block_manager.block_definition }

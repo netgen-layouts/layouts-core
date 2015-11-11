@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class BlockDefinitionRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.registry.block_definition';
+    const SERVICE_NAME = 'netgen_block_manager.block_definition.registry';
     const TAG_NAME = 'netgen_block_manager.block_definition';
 
     /**

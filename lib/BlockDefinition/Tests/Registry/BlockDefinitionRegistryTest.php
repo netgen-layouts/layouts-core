@@ -1,20 +1,20 @@
 <?php
 
-namespace Netgen\BlockManager\Registry\Tests\BlockDefinitionRegistry;
+namespace Netgen\BlockManager\BlockDefinition\Tests\Registry;
 
 use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
-use Netgen\BlockManager\Registry\BlockDefinitionRegistry\ArrayBased;
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry;
 use PHPUnit_Framework_TestCase;
 
-class ArrayBasedTest extends PHPUnit_Framework_TestCase
+class BlockDefinitionRegistryTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Registry\BlockDefinitionRegistry\ArrayBased::addBlockDefinition
-     * @covers \Netgen\BlockManager\Registry\BlockDefinitionRegistry\ArrayBased::getBlockDefinitions
+     * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::addBlockDefinition
+     * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::getBlockDefinitions
      */
     public function testAddBlockDefinition()
     {
-        $registry = new ArrayBased();
+        $registry = new BlockDefinitionRegistry();
 
         $blockDefinition = new Paragraph();
         $registry->addBlockDefinition($blockDefinition);
@@ -23,11 +23,11 @@ class ArrayBasedTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Registry\BlockDefinitionRegistry\ArrayBased::getBlockDefinition
+     * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::getBlockDefinition
      */
     public function testGetBlockDefinition()
     {
-        $registry = new ArrayBased();
+        $registry = new BlockDefinitionRegistry();
 
         $blockDefinition = new Paragraph();
         $registry->addBlockDefinition($blockDefinition);
@@ -36,12 +36,12 @@ class ArrayBasedTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Registry\BlockDefinitionRegistry\ArrayBased::getBlockDefinition
+     * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::getBlockDefinition
      * @expectedException \InvalidArgumentException
      */
     public function testGetBlockDefinitionThrowsInvalidArgumentException()
     {
-        $registry = new ArrayBased();
+        $registry = new BlockDefinitionRegistry();
 
         $blockDefinition = new Paragraph();
         $registry->addBlockDefinition($blockDefinition);

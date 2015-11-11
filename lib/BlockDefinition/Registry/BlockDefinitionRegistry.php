@@ -1,12 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Registry\BlockDefinitionRegistry;
+namespace Netgen\BlockManager\BlockDefinition\Registry;
 
-use Netgen\BlockManager\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface;
 use InvalidArgumentException;
 
-class ArrayBased implements BlockDefinitionRegistry
+class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface[]

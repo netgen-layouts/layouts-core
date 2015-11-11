@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Registry;
+namespace Netgen\BlockManager\BlockDefinition\Registry;
 
 use Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface;
 
-interface BlockDefinitionRegistry
+interface BlockDefinitionRegistryInterface
 {
     /**
      * Adds a block definition to registry.
