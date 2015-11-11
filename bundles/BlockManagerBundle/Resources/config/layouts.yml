@@ -10,7 +10,6 @@ parameters:
                     name: 'Top right'
                 bottom:
                     name: 'Bottom'
-            content_types: ['ng_frontpage', 'ng_landing_page']
             templates:
                 view: 'NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig'
                 api: 'NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig'
