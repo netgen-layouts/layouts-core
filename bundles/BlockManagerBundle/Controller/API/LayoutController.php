@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
 class LayoutController extends Controller

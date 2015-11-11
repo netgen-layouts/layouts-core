@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
+namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;

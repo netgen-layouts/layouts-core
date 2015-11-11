@@ -1,19 +1,29 @@
 parameters:
-    netgen_block_manager.controller.api.base.class: Netgen\Bundle\BlockManagerBundle\Controller\API\Controller
+    netgen_block_manager.controller.base.class: Netgen\Bundle\BlockManagerBundle\Controller\Controller
+
+    netgen_block_manager.controller.block.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
+
     netgen_block_manager.controller.api.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\LayoutController
     netgen_block_manager.controller.api.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockController
 
 services:
-    netgen_block_manager.controller.api.base:
-        class: %netgen_block_manager.controller.api.base.class%
+    netgen_block_manager.controller.base:
+        class: %netgen_block_manager.controller.base.class%
         abstract: true
         calls:
             - [setContainer, [@service_container]]
 
+    netgen_block_manager.controller.block:
+        class: %netgen_block_manager.controller.block.class%
+        parent: netgen_block_manager.controller.base
+
+    ngbm_block:
+        alias: netgen_block_manager.controller.block
+
     netgen_block_manager.controller.api.layout:
         class: %netgen_block_manager.controller.api.layout.class%
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.block:
         class: %netgen_block_manager.controller.api.block.class%
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
