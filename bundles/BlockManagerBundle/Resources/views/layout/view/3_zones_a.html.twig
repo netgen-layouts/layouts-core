@@ -1,29 +1,30 @@
+{% extends default_pagelayout %}
+
+{% block layout %}
 <div class="split">
     <div class="l">
         <div data-zone="top_left">
-            {% if blocks is defined %}
-                {% for block in blocks.top_left %}
-                    {{ render(controller('ngbm_block:view', {'block': block})) }}
-                {% endfor %}
-            {% endif %}
+            {% for block in blocks.top_left %}
+                {{ render(controller('ngbm_block:view', {'block': block})) }}
+            {% endfor %}
         </div>
     </div>
     <div class="r">
         <div data-zone="top_right">
-            {% if blocks is defined %}
-                {% for block in blocks.top_right %}
-                    {{ render(controller('ngbm_block:view', {'block': block})) }}
-                {% endfor %}
-            {% endif %}
+            {% for block in blocks.top_right %}
+                {{ render(controller('ngbm_block:view', {'block': block})) }}
+            {% endfor %}
         </div>
     </div>
+
+    {% block content %}{% endblock %}
+
     <div class="r">
         <div data-zone="bottom">
-            {% if blocks is defined %}
-                {% for block in blocks.bottom %}
-                    {{ render(controller('ngbm_block:view', {'block': block})) }}
-                {% endfor %}
-            {% endif %}
+            {% for block in blocks.bottom %}
+                {{ render(controller('ngbm_block:view', {'block': block})) }}
+            {% endfor %}
         </div>
     </div>
 </div>
+{% endblock %}
