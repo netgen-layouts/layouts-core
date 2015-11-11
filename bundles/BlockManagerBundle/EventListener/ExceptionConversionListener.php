@@ -34,14 +34,16 @@ class ExceptionConversionListener implements EventSubscriberInterface
             $exceptionClass = 'Symfony\Component\HttpKernel\Exception\BadRequestHttpException';
         }
 
-        if (isset($exceptionClass)) {
-            $convertedException = new $exceptionClass(
-                $exception->getMessage(),
-                $exception,
-                $exception->getCode()
-            );
-
-            $event->setException($convertedException);
+        if (!isset($exceptionClass)) {
+            return;
         }
+
+        $convertedException = new $exceptionClass(
+            $exception->getMessage(),
+            $exception,
+            $exception->getCode()
+        );
+
+        $event->setException($convertedException);
     }
 }
