@@ -1,0 +1,16 @@
+parameters:
+    netgen_block_manager.view.provider.block.class: Netgen\BlockManager\View\Provider\BlockViewProvider
+    netgen_block_manager.view.provider.layout.class: Netgen\BlockManager\View\Provider\LayoutViewProvider
+
+services:
+    netgen_block_manager.view.provider.block:
+        class: %netgen_block_manager.view.provider.block.class%
+        tags:
+            - { name: netgen_block_manager.view.provider }
+
+    netgen_block_manager.view.provider.layout:
+        class: %netgen_block_manager.view.provider.layout.class%
+        arguments:
+            - @netgen_block_manager.api.service.block
+        tags:
+            - { name: netgen_block_manager.view.provider }

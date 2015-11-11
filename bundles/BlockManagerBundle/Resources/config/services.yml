@@ -1,0 +1,9 @@
+parameters:
+    netgen_block_manager.view.builder.class: Netgen\BlockManager\View\ViewBuilder
+
+services:
+    netgen_block_manager.view.builder:
+        class: %netgen_block_manager.view.builder.class%
+        arguments:
+            - @netgen_block_manager.registry.view_template_provider
+            - []

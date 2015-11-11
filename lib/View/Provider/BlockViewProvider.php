@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\View\Builder;
+namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\BlockView;
 use InvalidArgumentException;
 
-class BlockViewBuilder implements ViewBuilder
+class BlockViewProvider implements ViewProvider
 {
     /**
-     * Builds the view.
+     * Provides the view.
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
      * @param array $parameters
@@ -20,11 +20,9 @@ class BlockViewBuilder implements ViewBuilder
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView(Value $value, array $parameters = array(), $context = 'view')
+    public function provideView(Value $value, array $parameters = array(), $context = 'view')
     {
-        if (!$value instanceof Block) {
-            throw new InvalidArgumentException('Block view builder accepts only Block value objects to build from');
-        }
+        /** @var \Netgen\BlockManager\API\Values\Page\Block $value */
 
         $blockView = new BlockView();
 
@@ -33,5 +31,17 @@ class BlockViewBuilder implements ViewBuilder
         $blockView->setParameters($parameters);
 
         return $blockView;
+    }
+
+    /**
+     * Returns if this view provider supports the given value object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     *
+     * @return bool
+     */
+    public function supports(Value $value)
+    {
+        return $value instanceof Block;
     }
 }

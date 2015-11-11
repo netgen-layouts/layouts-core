@@ -24,11 +24,13 @@ class LayoutViewTemplateProvider implements ViewTemplateProvider
     }
 
     /**
-     * Provides a template to the view.
+     * Provides a template for the view.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
      * @throws \InvalidArgumentException If there's no template defined for specified view
+     *
+     * @return string
      */
     public function provideTemplate(ViewInterface $view)
     {

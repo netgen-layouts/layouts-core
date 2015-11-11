@@ -6,10 +6,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ViewBuilderRegistryPass implements CompilerPassInterface
+class ViewBuilderPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.registry.view_builder';
-    const TAG_NAME = 'netgen_block_manager.view.builder';
+    const SERVICE_NAME = 'netgen_block_manager.view.builder';
+    const TAG_NAME = 'netgen_block_manager.view.provider';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -22,14 +22,14 @@ class ViewBuilderRegistryPass implements CompilerPassInterface
             return;
         }
 
-        $viewBuilderRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $viewBuilders = $container->findTaggedServiceIds(self::TAG_NAME);
+        $viewBuilder = $container->findDefinition(self::SERVICE_NAME);
+        $services = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($viewBuilders as $serviceName => $tag) {
-            $viewBuilderRegistry->addMethodCall(
-                'addViewBuilder',
-                array(new Reference($serviceName), $tag[0]['type'])
-            );
+        $viewProviders = array();
+        foreach ($services as $serviceName => $tag) {
+            $viewProviders[] = new Reference($serviceName);
         }
+
+        $viewBuilder->replaceArgument(1, $viewProviders);
     }
 }

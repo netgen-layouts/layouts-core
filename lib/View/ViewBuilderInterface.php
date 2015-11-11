@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\View\Builder;
+namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\API\Values\Value;
 
-interface ViewBuilder
+interface ViewBuilderInterface
 {
     /**
      * Builds the view.

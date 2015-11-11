@@ -26,7 +26,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('view/template_providers.yml');
         $loader->load('view/renderers.yml');
-        $loader->load('view/builders.yml');
+        $loader->load('view/providers.yml');
 
         $loader->load('block_definitions.yml');
         $loader->load('block_groups.yml');
@@ -40,6 +40,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('normalizers.yml');
         $loader->load('registries.yml');
         $loader->load('templating.yml');
+        $loader->load('services.yml');
 
         $loader->load('api.yml');
     }

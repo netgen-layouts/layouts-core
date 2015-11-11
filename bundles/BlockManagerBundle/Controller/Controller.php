@@ -45,9 +45,7 @@ abstract class Controller extends BaseController
      */
     protected function buildViewObject($object, $parameters = array(), $context = 'view')
     {
-        $viewBuilderRegistry = $this->get('netgen_block_manager.registry.view_builder');
-        $viewBuilder = $viewBuilderRegistry->getViewBuilder($object);
-
+        $viewBuilder = $this->get('netgen_block_manager.view.builder');
         return $viewBuilder->buildView($object, $parameters, $context);
     }
 

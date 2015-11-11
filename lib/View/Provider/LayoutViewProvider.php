@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\View\Builder;
+namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Value;
@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use InvalidArgumentException;
 
-class LayoutViewBuilder implements ViewBuilder
+class LayoutViewProvider implements ViewProvider
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -26,7 +26,7 @@ class LayoutViewBuilder implements ViewBuilder
     }
 
     /**
-     * Builds the view.
+     * Provides the view.
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
      * @param array $parameters
@@ -36,11 +36,9 @@ class LayoutViewBuilder implements ViewBuilder
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView(Value $value, array $parameters = array(), $context = 'view')
+    public function provideView(Value $value, array $parameters = array(), $context = 'view')
     {
-        if (!$value instanceof Layout) {
-            throw new InvalidArgumentException('Layout view builder accepts only Layout value objects to build from');
-        }
+        /** @var \Netgen\BlockManager\API\Values\Page\Layout $value */
 
         $layoutView = new LayoutView();
 
@@ -55,5 +53,17 @@ class LayoutViewBuilder implements ViewBuilder
         );
 
         return $layoutView;
+    }
+
+    /**
+     * Returns if this view provider supports the given value object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     *
+     * @return bool
+     */
+    public function supports(Value $value)
+    {
+        return $value instanceof Layout;
     }
 }
