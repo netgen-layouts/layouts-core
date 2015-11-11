@@ -18,7 +18,6 @@ Activate the Block Manager in your kernel class together with other required bun
 ```
 ...
 
-$bundles[] = new JMS\SerializerBundle\JMSSerializerBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 
 return $bundles;

@@ -2,12 +2,13 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class NetgenBlockManagerExtension extends Extension
+class NetgenBlockManagerExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * Loads a specific configuration.
@@ -34,9 +35,25 @@ class NetgenBlockManagerExtension extends Extension
 
         $loader->load('param_converters.yml');
         $loader->load('controllers.yml');
-        $loader->load('serializers.yml');
+        $loader->load('normalizers.yml');
         $loader->load('registries.yml');
 
         $loader->load('api.yml');
+    }
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        $config = array(
+            'serializer' => array(
+                'enabled' => true,
+            ),
+        );
+
+        $container->prependExtensionConfig('framework', $config);
     }
 }

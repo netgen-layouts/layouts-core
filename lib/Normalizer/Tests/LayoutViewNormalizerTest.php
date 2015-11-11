@@ -1,49 +1,26 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\Tests;
+namespace Netgen\BlockManager\Normalizer\Tests;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Serializer\LayoutViewSerializer;
-use JMS\Serializer\GraphNavigator;
+use Netgen\BlockManager\Normalizer\LayoutViewNormalizer;
 use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\API\Tests\Stubs\Value;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
-class LayoutViewSerializerTest extends PHPUnit_Framework_TestCase
+class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Serializer\LayoutViewSerializer::getSubscribingMethods
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::__construct
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::normalize
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::getZones
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::getBlocks
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::getBlockPositions
      */
-    public function testGetSubscribingMethods()
-    {
-        $layoutViewSerializer = new LayoutViewSerializer(
-            array(),
-            $this->getMock('Netgen\BlockManager\View\Renderer\ViewRenderer')
-        );
-
-        self::assertEquals(
-            array(
-                array(
-                    'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                    'format' => 'json',
-                    'type' => 'Netgen\BlockManager\View\LayoutView',
-                    'method' => 'serialize',
-                ),
-            ),
-            $layoutViewSerializer->getSubscribingMethods()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Serializer\LayoutViewSerializer::__construct
-     * @covers \Netgen\BlockManager\Serializer\LayoutViewSerializer::getValueData
-     * @covers \Netgen\BlockManager\Serializer\LayoutViewSerializer::getZones
-     * @covers \Netgen\BlockManager\Serializer\LayoutViewSerializer::getBlocks
-     * @covers \Netgen\BlockManager\Serializer\LayoutViewSerializer::getBlockPositions
-     */
-    public function testGetValueData()
+    public function testNormalize()
     {
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
@@ -77,14 +54,11 @@ class LayoutViewSerializerTest extends PHPUnit_Framework_TestCase
         $block = new Block(
             array(
                 'id' => 24,
-                'zoneId' => 84,
-                'definitionIdentifier' => 'paragraph',
-                'parameters' => array(
-                    'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value',
-                ),
-                'viewType' => 'default',
             )
+        );
+
+        $normalizedBlock = array(
+            'id' => 24,
         );
 
         $layoutView = new LayoutView();
@@ -109,6 +83,17 @@ class LayoutViewSerializerTest extends PHPUnit_Framework_TestCase
             ),
         );
 
+        $blockNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $blockNormalizerMock
+            ->expects($this->once())
+            ->method('normalize')
+            ->with($this->equalTo($block))
+            ->will($this->returnValue($normalizedBlock));
+
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\Renderer\ViewRenderer');
         $viewRendererMock
             ->expects($this->once())
@@ -116,7 +101,7 @@ class LayoutViewSerializerTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo($layoutView))
             ->will($this->returnValue('rendered layout view'));
 
-        $layoutViewSerializer = new LayoutViewSerializer($config, $viewRendererMock);
+        $layoutViewNormalizer = new LayoutViewNormalizer($config, $blockNormalizerMock, $viewRendererMock);
 
         self::assertEquals(
             array(
@@ -137,7 +122,7 @@ class LayoutViewSerializerTest extends PHPUnit_Framework_TestCase
                         'accepts' => array('paragraph'),
                     ),
                 ),
-                'blocks' => array($block),
+                'blocks' => array($normalizedBlock),
                 'positions' => array(
                     array(
                         'zone' => 'left',
@@ -153,7 +138,48 @@ class LayoutViewSerializerTest extends PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $layoutViewSerializer->getValueData($layoutView)
+            $layoutViewNormalizer->normalize($layoutView)
+        );
+    }
+
+    /**
+     * @param mixed $data
+     * @param bool $expected
+     *
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::supportsNormalization
+     * @dataProvider supportsNormalizationProvider
+     */
+    public function testSupportsNormalization($data, $expected)
+    {
+        $blockNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\Renderer\ViewRenderer');
+
+        $layoutViewNormalizer = new LayoutViewNormalizer(array(), $blockNormalizerMock, $viewRendererMock);
+
+        self::assertEquals($expected, $layoutViewNormalizer->supportsNormalization($data));
+    }
+
+    /**
+     * Provider for {@link self::testSupportsNormalization}.
+     *
+     * @return array
+     */
+    public function supportsNormalizationProvider()
+    {
+        return array(
+            array(null, false),
+            array(true, false),
+            array(false, false),
+            array('block', false),
+            array(array(), false),
+            array(42, false),
+            array(42.12, false),
+            array(new Value(), false),
+            array(new LayoutView(), true),
         );
     }
 }

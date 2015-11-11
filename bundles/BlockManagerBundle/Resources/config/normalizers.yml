@@ -1,0 +1,43 @@
+parameters:
+    netgen_block_manager.normalizer.block.class: Netgen\BlockManager\Normalizer\BlockNormalizer
+    netgen_block_manager.normalizer.block_view.class: Netgen\BlockManager\Normalizer\BlockViewNormalizer
+    netgen_block_manager.normalizer.layout.class: Netgen\BlockManager\Normalizer\LayoutNormalizer
+    netgen_block_manager.normalizer.layout_view.class: Netgen\BlockManager\Normalizer\LayoutViewNormalizer
+    netgen_block_manager.normalizer.exception.class: Netgen\BlockManager\Normalizer\ExceptionNormalizer
+
+services:
+    netgen_block_manager.normalizer.block:
+        class: %netgen_block_manager.normalizer.block.class%
+        arguments:
+            - %netgen_block_manager.default.blocks%
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.block_view:
+        class: %netgen_block_manager.normalizer.block_view.class%
+        parent: netgen_block_manager.normalizer.block
+        arguments:
+            - @netgen_block_manager.view.renderer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.layout:
+        class: %netgen_block_manager.normalizer.layout.class%
+        arguments:
+            - %netgen_block_manager.default.layouts%
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.layout_view:
+        class: %netgen_block_manager.normalizer.layout_view.class%
+        parent: netgen_block_manager.normalizer.layout
+        arguments:
+            - @netgen_block_manager.normalizer.block
+            - @netgen_block_manager.view.renderer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.exception:
+        class: %netgen_block_manager.normalizer.exception.class%
+        tags:
+            - { name: serializer.normalizer }

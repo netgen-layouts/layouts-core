@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use JMS\Serializer\SerializationContext;
 
 abstract class Controller extends BaseController
 {
@@ -23,14 +22,10 @@ abstract class Controller extends BaseController
      */
     protected function serializeObject($object)
     {
-        $serializationContext = new SerializationContext();
-        $serializationContext->setVersion(self::API_VERSION);
-        $serializationContext->setSerializeNull(true);
-
-        $serializedObject = $this->get('jms_serializer')->serialize(
+        $serializedObject = $this->get('serializer')->serialize(
             $object,
             'json',
-            $serializationContext
+            array('version' => self::API_VERSION)
         );
 
         $response = new JsonResponse();

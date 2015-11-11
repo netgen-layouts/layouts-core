@@ -1,14 +1,18 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer;
+namespace Netgen\BlockManager\Normalizer;
 
-use JMS\Serializer\GraphNavigator;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\Renderer\ViewRenderer;
 
-class LayoutViewSerializer extends LayoutSerializer
+class LayoutViewNormalizer extends LayoutNormalizer
 {
+    /**
+     * @var \Netgen\BlockManager\Normalizer\BlockNormalizer
+     */
+    protected $blockNormalizer;
+
     /**
      * @var \Netgen\BlockManager\View\Renderer\ViewRenderer
      */
@@ -17,54 +21,52 @@ class LayoutViewSerializer extends LayoutSerializer
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\View\Renderer\ViewRenderer $viewRenderer
      * @param array $layoutConfig
+     * @param \Netgen\BlockManager\Normalizer\BlockNormalizer $blockNormalizer
+     * @param \Netgen\BlockManager\View\Renderer\ViewRenderer $viewRenderer
      */
-    public function __construct(array $layoutConfig, ViewRenderer $viewRenderer)
+    public function __construct(array $layoutConfig, BlockNormalizer $blockNormalizer, ViewRenderer $viewRenderer)
     {
         parent::__construct($layoutConfig);
 
+        $this->blockNormalizer = $blockNormalizer;
         $this->viewRenderer = $viewRenderer;
     }
 
     /**
-     * Returns the serializer handler definition array.
+     * Normalizes an object into a set of arrays/scalars.
      *
-     * The direction and method keys can be omitted.
+     * @param \Netgen\BlockManager\View\LayoutViewInterface $object
+     * @param string $format
+     * @param array $context
      *
      * @return array
      */
-    public static function getSubscribingMethods()
+    public function normalize($object, $format = null, array $context = array())
     {
-        return array(
-            array(
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format' => 'json',
-                'type' => 'Netgen\BlockManager\View\LayoutView',
-                'method' => 'serialize',
-            ),
-        );
+        $layout = $object->getLayout();
+
+        $data = parent::normalize($layout);
+
+        $data['zones'] = $this->getZones($layout);
+        $data['blocks'] = $this->getBlocks($object);
+        $data['positions'] = $this->getBlockPositions($object);
+        $data['html'] = $this->viewRenderer->renderView($object);
+
+        return $data;
     }
 
     /**
-     * Returns the data that will be serialized.
+     * Checks whether the given class is supported for normalization by this normalizer.
      *
-     * @param \Netgen\BlockManager\View\LayoutViewInterface $value
+     * @param mixed $data
+     * @param string $format
      *
-     * @return array
+     * @return bool
      */
-    public function getValueData($value)
+    public function supportsNormalization($data, $format = null)
     {
-        $layout = $value->getLayout();
-
-        $data = parent::getValueData($layout);
-
-        $data['zones'] = $this->getZones($layout);
-        $data['blocks'] = $this->getBlocks($value);
-        $data['positions'] = $this->getBlockPositions($value);
-        $data['html'] = $this->viewRenderer->renderView($value);
-
-        return $data;
+        return $data instanceof LayoutViewInterface;
     }
 
     /**
@@ -111,7 +113,12 @@ class LayoutViewSerializer extends LayoutSerializer
             $blocks = array_merge($blocks, $zoneBlocks);
         }
 
-        return $blocks;
+        $normalizedBlocks = array();
+        foreach ($blocks as $block) {
+            $normalizedBlocks[] = $this->blockNormalizer->normalize($block);
+        }
+
+        return $normalizedBlocks;
     }
 
     /**
