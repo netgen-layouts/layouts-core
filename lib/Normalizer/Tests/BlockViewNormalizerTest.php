@@ -87,7 +87,7 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
             array(null, false),
             array(true, false),
             array(false, false),
-            array('block', false),
+            array('block_view', false),
             array(array(), false),
             array(42, false),
             array(42.12, false),

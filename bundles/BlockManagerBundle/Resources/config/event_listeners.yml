@@ -1,0 +1,22 @@
+parameters:
+    netgen_block_manager.event_listener.exception_conversion.class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
+    netgen_block_manager.event_listener.set_is_rest_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsRestRequestListener
+    netgen_block_manager.event_listener.rest_exception.class: Netgen\Bundle\BlockManagerBundle\EventListener\RestExceptionListener
+
+services:
+    netgen_block_manager.event_listener.exception_conversion:
+        class: %netgen_block_manager.event_listener.exception_conversion.class%
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.set_is_rest_request:
+        class: %netgen_block_manager.event_listener.set_is_rest_request.class%
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.rest_exception:
+        class: %netgen_block_manager.event_listener.rest_exception.class%
+        arguments:
+            - @serializer
+        tags:
+            - { name: kernel.event_subscriber }
