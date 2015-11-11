@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\ViewTemplateProviderRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\BlockDefinitionRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\ViewBuilderPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -19,7 +18,6 @@ class NetgenBlockManagerBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new ViewTemplateProviderRegistryPass());
         $container->addCompilerPass(new BlockDefinitionRegistryPass());
         $container->addCompilerPass(new ViewBuilderPass());
     }

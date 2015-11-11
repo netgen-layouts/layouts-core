@@ -34,10 +34,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
      */
     public function provideTemplate(ViewInterface $view)
     {
-        if (!$view instanceof BlockView) {
-            throw new InvalidArgumentException('Block view template provider can only provide templates to block views');
-        }
-
+        /** @var \Netgen\BlockManager\View\BlockViewInterface $view */
         $block = $view->getBlock();
         $definitionIdentifier = $block->getDefinitionIdentifier();
         $viewType = $block->getViewType();
@@ -54,5 +51,17 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
         }
 
         return $this->config[$definitionIdentifier]['templates'][$viewType][$context];
+    }
+
+    /**
+     * Returns if this view template provider supports the given view.
+     *
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     *
+     * @return bool
+     */
+    public function supports(ViewInterface $view)
+    {
+        return $view instanceof BlockView;
     }
 }

@@ -6,20 +6,11 @@ use Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\View\Tests\Stubs\View;
 use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\LayoutView;
 use PHPUnit_Framework_TestCase;
 
 class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
-     * @expectedException \InvalidArgumentException
-     */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNotBlockView()
-    {
-        $blockViewTemplateProvider = new BlockViewTemplateProvider();
-        $blockViewTemplateProvider->provideTemplate(new View());
-    }
-
     /**
      * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
@@ -84,6 +75,33 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 
         $template = $blockViewTemplateProvider->provideTemplate($this->getBlockView());
         self::assertEquals('some_template.html.twig', $template);
+    }
+
+    /**
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     * @param bool $supports
+     *
+     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::supports
+     * @dataProvider supportsProvider
+     */
+    public function testSupports($view, $supports)
+    {
+        $blockViewProvider = new BlockViewTemplateProvider();
+        self::assertEquals($supports, $blockViewProvider->supports($view));
+    }
+
+    /**
+     * Provider for {@link self::testSupports}.
+     *
+     * @return array
+     */
+    public function supportsProvider()
+    {
+        return array(
+            array(new View(), false),
+            array(new BlockView(), true),
+            array(new LayoutView(), false),
+        );
     }
 
     /**

@@ -2,32 +2,31 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\Registry\ViewTemplateProviderRegistry;
 use Netgen\BlockManager\API\Values\Value;
 use InvalidArgumentException;
 
 class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Registry\ViewTemplateProviderRegistry
-     */
-    protected $viewTemplateProviderRegistry;
-
-    /**
      * @var \Netgen\BlockManager\View\Provider\ViewProvider[]
      */
     protected $viewProviders = array();
 
     /**
+     * @var \Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider[]
+     */
+    protected $viewTemplateProviders = array();
+
+    /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Registry\ViewTemplateProviderRegistry $viewTemplateProviderRegistry
      * @param \Netgen\BlockManager\View\Provider\ViewProvider[] $viewProviders
+     * @param \Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider[] $viewTemplateProviders
      */
-    public function __construct(ViewTemplateProviderRegistry $viewTemplateProviderRegistry, array $viewProviders = array())
+    public function __construct(array $viewProviders = array(), array $viewTemplateProviders = array())
     {
-        $this->viewTemplateProviderRegistry = $viewTemplateProviderRegistry;
         $this->viewProviders = $viewProviders;
+        $this->viewTemplateProviders = $viewTemplateProviders;
     }
 
     /**
@@ -58,10 +57,15 @@ class ViewBuilder implements ViewBuilderInterface
             );
         }
 
-        $viewTemplateProvider = $this->viewTemplateProviderRegistry->getViewTemplateProvider($view);
-        $view->setTemplate(
-            $viewTemplateProvider->provideTemplate($view)
-        );
+        foreach ($this->viewTemplateProviders as $viewTemplateProvider) {
+            if (!$viewTemplateProvider->supports($view)) {
+                continue;
+            }
+
+            $view->setTemplate(
+                $viewTemplateProvider->provideTemplate($view)
+            );
+        }
 
         return $view;
     }

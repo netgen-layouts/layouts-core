@@ -31,8 +31,6 @@ class LayoutViewProvider implements ViewProvider
      * @param array $parameters
      * @param string $context
      *
-     * @throws \InvalidArgumentException If value is of unsupported type
-     *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
     public function provideView(Value $value, array $parameters = array(), $context = 'view')

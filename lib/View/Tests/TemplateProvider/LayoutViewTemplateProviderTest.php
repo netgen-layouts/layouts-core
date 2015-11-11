@@ -5,21 +5,12 @@ namespace Netgen\BlockManager\View\Tests\TemplateProvider;
 use Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\Tests\Stubs\View;
+use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\LayoutView;
 use PHPUnit_Framework_TestCase;
 
 class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
-     * @expectedException \InvalidArgumentException
-     */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNotLayoutView()
-    {
-        $layoutViewTemplateProvider = new LayoutViewTemplateProvider();
-        $layoutViewTemplateProvider->provideTemplate(new View());
-    }
-
     /**
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
@@ -63,6 +54,33 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 
         $template = $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
         self::assertEquals('some_template.html.twig', $template);
+    }
+
+    /**
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     * @param bool $supports
+     *
+     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::supports
+     * @dataProvider supportsProvider
+     */
+    public function testSupports($view, $supports)
+    {
+        $layoutViewTemplateProvider = new LayoutViewTemplateProvider();
+        self::assertEquals($supports, $layoutViewTemplateProvider->supports($view));
+    }
+
+    /**
+     * Provider for {@link self::testSupports}.
+     *
+     * @return array
+     */
+    public function supportsProvider()
+    {
+        return array(
+            array(new View(), false),
+            array(new BlockView(), false),
+            array(new LayoutView(), true),
+        );
     }
 
     /**

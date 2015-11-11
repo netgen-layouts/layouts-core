@@ -20,19 +20,51 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewWithTemplate = clone $view;
         $viewWithTemplate->setTemplate('some_template.html.twig');
 
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue(false));
+
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue(true));
+        $viewProvider2
+            ->expects($this->once())
+            ->method('provideView')
+            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->will($this->returnValue($view));
+
+        $viewProviders = array($viewProvider1, $viewProvider2);
+
         $viewTemplateProvider = $this->getMock('Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider');
+        $viewTemplateProvider
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($view))
+            ->will($this->returnValue(true));
         $viewTemplateProvider
             ->expects($this->once())
             ->method('provideTemplate')
             ->with($this->equalTo($view))
             ->will($this->returnValue('some_template.html.twig'));
 
-        $viewTemplateProviderRegistry = $this->getMock('Netgen\BlockManager\Registry\ViewTemplateProviderRegistry');
-        $viewTemplateProviderRegistry
-            ->expects($this->once())
-            ->method('getViewTemplateProvider')
-            ->with($this->equalTo($view))
-            ->will($this->returnValue($viewTemplateProvider));
+        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateProvider));
+        self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
+     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     */
+    public function testBuildViewWithNoTemplateViewProviders()
+    {
+        $value = new Value();
+        $view = new View();
 
         $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
         $viewProvider1
@@ -55,9 +87,15 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewBuilder = new ViewBuilder($viewTemplateProviderRegistry, $viewProviders);
+        $viewTemplateProvider = $this->getMock('Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider');
+        $viewTemplateProvider
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($view))
+            ->will($this->returnValue(false));
 
-        self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
+        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateProvider));
+        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
     }
 
     /**
@@ -67,8 +105,6 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
     public function testBuildViewWithNoViewProviders()
     {
         $value = new Value();
-
-        $viewTemplateProviderRegistry = $this->getMock('Netgen\BlockManager\Registry\ViewTemplateProviderRegistry');
 
         $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
         $viewProvider1
@@ -86,8 +122,9 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewBuilder = new ViewBuilder($viewTemplateProviderRegistry, $viewProviders);
+        $viewTemplateProvider = $this->getMock('Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider');
 
+        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateProvider));
         $viewBuilder->buildView($value, array(), 'api');
     }
 }

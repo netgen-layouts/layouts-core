@@ -34,10 +34,7 @@ class LayoutViewTemplateProvider implements ViewTemplateProvider
      */
     public function provideTemplate(ViewInterface $view)
     {
-        if (!$view instanceof LayoutView) {
-            throw new InvalidArgumentException('Layout view template provider can only provide templates to layout views');
-        }
-
+        /** @var \Netgen\BlockManager\View\LayoutViewInterface $view */
         $layout = $view->getLayout();
         $layoutIdentifier = $layout->getIdentifier();
         $context = $view->getContext();
@@ -53,5 +50,17 @@ class LayoutViewTemplateProvider implements ViewTemplateProvider
         }
 
         return $this->config[$layoutIdentifier]['templates'][$context];
+    }
+
+    /**
+     * Returns if this view template provider supports the given view.
+     *
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     *
+     * @return bool
+     */
+    public function supports(ViewInterface $view)
+    {
+        return $view instanceof LayoutView;
     }
 }

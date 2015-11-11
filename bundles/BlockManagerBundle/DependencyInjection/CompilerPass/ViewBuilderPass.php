@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\Reference;
 class ViewBuilderPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.view.builder';
-    const TAG_NAME = 'netgen_block_manager.view.provider';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -23,13 +22,22 @@ class ViewBuilderPass implements CompilerPassInterface
         }
 
         $viewBuilder = $container->findDefinition(self::SERVICE_NAME);
-        $services = $container->findTaggedServiceIds(self::TAG_NAME);
 
+        $viewProviderServices = $container->findTaggedServiceIds('netgen_block_manager.view.provider');
         $viewProviders = array();
-        foreach ($services as $serviceName => $tag) {
+
+        foreach ($viewProviderServices as $serviceName => $tag) {
             $viewProviders[] = new Reference($serviceName);
         }
 
-        $viewBuilder->replaceArgument(1, $viewProviders);
+        $viewTemplateProviderServices = $container->findTaggedServiceIds('netgen_block_manager.view.template_provider');
+        $viewTemplateProviders = array();
+
+        foreach ($viewTemplateProviderServices as $serviceName => $tag) {
+            $viewTemplateProviders[] = new Reference($serviceName);
+        }
+
+        $viewBuilder->replaceArgument(0, $viewProviders);
+        $viewBuilder->replaceArgument(1, $viewTemplateProviders);
     }
 }
