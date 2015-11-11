@@ -3,22 +3,22 @@
 namespace Netgen\BlockManager\Normalizer;
 
 use Netgen\BlockManager\View\BlockViewInterface;
-use Netgen\BlockManager\View\Renderer\ViewRenderer;
+use Netgen\BlockManager\View\ViewRendererInterface;
 
 class BlockViewNormalizer extends BlockNormalizer
 {
     /**
-     * @var \Netgen\BlockManager\View\Renderer\ViewRenderer
+     * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
     protected $viewRenderer;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\View\Renderer\ViewRenderer $viewRenderer
+     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      * @param array $blockConfig
      */
-    public function __construct(array $blockConfig, ViewRenderer $viewRenderer)
+    public function __construct(array $blockConfig, ViewRendererInterface $viewRenderer)
     {
         parent::__construct($blockConfig);
 

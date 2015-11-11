@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\View\Tests\Renderer;
 
-use Netgen\BlockManager\View\Renderer\TwigViewRenderer;
+use Netgen\BlockManager\View\ViewRenderer;
 use Netgen\BlockManager\View\Tests\Stubs\View;
 use PHPUnit_Framework_TestCase;
 
-class TwigViewRendererTest extends PHPUnit_Framework_TestCase
+class ViewRendererTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\Renderer\TwigViewRenderer::__construct
-     * @covers \Netgen\BlockManager\View\Renderer\TwigViewRenderer::renderView
+     * @covers \Netgen\BlockManager\View\ViewRenderer::__construct
+     * @covers \Netgen\BlockManager\View\ViewRenderer::renderView
      */
     public function testRenderView()
     {
@@ -28,9 +28,9 @@ class TwigViewRendererTest extends PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue('rendered template'));
 
-        $twigViewRenderer = new TwigViewRenderer($twigEnvironmentMock);
+        $viewRenderer = new ViewRenderer($twigEnvironmentMock);
 
-        $renderedTemplate = $twigViewRenderer->renderView($view);
+        $renderedTemplate = $viewRenderer->renderView($view);
 
         self::assertEquals('rendered template', $renderedTemplate);
     }

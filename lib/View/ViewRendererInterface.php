@@ -1,10 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\View\Renderer;
+namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\View\ViewInterface;
-
-interface ViewRenderer
+interface ViewRendererInterface
 {
     /**
      * Renders the view.

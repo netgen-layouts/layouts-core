@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Normalizer;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutViewInterface;
-use Netgen\BlockManager\View\Renderer\ViewRenderer;
+use Netgen\BlockManager\View\ViewRendererInterface;
 
 class LayoutViewNormalizer extends LayoutNormalizer
 {
@@ -14,7 +14,7 @@ class LayoutViewNormalizer extends LayoutNormalizer
     protected $blockNormalizer;
 
     /**
-     * @var \Netgen\BlockManager\View\Renderer\ViewRenderer
+     * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
     protected $viewRenderer;
 
@@ -23,9 +23,9 @@ class LayoutViewNormalizer extends LayoutNormalizer
      *
      * @param array $layoutConfig
      * @param \Netgen\BlockManager\Normalizer\BlockNormalizer $blockNormalizer
-     * @param \Netgen\BlockManager\View\Renderer\ViewRenderer $viewRenderer
+     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
-    public function __construct(array $layoutConfig, BlockNormalizer $blockNormalizer, ViewRenderer $viewRenderer)
+    public function __construct(array $layoutConfig, BlockNormalizer $blockNormalizer, ViewRendererInterface $viewRenderer)
     {
         parent::__construct($layoutConfig);
 

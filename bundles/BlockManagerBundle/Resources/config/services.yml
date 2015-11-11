@@ -1,5 +1,6 @@
 parameters:
     netgen_block_manager.view.builder.class: Netgen\BlockManager\View\ViewBuilder
+    netgen_block_manager.view.renderer.class: Netgen\BlockManager\View\ViewRenderer
 
 services:
     netgen_block_manager.view.builder:
@@ -7,3 +8,8 @@ services:
         arguments:
             - @netgen_block_manager.registry.view_template_provider
             - []
+
+    netgen_block_manager.view.renderer:
+        class: %netgen_block_manager.view.renderer.class%
+        arguments:
+            - @twig

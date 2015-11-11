@@ -94,7 +94,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo($block))
             ->will($this->returnValue($normalizedBlock));
 
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\Renderer\ViewRenderer');
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
         $viewRendererMock
             ->expects($this->once())
             ->method('renderView')
@@ -156,7 +156,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\Renderer\ViewRenderer');
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
 
         $layoutViewNormalizer = new LayoutViewNormalizer(array(), $blockNormalizerMock, $viewRendererMock);
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\View\Renderer;
+namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\View\ViewInterface;
 use Twig_Environment;
 
-class TwigViewRenderer implements ViewRenderer
+class ViewRenderer implements ViewRendererInterface
 {
     /**
      * @var \Twig_Environment
