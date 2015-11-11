@@ -1,0 +1,2 @@
+parameters:
+    netgen_block_manager.default_pagelayout: NetgenBlockManagerBundle::pagelayout_empty.html.twig
