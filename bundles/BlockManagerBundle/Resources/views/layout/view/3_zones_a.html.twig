@@ -1,21 +1,21 @@
 <div class="split">
     <div class="l">
         <div data-zone="top_left">
-            {% for blocks.top_left as block %}
+            {% for block in blocks.top_left %}
                 {{ render(controller('ngbm_block:view', {'block': block})) }}
             {% endfor %}
         </div>
     </div>
     <div class="r">
         <div data-zone="top_right">
-            {% for blocks.top_right as block %}
+            {% for block in blocks.top_right %}
                 {{ render(controller('ngbm_block:view', {'block': block})) }}
             {% endfor %}
         </div>
     </div>
     <div class="r">
         <div data-zone="bottom">
-            {% for blocks.bottom as block %}
+            {% for block in blocks.bottom %}
                 {{ render(controller('ngbm_block:view', {'block': block})) }}
             {% endfor %}
         </div>
