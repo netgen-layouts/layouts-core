@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\View\Tests\Provider;
 
 use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use PHPUnit_Framework_TestCase;
 
@@ -40,13 +41,16 @@ class BlockViewProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param bool $supports
+     *
      * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports()
+    public function testSupports($value, $supports)
     {
         $blockViewProvider = new BlockViewProvider();
-        $blockViewProvider->supports(new Value());
+        self::assertEquals($supports, $blockViewProvider->supports($value));
     }
 
     /**
@@ -57,15 +61,9 @@ class BlockViewProviderTest extends PHPUnit_Framework_TestCase
     public function supportsProvider()
     {
         return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
             array(new Value(), false),
             array(new Block(), true),
+            array(new Layout(), false),
         );
     }
 }

@@ -52,16 +52,19 @@ class LayoutViewProviderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param bool $supports
+     *
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::supports
      * @dataProvider supportsProvider
      */
-    public function testSupports()
+    public function testSupports($value, $supports)
     {
         $blockServiceMock = $this
             ->getMock('Netgen\BlockManager\API\Service\BlockService');
 
         $layoutViewProvider = new LayoutViewProvider($blockServiceMock);
-        $layoutViewProvider->supports(new Value());
+        self::assertEquals($supports, $layoutViewProvider->supports($value));
     }
 
     /**
@@ -72,15 +75,9 @@ class LayoutViewProviderTest extends PHPUnit_Framework_TestCase
     public function supportsProvider()
     {
         return array(
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array('block', false),
-            array(array(), false),
-            array(42, false),
-            array(42.12, false),
             array(new Value(), false),
-            array(new Block(), true),
+            array(new Block(), false),
+            array(new Layout(), true),
         );
     }
 }
