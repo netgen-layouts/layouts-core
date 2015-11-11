@@ -1,0 +1,16 @@
+parameters:
+    netgen_block_manager.templating.global_helper.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+    netgen_block_manager.templating.twig.extension.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
+
+services:
+    netgen_block_manager.templating.global_helper:
+        class: %netgen_block_manager.templating.global_helper.class%
+        calls:
+            - [setDefaultPagelayout, [%netgen_block_manager.default_pagelayout%]]
+
+    netgen_block_manager.templating.twig.extension:
+        class: %netgen_block_manager.templating.twig.extension.class%
+        arguments:
+            - @netgen_block_manager.templating.global_helper
+        tags:
+            - { name: twig.extension }
