@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
-use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
@@ -34,7 +34,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
      */
-    public function __construct(LayoutService $layoutService, BlockHandler $blockHandler)
+    public function __construct(APILayoutService $layoutService, BlockHandler $blockHandler)
     {
         $this->layoutService = $layoutService;
         $this->blockHandler = $blockHandler;
