@@ -33,13 +33,13 @@ class LayoutViewBuilderTest extends PHPUnit_Framework_TestCase
         $view = $layoutViewBuilder->buildView(
             $layout,
             array('some_param' => 'some_value'),
-            'manager'
+            'api'
         );
 
         self::assertInstanceOf('Netgen\BlockManager\View\LayoutViewInterface', $view);
 
         self::assertEquals($layout, $view->getLayout());
-        self::assertEquals('manager', $view->getContext());
+        self::assertEquals('api', $view->getContext());
         self::assertEquals(null, $view->getTemplate());
         self::assertEquals(
             array(

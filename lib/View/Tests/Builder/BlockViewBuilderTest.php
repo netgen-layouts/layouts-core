@@ -22,13 +22,13 @@ class BlockViewBuilderTest extends PHPUnit_Framework_TestCase
         $view = $blockViewBuilder->buildView(
             $block,
             array('some_param' => 'some_value'),
-            'manager'
+            'api'
         );
 
         self::assertInstanceOf('Netgen\BlockManager\View\BlockViewInterface', $view);
 
         self::assertEquals($block, $view->getBlock());
-        self::assertEquals('manager', $view->getContext());
+        self::assertEquals('api', $view->getContext());
         self::assertEquals(null, $view->getTemplate());
         self::assertEquals(
             array(

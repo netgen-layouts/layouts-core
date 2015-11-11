@@ -5,19 +5,19 @@ parameters:
             templates:
                 default:
                     view: 'NetgenBlockManagerBundle:block/title:default.html.twig'
-                    manager: 'NetgenBlockManagerBundle:block/title:default.html.twig'
+                    api: 'NetgenBlockManagerBundle:block/title:default.html.twig'
                 small:
                     view: 'NetgenBlockManagerBundle:block/title:small.html.twig'
-                    manager: 'NetgenBlockManagerBundle:block/title:small.html.twig'
+                    api: 'NetgenBlockManagerBundle:block/title:small.html.twig'
         paragraph:
             name: 'Paragraph'
             templates:
                 default:
                     view: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
-                    manager: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
+                    api: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
                 small:
                     view: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
-                    manager: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
+                    api: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
 
     netgen_block_manager.default.block_groups:
         simple_blocks:

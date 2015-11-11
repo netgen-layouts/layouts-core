@@ -16,7 +16,7 @@ class BlockController extends Controller
      */
     public function getBlock(Block $block)
     {
-        $blockView = $this->buildViewObject($block, array(), 'manager');
+        $blockView = $this->buildViewObject($block, array(), 'api');
 
         return $this->serializeObject($blockView);
     }

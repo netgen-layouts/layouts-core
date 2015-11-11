@@ -75,7 +75,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
                 'paragraph' => array(
                     'templates' => array(
                         'default' => array(
-                            'manager' => 'some_template.html.twig',
+                            'api' => 'some_template.html.twig',
                         ),
                     ),
                 ),
@@ -102,7 +102,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 
         $blockView = new BlockView();
         $blockView->setBlock($block);
-        $blockView->setContext('manager');
+        $blockView->setContext('api');
 
         return $blockView;
     }

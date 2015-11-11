@@ -55,7 +55,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             array(
                 '3_zones_a' => array(
                     'templates' => array(
-                        'manager' => 'some_template.html.twig',
+                        'api' => 'some_template.html.twig',
                     ),
                 ),
             )
@@ -80,7 +80,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
 
         $layoutView = new LayoutView();
         $layoutView->setLayout($layout);
-        $layoutView->setContext('manager');
+        $layoutView->setContext('api');
 
         return $layoutView;
     }

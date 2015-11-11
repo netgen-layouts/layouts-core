@@ -14,9 +14,9 @@ class ViewTest extends PHPUnit_Framework_TestCase
     public function testSetContext()
     {
         $view = new View();
-        $view->setContext('manager');
+        $view->setContext('api');
 
-        self::assertEquals('manager', $view->getContext());
+        self::assertEquals('api', $view->getContext());
     }
 
     /**
