@@ -14,44 +14,44 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testBuildViewThrowsInvalidArgumentExceptionIfNotLayoutView()
+    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNotLayoutView()
     {
-        $layoutViewBuilder = new LayoutViewTemplateProvider();
-        $layoutViewBuilder->provideTemplate(new View());
+        $layoutViewTemplateProvider = new LayoutViewTemplateProvider();
+        $layoutViewTemplateProvider->provideTemplate(new View());
     }
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testBuildViewThrowsInvalidArgumentExceptionIfNoLayoutIdentifier()
+    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoLayoutIdentifier()
     {
-        $layoutViewBuilder = new LayoutViewTemplateProvider();
-        $layoutViewBuilder->provideTemplate($this->getLayoutView());
+        $layoutViewTemplateProvider = new LayoutViewTemplateProvider();
+        $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
     }
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testBuildViewThrowsInvalidArgumentExceptionIfNoContext()
+    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoContext()
     {
-        $layoutViewBuilder = new LayoutViewTemplateProvider(
+        $layoutViewTemplateProvider = new LayoutViewTemplateProvider(
             array(
                 '3_zones_a' => array(),
             )
         );
 
-        $layoutViewBuilder->provideTemplate($this->getLayoutView());
+        $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
     }
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::__construct
      * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
      */
-    public function testBuildView()
+    public function testProvideTemplate()
     {
-        $layoutViewBuilder = new LayoutViewTemplateProvider(
+        $layoutViewTemplateProvider = new LayoutViewTemplateProvider(
             array(
                 '3_zones_a' => array(
                     'templates' => array(
@@ -61,7 +61,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $template = $layoutViewBuilder->provideTemplate($this->getLayoutView());
+        $template = $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
         self::assertEquals('some_template.html.twig', $template);
     }
 
