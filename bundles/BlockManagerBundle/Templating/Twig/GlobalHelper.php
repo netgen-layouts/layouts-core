@@ -17,7 +17,7 @@ class GlobalHelper
     protected $layoutView;
 
     /**
-     * Returns the default pagelayout
+     * Returns the default pagelayout.
      *
      * @return string
      */
@@ -27,7 +27,7 @@ class GlobalHelper
     }
 
     /**
-     * Sets the default pagelayout
+     * Sets the default pagelayout.
      *
      * @param string $defaultPagelayout
      */
@@ -37,7 +37,7 @@ class GlobalHelper
     }
 
     /**
-     * Returns the layout view object
+     * Returns the layout view object.
      *
      * @return \Netgen\BlockManager\View\LayoutViewInterface
      */
@@ -47,7 +47,7 @@ class GlobalHelper
     }
 
     /**
-     * Sets the layout view object
+     * Sets the layout view object.
      *
      * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
      */

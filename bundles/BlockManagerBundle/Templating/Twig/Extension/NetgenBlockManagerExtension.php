@@ -41,7 +41,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function getGlobals()
     {
         return array(
-            'ngbm' => $this->globalHelper
+            'ngbm' => $this->globalHelper,
         );
     }
 }

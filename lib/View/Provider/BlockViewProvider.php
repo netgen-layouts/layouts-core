@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\BlockView;
-use InvalidArgumentException;
 
 class BlockViewProvider implements ViewProvider
 {
@@ -23,7 +22,6 @@ class BlockViewProvider implements ViewProvider
     public function provideView(Value $value, array $parameters = array(), $context = 'view')
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Block $value */
-
         $blockView = new BlockView();
 
         $blockView->setBlock($value);

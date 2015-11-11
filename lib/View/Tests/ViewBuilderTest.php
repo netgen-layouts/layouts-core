@@ -7,7 +7,7 @@ use Netgen\BlockManager\View\Tests\Stubs\View;
 use Netgen\BlockManager\View\ViewBuilder;
 use PHPUnit_Framework_TestCase;
 
-class ViewBuilderTest extends \PHPUnit_Framework_TestCase
+class ViewBuilderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct

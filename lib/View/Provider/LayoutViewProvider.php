@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
-use InvalidArgumentException;
 
 class LayoutViewProvider implements ViewProvider
 {
@@ -39,7 +38,6 @@ class LayoutViewProvider implements ViewProvider
     public function provideView(Value $value, array $parameters = array(), $context = 'view')
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $value */
-
         $layoutView = new LayoutView();
 
         $layoutView->setLayout($value);
