@@ -12,5 +12,5 @@ parameters:
                     name: 'Bottom'
             content_types: ['ng_frontpage', 'ng_landing_page']
             templates:
-                view: 'NetgenBlockManagerBundle:layout:3_zones_a.html.twig'
+                view: 'NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig'
                 manager: 'NetgenBlockManagerBundle:layout/manager:3_zones_a.html.twig'
