@@ -9,7 +9,7 @@ class GlobalHelper
     /**
      * @var string
      */
-    protected $defaultPagelayout;
+    protected $pagelayout;
 
     /**
      * @var \Netgen\BlockManager\View\LayoutViewInterface
@@ -17,23 +17,23 @@ class GlobalHelper
     protected $layoutView;
 
     /**
-     * Returns the default pagelayout.
+     * Returns the pagelayout.
      *
      * @return string
      */
-    public function getDefaultPagelayout()
+    public function getPagelayout()
     {
-        return $this->defaultPagelayout;
+        return $this->pagelayout;
     }
 
     /**
-     * Sets the default pagelayout.
+     * Sets the pagelayout.
      *
-     * @param string $defaultPagelayout
+     * @param string $pagelayout
      */
-    public function setDefaultPagelayout($defaultPagelayout)
+    public function setPagelayout($pagelayout)
     {
-        $this->defaultPagelayout = $defaultPagelayout;
+        $this->pagelayout = $pagelayout;
     }
 
     /**

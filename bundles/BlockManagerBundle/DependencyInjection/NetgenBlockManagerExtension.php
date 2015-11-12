@@ -36,7 +36,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('layouts.yml');
         $loader->load('blocks.yml');
 
-        $loader->load('default_settings.yml');
         $loader->load('param_converters.yml');
         $loader->load('event_listeners.yml');
         $loader->load('controllers.yml');
@@ -51,8 +50,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         }
 
         $container->setParameter(
-            $extensionAlias . '.available_configurations',
-            array_keys($config)
+            $extensionAlias . '.available_parameters',
+            $configuration->getAvailableParameters()
         );
     }
 

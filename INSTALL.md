@@ -13,7 +13,7 @@ composer require netgen/block-manager:^1.0
 Activate the bundles
 --------------------
 
-Activate the Block Manager in your kernel class together with other required bundles:
+Activate the Block Manager in your kernel class:
 
 ```
 ...
@@ -23,10 +23,15 @@ $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 return $bundles;
 ```
 
-If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`:
+If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`. Make sure it is activated after the main bundle:
 
 ```
+...
+
+$bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 $bundles[] = new Netgen\Bundle\EzPublishBlockManagerBundle\NetgenEzPublishBlockManagerBundle();
+
+return $bundles;
 ```
 
 Activate the routes
