@@ -134,6 +134,49 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
+     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBuildViewThrowsInvalidArgumentExceptionWithNoTemplateResolverInterface()
+    {
+        $value = new Value();
+        $view = new View();
+
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue(false));
+
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue(true));
+        $viewProvider2
+            ->expects($this->once())
+            ->method('provideView')
+            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->will($this->returnValue($view));
+
+        $templateResolver = $this->getMock('DateTime');
+
+        $viewProviders = array($viewProvider1, $viewProvider2);
+
+        $viewBuilder = new ViewBuilder(
+            $viewProviders,
+            array(
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver
+            )
+        );
+
+        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @expectedException \InvalidArgumentException
      */

@@ -62,6 +62,15 @@ class ViewBuilder implements ViewBuilderInterface
                 continue;
             }
 
+            if (!$templateResolver instanceof TemplateResolverInterface) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        'Template resolver for %s type needs to implement TemplateResolverInterface.',
+                        $type
+                    )
+                );
+            }
+
             $view->setTemplate(
                 $templateResolver->resolveTemplate($view)
             );
