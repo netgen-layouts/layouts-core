@@ -49,6 +49,30 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     */
+    public function testResolveTemplateWithEmptyMatchConfig()
+    {
+        $view = $this->getView();
+
+        $templateResolver = new TemplateResolver(
+            array(),
+            array(
+                'api' => array(
+                    'paragraph' => array(
+                        'template' => 'some_template.html.twig',
+                        'match' => array()
+                    )
+                )
+            )
+        );
+
+        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
