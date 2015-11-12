@@ -13,20 +13,20 @@ class ViewBuilder implements ViewBuilderInterface
     protected $viewProviders = array();
 
     /**
-     * @var \Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver[]
+     * @var \Netgen\BlockManager\View\TemplateResolverInterface[]
      */
-    protected $viewTemplateResolvers = array();
+    protected $templateResolvers = array();
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Provider\ViewProvider[] $viewProviders
-     * @param \Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver[] $viewTemplateResolvers
+     * @param \Netgen\BlockManager\View\TemplateResolverInterface[] $templateResolvers
      */
-    public function __construct(array $viewProviders = array(), array $viewTemplateResolvers = array())
+    public function __construct(array $viewProviders = array(), array $templateResolvers = array())
     {
         $this->viewProviders = $viewProviders;
-        $this->viewTemplateResolvers = $viewTemplateResolvers;
+        $this->templateResolvers = $templateResolvers;
     }
 
     /**
@@ -57,13 +57,13 @@ class ViewBuilder implements ViewBuilderInterface
             );
         }
 
-        foreach ($this->viewTemplateResolvers as $viewTemplateResolver) {
-            if (!$viewTemplateResolver->supports($view)) {
+        foreach ($this->templateResolvers as $type => $templateResolver) {
+            if (!is_a($view, $type)) {
                 continue;
             }
 
             $view->setTemplate(
-                $viewTemplateResolver->resolveTemplate($view)
+                $templateResolver->resolveTemplate($view)
             );
         }
 

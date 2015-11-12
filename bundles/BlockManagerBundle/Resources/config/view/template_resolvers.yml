@@ -1,18 +1,19 @@
 parameters:
-    netgen_block_manager.view.template_resolver.block.class: Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver
-    netgen_block_manager.view.template_resolver.layout.class: Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver
+    netgen_block_manager.view.template_resolver.class: Netgen\BlockManager\View\TemplateResolver
 
 services:
     netgen_block_manager.view.template_resolver.block:
-        class: %netgen_block_manager.view.template_resolver.block.class%
+        class: %netgen_block_manager.view.template_resolver.class%
         arguments:
-            - %netgen_block_manager.default.block_templates%
+            - []
+            - %netgen_block_manager.default.block_view%
         tags:
-            - { name: netgen_block_manager.view.template_resolver, type: 'Netgen\BlockManager\View\BlockView' }
+            - { name: netgen_block_manager.view.template_resolver, type: 'Netgen\BlockManager\View\BlockViewInterface' }
 
     netgen_block_manager.view.template_resolver.layout:
-        class: %netgen_block_manager.view.template_resolver.layout.class%
+        class: %netgen_block_manager.view.template_resolver.class%
         arguments:
-            - %netgen_block_manager.default.layout_templates%
+            - []
+            - %netgen_block_manager.default.layout_view%
         tags:
-            - { name: netgen_block_manager.view.template_resolver, type: 'Netgen\BlockManager\View\LayoutView' }
+            - { name: netgen_block_manager.view.template_resolver, type: 'Netgen\BlockManager\View\LayoutViewInterface' }

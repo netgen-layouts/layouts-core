@@ -41,19 +41,19 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewTemplateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver');
-        $viewTemplateResolver
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($view))
-            ->will($this->returnValue(true));
-        $viewTemplateResolver
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+        $templateResolver
             ->expects($this->once())
             ->method('resolveTemplate')
             ->with($this->equalTo($view))
             ->will($this->returnValue('some_template.html.twig'));
 
-        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateResolver));
+        $viewBuilder = new ViewBuilder(
+            $viewProviders,
+            array(
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver
+            )
+        );
         self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
     }
 
@@ -61,7 +61,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      */
-    public function testBuildViewWithNoTemplateViewProviders()
+    public function testBuildViewWithNoTemplateResolvers()
     {
         $value = new Value();
         $view = new View();
@@ -87,14 +87,49 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewTemplateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver');
-        $viewTemplateResolver
+        $viewBuilder = new ViewBuilder($viewProviders);
+        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
+     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     */
+    public function testBuildViewWithNoTemplateResolver()
+    {
+        $value = new Value();
+        $view = new View();
+
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1
             ->expects($this->once())
             ->method('supports')
-            ->with($this->equalTo($view))
+            ->with($this->equalTo($value))
             ->will($this->returnValue(false));
 
-        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateResolver));
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue(true));
+        $viewProvider2
+            ->expects($this->once())
+            ->method('provideView')
+            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->will($this->returnValue($view));
+
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+
+        $viewProviders = array($viewProvider1, $viewProvider2);
+
+        $viewBuilder = new ViewBuilder(
+            $viewProviders,
+            array(
+                'Some\Class' => $templateResolver
+            )
+        );
+
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
     }
 
@@ -122,9 +157,15 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewTemplateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver');
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
 
-        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateResolver));
+        $viewBuilder = new ViewBuilder(
+            $viewProviders,
+            array(
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver
+            )
+        );
+
         $viewBuilder->buildView($value, array(), 'api');
     }
 }

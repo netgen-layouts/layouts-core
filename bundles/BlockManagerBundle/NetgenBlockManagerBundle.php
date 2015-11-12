@@ -3,6 +3,8 @@
 namespace Netgen\Bundle\BlockManagerBundle;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\BlockDefinitionRegistryPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutViewTemplateResolverPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\BlockViewTemplateResolverPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\ViewBuilderPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -19,6 +21,8 @@ class NetgenBlockManagerBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new BlockDefinitionRegistryPass());
+        $container->addCompilerPass(new LayoutViewTemplateResolverPass());
+        $container->addCompilerPass(new BlockViewTemplateResolverPass());
         $container->addCompilerPass(new ViewBuilderPass());
     }
 }

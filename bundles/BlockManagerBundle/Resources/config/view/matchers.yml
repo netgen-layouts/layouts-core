@@ -1,0 +1,20 @@
+parameters:
+    netgen_block_manager.view.matcher.layout.identifier.class: Netgen\BlockManager\View\Matcher\Layout\Identifier
+    netgen_block_manager.view.matcher.block.definition_identifier.class: Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier
+    netgen_block_manager.view.matcher.block.view_type.class: Netgen\BlockManager\View\Matcher\Block\ViewType
+
+services:
+    netgen_block_manager.view.matcher.layout.identifier:
+        class: %netgen_block_manager.view.matcher.layout.identifier.class%
+        tags:
+            - { name: netgen_block_manager.view.layout_matcher, identifier: identifier }
+
+    netgen_block_manager.view.matcher.block.definition_identifier:
+        class: %netgen_block_manager.view.matcher.block.definition_identifier.class%
+        tags:
+            - { name: netgen_block_manager.view.block_matcher, identifier: definition_identifier }
+
+    netgen_block_manager.view.matcher.block.view_type:
+        class: %netgen_block_manager.view.matcher.block.view_type.class%
+        tags:
+            - { name: netgen_block_manager.view.block_matcher, identifier: view_type }
