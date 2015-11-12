@@ -7,7 +7,3 @@ parameters:
             name: 'Paragraph'
             view_types: ['default', 'small']
 
-    netgen_block_manager.default.block_groups:
-        simple_blocks:
-            name: 'Simple blocks'
-            blocks: [paragraph, title]
