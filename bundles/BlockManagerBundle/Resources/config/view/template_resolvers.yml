@@ -13,6 +13,6 @@ services:
     netgen_block_manager.view.template_resolver.layout:
         class: %netgen_block_manager.view.template_resolver.layout.class%
         arguments:
-            - %netgen_block_manager.default.layouts%
+            - %netgen_block_manager.default.layout_templates%
         tags:
             - { name: netgen_block_manager.view.template_resolver, type: 'Netgen\BlockManager\View\LayoutView' }

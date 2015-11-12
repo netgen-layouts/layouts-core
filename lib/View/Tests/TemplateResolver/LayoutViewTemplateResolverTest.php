@@ -45,9 +45,7 @@ class LayoutViewTemplateResolverTest extends PHPUnit_Framework_TestCase
         $layoutViewTemplateResolver = new LayoutViewTemplateResolver(
             array(
                 '3_zones_a' => array(
-                    'templates' => array(
-                        'api' => 'some_template.html.twig',
-                    ),
+                    'api' => 'some_template.html.twig',
                 ),
             )
         );

@@ -39,7 +39,7 @@ class LayoutViewTemplateResolver implements ViewTemplateResolver
         $layoutIdentifier = $layout->getIdentifier();
         $context = $view->getContext();
 
-        if (empty($this->config[$layoutIdentifier]['templates'][$context])) {
+        if (empty($this->config[$layoutIdentifier][$context])) {
             throw new InvalidArgumentException(
                 sprintf(
                     'No template could be found for layout with identifier "%s"',
@@ -49,7 +49,7 @@ class LayoutViewTemplateResolver implements ViewTemplateResolver
             );
         }
 
-        return $this->config[$layoutIdentifier]['templates'][$context];
+        return $this->config[$layoutIdentifier][$context];
     }
 
     /**

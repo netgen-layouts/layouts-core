@@ -13,3 +13,8 @@ parameters:
             templates:
                 view: 'NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig'
                 api: 'NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig'
+
+    netgen_block_manager.default.layout_templates:
+        3_zones_a:
+            view: 'NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig'
+            api: 'NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig'
