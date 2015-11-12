@@ -40,7 +40,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
         $viewType = $block->getViewType();
         $context = $view->getContext();
 
-        if (empty($this->config[$definitionIdentifier]['templates'][$viewType][$context])) {
+        if (empty($this->config[$definitionIdentifier][$viewType][$context])) {
             throw new InvalidArgumentException(
                 sprintf(
                     'No template could be found for block with "%s" identifier and "%s" view.',
@@ -50,7 +50,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
             );
         }
 
-        return $this->config[$definitionIdentifier]['templates'][$viewType][$context];
+        return $this->config[$definitionIdentifier][$viewType][$context];
     }
 
     /**

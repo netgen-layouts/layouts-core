@@ -2,22 +2,24 @@ parameters:
     netgen_block_manager.default.blocks:
         title:
             name: 'Title'
-            templates:
-                default:
-                    view: 'NetgenBlockManagerBundle:block/title:default.html.twig'
-                    api: 'NetgenBlockManagerBundle:block/title:default.html.twig'
-                small:
-                    view: 'NetgenBlockManagerBundle:block/title:small.html.twig'
-                    api: 'NetgenBlockManagerBundle:block/title:small.html.twig'
         paragraph:
             name: 'Paragraph'
-            templates:
-                default:
-                    view: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
-                    api: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
-                small:
-                    view: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
-                    api: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
+
+    netgen_block_manager.default.block_templates:
+        title:
+            default:
+                view: 'NetgenBlockManagerBundle:block/title:default.html.twig'
+                api: 'NetgenBlockManagerBundle:block/title:default.html.twig'
+            small:
+                view: 'NetgenBlockManagerBundle:block/title:small.html.twig'
+                api: 'NetgenBlockManagerBundle:block/title:small.html.twig'
+        paragraph:
+            default:
+                view: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
+                api: 'NetgenBlockManagerBundle:block/paragraph:default.html.twig'
+            small:
+                view: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
+                api: 'NetgenBlockManagerBundle:block/paragraph:small.html.twig'
 
     netgen_block_manager.default.block_groups:
         simple_blocks:

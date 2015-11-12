@@ -45,9 +45,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
         $blockViewTemplateProvider = new BlockViewTemplateProvider(
             array(
                 'paragraph' => array(
-                    'templates' => array(
-                        'default' => array(),
-                    ),
+                    'default' => array(),
                 ),
             )
         );
@@ -64,10 +62,8 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
         $blockViewTemplateProvider = new BlockViewTemplateProvider(
             array(
                 'paragraph' => array(
-                    'templates' => array(
-                        'default' => array(
-                            'api' => 'some_template.html.twig',
-                        ),
+                    'default' => array(
+                        'api' => 'some_template.html.twig',
                     ),
                 ),
             )

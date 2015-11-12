@@ -6,7 +6,7 @@ services:
     netgen_block_manager.view.template_provider.block:
         class: %netgen_block_manager.view.template_provider.block.class%
         arguments:
-            - %netgen_block_manager.default.blocks%
+            - %netgen_block_manager.default.block_templates%
         tags:
             - { name: netgen_block_manager.view.template_provider, type: 'Netgen\BlockManager\View\BlockView' }
 
