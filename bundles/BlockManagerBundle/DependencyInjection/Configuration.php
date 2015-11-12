@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -15,12 +16,44 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+
         $rootNode = $treeBuilder->root('netgen_block_manager');
+        $children = $rootNode->children();
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $this->addTemplateResolverNode($children, 'block_view');
+        $this->addTemplateResolverNode($children, 'layout_view');
 
+        $children->end();
         return $treeBuilder;
+    }
+
+    /**
+     * Adds semantic configuration for template resolvers
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
+     * @param string $nodeName
+     */
+    public function addTemplateResolverNode(NodeBuilder $nodeBuilder, $nodeName)
+    {
+        $nodeBuilder
+            ->arrayNode($nodeName)
+                ->requiresAtLeastOneElement()
+                ->prototype('array')
+                    ->requiresAtLeastOneElement()
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('template')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->arrayNode('match')
+                                ->isRequired()
+                                ->prototype('scalar')
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }

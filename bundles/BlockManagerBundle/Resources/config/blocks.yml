@@ -11,33 +11,3 @@ parameters:
         simple_blocks:
             name: 'Simple blocks'
             blocks: [paragraph, title]
-
-    netgen_block_manager.default.block_view:
-        view:
-            title_small:
-                template: NetgenBlockManagerBundle:block/title:small.html.twig
-                match:
-                    definition_identifier: title
-                    view_type: small
-            title:
-                template: NetgenBlockManagerBundle:block/title:default.html.twig
-                match:
-                    definition_identifier: title
-            paragraph_small:
-                template: NetgenBlockManagerBundle:block/paragraph:small.html.twig
-                match:
-                    definition_identifier: paragraph
-                    view_type: small
-            paragraph:
-                template: NetgenBlockManagerBundle:block/paragraph:default.html.twig
-                match:
-                    definition_identifier: paragraph
-        api:
-            title:
-                template: NetgenBlockManagerBundle:block/title:default.html.twig
-                match:
-                    definition_identifier: title
-            paragraph:
-                template: NetgenBlockManagerBundle:block/paragraph:default.html.twig
-                match:
-                    definition_identifier: paragraph

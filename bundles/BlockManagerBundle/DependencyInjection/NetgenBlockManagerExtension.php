@@ -7,6 +7,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Yaml\Yaml;
 
 class NetgenBlockManagerExtension extends Extension implements PrependExtensionInterface
 {
@@ -42,6 +44,9 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services.yml');
 
         $loader->load('api.yml');
+
+        $container->setParameter('netgen_block_manager.block_view', $config['block_view']);
+        $container->setParameter('netgen_block_manager.layout_view', $config['layout_view']);
     }
 
     /**
@@ -58,5 +63,15 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         );
 
         $container->prependExtensionConfig('framework', $config);
+
+        $configFile = __DIR__ . '/../Resources/config/view/block_view.yml';
+        $config = Yaml::parse(file_get_contents($configFile));
+        $container->prependExtensionConfig('netgen_block_manager', $config);
+        $container->addResource(new FileResource($configFile));
+
+        $configFile = __DIR__ . '/../Resources/config/view/layout_view.yml';
+        $config = Yaml::parse(file_get_contents($configFile));
+        $container->prependExtensionConfig('netgen_block_manager', $config);
+        $container->addResource(new FileResource($configFile));
     }
 }
