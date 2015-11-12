@@ -1,48 +1,48 @@
 <?php
 
-namespace Netgen\BlockManager\View\Tests\TemplateProvider;
+namespace Netgen\BlockManager\View\Tests\TemplateResolver;
 
-use Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider;
+use Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\View\Tests\Stubs\View;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\LayoutView;
 use PHPUnit_Framework_TestCase;
 
-class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
+class BlockViewTemplateResolverTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoBlockDefinition()
+    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoBlockDefinition()
     {
-        $blockViewTemplateProvider = new BlockViewTemplateProvider();
-        $blockViewTemplateProvider->provideTemplate($this->getBlockView());
+        $blockViewTemplateResolver = new BlockViewTemplateResolver();
+        $blockViewTemplateResolver->resolveTemplate($this->getBlockView());
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoViewType()
+    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoViewType()
     {
-        $blockViewTemplateProvider = new BlockViewTemplateProvider(
+        $blockViewTemplateResolver = new BlockViewTemplateResolver(
             array(
                 'paragraph' => array(),
             )
         );
 
-        $blockViewTemplateProvider->provideTemplate($this->getBlockView());
+        $blockViewTemplateResolver->resolveTemplate($this->getBlockView());
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoContext()
+    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoContext()
     {
-        $blockViewTemplateProvider = new BlockViewTemplateProvider(
+        $blockViewTemplateResolver = new BlockViewTemplateResolver(
             array(
                 'paragraph' => array(
                     'default' => array(),
@@ -50,16 +50,16 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $blockViewTemplateProvider->provideTemplate($this->getBlockView());
+        $blockViewTemplateResolver->resolveTemplate($this->getBlockView());
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::__construct
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver::resolveTemplate
      */
-    public function testProvideTemplate()
+    public function testResolveTemplate()
     {
-        $blockViewTemplateProvider = new BlockViewTemplateProvider(
+        $blockViewTemplateResolver = new BlockViewTemplateResolver(
             array(
                 'paragraph' => array(
                     'default' => array(
@@ -69,7 +69,7 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $template = $blockViewTemplateProvider->provideTemplate($this->getBlockView());
+        $template = $blockViewTemplateResolver->resolveTemplate($this->getBlockView());
         self::assertEquals('some_template.html.twig', $template);
     }
 
@@ -77,12 +77,12 @@ class BlockViewTemplateProviderTest extends PHPUnit_Framework_TestCase
      * @param \Netgen\BlockManager\View\ViewInterface $view
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\TemplateProvider\BlockViewTemplateProvider::supports
+     * @covers \Netgen\BlockManager\View\TemplateResolver\BlockViewTemplateResolver::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($view, $supports)
     {
-        $blockViewProvider = new BlockViewTemplateProvider();
+        $blockViewProvider = new BlockViewTemplateResolver();
         self::assertEquals($supports, $blockViewProvider->supports($view));
     }
 

@@ -1,22 +1,22 @@
 <?php
 
-namespace Netgen\BlockManager\View\TemplateProvider;
+namespace Netgen\BlockManager\View\TemplateResolver;
 
 use Netgen\BlockManager\View\ViewInterface;
 
-interface ViewTemplateProvider
+interface ViewTemplateResolver
 {
     /**
-     * Provides a template for the view.
+     * Resolves a view template.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
      * @return string
      */
-    public function provideTemplate(ViewInterface $view);
+    public function resolveTemplate(ViewInterface $view);
 
     /**
-     * Returns if this view template provider supports the given view.
+     * Returns if this template resolver supports the given view.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *

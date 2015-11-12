@@ -6,7 +6,7 @@ services:
     netgen_block_manager.view.builder:
         class: %netgen_block_manager.view.builder.class%
         arguments:
-            - @netgen_block_manager.registry.view_template_provider
+            - @netgen_block_manager.registry.view_template_resolver
             - []
 
     netgen_block_manager.view.renderer:

@@ -41,19 +41,19 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewTemplateProvider = $this->getMock('Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider');
-        $viewTemplateProvider
+        $viewTemplateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver');
+        $viewTemplateResolver
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($view))
             ->will($this->returnValue(true));
-        $viewTemplateProvider
+        $viewTemplateResolver
             ->expects($this->once())
-            ->method('provideTemplate')
+            ->method('resolveTemplate')
             ->with($this->equalTo($view))
             ->will($this->returnValue('some_template.html.twig'));
 
-        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateProvider));
+        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateResolver));
         self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
     }
 
@@ -87,14 +87,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewTemplateProvider = $this->getMock('Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider');
-        $viewTemplateProvider
+        $viewTemplateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver');
+        $viewTemplateResolver
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($view))
             ->will($this->returnValue(false));
 
-        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateProvider));
+        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateResolver));
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
     }
 
@@ -122,9 +122,9 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $viewTemplateProvider = $this->getMock('Netgen\BlockManager\View\TemplateProvider\ViewTemplateProvider');
+        $viewTemplateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\ViewTemplateResolver');
 
-        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateProvider));
+        $viewBuilder = new ViewBuilder($viewProviders, array($viewTemplateResolver));
         $viewBuilder->buildView($value, array(), 'api');
     }
 }

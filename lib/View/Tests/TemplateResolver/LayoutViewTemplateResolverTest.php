@@ -1,48 +1,48 @@
 <?php
 
-namespace Netgen\BlockManager\View\Tests\TemplateProvider;
+namespace Netgen\BlockManager\View\Tests\TemplateResolver;
 
-use Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider;
+use Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\Tests\Stubs\View;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\LayoutView;
 use PHPUnit_Framework_TestCase;
 
-class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
+class LayoutViewTemplateResolverTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoLayoutIdentifier()
+    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoLayoutIdentifier()
     {
-        $layoutViewTemplateProvider = new LayoutViewTemplateProvider();
-        $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
+        $layoutViewTemplateResolver = new LayoutViewTemplateResolver();
+        $layoutViewTemplateResolver->resolveTemplate($this->getLayoutView());
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
-    public function testProvideTemplateThrowsInvalidArgumentExceptionIfNoContext()
+    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoContext()
     {
-        $layoutViewTemplateProvider = new LayoutViewTemplateProvider(
+        $layoutViewTemplateResolver = new LayoutViewTemplateResolver(
             array(
                 '3_zones_a' => array(),
             )
         );
 
-        $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
+        $layoutViewTemplateResolver->resolveTemplate($this->getLayoutView());
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::__construct
-     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::provideTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver::resolveTemplate
      */
-    public function testProvideTemplate()
+    public function testResolveTemplate()
     {
-        $layoutViewTemplateProvider = new LayoutViewTemplateProvider(
+        $layoutViewTemplateResolver = new LayoutViewTemplateResolver(
             array(
                 '3_zones_a' => array(
                     'templates' => array(
@@ -52,7 +52,7 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $template = $layoutViewTemplateProvider->provideTemplate($this->getLayoutView());
+        $template = $layoutViewTemplateResolver->resolveTemplate($this->getLayoutView());
         self::assertEquals('some_template.html.twig', $template);
     }
 
@@ -60,13 +60,13 @@ class LayoutViewTemplateProviderTest extends PHPUnit_Framework_TestCase
      * @param \Netgen\BlockManager\View\ViewInterface $view
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\TemplateProvider\LayoutViewTemplateProvider::supports
+     * @covers \Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($view, $supports)
     {
-        $layoutViewTemplateProvider = new LayoutViewTemplateProvider();
-        self::assertEquals($supports, $layoutViewTemplateProvider->supports($view));
+        $layoutViewTemplateResolver = new LayoutViewTemplateResolver();
+        self::assertEquals($supports, $layoutViewTemplateResolver->supports($view));
     }
 
     /**

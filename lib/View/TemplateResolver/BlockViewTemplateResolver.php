@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\View\TemplateProvider;
+namespace Netgen\BlockManager\View\TemplateResolver;
 
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\BlockView;
 use InvalidArgumentException;
 
-class BlockViewTemplateProvider implements ViewTemplateProvider
+class BlockViewTemplateResolver implements ViewTemplateResolver
 {
     /**
      * @var array
@@ -24,7 +24,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
     }
 
     /**
-     * Provides a template for the view.
+     * Resolves a view template.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
@@ -32,7 +32,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
      *
      * @return string
      */
-    public function provideTemplate(ViewInterface $view)
+    public function resolveTemplate(ViewInterface $view)
     {
         /** @var \Netgen\BlockManager\View\BlockViewInterface $view */
         $block = $view->getBlock();
@@ -54,7 +54,7 @@ class BlockViewTemplateProvider implements ViewTemplateProvider
     }
 
     /**
-     * Returns if this view template provider supports the given view.
+     * Returns if this template resolver supports the given view.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *

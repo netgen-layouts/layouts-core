@@ -30,14 +30,14 @@ class ViewBuilderPass implements CompilerPassInterface
             $viewProviders[] = new Reference($serviceName);
         }
 
-        $viewTemplateProviderServices = $container->findTaggedServiceIds('netgen_block_manager.view.template_provider');
-        $viewTemplateProviders = array();
+        $viewTemplateResolverServices = $container->findTaggedServiceIds('netgen_block_manager.view.template_resolver');
+        $viewTemplateResolvers = array();
 
-        foreach ($viewTemplateProviderServices as $serviceName => $tag) {
-            $viewTemplateProviders[] = new Reference($serviceName);
+        foreach ($viewTemplateResolverServices as $serviceName => $tag) {
+            $viewTemplateResolvers[] = new Reference($serviceName);
         }
 
         $viewBuilder->replaceArgument(0, $viewProviders);
-        $viewBuilder->replaceArgument(1, $viewTemplateProviders);
+        $viewBuilder->replaceArgument(1, $viewTemplateResolvers);
     }
 }
