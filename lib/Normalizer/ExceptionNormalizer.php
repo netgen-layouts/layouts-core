@@ -10,6 +10,21 @@ use Exception;
 class ExceptionNormalizer implements NormalizerInterface
 {
     /**
+     * @var bool
+     */
+    protected $outputDebugInfo = false;
+
+    /**
+     * Sets if the normalizer should output debugging information.
+     *
+     * @param bool $outputDebugInfo
+     */
+    public function setOutputDebugInfo($outputDebugInfo = false)
+    {
+        $this->outputDebugInfo = (bool)$outputDebugInfo;
+    }
+
+    /**
      * Normalizes an object into a set of arrays/scalars.
      *
      * @param \Exception $object
@@ -31,6 +46,14 @@ class ExceptionNormalizer implements NormalizerInterface
                 $data['status_code'] = $statusCode;
                 $data['status_text'] = Response::$statusTexts[$statusCode];
             }
+        }
+
+        if ($this->outputDebugInfo) {
+            $data['debug'] = array(
+                'file' => $object->getFile(),
+                'line' => $object->getLine(),
+                'trace' => $object->getTraceAsString(),
+            );
         }
 
         return $data;

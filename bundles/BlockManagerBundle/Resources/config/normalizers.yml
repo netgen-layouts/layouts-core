@@ -39,5 +39,7 @@ services:
 
     netgen_block_manager.normalizer.exception:
         class: %netgen_block_manager.normalizer.exception.class%
+        calls:
+            - [setOutputDebugInfo, [%kernel.debug%]]
         tags:
             - { name: serializer.normalizer }

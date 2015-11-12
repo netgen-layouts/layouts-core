@@ -32,6 +32,32 @@ class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::normalize
      */
+    public function testNormalizeWithDebugOutput()
+    {
+        $exceptionNormalizer = new ExceptionNormalizer();
+        $exceptionNormalizer->setOutputDebugInfo(true);
+
+        $exception = new Exception('Exception message', 123);
+        $data = $exceptionNormalizer->normalize($exception);
+
+        self::assertInternalType('array', $data);
+        self::assertArrayHasKey('code', $data);
+        self::assertArrayHasKey('message', $data);
+        self::assertArrayHasKey('debug', $data);
+        self::assertArrayHasKey('line', $data['debug']);
+        self::assertArrayHasKey('file', $data['debug']);
+        self::assertArrayHasKey('trace', $data['debug']);
+
+        self::assertEquals($exception->getCode(), $data['code']);
+        self::assertEquals($exception->getMessage(), $data['message']);
+        self::assertEquals(__FILE__, $data['debug']['file']);
+        self::assertGreaterThan(0, $data['debug']['line']);
+        self::assertNotEmpty($data['debug']['trace']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::normalize
+     */
     public function testNormalizeHttpException()
     {
         $exceptionNormalizer = new ExceptionNormalizer();
