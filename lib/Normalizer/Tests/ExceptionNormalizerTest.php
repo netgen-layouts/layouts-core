@@ -31,6 +31,7 @@ class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::setOutputDebugInfo
      */
     public function testNormalizeWithDebugOutput()
     {
