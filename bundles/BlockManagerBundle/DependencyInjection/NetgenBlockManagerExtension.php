@@ -22,7 +22,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
+        $extensionAlias = $this->getAlias();
+        $configuration = new Configuration($extensionAlias);
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -45,8 +46,14 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $loader->load('api.yml');
 
-        $container->setParameter('netgen_block_manager.block_view', $config['block_view']);
-        $container->setParameter('netgen_block_manager.layout_view', $config['layout_view']);
+        foreach ($config as $key => $value) {
+            $container->setParameter($extensionAlias . '.' . $key, $value);
+        }
+
+        $container->setParameter(
+            $extensionAlias . '.available_configurations',
+            array_keys($config)
+        );
     }
 
     /**
@@ -64,14 +71,16 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $container->prependExtensionConfig('framework', $config);
 
+        $extensionAlias = $this->getAlias();
+
         $configFile = __DIR__ . '/../Resources/config/view/block_view.yml';
         $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig('netgen_block_manager', $config);
+        $container->prependExtensionConfig($extensionAlias, $config);
         $container->addResource(new FileResource($configFile));
 
         $configFile = __DIR__ . '/../Resources/config/view/layout_view.yml';
         $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig('netgen_block_manager', $config);
+        $container->prependExtensionConfig($extensionAlias, $config);
         $container->addResource(new FileResource($configFile));
     }
 }

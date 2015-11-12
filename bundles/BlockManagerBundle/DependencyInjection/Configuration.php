@@ -9,6 +9,21 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
+     * @var string
+     */
+    protected $alias;
+
+    /**
+     * Constructor.
+     *
+     * @param string $alias
+     */
+    public function __construct($alias)
+    {
+        $this->alias = $alias;
+    }
+
+    /**
      * Generates the configuration tree builder.
      *
      * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
@@ -17,14 +32,24 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
-        $rootNode = $treeBuilder->root('netgen_block_manager');
+        $rootNode = $treeBuilder->root($this->alias);
         $children = $rootNode->children();
 
-        $this->addTemplateResolverNode($children, 'block_view');
-        $this->addTemplateResolverNode($children, 'layout_view');
+        $this->addConfiguration($children);
 
         $children->end();
         return $treeBuilder;
+    }
+
+    /**
+     * Adds various semantic configuration for the bundle
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
+     */
+    public function addConfiguration(NodeBuilder $nodeBuilder)
+    {
+        $this->addTemplateResolverNode($nodeBuilder, 'block_view');
+        $this->addTemplateResolverNode($nodeBuilder, 'layout_view');
     }
 
     /**
@@ -33,7 +58,7 @@ class Configuration implements ConfigurationInterface
      * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
      * @param string $nodeName
      */
-    public function addTemplateResolverNode(NodeBuilder $nodeBuilder, $nodeName)
+    protected function addTemplateResolverNode(NodeBuilder $nodeBuilder, $nodeName)
     {
         $nodeBuilder
             ->arrayNode($nodeName)
