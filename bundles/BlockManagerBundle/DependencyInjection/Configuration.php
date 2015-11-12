@@ -38,7 +38,9 @@ class Configuration implements ConfigurationInterface
         $nodeBuilder
             ->arrayNode($nodeName)
                 ->requiresAtLeastOneElement()
+                ->useAttributeAsKey('name')
                 ->prototype('array')
+                    ->useAttributeAsKey('name')
                     ->requiresAtLeastOneElement()
                     ->prototype('array')
                         ->children()
