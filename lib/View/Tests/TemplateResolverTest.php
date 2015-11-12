@@ -144,6 +144,35 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @expectedException \InvalidArgumentException
+     */
+    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatcherInterface()
+    {
+        $view = $this->getView();
+
+        $matcherMock = $this->getMock('DateTime');
+
+        $templateResolver = new TemplateResolver(
+            array(
+                'definition_identifier' => $matcherMock
+            ),
+            array(
+                'api' => array(
+                    'title' => array(
+                        'match' => array(
+                            'definition_identifier' => 'title'
+                        )
+                    )
+                )
+            )
+        );
+
+        $templateResolver->resolveTemplate($view);
+    }
+
+    /**
      * Returns the view used for testing.
      *
      * @return \Netgen\BlockManager\View\ViewInterface

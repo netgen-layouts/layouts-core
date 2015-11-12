@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\View;
 
 use InvalidArgumentException;
+use Netgen\BlockManager\View\Matcher\MatcherInterface;
 
 class TemplateResolver implements TemplateResolverInterface
 {
@@ -88,6 +89,15 @@ class TemplateResolver implements TemplateResolverInterface
                 throw new InvalidArgumentException(
                     sprintf(
                         'No matcher could be found with identifier "%s"',
+                        $matcher
+                    )
+                );
+            }
+
+            if (!$this->matchers[$matcher] instanceof MatcherInterface) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        'Matcher %s needs to implement MatcherInterface',
                         $matcher
                     )
                 );
