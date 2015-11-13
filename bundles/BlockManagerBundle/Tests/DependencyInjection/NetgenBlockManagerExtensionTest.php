@@ -16,7 +16,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions()
     {
         return array(
-            new NetgenBlockManagerExtension()
+            new NetgenBlockManagerExtension(),
         );
     }
 

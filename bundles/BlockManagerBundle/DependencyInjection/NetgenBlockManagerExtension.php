@@ -29,7 +29,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected $postProcessors = array();
 
     /**
-     * Adds the config tree builder closure
+     * Adds the config tree builder closure.
      *
      * @param \Closure $configTreeBuilder
      */
@@ -39,7 +39,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     }
 
     /**
-     * Adds the config preprocessor closure
+     * Adds the config preprocessor closure.
      *
      * @param \Closure $preProcessor
      */
@@ -49,7 +49,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     }
 
     /**
-     * Adds the config post processor closure
+     * Adds the config post processor closure.
      *
      * @param \Closure $postProcessor
      */
@@ -107,7 +107,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'blocks.yml',
             'block_groups.yml',
             'view/block_view.yml',
-            'view/layout_view.yml'
+            'view/layout_view.yml',
         );
 
         foreach ($prependConfigs as $prependConfig) {
@@ -119,7 +119,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     }
 
     /**
-     * Loads configuration from various YAML files
+     * Loads configuration from various YAML files.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */

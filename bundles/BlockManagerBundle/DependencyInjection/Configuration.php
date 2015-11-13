@@ -66,7 +66,7 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getBlocksNodeDefinition(),
             $this->getBlockGroupsNodeDefinition(),
-            $this->getPageLayoutNodeDefinition()
+            $this->getPageLayoutNodeDefinition(),
         );
     }
 

@@ -16,12 +16,12 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
     protected function getContainerExtensions()
     {
         return array(
-            new NetgenBlockManagerExtension()
+            new NetgenBlockManagerExtension(),
         );
     }
 
     /**
-     * Returns minimal working configuration for the extension
+     * Returns minimal working configuration for the extension.
      */
     protected function getMinimalConfiguration()
     {
@@ -29,9 +29,9 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
             'blocks' => array(
                 'block' => array(
                     'name' => 'block',
-                    'view_types' => array('small', 'large')
-                )
-            )
+                    'view_types' => array('small', 'large'),
+                ),
+            ),
         );
     }
 
@@ -48,9 +48,9 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
             'blocks' => array(
                 'block' => array(
                     'name' => 'block',
-                    'view_types' => array('title', 'title_with_image')
-                )
-            )
+                    'view_types' => array('title', 'title_with_image'),
+                ),
+            ),
         );
 
         $this->load($config);
@@ -60,8 +60,8 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
             array(
                 'block' => array(
                     'name' => 'block',
-                    'view_types' => array('title', 'title_with_image')
-                )
+                    'view_types' => array('title', 'title_with_image'),
+                ),
             )
         );
     }
