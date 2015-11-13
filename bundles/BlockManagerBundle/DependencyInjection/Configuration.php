@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -40,103 +39,121 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root($this->alias);
         $children = $rootNode->children();
 
-        $this->addConfiguration($children);
-        $this->addPageLayoutNode($children);
+        foreach($this->getAvailableNodeDefinitions() as $nodeDefinition) {
+            $children->append($nodeDefinition);
+        }
+
+        $children->append($this->getPageLayoutNodeDefinition());
 
         $children->end();
         return $treeBuilder;
     }
 
     /**
-     * Adds various semantic configuration for the bundle
+     * Returns various semantic configuration for the bundle
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition[]
      */
-    public function addConfiguration(NodeBuilder $nodeBuilder)
+    public function getAvailableNodeDefinitions()
     {
-        $this->addTemplateResolverNode($nodeBuilder, 'block_view');
-        $this->addTemplateResolverNode($nodeBuilder, 'layout_view');
-        $this->addBlocksNode($nodeBuilder);
+        return array(
+            $this->getTemplateResolverNodeDefinition('block_view'),
+            $this->getTemplateResolverNodeDefinition('layout_view'),
+            $this->getBlocksNodeDefinition(),
+        );
     }
 
     /**
-     * Adds semantic configuration for template resolvers
+     * Returns node definition for template resolvers
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
      * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function addTemplateResolverNode(NodeBuilder $nodeBuilder, $nodeName)
+    protected function getTemplateResolverNodeDefinition($nodeName)
     {
         $this->availableParameters[] = $nodeName;
 
-        $nodeBuilder
-            ->arrayNode($nodeName)
-                ->requiresAtLeastOneElement()
-                ->useAttributeAsKey('context')
-                ->prototype('array')
-                    ->useAttributeAsKey('config')
-                    ->requiresAtLeastOneElement()
-                    ->prototype('array')
-                        ->children()
-                            ->scalarNode('template')
-                                ->isRequired()
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->arrayNode('match')
-                                ->isRequired()
-                                ->prototype('scalar')
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName);
 
-    /**
-     * Adds semantic configuration for blocks
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
-     * @param string $nodeName
-     */
-    protected function addBlocksNode(NodeBuilder $nodeBuilder, $nodeName = 'blocks')
-    {
-        $this->availableParameters[] = $nodeName;
-
-        $nodeBuilder
-            ->arrayNode($nodeName)
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('context')
+            ->prototype('array')
+                ->useAttributeAsKey('config')
                 ->requiresAtLeastOneElement()
-                ->useAttributeAsKey('identifier')
                 ->prototype('array')
                     ->children()
-                        ->scalarNode('name')
+                        ->scalarNode('template')
                             ->isRequired()
                             ->cannotBeEmpty()
                         ->end()
-                        ->arrayNode('view_types')
-                            ->performNoDeepMerging()
-                            ->defaultValue(array('default'))
+                        ->arrayNode('match')
+                            ->isRequired()
                             ->prototype('scalar')
-                                ->cannotBeEmpty()
                             ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end();
+
+        return $node;
     }
 
     /**
-     * Adds the pagelayout semantic config for the bundle
+     * Returns node definition for blocks
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
+     * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function addPageLayoutNode(NodeBuilder $nodeBuilder)
+    protected function getBlocksNodeDefinition($nodeName = 'blocks')
     {
-        $nodeBuilder
-            ->scalarNode('pagelayout')
-                ->defaultValue('NetgenBlockManagerBundle::pagelayout_empty.html.twig')
-                ->cannotBeEmpty()
+        $this->availableParameters[] = $nodeName;
+
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName);
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('identifier')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->arrayNode('view_types')
+                        ->performNoDeepMerging()
+                        ->defaultValue(array('default'))
+                        ->prototype('scalar')
+                            ->cannotBeEmpty()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for pagelayout
+     *
+     * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+     */
+    protected function getPageLayoutNodeDefinition($nodeName = 'pagelayout')
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName, 'scalar');
+
+        $node
+            ->defaultValue('NetgenBlockManagerBundle::pagelayout_empty.html.twig')
+            ->cannotBeEmpty();
+
+        return $node;
     }
 
     /**
