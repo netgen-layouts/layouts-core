@@ -60,6 +60,7 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('block_view'),
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getBlocksNodeDefinition(),
+            $this->getBlockGroupsNodeDefinition(),
         );
     }
 
@@ -127,6 +128,46 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('view_types')
                         ->performNoDeepMerging()
                         ->defaultValue(array('default'))
+                        ->prototype('scalar')
+                            ->cannotBeEmpty()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for blocks
+     *
+     * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    protected function getBlockGroupsNodeDefinition($nodeName = 'block_groups')
+    {
+        $this->availableParameters[] = $nodeName;
+
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName);
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('identifier')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->arrayNode('blocks')
+                        ->validate()
+                            ->always(function($v) {
+                                return array_values(array_unique($v));
+                            })
+                        ->end()
+                        ->requiresAtLeastOneElement()
                         ->prototype('scalar')
                             ->cannotBeEmpty()
                         ->end()

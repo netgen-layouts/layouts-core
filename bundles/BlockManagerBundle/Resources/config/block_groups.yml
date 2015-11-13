@@ -1,5 +1,4 @@
-parameters:
-    netgen_block_manager.default.block_groups:
-        simple_blocks:
-            name: 'Simple blocks'
-            blocks: [paragraph, title]
+block_groups:
+    simple_blocks:
+        name: 'Simple blocks'
+        blocks: [paragraph, title]
