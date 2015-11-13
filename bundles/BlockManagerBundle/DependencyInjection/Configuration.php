@@ -39,18 +39,19 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root($this->alias);
         $children = $rootNode->children();
 
-        foreach($this->getAvailableNodeDefinitions() as $nodeDefinition) {
+        foreach ($this->getAvailableNodeDefinitions() as $nodeDefinition) {
             $children->append($nodeDefinition);
         }
 
         $children->append($this->getPageLayoutNodeDefinition());
 
         $children->end();
+
         return $treeBuilder;
     }
 
     /**
-     * Returns various semantic configuration for the bundle
+     * Returns various semantic configuration for the bundle.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition[]
      */
@@ -65,7 +66,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns node definition for template resolvers
+     * Returns node definition for template resolvers.
      *
      * @param string $nodeName
      *
@@ -103,7 +104,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns node definition for blocks
+     * Returns node definition for blocks.
      *
      * @param string $nodeName
      *
@@ -127,7 +128,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('view_types')
                         ->validate()
-                            ->always(function($v) {
+                            ->always(function ($v) {
                                 return array_values(array_unique($v));
                             })
                         ->end()
@@ -144,7 +145,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns node definition for blocks
+     * Returns node definition for blocks.
      *
      * @param string $nodeName
      *
@@ -168,7 +169,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('blocks')
                         ->validate()
-                            ->always(function($v) {
+                            ->always(function ($v) {
                                 return array_values(array_unique($v));
                             })
                         ->end()
@@ -184,7 +185,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns node definition for pagelayout
+     * Returns node definition for pagelayout.
      *
      * @param string $nodeName
      *
@@ -206,7 +207,7 @@ class Configuration implements ConfigurationInterface
      * Returns parameters which are allowed to be used by other bundles when
      * building their semantic configuration. Useful for eZ Publish Block Manager
      * bundle, which uses this semantic config as a base for config resolver based
-     * semantic config
+     * semantic config.
      *
      * @return array
      */

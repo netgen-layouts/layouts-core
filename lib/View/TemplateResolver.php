@@ -75,7 +75,7 @@ class TemplateResolver implements TemplateResolverInterface
     }
 
     /**
-     * Matches the view to provided config with configured matchers
+     * Matches the view to provided config with configured matchers.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      * @param array $matchConfig

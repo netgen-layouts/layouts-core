@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\View\ViewInterface;
-
 interface TemplateResolverInterface
 {
     /**

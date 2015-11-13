@@ -25,7 +25,7 @@ class DefinitionIdentifierTest extends PHPUnit_Framework_TestCase
 
         $block = new Block(
             array(
-                'definitionIdentifier' => 'paragraph'
+                'definitionIdentifier' => 'paragraph',
             )
         );
 
@@ -36,7 +36,7 @@ class DefinitionIdentifierTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provider for {@link self::testMatch}
+     * Provider for {@link self::testMatch}.
      *
      * @return array
      */
@@ -47,7 +47,7 @@ class DefinitionIdentifierTest extends PHPUnit_Framework_TestCase
             array(array('title'), false),
             array(array('paragraph'), true),
             array(array('title', 'title_2'), false),
-            array(array('title', 'paragraph'), true)
+            array(array('title', 'paragraph'), true),
         );
     }
 

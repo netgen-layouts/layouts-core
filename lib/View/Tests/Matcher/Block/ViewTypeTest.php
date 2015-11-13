@@ -25,7 +25,7 @@ class ViewTypeTest extends PHPUnit_Framework_TestCase
 
         $block = new Block(
             array(
-                'viewType' => 'default'
+                'viewType' => 'default',
             )
         );
 
@@ -36,7 +36,7 @@ class ViewTypeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provider for {@link self::testMatch}
+     * Provider for {@link self::testMatch}.
      *
      * @return array
      */
@@ -47,7 +47,7 @@ class ViewTypeTest extends PHPUnit_Framework_TestCase
             array(array('small'), false),
             array(array('default'), true),
             array(array('small', 'large'), false),
-            array(array('small', 'default'), true)
+            array(array('small', 'default'), true),
         );
     }
 

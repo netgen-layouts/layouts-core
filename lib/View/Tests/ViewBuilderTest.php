@@ -51,7 +51,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewBuilder = new ViewBuilder(
             $viewProviders,
             array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
             )
         );
         self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
@@ -126,7 +126,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewBuilder = new ViewBuilder(
             $viewProviders,
             array(
-                'Some\Class' => $templateResolver
+                'Some\Class' => $templateResolver,
             )
         );
 
@@ -169,7 +169,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewBuilder = new ViewBuilder(
             $viewProviders,
             array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
             )
         );
 
@@ -205,7 +205,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewBuilder = new ViewBuilder(
             $viewProviders,
             array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
             )
         );
 

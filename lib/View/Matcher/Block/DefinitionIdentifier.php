@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\ViewInterface;
 class DefinitionIdentifier extends Matcher
 {
     /**
-     * Returns if the view matches the config
+     * Returns if the view matches the config.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *

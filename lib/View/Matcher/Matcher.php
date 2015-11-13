@@ -10,7 +10,7 @@ abstract class Matcher implements MatcherInterface
     protected $config;
 
     /**
-     * Sets the config to match against
+     * Sets the config to match against.
      *
      * @param array $config
      */

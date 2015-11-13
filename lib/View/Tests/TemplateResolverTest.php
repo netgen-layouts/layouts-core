@@ -31,17 +31,17 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(
-                'definition_identifier' => $matcherMock
+                'definition_identifier' => $matcherMock,
             ),
             array(
                 'api' => array(
                     'paragraph' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(
-                            'definition_identifier' => 'paragraph'
-                        )
-                    )
-                )
+                            'definition_identifier' => 'paragraph',
+                        ),
+                    ),
+                ),
             )
         );
 
@@ -63,9 +63,9 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
                 'api' => array(
                     'paragraph' => array(
                         'template' => 'some_template.html.twig',
-                        'match' => array()
-                    )
-                )
+                        'match' => array(),
+                    ),
+                ),
             )
         );
 
@@ -104,16 +104,16 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(
-                'definition_identifier' => $matcherMock
+                'definition_identifier' => $matcherMock,
             ),
             array(
                 'api' => array(
                     'title' => array(
                         'match' => array(
-                            'definition_identifier' => 'title'
-                        )
-                    )
-                )
+                            'definition_identifier' => 'title',
+                        ),
+                    ),
+                ),
             )
         );
 
@@ -133,10 +133,10 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
                 'api' => array(
                     'title' => array(
                         'match' => array(
-                            'definition_identifier' => 'title'
-                        )
-                    )
-                )
+                            'definition_identifier' => 'title',
+                        ),
+                    ),
+                ),
             )
         );
 
@@ -156,16 +156,16 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(
-                'definition_identifier' => $matcherMock
+                'definition_identifier' => $matcherMock,
             ),
             array(
                 'api' => array(
                     'title' => array(
                         'match' => array(
-                            'definition_identifier' => 'title'
-                        )
-                    )
-                )
+                            'definition_identifier' => 'title',
+                        ),
+                    ),
+                ),
             )
         );
 
@@ -181,7 +181,7 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     {
         $block = new Block(
             array(
-                'definitionIdentifier' => 'paragraph'
+                'definitionIdentifier' => 'paragraph',
             )
         );
 

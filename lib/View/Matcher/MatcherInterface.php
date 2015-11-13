@@ -7,7 +7,7 @@ use Netgen\BlockManager\View\ViewInterface;
 interface MatcherInterface
 {
     /**
-     * Returns if the view matches the config
+     * Returns if the view matches the config.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
@@ -16,7 +16,7 @@ interface MatcherInterface
     public function match(ViewInterface $view);
 
     /**
-     * Sets the config to match against
+     * Sets the config to match against.
      *
      * @param array $config
      */

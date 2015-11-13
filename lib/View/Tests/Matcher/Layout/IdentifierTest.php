@@ -25,7 +25,7 @@ class IdentifierTest extends PHPUnit_Framework_TestCase
 
         $layout = new Layout(
             array(
-                'identifier' => '3_zones_a'
+                'identifier' => '3_zones_a',
             )
         );
 
@@ -36,7 +36,7 @@ class IdentifierTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provider for {@link self::testMatch}
+     * Provider for {@link self::testMatch}.
      *
      * @return array
      */
@@ -47,7 +47,7 @@ class IdentifierTest extends PHPUnit_Framework_TestCase
             array(array('some_identifier'), false),
             array(array('3_zones_a'), true),
             array(array('some_identifier', 'some_identifier_2'), false),
-            array(array('some_identifier', '3_zones_a'), true)
+            array(array('some_identifier', '3_zones_a'), true),
         );
     }
 
