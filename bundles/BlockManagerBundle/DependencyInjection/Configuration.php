@@ -126,6 +126,11 @@ class Configuration implements ConfigurationInterface
                         ->cannotBeEmpty()
                     ->end()
                     ->arrayNode('view_types')
+                        ->validate()
+                            ->always(function($v) {
+                                return array_values(array_unique($v));
+                            })
+                        ->end()
                         ->performNoDeepMerging()
                         ->defaultValue(array('default'))
                         ->prototype('scalar')
