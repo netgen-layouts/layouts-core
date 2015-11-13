@@ -3,15 +3,61 @@
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
+use Closure;
 
 class NetgenBlockManagerExtension extends Extension implements PrependExtensionInterface
 {
+    /**
+     * @var \Closure[]
+     */
+    protected $configTreeBuilders = array();
+
+    /**
+     * @var \Closure[]
+     */
+    protected $preProcessors = array();
+
+    /**
+     * @var \Closure[]
+     */
+    protected $postProcessors = array();
+
+    /**
+     * Adds the config tree builder closure
+     *
+     * @param \Closure $configTreeBuilder
+     */
+    public function addConfigTreeBuilder(Closure $configTreeBuilder)
+    {
+        $this->configTreeBuilders[] = $configTreeBuilder;
+    }
+
+    /**
+     * Adds the config preprocessor closure
+     *
+     * @param \Closure $preProcessor
+     */
+    public function addPreProcessor(Closure $preProcessor)
+    {
+        $this->preProcessors[] = $preProcessor;
+    }
+
+    /**
+     * Adds the config post processor closure
+     *
+     * @param \Closure $postProcessor
+     */
+    public function addPostProcessor(Closure $postProcessor)
+    {
+        $this->postProcessors[] = $postProcessor;
+    }
+
     /**
      * Loads a specific configuration.
      *
@@ -23,34 +69,23 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     public function load(array $configs, ContainerBuilder $container)
     {
         $extensionAlias = $this->getAlias();
-        $configuration = new Configuration($extensionAlias);
+
+        foreach ($this->preProcessors as $preProcessor) {
+            $configs = $preProcessor($configs, $container);
+        }
+
+        $configuration = new Configuration($extensionAlias, $this->configTreeBuilders);
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('view/template_resolvers.yml');
-        $loader->load('view/providers.yml');
-        $loader->load('view/matchers.yml');
+        foreach ($this->postProcessors as $postProcessor) {
+            $config = $postProcessor($config, $container);
+        }
 
-        $loader->load('block_definitions.yml');
-        $loader->load('layouts.yml');
-
-        $loader->load('param_converters.yml');
-        $loader->load('event_listeners.yml');
-        $loader->load('controllers.yml');
-        $loader->load('normalizers.yml');
-        $loader->load('templating.yml');
-        $loader->load('services.yml');
-
-        $loader->load('api.yml');
+        $this->loadConfigFiles($container);
 
         foreach ($config as $key => $value) {
             $container->setParameter($extensionAlias . '.' . $key, $value);
         }
-
-        $container->setParameter(
-            $extensionAlias . '.available_parameters',
-            $configuration->getAvailableParameters()
-        );
     }
 
     /**
@@ -81,5 +116,34 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             $container->prependExtensionConfig($this->getAlias(), $config);
             $container->addResource(new FileResource($configFile));
         }
+    }
+
+    /**
+     * Loads configuration from various YAML files
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function loadConfigFiles(ContainerBuilder $container)
+    {
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__ . '/../Resources/config')
+        );
+
+        $loader->load('view/template_resolvers.yml');
+        $loader->load('view/providers.yml');
+        $loader->load('view/matchers.yml');
+
+        $loader->load('block_definitions.yml');
+        $loader->load('layouts.yml');
+
+        $loader->load('param_converters.yml');
+        $loader->load('event_listeners.yml');
+        $loader->load('controllers.yml');
+        $loader->load('normalizers.yml');
+        $loader->load('templating.yml');
+        $loader->load('services.yml');
+
+        $loader->load('api.yml');
     }
 }

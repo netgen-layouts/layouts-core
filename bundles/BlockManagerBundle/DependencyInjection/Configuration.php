@@ -13,18 +13,20 @@ class Configuration implements ConfigurationInterface
     protected $alias;
 
     /**
-     * @var array
+     * @var \Closure[]
      */
-    protected $availableParameters = array();
+    protected $externalConfigTreeBuilders = array();
 
     /**
      * Constructor.
      *
      * @param string $alias
+     * @param \Closure[] $externalConfigTreeBuilders
      */
-    public function __construct($alias)
+    public function __construct($alias, array $externalConfigTreeBuilders)
     {
         $this->alias = $alias;
+        $this->externalConfigTreeBuilders = $externalConfigTreeBuilders;
     }
 
     /**
@@ -43,7 +45,9 @@ class Configuration implements ConfigurationInterface
             $children->append($nodeDefinition);
         }
 
-        $children->append($this->getPageLayoutNodeDefinition());
+        foreach ($this->externalConfigTreeBuilders as $externalConfigTreeBuilder) {
+            $externalConfigTreeBuilder($rootNode, $this);
+        }
 
         $children->end();
 
@@ -62,6 +66,7 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getBlocksNodeDefinition(),
             $this->getBlockGroupsNodeDefinition(),
+            $this->getPageLayoutNodeDefinition()
         );
     }
 
@@ -74,8 +79,6 @@ class Configuration implements ConfigurationInterface
      */
     protected function getTemplateResolverNodeDefinition($nodeName)
     {
-        $this->availableParameters[] = $nodeName;
-
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root($nodeName);
 
@@ -112,8 +115,6 @@ class Configuration implements ConfigurationInterface
      */
     protected function getBlocksNodeDefinition($nodeName = 'blocks')
     {
-        $this->availableParameters[] = $nodeName;
-
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root($nodeName);
 
@@ -153,8 +154,6 @@ class Configuration implements ConfigurationInterface
      */
     protected function getBlockGroupsNodeDefinition($nodeName = 'block_groups')
     {
-        $this->availableParameters[] = $nodeName;
-
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root($nodeName);
 
@@ -201,18 +200,5 @@ class Configuration implements ConfigurationInterface
             ->cannotBeEmpty();
 
         return $node;
-    }
-
-    /**
-     * Returns parameters which are allowed to be used by other bundles when
-     * building their semantic configuration. Useful for eZ Publish Block Manager
-     * bundle, which uses this semantic config as a base for config resolver based
-     * semantic config.
-     *
-     * @return array
-     */
-    public function getAvailableParameters()
-    {
-        return $this->availableParameters;
     }
 }
