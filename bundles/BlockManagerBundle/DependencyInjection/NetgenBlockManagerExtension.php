@@ -68,26 +68,18 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $container->prependExtensionConfig('framework', $config);
 
-        $extensionAlias = $this->getAlias();
+        $prependConfigs = array(
+            'blocks.yml',
+            'block_groups.yml',
+            'view/block_view.yml',
+            'view/layout_view.yml'
+        );
 
-        $configFile = __DIR__ . '/../Resources/config/blocks.yml';
-        $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig($extensionAlias, $config);
-        $container->addResource(new FileResource($configFile));
-
-        $configFile = __DIR__ . '/../Resources/config/block_groups.yml';
-        $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig($extensionAlias, $config);
-        $container->addResource(new FileResource($configFile));
-
-        $configFile = __DIR__ . '/../Resources/config/view/block_view.yml';
-        $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig($extensionAlias, $config);
-        $container->addResource(new FileResource($configFile));
-
-        $configFile = __DIR__ . '/../Resources/config/view/layout_view.yml';
-        $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig($extensionAlias, $config);
-        $container->addResource(new FileResource($configFile));
+        foreach ($prependConfigs as $prependConfig) {
+            $configFile = __DIR__ . '/../Resources/config/' . $prependConfig;
+            $config = Yaml::parse(file_get_contents($configFile));
+            $container->prependExtensionConfig($this->getAlias(), $config);
+            $container->addResource(new FileResource($configFile));
+        }
     }
 }
