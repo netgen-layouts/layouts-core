@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class RestExceptionListener implements EventSubscriberInterface
+class ExceptionSerializerListener implements EventSubscriberInterface
 {
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface
@@ -36,7 +36,7 @@ class RestExceptionListener implements EventSubscriberInterface
     }
 
     /**
-     * Serializes the exception if {@link SetIsRestRequestListener::REST_API_FLAG_NAME}
+     * Serializes the exception if {@link SetIsApiRequestListener::API_FLAG_NAME}
      * is set to true.
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
@@ -44,7 +44,7 @@ class RestExceptionListener implements EventSubscriberInterface
     public function onException(GetResponseForExceptionEvent $event)
     {
         $attributes = $event->getRequest()->attributes;
-        if ($attributes->get(SetIsRestRequestListener::REST_API_FLAG_NAME) !== true) {
+        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;
         }
 

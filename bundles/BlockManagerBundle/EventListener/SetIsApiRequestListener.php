@@ -6,10 +6,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetIsRestRequestListener implements EventSubscriberInterface
+class SetIsApiRequestListener implements EventSubscriberInterface
 {
-    const REST_API_FLAG_NAME = 'ngbm_is_rest';
-    const REST_API_ROUTE_PREFIX = 'netgen_block_manager_api_';
+    const API_FLAG_NAME = 'ngbm_is_api_request';
+    const API_ROUTE_PREFIX = 'netgen_block_manager_api_';
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -22,7 +22,7 @@ class SetIsRestRequestListener implements EventSubscriberInterface
     }
 
     /**
-     * Sets the {@link self::REST_API_FLAG_NAME} flag if this is a REST request.
+     * Sets the {@link self::API_FLAG_NAME} flag if this is a REST API request.
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
@@ -30,10 +30,10 @@ class SetIsRestRequestListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
-        if (stripos($currentRoute, self::REST_API_ROUTE_PREFIX) !== 0) {
+        if (stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {
             return;
         }
 
-        $request->attributes->set(self::REST_API_FLAG_NAME, true);
+        $request->attributes->set(self::API_FLAG_NAME, true);
     }
 }
