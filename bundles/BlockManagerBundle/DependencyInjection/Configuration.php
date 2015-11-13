@@ -134,6 +134,7 @@ class Configuration implements ConfigurationInterface
                             })
                         ->end()
                         ->performNoDeepMerging()
+                        ->requiresAtLeastOneElement()
                         ->defaultValue(array('default'))
                         ->prototype('scalar')
                             ->cannotBeEmpty()
