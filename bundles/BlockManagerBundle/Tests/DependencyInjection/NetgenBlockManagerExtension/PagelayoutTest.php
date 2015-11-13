@@ -25,7 +25,7 @@ class PagelayoutTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPageLayoutNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPagelayoutNodeDefinition
      */
     public function testDefaultPagelayoutSettings()
     {
@@ -43,7 +43,7 @@ class PagelayoutTest extends AbstractExtensionTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPageLayoutNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPagelayoutNodeDefinition
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testDefaultBlockSettingsWithEmptyPagelayout()
@@ -57,7 +57,7 @@ class PagelayoutTest extends AbstractExtensionTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPageLayoutNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPagelayoutNodeDefinition
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testDefaultBlockSettingsWithInvalidPagelayout()

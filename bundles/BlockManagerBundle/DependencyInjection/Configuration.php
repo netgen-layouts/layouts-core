@@ -66,7 +66,7 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getBlocksNodeDefinition(),
             $this->getBlockGroupsNodeDefinition(),
-            $this->getPageLayoutNodeDefinition(),
+            $this->getPagelayoutNodeDefinition(),
         );
     }
 
@@ -191,7 +191,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return \Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
      */
-    protected function getPageLayoutNodeDefinition($nodeName = 'pagelayout')
+    protected function getPagelayoutNodeDefinition($nodeName = 'pagelayout')
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root($nodeName, 'scalar');
