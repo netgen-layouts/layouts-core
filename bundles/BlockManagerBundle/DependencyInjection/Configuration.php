@@ -114,6 +114,7 @@ class Configuration implements ConfigurationInterface
                             ->cannotBeEmpty()
                         ->end()
                         ->arrayNode('view_types')
+                            ->performNoDeepMerging()
                             ->defaultValue(array('default'))
                             ->prototype('scalar')
                                 ->cannotBeEmpty()
