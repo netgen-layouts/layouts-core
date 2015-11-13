@@ -56,6 +56,7 @@ class Configuration implements ConfigurationInterface
     {
         $this->addTemplateResolverNode($nodeBuilder, 'block_view');
         $this->addTemplateResolverNode($nodeBuilder, 'layout_view');
+        $this->addBlocksNode($nodeBuilder);
     }
 
     /**
@@ -85,6 +86,37 @@ class Configuration implements ConfigurationInterface
                                 ->isRequired()
                                 ->prototype('scalar')
                                 ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * Adds semantic configuration for blocks
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder
+     * @param string $nodeName
+     */
+    protected function addBlocksNode(NodeBuilder $nodeBuilder, $nodeName = 'blocks')
+    {
+        $this->availableParameters[] = $nodeName;
+
+        $nodeBuilder
+            ->arrayNode($nodeName)
+                ->requiresAtLeastOneElement()
+                ->useAttributeAsKey('identifier')
+                ->prototype('array')
+                    ->children()
+                        ->scalarNode('name')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                        ->end()
+                        ->arrayNode('view_types')
+                            ->defaultValue(array('default'))
+                            ->prototype('scalar')
+                                ->cannotBeEmpty()
                             ->end()
                         ->end()
                     ->end()

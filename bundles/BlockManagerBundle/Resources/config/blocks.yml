@@ -1,9 +1,6 @@
-parameters:
-    netgen_block_manager.default.blocks:
-        title:
-            name: 'Title'
-            view_types: ['default', 'small']
-        paragraph:
-            name: 'Paragraph'
-            view_types: ['default', 'small']
-
+blocks:
+    title:
+        name: 'Title'
+    paragraph:
+        name: 'Paragraph'
+        view_types: ['default', 'small']
