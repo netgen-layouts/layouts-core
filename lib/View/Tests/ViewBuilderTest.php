@@ -177,6 +177,29 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
+     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBuildViewThrowsInvalidArgumentExceptionWithNoViewProviderInterface()
+    {
+        $value = new Value();
+        $view = new View();
+
+        $viewProvider = $this->getMock('DateTime');
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+
+        $viewBuilder = new ViewBuilder(
+            array($viewProvider),
+            array(
+                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
+            )
+        );
+
+        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @expectedException \InvalidArgumentException
      */

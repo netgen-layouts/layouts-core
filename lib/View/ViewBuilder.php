@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\API\Values\Value;
 use InvalidArgumentException;
+use Netgen\BlockManager\View\Provider\ViewProvider;
 
 class ViewBuilder implements ViewBuilderInterface
 {
@@ -41,6 +42,15 @@ class ViewBuilder implements ViewBuilderInterface
     public function buildView(Value $value, array $parameters = array(), $context = 'view')
     {
         foreach ($this->viewProviders as $viewProvider) {
+            if (!$viewProvider instanceof ViewProvider) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        'View provider for %s value needs to implement ViewProvider interface.',
+                        get_class($value)
+                    )
+                );
+            }
+
             if (!$viewProvider->supports($value)) {
                 continue;
             }
