@@ -35,6 +35,12 @@
         <testsuite name="Netgen\BlockManager\View">
             <directory>lib/View/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\Bundle\BlockManagerBundle">
+            <directory>bundles/BlockManagerBundle/Tests</directory>
+        </testsuite>
+        <testsuite name="Netgen\Bundle\EzPublishBlockManagerBundle">
+            <directory>bundles/EzPublishBlockManagerBundle/Tests</directory>
+        </testsuite>
     </testsuites>
 
     <filter>
