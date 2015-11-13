@@ -39,8 +39,10 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
      */
     public function testServices()
     {
+        self::markTestIncomplete('@TODO Implement');
     }
 }
