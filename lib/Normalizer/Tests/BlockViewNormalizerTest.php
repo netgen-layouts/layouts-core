@@ -35,7 +35,7 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
         $config = array(
             'paragraph' => array(
                 'name' => 'Paragraph',
-            )
+            ),
         );
 
         $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');

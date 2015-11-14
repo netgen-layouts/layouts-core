@@ -7,7 +7,7 @@ interface ConfigurationInterface
     const PARAMETER_NAMESPACE = 'netgen_block_manager';
 
     /**
-     * Returns if parameter exists in configuration
+     * Returns if parameter exists in configuration.
      *
      * @param string $parameterName
      *
@@ -16,7 +16,7 @@ interface ConfigurationInterface
     public function hasParameter($parameterName);
 
     /**
-     * Returns the parameter from configuration
+     * Returns the parameter from configuration.
      *
      * @param string $parameterName
      *

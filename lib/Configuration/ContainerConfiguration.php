@@ -10,7 +10,7 @@ class ContainerConfiguration implements ConfigurationInterface
     use ContainerAwareTrait;
 
     /**
-     * Returns if parameter exists in configuration
+     * Returns if parameter exists in configuration.
      *
      * @param string $parameterName
      *
@@ -24,7 +24,7 @@ class ContainerConfiguration implements ConfigurationInterface
     }
 
     /**
-     * Returns the parameter from configuration
+     * Returns the parameter from configuration.
      *
      * @param string $parameterName
      *

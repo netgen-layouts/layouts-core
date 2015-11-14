@@ -20,7 +20,7 @@ class BlockViewTemplateResolver extends TemplateResolver
     }
 
     /**
-     * Returns if this template resolver supports the provided view
+     * Returns if this template resolver supports the provided view.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
