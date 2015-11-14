@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 
-class LayoutViewProvider implements ViewProvider
+class LayoutViewProvider implements ViewProviderInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

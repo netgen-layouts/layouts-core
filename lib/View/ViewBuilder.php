@@ -3,14 +3,14 @@
 namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface;
-use Netgen\BlockManager\View\Provider\ViewProvider;
+use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\API\Values\Value;
 use InvalidArgumentException;
 
 class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProvider[]
+     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
      */
     protected $viewProviders = array();
 
@@ -22,7 +22,7 @@ class ViewBuilder implements ViewBuilderInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\View\Provider\ViewProvider[] $viewProviders
+     * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
      * @param \Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface[] $templateResolvers
      */
     public function __construct(array $viewProviders = array(), array $templateResolvers = array())
@@ -43,10 +43,10 @@ class ViewBuilder implements ViewBuilderInterface
     public function buildView(Value $value, array $parameters = array(), $context = 'view')
     {
         foreach ($this->viewProviders as $viewProvider) {
-            if (!$viewProvider instanceof ViewProvider) {
+            if (!$viewProvider instanceof ViewProviderInterface) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'View provider for %s value needs to implement ViewProvider interface.',
+                        'View provider for %s value needs to implement ViewProviderInterface.',
                         get_class($value)
                     )
                 );

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Value;
 
-interface ViewProvider
+interface ViewProviderInterface
 {
     /**
      * Provides the view.

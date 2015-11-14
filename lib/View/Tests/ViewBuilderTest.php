@@ -20,14 +20,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewWithTemplate = clone $view;
         $viewWithTemplate->setTemplate('some_template.html.twig');
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider1
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(false));
 
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider2
             ->expects($this->once())
             ->method('supports')
@@ -69,14 +69,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider1
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(false));
 
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider2
             ->expects($this->once())
             ->method('supports')
@@ -103,14 +103,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider1
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(false));
 
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider2
             ->expects($this->once())
             ->method('supports')
@@ -152,14 +152,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider1
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(false));
 
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider2
             ->expects($this->once())
             ->method('supports')
@@ -212,14 +212,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
     {
         $value = new Value();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider1
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(false));
 
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProvider');
+        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider2
             ->expects($this->once())
             ->method('supports')

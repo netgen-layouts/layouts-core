@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\BlockView;
 
-class BlockViewProvider implements ViewProvider
+class BlockViewProvider implements ViewProviderInterface
 {
     /**
      * Provides the view.
