@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class LayoutViewTemplateResolverPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.view.template_resolver.layout';
+    const SERVICE_NAME = 'netgen_block_manager.view.template_resolver.layout_view';
 
     /**
      * You can modify the container here before it is dumped to PHP code.

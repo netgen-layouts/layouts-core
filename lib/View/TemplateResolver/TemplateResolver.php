@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\BlockManager\View\TemplateResolver;
 
-use InvalidArgumentException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use Netgen\BlockManager\View\ViewInterface;
+use InvalidArgumentException;
 
-class TemplateResolver implements TemplateResolverInterface
+abstract class TemplateResolver implements TemplateResolverInterface
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface[]
@@ -112,4 +113,13 @@ class TemplateResolver implements TemplateResolverInterface
 
         return true;
     }
+
+    /**
+     * Returns if this template resolver supports the provided view
+     *
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     *
+     * @return bool
+     */
+    abstract public function supports(ViewInterface $view);
 }

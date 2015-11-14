@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\View;
 
+use Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface;
+use Netgen\BlockManager\View\Provider\ViewProvider;
 use Netgen\BlockManager\API\Values\Value;
 use InvalidArgumentException;
-use Netgen\BlockManager\View\Provider\ViewProvider;
 
 class ViewBuilder implements ViewBuilderInterface
 {
@@ -14,7 +15,7 @@ class ViewBuilder implements ViewBuilderInterface
     protected $viewProviders = array();
 
     /**
-     * @var \Netgen\BlockManager\View\TemplateResolverInterface[]
+     * @var \Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface[]
      */
     protected $templateResolvers = array();
 
@@ -22,7 +23,7 @@ class ViewBuilder implements ViewBuilderInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Provider\ViewProvider[] $viewProviders
-     * @param \Netgen\BlockManager\View\TemplateResolverInterface[] $templateResolvers
+     * @param \Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface[] $templateResolvers
      */
     public function __construct(array $viewProviders = array(), array $templateResolvers = array())
     {
@@ -68,10 +69,6 @@ class ViewBuilder implements ViewBuilderInterface
         }
 
         foreach ($this->templateResolvers as $type => $templateResolver) {
-            if (!is_a($view, $type)) {
-                continue;
-            }
-
             if (!$templateResolver instanceof TemplateResolverInterface) {
                 throw new InvalidArgumentException(
                     sprintf(
@@ -79,6 +76,10 @@ class ViewBuilder implements ViewBuilderInterface
                         $type
                     )
                 );
+            }
+
+            if (!$templateResolver->supports($view)) {
+                continue;
             }
 
             $view->setTemplate(

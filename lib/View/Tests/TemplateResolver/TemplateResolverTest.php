@@ -1,18 +1,17 @@
 <?php
 
-namespace Netgen\BlockManager\View\Tests;
+namespace Netgen\BlockManager\View\Tests\TemplateResolver;
 
-use Netgen\BlockManager\View\TemplateResolver;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\Tests\Stubs\TemplateResolver;
+use Netgen\BlockManager\View\Tests\Stubs\View;
 use PHPUnit_Framework_TestCase;
 
 class TemplateResolverTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
      */
     public function testResolveTemplate()
     {
@@ -49,9 +48,9 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
      */
     public function testResolveTemplateWithEmptyMatchConfig()
     {
@@ -73,7 +72,7 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
      * @expectedException \InvalidArgumentException
      */
     public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoContext()
@@ -83,8 +82,8 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
      * @expectedException \InvalidArgumentException
      */
     public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatch()
@@ -121,8 +120,8 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
      * @expectedException \InvalidArgumentException
      */
     public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatcher()
@@ -144,8 +143,8 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
      * @expectedException \InvalidArgumentException
      */
     public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatcherInterface()
@@ -179,14 +178,7 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
      */
     protected function getView()
     {
-        $block = new Block(
-            array(
-                'definitionIdentifier' => 'paragraph',
-            )
-        );
-
-        $view = new BlockView();
-        $view->setBlock($block);
+        $view = new View();
         $view->setContext('api');
 
         return $view;

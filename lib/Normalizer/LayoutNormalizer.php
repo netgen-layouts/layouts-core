@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Normalizer;
 
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
@@ -10,16 +11,16 @@ class LayoutNormalizer implements NormalizerInterface
     /**
      * @var array
      */
-    protected $layoutConfig;
+    protected $configuration;
 
     /**
      * Constructor.
      *
-     * @param array $layoutConfig
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
-    public function __construct(array $layoutConfig)
+    public function __construct(ConfigurationInterface $configuration)
     {
-        $this->layoutConfig = $layoutConfig;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -39,7 +40,7 @@ class LayoutNormalizer implements NormalizerInterface
             'identifier' => $object->getIdentifier(),
             'created_at' => $object->getCreated(),
             'updated_at' => $object->getModified(),
-            'title' => $this->layoutConfig[$object->getIdentifier()]['name'],
+            'title' => $this->configuration->getParameter('layouts')[$object->getIdentifier()]['name'],
         );
     }
 

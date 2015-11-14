@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Normalizer;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 
@@ -21,13 +22,13 @@ class LayoutViewNormalizer extends LayoutNormalizer
     /**
      * Constructor.
      *
-     * @param array $layoutConfig
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\BlockManager\Normalizer\BlockNormalizer $blockNormalizer
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
-    public function __construct(array $layoutConfig, BlockNormalizer $blockNormalizer, ViewRendererInterface $viewRenderer)
+    public function __construct(ConfigurationInterface $configuration, BlockNormalizer $blockNormalizer, ViewRendererInterface $viewRenderer)
     {
-        parent::__construct($layoutConfig);
+        parent::__construct($configuration);
 
         $this->blockNormalizer = $blockNormalizer;
         $this->viewRenderer = $viewRenderer;
@@ -83,7 +84,7 @@ class LayoutViewNormalizer extends LayoutNormalizer
         foreach ($layout->getZones() as $zone) {
             $allowedBlocks = true;
             $zoneIdentifier = $zone->getIdentifier();
-            $zoneConfig = $this->layoutConfig[$layout->getIdentifier()]['zones'][$zoneIdentifier];
+            $zoneConfig = $this->configuration->getParameter('layouts')[$layout->getIdentifier()]['zones'][$zoneIdentifier];
 
             if (!empty($zoneConfig['allowed_blocks'])) {
                 $allowedBlocks = $zoneConfig['allowed_blocks'];

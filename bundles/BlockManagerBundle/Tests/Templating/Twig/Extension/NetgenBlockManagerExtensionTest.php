@@ -12,7 +12,10 @@ class NetgenBlockManagerExtensionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $globalHelper = $this->getMock('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper');
+        $globalHelper = $this->getMockBuilder('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $extension = new NetgenBlockManagerExtension($globalHelper);
 
         self::assertEquals('netgen_block_manager', $extension->getName());
@@ -24,7 +27,10 @@ class NetgenBlockManagerExtensionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetGlobals()
     {
-        $globalHelper = $this->getMock('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper');
+        $globalHelper = $this->getMockBuilder('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $extension = new NetgenBlockManagerExtension($globalHelper);
 
         self::assertEquals(

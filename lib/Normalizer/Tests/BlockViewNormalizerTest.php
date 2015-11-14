@@ -35,8 +35,15 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
         $config = array(
             'paragraph' => array(
                 'name' => 'Paragraph',
-            ),
+            )
         );
+
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('blocks'))
+            ->will($this->returnValue($config));
 
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
         $viewRendererMock
@@ -45,7 +52,7 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo($blockView))
             ->will($this->returnValue('rendered block view'));
 
-        $blockViewNormalizer = new BlockViewNormalizer($config, $viewRendererMock);
+        $blockViewNormalizer = new BlockViewNormalizer($configuration, $viewRendererMock);
 
         self::assertEquals(
             array(
@@ -70,8 +77,9 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
-        $blockViewNormalizer = new BlockViewNormalizer(array(), $viewRendererMock);
+        $blockViewNormalizer = new BlockViewNormalizer($configuration, $viewRendererMock);
 
         self::assertEquals($expected, $blockViewNormalizer->supportsNormalization($data));
     }

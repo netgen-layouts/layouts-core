@@ -34,7 +34,7 @@ class ViewBuilderPass implements CompilerPassInterface
         $templateResolvers = array();
 
         foreach ($templateResolverServices as $serviceName => $tag) {
-            $templateResolvers[$tag[0]['type']] = new Reference($serviceName);
+            $templateResolvers[] = new Reference($serviceName);
         }
 
         $viewBuilder->replaceArgument(0, $viewProviders);

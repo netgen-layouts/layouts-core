@@ -17,6 +17,9 @@
         <testsuite name="Netgen\BlockManager\BlockDefinition">
             <directory>lib/BlockDefinition/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Configuration">
+            <directory>lib/Configuration/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\BlockManager\Core\Persistence\Doctrine">
             <directory>lib/Core/Persistence/Doctrine/Tests</directory>
         </testsuite>

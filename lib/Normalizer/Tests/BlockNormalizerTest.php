@@ -18,10 +18,17 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
         $config = array(
             'paragraph' => array(
                 'name' => 'Paragraph',
-            ),
+            )
         );
 
-        $blockNormalizer = new BlockNormalizer($config);
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('blocks'))
+            ->will($this->returnValue($config));
+
+        $blockNormalizer = new BlockNormalizer($configuration);
 
         $block = new Block(
             array(
@@ -58,7 +65,8 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $blockNormalizer = new BlockNormalizer(array());
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $blockNormalizer = new BlockNormalizer($configuration);
         self::assertEquals($expected, $blockNormalizer->supportsNormalization($data));
     }
 

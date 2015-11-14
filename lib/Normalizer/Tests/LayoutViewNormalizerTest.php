@@ -83,6 +83,13 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
             ),
         );
 
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('layouts'))
+            ->will($this->returnValue($config));
+
         $blockNormalizerMock = $this
             ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
@@ -101,7 +108,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo($layoutView))
             ->will($this->returnValue('rendered layout view'));
 
-        $layoutViewNormalizer = new LayoutViewNormalizer($config, $blockNormalizerMock, $viewRendererMock);
+        $layoutViewNormalizer = new LayoutViewNormalizer($configuration, $blockNormalizerMock, $viewRendererMock);
 
         self::assertEquals(
             array(
@@ -151,6 +158,8 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+
         $blockNormalizerMock = $this
             ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
@@ -158,7 +167,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
 
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
 
-        $layoutViewNormalizer = new LayoutViewNormalizer(array(), $blockNormalizerMock, $viewRendererMock);
+        $layoutViewNormalizer = new LayoutViewNormalizer($configuration, $blockNormalizerMock, $viewRendererMock);
 
         self::assertEquals($expected, $layoutViewNormalizer->supportsNormalization($data));
     }

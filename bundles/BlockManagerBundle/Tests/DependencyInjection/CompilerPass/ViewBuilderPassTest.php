@@ -35,7 +35,7 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.view.provider.test', $viewProvider);
 
         $templateResolver = new Definition();
-        $templateResolver->addTag('netgen_block_manager.view.template_resolver', array('type' => 'Some\Type'));
+        $templateResolver->addTag('netgen_block_manager.view.template_resolver');
         $this->setDefinition('netgen_block_manager.view.template_resolver.test', $templateResolver);
 
         $this->compile();
@@ -52,7 +52,7 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.view.builder',
             1,
             array(
-                'Some\Type' => new Reference('netgen_block_manager.view.template_resolver.test'),
+                new Reference('netgen_block_manager.view.template_resolver.test'),
             )
         );
     }

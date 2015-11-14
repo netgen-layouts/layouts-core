@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Normalizer;
 
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
 
@@ -10,16 +11,16 @@ class BlockNormalizer implements NormalizerInterface
     /**
      * @var array
      */
-    protected $blockConfig;
+    protected $configuration;
 
     /**
      * Constructor.
      *
-     * @param array $blockConfig
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
-    public function __construct(array $blockConfig)
+    public function __construct(ConfigurationInterface $configuration)
     {
-        $this->blockConfig = $blockConfig;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -38,7 +39,7 @@ class BlockNormalizer implements NormalizerInterface
         return array(
             'id' => $object->getId(),
             'definition_identifier' => $blockDefinitionIdentifier,
-            'title' => $this->blockConfig[$blockDefinitionIdentifier]['name'],
+            'title' => $this->configuration->getParameter('blocks')[$blockDefinitionIdentifier]['name'],
             'zone_id' => $object->getZoneId(),
             'parameters' => $object->getParameters(),
             'view_type' => $object->getViewType(),

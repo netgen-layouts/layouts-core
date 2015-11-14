@@ -22,7 +22,14 @@ class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $layoutNormalizer = new LayoutNormalizer($config);
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('layouts'))
+            ->will($this->returnValue($config));
+
+        $layoutNormalizer = new LayoutNormalizer($configuration);
 
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
@@ -59,7 +66,8 @@ class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $layoutNormalizer = new LayoutNormalizer(array());
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $layoutNormalizer = new LayoutNormalizer($configuration);
 
         self::assertEquals($expected, $layoutNormalizer->supportsNormalization($data));
     }

@@ -27,7 +27,7 @@ class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
     {
         $layoutTemplateResolver = new Definition();
         $layoutTemplateResolver->addArgument(array());
-        $this->setDefinition('netgen_block_manager.view.template_resolver.layout', $layoutTemplateResolver);
+        $this->setDefinition('netgen_block_manager.view.template_resolver.layout_view', $layoutTemplateResolver);
 
         $layoutMatcher = new Definition();
         $layoutMatcher->addTag('netgen_block_manager.view.layout_matcher', array('identifier' => 'layout_id'));
@@ -36,7 +36,7 @@ class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.view.template_resolver.layout',
+            'netgen_block_manager.view.template_resolver.layout_view',
             0,
             array(
                 'layout_id' => new Reference('netgen_block_manager.view.layout_matcher.test'),

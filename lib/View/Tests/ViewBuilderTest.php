@@ -41,7 +41,12 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+        $templateResolver
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($view))
+            ->will($this->returnValue(true));
         $templateResolver
             ->expects($this->once())
             ->method('resolveTemplate')
@@ -50,9 +55,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewBuilder = new ViewBuilder(
             $viewProviders,
-            array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
-            )
+            array($templateResolver)
         );
         self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
     }
@@ -119,15 +122,21 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
             ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
             ->will($this->returnValue($view));
 
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+        $templateResolver
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($view))
+            ->will($this->returnValue(false));
+        $templateResolver
+            ->expects($this->never())
+            ->method('resolveTemplate');
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
         $viewBuilder = new ViewBuilder(
             $viewProviders,
-            array(
-                'Some\Class' => $templateResolver,
-            )
+            array($templateResolver)
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
@@ -168,9 +177,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewBuilder = new ViewBuilder(
             $viewProviders,
-            array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
-            )
+            array($templateResolver)
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
@@ -187,13 +194,11 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $view = new View();
 
         $viewProvider = $this->getMock('DateTime');
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
 
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
-            array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
-            )
+            array($templateResolver)
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
@@ -223,13 +228,11 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
 
         $viewBuilder = new ViewBuilder(
             $viewProviders,
-            array(
-                'Netgen\BlockManager\View\Tests\Stubs\View' => $templateResolver,
-            )
+            array($templateResolver)
         );
 
         $viewBuilder->buildView($value, array(), 'api');
