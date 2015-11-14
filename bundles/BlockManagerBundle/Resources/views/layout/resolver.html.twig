@@ -1,4 +1,4 @@
-{% extends ngbm.layoutView ? ngbm.layoutView.template : ngbm.pagelayout %}
+{% extends ngbm.layoutView ? ngbm.layoutView.template : ngbm.configuration.parameter('pagelayout') %}
 
 {# We set some convenient variables to make it easier to write layout templates #}
 {% if ngbm.layoutView %}
