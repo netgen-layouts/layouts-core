@@ -66,6 +66,7 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getBlocksNodeDefinition(),
             $this->getBlockGroupsNodeDefinition(),
+            $this->getLayoutsNodeDefinition(),
             $this->getPagelayoutNodeDefinition(),
         );
     }
@@ -176,6 +177,56 @@ class Configuration implements ConfigurationInterface
                         ->requiresAtLeastOneElement()
                         ->prototype('scalar')
                             ->cannotBeEmpty()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for layouts.
+     *
+     * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    protected function getLayoutsNodeDefinition($nodeName = 'layouts')
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName);
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('identifier')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->arrayNode('zones')
+                        ->isRequired()
+                        ->requiresAtLeastOneElement()
+                        ->prototype('array')
+                            ->children()
+                                ->scalarNode('name')
+                                    ->isRequired()
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->arrayNode('allowed_blocks')
+                                    ->validate()
+                                        ->always(function ($v) {
+                                            return array_values(array_unique($v));
+                                        })
+                                    ->end()
+                                    ->requiresAtLeastOneElement()
+                                    ->prototype('scalar')
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

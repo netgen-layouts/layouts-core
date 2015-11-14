@@ -28,21 +28,13 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasParameter('netgen_block_manager.blocks', array());
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_groups', array());
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.layouts', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_view', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.layout_view', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.block_groups', array());
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.pagelayout',
             'NetgenBlockManagerBundle::pagelayout_empty.html.twig'
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
-     */
-    public function testServices()
-    {
-        self::markTestIncomplete('@TODO Implement');
     }
 }
