@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
 use Netgen\BlockManager\API\Service\BlockService;
 
-class BlockParamConverter extends AbstractParamConverter
+class BlockParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

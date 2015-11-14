@@ -3,10 +3,11 @@
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
+use InvalidArgumentException;
 
-abstract class AbstractParamConverter implements ParamConverterInterface
+abstract class ParamConverter implements ParamConverterInterface
 {
     /**
      * Stores the object in the request.
@@ -16,7 +17,7 @@ abstract class AbstractParamConverter implements ParamConverterInterface
      *
      * @return bool True if the object has been successfully set, else false
      */
-    public function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
         $sourceAttributeName = $this->getSourceAttributeName();
         if (!$request->attributes->has($sourceAttributeName)) {
@@ -24,8 +25,17 @@ abstract class AbstractParamConverter implements ParamConverterInterface
         }
 
         $valueId = $request->attributes->get($sourceAttributeName);
-        if (empty($valueId) && $configuration->isOptional()) {
-            return false;
+        if (empty($valueId)) {
+            if ($configuration->isOptional()) {
+                return false;
+            }
+
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Required request attribute "%s" is empty',
+                    $this->getSourceAttributeName()
+                )
+            );
         }
 
         $request->attributes->set(
@@ -43,7 +53,7 @@ abstract class AbstractParamConverter implements ParamConverterInterface
      *
      * @return bool True if the object is supported, else false
      */
-    public function supports(ParamConverter $configuration)
+    public function supports(ParamConverterConfiguration $configuration)
     {
         return is_a($configuration->getClass(), $this->getSupportedClass(), true);
     }

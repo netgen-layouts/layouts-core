@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 
-class LayoutParamConverter extends AbstractParamConverter
+class LayoutParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
