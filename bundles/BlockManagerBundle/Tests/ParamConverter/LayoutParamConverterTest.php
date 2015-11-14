@@ -42,7 +42,8 @@ class LayoutParamConverterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {

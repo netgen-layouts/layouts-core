@@ -42,6 +42,7 @@ class BlockParamConverterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::loadValueObject
      */
     public function testLoadValueObject()
