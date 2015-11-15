@@ -15,7 +15,7 @@ class GlobalHelperTest extends PHPUnit_Framework_TestCase
      */
     public function testGetConfiguration()
     {
-        $configuration = new Configuration();
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
         $globalHelper = new GlobalHelper($configuration);
 
         self::assertEquals($configuration, $globalHelper->getConfiguration());
@@ -26,7 +26,9 @@ class GlobalHelperTest extends PHPUnit_Framework_TestCase
      */
     public function testGetDefaultLayoutView()
     {
-        $globalHelper = new GlobalHelper(new Configuration());
+        $globalHelper = new GlobalHelper(
+            $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface')
+        );
 
         self::assertNull($globalHelper->getLayoutView());
     }
@@ -37,9 +39,11 @@ class GlobalHelperTest extends PHPUnit_Framework_TestCase
      */
     public function testGetLayoutView()
     {
-        $layoutView = new LayoutView();
+        $globalHelper = new GlobalHelper(
+            $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface')
+        );
 
-        $globalHelper = new GlobalHelper(new Configuration());
+        $layoutView = new LayoutView();
         $globalHelper->setLayoutView($layoutView);
 
         self::assertEquals($layoutView, $globalHelper->getLayoutView());
