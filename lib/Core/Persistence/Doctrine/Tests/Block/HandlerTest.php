@@ -38,7 +38,7 @@ class HandlerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
      */
     public function testLoadBlockThrowsNotFoundException()
     {
@@ -219,7 +219,7 @@ class HandlerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
      */
     public function testDeleteBlock()
     {

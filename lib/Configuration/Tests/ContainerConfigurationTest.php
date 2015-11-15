@@ -65,7 +65,7 @@ class ContainerConfigurationTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
     {

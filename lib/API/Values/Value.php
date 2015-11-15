@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\Exceptions\InvalidArgumentException;
+use Netgen\BlockManager\API\Exceptions\InvalidArgumentException;
 
 abstract class Value
 {
@@ -12,7 +12,7 @@ abstract class Value
      * Read only properties values must be set using $properties as they are not writable anymore
      * after object has been created.
      *
-     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If one of the properties does not exist in value object
+     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If one of the properties does not exist in value object
      *
      * @param array $properties
      */

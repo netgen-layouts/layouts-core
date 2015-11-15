@@ -15,8 +15,8 @@ interface BlockService
      *
      * @param int|string $blockId
      *
-     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If block ID has an invalid or empty value
-     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If block ID has an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exceptions\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -46,7 +46,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -58,7 +58,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If update struct properties have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If update struct properties have an invalid or empty value
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -71,7 +71,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
+     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If specified zone is in a different layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -83,7 +83,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\Exceptions\InvalidArgumentException If specified zone is in a different layout
+     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If specified zone is in a different layout
      *                                                                  If target zone is the same as current zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block

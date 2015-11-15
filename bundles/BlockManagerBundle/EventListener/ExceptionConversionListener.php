@@ -5,8 +5,8 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Netgen\BlockManager\Exceptions\InvalidArgumentException;
-use Netgen\BlockManager\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exceptions\InvalidArgumentException;
+use Netgen\BlockManager\API\Exceptions\NotFoundException;
 
 class ExceptionConversionListener implements EventSubscriberInterface
 {

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Tests;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exceptions\NotFoundException;
 
 abstract class BlockServiceTest extends ServiceTest
 {
@@ -36,7 +36,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadBlockThrowsInvalidArgumentExceptionOnInvalidId()
     {
@@ -46,7 +46,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadBlockThrowsInvalidArgumentExceptionOnEmptyId()
     {
@@ -56,7 +56,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
      */
     public function testLoadBlockThrowsNotFoundException()
     {
@@ -176,7 +176,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionOnInvalidIdentifier()
     {
@@ -190,7 +190,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionOnEmptyIdentifier()
     {
@@ -204,7 +204,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionOnInvalidViewType()
     {
@@ -218,7 +218,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionOnEmptyViewType()
     {
@@ -264,7 +264,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testUpdateBlockThrowsInvalidArgumentExceptionOnInvalidViewType()
     {
@@ -278,7 +278,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testUpdateBlockThrowsInvalidArgumentExceptionOnEmptyViewType()
     {
@@ -344,7 +344,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCopyBlockThrowsInvalidArgumentExceptionOnDifferentLayout()
     {
@@ -386,7 +386,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testMoveBlockThrowsInvalidArgumentExceptionOnDifferentLayout()
     {
@@ -401,7 +401,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testMoveBlockThrowsInvalidArgumentExceptionOnSameZone()
     {

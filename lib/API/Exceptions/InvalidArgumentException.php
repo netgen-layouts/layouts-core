@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Exceptions;
+namespace Netgen\BlockManager\API\Exceptions;
 
 use Exception;
 

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exceptions\NotFoundException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -38,7 +38,7 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      *
-     * @throws \Netgen\BlockManager\Exceptions\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exceptions\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Exceptions\Tests;
+namespace Netgen\BlockManager\API\Tests\Exceptions;
 
-use Netgen\BlockManager\Exceptions\InvalidArgumentException;
+use Netgen\BlockManager\API\Exceptions\InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
 class InvalidArgumentExceptionTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exceptions\InvalidArgumentException::__construct
+     * @covers \Netgen\BlockManager\API\Exceptions\InvalidArgumentException::__construct
      */
     public function testExceptionMessage()
     {

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Tests;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exceptions\NotFoundException;
 
 abstract class LayoutServiceTest extends ServiceTest
 {
@@ -63,7 +63,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadLayoutThrowsInvalidArgumentExceptionOnInvalidId()
     {
@@ -73,7 +73,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadLayoutThrowsInvalidArgumentExceptionOnEmptyId()
     {
@@ -83,7 +83,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
@@ -142,7 +142,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadLayoutThrowsInvalidArgumentExceptionOnInvalidIdentifier()
     {
@@ -152,7 +152,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadLayoutThrowsInvalidArgumentExceptionOnEmptyIdentifier()
     {
@@ -162,7 +162,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutByIdentifier
-     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
      */
     public function testLoadLayoutByIdentifierThrowsNotFoundException()
     {
@@ -191,7 +191,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadZoneThrowsInvalidArgumentExceptionOnInvalidId()
     {
@@ -201,7 +201,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testLoadZoneThrowsInvalidArgumentExceptionOnEmptyId()
     {
@@ -211,7 +211,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundException()
     {
@@ -319,7 +319,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnInvalidIdentifier()
     {
@@ -331,7 +331,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyIdentifier()
     {
@@ -343,7 +343,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyZoneIdentifiers()
     {
@@ -355,7 +355,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnInvalidZoneIdentifier()
     {
@@ -367,7 +367,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyZoneIdentifier()
     {
@@ -379,7 +379,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnExistingIdentifier()
     {
@@ -491,7 +491,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCopyLayoutZoneThrowsInvalidArgumentExceptionOnInvalidIdentifier()
     {
@@ -503,7 +503,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCopyLayoutZoneThrowsInvalidArgumentExceptionOnEmptyIdentifier()
     {
@@ -515,7 +515,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     * @expectedException \Netgen\BlockManager\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
      */
     public function testCopyLayoutZoneThrowsInvalidArgumentExceptionOnExistingIdentifier()
     {

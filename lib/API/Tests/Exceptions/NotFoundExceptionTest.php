@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Exceptions\Tests;
+namespace Netgen\BlockManager\API\Tests\Exceptions;
 
-use Netgen\BlockManager\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exceptions\NotFoundException;
 use PHPUnit_Framework_TestCase;
 
 class NotFoundExceptionTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exceptions\NotFoundException::__construct
+     * @covers \Netgen\BlockManager\API\Exceptions\NotFoundException::__construct
      */
     public function testExceptionMessage()
     {
