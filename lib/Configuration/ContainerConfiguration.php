@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Configuration;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Netgen\BlockManager\API\Exceptions\InvalidArgumentException;
+use InvalidArgumentException;
 
 class ContainerConfiguration implements ConfigurationInterface
 {
@@ -28,7 +28,7 @@ class ContainerConfiguration implements ConfigurationInterface
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If parameter is undefined
+     * @throws \InvalidArgumentException If parameter is undefined
      *
      * @return mixed
      */
@@ -36,9 +36,10 @@ class ContainerConfiguration implements ConfigurationInterface
     {
         if (!$this->hasParameter($parameterName)) {
             throw new InvalidArgumentException(
-                'parameterName',
-                $parameterName,
-                'Parameter does not exist in configuration.'
+                sprintf(
+                    'Parameter %s does not exist in configuration.',
+                    $parameterName
+                )
             );
         }
 

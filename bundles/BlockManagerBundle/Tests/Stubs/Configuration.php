@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If parameter is undefined
+     * @throws \InvalidArgumentException If parameter is undefined
      *
      * @return mixed
      */
