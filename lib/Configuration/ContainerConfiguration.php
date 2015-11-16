@@ -37,7 +37,7 @@ class ContainerConfiguration implements ConfigurationInterface
         if (!$this->hasParameter($parameterName)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Parameter %s does not exist in configuration.',
+                    'Parameter "%s" does not exist in configuration.',
                     $parameterName
                 )
             );
