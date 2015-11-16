@@ -17,8 +17,6 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
     {
         $value = new Value();
         $view = new View();
-        $viewWithTemplate = clone $view;
-        $viewWithTemplate->setTemplate('some_template.html.twig');
 
         $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
         $viewProvider1
@@ -36,7 +34,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewProvider2
             ->expects($this->once())
             ->method('provideView')
-            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
         $viewProviders = array($viewProvider1, $viewProvider2);
@@ -57,7 +55,14 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
             $viewProviders,
             array($templateResolver)
         );
-        self::assertEquals($viewWithTemplate, $viewBuilder->buildView($value, array(), 'api'));
+
+        $viewParameters = array('some_param' => 'some_value');
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
+
+        self::assertInstanceOf('Netgen\BlockManager\View\Tests\Stubs\View', $builtView);
+        self::assertEquals('some_template.html.twig', $builtView->getTemplate());
+        self::assertEquals('api', $builtView->getContext());
+        self::assertEquals($viewParameters, $builtView->getParameters());
     }
 
     /**
@@ -85,13 +90,20 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewProvider2
             ->expects($this->once())
             ->method('provideView')
-            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
         $viewProviders = array($viewProvider1, $viewProvider2);
 
         $viewBuilder = new ViewBuilder($viewProviders);
-        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+
+        $viewParameters = array('some_param' => 'some_value');
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
+
+        self::assertInstanceOf('Netgen\BlockManager\View\Tests\Stubs\View', $builtView);
+        self::assertNull($builtView->getTemplate());
+        self::assertEquals('api', $builtView->getContext());
+        self::assertEquals($viewParameters, $builtView->getParameters());
     }
 
     /**
@@ -119,7 +131,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewProvider2
             ->expects($this->once())
             ->method('provideView')
-            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
         $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
@@ -139,7 +151,13 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
             array($templateResolver)
         );
 
-        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+        $viewParameters = array('some_param' => 'some_value');
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
+
+        self::assertInstanceOf('Netgen\BlockManager\View\Tests\Stubs\View', $builtView);
+        self::assertNull($builtView->getTemplate());
+        self::assertEquals('api', $builtView->getContext());
+        self::assertEquals($viewParameters, $builtView->getParameters());
     }
 
     /**
@@ -168,7 +186,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $viewProvider2
             ->expects($this->once())
             ->method('provideView')
-            ->with($this->equalTo($value), $this->equalTo(array()), $this->equalTo('api'))
+            ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
         $templateResolver = $this->getMock('DateTime');

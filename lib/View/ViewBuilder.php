@@ -56,7 +56,9 @@ class ViewBuilder implements ViewBuilderInterface
                 continue;
             }
 
-            $view = $viewProvider->provideView($value, $parameters, $context);
+            $view = $viewProvider->provideView($value);
+            $view->setContext($context);
+            $view->addParameters($parameters);
         }
 
         if (!isset($view)) {

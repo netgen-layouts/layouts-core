@@ -28,19 +28,15 @@ class LayoutViewProvider implements ViewProviderInterface
      * Provides the view.
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
-     * @param array $parameters
-     * @param string $context
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView(Value $value, array $parameters = array(), $context = 'view')
+    public function provideView(Value $value)
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $value */
         $layoutView = new LayoutView();
 
         $layoutView->setLayout($value);
-        $layoutView->setContext($context);
-        $layoutView->setParameters($parameters);
 
         $layoutView->addParameters(
             array(

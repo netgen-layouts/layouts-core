@@ -12,19 +12,15 @@ class BlockViewProvider implements ViewProviderInterface
      * Provides the view.
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
-     * @param array $parameters
-     * @param string $context
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView(Value $value, array $parameters = array(), $context = 'view')
+    public function provideView(Value $value)
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Block $value */
         $blockView = new BlockView();
 
         $blockView->setBlock($value);
-        $blockView->setContext($context);
-        $blockView->setParameters($parameters);
 
         return $blockView;
     }

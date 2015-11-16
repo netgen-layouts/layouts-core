@@ -30,25 +30,12 @@ class LayoutViewProviderTest extends PHPUnit_Framework_TestCase
         $layoutViewProvider = new LayoutViewProvider($blockServiceMock);
 
         /** @var \Netgen\BlockManager\View\LayoutViewInterface $view */
-        $view = $layoutViewProvider->provideView(
-            $layout,
-            array('some_param' => 'some_value'),
-            'api'
-        );
+        $view = $layoutViewProvider->provideView($layout);
 
         self::assertInstanceOf('Netgen\BlockManager\View\LayoutViewInterface', $view);
 
         self::assertEquals($layout, $view->getLayout());
-        self::assertEquals('api', $view->getContext());
         self::assertEquals(null, $view->getTemplate());
-        self::assertEquals(
-            array(
-                'layout' => $layout,
-                'some_param' => 'some_value',
-                'blocks' => $layoutBlocks,
-            ),
-            $view->getParameters()
-        );
     }
 
     /**

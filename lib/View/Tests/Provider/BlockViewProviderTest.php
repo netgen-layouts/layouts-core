@@ -20,24 +20,12 @@ class BlockViewProviderTest extends PHPUnit_Framework_TestCase
         $blockViewProvider = new BlockViewProvider();
 
         /** @var \Netgen\BlockManager\View\BlockViewInterface $view */
-        $view = $blockViewProvider->provideView(
-            $block,
-            array('some_param' => 'some_value'),
-            'api'
-        );
+        $view = $blockViewProvider->provideView($block);
 
         self::assertInstanceOf('Netgen\BlockManager\View\BlockViewInterface', $view);
 
         self::assertEquals($block, $view->getBlock());
-        self::assertEquals('api', $view->getContext());
         self::assertEquals(null, $view->getTemplate());
-        self::assertEquals(
-            array(
-                'block' => $block,
-                'some_param' => 'some_value',
-            ),
-            $view->getParameters()
-        );
     }
 
     /**
