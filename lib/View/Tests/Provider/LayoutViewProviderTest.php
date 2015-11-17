@@ -36,6 +36,13 @@ class LayoutViewProviderTest extends PHPUnit_Framework_TestCase
 
         self::assertEquals($layout, $view->getLayout());
         self::assertEquals(null, $view->getTemplate());
+        self::assertEquals(
+            array(
+                'layout' => $layout,
+                'blocks' => $layoutBlocks
+            ),
+            $view->getParameters()
+        );
     }
 
     /**

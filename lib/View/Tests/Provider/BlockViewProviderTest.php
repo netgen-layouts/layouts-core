@@ -26,6 +26,12 @@ class BlockViewProviderTest extends PHPUnit_Framework_TestCase
 
         self::assertEquals($block, $view->getBlock());
         self::assertEquals(null, $view->getTemplate());
+        self::assertEquals(
+            array(
+                'block' => $block,
+            ),
+            $view->getParameters()
+        );
     }
 
     /**
