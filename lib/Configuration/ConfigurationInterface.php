@@ -25,4 +25,22 @@ interface ConfigurationInterface
      * @return mixed
      */
     public function getParameter($parameterName);
+
+    /**
+     * Returns the configuration for specified block
+     *
+     * @param string $definitionIdentifier
+     *
+     * @return array
+     */
+    public function getBlockConfig($definitionIdentifier);
+
+    /**
+     * Returns the configuration for specified layout
+     *
+     * @param string $layoutIdentifier
+     *
+     * @return array
+     */
+    public function getLayoutConfig($layoutIdentifier);
 }

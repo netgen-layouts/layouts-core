@@ -41,8 +41,6 @@ class LayoutViewNormalizer extends LayoutNormalizer
      * @param string $format
      * @param array $context
      *
-     * @throws \RuntimeException If configuration for layout does not exist
-     *
      * @return array
      */
     public function normalize($object, $format = null, array $context = array())
@@ -82,11 +80,12 @@ class LayoutViewNormalizer extends LayoutNormalizer
     protected function getZones(Layout $layout)
     {
         $zones = array();
+        $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
 
         foreach ($layout->getZones() as $zone) {
             $allowedBlocks = true;
             $zoneIdentifier = $zone->getIdentifier();
-            $zoneConfig = $this->configuration->getParameter('layouts')[$layout->getIdentifier()]['zones'][$zoneIdentifier];
+            $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
 
             if (!empty($zoneConfig['allowed_blocks'])) {
                 $allowedBlocks = $zoneConfig['allowed_blocks'];

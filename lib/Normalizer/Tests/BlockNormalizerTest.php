@@ -16,16 +16,14 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
     public function testNormalize()
     {
         $config = array(
-            'paragraph' => array(
-                'name' => 'Paragraph',
-            ),
+            'name' => 'Paragraph',
         );
 
         $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
         $configuration
             ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('blocks'))
+            ->method('getBlockConfig')
+            ->with($this->equalTo('paragraph'))
             ->will($this->returnValue($config));
 
         $blockNormalizer = new BlockNormalizer($configuration);
@@ -47,43 +45,13 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
             array(
                 'id' => $block->getId(),
                 'definition_identifier' => $block->getDefinitionIdentifier(),
-                'title' => $config[$block->getDefinitionIdentifier()]['name'],
+                'title' => $config['name'],
                 'zone_id' => $block->getZoneId(),
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
             ),
             $blockNormalizer->normalize($block)
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Normalizer\BlockNormalizer::normalize
-     * @expectedException \RuntimeException
-     */
-    public function testNormalizeThrowsRuntimeException()
-    {
-        $config = array(
-            'some_block' => array(
-                'name' => 'Some block',
-            ),
-        );
-
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
-        $configuration
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('blocks'))
-            ->will($this->returnValue($config));
-
-        $blockNormalizer = new BlockNormalizer($configuration);
-
-        $block = new Block(
-            array(
-                'definitionIdentifier' => 'paragraph',
-            )
-        );
-
-        $blockNormalizer->normalize($block);
     }
 
     /**

@@ -72,13 +72,11 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
         );
 
         $config = array(
-            '3_zones_a' => array(
-                'name' => '3 zones A',
-                'zones' => array(
-                    'left' => array(),
-                    'right' => array(
-                        'allowed_blocks' => array('paragraph'),
-                    ),
+            'name' => '3 zones A',
+            'zones' => array(
+                'left' => array(),
+                'right' => array(
+                    'allowed_blocks' => array('paragraph'),
                 ),
             ),
         );
@@ -86,8 +84,8 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
         $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
         $configuration
             ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layouts'))
+            ->method('getLayoutConfig')
+            ->with($this->equalTo('3_zones_a'))
             ->will($this->returnValue($config));
 
         $blockNormalizerMock = $this
@@ -117,7 +115,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
                 'identifier' => $layout->getIdentifier(),
                 'created_at' => $layout->getCreated(),
                 'updated_at' => $layout->getModified(),
-                'title' => $config[$layout->getIdentifier()]['name'],
+                'title' => $config['name'],
                 'html' => 'rendered layout view',
                 'zones' => array(
                     array(
@@ -147,45 +145,6 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
             ),
             $layoutViewNormalizer->normalize($layoutView)
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::normalize
-     * @expectedException \RuntimeException
-     */
-    public function testNormalizeThrowsRuntimeException()
-    {
-        $layout = new Layout(
-            array(
-                'identifier' => '3_zones_a',
-            )
-        );
-
-        $layoutView = new LayoutView();
-        $layoutView->setLayout($layout);
-
-        $config = array(
-            'some_layout' => array(
-                'name' => 'Some layout',
-            ),
-        );
-
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
-        $configuration
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layouts'))
-            ->will($this->returnValue($config));
-
-        $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
-
-        $layoutViewNormalizer = new LayoutViewNormalizer($configuration, $blockNormalizerMock, $viewRendererMock);
-        $layoutViewNormalizer->normalize($layoutView);
     }
 
     /**
