@@ -1,6 +1,13 @@
 blocks:
     title:
         name: 'Title'
+        view_types:
+            default:
+                name: Default
     paragraph:
         name: 'Paragraph'
-        view_types: ['default', 'small']
+        view_types:
+            default:
+                name: Default
+            small:
+                name: Small

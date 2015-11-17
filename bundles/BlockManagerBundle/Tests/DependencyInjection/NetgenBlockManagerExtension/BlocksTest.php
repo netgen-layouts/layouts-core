@@ -33,6 +33,14 @@ class BlocksTest extends AbstractExtensionTestCase
             'blocks' => array(
                 'block' => array(
                     'name' => 'block',
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => 'Default'
+                        ),
+                        'large' => array(
+                            'name' => 'Large'
+                        ),
+                    ),
                 ),
             ),
         );
@@ -44,63 +52,14 @@ class BlocksTest extends AbstractExtensionTestCase
             array(
                 'block' => array(
                     'name' => 'block',
-                    'view_types' => array('default'),
-                ),
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
-     */
-    public function testDefaultBlockSettingsWithViewTypes()
-    {
-        $config = array(
-            'blocks' => array(
-                'block' => array(
-                    'name' => 'block',
-                    'view_types' => array('small', 'large'),
-                ),
-            ),
-        );
-
-        $this->load($config);
-
-        $this->assertContainerBuilderHasParameter(
-            'netgen_block_manager.blocks',
-            array(
-                'block' => array(
-                    'name' => 'block',
-                    'view_types' => array('small', 'large'),
-                ),
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
-     */
-    public function testDefaultBlockSettingsWithNonUniqueViewTypes()
-    {
-        $config = array(
-            'blocks' => array(
-                'block' => array(
-                    'name' => 'block',
-                    'view_types' => array('small', 'large', 'small'),
-                ),
-            ),
-        );
-
-        $this->load($config);
-
-        $this->assertContainerBuilderHasParameter(
-            'netgen_block_manager.blocks',
-            array(
-                'block' => array(
-                    'name' => 'block',
-                    'view_types' => array('small', 'large'),
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => 'Default'
+                        ),
+                        'large' => array(
+                            'name' => 'Large'
+                        ),
+                    ),
                 ),
             )
         );
@@ -169,6 +128,24 @@ class BlocksTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
+    public function testDefaultBlockSettingsWithNoViewTypes()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'name' => 'block'
+                ),
+            ),
+        );
+
+        $this->load($config);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
     public function testDefaultBlockSettingsWithEmptyViewTypes()
     {
         $config = array(
@@ -207,13 +184,15 @@ class BlocksTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testDefaultBlockSettingsWithEmptyViewTypeItem()
+    public function testDefaultBlockSettingsWithInvalidViewTypeItem()
     {
         $config = array(
             'blocks' => array(
                 'block' => array(
                     'name' => 'block',
-                    'view_types' => array(''),
+                    'view_types' => array(
+                        'default' => 'default'
+                    ),
                 ),
             ),
         );
@@ -226,13 +205,61 @@ class BlocksTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testDefaultBlockSettingsWithInvalidViewTypeItem()
+    public function testDefaultBlockSettingsWithNoViewTypeItemName()
     {
         $config = array(
             'blocks' => array(
                 'block' => array(
                     'name' => 'block',
-                    'view_types' => array(array()),
+                    'view_types' => array(
+                        'default' => array()
+                    ),
+                ),
+            ),
+        );
+
+        $this->load($config);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testDefaultBlockSettingsWithEmptyViewTypeItemName()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'name' => 'block',
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => ''
+                        )
+                    ),
+                ),
+            ),
+        );
+
+        $this->load($config);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testDefaultBlockSettingsWithInvalidViewTypeItemName()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'name' => 'block',
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => array()
+                        )
+                    ),
                 ),
             ),
         );
