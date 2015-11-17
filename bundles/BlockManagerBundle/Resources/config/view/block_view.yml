@@ -27,3 +27,7 @@ block_view:
             template: NetgenBlockManagerBundle:block/paragraph:default.html.twig
             match:
                 definition_identifier: paragraph
+    edit:
+        title:
+            template: NetgenBlockManagerBundle:block/title:edit.html.twig
+            match: ~
