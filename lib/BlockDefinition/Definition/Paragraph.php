@@ -29,7 +29,7 @@ class Paragraph extends BlockDefinition
                 new Parameters\Text(
                     'content',
                     'Content',
-                    null,
+                    array(),
                     'Text'
                 ),
             ),

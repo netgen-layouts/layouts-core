@@ -27,7 +27,7 @@ class ParagraphTest extends PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                new Parameters\Text('content', 'Content', null, 'Text'),
+                new Parameters\Text('content', 'Content', array(), 'Text'),
                 new Parameters\Text('css_id', 'CSS ID'),
                 new Parameters\Text('css_class', 'CSS class'),
             ),

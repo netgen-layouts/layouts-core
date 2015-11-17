@@ -31,12 +31,15 @@ class TitleTest extends PHPUnit_Framework_TestCase
                     'tag',
                     'Tag',
                     array(
-                        'multiple' => false,
-                        'options' => array('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
+                        'options' => array(
+                            'h1' => 'h1',
+                            'h2' => 'h2',
+                            'h3' => 'h3'
+                        ),
                     ),
                     'h2'
                 ),
-                new Parameters\Text('title', 'Title', null, 'Title'),
+                new Parameters\Text('title', 'Title', array(), 'Title'),
                 new Parameters\Text('css_id', 'CSS ID'),
                 new Parameters\Text('css_class', 'CSS class'),
             ),
