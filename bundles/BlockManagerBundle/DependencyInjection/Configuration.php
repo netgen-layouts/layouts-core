@@ -209,6 +209,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('zones')
                         ->isRequired()
+                        ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()
                         ->prototype('array')
                             ->children()
