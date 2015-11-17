@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\BlockDefinition;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 abstract class Parameter
 {
     /**
@@ -36,8 +38,11 @@ abstract class Parameter
     {
         $this->identifier = $identifier;
         $this->name = $name;
-        $this->attributes = $attributes;
         $this->defaultValue = $defaultValue;
+
+        $optionsResolver = new OptionsResolver();
+        $this->configureOptions($optionsResolver);
+        $this->attributes = $optionsResolver->resolve($attributes);
     }
 
     /**
@@ -46,6 +51,27 @@ abstract class Parameter
      * @return string
      */
     abstract public function getType();
+
+    /**
+     * Configures the options for this parameter
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    abstract public function configureOptions(OptionsResolver $optionsResolver);
+
+    /**
+     * Returns the Symfony form type which matches this parameter
+     *
+     * @return string
+     */
+    abstract public function getFormType();
+
+    /**
+     * Maps the parameter attributes to Symfony form options
+     *
+     * @return array
+     */
+    abstract public function mapFormTypeOptions();
 
     /**
      * Returns the parameter identifier.
