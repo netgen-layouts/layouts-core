@@ -85,6 +85,9 @@ class LayoutViewNormalizer extends LayoutNormalizer
         foreach ($layout->getZones() as $zone) {
             $allowedBlocks = true;
             $zoneIdentifier = $zone->getIdentifier();
+            
+            //@TODO: Check for existence of zone in config
+            
             $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
 
             if (!empty($zoneConfig['allowed_blocks'])) {
