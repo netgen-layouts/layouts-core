@@ -9,6 +9,18 @@ class BlockCreateStructTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::__construct
+     */
+    public function testDefaultProperties()
+    {
+        $blockCreateStruct = new BlockCreateStruct();
+
+        self::assertNull($blockCreateStruct->definitionIdentifier);
+        self::assertNull($blockCreateStruct->viewType);
+        self::assertEquals(array(), $blockCreateStruct->getParameters());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::__construct
      * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::getParameters
      */
     public function testSetProperties()

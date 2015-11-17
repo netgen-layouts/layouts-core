@@ -17,5 +17,5 @@ class LayoutCreateStruct extends Value
     /**
      * @var string[]
      */
-    public $zoneIdentifiers;
+    public $zoneIdentifiers = array();
 }

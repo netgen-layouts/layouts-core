@@ -9,7 +9,7 @@ class BlockUpdateStruct extends APIBlockUpdateStruct
     /**
      * @var array
      */
-    protected $parameters;
+    protected $parameters = array();
 
     /**
      * Sets the parameters to the struct.

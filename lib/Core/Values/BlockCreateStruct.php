@@ -9,7 +9,7 @@ class BlockCreateStruct extends APIBlockCreateStruct
     /**
      * @var array
      */
-    protected $parameters;
+    protected $parameters = array();
 
     /**
      * Sets the parameters to the struct.

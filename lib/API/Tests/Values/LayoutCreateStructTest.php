@@ -8,6 +8,17 @@ use PHPUnit_Framework_TestCase;
 class LayoutCreateStructTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Core\Values\LayoutCreateStruct::__construct
+     */
+    public function testDefaultProperties()
+    {
+        $layoutCreateStruct = new LayoutCreateStruct();
+
+        self::assertNull($layoutCreateStruct->layoutIdentifier);
+        self::assertEquals(array(), $layoutCreateStruct->zoneIdentifiers);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::__construct
      */
     public function testSetProperties()

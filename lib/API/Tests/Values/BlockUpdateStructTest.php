@@ -9,6 +9,17 @@ class BlockUpdateStructTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct
+     */
+    public function testDefaultProperties()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+
+        self::assertNull($blockUpdateStruct->viewType);
+        self::assertEquals(array(), $blockUpdateStruct->getParameters());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct
      * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameters
      */
     public function testSetProperties()
