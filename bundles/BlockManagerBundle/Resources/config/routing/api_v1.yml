@@ -1,7 +1,7 @@
 netgen_block_manager_api_v1_load_block:
     path: /blocks/{blockId}
     defaults:
-        _controller: netgen_block_manager.controller.api.block:getBlock
+        _controller: netgen_block_manager.controller.api.block:view
 
 netgen_block_manager_api_v1_load_layout:
     path: /layouts/{layoutId}

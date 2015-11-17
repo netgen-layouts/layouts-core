@@ -14,7 +14,7 @@ class BlockController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getBlock(Block $block)
+    public function view(Block $block)
     {
         $blockView = $this->buildViewObject($block, array(), 'api');
 
