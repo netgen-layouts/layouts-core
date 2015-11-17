@@ -27,7 +27,7 @@ class TextTest extends ParameterTest
     }
 
     /**
-     * Provider for testing valid parameter attributes
+     * Provider for testing valid parameter attributes.
      *
      * @return array
      */
@@ -42,7 +42,7 @@ class TextTest extends ParameterTest
     }
 
     /**
-     * Provider for testing invalid parameter attributes
+     * Provider for testing invalid parameter attributes.
      *
      * @return array
      */

@@ -17,8 +17,8 @@ class SelectTest extends ParameterTest
         $attributes = array(
             'options' => array(
                 'option1' => 'Option 1',
-                'option2' => 'Option 2'
-            )
+                'option2' => 'Option 2',
+            ),
         );
 
         $parameter = $this->getParameter($attributes);
@@ -28,7 +28,7 @@ class SelectTest extends ParameterTest
         self::assertEquals(
             array(
                 'multiple' => false,
-                'choices' => $attributes['options']
+                'choices' => $attributes['options'],
             ),
             $parameter->mapFormTypeOptions()
         );
@@ -40,7 +40,7 @@ class SelectTest extends ParameterTest
     }
 
     /**
-     * Provider for testing valid parameter attributes
+     * Provider for testing valid parameter attributes.
      *
      * @return array
      */
@@ -51,15 +51,15 @@ class SelectTest extends ParameterTest
                 array(
                     'options' => array(
                         'option1' => 'Option 1',
-                        'option2' => 'Option 2'
-                    )
+                        'option2' => 'Option 2',
+                    ),
                 ),
                 array(
                     'multiple' => false,
                     'options' => array(
                         'option1' => 'Option 1',
-                        'option2' => 'Option 2'
-                    )
+                        'option2' => 'Option 2',
+                    ),
                 ),
             ),
             array(
@@ -67,22 +67,22 @@ class SelectTest extends ParameterTest
                     'multiple' => true,
                     'options' => array(
                         'option1' => 'Option 1',
-                        'option2' => 'Option 2'
-                    )
+                        'option2' => 'Option 2',
+                    ),
                 ),
                 array(
                     'multiple' => true,
                     'options' => array(
                         'option1' => 'Option 1',
-                        'option2' => 'Option 2'
-                    )
+                        'option2' => 'Option 2',
+                    ),
                 ),
             ),
         );
     }
 
     /**
-     * Provider for testing invalid parameter attributes
+     * Provider for testing invalid parameter attributes.
      *
      * @return array
      */
@@ -94,19 +94,19 @@ class SelectTest extends ParameterTest
                     'multiple' => 'true',
                     'options' => array(
                         'option1' => 'Option 1',
-                        'option2' => 'Option 2'
-                    )
+                        'option2' => 'Option 2',
+                    ),
                 ),
             ),
             array(
                 array(
-                    'options' => 'options'
+                    'options' => 'options',
                 ),
                 array(
-                    'options' => array()
+                    'options' => array(),
                 ),
                 array(
-                    'options' => array(1, 2, 3)
+                    'options' => array(1, 2, 3),
                 ),
                 array(
                     array(),

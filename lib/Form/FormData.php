@@ -5,21 +5,21 @@ namespace Netgen\BlockManager\Form;
 class FormData
 {
     /**
-     * Definition object related to target and payload
+     * Definition object related to target and payload.
      *
      * @var mixed
      */
     public $definition;
 
     /**
-     * Target object that will be updated
+     * Target object that will be updated.
      *
      * @var mixed
      */
     public $target;
 
     /**
-     * One of the matching create or update structs
+     * One of the matching create or update structs.
      *
      * @var mixed
      */

@@ -18,7 +18,7 @@ class Select extends Parameter
     }
 
     /**
-     * Configures the options for this parameter
+     * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
@@ -26,7 +26,7 @@ class Select extends Parameter
     {
         $optionsResolver->setDefaults(
             array(
-                'multiple' => false
+                'multiple' => false,
             )
         );
 
@@ -34,7 +34,7 @@ class Select extends Parameter
         $optionsResolver->setAllowedTypes(
             array(
                 'multiple' => 'bool',
-                'options' => 'array'
+                'options' => 'array',
             )
         );
 
@@ -46,13 +46,13 @@ class Select extends Parameter
                     }
 
                     return true;
-                }
+                },
             )
         );
     }
 
     /**
-     * Returns the Symfony form type which matches this parameter
+     * Returns the Symfony form type which matches this parameter.
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class Select extends Parameter
     }
 
     /**
-     * Maps the parameter attributes to Symfony form options
+     * Maps the parameter attributes to Symfony form options.
      *
      * @return array
      */
@@ -70,7 +70,7 @@ class Select extends Parameter
     {
         return array(
             'multiple' => $this->attributes['multiple'],
-            'choices' => $this->attributes['options']
+            'choices' => $this->attributes['options'],
         );
     }
 }

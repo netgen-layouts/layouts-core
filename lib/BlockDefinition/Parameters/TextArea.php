@@ -18,7 +18,7 @@ class TextArea extends Parameter
     }
 
     /**
-     * Configures the options for this parameter
+     * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
@@ -27,7 +27,7 @@ class TextArea extends Parameter
     }
 
     /**
-     * Returns the Symfony form type which matches this parameter
+     * Returns the Symfony form type which matches this parameter.
      *
      * @return string
      */
@@ -37,7 +37,7 @@ class TextArea extends Parameter
     }
 
     /**
-     * Maps the parameter attributes to Symfony form options
+     * Maps the parameter attributes to Symfony form options.
      *
      * @return array
      */

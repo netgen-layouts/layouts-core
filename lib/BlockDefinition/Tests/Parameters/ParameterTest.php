@@ -45,7 +45,7 @@ abstract class ParameterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns the parameter under test
+     * Returns the parameter under test.
      *
      * @param mixed $attributes
      *
@@ -54,14 +54,14 @@ abstract class ParameterTest extends PHPUnit_Framework_TestCase
     abstract public function getParameter($attributes);
 
     /**
-     * Provider for testing valid parameter attributes
+     * Provider for testing valid parameter attributes.
      *
      * @return array
      */
     abstract public function validAttributesProvider();
 
     /**
-     * Provider for testing invalid parameter attributes
+     * Provider for testing invalid parameter attributes.
      *
      * @return array
      */

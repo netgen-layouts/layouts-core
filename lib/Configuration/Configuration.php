@@ -1,12 +1,13 @@
 <?php
 
 namespace Netgen\BlockManager\Configuration;
+
 use RuntimeException;
 
 abstract class Configuration implements ConfigurationInterface
 {
     /**
-     * Returns the configuration for specified block
+     * Returns the configuration for specified block.
      *
      * @param string $definitionIdentifier
      *
@@ -29,7 +30,7 @@ abstract class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns the configuration for specified layout
+     * Returns the configuration for specified layout.
      *
      * @param string $layoutIdentifier
      *

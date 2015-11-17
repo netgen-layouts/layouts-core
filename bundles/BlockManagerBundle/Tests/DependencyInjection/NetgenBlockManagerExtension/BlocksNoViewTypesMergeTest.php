@@ -31,10 +31,10 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'default' => array(
-                            'name' => 'Default'
+                            'name' => 'Default',
                         ),
                         'large' => array(
-                            'name' => 'Large'
+                            'name' => 'Large',
                         ),
                     ),
                 ),
@@ -57,10 +57,10 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'title' => array(
-                            'name' => 'Title'
+                            'name' => 'Title',
                         ),
                         'image' => array(
-                            'name' => 'Image'
+                            'name' => 'Image',
                         ),
                     ),
                 ),
@@ -76,10 +76,10 @@ class BlocksNoViewTypesMergeTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'title' => array(
-                            'name' => 'Title'
+                            'name' => 'Title',
                         ),
                         'image' => array(
-                            'name' => 'Image'
+                            'name' => 'Image',
                         ),
                     ),
                 ),

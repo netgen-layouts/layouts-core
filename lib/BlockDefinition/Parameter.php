@@ -53,21 +53,21 @@ abstract class Parameter
     abstract public function getType();
 
     /**
-     * Configures the options for this parameter
+     * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
     abstract public function configureOptions(OptionsResolver $optionsResolver);
 
     /**
-     * Returns the Symfony form type which matches this parameter
+     * Returns the Symfony form type which matches this parameter.
      *
      * @return string
      */
     abstract public function getFormType();
 
     /**
-     * Maps the parameter attributes to Symfony form options
+     * Maps the parameter attributes to Symfony form options.
      *
      * @return array
      */

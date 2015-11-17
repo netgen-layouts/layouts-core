@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Normalizer;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use RuntimeException;
 
 class LayoutNormalizer implements NormalizerInterface
 {

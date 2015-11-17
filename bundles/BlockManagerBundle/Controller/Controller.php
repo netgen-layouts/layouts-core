@@ -69,7 +69,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Returns the specified block definition from the registry
+     * Returns the specified block definition from the registry.
      *
      * @param string $definitionIdentifier
      *
@@ -78,6 +78,7 @@ abstract class Controller extends BaseController
     protected function getBlockDefinition($definitionIdentifier)
     {
         $blockDefinitionRegistry = $this->get('netgen_block_manager.block_definition.registry');
+
         return $blockDefinitionRegistry->getBlockDefinition($definitionIdentifier);
     }
 }

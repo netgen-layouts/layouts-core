@@ -47,9 +47,7 @@ class BlockType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $formData = $this->validateFormData($options["data"]);
-
-        /** @var \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface $formData[definition] */
+        $formData = $this->validateFormData($options['data']);
 
         // We're grouping block parameters so they don't conflict with forms from block itself
         $parameterBuilder = $builder->create('parameters', 'form', array('label' => 'Parameters', 'inherit_data' => true));
@@ -60,7 +58,7 @@ class BlockType extends AbstractType
                 $blockParameter->getFormType(),
                 array(
                     'label' => $blockParameter->getName(),
-                    'property_path' => 'payload.parameters[' . $blockParameter->getIdentifier() . ']'
+                    'property_path' => 'payload.parameters[' . $blockParameter->getIdentifier() . ']',
                 ) + $blockParameter->mapFormTypeOptions()
             );
         }
@@ -82,13 +80,13 @@ class BlockType extends AbstractType
             array(
                 'label' => 'View type',
                 'choices' => $choices,
-                'property_path' => 'payload.viewType'
+                'property_path' => 'payload.viewType',
             )
         );
     }
 
     /**
-     * Validates received form data
+     * Validates received form data.
      *
      * @param \Netgen\BlockManager\Form\FormData $formData
      *

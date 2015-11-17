@@ -35,10 +35,10 @@ class BlocksTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'default' => array(
-                            'name' => 'Default'
+                            'name' => 'Default',
                         ),
                         'large' => array(
-                            'name' => 'Large'
+                            'name' => 'Large',
                         ),
                     ),
                 ),
@@ -54,10 +54,10 @@ class BlocksTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'default' => array(
-                            'name' => 'Default'
+                            'name' => 'Default',
                         ),
                         'large' => array(
-                            'name' => 'Large'
+                            'name' => 'Large',
                         ),
                     ),
                 ),
@@ -133,7 +133,7 @@ class BlocksTest extends AbstractExtensionTestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block'
+                    'name' => 'block',
                 ),
             ),
         );
@@ -191,7 +191,7 @@ class BlocksTest extends AbstractExtensionTestCase
                 'block' => array(
                     'name' => 'block',
                     'view_types' => array(
-                        'default' => 'default'
+                        'default' => 'default',
                     ),
                 ),
             ),
@@ -212,7 +212,7 @@ class BlocksTest extends AbstractExtensionTestCase
                 'block' => array(
                     'name' => 'block',
                     'view_types' => array(
-                        'default' => array()
+                        'default' => array(),
                     ),
                 ),
             ),
@@ -234,8 +234,8 @@ class BlocksTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'default' => array(
-                            'name' => ''
-                        )
+                            'name' => '',
+                        ),
                     ),
                 ),
             ),
@@ -257,8 +257,8 @@ class BlocksTest extends AbstractExtensionTestCase
                     'name' => 'block',
                     'view_types' => array(
                         'default' => array(
-                            'name' => array()
-                        )
+                            'name' => array(),
+                        ),
                     ),
                 ),
             ),

@@ -31,10 +31,10 @@ class LayoutsNoZonesMergeTest extends AbstractExtensionTestCase
                     'name' => 'layout',
                     'zones' => array(
                         'left' => array(
-                            'name' => 'Left'
+                            'name' => 'Left',
                         ),
                         'right' => array(
-                            'name' => 'Right'
+                            'name' => 'Right',
                         ),
                     ),
                 ),
@@ -57,10 +57,10 @@ class LayoutsNoZonesMergeTest extends AbstractExtensionTestCase
                     'name' => 'layout',
                     'zones' => array(
                         'top' => array(
-                            'name' => 'Top'
+                            'name' => 'Top',
                         ),
                         'bottom' => array(
-                            'name' => 'Bottom'
+                            'name' => 'Bottom',
                         ),
                     ),
                 ),

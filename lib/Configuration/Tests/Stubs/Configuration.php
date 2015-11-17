@@ -31,13 +31,13 @@ class Configuration extends BaseConfiguration
     {
         if ($parameterName == 'blocks') {
             return array(
-                'some_block' => array('name' => 'Some block')
+                'some_block' => array('name' => 'Some block'),
             );
         }
 
         if ($parameterName == 'layouts') {
             return array(
-                'some_layout' => array('name' => 'Some layout')
+                'some_layout' => array('name' => 'Some layout'),
             );
         }
 

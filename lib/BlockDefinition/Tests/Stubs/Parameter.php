@@ -18,7 +18,7 @@ class Parameter extends BaseParameter
     }
 
     /**
-     * Configures the options for this parameter
+     * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
@@ -27,7 +27,7 @@ class Parameter extends BaseParameter
     }
 
     /**
-     * Returns the Symfony form type which matches this parameter
+     * Returns the Symfony form type which matches this parameter.
      *
      * @return string
      */
@@ -37,7 +37,7 @@ class Parameter extends BaseParameter
     }
 
     /**
-     * Maps the parameter attributes to Symfony form options
+     * Maps the parameter attributes to Symfony form options.
      *
      * @return array
      */

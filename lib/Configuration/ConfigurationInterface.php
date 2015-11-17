@@ -27,7 +27,7 @@ interface ConfigurationInterface
     public function getParameter($parameterName);
 
     /**
-     * Returns the configuration for specified block
+     * Returns the configuration for specified block.
      *
      * @param string $definitionIdentifier
      *
@@ -36,7 +36,7 @@ interface ConfigurationInterface
     public function getBlockConfig($definitionIdentifier);
 
     /**
-     * Returns the configuration for specified layout
+     * Returns the configuration for specified layout.
      *
      * @param string $layoutIdentifier
      *

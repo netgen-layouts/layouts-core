@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Normalizer;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
-use RuntimeException;
 
 class BlockNormalizer implements NormalizerInterface
 {
