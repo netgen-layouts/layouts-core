@@ -33,6 +33,8 @@ class BlockViewNormalizer extends BlockNormalizer
      * @param string $format
      * @param array $context
      *
+     * @throws \RuntimeException If configuration for block does not exist
+     *
      * @return array
      */
     public function normalize($object, $format = null, array $context = array())

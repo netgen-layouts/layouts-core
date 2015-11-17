@@ -150,6 +150,45 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::normalize
+     * @expectedException \RuntimeException
+     */
+    public function testNormalizeThrowsRuntimeException()
+    {
+        $layout = new Layout(
+            array(
+                'identifier' => '3_zones_a',
+            )
+        );
+
+        $layoutView = new LayoutView();
+        $layoutView->setLayout($layout);
+
+        $config = array(
+            'some_layout' => array(
+                'name' => 'Some layout',
+            ),
+        );
+
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('layouts'))
+            ->will($this->returnValue($config));
+
+        $blockNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
+
+        $layoutViewNormalizer = new LayoutViewNormalizer($configuration, $blockNormalizerMock, $viewRendererMock);
+        $layoutViewNormalizer->normalize($layoutView);
+    }
+
+    /**
      * @param mixed $data
      * @param bool $expected
      *

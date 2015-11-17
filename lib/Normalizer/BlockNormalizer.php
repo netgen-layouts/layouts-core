@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Normalizer;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
+use RuntimeException;
 
 class BlockNormalizer implements NormalizerInterface
 {
@@ -30,16 +31,28 @@ class BlockNormalizer implements NormalizerInterface
      * @param string $format
      * @param array $context
      *
+     * @throws \RuntimeException If configuration for block does not exist
+     *
      * @return array
      */
     public function normalize($object, $format = null, array $context = array())
     {
         $blockDefinitionIdentifier = $object->getDefinitionIdentifier();
 
+        $blockConfiguration = $this->configuration->getParameter('blocks');
+        if (!isset($blockConfiguration[$blockDefinitionIdentifier])) {
+            throw new RuntimeException(
+                sprintf(
+                    'Configuration for "%s" block definition does not exist.',
+                    $blockDefinitionIdentifier
+                )
+            );
+        }
+
         return array(
             'id' => $object->getId(),
             'definition_identifier' => $blockDefinitionIdentifier,
-            'title' => $this->configuration->getParameter('blocks')[$blockDefinitionIdentifier]['name'],
+            'title' => $blockConfiguration[$blockDefinitionIdentifier]['name'],
             'zone_id' => $object->getZoneId(),
             'parameters' => $object->getParameters(),
             'view_type' => $object->getViewType(),

@@ -58,6 +58,36 @@ class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Normalizer\LayoutNormalizer::normalize
+     * @expectedException \RuntimeException
+     */
+    public function testNormalizeThrowsRuntimeException()
+    {
+        $config = array(
+            'some_layout' => array(
+                'name' => 'Some layout',
+            ),
+        );
+
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('layouts'))
+            ->will($this->returnValue($config));
+
+        $layoutNormalizer = new LayoutNormalizer($configuration);
+
+        $layout = new Layout(
+            array(
+                'identifier' => '3_zones_a',
+            )
+        );
+
+        $layoutNormalizer->normalize($layout);
+    }
+
+    /**
      * @param mixed $data
      * @param bool $expected
      *

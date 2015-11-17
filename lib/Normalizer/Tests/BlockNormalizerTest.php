@@ -57,6 +57,36 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Normalizer\BlockNormalizer::normalize
+     * @expectedException \RuntimeException
+     */
+    public function testNormalizeThrowsRuntimeException()
+    {
+        $config = array(
+            'some_block' => array(
+                'name' => 'Some block',
+            ),
+        );
+
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('blocks'))
+            ->will($this->returnValue($config));
+
+        $blockNormalizer = new BlockNormalizer($configuration);
+
+        $block = new Block(
+            array(
+                'definitionIdentifier' => 'paragraph',
+            )
+        );
+
+        $blockNormalizer->normalize($block);
+    }
+
+    /**
      * @param mixed $data
      * @param bool $expected
      *

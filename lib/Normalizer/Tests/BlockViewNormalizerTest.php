@@ -69,6 +69,40 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Normalizer\BlockViewNormalizer::normalize
+     * @expectedException \RuntimeException
+     */
+    public function testNormalizeThrowsRuntimeException()
+    {
+        $block = new Block(
+            array(
+                'definitionIdentifier' => 'paragraph',
+            )
+        );
+
+        $blockView = new BlockView();
+        $blockView->setBlock($block);
+
+        $config = array(
+            'some_block' => array(
+                'name' => 'Some block',
+            ),
+        );
+
+        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration
+            ->expects($this->any())
+            ->method('getParameter')
+            ->with($this->equalTo('blocks'))
+            ->will($this->returnValue($config));
+
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
+
+        $blockViewNormalizer = new BlockViewNormalizer($configuration, $viewRendererMock);
+        $blockViewNormalizer->normalize($blockView);
+    }
+
+    /**
      * @param mixed $data
      * @param bool $expected
      *
