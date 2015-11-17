@@ -29,10 +29,6 @@ class BlockUpdateStruct extends APIBlockUpdateStruct
      */
     public function setParameter($parameterName, $parameterValue)
     {
-        if ($this->parameters === null) {
-            $this->parameters = array();
-        }
-
         $this->parameters[$parameterName] = $parameterValue;
     }
 

@@ -29,10 +29,6 @@ class BlockCreateStruct extends APIBlockCreateStruct
      */
     public function setParameter($parameterName, $parameterValue)
     {
-        if ($this->parameters === null) {
-            $this->parameters = array();
-        }
-
         $this->parameters[$parameterName] = $parameterValue;
     }
 
