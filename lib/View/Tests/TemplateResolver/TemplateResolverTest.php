@@ -73,9 +73,9 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
-    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoContext()
+    public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
         $templateResolver = new TemplateResolver();
         $templateResolver->resolveTemplate($this->getView());
@@ -84,9 +84,9 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
-    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatch()
+    public function testResolveTemplateThrowsRuntimeExceptionIfNoMatch()
     {
         $view = $this->getView();
 
@@ -122,9 +122,9 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
-    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatcher()
+    public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {
         $templateResolver = new TemplateResolver(
             array(),
@@ -145,9 +145,9 @@ class TemplateResolverTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
-    public function testResolveTemplateThrowsInvalidArgumentExceptionIfNoMatcherInterface()
+    public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcherInterface()
     {
         $view = $this->getView();
 

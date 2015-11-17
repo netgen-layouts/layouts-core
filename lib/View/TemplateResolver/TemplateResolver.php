@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\TemplateResolver;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use InvalidArgumentException;
+use RuntimeException;
 
 abstract class TemplateResolver implements TemplateResolverInterface
 {
@@ -35,7 +35,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
-     * @throws \InvalidArgumentException If there's no template defined for specified view
+     * @throws \RuntimeException If there's no template defined for specified view
      *
      * @return string
      */
@@ -45,7 +45,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
         $context = $view->getContext();
 
         if (!isset($this->config[$context])) {
-            throw new InvalidArgumentException(
+            throw new RuntimeException(
                 sprintf(
                     'No configuration could be found for context "%s"',
                     $context
@@ -67,7 +67,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
             return $matchedConfig['template'];
         }
 
-        throw new InvalidArgumentException(
+        throw new RuntimeException(
             sprintf(
                 'No template could be found for view %s',
                 get_class($view)
@@ -87,7 +87,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
     {
         foreach ($matchConfig as $matcher => $matcherConfig) {
             if (!isset($this->matchers[$matcher])) {
-                throw new InvalidArgumentException(
+                throw new RuntimeException(
                     sprintf(
                         'No matcher could be found with identifier "%s"',
                         $matcher
@@ -96,7 +96,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
             }
 
             if (!$this->matchers[$matcher] instanceof MatcherInterface) {
-                throw new InvalidArgumentException(
+                throw new RuntimeException(
                     sprintf(
                         'Matcher %s needs to implement MatcherInterface',
                         $matcher
