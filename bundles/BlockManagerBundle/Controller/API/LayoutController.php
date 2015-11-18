@@ -14,7 +14,7 @@ class LayoutController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getLayout(Layout $layout)
+    public function view(Layout $layout)
     {
         $layoutView = $this->buildViewObject($layout, array(), 'api');
 
