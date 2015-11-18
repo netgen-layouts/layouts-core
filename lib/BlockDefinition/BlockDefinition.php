@@ -7,13 +7,28 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     /**
      * Returns the array specifying block parameters.
      *
+     * The keys are parameter identifiers.
+     *
      * @return \Netgen\BlockManager\BlockDefinition\Parameter[]
      */
     public function getParameters()
     {
         return array(
-            new Parameters\Text('css_id', 'CSS ID'),
-            new Parameters\Text('css_class', 'CSS class'),
+            'css_id' => new Parameters\Text(),
+            'css_class' => new Parameters\Text(),
+        );
+    }
+
+    /**
+     * Returns the array specifying block parameter human readable names.
+     *
+     * @return string[]
+     */
+    public function getParameterNames()
+    {
+        return array(
+            'css_id' => 'CSS ID',
+            'css_class' => 'CSS class',
         );
     }
 }

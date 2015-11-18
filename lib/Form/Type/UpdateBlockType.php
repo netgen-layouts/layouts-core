@@ -67,13 +67,18 @@ class UpdateBlockType extends AbstractType
         // We're grouping block parameters so they don't conflict with forms from block itself
         $parameterBuilder = $builder->create('parameters', 'form', array('label' => 'Parameters', 'inherit_data' => true));
 
-        foreach ($blockDefinition->getParameters() as $blockParameter) {
+        $parameters = $blockDefinition->getParameters();
+        $parameterNames = $blockDefinition->getParameterNames();
+
+        foreach ($parameters as $parameterIdentifier => $blockParameter) {
             $parameterBuilder->add(
-                $blockParameter->getIdentifier(),
+                $parameterIdentifier,
                 $blockParameter->getFormType(),
                 array(
-                    'label' => $blockParameter->getName(),
-                    'property_path' => 'updateStruct.parameters[' . $blockParameter->getIdentifier() . ']',
+                    'label' => isset($parameterNames[$parameterIdentifier]) ?
+                        $parameterNames[$parameterIdentifier] :
+                        null,
+                    'property_path' => 'updateStruct.parameters[' . $parameterIdentifier . ']',
                 ) + $blockParameter->mapFormTypeOptions()
             );
         }

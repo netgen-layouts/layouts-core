@@ -27,23 +27,39 @@ class TitleTest extends PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                new Parameters\Select(
-                    'tag',
-                    'Tag',
+                'tag' => new Parameters\Select(
+                    'h2',
                     array(
                         'options' => array(
                             'h1' => 'h1',
                             'h2' => 'h2',
                             'h3' => 'h3',
                         ),
-                    ),
-                    'h2'
+                    )
                 ),
-                new Parameters\Text('title', 'Title', array(), 'Title'),
-                new Parameters\Text('css_id', 'CSS ID'),
-                new Parameters\Text('css_class', 'CSS class'),
+                'title' => new Parameters\Text('Title'),
+                'css_id' => new Parameters\Text(),
+                'css_class' => new Parameters\Text(),
             ),
             $blockDefinition->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getParameterNames
+     */
+    public function testGetParameterNames()
+    {
+        $blockDefinition = new Title();
+
+        self::assertEquals(
+            array(
+                'tag' => 'Tag',
+                'title' => 'Title',
+                'css_id' => 'CSS ID',
+                'css_class' => 'CSS class',
+            ),
+            $blockDefinition->getParameterNames()
         );
     }
 

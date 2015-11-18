@@ -62,7 +62,7 @@ class HiddenTest extends PHPUnit_Framework_TestCase
      */
     public function getParameter($attributes)
     {
-        return new Hidden('test', 'Test', $attributes, 'Test value');
+        return new Hidden('Test value', $attributes);
     }
 
     /**

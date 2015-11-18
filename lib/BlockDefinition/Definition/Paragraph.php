@@ -24,17 +24,21 @@ class Paragraph extends BlockDefinition
      */
     public function getParameters()
     {
-        return array_merge(
-            array(
-                new Parameters\Text(
-                    'content',
-                    'Content',
-                    array(),
-                    'Text'
-                ),
-            ),
-            parent::getParameters()
-        );
+        return array(
+            'content' => new Parameters\Text('Text')
+        ) + parent::getParameters();
+    }
+
+    /**
+     * Returns the array specifying block parameter human readable names.
+     *
+     * @return string[]
+     */
+    public function getParameterNames()
+    {
+        return array(
+            'content' => 'Content',
+        ) + parent::getParameterNames();
     }
 
     /**

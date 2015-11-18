@@ -9,21 +9,12 @@ class ParameterTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter::__construct
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getName
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getIdentifier
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getDefaultValue
      */
-    public function testParameter()
+    public function testGetDefaultValue()
     {
-        $parameter = new Parameter(
-            'parameter',
-            'Parameter',
-            array(),
-            'default'
-        );
+        $parameter = new Parameter('default');
 
-        self::assertEquals('parameter', $parameter->getIdentifier());
-        self::assertEquals('Parameter', $parameter->getName());
         self::assertEquals('default', $parameter->getDefaultValue());
     }
 }

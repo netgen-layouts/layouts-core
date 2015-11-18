@@ -62,7 +62,7 @@ class TextAreaTest extends PHPUnit_Framework_TestCase
      */
     public function getParameter($attributes)
     {
-        return new TextArea('test', 'Test', $attributes, 'Test value');
+        return new TextArea('Test value', $attributes);
     }
 
     /**

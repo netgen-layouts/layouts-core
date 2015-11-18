@@ -24,24 +24,32 @@ class Title extends BlockDefinition
      */
     public function getParameters()
     {
-        return array_merge(
-            array(
-                new Parameters\Select(
-                    'tag',
-                    'Tag',
-                    array(
-                        'options' => array(
-                            'h1' => 'h1',
-                            'h2' => 'h2',
-                            'h3' => 'h3',
-                        ),
+        return array(
+            'tag' => new Parameters\Select(
+                'h2',
+                array(
+                    'options' => array(
+                        'h1' => 'h1',
+                        'h2' => 'h2',
+                        'h3' => 'h3',
                     ),
-                    'h2'
-                ),
-                new Parameters\Text('title', 'Title', array(), 'Title'),
+                )
             ),
-            parent::getParameters()
-        );
+            'title' => new Parameters\Text('Title'),
+        ) + parent::getParameters();
+    }
+
+    /**
+     * Returns the array specifying block parameter human readable names.
+     *
+     * @return string[]
+     */
+    public function getParameterNames()
+    {
+        return array(
+            'tag' => 'Tag',
+            'title' => 'Title',
+        ) + parent::getParameterNames();
     }
 
     /**

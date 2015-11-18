@@ -27,11 +27,28 @@ class ParagraphTest extends PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                new Parameters\Text('content', 'Content', array(), 'Text'),
-                new Parameters\Text('css_id', 'CSS ID'),
-                new Parameters\Text('css_class', 'CSS class'),
+                'content' => new Parameters\Text('Text'),
+                'css_id' => new Parameters\Text(),
+                'css_class' => new Parameters\Text(),
             ),
             $blockDefinition->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameterNames
+     */
+    public function testGetParameterNames()
+    {
+        $blockDefinition = new Paragraph();
+
+        self::assertEquals(
+            array(
+                'content' => 'Content',
+                'css_id' => 'CSS ID',
+                'css_class' => 'CSS class',
+            ),
+            $blockDefinition->getParameterNames()
         );
     }
 

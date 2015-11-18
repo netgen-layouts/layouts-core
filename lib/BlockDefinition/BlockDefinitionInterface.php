@@ -14,9 +14,18 @@ interface BlockDefinitionInterface
     /**
      * Returns the array specifying block parameters.
      *
+     * The keys are parameter identifiers.
+     *
      * @return \Netgen\BlockManager\BlockDefinition\Parameter[]
      */
     public function getParameters();
+
+    /**
+     * Returns the array specifying block parameter human readable names.
+     *
+     * @return string[]
+     */
+    public function getParameterNames();
 
     /**
      * Returns the array of values provided by this block.

@@ -62,7 +62,7 @@ class TextTest extends PHPUnit_Framework_TestCase
      */
     public function getParameter($attributes)
     {
-        return new Text('test', 'Test', $attributes, 'Test value');
+        return new Text('Test value', $attributes);
     }
 
     /**

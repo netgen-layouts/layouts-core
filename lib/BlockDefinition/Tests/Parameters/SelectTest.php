@@ -75,7 +75,7 @@ class SelectTest extends PHPUnit_Framework_TestCase
      */
     public function getParameter($attributes)
     {
-        return new Select('test', 'Test', $attributes, 'Test value');
+        return new Select('Test value', $attributes);
     }
 
     /**
