@@ -42,7 +42,7 @@ class UpdateBlockType extends AbstractType
      */
     public function getName()
     {
-        return 'ngbm_block';
+        return 'ngbm_update_block';
     }
 
     /**

@@ -63,7 +63,7 @@ class UpdateBlockTypeTest extends TypeTestCase
     public function testGetName()
     {
         $form = new UpdateBlockType($this->blockDefinitionRegistry, $this->configuration);
-        self::assertEquals('ngbm_block', $form->getName());
+        self::assertEquals('ngbm_update_block', $form->getName());
     }
 
     /**

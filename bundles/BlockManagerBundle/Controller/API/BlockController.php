@@ -39,7 +39,7 @@ class BlockController extends Controller
         $updateStruct->viewType = $block->getViewType();
 
         $form = $this->createForm(
-            'ngbm_block',
+            'ngbm_update_block',
             new UpdateBlockData($block, $updateStruct)
         );
 
