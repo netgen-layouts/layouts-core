@@ -9,6 +9,7 @@
             {% endfor %}
         </div>
     </div>
+
     <div class="r">
         <div data-zone="top_right">
             {% for block in blocks.top_right %}
@@ -17,7 +18,9 @@
         </div>
     </div>
 
-    {{ block('content') }}
+    <div id="main" class="clearfix">
+        {{ block('content') }}
+    </div>
 
     <div class="r">
         <div data-zone="bottom">
