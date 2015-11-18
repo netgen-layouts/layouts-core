@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\BlockDefinition\Tests\Parameters;
 
 use Netgen\BlockManager\BlockDefinition\Parameters\Text;
+use PHPUnit_Framework_TestCase;
 
-class TextTest extends ParameterTest
+class TextTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Text::getType
@@ -21,6 +22,44 @@ class TextTest extends ParameterTest
         self::assertEquals(array(), $parameter->mapFormTypeOptions());
     }
 
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Text::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Text::configureOptions
+     * @dataProvider validAttributesProvider
+     *
+     * @param array $attributes
+     * @param array $resolvedAttributes
+     */
+    public function testValidAttributes($attributes, $resolvedAttributes)
+    {
+        $parameter = $this->getParameter($attributes);
+        self::assertEquals($resolvedAttributes, $parameter->getAttributes());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Text::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Text::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidAttributesProvider
+     *
+     * @param array $attributes
+     */
+    public function testInvalidAttributes($attributes)
+    {
+        if ($attributes === null) {
+            $this->markTestSkipped('This parameter has no invalid values.');
+        }
+
+        $parameter = $this->getParameter($attributes);
+    }
+
+    /**
+     * Returns the parameter under test.
+     *
+     * @param array $attributes
+     *
+     * @return \Netgen\BlockManager\BlockDefinition\Parameters\Text
+     */
     public function getParameter($attributes)
     {
         return new Text('test', 'Test', $attributes, 'Test value');
@@ -48,6 +87,12 @@ class TextTest extends ParameterTest
      */
     public function invalidAttributesProvider()
     {
-        return array(array(null));
+        return array(
+            array(
+                array(
+                    'undefined_value' => 'Value'
+                )
+            )
+        );
     }
 }

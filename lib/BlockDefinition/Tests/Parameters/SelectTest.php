@@ -3,18 +3,19 @@
 namespace Netgen\BlockManager\BlockDefinition\Tests\Parameters;
 
 use Netgen\BlockManager\BlockDefinition\Parameters\Select;
+use PHPUnit_Framework_TestCase;
 
-class SelectTest extends ParameterTest
+class SelectTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getFormType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::configureOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::mapFormTypeOptions
      */
     public function testParameter()
     {
         $attributes = array(
+            'multiple' => false,
             'options' => array(
                 'option1' => 'Option 1',
                 'option2' => 'Option 2',
@@ -27,13 +28,51 @@ class SelectTest extends ParameterTest
         self::assertEquals('choice', $parameter->getFormType());
         self::assertEquals(
             array(
-                'multiple' => false,
+                'multiple' => $attributes['multiple'],
                 'choices' => $attributes['options'],
             ),
             $parameter->mapFormTypeOptions()
         );
     }
 
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::configureOptions
+     * @dataProvider validAttributesProvider
+     *
+     * @param array $attributes
+     * @param array $resolvedAttributes
+     */
+    public function testValidAttributes($attributes, $resolvedAttributes)
+    {
+        $parameter = $this->getParameter($attributes);
+        self::assertEquals($resolvedAttributes, $parameter->getAttributes());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidAttributesProvider
+     *
+     * @param array $attributes
+     */
+    public function testInvalidAttributes($attributes)
+    {
+        if ($attributes === null) {
+            $this->markTestSkipped('This parameter has no invalid values.');
+        }
+
+        $parameter = $this->getParameter($attributes);
+    }
+
+    /**
+     * Returns the parameter under test.
+     *
+     * @param array $attributes
+     *
+     * @return \Netgen\BlockManager\BlockDefinition\Parameters\Select
+     */
     public function getParameter($attributes)
     {
         return new Select('test', 'Test', $attributes, 'Test value');
@@ -49,6 +88,22 @@ class SelectTest extends ParameterTest
         return array(
             array(
                 array(
+                    'options' => array(
+                        'option1' => 'Option 1',
+                        'option2' => 'Option 2',
+                    ),
+                ),
+                array(
+                    'multiple' => false,
+                    'options' => array(
+                        'option1' => 'Option 1',
+                        'option2' => 'Option 2',
+                    ),
+                ),
+            ),
+            array(
+                array(
+                    'multiple' => false,
                     'options' => array(
                         'option1' => 'Option 1',
                         'option2' => 'Option 2',
@@ -102,15 +157,24 @@ class SelectTest extends ParameterTest
                 array(
                     'options' => 'options',
                 ),
+            ),
+            array(
                 array(
                     'options' => array(),
                 ),
+            ),
+            array(
                 array(
                     'options' => array(1, 2, 3),
                 ),
+            ),
+            array(
                 array(
-                    array(),
-                ),
+                    'undefined_value' => 'Value'
+                )
+            ),
+            array(
+                array(),
             ),
         );
     }
