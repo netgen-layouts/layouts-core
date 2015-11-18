@@ -1,14 +1,17 @@
 netgen_block_manager_api_v1_load_block:
     path: /blocks/{blockId}
+    methods: [GET]
     defaults:
         _controller: netgen_block_manager.controller.api.block:view
 
 netgen_block_manager_api_v1_edit_block:
     path: /blocks/{blockId}/edit
+    methods: [GET, POST]
     defaults:
         _controller: netgen_block_manager.controller.api.block:edit
 
 netgen_block_manager_api_v1_load_layout:
     path: /layouts/{layoutId}
+    methods: [GET]
     defaults:
         _controller: netgen_block_manager.controller.api.layout:view
