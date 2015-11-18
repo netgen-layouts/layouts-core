@@ -26,6 +26,9 @@
         <testsuite name="Netgen\BlockManager\Core\Service">
             <directory>lib/Core/Service/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Form">
+            <directory>lib/Form/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\BlockManager\Normalizer">
             <directory>lib/Normalizer/Tests</directory>
         </testsuite>
