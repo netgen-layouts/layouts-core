@@ -43,7 +43,7 @@ abstract class Controller extends BaseController
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    protected function buildViewObject($object, $parameters = array(), $context = 'view')
+    protected function buildViewObject($object, array $parameters = array(), $context = 'view')
     {
         $viewBuilder = $this->get('netgen_block_manager.view.builder');
 
