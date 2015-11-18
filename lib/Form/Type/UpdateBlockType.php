@@ -2,18 +2,20 @@
 
 namespace Netgen\BlockManager\Form\Type;
 
-use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface;
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Form\FormData;
+use Netgen\BlockManager\Form\Data\UpdateBlockData;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use RuntimeException;
 
-class BlockType extends AbstractType
+class UpdateBlockType extends AbstractType
 {
+    /**
+     * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
+     */
+    protected $blockDefinitionRegistry;
+
     /**
      * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
      */
@@ -22,10 +24,14 @@ class BlockType extends AbstractType
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
-    public function __construct(ConfigurationInterface $configuration)
-    {
+    public function __construct(
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
+        ConfigurationInterface $configuration
+    ) {
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->configuration = $configuration;
     }
 
@@ -44,21 +50,30 @@ class BlockType extends AbstractType
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
      * @param array $options The options
+     *
+     * @throws \RuntimeException If form data is not of expected type
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $formData = $this->validateFormData($options['data']);
+        $formData = $options['data'];
+        if (!$formData instanceof UpdateBlockData) {
+            throw new RuntimeException('Form data must be an instance of UpdateBlockData class.');
+        }
+
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $formData->block->getDefinitionIdentifier()
+        );
 
         // We're grouping block parameters so they don't conflict with forms from block itself
         $parameterBuilder = $builder->create('parameters', 'form', array('label' => 'Parameters', 'inherit_data' => true));
 
-        foreach ($formData->definition->getParameters() as $blockParameter) {
+        foreach ($blockDefinition->getParameters() as $blockParameter) {
             $parameterBuilder->add(
                 $blockParameter->getIdentifier(),
                 $blockParameter->getFormType(),
                 array(
                     'label' => $blockParameter->getName(),
-                    'property_path' => 'payload.parameters[' . $blockParameter->getIdentifier() . ']',
+                    'property_path' => 'updateStruct.parameters[' . $blockParameter->getIdentifier() . ']',
                 ) + $blockParameter->mapFormTypeOptions()
             );
         }
@@ -66,7 +81,7 @@ class BlockType extends AbstractType
         $builder->add($parameterBuilder);
 
         $blockConfig = $this->configuration->getBlockConfig(
-            $formData->target->getDefinitionIdentifier()
+            $blockDefinition->getIdentifier()
         );
 
         $choices = array();
@@ -80,44 +95,8 @@ class BlockType extends AbstractType
             array(
                 'label' => 'View type',
                 'choices' => $choices,
-                'property_path' => 'payload.viewType',
+                'property_path' => 'updateStruct.viewType',
             )
         );
-    }
-
-    /**
-     * Validates received form data.
-     *
-     * @param \Netgen\BlockManager\Form\FormData $formData
-     *
-     * @return \Netgen\BlockManager\Form\FormData
-     */
-    protected function validateFormData($formData)
-    {
-        if (!$formData instanceof FormData) {
-            throw new RuntimeException(
-                'Form data must be an instance of FormData class.'
-            );
-        }
-
-        if (!$formData->definition instanceof BlockDefinitionInterface) {
-            throw new RuntimeException(
-                'Form data definition must be an instance of BlockDefinitionInterface.'
-            );
-        }
-
-        if (!$formData->target instanceof Block) {
-            throw new RuntimeException(
-                'Form data definition must be an instance of Block interface.'
-            );
-        }
-
-        if (!$formData->payload instanceof APIBlockUpdateStruct) {
-            $formData->payload = new BlockUpdateStruct();
-            $formData->payload->setParameters($formData->target->getParameters());
-            $formData->payload->viewType = $formData->target->getViewType();
-        }
-
-        return $formData;
     }
 }

@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 use Symfony\Component\HttpFoundation\Request;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Form\FormData;
+use Netgen\BlockManager\Form\Data\UpdateBlockData;
 
 class BlockController extends Controller
 {
@@ -23,28 +23,33 @@ class BlockController extends Controller
         return $this->serializeObject($blockView);
     }
 
+    /**
+     * Displays and processes block update form.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function edit(Request $request, Block $block)
     {
-        $definitionIdentifier = $block->getDefinitionIdentifier();
-        $blockDefinition = $this->getBlockDefinition($definitionIdentifier);
-
-        $blockConfig = $this
-            ->get('netgen_block_manager.configuration')
-            ->getBlockConfig($definitionIdentifier);
+        $blockService = $this->get('netgen_block_manager.api.service.block');
+        $updateStruct = $blockService->newBlockUpdateStruct();
+        $updateStruct->setParameters($block->getParameters());
+        $updateStruct->viewType = $block->getViewType();
 
         $form = $this->createForm(
             'ngbm_block',
-            new FormData($blockDefinition, $block)
+            new UpdateBlockData($block, $updateStruct)
         );
 
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
+        if (!$form->isSubmitted() || !$form->isValid()) {
             $blockView = $this->buildViewObject(
                 $block,
                 array(
                     'form' => $form->createView(),
-                    'config' => $blockConfig,
                 ),
                 'edit'
             );
@@ -53,8 +58,11 @@ class BlockController extends Controller
         }
 
         $blockService = $this->get('netgen_block_manager.api.service.block');
-        $updatedBlock = $blockService->updateBlock($block, $form->getData()->payload);
+        $updatedBlock = $blockService->updateBlock($block, $form->getData()->updateStruct);
 
-        return $this->serializeObject($this->buildViewObject($updatedBlock));
+        return $this->redirectToRoute(
+            'netgen_block_manager_api_v1_load_block',
+            array('blockId' => $updatedBlock->getId())
+        );
     }
 }

@@ -1,10 +1,11 @@
 parameters:
-    netgen_block_manager.form.block.class: Netgen\BlockManager\Form\Type\BlockType
+    netgen_block_manager.form.update_block.class: Netgen\BlockManager\Form\Type\UpdateBlockType
 
 services:
-    netgen_block_manager.form.block:
-        class: %netgen_block_manager.form.block.class%
+    netgen_block_manager.form.update_block:
+        class: %netgen_block_manager.form.update_block.class%
         arguments:
+            - @netgen_block_manager.block_definition.registry
             - @netgen_block_manager.configuration
         tags:
             - { name: form.type, alias: ngbm_block }
