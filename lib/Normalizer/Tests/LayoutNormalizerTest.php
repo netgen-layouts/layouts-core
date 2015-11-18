@@ -49,7 +49,7 @@ class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
                 'identifier' => $layout->getIdentifier(),
                 'created_at' => $layout->getCreated(),
                 'updated_at' => $layout->getModified(),
-                'title' => $config['name'],
+                'name' => $config['name'],
             ),
             $layoutNormalizer->normalize($layout)
         );

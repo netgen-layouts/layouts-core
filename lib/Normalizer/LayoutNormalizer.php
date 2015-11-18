@@ -42,7 +42,7 @@ class LayoutNormalizer implements NormalizerInterface
             'identifier' => $layoutIdentifier,
             'created_at' => $object->getCreated(),
             'updated_at' => $object->getModified(),
-            'title' => $this->configuration->getLayoutConfig($layoutIdentifier)['name'],
+            'name' => $this->configuration->getLayoutConfig($layoutIdentifier)['name'],
         );
     }
 

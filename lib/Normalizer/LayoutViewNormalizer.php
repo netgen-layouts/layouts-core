@@ -96,7 +96,7 @@ class LayoutViewNormalizer extends LayoutNormalizer
 
             $zones[] = array(
                 'identifier' => $zoneIdentifier,
-                'accepts' => $allowedBlocks,
+                'allowed_blocks' => $allowedBlocks,
             );
         }
 

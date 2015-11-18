@@ -45,7 +45,7 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
             array(
                 'id' => $block->getId(),
                 'definition_identifier' => $block->getDefinitionIdentifier(),
-                'title' => $config['name'],
+                'name' => $config['name'],
                 'zone_id' => $block->getZoneId(),
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),

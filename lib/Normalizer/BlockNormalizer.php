@@ -39,7 +39,7 @@ class BlockNormalizer implements NormalizerInterface
         return array(
             'id' => $object->getId(),
             'definition_identifier' => $blockDefinitionIdentifier,
-            'title' => $this->configuration->getBlockConfig($blockDefinitionIdentifier)['name'],
+            'name' => $this->configuration->getBlockConfig($blockDefinitionIdentifier)['name'],
             'zone_id' => $object->getZoneId(),
             'parameters' => $object->getParameters(),
             'view_type' => $object->getViewType(),

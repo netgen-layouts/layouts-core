@@ -115,16 +115,16 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
                 'identifier' => $layout->getIdentifier(),
                 'created_at' => $layout->getCreated(),
                 'updated_at' => $layout->getModified(),
-                'title' => $config['name'],
+                'name' => $config['name'],
                 'html' => 'rendered layout view',
                 'zones' => array(
                     array(
                         'identifier' => 'left',
-                        'accepts' => true,
+                        'allowed_blocks' => true,
                     ),
                     array(
                         'identifier' => 'right',
-                        'accepts' => array('paragraph'),
+                        'allowed_blocks' => array('paragraph'),
                     ),
                 ),
                 'blocks' => array($normalizedBlock),
