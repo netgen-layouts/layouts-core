@@ -10,7 +10,7 @@ use Netgen\BlockManager\Form\Data\UpdateBlockData;
 class BlockController extends Controller
 {
     /**
-     * Serializes the block object.
+     * Returns the block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
