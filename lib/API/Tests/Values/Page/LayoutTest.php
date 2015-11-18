@@ -17,6 +17,27 @@ class LayoutTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      */
+    public function testSetDefaultProperties()
+    {
+        $layout = new Layout();
+
+        self::assertNull($layout->getId());
+        self::assertNull($layout->getParentId());
+        self::assertNull($layout->getIdentifier());
+        self::assertNull($layout->getCreated());
+        self::assertNull($layout->getModified());
+        self::assertEquals(array(), $layout->getZones());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getParentId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
+     */
     public function testSetProperties()
     {
         $createdDate = new DateTime();

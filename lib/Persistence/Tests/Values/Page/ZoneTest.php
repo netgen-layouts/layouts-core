@@ -10,6 +10,18 @@ class ZoneTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Values\Page\Zone::__construct
      */
+    public function testSetDefaultProperties()
+    {
+        $zone = new Zone();
+
+        self::assertNull($zone->id);
+        self::assertNull($zone->layoutId);
+        self::assertNull($zone->identifier);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Values\Page\Zone::__construct
+     */
     public function testSetProperties()
     {
         $zone = new Zone(

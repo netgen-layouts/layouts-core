@@ -10,6 +10,20 @@ class BlockTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Values\Page\Block::__construct
      */
+    public function testSetDefaultProperties()
+    {
+        $block = new Block();
+
+        self::assertNull($block->id);
+        self::assertNull($block->zoneId);
+        self::assertNull($block->definitionIdentifier);
+        self::assertNull($block->parameters);
+        self::assertNull($block->viewType);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Values\Page\Block::__construct
+     */
     public function testSetProperties()
     {
         $block = new Block(

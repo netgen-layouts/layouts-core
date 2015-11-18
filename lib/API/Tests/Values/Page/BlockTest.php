@@ -15,6 +15,25 @@ class BlockTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      */
+    public function testSetDefaultProperties()
+    {
+        $block = new Block();
+
+        self::assertNull($block->getId());
+        self::assertNull($block->getZoneId());
+        self::assertNull($block->getDefinitionIdentifier());
+        self::assertEquals(array(), $block->getParameters());
+        self::assertNull($block->getViewType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
+     */
     public function testSetProperties()
     {
         $block = new Block(

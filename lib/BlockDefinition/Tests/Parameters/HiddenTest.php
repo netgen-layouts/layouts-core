@@ -90,9 +90,9 @@ class HiddenTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 array(
-                    'undefined_value' => 'Value'
-                )
-            )
+                    'undefined_value' => 'Value',
+                ),
+            ),
         );
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\BlockDefinition\Tests\Registry;
 
-use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
+use Netgen\BlockManager\BlockDefinition\Tests\Stubs\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry;
 use PHPUnit_Framework_TestCase;
 
@@ -16,10 +16,10 @@ class BlockDefinitionRegistryTest extends PHPUnit_Framework_TestCase
     {
         $registry = new BlockDefinitionRegistry();
 
-        $blockDefinition = new Paragraph();
+        $blockDefinition = new BlockDefinition();
         $registry->addBlockDefinition($blockDefinition);
 
-        self::assertEquals(array('paragraph' => $blockDefinition), $registry->getBlockDefinitions());
+        self::assertEquals(array('block_definition' => $blockDefinition), $registry->getBlockDefinitions());
     }
 
     /**
@@ -29,10 +29,10 @@ class BlockDefinitionRegistryTest extends PHPUnit_Framework_TestCase
     {
         $registry = new BlockDefinitionRegistry();
 
-        $blockDefinition = new Paragraph();
+        $blockDefinition = new BlockDefinition();
         $registry->addBlockDefinition($blockDefinition);
 
-        self::assertEquals($blockDefinition, $registry->getBlockDefinition('paragraph'));
+        self::assertEquals($blockDefinition, $registry->getBlockDefinition('block_definition'));
     }
 
     /**
@@ -43,7 +43,7 @@ class BlockDefinitionRegistryTest extends PHPUnit_Framework_TestCase
     {
         $registry = new BlockDefinitionRegistry();
 
-        $blockDefinition = new Paragraph();
+        $blockDefinition = new BlockDefinition();
         $registry->addBlockDefinition($blockDefinition);
 
         $registry->getBlockDefinition('title');

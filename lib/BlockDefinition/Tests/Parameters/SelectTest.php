@@ -170,8 +170,8 @@ class SelectTest extends PHPUnit_Framework_TestCase
             ),
             array(
                 array(
-                    'undefined_value' => 'Value'
-                )
+                    'undefined_value' => 'Value',
+                ),
             ),
             array(
                 array(),

@@ -18,26 +18,17 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider1
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($value))
-            ->will($this->returnValue(false));
-
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider2
+        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(true));
-        $viewProvider2
+        $viewProvider
             ->expects($this->once())
             ->method('provideView')
             ->with($this->equalTo($value))
             ->will($this->returnValue($view));
-
-        $viewProviders = array($viewProvider1, $viewProvider2);
 
         $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
         $templateResolver
@@ -52,7 +43,7 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue('some_template.html.twig'));
 
         $viewBuilder = new ViewBuilder(
-            $viewProviders,
+            array($viewProvider),
             array($templateResolver)
         );
 
@@ -74,28 +65,19 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider1
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($value))
-            ->will($this->returnValue(false));
-
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider2
+        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(true));
-        $viewProvider2
+        $viewProvider
             ->expects($this->once())
             ->method('provideView')
             ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
-        $viewProviders = array($viewProvider1, $viewProvider2);
-
-        $viewBuilder = new ViewBuilder($viewProviders);
+        $viewBuilder = new ViewBuilder(array($viewProvider));
 
         $viewParameters = array('some_param' => 'some_value');
         $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
@@ -110,25 +92,18 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      */
-    public function testBuildViewWithNoTemplateResolver()
+    public function testBuildViewWithNoTemplateResolverThatSupportsView()
     {
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider1
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($value))
-            ->will($this->returnValue(false));
-
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider2
+        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(true));
-        $viewProvider2
+        $viewProvider
             ->expects($this->once())
             ->method('provideView')
             ->with($this->equalTo($value))
@@ -144,10 +119,8 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('resolveTemplate');
 
-        $viewProviders = array($viewProvider1, $viewProvider2);
-
         $viewBuilder = new ViewBuilder(
-            $viewProviders,
+            array($viewProvider),
             array($templateResolver)
         );
 
@@ -170,20 +143,13 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider1
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($value))
-            ->will($this->returnValue(false));
-
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider2
+        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(true));
-        $viewProvider2
+        $viewProvider
             ->expects($this->once())
             ->method('provideView')
             ->with($this->equalTo($value))
@@ -191,14 +157,58 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
 
         $templateResolver = $this->getMock('DateTime');
 
-        $viewProviders = array($viewProvider1, $viewProvider2);
-
         $viewBuilder = new ViewBuilder(
-            $viewProviders,
+            array($viewProvider),
             array($templateResolver)
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBuildViewWithNoViewProviders()
+    {
+        $value = new Value();
+
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+
+        $viewBuilder = new ViewBuilder(
+            array(),
+            array($templateResolver)
+        );
+
+        $viewBuilder->buildView($value, array(), 'api');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBuildViewWithNoViewProvidersThatSupportValue()
+    {
+        $value = new Value();
+
+        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider
+            ->expects($this->once())
+            ->method('supports')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue(false));
+        $viewProvider
+            ->expects($this->never())
+            ->method('provideView');
+
+        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+
+        $viewBuilder = new ViewBuilder(
+            array($viewProvider),
+            array($templateResolver)
+        );
+
+        $viewBuilder->buildView($value, array(), 'api');
     }
 
     /**
@@ -220,39 +230,5 @@ class ViewBuilderTest extends PHPUnit_Framework_TestCase
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
-     */
-    public function testBuildViewWithNoViewProviders()
-    {
-        $value = new Value();
-
-        $viewProvider1 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider1
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($value))
-            ->will($this->returnValue(false));
-
-        $viewProvider2 = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
-        $viewProvider2
-            ->expects($this->once())
-            ->method('supports')
-            ->with($this->equalTo($value))
-            ->will($this->returnValue(false));
-
-        $viewProviders = array($viewProvider1, $viewProvider2);
-
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
-
-        $viewBuilder = new ViewBuilder(
-            $viewProviders,
-            array($templateResolver)
-        );
-
-        $viewBuilder->buildView($value, array(), 'api');
     }
 }

@@ -13,6 +13,7 @@ class BlockDefinition extends BaseBlockDefinition
      */
     public function getIdentifier()
     {
+        return 'block_definition';
     }
 
     /**
@@ -24,5 +25,6 @@ class BlockDefinition extends BaseBlockDefinition
      */
     public function getValues(array $parameters = array())
     {
+        return array();
     }
 }

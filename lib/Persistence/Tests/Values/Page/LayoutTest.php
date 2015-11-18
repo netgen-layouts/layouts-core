@@ -10,6 +10,20 @@ class LayoutTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Values\Page\Layout::__construct
      */
+    public function testSetDefaultProperties()
+    {
+        $layout = new Layout();
+
+        self::assertNull($layout->id);
+        self::assertNull($layout->parentId);
+        self::assertNull($layout->identifier);
+        self::assertNull($layout->created);
+        self::assertNull($layout->modified);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Values\Page\Layout::__construct
+     */
     public function testSetProperties()
     {
         $layout = new Layout(
