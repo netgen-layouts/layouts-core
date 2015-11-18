@@ -19,9 +19,7 @@ return Symfony\CS\Config\Config::create()
         Symfony\CS\Finder\DefaultFinder::create()
             ->in(__DIR__)
             ->exclude([
-                'extension',
                 'vendor',
-                'Tests/_fixtures',
             ])
             ->files()->name('*.php')
     )
