@@ -18,7 +18,11 @@ class ViewRendererTest extends PHPUnit_Framework_TestCase
         $view->setTemplate('some_template.html.twig');
         $view->setParameters(array('some_param' => 'some_value'));
 
-        $twigEnvironmentMock = $this->getMock('Twig_Environment');
+        $twigEnvironmentMock = $this
+            ->getMockBuilder('Twig_Environment')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $twigEnvironmentMock
             ->expects($this->once())
             ->method('render')
