@@ -1,17 +1,17 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer\Tests;
+namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Normalizer\BlockNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use PHPUnit_Framework_TestCase;
 
 class BlockNormalizerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Normalizer\BlockNormalizer::__construct
-     * @covers \Netgen\BlockManager\Normalizer\BlockNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -58,7 +58,7 @@ class BlockNormalizerTest extends PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Normalizer\BlockNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

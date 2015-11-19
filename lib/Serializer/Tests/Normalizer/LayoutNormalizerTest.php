@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer\Tests;
+namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Normalizer\LayoutNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use PHPUnit_Framework_TestCase;
 use DateTime;
@@ -11,8 +11,8 @@ use DateTime;
 class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Normalizer\LayoutNormalizer::__construct
-     * @covers \Netgen\BlockManager\Normalizer\LayoutNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -59,7 +59,7 @@ class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Normalizer\LayoutNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

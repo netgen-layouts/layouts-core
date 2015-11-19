@@ -1,9 +1,9 @@
 parameters:
-    netgen_block_manager.normalizer.block.class: Netgen\BlockManager\Normalizer\BlockNormalizer
-    netgen_block_manager.normalizer.block_view.class: Netgen\BlockManager\Normalizer\BlockViewNormalizer
-    netgen_block_manager.normalizer.layout.class: Netgen\BlockManager\Normalizer\LayoutNormalizer
-    netgen_block_manager.normalizer.layout_view.class: Netgen\BlockManager\Normalizer\LayoutViewNormalizer
-    netgen_block_manager.normalizer.exception.class: Netgen\BlockManager\Normalizer\ExceptionNormalizer
+    netgen_block_manager.normalizer.block.class: Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer
+    netgen_block_manager.normalizer.block_view.class: Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer
+    netgen_block_manager.normalizer.layout.class: Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer
+    netgen_block_manager.normalizer.layout_view.class: Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer
+    netgen_block_manager.normalizer.exception.class: Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
 
 services:
     netgen_block_manager.normalizer.block:

@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer\Tests;
+namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Normalizer\LayoutViewNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use PHPUnit_Framework_TestCase;
@@ -14,11 +14,11 @@ use DateTime;
 class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::normalize
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::getZones
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::getBlocks
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::getBlockPositions
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getBlocks
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getBlockPositions
      */
     public function testNormalize()
     {
@@ -89,7 +89,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($config));
 
         $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
+            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -151,7 +151,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Normalizer\LayoutViewNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
@@ -159,7 +159,7 @@ class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
         $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
 
         $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Normalizer\BlockNormalizer')
+            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
             ->getMock();
 

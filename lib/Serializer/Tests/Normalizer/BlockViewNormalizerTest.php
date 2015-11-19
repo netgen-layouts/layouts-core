@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer\Tests;
+namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Normalizer\BlockViewNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use PHPUnit_Framework_TestCase;
@@ -11,8 +11,8 @@ use PHPUnit_Framework_TestCase;
 class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Normalizer\BlockViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Normalizer\BlockViewNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -70,7 +70,7 @@ class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Normalizer\BlockViewNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

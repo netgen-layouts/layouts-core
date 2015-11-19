@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\BlockViewInterface;

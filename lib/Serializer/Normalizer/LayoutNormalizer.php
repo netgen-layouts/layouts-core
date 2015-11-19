@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Layout;
 
-class BlockNormalizer implements NormalizerInterface
+class LayoutNormalizer implements NormalizerInterface
 {
     /**
      * @var array
@@ -26,7 +26,7 @@ class BlockNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $object
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $object
      * @param string $format
      * @param array $context
      *
@@ -34,15 +34,15 @@ class BlockNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $blockDefinitionIdentifier = $object->getDefinitionIdentifier();
+        $layoutIdentifier = $object->getIdentifier();
 
         return array(
             'id' => $object->getId(),
-            'definition_identifier' => $blockDefinitionIdentifier,
-            'name' => $this->configuration->getBlockConfig($blockDefinitionIdentifier)['name'],
-            'zone_id' => $object->getZoneId(),
-            'parameters' => $object->getParameters(),
-            'view_type' => $object->getViewType(),
+            'parent_id' => $object->getParentId(),
+            'identifier' => $layoutIdentifier,
+            'created_at' => $object->getCreated(),
+            'updated_at' => $object->getModified(),
+            'name' => $this->configuration->getLayoutConfig($layoutIdentifier)['name'],
         );
     }
 
@@ -56,6 +56,6 @@ class BlockNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof Block;
+        return $data instanceof Layout;
     }
 }

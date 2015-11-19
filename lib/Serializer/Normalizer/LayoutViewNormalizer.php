@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\ViewRendererInterface;
 class LayoutViewNormalizer extends LayoutNormalizer
 {
     /**
-     * @var \Netgen\BlockManager\Normalizer\BlockNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer
      */
     protected $blockNormalizer;
 
@@ -23,7 +23,7 @@ class LayoutViewNormalizer extends LayoutNormalizer
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
-     * @param \Netgen\BlockManager\Normalizer\BlockNormalizer $blockNormalizer
+     * @param \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer $blockNormalizer
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
     public function __construct(ConfigurationInterface $configuration, BlockNormalizer $blockNormalizer, ViewRendererInterface $viewRenderer)

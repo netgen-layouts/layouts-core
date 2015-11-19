@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer\Tests;
+namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 
-use Netgen\BlockManager\Normalizer\ExceptionNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -12,7 +12,7 @@ use Exception;
 class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -30,8 +30,8 @@ class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::normalize
-     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::setOutputDebugInfo
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::setOutputDebugInfo
      */
     public function testNormalizeWithDebugOutput()
     {
@@ -57,7 +57,7 @@ class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalizeHttpException()
     {
@@ -80,7 +80,7 @@ class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Normalizer\ExceptionNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

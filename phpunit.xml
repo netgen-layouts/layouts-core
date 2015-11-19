@@ -29,8 +29,8 @@
         <testsuite name="Netgen\BlockManager\Form">
             <directory>lib/Form/Tests</directory>
         </testsuite>
-        <testsuite name="Netgen\BlockManager\Normalizer">
-            <directory>lib/Normalizer/Tests</directory>
+        <testsuite name="Netgen\BlockManager\Serializer">
+            <directory>lib/Serializer/Tests</directory>
         </testsuite>
         <testsuite name="Netgen\BlockManager\Persistence">
             <directory>lib/Persistence/Tests</directory>

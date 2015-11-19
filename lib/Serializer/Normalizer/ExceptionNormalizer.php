@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Normalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
