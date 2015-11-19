@@ -3,9 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use InvalidArgumentException;

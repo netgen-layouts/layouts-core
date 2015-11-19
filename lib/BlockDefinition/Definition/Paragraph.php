@@ -25,7 +25,7 @@ class Paragraph extends BlockDefinition
     public function getParameters()
     {
         return array(
-            'content' => new Parameters\Text('Text')
+            'content' => new Parameters\Text('Text'),
         ) + parent::getParameters();
     }
 
