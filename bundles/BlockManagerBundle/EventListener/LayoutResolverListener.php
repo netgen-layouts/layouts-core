@@ -50,7 +50,7 @@ class LayoutResolverListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::REQUEST => 'onKernelRequest');
+        return array(KernelEvents::REQUEST => array('onKernelRequest', -255));
     }
 
     /**
