@@ -1,3 +1,9 @@
+netgen_block_manager_api_v1_create_block:
+    path: /blocks/{definitionIdentifier}/{viewType}/{zoneId}
+    methods: [PUT]
+    defaults:
+        _controller: netgen_block_manager.controller.api.block:create
+
 netgen_block_manager_api_v1_load_block:
     path: /blocks/{blockId}
     methods: [GET]
