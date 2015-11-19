@@ -12,8 +12,8 @@ interface LayoutService
      *
      * @param int|string $layoutId
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If layout ID has an invalid or empty value
-     * @throws \Netgen\BlockManager\API\Exceptions\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID has an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -24,8 +24,8 @@ interface LayoutService
      *
      * @param string $layoutIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If layout identifier has an invalid or empty value
-     * @throws \Netgen\BlockManager\API\Exceptions\NotFoundException If layout with specified identifier does not exist
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout identifier has an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified identifier does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -36,8 +36,8 @@ interface LayoutService
      *
      * @param int|string $zoneId
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If zone ID has an invalid or empty value
-     * @throws \Netgen\BlockManager\API\Exceptions\NotFoundException If zone with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone ID has an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
@@ -49,7 +49,7 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If create struct properties have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If create struct properties have an invalid or empty value
      *                                                                  If layout with same identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
@@ -64,7 +64,7 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $newLayoutIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If layout with provided identifier already exists
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout with provided identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */

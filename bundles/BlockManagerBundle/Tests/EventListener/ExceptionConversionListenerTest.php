@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
-use Netgen\BlockManager\API\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use PHPUnit_Framework_TestCase;
 use InvalidArgumentException;
 use Exception;

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Netgen\BlockManager\API\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use InvalidArgumentException;
 
 class ExceptionConversionListener implements EventSubscriberInterface

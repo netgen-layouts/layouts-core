@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Exceptions;
+namespace Netgen\BlockManager\API\Exception;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Exception;

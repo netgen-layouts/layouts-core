@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Persistence\Values;
 
-use Netgen\BlockManager\API\Exceptions\InvalidArgumentException;
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 
 abstract class Value
 {
     /**
      * Construct object optionally with a set of properties.
      *
-     * @throws \Netgen\BlockManager\API\Exceptions\InvalidArgumentException If one of the properties does not exist in value object
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If one of the properties does not exist in value object
      *
      * @param array $properties
      */

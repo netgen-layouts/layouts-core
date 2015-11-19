@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Persistence\Tests\Doctrine\Layout;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Tests\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Exceptions\NotFoundException;
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use PHPUnit_Framework_TestCase;
@@ -37,7 +37,7 @@ class HandlerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayout
-     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
@@ -68,7 +68,7 @@ class HandlerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayoutByIdentifier
-     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadLayoutByIdentifierThrowsNotFoundException()
     {
@@ -97,7 +97,7 @@ class HandlerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exceptions\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundException()
     {

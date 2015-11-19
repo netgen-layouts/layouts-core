@@ -25,7 +25,7 @@ class ValueTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\Value::__construct
-     * @expectedException \Netgen\BlockManager\API\Exceptions\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
     public function testSetNonExistingProperties()
     {
