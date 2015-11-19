@@ -86,7 +86,9 @@ class LayoutViewNormalizer extends LayoutNormalizer
             $allowedBlocks = true;
             $zoneIdentifier = $zone->getIdentifier();
 
-            //@TODO: Check for existence of zone in config
+            if (!isset($layoutConfig['zones'][$zoneIdentifier])) {
+                continue;
+            }
 
             $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
 
@@ -136,10 +138,16 @@ class LayoutViewNormalizer extends LayoutNormalizer
     protected function getBlockPositions(LayoutViewInterface $layoutView)
     {
         $positions = array();
+        $layout = $layoutView->getLayout();
+        $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
 
-        foreach ($layoutView->getLayout()->getZones() as $zone) {
+        foreach ($layout->getZones() as $zone) {
             $blocksInZone = array();
             $zoneIdentifier = $zone->getIdentifier();
+
+            if (!isset($layoutConfig['zones'][$zoneIdentifier])) {
+                continue;
+            }
 
             if (!empty($layoutView->getParameters()['blocks'][$zoneIdentifier])) {
                 foreach ($layoutView->getParameters()['blocks'][$zoneIdentifier] as $block) {
