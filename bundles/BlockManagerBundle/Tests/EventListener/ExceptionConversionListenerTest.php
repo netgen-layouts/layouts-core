@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -52,6 +53,7 @@ class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
             $event->getException()
         );
 
+        self::assertEquals(Response::HTTP_NOT_FOUND, $event->getException()->getStatusCode());
         self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
@@ -82,6 +84,7 @@ class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
             $event->getException()
         );
 
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $event->getException()->getStatusCode());
         self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
@@ -107,6 +110,14 @@ class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
 
         $eventListener->onException($event);
 
-        self::assertEquals($exception, $event->getException());
+        self::assertInstanceOf(
+            'Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException',
+            $event->getException()
+        );
+
+        self::assertEquals(Response::HTTP_INTERNAL_SERVER_ERROR, $event->getException()->getStatusCode());
+        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
+        self::assertEquals($exception->getCode(), $event->getException()->getCode());
+        self::assertEquals($exception, $event->getException()->getPrevious());
     }
 }

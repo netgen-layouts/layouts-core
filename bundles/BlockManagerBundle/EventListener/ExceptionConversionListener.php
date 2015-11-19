@@ -3,7 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\API\Exceptions\NotFoundException;
 use InvalidArgumentException;
@@ -32,10 +34,8 @@ class ExceptionConversionListener implements EventSubscriberInterface
             $exceptionClass = 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException';
         } elseif ($exception instanceof InvalidArgumentException) {
             $exceptionClass = 'Symfony\Component\HttpKernel\Exception\BadRequestHttpException';
-        }
-
-        if (!isset($exceptionClass)) {
-            return;
+        } else {
+            $exceptionClass = 'Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException';
         }
 
         $convertedException = new $exceptionClass(
