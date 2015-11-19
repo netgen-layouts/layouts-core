@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.view.builder.class: Netgen\BlockManager\View\ViewBuilder
     netgen_block_manager.view.renderer.class: Netgen\BlockManager\View\ViewRenderer
+    netgen_block_manager.layout_resolver.class: Netgen\BlockManager\LayoutResolver\LayoutResolver
 
 services:
     netgen_block_manager.view.builder:
@@ -13,3 +14,6 @@ services:
         class: %netgen_block_manager.view.renderer.class%
         arguments:
             - @twig
+
+    netgen_block_manager.layout_resolver:
+        class: %netgen_block_manager.layout_resolver.class%

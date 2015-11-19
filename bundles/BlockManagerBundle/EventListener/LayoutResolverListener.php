@@ -2,19 +2,20 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\LayoutResolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 
 class LayoutResolverListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
      */
-    protected $layoutService;
+    protected $layoutResolver;
 
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
@@ -29,16 +30,16 @@ class LayoutResolverListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface $layoutResolver
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
      */
     public function __construct(
-        LayoutService $layoutService,
+        LayoutResolverInterface $layoutResolver,
         ViewBuilderInterface $viewBuilder,
         GlobalHelper $globalHelper
     ) {
-        $this->layoutService = $layoutService;
+        $this->layoutResolver = $layoutResolver;
         $this->viewBuilder = $viewBuilder;
         $this->globalHelper = $globalHelper;
     }
@@ -60,7 +61,11 @@ class LayoutResolverListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $layout = $this->layoutService->loadLayout(3);
+        $layout = $this->layoutResolver->resolveLayout();
+        if (!$layout instanceof Layout) {
+            return;
+        }
+
         $layoutView = $this->viewBuilder->buildView($layout);
         $this->globalHelper->setLayoutView($layoutView);
     }
