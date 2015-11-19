@@ -3,9 +3,10 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Form\Data\UpdateBlockData;
+use Netgen\BlockManager\API\Values\Page\Block;
 
 class BlockController extends Controller
 {
@@ -64,5 +65,20 @@ class BlockController extends Controller
             'netgen_block_manager_api_v1_load_block',
             array('blockId' => $updatedBlock->getId())
         );
+    }
+
+    /**
+     * Deletes the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function delete(Block $block)
+    {
+        $blockService = $this->get('netgen_block_manager.api.service.block');
+        $blockService->deleteBlock($block);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }
