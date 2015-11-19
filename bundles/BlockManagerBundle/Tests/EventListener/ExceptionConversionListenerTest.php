@@ -8,8 +8,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Netgen\BlockManager\API\Exceptions\NotFoundException;
-use Netgen\BlockManager\API\Exceptions\InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
+use InvalidArgumentException;
 use Exception;
 
 class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
@@ -66,7 +66,7 @@ class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
 
         $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
         $request = Request::create('/');
-        $exception = new InvalidArgumentException('argument', 'value', 'Something is wrong');
+        $exception = new InvalidArgumentException('Some error');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
