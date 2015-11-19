@@ -5,7 +5,7 @@ services:
     netgen_block_manager.form.update_block:
         class: %netgen_block_manager.form.update_block.class%
         arguments:
-            - @netgen_block_manager.block_definition.registry
-            - @netgen_block_manager.configuration
+            - "@netgen_block_manager.block_definition.registry"
+            - "@netgen_block_manager.configuration"
         tags:
             - { name: form.type, alias: ngbm_update_block }

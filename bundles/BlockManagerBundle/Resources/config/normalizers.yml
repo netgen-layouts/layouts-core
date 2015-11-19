@@ -9,7 +9,7 @@ services:
     netgen_block_manager.normalizer.block:
         class: %netgen_block_manager.normalizer.block.class%
         arguments:
-            - @netgen_block_manager.configuration
+            - "@netgen_block_manager.configuration"
         tags:
             - { name: serializer.normalizer }
 
@@ -17,14 +17,14 @@ services:
         class: %netgen_block_manager.normalizer.block_view.class%
         parent: netgen_block_manager.normalizer.block
         arguments:
-            - @netgen_block_manager.view.renderer
+            - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.layout:
         class: %netgen_block_manager.normalizer.layout.class%
         arguments:
-            - @netgen_block_manager.configuration
+            - "@netgen_block_manager.configuration"
         tags:
             - { name: serializer.normalizer }
 
@@ -32,8 +32,8 @@ services:
         class: %netgen_block_manager.normalizer.layout_view.class%
         parent: netgen_block_manager.normalizer.layout
         arguments:
-            - @netgen_block_manager.normalizer.block
-            - @netgen_block_manager.view.renderer
+            - "@netgen_block_manager.normalizer.block"
+            - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }
 

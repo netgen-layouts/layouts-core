@@ -6,11 +6,11 @@ services:
     netgen_block_manager.templating.global_helper:
         class: %netgen_block_manager.templating.global_helper.class%
         arguments:
-            - @netgen_block_manager.configuration
+            - "@netgen_block_manager.configuration"
 
     netgen_block_manager.templating.twig.extension:
         class: %netgen_block_manager.templating.twig.extension.class%
         arguments:
-            - @netgen_block_manager.templating.global_helper
+            - "@netgen_block_manager.templating.global_helper"
         tags:
             - { name: twig.extension }

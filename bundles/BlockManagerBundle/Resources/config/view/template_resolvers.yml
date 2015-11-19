@@ -8,7 +8,7 @@ services:
         lazy: true
         arguments:
             - []
-            - @netgen_block_manager.configuration
+            - "@netgen_block_manager.configuration"
         tags:
             - { name: netgen_block_manager.view.template_resolver }
 
@@ -17,6 +17,6 @@ services:
         lazy: true
         arguments:
             - []
-            - @netgen_block_manager.configuration
+            - "@netgen_block_manager.configuration"
         tags:
             - { name: netgen_block_manager.view.template_resolver }

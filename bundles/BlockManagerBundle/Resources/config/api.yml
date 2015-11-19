@@ -16,13 +16,13 @@ services:
     netgen_block_manager.persistence.doctrine.layout.handler:
         class: %netgen_block_manager.persistence.doctrine.layout.handler.class%
         arguments:
-            - @database_connection
-            - @netgen_block_manager.persistence.doctrine.layout.mapper
+            - "@database_connection"
+            - "@netgen_block_manager.persistence.doctrine.layout.mapper"
 
     netgen_block_manager.api.service.layout.core:
         class: %netgen_block_manager.api.service.layout.core.class%
         arguments:
-            - @netgen_block_manager.persistence.handler.layout
+            - "@netgen_block_manager.persistence.handler.layout"
 
     # Block related APIs
 
@@ -32,14 +32,14 @@ services:
     netgen_block_manager.persistence.doctrine.block.handler:
         class: %netgen_block_manager.persistence.doctrine.block.handler.class%
         arguments:
-            - @database_connection
-            - @netgen_block_manager.persistence.doctrine.block.mapper
+            - "@database_connection"
+            - "@netgen_block_manager.persistence.doctrine.block.mapper"
 
     netgen_block_manager.api.service.block.core:
         class: %netgen_block_manager.api.service.block.core.class%
         arguments:
-            - @netgen_block_manager.api.service.layout
-            - @netgen_block_manager.persistence.handler.block
+            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.persistence.handler.block"
 
     # Service aliases
 

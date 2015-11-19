@@ -13,7 +13,7 @@ services:
     netgen_block_manager.event_listener.exception_serializer:
         class: %netgen_block_manager.event_listener.exception_serializer.class%
         arguments:
-            - @serializer
+            - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
@@ -25,8 +25,8 @@ services:
     netgen_block_manager.event_listener.layout_resolver:
         class: %netgen_block_manager.event_listener.layout_resolver.class%
         arguments:
-            - @netgen_block_manager.layout_resolver
-            - @netgen_block_manager.view.builder
-            - @netgen_block_manager.templating.global_helper
+            - "@netgen_block_manager.layout_resolver"
+            - "@netgen_block_manager.view.builder"
+            - "@netgen_block_manager.templating.global_helper"
         tags:
             - { name: kernel.event_subscriber }

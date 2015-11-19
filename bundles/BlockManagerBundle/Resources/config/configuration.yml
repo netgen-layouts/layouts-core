@@ -5,7 +5,7 @@ services:
     netgen_block_manager.configuration.container:
         class: %netgen_block_manager.configuration.container.class%
         arguments:
-            - [setContainer, [@service_container]]
+            - [setContainer, ["@service_container"]]
 
     netgen_block_manager.configuration:
         alias: netgen_block_manager.configuration.container

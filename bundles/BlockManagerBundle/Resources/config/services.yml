@@ -13,7 +13,7 @@ services:
     netgen_block_manager.view.renderer:
         class: %netgen_block_manager.view.renderer.class%
         arguments:
-            - @twig
+            - "@twig"
 
     netgen_block_manager.layout_resolver:
         class: %netgen_block_manager.layout_resolver.class%
