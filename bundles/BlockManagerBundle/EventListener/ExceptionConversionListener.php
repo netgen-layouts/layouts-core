@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use InvalidArgumentException;
@@ -27,6 +28,10 @@ class ExceptionConversionListener implements EventSubscriberInterface
      */
     public function onException(GetResponseForExceptionEvent $event)
     {
+        if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+            return;
+        }
+
         $exception = $event->getException();
         if ($exception instanceof NotFoundException) {
             $exceptionClass = 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException';

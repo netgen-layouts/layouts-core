@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -43,6 +44,10 @@ class ExceptionSerializerListener implements EventSubscriberInterface
      */
     public function onException(GetResponseForExceptionEvent $event)
     {
+        if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+            return;
+        }
+
         $attributes = $event->getRequest()->attributes;
         if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;

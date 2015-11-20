@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
+use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -116,6 +117,59 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
 
         $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
         $request = Request::create('/');
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $eventListener->onKernelRequest($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     */
+    public function testOnKernelRequestInSubRequest()
+    {
+        $this->layoutResolverMock
+            ->expects($this->never())
+            ->method('resolveLayout');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        $this->globalHelperMock
+            ->expects($this->never())
+            ->method('setLayoutView');
+
+        $eventListener = $this->getLayoutResolverListener();
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $eventListener->onKernelRequest($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     */
+    public function testOnKernelRequestInApiRequest()
+    {
+        $this->layoutResolverMock
+            ->expects($this->never())
+            ->method('resolveLayout');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        $this->globalHelperMock
+            ->expects($this->never())
+            ->method('setLayoutView');
+
+        $eventListener = $this->getLayoutResolverListener();
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $eventListener->onKernelRequest($event);

@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\LayoutResolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
@@ -61,6 +62,15 @@ class LayoutResolverListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+            return;
+        }
+
+        $attributes = $event->getRequest()->attributes;
+        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) === true) {
+            return;
+        }
+
         $layout = $this->layoutResolver->resolveLayout();
         if (!$layout instanceof Layout) {
             return;

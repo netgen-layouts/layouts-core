@@ -96,4 +96,27 @@ class ExceptionSerializerListenerTest extends PHPUnit_Framework_TestCase
 
         self::assertNull($event->getResponse());
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::onException
+     */
+    public function testOnExceptionInSubRequest()
+    {
+        $serializerMock = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $eventListener = new ExceptionSerializerListener($serializerMock);
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::SUB_REQUEST,
+            new Exception()
+        );
+
+        $eventListener->onException($event);
+
+        self::assertNull($event->getResponse());
+    }
 }

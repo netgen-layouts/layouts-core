@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class SetIsApiRequestListener implements EventSubscriberInterface
@@ -28,6 +29,10 @@ class SetIsApiRequestListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+            return;
+        }
+
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
         if (stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {

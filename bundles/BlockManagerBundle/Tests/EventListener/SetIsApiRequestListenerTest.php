@@ -63,4 +63,23 @@ class SetIsApiRequestListenerTest extends PHPUnit_Framework_TestCase
             $event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME)
         );
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener::onKernelRequest
+     */
+    public function testOnKernelRequestInSubRequest()
+    {
+        $eventListener = new SetIsApiRequestListener();
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $eventListener->onKernelRequest($event);
+
+        self::assertEquals(
+            false,
+            $event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME)
+        );
+    }
 }

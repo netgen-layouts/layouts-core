@@ -120,4 +120,27 @@ class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionInSubRequest()
+    {
+        $eventListener = new ExceptionConversionListener();
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+        $exception = new Exception('Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::SUB_REQUEST,
+            $exception
+        );
+
+        $eventListener->onException($event);
+
+        self::assertEquals($exception, $event->getException());
+    }
 }
