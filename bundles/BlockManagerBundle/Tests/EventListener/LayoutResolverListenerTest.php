@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
@@ -123,6 +124,42 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
         $this->layoutServiceMock
             ->expects($this->never())
             ->method('loadLayout');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        $this->globalHelperMock
+            ->expects($this->never())
+            ->method('setLayoutView');
+
+        $eventListener = $this->getLayoutResolverListener();
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $eventListener->onKernelRequest($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     */
+    public function testOnKernelRequestWithNonExistingLayout()
+    {
+        $this->layoutResolverMock
+            ->expects($this->once())
+            ->method('resolveLayout')
+            ->will($this->returnValue(42));
+
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('loadLayout')
+            ->will(
+                $this->throwException(
+                    new NotFoundException('layout', 42)
+                )
+            );
 
         $this->viewBuilderMock
             ->expects($this->never())
