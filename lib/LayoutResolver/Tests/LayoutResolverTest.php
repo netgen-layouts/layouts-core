@@ -2,8 +2,9 @@
 
 namespace Netgen\BlockManager\LayoutResolver\Tests;
 
-use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Rule;
+use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\LayoutResolver;
+use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Target;
 use PHPUnit_Framework_TestCase;
 
 class LayoutResolverTest extends PHPUnit_Framework_TestCase
@@ -14,7 +15,7 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      */
     public function testResolveLayout()
     {
-        $rule = new Rule(42);
+        $rule = new Rule(42, new Target());
 
         $layoutResolver = new LayoutResolver(array($rule));
         self::assertEquals(42, $layoutResolver->resolveLayout());
@@ -24,12 +25,27 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
      */
-    public function testResolveLayoutWithNonMatchingRules()
+    public function testResolveLayoutWithNoMatchingRules()
     {
-        $rule = new Rule(42, false);
+        $rule1 = new Rule(42, new Target(false));
+        $rule2 = new Rule(84, new Target(false));
 
-        $layoutResolver = new LayoutResolver(array($rule));
+        $layoutResolver = new LayoutResolver(array($rule1, $rule2));
         self::assertNull($layoutResolver->resolveLayout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     */
+    public function testResolveLayoutWithAnyMatchingRule()
+    {
+        $rule1 = new Rule(24, new Target(false));
+        $rule2 = new Rule(42, new Target(true));
+        $rule3 = new Rule(84, new Target(false));
+
+        $layoutResolver = new LayoutResolver(array($rule1, $rule2, $rule3));
+        self::assertEquals(42, $layoutResolver->resolveLayout());
     }
 
     /**
@@ -38,8 +54,8 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      */
     public function testResolveFirstLayoutWithMoreThanOneMatchingRule()
     {
-        $rule1 = new Rule(42);
-        $rule2 = new Rule(24);
+        $rule1 = new Rule(42, new Target());
+        $rule2 = new Rule(24, new Target());
 
         $layoutResolver = new LayoutResolver(array($rule1, $rule2));
         self::assertEquals(42, $layoutResolver->resolveLayout());

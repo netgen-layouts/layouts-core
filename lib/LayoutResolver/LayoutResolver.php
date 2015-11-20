@@ -5,14 +5,14 @@ namespace Netgen\BlockManager\LayoutResolver;
 class LayoutResolver implements LayoutResolverInterface
 {
     /**
-     * @var \Netgen\BlockManager\LayoutResolver\Rule\Rule[]
+     * @var \Netgen\BlockManager\LayoutResolver\Rule[]
      */
     protected $rules = array();
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\LayoutResolver\Rule\Rule[] $rules
+     * @param \Netgen\BlockManager\LayoutResolver\Rule[] $rules
      */
     public function __construct(array $rules = array())
     {
@@ -26,10 +26,9 @@ class LayoutResolver implements LayoutResolverInterface
      */
     public function resolveLayout()
     {
-        $matchedLayout = null;
         foreach ($this->rules as $rule) {
-            if ($rule->matches()) {
-                return $rule->getLayoutId();
+            if ($rule->target->matches()) {
+                return $rule->layoutId;
             }
         }
 
