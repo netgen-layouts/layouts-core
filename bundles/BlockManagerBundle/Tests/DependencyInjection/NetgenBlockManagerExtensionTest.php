@@ -22,6 +22,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
      */
     public function testDefaultSettings()
     {
@@ -35,6 +36,39 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.pagelayout',
             'NetgenBlockManagerBundle::pagelayout_empty.html.twig'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
+     */
+    public function testLoad()
+    {
+        $this->load();
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.block_definition.registry');
+        $this->assertContainerBuilderHasService('netgen_block_manager.controller.base');
+        $this->assertContainerBuilderHasService('netgen_block_manager.event_listener.exception_conversion');
+        $this->assertContainerBuilderHasService('netgen_block_manager.form.update_block');
+        $this->assertContainerBuilderHasService('netgen_block_manager.normalizer.block');
+        $this->assertContainerBuilderHasService('netgen_block_manager.param_converter.block');
+        $this->assertContainerBuilderHasService('netgen_block_manager.view.builder');
+        $this->assertContainerBuilderHasService('netgen_block_manager.templating.twig.extension');
+        $this->assertContainerBuilderHasService('netgen_block_manager.view.matcher.block.definition_identifier');
+        $this->assertContainerBuilderHasService('netgen_block_manager.view.provider.block');
+        $this->assertContainerBuilderHasService('netgen_block_manager.view.template_resolver.block_view');
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.api.service.block.core');
+        $this->assertContainerBuilderHasAlias(
+            'netgen_block_manager.api.service.block',
+            'netgen_block_manager.api.service.block.core'
+        );
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.container');
+        $this->assertContainerBuilderHasAlias(
+            'netgen_block_manager.configuration',
+            'netgen_block_manager.configuration.container'
         );
     }
 }
