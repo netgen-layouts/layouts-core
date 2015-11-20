@@ -29,6 +29,9 @@
         <testsuite name="Netgen\BlockManager\Form">
             <directory>lib/Form/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\LayoutResolver">
+            <directory>lib/LayoutResolver/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\BlockManager\Persistence">
             <directory>lib/Persistence/Tests</directory>
         </testsuite>

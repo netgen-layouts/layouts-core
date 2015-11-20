@@ -1,0 +1,67 @@
+<?php
+
+namespace Netgen\BlockManager\LayoutResolver\Tests\Rule;
+
+use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\LayoutResolver\Rule\Rule;
+use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Target;
+use PHPUnit_Framework_TestCase;
+
+class RuleTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::getLayout
+     */
+    public function testGetLayout()
+    {
+        $layout = new Layout();
+        $rule = new Rule($layout, array(new Target()));
+
+        self::assertEquals($layout, $rule->getLayout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::getTargets
+     */
+    public function testGetTargets()
+    {
+        $target = new Target();
+        $rule = new Rule(new Layout(), array($target));
+
+        self::assertEquals(array($target), $rule->getTargets());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::matches
+     *
+     * @param \Netgen\BlockManager\LayoutResolver\Rule\TargetInterface[] $targets
+     * @param bool $matches
+     *
+     * @dataProvider matchesProvider
+     */
+    public function testMatches(array $targets, $matches)
+    {
+        $rule = new Rule(new Layout(), $targets);
+        self::assertEquals($matches, $rule->matches());
+    }
+
+    /**
+     * Data provider for {@link self::testMatches}.
+     *
+     * @return array
+     */
+    public function matchesProvider()
+    {
+        return array(
+            array(array(), false),
+            array(array(new Target(true)), true),
+            array(array(new Target(false)), false),
+            array(array(new Target(false), new Target(true)), true),
+            array(array(new Target(true), new Target(false)), true),
+            array(array(new Target(true), new Target(true)), true),
+            array(array(new Target(false), new Target(false)), false),
+        );
+    }
+}
