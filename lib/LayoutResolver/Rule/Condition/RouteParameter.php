@@ -28,16 +28,16 @@ class RouteParameter extends Condition
             return false;
         }
 
-        if (empty($this->what)) {
+        if (empty($this->identifier)) {
             return false;
         }
 
         $routeParameters = $currentRequest->attributes->get('_route_params', array());
-        if (!isset($routeParameters[$this->what])) {
+        if (!isset($routeParameters[$this->identifier])) {
             return false;
         }
 
-        return in_array($routeParameters[$this->what], $this->values);
+        return in_array($routeParameters[$this->identifier], $this->values);
     }
 
     /**

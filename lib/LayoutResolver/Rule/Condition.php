@@ -7,9 +7,9 @@ use InvalidArgumentException;
 abstract class Condition implements ConditionInterface
 {
     /**
-     * @var mixed
+     * @var int|string
      */
-    protected $what;
+    protected $identifier;
 
     /**
      * @var array
@@ -17,23 +17,23 @@ abstract class Condition implements ConditionInterface
     protected $values;
 
     /**
-     * Sets the "what" part of this condition.
+     * Sets the identifier of this condition.
      *
-     * @param mixed $what
+     * @param int|string $identifier
      */
-    public function setWhat($what)
+    public function setIdentifier($identifier)
     {
-        $this->what = $what;
+        $this->identifier = $identifier;
     }
 
     /**
-     * Returns the "what" part of this condition.
+     * Returns the identifier of this condition.
      *
-     * @return mixed
+     * @return int|string
      */
-    public function getWhat()
+    public function getIdentifier()
     {
-        return $this->what;
+        return $this->identifier;
     }
 
     /**

@@ -8,24 +8,24 @@ use PHPUnit_Framework_TestCase;
 class ConditionTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition::getWhat
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition::getIdentifier
      */
-    public function testGetDefaultWhat()
+    public function testGetDefaultIdentifier()
     {
         $condition = new Condition();
-        self::assertNull($condition->getWhat());
+        self::assertNull($condition->getIdentifier());
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition::setWhat
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition::getWhat
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition::setIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition::getIdentifier
      */
-    public function testGetWhat()
+    public function testGetIdentifier()
     {
         $condition = new Condition();
-        $condition->setWhat('what');
+        $condition->setIdentifier('identifier');
 
-        self::assertEquals('what', $condition->getWhat());
+        self::assertEquals('identifier', $condition->getIdentifier());
     }
 
     /**

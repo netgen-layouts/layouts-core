@@ -36,18 +36,18 @@ class RouteParameterTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition\RouteParameter::matches
      *
-     * @param mixed $what
+     * @param int|string $identifier
      * @param array $values
      * @param bool $matches
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches($what, array $values, $matches)
+    public function testMatches($identifier, array $values, $matches)
     {
         $condition = new RouteParameter();
         $condition->setRequestStack($this->requestStack);
 
-        $condition->setWhat($what);
+        $condition->setIdentifier($identifier);
         $condition->setValues($values);
         self::assertEquals($matches, $condition->matches());
     }
@@ -103,7 +103,7 @@ class RouteParameterTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition\RouteParameter::matches
      */
-    public function testMatchesWithNoWhat()
+    public function testMatchesWithNoIdentifier()
     {
         $condition = new RouteParameter();
         $condition->setRequestStack($this->requestStack);
@@ -115,13 +115,13 @@ class RouteParameterTest extends PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\Rule\Condition\RouteParameter::matches
      */
-    public function testMatchesWithEmptyWhat()
+    public function testMatchesWithEmptyIdentifier()
     {
         $condition = new RouteParameter();
         $condition->setRequestStack($this->requestStack);
 
         $condition->setValues(array(42));
-        $condition->setWhat('');
+        $condition->setIdentifier('');
         self::assertEquals(false, $condition->matches());
     }
 

@@ -5,18 +5,18 @@ namespace Netgen\BlockManager\LayoutResolver\Rule;
 interface ConditionInterface
 {
     /**
-     * Sets the "what" part of this condition.
+     * Sets the identifier of this condition.
      *
-     * @param mixed $what
+     * @param int|string $identifier
      */
-    public function setWhat($what);
+    public function setIdentifier($identifier);
 
     /**
-     * Returns the "what" part of this condition.
+     * Returns the identifier of this condition.
      *
-     * @return mixed
+     * @return int|string
      */
-    public function getWhat();
+    public function getIdentifier();
 
     /**
      * Sets the values of this condition.
