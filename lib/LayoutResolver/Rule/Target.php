@@ -60,7 +60,7 @@ abstract class Target implements TargetInterface
      *
      * @return bool
      */
-    public function matches()
+    public final function matches()
     {
         if (!$this->evaluate()) {
             return false;
