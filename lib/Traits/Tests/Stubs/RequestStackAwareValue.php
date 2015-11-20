@@ -9,7 +9,7 @@ class RequestStackAwareValue
     use RequestStackAwareTrait;
 
     /**
-     * Returns the request stack
+     * Returns the request stack.
      *
      * @return \Symfony\Component\HttpFoundation\RequestStack
      */
