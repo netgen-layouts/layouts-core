@@ -2,9 +2,3 @@
 <p>Zone ID: {{ block.zoneId }}</p>
 <p>Definition identifier: {{ block.definitionIdentifier }}</p>
 <p>View type: {{ block.viewType }}</p>
-
-{{ dump(block) }}
-
-{% if block_values is defined %}
-    {{ dump(block_values) }}
-{% endif %}
