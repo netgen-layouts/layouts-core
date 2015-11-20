@@ -17,11 +17,7 @@ class BlockController extends Controller
     {
         $blockView = $this->buildViewObject($block);
 
-        $blockDefinitionRegistry = $this->get('netgen_block_manager.block_definition.registry');
-        $blockDefinition = $blockDefinitionRegistry->getBlockDefinition(
-            $block->getDefinitionIdentifier()
-        );
-
+        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
         $blockView->addParameters($blockDefinition->getValues($block));
 
         return $this->renderViewObject($blockView);
