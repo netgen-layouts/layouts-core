@@ -26,32 +26,28 @@ class RouteTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::evaluate
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::matches
      *
      * @param array $values
-     * @param bool $evaluates
+     * @param bool $matches
      *
-     * @dataProvider evaluateProvider
+     * @dataProvider matchesProvider
      */
-    public function testEvaluate(array $values, $evaluates)
+    public function testMatches(array $values, $matches)
     {
         $target = new Route();
         $target->setRequestStack($this->requestStack);
 
-        // Make sure conditions are empty, so we can use matches() method
-        // to test the evaluate() method
-        $target->setConditions(array());
-
         $target->setValues($values);
-        self::assertEquals($evaluates, $target->matches());
+        self::assertEquals($matches, $target->matches());
     }
 
     /**
-     * Provider for {@link self::testEvaluate}.
+     * Provider for {@link self::testMatches}.
      *
      * @return array
      */
-    public function evaluateProvider()
+    public function matchesProvider()
     {
         return array(
             array(array('my_cool_route'), true),
@@ -62,9 +58,9 @@ class RouteTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::evaluate
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::matches
      */
-    public function testEvaluateWithNoRequest()
+    public function testMatchesWithNoRequest()
     {
         // Make sure we have no request
         $this->requestStack->pop();
@@ -72,39 +68,27 @@ class RouteTest extends PHPUnit_Framework_TestCase
         $target = new Route();
         $target->setRequestStack($this->requestStack);
 
-        // Make sure conditions are empty, so we can use matches() method
-        // to test the evaluate() method
-        $target->setConditions(array());
-
         self::assertEquals(false, $target->matches());
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::evaluate
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::matches
      */
-    public function testEvaluateWithNoValues()
+    public function testMatchesWithNoValues()
     {
         $target = new Route();
         $target->setRequestStack($this->requestStack);
-
-        // Make sure conditions are empty, so we can use matches() method
-        // to test the evaluate() method
-        $target->setConditions(array());
 
         self::assertEquals(true, $target->matches());
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::evaluate
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Target\Route::matches
      */
     public function testEvaluateWithEmptyValues()
     {
         $target = new Route();
         $target->setRequestStack($this->requestStack);
-
-        // Make sure conditions are empty, so we can use matches() method
-        // to test the evaluate() method
-        $target->setConditions(array());
 
         $target->setValues(array());
         self::assertEquals(true, $target->matches());

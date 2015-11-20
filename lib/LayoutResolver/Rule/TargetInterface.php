@@ -19,22 +19,7 @@ interface TargetInterface
     public function getValues();
 
     /**
-     * Sets the conditions to this target.
-     *
-     * @param array $conditions
-     */
-    public function setConditions(array $conditions = array());
-
-    /**
-     * Returns the conditions from the target.
-     *
-     * @return \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[]
-     */
-    public function getConditions();
-
-    /**
-     * Returns if this target matches, optionally limited
-     * to provided conditions.
+     * Returns if this target matches.
      *
      * @return bool
      */

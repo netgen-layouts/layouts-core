@@ -27,11 +27,33 @@ class LayoutResolver implements LayoutResolverInterface
     public function resolveLayout()
     {
         foreach ($this->rules as $rule) {
-            if ($rule->target->matches()) {
+            if (!$rule->target->matches()) {
+                continue;
+            }
+
+            if (empty($rule->conditions) || $this->matchConditions($rule->conditions)) {
                 return $rule->layoutId;
             }
         }
 
         return null;
+    }
+
+    /**
+     * Returns true if all conditions match.
+     *
+     * @param \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[] $conditions
+     *
+     * @return bool
+     */
+    protected function matchConditions(array $conditions)
+    {
+        foreach ($conditions as $condition) {
+            if (!$condition->matches()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

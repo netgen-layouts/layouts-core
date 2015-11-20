@@ -17,14 +17,21 @@ class Rule
     public $target;
 
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[]
+     */
+    public $conditions = array();
+
+    /**
      * Constructor.
      *
      * @param int|string $layoutId
      * @param \Netgen\BlockManager\LayoutResolver\Rule\TargetInterface $target
+     * @param \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[] $conditions
      */
-    public function __construct($layoutId, TargetInterface $target)
+    public function __construct($layoutId, TargetInterface $target, array $conditions = array())
     {
         $this->layoutId = $layoutId;
         $this->target = $target;
+        $this->conditions = $conditions;
     }
 }

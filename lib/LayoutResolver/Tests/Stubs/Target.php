@@ -22,11 +22,11 @@ class Target extends BaseTarget
     }
 
     /**
-     * Evaluates if values of this target match.
+     * Returns if this target matches.
      *
      * @return bool
      */
-    protected function evaluate()
+    public function matches()
     {
         return $this->matches;
     }

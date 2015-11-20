@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\LayoutResolver\Tests;
 
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\LayoutResolver;
+use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Condition;
 use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Target;
 use PHPUnit_Framework_TestCase;
 
@@ -59,6 +60,41 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
 
         $layoutResolver = new LayoutResolver(array($rule1, $rule2));
         self::assertEquals(42, $layoutResolver->resolveLayout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
+     *
+     * @param array $conditions
+     * @param int $layoutId
+     *
+     * @dataProvider resolveLayoutWithRuleConditionsProvider
+     */
+    public function testResolveLayoutWithRuleConditions(array $conditions, $layoutId)
+    {
+        $rule = new Rule(42, new Target(), $conditions);
+
+        $layoutResolver = new LayoutResolver(array($rule));
+        self::assertEquals($layoutId, $layoutResolver->resolveLayout());
+    }
+
+    /**
+     * Data provider for {@link self::testResolveLayoutWithRuleConditions}.
+     *
+     * @return array
+     */
+    public function resolveLayoutWithRuleConditionsProvider()
+    {
+        return array(
+            array(array(new Condition(true)), 42),
+            array(array(new Condition(false)), null),
+            array(array(new Condition(true), new Condition(false)), null),
+            array(array(new Condition(false), new Condition(true)), null),
+            array(array(new Condition(false), new Condition(false)), null),
+            array(array(new Condition(true), new Condition(true)), 42),
+        );
     }
 
     /**
