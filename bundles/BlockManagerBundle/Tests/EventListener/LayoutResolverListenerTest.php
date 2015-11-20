@@ -61,6 +61,7 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
      */
     public function testOnKernelRequest()
