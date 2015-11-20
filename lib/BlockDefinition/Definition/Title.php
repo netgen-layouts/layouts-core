@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\BlockDefinition\Definition;
 
 use Netgen\BlockManager\BlockDefinition\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Parameters;
+use Netgen\BlockManager\API\Values\Page\Block;
 
 class Title extends BlockDefinition
 {
@@ -55,11 +56,11 @@ class Title extends BlockDefinition
     /**
      * Returns the array of values provided by this block.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @return array
      */
-    public function getValues(array $parameters = array())
+    public function getValues(Block $block)
     {
         return array();
     }

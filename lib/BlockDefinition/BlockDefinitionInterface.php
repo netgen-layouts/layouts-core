@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\BlockDefinition;
 
+use Netgen\BlockManager\API\Values\Page\Block;
+
 interface BlockDefinitionInterface
 {
     /**
@@ -30,9 +32,9 @@ interface BlockDefinitionInterface
     /**
      * Returns the array of values provided by this block.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @return array
      */
-    public function getValues(array $parameters = array());
+    public function getValues(Block $block);
 }
