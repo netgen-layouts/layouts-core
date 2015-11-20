@@ -14,7 +14,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::getLayoutId
      */
     public function testGetLayoutId()
-    {;
+    {
         $rule = new Rule(42, array(new Target()));
 
         self::assertEquals(42, $rule->getLayoutId());

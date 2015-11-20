@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\LayoutResolver\Tests;
 
 use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Rule;
 use Netgen\BlockManager\LayoutResolver\LayoutResolver;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use PHPUnit_Framework_TestCase;
 
 class LayoutResolverTest extends PHPUnit_Framework_TestCase

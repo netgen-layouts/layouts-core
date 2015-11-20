@@ -85,8 +85,7 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
-        try
-        {
+        try {
             $layout = $this->layoutService->loadLayout($layoutId);
         } catch (NotFoundException $e) {
             // If layout was not found, we still want to display the page
