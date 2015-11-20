@@ -15,11 +15,7 @@ class BlockController extends Controller
             $block->getDefinitionIdentifier()
         );
 
-        $blockView->addParameters(
-            array(
-                'block_values' => $blockDefinition->getValues($block),
-            )
-        );
+        $blockView->addParameters($blockDefinition->getValues($block));
 
         return $this->renderViewObject($blockView);
     }
