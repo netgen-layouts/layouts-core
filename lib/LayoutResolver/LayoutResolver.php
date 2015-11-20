@@ -22,13 +22,14 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * Resolves the layout based on current conditions.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout|null
+     * @return int|null
      */
     public function resolveLayout()
     {
+        $matchedLayout = null;
         foreach ($this->rules as $rule) {
             if ($rule->matches()) {
-                return $rule->getLayout();
+                return $rule->getLayoutId();
             }
         }
 

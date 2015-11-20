@@ -15,11 +15,10 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      */
     public function testResolveLayout()
     {
-        $layout = new Layout(array('identifier' => '3_zones_a'));
-        $rule = new Rule($layout);
+        $rule = new Rule(42);
 
         $layoutResolver = new LayoutResolver(array($rule));
-        self::assertEquals($layout, $layoutResolver->resolveLayout());
+        self::assertEquals(42, $layoutResolver->resolveLayout());
     }
 
     /**
@@ -28,8 +27,7 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutWithNonMatchingRules()
     {
-        $layout = new Layout(array('identifier' => '3_zones_a'));
-        $rule = new Rule($layout, false);
+        $rule = new Rule(42, false);
 
         $layoutResolver = new LayoutResolver(array($rule));
         self::assertNull($layoutResolver->resolveLayout());
@@ -41,14 +39,11 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      */
     public function testResolveFirstLayoutWithMoreThanOneMatchingRule()
     {
-        $layout1 = new Layout(array('identifier' => '3_zones_a'));
-        $layout2 = new Layout(array('identifier' => '3_zones_b'));
-
-        $rule1 = new Rule($layout1);
-        $rule2 = new Rule($layout2);
+        $rule1 = new Rule(42);
+        $rule2 = new Rule(24);
 
         $layoutResolver = new LayoutResolver(array($rule1, $rule2));
-        self::assertEquals($layout1, $layoutResolver->resolveLayout());
+        self::assertEquals(42, $layoutResolver->resolveLayout());
     }
 
     /**

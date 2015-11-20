@@ -7,7 +7,7 @@ interface LayoutResolverInterface
     /**
      * Resolves the layout based on current conditions.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout|null
+     * @return int|null
      */
     public function resolveLayout();
 }

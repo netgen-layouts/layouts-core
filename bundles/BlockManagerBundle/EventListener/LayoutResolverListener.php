@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -19,6 +19,11 @@ class LayoutResolverListener implements EventSubscriberInterface
     protected $layoutResolver;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
     protected $viewBuilder;
@@ -32,15 +37,18 @@ class LayoutResolverListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface $layoutResolver
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
+        LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
         GlobalHelper $globalHelper
     ) {
         $this->layoutResolver = $layoutResolver;
+        $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
         $this->globalHelper = $globalHelper;
     }
@@ -71,11 +79,12 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
-        $layout = $this->layoutResolver->resolveLayout();
-        if (!$layout instanceof Layout) {
+        $layoutId = $this->layoutResolver->resolveLayout();
+        if ($layoutId === null) {
             return;
         }
 
+        $layout = $this->layoutService->loadLayout($layoutId);
         $layoutView = $this->viewBuilder->buildView($layout);
         $this->globalHelper->setLayoutView($layoutView);
     }

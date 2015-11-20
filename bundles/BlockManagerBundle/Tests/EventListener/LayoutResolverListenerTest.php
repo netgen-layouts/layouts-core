@@ -22,6 +22,11 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    protected $layoutServiceMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $viewBuilderMock;
 
     /**
@@ -36,6 +41,10 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
     {
         $this->layoutResolverMock = $this->getMock(
             'Netgen\BlockManager\LayoutResolver\LayoutResolverInterface'
+        );
+
+        $this->layoutServiceMock = $this->getMock(
+            'Netgen\BlockManager\API\Service\LayoutService'
         );
 
         $this->viewBuilderMock = $this->getMock(
@@ -73,6 +82,12 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
+            ->will($this->returnValue(42));
+
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('loadLayout')
+            ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
         $this->viewBuilderMock
@@ -105,6 +120,10 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
             ->method('resolveLayout')
             ->will($this->returnValue(null));
 
+        $this->layoutServiceMock
+            ->expects($this->never())
+            ->method('loadLayout');
+
         $this->viewBuilderMock
             ->expects($this->never())
             ->method('buildView');
@@ -131,6 +150,10 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('resolveLayout');
 
+        $this->layoutServiceMock
+            ->expects($this->never())
+            ->method('loadLayout');
+
         $this->viewBuilderMock
             ->expects($this->never())
             ->method('buildView');
@@ -156,6 +179,10 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->never())
             ->method('resolveLayout');
+
+        $this->layoutServiceMock
+            ->expects($this->never())
+            ->method('loadLayout');
 
         $this->viewBuilderMock
             ->expects($this->never())
@@ -184,6 +211,7 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
     {
         return new LayoutResolverListener(
             $this->layoutResolverMock,
+            $this->layoutServiceMock,
             $this->viewBuilderMock,
             $this->globalHelperMock
         );

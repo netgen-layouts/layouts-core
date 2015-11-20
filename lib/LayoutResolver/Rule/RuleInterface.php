@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\LayoutResolver\Rule;
 interface RuleInterface
 {
     /**
-     * Returns the layout attached to this rule.
+     * Returns the layout ID attached to this rule.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return int|string
      */
-    public function getLayout();
+    public function getLayoutId();
 
     /**
      * Returns the targets from this rule.

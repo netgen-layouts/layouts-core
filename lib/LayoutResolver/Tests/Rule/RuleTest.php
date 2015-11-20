@@ -11,14 +11,13 @@ class RuleTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::getLayout
+     * @covers \Netgen\BlockManager\LayoutResolver\Rule\Rule::getLayoutId
      */
-    public function testGetLayout()
-    {
-        $layout = new Layout();
-        $rule = new Rule($layout, array(new Target()));
+    public function testGetLayoutId()
+    {;
+        $rule = new Rule(42, array(new Target()));
 
-        self::assertEquals($layout, $rule->getLayout());
+        self::assertEquals(42, $rule->getLayoutId());
     }
 
     /**

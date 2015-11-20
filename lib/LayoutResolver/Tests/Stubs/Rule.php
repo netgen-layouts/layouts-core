@@ -3,14 +3,13 @@
 namespace Netgen\BlockManager\LayoutResolver\Tests\Stubs;
 
 use Netgen\BlockManager\LayoutResolver\Rule\RuleInterface;
-use Netgen\BlockManager\API\Values\Page\Layout;
 
 class Rule implements RuleInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     * @var int|string
      */
-    protected $layout;
+    protected $layoutId;
 
     /**
      * @var bool
@@ -20,23 +19,23 @@ class Rule implements RuleInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int|string $layoutId
      * @param bool $matches
      */
-    public function __construct(Layout $layout, $matches = true)
+    public function __construct($layoutId, $matches = true)
     {
-        $this->layout = $layout;
+        $this->layoutId = $layoutId;
         $this->matches = $matches;
     }
 
     /**
-     * Returns the layout attached to this rule.
+     * Returns the layout ID attached to this rule.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return int|string
      */
-    public function getLayout()
+    public function getLayoutId()
     {
-        return $this->layout;
+        return $this->layoutId;
     }
 
     /**

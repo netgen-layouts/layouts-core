@@ -2,14 +2,12 @@
 
 namespace Netgen\BlockManager\LayoutResolver\Rule;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
-
 class Rule implements RuleInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     * @var int|string
      */
-    protected $layout;
+    protected $layoutId;
 
     /**
      * @var \Netgen\BlockManager\LayoutResolver\Rule\TargetInterface[]
@@ -19,23 +17,23 @@ class Rule implements RuleInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int|string $layoutId
      * @param \Netgen\BlockManager\LayoutResolver\Rule\TargetInterface[] $targets
      */
-    public function __construct(Layout $layout, array $targets)
+    public function __construct($layoutId, array $targets)
     {
-        $this->layout = $layout;
+        $this->layoutId = $layoutId;
         $this->targets = $targets;
     }
 
     /**
-     * Returns the layout attached to this rule.
+     * Returns the layout ID attached to this rule.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return int|string
      */
-    public function getLayout()
+    public function getLayoutId()
     {
-        return $this->layout;
+        return $this->layoutId;
     }
 
     /**
