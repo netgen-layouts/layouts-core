@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\LayoutResolver;
 
+use Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface;
+use RuntimeException;
+
 class LayoutResolver implements LayoutResolverInterface
 {
     /**
@@ -44,11 +47,17 @@ class LayoutResolver implements LayoutResolverInterface
      *
      * @param \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[] $conditions
      *
+     * @throws \RuntimeException If one of the conditions is not of correct type
+     *
      * @return bool
      */
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
+            if (!$condition instanceof ConditionInterface) {
+                throw new RuntimeException('Conditions must be instances of ConditionInterface.');
+            }
+
             if (!$condition->matches()) {
                 return false;
             }

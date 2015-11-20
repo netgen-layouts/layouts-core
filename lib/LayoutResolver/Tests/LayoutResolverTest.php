@@ -66,6 +66,20 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
+     * @expectedException \RuntimeException
+     */
+    public function testResolveLayoutThrowsRuntimeExceptionWithInvalidCondition()
+    {
+        $rule = new Rule(42, new Target(), array(12));
+
+        $layoutResolver = new LayoutResolver(array($rule));
+        $layoutResolver->resolveLayout();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
      *
      * @param array $conditions
      * @param int $layoutId
