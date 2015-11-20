@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Netgen\BlockManager\Form\Data\UpdateBlockData;
 use Netgen\BlockManager\API\Values\Page\Block;
 use InvalidArgumentException;
@@ -22,7 +21,7 @@ class BlockController extends Controller
     {
         $blockView = $this->buildViewObject($block, array(), 'api');
 
-        return $this->serializeObject($blockView);
+        return $this->serializeObject($blockView, self::API_VERSION);
     }
 
     /**

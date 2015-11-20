@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
 class LayoutController extends Controller
@@ -18,6 +17,6 @@ class LayoutController extends Controller
     {
         $layoutView = $this->buildViewObject($layout, array(), 'api');
 
-        return $this->serializeObject($layoutView);
+        return $this->serializeObject($layoutView, self::API_VERSION);
     }
 }

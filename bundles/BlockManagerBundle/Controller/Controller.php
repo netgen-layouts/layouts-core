@@ -4,36 +4,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class Controller extends BaseController
 {
-    /**
-     * @const string
-     */
-    const API_VERSION = 1;
-
-    /**
-     * Serializes the object.
-     *
-     * @param mixed $object
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    protected function serializeObject($object)
-    {
-        $serializedObject = $this->get('serializer')->serialize(
-            $object,
-            'json',
-            array('version' => self::API_VERSION)
-        );
-
-        $response = new JsonResponse();
-        $response->setContent($serializedObject);
-
-        return $response;
-    }
-
     /**
      * Builds the view from the object.
      *
