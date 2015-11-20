@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager;
+namespace Netgen\BlockManager\Traits;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 

@@ -35,6 +35,9 @@
         <testsuite name="Netgen\BlockManager\Persistence">
             <directory>lib/Persistence/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Traits">
+            <directory>lib/Traits/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\BlockManager\View">
             <directory>lib/View/Tests</directory>
         </testsuite>
