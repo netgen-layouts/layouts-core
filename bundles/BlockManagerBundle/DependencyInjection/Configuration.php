@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
      * @param string $alias
      * @param \Closure[] $externalConfigTreeBuilders
      */
-    public function __construct($alias, array $externalConfigTreeBuilders)
+    public function __construct($alias, array $externalConfigTreeBuilders = array())
     {
         $this->alias = $alias;
         $this->externalConfigTreeBuilders = $externalConfigTreeBuilders;
