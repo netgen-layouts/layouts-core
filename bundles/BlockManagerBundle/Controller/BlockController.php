@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 class BlockController extends Controller
 {
     /**
-     * Renders the provided block
+     * Renders the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *

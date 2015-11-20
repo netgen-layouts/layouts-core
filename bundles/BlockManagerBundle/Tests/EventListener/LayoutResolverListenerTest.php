@@ -29,7 +29,7 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
     protected $globalHelperMock;
 
     /**
-     * Sets up the test
+     * Sets up the test.
      */
     public function setUp()
     {
@@ -122,7 +122,7 @@ class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns the layout resolver listener under test
+     * Returns the layout resolver listener under test.
      *
      * @return \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
      */
