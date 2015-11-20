@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\LayoutResolver\Tests\Rule;
 
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\LayoutResolver\Rule\Rule;
 use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Target;
 use PHPUnit_Framework_TestCase;
