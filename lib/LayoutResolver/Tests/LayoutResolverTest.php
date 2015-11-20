@@ -16,7 +16,7 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
     public function testResolveLayout()
     {
         $layout = new Layout(array('identifier' => '3_zones_a'));
-        $rule = new Rule($layout, true);
+        $rule = new Rule($layout);
 
         $layoutResolver = new LayoutResolver(array($rule));
         self::assertEquals($layout, $layoutResolver->resolveLayout());
@@ -44,8 +44,8 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
         $layout1 = new Layout(array('identifier' => '3_zones_a'));
         $layout2 = new Layout(array('identifier' => '3_zones_b'));
 
-        $rule1 = new Rule($layout1, true);
-        $rule2 = new Rule($layout2, true);
+        $rule1 = new Rule($layout1);
+        $rule2 = new Rule($layout2);
 
         $layoutResolver = new LayoutResolver(array($rule1, $rule2));
         self::assertEquals($layout1, $layoutResolver->resolveLayout());

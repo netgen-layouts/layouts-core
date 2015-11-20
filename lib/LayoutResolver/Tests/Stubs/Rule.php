@@ -15,7 +15,7 @@ class Rule implements RuleInterface
     /**
      * @var bool
      */
-    protected $matches;
+    protected $matches = true;
 
     /**
      * Constructor.
@@ -23,7 +23,7 @@ class Rule implements RuleInterface
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param bool $matches
      */
-    public function __construct(Layout $layout, $matches)
+    public function __construct(Layout $layout, $matches = true)
     {
         $this->layout = $layout;
         $this->matches = $matches;
