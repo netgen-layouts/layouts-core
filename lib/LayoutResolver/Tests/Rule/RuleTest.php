@@ -27,7 +27,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
     public function testGetTargets()
     {
         $target = new Target();
-        $rule = new Rule(new Layout(), array($target));
+        $rule = new Rule(42, array($target));
 
         self::assertEquals(array($target), $rule->getTargets());
     }
@@ -42,7 +42,7 @@ class RuleTest extends PHPUnit_Framework_TestCase
      */
     public function testMatches(array $targets, $matches)
     {
-        $rule = new Rule(new Layout(), $targets);
+        $rule = new Rule(42, $targets);
         self::assertEquals($matches, $rule->matches());
     }
 
