@@ -24,7 +24,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
      */
-    public function testDefaultSettings()
+    public function testParameters()
     {
         $this->load();
 
@@ -33,17 +33,18 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('netgen_block_manager.layouts', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_view', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.layout_view', array());
-        $this->assertContainerBuilderHasParameter(
-            'netgen_block_manager.pagelayout',
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.pagelayout',
             'NetgenBlockManagerBundle::pagelayout_empty.html.twig'
         );
     }
 
     /**
+     * We test for existence of one service from each of the config files.
+     *
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::loadConfigFiles
      */
-    public function testLoad()
+    public function testServices()
     {
         $this->load();
 
