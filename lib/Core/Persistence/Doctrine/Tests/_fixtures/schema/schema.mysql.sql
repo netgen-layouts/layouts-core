@@ -8,7 +8,6 @@ CREATE TABLE `ngbm_layout` (
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_ngbm_layout_identifier` (`identifier`),
   KEY `idx_ngbm_layout_parent_id` (`parent_id`),
   CONSTRAINT `fk_ngbm_layout_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `ngbm_layout` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -16,7 +15,7 @@ CREATE TABLE `ngbm_layout` (
 DROP TABLE IF EXISTS `ngbm_zone`;
 CREATE TABLE `ngbm_zone` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `layout_id` int(11) DEFAULT NULL,
+  `layout_id` int(11) NOT NULL,
   `identifier` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ngbm_zone_layout_id` (`layout_id`),
@@ -26,7 +25,7 @@ CREATE TABLE `ngbm_zone` (
 DROP TABLE IF EXISTS `ngbm_block`;
 CREATE TABLE `ngbm_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `zone_id` int(11) DEFAULT NULL,
+  `zone_id` int(11) NOT NULL,
   `definition_identifier` varchar(255) NOT NULL,
   `view_type` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
