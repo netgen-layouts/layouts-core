@@ -11,38 +11,8 @@
     convertWarningsToExceptions="true"
 >
     <testsuites>
-        <testsuite name="Netgen\BlockManager\API">
-            <directory>lib/API/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\BlockDefinition">
-            <directory>lib/BlockDefinition/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Configuration">
-            <directory>lib/Configuration/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Core\Persistence\Doctrine">
-            <directory>lib/Core/Persistence/Doctrine/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Core\Service">
-            <directory>lib/Core/Service/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Form">
-            <directory>lib/Form/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\LayoutResolver">
-            <directory>lib/LayoutResolver/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Persistence">
-            <directory>lib/Persistence/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Serializer">
-            <directory>lib/Serializer/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\Traits">
-            <directory>lib/Traits/Tests</directory>
-        </testsuite>
-        <testsuite name="Netgen\BlockManager\View">
-            <directory>lib/View/Tests</directory>
+        <testsuite name="Netgen\BlockManager">
+            <directory>lib/Tests</directory>
         </testsuite>
         <testsuite name="Netgen\Bundle\BlockManagerBundle">
             <directory>bundles/BlockManagerBundle/Tests</directory>
@@ -57,11 +27,8 @@
             <directory suffix=".php">.</directory>
             <exclude>
                 <directory>lib/Tests</directory>
-                <directory>lib/*/Tests</directory>
-                <directory>lib/*/*/Tests</directory>
-                <directory>lib/*/*/*/Tests</directory>
                 <directory>bundles/*Bundle/Tests</directory>
-                <directory>bundles/*/*Bundle/Resources</directory>
+                <directory>bundles/*Bundle/Resources</directory>
             </exclude>
         </whitelist>
     </filter>

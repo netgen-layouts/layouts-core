@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter as BaseParamConverter;
-use Netgen\BlockManager\API\Tests\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 
 class ParamConverter extends BaseParamConverter
 {
@@ -34,7 +34,7 @@ class ParamConverter extends BaseParamConverter
      */
     public function getSupportedClass()
     {
-        return 'Netgen\BlockManager\API\Tests\Stubs\Value';
+        return 'Netgen\BlockManager\Tests\API\Stubs\Value';
     }
 
     /**

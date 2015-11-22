@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
-use Netgen\BlockManager\API\Tests\Stubs\Value;
+use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Symfony\Component\HttpFoundation\Request;
 
 class ParamConverterTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +17,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/');
         $request->attributes->set('id', 42);
         $configuration = new ParamConverterConfiguration(array());
-        $configuration->setClass('Netgen\BlockManager\API\Tests\Stubs\Value');
+        $configuration->setClass('Netgen\BlockManager\Tests\API\Stubs\Value');
 
         $paramConverter = new ParamConverter();
         self::assertEquals(true, $paramConverter->apply($request, $configuration));
@@ -32,7 +32,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('/');
         $configuration = new ParamConverterConfiguration(array());
-        $configuration->setClass('Netgen\BlockManager\API\Tests\Stubs\Value');
+        $configuration->setClass('Netgen\BlockManager\Tests\API\Stubs\Value');
 
         $paramConverter = new ParamConverter();
         self::assertEquals(false, $paramConverter->apply($request, $configuration));
@@ -47,7 +47,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/');
         $request->attributes->set('id', '');
         $configuration = new ParamConverterConfiguration(array());
-        $configuration->setClass('Netgen\BlockManager\API\Tests\Stubs\Value');
+        $configuration->setClass('Netgen\BlockManager\Tests\API\Stubs\Value');
         $configuration->setIsOptional(true);
 
         $paramConverter = new ParamConverter();
@@ -64,7 +64,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/');
         $request->attributes->set('id', '');
         $configuration = new ParamConverterConfiguration(array());
-        $configuration->setClass('Netgen\BlockManager\API\Tests\Stubs\Value');
+        $configuration->setClass('Netgen\BlockManager\Tests\API\Stubs\Value');
 
         $paramConverter = new ParamConverter();
         $paramConverter->apply($request, $configuration);
@@ -76,7 +76,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
     public function testSupports()
     {
         $configuration = new ParamConverterConfiguration(array());
-        $configuration->setClass('Netgen\BlockManager\API\Tests\Stubs\Value');
+        $configuration->setClass('Netgen\BlockManager\Tests\API\Stubs\Value');
 
         $paramConverter = new ParamConverter();
         self::assertEquals(true, $paramConverter->supports($configuration));
