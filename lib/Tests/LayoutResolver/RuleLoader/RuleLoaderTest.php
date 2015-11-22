@@ -36,7 +36,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadRules()
     {
         $target = new Target('target', array(42));
-        $rule = new Rule(42);
+        $rule = new Rule(42, $target);
 
         $this->ruleHandlerMock
             ->expects($this->once())
@@ -47,7 +47,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
         $this->ruleBuilderMock
             ->expects($this->once())
             ->method('buildRules')
-            ->with($this->equalTo(array('some_data')))
+            ->with($this->equalTo($target), $this->equalTo(array('some_data')))
             ->will($this->returnValue(array($rule)));
 
         $ruleLoader = $this->getRuleLoader();

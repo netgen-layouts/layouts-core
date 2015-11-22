@@ -52,6 +52,6 @@ class RuleLoader implements RuleLoaderInterface
             return array();
         }
 
-        return $this->ruleBuilder->buildRules($data);
+        return $this->ruleBuilder->buildRules($target, $data);
     }
 }
