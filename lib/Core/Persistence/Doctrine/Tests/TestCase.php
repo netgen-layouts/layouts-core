@@ -68,7 +68,8 @@ trait TestCase
         $sqlQueries = explode(';', $schema);
 
         foreach ($sqlQueries as $sqlQuery) {
-            if (!empty(trim($sqlQuery))) {
+            $sqlQuery = trim($sqlQuery);
+            if (!empty($sqlQuery)) {
                 $this->databaseConnection->query($sqlQuery);
             }
         }
