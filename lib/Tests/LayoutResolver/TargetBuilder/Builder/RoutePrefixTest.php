@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder;
+namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder\Builder;
 
 use Netgen\BlockManager\LayoutResolver\Target;
-use Netgen\BlockManager\LayoutResolver\TargetBuilder\RoutePrefix;
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RoutePrefix;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ class RoutePrefixTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\RoutePrefix::getTargetIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RoutePrefix::getTargetIdentifier
      */
     public function testBuildTargetIdentifier()
     {
@@ -36,7 +36,7 @@ class RoutePrefixTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\RoutePrefix::buildTarget
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RoutePrefix::buildTarget
      */
     public function testBuildTarget()
     {
@@ -47,7 +47,7 @@ class RoutePrefixTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\RoutePrefix::buildTarget
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RoutePrefix::buildTarget
      */
     public function testBuildTargetWithNoRequest()
     {

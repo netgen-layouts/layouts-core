@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\LayoutResolver\TargetBuilder;
+namespace Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder;
 
 class RoutePrefix extends Route
 {

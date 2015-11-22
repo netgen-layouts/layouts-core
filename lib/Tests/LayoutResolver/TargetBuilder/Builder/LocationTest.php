@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder;
+namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder\Builder;
 
 use Netgen\BlockManager\LayoutResolver\Target;
-use Netgen\BlockManager\LayoutResolver\TargetBuilder\Location;
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Location;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Location::getTargetIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Location::getTargetIdentifier
      */
     public function testGetTargetIdentifier()
     {
@@ -36,7 +36,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Location::buildTarget
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Location::buildTarget
      */
     public function testBuildTarget()
     {
@@ -47,7 +47,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Location::buildTarget
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Location::buildTarget
      */
     public function testBuildTargetWithNoRequest()
     {
@@ -61,7 +61,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Location::buildTarget
+     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Location::buildTarget
      */
     public function testBuildTargetWithNoLocationId()
     {

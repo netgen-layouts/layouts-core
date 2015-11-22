@@ -1,7 +1,7 @@
 parameters:
-    netgen_block_manager.layout_resolver.target_builder.route.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Route
-    netgen_block_manager.layout_resolver.target_builder.route_prefix.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\RoutePrefix
-    netgen_block_manager.layout_resolver.target_builder.location.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Location
+    netgen_block_manager.layout_resolver.target_builder.route.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Route
+    netgen_block_manager.layout_resolver.target_builder.route_prefix.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RoutePrefix
+    netgen_block_manager.layout_resolver.target_builder.location.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Location
 
 services:
     netgen_block_manager.layout_resolver.target_builder.route:

@@ -1,12 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\LayoutResolver\TargetBuilder;
+namespace Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder;
 
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Netgen\BlockManager\LayoutResolver\Target;
 use Symfony\Component\HttpFoundation\Request;
 
-class Route implements TargetBuilderInterface
+class Location implements TargetBuilderInterface
 {
     use RequestStackAwareTrait;
 
@@ -17,7 +18,7 @@ class Route implements TargetBuilderInterface
      */
     public function getTargetIdentifier()
     {
-        return 'route';
+        return 'location';
     }
 
     /**
@@ -32,9 +33,13 @@ class Route implements TargetBuilderInterface
             return false;
         }
 
+        if (!$currentRequest->attributes->has('locationId')) {
+            return false;
+        }
+
         return new Target(
             $this->getTargetIdentifier(),
-            array($currentRequest->attributes->get('_route'))
+            array($currentRequest->attributes->get('locationId'))
         );
     }
 }
