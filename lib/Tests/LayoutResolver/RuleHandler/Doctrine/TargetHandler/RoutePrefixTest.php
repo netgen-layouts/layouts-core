@@ -9,9 +9,9 @@ class RoutePrefixTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RoutePrefix::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetTargetIdentifier()
     {
         $targetHandler = new RoutePrefix();
-        self::assertEquals('route_prefix', $targetHandler->getIdentifier());
+        self::assertEquals('route_prefix', $targetHandler->getTargetIdentifier());
     }
 }

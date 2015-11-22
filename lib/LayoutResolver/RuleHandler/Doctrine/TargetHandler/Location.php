@@ -9,11 +9,11 @@ use Doctrine\DBAL\Types\Type;
 class Location extends TargetHandler
 {
     /**
-     * Returns the target handler identifier.
+     * Returns the target identifier this handler handles.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getTargetIdentifier()
     {
         return 'location';
     }

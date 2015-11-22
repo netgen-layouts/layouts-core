@@ -7,11 +7,11 @@ use Doctrine\DBAL\Query\QueryBuilder;
 abstract class TargetHandler
 {
     /**
-     * Returns the target handler identifier.
+     * Returns the target identifier this handler handles.
      *
      * @return string
      */
-    abstract public function getIdentifier();
+    abstract public function getTargetIdentifier();
 
     /**
      * Handles the query by adding the clause that matches the provided values.

@@ -43,7 +43,7 @@ class Handler implements RuleHandlerInterface
      */
     public function addTargetHandler(TargetHandler $targetHandler)
     {
-        $this->targetHandlers[$targetHandler->getIdentifier()] = $targetHandler;
+        $this->targetHandlers[$targetHandler->getTargetIdentifier()] = $targetHandler;
     }
 
     /**
