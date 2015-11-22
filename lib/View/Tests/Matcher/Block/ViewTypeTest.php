@@ -6,9 +6,8 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\ViewType;
 use Netgen\BlockManager\View\Tests\Stubs\View;
-use PHPUnit_Framework_TestCase;
 
-class ViewTypeTest extends PHPUnit_Framework_TestCase
+class ViewTypeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param array $config

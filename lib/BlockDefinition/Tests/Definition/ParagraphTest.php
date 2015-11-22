@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\BlockDefinition\Tests;
 use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
 use Netgen\BlockManager\BlockDefinition\Parameters;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use PHPUnit_Framework_TestCase;
 
-class ParagraphTest extends PHPUnit_Framework_TestCase
+class ParagraphTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getIdentifier

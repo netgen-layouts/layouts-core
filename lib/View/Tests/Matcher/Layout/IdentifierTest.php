@@ -6,9 +6,8 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\Matcher\Layout\Identifier;
 use Netgen\BlockManager\View\Tests\Stubs\View;
-use PHPUnit_Framework_TestCase;
 
-class IdentifierTest extends PHPUnit_Framework_TestCase
+class IdentifierTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param array $config

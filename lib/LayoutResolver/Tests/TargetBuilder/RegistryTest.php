@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\LayoutResolver\Tests\TargetBuilder;
 
 use Netgen\BlockManager\LayoutResolver\TargetBuilder\Registry;
 use Netgen\BlockManager\LayoutResolver\Tests\Stubs\TargetBuilder;
-use PHPUnit_Framework_TestCase;
 
-class RegistryTest extends PHPUnit_Framework_TestCase
+class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Registry::addTargetBuilder

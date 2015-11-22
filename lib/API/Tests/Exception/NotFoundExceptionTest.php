@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\API\Tests\Exception;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use PHPUnit_Framework_TestCase;
 
-class NotFoundExceptionTest extends PHPUnit_Framework_TestCase
+class NotFoundExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\API\Exception\NotFoundException::__construct

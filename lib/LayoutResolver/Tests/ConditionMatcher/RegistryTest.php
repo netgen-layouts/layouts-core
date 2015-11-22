@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\LayoutResolver\Tests\ConditionMatcher;
 
 use Netgen\BlockManager\LayoutResolver\ConditionMatcher\Registry;
 use Netgen\BlockManager\LayoutResolver\Tests\Stubs\ConditionMatcher;
-use PHPUnit_Framework_TestCase;
 
-class RegistryTest extends PHPUnit_Framework_TestCase
+class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Registry::addConditionMatcher

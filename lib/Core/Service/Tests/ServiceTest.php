@@ -2,9 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Service\Tests;
 
-use PHPUnit_Framework_TestCase;
 
-abstract class ServiceTest extends PHPUnit_Framework_TestCase
+abstract class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Creates a layout service under test.

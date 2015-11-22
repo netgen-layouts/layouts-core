@@ -6,9 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConv
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use Symfony\Component\HttpFoundation\Request;
-use PHPUnit_Framework_TestCase;
 
-class ParamConverterTest extends PHPUnit_Framework_TestCase
+class ParamConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply

@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\BlockDefinition\Tests;
 
 use Netgen\BlockManager\BlockDefinition\Tests\Stubs\Parameter;
-use PHPUnit_Framework_TestCase;
 
-class ParameterTest extends PHPUnit_Framework_TestCase
+class ParameterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter::__construct

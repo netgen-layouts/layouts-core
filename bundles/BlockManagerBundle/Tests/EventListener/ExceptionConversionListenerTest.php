@@ -9,11 +9,10 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use PHPUnit_Framework_TestCase;
 use InvalidArgumentException;
 use Exception;
 
-class ExceptionConversionListenerTest extends PHPUnit_Framework_TestCase
+class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::getSubscribedEvents

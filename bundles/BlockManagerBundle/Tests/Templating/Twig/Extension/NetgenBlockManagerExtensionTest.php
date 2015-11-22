@@ -3,9 +3,8 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
-use PHPUnit_Framework_TestCase;
 
-class NetgenBlockManagerExtensionTest extends PHPUnit_Framework_TestCase
+class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::getName

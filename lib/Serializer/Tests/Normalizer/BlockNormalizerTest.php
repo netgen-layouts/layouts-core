@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
-use PHPUnit_Framework_TestCase;
 
-class BlockNormalizerTest extends PHPUnit_Framework_TestCase
+class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::__construct

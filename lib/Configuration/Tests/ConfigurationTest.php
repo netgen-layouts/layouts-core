@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\Configuration\Tests;
 
 use Netgen\BlockManager\Configuration\Tests\Stubs\Configuration;
-use PHPUnit_Framework_TestCase;
 
-class ConfigurationTest extends PHPUnit_Framework_TestCase
+class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockConfig

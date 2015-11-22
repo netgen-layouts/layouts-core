@@ -4,9 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use PHPUnit_Framework_TestCase;
 
-class LayoutParamConverterTest extends PHPUnit_Framework_TestCase
+class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::getSourceAttributeName

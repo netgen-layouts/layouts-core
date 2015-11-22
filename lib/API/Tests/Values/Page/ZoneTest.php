@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\API\Tests\Values;
 
 use Netgen\BlockManager\Core\Values\Page\Zone;
-use PHPUnit_Framework_TestCase;
 
-class ZoneTest extends PHPUnit_Framework_TestCase
+class ZoneTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct

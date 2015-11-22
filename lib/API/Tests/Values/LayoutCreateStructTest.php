@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\API\Tests\Values;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use PHPUnit_Framework_TestCase;
 
-class LayoutCreateStructTest extends PHPUnit_Framework_TestCase
+class LayoutCreateStructTest extends \PHPUnit_Framework_TestCase
 {
     public function testDefaultProperties()
     {

@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\BlockDefinition\Tests;
 
 use Netgen\BlockManager\BlockDefinition\Tests\Stubs\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Parameters;
-use PHPUnit_Framework_TestCase;
 
-class BlockDefinitionTest extends PHPUnit_Framework_TestCase
+class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\BlockDefinition::getParameters

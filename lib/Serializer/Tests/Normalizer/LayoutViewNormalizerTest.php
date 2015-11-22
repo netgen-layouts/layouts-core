@@ -8,10 +8,9 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
-use PHPUnit_Framework_TestCase;
 use DateTime;
 
-class LayoutViewNormalizerTest extends PHPUnit_Framework_TestCase
+class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::__construct

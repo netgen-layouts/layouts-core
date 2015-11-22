@@ -6,10 +6,9 @@ use Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use PHPUnit_Framework_TestCase;
 use Exception;
 
-class ExceptionNormalizerTest extends PHPUnit_Framework_TestCase
+class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize

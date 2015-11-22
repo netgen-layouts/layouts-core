@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\Persistence\Tests\Values;
 
 use Netgen\BlockManager\Persistence\Tests\Stubs\Value;
-use PHPUnit_Framework_TestCase;
 
-class ValueTest extends PHPUnit_Framework_TestCase
+class ValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Persistence\Values\Value::__construct

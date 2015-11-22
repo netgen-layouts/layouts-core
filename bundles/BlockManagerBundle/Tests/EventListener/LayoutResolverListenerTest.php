@@ -12,9 +12,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
-use PHPUnit_Framework_TestCase;
 
-class LayoutResolverListenerTest extends PHPUnit_Framework_TestCase
+class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\Configuration\Tests;
 
 use Netgen\BlockManager\Configuration\ContainerConfiguration;
-use PHPUnit_Framework_TestCase;
 
-class ContainerConfigurationTest extends PHPUnit_Framework_TestCase
+class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::hasParameter

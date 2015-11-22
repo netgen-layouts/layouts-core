@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\BlockDefinition\Tests\Parameters;
 
 use Netgen\BlockManager\BlockDefinition\Parameters\Text;
-use PHPUnit_Framework_TestCase;
 
-class TextTest extends PHPUnit_Framework_TestCase
+class TextTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Text::getType

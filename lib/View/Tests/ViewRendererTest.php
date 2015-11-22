@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\View\Tests\Renderer;
 
 use Netgen\BlockManager\View\ViewRenderer;
 use Netgen\BlockManager\View\Tests\Stubs\View;
-use PHPUnit_Framework_TestCase;
 
-class ViewRendererTest extends PHPUnit_Framework_TestCase
+class ViewRendererTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\ViewRenderer::__construct

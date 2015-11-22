@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\Form\Tests\Data;
 
 use Netgen\BlockManager\Form\Data\UpdateBlockData;
-use PHPUnit_Framework_TestCase;
 
-class UpdateBlockDataTest extends PHPUnit_Framework_TestCase
+class UpdateBlockDataTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Form\Data\UpdateBlockData::__construct

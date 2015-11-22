@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\LayoutResolver\Tests\RuleLoader;
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoader;
 use Netgen\BlockManager\LayoutResolver\Target;
-use PHPUnit_Framework_TestCase;
 
-class RuleLoaderTest extends PHPUnit_Framework_TestCase
+class RuleLoaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

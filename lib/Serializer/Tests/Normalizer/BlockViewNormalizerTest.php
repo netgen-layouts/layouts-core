@@ -6,9 +6,8 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
-use PHPUnit_Framework_TestCase;
 
-class BlockViewNormalizerTest extends PHPUnit_Framework_TestCase
+class BlockViewNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::__construct

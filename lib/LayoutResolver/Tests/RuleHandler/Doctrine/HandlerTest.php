@@ -6,9 +6,8 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler;
 use Netgen\BlockManager\Tests\Traits\DoctrineDatabaseTrait;
-use PHPUnit_Framework_TestCase;
 
-class HandlerTest extends PHPUnit_Framework_TestCase
+class HandlerTest extends \PHPUnit_Framework_TestCase
 {
     use DoctrineDatabaseTrait;
 

@@ -6,9 +6,8 @@ use Netgen\BlockManager\View\TemplateResolver\LayoutViewTemplateResolver;
 use Netgen\BlockManager\View\Tests\Stubs\View;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\BlockView;
-use PHPUnit_Framework_TestCase;
 
-class LayoutViewTemplateResolverTest extends PHPUnit_Framework_TestCase
+class LayoutViewTemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param \Netgen\BlockManager\View\ViewInterface $view

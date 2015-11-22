@@ -6,9 +6,8 @@ use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
-use PHPUnit_Framework_TestCase;
 
-class BlockViewProviderTest extends PHPUnit_Framework_TestCase
+class BlockViewProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::provideView

@@ -5,10 +5,9 @@ namespace Netgen\BlockManager\Serializer\Normalizer\Tests;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer;
 use Netgen\BlockManager\API\Tests\Stubs\Value;
-use PHPUnit_Framework_TestCase;
 use DateTime;
 
-class LayoutNormalizerTest extends PHPUnit_Framework_TestCase
+class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct

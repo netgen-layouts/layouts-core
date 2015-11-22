@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\BlockDefinition\Tests\Registry;
 
 use Netgen\BlockManager\BlockDefinition\Tests\Stubs\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry;
-use PHPUnit_Framework_TestCase;
 
-class BlockDefinitionRegistryTest extends PHPUnit_Framework_TestCase
+class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::addBlockDefinition

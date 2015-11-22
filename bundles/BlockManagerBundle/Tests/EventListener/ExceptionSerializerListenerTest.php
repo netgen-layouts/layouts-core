@@ -8,10 +8,9 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
-use PHPUnit_Framework_TestCase;
 use Exception;
 
-class ExceptionSerializerListenerTest extends PHPUnit_Framework_TestCase
+class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents

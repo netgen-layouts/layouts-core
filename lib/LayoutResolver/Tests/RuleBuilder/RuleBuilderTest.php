@@ -6,9 +6,8 @@ use Netgen\BlockManager\LayoutResolver\Tests\Stubs\ConditionMatcher;
 use Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilder;
 use Netgen\BlockManager\LayoutResolver\Condition;
 use Netgen\BlockManager\LayoutResolver\Rule;
-use PHPUnit_Framework_TestCase;
 
-class RuleBuilderTest extends PHPUnit_Framework_TestCase
+class RuleBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

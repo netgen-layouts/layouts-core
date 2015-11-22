@@ -7,9 +7,8 @@ use Netgen\BlockManager\LayoutResolver\TargetBuilder\Location;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
-use PHPUnit_Framework_TestCase;
 
-class LocationTest extends PHPUnit_Framework_TestCase
+class LocationTest extends \PHPUnit_Framework_TestCase
 {
     use RequestStackAwareTrait;
 

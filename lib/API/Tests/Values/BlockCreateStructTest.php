@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\API\Tests\Values;
 
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
-use PHPUnit_Framework_TestCase;
 
-class BlockCreateStructTest extends PHPUnit_Framework_TestCase
+class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::__construct

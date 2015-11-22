@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\BlockDefinition\Tests;
 use Netgen\BlockManager\BlockDefinition\Definition\Title;
 use Netgen\BlockManager\BlockDefinition\Parameters;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use PHPUnit_Framework_TestCase;
 
-class TitleTest extends PHPUnit_Framework_TestCase
+class TitleTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getIdentifier

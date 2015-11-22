@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\LayoutResolver\Tests\RuleHandler\Doctrine;
 
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
-use PHPUnit_Framework_TestCase;
 
-class NormalizerTest extends PHPUnit_Framework_TestCase
+class NormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer::normalizeRules

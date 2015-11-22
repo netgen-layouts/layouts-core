@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\View\Tests\TemplateResolver;
 
 use Netgen\BlockManager\View\Tests\Stubs\TemplateResolver;
 use Netgen\BlockManager\View\Tests\Stubs\View;
-use PHPUnit_Framework_TestCase;
 
-class TemplateResolverTest extends PHPUnit_Framework_TestCase
+class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::__construct

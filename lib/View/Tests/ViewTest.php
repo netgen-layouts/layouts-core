@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\View\Tests;
 
 use Netgen\BlockManager\View\Tests\Stubs\View;
-use PHPUnit_Framework_TestCase;
 
-class ViewTest extends PHPUnit_Framework_TestCase
+class ViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\View::setContext

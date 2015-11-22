@@ -7,9 +7,8 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
-use PHPUnit_Framework_TestCase;
 
-class HandlerTest extends PHPUnit_Framework_TestCase
+class HandlerTest extends \PHPUnit_Framework_TestCase
 {
     use TestCase;
 

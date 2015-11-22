@@ -4,9 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use PHPUnit_Framework_TestCase;
 
-class BlockParamConverterTest extends PHPUnit_Framework_TestCase
+class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::getSourceAttributeName
