@@ -1,0 +1,26 @@
+parameters:
+    netgen_block_manager.layout_resolver.target_builder.route.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Route
+    netgen_block_manager.layout_resolver.target_builder.route_prefix.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\RoutePrefix
+    netgen_block_manager.layout_resolver.target_builder.location.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Location
+
+services:
+    netgen_block_manager.layout_resolver.target_builder.route:
+        class: %netgen_block_manager.layout_resolver.target_builder.route.class%
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 50 }
+
+    netgen_block_manager.layout_resolver.target_builder.route_prefix:
+        class: %netgen_block_manager.layout_resolver.target_builder.route_prefix.class%
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 40 }
+
+    netgen_block_manager.layout_resolver.target_builder.location:
+        class: %netgen_block_manager.layout_resolver.target_builder.location.class%
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 40 }

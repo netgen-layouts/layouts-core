@@ -1,0 +1,48 @@
+<?php
+
+return array(
+    'ngbm_rule' => array(
+        array('id' => 1, 'layout_id' => 1, 'target_identifier' => 'route'),
+        array('id' => 2, 'layout_id' => 2, 'target_identifier' => 'route'),
+        array('id' => 3, 'layout_id' => 3, 'target_identifier' => 'route'),
+        array('id' => 4, 'layout_id' => 1, 'target_identifier' => 'route_prefix'),
+        array('id' => 5, 'layout_id' => 2, 'target_identifier' => 'route_prefix'),
+        array('id' => 6, 'layout_id' => 3, 'target_identifier' => 'route_prefix'),
+        array('id' => 7, 'layout_id' => 1, 'target_identifier' => 'location'),
+        array('id' => 8, 'layout_id' => 2, 'target_identifier' => 'location'),
+        array('id' => 9, 'layout_id' => 3, 'target_identifier' => 'location'),
+    ),
+    'ngbm_rule_value' => array(
+        array('id' => 1, 'rule_id' => 1, 'value' => 'my_cool_route'),
+        array('id' => 2, 'rule_id' => 1, 'value' => 'my_other_cool_route'),
+        array('id' => 3, 'rule_id' => 2, 'value' => 'my_second_cool_route'),
+        array('id' => 4, 'rule_id' => 2, 'value' => 'my_third_cool_route'),
+        array('id' => 5, 'rule_id' => 3, 'value' => 'my_fourth_cool_route'),
+        array('id' => 6, 'rule_id' => 3, 'value' => 'my_fifth_cool_route'),
+        array('id' => 7, 'rule_id' => 4, 'value' => 'my_cool_'),
+        array('id' => 8, 'rule_id' => 4, 'value' => 'my_other_cool_'),
+        array('id' => 9, 'rule_id' => 5, 'value' => 'my_second_cool_'),
+        array('id' => 10, 'rule_id' => 5, 'value' => 'my_third_cool_'),
+        array('id' => 11, 'rule_id' => 6, 'value' => 'my_fourth_cool_'),
+        array('id' => 12, 'rule_id' => 6, 'value' => 'my_fifth_cool_'),
+        array('id' => 13, 'rule_id' => 7, 'value' => 42),
+        array('id' => 14, 'rule_id' => 7, 'value' => 43),
+        array('id' => 15, 'rule_id' => 8, 'value' => 44),
+        array('id' => 16, 'rule_id' => 8, 'value' => 45),
+        array('id' => 17, 'rule_id' => 9, 'value' => 46),
+        array('id' => 18, 'rule_id' => 9, 'value' => 47),
+    ),
+    'ngbm_rule_condition' => array(
+        array('id' => 1, 'rule_id' => 2, 'matcher' => 'route_parameter', 'value_identifier' => 'some_param'),
+        array('id' => 2, 'rule_id' => 3, 'matcher' => 'route_parameter', 'value_identifier' => 'some_param'),
+        array('id' => 3, 'rule_id' => 3, 'matcher' => 'route_parameter', 'value_identifier' => 'some_other_param'),
+    ),
+    'ngbm_rule_condition_value' => array(
+        array('id' => 1, 'rule_condition_id' => 1, 'value' => '1'),
+        array('id' => 2, 'rule_condition_id' => 1, 'value' => '2'),
+        array('id' => 3, 'rule_condition_id' => 2, 'value' => '3'),
+        array('id' => 4, 'rule_condition_id' => 2, 'value' => '4'),
+        array('id' => 5, 'rule_condition_id' => 3, 'value' => '5'),
+        array('id' => 6, 'rule_condition_id' => 3, 'value' => '6'),
+    ),
+);

@@ -54,6 +54,10 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.form.update_block');
         $this->assertContainerBuilderHasService('netgen_block_manager.normalizer.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.param_converter.block');
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout_resolver');
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout_resolver.target_builder.route');
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route');
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout_resolver.condition_matcher.route_parameter');
         $this->assertContainerBuilderHasService('netgen_block_manager.view.builder');
         $this->assertContainerBuilderHasService('netgen_block_manager.templating.twig.extension');
         $this->assertContainerBuilderHasService('netgen_block_manager.view.matcher.block.definition_identifier');

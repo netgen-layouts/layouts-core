@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\LayoutResolver\Rule;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -80,13 +81,13 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
-        $layoutId = $this->layoutResolver->resolveLayout();
-        if ($layoutId === null) {
+        $rule = $this->layoutResolver->resolveLayout();
+        if (!$rule instanceof Rule) {
             return;
         }
 
         try {
-            $layout = $this->layoutService->loadLayout($layoutId);
+            $layout = $this->layoutService->loadLayout($rule->layoutId);
         } catch (NotFoundException $e) {
             // If layout was not found, we still want to display the page
             // @TODO Log something

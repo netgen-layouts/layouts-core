@@ -137,6 +137,11 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $loader->load('block_definitions.yml');
 
+        $loader->load('layout_resolver/layout_resolver.yml');
+        $loader->load('layout_resolver/condition_matchers.yml');
+        $loader->load('layout_resolver/target_handlers.yml');
+        $loader->load('layout_resolver/target_builders.yml');
+
         $loader->load('param_converters.yml');
         $loader->load('event_listeners.yml');
         $loader->load('configuration.yml');

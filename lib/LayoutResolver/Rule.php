@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\LayoutResolver;
 
-use Netgen\BlockManager\LayoutResolver\Rule\TargetInterface;
-
 class Rule
 {
     /**
@@ -12,26 +10,19 @@ class Rule
     public $layoutId;
 
     /**
-     * @var \Netgen\BlockManager\LayoutResolver\Rule\TargetInterface
+     * @var \Netgen\BlockManager\LayoutResolver\Condition[]
      */
-    public $target;
-
-    /**
-     * @var \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[]
-     */
-    public $conditions = array();
+    public $conditions;
 
     /**
      * Constructor.
      *
      * @param int|string $layoutId
-     * @param \Netgen\BlockManager\LayoutResolver\Rule\TargetInterface $target
-     * @param \Netgen\BlockManager\LayoutResolver\Rule\ConditionInterface[] $conditions
+     * @param \Netgen\BlockManager\LayoutResolver\Condition[] $conditions
      */
-    public function __construct($layoutId, TargetInterface $target, array $conditions = array())
+    public function __construct($layoutId, array $conditions = array())
     {
         $this->layoutId = $layoutId;
-        $this->target = $target;
         $this->conditions = $conditions;
     }
 }

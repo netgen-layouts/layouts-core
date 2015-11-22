@@ -1,0 +1,20 @@
+parameters:
+    netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route.class: Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route
+    netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route_prefix.class: Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RoutePrefix
+    netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.location.class: Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Location
+
+services:
+    netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route:
+        class: %netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route.class%
+        tags:
+            - { name: netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler }
+
+    netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route_prefix:
+        class: %netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.route_prefix.class%
+        tags:
+            - { name: netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler }
+
+    netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.location:
+        class: %netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.location.class%
+        tags:
+            - { name: netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler }

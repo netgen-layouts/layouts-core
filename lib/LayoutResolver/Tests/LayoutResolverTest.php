@@ -4,110 +4,32 @@ namespace Netgen\BlockManager\LayoutResolver\Tests;
 
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\LayoutResolver;
-use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Condition;
-use Netgen\BlockManager\LayoutResolver\Tests\Stubs\Target;
-use PHPUnit_Framework_TestCase;
+use Netgen\BlockManager\LayoutResolver\Tests\Stubs\ConditionMatcher;
+use Netgen\BlockManager\LayoutResolver\Condition;
+use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\Tests\Stubs\TargetBuilder;
+use Netgen\BlockManager\LayoutResolver\Tests\Stubs\TargetBuilderReturnsFalse;
 
-class LayoutResolverTest extends PHPUnit_Framework_TestCase
+class LayoutResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testResolveLayout()
-    {
-        $rule = new Rule(42, new Target());
-
-        $layoutResolver = new LayoutResolver(array($rule));
-        self::assertEquals(42, $layoutResolver->resolveLayout());
-    }
+    protected $targetBuilderRegistryMock;
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testResolveLayoutWithNoMatchingRules()
+    protected $ruleLoaderMock;
+
+    public function setUp()
     {
-        $rule1 = new Rule(42, new Target(false));
-        $rule2 = new Rule(84, new Target(false));
+        $this->targetBuilderRegistryMock = $this->getMock(
+            'Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface'
+        );
 
-        $layoutResolver = new LayoutResolver(array($rule1, $rule2));
-        self::assertNull($layoutResolver->resolveLayout());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
-     */
-    public function testResolveLayoutWithAnyMatchingRule()
-    {
-        $rule1 = new Rule(24, new Target(false));
-        $rule2 = new Rule(42, new Target(true));
-        $rule3 = new Rule(84, new Target(false));
-
-        $layoutResolver = new LayoutResolver(array($rule1, $rule2, $rule3));
-        self::assertEquals(42, $layoutResolver->resolveLayout());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
-     */
-    public function testResolveFirstLayoutWithMoreThanOneMatchingRule()
-    {
-        $rule1 = new Rule(42, new Target());
-        $rule2 = new Rule(24, new Target());
-
-        $layoutResolver = new LayoutResolver(array($rule1, $rule2));
-        self::assertEquals(42, $layoutResolver->resolveLayout());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
-     * @expectedException \RuntimeException
-     */
-    public function testResolveLayoutThrowsRuntimeExceptionWithInvalidCondition()
-    {
-        $rule = new Rule(42, new Target(), array(12));
-
-        $layoutResolver = new LayoutResolver(array($rule));
-        $layoutResolver->resolveLayout();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
-     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
-     *
-     * @param array $conditions
-     * @param int $layoutId
-     *
-     * @dataProvider resolveLayoutWithRuleConditionsProvider
-     */
-    public function testResolveLayoutWithRuleConditions(array $conditions, $layoutId)
-    {
-        $rule = new Rule(42, new Target(), $conditions);
-
-        $layoutResolver = new LayoutResolver(array($rule));
-        self::assertEquals($layoutId, $layoutResolver->resolveLayout());
-    }
-
-    /**
-     * Data provider for {@link self::testResolveLayoutWithRuleConditions}.
-     *
-     * @return array
-     */
-    public function resolveLayoutWithRuleConditionsProvider()
-    {
-        return array(
-            array(array(new Condition(true)), 42),
-            array(array(new Condition(false)), null),
-            array(array(new Condition(true), new Condition(false)), null),
-            array(array(new Condition(false), new Condition(true)), null),
-            array(array(new Condition(false), new Condition(false)), null),
-            array(array(new Condition(true), new Condition(true)), 42),
+        $this->ruleLoaderMock = $this->getMock(
+            'Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface'
         );
     }
 
@@ -115,9 +37,236 @@ class LayoutResolverTest extends PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
      */
-    public function testResolveLayoutWithNoRules()
+    public function testResolveLayout()
     {
-        $layoutResolver = new LayoutResolver();
-        self::assertNull($layoutResolver->resolveLayout());
+        $targetBuilder1 = new TargetBuilder(array(42));
+        $targetBuilder2 = new TargetBuilder(array(84));
+        $target1 = new Target('target', array(42));
+        $target2 = new Target('target', array(84));
+        $rule2 = new Rule(84);
+
+        $this->targetBuilderRegistryMock
+            ->expects($this->once())
+            ->method('getTargetBuilders')
+            ->will($this->returnValue(array($targetBuilder1, $targetBuilder2)));
+
+        $this->ruleLoaderMock
+            ->expects($this->at(0))
+            ->method('loadRules')
+            ->with($this->equalTo($target1))
+            ->will($this->returnValue(array()));
+
+        $this->ruleLoaderMock
+            ->expects($this->at(1))
+            ->method('loadRules')
+            ->with($this->equalTo($target2))
+            ->will($this->returnValue(array($rule2)));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals($rule2, $layoutResolver->resolveLayout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     */
+    public function testResolveLayoutWithNoTarget()
+    {
+        $targetBuilder1 = new TargetBuilderReturnsFalse();
+        $targetBuilder2 = new TargetBuilder(array(84));
+        $target2 = new Target('target', array(84));
+        $rule2 = new Rule(84);
+
+        $this->targetBuilderRegistryMock
+            ->expects($this->once())
+            ->method('getTargetBuilders')
+            ->will($this->returnValue(array($targetBuilder1, $targetBuilder2)));
+
+        $this->ruleLoaderMock
+            ->expects($this->at(0))
+            ->method('loadRules')
+            ->with($this->equalTo($target2))
+            ->will($this->returnValue(array($rule2)));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals($rule2, $layoutResolver->resolveLayout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayout
+     */
+    public function testResolveLayoutWithNoMatchingTargets()
+    {
+        $targetBuilder1 = new TargetBuilder(array(42));
+        $targetBuilder2 = new TargetBuilder(array(84));
+        $target1 = new Target('target', array(42));
+        $target2 = new Target('target', array(84));
+
+        $this->targetBuilderRegistryMock
+            ->expects($this->once())
+            ->method('getTargetBuilders')
+            ->will($this->returnValue(array($targetBuilder1, $targetBuilder2)));
+
+        $this->ruleLoaderMock
+            ->expects($this->at(0))
+            ->method('loadRules')
+            ->with($this->equalTo($target1))
+            ->will($this->returnValue(array()));
+
+        $this->ruleLoaderMock
+            ->expects($this->at(1))
+            ->method('loadRules')
+            ->with($this->equalTo($target2))
+            ->will($this->returnValue(array()));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals(false, $layoutResolver->resolveLayout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayoutForTarget
+     */
+    public function testResolveLayoutForTarget()
+    {
+        $target = new Target('target', array(42));
+        $rule = new Rule(42);
+
+        $this->ruleLoaderMock
+            ->expects($this->once())
+            ->method('loadRules')
+            ->with($this->equalTo($target))
+            ->will($this->returnValue(array($rule)));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals($rule, $layoutResolver->resolveLayoutForTarget($target));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayoutForTarget
+     */
+    public function testResolveFirstLayoutForTargetWithMoreThanOneMatchingRule()
+    {
+        $target = new Target('target', array(42));
+        $rule1 = new Rule(42);
+        $rule2 = new Rule(84);
+
+        $this->ruleLoaderMock
+            ->expects($this->once())
+            ->method('loadRules')
+            ->with($this->equalTo($target))
+            ->will($this->returnValue(array($rule1, $rule2)));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals($rule1, $layoutResolver->resolveLayoutForTarget($target));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayoutForTarget
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
+     *
+     * @param \Netgen\BlockManager\LayoutResolver\Condition[] $conditions
+     * @param int $layoutId
+     *
+     * @dataProvider resolveLayoutForTargetWithRuleConditionsProvider
+     */
+    public function testResolveLayoutForTargetWithRuleConditions(array $conditions, $layoutId)
+    {
+        $target = new Target('target', array('value'));
+        $rule = new Rule($layoutId, $conditions);
+
+        $this->ruleLoaderMock
+            ->expects($this->once())
+            ->method('loadRules')
+            ->with($this->equalTo($target))
+            ->will($this->returnValue(array($rule)));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals($layoutId !== false ? $rule : false, $layoutResolver->resolveLayoutForTarget($target));
+    }
+
+    /**
+     * Data provider for {@link self::testResolveLayoutForTargetWithRuleConditions}.
+     *
+     * @return array
+     */
+    public function resolveLayoutForTargetWithRuleConditionsProvider()
+    {
+        return array(
+            array(
+                ($conditions = array(
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42))
+                )),
+                42
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42))
+                ),
+                false
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42))
+                ),
+                false
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42))
+                ),
+                false
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42))
+                ),
+                false
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42))
+                ),
+                42
+            ),
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayoutForTarget
+     */
+    public function testResolveLayoutForTargetWithNoRules()
+    {
+        $target = new Target('target', array(42));
+
+        $this->ruleLoaderMock
+            ->expects($this->once())
+            ->method('loadRules')
+            ->with($this->equalTo($target))
+            ->will($this->returnValue(array()));
+
+        $layoutResolver = $this->getLayoutResolver();
+        self::assertEquals(false, $layoutResolver->resolveLayoutForTarget($target));
+    }
+
+    /**
+     * Returns the layout resolver under test
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
+     */
+    protected function getLayoutResolver()
+    {
+        return new LayoutResolver(
+            $this->targetBuilderRegistryMock,
+            $this->ruleLoaderMock
+        );
     }
 }
