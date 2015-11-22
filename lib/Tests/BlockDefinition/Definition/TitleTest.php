@@ -68,7 +68,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameterConstraints
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getParameterConstraints
      */
     public function testGetParameterConstraints()
     {
