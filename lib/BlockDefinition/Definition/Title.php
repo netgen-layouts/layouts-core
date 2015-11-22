@@ -67,7 +67,7 @@ class Title extends BlockDefinition
         return array(
             'tag' => array(
                 new Constraints\NotBlank(),
-                new Constraints\Choice(array('choices' => $this->options))
+                new Constraints\Choice(array('choices' => $this->options)),
             ),
             'title' => array(
                 new Constraints\NotBlank(),

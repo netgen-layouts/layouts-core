@@ -78,10 +78,10 @@ class TitleTest extends \PHPUnit_Framework_TestCase
             array(
                 'tag' => array(
                     new Constraints\NotBlank(),
-                    new Constraints\Choice(array('choices' => $this->options))
+                    new Constraints\Choice(array('choices' => $this->options)),
                 ),
                 'title' => array(
-                    new Constraints\NotBlank()
+                    new Constraints\NotBlank(),
                 ),
                 'css_id' => false,
                 'css_class' => false,
