@@ -198,43 +198,43 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 ($conditions = array(
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42))
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
                 )),
-                42
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42))
-                ),
-                false
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42))
-                ),
-                false
+                42,
             ),
             array(
                 array(
                     new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42))
                 ),
-                false
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42))
-                ),
-                false
+                false,
             ),
             array(
                 array(
                     new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42))
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
                 ),
-                42
+                false,
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
+                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
+                ),
+                42,
             ),
         );
     }
@@ -258,7 +258,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns the layout resolver under test
+     * Returns the layout resolver under test.
      *
      * @return \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
      */

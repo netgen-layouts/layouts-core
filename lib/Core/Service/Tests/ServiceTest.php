@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service\Tests;
 
-
 abstract class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
