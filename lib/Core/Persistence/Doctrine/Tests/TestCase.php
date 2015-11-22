@@ -34,7 +34,6 @@ trait TestCase
         $databaseUri = getenv('DATABASE');
         if (empty($databaseUri)) {
             $databaseUri = 'sqlite://:memory:';
-            // $this->markTestSkipped('Database connection is needed to run this test');
         }
 
         $this->databaseUri = $databaseUri;
