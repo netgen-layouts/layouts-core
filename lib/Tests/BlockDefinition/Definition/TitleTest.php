@@ -5,9 +5,19 @@ namespace Netgen\BlockManager\Tests\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Definition\Title;
 use Netgen\BlockManager\BlockDefinition\Parameters;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Symfony\Component\Validator\Constraints;
 
 class TitleTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var array
+     */
+    protected $options = array(
+        'h1' => 'h1',
+        'h2' => 'h2',
+        'h3' => 'h3',
+    );
+
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getIdentifier
      */
@@ -29,13 +39,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
             array(
                 'tag' => new Parameters\Select(
                     'h2',
-                    array(
-                        'options' => array(
-                            'h1' => 'h1',
-                            'h2' => 'h2',
-                            'h3' => 'h3',
-                        ),
-                    )
+                    array('options' => $this->options)
                 ),
                 'title' => new Parameters\Text('Title'),
                 'css_id' => new Parameters\Text(),
@@ -60,6 +64,29 @@ class TitleTest extends \PHPUnit_Framework_TestCase
                 'css_class' => 'CSS class',
             ),
             $blockDefinition->getParameterNames()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameterConstraints
+     */
+    public function testGetParameterConstraints()
+    {
+        $blockDefinition = new Title();
+
+        self::assertEquals(
+            array(
+                'tag' => array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Choice(array('choices' => $this->options))
+                ),
+                'title' => array(
+                    new Constraints\NotBlank()
+                ),
+                'css_id' => false,
+                'css_class' => false,
+            ),
+            $blockDefinition->getParameterConstraints()
         );
     }
 

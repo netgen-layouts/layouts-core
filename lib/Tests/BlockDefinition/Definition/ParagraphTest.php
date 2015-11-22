@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
 use Netgen\BlockManager\BlockDefinition\Parameters;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Symfony\Component\Validator\Constraints;
 
 class ParagraphTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,6 +50,25 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
                 'css_class' => 'CSS class',
             ),
             $blockDefinition->getParameterNames()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameterConstraints
+     */
+    public function testGetParameterConstraints()
+    {
+        $blockDefinition = new Paragraph();
+
+        self::assertEquals(
+            array(
+                'content' => array(
+                    new Constraints\NotBlank(),
+                ),
+                'css_id' => false,
+                'css_class' => false,
+            ),
+            $blockDefinition->getParameterConstraints()
         );
     }
 

@@ -5,9 +5,19 @@ namespace Netgen\BlockManager\BlockDefinition\Definition;
 use Netgen\BlockManager\BlockDefinition\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Parameters;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Symfony\Component\Validator\Constraints;
 
 class Title extends BlockDefinition
 {
+    /**
+     * @var array
+     */
+    protected $options = array(
+        'h1' => 'h1',
+        'h2' => 'h2',
+        'h3' => 'h3',
+    );
+
     /**
      * Returns block definition identifier.
      *
@@ -28,13 +38,7 @@ class Title extends BlockDefinition
         return array(
             'tag' => new Parameters\Select(
                 'h2',
-                array(
-                    'options' => array(
-                        'h1' => 'h1',
-                        'h2' => 'h2',
-                        'h3' => 'h3',
-                    ),
-                )
+                array('options' => $this->options)
             ),
             'title' => new Parameters\Text('Title'),
         ) + parent::getParameters();
@@ -51,6 +55,24 @@ class Title extends BlockDefinition
             'tag' => 'Tag',
             'title' => 'Title',
         ) + parent::getParameterNames();
+    }
+
+    /**
+     * Returns the array specifying block parameter validator constraints.
+     *
+     * @return array
+     */
+    public function getParameterConstraints()
+    {
+        return array(
+            'tag' => array(
+                new Constraints\NotBlank(),
+                new Constraints\Choice(array('choices' => $this->options))
+            ),
+            'title' => array(
+                new Constraints\NotBlank(),
+            ),
+        ) + parent::getParameterConstraints();
     }
 
     /**

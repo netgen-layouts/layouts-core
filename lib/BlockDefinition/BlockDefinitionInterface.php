@@ -30,6 +30,13 @@ interface BlockDefinitionInterface
     public function getParameterNames();
 
     /**
+     * Returns the array specifying block parameter validator constraints.
+     *
+     * @return array
+     */
+    public function getParameterConstraints();
+
+    /**
      * Returns the array of values provided by this block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

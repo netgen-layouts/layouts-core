@@ -54,8 +54,28 @@ class BlockController extends Controller
 
         $blockCreateStruct = $blockService->newBlockCreateStruct($definitionIdentifier, $viewType);
 
+        $constraintViolations = array();
+        $parameterConstraints = $blockDefinition->getParameterConstraints();
+
         foreach ($blockDefinition->getParameters() as $parameterIdentifier => $parameter) {
-            $blockCreateStruct->setParameter($parameterIdentifier, $parameter->getDefaultValue());
+            $parameterValue = $parameter->getDefaultValue();
+
+            if (is_array($parameterConstraints[$parameterIdentifier])) {
+                $violations = $this->get('validator')->validate(
+                    $parameterValue,
+                    $parameterConstraints[$parameterIdentifier]
+                );
+
+                foreach ($violations as $violation) {
+                    $constraintViolations[$parameterIdentifier][] = $violation;
+                }
+            }
+
+            $blockCreateStruct->setParameter($parameterIdentifier, $parameterValue);
+        }
+
+        if (!empty($constraintViolations)) {
+            throw new InvalidArgumentException('Creating the block failed.');
         }
 
         $createdBlock = $blockService->createBlock(

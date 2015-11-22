@@ -38,4 +38,20 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
             $blockDefinition->getParameterNames()
         );
     }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\BlockDefinition::getParameterConstraints
+     */
+    public function testGetParameterConstraints()
+    {
+        $blockDefinition = new BlockDefinition();
+
+        self::assertEquals(
+            array(
+                'css_id' => false,
+                'css_class' => false,
+            ),
+            $blockDefinition->getParameterConstraints()
+        );
+    }
 }

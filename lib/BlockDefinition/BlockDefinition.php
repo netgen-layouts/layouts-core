@@ -31,4 +31,17 @@ abstract class BlockDefinition implements BlockDefinitionInterface
             'css_class' => 'CSS class',
         );
     }
+
+    /**
+     * Returns the array specifying block parameter validator constraints.
+     *
+     * @return array
+     */
+    public function getParameterConstraints()
+    {
+        return array(
+            'css_id' => false,
+            'css_class' => false,
+        );
+    }
 }
