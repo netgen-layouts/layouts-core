@@ -18,7 +18,7 @@ class Registry implements RegistryInterface
      */
     public function addConditionMatcher(ConditionMatcherInterface $conditionMatcher)
     {
-        $this->conditionMatchers[$conditionMatcher->getIdentifier()] = $conditionMatcher;
+        $this->conditionMatchers[$conditionMatcher->getConditionIdentifier()] = $conditionMatcher;
     }
 
     /**

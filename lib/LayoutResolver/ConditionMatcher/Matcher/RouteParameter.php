@@ -11,11 +11,11 @@ class RouteParameter implements ConditionMatcherInterface
     use RequestStackAwareTrait;
 
     /**
-     * Returns the unique identifier of this condition matcher.
+     * Returns the unique identifier of the condition this matcher matches.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getConditionIdentifier()
     {
         return 'route_parameter';
     }

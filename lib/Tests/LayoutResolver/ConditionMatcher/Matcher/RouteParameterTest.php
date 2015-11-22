@@ -32,11 +32,11 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::getIdentifier
      */
-    public function testGetIdentifier()
+    public function testGetConditionIdentifier()
     {
         $conditionMatcher = new RouteParameter();
 
-        self::assertEquals('route_parameter', $conditionMatcher->getIdentifier());
+        self::assertEquals('route_parameter', $conditionMatcher->getConditionIdentifier());
     }
 
     /**
