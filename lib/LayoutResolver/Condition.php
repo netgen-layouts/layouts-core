@@ -2,14 +2,12 @@
 
 namespace Netgen\BlockManager\LayoutResolver;
 
-use Netgen\BlockManager\LayoutResolver\ConditionMatcher\ConditionMatcherInterface;
-
 class Condition
 {
     /**
-     * @var \Netgen\BlockManager\LayoutResolver\ConditionMatcher\ConditionMatcherInterface
+     * @var string
      */
-    public $conditionMatcher;
+    public $identifier;
 
     /**
      * @var string
@@ -24,13 +22,13 @@ class Condition
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\LayoutResolver\ConditionMatcher\ConditionMatcherInterface $conditionMatcher
+     * @param string $identifier
      * @param string $valueIdentifier
      * @param array $values
      */
-    public function __construct(ConditionMatcherInterface $conditionMatcher, $valueIdentifier, array $values)
+    public function __construct($identifier, $valueIdentifier, array $values)
     {
-        $this->conditionMatcher = $conditionMatcher;
+        $this->identifier = $identifier;
         $this->valueIdentifier = $valueIdentifier;
         $this->values = $values;
     }

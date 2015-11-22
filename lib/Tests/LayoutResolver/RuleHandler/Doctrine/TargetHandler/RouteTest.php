@@ -7,7 +7,7 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route;
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route::getIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route::getTargetIdentifier
      */
     public function testGetTargetIdentifier()
     {

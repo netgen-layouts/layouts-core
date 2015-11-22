@@ -30,7 +30,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::getIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::getConditionIdentifier
      */
     public function testGetConditionIdentifier()
     {

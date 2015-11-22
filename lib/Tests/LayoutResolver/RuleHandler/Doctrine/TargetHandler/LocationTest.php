@@ -7,7 +7,7 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Locati
 class LocationTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Location::getIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Location::getTargetIdentifier
      */
     public function testGetTargetIdentifier()
     {

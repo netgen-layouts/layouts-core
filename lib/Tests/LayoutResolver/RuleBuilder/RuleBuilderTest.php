@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver\RuleBuilder;
 
-use Netgen\BlockManager\Tests\LayoutResolver\Stubs\ConditionMatcher;
 use Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilder;
 use Netgen\BlockManager\LayoutResolver\Condition;
 use Netgen\BlockManager\LayoutResolver\Rule;
@@ -10,25 +9,6 @@ use Netgen\BlockManager\LayoutResolver\Rule;
 class RuleBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $conditionMatcherRegistryMock;
-
-    public function setUp()
-    {
-        $this->conditionMatcherRegistryMock = $this->getMock(
-            'Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface'
-        );
-
-        $this->conditionMatcherRegistryMock
-            ->expects($this->any())
-            ->method('getConditionMatcher')
-            ->with($this->equalTo('condition'))
-            ->will($this->returnValue(new ConditionMatcher()));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilder::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilder::buildRules
      */
     public function testBuildRules()
@@ -54,7 +34,7 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
             42,
             array(
                 new Condition(
-                    new ConditionMatcher(),
+                    'condition',
                     'identifier',
                     array(1, 2, 3)
                 ),
@@ -65,17 +45,7 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
 
         $rules = array($rule1, $rule2);
 
-        $ruleBuilder = $this->getRuleBuilder();
+        $ruleBuilder = new RuleBuilder();
         self::assertEquals($rules, $ruleBuilder->buildRules($data));
-    }
-
-    /**
-     * Returns the rule builder under test.
-     *
-     * @return \Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilderInterface
-     */
-    protected function getRuleBuilder()
-    {
-        return new RuleBuilder($this->conditionMatcherRegistryMock);
     }
 }

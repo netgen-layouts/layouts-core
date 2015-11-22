@@ -12,6 +12,7 @@ services:
         class: %netgen_block_manager.layout_resolver.class%
         arguments:
             - "@netgen_block_manager.layout_resolver.target_builder.registry"
+            - "@netgen_block_manager.layout_resolver.condition_matcher.registry"
             - "@netgen_block_manager.layout_resolver.rule_loader"
 
     netgen_block_manager.layout_resolver.target_builder.registry:
@@ -22,8 +23,6 @@ services:
 
     netgen_block_manager.layout_resolver.rule_builder:
         class: %netgen_block_manager.layout_resolver.rule_builder.class%
-        arguments:
-            - "@netgen_block_manager.layout_resolver.condition_matcher.registry"
 
     netgen_block_manager.layout_resolver.rule_handler.doctrine.normalizer:
         class: %netgen_block_manager.layout_resolver.rule_handler.doctrine.normalizer.class%

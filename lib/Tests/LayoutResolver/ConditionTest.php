@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\LayoutResolver;
 
 use Netgen\BlockManager\LayoutResolver\Condition;
-use Netgen\BlockManager\Tests\LayoutResolver\Stubs\ConditionMatcher;
 
 class ConditionTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,9 +11,9 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $condition = new Condition(new ConditionMatcher(), 'identifier', array('value'));
-        self::assertEquals(new ConditionMatcher(), $condition->conditionMatcher);
-        self::assertEquals('identifier', $condition->valueIdentifier);
+        $condition = new Condition('identifier', 'value_identifier', array('value'));
+        self::assertEquals('identifier', $condition->identifier);
+        self::assertEquals('value_identifier', $condition->valueIdentifier);
         self::assertEquals(array('value'), $condition->values);
     }
 }

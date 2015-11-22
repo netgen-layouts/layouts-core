@@ -2,8 +2,9 @@
 
 namespace Netgen\BlockManager\LayoutResolver;
 
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface as BuilderRegistryInterface;
+use Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface as MatcherRegistryInterface;
 use Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface;
-use Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface;
 
 class LayoutResolver implements LayoutResolverInterface
 {
@@ -11,6 +12,11 @@ class LayoutResolver implements LayoutResolverInterface
      * @var \Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface
      */
     protected $targetBuilderRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface
+     */
+    protected $conditionMatcherRegistry;
 
     /**
      * @var \Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface
@@ -21,11 +27,13 @@ class LayoutResolver implements LayoutResolverInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface $targetBuilderRegistry
+     * @param \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface $conditionMatcherRegistry
      * @param \Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface $ruleLoader
      */
-    public function __construct(RegistryInterface $targetBuilderRegistry, RuleLoaderInterface $ruleLoader)
+    public function __construct(BuilderRegistryInterface $targetBuilderRegistry, MatcherRegistryInterface $conditionMatcherRegistry, RuleLoaderInterface $ruleLoader)
     {
         $this->targetBuilderRegistry = $targetBuilderRegistry;
+        $this->conditionMatcherRegistry = $conditionMatcherRegistry;
         $this->ruleLoader = $ruleLoader;
     }
 
@@ -84,7 +92,8 @@ class LayoutResolver implements LayoutResolverInterface
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
-            if (!$condition->conditionMatcher->matches($condition->valueIdentifier, $condition->values)) {
+            $conditionMatcher = $this->conditionMatcherRegistry->getConditionMatcher($condition->identifier);
+            if (!$conditionMatcher->matches($condition->valueIdentifier, $condition->values)) {
                 return false;
             }
         }

@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver;
 
+use Netgen\BlockManager\LayoutResolver\Condition;
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\LayoutResolver;
 use Netgen\BlockManager\Tests\LayoutResolver\Stubs\ConditionMatcher;
-use Netgen\BlockManager\LayoutResolver\Condition;
 use Netgen\BlockManager\LayoutResolver\Target;
 use Netgen\BlockManager\Tests\LayoutResolver\Stubs\TargetBuilder;
 use Netgen\BlockManager\Tests\LayoutResolver\Stubs\TargetBuilderReturnsFalse;
@@ -20,12 +20,21 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    protected $conditionMatcherRegistryMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $ruleLoaderMock;
 
     public function setUp()
     {
         $this->targetBuilderRegistryMock = $this->getMock(
             'Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface'
+        );
+
+        $this->conditionMatcherRegistryMock = $this->getMock(
+            'Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface'
         );
 
         $this->ruleLoaderMock = $this->getMock(
@@ -168,14 +177,30 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::resolveLayoutForTarget
      * @covers \Netgen\BlockManager\LayoutResolver\LayoutResolver::matchConditions
      *
-     * @param \Netgen\BlockManager\LayoutResolver\Condition[] $conditions
+     * @param array $matches
      * @param int $layoutId
      *
      * @dataProvider resolveLayoutForTargetWithRuleConditionsProvider
      */
-    public function testResolveLayoutForTargetWithRuleConditions(array $conditions, $layoutId)
+    public function testResolveLayoutForTargetWithRuleConditions(array $matches, $layoutId)
     {
         $target = new Target('target', array('value'));
+
+        $conditions = array();
+        $matchFailed = false;
+        foreach ($matches as $index => $match) {
+            $conditions[] = new Condition('condition', 'value_identifier', array('value'));
+
+            if (!$matchFailed) {
+                $this->conditionMatcherRegistryMock
+                    ->expects($this->at($index))
+                    ->method('getConditionMatcher')
+                    ->will($this->returnValue(new ConditionMatcher($match)));
+            }
+
+            $matchFailed = !$matchFailed && !$match;
+        }
+
         $rule = new Rule($layoutId, $conditions);
 
         $this->ruleLoaderMock
@@ -196,46 +221,12 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     public function resolveLayoutForTargetWithRuleConditionsProvider()
     {
         return array(
-            array(
-                ($conditions = array(
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                )),
-                42,
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(false), 'identifier', array(42)),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                    new Condition(new ConditionMatcher(true), 'identifier', array(42)),
-                ),
-                42,
-            ),
+            array(array(true), 42),
+            array(array(false), false),
+            array(array(true, false), false),
+            array(array(false, true), false),
+            array(array(false, false), false),
+            array(array(true, true), 42),
         );
     }
 
@@ -266,6 +257,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         return new LayoutResolver(
             $this->targetBuilderRegistryMock,
+            $this->conditionMatcherRegistryMock,
             $this->ruleLoaderMock
         );
     }
