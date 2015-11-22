@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\LayoutResolver\ConditionMatcher;
+namespace Netgen\BlockManager\Tests\LayoutResolver\ConditionMatcher\Matcher;
 
-use Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter;
+use Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +30,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter::getIdentifier
+     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -40,7 +40,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
      *
      * @param string $valueIdentifier
      * @param array $values
@@ -80,7 +80,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
      */
     public function testMatchesWithNoRequest()
     {
@@ -94,7 +94,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
      */
     public function testMatchesWithEmptyIdentifier()
     {
@@ -105,7 +105,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
      */
     public function testMatchesWithEmptyValues()
     {

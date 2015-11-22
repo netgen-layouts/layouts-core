@@ -1,5 +1,5 @@
 parameters:
-    netgen_block_manager.layout_resolver.condition_matcher.route_parameter.class: Netgen\BlockManager\LayoutResolver\ConditionMatcher\RouteParameter
+    netgen_block_manager.layout_resolver.condition_matcher.route_parameter.class: Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter
 
 services:
     netgen_block_manager.layout_resolver.condition_matcher.route_parameter:

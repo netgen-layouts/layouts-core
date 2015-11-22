@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\LayoutResolver\ConditionMatcher;
+namespace Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher;
 
+use Netgen\BlockManager\LayoutResolver\ConditionMatcher\ConditionMatcherInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
