@@ -36,7 +36,7 @@ class ConditionMatcher implements ConditionMatcherInterface
      */
     public function getIdentifier()
     {
-        return 'condition_matcher';
+        return 'condition';
     }
 
     /**

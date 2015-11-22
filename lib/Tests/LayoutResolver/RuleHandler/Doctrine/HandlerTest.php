@@ -91,7 +91,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 'layout_id' => 2,
                 'conditions' => array(
                     1 => array(
-                        'matcher' => 'route_parameter',
+                        'identifier' => 'route_parameter',
                         'value_identifier' => 'some_param',
                         'values' => array('1', '2'),
                     ),
@@ -114,12 +114,12 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 'layout_id' => 3,
                 'conditions' => array(
                     2 => array(
-                        'matcher' => 'route_parameter',
+                        'identifier' => 'route_parameter',
                         'value_identifier' => 'some_param',
                         'values' => array('3', '4'),
                     ),
                     3 => array(
-                        'matcher' => 'route_parameter',
+                        'identifier' => 'route_parameter',
                         'value_identifier' => 'some_other_param',
                         'values' => array('5', '6'),
                     ),

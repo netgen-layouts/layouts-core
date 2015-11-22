@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS `ngbm_rule_condition`;
 CREATE TABLE `ngbm_rule_condition` (
   `id` integer PRIMARY KEY AUTOINCREMENT,
   `rule_id` integer NOT NULL,
-  `matcher` text(255) NOT NULL,
+  `identifier` text(255) NOT NULL,
   `value_identifier` text(255) DEFAULT NULL,
   FOREIGN KEY (`rule_id`) REFERENCES `ngbm_rule` (`id`)
 );

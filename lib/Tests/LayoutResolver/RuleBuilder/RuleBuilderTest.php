@@ -23,7 +23,7 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
         $this->conditionMatcherRegistryMock
             ->expects($this->any())
             ->method('getConditionMatcher')
-            ->with($this->equalTo('condition_matcher'))
+            ->with($this->equalTo('condition'))
             ->will($this->returnValue(new ConditionMatcher()));
     }
 
@@ -38,7 +38,7 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
                 'layout_id' => 42,
                 'conditions' => array(
                     array(
-                        'matcher' => 'condition_matcher',
+                        'identifier' => 'condition',
                         'value_identifier' => 'identifier',
                         'values' => array(1, 2, 3),
                     ),

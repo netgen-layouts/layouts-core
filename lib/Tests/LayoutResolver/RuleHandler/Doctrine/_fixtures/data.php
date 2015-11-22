@@ -33,9 +33,9 @@ return array(
         array('id' => 18, 'rule_id' => 9, 'value' => 47),
     ),
     'ngbm_rule_condition' => array(
-        array('id' => 1, 'rule_id' => 2, 'matcher' => 'route_parameter', 'value_identifier' => 'some_param'),
-        array('id' => 2, 'rule_id' => 3, 'matcher' => 'route_parameter', 'value_identifier' => 'some_param'),
-        array('id' => 3, 'rule_id' => 3, 'matcher' => 'route_parameter', 'value_identifier' => 'some_other_param'),
+        array('id' => 1, 'rule_id' => 2, 'identifier' => 'route_parameter', 'value_identifier' => 'some_param'),
+        array('id' => 2, 'rule_id' => 3, 'identifier' => 'route_parameter', 'value_identifier' => 'some_param'),
+        array('id' => 3, 'rule_id' => 3, 'identifier' => 'route_parameter', 'value_identifier' => 'some_other_param'),
     ),
     'ngbm_rule_condition_value' => array(
         array('id' => 1, 'rule_condition_id' => 1, 'value' => '1'),

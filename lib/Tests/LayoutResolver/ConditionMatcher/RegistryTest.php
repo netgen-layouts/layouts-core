@@ -18,7 +18,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $conditionMatcher = new ConditionMatcher();
         $registry->addConditionMatcher($conditionMatcher);
 
-        self::assertEquals(array('condition_matcher' => $conditionMatcher), $registry->getConditionMatchers());
+        self::assertEquals(array('condition' => $conditionMatcher), $registry->getConditionMatchers());
     }
 
     /**
@@ -31,7 +31,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $conditionMatcher = new ConditionMatcher();
         $registry->addConditionMatcher($conditionMatcher);
 
-        self::assertEquals($conditionMatcher, $registry->getConditionMatcher('condition_matcher'));
+        self::assertEquals($conditionMatcher, $registry->getConditionMatcher('condition'));
     }
 
     /**
@@ -45,6 +45,6 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $conditionMatcher = new ConditionMatcher();
         $registry->addConditionMatcher($conditionMatcher);
 
-        $registry->getConditionMatcher('other_condition_matcher');
+        $registry->getConditionMatcher('other_condition');
     }
 }

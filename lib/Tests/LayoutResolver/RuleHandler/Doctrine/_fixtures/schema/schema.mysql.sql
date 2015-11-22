@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `ngbm_rule_condition`;
 CREATE TABLE `ngbm_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rule_id` int(11) NOT NULL,
-  `matcher` varchar(255) NOT NULL,
+  `identifier` varchar(255) NOT NULL,
   `value_identifier` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ngbm_rule_condition_rule_id` (`rule_id`),

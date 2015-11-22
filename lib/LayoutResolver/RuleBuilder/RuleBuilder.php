@@ -40,7 +40,7 @@ class RuleBuilder implements RuleBuilderInterface
 
             foreach ($rule['conditions'] as $condition) {
                 $conditionMatcher = $this->conditionMatcherRegistry->getConditionMatcher(
-                    $condition['matcher']
+                    $condition['identifier']
                 );
 
                 $builtConditions[] = new Condition(
