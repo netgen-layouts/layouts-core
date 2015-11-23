@@ -71,7 +71,7 @@ There are two goals to wrapping your main block like this:
   `content` as before
 * If layout is resolved, it will use the `layout` block, in which case `content` block will not be used. You
   will of course need to make sure that in this case, all your layouts have a content block in one of the zones
-  which will display your main block from full view templates
+  which will display your main Twig block from full view templates
 
 Configuring your base pagelayout template
 -----------------------------------------
@@ -81,7 +81,7 @@ application:
 
 ```
 netgen_block_manager:
-    pagelayout: `NetgenSiteBundle::pagelayout.html.twig`
+    pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
 ```
 
 If you're using eZ Platform, you can specify the pagelayout per siteaccess or siteaccess group:
@@ -90,5 +90,5 @@ If you're using eZ Platform, you can specify the pagelayout per siteaccess or si
 netgen_block_manager:
     system:
         frontend_group:
-            pagelayout: `NetgenSiteBundle::pagelayout.html.twig`
+            pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
 ```
