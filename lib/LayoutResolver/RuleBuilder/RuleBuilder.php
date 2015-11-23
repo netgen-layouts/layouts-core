@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\LayoutResolver\RuleBuilder;
 
-
 use Netgen\BlockManager\LayoutResolver\Condition;
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\Target;
