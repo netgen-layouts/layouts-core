@@ -67,11 +67,11 @@ needs to look like this:
 
 There are two goals to wrapping your main block like this:
 
-1) If no layout could be resolved for current page, your full view templates will just keep using the main block
-   `content` as before
-2) If layout is resolved, it will use the `layout` block, in which case `content` block will not be used. You
-   will of course need to make sure that in this case, all your layouts have a content block in one of the zones
-   which will display your main block from full view templates
+* If no layout could be resolved for current page, your full view templates will just keep using the main block
+  `content` as before
+* If layout is resolved, it will use the `layout` block, in which case `content` block will not be used. You
+  will of course need to make sure that in this case, all your layouts have a content block in one of the zones
+  which will display your main block from full view templates
 
 Configuring your base pagelayout template
 -----------------------------------------
