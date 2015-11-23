@@ -68,14 +68,17 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
             array(null, array(24), false),
             array(null, array(42, 24), false),
             array(null, array(24, 42), false),
+            array(null, array(24, 25), false),
             array('the_answer', array(42), true),
             array('the_answer', array(24), false),
             array('the_answer', array(42, 24), true),
             array('the_answer', array(24, 42), true),
+            array('the_answer', array(24, 25), false),
             array('the_other_answer', array(42), false),
             array('the_other_answer', array(24), false),
             array('the_other_answer', array(42, 24), false),
             array('the_other_answer', array(24, 42), false),
+            array('the_other_answer', array(24, 25), false),
         );
     }
 
