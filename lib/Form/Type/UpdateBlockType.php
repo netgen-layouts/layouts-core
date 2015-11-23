@@ -69,6 +69,7 @@ class UpdateBlockType extends AbstractType
 
         $parameters = $blockDefinition->getParameters();
         $parameterNames = $blockDefinition->getParameterNames();
+        $parameterConstraints = $blockDefinition->getParameterConstraints();
 
         foreach ($parameters as $parameterIdentifier => $blockParameter) {
             $parameterBuilder->add(
@@ -79,6 +80,9 @@ class UpdateBlockType extends AbstractType
                         $parameterNames[$parameterIdentifier] :
                         null,
                     'property_path' => 'updateStruct.parameters[' . $parameterIdentifier . ']',
+                    'constraints' => $parameterConstraints[$parameterIdentifier] !== false ?
+                        $parameterConstraints[$parameterIdentifier] :
+                        null,
                 ) + $blockParameter->mapFormTypeOptions()
             );
         }
