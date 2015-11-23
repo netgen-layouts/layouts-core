@@ -7,7 +7,10 @@ use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Form\Type\UpdateBlockType;
 use Netgen\BlockManager\Form\Data\UpdateBlockData;
+use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
+use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Form\Forms;
 
 class UpdateBlockTypeTest extends TypeTestCase
 {
@@ -54,6 +57,17 @@ class UpdateBlockTypeTest extends TypeTestCase
             ->method('getBlockConfig')
             ->with($this->equalTo('block_definition'))
             ->will($this->returnValue($blockConfig));
+
+        $validator = $this->getMock('Symfony\Component\Validator\Validator\ValidatorInterface');
+        $validator
+            ->expects($this->any())
+            ->method('validate')
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->factory = Forms::createFormFactoryBuilder()
+            ->addExtensions($this->getExtensions())
+            ->addTypeExtension(new FormTypeValidatorExtension($validator))
+            ->getFormFactory();
     }
 
     /**
