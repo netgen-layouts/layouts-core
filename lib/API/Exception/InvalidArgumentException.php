@@ -18,7 +18,7 @@ class InvalidArgumentException extends BaseInvalidArgumentException
     public function __construct($argument, $value, $whatIsWrong, Exception $previousException = null)
     {
         parent::__construct(
-            'Argument ' . $argument . ' has an invalid value: ' . (string)$value . '. ' . $whatIsWrong,
+            'Argument "' . $argument . '" has an invalid value: "' . (string)$value . '". ' . $whatIsWrong,
             0,
             $previousException
         );

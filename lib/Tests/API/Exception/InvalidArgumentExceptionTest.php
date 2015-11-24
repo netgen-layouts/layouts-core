@@ -14,7 +14,7 @@ class InvalidArgumentExceptionTest extends \PHPUnit_Framework_TestCase
         $exception = new InvalidArgumentException('test', 'test_value', 'Value must be an integer.');
 
         self::assertEquals(
-            'Argument test has an invalid value: test_value. Value must be an integer.',
+            'Argument "test" has an invalid value: "test_value". Value must be an integer.',
             $exception->getMessage()
         );
     }

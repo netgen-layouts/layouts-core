@@ -14,7 +14,7 @@ class NotFoundExceptionTest extends \PHPUnit_Framework_TestCase
         $exception = new NotFoundException('test', 1);
 
         self::assertEquals(
-            'Could not find test with identifier 1',
+            'Could not find test with identifier "1"',
             $exception->getMessage()
         );
     }

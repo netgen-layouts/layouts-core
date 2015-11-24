@@ -16,7 +16,7 @@ class NotFoundException extends Exception
     public function __construct($what, $identifier, Exception $previousException = null)
     {
         parent::__construct(
-            'Could not find ' . $what . ' with identifier ' . $identifier,
+            'Could not find ' . $what . ' with identifier "' . $identifier . '"',
             0,
             $previousException
         );
