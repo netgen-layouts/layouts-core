@@ -243,7 +243,7 @@ class Handler implements LayoutHandlerInterface
             )
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
-            ->setParameter('name', $parameters['name'], Type::STRING)
+            ->setParameter('name', trim($parameters['name']), Type::STRING)
             ->setParameter('created', $parameters['created'], Type::INTEGER)
             ->setParameter('modified', $parameters['modified'], Type::INTEGER);
     }
