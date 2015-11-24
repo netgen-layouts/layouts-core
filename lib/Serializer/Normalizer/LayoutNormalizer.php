@@ -2,27 +2,11 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
 class LayoutNormalizer implements NormalizerInterface
 {
-    /**
-     * @var array
-     */
-    protected $configuration;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
-     */
-    public function __construct(ConfigurationInterface $configuration)
-    {
-        $this->configuration = $configuration;
-    }
-
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
@@ -42,7 +26,7 @@ class LayoutNormalizer implements NormalizerInterface
             'identifier' => $layoutIdentifier,
             'created_at' => $object->getCreated(),
             'updated_at' => $object->getModified(),
-            'name' => $this->configuration->getLayoutConfig($layoutIdentifier)['name'],
+            'name' => $object->getName(),
         );
     }
 

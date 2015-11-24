@@ -26,6 +26,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'parentId' => null,
                     'identifier' => '3_zones_a',
+                    'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
                 )
@@ -57,6 +58,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'parentId' => null,
                     'identifier' => '3_zones_a',
+                    'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
                 )
@@ -159,6 +161,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->layoutIdentifier = 'new_layout';
+        $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
 
         $createdLayout = $handler->createLayout($layoutCreateStruct);
@@ -168,6 +171,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(3, $createdLayout->id);
         self::assertNull($createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->identifier);
+        self::assertEquals('New layout', $createdLayout->name);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -207,6 +211,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->layoutIdentifier = 'new_layout';
+        $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
 
         $createdLayout = $handler->createLayout($layoutCreateStruct, 1);
@@ -216,6 +221,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(3, $createdLayout->id);
         self::assertEquals(1, $createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->identifier);
+        self::assertEquals('New layout', $createdLayout->name);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -260,6 +266,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(3, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
         self::assertEquals('new_layout_identifier', $copiedLayout->identifier);
+        self::assertEquals('My layout', $copiedLayout->name);
 
         self::assertInternalType('int', $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->created);

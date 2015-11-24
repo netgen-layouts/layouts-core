@@ -28,6 +28,13 @@ class Layout extends Value
     public $identifier;
 
     /**
+     * Human readable layout name.
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
      * Timestamp when the layout was created.
      *
      * @var int

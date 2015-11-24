@@ -26,6 +26,13 @@ interface Layout
     public function getIdentifier();
 
     /**
+     * Returns the layout human readable name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
      * Returns when was the layout created.
      *
      * @return \DateTime

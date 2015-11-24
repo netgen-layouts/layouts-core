@@ -12,6 +12,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getParentId
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
@@ -23,6 +24,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertNull($layout->getId());
         self::assertNull($layout->getParentId());
         self::assertNull($layout->getIdentifier());
+        self::assertNull($layout->getName());
         self::assertNull($layout->getCreated());
         self::assertNull($layout->getModified());
         self::assertEquals(array(), $layout->getZones());
@@ -33,6 +35,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getParentId
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
@@ -50,6 +53,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'parentId' => 84,
                 'identifier' => '3_zones_a',
+                'name' => 'My layout',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
                 'zones' => array('top_left', 'top_right'),
@@ -59,6 +63,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(42, $layout->getId());
         self::assertEquals(84, $layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getIdentifier());
+        self::assertEquals('My layout', $layout->getName());
         self::assertEquals($createdDate, $layout->getCreated());
         self::assertEquals($modifiedDate, $layout->getModified());
         self::assertEquals(array('top_left', 'top_right'), $layout->getZones());

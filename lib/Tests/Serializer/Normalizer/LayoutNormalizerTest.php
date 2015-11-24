@@ -10,23 +10,11 @@ use DateTime;
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
      */
     public function testNormalize()
     {
-        $config = array(
-            'name' => '3 zones A',
-        );
-
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
-        $configuration
-            ->expects($this->any())
-            ->method('getLayoutConfig')
-            ->with($this->equalTo('3_zones_a'))
-            ->will($this->returnValue($config));
-
-        $layoutNormalizer = new LayoutNormalizer($configuration);
+        $layoutNormalizer = new LayoutNormalizer();
 
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
@@ -36,6 +24,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'parentId' => 24,
                 'identifier' => '3_zones_a',
+                'name' => 'My layout',
                 'created' => $currentDate,
                 'modified' => $currentDate,
             )
@@ -48,7 +37,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                 'identifier' => $layout->getIdentifier(),
                 'created_at' => $layout->getCreated(),
                 'updated_at' => $layout->getModified(),
-                'name' => $config['name'],
+                'name' => $layout->getName(),
             ),
             $layoutNormalizer->normalize($layout)
         );
@@ -63,8 +52,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
-        $layoutNormalizer = new LayoutNormalizer($configuration);
+        $layoutNormalizer = new LayoutNormalizer();
 
         self::assertEquals($expected, $layoutNormalizer->supportsNormalization($data));
     }

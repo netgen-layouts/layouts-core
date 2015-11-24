@@ -2,8 +2,8 @@
 
 return array(
     'ngbm_layout' => array(
-        array('id' => 1, 'parent_id' => null, 'identifier' => '3_zones_a', 'created' => 1447065813, 'modified' => 1447065813),
-        array('id' => 2, 'parent_id' => null, 'identifier' => '3_zones_b', 'created' => 1447065813, 'modified' => 1447065813),
+        array('id' => 1, 'parent_id' => null, 'identifier' => '3_zones_a', 'name' => 'My layout', 'created' => 1447065813, 'modified' => 1447065813),
+        array('id' => 2, 'parent_id' => null, 'identifier' => '3_zones_b', 'name' => 'My other layout', 'created' => 1447065813, 'modified' => 1447065813),
     ),
     'ngbm_zone' => array(
         array('id' => 1, 'layout_id' => 1, 'identifier' => 'top_left'),

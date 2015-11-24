@@ -23,6 +23,11 @@ class Layout extends Value implements LayoutInterface
     protected $identifier;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var \DateTime
      */
     protected $created;
@@ -65,6 +70,16 @@ class Layout extends Value implements LayoutInterface
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns the layout human readable name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

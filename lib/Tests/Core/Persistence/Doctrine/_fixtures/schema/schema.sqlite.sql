@@ -3,6 +3,7 @@ CREATE TABLE `ngbm_layout` (
   `id` integer PRIMARY KEY AUTOINCREMENT,
   `parent_id` integer DEFAULT NULL,
   `identifier` text(255) NOT NULL,
+  `name` text(255) NOT NULL,
   `created` integer NOT NULL,
   `modified` integer NOT NULL,
   FOREIGN KEY (`parent_id`) REFERENCES `ngbm_layout` (`id`)

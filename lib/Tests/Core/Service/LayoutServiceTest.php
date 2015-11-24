@@ -26,6 +26,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(1, $layout->getId());
         self::assertNull($layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getIdentifier());
+        self::assertEquals('My layout', $layout->getName());
 
         self::assertInstanceOf('DateTime', $layout->getCreated());
         self::assertGreaterThan(0, $layout->getCreated()->getTimestamp());
@@ -105,6 +106,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(1, $layout->getId());
         self::assertNull($layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getIdentifier());
+        self::assertEquals('My layout', $layout->getName());
 
         self::assertInstanceOf('DateTime', $layout->getCreated());
         self::assertGreaterThan(0, $layout->getCreated()->getTimestamp());
@@ -230,6 +232,7 @@ abstract class LayoutServiceTest extends ServiceTest
             'new_layout',
             array('left', 'right')
         );
+        $layoutCreateStruct->name = 'My layout';
 
         $createdLayout = $layoutService->createLayout($layoutCreateStruct);
 
@@ -238,6 +241,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(3, $createdLayout->getId());
         self::assertNull($createdLayout->getParentId());
         self::assertEquals('new_layout', $createdLayout->getIdentifier());
+        self::assertEquals('My layout', $createdLayout->getName());
 
         self::assertInstanceOf('DateTime', $createdLayout->getCreated());
         self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
@@ -277,6 +281,7 @@ abstract class LayoutServiceTest extends ServiceTest
             'new_layout',
             array('left', 'right')
         );
+        $layoutCreateStruct->name = 'My layout';
 
         $parentLayout = $layoutService->loadLayout(1);
         $createdLayout = $layoutService->createLayout(
@@ -289,6 +294,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(3, $createdLayout->getId());
         self::assertEquals($parentLayout->getId(), $createdLayout->getParentId());
         self::assertEquals('new_layout', $createdLayout->getIdentifier());
+        self::assertEquals('My layout', $createdLayout->getName());
 
         self::assertInstanceOf('DateTime', $createdLayout->getCreated());
         self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
@@ -345,11 +351,38 @@ abstract class LayoutServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
      * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
+    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnInvalidName()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
+        $layoutCreateStruct->name = 42;
+        $layoutService->createLayout($layoutCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyName()
+    {
+        $layoutService = $this->createLayoutService();
+
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
+        $layoutCreateStruct->name = '';
+        $layoutService->createLayout($layoutCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
     public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyZoneIdentifiers()
     {
         $layoutService = $this->createLayoutService();
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array());
+        $layoutCreateStruct->name = 'New layout';
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -362,6 +395,7 @@ abstract class LayoutServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService();
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', 42));
+        $layoutCreateStruct->name = 'New layout';
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -374,6 +408,7 @@ abstract class LayoutServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService();
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', ''));
+        $layoutCreateStruct->name = 'New layout';
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -386,6 +421,7 @@ abstract class LayoutServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService();
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
+        $layoutCreateStruct->name = 'New layout';
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -404,6 +440,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(3, $copiedLayout->getId());
         self::assertNull($copiedLayout->getParentId());
         self::assertEquals('copy_of_3_zones_a', $copiedLayout->getIdentifier());
+        self::assertEquals('My layout', $copiedLayout->getName());
 
         self::assertInstanceOf('DateTime', $copiedLayout->getCreated());
         self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
@@ -454,6 +491,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(3, $copiedLayout->getId());
         self::assertNull($copiedLayout->getParentId());
         self::assertEquals('new_layout_identifier', $copiedLayout->getIdentifier());
+        self::assertEquals('My layout', $copiedLayout->getName());
 
         self::assertInstanceOf('DateTime', $copiedLayout->getCreated());
         self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());

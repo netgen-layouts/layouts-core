@@ -10,6 +10,11 @@ use Netgen\BlockManager\View\ViewRendererInterface;
 class LayoutViewNormalizer extends LayoutNormalizer
 {
     /**
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer
      */
     protected $blockNormalizer;
@@ -28,8 +33,7 @@ class LayoutViewNormalizer extends LayoutNormalizer
      */
     public function __construct(ConfigurationInterface $configuration, BlockNormalizer $blockNormalizer, ViewRendererInterface $viewRenderer)
     {
-        parent::__construct($configuration);
-
+        $this->configuration = $configuration;
         $this->blockNormalizer = $blockNormalizer;
         $this->viewRenderer = $viewRenderer;
     }

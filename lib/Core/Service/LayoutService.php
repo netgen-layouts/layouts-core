@@ -135,6 +135,20 @@ class LayoutService implements LayoutServiceInterface
             );
         }
 
+        if (!is_string($layoutCreateStruct->name)) {
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->name',
+                $layoutCreateStruct->name, 'Value must be a string.');
+        }
+
+        if (empty($layoutCreateStruct->name)) {
+            throw new InvalidArgumentException(
+                'layoutCreateStruct->name',
+                $layoutCreateStruct->name,
+                'Value must not be empty.'
+            );
+        }
+
         if (empty($layoutCreateStruct->zoneIdentifiers)) {
             throw new InvalidArgumentException(
                 'layoutCreateStruct->zoneIdentifiers',
@@ -289,6 +303,7 @@ class LayoutService implements LayoutServiceInterface
                 'id' => $persistenceLayout->id,
                 'parentId' => $persistenceLayout->parentId,
                 'identifier' => $persistenceLayout->identifier,
+                'name' => $persistenceLayout->name,
                 'created' => $this->createDateTime($persistenceLayout->created),
                 'modified' => $this->createDateTime($persistenceLayout->modified),
                 'zones' => $zones,

@@ -114,7 +114,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                 'identifier' => $layout->getIdentifier(),
                 'created_at' => $layout->getCreated(),
                 'updated_at' => $layout->getModified(),
-                'name' => $config['name'],
+                'name' => $layout->getName(),
                 'html' => 'rendered layout view',
                 'zones' => array(
                     array(

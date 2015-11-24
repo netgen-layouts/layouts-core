@@ -5,6 +5,7 @@ CREATE TABLE `ngbm_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `identifier` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   PRIMARY KEY (`id`),

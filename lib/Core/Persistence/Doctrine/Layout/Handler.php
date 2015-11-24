@@ -44,7 +44,7 @@ class Handler implements LayoutHandlerInterface
     public function loadLayout($layoutId)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'parent_id', 'identifier', 'created', 'modified')
+        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified')
             ->from('ngbm_layout')
             ->where(
                 $query->expr()->eq('id', ':layout_id')
@@ -73,7 +73,7 @@ class Handler implements LayoutHandlerInterface
     public function loadLayoutByIdentifier($layoutIdentifier)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'parent_id', 'identifier', 'created', 'modified')
+        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified')
             ->from('ngbm_layout')
             ->where(
                 $query->expr()->eq('identifier', ':layout_identifier')
@@ -160,6 +160,7 @@ class Handler implements LayoutHandlerInterface
             array(
                 'parent_id' => $parentLayoutId,
                 'identifier' => $layoutCreateStruct->layoutIdentifier,
+                'name' => $layoutCreateStruct->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
             )
@@ -201,6 +202,7 @@ class Handler implements LayoutHandlerInterface
             array(
                 'parent_id' => $originalLayout->parentId,
                 'identifier' => $newLayoutIdentifier,
+                'name' => $originalLayout->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
             )
@@ -264,12 +266,14 @@ class Handler implements LayoutHandlerInterface
                 array(
                     'parent_id' => ':parent_id',
                     'identifier' => ':identifier',
+                    'name' => ':name',
                     'created' => ':created',
                     'modified' => ':modified',
                 )
             )
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
+            ->setParameter('name', $parameters['name'], Type::STRING)
             ->setParameter('created', $parameters['created'], Type::INTEGER)
             ->setParameter('modified', $parameters['modified'], Type::INTEGER);
     }
