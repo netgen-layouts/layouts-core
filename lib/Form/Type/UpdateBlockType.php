@@ -64,31 +64,6 @@ class UpdateBlockType extends AbstractType
             $formData->block->getDefinitionIdentifier()
         );
 
-        // We're grouping block parameters so they don't conflict with forms from block itself
-        $parameterBuilder = $builder->create('parameters', 'form', array('label' => 'Parameters', 'inherit_data' => true));
-
-        $parameters = $blockDefinition->getParameters();
-        $parameterNames = $blockDefinition->getParameterNames();
-        $parameterConstraints = $blockDefinition->getParameterConstraints();
-
-        foreach ($parameters as $parameterIdentifier => $blockParameter) {
-            $parameterBuilder->add(
-                $parameterIdentifier,
-                $blockParameter->getFormType(),
-                array(
-                    'label' => isset($parameterNames[$parameterIdentifier]) ?
-                        $parameterNames[$parameterIdentifier] :
-                        null,
-                    'property_path' => 'updateStruct.parameters[' . $parameterIdentifier . ']',
-                    'constraints' => $parameterConstraints[$parameterIdentifier] !== false ?
-                        $parameterConstraints[$parameterIdentifier] :
-                        null,
-                ) + $blockParameter->mapFormTypeOptions()
-            );
-        }
-
-        $builder->add($parameterBuilder);
-
         $blockConfig = $this->configuration->getBlockConfig(
             $blockDefinition->getIdentifier()
         );
@@ -116,5 +91,30 @@ class UpdateBlockType extends AbstractType
                 'property_path' => 'updateStruct.name',
             )
         );
+
+        // We're grouping block parameters so they don't conflict with forms from block itself
+        $parameterBuilder = $builder->create('parameters', 'form', array('label' => 'Parameters', 'inherit_data' => true));
+
+        $parameters = $blockDefinition->getParameters();
+        $parameterNames = $blockDefinition->getParameterNames();
+        $parameterConstraints = $blockDefinition->getParameterConstraints();
+
+        foreach ($parameters as $parameterIdentifier => $blockParameter) {
+            $parameterBuilder->add(
+                $parameterIdentifier,
+                $blockParameter->getFormType(),
+                array(
+                    'label' => isset($parameterNames[$parameterIdentifier]) ?
+                        $parameterNames[$parameterIdentifier] :
+                        null,
+                    'property_path' => 'updateStruct.parameters[' . $parameterIdentifier . ']',
+                    'constraints' => $parameterConstraints[$parameterIdentifier] !== false ?
+                        $parameterConstraints[$parameterIdentifier] :
+                        null,
+                ) + $blockParameter->mapFormTypeOptions()
+            );
+        }
+
+        $builder->add($parameterBuilder);
     }
 }
