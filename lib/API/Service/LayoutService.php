@@ -82,8 +82,9 @@ interface LayoutService
      *
      * @param string $layoutIdentifier
      * @param string[] $zoneIdentifiers
+     * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($layoutIdentifier, array $zoneIdentifiers);
+    public function newLayoutCreateStruct($layoutIdentifier, array $zoneIdentifiers, $name);
 }

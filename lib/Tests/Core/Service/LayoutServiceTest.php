@@ -230,9 +230,9 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
             'new_layout',
-            array('left', 'right')
+            array('left', 'right'),
+            'My layout'
         );
-        $layoutCreateStruct->name = 'My layout';
 
         $createdLayout = $layoutService->createLayout($layoutCreateStruct);
 
@@ -279,9 +279,9 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
             'new_layout',
-            array('left', 'right')
+            array('left', 'right'),
+            'My layout'
         );
-        $layoutCreateStruct->name = 'My layout';
 
         $parentLayout = $layoutService->loadLayout(1);
         $createdLayout = $layoutService->createLayout(
@@ -331,7 +331,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct(42, array('left'));
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct(42, array('left'), 'New layout');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -343,7 +343,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('', array('left'));
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('', array('left'), 'New layout');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -355,8 +355,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
-        $layoutCreateStruct->name = 42;
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'), 42);
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -368,8 +367,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
-        $layoutCreateStruct->name = '';
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'), '');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -381,8 +379,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array());
-        $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array(), 'New layout');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -394,8 +391,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', 42));
-        $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', 42), 'New layout');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -407,8 +403,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', ''));
-        $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', ''), 'New layout');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -420,8 +415,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService();
 
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'));
-        $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'), 'New layout');
         $layoutService->createLayout($layoutCreateStruct);
     }
 
@@ -611,11 +605,12 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(
             new LayoutCreateStruct(
                 array(
-                    'layoutIdentifier' => 'new_layout',
-                    'zoneIdentifiers' => array('left', 'right'),
+                    'layoutIdentifier' => '3_zones_a',
+                    'zoneIdentifiers' => array('left', 'right', 'bottom'),
+                    'name' => 'New layout',
                 )
             ),
-            $layoutService->newLayoutCreateStruct('new_layout', array('left', 'right'))
+            $layoutService->newLayoutCreateStruct('3_zones_a', array('left', 'right', 'bottom'), 'New layout')
         );
     }
 }
