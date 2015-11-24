@@ -440,7 +440,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(
             new LayoutCreateStruct(
                 array(
-                    'layoutIdentifier' => '3_zones_a',
+                    'identifier' => '3_zones_a',
                     'zoneIdentifiers' => array('left', 'right', 'bottom'),
                     'name' => 'New layout',
                 )

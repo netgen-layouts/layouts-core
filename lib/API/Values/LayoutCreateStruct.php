@@ -12,7 +12,7 @@ class LayoutCreateStruct extends Value
     /**
      * @var string
      */
-    public $layoutIdentifier;
+    public $identifier;
 
     /**
      * @var @string

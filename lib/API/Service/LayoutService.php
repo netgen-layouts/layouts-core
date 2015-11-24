@@ -62,11 +62,11 @@ interface LayoutService
     /**
      * Creates a new layout create struct.
      *
-     * @param string $layoutIdentifier
+     * @param string $identifier
      * @param string[] $zoneIdentifiers
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($layoutIdentifier, array $zoneIdentifiers, $name);
+    public function newLayoutCreateStruct($identifier, array $zoneIdentifiers, $name);
 }

@@ -93,16 +93,16 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, APILayout $parentLayout = null)
     {
-        if (!is_string($layoutCreateStruct->layoutIdentifier)) {
+        if (!is_string($layoutCreateStruct->identifier)) {
             throw new InvalidArgumentException(
-                'layoutCreateStruct->layoutIdentifier',
-                $layoutCreateStruct->layoutIdentifier, 'Value must be a string.');
+                'layoutCreateStruct->identifier',
+                $layoutCreateStruct->identifier, 'Value must be a string.');
         }
 
-        if (empty($layoutCreateStruct->layoutIdentifier)) {
+        if (empty($layoutCreateStruct->identifier)) {
             throw new InvalidArgumentException(
-                'layoutCreateStruct->layoutIdentifier',
-                $layoutCreateStruct->layoutIdentifier,
+                'layoutCreateStruct->identifier',
+                $layoutCreateStruct->identifier,
                 'Value must not be empty.'
             );
         }
@@ -189,17 +189,17 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Creates a new layout create struct.
      *
-     * @param string $layoutIdentifier
+     * @param string $identifier
      * @param string[] $zoneIdentifiers
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($layoutIdentifier, array $zoneIdentifiers, $name)
+    public function newLayoutCreateStruct($identifier, array $zoneIdentifiers, $name)
     {
         return new LayoutCreateStruct(
             array(
-                'layoutIdentifier' => $layoutIdentifier,
+                'identifier' => $identifier,
                 'zoneIdentifiers' => $zoneIdentifiers,
                 'name' => $name,
             )

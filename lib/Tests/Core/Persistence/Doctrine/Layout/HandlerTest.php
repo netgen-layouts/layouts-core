@@ -128,7 +128,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createLayoutHandler();
 
         $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->layoutIdentifier = 'new_layout';
+        $layoutCreateStruct->identifier = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
 
@@ -178,7 +178,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createLayoutHandler();
 
         $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->layoutIdentifier = 'new_layout';
+        $layoutCreateStruct->identifier = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
 

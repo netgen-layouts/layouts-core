@@ -130,7 +130,7 @@ class Handler implements LayoutHandlerInterface
         $query = $this->createLayoutInsertQuery(
             array(
                 'parent_id' => $parentLayoutId,
-                'identifier' => $layoutCreateStruct->layoutIdentifier,
+                'identifier' => $layoutCreateStruct->identifier,
                 'name' => $layoutCreateStruct->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
