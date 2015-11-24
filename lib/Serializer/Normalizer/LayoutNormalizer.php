@@ -18,12 +18,10 @@ class LayoutNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $layoutIdentifier = $object->getIdentifier();
-
         return array(
             'id' => $object->getId(),
             'parent_id' => $object->getParentId(),
-            'identifier' => $layoutIdentifier,
+            'identifier' => $object->getIdentifier(),
             'created_at' => $object->getCreated(),
             'updated_at' => $object->getModified(),
             'name' => $object->getName(),
