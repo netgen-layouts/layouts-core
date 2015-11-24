@@ -47,4 +47,30 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
 
         $registry->getBlockDefinition('title');
     }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::hasBlockDefinition
+     */
+    public function testHasBlockDefinition()
+    {
+        $registry = new BlockDefinitionRegistry();
+
+        $blockDefinition = new BlockDefinition();
+        $registry->addBlockDefinition($blockDefinition);
+
+        self::assertEquals(true, $registry->hasBlockDefinition('block_definition'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry::hasBlockDefinition
+     */
+    public function testHasBlockDefinitionWithNoBlockDefinition()
+    {
+        $registry = new BlockDefinitionRegistry();
+
+        $blockDefinition = new BlockDefinition();
+        $registry->addBlockDefinition($blockDefinition);
+
+        self::assertEquals(false, $registry->hasBlockDefinition('other_block_definition'));
+    }
 }

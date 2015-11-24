@@ -28,4 +28,13 @@ interface BlockDefinitionRegistryInterface
      * @return \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface[]
      */
     public function getBlockDefinitions();
+
+    /**
+     * Returns if registry has a block definition.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasBlockDefinition($identifier);
 }

@@ -31,11 +31,13 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
      */
     public function getBlockDefinition($identifier)
     {
-        if (isset($this->blockDefinitions[$identifier])) {
-            return $this->blockDefinitions[$identifier];
+        if (!$this->hasBlockDefinition($identifier)) {
+            throw new InvalidArgumentException(
+                'Block definition with "' . $identifier . '" identifier does not exist.'
+            );
         }
 
-        throw new InvalidArgumentException('Block definition with "' . $identifier . '" identifier does not exist.');
+        return $this->blockDefinitions[$identifier];
     }
 
     /**
@@ -46,5 +48,17 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     public function getBlockDefinitions()
     {
         return $this->blockDefinitions;
+    }
+
+    /**
+     * Returns if registry has a block definition.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasBlockDefinition($identifier)
+    {
+        return isset($this->blockDefinitions[$identifier]);
     }
 }
