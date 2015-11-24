@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\BlockDefinition\Definition;
 
 use Netgen\BlockManager\BlockDefinition\BlockDefinition;
-use Netgen\BlockManager\BlockDefinition\Parameters;
+use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
@@ -46,11 +46,11 @@ class Title extends BlockDefinition
     public function getParameters()
     {
         return array(
-            'tag' => new Parameters\Select(
+            'tag' => new Parameter\Select(
                 'h2',
                 array('options' => $this->options)
             ),
-            'title' => new Parameters\Text('Title'),
+            'title' => new Parameter\Text('Title'),
         ) + parent::getParameters();
     }
 

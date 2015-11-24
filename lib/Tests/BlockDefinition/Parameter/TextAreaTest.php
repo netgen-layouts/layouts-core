@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\BlockDefinition\Parameters;
+namespace Netgen\BlockManager\Tests\BlockDefinition\Parameter;
 
-use Netgen\BlockManager\BlockDefinition\Parameters\TextArea;
+use Netgen\BlockManager\BlockDefinition\Parameter\TextArea;
 
 class TextAreaTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::getType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::getFormType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::configureOptions
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::mapFormTypeOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::getType
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::getFormType
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::mapFormTypeOptions
      */
     public function testParameter()
     {
@@ -22,8 +22,8 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::getAttributes
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::configureOptions
      * @dataProvider validAttributesProvider
      *
      * @param array $attributes
@@ -36,8 +36,8 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::getAttributes
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\TextArea::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\TextArea::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidAttributesProvider
      *
@@ -57,7 +57,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $attributes
      *
-     * @return \Netgen\BlockManager\BlockDefinition\Parameters\TextArea
+     * @return \Netgen\BlockManager\BlockDefinition\Parameter\TextArea
      */
     public function getParameter($attributes)
     {

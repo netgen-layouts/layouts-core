@@ -14,8 +14,8 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     public function getParameters()
     {
         return array(
-            'css_id' => new Parameters\Text(),
-            'css_class' => new Parameters\Text(),
+            'css_id' => new Parameter\Text(),
+            'css_class' => new Parameter\Text(),
         );
     }
 

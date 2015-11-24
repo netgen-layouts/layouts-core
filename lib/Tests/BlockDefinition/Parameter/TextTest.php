@@ -1,29 +1,29 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\BlockDefinition\Parameters;
+namespace Netgen\BlockManager\Tests\BlockDefinition\Parameter;
 
-use Netgen\BlockManager\BlockDefinition\Parameters\Hidden;
+use Netgen\BlockManager\BlockDefinition\Parameter\Text;
 
-class HiddenTest extends \PHPUnit_Framework_TestCase
+class TextTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::getType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::getFormType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::configureOptions
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::mapFormTypeOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::getType
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::getFormType
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::mapFormTypeOptions
      */
     public function testParameter()
     {
         $parameter = $this->getParameter(array());
 
-        self::assertEquals('hidden', $parameter->getType());
-        self::assertEquals('hidden', $parameter->getFormType());
+        self::assertEquals('text', $parameter->getType());
+        self::assertEquals('text', $parameter->getFormType());
         self::assertEquals(array(), $parameter->mapFormTypeOptions());
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::getAttributes
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::configureOptions
      * @dataProvider validAttributesProvider
      *
      * @param array $attributes
@@ -36,8 +36,8 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::getAttributes
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Hidden::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidAttributesProvider
      *
@@ -57,11 +57,11 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $attributes
      *
-     * @return \Netgen\BlockManager\BlockDefinition\Parameters\Hidden
+     * @return \Netgen\BlockManager\BlockDefinition\Parameter\Text
      */
     public function getParameter($attributes)
     {
-        return new Hidden('Test value', $attributes);
+        return new Text('Test value', $attributes);
     }
 
     /**

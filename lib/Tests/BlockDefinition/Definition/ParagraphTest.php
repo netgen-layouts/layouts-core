@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\BlockDefinition;
 
 use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
-use Netgen\BlockManager\BlockDefinition\Parameters;
+use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
@@ -38,9 +38,9 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'content' => new Parameters\Text('Text'),
-                'css_id' => new Parameters\Text(),
-                'css_class' => new Parameters\Text(),
+                'content' => new Parameter\Text('Text'),
+                'css_id' => new Parameter\Text(),
+                'css_class' => new Parameter\Text(),
             ),
             $blockDefinition->getParameters()
         );

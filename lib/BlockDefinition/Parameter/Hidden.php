@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\BlockDefinition\Parameters;
+namespace Netgen\BlockManager\BlockDefinition\Parameter;
 
 use Netgen\BlockManager\BlockDefinition\Parameter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Text extends Parameter
+class Hidden extends Parameter
 {
     /**
      * Returns the parameter type.
@@ -14,7 +14,7 @@ class Text extends Parameter
      */
     public function getType()
     {
-        return 'text';
+        return 'hidden';
     }
 
     /**
@@ -33,7 +33,7 @@ class Text extends Parameter
      */
     public function getFormType()
     {
-        return 'text';
+        return 'hidden';
     }
 
     /**

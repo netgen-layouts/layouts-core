@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\BlockDefinition;
 
 use Netgen\BlockManager\BlockDefinition\Definition\Title;
-use Netgen\BlockManager\BlockDefinition\Parameters;
+use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
@@ -47,13 +47,13 @@ class TitleTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'tag' => new Parameters\Select(
+                'tag' => new Parameter\Select(
                     'h2',
                     array('options' => $this->options)
                 ),
-                'title' => new Parameters\Text('Title'),
-                'css_id' => new Parameters\Text(),
-                'css_class' => new Parameters\Text(),
+                'title' => new Parameter\Text('Title'),
+                'css_id' => new Parameter\Text(),
+                'css_class' => new Parameter\Text(),
             ),
             $blockDefinition->getParameters()
         );

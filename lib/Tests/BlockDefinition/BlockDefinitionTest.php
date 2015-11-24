@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\BlockDefinition;
 
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
-use Netgen\BlockManager\BlockDefinition\Parameters;
+use Netgen\BlockManager\BlockDefinition\Parameter;
 
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,8 +16,8 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'css_id' => new Parameters\Text(),
-                'css_class' => new Parameters\Text(),
+                'css_id' => new Parameter\Text(),
+                'css_class' => new Parameter\Text(),
             ),
             $blockDefinition->getParameters()
         );

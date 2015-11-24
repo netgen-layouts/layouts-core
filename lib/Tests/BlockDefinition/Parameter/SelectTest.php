@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\BlockDefinition\Parameters;
+namespace Netgen\BlockManager\Tests\BlockDefinition\Parameter;
 
-use Netgen\BlockManager\BlockDefinition\Parameters\Select;
+use Netgen\BlockManager\BlockDefinition\Parameter\Select;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getFormType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::mapFormTypeOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getType
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getFormType
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::mapFormTypeOptions
      */
     public function testParameter()
     {
@@ -35,8 +35,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getAttributes
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::configureOptions
      * @dataProvider validAttributesProvider
      *
      * @param array $attributes
@@ -49,8 +49,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::getAttributes
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameters\Select::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidAttributesProvider
      *
@@ -70,7 +70,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $attributes
      *
-     * @return \Netgen\BlockManager\BlockDefinition\Parameters\Select
+     * @return \Netgen\BlockManager\BlockDefinition\Parameter\Select
      */
     public function getParameter($attributes)
     {
