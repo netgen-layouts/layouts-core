@@ -46,8 +46,6 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If create struct properties have an invalid or empty value
-     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Zone $zone);
@@ -57,8 +55,6 @@ interface BlockService
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If update struct properties have an invalid or empty value
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */

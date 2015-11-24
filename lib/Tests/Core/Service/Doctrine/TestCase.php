@@ -17,7 +17,12 @@ trait TestCase
      */
     protected function createLayoutService()
     {
-        return new LayoutService($this->createLayoutHandler());
+        return new LayoutService(
+            $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\LayoutValidator')
+                ->disableOriginalConstructor()
+                ->getMock(),
+            $this->createLayoutHandler()
+        );
     }
 
     /**
@@ -28,6 +33,9 @@ trait TestCase
     protected function createBlockService()
     {
         return new BlockService(
+            $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\BlockValidator')
+                ->disableOriginalConstructor()
+                ->getMock(),
             $this->createLayoutService(),
             $this->createBlockHandler()
         );

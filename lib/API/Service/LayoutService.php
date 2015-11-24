@@ -37,8 +37,6 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If create struct properties have an invalid or empty value
-     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null);

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
+use Netgen\BlockManager\API\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
 use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
@@ -19,6 +20,11 @@ use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 class BlockService implements BlockServiceInterface
 {
     /**
+     * @var \Netgen\BlockManager\API\Service\Validator\BlockValidator
+     */
+    protected $blockValidator;
+
+    /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     protected $layoutService;
@@ -31,11 +37,16 @@ class BlockService implements BlockServiceInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
      */
-    public function __construct(APILayoutService $layoutService, BlockHandler $blockHandler)
-    {
+    public function __construct(
+        BlockValidator $blockValidator,
+        APILayoutService $layoutService,
+        BlockHandler $blockHandler
+    ) {
+        $this->blockValidator = $blockValidator;
         $this->layoutService = $layoutService;
         $this->blockHandler = $blockHandler;
     }
@@ -109,56 +120,15 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If create struct properties have an invalid or empty value
-     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, APIZone $zone)
     {
-        if (!is_string($blockCreateStruct->definitionIdentifier)) {
-            throw new InvalidArgumentException(
-                'blockCreateStruct->definitionIdentifier',
-                $blockCreateStruct->definitionIdentifier,
-                'Value must be a string.'
-            );
-        }
-
-        if (empty($blockCreateStruct->definitionIdentifier)) {
-            throw new InvalidArgumentException(
-                'blockCreateStruct->definitionIdentifier',
-                $blockCreateStruct->definitionIdentifier,
-                'Value must not be empty.'
-            );
-        }
-
-        if (!is_string($blockCreateStruct->viewType)) {
-            throw new InvalidArgumentException(
-                'blockCreateStruct->viewType',
-                $blockCreateStruct->viewType,
-                'Value must be a string.'
-            );
-        }
-
-        if (empty($blockCreateStruct->viewType)) {
-            throw new InvalidArgumentException(
-                'blockCreateStruct->viewType',
-                $blockCreateStruct->viewType,
-                'Value must not be empty.'
-            );
-        }
-
-        if ($blockCreateStruct->name !== null) {
-            if (!is_string($blockCreateStruct->name)) {
-                throw new InvalidArgumentException(
-                    'blockCreateStruct->name',
-                    $blockCreateStruct->name,
-                    'Value must be a string.'
-                );
-            }
-        } else {
+        if ($blockCreateStruct->name === null) {
             $blockCreateStruct->name = '';
         }
 
+        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
         $createdBlock = $this->blockHandler->createBlock($blockCreateStruct, $zone->getId());
 
         return $this->buildDomainBlockObject($createdBlock);
@@ -170,40 +140,19 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If update struct properties have an invalid or empty value
-     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function updateBlock(APIBlock $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
-        if ($blockUpdateStruct->viewType !== null) {
-            if (!is_string($blockUpdateStruct->viewType)) {
-                throw new InvalidArgumentException(
-                    'blockUpdateStruct->viewType',
-                    $blockUpdateStruct->viewType,
-                    'Value must be a string.'
-                );
-            }
-
-            if (empty($blockUpdateStruct->viewType)) {
-                throw new InvalidArgumentException(
-                    'blockUpdateStruct->viewType',
-                    $blockUpdateStruct->viewType,
-                    'Value must not be empty.'
-                );
-            }
+        if ($blockUpdateStruct->viewType === null) {
+            $blockUpdateStruct->viewType = $block->getViewType();
         }
 
-        if ($blockUpdateStruct->name !== null) {
-            if (!is_string($blockUpdateStruct->name)) {
-                throw new InvalidArgumentException(
-                    'blockUpdateStruct->name',
-                    $blockUpdateStruct->name,
-                    'Value must be a string.'
-                );
-            }
+        if ($blockUpdateStruct->name === null) {
+            $blockUpdateStruct->name = $block->getName();
         }
 
+        $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
         $updatedBlock = $this->blockHandler->updateBlock($block->getId(), $blockUpdateStruct);
 
         return $this->buildDomainBlockObject($updatedBlock);

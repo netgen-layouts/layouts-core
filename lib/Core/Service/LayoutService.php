@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
+use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -16,6 +17,11 @@ use DateTime;
 class LayoutService implements LayoutServiceInterface
 {
     /**
+     * @var \Netgen\BlockManager\API\Service\Validator\LayoutValidator
+     */
+    protected $layoutValidator;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\Layout
      */
     protected $handler;
@@ -23,10 +29,12 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\API\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Persistence\Handler\Layout $handler
      */
-    public function __construct(LayoutHandler $handler)
+    public function __construct(LayoutValidator $layoutValidator, LayoutHandler $handler)
     {
+        $this->layoutValidator = $layoutValidator;
         $this->handler = $handler;
     }
 
@@ -87,70 +95,17 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If create struct properties have an invalid or empty value
-     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, APILayout $parentLayout = null)
     {
-        if (!is_string($layoutCreateStruct->identifier)) {
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->identifier',
-                $layoutCreateStruct->identifier, 'Value must be a string.');
-        }
-
-        if (empty($layoutCreateStruct->identifier)) {
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->identifier',
-                $layoutCreateStruct->identifier,
-                'Value must not be empty.'
-            );
-        }
-
-        if (!is_string($layoutCreateStruct->name)) {
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->name',
-                $layoutCreateStruct->name, 'Value must be a string.');
-        }
-
-        if (empty($layoutCreateStruct->name)) {
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->name',
-                $layoutCreateStruct->name,
-                'Value must not be empty.'
-            );
-        }
-
-        if (empty($layoutCreateStruct->zoneIdentifiers)) {
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->zoneIdentifiers',
-                '',
-                'Value must not be empty.'
-            );
-        }
-
-        foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
-            if (!is_string($zoneIdentifier)) {
-                throw new InvalidArgumentException(
-                    'layoutCreateStruct->zoneIdentifiers',
-                    $zoneIdentifier,
-                    'All values must be strings.'
-                );
-            }
-
-            if (empty($zoneIdentifier)) {
-                throw new InvalidArgumentException(
-                    'layoutCreateStruct->zoneIdentifiers',
-                    $zoneIdentifier,
-                    'None of the values can be empty.'
-                );
-            }
-        }
+        $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
         $createdLayout = $this->handler->createLayout(
             $layoutCreateStruct,
             $parentLayout !== null ? $parentLayout->getId() : null
         );
+
         $zones = $this->handler->loadLayoutZones($createdLayout->id);
 
         return $this->buildDomainLayoutObject($createdLayout, $zones);

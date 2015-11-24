@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\Form\Data\UpdateBlockData;
 use Netgen\BlockManager\API\Values\Page\Block;
-use InvalidArgumentException;
 
 class BlockController extends Controller
 {
@@ -39,43 +38,9 @@ class BlockController extends Controller
         $layoutService = $this->get('netgen_block_manager.api.service.layout');
         $blockDefinition = $this->getBlockDefinition($definitionIdentifier);
 
-        $blockConfig = $this
-            ->get('netgen_block_manager.configuration')
-            ->getBlockConfig($definitionIdentifier);
-
-        if (!isset($blockConfig['view_types'][$viewType])) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Provided view type does not exist in "%s" block definition.',
-                    $definitionIdentifier
-                )
-            );
-        }
-
         $blockCreateStruct = $blockService->newBlockCreateStruct($definitionIdentifier, $viewType);
-
-        $constraintViolations = array();
-        $parameterConstraints = $blockDefinition->getParameterConstraints();
-
         foreach ($blockDefinition->getParameters() as $parameterIdentifier => $parameter) {
-            $parameterValue = $parameter->getDefaultValue();
-
-            if (is_array($parameterConstraints[$parameterIdentifier])) {
-                $violations = $this->get('validator')->validate(
-                    $parameterValue,
-                    $parameterConstraints[$parameterIdentifier]
-                );
-
-                foreach ($violations as $violation) {
-                    $constraintViolations[$parameterIdentifier][] = $violation;
-                }
-            }
-
-            $blockCreateStruct->setParameter($parameterIdentifier, $parameterValue);
-        }
-
-        if (!empty($constraintViolations)) {
-            throw new InvalidArgumentException('Creating the block failed.');
+            $blockCreateStruct->setParameter($parameterIdentifier, $parameter->getDefaultValue());
         }
 
         $createdBlock = $blockService->createBlock(
