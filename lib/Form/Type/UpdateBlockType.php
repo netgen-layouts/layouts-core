@@ -89,6 +89,11 @@ class UpdateBlockType extends AbstractType
             array(
                 'label' => 'Name',
                 'property_path' => 'updateStruct.name',
+                // null and empty string have different meanings for name
+                // so we set the default value to a single space (instead of
+                // an empty string) because of
+                // https://github.com/symfony/symfony/issues/5906
+                'empty_data' => ' '
             )
         );
 
