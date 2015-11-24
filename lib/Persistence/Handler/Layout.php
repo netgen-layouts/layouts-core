@@ -16,15 +16,6 @@ interface Layout
     public function loadLayout($layoutId);
 
     /**
-     * Loads a layout with specified identifier.
-     *
-     * @param string $layoutIdentifier
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function loadLayoutByIdentifier($layoutIdentifier);
-
-    /**
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
@@ -56,11 +47,10 @@ interface Layout
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param string $newLayoutIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId, $newLayoutIdentifier);
+    public function copyLayout($layoutId);
 
     /**
      * Deletes a layout with specified ID.

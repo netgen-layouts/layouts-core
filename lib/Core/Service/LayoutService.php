@@ -11,7 +11,6 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
-use Netgen\BlockManager\API\Exception\NotFoundException;
 use DateTime;
 
 class LayoutService implements LayoutServiceInterface
@@ -58,32 +57,6 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Loads a layout with specified identifier.
-     *
-     * @param string $layoutIdentifier
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout identifier has an invalid or empty value
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified identifier does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    public function loadLayoutByIdentifier($layoutIdentifier)
-    {
-        if (!is_string($layoutIdentifier)) {
-            throw new InvalidArgumentException('layoutId', $layoutIdentifier, 'Value must be a string.');
-        }
-
-        if (empty($layoutIdentifier)) {
-            throw new InvalidArgumentException('layoutId', $layoutIdentifier, 'Value must not be empty.');
-        }
-
-        $layout = $this->handler->loadLayoutByIdentifier($layoutIdentifier);
-        $zones = $this->handler->loadLayoutZones($layout->id);
-
-        return $this->buildDomainLayoutObject($layout, $zones);
-    }
-
-    /**
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
@@ -115,7 +88,6 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If create struct properties have an invalid or empty value
-     *                                                                  If layout with same identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -175,17 +147,6 @@ class LayoutService implements LayoutServiceInterface
             }
         }
 
-        try {
-            $this->loadLayoutByIdentifier($layoutCreateStruct->layoutIdentifier);
-            throw new InvalidArgumentException(
-                'layoutCreateStruct->layoutIdentifier',
-                $layoutCreateStruct->layoutIdentifier,
-                'Layout with provided identifier already exists.'
-            );
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
         $createdLayout = $this->handler->createLayout(
             $layoutCreateStruct,
             $parentLayout !== null ? $parentLayout->getId() : null
@@ -196,52 +157,15 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Copies a specified layout. If layout identifier is provided, the layout will
-     * have that identifier set. Otherwise, the new layout will have a "copy_of_<oldLayoutIdentifier>"
-     * identifier.
+     * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param string $newLayoutIdentifier
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout with provided identifier already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(APILayout $layout, $newLayoutIdentifier = null)
+    public function copyLayout(APILayout $layout)
     {
-        if ($newLayoutIdentifier !== null) {
-            if (!is_string($newLayoutIdentifier)) {
-                throw new InvalidArgumentException(
-                    'newLayoutIdentifier',
-                    $newLayoutIdentifier, 'Value must be a string.');
-            }
-
-            if (empty($newLayoutIdentifier)) {
-                throw new InvalidArgumentException(
-                    'newLayoutIdentifier',
-                    $newLayoutIdentifier,
-                    'Value must not be empty.'
-                );
-            }
-
-            try {
-                $this->loadLayoutByIdentifier($newLayoutIdentifier);
-                throw new InvalidArgumentException(
-                    'newLayoutIdentifier',
-                    $newLayoutIdentifier,
-                    'Layout with provided identifier already exists.'
-                );
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        $copiedLayout = $this->handler->copyLayout(
-            $layout->getId(),
-            $newLayoutIdentifier !== null ?
-                $newLayoutIdentifier :
-                'copy_of_' . $layout->getIdentifier()
-        );
+        $copiedLayout = $this->handler->copyLayout($layout->getId());
 
         $zones = $this->handler->loadLayoutZones($copiedLayout->id);
 

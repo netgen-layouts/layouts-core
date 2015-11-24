@@ -62,35 +62,6 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Loads a layout with specified identifier.
-     *
-     * @param string $layoutIdentifier
-     *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified identifier does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function loadLayoutByIdentifier($layoutIdentifier)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified')
-            ->from('ngbm_layout')
-            ->where(
-                $query->expr()->eq('identifier', ':layout_identifier')
-            )
-            ->setParameter('layout_identifier', $layoutIdentifier, Type::STRING);
-
-        $data = $query->execute()->fetchAll();
-        if (empty($data)) {
-            throw new NotFoundException('layout', $layoutIdentifier);
-        }
-
-        $data = $this->mapper->mapLayouts($data);
-
-        return reset($data);
-    }
-
-    /**
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
@@ -187,11 +158,10 @@ class Handler implements LayoutHandlerInterface
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param string $newLayoutIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId, $newLayoutIdentifier)
+    public function copyLayout($layoutId)
     {
         $originalLayout = $this->loadLayout($layoutId);
         $originalZones = $this->loadLayoutZones($layoutId);
@@ -201,7 +171,7 @@ class Handler implements LayoutHandlerInterface
         $query = $this->createLayoutInsertQuery(
             array(
                 'parent_id' => $originalLayout->parentId,
-                'identifier' => $newLayoutIdentifier,
+                'identifier' => $originalLayout->identifier,
                 'name' => $originalLayout->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
