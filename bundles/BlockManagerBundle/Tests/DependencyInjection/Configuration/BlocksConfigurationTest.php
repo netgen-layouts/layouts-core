@@ -35,7 +35,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'blocks' => array(
                     'block' => array(
-                        'name' => 'block',
                         'view_types' => array(
                             'default' => array(
                                 'name' => 'Default',
@@ -52,7 +51,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',
@@ -84,7 +82,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'blocks' => array(
                     'block' => array(
-                        'name' => 'block',
                         'view_types' => array(
                             'default' => array(
                                 'name' => 'Default',
@@ -99,7 +96,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'blocks' => array(
                     'block' => array(
-                        'name' => 'block',
                         'view_types' => array(
                             'title' => array(
                                 'name' => 'Title',
@@ -116,7 +112,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(
                         'title' => array(
                             'name' => 'Title',
@@ -153,62 +148,11 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithNoName()
-    {
-        $config = array(
-            'blocks' => array(
-                'block' => array(),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
-     */
-    public function testBlockSettingsWithEmptyName()
-    {
-        $config = array(
-            'blocks' => array(
-                'block' => array(
-                    'name' => '',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
-     */
-    public function testBlockSettingsWithInvalidName()
-    {
-        $config = array(
-            'blocks' => array(
-                'block' => array(
-                    'name' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
-     */
     public function testBlockSettingsWithNoViewTypes()
     {
         $config = array(
             'blocks' => array(
-                'block' => array(
-                    'name' => 'block',
-                ),
+                'block' => array(),
             ),
         );
 
@@ -224,7 +168,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(),
                 ),
             ),
@@ -242,7 +185,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => 'default',
                 ),
             ),
@@ -260,7 +202,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(
                         'default' => 'default',
                     ),
@@ -280,7 +221,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(
                         'default' => array(),
                     ),
@@ -300,7 +240,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(
                         'default' => array(
                             'name' => '',
@@ -322,7 +261,6 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
-                    'name' => 'block',
                     'view_types' => array(
                         'default' => array(
                             'name' => array(),

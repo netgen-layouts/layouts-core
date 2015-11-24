@@ -22,6 +22,7 @@ CREATE TABLE `ngbm_block` (
   `zone_id` integer NOT NULL,
   `definition_identifier` text(255) NOT NULL,
   `view_type` text(255) NOT NULL,
+  `name` text(255) NOT NULL,
   `parameters` text NOT NULL,
   FOREIGN KEY (`zone_id`) REFERENCES `ngbm_zone` (`id`)
 );

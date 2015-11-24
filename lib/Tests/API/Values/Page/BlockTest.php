@@ -13,6 +13,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      */
     public function testSetDefaultProperties()
     {
@@ -23,6 +24,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertNull($block->getDefinitionIdentifier());
         self::assertEquals(array(), $block->getParameters());
         self::assertNull($block->getViewType());
+        self::assertNull($block->getName());
     }
 
     /**
@@ -32,6 +34,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      */
     public function testSetProperties()
     {
@@ -45,6 +48,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
                     'some_other_param' => 'some_other_value',
                 ),
                 'viewType' => 'default',
+                'name' => 'My block',
             )
         );
 
@@ -59,5 +63,6 @@ class BlockTest extends \PHPUnit_Framework_TestCase
             $block->getParameters()
         );
         self::assertEquals('default', $block->getViewType());
+        self::assertEquals('My block', $block->getName());
     }
 }

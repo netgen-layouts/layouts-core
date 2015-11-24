@@ -40,4 +40,11 @@ class Block extends Value
      * @var string
      */
     public $viewType;
+
+    /**
+     * Human readable name of this block.
+     *
+     * @var string
+     */
+    public $name;
 }

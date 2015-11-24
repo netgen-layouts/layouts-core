@@ -45,7 +45,7 @@ class Handler implements BlockHandlerInterface
     public function loadBlock($blockId)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'parameters')
+        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters')
             ->from('ngbm_block')
             ->where(
                 $query->expr()->eq('id', ':block_id')
@@ -72,7 +72,7 @@ class Handler implements BlockHandlerInterface
     public function loadZoneBlocks($zoneId)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'parameters')
+        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters')
             ->from('ngbm_block')
             ->where(
                 $query->expr()->eq('zone_id', ':zone_id')
@@ -102,6 +102,7 @@ class Handler implements BlockHandlerInterface
                 'zone_id' => $zoneId,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
+                'name' => $blockCreateStruct->name,
                 'parameters' => $blockCreateStruct->getParameters(),
             )
         );
@@ -129,6 +130,7 @@ class Handler implements BlockHandlerInterface
         $query
             ->update('ngbm_block')
             ->set('view_type', ':view_type')
+            ->set('name', ':name')
             ->set('parameters', ':parameters')
             ->where(
                 $query->expr()->eq('id', ':block_id')
@@ -139,6 +141,13 @@ class Handler implements BlockHandlerInterface
                 $blockUpdateStruct->viewType !== null ?
                     $blockUpdateStruct->viewType :
                     $block->viewType,
+                Type::STRING
+            )
+            ->setParameter(
+                'name',
+                $blockUpdateStruct->name !== null ?
+                    $blockUpdateStruct->name :
+                    $block->name,
                 Type::STRING
             )
             ->setParameter(
@@ -169,6 +178,7 @@ class Handler implements BlockHandlerInterface
                 'zone_id' => $zoneId,
                 'definition_identifier' => $originalBlock->definitionIdentifier,
                 'view_type' => $originalBlock->viewType,
+                'name' => $originalBlock->name,
                 'parameters' => $originalBlock->parameters,
             )
         );
@@ -238,12 +248,14 @@ class Handler implements BlockHandlerInterface
                     'zone_id' => ':zone_id',
                     'definition_identifier' => ':definition_identifier',
                     'view_type' => ':view_type',
+                    'name' => ':name',
                     'parameters' => ':parameters',
                 )
             )
             ->setParameter('zone_id', $parameters['zone_id'], Type::INTEGER)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
             ->setParameter('view_type', $parameters['view_type'], Type::STRING)
+            ->setParameter('name', $parameters['name'], Type::STRING)
             ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
     }
 }

@@ -25,6 +25,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'zoneId' => 2,
                     'definitionIdentifier' => 'paragraph',
                     'viewType' => 'default',
+                    'name' => 'My block',
                     'parameters' => array(
                         'some_param' => 'some_value',
                     ),
@@ -83,6 +84,7 @@ abstract class BlockServiceTest extends ServiceTest
                             'some_param' => 'some_value',
                         ),
                         'viewType' => 'default',
+                        'name' => 'My block',
                     )
                 ),
                 new Block(
@@ -94,6 +96,7 @@ abstract class BlockServiceTest extends ServiceTest
                             'other_param' => 'other_value',
                         ),
                         'viewType' => 'small',
+                        'name' => 'My other block',
                     )
                 ),
             ),
@@ -122,6 +125,7 @@ abstract class BlockServiceTest extends ServiceTest
                                 'some_param' => 'some_value',
                             ),
                             'viewType' => 'default',
+                            'name' => 'My block',
                         )
                     ),
                     new Block(
@@ -133,6 +137,7 @@ abstract class BlockServiceTest extends ServiceTest
                                 'other_param' => 'other_value',
                             ),
                             'viewType' => 'small',
+                            'name' => 'My other block',
                         )
                     ),
                 ),
@@ -146,6 +151,40 @@ abstract class BlockServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      */
     public function testCreateBlock()
+    {
+        $blockService = $this->createBlockService();
+        $layoutService = $this->createLayoutService();
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'zoneId' => 1,
+                    'definitionIdentifier' => 'new_block',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                        'some_other_param' => 'some_other_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                )
+            ),
+            $blockService->createBlock(
+                $blockCreateStruct,
+                $layoutService->loadZone(1)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     */
+    public function testCreateBlockWithMissingName()
     {
         $blockService = $this->createBlockService();
         $layoutService = $this->createLayoutService();
@@ -165,6 +204,7 @@ abstract class BlockServiceTest extends ServiceTest
                         'some_other_param' => 'some_other_value',
                     ),
                     'viewType' => 'default',
+                    'name' => '',
                 )
             ),
             $blockService->createBlock(
@@ -231,6 +271,21 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testCreateBlockThrowsInvalidArgumentExceptionOnInvalidName()
+    {
+        $blockService = $this->createBlockService();
+        $layoutService = $this->createLayoutService();
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'large');
+        $blockCreateStruct->name = 42;
+
+        $blockService->createBlock($blockCreateStruct, $layoutService->loadZone(1));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlock()
@@ -239,6 +294,7 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockUpdateStruct = $blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
+        $blockUpdateStruct->name = 'Super cool block';
         $blockUpdateStruct->setParameter('test_param', 'test_value');
         $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
 
@@ -253,6 +309,7 @@ abstract class BlockServiceTest extends ServiceTest
                         'some_other_test_param' => 'some_other_test_value',
                     ),
                     'viewType' => 'small',
+                    'name' => 'Super cool block',
                 )
             ),
             $blockService->updateBlock(
@@ -272,6 +329,20 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockUpdateStruct = $blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 42;
+
+        $blockService->updateBlock($blockService->loadBlock(1), $blockUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testUpdateBlockThrowsInvalidArgumentExceptionOnInvalidName()
+    {
+        $blockService = $this->createBlockService();
+
+        $blockUpdateStruct = $blockService->newBlockUpdateStruct();
+        $blockUpdateStruct->name = 42;
 
         $blockService->updateBlock($blockService->loadBlock(1), $blockUpdateStruct);
     }
@@ -307,6 +378,7 @@ abstract class BlockServiceTest extends ServiceTest
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $blockService->copyBlock(
@@ -333,6 +405,7 @@ abstract class BlockServiceTest extends ServiceTest
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $blockService->copyBlock(
@@ -375,6 +448,7 @@ abstract class BlockServiceTest extends ServiceTest
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $blockService->moveBlock(

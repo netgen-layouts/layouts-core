@@ -38,4 +38,11 @@ interface Block
      * @return string
      */
     public function getViewType();
+
+    /**
+     * Returns the human readable name of the block.
+     *
+     * @return string
+     */
+    public function getName();
 }

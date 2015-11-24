@@ -1,13 +1,11 @@
 blocks:
     title:
-        name: 'Title'
         view_types:
             default:
                 name: Default
             large:
                 name: Large
     paragraph:
-        name: 'Paragraph'
         view_types:
             default:
                 name: Default

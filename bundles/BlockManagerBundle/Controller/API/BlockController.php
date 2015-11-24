@@ -103,6 +103,7 @@ class BlockController extends Controller
         $updateStruct = $blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
         $updateStruct->viewType = $block->getViewType();
+        $updateStruct->name = $block->getName();
 
         $formName = 'ngbm_update_block';
         if ($this->get('form.registry')->hasType('ngbm_update_block_' . $block->getDefinitionIdentifier())) {

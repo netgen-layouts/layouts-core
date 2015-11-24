@@ -18,6 +18,16 @@ class BlockDefinition extends BaseBlockDefinition
     }
 
     /**
+     * Returns block definition human readable name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Block definition';
+    }
+
+    /**
      * Returns the array of values provided by this block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

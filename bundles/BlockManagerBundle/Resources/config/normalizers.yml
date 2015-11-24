@@ -8,14 +8,11 @@ parameters:
 services:
     netgen_block_manager.normalizer.block:
         class: %netgen_block_manager.normalizer.block.class%
-        arguments:
-            - "@netgen_block_manager.configuration"
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.block_view:
         class: %netgen_block_manager.normalizer.block_view.class%
-        parent: netgen_block_manager.normalizer.block
         arguments:
             - "@netgen_block_manager.view.renderer"
         tags:

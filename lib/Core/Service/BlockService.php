@@ -147,6 +147,18 @@ class BlockService implements BlockServiceInterface
             );
         }
 
+        if ($blockCreateStruct->name !== null) {
+            if (!is_string($blockCreateStruct->name)) {
+                throw new InvalidArgumentException(
+                    'blockCreateStruct->name',
+                    $blockCreateStruct->name,
+                    'Value must be a string.'
+                );
+            }
+        } else {
+            $blockCreateStruct->name = '';
+        }
+
         $createdBlock = $this->blockHandler->createBlock($blockCreateStruct, $zone->getId());
 
         return $this->buildDomainBlockObject($createdBlock);
@@ -178,6 +190,16 @@ class BlockService implements BlockServiceInterface
                     'blockUpdateStruct->viewType',
                     $blockUpdateStruct->viewType,
                     'Value must not be empty.'
+                );
+            }
+        }
+
+        if ($blockUpdateStruct->name !== null) {
+            if (!is_string($blockUpdateStruct->name)) {
+                throw new InvalidArgumentException(
+                    'blockUpdateStruct->name',
+                    $blockUpdateStruct->name,
+                    'Value must be a string.'
                 );
             }
         }
@@ -308,6 +330,7 @@ class BlockService implements BlockServiceInterface
                 'definitionIdentifier' => $persistenceBlock->definitionIdentifier,
                 'parameters' => $persistenceBlock->parameters,
                 'viewType' => $persistenceBlock->viewType,
+                'name' => $persistenceBlock->name,
             )
         );
 

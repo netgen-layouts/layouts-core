@@ -28,6 +28,11 @@ class Block extends Value implements BlockInterface
     protected $viewType;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var array
      */
     protected $parameters = array();
@@ -80,5 +85,15 @@ class Block extends Value implements BlockInterface
     public function getViewType()
     {
         return $this->viewType;
+    }
+
+    /**
+     * Returns the human readable name of the block.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

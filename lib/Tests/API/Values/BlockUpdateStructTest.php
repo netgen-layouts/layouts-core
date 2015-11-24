@@ -14,6 +14,7 @@ class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct = new BlockUpdateStruct();
 
         self::assertNull($blockUpdateStruct->viewType);
+        self::assertNull($blockUpdateStruct->name);
         self::assertEquals(array(), $blockUpdateStruct->getParameters());
     }
 
@@ -26,6 +27,7 @@ class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct = new BlockUpdateStruct(
             array(
                 'viewType' => 'default',
+                'name' => 'My block',
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
@@ -34,6 +36,7 @@ class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
         );
 
         self::assertEquals('default', $blockUpdateStruct->viewType);
+        self::assertEquals('My block', $blockUpdateStruct->name);
         self::assertEquals(
             array(
                 'some_param' => 'some_value',

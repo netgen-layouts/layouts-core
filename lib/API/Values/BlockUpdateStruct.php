@@ -10,6 +10,11 @@ abstract class BlockUpdateStruct extends Value
     public $viewType;
 
     /**
+     * @var string
+     */
+    public $name;
+
+    /**
      * Sets the parameters to the struct.
      *
      * @param array $parameters

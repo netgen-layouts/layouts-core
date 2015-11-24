@@ -28,6 +28,7 @@ CREATE TABLE `ngbm_block` (
   `zone_id` int(11) NOT NULL,
   `definition_identifier` varchar(255) NOT NULL,
   `view_type` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ngbm_block_zone_id` (`zone_id`),

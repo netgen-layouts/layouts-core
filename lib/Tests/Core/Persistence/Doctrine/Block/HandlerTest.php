@@ -29,6 +29,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $handler->loadBlock(1)
@@ -63,6 +64,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                             'some_param' => 'some_value',
                         ),
                         'viewType' => 'default',
+                        'name' => 'My block',
                     )
                 ),
                 new Block(
@@ -74,6 +76,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                             'other_param' => 'other_value',
                         ),
                         'viewType' => 'small',
+                        'name' => 'My other block',
                     )
                 ),
             ),
@@ -101,6 +104,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
         self::assertEquals(
@@ -113,6 +117,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'a_param' => 'A value',
                     ),
                     'viewType' => 'large',
+                    'name' => 'My block',
                 )
             ),
             $handler->createBlock($blockCreateStruct, 3)
@@ -127,6 +132,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createBlockHandler();
 
         $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->setParameter('a_param', 'A value');
 
@@ -140,6 +146,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'a_param' => 'A value',
                     ),
                     'viewType' => 'large',
+                    'name' => 'My block',
                 )
             ),
             $handler->updateBlock(1, $blockUpdateStruct)
@@ -164,6 +171,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $handler->copyBlock(1, 2)
@@ -187,6 +195,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $handler->copyBlock(1, 3)
@@ -210,6 +219,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'some_param' => 'some_value',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             $handler->moveBlock(1, 3)

@@ -106,6 +106,7 @@ class UpdateBlockTypeTest extends TypeTestCase
                 'css_class' => 'Some CSS class',
             ),
             'view_type' => 'large',
+            'name' => 'My block',
         );
 
         $block = new Block(
@@ -121,6 +122,7 @@ class UpdateBlockTypeTest extends TypeTestCase
         $updatedFormData->updateStruct = clone $formData->updateStruct;
 
         $updatedFormData->updateStruct->viewType = 'large';
+        $updatedFormData->updateStruct->name = 'My block';
         $updatedFormData->updateStruct->setParameter('css_id', 'Some CSS ID');
         $updatedFormData->updateStruct->setParameter('css_class', 'Some CSS class');
 

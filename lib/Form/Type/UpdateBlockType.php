@@ -107,5 +107,14 @@ class UpdateBlockType extends AbstractType
                 'property_path' => 'updateStruct.viewType',
             )
         );
+
+        $builder->add(
+            'name',
+            'text',
+            array(
+                'label' => 'Name',
+                'property_path' => 'updateStruct.name',
+            )
+        );
     }
 }

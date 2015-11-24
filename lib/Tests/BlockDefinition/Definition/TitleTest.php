@@ -29,6 +29,16 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getName
+     */
+    public function testGetName()
+    {
+        $blockDefinition = new Title();
+
+        self::assertEquals('Title', $blockDefinition->getName());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getParameters
      */
     public function testGetParameters()

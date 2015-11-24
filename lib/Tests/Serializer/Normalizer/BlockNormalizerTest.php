@@ -9,23 +9,11 @@ use Netgen\BlockManager\Tests\API\Stubs\Value;
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
     {
-        $config = array(
-            'name' => 'Paragraph',
-        );
-
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
-        $configuration
-            ->expects($this->any())
-            ->method('getBlockConfig')
-            ->with($this->equalTo('paragraph'))
-            ->will($this->returnValue($config));
-
-        $blockNormalizer = new BlockNormalizer($configuration);
+        $blockNormalizer = new BlockNormalizer();
 
         $block = new Block(
             array(
@@ -37,6 +25,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                     'some_other_param' => 'some_other_value',
                 ),
                 'viewType' => 'default',
+                'name' => 'My block',
             )
         );
 
@@ -44,7 +33,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
             array(
                 'id' => $block->getId(),
                 'definition_identifier' => $block->getDefinitionIdentifier(),
-                'name' => $config['name'],
+                'name' => $block->getName(),
                 'zone_id' => $block->getZoneId(),
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
@@ -62,8 +51,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
-        $blockNormalizer = new BlockNormalizer($configuration);
+        $blockNormalizer = new BlockNormalizer();
         self::assertEquals($expected, $blockNormalizer->supportsNormalization($data));
     }
 

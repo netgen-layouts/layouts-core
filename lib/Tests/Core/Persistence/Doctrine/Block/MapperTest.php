@@ -19,6 +19,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => 'paragraph',
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
+                'name' => 'My block',
             ),
             array(
                 'id' => 84,
@@ -26,6 +27,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => 'title',
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
+                'name' => 'My other block',
             ),
         );
 
@@ -39,6 +41,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                         'param1' => 'param2',
                     ),
                     'viewType' => 'default',
+                    'name' => 'My block',
                 )
             ),
             new Block(
@@ -50,6 +53,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                         'param1' => 42,
                     ),
                     'viewType' => 'small',
+                    'name' => 'My other block',
                 )
             ),
         );

@@ -27,6 +27,7 @@ class Mapper
                         json_decode($dataItem['parameters'], true) :
                         array(),
                     'viewType' => $dataItem['view_type'],
+                    'name' => $dataItem['name'],
                 )
             );
         }

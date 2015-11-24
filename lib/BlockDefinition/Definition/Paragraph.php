@@ -20,6 +20,16 @@ class Paragraph extends BlockDefinition
     }
 
     /**
+     * Returns block definition human readable name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Paragraph';
+    }
+
+    /**
      * Returns the array specifying block parameters.
      *
      * @return \Netgen\BlockManager\BlockDefinition\Parameter[]
