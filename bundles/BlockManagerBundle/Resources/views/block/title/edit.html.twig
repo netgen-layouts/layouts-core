@@ -1,7 +1,6 @@
 {% set form_action = path('netgen_block_manager_api_v1_edit_block', { 'blockId': block.id }) %}
-{% set block_config = ngbm.configuration.blockConfig(block.definitionIdentifier) %}
 
-<p>Editing "{{ block_config.name }}" block</p>
+<p>Editing "{{ block.name }}" block</p>
 
 <form action="{{ form_action }}" method="post" novalidate="novalidate">
     {{ form_widget(form) }}
