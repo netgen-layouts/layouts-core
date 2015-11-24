@@ -29,7 +29,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getName
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getName
      */
     public function testGetName()
     {
