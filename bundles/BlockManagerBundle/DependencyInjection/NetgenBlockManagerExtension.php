@@ -84,7 +84,9 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $this->loadConfigFiles($container);
 
         foreach ($config as $key => $value) {
-            $container->setParameter($extensionAlias . '.' . $key, $value);
+            if ($key !== 'system') {
+                $container->setParameter($extensionAlias . '.' . $key, $value);
+            }
         }
     }
 
