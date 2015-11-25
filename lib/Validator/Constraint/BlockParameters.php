@@ -19,6 +19,11 @@ class BlockParameters extends Constraint
     /**
      * @var string
      */
+    public $excessParameterMessage = 'Parameter "%parameter%" does not exist in block definition.';
+
+    /**
+     * @var string
+     */
     public $definitionIdentifier;
 
     /**

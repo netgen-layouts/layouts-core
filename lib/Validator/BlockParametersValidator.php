@@ -46,9 +46,20 @@ class BlockParametersValidator extends ConstraintValidator
             $constraint->definitionIdentifier
         );
 
+        $blockDefinitionParameters = $blockDefinition->getParameters();
         $parameterConstraints = $blockDefinition->getParameterConstraints();
 
-        foreach ($blockDefinition->getParameters() as $parameterIdentifier => $parameter) {
+        foreach ($value as $parameterName => $parameterValue) {
+            if (!isset($blockDefinitionParameters[$parameterName])) {
+                $this->context->buildViolation($constraint->excessParameterMessage)
+                    ->setParameter('%parameter%', $parameterName)
+                    ->setInvalidValue($parameterValue)
+                    ->atPath($parameterName)
+                    ->addViolation();
+            }
+        }
+
+        foreach ($blockDefinitionParameters as $parameterIdentifier => $parameter) {
             if (!is_array($parameterConstraints[$parameterIdentifier])) {
                 continue;
             }
