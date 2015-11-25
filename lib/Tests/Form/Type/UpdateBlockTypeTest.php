@@ -64,6 +64,12 @@ class UpdateBlockTypeTest extends TypeTestCase
             ->will($this->returnValue(new ConstraintViolationList()));
 
         $this->factory = Forms::createFormFactoryBuilder()
+            ->addType(
+                new UpdateBlockType(
+                    $this->blockDefinitionRegistry,
+                    $this->configuration
+                )
+            )
             ->addExtensions($this->getExtensions())
             ->addTypeExtension(new FormTypeValidatorExtension($validator))
             ->getFormFactory();
@@ -99,10 +105,7 @@ class UpdateBlockTypeTest extends TypeTestCase
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
-            new UpdateBlockType(
-                $this->blockDefinitionRegistry,
-                $this->configuration
-            ),
+            'Netgen\BlockManager\Form\Type\UpdateBlockType',
             $blockUpdateStruct,
             array('block' => $block)
         );
