@@ -108,6 +108,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $prependConfigs = array(
             'blocks.yml',
             'block_groups.yml',
+            'block_types.yml',
             'layouts.yml',
             'view/block_view.yml',
             'view/layout_view.yml',

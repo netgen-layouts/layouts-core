@@ -65,6 +65,7 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('block_view'),
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getBlocksNodeDefinition(),
+            $this->getBlockTypesNodeDefinition(),
             $this->getBlockGroupsNodeDefinition(),
             $this->getLayoutsNodeDefinition(),
             $this->getPagelayoutNodeDefinition(),
@@ -134,6 +135,57 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')
                                     ->isRequired()
                                     ->cannotBeEmpty()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for block types.
+     *
+     * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    protected function getBlockTypesNodeDefinition($nodeName = 'block_types')
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName);
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('identifier')
+            ->prototype('array')
+                ->children()
+                    ->scalarNode('type_name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->arrayNode('defaults')
+                        ->isRequired()
+                        ->children()
+                            ->scalarNode('name')
+                                ->defaultValue('')
+                            ->end()
+                            ->scalarNode('view_type')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('definition_identifier')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->arrayNode('parameters')
+                                ->defaultValue(array())
+                                ->performNoDeepMerging()
+                                ->requiresAtLeastOneElement()
+                                ->useAttributeAsKey('parameter')
+                                ->prototype('variable')
                                 ->end()
                             ->end()
                         ->end()
