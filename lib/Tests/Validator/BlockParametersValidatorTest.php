@@ -25,7 +25,7 @@ class BlockParametersValidatorTest extends ValidatorTest
             ->will($this->returnValue($blockDefinition));
 
         $this->validatorMock
-            ->expects($this->any())
+            ->expects($this->once())
             ->method('validate')
             ->with($this->equalTo('CSS ID'), $this->equalTo(array(new NotBlank())))
             ->will($this->returnValue(new ConstraintViolationList()));
