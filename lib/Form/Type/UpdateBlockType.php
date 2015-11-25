@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Form\Type;
 
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Form\Data\UpdateBlockData;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use RuntimeException;
@@ -36,22 +36,27 @@ class UpdateBlockType extends AbstractType
     }
 
     /**
+     * Configures the options for this type.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options.
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired('block');
+        $resolver->setAllowedTypes('block', 'Netgen\BlockManager\API\Values\Page\Block');
+        $resolver->setAllowedTypes('data', 'Netgen\BlockManager\API\Values\BlockUpdateStruct');
+    }
+
+    /**
      * Builds the form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
      * @param array $options The options
-     *
-     * @throws \RuntimeException If form data is not of expected type
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $formData = $options['data'];
-        if (!$formData instanceof UpdateBlockData) {
-            throw new RuntimeException('Form data must be an instance of UpdateBlockData class.');
-        }
-
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $formData->block->getDefinitionIdentifier()
+            $options['block']->getDefinitionIdentifier()
         );
 
         $blockConfig = $this->configuration->getBlockConfig(
@@ -69,7 +74,7 @@ class UpdateBlockType extends AbstractType
             array(
                 'label' => 'View type',
                 'choices' => $choices,
-                'property_path' => 'updateStruct.viewType',
+                'property_path' => 'viewType',
             )
         );
 
@@ -78,7 +83,7 @@ class UpdateBlockType extends AbstractType
             'Symfony\Component\Form\Extension\Core\Type\TextType',
             array(
                 'label' => 'Name',
-                'property_path' => 'updateStruct.name',
+                'property_path' => 'name',
                 // null and empty string have different meanings for name
                 // so we set the default value to a single space (instead of
                 // an empty string) because of
@@ -109,7 +114,7 @@ class UpdateBlockType extends AbstractType
                     'label' => isset($parameterNames[$parameterIdentifier]) ?
                         $parameterNames[$parameterIdentifier] :
                         null,
-                    'property_path' => 'updateStruct.parameters[' . $parameterIdentifier . ']',
+                    'property_path' => 'parameters[' . $parameterIdentifier . ']',
                     'constraints' => $parameterConstraints[$parameterIdentifier] !== false ?
                         $parameterConstraints[$parameterIdentifier] :
                         null,

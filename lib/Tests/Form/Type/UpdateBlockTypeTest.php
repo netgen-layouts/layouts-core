@@ -6,7 +6,6 @@ use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Form\Type\UpdateBlockType;
-use Netgen\BlockManager\Form\Data\UpdateBlockData;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -92,28 +91,26 @@ class UpdateBlockTypeTest extends TypeTestCase
         );
 
         $blockUpdateStruct = new BlockUpdateStruct();
-        $formData = new UpdateBlockData($block, $blockUpdateStruct);
 
-        $updatedFormData = clone $formData;
-        $updatedFormData->updateStruct = clone $formData->updateStruct;
-
-        $updatedFormData->updateStruct->viewType = 'large';
-        $updatedFormData->updateStruct->name = 'My block';
-        $updatedFormData->updateStruct->setParameter('css_id', 'Some CSS ID');
-        $updatedFormData->updateStruct->setParameter('css_class', 'Some CSS class');
+        $updatedStruct = new BlockUpdateStruct();
+        $updatedStruct->viewType = 'large';
+        $updatedStruct->name = 'My block';
+        $updatedStruct->setParameter('css_id', 'Some CSS ID');
+        $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
             new UpdateBlockType(
                 $this->blockDefinitionRegistry,
                 $this->configuration
             ),
-            $formData
+            $blockUpdateStruct,
+            array('block' => $block)
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($updatedFormData, $form->getData());
+        $this->assertEquals($updatedStruct, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;
@@ -125,20 +122,5 @@ class UpdateBlockTypeTest extends TypeTestCase
         foreach (array_keys($submittedData['parameters']) as $key) {
             self::assertArrayHasKey($key, $children['parameters']);
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::buildForm
-     * @expectedException \RuntimeException
-     */
-    public function testBuildFormWithInvalidData()
-    {
-        $form = $this->factory->create(
-            new UpdateBlockType(
-                $this->blockDefinitionRegistry,
-                $this->configuration
-            ),
-            array()
-        );
     }
 }

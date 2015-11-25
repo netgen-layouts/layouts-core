@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Netgen\BlockManager\Form\Data\UpdateBlockData;
 use Netgen\BlockManager\API\Values\Page\Block;
 
 class BlockController extends Controller
@@ -79,7 +78,8 @@ class BlockController extends Controller
 
         $form = $this->createForm(
             'Netgen\BlockManager\Form\Type\UpdateBlockType',
-            new UpdateBlockData($block, $updateStruct)
+            $updateStruct,
+            array('block' => $block)
         );
 
         $form->handleRequest($request);
@@ -97,7 +97,7 @@ class BlockController extends Controller
         }
 
         $blockService = $this->get('netgen_block_manager.api.service.block');
-        $updatedBlock = $blockService->updateBlock($block, $form->getData()->updateStruct);
+        $updatedBlock = $blockService->updateBlock($block, $form->getData());
 
         return $this->redirectToRoute(
             'netgen_block_manager_api_v1_load_block',
