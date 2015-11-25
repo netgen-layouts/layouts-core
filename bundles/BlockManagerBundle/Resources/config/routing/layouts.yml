@@ -1,0 +1,5 @@
+netgen_block_manager_layouts_create_layout:
+    path: /{identifier}/{name}
+    defaults:
+        _controller: ngbm_layout:create
+
