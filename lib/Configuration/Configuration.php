@@ -30,6 +30,29 @@ abstract class Configuration implements ConfigurationInterface
     }
 
     /**
+     * Returns the configuration for specified block type.
+     *
+     * @param string $identifier
+     *
+     * @return array
+     */
+    public function getBlockTypeConfig($identifier)
+    {
+        $blockTypeConfig = $this->getParameter('block_types');
+
+        if (!isset($blockTypeConfig[$identifier])) {
+            throw new RuntimeException(
+                sprintf(
+                    'Configuration for "%s" block type does not exist.',
+                    $identifier
+                )
+            );
+        }
+
+        return $blockTypeConfig[$identifier];
+    }
+
+    /**
      * Returns the configuration for specified layout.
      *
      * @param string $layoutIdentifier

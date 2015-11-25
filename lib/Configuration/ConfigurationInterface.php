@@ -36,6 +36,15 @@ interface ConfigurationInterface
     public function getBlockConfig($definitionIdentifier);
 
     /**
+     * Returns the configuration for specified block type.
+     *
+     * @param string $identifier
+     *
+     * @return array
+     */
+    public function getBlockTypeConfig($identifier);
+
+    /**
      * Returns the configuration for specified layout.
      *
      * @param string $layoutIdentifier

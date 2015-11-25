@@ -35,6 +35,12 @@ class Configuration extends BaseConfiguration
             );
         }
 
+        if ($parameterName == 'block_types') {
+            return array(
+                'some_block_type' => array('type_name' => 'Some block type'),
+            );
+        }
+
         if ($parameterName == 'layouts') {
             return array(
                 'some_layout' => array('name' => 'Some layout'),

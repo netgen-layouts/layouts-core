@@ -30,6 +30,29 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockTypeConfig
+     */
+    public function testGetBlockTypeConfig()
+    {
+        $configuration = new Configuration();
+
+        self::assertEquals(
+            array('type_name' => 'Some block type'),
+            $configuration->getBlockTypeConfig('some_block_type')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockTypeConfig
+     * @expectedException \RuntimeException
+     */
+    public function testGetBlockTypeConfigThrowsRuntimeException()
+    {
+        $configuration = new Configuration();
+        $configuration->getBlockTypeConfig('some_other_block_type');
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getLayoutConfig
      */
     public function testGetLayoutConfig()
