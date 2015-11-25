@@ -123,10 +123,8 @@ class Handler implements BlockHandlerInterface
     public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct)
     {
         $block = $this->loadBlock($blockId);
-        $blockParameters = $blockUpdateStruct->getParameters();
 
         $query = $this->connection->createQueryBuilder();
-
         $query
             ->update('ngbm_block')
             ->set('view_type', ':view_type')
@@ -138,11 +136,7 @@ class Handler implements BlockHandlerInterface
             ->setParameter('block_id', $block->id, Type::INTEGER)
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
-            ->setParameter(
-                'parameters',
-                $blockParameters !== null ? $blockParameters : $block->parameters,
-                Type::JSON_ARRAY
-            );
+            ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY);
 
         $query->execute();
 
