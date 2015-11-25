@@ -71,21 +71,7 @@ class UpdateBlockTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::buildForm
-     * @expectedException \RuntimeException
-     */
-    public function testBuildFormWithInvalidData()
-    {
-        $form = $this->factory->create(
-            new UpdateBlockType(
-                $this->blockDefinitionRegistry,
-                $this->configuration
-            ),
-            array()
-        );
-    }
-
-    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::__construct
      * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::buildForm
      */
     public function testSubmitValidData()
@@ -139,5 +125,20 @@ class UpdateBlockTypeTest extends TypeTestCase
         foreach (array_keys($submittedData['parameters']) as $key) {
             self::assertArrayHasKey($key, $children['parameters']);
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::buildForm
+     * @expectedException \RuntimeException
+     */
+    public function testBuildFormWithInvalidData()
+    {
+        $form = $this->factory->create(
+            new UpdateBlockType(
+                $this->blockDefinitionRegistry,
+                $this->configuration
+            ),
+            array()
+        );
     }
 }
