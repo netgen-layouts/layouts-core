@@ -33,7 +33,7 @@ class Text extends Parameter
      */
     public function getFormType()
     {
-        return 'text';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 
     /**

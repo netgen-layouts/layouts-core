@@ -75,7 +75,7 @@ class UpdateBlockType extends AbstractType
 
         $builder->add(
             'view_type',
-            'choice',
+            'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
             array(
                 'label' => 'View type',
                 'choices' => $choices,
@@ -85,7 +85,7 @@ class UpdateBlockType extends AbstractType
 
         $builder->add(
             'name',
-            'text',
+            'Symfony\Component\Form\Extension\Core\Type\TextType',
             array(
                 'label' => 'Name',
                 'property_path' => 'updateStruct.name',
@@ -98,7 +98,14 @@ class UpdateBlockType extends AbstractType
         );
 
         // We're grouping block parameters so they don't conflict with forms from block itself
-        $parameterBuilder = $builder->create('parameters', 'form', array('label' => 'Parameters', 'inherit_data' => true));
+        $parameterBuilder = $builder->create(
+            'parameters',
+            'Symfony\Component\Form\Extension\Core\Type\FormType',
+            array(
+                'label' => 'Parameters',
+                'inherit_data' => true
+            )
+        );
 
         $parameters = $blockDefinition->getParameters();
         $parameterNames = $blockDefinition->getParameterNames();

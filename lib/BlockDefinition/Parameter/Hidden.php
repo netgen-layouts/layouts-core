@@ -33,7 +33,7 @@ class Hidden extends Parameter
      */
     public function getFormType()
     {
-        return 'hidden';
+        return 'Symfony\Component\Form\Extension\Core\Type\HiddenType';
     }
 
     /**

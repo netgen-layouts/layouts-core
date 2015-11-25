@@ -33,7 +33,7 @@ class TextArea extends Parameter
      */
     public function getFormType()
     {
-        return 'textarea';
+        return 'Symfony\Component\Form\Extension\Core\Type\TextareaType';
     }
 
     /**

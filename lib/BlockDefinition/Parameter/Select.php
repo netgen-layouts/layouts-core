@@ -53,7 +53,7 @@ class Select extends Parameter
      */
     public function getFormType()
     {
-        return 'choice';
+        return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }
 
     /**
