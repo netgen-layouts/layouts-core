@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\BlockDefinition;
 
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
 use Netgen\BlockManager\BlockDefinition\Parameter;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,7 +49,7 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'css_id' => false,
+                'css_id' => array(new NotBlank()),
                 'css_class' => false,
             ),
             $blockDefinition->getParameterConstraints()

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\BlockDefinition\Stubs;
 
 use Netgen\BlockManager\BlockDefinition\BlockDefinition as BaseBlockDefinition;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BlockDefinition extends BaseBlockDefinition
 {
@@ -37,5 +38,18 @@ class BlockDefinition extends BaseBlockDefinition
     public function getValues(Block $block)
     {
         return array();
+    }
+
+    /**
+     * Returns the array specifying block parameter validator constraints.
+     *
+     * @return array
+     */
+    public function getParameterConstraints()
+    {
+        return array(
+            'css_id' => array(new NotBlank()),
+            'css_class' => false,
+        );
     }
 }
