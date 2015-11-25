@@ -44,6 +44,13 @@ interface BlockDefinitionInterface
     public function getParameterConstraints();
 
     /**
+     * Returns the array with default parameter values.
+     *
+     * @return array
+     */
+    public function getDefaultParameterValues();
+
+    /**
      * Returns the array of values provided by this block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
