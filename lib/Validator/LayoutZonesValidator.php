@@ -56,5 +56,13 @@ class LayoutZonesValidator extends ConstraintValidator
                     ->addViolation();
             }
         }
+
+        foreach ($layoutConfig[$constraint->layoutIdentifier]['zones'] as $zoneIdentifier => $zone) {
+            if (!in_array($zoneIdentifier, $value)) {
+                $this->context->buildViolation($constraint->zoneMissingMessage)
+                    ->setParameter('%zoneIdentifier%', $zoneIdentifier)
+                    ->addViolation();
+            }
+        }
     }
 }

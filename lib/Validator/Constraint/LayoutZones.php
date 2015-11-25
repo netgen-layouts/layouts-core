@@ -19,6 +19,11 @@ class LayoutZones extends Constraint
     /**
      * @var string
      */
+    public $zoneMissingMessage = 'Zone "%zoneIdentifier%" is missing.';
+
+    /**
+     * @var string
+     */
     public $layoutMissingMessage = 'Layout "%layoutIdentifier%" does not exist.';
 
     /**
