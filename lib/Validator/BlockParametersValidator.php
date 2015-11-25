@@ -59,31 +59,31 @@ class BlockParametersValidator extends ConstraintValidator
             }
         }
 
-        foreach ($blockDefinitionParameters as $parameterIdentifier => $parameter) {
-            if (!is_array($parameterConstraints[$parameterIdentifier])) {
+        foreach ($blockDefinitionParameters as $parameterName => $parameter) {
+            if (!is_array($parameterConstraints[$parameterName])) {
                 continue;
             }
 
-            if (!isset($value[$parameterIdentifier])) {
+            if (!isset($value[$parameterName])) {
                 $this->context->buildViolation($constraint->missingParameterMessage)
-                    ->setParameter('%parameter%', $parameterIdentifier)
+                    ->setParameter('%parameter%', $parameterName)
                     ->setInvalidValue(null)
-                    ->atPath($parameterIdentifier)
+                    ->atPath($parameterName)
                     ->addViolation();
 
                 continue;
             }
 
             $violations = $this->validator->validate(
-                $value[$parameterIdentifier],
-                $parameterConstraints[$parameterIdentifier]
+                $value[$parameterName],
+                $parameterConstraints[$parameterName]
             );
 
             foreach ($violations as $violation) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('%whatIsWrong%', $violation->getMessage())
-                    ->setInvalidValue($value[$parameterIdentifier])
-                    ->atPath($parameterIdentifier)
+                    ->setInvalidValue($value[$parameterName])
+                    ->atPath($parameterName)
                     ->addViolation();
             }
         }
