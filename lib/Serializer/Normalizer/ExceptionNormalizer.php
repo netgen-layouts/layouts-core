@@ -49,10 +49,15 @@ class ExceptionNormalizer implements NormalizerInterface
         }
 
         if ($this->outputDebugInfo) {
+            $debugException = $object;
+            if ($object->getPrevious() instanceof Exception) {
+                $debugException = $object->getPrevious();
+            }
+
             $data['debug'] = array(
-                'file' => $object->getFile(),
-                'line' => $object->getLine(),
-                'trace' => $object->getTraceAsString(),
+                'file' => $debugException->getFile(),
+                'line' => $debugException->getLine(),
+                'trace' => $debugException->getTrace(),
             );
         }
 
