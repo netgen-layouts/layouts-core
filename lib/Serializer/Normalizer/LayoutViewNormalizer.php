@@ -90,14 +90,11 @@ class LayoutViewNormalizer extends LayoutNormalizer
             $allowedBlocks = true;
             $zoneIdentifier = $zone->getIdentifier();
 
-            if (!isset($layoutConfig['zones'][$zoneIdentifier])) {
-                continue;
-            }
-
-            $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
-
-            if (!empty($zoneConfig['allowed_blocks'])) {
-                $allowedBlocks = $zoneConfig['allowed_blocks'];
+            if (isset($layoutConfig['zones'][$zoneIdentifier])) {
+                $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
+                if (!empty($zoneConfig['allowed_blocks'])) {
+                    $allowedBlocks = $zoneConfig['allowed_blocks'];
+                }
             }
 
             $zones[] = array(
@@ -143,15 +140,10 @@ class LayoutViewNormalizer extends LayoutNormalizer
     {
         $positions = array();
         $layout = $layoutView->getLayout();
-        $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
 
         foreach ($layout->getZones() as $zone) {
             $blocksInZone = array();
             $zoneIdentifier = $zone->getIdentifier();
-
-            if (!isset($layoutConfig['zones'][$zoneIdentifier])) {
-                continue;
-            }
 
             if (!empty($layoutView->getParameters()['blocks'][$zoneIdentifier])) {
                 foreach ($layoutView->getParameters()['blocks'][$zoneIdentifier] as $block) {
