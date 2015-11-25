@@ -93,7 +93,7 @@ class UpdateBlockType extends AbstractType
             'Symfony\Component\Form\Extension\Core\Type\FormType',
             array(
                 'label' => 'Parameters',
-                'inherit_data' => true
+                'inherit_data' => true,
             )
         );
 
