@@ -13,6 +13,14 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     use TestCase;
 
     /**
+     * Sets up the tests.
+     */
+    public function setUp()
+    {
+        $this->prepareHandlers();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::__construct
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayout
      */

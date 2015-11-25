@@ -7,4 +7,14 @@ use Netgen\BlockManager\Tests\Core\Service\BlockServiceTest as BaseBlockServiceT
 class BlockServiceTest extends BaseBlockServiceTest
 {
     use TestCase;
+
+    /**
+     * Sets up the tests.
+     */
+    public function setUp()
+    {
+        $this->prepareHandlers();
+
+        parent::setUp();
+    }
 }

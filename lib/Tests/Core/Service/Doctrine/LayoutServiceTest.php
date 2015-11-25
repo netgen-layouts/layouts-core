@@ -7,4 +7,14 @@ use Netgen\BlockManager\Tests\Core\Service\LayoutServiceTest as BaseLayoutServic
 class LayoutServiceTest extends BaseLayoutServiceTest
 {
     use TestCase;
+
+    /**
+     * Sets up the tests.
+     */
+    public function setUp()
+    {
+        $this->prepareHandlers();
+
+        parent::setUp();
+    }
 }

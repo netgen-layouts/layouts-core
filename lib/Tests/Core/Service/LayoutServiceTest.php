@@ -9,6 +9,30 @@ use Netgen\BlockManager\API\Exception\NotFoundException;
 abstract class LayoutServiceTest extends ServiceTest
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockValidatorMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutValidatorMock;
+
+    /**
+     * Sets up the tests.
+     */
+    public function setUp()
+    {
+        $this->blockValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\BlockValidator')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->layoutValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\LayoutValidator')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::buildDomainLayoutObject
@@ -17,7 +41,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayout()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $layout = $layoutService->loadLayout(1);
 
@@ -68,7 +92,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayoutThrowsInvalidArgumentExceptionOnInvalidId()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $layoutService->loadLayout(42.24);
     }
 
@@ -78,7 +102,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayoutThrowsInvalidArgumentExceptionOnEmptyId()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $layoutService->loadLayout('');
     }
 
@@ -88,7 +112,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $layoutService->loadLayout(PHP_INT_MAX);
     }
 
@@ -97,7 +121,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZone()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         self::assertEquals(
             new Zone(
@@ -117,7 +141,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZoneThrowsInvalidArgumentExceptionOnInvalidId()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $layoutService->loadZone(42.24);
     }
 
@@ -127,7 +151,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZoneThrowsInvalidArgumentExceptionOnEmptyId()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $layoutService->loadZone('');
     }
 
@@ -137,7 +161,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZoneThrowsNotFoundException()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $layoutService->loadZone(PHP_INT_MAX);
     }
 
@@ -146,7 +170,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayout()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
             '3_zones_a',
@@ -202,7 +226,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayoutWithParentId()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
             '3_zones_a',
@@ -258,95 +282,11 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnInvalidIdentifier()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct(42, array('left'), 'New layout');
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyIdentifier()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('', array('left'), 'New layout');
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnInvalidName()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'), 42);
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyName()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('3_zones_a', array('left'), '');
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyZoneIdentifiers()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array(), 'New layout');
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnInvalidZoneIdentifier()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', 42), 'New layout');
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutZoneThrowsInvalidArgumentExceptionOnEmptyZoneIdentifier()
-    {
-        $layoutService = $this->createLayoutService();
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct('new_layout', array('left', ''), 'New layout');
-        $layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $layout = $layoutService->loadLayout(1);
         $copiedLayout = $layoutService->copyLayout($layout);
@@ -397,8 +337,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testDeleteLayout()
     {
-        $layoutService = $this->createLayoutService();
-        $blockService = $this->createBlockService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
 
         $layout = $layoutService->loadLayout(1);
 
@@ -435,7 +375,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testNewLayoutCreateStruct()
     {
-        $layoutService = $this->createLayoutService();
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         self::assertEquals(
             new LayoutCreateStruct(
