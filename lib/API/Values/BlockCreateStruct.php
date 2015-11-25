@@ -40,4 +40,24 @@ abstract class BlockCreateStruct extends Value
      * @return array
      */
     abstract public function getParameters();
+
+    /**
+     * Returns the parameter with provided identifier.
+     *
+     * @param string $parameterName
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If parameter does not exist
+     *
+     * @return mixed
+     */
+    abstract public function getParameter($parameterName);
+
+    /**
+     * Returns if the struct has a parameter with provided identifier.
+     *
+     * @param string $parameterName
+     *
+     * @return bool
+     */
+    abstract public function hasParameter($parameterName);
 }

@@ -97,4 +97,49 @@ class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(array('some_param' => 'new_value'), $blockUpdateStruct->getParameters());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameter
+     */
+    public function testGetParameter()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->setParameter('some_param', 'some_value');
+
+        self::assertEquals('some_value', $blockUpdateStruct->getParameter('some_param'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameter
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testGetParameterThrowsInvalidArgumentException()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->setParameter('some_param', 'some_value');
+
+        $blockUpdateStruct->getParameter('some_other_param');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::hasParameter
+     */
+    public function testHasParameter()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->setParameter('some_param', 'some_value');
+
+        self::assertEquals(true, $blockUpdateStruct->hasParameter('some_param'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::hasParameter
+     */
+    public function testHasParameterWithNoParameter()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->setParameter('some_param', 'some_value');
+
+        self::assertEquals(false, $blockUpdateStruct->hasParameter('some_other_param'));
+    }
 }

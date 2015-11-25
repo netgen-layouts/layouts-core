@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values;
 
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 
 class BlockUpdateStruct extends APIBlockUpdateStruct
@@ -40,5 +41,39 @@ class BlockUpdateStruct extends APIBlockUpdateStruct
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * Returns the parameter with provided identifier.
+     *
+     * @param string $parameterName
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If parameter does not exist
+     *
+     * @return mixed
+     */
+    public function getParameter($parameterName)
+    {
+        if (!$this->hasParameter($parameterName)) {
+            throw new InvalidArgumentException(
+                'parameterName',
+                $parameterName,
+                'Parameter does not exist in the struct.'
+            );
+        }
+
+        return $this->parameters[$parameterName];
+    }
+
+    /**
+     * Returns if the struct has a parameter with provided identifier.
+     *
+     * @param string $parameterName
+     *
+     * @return bool
+     */
+    public function hasParameter($parameterName)
+    {
+        return isset($this->parameters[$parameterName]);
     }
 }
