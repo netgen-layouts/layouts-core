@@ -40,7 +40,6 @@ abstract class Validator
 
             throw new InvalidArgumentException(
                 $propertyPath !== null ? $propertyPath : $violation->getPropertyPath(),
-                $violation->getInvalidValue(),
                 $violation->getMessage()
             );
         }

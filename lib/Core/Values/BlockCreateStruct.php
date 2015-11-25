@@ -57,7 +57,6 @@ class BlockCreateStruct extends APIBlockCreateStruct
         if (!$this->hasParameter($parameterName)) {
             throw new InvalidArgumentException(
                 'parameterName',
-                $parameterName,
                 'Parameter does not exist in the struct.'
             );
         }

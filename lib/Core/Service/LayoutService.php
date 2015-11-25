@@ -51,11 +51,11 @@ class LayoutService implements LayoutServiceInterface
     public function loadLayout($layoutId)
     {
         if (!is_int($layoutId) && !is_string($layoutId)) {
-            throw new InvalidArgumentException('layoutId', $layoutId, 'Value must be an integer or a string.');
+            throw new InvalidArgumentException('layoutId', 'Value must be an integer or a string.');
         }
 
         if (empty($layoutId)) {
-            throw new InvalidArgumentException('layoutId', $layoutId, 'Value must not be empty.');
+            throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
         }
 
         $layout = $this->handler->loadLayout($layoutId);
@@ -77,11 +77,11 @@ class LayoutService implements LayoutServiceInterface
     public function loadZone($zoneId)
     {
         if (!is_int($zoneId) && !is_string($zoneId)) {
-            throw new InvalidArgumentException('zoneId', $zoneId, 'Value must be an integer or a string.');
+            throw new InvalidArgumentException('zoneId', 'Value must be an integer or a string.');
         }
 
         if (empty($zoneId)) {
-            throw new InvalidArgumentException('zoneId', $zoneId, 'Value must not be empty.');
+            throw new InvalidArgumentException('zoneId', 'Value must not be empty.');
         }
 
         return $this->buildDomainZoneObject(

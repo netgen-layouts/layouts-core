@@ -64,11 +64,11 @@ class BlockService implements BlockServiceInterface
     public function loadBlock($blockId)
     {
         if (!is_int($blockId) && !is_string($blockId)) {
-            throw new InvalidArgumentException('blockId', $blockId, 'Value must be an integer or a string.');
+            throw new InvalidArgumentException('blockId', 'Value must be an integer or a string.');
         }
 
         if (empty($blockId)) {
-            throw new InvalidArgumentException('blockId', $blockId, 'Value must not be empty.');
+            throw new InvalidArgumentException('blockId', 'Value must not be empty.');
         }
 
         return $this->buildDomainBlockObject(
@@ -182,7 +182,6 @@ class BlockService implements BlockServiceInterface
             if ($zone->getLayoutId() !== $originalZone->getLayoutId()) {
                 throw new InvalidArgumentException(
                     'zone->layoutId',
-                    $zone->getLayoutId(),
                     'Block cannot be copied to a different layout.'
                 );
             }
@@ -213,7 +212,6 @@ class BlockService implements BlockServiceInterface
         if ($zone->getLayoutId() !== $originalZone->getLayoutId()) {
             throw new InvalidArgumentException(
                 'zone->layoutId',
-                $zone->getLayoutId(),
                 'Block cannot be moved to a different layout.'
             );
         }
@@ -221,7 +219,6 @@ class BlockService implements BlockServiceInterface
         if ($block->getZoneId() === $zone->getId()) {
             throw new InvalidArgumentException(
                 'zone->id',
-                $zone->getId(),
                 'Block is already in specified zone.'
             );
         }

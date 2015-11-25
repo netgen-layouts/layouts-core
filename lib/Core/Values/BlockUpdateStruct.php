@@ -57,7 +57,6 @@ class BlockUpdateStruct extends APIBlockUpdateStruct
         if (!$this->hasParameter($parameterName)) {
             throw new InvalidArgumentException(
                 'parameterName',
-                $parameterName,
                 'Parameter does not exist in the struct.'
             );
         }
