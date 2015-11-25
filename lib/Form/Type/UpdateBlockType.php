@@ -124,4 +124,30 @@ class UpdateBlockType extends AbstractType
 
         $builder->add($parameterBuilder);
     }
+
+    /**
+     * Returns the name of this type.
+     *
+     * @return string The name of this type
+     *
+     * @deprecated Deprecated since Symfony 2.8, to be removed in Symfony 3.0.
+     *             Implemented in order not to trigger deprecation notices in Symfony <= 2.7
+     */
+   public function getName()
+   {
+       return $this->getBlockPrefix();
+   }
+
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * The block prefixes default to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+     *
+     * @return string The prefix of the template block name
+     */
+   public function getBlockPrefix()
+   {
+       return 'block_update';
+   }
 }

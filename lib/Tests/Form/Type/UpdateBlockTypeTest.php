@@ -126,4 +126,30 @@ class UpdateBlockTypeTest extends TypeTestCase
             self::assertArrayHasKey($key, $children['parameters']);
         }
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::getName
+     */
+    public function testGetName()
+    {
+        $formType = new UpdateBlockType(
+            $this->blockDefinitionRegistry,
+            $this->configuration
+        );
+
+        self::assertEquals('block_update', $formType->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::getBlockPrefix
+     */
+    public function testGetBlockPrefix()
+    {
+        $formType = new UpdateBlockType(
+            $this->blockDefinitionRegistry,
+            $this->configuration
+        );
+
+        self::assertEquals('block_update', $formType->getBlockPrefix());
+    }
 }
