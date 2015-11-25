@@ -152,6 +152,12 @@ class BlockService implements BlockServiceInterface
             $blockUpdateStruct->name = $block->getName();
         }
 
+        // Merging the existing parameter array and those to be updated.
+        // Excess parameters should be handled by validation.
+        $blockUpdateStruct->setParameters(
+            $blockUpdateStruct->getParameters() + $block->getParameters()
+        );
+
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
         $updatedBlock = $this->blockHandler->updateBlock($block->getId(), $blockUpdateStruct);
 

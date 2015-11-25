@@ -275,6 +275,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'zoneId' => 2,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
+                        'some_param' => 'some_value',
                         'test_param' => 'test_value',
                         'some_other_test_param' => 'some_other_test_value',
                     ),
@@ -315,6 +316,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'zoneId' => 2,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
+                        'some_param' => 'some_value',
                         'test_param' => 'test_value',
                         'some_other_test_param' => 'some_other_test_value',
                     ),
@@ -355,6 +357,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'zoneId' => 2,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
+                        'some_param' => 'some_value',
                         'test_param' => 'test_value',
                         'some_other_test_param' => 'some_other_test_value',
                     ),
