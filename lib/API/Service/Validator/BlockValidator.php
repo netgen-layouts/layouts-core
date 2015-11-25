@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 interface BlockValidator
 {
     /**
-     * Validates block create struct
+     * Validates block create struct.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      *
@@ -18,7 +18,7 @@ interface BlockValidator
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct);
 
     /**
-     * Validates block update struct
+     * Validates block update struct.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct

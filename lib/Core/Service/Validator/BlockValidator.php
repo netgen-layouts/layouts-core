@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints;
 class BlockValidator extends Validator implements BlockValidatorInterface
 {
     /**
-     * Validates block create struct
+     * Validates block create struct.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      *
@@ -59,7 +59,7 @@ class BlockValidator extends Validator implements BlockValidatorInterface
     }
 
     /**
-     * Validates block update struct
+     * Validates block update struct.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct

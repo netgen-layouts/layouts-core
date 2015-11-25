@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 class LayoutValidator extends Validator implements LayoutValidatorInterface
 {
     /**
-     * Validates layout create struct
+     * Validates layout create struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *

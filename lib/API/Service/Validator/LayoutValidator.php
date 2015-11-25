@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 interface LayoutValidator
 {
     /**
-     * Validates layout create struct
+     * Validates layout create struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *

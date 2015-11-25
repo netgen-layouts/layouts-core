@@ -23,7 +23,7 @@ abstract class Validator
     }
 
     /**
-     * Validates the value against a set of provided constraints
+     * Validates the value against a set of provided constraints.
      *
      * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint[] $constraints
