@@ -292,7 +292,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      */
-    public function testUpdateBlockWithBlankNAme()
+    public function testUpdateBlockWithBlankName()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
 
