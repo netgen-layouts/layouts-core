@@ -6,6 +6,7 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer;
+use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use DateTime;
@@ -56,8 +57,12 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $normalizedBlock = array(
+        $blockView = new BlockView();
+        $blockView->setBlock($block);
+
+        $normalizedBlockView = array(
             'id' => 24,
+            'html' => 'rendered block'
         );
 
         $layoutView = new LayoutView();
@@ -87,16 +92,23 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('3_zones_a'))
             ->will($this->returnValue($config));
 
-        $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
+        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
+        $viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->with($this->equalTo($block))
+            ->will($this->returnValue($blockView));
+
+        $blockViewNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $blockNormalizerMock
+        $blockViewNormalizerMock
             ->expects($this->once())
             ->method('normalize')
-            ->with($this->equalTo($block))
-            ->will($this->returnValue($normalizedBlock));
+            ->with($this->equalTo($blockView))
+            ->will($this->returnValue($normalizedBlockView));
 
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
         $viewRendererMock
@@ -105,7 +117,12 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($layoutView))
             ->will($this->returnValue('rendered layout view'));
 
-        $layoutViewNormalizer = new LayoutViewNormalizer($configuration, $blockNormalizerMock, $viewRendererMock);
+        $layoutViewNormalizer = new LayoutViewNormalizer(
+            $configuration,
+            $viewBuilderMock,
+            $blockViewNormalizerMock,
+            $viewRendererMock
+        );
 
         self::assertEquals(
             array(
@@ -126,7 +143,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                         'allowed_blocks' => array('paragraph'),
                     ),
                 ),
-                'blocks' => array($normalizedBlock),
+                'blocks' => array($normalizedBlockView),
                 'positions' => array(
                     array(
                         'zone' => 'left',
@@ -157,14 +174,21 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
 
-        $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
+        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
+
+        $blockViewNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer')
             ->disableOriginalConstructor()
             ->getMock();
 
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
 
-        $layoutViewNormalizer = new LayoutViewNormalizer($configuration, $blockNormalizerMock, $viewRendererMock);
+        $layoutViewNormalizer = new LayoutViewNormalizer(
+            $configuration,
+            $viewBuilderMock,
+            $blockViewNormalizerMock,
+            $viewRendererMock
+        );
 
         self::assertEquals($expected, $layoutViewNormalizer->supportsNormalization($data));
     }

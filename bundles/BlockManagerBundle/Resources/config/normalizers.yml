@@ -27,7 +27,8 @@ services:
         class: %netgen_block_manager.normalizer.layout_view.class%
         arguments:
             - "@netgen_block_manager.configuration"
-            - "@netgen_block_manager.normalizer.block"
+            - "@netgen_block_manager.view.builder"
+            - "@netgen_block_manager.normalizer.block_view"
             - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }

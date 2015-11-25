@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 
@@ -15,9 +16,14 @@ class LayoutViewNormalizer extends LayoutNormalizer
     protected $configuration;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer
+     * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
-    protected $blockNormalizer;
+    protected $viewBuilder;
+
+    /**
+     * @var \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer
+     */
+    protected $blockViewNormalizer;
 
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface
@@ -28,13 +34,19 @@ class LayoutViewNormalizer extends LayoutNormalizer
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
-     * @param \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer $blockNormalizer
+     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
+     * @param \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer $blockViewNormalizer
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
-    public function __construct(ConfigurationInterface $configuration, BlockNormalizer $blockNormalizer, ViewRendererInterface $viewRenderer)
-    {
+    public function __construct(
+        ConfigurationInterface $configuration,
+        ViewBuilderInterface $viewBuilder,
+        BlockViewNormalizer $blockViewNormalizer,
+        ViewRendererInterface $viewRenderer
+    ) {
         $this->configuration = $configuration;
-        $this->blockNormalizer = $blockNormalizer;
+        $this->viewBuilder = $viewBuilder;
+        $this->blockViewNormalizer = $blockViewNormalizer;
         $this->viewRenderer = $viewRenderer;
     }
 
@@ -123,7 +135,9 @@ class LayoutViewNormalizer extends LayoutNormalizer
 
         $normalizedBlocks = array();
         foreach ($blocks as $block) {
-            $normalizedBlocks[] = $this->blockNormalizer->normalize($block);
+            $normalizedBlocks[] = $this->blockViewNormalizer->normalize(
+                $this->viewBuilder->buildView($block)
+            );
         }
 
         return $normalizedBlocks;
