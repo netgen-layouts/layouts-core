@@ -36,16 +36,6 @@ class UpdateBlockType extends AbstractType
     }
 
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'ngbm_update_block';
-    }
-
-    /**
      * Builds the form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder

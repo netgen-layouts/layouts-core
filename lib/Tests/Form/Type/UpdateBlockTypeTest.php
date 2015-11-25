@@ -71,16 +71,6 @@ class UpdateBlockTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::__construct
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::getName
-     */
-    public function testGetName()
-    {
-        $form = new UpdateBlockType($this->blockDefinitionRegistry, $this->configuration);
-        self::assertEquals('ngbm_update_block', $form->getName());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::buildForm
      * @expectedException \RuntimeException
      */

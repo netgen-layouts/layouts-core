@@ -70,13 +70,8 @@ class BlockController extends Controller
         $updateStruct->viewType = $block->getViewType();
         $updateStruct->name = $block->getName();
 
-        $formName = 'ngbm_update_block';
-        if ($this->get('form.registry')->hasType('ngbm_update_block_' . $block->getDefinitionIdentifier())) {
-            $formName = 'ngbm_update_block_' . $block->getDefinitionIdentifier();
-        }
-
         $form = $this->createForm(
-            $formName,
+            'Netgen\BlockManager\Form\Type\UpdateBlockType',
             new UpdateBlockData($block, $updateStruct)
         );
 
