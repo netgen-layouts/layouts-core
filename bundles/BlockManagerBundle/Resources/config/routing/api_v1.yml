@@ -1,6 +1,5 @@
 netgen_block_manager_api_v1_create_block:
-    path: /blocks/{definitionIdentifier}/{viewType}/{zoneId}
-    methods: [PUT]
+    path: /blocks/{identifier}/{zoneId}
     defaults:
         _controller: netgen_block_manager.controller.api.block:create
 
@@ -17,7 +16,7 @@ netgen_block_manager_api_v1_edit_block:
         _controller: netgen_block_manager.controller.api.block:edit
 
 netgen_block_manager_api_v1_delete_block:
-    path: /blocks/{blockId}
+    path: /blocks/{blockId}/delete
     methods: [DELETE]
     defaults:
         _controller: netgen_block_manager.controller.api.block:delete
