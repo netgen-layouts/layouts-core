@@ -43,6 +43,9 @@ class LayoutZonesValidator extends ConstraintValidator
         }
 
         if (!is_array($value)) {
+            $this->context->buildViolation($constraint->zonesInvalidMessage)
+                ->addViolation();
+
             return;
         }
 
