@@ -31,7 +31,6 @@ class PagelayoutConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testPagelayoutSettings()
     {
-        $this->markTestSkipped('Fails for unknown reason. Bug in matthiasnoback/symfony-config-test maybe?');
         $config = array(
             array(
                 'pagelayout' => 'pagelayout.html.twig',
