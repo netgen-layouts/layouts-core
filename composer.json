@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "symfony/symfony": "^2.5",
+        "symfony/symfony": "^2.7",
         "sensio/framework-extra-bundle": "^3.0",
         "doctrine/dbal": "^2.5",
         "twig/twig": "^1.23|^2.0"
