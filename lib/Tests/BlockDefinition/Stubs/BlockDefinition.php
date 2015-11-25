@@ -47,9 +47,9 @@ class BlockDefinition extends BaseBlockDefinition
      */
     public function getParameterConstraints()
     {
-        return array(
-            'css_id' => array(new NotBlank()),
-            'css_class' => false,
-        );
+        $constraints = parent::getParameterConstraints();
+        $constraints['css_id'] = array(new NotBlank());
+
+        return $constraints;
     }
 }
