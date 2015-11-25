@@ -24,24 +24,31 @@ class BlockController extends Controller
     }
 
     /**
-     * Creates the block.
+     * Creates the block from specified block type.
      *
-     * @param string $definitionIdentifier
-     * @param string $viewType
+     * @param string $identifier
      * @param int|string $zoneId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create($definitionIdentifier, $viewType, $zoneId)
+    public function create($identifier, $zoneId)
     {
         $blockService = $this->get('netgen_block_manager.api.service.block');
         $layoutService = $this->get('netgen_block_manager.api.service.layout');
-        $blockDefinition = $this->getBlockDefinition($definitionIdentifier);
+        $configuration = $this->get('netgen_block_manager.configuration');
 
-        $blockCreateStruct = $blockService->newBlockCreateStruct($definitionIdentifier, $viewType);
-        foreach ($blockDefinition->getParameters() as $parameterIdentifier => $parameter) {
-            $blockCreateStruct->setParameter($parameterIdentifier, $parameter->getDefaultValue());
-        }
+        $defaultValues = $configuration->getBlockTypeConfig($identifier)['defaults'];
+        $blockDefinition = $this->getBlockDefinition($defaultValues['definition_identifier']);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct(
+            $defaultValues['definition_identifier'],
+            $defaultValues['view_type']
+        );
+
+        $blockCreateStruct->name = $defaultValues['name'];
+        $blockCreateStruct->setParameters(
+            $defaultValues['parameters'] + $blockDefinition->getDefaultParameterValues()
+        );
 
         $createdBlock = $blockService->createBlock(
             $blockCreateStruct,
