@@ -72,7 +72,7 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
                             ),
                         )
                     ),
-                    new LayoutZones(),
+                    new LayoutZones(array('layoutIdentifier' => '3_zones_a')),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));

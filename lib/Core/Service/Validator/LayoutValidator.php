@@ -51,7 +51,7 @@ class LayoutValidator extends Validator implements LayoutValidatorInterface
                         ),
                     )
                 ),
-                new LayoutZones(),
+                new LayoutZones(array('layoutIdentifier' => $layoutCreateStruct->identifier)),
             ),
             'zoneIdentifiers'
         );
