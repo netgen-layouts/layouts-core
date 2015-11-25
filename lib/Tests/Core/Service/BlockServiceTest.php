@@ -211,6 +211,44 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     */
+    public function testCreateBlockWithBlankName()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateBlockCreateStruct')
+            ->with($this->equalTo($blockCreateStruct));
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'zoneId' => 1,
+                    'definitionIdentifier' => 'new_block',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                        'some_other_param' => 'some_other_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => '',
+                )
+            ),
+            $blockService->createBlock(
+                $blockCreateStruct,
+                $layoutService->loadZone(1)
+            )
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlock()
@@ -241,6 +279,86 @@ abstract class BlockServiceTest extends ServiceTest
                         'some_other_test_param' => 'some_other_test_value',
                     ),
                     'viewType' => 'small',
+                    'name' => 'Super cool block',
+                )
+            ),
+            $blockService->updateBlock(
+                $block,
+                $blockUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     */
+    public function testUpdateBlockWithBlankNAme()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+
+        $block = $blockService->loadBlock(1);
+
+        $blockUpdateStruct = $blockService->newBlockUpdateStruct();
+        $blockUpdateStruct->viewType = 'small';
+        $blockUpdateStruct->setParameter('test_param', 'test_value');
+        $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
+
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateBlockUpdateStruct')
+            ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'zoneId' => 2,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'test_param' => 'test_value',
+                        'some_other_test_param' => 'some_other_test_value',
+                    ),
+                    'viewType' => 'small',
+                    'name' => 'My block',
+                )
+            ),
+            $blockService->updateBlock(
+                $block,
+                $blockUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     */
+    public function testUpdateBlockWithBlankViewType()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+
+        $block = $blockService->loadBlock(1);
+
+        $blockUpdateStruct = $blockService->newBlockUpdateStruct();
+        $blockUpdateStruct->name = 'Super cool block';
+        $blockUpdateStruct->setParameter('test_param', 'test_value');
+        $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
+
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateBlockUpdateStruct')
+            ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'zoneId' => 2,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'test_param' => 'test_value',
+                        'some_other_test_param' => 'some_other_test_value',
+                    ),
+                    'viewType' => 'default',
                     'name' => 'Super cool block',
                 )
             ),
