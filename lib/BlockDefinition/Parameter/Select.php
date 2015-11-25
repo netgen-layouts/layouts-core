@@ -31,23 +31,18 @@ class Select extends Parameter
         );
 
         $optionsResolver->setRequired(array('multiple', 'options'));
-        $optionsResolver->setAllowedTypes(
-            array(
-                'multiple' => 'bool',
-                'options' => 'array',
-            )
-        );
+        $optionsResolver->setAllowedTypes('multiple', 'bool');
+        $optionsResolver->setAllowedTypes('options', 'array');
 
         $optionsResolver->setAllowedValues(
-            array(
-                'options' => function (array $value) {
-                    if (empty($value) || isset($value[0])) {
-                        return false;
-                    }
+            'options',
+            function (array $value) {
+                if (empty($value) || isset($value[0])) {
+                    return false;
+                }
 
-                    return true;
-                },
-            )
+                return true;
+            }
         );
     }
 
