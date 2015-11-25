@@ -54,7 +54,7 @@ class BlockParametersValidator extends ConstraintValidator
                 $this->context->buildViolation($constraint->excessParameterMessage)
                     ->setParameter('%parameter%', $parameterName)
                     ->setInvalidValue($parameterValue)
-                    ->atPath($parameterName)
+                    ->atPath('parameters.' . $parameterName)
                     ->addViolation();
             }
         }
@@ -68,7 +68,7 @@ class BlockParametersValidator extends ConstraintValidator
                 $this->context->buildViolation($constraint->missingParameterMessage)
                     ->setParameter('%parameter%', $parameterName)
                     ->setInvalidValue(null)
-                    ->atPath($parameterName)
+                    ->atPath('parameters.' . $parameterName)
                     ->addViolation();
 
                 continue;
@@ -83,7 +83,7 @@ class BlockParametersValidator extends ConstraintValidator
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('%whatIsWrong%', $violation->getMessage())
                     ->setInvalidValue($value[$parameterName])
-                    ->atPath($parameterName)
+                    ->atPath('parameters.' . $parameterName)
                     ->addViolation();
             }
         }
