@@ -70,7 +70,7 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
             array(
                 array(
                     'zone' => 'zone1',
-                    'blocks' => array(array('block_id' => 24))
+                    'blocks' => array(24)
                 ),
                 array(
                     'zone' => 'zone2',

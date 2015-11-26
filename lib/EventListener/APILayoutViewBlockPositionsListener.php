@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\EventListener;
 
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\LayoutViewInterface;
@@ -36,16 +37,14 @@ class APILayoutViewBlockPositionsListener implements EventSubscriberInterface
         $positions = array();
 
         foreach ($view->getLayout()->getZones() as $zone) {
-            $blocksInZone = array();
-
-            foreach ($zone->getBlocks() as $block) {
-                /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-                $blocksInZone[] = array('block_id' => $block->getId());
-            }
-
             $positions[] = array(
                 'zone' => $zone->getIdentifier(),
-                'blocks' => $blocksInZone,
+                'blocks' => array_map(
+                    function(Block $block) {
+                        return $block->getId();
+                    },
+                    $zone->getBlocks()
+                ),
             );
         }
 
