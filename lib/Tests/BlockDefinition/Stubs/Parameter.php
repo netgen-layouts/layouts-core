@@ -8,16 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class Parameter extends BaseParameter
 {
     /**
-     * Returns the parameter type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return 'stub';
-    }
-
-    /**
      * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver

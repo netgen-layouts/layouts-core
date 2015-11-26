@@ -23,7 +23,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         $parameter = $this->getParameter($attributes);
 
-        self::assertEquals('select', $parameter->getType());
         self::assertEquals(
             'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
             $parameter->getFormType()

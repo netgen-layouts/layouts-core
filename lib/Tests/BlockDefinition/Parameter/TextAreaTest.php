@@ -16,7 +16,6 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     {
         $parameter = $this->getParameter(array());
 
-        self::assertEquals('textarea', $parameter->getType());
         self::assertEquals(array(), $parameter->mapFormTypeOptions());
         self::assertEquals(
             'Symfony\Component\Form\Extension\Core\Type\TextareaType',

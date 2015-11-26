@@ -8,16 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class Text extends Parameter
 {
     /**
-     * Returns the parameter type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return 'text';
-    }
-
-    /**
      * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver

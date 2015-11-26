@@ -8,16 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class Select extends Parameter
 {
     /**
-     * Returns the parameter type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return 'select';
-    }
-
-    /**
      * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver

@@ -52,13 +52,6 @@ abstract class Parameter
     }
 
     /**
-     * Returns the parameter type.
-     *
-     * @return string
-     */
-    abstract public function getType();
-
-    /**
      * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
