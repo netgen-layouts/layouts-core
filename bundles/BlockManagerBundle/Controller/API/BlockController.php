@@ -71,13 +71,17 @@ class BlockController extends Controller
     public function edit(Request $request, Block $block)
     {
         $blockService = $this->get('netgen_block_manager.api.service.block');
+        $configuration = $this->get('netgen_block_manager.configuration');
+
+        $blockConfig = $configuration->getBlockConfig($block->getDefinitionIdentifier());
+
         $updateStruct = $blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
         $updateStruct->viewType = $block->getViewType();
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            'block_update',
+            $blockConfig['forms']['edit'],
             $updateStruct,
             array('block' => $block)
         );
