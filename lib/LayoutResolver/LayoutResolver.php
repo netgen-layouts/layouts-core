@@ -74,7 +74,7 @@ class LayoutResolver implements LayoutResolverInterface
         }
 
         foreach ($rules as $rule) {
-            if (empty($rule->conditions) || $this->matchConditions($rule->conditions)) {
+            if ($this->matchConditions($rule->conditions)) {
                 return $rule;
             }
         }
