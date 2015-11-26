@@ -136,7 +136,7 @@ class LayoutViewNormalizer extends LayoutNormalizer
         $normalizedBlocks = array();
         foreach ($blocks as $block) {
             $normalizedBlocks[] = $this->blockViewNormalizer->normalize(
-                $this->viewBuilder->buildView($block)
+                $this->viewBuilder->buildView($block, array(), $layoutView->getContext())
             );
         }
 
