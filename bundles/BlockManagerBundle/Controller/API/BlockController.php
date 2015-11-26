@@ -87,16 +87,13 @@ class BlockController extends Controller
         if (!$form->isSubmitted() || !$form->isValid()) {
             $blockView = $this->buildViewObject(
                 $block,
-                array(
-                    'form' => $form->createView(),
-                ),
+                array('form' => $form->createView()),
                 'edit'
             );
 
             return $this->renderViewObject($blockView);
         }
 
-        $blockService = $this->get('netgen_block_manager.api.service.block');
         $updatedBlock = $blockService->updateBlock($block, $form->getData());
 
         return $this->redirectToRoute(
