@@ -37,7 +37,8 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
         $exceptionNormalizer = new ExceptionNormalizer();
         $exceptionNormalizer->setOutputDebugInfo(true);
 
-        $exception = new Exception('Exception message', 123);
+        $previousException = new Exception('Previous exception', 321);
+        $exception = new Exception('Exception message', 123, $previousException);
         $data = $exceptionNormalizer->normalize($exception);
 
         self::assertInternalType('array', $data);

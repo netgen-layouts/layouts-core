@@ -7,6 +7,7 @@ use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Form\Type\UpdateBlockType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
@@ -125,6 +126,95 @@ class UpdateBlockTypeTest extends TypeTestCase
         foreach (array_keys($submittedData['parameters']) as $key) {
             self::assertArrayHasKey($key, $children['parameters']);
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     */
+    public function testConfigureOptions()
+    {
+        $formType = new UpdateBlockType(
+            $this->blockDefinitionRegistry,
+            $this->configuration
+        );
+
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'block' => new Block(),
+                'data' => new BlockUpdateStruct(),
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     */
+    public function testConfigureOptionsWithMissingBlock()
+    {
+        $formType = new UpdateBlockType(
+            $this->blockDefinitionRegistry,
+            $this->configuration
+        );
+
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testConfigureOptionsWithInvalidBlock()
+    {
+        $formType = new UpdateBlockType(
+            $this->blockDefinitionRegistry,
+            $this->configuration
+        );
+
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'block' => '',
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testConfigureOptionsWithInvalidData()
+    {
+        $formType = new UpdateBlockType(
+            $this->blockDefinitionRegistry,
+            $this->configuration
+        );
+
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'block' => new Block(),
+                'data' => '',
+            )
+        );
     }
 
     /**
