@@ -10,23 +10,13 @@ use Netgen\BlockManager\Tests\API\Stubs\Value;
 class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::__construct
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::provideView
      */
     public function testProvideView()
     {
         $layout = new Layout(array('id' => 42));
 
-        $blockServiceMock = $this
-            ->getMock('Netgen\BlockManager\API\Service\BlockService');
-
-        $layoutBlocks = array(new Block(array('id' => 42)));
-        $blockServiceMock
-            ->expects($this->once())
-            ->method('loadLayoutBlocks')
-            ->will($this->returnValue($layoutBlocks));
-
-        $layoutViewProvider = new LayoutViewProvider($blockServiceMock);
+        $layoutViewProvider = new LayoutViewProvider();
 
         /** @var \Netgen\BlockManager\View\LayoutViewInterface $view */
         $view = $layoutViewProvider->provideView($layout);
@@ -38,7 +28,6 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'layout' => $layout,
-                'blocks' => $layoutBlocks,
             ),
             $view->getParameters()
         );
@@ -53,10 +42,7 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupports($value, $supports)
     {
-        $blockServiceMock = $this
-            ->getMock('Netgen\BlockManager\API\Service\BlockService');
-
-        $layoutViewProvider = new LayoutViewProvider($blockServiceMock);
+        $layoutViewProvider = new LayoutViewProvider();
         self::assertEquals($supports, $layoutViewProvider->supports($value));
     }
 

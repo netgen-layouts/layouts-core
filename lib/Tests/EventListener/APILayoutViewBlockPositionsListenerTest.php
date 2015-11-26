@@ -30,40 +30,35 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
      */
     public function testOnBuildView()
     {
-        $layout = new Layout(
-            array(
-                'identifier' => 'layout',
-                'zones' => array(
-                    new Zone(
-                        array(
-                            'identifier' => 'zone1'
-                        )
-                    ),
-                    new Zone(
-                        array(
-                            'identifier' => 'zone2'
-                        )
-                    )
-                )
-            )
-        );
-
         $block = new Block(
             array(
                 'id' => 24,
             )
         );
 
+        $layout = new Layout(
+            array(
+                'identifier' => 'layout',
+                'zones' => array(
+                    new Zone(
+                        array(
+                            'identifier' => 'zone1',
+                            'blocks' => array($block)
+                        )
+                    ),
+                    new Zone(
+                        array(
+                            'identifier' => 'zone2',
+                            'blocks' => array()
+                        )
+                    )
+                )
+            )
+        );
+
         $layoutView = new LayoutView();
         $layoutView->setContext('api');
         $layoutView->setLayout($layout);
-        $layoutView->addParameters(
-            array(
-                'blocks' => array(
-                    'zone1' => array($block),
-                ),
-            )
-        );
 
         $event = new CollectViewParametersEvent($layoutView, array());
 

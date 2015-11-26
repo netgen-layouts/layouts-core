@@ -24,4 +24,11 @@ interface Zone
      * @return string
      */
     public function getIdentifier();
+
+    /**
+     * Returns zone blocks.
+     *
+     * @return string
+     */
+    public function getBlocks();
 }

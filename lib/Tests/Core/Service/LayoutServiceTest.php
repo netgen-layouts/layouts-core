@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 
@@ -65,6 +66,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 1,
                         'layoutId' => $layout->getId(),
                         'identifier' => 'top_left',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -72,6 +74,32 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 2,
                         'layoutId' => $layout->getId(),
                         'identifier' => 'top_right',
+                        'blocks' => array(
+                            new Block(
+                                array(
+                                    'id' => 1,
+                                    'zoneId' => 2,
+                                    'definitionIdentifier' => 'paragraph',
+                                    'parameters' => array(
+                                        'some_param' => 'some_value',
+                                    ),
+                                    'viewType' => 'default',
+                                    'name' => 'My block',
+                                )
+                            ),
+                            new Block(
+                                array(
+                                    'id' => 2,
+                                    'zoneId' => 2,
+                                    'definitionIdentifier' => 'title',
+                                    'parameters' => array(
+                                        'other_param' => 'other_value',
+                                    ),
+                                    'viewType' => 'small',
+                                    'name' => 'My other block',
+                                )
+                            ),
+                        ),
                     )
                 ),
                 new Zone(
@@ -79,6 +107,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 3,
                         'layoutId' => $layout->getId(),
                         'identifier' => 'bottom',
+                        'blocks' => array(),
                     )
                 ),
             ),
@@ -129,6 +158,7 @@ abstract class LayoutServiceTest extends ServiceTest
                     'id' => 1,
                     'layoutId' => 1,
                     'identifier' => 'top_left',
+                    'blocks' => array(),
                 )
             ),
             $layoutService->loadZone(1)
@@ -200,6 +230,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 7,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'left',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -207,6 +238,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 8,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'right',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -214,6 +246,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 9,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'bottom',
+                        'blocks' => array(),
                     )
                 ),
             ),
@@ -260,6 +293,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 7,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'left',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -267,6 +301,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 8,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'right',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -274,6 +309,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 9,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'bottom',
+                        'blocks' => array(),
                     )
                 ),
             ),
@@ -311,6 +347,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 7,
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'top_left',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -318,6 +355,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 8,
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'top_right',
+                        'blocks' => array(),
                     )
                 ),
                 new Zone(
@@ -325,6 +363,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 9,
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'bottom',
+                        'blocks' => array(),
                     )
                 ),
             ),

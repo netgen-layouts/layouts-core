@@ -10,21 +10,6 @@ use Netgen\BlockManager\View\LayoutView;
 class LayoutViewProvider implements ViewProviderInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    protected $blockService;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     */
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
-
-    /**
      * Provides the view.
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
@@ -37,12 +22,6 @@ class LayoutViewProvider implements ViewProviderInterface
         $layoutView = new LayoutView();
 
         $layoutView->setLayout($value);
-
-        $layoutView->addParameters(
-            array(
-                'blocks' => $this->blockService->loadLayoutBlocks($value),
-            )
-        );
 
         return $layoutView;
     }

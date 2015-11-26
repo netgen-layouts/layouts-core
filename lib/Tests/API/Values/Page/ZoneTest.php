@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\API\Values;
 
+use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 
 class ZoneTest extends \PHPUnit_Framework_TestCase
@@ -11,6 +12,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
      */
     public function testSetDefaultProperties()
     {
@@ -19,6 +21,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
         self::assertNull($zone->getId());
         self::assertNull($zone->getLayoutId());
         self::assertNull($zone->getIdentifier());
+        self::assertEquals(array(), $zone->getBlocks());
     }
 
     /**
@@ -26,6 +29,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
      */
     public function testSetProperties()
     {
@@ -34,11 +38,15 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'layoutId' => 84,
                 'identifier' => 'top_left',
+                'blocks' => array(
+                    new Block()
+                )
             )
         );
 
         self::assertEquals(42, $zone->getId());
         self::assertEquals(84, $zone->getLayoutId());
         self::assertEquals('top_left', $zone->getIdentifier());
+        self::assertEquals(array(new Block()), $zone->getBlocks());
     }
 }

@@ -34,22 +34,17 @@ class APILayoutViewBlockPositionsListener implements EventSubscriberInterface
         }
 
         $positions = array();
-        $layout = $view->getLayout();
 
-        foreach ($layout->getZones() as $zone) {
+        foreach ($view->getLayout()->getZones() as $zone) {
             $blocksInZone = array();
-            $zoneIdentifier = $zone->getIdentifier();
-            $layoutBlocks = $view->getParameter('blocks');
 
-            if (!empty($layoutBlocks[$zoneIdentifier])) {
-                foreach ($layoutBlocks[$zoneIdentifier] as $block) {
-                    /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-                    $blocksInZone[] = array('block_id' => $block->getId());
-                }
+            foreach ($zone->getBlocks() as $block) {
+                /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
+                $blocksInZone[] = array('block_id' => $block->getId());
             }
 
             $positions[] = array(
-                'zone' => $zoneIdentifier,
+                'zone' => $zone->getIdentifier(),
                 'blocks' => $blocksInZone,
             );
         }

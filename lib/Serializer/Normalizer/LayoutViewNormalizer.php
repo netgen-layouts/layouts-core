@@ -86,10 +86,9 @@ class LayoutViewNormalizer extends LayoutNormalizer
     protected function normalizeBlocks(LayoutViewInterface $layoutView)
     {
         $blocks = array();
-        $layoutBlocks = $layoutView->getParameter('blocks');
 
-        foreach ($layoutBlocks as $zoneIdentifier => $zoneBlocks) {
-            $blocks = array_merge($blocks, $zoneBlocks);
+        foreach ($layoutView->getLayout()->getZones() as $zone) {
+            $blocks = array_merge($blocks, $zone->getBlocks());
         }
 
         $normalizedBlocks = array();

@@ -23,6 +23,11 @@ class Zone extends Value implements ZoneInterface
     protected $identifier;
 
     /**
+     * @var string
+     */
+    protected $blocks = array();
+
+    /**
      * Returns the zone ID.
      *
      * @return int|string
@@ -50,5 +55,15 @@ class Zone extends Value implements ZoneInterface
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns zone blocks.
+     *
+     * @return string
+     */
+    public function getBlocks()
+    {
+        return $this->blocks;
     }
 }

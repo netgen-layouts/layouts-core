@@ -10,7 +10,5 @@ services:
 
     netgen_block_manager.view.provider.layout:
         class: %netgen_block_manager.view.provider.layout.class%
-        arguments:
-            - "@netgen_block_manager.api.service.block"
         tags:
             - { name: netgen_block_manager.view.provider }

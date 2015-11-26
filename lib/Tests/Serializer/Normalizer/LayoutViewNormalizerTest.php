@@ -23,6 +23,12 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
 
+        $block = new Block(
+            array(
+                'id' => 24,
+            )
+        );
+
         $layout = new Layout(
             array(
                 'id' => 42,
@@ -30,12 +36,14 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                 'identifier' => '3_zones_a',
                 'created' => $currentDate,
                 'modified' => $currentDate,
-            )
-        );
-
-        $block = new Block(
-            array(
-                'id' => 24,
+                'zones' => array(
+                    new Zone(
+                        array(
+                            'identifier' => 'left',
+                            'blocks' => array($block)
+                        )
+                    )
+                )
             )
         );
 
@@ -49,13 +57,6 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $layoutView = new LayoutView();
         $layoutView->setLayout($layout);
-        $layoutView->addParameters(
-            array(
-                'blocks' => array(
-                    'left' => array($block),
-                ),
-            )
-        );
 
         $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
         $viewBuilderMock

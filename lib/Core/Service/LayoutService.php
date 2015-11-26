@@ -210,11 +210,14 @@ class LayoutService implements LayoutServiceInterface
      */
     protected function buildDomainZoneObject(PersistenceZone $persistenceZone)
     {
+        $tempZone = new Zone(array('id' => $persistenceZone->id));
+
         $zone = new Zone(
             array(
                 'id' => $persistenceZone->id,
                 'layoutId' => $persistenceZone->layoutId,
                 'identifier' => $persistenceZone->identifier,
+                'blocks' => $this->blockService->loadZoneBlocks($tempZone)
             )
         );
 
