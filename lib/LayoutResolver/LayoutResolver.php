@@ -93,7 +93,7 @@ class LayoutResolver implements LayoutResolverInterface
     {
         foreach ($conditions as $condition) {
             $conditionMatcher = $this->conditionMatcherRegistry->getConditionMatcher($condition->identifier);
-            if (!$conditionMatcher->matches($condition->valueIdentifier, $condition->values)) {
+            if (!$conditionMatcher->matches($condition->parameters)) {
                 return false;
             }
         }

@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\LayoutResolver\Stubs;
 
 use Netgen\BlockManager\LayoutResolver\ConditionMatcher\ConditionMatcherInterface;
-use Netgen\BlockManager\LayoutResolver\Target\TargetInterface;
 
 class ConditionMatcher implements ConditionMatcherInterface
 {
@@ -13,20 +12,13 @@ class ConditionMatcher implements ConditionMatcherInterface
     protected $matches = true;
 
     /**
-     * @var bool
-     */
-    protected $supports = true;
-
-    /**
      * Constructor.
      *
      * @param bool $matches
-     * @param bool $supports
      */
-    public function __construct($matches = true, $supports = true)
+    public function __construct($matches = true)
     {
         $this->matches = $matches;
-        $this->supports = $supports;
     }
 
     /**
@@ -40,27 +32,14 @@ class ConditionMatcher implements ConditionMatcherInterface
     }
 
     /**
-     * Returns if this condition matches provided value identifier and values.
+     * Returns if this condition matches provided parameters.
      *
-     * @param string $valueIdentifier
-     * @param array $values
+     * @param array $parameters
      *
      * @return bool
      */
-    public function matches($valueIdentifier, array $values)
+    public function matches(array $parameters)
     {
         return $this->matches;
-    }
-
-    /**
-     * Returns if this condition supports the given target.
-     *
-     * @param \Netgen\BlockManager\LayoutResolver\Target\TargetInterface
-     *
-     * @return bool
-     */
-    public function supports(TargetInterface $target)
-    {
-        return $this->supports;
     }
 }

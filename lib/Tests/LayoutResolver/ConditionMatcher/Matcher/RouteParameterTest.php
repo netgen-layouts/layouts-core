@@ -42,18 +42,17 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
      *
-     * @param string $valueIdentifier
-     * @param array $values
+     * @param array $parameters
      * @param bool $matches
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches($valueIdentifier, array $values, $matches)
+    public function testMatches(array $parameters, $matches)
     {
         $conditionMatcher = new RouteParameter();
         $conditionMatcher->setRequestStack($this->requestStack);
 
-        self::assertEquals($matches, $conditionMatcher->matches($valueIdentifier, $values));
+        self::assertEquals($matches, $conditionMatcher->matches($parameters));
     }
 
     /**
@@ -64,21 +63,24 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     public function matchesProvider()
     {
         return array(
-            array(null, array(42), false),
-            array(null, array(24), false),
-            array(null, array(42, 24), false),
-            array(null, array(24, 42), false),
-            array(null, array(24, 25), false),
-            array('the_answer', array(42), true),
-            array('the_answer', array(24), false),
-            array('the_answer', array(42, 24), true),
-            array('the_answer', array(24, 42), true),
-            array('the_answer', array(24, 25), false),
-            array('the_other_answer', array(42), false),
-            array('the_other_answer', array(24), false),
-            array('the_other_answer', array(42, 24), false),
-            array('the_other_answer', array(24, 42), false),
-            array('the_other_answer', array(24, 25), false),
+            array(array('parameter_name' => null, 'parameter_values' => array()), false),
+            array(array('parameter_name' => null, 'parameter_values' => array(42)), false),
+            array(array('parameter_name' => null, 'parameter_values' => array(24)), false),
+            array(array('parameter_name' => null, 'parameter_values' => array(42, 24)), false),
+            array(array('parameter_name' => null, 'parameter_values' => array(24, 42)), false),
+            array(array('parameter_name' => null, 'parameter_values' => array(24, 25)), false),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array()), false),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(42)), true),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24)), false),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(42, 24)), true),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24, 42)), true),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24, 25)), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array()), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(42)), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24)), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(42, 24)), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 42)), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 25)), false),
         );
     }
 
@@ -93,28 +95,6 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
         $conditionMatcher = new RouteParameter();
         $conditionMatcher->setRequestStack($this->requestStack);
 
-        self::assertEquals(false, $conditionMatcher->matches('identifier', array(42)));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
-     */
-    public function testMatchesWithEmptyIdentifier()
-    {
-        $conditionMatcher = new RouteParameter();
-        $conditionMatcher->setRequestStack($this->requestStack);
-
-        self::assertEquals(false, $conditionMatcher->matches('', array(42)));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter::matches
-     */
-    public function testMatchesWithEmptyValues()
-    {
-        $conditionMatcher = new RouteParameter();
-        $conditionMatcher->setRequestStack($this->requestStack);
-
-        self::assertEquals(false, $conditionMatcher->matches('identifier', array()));
+        self::assertEquals(false, $conditionMatcher->matches(array()));
     }
 }

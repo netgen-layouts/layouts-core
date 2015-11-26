@@ -189,7 +189,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
         $conditions = array();
         $matchFailed = false;
         foreach ($matches as $index => $match) {
-            $conditions[] = new Condition('condition', 'value_identifier', array('value'));
+            $conditions[] = new Condition('condition', array('value'));
 
             if (!$matchFailed) {
                 $this->conditionMatcherRegistryMock

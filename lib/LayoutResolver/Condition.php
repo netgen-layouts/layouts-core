@@ -10,26 +10,19 @@ class Condition
     public $identifier;
 
     /**
-     * @var string
-     */
-    public $valueIdentifier;
-
-    /**
      * @var array
      */
-    public $values;
+    public $parameters;
 
     /**
      * Constructor.
      *
      * @param string $identifier
-     * @param string $valueIdentifier
-     * @param array $values
+     * @param array $parameters
      */
-    public function __construct($identifier, $valueIdentifier, array $values)
+    public function __construct($identifier, array $parameters)
     {
         $this->identifier = $identifier;
-        $this->valueIdentifier = $valueIdentifier;
-        $this->values = $values;
+        $this->parameters = $parameters;
     }
 }

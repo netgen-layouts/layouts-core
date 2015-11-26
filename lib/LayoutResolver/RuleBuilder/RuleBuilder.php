@@ -27,8 +27,9 @@ class RuleBuilder implements RuleBuilderInterface
             foreach ($rule['conditions'] as $condition) {
                 $builtConditions[] = new Condition(
                     $condition['identifier'],
-                    $condition['value_identifier'],
-                    $condition['values']
+                    is_array($condition['parameters']) ?
+                        $condition['parameters'] :
+                        array()
                 );
             }
 

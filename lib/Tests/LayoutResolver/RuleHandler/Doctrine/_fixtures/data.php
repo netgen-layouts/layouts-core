@@ -33,16 +33,8 @@ return array(
         array('id' => 18, 'rule_id' => 9, 'value' => 47),
     ),
     'ngbm_rule_condition' => array(
-        array('id' => 1, 'rule_id' => 2, 'identifier' => 'route_parameter', 'value_identifier' => 'some_param'),
-        array('id' => 2, 'rule_id' => 3, 'identifier' => 'route_parameter', 'value_identifier' => 'some_param'),
-        array('id' => 3, 'rule_id' => 3, 'identifier' => 'route_parameter', 'value_identifier' => 'some_other_param'),
-    ),
-    'ngbm_rule_condition_value' => array(
-        array('id' => 1, 'rule_condition_id' => 1, 'value' => '1'),
-        array('id' => 2, 'rule_condition_id' => 1, 'value' => '2'),
-        array('id' => 3, 'rule_condition_id' => 2, 'value' => '3'),
-        array('id' => 4, 'rule_condition_id' => 2, 'value' => '4'),
-        array('id' => 5, 'rule_condition_id' => 3, 'value' => '5'),
-        array('id' => 6, 'rule_condition_id' => 3, 'value' => '6'),
+        array('id' => 1, 'rule_id' => 2, 'identifier' => 'route_parameter', 'parameters' => '{"some_param": [1,2]}'),
+        array('id' => 2, 'rule_id' => 3, 'identifier' => 'route_parameter', 'parameters' => '{"some_param": [3,4]}'),
+        array('id' => 3, 'rule_id' => 3, 'identifier' => 'route_parameter', 'parameters' => '{"some_other_param": [5,6]}'),
     ),
 );

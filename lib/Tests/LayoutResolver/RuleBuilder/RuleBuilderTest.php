@@ -20,14 +20,22 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
                 'conditions' => array(
                     array(
                         'identifier' => 'condition',
-                        'value_identifier' => 'identifier',
-                        'values' => array(1, 2, 3),
+                        'parameters' => array(1, 2, 3),
                     ),
                 ),
             ),
             array(
                 'layout_id' => 84,
                 'conditions' => array(),
+            ),
+            array(
+                'layout_id' => 85,
+                'conditions' => array(
+                    array(
+                        'identifier' => 'condition',
+                        'parameters' => null,
+                    ),
+                ),
             ),
         );
 
@@ -38,7 +46,6 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
             array(
                 new Condition(
                     'condition',
-                    'identifier',
                     array(1, 2, 3)
                 ),
             )
@@ -46,7 +53,18 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
 
         $rule2 = new Rule(84, $target);
 
-        $rules = array($rule1, $rule2);
+        $rule3 = new Rule(
+            85,
+            $target,
+            array(
+                new Condition(
+                    'condition',
+                    array()
+                ),
+            )
+        );
+
+        $rules = array($rule1, $rule2, $rule3);
 
         $ruleBuilder = new RuleBuilder();
         self::assertEquals($rules, $ruleBuilder->buildRules($target, $data));

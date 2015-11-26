@@ -21,33 +21,31 @@ class RouteParameter implements ConditionMatcherInterface
     }
 
     /**
-     * Returns if this condition matches provided value identifier and values.
+     * Returns if this condition matches provided parameters.
      *
-     * @param string $valueIdentifier
-     * @param array $values
+     * @param array $parameters
      *
      * @return bool
      */
-    public function matches($valueIdentifier, array $values)
+    public function matches(array $parameters)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         if (!$currentRequest instanceof Request) {
             return false;
         }
 
-        if (empty($valueIdentifier)) {
-            return false;
-        }
-
-        if (empty($values)) {
+        if (empty($parameters['parameter_name']) || empty($parameters['parameter_values'])) {
             return false;
         }
 
         $routeParameters = $currentRequest->attributes->get('_route_params', array());
-        if (!isset($routeParameters[$valueIdentifier])) {
+        if (!isset($routeParameters[$parameters['parameter_name']])) {
             return false;
         }
 
-        return in_array($routeParameters[$valueIdentifier], $values);
+        return in_array(
+            $routeParameters[$parameters['parameter_name']],
+            $parameters['parameter_values']
+        );
     }
 }

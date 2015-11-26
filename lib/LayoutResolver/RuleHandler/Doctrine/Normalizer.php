@@ -27,10 +27,10 @@ class Normalizer
 
             if (!isset($rules[$dataRow['id']]['conditions'][$dataRow['condition_id']])) {
                 $rules[$dataRow['id']]['conditions'][$dataRow['condition_id']]['identifier'] = $dataRow['identifier'];
-                $rules[$dataRow['id']]['conditions'][$dataRow['condition_id']]['value_identifier'] = $dataRow['value_identifier'];
+                $rules[$dataRow['id']]['conditions'][$dataRow['condition_id']]['parameters'] = !empty($dataRow['parameters']) ?
+                        json_decode($dataRow['parameters'], true) :
+                        array();
             }
-
-            $rules[$dataRow['id']]['conditions'][$dataRow['condition_id']]['values'][] = $dataRow['value'];
         }
 
         return $rules;

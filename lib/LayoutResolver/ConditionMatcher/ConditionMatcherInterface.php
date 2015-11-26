@@ -12,12 +12,11 @@ interface ConditionMatcherInterface
     public function getConditionIdentifier();
 
     /**
-     * Returns if this condition matches provided value identifier and values.
+     * Returns if this condition matches provided parameters.
      *
-     * @param string $valueIdentifier
-     * @param array $values
+     * @param array $parameters
      *
      * @return bool
      */
-    public function matches($valueIdentifier, array $values);
+    public function matches(array $parameters);
 }
