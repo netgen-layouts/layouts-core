@@ -65,6 +65,38 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * Returns if the view has a parameter.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasParameter($identifier)
+    {
+        $parameters = $this->getParameters();
+
+        return isset($parameters[$identifier]);
+    }
+
+    /**
+     * Returns the view parameter by identifier or null if parameter does not exist.
+     *
+     * @param string $identifier
+     *
+     * @return mixed
+     */
+    public function getParameter($identifier)
+    {
+        $parameters = $this->getParameters();
+
+        if (!isset($parameters[$identifier])) {
+            return null;
+        }
+
+        return $parameters[$identifier];
+    }
+
+    /**
      * Returns the view parameters.
      *
      * @return array

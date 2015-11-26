@@ -2,19 +2,12 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 
 class LayoutViewNormalizer extends LayoutNormalizer
 {
-    /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    protected $configuration;
-
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
@@ -33,18 +26,15 @@ class LayoutViewNormalizer extends LayoutNormalizer
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer $blockViewNormalizer
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
     public function __construct(
-        ConfigurationInterface $configuration,
         ViewBuilderInterface $viewBuilder,
         BlockViewNormalizer $blockViewNormalizer,
         ViewRendererInterface $viewRenderer
     ) {
-        $this->configuration = $configuration;
         $this->viewBuilder = $viewBuilder;
         $this->blockViewNormalizer = $blockViewNormalizer;
         $this->viewRenderer = $viewRenderer;
@@ -65,9 +55,9 @@ class LayoutViewNormalizer extends LayoutNormalizer
 
         $data = parent::normalize($layout);
 
-        $data['zones'] = $this->getZones($layout);
-        $data['blocks'] = $this->getBlocks($object);
-        $data['positions'] = $this->getBlockPositions($object);
+        $data['zones'] = $object->getParameter('zones');
+        $data['blocks'] = $this->normalizeBlocks($object);
+        $data['positions'] = $object->getParameter('positions');
         $data['html'] = $this->viewRenderer->renderView($object);
 
         return $data;
@@ -87,49 +77,18 @@ class LayoutViewNormalizer extends LayoutNormalizer
     }
 
     /**
-     * Returns the data for zones contained within the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     *
-     * @return array
-     */
-    protected function getZones(Layout $layout)
-    {
-        $zones = array();
-        $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
-
-        foreach ($layout->getZones() as $zone) {
-            $allowedBlocks = true;
-            $zoneIdentifier = $zone->getIdentifier();
-
-            if (isset($layoutConfig['zones'][$zoneIdentifier])) {
-                $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
-                if (!empty($zoneConfig['allowed_blocks'])) {
-                    $allowedBlocks = $zoneConfig['allowed_blocks'];
-                }
-            }
-
-            $zones[] = array(
-                'identifier' => $zoneIdentifier,
-                'allowed_blocks' => $allowedBlocks,
-            );
-        }
-
-        return $zones;
-    }
-
-    /**
      * Returns the data for blocks contained within the layout.
      *
      * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
      *
      * @return array
      */
-    protected function getBlocks(LayoutViewInterface $layoutView)
+    protected function normalizeBlocks(LayoutViewInterface $layoutView)
     {
         $blocks = array();
+        $layoutBlocks = $layoutView->getParameter('blocks');
 
-        foreach ($layoutView->getParameters()['blocks'] as $zoneIdentifier => $zoneBlocks) {
+        foreach ($layoutBlocks as $zoneIdentifier => $zoneBlocks) {
             $blocks = array_merge($blocks, $zoneBlocks);
         }
 
@@ -141,37 +100,5 @@ class LayoutViewNormalizer extends LayoutNormalizer
         }
 
         return $normalizedBlocks;
-    }
-
-    /**
-     * Returns the data for block positions.
-     *
-     * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
-     *
-     * @return array
-     */
-    protected function getBlockPositions(LayoutViewInterface $layoutView)
-    {
-        $positions = array();
-        $layout = $layoutView->getLayout();
-
-        foreach ($layout->getZones() as $zone) {
-            $blocksInZone = array();
-            $zoneIdentifier = $zone->getIdentifier();
-
-            if (!empty($layoutView->getParameters()['blocks'][$zoneIdentifier])) {
-                foreach ($layoutView->getParameters()['blocks'][$zoneIdentifier] as $block) {
-                    /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-                    $blocksInZone[] = array('block_id' => $block->getId());
-                }
-            }
-
-            $positions[] = array(
-                'zone' => $zoneIdentifier,
-                'blocks' => $blocksInZone,
-            );
-        }
-
-        return $positions;
     }
 }

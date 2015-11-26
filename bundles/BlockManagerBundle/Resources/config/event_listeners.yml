@@ -4,6 +4,8 @@ parameters:
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
     netgen_block_manager.event_listener.api_block_view.class: Netgen\BlockManager\EventListener\APIBlockViewListener
+    netgen_block_manager.event_listener.api_layout_view_zones.class: Netgen\BlockManager\EventListener\APILayoutViewZonesListener
+    netgen_block_manager.event_listener.api_layout_view_block_positions.class: Netgen\BlockManager\EventListener\APILayoutViewBlockPositionsListener
 
 services:
     netgen_block_manager.event_listener.exception_conversion:
@@ -39,5 +41,17 @@ services:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.configuration"
             - "@form.factory"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.api_layout_view_zones:
+        class: %netgen_block_manager.event_listener.api_layout_view_zones.class%
+        arguments:
+            - "@netgen_block_manager.configuration"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.api_layout_view_block_positions:
+        class: %netgen_block_manager.event_listener.api_layout_view_block_positions.class%
         tags:
             - { name: kernel.event_subscriber }

@@ -31,6 +31,50 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\View::hasParameter
+     */
+    public function testHasParameter()
+    {
+        $view = new View();
+        $view->setParameters(array('param' => 'value'));
+
+        self::assertEquals(true, $view->hasParameter('param'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::hasParameter
+     */
+    public function testHasParameterWithNoParam()
+    {
+        $view = new View();
+        $view->setParameters(array('param' => 'value'));
+
+        self::assertEquals(false, $view->hasParameter('other_param'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::getParameter
+     */
+    public function testGetParameter()
+    {
+        $view = new View();
+        $view->setParameters(array('param' => 'value'));
+
+        self::assertEquals('value', $view->getParameter('param'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::getParameter
+     */
+    public function testGetParameterWithNoParam()
+    {
+        $view = new View();
+        $view->setParameters(array('param' => 'value'));
+
+        self::assertEquals(null, $view->getParameter('other_param'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\View::setParameters
      * @covers \Netgen\BlockManager\View\View::getParameters
      */

@@ -33,6 +33,24 @@ interface ViewInterface
     public function setTemplate($template);
 
     /**
+     * Returns if the view has a parameter.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasParameter($identifier);
+
+    /**
+     * Returns the view parameter by identifier or null if parameter does not exist.
+     *
+     * @param string $identifier
+     *
+     * @return mixed
+     */
+    public function getParameter($identifier);
+
+    /**
      * Returns the view parameters.
      *
      * @return array
