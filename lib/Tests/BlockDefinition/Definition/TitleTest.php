@@ -93,8 +93,6 @@ class TitleTest extends \PHPUnit_Framework_TestCase
                 'title' => array(
                     new Constraints\NotBlank(),
                 ),
-                'css_id' => false,
-                'css_class' => false,
             ),
             $blockDefinition->getParameterConstraints()
         );

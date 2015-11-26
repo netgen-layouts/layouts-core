@@ -60,7 +60,7 @@ class BlockParametersValidator extends ConstraintValidator
         }
 
         foreach ($blockDefinitionParameters as $parameterName => $parameter) {
-            if (!is_array($parameterConstraints[$parameterName])) {
+            if (!isset($parameterConstraints[$parameterName]) || !is_array($parameterConstraints[$parameterName])) {
                 continue;
             }
 

@@ -39,10 +39,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
      */
     public function getParameterConstraints()
     {
-        return array(
-            'css_id' => false,
-            'css_class' => false,
-        );
+        return array();
     }
 
     /**

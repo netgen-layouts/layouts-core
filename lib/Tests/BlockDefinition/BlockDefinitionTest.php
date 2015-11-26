@@ -50,7 +50,6 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'css_id' => array(new NotBlank()),
-                'css_class' => false,
             ),
             $blockDefinition->getParameterConstraints()
         );

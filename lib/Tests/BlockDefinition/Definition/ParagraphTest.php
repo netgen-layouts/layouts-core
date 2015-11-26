@@ -75,8 +75,6 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
                 'content' => array(
                     new Constraints\NotBlank(),
                 ),
-                'css_id' => false,
-                'css_class' => false,
             ),
             $blockDefinition->getParameterConstraints()
         );
