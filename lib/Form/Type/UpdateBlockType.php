@@ -115,7 +115,7 @@ class UpdateBlockType extends AbstractType
                         $parameterNames[$parameterIdentifier] :
                         null,
                     'property_path' => 'parameters[' . $parameterIdentifier . ']',
-                    'constraints' => $parameterConstraints[$parameterIdentifier] !== false ?
+                    'constraints' => isset($parameterConstraints[$parameterIdentifier]) && is_array($parameterConstraints[$parameterIdentifier]) ?
                         $parameterConstraints[$parameterIdentifier] :
                         null,
                 ) + $blockParameter->mapFormTypeOptions()
