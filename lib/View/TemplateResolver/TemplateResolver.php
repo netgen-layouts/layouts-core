@@ -64,16 +64,16 @@ abstract class TemplateResolver implements TemplateResolverInterface
             break;
         }
 
-        if (is_array($matchedConfig)) {
-            return $matchedConfig['template'];
+        if (!is_array($matchedConfig) || !isset($matchedConfig['template'])) {
+            throw new RuntimeException(
+                sprintf(
+                    'No templates could be found for view object "%s".',
+                    get_class($view)
+                )
+            );
         }
 
-        throw new RuntimeException(
-            sprintf(
-                'No templates could be found for view object "%s".',
-                get_class($view)
-            )
-        );
+        return $matchedConfig['template'];
     }
 
     /**

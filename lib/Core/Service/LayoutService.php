@@ -217,7 +217,7 @@ class LayoutService implements LayoutServiceInterface
                 'id' => $persistenceZone->id,
                 'layoutId' => $persistenceZone->layoutId,
                 'identifier' => $persistenceZone->identifier,
-                'blocks' => $this->blockService->loadZoneBlocks($tempZone)
+                'blocks' => $this->blockService->loadZoneBlocks($tempZone),
             )
         );
 

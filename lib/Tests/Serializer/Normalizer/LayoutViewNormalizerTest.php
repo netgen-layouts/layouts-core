@@ -40,10 +40,10 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                     new Zone(
                         array(
                             'identifier' => 'left',
-                            'blocks' => array($block)
+                            'blocks' => array($block),
                         )
-                    )
-                )
+                    ),
+                ),
             )
         );
 

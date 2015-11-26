@@ -7,7 +7,6 @@ use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterfac
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
-use RuntimeException;
 
 class BlockParametersValidator extends ConstraintValidator
 {

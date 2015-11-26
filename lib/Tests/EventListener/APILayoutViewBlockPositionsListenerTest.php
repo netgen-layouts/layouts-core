@@ -43,16 +43,16 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
                     new Zone(
                         array(
                             'identifier' => 'zone1',
-                            'blocks' => array($block)
+                            'blocks' => array($block),
                         )
                     ),
                     new Zone(
                         array(
                             'identifier' => 'zone2',
-                            'blocks' => array()
+                            'blocks' => array(),
                         )
-                    )
-                )
+                    ),
+                ),
             )
         );
 
@@ -70,11 +70,11 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
             array(
                 array(
                     'zone' => 'zone1',
-                    'blocks' => array(24)
+                    'blocks' => array(24),
                 ),
                 array(
                     'zone' => 'zone2',
-                    'blocks' => array()
+                    'blocks' => array(),
                 ),
             ),
             $event->getParameterBag()->get('positions')

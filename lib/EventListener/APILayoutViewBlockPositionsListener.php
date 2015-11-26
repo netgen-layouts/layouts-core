@@ -40,7 +40,7 @@ class APILayoutViewBlockPositionsListener implements EventSubscriberInterface
             $positions[] = array(
                 'zone' => $zone->getIdentifier(),
                 'blocks' => array_map(
-                    function(Block $block) {
+                    function (Block $block) {
                         return $block->getId();
                     },
                     $zone->getBlocks()

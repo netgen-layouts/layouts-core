@@ -51,15 +51,15 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
                 'zones' => array(
                     new Zone(
                         array(
-                            'identifier' => 'zone1'
+                            'identifier' => 'zone1',
                         )
                     ),
                     new Zone(
                         array(
-                            'identifier' => 'zone2'
+                            'identifier' => 'zone2',
                         )
-                    )
-                )
+                    ),
+                ),
             )
         );
 
@@ -70,10 +70,10 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
         $layoutConfig = array(
             'zones' => array(
                 'zone1' => array(
-                    'allowed_blocks' => array('block')
+                    'allowed_blocks' => array('block'),
                 ),
                 'zone2' => array(),
-            )
+            ),
         );
 
         $this->configurationMock
@@ -92,11 +92,11 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'identifier' => 'zone1',
-                    'allowed_blocks' => array('block')
+                    'allowed_blocks' => array('block'),
                 ),
                 array(
                     'identifier' => 'zone2',
-                    'allowed_blocks' => true
+                    'allowed_blocks' => true,
                 ),
             ),
             $event->getParameterBag()->get('zones')

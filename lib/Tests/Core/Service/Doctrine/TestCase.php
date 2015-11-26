@@ -22,8 +22,7 @@ trait TestCase
     protected function createLayoutService(
         PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock,
         PHPUnit_Framework_MockObject_MockObject $blockValidatorMock
-    )
-    {
+    ) {
         return new LayoutService(
             $layoutValidatorMock,
             $this->createBlockService(

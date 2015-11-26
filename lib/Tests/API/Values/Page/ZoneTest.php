@@ -39,8 +39,8 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
                 'layoutId' => 84,
                 'identifier' => 'top_left',
                 'blocks' => array(
-                    new Block()
-                )
+                    new Block(),
+                ),
             )
         );
 

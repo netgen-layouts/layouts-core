@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
