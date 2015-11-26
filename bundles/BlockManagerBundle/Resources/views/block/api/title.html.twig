@@ -1,1 +1,11 @@
 <{{ block.parameters.tag }}>{{ block.parameters.title }}</{{ block.parameters.tag }}>
+
+{% if form is defined and form is not empty %}
+    {% set form_action = path('netgen_block_manager_api_v1_edit_block', { 'blockId': block.id }) %}
+
+    <form action="{{ form_action }}" method="post" novalidate="novalidate">
+        {{ form_widget(form) }}
+
+        <input type="submit" />
+    </form>
+{% endif %}
