@@ -8,6 +8,7 @@ services:
         arguments:
             - []
             - []
+            - "@event_dispatcher"
 
     netgen_block_manager.view.renderer:
         class: %netgen_block_manager.view.renderer.class%

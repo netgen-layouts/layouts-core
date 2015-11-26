@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\View;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\API\Values\Value;
@@ -20,15 +23,22 @@ class ViewBuilder implements ViewBuilderInterface
     protected $templateResolvers = array();
 
     /**
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
      * @param \Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface[] $templateResolvers
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(array $viewProviders = array(), array $templateResolvers = array())
+    public function __construct(array $viewProviders = array(), array $templateResolvers = array(), EventDispatcherInterface $eventDispatcher)
     {
         $this->viewProviders = $viewProviders;
         $this->templateResolvers = $templateResolvers;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -59,6 +69,10 @@ class ViewBuilder implements ViewBuilderInterface
             $view = $viewProvider->provideView($value);
             $view->setContext($context);
             $view->addParameters($parameters);
+
+            $event = new CollectViewParametersEvent($view, $parameters);
+            $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);
+            $view->addParameters($event->getParameterBag()->all());
         }
 
         if (!isset($view)) {

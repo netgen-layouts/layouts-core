@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewBuilder;
@@ -41,9 +43,15 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue('some_template.html.twig'));
 
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $eventDispatcherMock
+            ->expects($this->once())
+            ->method('dispatch');
+
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
-            array($templateResolver)
+            array($templateResolver),
+            $eventDispatcherMock
         );
 
         $viewParameters = array('some_param' => 'some_value');
@@ -76,7 +84,12 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
-        $viewBuilder = new ViewBuilder(array($viewProvider));
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $eventDispatcherMock
+            ->expects($this->once())
+            ->method('dispatch');
+
+        $viewBuilder = new ViewBuilder(array($viewProvider), array(), $eventDispatcherMock);
 
         $viewParameters = array('some_param' => 'some_value');
         $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
@@ -118,9 +131,15 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('resolveTemplate');
 
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $eventDispatcherMock
+            ->expects($this->once())
+            ->method('dispatch');
+
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
-            array($templateResolver)
+            array($templateResolver),
+            $eventDispatcherMock
         );
 
         $viewParameters = array('some_param' => 'some_value');
@@ -156,9 +175,15 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = $this->getMock('DateTime');
 
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $eventDispatcherMock
+            ->expects($this->once())
+            ->method('dispatch');
+
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
-            array($templateResolver)
+            array($templateResolver),
+            $eventDispatcherMock
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
@@ -173,10 +198,12 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $value = new Value();
 
         $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
 
         $viewBuilder = new ViewBuilder(
             array(),
-            array($templateResolver)
+            array($templateResolver),
+            $eventDispatcherMock
         );
 
         $viewBuilder->buildView($value, array(), 'api');
@@ -201,10 +228,12 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('provideView');
 
         $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
 
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
-            array($templateResolver)
+            array($templateResolver),
+            $eventDispatcherMock
         );
 
         $viewBuilder->buildView($value, array(), 'api');
@@ -222,10 +251,12 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 
         $viewProvider = $this->getMock('DateTime');
         $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface');
+        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
 
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
-            array($templateResolver)
+            array($templateResolver),
+            $eventDispatcherMock
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
