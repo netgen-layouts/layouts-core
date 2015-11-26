@@ -3,6 +3,7 @@ parameters:
     netgen_block_manager.event_listener.exception_serializer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
+    netgen_block_manager.event_listener.api_block_view.class: Netgen\BlockManager\EventListener\APIBlockViewListener
 
 services:
     netgen_block_manager.event_listener.exception_conversion:
@@ -29,5 +30,14 @@ services:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.templating.global_helper"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.api_block_view:
+        class: %netgen_block_manager.event_listener.api_block_view.class%
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.configuration"
+            - "@form.factory"
         tags:
             - { name: kernel.event_subscriber }
