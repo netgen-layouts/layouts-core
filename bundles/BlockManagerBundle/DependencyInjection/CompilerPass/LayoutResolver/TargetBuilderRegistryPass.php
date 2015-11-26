@@ -27,7 +27,7 @@ class TargetBuilderRegistryPass implements CompilerPassInterface
 
         $flattenedTargetBuilders = array();
         foreach ($targetBuildersBuilders as $targetBuilders => $tag) {
-            $flattenedTargetBuilders[$targetBuilders] = $tag[0]['priority'];
+            $flattenedTargetBuilders[$targetBuilders] = isset($tag[0]['priority']) ? $tag[0]['priority'] : 0;
         }
 
         arsort($flattenedTargetBuilders);
