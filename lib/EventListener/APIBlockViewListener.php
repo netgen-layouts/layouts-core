@@ -55,7 +55,7 @@ class APIBlockViewListener implements EventSubscriberInterface
     }
 
     /**
-     * Adds an inline edit form to API block views
+     * Adds an inline edit form to API block views.
      *
      * @param \Netgen\BlockManager\Event\View\CollectViewParametersEvent $event
      */

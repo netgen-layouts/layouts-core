@@ -62,7 +62,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $normalizedBlockView = array(
             'id' => 24,
-            'html' => 'rendered block'
+            'html' => 'rendered block',
         );
 
         $layoutView = new LayoutView();

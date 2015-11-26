@@ -7,7 +7,6 @@ use Netgen\BlockManager\BlockDefinition\Parameter\Text;
 class TextTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::getType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::getFormType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::configureOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Text::mapFormTypeOptions

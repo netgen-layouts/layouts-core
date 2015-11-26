@@ -7,7 +7,6 @@ use Netgen\BlockManager\BlockDefinition\Parameter\Hidden;
 class HiddenTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::getType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::getFormType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::configureOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::mapFormTypeOptions

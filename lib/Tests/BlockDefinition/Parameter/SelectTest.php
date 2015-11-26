@@ -7,7 +7,6 @@ use Netgen\BlockManager\BlockDefinition\Parameter\Select;
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getFormType
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::mapFormTypeOptions
      */

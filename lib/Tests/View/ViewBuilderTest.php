@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
-use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
-use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewBuilder;

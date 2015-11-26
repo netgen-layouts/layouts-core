@@ -34,7 +34,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     protected $formMock;
 
     /**
-     * Sets up the tests
+     * Sets up the tests.
      */
     public function setUp()
     {
@@ -204,7 +204,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Returns the listener under test
+     * Returns the listener under test.
      *
      * @return \Netgen\BlockManager\EventListener\APIBlockViewListener
      */
