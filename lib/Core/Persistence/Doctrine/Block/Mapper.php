@@ -18,14 +18,16 @@ class Mapper
         $blocks = array();
 
         foreach ($data as $dataItem) {
+            $parameters = !empty($dataItem['parameters']) ?
+                json_decode($dataItem['parameters'], true) :
+                array();
+
             $blocks[] = new Block(
                 array(
                     'id' => (int)$dataItem['id'],
                     'zoneId' => (int)$dataItem['zone_id'],
                     'definitionIdentifier' => $dataItem['definition_identifier'],
-                    'parameters' => !empty($dataItem['parameters']) ?
-                        json_decode($dataItem['parameters'], true) :
-                        array(),
+                    'parameters' => is_array($parameters) ? $parameters : array(),
                     'viewType' => $dataItem['view_type'],
                     'name' => $dataItem['name'],
                 )
