@@ -22,6 +22,11 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutValidator;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\Layout
      */
     protected $handler;
@@ -30,11 +35,13 @@ class LayoutService implements LayoutServiceInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\LayoutValidator $layoutValidator
+     * @param \Netgen\BlockManager\Core\Service\BlockService $blockService
      * @param \Netgen\BlockManager\Persistence\Handler\Layout $handler
      */
-    public function __construct(LayoutValidator $layoutValidator, LayoutHandler $handler)
+    public function __construct(LayoutValidator $layoutValidator, BlockService $blockService, LayoutHandler $handler)
     {
         $this->layoutValidator = $layoutValidator;
+        $this->blockService = $blockService;
         $this->handler = $handler;
     }
 

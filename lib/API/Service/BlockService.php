@@ -80,7 +80,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
-     *                                                                  If target zone is the same as current zone
+     *                                                                     If target zone is the same as current zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */

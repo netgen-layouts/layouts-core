@@ -15,13 +15,20 @@ trait TestCase
      * Creates a layout service under test.
      *
      * @param \PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock
+     * @param \PHPUnit_Framework_MockObject_MockObject $blockValidatorMock
      *
-     * @return \Netgen\BlockManager\API\Service\LayoutService
+     * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock)
+    protected function createLayoutService(
+        PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock,
+        PHPUnit_Framework_MockObject_MockObject $blockValidatorMock
+    )
     {
         return new LayoutService(
             $layoutValidatorMock,
+            $this->createBlockService(
+                $blockValidatorMock
+            ),
             $this->createLayoutHandler()
         );
     }
@@ -29,20 +36,16 @@ trait TestCase
     /**
      * Creates a block service under test.
      *
-     * @param \PHPUnit_Framework_MockObject_MockObject $blockValidatorMock
-     * @param \PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock
+     * @param \PHPUnit_Framework_MockObject_MockObject $validatorMock
      *
-     * @return \Netgen\BlockManager\API\Service\BlockService
+     * @return \Netgen\BlockManager\Core\Service\BlockService
      */
     protected function createBlockService(
-        PHPUnit_Framework_MockObject_MockObject $blockValidatorMock,
-        PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock
+        PHPUnit_Framework_MockObject_MockObject $validatorMock
     ) {
         return new BlockService(
-            $blockValidatorMock,
-            $this->createLayoutService(
-                $layoutValidatorMock
-            ),
+            $validatorMock,
+            $this->createLayoutHandler(),
             $this->createBlockHandler()
         );
     }

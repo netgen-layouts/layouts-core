@@ -40,7 +40,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadBlock()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         self::assertEquals(
             new Block(
@@ -65,7 +65,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadBlockThrowsInvalidArgumentExceptionOnInvalidId()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
         $blockService->loadBlock(42.24);
     }
 
@@ -75,7 +75,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadBlockThrowsInvalidArgumentExceptionOnEmptyId()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
         $blockService->loadBlock('');
     }
 
@@ -85,7 +85,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadBlockThrowsNotFoundException()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
         $blockService->loadBlock(PHP_INT_MAX);
     }
 
@@ -94,8 +94,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadZoneBlocks()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         self::assertEquals(
             array(
@@ -133,8 +133,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadLayoutBlocks()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         self::assertEquals(
             array(
@@ -176,8 +176,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlock()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->name = 'My block';
@@ -215,8 +215,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithBlankName()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->setParameter('some_param', 'some_value');
@@ -253,7 +253,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testUpdateBlock()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         $block = $blockService->loadBlock(1);
 
@@ -295,7 +295,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testUpdateBlockWithBlankName()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         $block = $blockService->loadBlock(1);
 
@@ -336,7 +336,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testUpdateBlockWithBlankViewType()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         $block = $blockService->loadBlock(1);
 
@@ -377,7 +377,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCopyBlock()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         self::assertEquals(
             new Block(
@@ -403,8 +403,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCopyBlockToDifferentZone()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         self::assertEquals(
             new Block(
@@ -432,8 +432,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCopyBlockThrowsInvalidArgumentExceptionOnDifferentLayout()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->copyBlock(
             $blockService->loadBlock(1),
@@ -446,8 +446,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testMoveBlock()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         self::assertEquals(
             new Block(
@@ -475,8 +475,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testMoveBlockThrowsInvalidArgumentExceptionOnDifferentLayout()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->moveBlock(
             $blockService->loadBlock(1),
@@ -490,8 +490,8 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testMoveBlockThrowsInvalidArgumentExceptionOnSameZone()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->moveBlock(
             $blockService->loadBlock(1),
@@ -504,7 +504,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testDeleteBlock()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         $block = $blockService->loadBlock(1);
         $blockService->deleteBlock($block);
@@ -522,7 +522,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testNewBlockCreateStruct()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         self::assertEquals(
             new BlockCreateStruct(
@@ -540,7 +540,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testNewBlockUpdateStruct()
     {
-        $blockService = $this->createBlockService($this->blockValidatorMock, $this->layoutValidatorMock);
+        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         self::assertEquals(
             new BlockUpdateStruct(),

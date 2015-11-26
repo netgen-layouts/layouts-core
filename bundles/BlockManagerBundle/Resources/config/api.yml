@@ -23,6 +23,7 @@ services:
         class: %netgen_block_manager.api.service.layout.core.class%
         arguments:
             - "@netgen_block_manager.api.service.layout.validator"
+            - "@netgen_block_manager.api.service.block.core"
             - "@netgen_block_manager.persistence.handler.layout"
 
     # Block related APIs
@@ -40,7 +41,7 @@ services:
         class: %netgen_block_manager.api.service.block.core.class%
         arguments:
             - "@netgen_block_manager.api.service.block.validator"
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.persistence.handler.layout"
             - "@netgen_block_manager.persistence.handler.block"
 
     # Service aliases

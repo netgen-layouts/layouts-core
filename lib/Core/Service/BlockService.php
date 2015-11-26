@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
-use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
@@ -25,9 +25,9 @@ class BlockService implements BlockServiceInterface
     protected $blockValidator;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\BlockManager\Persistence\Handler\Layout
      */
-    protected $layoutService;
+    protected $layoutHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\Block
@@ -38,16 +38,16 @@ class BlockService implements BlockServiceInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\Persistence\Handler\Layout $layoutHandler
      * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
      */
     public function __construct(
         BlockValidator $blockValidator,
-        APILayoutService $layoutService,
+        LayoutHandler $layoutHandler,
         BlockHandler $blockHandler
     ) {
         $this->blockValidator = $blockValidator;
-        $this->layoutService = $layoutService;
+        $this->layoutHandler = $layoutHandler;
         $this->blockHandler = $blockHandler;
     }
 
@@ -178,8 +178,8 @@ class BlockService implements BlockServiceInterface
     public function copyBlock(APIBlock $block, APIZone $zone = null)
     {
         if ($zone instanceof APIZone) {
-            $originalZone = $this->layoutService->loadZone($block->getZoneId());
-            if ($zone->getLayoutId() !== $originalZone->getLayoutId()) {
+            $originalZone = $this->layoutHandler->loadZone($block->getZoneId());
+            if ($zone->getLayoutId() !== $originalZone->layoutId) {
                 throw new InvalidArgumentException(
                     'zone->layoutId',
                     'Block cannot be copied to a different layout.'
@@ -202,14 +202,14 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
-     *                                                                  If target zone is the same as current zone
+     *                                                                     If target zone is the same as current zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function moveBlock(APIBlock $block, APIZone $zone)
     {
-        $originalZone = $this->layoutService->loadZone($block->getZoneId());
-        if ($zone->getLayoutId() !== $originalZone->getLayoutId()) {
+        $originalZone = $this->layoutHandler->loadZone($block->getZoneId());
+        if ($zone->getLayoutId() !== $originalZone->layoutId) {
             throw new InvalidArgumentException(
                 'zone->layoutId',
                 'Block cannot be moved to a different layout.'
