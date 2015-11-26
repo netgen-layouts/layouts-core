@@ -1,11 +1,13 @@
 blocks:
     title:
+        forms: ~
         view_types:
             default:
                 name: Default
             large:
                 name: Large
     paragraph:
+        forms: ~
         view_types:
             default:
                 name: Default

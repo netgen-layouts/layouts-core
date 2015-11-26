@@ -35,6 +35,9 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'blocks' => array(
                     'block' => array(
+                        'forms' => array(
+                            'edit' => 'edit_form'
+                        ),
                         'view_types' => array(
                             'default' => array(
                                 'name' => 'Default',
@@ -51,6 +54,60 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(
+                        'edit' => 'edit_form'
+                    ),
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => 'Default',
+                        ),
+                        'large' => array(
+                            'name' => 'Large',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'blocks'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testBlockSettingsWithNoFormEdit()
+    {
+        $config = array(
+            array(
+                'blocks' => array(
+                    'block' => array(
+                        'forms' => array(),
+                        'view_types' => array(
+                            'default' => array(
+                                'name' => 'Default',
+                            ),
+                            'large' => array(
+                                'name' => 'Large',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => array(
+                        'edit' => 'block_update'
+                    ),
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',
@@ -82,6 +139,9 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'blocks' => array(
                     'block' => array(
+                        'forms' => array(
+                            'edit' => 'edit_form'
+                        ),
                         'view_types' => array(
                             'default' => array(
                                 'name' => 'Default',
@@ -96,6 +156,9 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'blocks' => array(
                     'block' => array(
+                        'forms' => array(
+                            'edit' => 'edit_form'
+                        ),
                         'view_types' => array(
                             'title' => array(
                                 'name' => 'Title',
@@ -112,6 +175,9 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(
+                        'edit' => 'edit_form'
+                    ),
                     'view_types' => array(
                         'title' => array(
                             'name' => 'Title',
@@ -148,11 +214,121 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithNoViewTypes()
+    public function testBlockSettingsWithNoForms()
     {
         $config = array(
             'blocks' => array(
                 'block' => array(),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     */
+    public function testBlockSettingsWithInvalidForms()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => 'forms'
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     */
+    public function testBlockSettingsWithEmptyFormEdit()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => array(
+                        'edit' => ''
+                    )
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     */
+    public function testBlockSettingsWithInvalidFormEdit()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => array(
+                        'edit' => array()
+                    )
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     */
+    public function testBlockSettingsWithEmptyFormInline()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => array(
+                        'inline' => ''
+                    )
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     */
+    public function testBlockSettingsWithInvalidFormInline()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => array(
+                        'inline' => array()
+                    )
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
+     */
+    public function testBlockSettingsWithNoViewTypes()
+    {
+        $config = array(
+            'blocks' => array(
+                'block' => array(
+                    'forms' => array()
+                ),
             ),
         );
 
@@ -168,6 +344,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(),
                     'view_types' => array(),
                 ),
             ),
@@ -185,6 +362,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(),
                     'view_types' => 'default',
                 ),
             ),
@@ -202,6 +380,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(),
                     'view_types' => array(
                         'default' => 'default',
                     ),
@@ -221,6 +400,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(),
                     'view_types' => array(
                         'default' => array(),
                     ),
@@ -240,6 +420,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(),
                     'view_types' => array(
                         'default' => array(
                             'name' => '',
@@ -261,6 +442,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'blocks' => array(
                 'block' => array(
+                    'forms' => array(),
                     'view_types' => array(
                         'default' => array(
                             'name' => array(),
