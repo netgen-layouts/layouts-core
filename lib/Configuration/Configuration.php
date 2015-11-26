@@ -11,6 +11,8 @@ abstract class Configuration implements ConfigurationInterface
      *
      * @param string $definitionIdentifier
      *
+     * @throws \RuntimeException If configuration for specified block does not exist
+     *
      * @return array
      */
     public function getBlockConfig($definitionIdentifier)
@@ -34,6 +36,8 @@ abstract class Configuration implements ConfigurationInterface
      *
      * @param string $identifier
      *
+     * @throws \RuntimeException If configuration for specified block type not exist
+     *
      * @return array
      */
     public function getBlockTypeConfig($identifier)
@@ -56,6 +60,8 @@ abstract class Configuration implements ConfigurationInterface
      * Returns the configuration for specified layout.
      *
      * @param string $layoutIdentifier
+     *
+     * @throws \RuntimeException If configuration for specified layout does not exist
      *
      * @return array
      */

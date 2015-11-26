@@ -27,6 +27,8 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
      *
      * @param string $identifier
      *
+     * @throws \InvalidArgumentException If block definition does not exist
+     *
      * @return \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface
      */
     public function getBlockDefinition($identifier)
