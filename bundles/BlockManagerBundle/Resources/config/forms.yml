@@ -8,4 +8,4 @@ services:
             - "@netgen_block_manager.block_definition.registry"
             - "@netgen_block_manager.configuration"
         tags:
-            - { name: form.type }
+            - { name: form.type, alias: block_update }

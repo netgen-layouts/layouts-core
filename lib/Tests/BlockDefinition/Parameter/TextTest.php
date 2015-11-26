@@ -18,7 +18,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(array(), $parameter->mapFormTypeOptions());
         self::assertEquals(
-            'Symfony\Component\Form\Extension\Core\Type\TextType',
+            'text',
             $parameter->getFormType()
         );
     }

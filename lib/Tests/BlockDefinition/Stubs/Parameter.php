@@ -23,7 +23,7 @@ class Parameter extends BaseParameter
      */
     public function getFormType()
     {
-        return 'stub';
+        return 'text';
     }
 
     /**

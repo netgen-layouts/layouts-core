@@ -77,7 +77,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            'Netgen\BlockManager\Form\Type\UpdateBlockType',
+            'block_update',
             $updateStruct,
             array('block' => $block)
         );

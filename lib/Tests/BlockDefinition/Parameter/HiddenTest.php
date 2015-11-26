@@ -18,7 +18,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(array(), $parameter->mapFormTypeOptions());
         self::assertEquals(
-            'Symfony\Component\Form\Extension\Core\Type\HiddenType',
+            'hidden',
             $parameter->getFormType()
         );
     }

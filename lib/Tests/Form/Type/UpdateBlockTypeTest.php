@@ -105,7 +105,7 @@ class UpdateBlockTypeTest extends TypeTestCase
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
-            'Netgen\BlockManager\Form\Type\UpdateBlockType',
+            'block_update',
             $blockUpdateStruct,
             array('block' => $block)
         );
