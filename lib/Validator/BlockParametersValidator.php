@@ -2,10 +2,12 @@
 
 namespace Netgen\BlockManager\Validator;
 
+use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use RuntimeException;
 
 class BlockParametersValidator extends ConstraintValidator
 {
@@ -46,11 +48,11 @@ class BlockParametersValidator extends ConstraintValidator
             $constraint->definitionIdentifier
         );
 
-        $blockDefinitionParameters = $blockDefinition->getParameters();
-        $parameterConstraints = $blockDefinition->getParameterConstraints();
+        $parameters = $blockDefinition->getParameters();
+        $constraints = $blockDefinition->getParameterConstraints();
 
         foreach ($value as $parameterName => $parameterValue) {
-            if (!isset($blockDefinitionParameters[$parameterName])) {
+            if (!isset($parameters[$parameterName])) {
                 $this->context->buildViolation($constraint->excessParameterMessage)
                     ->setParameter('%parameter%', $parameterName)
                     ->setInvalidValue($parameterValue)
@@ -59,8 +61,8 @@ class BlockParametersValidator extends ConstraintValidator
             }
         }
 
-        foreach ($blockDefinitionParameters as $parameterName => $parameter) {
-            if (!isset($parameterConstraints[$parameterName]) || !is_array($parameterConstraints[$parameterName])) {
+        foreach ($parameters as $parameterName => $parameter) {
+            if (!isset($constraints[$parameterName]) || !is_array($constraints[$parameterName])) {
                 continue;
             }
 
@@ -76,7 +78,7 @@ class BlockParametersValidator extends ConstraintValidator
 
             $violations = $this->validator->validate(
                 $value[$parameterName],
-                $parameterConstraints[$parameterName]
+                $constraints[$parameterName]
             );
 
             foreach ($violations as $violation) {
