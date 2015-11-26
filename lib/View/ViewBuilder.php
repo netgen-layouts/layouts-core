@@ -56,7 +56,7 @@ class ViewBuilder implements ViewBuilderInterface
             if (!$viewProvider instanceof ViewProviderInterface) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'View provider for %s value needs to implement ViewProviderInterface.',
+                        'View provider for "%s" value object needs to implement ViewProviderInterface.',
                         get_class($value)
                     )
                 );
@@ -78,7 +78,7 @@ class ViewBuilder implements ViewBuilderInterface
         if (!isset($view)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'No view providers found for %s class.',
+                    'No view providers found for "%s" value object.',
                     get_class($value)
                 )
             );
@@ -88,7 +88,7 @@ class ViewBuilder implements ViewBuilderInterface
             if (!$templateResolver instanceof TemplateResolverInterface) {
                 throw new InvalidArgumentException(
                     sprintf(
-                        'Template resolver for %s type needs to implement TemplateResolverInterface.',
+                        'Template resolver for "%s" value object needs to implement TemplateResolverInterface.',
                         $type
                     )
                 );

@@ -47,8 +47,9 @@ abstract class TemplateResolver implements TemplateResolverInterface
         if (!isset($this->config[$context])) {
             throw new RuntimeException(
                 sprintf(
-                    'No configuration could be found for context "%s"',
-                    $context
+                    'No configuration could be found for context "%s" and view object "%s".',
+                    $context,
+                    get_class($view)
                 )
             );
         }
@@ -69,7 +70,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
 
         throw new RuntimeException(
             sprintf(
-                'No template could be found for view %s',
+                'No templates could be found for view object "%s".',
                 get_class($view)
             )
         );
@@ -89,7 +90,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
             if (!isset($this->matchers[$matcher])) {
                 throw new RuntimeException(
                     sprintf(
-                        'No matcher could be found with identifier "%s"',
+                        'No matcher could be found with identifier "%s".',
                         $matcher
                     )
                 );
@@ -98,7 +99,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
             if (!$this->matchers[$matcher] instanceof MatcherInterface) {
                 throw new RuntimeException(
                     sprintf(
-                        'Matcher %s needs to implement MatcherInterface',
+                        'Matcher "%s" needs to implement MatcherInterface.',
                         $matcher
                     )
                 );
