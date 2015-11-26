@@ -69,7 +69,12 @@ class Handler implements RuleHandlerInterface
             ->setParameter('target_identifier', $targetIdentifier, Type::STRING);
 
         if (!isset($this->targetHandlers[$targetIdentifier])) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Target handler for "%s" identifier does not exist.',
+                    $targetIdentifier
+                )
+            );
         }
 
         $this->targetHandlers[$targetIdentifier]->handleQuery($query, $values);
