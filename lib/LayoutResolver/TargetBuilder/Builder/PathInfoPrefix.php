@@ -2,15 +2,29 @@
 
 namespace Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder;
 
-class PathInfoPrefix extends PathInfo
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface;
+use Netgen\BlockManager\Traits\RequestStackAwareTrait;
+use Netgen\BlockManager\LayoutResolver\Target\PathInfoPrefix as PathInfoPrefixTarget;
+use Symfony\Component\HttpFoundation\Request;
+
+class PathInfoPrefix implements TargetBuilderInterface
 {
+    use RequestStackAwareTrait;
+
     /**
-     * Returns the unique identifier of the target this builder builds.
+     * Builds the target object that will be used to search for resolver rules.
      *
-     * @return string
+     * @return \Netgen\BlockManager\LayoutResolver\Target
      */
-    public function getTargetIdentifier()
+    public function buildTarget()
     {
-        return 'path_info_prefix';
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        if (!$currentRequest instanceof Request) {
+            return false;
+        }
+
+        return new PathInfoPrefixTarget(
+            array($currentRequest->getPathInfo())
+        );
     }
 }

@@ -7,20 +7,11 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route;
 class RouteTest extends TargetHandlerTest
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetHandler = $this->getTargetHandler();
-        self::assertEquals('route', $targetHandler->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route::handleQuery
      */
     public function testLoadRouteRules()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createHandler('route', $this->getTargetHandler());
 
         $expected = array(
             array(

@@ -7,20 +7,11 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Reques
 class RequestUriPrefixTest extends TargetHandlerTest
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RequestUriPrefix::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetHandler = $this->getTargetHandler();
-        self::assertEquals('request_uri_prefix', $targetHandler->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RequestUriPrefix::handleQuery
      */
     public function testLoadRequestUriPrefixRules()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createHandler('request_uri_prefix', $this->getTargetHandler());
 
         $expected = array(
             array(

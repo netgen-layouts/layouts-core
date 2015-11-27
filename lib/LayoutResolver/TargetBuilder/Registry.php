@@ -14,11 +14,12 @@ class Registry implements RegistryInterface
     /**
      * Adds the target builder to the registry.
      *
+     * @param string $targetIdentifier
      * @param \Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface $targetBuilder
      */
-    public function addTargetBuilder(TargetBuilderInterface $targetBuilder)
+    public function addTargetBuilder($targetIdentifier, TargetBuilderInterface $targetBuilder)
     {
-        $this->targetBuilders[$targetBuilder->getTargetIdentifier()] = $targetBuilder;
+        $this->targetBuilders[$targetIdentifier] = $targetBuilder;
     }
 
     /**

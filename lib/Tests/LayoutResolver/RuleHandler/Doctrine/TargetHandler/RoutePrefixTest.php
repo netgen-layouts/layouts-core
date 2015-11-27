@@ -7,20 +7,11 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RouteP
 class RoutePrefixTest extends TargetHandlerTest
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RoutePrefix::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetHandler = $this->getTargetHandler();
-        self::assertEquals('route_prefix', $targetHandler->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RoutePrefix::handleQuery
      */
     public function testLoadRoutePrefixRules()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createHandler('route_prefix', $this->getTargetHandler());
 
         $expected = array(
             array(

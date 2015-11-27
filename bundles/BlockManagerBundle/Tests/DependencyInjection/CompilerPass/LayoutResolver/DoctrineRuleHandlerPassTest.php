@@ -29,7 +29,12 @@ class DoctrineRuleHandlerPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.handler', $ruleHandler);
 
         $targetHandler = new Definition();
-        $targetHandler->addTag('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler');
+        $targetHandler->addTag(
+            'netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler',
+            array(
+                'alias' => 'test'
+            )
+        );
         $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test', $targetHandler);
 
         $this->compile();
@@ -38,8 +43,24 @@ class DoctrineRuleHandlerPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.layout_resolver.rule_handler.doctrine.handler',
             'addTargetHandler',
             array(
-                new Reference('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test'),
+                'test', new Reference('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test'),
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineRuleHandlerPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsRuntimeExceptionWhenNoAlias()
+    {
+        $ruleHandler = new Definition();
+        $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.handler', $ruleHandler);
+
+        $targetHandler = new Definition();
+        $targetHandler->addTag('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler');
+        $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test', $targetHandler);
+
+        $this->compile();
     }
 }

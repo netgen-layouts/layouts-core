@@ -2,15 +2,29 @@
 
 namespace Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder;
 
-class RoutePrefix extends Route
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface;
+use Netgen\BlockManager\Traits\RequestStackAwareTrait;
+use Netgen\BlockManager\LayoutResolver\Target\RoutePrefix as RoutePrefixTarget;
+use Symfony\Component\HttpFoundation\Request;
+
+class RoutePrefix implements TargetBuilderInterface
 {
+    use RequestStackAwareTrait;
+
     /**
-     * Returns the unique identifier of the target this builder builds.
+     * Builds the target object that will be used to search for resolver rules.
      *
-     * @return string
+     * @return \Netgen\BlockManager\LayoutResolver\TargetInterface
      */
-    public function getTargetIdentifier()
+    public function buildTarget()
     {
-        return 'route_prefix';
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        if (!$currentRequest instanceof Request) {
+            return false;
+        }
+
+        return new RoutePrefixTarget(
+            array($currentRequest->attributes->get('_route'))
+        );
     }
 }

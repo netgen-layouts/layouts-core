@@ -9,16 +9,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 class RoutePrefix extends TargetHandler
 {
     /**
-     * Returns the target identifier this handler handles.
-     *
-     * @return string
-     */
-    public function getTargetIdentifier()
-    {
-        return 'route_prefix';
-    }
-
-    /**
      * Handles the query by adding the clause that matches the provided values.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query

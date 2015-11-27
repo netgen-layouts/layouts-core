@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layo
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class DoctrineRuleHandlerPass implements CompilerPassInterface
 {
@@ -23,12 +24,16 @@ class DoctrineRuleHandlerPass implements CompilerPassInterface
         }
 
         $ruleHandler = $container->findDefinition(self::SERVICE_NAME);
-        $targetHandlers = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $targetHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($targetHandlers as $targetHandler) {
+        foreach ($targetHandlers as $targetHandler => $tag) {
+            if (!isset($tag[0]['alias'])) {
+                throw new RuntimeException('Target handler tags should have an alias.');
+            }
+
             $ruleHandler->addMethodCall(
                 'addTargetHandler',
-                array(new Reference($targetHandler))
+                array($tag[0]['alias'], new Reference($targetHandler))
             );
         }
     }

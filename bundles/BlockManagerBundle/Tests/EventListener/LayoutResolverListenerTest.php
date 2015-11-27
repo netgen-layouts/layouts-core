@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\LayoutResolver\Rule;
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\Tests\LayoutResolver\Stubs\Target;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
@@ -84,7 +84,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
-            ->will($this->returnValue(new Rule(42, new Target('target', array('value')))));
+            ->will($this->returnValue(new Rule(42, new Target(array('value')))));
 
         $this->layoutServiceMock
             ->expects($this->once())
@@ -151,7 +151,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
-            ->will($this->returnValue(new Rule(42, new Target('target', array('value')))));
+            ->will($this->returnValue(new Rule(42, new Target(array('value')))));
 
         $this->layoutServiceMock
             ->expects($this->once())

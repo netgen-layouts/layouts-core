@@ -2,17 +2,28 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver;
 
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\Tests\LayoutResolver\Stubs\Target;
 
 class TargetTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\Target::__construct
+     * @covers \Netgen\BlockManager\LayoutResolver\Target::getValues
      */
     public function testConstructor()
     {
-        $target = new Target('identifier', array('value'));
-        self::assertEquals('identifier', $target->identifier);
-        self::assertEquals(array('value'), $target->values);
+        $target = new Target(array('value'));
+        self::assertEquals(array('value'), $target->getValues());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\LayoutResolver\Target::setValues
+     * @covers \Netgen\BlockManager\LayoutResolver\Target::getValues
+     */
+    public function testSetValues()
+    {
+        $target = new Target();
+        $target->setValues(array('value'));
+        self::assertEquals(array('value'), $target->getValues());
     }
 }

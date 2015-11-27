@@ -62,11 +62,11 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * Resolves the layout based on provided target.
      *
-     * @param \Netgen\BlockManager\LayoutResolver\Target $target
+     * @param \Netgen\BlockManager\LayoutResolver\TargetInterface $target
      *
      * @return \Netgen\BlockManager\LayoutResolver\Rule
      */
-    public function resolveLayoutForTarget(Target $target)
+    public function resolveLayoutForTarget(TargetInterface $target)
     {
         $rules = $this->ruleLoader->loadRules($target);
         if (empty($rules)) {

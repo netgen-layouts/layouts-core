@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\LayoutResolver;
 
 use Netgen\BlockManager\LayoutResolver\Rule;
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\Tests\LayoutResolver\Stubs\Target;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $target = new Target('target', array('values'));
+        $target = new Target(array('values'));
         $rule = new Rule(42, $target, array('conditions'));
         self::assertEquals(42, $rule->layoutId);
         self::assertEquals($target, $rule->target);

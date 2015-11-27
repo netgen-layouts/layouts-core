@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder;
 
 use Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\Target\Route as RouteTarget;
 use Symfony\Component\HttpFoundation\Request;
 
 class Route implements TargetBuilderInterface
@@ -12,19 +12,9 @@ class Route implements TargetBuilderInterface
     use RequestStackAwareTrait;
 
     /**
-     * Returns the unique identifier of the target this builder builds.
-     *
-     * @return string
-     */
-    public function getTargetIdentifier()
-    {
-        return 'route';
-    }
-
-    /**
      * Builds the target object that will be used to search for resolver rules.
      *
-     * @return \Netgen\BlockManager\LayoutResolver\Target
+     * @return \Netgen\BlockManager\LayoutResolver\TargetInterface
      */
     public function buildTarget()
     {
@@ -33,8 +23,7 @@ class Route implements TargetBuilderInterface
             return false;
         }
 
-        return new Target(
-            $this->getTargetIdentifier(),
+        return new RouteTarget(
             array($currentRequest->attributes->get('_route'))
         );
     }

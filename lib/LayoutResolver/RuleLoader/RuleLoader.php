@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\LayoutResolver\RuleLoader;
 
 use Netgen\BlockManager\LayoutResolver\RuleHandler\RuleHandlerInterface;
 use Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilderInterface;
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\TargetInterface;
 
 class RuleLoader implements RuleLoaderInterface
 {
@@ -33,19 +33,20 @@ class RuleLoader implements RuleLoaderInterface
     /**
      * Loads the rules based on target.
      *
-     * @param \Netgen\BlockManager\LayoutResolver\Target $target
+     * @param \Netgen\BlockManager\LayoutResolver\TargetInterface $target
      *
      * @return \Netgen\BlockManager\LayoutResolver\Rule[]
      */
-    public function loadRules(Target $target)
+    public function loadRules(TargetInterface $target)
     {
-        if (empty($target->identifier) || empty($target->values)) {
+        $targetValues = $target->getValues();
+        if (empty($targetValues)) {
             return array();
         }
 
         $data = $this->ruleHandler->loadRules(
-            $target->identifier,
-            $target->values
+            $target->getIdentifier(),
+            $targetValues
         );
 
         if (empty($data)) {

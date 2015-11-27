@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder\Builder;
 
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\Target\RequestUriPrefix as RequestUriPrefixTarget;
 use Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUriPrefix;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,16 +25,6 @@ class RequestUriPrefixTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUriPrefix::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetBuilder = new RequestUriPrefix();
-
-        self::assertEquals('request_uri_prefix', $targetBuilder->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUriPrefix::buildTarget
      */
     public function testBuildTarget()
@@ -42,7 +32,7 @@ class RequestUriPrefixTest extends \PHPUnit_Framework_TestCase
         $targetBuilder = new RequestUriPrefix();
         $targetBuilder->setRequestStack($this->requestStack);
 
-        self::assertEquals(new Target('request_uri_prefix', array('/the/answer?a=42')), $targetBuilder->buildTarget());
+        self::assertEquals(new RequestUriPrefixTarget(array('/the/answer?a=42')), $targetBuilder->buildTarget());
     }
 
     /**

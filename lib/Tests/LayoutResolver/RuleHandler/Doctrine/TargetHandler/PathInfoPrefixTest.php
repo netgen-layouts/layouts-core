@@ -7,20 +7,11 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\PathIn
 class PathInfoPrefixTest extends TargetHandlerTest
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\PathInfoPrefix::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetHandler = $this->getTargetHandler();
-        self::assertEquals('path_info_prefix', $targetHandler->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\PathInfoPrefix::handleQuery
      */
     public function testLoadPathInfoPrefixRules()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createHandler('path_info_prefix', $this->getTargetHandler());
 
         $expected = array(
             array(

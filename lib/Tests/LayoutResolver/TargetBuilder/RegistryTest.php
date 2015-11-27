@@ -16,7 +16,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $registry = new Registry();
 
         $targetBuilder = new TargetBuilder();
-        $registry->addTargetBuilder($targetBuilder);
+        $registry->addTargetBuilder('target', $targetBuilder);
 
         self::assertEquals(array('target' => $targetBuilder), $registry->getTargetBuilders());
     }
@@ -29,7 +29,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $registry = new Registry();
 
         $targetBuilder = new TargetBuilder();
-        $registry->addTargetBuilder($targetBuilder);
+        $registry->addTargetBuilder('target', $targetBuilder);
 
         self::assertEquals($targetBuilder, $registry->getTargetBuilder('target'));
     }
@@ -43,7 +43,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $registry = new Registry();
 
         $targetBuilder = new TargetBuilder();
-        $registry->addTargetBuilder($targetBuilder);
+        $registry->addTargetBuilder('target', $targetBuilder);
 
         $registry->getTargetBuilder('other_target');
     }

@@ -7,20 +7,11 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Reques
 class RequestUriTest extends TargetHandlerTest
 {
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RequestUri::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetHandler = $this->getTargetHandler();
-        self::assertEquals('request_uri', $targetHandler->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RequestUri::handleQuery
      */
     public function testLoadRequestUriRules()
     {
-        $handler = $this->createHandler();
+        $handler = $this->createHandler('request_uri', $this->getTargetHandler());
 
         $expected = array(
             array(

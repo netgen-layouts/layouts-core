@@ -39,11 +39,12 @@ class Handler implements RuleHandlerInterface
     /**
      * Adds a target handler to the rule handler.
      *
+     * @param string $targetIdentifier
      * @param \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler $targetHandler
      */
-    public function addTargetHandler(TargetHandler $targetHandler)
+    public function addTargetHandler($targetIdentifier, TargetHandler $targetHandler)
     {
-        $this->targetHandlers[$targetHandler->getTargetIdentifier()] = $targetHandler;
+        $this->targetHandlers[$targetIdentifier] = $targetHandler;
     }
 
     /**

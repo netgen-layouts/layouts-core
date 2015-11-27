@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\LayoutResolver\RuleLoader;
 
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoader;
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\Tests\LayoutResolver\Stubs\Target;
 
 class RuleLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,13 +35,13 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRules()
     {
-        $target = new Target('target', array(42));
+        $target = new Target(array(42));
         $rule = new Rule(42, $target);
 
         $this->ruleHandlerMock
             ->expects($this->once())
             ->method('loadRules')
-            ->with($this->equalTo($target->identifier), $this->equalTo($target->values))
+            ->with($this->equalTo($target->getIdentifier()), $this->equalTo($target->getValues()))
             ->will($this->returnValue(array('some_data')));
 
         $this->ruleBuilderMock
@@ -57,28 +57,9 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoader::loadRules
      */
-    public function testLoadRulesWithEmptyTarget()
-    {
-        $target = new Target('', array(42));
-
-        $this->ruleHandlerMock
-            ->expects($this->never())
-            ->method('loadRules');
-
-        $this->ruleBuilderMock
-            ->expects($this->never())
-            ->method('buildRules');
-
-        $ruleLoader = $this->getRuleLoader();
-        self::assertEquals(array(), $ruleLoader->loadRules($target));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoader::loadRules
-     */
     public function testLoadRulesWithEmptyValues()
     {
-        $target = new Target('target', array());
+        $target = new Target(array());
 
         $this->ruleHandlerMock
             ->expects($this->never())
@@ -97,12 +78,12 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithNoDataFound()
     {
-        $target = new Target('target', array(42));
+        $target = new Target(array(42));
 
         $this->ruleHandlerMock
             ->expects($this->once())
             ->method('loadRules')
-            ->with($this->equalTo($target->identifier), $this->equalTo($target->values))
+            ->with($this->equalTo($target->getIdentifier()), $this->equalTo($target->getValues()))
             ->will($this->returnValue(array()));
 
         $this->ruleBuilderMock

@@ -4,22 +4,12 @@ namespace Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder;
 
 use Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\Target\RequestUri as RequestUriTarget;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestUri implements TargetBuilderInterface
 {
     use RequestStackAwareTrait;
-
-    /**
-     * Returns the unique identifier of the target this builder builds.
-     *
-     * @return string
-     */
-    public function getTargetIdentifier()
-    {
-        return 'request_uri';
-    }
 
     /**
      * Builds the target object that will be used to search for resolver rules.
@@ -33,8 +23,7 @@ class RequestUri implements TargetBuilderInterface
             return false;
         }
 
-        return new Target(
-            $this->getTargetIdentifier(),
+        return new RequestUriTarget(
             array($currentRequest->getRequestUri())
         );
     }

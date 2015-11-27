@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder\Builder;
 
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\Target\PathInfo as PathInfoTarget;
 use Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\PathInfo;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,16 +25,6 @@ class PathInfoTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\PathInfo::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetBuilder = new PathInfo();
-
-        self::assertEquals('path_info', $targetBuilder->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\PathInfo::buildTarget
      */
     public function testBuildTarget()
@@ -42,7 +32,7 @@ class PathInfoTest extends \PHPUnit_Framework_TestCase
         $targetBuilder = new PathInfo();
         $targetBuilder->setRequestStack($this->requestStack);
 
-        self::assertEquals(new Target('path_info', array('/the/answer')), $targetBuilder->buildTarget());
+        self::assertEquals(new PathInfoTarget(array('/the/answer')), $targetBuilder->buildTarget());
     }
 
     /**

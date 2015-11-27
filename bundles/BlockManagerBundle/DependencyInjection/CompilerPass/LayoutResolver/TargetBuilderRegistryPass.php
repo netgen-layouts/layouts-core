@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layo
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class TargetBuilderRegistryPass implements CompilerPassInterface
 {
@@ -23,19 +24,28 @@ class TargetBuilderRegistryPass implements CompilerPassInterface
         }
 
         $targetBuildersBuilderRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $targetBuildersBuilders = $container->findTaggedServiceIds(self::TAG_NAME);
+        $targetBuilders = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $flattenedTargetBuilders = array();
-        foreach ($targetBuildersBuilders as $targetBuilders => $tag) {
-            $flattenedTargetBuilders[$targetBuilders] = isset($tag[0]['priority']) ? $tag[0]['priority'] : 0;
+        foreach ($targetBuilders as $targetBuilder => $tag) {
+            if (!isset($tag[0]['alias'])) {
+                throw new RuntimeException('Target builder tags should have an alias.');
+            }
+
+            $priority = isset($tag[0]['priority']) ? $tag[0]['priority'] : 0;
+            $flattenedTargetBuilders[$priority][] = array(
+                'service' => $targetBuilder,
+                'alias' => $tag[0]['alias'],
+            );
         }
 
-        arsort($flattenedTargetBuilders);
+        krsort($flattenedTargetBuilders);
+        $flattenedTargetBuilders = call_user_func_array('array_merge', $flattenedTargetBuilders);
 
-        foreach (array_keys($flattenedTargetBuilders) as $targetBuilders) {
+        foreach ($flattenedTargetBuilders as $targetBuilder) {
             $targetBuildersBuilderRegistry->addMethodCall(
                 'addTargetBuilder',
-                array(new Reference($targetBuilders))
+                array($targetBuilder['alias'], new Reference($targetBuilder['service']))
             );
         }
     }

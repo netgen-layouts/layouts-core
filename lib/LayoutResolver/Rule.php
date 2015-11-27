@@ -10,7 +10,7 @@ class Rule
     public $layoutId;
 
     /**
-     * @var \\Netgen\BlockManager\LayoutResolver\Target
+     * @var \Netgen\BlockManager\LayoutResolver\TargetInterface
      */
     public $target;
 
@@ -23,10 +23,10 @@ class Rule
      * Constructor.
      *
      * @param int|string $layoutId
-     * @param \Netgen\BlockManager\LayoutResolver\Target $target
+     * @param \Netgen\BlockManager\LayoutResolver\TargetInterface $target
      * @param \Netgen\BlockManager\LayoutResolver\Condition[] $conditions
      */
-    public function __construct($layoutId, Target $target, array $conditions = array())
+    public function __construct($layoutId, TargetInterface $target, array $conditions = array())
     {
         $this->layoutId = $layoutId;
         $this->target = $target;

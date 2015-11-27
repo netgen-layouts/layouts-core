@@ -29,11 +29,23 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.registry', $targetBuilderRegistry);
 
         $targetBuilder1 = new Definition();
-        $targetBuilder1->addTag('netgen_block_manager.layout_resolver.target_builder', array('priority' => 10));
+        $targetBuilder1->addTag(
+            'netgen_block_manager.layout_resolver.target_builder',
+            array(
+                'alias' => 'test1',
+                'priority' => 10
+            )
+        );
         $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test1', $targetBuilder1);
 
         $targetBuilder2 = new Definition();
-        $targetBuilder2->addTag('netgen_block_manager.layout_resolver.target_builder', array('priority' => 20));
+        $targetBuilder2->addTag(
+            'netgen_block_manager.layout_resolver.target_builder',
+            array(
+                'alias' => 'test2',
+                'priority' => 20
+            )
+        );
         $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test2', $targetBuilder2);
 
         $this->compile();
@@ -42,7 +54,7 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.layout_resolver.target_builder.registry',
             'addTargetBuilder',
             array(
-                new Reference('netgen_block_manager.layout_resolver.target_builder.test2'),
+                'test2', new Reference('netgen_block_manager.layout_resolver.target_builder.test2'),
             )
         );
 
@@ -50,8 +62,24 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.layout_resolver.target_builder.registry',
             'addTargetBuilder',
             array(
-                new Reference('netgen_block_manager.layout_resolver.target_builder.test1'),
+                'test1', new Reference('netgen_block_manager.layout_resolver.target_builder.test1'),
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\TargetBuilderRegistryPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsRuntimeExceptionWhenNoAlias()
+    {
+        $targetBuilderRegistry = new Definition();
+        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.registry', $targetBuilderRegistry);
+
+        $targetBuilder = new Definition();
+        $targetBuilder->addTag('netgen_block_manager.layout_resolver.target_builder');
+        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test', $targetBuilder);
+
+        $this->compile();
     }
 }

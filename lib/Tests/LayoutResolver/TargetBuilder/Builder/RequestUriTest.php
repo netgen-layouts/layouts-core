@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver\TargetBuilder\Builder;
 
-use Netgen\BlockManager\LayoutResolver\Target;
+use Netgen\BlockManager\LayoutResolver\Target\RequestUri as RequestUriTarget;
 use Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUri;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,16 +25,6 @@ class RequestUriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUri::getTargetIdentifier
-     */
-    public function testGetTargetIdentifier()
-    {
-        $targetBuilder = new RequestUri();
-
-        self::assertEquals('request_uri', $targetBuilder->getTargetIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUri::buildTarget
      */
     public function testBuildTarget()
@@ -42,7 +32,7 @@ class RequestUriTest extends \PHPUnit_Framework_TestCase
         $targetBuilder = new RequestUri();
         $targetBuilder->setRequestStack($this->requestStack);
 
-        self::assertEquals(new Target('request_uri', array('/the/answer?a=42')), $targetBuilder->buildTarget());
+        self::assertEquals(new RequestUriTarget(array('/the/answer?a=42')), $targetBuilder->buildTarget());
     }
 
     /**

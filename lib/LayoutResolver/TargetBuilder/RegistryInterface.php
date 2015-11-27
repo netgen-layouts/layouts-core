@@ -7,9 +7,10 @@ interface RegistryInterface
     /**
      * Adds the target builder to the registry.
      *
+     * @param string $targetIdentifier
      * @param \Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface $targetBuilder
      */
-    public function addTargetBuilder(TargetBuilderInterface $targetBuilder);
+    public function addTargetBuilder($targetIdentifier, TargetBuilderInterface $targetBuilder);
 
     /**
      * Returns the target builder from the registry.
