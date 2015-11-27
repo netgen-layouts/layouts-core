@@ -32,7 +32,7 @@ class DoctrineRuleHandlerPassTest extends AbstractCompilerPassTestCase
         $targetHandler->addTag(
             'netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler',
             array(
-                'alias' => 'test'
+                'alias' => 'test',
             )
         );
         $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test', $targetHandler);

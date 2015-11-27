@@ -7,7 +7,7 @@ use Netgen\BlockManager\LayoutResolver\Target as BaseTarget;
 class Target extends BaseTarget
 {
     /**
-     * Returns the unique identifier of the target
+     * Returns the unique identifier of the target.
      *
      * @return string
      */

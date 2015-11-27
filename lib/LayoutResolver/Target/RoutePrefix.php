@@ -7,7 +7,7 @@ use Netgen\BlockManager\LayoutResolver\Target;
 class RoutePrefix extends Target
 {
     /**
-     * Returns the unique identifier of the target
+     * Returns the unique identifier of the target.
      *
      * @return string
      */

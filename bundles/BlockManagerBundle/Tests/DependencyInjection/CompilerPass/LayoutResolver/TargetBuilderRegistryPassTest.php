@@ -33,7 +33,7 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.layout_resolver.target_builder',
             array(
                 'alias' => 'test1',
-                'priority' => 10
+                'priority' => 10,
             )
         );
         $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test1', $targetBuilder1);
@@ -43,7 +43,7 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.layout_resolver.target_builder',
             array(
                 'alias' => 'test2',
-                'priority' => 20
+                'priority' => 20,
             )
         );
         $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test2', $targetBuilder2);

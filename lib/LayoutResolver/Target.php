@@ -20,7 +20,7 @@ abstract class Target implements TargetInterface
     }
 
     /**
-     * Sets the values to the target
+     * Sets the values to the target.
      *
      * @param array $values
      */
@@ -30,7 +30,7 @@ abstract class Target implements TargetInterface
     }
 
     /**
-     * Returns the values from the target
+     * Returns the values from the target.
      *
      * @return array
      */
