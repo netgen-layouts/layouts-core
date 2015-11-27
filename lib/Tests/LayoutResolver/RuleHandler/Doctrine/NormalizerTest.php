@@ -22,7 +22,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(),
             ),
@@ -48,10 +48,10 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(
-                    1 => array(
+                    array(
                         'identifier' => 'identifier',
                         'parameters' => array(3),
                     ),
@@ -79,10 +79,10 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(
-                    1 => array(
+                    array(
                         'identifier' => 'identifier',
                         'parameters' => array(),
                     ),
@@ -117,14 +117,14 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(
-                    1 => array(
+                    array(
                         'identifier' => 'identifier',
                         'parameters' => array(3),
                     ),
-                    2 => array(
+                    array(
                         'identifier' => 'other_matcher',
                         'parameters' => array(5),
                     ),
@@ -159,11 +159,11 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(),
             ),
-            2 => array(
+            array(
                 'layout_id' => 3,
                 'conditions' => array(),
             ),
@@ -196,19 +196,19 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(
-                    1 => array(
+                    array(
                         'identifier' => 'identifier',
                         'parameters' => array(3),
                     ),
                 ),
             ),
-            2 => array(
+            array(
                 'layout_id' => 3,
                 'conditions' => array(
-                    2 => array(
+                    array(
                         'identifier' => 'other_matcher',
                         'parameters' => array(4),
                     ),
@@ -257,27 +257,27 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(
-                    1 => array(
+                    array(
                         'identifier' => 'identifier',
                         'parameters' => array(3),
                     ),
-                    2 => array(
+                    array(
                         'identifier' => 'matcher2',
                         'parameters' => array(4),
                     ),
                 ),
             ),
-            2 => array(
+            array(
                 'layout_id' => 3,
                 'conditions' => array(
-                    3 => array(
+                    array(
                         'identifier' => 'other_matcher',
                         'parameters' => array(5),
                     ),
-                    4 => array(
+                    array(
                         'identifier' => 'other_matcher2',
                         'parameters' => array(6),
                     ),

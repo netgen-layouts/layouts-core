@@ -29,7 +29,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createHandler();
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 1,
                 'conditions' => array(),
             ),
@@ -48,10 +48,10 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createHandler();
 
         $expected = array(
-            2 => array(
+            array(
                 'layout_id' => 2,
                 'conditions' => array(
-                    1 => array(
+                    array(
                         'identifier' => 'route_parameter',
                         'parameters' => array('some_param' => array('1', '2')),
                     ),
@@ -70,14 +70,14 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createHandler();
 
         $expected = array(
-            3 => array(
+            array(
                 'layout_id' => 3,
                 'conditions' => array(
-                    2 => array(
+                    array(
                         'identifier' => 'route_parameter',
                         'parameters' => array('some_param' => array('3', '4')),
                     ),
-                    3 => array(
+                    array(
                         'identifier' => 'route_parameter',
                         'parameters' => array('some_other_param' => array('5', '6')),
                     ),

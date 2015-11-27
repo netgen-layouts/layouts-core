@@ -23,7 +23,7 @@ class RouteTest extends TargetHandlerTest
         $handler = $this->createHandler();
 
         $expected = array(
-            1 => array(
+            array(
                 'layout_id' => 1,
                 'conditions' => array(),
             ),

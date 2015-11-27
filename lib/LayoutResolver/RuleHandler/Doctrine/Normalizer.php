@@ -33,6 +33,12 @@ class Normalizer
             }
         }
 
+        foreach ($rules as &$rule) {
+            $rule['conditions'] = array_values($rule['conditions']);
+        }
+
+        $rules = array_values($rules);
+
         return $rules;
     }
 }
