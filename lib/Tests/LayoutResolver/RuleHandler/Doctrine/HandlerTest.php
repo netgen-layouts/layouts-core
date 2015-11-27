@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\LayoutResolver\RuleHandler\Doctrine;
 
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler;
+use Netgen\Bundle\EzPublishBlockManagerBundle\LayoutResolver\RuleHandler\Doctrine\TargetHandler as EzTargetHandler;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
@@ -157,7 +158,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler->addTargetHandler(new TargetHandler\Route());
         $handler->addTargetHandler(new TargetHandler\RoutePrefix());
-        $handler->addTargetHandler(new TargetHandler\Location());
+        $handler->addTargetHandler(new EzTargetHandler\Location());
 
         return $handler;
     }
