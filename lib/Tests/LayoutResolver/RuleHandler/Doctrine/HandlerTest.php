@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\LayoutResolver\RuleHandler\Doctrine;
 
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler;
-use Netgen\Bundle\EzPublishBlockManagerBundle\LayoutResolver\RuleHandler\Doctrine\TargetHandler as EzTargetHandler;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
@@ -24,9 +23,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::addTargetHandler
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::loadRules
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route::handleQuery
      */
-    public function testLoadRouteRules()
+    public function testLoadRules()
     {
         $handler = $this->createHandler();
 
@@ -43,44 +41,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::addTargetHandler
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::loadRules
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RoutePrefix::handleQuery
-     */
-    public function testLoadRoutePrefixRules()
-    {
-        $handler = $this->createHandler();
-
-        $expected = array(
-            4 => array(
-                'layout_id' => 1,
-                'conditions' => array(),
-            ),
-        );
-
-        self::assertEquals($expected, $handler->loadRules('route_prefix', array('my_cool_route')));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::__construct
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::addTargetHandler
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::loadRules
-     * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Location::handleQuery
-     */
-    public function testLoadLocationRules()
-    {
-        $handler = $this->createHandler();
-
-        $expected = array(
-            7 => array(
-                'layout_id' => 1,
-                'conditions' => array(),
-            ),
-        );
-
-        self::assertEquals($expected, $handler->loadRules('location', array(42)));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::loadRules
      */
     public function testLoadRulesWithCondition()
@@ -155,10 +115,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     protected function createHandler()
     {
         $handler = new Handler($this->databaseConnection, new Normalizer());
-
         $handler->addTargetHandler(new TargetHandler\Route());
-        $handler->addTargetHandler(new TargetHandler\RoutePrefix());
-        $handler->addTargetHandler(new EzTargetHandler\Location());
 
         return $handler;
     }
