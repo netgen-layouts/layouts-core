@@ -3,6 +3,8 @@ parameters:
     netgen_block_manager.layout_resolver.target_builder.route_prefix.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RoutePrefix
     netgen_block_manager.layout_resolver.target_builder.path_info.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\PathInfo
     netgen_block_manager.layout_resolver.target_builder.path_info_prefix.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\PathInfoPrefix
+    netgen_block_manager.layout_resolver.target_builder.request_uri.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUri
+    netgen_block_manager.layout_resolver.target_builder.request_uri_prefix.class: Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\RequestUriPrefix
 
 services:
     netgen_block_manager.layout_resolver.target_builder.route:
@@ -24,11 +26,25 @@ services:
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 50 }
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 70 }
 
     netgen_block_manager.layout_resolver.target_builder.path_info_prefix:
         class: %netgen_block_manager.layout_resolver.target_builder.path_info_prefix.class%
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 40 }
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 60 }
+
+    netgen_block_manager.layout_resolver.target_builder.request_uri:
+        class: %netgen_block_manager.layout_resolver.target_builder.request_uri.class%
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 90 }
+
+    netgen_block_manager.layout_resolver.target_builder.request_uri_prefix:
+        class: %netgen_block_manager.layout_resolver.target_builder.request_uri_prefix.class%
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout_resolver.target_builder, priority: 80 }
