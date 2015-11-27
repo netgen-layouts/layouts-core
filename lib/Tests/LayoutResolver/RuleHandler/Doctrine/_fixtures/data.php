@@ -8,6 +8,8 @@ return array(
         array('id' => 4, 'layout_id' => 1, 'target_identifier' => 'route_prefix'),
         array('id' => 5, 'layout_id' => 2, 'target_identifier' => 'route_prefix'),
         array('id' => 6, 'layout_id' => 3, 'target_identifier' => 'route_prefix'),
+        array('id' => 7, 'layout_id' => 4, 'target_identifier' => 'path_info'),
+        array('id' => 8, 'layout_id' => 5, 'target_identifier' => 'path_info_prefix'),
     ),
     'ngbm_rule_value' => array(
         array('id' => 1, 'rule_id' => 1, 'value' => 'my_cool_route'),
@@ -22,6 +24,10 @@ return array(
         array('id' => 10, 'rule_id' => 5, 'value' => 'my_third_cool_'),
         array('id' => 11, 'rule_id' => 6, 'value' => 'my_fourth_cool_'),
         array('id' => 12, 'rule_id' => 6, 'value' => 'my_fifth_cool_'),
+        array('id' => 13, 'rule_id' => 7, 'value' => '/the/answer'),
+        array('id' => 14, 'rule_id' => 7, 'value' => '/the/other/answer'),
+        array('id' => 15, 'rule_id' => 8, 'value' => '/the/'),
+        array('id' => 16, 'rule_id' => 8, 'value' => '/a/'),
     ),
     'ngbm_rule_condition' => array(
         array('id' => 1, 'rule_id' => 2, 'identifier' => 'route_parameter', 'parameters' => '{"some_param": [1,2]}'),
