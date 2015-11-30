@@ -31,7 +31,7 @@ interface ConfigurationInterface
      *
      * @param string $definitionIdentifier
      *
-     * @throws \RuntimeException If configuration for specified block does not exist
+     * @throws \InvalidArgumentException If configuration for specified block does not exist
      *
      * @return array
      */
@@ -42,7 +42,7 @@ interface ConfigurationInterface
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If configuration for specified block type does not exist
+     * @throws \InvalidArgumentException If configuration for specified block type does not exist
      *
      * @return array
      */
@@ -53,7 +53,7 @@ interface ConfigurationInterface
      *
      * @param string $layoutIdentifier
      *
-     * @throws \RuntimeException If configuration for specified layout does not exist
+     * @throws \InvalidArgumentException If configuration for specified layout does not exist
      *
      * @return array
      */

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\API\Values\Value;
-use InvalidArgumentException;
+use RuntimeException;
 
 class ViewBuilder implements ViewBuilderInterface
 {
@@ -54,7 +54,7 @@ class ViewBuilder implements ViewBuilderInterface
     {
         foreach ($this->viewProviders as $viewProvider) {
             if (!$viewProvider instanceof ViewProviderInterface) {
-                throw new InvalidArgumentException(
+                throw new RuntimeException(
                     sprintf(
                         'View provider for "%s" value object needs to implement ViewProviderInterface.',
                         get_class($value)
@@ -76,7 +76,7 @@ class ViewBuilder implements ViewBuilderInterface
         }
 
         if (!isset($view)) {
-            throw new InvalidArgumentException(
+            throw new RuntimeException(
                 sprintf(
                     'No view providers found for "%s" value object.',
                     get_class($value)
@@ -86,7 +86,7 @@ class ViewBuilder implements ViewBuilderInterface
 
         foreach ($this->templateResolvers as $type => $templateResolver) {
             if (!$templateResolver instanceof TemplateResolverInterface) {
-                throw new InvalidArgumentException(
+                throw new RuntimeException(
                     sprintf(
                         'Template resolver for "%s" value object needs to implement TemplateResolverInterface.',
                         $type

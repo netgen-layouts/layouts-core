@@ -152,9 +152,9 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
-    public function testBuildViewThrowsInvalidArgumentExceptionWithNoTemplateResolverInterface()
+    public function testBuildViewThrowsRuntimeExceptionWithNoTemplateResolverInterface()
     {
         $value = new Value();
         $view = new View();
@@ -189,7 +189,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
     public function testBuildViewWithNoViewProviders()
     {
@@ -209,7 +209,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
     public function testBuildViewWithNoViewProvidersThatSupportValue()
     {
@@ -240,9 +240,9 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
-    public function testBuildViewThrowsInvalidArgumentExceptionWithNoViewProviderInterface()
+    public function testBuildViewThrowsRuntimeExceptionWithNoViewProviderInterface()
     {
         $value = new Value();
         $view = new View();

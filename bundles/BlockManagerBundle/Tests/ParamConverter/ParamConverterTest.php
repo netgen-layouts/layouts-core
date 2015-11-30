@@ -57,7 +57,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
     public function testApplyWithEmptyAndNonOptionalAttribute()
     {

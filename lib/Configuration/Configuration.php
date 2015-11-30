@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Configuration;
 
-use RuntimeException;
+use InvalidArgumentException;
 
 abstract class Configuration implements ConfigurationInterface
 {
@@ -11,7 +11,7 @@ abstract class Configuration implements ConfigurationInterface
      *
      * @param string $definitionIdentifier
      *
-     * @throws \RuntimeException If configuration for specified block does not exist
+     * @throws \InvalidArgumentException If configuration for specified block does not exist
      *
      * @return array
      */
@@ -20,7 +20,7 @@ abstract class Configuration implements ConfigurationInterface
         $blockConfig = $this->getParameter('blocks');
 
         if (!isset($blockConfig[$definitionIdentifier])) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" block definition does not exist.',
                     $definitionIdentifier
@@ -36,7 +36,7 @@ abstract class Configuration implements ConfigurationInterface
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If configuration for specified block type not exist
+     * @throws \InvalidArgumentException If configuration for specified block type not exist
      *
      * @return array
      */
@@ -45,7 +45,7 @@ abstract class Configuration implements ConfigurationInterface
         $blockTypeConfig = $this->getParameter('block_types');
 
         if (!isset($blockTypeConfig[$identifier])) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" block type does not exist.',
                     $identifier
@@ -61,7 +61,7 @@ abstract class Configuration implements ConfigurationInterface
      *
      * @param string $layoutIdentifier
      *
-     * @throws \RuntimeException If configuration for specified layout does not exist
+     * @throws \InvalidArgumentException If configuration for specified layout does not exist
      *
      * @return array
      */
@@ -70,7 +70,7 @@ abstract class Configuration implements ConfigurationInterface
         $layoutConfig = $this->getParameter('layouts');
 
         if (!isset($layoutConfig[$layoutIdentifier])) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" layout does not exist.',
                     $layoutIdentifier

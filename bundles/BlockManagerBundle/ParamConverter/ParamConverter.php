@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
-use InvalidArgumentException;
+use RuntimeException;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
@@ -30,7 +30,7 @@ abstract class ParamConverter implements ParamConverterInterface
                 return false;
             }
 
-            throw new InvalidArgumentException(
+            throw new RuntimeException(
                 sprintf(
                     'Required request attribute "%s" is empty',
                     $this->getSourceAttributeName()

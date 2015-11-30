@@ -21,9 +21,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockConfig
-     * @expectedException \RuntimeException
+     * @expectedException \InvalidArgumentException
      */
-    public function testGetBlockConfigThrowsRuntimeException()
+    public function testGetBlockConfigThrowsInvalidArgumentException()
     {
         $configuration = new Configuration();
         $configuration->getBlockConfig('some_other_block');
@@ -44,9 +44,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockTypeConfig
-     * @expectedException \RuntimeException
+     * @expectedException \InvalidArgumentException
      */
-    public function testGetBlockTypeConfigThrowsRuntimeException()
+    public function testGetBlockTypeConfigThrowsInvalidArgumentException()
     {
         $configuration = new Configuration();
         $configuration->getBlockTypeConfig('some_other_block_type');
@@ -67,9 +67,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getLayoutConfig
-     * @expectedException \RuntimeException
+     * @expectedException \InvalidArgumentException
      */
-    public function testGetLayoutConfigThrowsRuntimeException()
+    public function testGetLayoutConfigThrowsInvalidArgumentException()
     {
         $configuration = new Configuration();
         $configuration->getLayoutConfig('some_other_layout');
