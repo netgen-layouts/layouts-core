@@ -27,7 +27,7 @@ class Select extends Parameter
         $optionsResolver->setAllowedValues(
             'options',
             function (array $value) {
-                if (empty($value) || isset($value[0])) {
+                if (empty($value)) {
                     return false;
                 }
 
@@ -56,6 +56,7 @@ class Select extends Parameter
         return array(
             'multiple' => $this->attributes['multiple'],
             'choices' => $this->attributes['options'],
+            'choices_as_values' => true,
         );
     }
 }

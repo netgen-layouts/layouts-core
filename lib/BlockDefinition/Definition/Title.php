@@ -13,9 +13,9 @@ class Title extends BlockDefinition
      * @var array
      */
     protected $options = array(
-        'h1' => 'h1',
-        'h2' => 'h2',
-        'h3' => 'h3',
+        'Heading 1' => 'h1',
+        'Heading 2' => 'h2',
+        'Heading 3' => 'h3',
     );
 
     /**
@@ -77,7 +77,7 @@ class Title extends BlockDefinition
         return array(
             'tag' => array(
                 new Constraints\NotBlank(),
-                new Constraints\Choice(array('choices' => $this->options)),
+                new Constraints\Choice(array('choices' => array_values($this->options))),
             ),
             'title' => array(
                 new Constraints\NotBlank(),

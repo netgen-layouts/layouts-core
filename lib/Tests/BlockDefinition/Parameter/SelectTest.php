@@ -15,8 +15,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $attributes = array(
             'multiple' => false,
             'options' => array(
-                'option1' => 'Option 1',
-                'option2' => 'Option 2',
+                'Option 1' => 'o1',
+                'Option 2' => 'o2',
             ),
         );
 
@@ -30,6 +30,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array(
                 'multiple' => $attributes['multiple'],
                 'choices' => $attributes['options'],
+                'choices_as_values' => true,
             ),
             $parameter->mapFormTypeOptions()
         );
@@ -89,15 +90,15 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
                 array(
                     'multiple' => false,
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
             ),
@@ -105,15 +106,15 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                 array(
                     'multiple' => false,
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
                 array(
                     'multiple' => false,
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
             ),
@@ -121,15 +122,15 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                 array(
                     'multiple' => true,
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
                 array(
                     'multiple' => true,
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
             ),
@@ -148,8 +149,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                 array(
                     'multiple' => 'true',
                     'options' => array(
-                        'option1' => 'Option 1',
-                        'option2' => 'Option 2',
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
                     ),
                 ),
             ),
@@ -161,11 +162,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'options' => array(),
-                ),
-            ),
-            array(
-                array(
-                    'options' => array(1, 2, 3),
                 ),
             ),
             array(

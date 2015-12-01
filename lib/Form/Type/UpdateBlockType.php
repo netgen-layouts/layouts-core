@@ -64,7 +64,7 @@ class UpdateBlockType extends AbstractType
 
         $choices = array();
         foreach ($blockConfig['view_types'] as $identifier => $viewType) {
-            $choices[$identifier] = $viewType['name'];
+            $choices[$viewType['name']] = $identifier;
         }
 
         $builder->add(
@@ -73,6 +73,7 @@ class UpdateBlockType extends AbstractType
             array(
                 'label' => 'View type',
                 'choices' => $choices,
+                'choices_as_values' => true,
                 'property_path' => 'viewType',
             )
         );
