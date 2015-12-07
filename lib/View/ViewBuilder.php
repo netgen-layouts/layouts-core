@@ -70,7 +70,7 @@ class ViewBuilder implements ViewBuilderInterface
             $view->setContext($context);
             $view->addParameters($parameters);
 
-            $event = new CollectViewParametersEvent($view, $parameters);
+            $event = new CollectViewParametersEvent($view);
             $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);
             $view->addParameters($event->getViewParameters());
         }

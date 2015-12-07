@@ -82,7 +82,7 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('layout'))
             ->will($this->returnValue($layoutConfig));
 
-        $event = new CollectViewParametersEvent($layoutView, array());
+        $event = new CollectViewParametersEvent($layoutView);
 
         $listener = $this->getEventListener();
         $listener->onBuildView($event);
@@ -114,7 +114,7 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('getLayoutConfig');
 
-        $event = new CollectViewParametersEvent($blockView, array());
+        $event = new CollectViewParametersEvent($blockView);
 
         $listener = $this->getEventListener();
         $listener->onBuildView($event);
@@ -133,7 +133,7 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('getLayoutConfig');
 
-        $event = new CollectViewParametersEvent($layoutView, array());
+        $event = new CollectViewParametersEvent($layoutView);
 
         $listener = $this->getEventListener();
         $listener->onBuildView($event);

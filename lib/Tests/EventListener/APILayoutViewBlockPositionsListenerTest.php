@@ -60,7 +60,7 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
         $layoutView->setContext('api');
         $layoutView->setLayout($layout);
 
-        $event = new CollectViewParametersEvent($layoutView, array());
+        $event = new CollectViewParametersEvent($layoutView);
 
         $listener = $this->getEventListener();
         $listener->onBuildView($event);
@@ -88,7 +88,7 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
     {
         $blockView = new BlockView();
 
-        $event = new CollectViewParametersEvent($blockView, array());
+        $event = new CollectViewParametersEvent($blockView);
 
         $listener = $this->getEventListener();
         $listener->onBuildView($event);
@@ -103,7 +103,7 @@ class APILayoutViewBlockPositionsListenerTest extends \PHPUnit_Framework_TestCas
     {
         $layoutView = new LayoutView();
 
-        $event = new CollectViewParametersEvent($layoutView, array());
+        $event = new CollectViewParametersEvent($layoutView);
 
         $listener = $this->getEventListener();
         $listener->onBuildView($event);
