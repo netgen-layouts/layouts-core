@@ -34,7 +34,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             array(
                 'block_view' => array(
-                    'api' => array(
+                    'view' => array(
                         'block' => array(
                             'template' => 'block.html.twig',
                             'match' => array(
@@ -48,7 +48,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $expectedConfig = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => array(
@@ -77,7 +77,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             array(
                 'block_view' => array(
-                    'api' => array(
+                    'view' => array(
                         'block' => array(
                             'template' => 'block.html.twig',
                             'match' => array(24, 42),
@@ -89,7 +89,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $expectedConfig = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => array(24, 42),
@@ -116,7 +116,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             array(
                 'block_view' => array(
-                    'api' => array(
+                    'view' => array(
                         'block' => array(
                             'template' => 'block.html.twig',
                             'match' => null,
@@ -128,7 +128,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $expectedConfig = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => array(),
@@ -152,7 +152,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                     ),
@@ -171,7 +171,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => 'match',
@@ -191,7 +191,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'match' => array(),
                     ),
@@ -210,7 +210,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => array(),
                         'match' => array(),
@@ -230,7 +230,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => array(
                         'template' => '',
                         'match' => array(),
@@ -250,7 +250,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(),
+                'view' => array(),
             ),
         );
 
@@ -265,7 +265,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => array(
+                'view' => array(
                     'block' => 'block',
                 ),
             ),
@@ -295,7 +295,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'api' => 'api',
+                'view' => 'view',
             ),
         );
 

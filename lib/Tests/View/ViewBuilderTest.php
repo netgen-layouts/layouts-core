@@ -53,11 +53,11 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         );
 
         $viewParameters = array('some_param' => 'some_value');
-        $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
 
         self::assertInstanceOf('Netgen\BlockManager\Tests\View\Stubs\View', $builtView);
         self::assertEquals('some_template.html.twig', $builtView->getTemplate());
-        self::assertEquals('api', $builtView->getContext());
+        self::assertEquals('context', $builtView->getContext());
         self::assertEquals($viewParameters, $builtView->getParameters());
     }
 
@@ -90,11 +90,11 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $viewBuilder = new ViewBuilder(array($viewProvider), array(), $eventDispatcherMock);
 
         $viewParameters = array('some_param' => 'some_value');
-        $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
 
         self::assertInstanceOf('Netgen\BlockManager\Tests\View\Stubs\View', $builtView);
         self::assertNull($builtView->getTemplate());
-        self::assertEquals('api', $builtView->getContext());
+        self::assertEquals('context', $builtView->getContext());
         self::assertEquals($viewParameters, $builtView->getParameters());
     }
 
@@ -141,11 +141,11 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         );
 
         $viewParameters = array('some_param' => 'some_value');
-        $builtView = $viewBuilder->buildView($value, $viewParameters, 'api');
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
 
         self::assertInstanceOf('Netgen\BlockManager\Tests\View\Stubs\View', $builtView);
         self::assertNull($builtView->getTemplate());
-        self::assertEquals('api', $builtView->getContext());
+        self::assertEquals('context', $builtView->getContext());
         self::assertEquals($viewParameters, $builtView->getParameters());
     }
 
@@ -184,7 +184,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             $eventDispatcherMock
         );
 
-        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'context'));
     }
 
     /**
@@ -204,7 +204,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             $eventDispatcherMock
         );
 
-        $viewBuilder->buildView($value, array(), 'api');
+        $viewBuilder->buildView($value, array(), 'context');
     }
 
     /**
@@ -234,7 +234,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             $eventDispatcherMock
         );
 
-        $viewBuilder->buildView($value, array(), 'api');
+        $viewBuilder->buildView($value, array(), 'context');
     }
 
     /**
@@ -257,6 +257,6 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             $eventDispatcherMock
         );
 
-        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'api'));
+        self::assertEquals($view, $viewBuilder->buildView($value, array(), 'context'));
     }
 }

@@ -13,9 +13,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function testSetContext()
     {
         $view = new View();
-        $view->setContext('api');
+        $view->setContext('context');
 
-        self::assertEquals('api', $view->getContext());
+        self::assertEquals('context', $view->getContext());
     }
 
     /**

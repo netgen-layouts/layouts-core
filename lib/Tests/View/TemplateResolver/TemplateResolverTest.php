@@ -32,7 +32,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => $matcherMock,
             ),
             array(
-                'api' => array(
+                'context' => array(
                     'paragraph' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(
@@ -58,7 +58,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
         $templateResolver = new TemplateResolver(
             array(),
             array(
-                'api' => array(
+                'context' => array(
                     'paragraph' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(),
@@ -82,7 +82,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
         $templateResolver = new TemplateResolver(
             array(),
             array(
-                'api' => array(
+                'context' => array(
                     'paragraph' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(),
@@ -116,7 +116,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $templateResolver = new TemplateResolver(
             array(),
-            array('api' => array())
+            array('context' => array())
         );
 
         $templateResolver->resolveTemplate($this->getView());
@@ -147,7 +147,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => $matcherMock,
             ),
             array(
-                'api' => array(
+                'context' => array(
                     'title' => array(
                         'match' => array(
                             'definition_identifier' => 'title',
@@ -170,7 +170,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
         $templateResolver = new TemplateResolver(
             array(),
             array(
-                'api' => array(
+                'context' => array(
                     'title' => array(
                         'match' => array(
                             'definition_identifier' => 'title',
@@ -199,7 +199,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => $matcherMock,
             ),
             array(
-                'api' => array(
+                'context' => array(
                     'title' => array(
                         'match' => array(
                             'definition_identifier' => 'title',
@@ -220,7 +220,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     protected function getView()
     {
         $view = new View();
-        $view->setContext('api');
+        $view->setContext('context');
 
         return $view;
     }
