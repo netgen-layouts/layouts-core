@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class LayoutViewNormalizer extends LayoutNormalizer
+class LayoutViewNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
@@ -53,14 +54,18 @@ class LayoutViewNormalizer extends LayoutNormalizer
     {
         $layout = $object->getLayout();
 
-        $data = parent::normalize($layout);
-
-        $data['zones'] = $object->getParameter('zones');
-        $data['blocks'] = $this->normalizeBlocks($object);
-        $data['positions'] = $object->getParameter('positions');
-        $data['html'] = $this->viewRenderer->renderView($object);
-
-        return $data;
+        return array(
+            'id' => $layout->getId(),
+            'parent_id' => $layout->getParentId(),
+            'identifier' => $layout->getIdentifier(),
+            'created_at' => $layout->getCreated(),
+            'updated_at' => $layout->getModified(),
+            'name' => $layout->getName(),
+            'zones' => $object->getParameter('zones'),
+            'blocks' => $this->normalizeBlocks($object),
+            'positions' => $object->getParameter('positions'),
+            'html' => $this->viewRenderer->renderView($object),
+        );
     }
 
     /**

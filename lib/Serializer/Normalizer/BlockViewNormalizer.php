@@ -2,10 +2,11 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Netgen\BlockManager\View\BlockViewInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
+use Netgen\BlockManager\View\BlockViewInterface;
 
-class BlockViewNormalizer extends BlockNormalizer
+class BlockViewNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface
@@ -33,10 +34,17 @@ class BlockViewNormalizer extends BlockNormalizer
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $data = parent::normalize($object->getBlock());
-        $data['html'] = $this->viewRenderer->renderView($object);
+        $block = $object->getBlock();
 
-        return $data;
+        return array(
+            'id' => $block->getId(),
+            'definition_identifier' => $block->getDefinitionIdentifier(),
+            'name' => $block->getName(),
+            'zone_id' => $block->getZoneId(),
+            'parameters' => $block->getParameters(),
+            'view_type' => $block->getViewType(),
+            'html' => $this->viewRenderer->renderView($object)
+        );
     }
 
     /**
