@@ -54,8 +54,9 @@ interface BlockDefinitionInterface
      * Returns the array of values provided by this block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
      *
      * @return array
      */
-    public function getValues(Block $block);
+    public function getValues(Block $block, array $parameters = array());
 }
