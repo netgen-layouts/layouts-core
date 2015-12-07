@@ -99,7 +99,7 @@ class LayoutViewNormalizer implements NormalizerInterface
         $normalizedBlocks = array();
         foreach ($blocks as $block) {
             $normalizedBlocks[] = $this->blockViewNormalizer->normalize(
-                $this->viewBuilder->buildView($block, array(), $layoutView->getContext())
+                $this->viewBuilder->buildView($block, $layoutView->getContext())
             );
         }
 

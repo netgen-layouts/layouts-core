@@ -15,7 +15,7 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        $layoutView = $this->buildViewObject($layout, array(), 'api');
+        $layoutView = $this->buildViewObject($layout, 'api');
 
         return $this->serializeObject($layoutView, self::API_VERSION);
     }

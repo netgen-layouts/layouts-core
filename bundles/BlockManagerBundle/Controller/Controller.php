@@ -11,16 +11,16 @@ abstract class Controller extends BaseController
      * Builds the view from the object.
      *
      * @param mixed $object
-     * @param array $parameters
      * @param string $context
+     * @param array $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    protected function buildViewObject($object, array $parameters = array(), $context = 'view')
+    protected function buildViewObject($object, $context = 'view', array $parameters = array())
     {
         $viewBuilder = $this->get('netgen_block_manager.view.builder');
 
-        return $viewBuilder->buildView($object, $parameters, $context);
+        return $viewBuilder->buildView($object, $context, $parameters);
     }
 
     /**

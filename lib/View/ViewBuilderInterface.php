@@ -10,10 +10,10 @@ interface ViewBuilderInterface
      * Builds the view.
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
-     * @param array $parameters
      * @param string $context
+     * @param array $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView(Value $value, array $parameters = array(), $context = 'view');
+    public function buildView(Value $value, $context = 'view', array $parameters = array());
 }
