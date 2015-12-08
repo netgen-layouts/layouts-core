@@ -172,7 +172,7 @@ class LayoutService implements LayoutServiceInterface
      * Builds the API layout value object from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $persistenceLayout
-     * @param array $persistenceZones
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone[] $persistenceZones
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -183,7 +183,7 @@ class LayoutService implements LayoutServiceInterface
         $zones = array();
 
         foreach ($persistenceZones as $persistenceZone) {
-            $zones[] = $this->buildDomainZoneObject($persistenceZone);
+            $zones[$persistenceZone->identifier] = $this->buildDomainZoneObject($persistenceZone);
         }
 
         $layout = new Layout(

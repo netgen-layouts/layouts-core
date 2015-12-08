@@ -49,12 +49,12 @@ class APILayoutViewZonesListenerTest extends \PHPUnit_Framework_TestCase
             array(
                 'identifier' => 'layout',
                 'zones' => array(
-                    new Zone(
+                    'zone1' => new Zone(
                         array(
                             'identifier' => 'zone1',
                         )
                     ),
-                    new Zone(
+                    'zone2' => new Zone(
                         array(
                             'identifier' => 'zone2',
                         )

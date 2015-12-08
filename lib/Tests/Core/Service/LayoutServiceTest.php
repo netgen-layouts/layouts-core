@@ -61,7 +61,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(
             array(
-                new Zone(
+                'top_left' => new Zone(
                     array(
                         'id' => 1,
                         'layoutId' => $layout->getId(),
@@ -69,7 +69,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'top_right' => new Zone(
                     array(
                         'id' => 2,
                         'layoutId' => $layout->getId(),
@@ -102,7 +102,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         ),
                     )
                 ),
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'id' => 3,
                         'layoutId' => $layout->getId(),
@@ -225,7 +225,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(
             array(
-                new Zone(
+                'left' => new Zone(
                     array(
                         'id' => 7,
                         'layoutId' => $createdLayout->getId(),
@@ -233,7 +233,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'right' => new Zone(
                     array(
                         'id' => 8,
                         'layoutId' => $createdLayout->getId(),
@@ -241,7 +241,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'id' => 9,
                         'layoutId' => $createdLayout->getId(),
@@ -288,7 +288,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(
             array(
-                new Zone(
+                'left' => new Zone(
                     array(
                         'id' => 7,
                         'layoutId' => $createdLayout->getId(),
@@ -296,7 +296,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'right' => new Zone(
                     array(
                         'id' => 8,
                         'layoutId' => $createdLayout->getId(),
@@ -304,7 +304,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'id' => 9,
                         'layoutId' => $createdLayout->getId(),
@@ -342,7 +342,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(
             array(
-                new Zone(
+                'top_left' => new Zone(
                     array(
                         'id' => 7,
                         'layoutId' => $copiedLayout->getId(),
@@ -350,7 +350,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'top_right' => new Zone(
                     array(
                         'id' => 8,
                         'layoutId' => $copiedLayout->getId(),
@@ -358,7 +358,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'blocks' => array(),
                     )
                 ),
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'id' => 9,
                         'layoutId' => $copiedLayout->getId(),

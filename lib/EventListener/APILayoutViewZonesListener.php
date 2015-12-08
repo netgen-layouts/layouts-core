@@ -53,9 +53,8 @@ class APILayoutViewZonesListener implements EventSubscriberInterface
         $layout = $view->getLayout();
         $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
 
-        foreach ($layout->getZones() as $zone) {
+        foreach ($layout->getZones() as $zoneIdentifier => $zone) {
             $allowedBlocks = true;
-            $zoneIdentifier = $zone->getIdentifier();
 
             if (isset($layoutConfig['zones'][$zoneIdentifier])) {
                 $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
