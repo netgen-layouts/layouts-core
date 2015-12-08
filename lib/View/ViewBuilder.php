@@ -73,6 +73,8 @@ class ViewBuilder implements ViewBuilderInterface
             $event = new CollectViewParametersEvent($view);
             $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);
             $view->addParameters($event->getViewParameters());
+
+            break;
         }
 
         if (!isset($view)) {
@@ -101,6 +103,8 @@ class ViewBuilder implements ViewBuilderInterface
             $view->setTemplate(
                 $templateResolver->resolveTemplate($view)
             );
+
+            break;
         }
 
         return $view;

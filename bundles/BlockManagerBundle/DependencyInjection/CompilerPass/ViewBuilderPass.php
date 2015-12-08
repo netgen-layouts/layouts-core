@@ -27,8 +27,12 @@ class ViewBuilderPass implements CompilerPassInterface
         $viewProviders = array();
 
         foreach ($viewProviderServices as $serviceName => $tag) {
-            $viewProviders[] = new Reference($serviceName);
+            $priority = isset($tag[0]['priority']) ? $tag[0]['priority'] : 0;
+            $viewProviders[$priority][] = new Reference($serviceName);
         }
+
+        krsort($viewProviders);
+        $viewProviders = call_user_func_array('array_merge', $viewProviders);
 
         $templateResolverServices = $container->findTaggedServiceIds('netgen_block_manager.view.template_resolver');
         $templateResolvers = array();
