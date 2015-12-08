@@ -11,6 +11,8 @@ interface Layout
      *
      * @param int|string $layoutId
      *
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function loadLayout($layoutId);
@@ -19,6 +21,8 @@ interface Layout
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
+     *
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */

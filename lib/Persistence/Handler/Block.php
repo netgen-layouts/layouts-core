@@ -12,6 +12,8 @@ interface Block
      *
      * @param int|string $blockId
      *
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function loadBlock($blockId);
