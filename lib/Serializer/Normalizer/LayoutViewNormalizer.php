@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
+use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
@@ -9,6 +12,11 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class LayoutViewNormalizer implements NormalizerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    protected $configuration;
+
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
@@ -27,15 +35,18 @@ class LayoutViewNormalizer implements NormalizerInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer $blockViewNormalizer
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
     public function __construct(
+        ConfigurationInterface $configuration,
         ViewBuilderInterface $viewBuilder,
         BlockViewNormalizer $blockViewNormalizer,
         ViewRendererInterface $viewRenderer
     ) {
+        $this->configuration = $configuration;
         $this->viewBuilder = $viewBuilder;
         $this->blockViewNormalizer = $blockViewNormalizer;
         $this->viewRenderer = $viewRenderer;
@@ -61,9 +72,9 @@ class LayoutViewNormalizer implements NormalizerInterface
             'created_at' => $layout->getCreated(),
             'updated_at' => $layout->getModified(),
             'name' => $layout->getName(),
-            'zones' => $object->getParameter('zones'),
+            'zones' => $this->getZones($layout),
             'blocks' => $this->normalizeBlocks($object),
-            'positions' => $object->getParameter('positions'),
+            'positions' => $this->getBlockPositions($layout),
             'html' => $this->viewRenderer->renderView($object),
         );
     }
@@ -104,5 +115,62 @@ class LayoutViewNormalizer implements NormalizerInterface
         }
 
         return $normalizedBlocks;
+    }
+
+    /**
+     * Returns the array with layout zones.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return array
+     */
+    protected function getZones(Layout $layout)
+    {
+        $zones = array();
+        $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
+
+        foreach ($layout->getZones() as $zoneIdentifier => $zone) {
+            $allowedBlocks = true;
+
+            if (isset($layoutConfig['zones'][$zoneIdentifier])) {
+                $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
+                if (!empty($zoneConfig['allowed_blocks'])) {
+                    $allowedBlocks = $zoneConfig['allowed_blocks'];
+                }
+            }
+
+            $zones[] = array(
+                'identifier' => $zoneIdentifier,
+                'allowed_blocks' => $allowedBlocks,
+            );
+        }
+
+        return $zones;
+    }
+
+    /**
+     * Returns the array with block positions inside zones.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return array
+     */
+    protected function getBlockPositions(Layout $layout)
+    {
+        $positions = array();
+
+        foreach ($layout->getZones() as $zoneIdentifier => $zone) {
+            $positions[] = array(
+                'zone' => $zoneIdentifier,
+                'blocks' => array_map(
+                    function (Block $block) {
+                        return $block->getId();
+                    },
+                    $zone->getBlocks()
+                ),
+            );
+        }
+
+        return $positions;
     }
 }

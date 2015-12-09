@@ -17,6 +17,8 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::normalizeBlocks
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getBlockPositions
      */
     public function testNormalize()
     {
@@ -37,10 +39,16 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'zones' => array(
-                    new Zone(
+                    'left' => new Zone(
                         array(
                             'identifier' => 'left',
                             'blocks' => array($block),
+                        )
+                    ),
+                    'right' => new Zone(
+                        array(
+                            'identifier' => 'right',
+                            'blocks' => array(),
                         )
                     ),
                 ),
@@ -57,6 +65,25 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $layoutView = new LayoutView();
         $layoutView->setLayout($layout);
+
+        $layoutConfig = array(
+            'zones' => array(
+                'left' => array(
+                    'name' => 'Left',
+                    'allowed_blocks' => array('title'),
+                ),
+                'right' => array(
+                    'name' => 'Right',
+                ),
+            ),
+        );
+
+        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock
+            ->expects($this->any())
+            ->method('getLayoutConfig')
+            ->with($this->equalTo('3_zones_a'))
+            ->will($this->returnValue($layoutConfig));
 
         $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
         $viewBuilderMock
@@ -84,6 +111,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('rendered layout view'));
 
         $layoutViewNormalizer = new LayoutViewNormalizer(
+            $configurationMock,
             $viewBuilderMock,
             $blockViewNormalizerMock,
             $viewRendererMock
@@ -98,9 +126,27 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                 'updated_at' => $layout->getModified(),
                 'name' => $layout->getName(),
                 'html' => 'rendered layout view',
-                'zones' => null,
+                'zones' => array(
+                    array(
+                        'identifier' => 'left',
+                        'allowed_blocks' => array('title'),
+                    ),
+                    array(
+                        'identifier' => 'right',
+                        'allowed_blocks' => true,
+                    ),
+                ),
                 'blocks' => array($normalizedBlockView),
-                'positions' => null,
+                'positions' => array(
+                    array(
+                        'zone' => 'left',
+                        'blocks' => array(24),
+                    ),
+                    array(
+                        'zone' => 'right',
+                        'blocks' => array(),
+                    ),
+                ),
             ),
             $layoutViewNormalizer->normalize($layoutView)
         );
@@ -115,6 +161,8 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
+        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+
         $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
 
         $blockViewNormalizerMock = $this
@@ -125,6 +173,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
 
         $layoutViewNormalizer = new LayoutViewNormalizer(
+            $configurationMock,
             $viewBuilderMock,
             $blockViewNormalizerMock,
             $viewRendererMock

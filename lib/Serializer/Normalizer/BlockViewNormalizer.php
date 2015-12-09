@@ -43,7 +43,7 @@ class BlockViewNormalizer implements NormalizerInterface
             'zone_id' => $block->getZoneId(),
             'parameters' => $block->getParameters(),
             'view_type' => $block->getViewType(),
-            'html' => $this->viewRenderer->renderView($object)
+            'html' => $this->viewRenderer->renderView($object),
         );
     }
 
