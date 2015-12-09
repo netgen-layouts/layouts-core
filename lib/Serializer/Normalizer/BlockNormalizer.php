@@ -2,13 +2,20 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Netgen\BlockManager\View\SerializableView;
+use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\View\ViewBuilderInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
-use Netgen\BlockManager\View\BlockViewInterface;
 
-class BlockViewNormalizer implements NormalizerInterface
+class BlockNormalizer implements NormalizerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\View\ViewBuilderInterface
+     */
+    protected $viewBuilder;
+
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
@@ -17,17 +24,19 @@ class BlockViewNormalizer implements NormalizerInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
-    public function __construct(ViewRendererInterface $viewRenderer)
+    public function __construct(ViewBuilderInterface $viewBuilder, ViewRendererInterface $viewRenderer)
     {
+        $this->viewBuilder = $viewBuilder;
         $this->viewRenderer = $viewRenderer;
     }
 
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\View\SerializableView $object
+     * @param \Netgen\BlockManager\Serializer\SerializableValue $object
      * @param string $format
      * @param array $context
      *
@@ -35,8 +44,13 @@ class BlockViewNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $blockView = $object->getView();
-        $block = $blockView->getBlock();
+        $block = $object->getValue();
+
+        $blockView = $this->viewBuilder->buildView(
+            $block,
+            ViewInterface::CONTEXT_API,
+            array('api_version' => $object->getVersion())
+        );
 
         return array(
             'id' => $block->getId(),
@@ -59,10 +73,10 @@ class BlockViewNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof SerializableView) {
+        if (!$data instanceof SerializableValue) {
             return false;
         }
 
-        return $data->getView() instanceof BlockViewInterface;
+        return $data->getValue() instanceof Block;
     }
 }

@@ -5,10 +5,9 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer;
+use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\SerializableView;
-use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use DateTime;
@@ -57,10 +56,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $blockView = new BlockView();
-        $blockView->setBlock($block);
-
-        $normalizedBlockView = array(
+        $normalizedBlock = array(
             'id' => 24,
             'html' => 'rendered block',
         );
@@ -91,19 +87,19 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
         $viewBuilderMock
             ->expects($this->once())
             ->method('buildView')
-            ->with($this->equalTo($block))
-            ->will($this->returnValue($blockView));
+            ->with($this->equalTo($layout))
+            ->will($this->returnValue($layoutView));
 
-        $blockViewNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer')
+        $blockNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $blockViewNormalizerMock
+        $blockNormalizerMock
             ->expects($this->once())
             ->method('normalize')
-            ->with($this->equalTo(new SerializableView($blockView)))
-            ->will($this->returnValue($normalizedBlockView));
+            ->with($this->equalTo(new SerializableValue($block, 1)))
+            ->will($this->returnValue($normalizedBlock));
 
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
         $viewRendererMock
@@ -112,10 +108,10 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($layoutView))
             ->will($this->returnValue('rendered layout view'));
 
-        $layoutViewNormalizer = new LayoutViewNormalizer(
+        $layoutViewNormalizer = new LayoutNormalizer(
             $configurationMock,
+            $blockNormalizerMock,
             $viewBuilderMock,
-            $blockViewNormalizerMock,
             $viewRendererMock
         );
 
@@ -138,7 +134,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                         'allowed_blocks' => true,
                     ),
                 ),
-                'blocks' => array($normalizedBlockView),
+                'blocks' => array($normalizedBlock),
                 'positions' => array(
                     array(
                         'zone' => 'left',
@@ -150,7 +146,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $layoutViewNormalizer->normalize(new SerializableView($layoutView))
+            $layoutViewNormalizer->normalize(new SerializableValue($layout, 1))
         );
     }
 
@@ -165,19 +161,18 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
 
-        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
-
-        $blockViewNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer')
+        $blockNormalizerMock = $this
+            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
             ->getMock();
 
+        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
 
-        $layoutViewNormalizer = new LayoutViewNormalizer(
+        $layoutViewNormalizer = new LayoutNormalizer(
             $configurationMock,
+            $blockNormalizerMock,
             $viewBuilderMock,
-            $blockViewNormalizerMock,
             $viewRendererMock
         );
 
@@ -200,9 +195,9 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new LayoutView(), false),
-            array(new SerializableView(new View()), false),
-            array(new SerializableView(new LayoutView()), true),
+            array(new Layout(), false),
+            array(new SerializableValue(new Value(), 1), false),
+            array(new SerializableValue(new Layout(), 1), true),
         );
     }
 }

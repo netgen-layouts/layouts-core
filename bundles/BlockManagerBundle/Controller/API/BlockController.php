@@ -18,13 +18,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        $blockView = $this->buildViewObject(
-            $block,
-            ViewInterface::CONTEXT_API,
-            array('api_version' => self::API_VERSION)
-        );
-
-        return $this->serializeObject($blockView);
+        return $this->serializeObject($block, self::API_VERSION);
     }
 
     /**
