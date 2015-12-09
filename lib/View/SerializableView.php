@@ -7,22 +7,39 @@ class SerializableView
     /**
      * @var \Netgen\BlockManager\View\ViewInterface
      */
-    public $view;
-
-    /**
-     * @var int
-     */
-    public $version;
+    protected $view;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
-     * @param int $version
      */
-    public function __construct(ViewInterface $view, $version)
+    public function __construct(ViewInterface $view)
     {
         $this->view = $view;
-        $this->version = $version;
+    }
+
+    /**
+     * Returns the view
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
+     */
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    /**
+     * Returns the API version
+     *
+     * @return int
+     */
+    public function getVersion()
+    {
+        if ($this->view->hasParameter('api_version')) {
+            return $this->view->getParameter('api_version');
+        }
+
+        return 1;
     }
 }

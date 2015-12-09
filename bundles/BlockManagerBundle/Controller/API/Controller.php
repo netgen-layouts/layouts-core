@@ -17,14 +17,13 @@ abstract class Controller extends BaseController
      * Serializes the object.
      *
      * @param mixed $object
-     * @param int $apiVersion
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    protected function serializeObject($object, $apiVersion)
+    protected function serializeObject($object)
     {
         $serializedObject = $this->get('serializer')->serialize(
-            new SerializableView($object, $apiVersion),
+            new SerializableView($object),
             'json'
         );
 

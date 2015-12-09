@@ -53,7 +53,7 @@ class BlockViewNormalizerTest extends \PHPUnit_Framework_TestCase
                 'view_type' => $block->getViewType(),
                 'html' => 'rendered block view',
             ),
-            $blockViewNormalizer->normalize(new SerializableView($blockView, 1))
+            $blockViewNormalizer->normalize(new SerializableView($blockView))
         );
     }
 
@@ -89,8 +89,8 @@ class BlockViewNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new BlockView(), false),
-            array(new SerializableView(new View(), 1), false),
-            array(new SerializableView(new BlockView(), 1), true),
+            array(new SerializableView(new View()), false),
+            array(new SerializableView(new BlockView()), true),
         );
     }
 }

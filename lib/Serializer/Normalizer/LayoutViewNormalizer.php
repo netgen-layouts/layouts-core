@@ -64,7 +64,7 @@ class LayoutViewNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $layoutView = $object->view;
+        $layoutView = $object->getView();
         $layout = $layoutView->getLayout();
 
         return array(
@@ -75,7 +75,7 @@ class LayoutViewNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified(),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
-            'blocks' => $this->normalizeBlocks($layoutView, $object->version),
+            'blocks' => $this->normalizeBlocks($layoutView),
             'positions' => $this->getBlockPositions($layout),
             'html' => $this->viewRenderer->renderView($layoutView),
         );
@@ -95,18 +95,17 @@ class LayoutViewNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->view instanceof LayoutViewInterface;
+        return $data->getView() instanceof LayoutViewInterface;
     }
 
     /**
      * Returns the data for blocks contained within the layout.
      *
      * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
-     * @param int $version
      *
      * @return array
      */
-    protected function normalizeBlocks(LayoutViewInterface $layoutView, $version)
+    protected function normalizeBlocks(LayoutViewInterface $layoutView)
     {
         $blocks = array();
 
@@ -122,8 +121,7 @@ class LayoutViewNormalizer implements NormalizerInterface
                         $block,
                         $layoutView->getContext(),
                         array('api_version' => $layoutView->getParameter('api_version'))
-                    ),
-                    $version
+                    )
                 )
             );
         }

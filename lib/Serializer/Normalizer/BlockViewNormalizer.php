@@ -35,7 +35,7 @@ class BlockViewNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $blockView = $object->view;
+        $blockView = $object->getView();
         $block = $blockView->getBlock();
 
         return array(
@@ -63,6 +63,6 @@ class BlockViewNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->view instanceof BlockViewInterface;
+        return $data->getView() instanceof BlockViewInterface;
     }
 }
