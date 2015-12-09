@@ -17,7 +17,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        $blockView = $this->buildViewObject($block, 'api');
+        $blockView = $this->buildViewObject($block, 'api', array('api_version' => self::API_VERSION));
 
         return $this->serializeObject($blockView, self::API_VERSION);
     }
@@ -92,7 +92,7 @@ class BlockController extends Controller
             $blockView = $this->buildViewObject(
                 $block,
                 'edit',
-                array('form' => $form->createView())
+                array('form' => $form->createView(), 'api_version' => self::API_VERSION)
             );
 
             return $this->renderViewObject($blockView);
