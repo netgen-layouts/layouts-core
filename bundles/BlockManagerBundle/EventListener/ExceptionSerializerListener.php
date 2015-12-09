@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
+use Netgen\BlockManager\Serializer\SerializableValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -56,9 +57,8 @@ class ExceptionSerializerListener implements EventSubscriberInterface
         $response = new JsonResponse();
         $response->setContent(
             $this->serializer->serialize(
-                $event->getException(),
-                'json',
-                array('version' => 1)
+                new SerializableValue($event->getException(), 1),
+                'json'
             )
         );
 

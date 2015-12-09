@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
+use Netgen\BlockManager\Serializer\SerializableValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class ExceptionNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Exception $object
+     * @param \Netgen\BlockManager\Serializer\SerializableValue $object
      * @param string $format
      * @param array $context
      *
@@ -35,13 +36,15 @@ class ExceptionNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
+        $exception = $object->value;
+
         $data = array(
-            'code' => $object->getCode(),
-            'message' => $object->getMessage(),
+            'code' => $exception->getCode(),
+            'message' => $exception->getMessage(),
         );
 
-        if ($object instanceof HttpException) {
-            $statusCode = $object->getStatusCode();
+        if ($exception instanceof HttpException) {
+            $statusCode = $exception->getStatusCode();
             if (isset(Response::$statusTexts[$statusCode])) {
                 $data['status_code'] = $statusCode;
                 $data['status_text'] = Response::$statusTexts[$statusCode];
@@ -49,9 +52,9 @@ class ExceptionNormalizer implements NormalizerInterface
         }
 
         if ($this->outputDebugInfo) {
-            $debugException = $object;
-            if ($object->getPrevious() instanceof Exception) {
-                $debugException = $object->getPrevious();
+            $debugException = $exception;
+            if ($exception->getPrevious() instanceof Exception) {
+                $debugException = $exception->getPrevious();
             }
 
             $data['debug'] = array(
@@ -74,6 +77,10 @@ class ExceptionNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof Exception;
+        if (!$data instanceof SerializableValue) {
+            return false;
+        }
+
+        return $data->value instanceof Exception;
     }
 }

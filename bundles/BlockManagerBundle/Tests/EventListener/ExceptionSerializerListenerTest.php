@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -39,9 +40,8 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                $this->equalTo($exception),
-                $this->equalTo('json'),
-                $this->equalTo(array('version' => 1))
+                $this->equalTo(new SerializableValue($exception, 1)),
+                $this->equalTo('json')
             )
             ->will(
                 $this->returnValue('serialized content')

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
@@ -55,7 +56,7 @@ class LayoutViewNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\View\LayoutViewInterface $object
+     * @param \Netgen\BlockManager\Serializer\SerializableValue $object
      * @param string $format
      * @param array $context
      *
@@ -63,7 +64,8 @@ class LayoutViewNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $layout = $object->getLayout();
+        $layoutView = $object->value;
+        $layout = $layoutView->getLayout();
 
         return array(
             'id' => $layout->getId(),
@@ -73,9 +75,9 @@ class LayoutViewNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified(),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
-            'blocks' => $this->normalizeBlocks($object),
+            'blocks' => $this->normalizeBlocks($layoutView),
             'positions' => $this->getBlockPositions($layout),
-            'html' => $this->viewRenderer->renderView($object),
+            'html' => $this->viewRenderer->renderView($layoutView),
         );
     }
 
@@ -89,7 +91,11 @@ class LayoutViewNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof LayoutViewInterface;
+        if (!$data instanceof SerializableValue) {
+            return false;
+        }
+
+        return $data->value instanceof LayoutViewInterface;
     }
 
     /**
