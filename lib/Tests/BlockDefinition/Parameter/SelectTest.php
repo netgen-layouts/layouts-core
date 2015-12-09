@@ -12,7 +12,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testParameter()
     {
-        $attributes = array(
+        $options = array(
             'multiple' => false,
             'options' => array(
                 'Option 1' => 'o1',
@@ -20,7 +20,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $parameter = $this->getParameter($attributes);
+        $parameter = $this->getParameter($options);
 
         self::assertEquals(
             'choice',
@@ -28,8 +28,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         );
         self::assertEquals(
             array(
-                'multiple' => $attributes['multiple'],
-                'choices' => $attributes['options'],
+                'multiple' => $options['multiple'],
+                'choices' => $options['options'],
                 'choices_as_values' => true,
             ),
             $parameter->mapFormTypeOptions()
@@ -37,46 +37,46 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::configureOptions
-     * @dataProvider validAttributesProvider
+     * @dataProvider validOptionsProvider
      *
-     * @param array $attributes
-     * @param array $resolvedAttributes
+     * @param array $options
+     * @param array $resolvedOptions
      */
-    public function testValidAttributes($attributes, $resolvedAttributes)
+    public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($attributes);
-        self::assertEquals($resolvedAttributes, $parameter->getAttributes());
+        $parameter = $this->getParameter($options);
+        self::assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
-     * @dataProvider invalidAttributesProvider
+     * @dataProvider invalidOptionsProvider
      *
-     * @param array $attributes
+     * @param array $options
      */
-    public function testInvalidAttributes($attributes)
+    public function testInvalidOptions($options)
     {
-        if ($attributes === null) {
+        if ($options === null) {
             $this->markTestSkipped('This parameter has no invalid values.');
         }
 
-        $parameter = $this->getParameter($attributes);
+        $parameter = $this->getParameter($options);
     }
 
     /**
      * Returns the parameter under test.
      *
-     * @param array $attributes
+     * @param array $options
      *
      * @return \Netgen\BlockManager\BlockDefinition\Parameter\Select
      */
-    public function getParameter($attributes)
+    public function getParameter($options)
     {
-        return new Select('Test value', $attributes);
+        return new Select('Test value', $options);
     }
 
     /**
@@ -84,7 +84,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function validAttributesProvider()
+    public function validOptionsProvider()
     {
         return array(
             array(
@@ -142,7 +142,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function invalidAttributesProvider()
+    public function invalidOptionsProvider()
     {
         return array(
             array(

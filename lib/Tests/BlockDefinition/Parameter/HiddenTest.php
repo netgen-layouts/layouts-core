@@ -23,46 +23,46 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::getOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::configureOptions
-     * @dataProvider validAttributesProvider
+     * @dataProvider validOptionsProvider
      *
-     * @param array $attributes
-     * @param array $resolvedAttributes
+     * @param array $options
+     * @param array $resolvedOptions
      */
-    public function testValidAttributes($attributes, $resolvedAttributes)
+    public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($attributes);
-        self::assertEquals($resolvedAttributes, $parameter->getAttributes());
+        $parameter = $this->getParameter($options);
+        self::assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::getAttributes
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::getOptions
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Hidden::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
-     * @dataProvider invalidAttributesProvider
+     * @dataProvider invalidOptionsProvider
      *
-     * @param array $attributes
+     * @param array $options
      */
-    public function testInvalidAttributes($attributes)
+    public function testInvalidOptions($options)
     {
-        if ($attributes === null) {
+        if ($options === null) {
             $this->markTestSkipped('This parameter has no invalid values.');
         }
 
-        $parameter = $this->getParameter($attributes);
+        $parameter = $this->getParameter($options);
     }
 
     /**
      * Returns the parameter under test.
      *
-     * @param array $attributes
+     * @param array $options
      *
      * @return \Netgen\BlockManager\BlockDefinition\Parameter\Hidden
      */
-    public function getParameter($attributes)
+    public function getParameter($options)
     {
-        return new Hidden('Test value', $attributes);
+        return new Hidden('Test value', $options);
     }
 
     /**
@@ -70,7 +70,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function validAttributesProvider()
+    public function validOptionsProvider()
     {
         return array(
             array(
@@ -85,7 +85,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function invalidAttributesProvider()
+    public function invalidOptionsProvider()
     {
         return array(
             array(

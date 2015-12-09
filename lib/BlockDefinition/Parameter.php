@@ -14,21 +14,21 @@ abstract class Parameter
     /**
      * @var array
      */
-    protected $attributes = array();
+    protected $options = array();
 
     /**
      * Constructor.
      *
      * @param mixed $defaultValue
-     * @param array $attributes
+     * @param array $options
      */
-    public function __construct($defaultValue = null, array $attributes = array())
+    public function __construct($defaultValue = null, array $options = array())
     {
         $this->defaultValue = $defaultValue;
 
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
-        $this->attributes = $optionsResolver->resolve($attributes);
+        $this->options = $optionsResolver->resolve($options);
     }
 
     /**
@@ -42,13 +42,13 @@ abstract class Parameter
     }
 
     /**
-     * Returns the parameter attributes.
+     * Returns the parameter options.
      *
      * @return array
      */
-    public function getAttributes()
+    public function getOptions()
     {
-        return $this->attributes;
+        return $this->options;
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class Parameter
     abstract public function getFormType();
 
     /**
-     * Maps the parameter attributes to Symfony form options.
+     * Maps the parameter options to Symfony form options.
      *
      * @return array
      */

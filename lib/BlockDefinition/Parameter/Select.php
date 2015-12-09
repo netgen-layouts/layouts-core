@@ -47,15 +47,15 @@ class Select extends Parameter
     }
 
     /**
-     * Maps the parameter attributes to Symfony form options.
+     * Maps the parameter options to Symfony form options.
      *
      * @return array
      */
     public function mapFormTypeOptions()
     {
         return array(
-            'multiple' => $this->attributes['multiple'],
-            'choices' => $this->attributes['options'],
+            'multiple' => $this->options['multiple'],
+            'choices' => $this->options['options'],
             'choices_as_values' => true,
         );
     }

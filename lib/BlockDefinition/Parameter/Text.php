@@ -27,7 +27,7 @@ class Text extends Parameter
     }
 
     /**
-     * Maps the parameter attributes to Symfony form options.
+     * Maps the parameter options to Symfony form options.
      *
      * @return array
      */
