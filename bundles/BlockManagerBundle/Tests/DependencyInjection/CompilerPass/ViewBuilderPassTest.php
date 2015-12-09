@@ -27,20 +27,15 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
     {
         $viewBuilder = new Definition();
         $viewBuilder->addArgument(array());
-        $viewBuilder->addArgument(array());
         $this->setDefinition('netgen_block_manager.view.builder', $viewBuilder);
 
         $viewProvider = new Definition();
-        $viewProvider->addTag('netgen_block_manager.view.provider', array('priority' => 10));
+        $viewProvider->addTag('netgen_block_manager.view.provider');
         $this->setDefinition('netgen_block_manager.view.provider.test', $viewProvider);
 
         $viewProvider2 = new Definition();
-        $viewProvider2->addTag('netgen_block_manager.view.provider', array('priority' => 20));
+        $viewProvider2->addTag('netgen_block_manager.view.provider');
         $this->setDefinition('netgen_block_manager.view.provider.test2', $viewProvider2);
-
-        $templateResolver = new Definition();
-        $templateResolver->addTag('netgen_block_manager.view.template_resolver');
-        $this->setDefinition('netgen_block_manager.view.template_resolver.test', $templateResolver);
 
         $this->compile();
 
@@ -48,16 +43,8 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.view.builder',
             0,
             array(
-                new Reference('netgen_block_manager.view.provider.test2'),
                 new Reference('netgen_block_manager.view.provider.test'),
-            )
-        );
-
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.view.builder',
-            1,
-            array(
-                new Reference('netgen_block_manager.view.template_resolver.test'),
+                new Reference('netgen_block_manager.view.provider.test2'),
             )
         );
     }

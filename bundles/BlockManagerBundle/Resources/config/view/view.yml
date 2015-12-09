@@ -1,16 +1,24 @@
 parameters:
     netgen_block_manager.view.builder.class: Netgen\BlockManager\View\ViewBuilder
     netgen_block_manager.view.renderer.class: Netgen\BlockManager\View\ViewRenderer
+    netgen_block_manager.view.template_resolver.class: Netgen\BlockManager\View\TemplateResolver
 
 services:
     netgen_block_manager.view.builder:
         class: %netgen_block_manager.view.builder.class%
         arguments:
             - []
-            - []
+            - "@netgen_block_manager.view.template_resolver"
             - "@event_dispatcher"
 
     netgen_block_manager.view.renderer:
         class: %netgen_block_manager.view.renderer.class%
         arguments:
             - "@twig"
+
+    netgen_block_manager.view.template_resolver:
+        class: %netgen_block_manager.view.template_resolver.class%
+        lazy: true
+        arguments:
+            - []
+            - "@netgen_block_manager.configuration"

@@ -31,4 +31,14 @@ class LayoutView extends View implements LayoutViewInterface
         $this->layout = $layout;
         $this->internalParameters['layout'] = $this->layout;
     }
+
+    /**
+     * Returns the view alias.
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return 'layout_view';
+    }
 }

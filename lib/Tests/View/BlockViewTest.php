@@ -22,4 +22,13 @@ class BlockViewTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($block, $view->getBlock());
         self::assertEquals(array('block' => $block), $view->getParameters());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\View\BlockView::getAlias
+     */
+    public function testGetAlias()
+    {
+        $view = new BlockView();
+        self::assertEquals('block_view', $view->getAlias());
+    }
 }

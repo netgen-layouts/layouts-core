@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\View\TemplateResolver;
+namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use RuntimeException;
 
-abstract class TemplateResolver implements TemplateResolverInterface
+class TemplateResolver implements TemplateResolverInterface
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface[]
@@ -14,20 +14,20 @@ abstract class TemplateResolver implements TemplateResolverInterface
     protected $matchers = array();
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
      */
-    protected $config = array();
+    protected $configuration;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
-     * @param array $config
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
-    public function __construct(array $matchers = array(), array $config = array())
+    public function __construct(array $matchers = array(), ConfigurationInterface $configuration)
     {
         $this->matchers = $matchers;
-        $this->config = $config;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -43,8 +43,9 @@ abstract class TemplateResolver implements TemplateResolverInterface
     {
         $matchedConfig = false;
         $context = $view->getContext();
+        $viewConfig = $this->configuration->getParameter($view->getAlias());
 
-        if (!isset($this->config[$context])) {
+        if (!isset($viewConfig[$context])) {
             throw new RuntimeException(
                 sprintf(
                     'No configuration could be found for context "%s" and view object "%s".',
@@ -54,7 +55,7 @@ abstract class TemplateResolver implements TemplateResolverInterface
             );
         }
 
-        foreach ($this->config[$context] as $config) {
+        foreach ($viewConfig[$context] as $config) {
             $matchConfig = $config['match'];
             if (!$this->matches($view, $matchConfig)) {
                 continue;
@@ -114,13 +115,4 @@ abstract class TemplateResolver implements TemplateResolverInterface
 
         return true;
     }
-
-    /**
-     * Returns if this template resolver supports the provided view.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return bool
-     */
-    abstract public function supports(ViewInterface $view);
 }

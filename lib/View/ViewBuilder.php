@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\View;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\View\ViewEvents;
-use Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\API\Values\Value;
 use RuntimeException;
@@ -18,9 +17,9 @@ class ViewBuilder implements ViewBuilderInterface
     protected $viewProviders = array();
 
     /**
-     * @var \Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface[]
+     * @var \Netgen\BlockManager\View\TemplateResolverInterface
      */
-    protected $templateResolvers = array();
+    protected $templateResolver;
 
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
@@ -31,13 +30,13 @@ class ViewBuilder implements ViewBuilderInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
-     * @param \Netgen\BlockManager\View\TemplateResolver\TemplateResolverInterface[] $templateResolvers
+     * @param \Netgen\BlockManager\View\TemplateResolverInterface $templateResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(array $viewProviders = array(), array $templateResolvers = array(), EventDispatcherInterface $eventDispatcher)
+    public function __construct(array $viewProviders = array(), TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher)
     {
         $this->viewProviders = $viewProviders;
-        $this->templateResolvers = $templateResolvers;
+        $this->templateResolver = $templateResolver;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -86,26 +85,9 @@ class ViewBuilder implements ViewBuilderInterface
             );
         }
 
-        foreach ($this->templateResolvers as $type => $templateResolver) {
-            if (!$templateResolver instanceof TemplateResolverInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Template resolver for "%s" value object needs to implement TemplateResolverInterface.',
-                        $type
-                    )
-                );
-            }
-
-            if (!$templateResolver->supports($view)) {
-                continue;
-            }
-
-            $view->setTemplate(
-                $templateResolver->resolveTemplate($view)
-            );
-
-            break;
-        }
+        $view->setTemplate(
+            $this->templateResolver->resolveTemplate($view)
+        );
 
         return $view;
     }

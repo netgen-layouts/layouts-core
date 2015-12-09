@@ -6,9 +6,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BlockViewTemplateResolverPass implements CompilerPassInterface
+class TemplateResolverPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.view.template_resolver.block_view';
+    const SERVICE_NAME = 'netgen_block_manager.view.template_resolver';
 
     /**
      * You can modify the container here before it is dumped to PHP code.

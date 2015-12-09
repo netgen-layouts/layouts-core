@@ -3,12 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutViewTemplateResolverPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\TemplateResolverPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
+class TemplateResolverPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * Register the compiler pass under test.
@@ -17,7 +17,7 @@ class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
      */
     protected function registerCompilerPass(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new LayoutViewTemplateResolverPass());
+        $container->addCompilerPass(new TemplateResolverPass());
     }
 
     /**
@@ -25,21 +25,21 @@ class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $layoutTemplateResolver = new Definition();
-        $layoutTemplateResolver->addArgument(array());
-        $this->setDefinition('netgen_block_manager.view.template_resolver.layout_view', $layoutTemplateResolver);
+        $templateResolver = new Definition();
+        $templateResolver->addArgument(array());
+        $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);
 
-        $layoutMatcher = new Definition();
-        $layoutMatcher->addTag('netgen_block_manager.view.template_matcher', array('identifier' => 'layout_id'));
-        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $layoutMatcher);
+        $matcher = new Definition();
+        $matcher->addTag('netgen_block_manager.view.template_matcher', array('identifier' => 'block_type'));
+        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $matcher);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.view.template_resolver.layout_view',
+            'netgen_block_manager.view.template_resolver',
             0,
             array(
-                'layout_id' => new Reference('netgen_block_manager.view.template_matcher.test'),
+                'block_type' => new Reference('netgen_block_manager.view.template_matcher.test'),
             )
         );
     }

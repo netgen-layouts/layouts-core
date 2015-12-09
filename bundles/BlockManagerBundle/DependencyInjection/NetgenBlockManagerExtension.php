@@ -134,7 +134,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             new FileLocator(__DIR__ . '/../Resources/config')
         );
 
-        $loader->load('view/template_resolvers.yml');
         $loader->load('view/providers.yml');
         $loader->load('view/matchers.yml');
         $loader->load('view/view.yml');

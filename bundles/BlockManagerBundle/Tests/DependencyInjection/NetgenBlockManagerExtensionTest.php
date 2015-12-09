@@ -62,7 +62,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.templating.twig.extension');
         $this->assertContainerBuilderHasService('netgen_block_manager.view.matcher.block.definition_identifier');
         $this->assertContainerBuilderHasService('netgen_block_manager.view.provider.block');
-        $this->assertContainerBuilderHasService('netgen_block_manager.view.template_resolver.block_view');
         $this->assertContainerBuilderHasService('netgen_block_manager.validator.service.block');
 
         $this->assertContainerBuilderHasService('netgen_block_manager.api.service.block.core');

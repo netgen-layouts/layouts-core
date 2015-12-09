@@ -31,4 +31,14 @@ class BlockView extends View implements BlockViewInterface
         $this->block = $block;
         $this->internalParameters['block'] = $this->block;
     }
+
+    /**
+     * Returns the view alias.
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return 'block_view';
+    }
 }

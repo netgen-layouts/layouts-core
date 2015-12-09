@@ -22,4 +22,13 @@ class LayoutViewTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($layout, $view->getLayout());
         self::assertEquals(array('layout' => $layout), $view->getParameters());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\View\LayoutView::getAlias
+     */
+    public function testGetAlias()
+    {
+        $view = new LayoutView();
+        self::assertEquals('layout_view', $view->getAlias());
+    }
 }

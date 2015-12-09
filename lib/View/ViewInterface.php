@@ -5,6 +5,13 @@ namespace Netgen\BlockManager\View;
 interface ViewInterface
 {
     /**
+     * Returns the view alias.
+     *
+     * @return string
+     */
+    public function getAlias();
+
+    /**
      * Returns the view context.
      *
      * @return string
