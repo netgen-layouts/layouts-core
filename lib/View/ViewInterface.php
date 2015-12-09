@@ -4,6 +4,12 @@ namespace Netgen\BlockManager\View;
 
 interface ViewInterface
 {
+    const CONTEXT_VIEW = 'view';
+
+    const CONTEXT_API = 'api';
+
+    const CONTEXT_API_EDIT = 'api_edit';
+
     /**
      * Returns the view alias.
      *

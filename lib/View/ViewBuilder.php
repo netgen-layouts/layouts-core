@@ -49,7 +49,7 @@ class ViewBuilder implements ViewBuilderInterface
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView(Value $value, $context = 'view', array $parameters = array())
+    public function buildView(Value $value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         foreach ($this->viewProviders as $viewProvider) {
             if (!$viewProvider instanceof ViewProviderInterface) {

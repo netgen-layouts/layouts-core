@@ -7,6 +7,7 @@ use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\BlockViewInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -62,7 +63,7 @@ class APIBlockViewListener implements EventSubscriberInterface
     public function onBuildView(CollectViewParametersEvent $event)
     {
         $view = $event->getView();
-        if (!$view instanceof BlockViewInterface || $view->getContext() !== 'api') {
+        if (!$view instanceof BlockViewInterface || $view->getContext() !== ViewInterface::CONTEXT_API) {
             return;
         }
 

@@ -9,6 +9,7 @@ use Netgen\BlockManager\EventListener\APIBlockViewListener;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\Form\FormView;
 
 class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
@@ -80,7 +81,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     {
         $block = new Block(array('definitionIdentifier' => 'block'));
         $blockView = new BlockView();
-        $blockView->setContext('api');
+        $blockView->setContext(ViewInterface::CONTEXT_API);
         $blockView->setBlock($block);
 
         $blockConfig = array('forms' => array('inline' => 'inline_form'));
@@ -178,7 +179,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     {
         $block = new Block(array('definitionIdentifier' => 'block'));
         $blockView = new BlockView();
-        $blockView->setContext('api');
+        $blockView->setContext(ViewInterface::CONTEXT_API);
         $blockView->setBlock($block);
 
         $this->configurationMock

@@ -29,8 +29,8 @@ block_view:
             match:
                 block_definition_identifier: paragraph
                 api_version: 1
-    edit:
-        edit:
+    api_edit:
+        block:
             template: NetgenBlockManagerBundle:block/edit:edit.html.twig
             match:
                 api_version: 1

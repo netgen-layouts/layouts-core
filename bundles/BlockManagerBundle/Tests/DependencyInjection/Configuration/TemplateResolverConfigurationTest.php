@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
+use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
@@ -34,7 +35,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             array(
                 'block_view' => array(
-                    'view' => array(
+                    ViewInterface::CONTEXT_VIEW => array(
                         'block' => array(
                             'template' => 'block.html.twig',
                             'match' => array(
@@ -48,7 +49,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $expectedConfig = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => array(
@@ -77,7 +78,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             array(
                 'block_view' => array(
-                    'view' => array(
+                    ViewInterface::CONTEXT_VIEW => array(
                         'block' => array(
                             'template' => 'block.html.twig',
                             'match' => array(24, 42),
@@ -89,7 +90,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $expectedConfig = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => array(24, 42),
@@ -116,7 +117,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             array(
                 'block_view' => array(
-                    'view' => array(
+                    ViewInterface::CONTEXT_VIEW => array(
                         'block' => array(
                             'template' => 'block.html.twig',
                             'match' => null,
@@ -128,7 +129,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $expectedConfig = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => array(),
@@ -152,7 +153,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                     ),
@@ -171,7 +172,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => 'block.html.twig',
                         'match' => 'match',
@@ -191,7 +192,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'match' => array(),
                     ),
@@ -210,7 +211,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => array(),
                         'match' => array(),
@@ -230,7 +231,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
                         'template' => '',
                         'match' => array(),
@@ -250,7 +251,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(),
+                ViewInterface::CONTEXT_VIEW => array(),
             ),
         );
 
@@ -265,7 +266,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => array(
+                ViewInterface::CONTEXT_VIEW => array(
                     'block' => 'block',
                 ),
             ),
@@ -295,7 +296,7 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_view' => array(
-                'view' => 'view',
+                ViewInterface::CONTEXT_VIEW => ViewInterface::CONTEXT_VIEW,
             ),
         );
 

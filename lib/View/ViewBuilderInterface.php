@@ -15,5 +15,5 @@ interface ViewBuilderInterface
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView(Value $value, $context = 'view', array $parameters = array());
+    public function buildView(Value $value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array());
 }

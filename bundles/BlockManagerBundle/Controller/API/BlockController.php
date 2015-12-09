@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
@@ -17,7 +18,11 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        $blockView = $this->buildViewObject($block, 'api', array('api_version' => self::API_VERSION));
+        $blockView = $this->buildViewObject(
+            $block,
+            ViewInterface::CONTEXT_API,
+            array('api_version' => self::API_VERSION)
+        );
 
         return $this->serializeObject($blockView);
     }
@@ -91,7 +96,7 @@ class BlockController extends Controller
         if (!$form->isSubmitted() || !$form->isValid()) {
             $blockView = $this->buildViewObject(
                 $block,
-                'edit',
+                ViewInterface::CONTEXT_API_EDIT,
                 array('form' => $form->createView(), 'api_version' => self::API_VERSION)
             );
 

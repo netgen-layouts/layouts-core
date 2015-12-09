@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +17,7 @@ abstract class Controller extends BaseController
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    protected function buildViewObject($object, $context = 'view', array $parameters = array())
+    protected function buildViewObject($object, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         $viewBuilder = $this->get('netgen_block_manager.view.builder');
 
