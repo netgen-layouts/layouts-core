@@ -30,8 +30,8 @@ class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.view.template_resolver.layout_view', $layoutTemplateResolver);
 
         $layoutMatcher = new Definition();
-        $layoutMatcher->addTag('netgen_block_manager.view.layout_matcher', array('identifier' => 'layout_id'));
-        $this->setDefinition('netgen_block_manager.view.layout_matcher.test', $layoutMatcher);
+        $layoutMatcher->addTag('netgen_block_manager.view.template_matcher', array('identifier' => 'layout_id'));
+        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $layoutMatcher);
 
         $this->compile();
 
@@ -39,7 +39,7 @@ class LayoutViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.view.template_resolver.layout_view',
             0,
             array(
-                'layout_id' => new Reference('netgen_block_manager.view.layout_matcher.test'),
+                'layout_id' => new Reference('netgen_block_manager.view.template_matcher.test'),
             )
         );
     }

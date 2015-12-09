@@ -23,7 +23,7 @@ class BlockViewTemplateResolverPass implements CompilerPassInterface
 
         $templateResolver = $container->findDefinition(self::SERVICE_NAME);
 
-        $matcherServices = $container->findTaggedServiceIds('netgen_block_manager.view.block_matcher');
+        $matcherServices = $container->findTaggedServiceIds('netgen_block_manager.view.template_matcher');
         $matchers = array();
 
         foreach ($matcherServices as $serviceName => $tag) {

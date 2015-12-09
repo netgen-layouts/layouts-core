@@ -3,9 +3,9 @@ layout_view:
         3_zones_a:
             template: NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig
             match:
-                identifier: 3_zones_a
+                layout_identifier: 3_zones_a
     api:
         3_zones_a:
             template: NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig
             match:
-                identifier: 3_zones_a
+                layout_identifier: 3_zones_a

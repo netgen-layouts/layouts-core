@@ -3,30 +3,30 @@ block_view:
         title_large:
             template: NetgenBlockManagerBundle:block/view/title:large.html.twig
             match:
-                definition_identifier: title
-                view_type: large
+                block_definition_identifier: title
+                block_view_type: large
         title:
             template: NetgenBlockManagerBundle:block/view/title:default.html.twig
             match:
-                definition_identifier: title
+                block_definition_identifier: title
         paragraph_small:
             template: NetgenBlockManagerBundle:block/view/paragraph:small.html.twig
             match:
-                definition_identifier: paragraph
-                view_type: small
+                block_definition_identifier: paragraph
+                block_view_type: small
         paragraph:
             template: NetgenBlockManagerBundle:block/view/paragraph:default.html.twig
             match:
-                definition_identifier: paragraph
+                block_definition_identifier: paragraph
     api:
         title:
             template: NetgenBlockManagerBundle:block/api:title.html.twig
             match:
-                definition_identifier: title
+                block_definition_identifier: title
         paragraph:
             template: NetgenBlockManagerBundle:block/api:paragraph.html.twig
             match:
-                definition_identifier: paragraph
+                block_definition_identifier: paragraph
     edit:
         edit:
             template: NetgenBlockManagerBundle:block/edit:edit.html.twig

@@ -30,8 +30,8 @@ class BlockViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.view.template_resolver.block_view', $blockTemplateResolver);
 
         $blockMatcher = new Definition();
-        $blockMatcher->addTag('netgen_block_manager.view.block_matcher', array('identifier' => 'block_id'));
-        $this->setDefinition('netgen_block_manager.view.block_matcher.test', $blockMatcher);
+        $blockMatcher->addTag('netgen_block_manager.view.template_matcher', array('identifier' => 'block_id'));
+        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $blockMatcher);
 
         $this->compile();
 
@@ -39,7 +39,7 @@ class BlockViewTemplateResolverPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.view.template_resolver.block_view',
             0,
             array(
-                'block_id' => new Reference('netgen_block_manager.view.block_matcher.test'),
+                'block_id' => new Reference('netgen_block_manager.view.template_matcher.test'),
             )
         );
     }
