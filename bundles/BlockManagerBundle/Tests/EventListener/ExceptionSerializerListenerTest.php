@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
-use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;

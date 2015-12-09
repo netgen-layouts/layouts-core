@@ -7,12 +7,11 @@ use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\SerializableValue;
-use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use DateTime;
 
-class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
+class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::__construct

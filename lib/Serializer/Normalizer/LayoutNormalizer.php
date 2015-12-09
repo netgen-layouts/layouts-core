@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\ViewBuilderInterface;
-use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

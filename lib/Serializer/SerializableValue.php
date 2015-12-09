@@ -29,7 +29,7 @@ class SerializableValue
     }
 
     /**
-     * Returns the value
+     * Returns the value.
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
@@ -39,7 +39,7 @@ class SerializableValue
     }
 
     /**
-     * Returns the API version
+     * Returns the API version.
      *
      * @return int
      */
