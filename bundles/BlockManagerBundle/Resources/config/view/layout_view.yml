@@ -9,3 +9,4 @@ layout_view:
             template: NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig
             match:
                 layout_identifier: 3_zones_a
+                api_version: 1

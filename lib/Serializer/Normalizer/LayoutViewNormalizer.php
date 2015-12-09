@@ -118,7 +118,11 @@ class LayoutViewNormalizer implements NormalizerInterface
         foreach ($blocks as $block) {
             $normalizedBlocks[] = $this->blockViewNormalizer->normalize(
                 new SerializableView(
-                    $this->viewBuilder->buildView($block, $layoutView->getContext()),
+                    $this->viewBuilder->buildView(
+                        $block,
+                        $layoutView->getContext(),
+                        array('api_version' => $layoutView->getParameter('api_version'))
+                    ),
                     $version
                 )
             );
