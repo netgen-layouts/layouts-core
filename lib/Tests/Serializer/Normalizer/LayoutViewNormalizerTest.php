@@ -6,7 +6,8 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer;
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\SerializableView;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
@@ -101,7 +102,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
         $blockViewNormalizerMock
             ->expects($this->once())
             ->method('normalize')
-            ->with($this->equalTo($blockView))
+            ->with($this->equalTo(new SerializableView($blockView, 1)))
             ->will($this->returnValue($normalizedBlockView));
 
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
@@ -149,7 +150,7 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $layoutViewNormalizer->normalize(new SerializableValue($layoutView, 1))
+            $layoutViewNormalizer->normalize(new SerializableView($layoutView, 1))
         );
     }
 
@@ -200,8 +201,8 @@ class LayoutViewNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new LayoutView(), false),
-            array(new SerializableValue(new Value(), 1), false),
-            array(new SerializableValue(new LayoutView(), 1), true),
+            array(new SerializableView(new View(), 1), false),
+            array(new SerializableView(new LayoutView(), 1), true),
         );
     }
 }

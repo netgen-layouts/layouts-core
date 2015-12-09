@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer;
-use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,7 +24,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ),
-            $exceptionNormalizer->normalize(new SerializableValue($exception, 1))
+            $exceptionNormalizer->normalize($exception)
         );
     }
 
@@ -40,7 +39,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $previousException = new Exception('Previous exception', 321);
         $exception = new Exception('Exception message', 123, $previousException);
-        $data = $exceptionNormalizer->normalize(new SerializableValue($exception, 1));
+        $data = $exceptionNormalizer->normalize($exception);
 
         self::assertInternalType('array', $data);
         self::assertArrayHasKey('code', $data);
@@ -73,7 +72,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
             ),
-            $exceptionNormalizer->normalize(new SerializableValue($exception, 1))
+            $exceptionNormalizer->normalize($exception)
         );
     }
 
@@ -106,9 +105,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new Exception(), false),
-            array(new SerializableValue(new Value(), 1), false),
-            array(new SerializableValue(new Exception(), 1), true),
+            array(new Exception(), true),
         );
     }
 }

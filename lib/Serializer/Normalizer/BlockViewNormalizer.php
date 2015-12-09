@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\View\SerializableView;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 use Netgen\BlockManager\View\BlockViewInterface;
@@ -27,7 +27,7 @@ class BlockViewNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\Serializer\SerializableValue $object
+     * @param \Netgen\BlockManager\View\SerializableView $object
      * @param string $format
      * @param array $context
      *
@@ -35,7 +35,7 @@ class BlockViewNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $blockView = $object->value;
+        $blockView = $object->view;
         $block = $blockView->getBlock();
 
         return array(
@@ -59,10 +59,10 @@ class BlockViewNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof SerializableValue) {
+        if (!$data instanceof SerializableView) {
             return false;
         }
 
-        return $data->value instanceof BlockViewInterface;
+        return $data->view instanceof BlockViewInterface;
     }
 }

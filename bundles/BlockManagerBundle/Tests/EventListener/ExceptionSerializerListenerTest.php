@@ -40,7 +40,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                $this->equalTo(new SerializableValue($exception, 1)),
+                $this->equalTo($exception),
                 $this->equalTo('json')
             )
             ->will(

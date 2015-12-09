@@ -4,7 +4,8 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer;
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\SerializableView;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 
@@ -52,7 +53,7 @@ class BlockViewNormalizerTest extends \PHPUnit_Framework_TestCase
                 'view_type' => $block->getViewType(),
                 'html' => 'rendered block view',
             ),
-            $blockViewNormalizer->normalize(new SerializableValue($blockView, 1))
+            $blockViewNormalizer->normalize(new SerializableView($blockView, 1))
         );
     }
 
@@ -88,8 +89,8 @@ class BlockViewNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new BlockView(), false),
-            array(new SerializableValue(new Value(), 1), false),
-            array(new SerializableValue(new BlockView(), 1), true),
+            array(new SerializableView(new View(), 1), false),
+            array(new SerializableView(new BlockView(), 1), true),
         );
     }
 }

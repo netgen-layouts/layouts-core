@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\View\SerializableView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
@@ -56,7 +56,7 @@ class LayoutViewNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\Serializer\SerializableValue $object
+     * @param \Netgen\BlockManager\View\SerializableView $object
      * @param string $format
      * @param array $context
      *
@@ -64,7 +64,7 @@ class LayoutViewNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $layoutView = $object->value;
+        $layoutView = $object->view;
         $layout = $layoutView->getLayout();
 
         return array(
@@ -75,7 +75,7 @@ class LayoutViewNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified(),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
-            'blocks' => $this->normalizeBlocks($layoutView),
+            'blocks' => $this->normalizeBlocks($layoutView, $object->version),
             'positions' => $this->getBlockPositions($layout),
             'html' => $this->viewRenderer->renderView($layoutView),
         );
@@ -91,21 +91,22 @@ class LayoutViewNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof SerializableValue) {
+        if (!$data instanceof SerializableView) {
             return false;
         }
 
-        return $data->value instanceof LayoutViewInterface;
+        return $data->view instanceof LayoutViewInterface;
     }
 
     /**
      * Returns the data for blocks contained within the layout.
      *
      * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
+     * @param int $version
      *
      * @return array
      */
-    protected function normalizeBlocks(LayoutViewInterface $layoutView)
+    protected function normalizeBlocks(LayoutViewInterface $layoutView, $version)
     {
         $blocks = array();
 
@@ -116,7 +117,10 @@ class LayoutViewNormalizer implements NormalizerInterface
         $normalizedBlocks = array();
         foreach ($blocks as $block) {
             $normalizedBlocks[] = $this->blockViewNormalizer->normalize(
-                $this->viewBuilder->buildView($block, $layoutView->getContext())
+                new SerializableView(
+                    $this->viewBuilder->buildView($block, $layoutView->getContext()),
+                    $version
+                )
             );
         }
 

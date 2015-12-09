@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\View\SerializableView;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -24,7 +24,7 @@ abstract class Controller extends BaseController
     protected function serializeObject($object, $apiVersion)
     {
         $serializedObject = $this->get('serializer')->serialize(
-            new SerializableValue($object, $apiVersion),
+            new SerializableView($object, $apiVersion),
             'json'
         );
 
