@@ -37,7 +37,6 @@ class BlockController extends Controller
         $configuration = $this->get('netgen_block_manager.configuration');
 
         $defaultValues = $configuration->getBlockTypeConfig($identifier)['defaults'];
-        $blockDefinition = $this->getBlockDefinition($defaultValues['definition_identifier']);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct(
             $defaultValues['definition_identifier'],
