@@ -8,9 +8,9 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
     public function testResolveTemplate()
     {
@@ -58,9 +58,9 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
     public function testResolveTemplateWithEmptyMatchConfig()
     {
@@ -93,9 +93,9 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
     public function testResolveTemplateWithMultipleMatches()
     {
@@ -132,7 +132,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
@@ -149,7 +149,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfEmptyContext()
@@ -170,8 +170,8 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @expectedException \RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatch()
@@ -219,8 +219,8 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @expectedException \RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
@@ -253,8 +253,8 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @expectedException \RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcherInterface()

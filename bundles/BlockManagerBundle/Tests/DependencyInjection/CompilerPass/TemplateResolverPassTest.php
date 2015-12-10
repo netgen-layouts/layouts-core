@@ -21,7 +21,7 @@ class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutViewTemplateResolverPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\TemplateResolverPass::process
      */
     public function testProcess()
     {

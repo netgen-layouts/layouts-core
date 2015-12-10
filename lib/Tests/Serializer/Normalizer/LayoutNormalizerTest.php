@@ -14,11 +14,11 @@ use DateTime;
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::normalizeBlocks
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getZones
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::getBlockPositions
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalizeBlocks
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getBlockPositions
      */
     public function testNormalize()
     {
@@ -107,7 +107,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($layoutView))
             ->will($this->returnValue('rendered layout view'));
 
-        $layoutViewNormalizer = new LayoutNormalizer(
+        $LayoutNormalizer = new LayoutNormalizer(
             $configurationMock,
             $blockNormalizerMock,
             $viewBuilderMock,
@@ -145,7 +145,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $layoutViewNormalizer->normalize(new SerializableValue($layout, 1))
+            $LayoutNormalizer->normalize(new SerializableValue($layout, 1))
         );
     }
 
@@ -153,7 +153,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutViewNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
@@ -168,14 +168,14 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
         $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
         $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
 
-        $layoutViewNormalizer = new LayoutNormalizer(
+        $LayoutNormalizer = new LayoutNormalizer(
             $configurationMock,
             $blockNormalizerMock,
             $viewBuilderMock,
             $viewRendererMock
         );
 
-        self::assertEquals($expected, $layoutViewNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $LayoutNormalizer->supportsNormalization($data));
     }
 
     /**

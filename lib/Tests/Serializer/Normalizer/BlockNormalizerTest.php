@@ -11,8 +11,8 @@ use Netgen\BlockManager\Tests\API\Stubs\Value;
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -67,7 +67,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockViewNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
