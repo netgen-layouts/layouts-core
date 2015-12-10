@@ -37,7 +37,7 @@ class Configuration extends BaseConfiguration
 
         if ($parameterName == 'block_types') {
             return array(
-                'some_block_type' => array('type_name' => 'Some block type'),
+                'some_block_type' => array('name' => 'Some block type'),
             );
         }
 

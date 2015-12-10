@@ -174,7 +174,7 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('identifier')
             ->prototype('array')
                 ->children()
-                    ->scalarNode('type_name')
+                    ->scalarNode('name')
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()

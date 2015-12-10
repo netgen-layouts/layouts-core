@@ -37,7 +37,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $configuration = new Configuration();
 
         self::assertEquals(
-            array('type_name' => 'Some block type'),
+            array('name' => 'Some block type'),
             $configuration->getBlockTypeConfig('some_block_type')
         );
     }

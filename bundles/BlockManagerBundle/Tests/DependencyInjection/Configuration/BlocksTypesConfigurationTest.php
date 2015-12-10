@@ -35,7 +35,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'type_name' => 'Block type',
+                        'name' => 'Block type',
                         'defaults' => array(
                             'name' => 'Name',
                             'definition_identifier' => 'title',
@@ -53,7 +53,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'name' => 'Name',
                         'definition_identifier' => 'title',
@@ -86,7 +86,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'type_name' => 'Block type',
+                        'name' => 'Block type',
                         'defaults' => array(
                             'definition_identifier' => 'title',
                             'view_type' => 'large',
@@ -103,7 +103,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'name' => '',
                         'definition_identifier' => 'title',
@@ -136,7 +136,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'type_name' => 'Block type',
+                        'name' => 'Block type',
                         'defaults' => array(
                             'name' => 'Name',
                             'definition_identifier' => 'title',
@@ -150,7 +150,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'name' => 'Name',
                         'definition_identifier' => 'title',
@@ -180,7 +180,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'type_name' => 'Block type',
+                        'name' => 'Block type',
                         'defaults' => array(
                             'name' => 'Name',
                             'definition_identifier' => 'title',
@@ -195,7 +195,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'type_name' => 'Block type',
+                        'name' => 'Block type',
                         'defaults' => array(
                             'name' => 'Name',
                             'definition_identifier' => 'title',
@@ -212,7 +212,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'name' => 'Name',
                         'definition_identifier' => 'title',
@@ -269,7 +269,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => '',
+                    'name' => '',
                 ),
             ),
         );
@@ -286,7 +286,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => array(),
+                    'name' => array(),
                 ),
             ),
         );
@@ -303,7 +303,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                 ),
             ),
         );
@@ -320,7 +320,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => 'defaults',
                 ),
             ),
@@ -338,7 +338,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'name' => array(),
                     ),
@@ -358,7 +358,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(),
                 ),
             ),
@@ -376,7 +376,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => '',
                     ),
@@ -396,7 +396,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => array(),
                     ),
@@ -416,7 +416,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => 'large',
                     ),
@@ -436,7 +436,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => 'large',
                         'definition_identifier' => array(),
@@ -457,7 +457,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'default' => array(
                         'view_type' => 'large',
@@ -480,7 +480,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => 'large',
                         'definition_identifier' => 'definition_identifier',
@@ -502,7 +502,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_types' => array(
                 'block_type' => array(
-                    'type_name' => 'Block type',
+                    'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => 'large',
                         'definition_identifier' => 'definition_identifier',
