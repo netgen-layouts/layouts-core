@@ -20,16 +20,6 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getName
-     */
-    public function testGetName()
-    {
-        $blockDefinition = new Paragraph();
-
-        self::assertEquals('Paragraph', $blockDefinition->getName());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameters
      */
     public function testGetParameters()

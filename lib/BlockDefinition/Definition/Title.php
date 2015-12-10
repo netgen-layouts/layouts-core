@@ -29,16 +29,6 @@ class Title extends BlockDefinition
     }
 
     /**
-     * Returns block definition human readable name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'Title';
-    }
-
-    /**
      * Returns the array specifying block parameters.
      *
      * @return \Netgen\BlockManager\BlockDefinition\Parameter[]

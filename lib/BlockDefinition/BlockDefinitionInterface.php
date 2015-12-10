@@ -14,13 +14,6 @@ interface BlockDefinitionInterface
     public function getIdentifier();
 
     /**
-     * Returns block definition human readable name.
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
      * Returns the array specifying block parameters.
      *
      * The keys are parameter identifiers.
