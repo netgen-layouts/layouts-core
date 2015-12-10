@@ -29,6 +29,6 @@ class LayoutController extends Controller
 
         $layoutView = $this->buildViewObject($layout);
 
-        return $this->renderViewObject($layoutView);
+        return $layoutView;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
+use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        return $this->serializeObject($block, self::API_VERSION);
+        return new SerializableValue($block, self::API_VERSION);
     }
 
     /**
@@ -94,7 +95,7 @@ class BlockController extends Controller
                 array('form' => $form->createView(), 'api_version' => self::API_VERSION)
             );
 
-            return $this->renderViewObject($blockView);
+            return $blockView;
         }
 
         $updatedBlock = $blockService->updateBlock($block, $form->getData());

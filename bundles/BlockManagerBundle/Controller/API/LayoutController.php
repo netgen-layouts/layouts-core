@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Serializer\SerializableValue;
 
 class LayoutController extends Controller
 {
@@ -15,6 +16,6 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        return $this->serializeObject($layout, self::API_VERSION);
+        return new SerializableValue($layout, self::API_VERSION);
     }
 }

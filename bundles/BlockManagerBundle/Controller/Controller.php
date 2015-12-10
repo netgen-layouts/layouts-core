@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Symfony\Component\HttpFoundation\Response;
 
 abstract class Controller extends BaseController
 {
@@ -22,24 +21,6 @@ abstract class Controller extends BaseController
         $viewBuilder = $this->get('netgen_block_manager.view.builder');
 
         return $viewBuilder->buildView($object, $context, $parameters);
-    }
-
-    /**
-     * Renders the view.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function renderViewObject($view)
-    {
-        $viewRenderer = $this->get('netgen_block_manager.view.renderer');
-        $renderedView = $viewRenderer->renderView($view);
-
-        $response = new Response();
-        $response->setContent($renderedView);
-
-        return $response;
     }
 
     /**

@@ -1,0 +1,90 @@
+<?php
+
+namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
+
+use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener;
+use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpFoundation\Request;
+
+class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::getSubscribedEvents
+     */
+    public function testGetSubscribedEvents()
+    {
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
+        $eventListener = new ViewRendererListener($viewRendererMock);
+
+        self::assertEquals(
+            array(KernelEvents::VIEW => 'onView'),
+            $eventListener->getSubscribedEvents()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
+     */
+    public function testOnView()
+    {
+        $value = new View();
+
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
+        $viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo($value))
+            ->will($this->returnValue('rendered content'));
+
+        $eventListener = new ViewRendererListener($viewRendererMock);
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+
+        $event = new GetResponseForControllerResultEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $value
+        );
+
+        $eventListener->onView($event);
+
+        self::assertInstanceOf(
+            'Symfony\Component\HttpFoundation\Response',
+            $event->getResponse()
+        );
+
+        self::assertEquals(
+            'rendered content',
+            $event->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
+     */
+    public function testOnViewWithoutSupportedValue()
+    {
+        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
+        $eventListener = new ViewRendererListener($viewRendererMock);
+
+        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $request = Request::create('/');
+
+        $event = new GetResponseForControllerResultEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            42
+        );
+
+        $eventListener->onView($event);
+
+        self::assertNull($event->getResponse());
+    }
+}
