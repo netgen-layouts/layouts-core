@@ -5,9 +5,12 @@ block_types:
             view_type: default
             definition_identifier: title
             parameters:
+                tag: h1
                 title: 'My cool title'
     title_with_h3:
         type_name: 'Title with h3'
         defaults:
             view_type: large
             definition_identifier: title
+            parameters:
+                tag: h3

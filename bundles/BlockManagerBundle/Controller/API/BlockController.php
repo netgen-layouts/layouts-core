@@ -45,9 +45,7 @@ class BlockController extends Controller
         );
 
         $blockCreateStruct->name = $defaultValues['name'];
-        $blockCreateStruct->setParameters(
-            $defaultValues['parameters'] + $blockDefinition->getDefaultParameterValues()
-        );
+        $blockCreateStruct->setParameters($defaultValues['parameters']);
 
         $createdBlock = $blockService->createBlock(
             $blockCreateStruct,

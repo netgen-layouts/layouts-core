@@ -41,20 +41,4 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     {
         return array();
     }
-
-    /**
-     * Returns the array with default parameter values.
-     *
-     * @return array
-     */
-    public function getDefaultParameterValues()
-    {
-        $defaultValues = array();
-
-        foreach ($this->getParameters() as $parameterIdentifier => $parameter) {
-            $defaultValues[$parameterIdentifier] = $parameter->getDefaultValue();
-        }
-
-        return $defaultValues;
-    }
 }
