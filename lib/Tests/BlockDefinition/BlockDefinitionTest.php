@@ -17,26 +17,10 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'css_id' => new Parameter\Text(),
-                'css_class' => new Parameter\Text(),
+                'css_id' => new Parameter\Text('CSS ID'),
+                'css_class' => new Parameter\Text('CSS class'),
             ),
             $blockDefinition->getParameters()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\BlockDefinition::getParameterNames
-     */
-    public function testGetParameterNames()
-    {
-        $blockDefinition = new BlockDefinition();
-
-        self::assertEquals(
-            array(
-                'css_id' => 'CSS ID',
-                'css_class' => 'CSS class',
-            ),
-            $blockDefinition->getParameterNames()
         );
     }
 

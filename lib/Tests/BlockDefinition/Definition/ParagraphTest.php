@@ -38,28 +38,11 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'content' => new Parameter\Text('Text'),
-                'css_id' => new Parameter\Text(),
-                'css_class' => new Parameter\Text(),
+                'content' => new Parameter\Text('Content'),
+                'css_id' => new Parameter\Text('CSS ID'),
+                'css_class' => new Parameter\Text('CSS class'),
             ),
             $blockDefinition->getParameters()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameterNames
-     */
-    public function testGetParameterNames()
-    {
-        $blockDefinition = new Paragraph();
-
-        self::assertEquals(
-            array(
-                'content' => 'Content',
-                'css_id' => 'CSS ID',
-                'css_class' => 'CSS class',
-            ),
-            $blockDefinition->getParameterNames()
         );
     }
 

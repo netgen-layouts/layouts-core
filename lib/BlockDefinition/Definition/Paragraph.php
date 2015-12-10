@@ -37,20 +37,8 @@ class Paragraph extends BlockDefinition
     public function getParameters()
     {
         return array(
-            'content' => new Parameter\Text('Text'),
+            'content' => new Parameter\Text('Content'),
         ) + parent::getParameters();
-    }
-
-    /**
-     * Returns the array specifying block parameter human readable names.
-     *
-     * @return string[]
-     */
-    public function getParameterNames()
-    {
-        return array(
-            'content' => 'Content',
-        ) + parent::getParameterNames();
     }
 
     /**

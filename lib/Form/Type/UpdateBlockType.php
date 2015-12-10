@@ -110,7 +110,6 @@ class UpdateBlockType extends AbstractType
         );
 
         $parameters = $blockDefinition->getParameters();
-        $parameterNames = $blockDefinition->getParameterNames();
         $parameterConstraints = $blockDefinition->getParameterConstraints();
 
         foreach ($parameters as $parameterIdentifier => $blockParameter) {
@@ -118,9 +117,7 @@ class UpdateBlockType extends AbstractType
                 $parameterIdentifier,
                 $blockParameter->getFormType(),
                 array(
-                    'label' => isset($parameterNames[$parameterIdentifier]) ?
-                        $parameterNames[$parameterIdentifier] :
-                        null,
+                    'label' => $blockParameter->getName(),
                     'property_path' => 'parameters[' . $parameterIdentifier . ']',
                     'constraints' => isset($parameterConstraints[$parameterIdentifier]) && is_array($parameterConstraints[$parameterIdentifier]) ?
                         $parameterConstraints[$parameterIdentifier] :

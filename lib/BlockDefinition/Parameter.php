@@ -7,9 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 abstract class Parameter
 {
     /**
-     * @var mixed
+     * @var string
      */
-    protected $defaultValue;
+    protected $name;
 
     /**
      * @var array
@@ -19,12 +19,12 @@ abstract class Parameter
     /**
      * Constructor.
      *
-     * @param mixed $defaultValue
+     * @param string $name
      * @param array $options
      */
-    public function __construct($defaultValue = null, array $options = array())
+    public function __construct($name = null, array $options = array())
     {
-        $this->defaultValue = $defaultValue;
+        $this->name = $name;
 
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -32,13 +32,13 @@ abstract class Parameter
     }
 
     /**
-     * Returns the parameter default value.
+     * Returns the parameter name.
      *
-     * @return mixed
+     * @return string
      */
-    public function getDefaultValue()
+    public function getName()
     {
-        return $this->defaultValue;
+        return $this->name;
     }
 
     /**

@@ -8,12 +8,12 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Parameter::__construct
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getDefaultValue
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getName
      */
-    public function testGetDefaultValue()
+    public function testGetName()
     {
-        $parameter = new Parameter('default');
+        $parameter = new Parameter('Parameter');
 
-        self::assertEquals('default', $parameter->getDefaultValue());
+        self::assertEquals('Parameter', $parameter->getName());
     }
 }

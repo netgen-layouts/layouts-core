@@ -47,24 +47,11 @@ class Title extends BlockDefinition
     {
         return array(
             'tag' => new Parameter\Select(
-                'h2',
+                'Tag',
                 array('options' => $this->options)
             ),
             'title' => new Parameter\Text('Title'),
         ) + parent::getParameters();
-    }
-
-    /**
-     * Returns the array specifying block parameter human readable names.
-     *
-     * @return string[]
-     */
-    public function getParameterNames()
-    {
-        return array(
-            'tag' => 'Tag',
-            'title' => 'Title',
-        ) + parent::getParameterNames();
     }
 
     /**

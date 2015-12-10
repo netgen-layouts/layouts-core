@@ -41,7 +41,10 @@ class BlockParametersValidatorTest extends ValidatorTest
         $validator->initialize($this->executionContextMock);
 
         $validator->validate(
-            $blockDefinition->getParameterNames(),
+            array(
+                'css_id' => 'CSS ID',
+                'css_class' => 'CSS class'
+            ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
     }
@@ -78,7 +81,10 @@ class BlockParametersValidatorTest extends ValidatorTest
         $validator->initialize($this->executionContextMock);
 
         $validator->validate(
-            $blockDefinition->getParameterNames(),
+            array(
+                'css_id' => 'CSS ID',
+                'css_class' => 'CSS class'
+            ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
     }
@@ -112,11 +118,10 @@ class BlockParametersValidatorTest extends ValidatorTest
         );
         $validator->initialize($this->executionContextMock);
 
-        $blockParameters = $blockDefinition->getParameterNames();
-        unset($blockParameters['css_id']);
-
         $validator->validate(
-            $blockParameters,
+            array(
+                'css_class' => 'CSS class'
+            ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
     }
@@ -152,11 +157,12 @@ class BlockParametersValidatorTest extends ValidatorTest
         );
         $validator->initialize($this->executionContextMock);
 
-        $blockParameters = $blockDefinition->getParameterNames();
-        $blockParameters['some_param'] = 'some_value';
-
         $validator->validate(
-            $blockParameters,
+            array(
+                'css_id' => 'CSS ID',
+                'css_class' => 'CSS class',
+                'some_param' => 'Some value'
+            ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
     }

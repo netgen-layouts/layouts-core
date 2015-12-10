@@ -30,13 +30,6 @@ interface BlockDefinitionInterface
     public function getParameters();
 
     /**
-     * Returns the array specifying block parameter human readable names.
-     *
-     * @return string[]
-     */
-    public function getParameterNames();
-
-    /**
      * Returns the array specifying block parameter validator constraints.
      *
      * @return array

@@ -14,21 +14,8 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     public function getParameters()
     {
         return array(
-            'css_id' => new Parameter\Text(),
-            'css_class' => new Parameter\Text(),
-        );
-    }
-
-    /**
-     * Returns the array specifying block parameter human readable names.
-     *
-     * @return string[]
-     */
-    public function getParameterNames()
-    {
-        return array(
-            'css_id' => 'CSS ID',
-            'css_class' => 'CSS class',
+            'css_id' => new Parameter\Text('CSS ID'),
+            'css_class' => new Parameter\Text('CSS class'),
         );
     }
 
