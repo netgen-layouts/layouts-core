@@ -55,6 +55,24 @@ class BlockController extends Controller
     }
 
     /**
+     * Serializes the block types.
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function viewBlockTypes()
+    {
+        $serializer = $this->get('serializer');
+        $configuration = $this->get('netgen_block_manager.configuration');
+
+        $data = $configuration->getParameter('block_type_groups');
+
+        $response = new JsonResponse();
+        $response->setContent($serializer->encode($data, 'json'));
+
+        return $response;
+    }
+
+    /**
      * Creates the block from specified block type.
      *
      * @param string $identifier

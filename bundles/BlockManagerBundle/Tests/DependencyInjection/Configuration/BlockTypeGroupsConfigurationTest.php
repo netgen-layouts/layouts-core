@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 
-class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
+class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -27,24 +27,24 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettings()
+    public function testBlockTypeGroupsSettings()
     {
         $config = array(
             array(
-                'block_groups' => array(
-                    'block_group' => array(
-                        'name' => 'block_group',
+                'block_type_groups' => array(
+                    'block_type_group' => array(
+                        'name' => 'block_type_group',
                     ),
                 ),
             ),
         );
 
         $expectedConfig = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array(),
                 ),
             ),
@@ -53,7 +53,7 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_groups'
+            'block_type_groups'
         );
     }
 
@@ -62,23 +62,23 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithBlocksMerge()
+    public function testBlockTypeGroupsSettingsWithBlocksMerge()
     {
         $config = array(
             array(
-                'block_groups' => array(
-                    'block_group' => array(
-                        'name' => 'block_group',
+                'block_type_groups' => array(
+                    'block_type_group' => array(
+                        'name' => 'block_type_group',
                         'blocks' => array('title', 'paragraph'),
                     ),
                 ),
             ),
             array(
-                'block_groups' => array(
-                    'block_group' => array(
-                        'name' => 'block_group',
+                'block_type_groups' => array(
+                    'block_type_group' => array(
+                        'name' => 'block_type_group',
                         'blocks' => array('image'),
                     ),
                 ),
@@ -86,9 +86,9 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array('title', 'paragraph', 'image'),
                 ),
             ),
@@ -97,7 +97,7 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_groups'
+            'block_type_groups'
         );
     }
 
@@ -105,15 +105,15 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithBlocks()
+    public function testBlockTypeGroupsSettingsWithBlocks()
     {
         $config = array(
             array(
-                'block_groups' => array(
-                    'block_group' => array(
-                        'name' => 'block_group',
+                'block_type_groups' => array(
+                    'block_type_group' => array(
+                        'name' => 'block_type_group',
                         'blocks' => array('title', 'image'),
                     ),
                 ),
@@ -121,9 +121,9 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array('title', 'image'),
                 ),
             ),
@@ -132,7 +132,7 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_groups'
+            'block_type_groups'
         );
     }
 
@@ -140,15 +140,15 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithNonUniqueBlocks()
+    public function testBlockTypeGroupsSettingsWithNonUniqueBlocks()
     {
         $config = array(
             array(
-                'block_groups' => array(
-                    'block_group' => array(
-                        'name' => 'block_group',
+                'block_type_groups' => array(
+                    'block_type_group' => array(
+                        'name' => 'block_type_group',
                         'blocks' => array('title', 'image', 'title'),
                     ),
                 ),
@@ -156,9 +156,9 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array('title', 'image'),
                 ),
             ),
@@ -167,18 +167,18 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_groups'
+            'block_type_groups'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithNoBlockSettings()
+    public function testBlockTypeGroupsSettingsWithNoBlockSettings()
     {
         $config = array(
-            'block_groups' => array(),
+            'block_type_groups' => array(),
         );
 
         $this->assertConfigurationIsInvalid(array($config));
@@ -186,13 +186,13 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithNoName()
+    public function testBlockTypeGroupsSettingsWithNoName()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(),
+            'block_type_groups' => array(
+                'block_type_group' => array(),
             ),
         );
 
@@ -201,13 +201,13 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithEmptyName()
+    public function testBlockTypeGroupsSettingsWithEmptyName()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(
+            'block_type_groups' => array(
+                'block_type_group' => array(
                     'name' => '',
                 ),
             ),
@@ -218,13 +218,13 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithInvalidName()
+    public function testBlockTypeGroupsSettingsWithInvalidName()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(
+            'block_type_groups' => array(
+                'block_type_group' => array(
                     'name' => array(),
                 ),
             ),
@@ -235,14 +235,14 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithEmptyBlockGroups()
+    public function testBlockTypeGroupsSettingsWithEmptyBlockTypeGroups()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array(),
                 ),
             ),
@@ -253,14 +253,14 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithInvalidBlockGroups()
+    public function testBlockTypeGroupsSettingsWithInvalidBlockTypeGroups()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => 'paragraph',
                 ),
             ),
@@ -271,14 +271,14 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithEmptyBlockGroupItem()
+    public function testBlockTypeGroupsSettingsWithEmptyBlockTypeGroupItem()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array(''),
                 ),
             ),
@@ -289,14 +289,14 @@ class BlockGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockGroupsSettingsWithInvalidBlockGroupItem()
+    public function testBlockTypeGroupsSettingsWithInvalidBlockTypeGroupItem()
     {
         $config = array(
-            'block_groups' => array(
-                'block_group' => array(
-                    'name' => 'block_group',
+            'block_type_groups' => array(
+                'block_type_group' => array(
+                    'name' => 'block_type_group',
                     'blocks' => array(array()),
                 ),
             ),

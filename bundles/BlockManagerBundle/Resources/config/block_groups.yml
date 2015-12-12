@@ -1,4 +1,0 @@
-block_groups:
-    simple_blocks:
-        name: 'Simple blocks'
-        blocks: [paragraph, title]

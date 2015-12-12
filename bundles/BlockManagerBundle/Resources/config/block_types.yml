@@ -1,4 +1,10 @@
 block_types:
+#    container:
+#        name: 'Container'
+#        defaults:
+#            view_type: default
+#            definition_identifier: container
+#        groups: [simple_blocks, container]
     title:
         name: 'Title'
         defaults:
@@ -12,5 +18,19 @@ block_types:
         defaults:
             view_type: large
             definition_identifier: title
+#            sub_blocks:
+#                left:
+#                    type: container
+#                right:
+#                    type: container
+#                top:
+#                    type: container
+#                bottom:
+#                    type: title
+#                    defaults:
+#                        view_type: default
+#                        parameters:
+#                            title: 'Sub title 1'
             parameters:
+                title: 'Title with h3'
                 tag: h3
