@@ -189,13 +189,14 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             array(null, false),
             array(true, false),
             array(false, false),
-            array('layout_view', false),
+            array('layout', false),
             array(array(), false),
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
             array(new Layout(), false),
             array(new SerializableValue(new Value(), 1), false),
+            array(new SerializableValue(new Layout(), 2), false),
             array(new SerializableValue(new Layout(), 1), true),
         );
     }

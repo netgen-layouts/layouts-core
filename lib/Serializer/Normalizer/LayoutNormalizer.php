@@ -100,7 +100,7 @@ class LayoutNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Layout;
+        return $data->getValue() instanceof Layout && $data->getVersion() === 1;
     }
 
     /**

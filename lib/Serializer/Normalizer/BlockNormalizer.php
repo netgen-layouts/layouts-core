@@ -77,6 +77,6 @@ class BlockNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Block;
+        return $data->getValue() instanceof Block && $data->getVersion() === 1;
     }
 }
