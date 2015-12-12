@@ -16,22 +16,13 @@ class LayoutNormalizer implements NormalizerInterface
     protected $configuration;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer
-     */
-    protected $blockNormalizer;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
-     * @param \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer $blockNormalizer
      */
-    public function __construct(
-        ConfigurationInterface $configuration,
-        BlockNormalizer $blockNormalizer
-    ) {
+    public function __construct(ConfigurationInterface $configuration)
+    {
         $this->configuration = $configuration;
-        $this->blockNormalizer = $blockNormalizer;
     }
 
     /**
@@ -55,7 +46,6 @@ class LayoutNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified(),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
-            'blocks' => $this->normalizeBlocks($layout, $object->getVersion()),
             'positions' => $this->getBlockPositions($layout),
         );
     }
@@ -75,32 +65,6 @@ class LayoutNormalizer implements NormalizerInterface
         }
 
         return $data->getValue() instanceof Layout && $data->getVersion() === 1;
-    }
-
-    /**
-     * Returns the data for blocks contained within the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $version
-     *
-     * @return array
-     */
-    protected function normalizeBlocks(Layout $layout, $version)
-    {
-        $blocks = array();
-
-        foreach ($layout->getZones() as $zone) {
-            $blocks = array_merge($blocks, $zone->getBlocks());
-        }
-
-        $normalizedBlocks = array();
-        foreach ($blocks as $block) {
-            $normalizedBlocks[] = $this->blockNormalizer->normalize(
-                new SerializableValue($block, $version)
-            );
-        }
-
-        return $normalizedBlocks;
     }
 
     /**

@@ -16,7 +16,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalizeBlocks
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getZones
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getBlockPositions
      */
@@ -55,11 +54,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $normalizedBlock = array(
-            'id' => 24,
-            'html' => 'rendered block',
-        );
-
         $layoutView = new LayoutView();
         $layoutView->setLayout($layout);
 
@@ -82,21 +76,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('3_zones_a'))
             ->will($this->returnValue($layoutConfig));
 
-        $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $blockNormalizerMock
-            ->expects($this->once())
-            ->method('normalize')
-            ->with($this->equalTo(new SerializableValue($block, 1)))
-            ->will($this->returnValue($normalizedBlock));
-
-        $layoutNormalizer = new LayoutNormalizer(
-            $configurationMock,
-            $blockNormalizerMock
-        );
+        $layoutNormalizer = new LayoutNormalizer($configurationMock);
 
         self::assertEquals(
             array(
@@ -116,7 +96,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                         'allowed_blocks' => true,
                     ),
                 ),
-                'blocks' => array($normalizedBlock),
                 'positions' => array(
                     array(
                         'zone' => 'left',
@@ -143,15 +122,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
 
-        $blockNormalizerMock = $this
-            ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $layoutNormalizer = new LayoutNormalizer(
-            $configurationMock,
-            $blockNormalizerMock
-        );
+        $layoutNormalizer = new LayoutNormalizer($configurationMock);
 
         self::assertEquals($expected, $layoutNormalizer->supportsNormalization($data));
     }

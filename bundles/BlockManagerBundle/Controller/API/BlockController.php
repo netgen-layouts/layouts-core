@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +12,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 class BlockController extends Controller
 {
     /**
-     * Returns the block.
+     * Serializes the block object.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
@@ -22,23 +22,34 @@ class BlockController extends Controller
     {
         $serializer = $this->get('serializer');
 
-        $normalizedBlock = $serializer->normalize(
-            new SerializableValue(
-                $block,
-                self::API_VERSION
-            )
-        );
-
-        $blockView = $this->buildViewObject(
-            $block,
-            ViewInterface::CONTEXT_API,
-            array('api_version' => self::API_VERSION)
-        );
-
-        $normalizedBlock['html'] = $this->renderViewObject($blockView);
+        $normalizedBlock = $this->normalizeValueObject($block);
 
         $response = new JsonResponse();
         $response->setContent($serializer->encode($normalizedBlock, 'json'));
+
+        return $response;
+    }
+
+    /**
+     * Serializes the blocks from provided layout object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function viewLayoutBlocks(Layout $layout)
+    {
+        $serializer = $this->get('serializer');
+
+        $blocks = array();
+        foreach ($layout->getZones() as $zone) {
+            foreach ($zone->getBlocks() as $block) {
+                $blocks[] = $this->normalizeValueObject($block);
+            }
+        }
+
+        $response = new JsonResponse();
+        $response->setContent($serializer->encode($blocks, 'json'));
 
         return $response;
     }

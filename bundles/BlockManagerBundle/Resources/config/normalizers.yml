@@ -13,7 +13,6 @@ services:
         class: %netgen_block_manager.normalizer.layout.class%
         arguments:
             - "@netgen_block_manager.configuration"
-            - "@netgen_block_manager.normalizer.block"
         tags:
             - { name: serializer.normalizer }
 
