@@ -60,7 +60,7 @@ class Zone extends Value implements ZoneInterface
     /**
      * Returns zone blocks.
      *
-     * @return string
+     * @return \Netgen\BlockManager\API\Values\Page\Block[]
      */
     public function getBlocks()
     {
