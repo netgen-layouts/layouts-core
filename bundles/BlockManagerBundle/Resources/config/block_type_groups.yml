@@ -1,4 +1,4 @@
 block_type_groups:
     simple_blocks:
         name: 'Simple blocks'
-        blocks: [title, title_with_h3]
+        block_types: [title, title_with_h3]

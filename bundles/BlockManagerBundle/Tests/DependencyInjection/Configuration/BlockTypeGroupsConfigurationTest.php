@@ -45,7 +45,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array(),
+                    'block_types' => array(),
                 ),
             ),
         );
@@ -64,14 +64,14 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockTypeGroupsSettingsWithBlocksMerge()
+    public function testBlockTypeGroupsSettingsWithBlockTypesMerge()
     {
         $config = array(
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
                         'name' => 'block_type_group',
-                        'blocks' => array('title', 'paragraph'),
+                        'block_types' => array('title', 'paragraph'),
                     ),
                 ),
             ),
@@ -79,7 +79,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_type_groups' => array(
                     'block_type_group' => array(
                         'name' => 'block_type_group',
-                        'blocks' => array('image'),
+                        'block_types' => array('image'),
                     ),
                 ),
             ),
@@ -89,7 +89,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array('title', 'paragraph', 'image'),
+                    'block_types' => array('title', 'paragraph', 'image'),
                 ),
             ),
         );
@@ -107,14 +107,14 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockTypeGroupsSettingsWithBlocks()
+    public function testBlockTypeGroupsSettingsWithBlockTypes()
     {
         $config = array(
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
                         'name' => 'block_type_group',
-                        'blocks' => array('title', 'image'),
+                        'block_types' => array('title', 'image'),
                     ),
                 ),
             ),
@@ -124,7 +124,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array('title', 'image'),
+                    'block_types' => array('title', 'image'),
                 ),
             ),
         );
@@ -142,14 +142,14 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockTypeGroupsSettingsWithNonUniqueBlocks()
+    public function testBlockTypeGroupsSettingsWithNonUniqueBlockTypes()
     {
         $config = array(
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
                         'name' => 'block_type_group',
-                        'blocks' => array('title', 'image', 'title'),
+                        'block_types' => array('title', 'image', 'title'),
                     ),
                 ),
             ),
@@ -159,7 +159,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array('title', 'image'),
+                    'block_types' => array('title', 'image'),
                 ),
             ),
         );
@@ -175,7 +175,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockTypeGroupsSettingsWithNoBlockSettings()
+    public function testBlockTypeGroupsSettingsWithNoBlockTypeSettings()
     {
         $config = array(
             'block_type_groups' => array(),
@@ -243,7 +243,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array(),
+                    'block_types' => array(),
                 ),
             ),
         );
@@ -261,7 +261,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => 'paragraph',
+                    'block_types' => 'paragraph',
                 ),
             ),
         );
@@ -279,7 +279,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array(''),
+                    'block_types' => array(''),
                 ),
             ),
         );
@@ -297,7 +297,7 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
-                    'blocks' => array(array()),
+                    'block_types' => array(array()),
                 ),
             ),
         );
