@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\ViewInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
@@ -19,7 +20,27 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        return new SerializableValue($block, self::API_VERSION);
+        $serializer = $this->get('serializer');
+
+        $normalizedBlock = $serializer->normalize(
+            new SerializableValue(
+                $block,
+                self::API_VERSION
+            )
+        );
+
+        $blockView = $this->buildViewObject(
+            $block,
+            ViewInterface::CONTEXT_API,
+            array('api_version' => self::API_VERSION)
+        );
+
+        $normalizedBlock['html'] = $this->renderViewObject($blockView);
+
+        $response = new JsonResponse();
+        $response->setContent($serializer->encode($normalizedBlock, 'json'));
+
+        return $response;
     }
 
     /**

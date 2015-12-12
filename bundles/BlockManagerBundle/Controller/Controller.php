@@ -36,4 +36,18 @@ abstract class Controller extends BaseController
 
         return $blockDefinitionRegistry->getBlockDefinition($definitionIdentifier);
     }
+
+    /**
+     * Renders the view object
+     *
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     *
+     * @return string
+     */
+    protected function renderViewObject(ViewInterface $view)
+    {
+        $viewRenderer = $this->get('netgen_block_manager.view.renderer');
+
+        return $viewRenderer->renderView($view);
+    }
 }

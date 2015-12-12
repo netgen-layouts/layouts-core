@@ -82,13 +82,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('3_zones_a'))
             ->will($this->returnValue($layoutConfig));
 
-        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
-        $viewBuilderMock
-            ->expects($this->once())
-            ->method('buildView')
-            ->with($this->equalTo($layout))
-            ->will($this->returnValue($layoutView));
-
         $blockNormalizerMock = $this
             ->getMockBuilder('Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer')
             ->disableOriginalConstructor()
@@ -100,18 +93,9 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(new SerializableValue($block, 1)))
             ->will($this->returnValue($normalizedBlock));
 
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
-        $viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo($layoutView))
-            ->will($this->returnValue('rendered layout view'));
-
-        $LayoutNormalizer = new LayoutNormalizer(
+        $layoutNormalizer = new LayoutNormalizer(
             $configurationMock,
-            $blockNormalizerMock,
-            $viewBuilderMock,
-            $viewRendererMock
+            $blockNormalizerMock
         );
 
         self::assertEquals(
@@ -122,7 +106,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                 'created_at' => $layout->getCreated(),
                 'updated_at' => $layout->getModified(),
                 'name' => $layout->getName(),
-                'html' => 'rendered layout view',
                 'zones' => array(
                     array(
                         'identifier' => 'left',
@@ -145,7 +128,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $LayoutNormalizer->normalize(new SerializableValue($layout, 1))
+            $layoutNormalizer->normalize(new SerializableValue($layout, 1))
         );
     }
 
@@ -165,17 +148,12 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
-
-        $LayoutNormalizer = new LayoutNormalizer(
+        $layoutNormalizer = new LayoutNormalizer(
             $configurationMock,
-            $blockNormalizerMock,
-            $viewBuilderMock,
-            $viewRendererMock
+            $blockNormalizerMock
         );
 
-        self::assertEquals($expected, $LayoutNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $layoutNormalizer->supportsNormalization($data));
     }
 
     /**

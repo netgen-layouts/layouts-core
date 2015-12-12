@@ -6,9 +6,6 @@ parameters:
 services:
     netgen_block_manager.normalizer.block:
         class: %netgen_block_manager.normalizer.block.class%
-        arguments:
-            - "@netgen_block_manager.view.builder"
-            - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }
 
@@ -17,8 +14,6 @@ services:
         arguments:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.normalizer.block"
-            - "@netgen_block_manager.view.builder"
-            - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }
 

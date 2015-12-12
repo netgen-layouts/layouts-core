@@ -6,9 +6,6 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\SerializableValue;
-use Netgen\BlockManager\View\ViewBuilderInterface;
-use Netgen\BlockManager\View\ViewInterface;
-use Netgen\BlockManager\View\ViewRendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class LayoutNormalizer implements NormalizerInterface
@@ -24,33 +21,17 @@ class LayoutNormalizer implements NormalizerInterface
     protected $blockNormalizer;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewBuilderInterface
-     */
-    protected $viewBuilder;
-
-    /**
-     * @var \Netgen\BlockManager\View\ViewRendererInterface
-     */
-    protected $viewRenderer;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer $blockNormalizer
-     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
     public function __construct(
         ConfigurationInterface $configuration,
-        BlockNormalizer $blockNormalizer,
-        ViewBuilderInterface $viewBuilder,
-        ViewRendererInterface $viewRenderer
+        BlockNormalizer $blockNormalizer
     ) {
         $this->configuration = $configuration;
         $this->blockNormalizer = $blockNormalizer;
-        $this->viewBuilder = $viewBuilder;
-        $this->viewRenderer = $viewRenderer;
     }
 
     /**
@@ -66,12 +47,6 @@ class LayoutNormalizer implements NormalizerInterface
     {
         $layout = $object->getValue();
 
-        $layoutView = $this->viewBuilder->buildView(
-            $layout,
-            ViewInterface::CONTEXT_API,
-            array('api_version' => $object->getVersion())
-        );
-
         return array(
             'id' => $layout->getId(),
             'parent_id' => $layout->getParentId(),
@@ -82,7 +57,6 @@ class LayoutNormalizer implements NormalizerInterface
             'zones' => $this->getZones($layout),
             'blocks' => $this->normalizeBlocks($layout, $object->getVersion()),
             'positions' => $this->getBlockPositions($layout),
-            'html' => $this->viewRenderer->renderView($layoutView),
         );
     }
 

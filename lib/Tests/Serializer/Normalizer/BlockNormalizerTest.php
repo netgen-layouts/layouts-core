@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\SerializableValue;
-use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
@@ -30,24 +29,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $blockView = new BlockView();
-        $blockView->setBlock($block);
-
-        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
-        $viewBuilderMock
-            ->expects($this->once())
-            ->method('buildView')
-            ->with($this->equalTo($block))
-            ->will($this->returnValue($blockView));
-
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
-        $viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo($blockView))
-            ->will($this->returnValue('rendered block view'));
-
-        $blockViewNormalizer = new BlockNormalizer($viewBuilderMock, $viewRendererMock);
+        $blockNormalizer = new BlockNormalizer();
 
         self::assertEquals(
             array(
@@ -57,9 +39,8 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'zone_id' => $block->getZoneId(),
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
-                'html' => 'rendered block view',
             ),
-            $blockViewNormalizer->normalize(new SerializableValue($block, 1))
+            $blockNormalizer->normalize(new SerializableValue($block, 1))
         );
     }
 
@@ -72,11 +53,9 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $viewBuilderMock = $this->getMock('Netgen\BlockManager\View\ViewBuilderInterface');
-        $viewRendererMock = $this->getMock('Netgen\BlockManager\View\ViewRendererInterface');
-        $blockViewNormalizer = new BlockNormalizer($viewBuilderMock, $viewRendererMock);
+        $blockNormalizer = new BlockNormalizer();
 
-        self::assertEquals($expected, $blockViewNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $blockNormalizer->supportsNormalization($data));
     }
 
     /**
