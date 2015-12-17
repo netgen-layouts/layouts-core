@@ -501,6 +501,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteBlock()
     {
@@ -509,12 +510,7 @@ abstract class BlockServiceTest extends ServiceTest
         $block = $blockService->loadBlock(1);
         $blockService->deleteBlock($block);
 
-        try {
-            $blockService->loadBlock($block->getId());
-            $this->fail('Failed to delete block with ID ' . $block->getId());
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
+        $blockService->loadBlock($block->getId());
     }
 
     /**

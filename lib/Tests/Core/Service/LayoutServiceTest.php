@@ -373,6 +373,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayout()
     {
@@ -392,21 +393,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $layoutService->deleteLayout($layout);
 
-        foreach ($layout->getZones() as $zone) {
-            try {
-                $layoutService->loadZone($zone->getId());
-                $this->fail('Zone ' . $zone->getId() . ' not deleted when deleting layout.');
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        try {
-            $layoutService->loadLayout($layout->getId());
-            $this->fail('Layout was not deleted.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
+        $layoutService->loadLayout($layout->getId());
     }
 
     /**

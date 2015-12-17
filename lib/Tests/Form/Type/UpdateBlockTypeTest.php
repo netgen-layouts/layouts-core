@@ -143,12 +143,15 @@ class UpdateBlockTypeTest extends TypeTestCase
 
         $formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(
+        $options = $optionsResolver->resolve(
             array(
                 'block' => new Block(),
                 'data' => new BlockUpdateStruct(),
             )
         );
+
+        self::assertEquals($options['block'], new Block());
+        self::assertEquals($options['data'], new BlockUpdateStruct());
     }
 
     /**

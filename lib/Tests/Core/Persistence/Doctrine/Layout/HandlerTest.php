@@ -280,6 +280,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayout()
     {
@@ -301,20 +302,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler->deleteLayout(1);
 
-        foreach ($layoutZones as $zone) {
-            try {
-                $handler->loadZone($zone->id);
-                $this->fail('Zone ' . $zone->id . ' not deleted when deleting layout.');
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        try {
-            $handler->loadLayout(1);
-            $this->fail('Layout was not deleted.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
+        $handler->loadLayout(1);
     }
 }
