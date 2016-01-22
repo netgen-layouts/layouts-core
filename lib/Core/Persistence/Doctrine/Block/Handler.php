@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -17,6 +18,11 @@ class Handler implements BlockHandlerInterface
     protected $connection;
 
     /**
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper
+     */
+    protected $connectionHelper;
+
+    /**
      * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper
      */
     protected $mapper;
@@ -25,11 +31,13 @@ class Handler implements BlockHandlerInterface
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper $connectionHelper
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper $mapper
      */
-    public function __construct(Connection $connection, Mapper $mapper)
+    public function __construct(Connection $connection, Helper $connectionHelper, Mapper $mapper)
     {
         $this->connection = $connection;
+        $this->connectionHelper = $connectionHelper;
         $this->mapper = $mapper;
     }
 
@@ -227,6 +235,7 @@ class Handler implements BlockHandlerInterface
             ->insert('ngbm_block')
             ->values(
                 array(
+                    'id' => ':id',
                     'zone_id' => ':zone_id',
                     'definition_identifier' => ':definition_identifier',
                     'view_type' => ':view_type',
@@ -234,6 +243,7 @@ class Handler implements BlockHandlerInterface
                     'parameters' => ':parameters',
                 )
             )
+            ->setParameter('id', $this->connectionHelper->getAutoIncrementValue('ngbm_block'), Type::INTEGER)
             ->setParameter('zone_id', $parameters['zone_id'], Type::INTEGER)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
             ->setParameter('view_type', $parameters['view_type'], Type::STRING)
