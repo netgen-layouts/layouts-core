@@ -30,6 +30,7 @@ trait TestCase
     protected function createPersistenceHandler()
     {
         return new Handler(
+            $this->databaseConnection,
             $this->createBlockHandler(),
             $this->createLayoutHandler()
         );

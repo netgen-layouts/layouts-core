@@ -13,6 +13,7 @@ services:
     netgen_block_manager.persistence.doctrine.handler:
         class: %netgen_block_manager.persistence.doctrine.handler.class%
         arguments:
+            - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.handler"
 

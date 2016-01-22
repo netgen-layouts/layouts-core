@@ -5,9 +5,15 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine;
 use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\Block;
 use Netgen\BlockManager\Persistence\Handler\Layout;
+use Doctrine\DBAL\Connection;
 
 class Handler implements HandlerInterface
 {
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    protected $connection;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\Block
      */
@@ -17,6 +23,20 @@ class Handler implements HandlerInterface
      * @var \Netgen\BlockManager\Persistence\Handler\Layout
      */
     protected $layoutHandler;
+
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
+     * @param \Netgen\BlockManager\Persistence\Handler\Layout $layoutHandler
+     */
+    public function __construct(Connection $connection, Block $blockHandler, Layout $layoutHandler)
+    {
+        $this->connection = $connection;
+        $this->blockHandler = $blockHandler;
+        $this->layoutHandler = $layoutHandler;
+    }
 
     /**
      * Returns the block handler
@@ -29,18 +49,6 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\Layout $layoutHandler
-     */
-    public function __construct(Block $blockHandler, Layout $layoutHandler)
-    {
-        $this->blockHandler = $blockHandler;
-        $this->layoutHandler = $layoutHandler;
-    }
-
-    /**
      * Returns the layout handler
      *
      * @return \Netgen\BlockManager\Persistence\Handler\Layout
@@ -48,5 +56,29 @@ class Handler implements HandlerInterface
     public function getLayoutHandler()
     {
         return $this->layoutHandler;
+    }
+
+    /**
+     * Begins the transaction
+     */
+    public function beginTransaction()
+    {
+        $this->connection->beginTransaction();
+    }
+
+    /**
+     * Commits the transaction
+     */
+    public function commitTransaction()
+    {
+        $this->connection->commit();
+    }
+
+    /**
+     * Rollbacks the transaction
+     */
+    public function rollbackTransaction()
+    {
+        $this->connection->rollBack();
     }
 }
