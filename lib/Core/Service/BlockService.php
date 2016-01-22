@@ -15,6 +15,7 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Exception;
 
 class BlockService implements BlockServiceInterface
 {
@@ -118,7 +119,18 @@ class BlockService implements BlockServiceInterface
         }
 
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
-        $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock($blockCreateStruct, $zone->getId());
+
+        $this->persistenceHandler->beginTransaction();
+
+        try
+        {
+            $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock($blockCreateStruct, $zone->getId());
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
 
         return $this->buildDomainBlockObject($createdBlock);
     }
@@ -148,7 +160,18 @@ class BlockService implements BlockServiceInterface
         );
 
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
-        $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock($block->getId(), $blockUpdateStruct);
+
+        $this->persistenceHandler->beginTransaction();
+
+        try
+        {
+            $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock($block->getId(), $blockUpdateStruct);
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
 
         return $this->buildDomainBlockObject($updatedBlock);
     }
@@ -176,10 +199,20 @@ class BlockService implements BlockServiceInterface
             }
         }
 
-        $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
-            $block->getId(),
-            $zone instanceof APIZone ? $zone->getId() : $block->getZoneId()
-        );
+        $this->persistenceHandler->beginTransaction();
+
+        try
+        {
+            $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
+                $block->getId(),
+                $zone instanceof APIZone ? $zone->getId() : $block->getZoneId()
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
 
         return $this->buildDomainBlockObject($copiedBlock);
     }
@@ -212,7 +245,17 @@ class BlockService implements BlockServiceInterface
             );
         }
 
-        $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock($block->getId(), $zone->getId());
+        $this->persistenceHandler->beginTransaction();
+
+        try
+        {
+            $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock($block->getId(), $zone->getId());
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
 
         return $this->buildDomainBlockObject($movedBlock);
     }
@@ -224,7 +267,17 @@ class BlockService implements BlockServiceInterface
      */
     public function deleteBlock(APIBlock $block)
     {
-        $this->persistenceHandler->getBlockHandler()->deleteBlock($block->getId());
+        $this->persistenceHandler->beginTransaction();
+
+        try
+        {
+            $this->persistenceHandler->getBlockHandler()->deleteBlock($block->getId());
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
     }
 
     /**

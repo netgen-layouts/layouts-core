@@ -13,6 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use DateTime;
+use Exception;
 
 class LayoutService implements LayoutServiceInterface
 {
@@ -112,10 +113,20 @@ class LayoutService implements LayoutServiceInterface
 
         $layoutHandler = $this->persistenceHandler->getLayoutHandler();
 
-        $createdLayout = $layoutHandler->createLayout(
-            $layoutCreateStruct,
-            $parentLayout !== null ? $parentLayout->getId() : null
-        );
+        $this->persistenceHandler->beginTransaction();
+
+        try
+        {
+            $createdLayout = $layoutHandler->createLayout(
+                $layoutCreateStruct,
+                $parentLayout !== null ? $parentLayout->getId() : null
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
 
         $zones = $layoutHandler->loadLayoutZones($createdLayout->id);
 
@@ -133,10 +144,20 @@ class LayoutService implements LayoutServiceInterface
     {
         $layoutHandler = $this->persistenceHandler->getLayoutHandler();
 
-        $copiedLayout = $layoutHandler->copyLayout($layout->getId());
-        $zones = $layoutHandler->loadLayoutZones($copiedLayout->id);
+        $this->persistenceHandler->beginTransaction();
 
-        // @TODO Copy blocks and block items
+        try
+        {
+            $copiedLayout = $layoutHandler->copyLayout($layout->getId());
+            // @TODO Copy blocks and block items
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        $zones = $layoutHandler->loadLayoutZones($copiedLayout->id);
 
         return $this->buildDomainLayoutObject($copiedLayout, $zones);
     }
@@ -148,9 +169,19 @@ class LayoutService implements LayoutServiceInterface
      */
     public function deleteLayout(APILayout $layout)
     {
-        // @TODO Delete blocks and block items
+        $this->persistenceHandler->beginTransaction();
 
-        $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId());
+        try
+        {
+            // @TODO Delete blocks and block items
+
+            $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId());
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
     }
 
     /**
