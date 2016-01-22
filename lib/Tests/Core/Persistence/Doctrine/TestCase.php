@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler as LayoutHandler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper as LayoutMapper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler as BlockHandler;
@@ -19,6 +20,19 @@ trait TestCase
     public function prepareHandlers()
     {
         $this->prepareDatabase(__DIR__ . '/_fixtures/schema', __DIR__ . '/_fixtures');
+    }
+
+    /**
+     * Returns the persistence handler under test.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler
+     */
+    protected function createPersistenceHandler()
+    {
+        return new Handler(
+            $this->createBlockHandler(),
+            $this->createLayoutHandler()
+        );
     }
 
     /**

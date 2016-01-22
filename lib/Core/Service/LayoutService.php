@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
@@ -22,27 +22,27 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutValidator;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler
+     */
+    protected $persistenceHandler;
+
+    /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     protected $blockService;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\Layout
-     */
-    protected $handler;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\LayoutValidator $layoutValidator
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\Persistence\Handler\Layout $handler
      */
-    public function __construct(LayoutValidator $layoutValidator, BlockService $blockService, LayoutHandler $handler)
+    public function __construct(LayoutValidator $layoutValidator, Handler $persistenceHandler, BlockService $blockService)
     {
         $this->layoutValidator = $layoutValidator;
+        $this->persistenceHandler = $persistenceHandler;
         $this->blockService = $blockService;
-        $this->handler = $handler;
     }
 
     /**
@@ -65,8 +65,10 @@ class LayoutService implements LayoutServiceInterface
             throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
         }
 
-        $layout = $this->handler->loadLayout($layoutId);
-        $zones = $this->handler->loadLayoutZones($layout->id);
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
+
+        $layout = $layoutHandler->loadLayout($layoutId);
+        $zones = $layoutHandler->loadLayoutZones($layout->id);
 
         return $this->buildDomainLayoutObject($layout, $zones);
     }
@@ -92,7 +94,7 @@ class LayoutService implements LayoutServiceInterface
         }
 
         return $this->buildDomainZoneObject(
-            $this->handler->loadZone($zoneId)
+            $this->persistenceHandler->getLayoutHandler()->loadZone($zoneId)
         );
     }
 
@@ -108,12 +110,14 @@ class LayoutService implements LayoutServiceInterface
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
-        $createdLayout = $this->handler->createLayout(
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
+
+        $createdLayout = $layoutHandler->createLayout(
             $layoutCreateStruct,
             $parentLayout !== null ? $parentLayout->getId() : null
         );
 
-        $zones = $this->handler->loadLayoutZones($createdLayout->id);
+        $zones = $layoutHandler->loadLayoutZones($createdLayout->id);
 
         return $this->buildDomainLayoutObject($createdLayout, $zones);
     }
@@ -127,9 +131,10 @@ class LayoutService implements LayoutServiceInterface
      */
     public function copyLayout(APILayout $layout)
     {
-        $copiedLayout = $this->handler->copyLayout($layout->getId());
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
 
-        $zones = $this->handler->loadLayoutZones($copiedLayout->id);
+        $copiedLayout = $layoutHandler->copyLayout($layout->getId());
+        $zones = $layoutHandler->loadLayoutZones($copiedLayout->id);
 
         // @TODO Copy blocks and block items
 
@@ -145,7 +150,7 @@ class LayoutService implements LayoutServiceInterface
     {
         // @TODO Delete blocks and block items
 
-        $this->handler->deleteLayout($layout->getId());
+        $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId());
     }
 
     /**

@@ -4,8 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandler;
-use Netgen\BlockManager\Persistence\Handler\Block as BlockHandler;
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
@@ -25,30 +24,20 @@ class BlockService implements BlockServiceInterface
     protected $blockValidator;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\Layout
+     * @var \Netgen\BlockManager\Persistence\Handler
      */
-    protected $layoutHandler;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Handler\Block
-     */
-    protected $blockHandler;
+    protected $persistenceHandler;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator
-     * @param \Netgen\BlockManager\Persistence\Handler\Layout $layoutHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
+     * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator $blockValidator
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
-    public function __construct(
-        BlockValidator $blockValidator,
-        LayoutHandler $layoutHandler,
-        BlockHandler $blockHandler
-    ) {
+    public function __construct(BlockValidator $blockValidator, Handler $persistenceHandler)
+    {
         $this->blockValidator = $blockValidator;
-        $this->layoutHandler = $layoutHandler;
-        $this->blockHandler = $blockHandler;
+        $this->persistenceHandler = $persistenceHandler;
     }
 
     /**
@@ -72,7 +61,7 @@ class BlockService implements BlockServiceInterface
         }
 
         return $this->buildDomainBlockObject(
-            $this->blockHandler->loadBlock($blockId)
+            $this->persistenceHandler->getBlockHandler()->loadBlock($blockId)
         );
     }
 
@@ -85,7 +74,7 @@ class BlockService implements BlockServiceInterface
      */
     public function loadZoneBlocks(APIZone $zone)
     {
-        $persistenceBlocks = $this->blockHandler->loadZoneBlocks($zone->getId());
+        $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks($zone->getId());
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
@@ -129,7 +118,7 @@ class BlockService implements BlockServiceInterface
         }
 
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
-        $createdBlock = $this->blockHandler->createBlock($blockCreateStruct, $zone->getId());
+        $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock($blockCreateStruct, $zone->getId());
 
         return $this->buildDomainBlockObject($createdBlock);
     }
@@ -159,7 +148,7 @@ class BlockService implements BlockServiceInterface
         );
 
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
-        $updatedBlock = $this->blockHandler->updateBlock($block->getId(), $blockUpdateStruct);
+        $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock($block->getId(), $blockUpdateStruct);
 
         return $this->buildDomainBlockObject($updatedBlock);
     }
@@ -178,7 +167,7 @@ class BlockService implements BlockServiceInterface
     public function copyBlock(APIBlock $block, APIZone $zone = null)
     {
         if ($zone instanceof APIZone) {
-            $originalZone = $this->layoutHandler->loadZone($block->getZoneId());
+            $originalZone = $this->persistenceHandler->getLayoutHandler()->loadZone($block->getZoneId());
             if ($zone->getLayoutId() !== $originalZone->layoutId) {
                 throw new InvalidArgumentException(
                     'zone->layoutId',
@@ -187,7 +176,7 @@ class BlockService implements BlockServiceInterface
             }
         }
 
-        $copiedBlock = $this->blockHandler->copyBlock(
+        $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
             $block->getId(),
             $zone instanceof APIZone ? $zone->getId() : $block->getZoneId()
         );
@@ -208,7 +197,7 @@ class BlockService implements BlockServiceInterface
      */
     public function moveBlock(APIBlock $block, APIZone $zone)
     {
-        $originalZone = $this->layoutHandler->loadZone($block->getZoneId());
+        $originalZone = $this->persistenceHandler->getLayoutHandler()->loadZone($block->getZoneId());
         if ($zone->getLayoutId() !== $originalZone->layoutId) {
             throw new InvalidArgumentException(
                 'zone->layoutId',
@@ -223,7 +212,7 @@ class BlockService implements BlockServiceInterface
             );
         }
 
-        $movedBlock = $this->blockHandler->moveBlock($block->getId(), $zone->getId());
+        $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock($block->getId(), $zone->getId());
 
         return $this->buildDomainBlockObject($movedBlock);
     }
@@ -235,7 +224,7 @@ class BlockService implements BlockServiceInterface
      */
     public function deleteBlock(APIBlock $block)
     {
-        $this->blockHandler->deleteBlock($block->getId());
+        $this->persistenceHandler->getBlockHandler()->deleteBlock($block->getId());
     }
 
     /**

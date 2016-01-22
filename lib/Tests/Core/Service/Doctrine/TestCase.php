@@ -25,10 +25,10 @@ trait TestCase
     ) {
         return new LayoutService(
             $layoutValidatorMock,
+            $this->createPersistenceHandler(),
             $this->createBlockService(
                 $blockValidatorMock
-            ),
-            $this->createLayoutHandler()
+            )
         );
     }
 
@@ -44,8 +44,7 @@ trait TestCase
     ) {
         return new BlockService(
             $validatorMock,
-            $this->createLayoutHandler(),
-            $this->createBlockHandler()
+            $this->createPersistenceHandler()
         );
     }
 }
