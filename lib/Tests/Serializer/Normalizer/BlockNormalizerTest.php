@@ -10,7 +10,6 @@ use Netgen\BlockManager\Tests\API\Stubs\Value;
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
