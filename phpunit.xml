@@ -10,7 +10,6 @@
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
-    checkForUnintentionallyCoveredCode="true"
     beStrictAboutOutputDuringTests="true"
     beStrictAboutTestSize="true"
     beStrictAboutChangesToGlobalState="true"
