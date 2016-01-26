@@ -38,7 +38,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Renders the view object
+     * Renders the view object.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *

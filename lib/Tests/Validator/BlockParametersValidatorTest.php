@@ -43,7 +43,7 @@ class BlockParametersValidatorTest extends ValidatorTest
         $validator->validate(
             array(
                 'css_id' => 'CSS ID',
-                'css_class' => 'CSS class'
+                'css_class' => 'CSS class',
             ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
@@ -83,7 +83,7 @@ class BlockParametersValidatorTest extends ValidatorTest
         $validator->validate(
             array(
                 'css_id' => 'CSS ID',
-                'css_class' => 'CSS class'
+                'css_class' => 'CSS class',
             ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
@@ -120,7 +120,7 @@ class BlockParametersValidatorTest extends ValidatorTest
 
         $validator->validate(
             array(
-                'css_class' => 'CSS class'
+                'css_class' => 'CSS class',
             ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
@@ -161,7 +161,7 @@ class BlockParametersValidatorTest extends ValidatorTest
             array(
                 'css_id' => 'CSS ID',
                 'css_class' => 'CSS class',
-                'some_param' => 'Some value'
+                'some_param' => 'Some value',
             ),
             new BlockParameters(array('definitionIdentifier' => 'block_definition'))
         );
