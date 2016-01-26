@@ -5,12 +5,11 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
@@ -31,15 +30,25 @@ class BlockService implements BlockServiceInterface
     protected $persistenceHandler;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\Mapper
+     */
+    protected $mapper;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\API\Service\Mapper $mapper
      */
-    public function __construct(BlockValidator $blockValidator, Handler $persistenceHandler)
-    {
+    public function __construct(
+        BlockValidator $blockValidator,
+        Handler $persistenceHandler,
+        MapperInterface $mapper
+    ) {
         $this->blockValidator = $blockValidator;
         $this->persistenceHandler = $persistenceHandler;
+        $this->mapper = $mapper;
     }
 
     /**
@@ -63,7 +72,7 @@ class BlockService implements BlockServiceInterface
             throw new InvalidArgumentException('blockId', 'Value must not be empty.');
         }
 
-        return $this->buildDomainBlockObject(
+        return $this->mapper->mapBlock(
             $this->persistenceHandler->getBlockHandler()->loadBlock($blockId, $status)
         );
     }
@@ -82,7 +91,7 @@ class BlockService implements BlockServiceInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->buildDomainBlockObject($persistenceBlock);
+            $blocks[] = $this->mapper->mapBlock($persistenceBlock);
         }
 
         return $blocks;
@@ -141,7 +150,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->buildDomainBlockObject($createdBlock);
+        return $this->mapper->mapBlock($createdBlock);
     }
 
     /**
@@ -187,7 +196,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->buildDomainBlockObject($updatedBlock);
+        return $this->mapper->mapBlock($updatedBlock);
     }
 
     /**
@@ -236,7 +245,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->buildDomainBlockObject($copiedBlock);
+        return $this->mapper->mapBlock($copiedBlock);
     }
 
     /**
@@ -287,7 +296,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->buildDomainBlockObject($movedBlock);
+        return $this->mapper->mapBlock($movedBlock);
     }
 
     /**
@@ -336,27 +345,5 @@ class BlockService implements BlockServiceInterface
     public function newBlockUpdateStruct()
     {
         return new BlockUpdateStruct();
-    }
-
-    /**
-     * Builds the API block value object from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $persistenceBlock
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
-     */
-    protected function buildDomainBlockObject(PersistenceBlock $persistenceBlock)
-    {
-        $blockData = array(
-            'id' => $persistenceBlock->id,
-            'zoneId' => $persistenceBlock->zoneId,
-            'definitionIdentifier' => $persistenceBlock->definitionIdentifier,
-            'parameters' => $persistenceBlock->parameters,
-            'viewType' => $persistenceBlock->viewType,
-            'name' => $persistenceBlock->name,
-            'status' => $persistenceBlock->status,
-        );
-
-        return new Block($blockData);
     }
 }

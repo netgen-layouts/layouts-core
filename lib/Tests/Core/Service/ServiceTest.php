@@ -9,14 +9,12 @@ abstract class ServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * Creates a layout service under test.
      *
-     * @param \PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock
-     * @param \PHPUnit_Framework_MockObject_MockObject $blockValidatorMock
+     * @param \PHPUnit_Framework_MockObject_MockObject $validatorMock
      *
      * @return \Netgen\BlockManager\API\Service\LayoutService
      */
     abstract protected function createLayoutService(
-        PHPUnit_Framework_MockObject_MockObject $layoutValidatorMock,
-        PHPUnit_Framework_MockObject_MockObject $blockValidatorMock
+        PHPUnit_Framework_MockObject_MockObject $validatorMock
     );
 
     /**

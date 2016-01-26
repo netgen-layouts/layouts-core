@@ -5,14 +5,10 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
-use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
-use DateTime;
 use Exception;
 
 class LayoutService implements LayoutServiceInterface
@@ -28,22 +24,25 @@ class LayoutService implements LayoutServiceInterface
     protected $persistenceHandler;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\BlockManager\API\Service\Mapper
      */
-    protected $blockService;
+    protected $mapper;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\BlockService $blockService
+     * @param \Netgen\BlockManager\API\Service\Mapper $mapper
      */
-    public function __construct(LayoutValidator $layoutValidator, Handler $persistenceHandler, BlockService $blockService)
-    {
+    public function __construct(
+        LayoutValidator $layoutValidator,
+        Handler $persistenceHandler,
+        MapperInterface $mapper
+    ) {
         $this->layoutValidator = $layoutValidator;
         $this->persistenceHandler = $persistenceHandler;
-        $this->blockService = $blockService;
+        $this->mapper = $mapper;
     }
 
     /**
@@ -69,7 +68,7 @@ class LayoutService implements LayoutServiceInterface
 
         $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout($layoutId, $status);
 
-        return $this->buildDomainLayoutObject($layout);
+        return $this->mapper->mapLayout($layout);
     }
 
     /**
@@ -93,7 +92,7 @@ class LayoutService implements LayoutServiceInterface
             throw new InvalidArgumentException('zoneId', 'Value must not be empty.');
         }
 
-        return $this->buildDomainZoneObject(
+        return $this->mapper->mapZone(
             $this->persistenceHandler->getLayoutHandler()->loadZone($zoneId, $status)
         );
     }
@@ -124,7 +123,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->buildDomainLayoutObject($createdLayout);
+        return $this->mapper->mapLayout($createdLayout);
     }
 
     /**
@@ -148,7 +147,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->buildDomainLayoutObject($copiedLayout);
+        return $this->mapper->mapLayout($copiedLayout);
     }
 
     /**
@@ -191,76 +190,5 @@ class LayoutService implements LayoutServiceInterface
                 'name' => $name,
             )
         );
-    }
-
-    /**
-     * Builds the API layout value object from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $persistenceLayout
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    protected function buildDomainLayoutObject(PersistenceLayout $persistenceLayout)
-    {
-        $zones = array();
-
-        $persistenceZones = $this->persistenceHandler->getLayoutHandler()->loadLayoutZones(
-            $persistenceLayout->id,
-            $persistenceLayout->status
-        );
-
-        foreach ($persistenceZones as $persistenceZone) {
-            $zones[$persistenceZone->identifier] = $this->buildDomainZoneObject($persistenceZone);
-        }
-
-        $layoutData = array(
-            'id' => $persistenceLayout->id,
-            'parentId' => $persistenceLayout->parentId,
-            'identifier' => $persistenceLayout->identifier,
-            'name' => $persistenceLayout->name,
-            'created' => $this->createDateTime($persistenceLayout->created),
-            'modified' => $this->createDateTime($persistenceLayout->modified),
-            'status' => $persistenceLayout->status,
-            'zones' => $zones,
-        );
-
-        return new Layout($layoutData);
-    }
-
-    /**
-     * Builds the API zone value object from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $persistenceZone
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
-     */
-    protected function buildDomainZoneObject(PersistenceZone $persistenceZone)
-    {
-        $tempZone = new Zone(array('id' => $persistenceZone->id));
-
-        $zoneData = array(
-            'id' => $persistenceZone->id,
-            'layoutId' => $persistenceZone->layoutId,
-            'identifier' => $persistenceZone->identifier,
-            'status' => $persistenceZone->status,
-            'blocks' => $this->blockService->loadZoneBlocks($tempZone, $persistenceZone->status),
-        );
-
-        return new Zone($zoneData);
-    }
-
-    /**
-     * Returns \DateTime object from the timestamp.
-     *
-     * @param int $timestamp
-     *
-     * @return \DateTime
-     */
-    protected function createDateTime($timestamp)
-    {
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp((int)$timestamp);
-
-        return $dateTime;
     }
 }
