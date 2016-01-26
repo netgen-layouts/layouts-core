@@ -38,4 +38,19 @@ class Postgres extends Helper
     {
         return "nextval('"  . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
     }
+
+    /**
+     * Returns the last inserted ID.
+     *
+     * @param string $table
+     * @param string $column
+     *
+     * @return mixed
+     */
+    public function lastInsertId($table, $column = 'id')
+    {
+        return $this->connection->lastInsertId(
+            $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column)
+        );
+    }
 }

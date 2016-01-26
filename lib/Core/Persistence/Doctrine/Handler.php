@@ -39,7 +39,7 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Returns the block handler
+     * Returns the block handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\Block
      */
@@ -49,7 +49,7 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Returns the layout handler
+     * Returns the layout handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\Layout
      */
@@ -59,7 +59,7 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Begins the transaction
+     * Begins the transaction.
      */
     public function beginTransaction()
     {
@@ -67,7 +67,7 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Commits the transaction
+     * Commits the transaction.
      */
     public function commitTransaction()
     {
@@ -75,7 +75,7 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Rollbacks the transaction
+     * Rollbacks the transaction.
      */
     public function rollbackTransaction()
     {

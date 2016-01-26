@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\API\Values;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 
 class BlockTest extends \PHPUnit_Framework_TestCase
@@ -14,6 +15,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
      */
     public function testSetDefaultProperties()
     {
@@ -25,6 +27,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(array(), $block->getParameters());
         self::assertNull($block->getViewType());
         self::assertNull($block->getName());
+        self::assertNull($block->getStatus());
     }
 
     /**
@@ -35,6 +38,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
      */
     public function testSetProperties()
     {
@@ -49,6 +53,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
                 ),
                 'viewType' => 'default',
                 'name' => 'My block',
+                'status' => Layout::STATUS_PUBLISHED,
             )
         );
 
@@ -64,5 +69,6 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         );
         self::assertEquals('default', $block->getViewType());
         self::assertEquals('My block', $block->getName());
+        self::assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());
     }
 }

@@ -2,11 +2,12 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
 
+use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -45,20 +46,25 @@ class Handler implements BlockHandlerInterface
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
+     * @param int $status
      *
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function loadBlock($blockId)
+    public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters')
+        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
             ->from('ngbm_block')
             ->where(
-                $query->expr()->eq('id', ':block_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':block_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
-            ->setParameter('block_id', $blockId, Type::INTEGER);
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -74,18 +80,23 @@ class Handler implements BlockHandlerInterface
      * Loads all blocks from zone with specified ID.
      *
      * @param int|string $zoneId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
-    public function loadZoneBlocks($zoneId)
+    public function loadZoneBlocks($zoneId, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters')
+        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
             ->from('ngbm_block')
             ->where(
-                $query->expr()->eq('zone_id', ':zone_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('zone_id', ':zone_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
-            ->setParameter('zone_id', $zoneId, Type::INTEGER);
+            ->setParameter('zone_id', $zoneId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -100,24 +111,30 @@ class Handler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param int|string $zoneId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId, $status = Layout::STATUS_DRAFT)
     {
         $query = $this->createBlockInsertQuery(
             array(
+                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
                 'zone_id' => $zoneId,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
                 'parameters' => $blockCreateStruct->getParameters(),
+                'status' => $status,
             )
         );
 
         $query->execute();
 
-        return $this->loadBlock($this->connection->lastInsertId());
+        return $this->loadBlock(
+            $this->connectionHelper->lastInsertId('ngbm_block'),
+            $status
+        );
     }
 
     /**
@@ -125,12 +142,13 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct, $status = Layout::STATUS_DRAFT)
     {
-        $block = $this->loadBlock($blockId);
+        $block = $this->loadBlock($blockId, $status);
 
         $query = $this->connection->createQueryBuilder();
         $query
@@ -139,16 +157,20 @@ class Handler implements BlockHandlerInterface
             ->set('name', ':name')
             ->set('parameters', ':parameters')
             ->where(
-                $query->expr()->eq('id', ':block_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':block_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
             ->setParameter('block_id', $block->id, Type::INTEGER)
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
-            ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY);
+            ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $query->execute();
 
-        return $this->loadBlock($blockId);
+        return $this->loadBlock($blockId, $status);
     }
 
     /**
@@ -156,26 +178,33 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      * @param int|string $zoneId
+     * @param int $status
+     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $zoneId)
+    public function copyBlock($blockId, $zoneId, $status = Layout::STATUS_DRAFT, $newStatus = Layout::STATUS_DRAFT)
     {
-        $originalBlock = $this->loadBlock($blockId);
+        $originalBlock = $this->loadBlock($blockId, $status);
 
         $query = $this->createBlockInsertQuery(
             array(
+                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
                 'zone_id' => $zoneId,
                 'definition_identifier' => $originalBlock->definitionIdentifier,
                 'view_type' => $originalBlock->viewType,
                 'name' => $originalBlock->name,
                 'parameters' => $originalBlock->parameters,
+                'status' => $newStatus,
             )
         );
 
         $query->execute();
 
-        return $this->loadBlock($this->connection->lastInsertId());
+        return $this->loadBlock(
+            $this->connectionHelper->lastInsertId('ngbm_block'),
+            $newStatus
+        );
     }
 
     /**
@@ -183,43 +212,65 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      * @param int|string $zoneId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $zoneId)
+    public function moveBlock($blockId, $zoneId, $status = Layout::STATUS_DRAFT)
     {
+        $block = $this->loadBlock($blockId, $status);
+
         $query = $this->connection->createQueryBuilder();
 
         $query
             ->update('ngbm_block')
             ->set('zone_id', ':zone_id')
             ->where(
-                $query->expr()->eq('id', ':block_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':block_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('zone_id', $zoneId, Type::INTEGER);
+            ->setParameter('block_id', $block->id, Type::INTEGER)
+            ->setParameter('zone_id', $zoneId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $query->execute();
 
-        return $this->loadBlock($blockId);
+        return $this->loadBlock($blockId, $status);
     }
 
     /**
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
+     * @param int $status
      */
-    public function deleteBlock($blockId)
+    public function deleteBlock($blockId, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_block')
-            ->where(
-                $query->expr()->eq('id', ':block_id')
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER);
+        if ($status !== null) {
+            $query->delete('ngbm_block')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('id', ':block_id'),
+                        $query->expr()->eq('status', ':status')
+                    )
+                )
+                ->setParameter('block_id', $blockId, Type::INTEGER)
+                ->setParameter('status', $status, Type::INTEGER);
+        } else {
+            $query->delete('ngbm_block')
+                ->where(
+                    $query->expr()->eq('id', ':block_id')
+                )
+                ->setParameter('block_id', $blockId, Type::INTEGER);
+        }
 
         $query->execute();
+
+        // @TODO: Delete block items
     }
 
     /**
@@ -241,13 +292,15 @@ class Handler implements BlockHandlerInterface
                     'view_type' => ':view_type',
                     'name' => ':name',
                     'parameters' => ':parameters',
+                    'status' => ':status',
                 )
             )
-            ->setParameter('id', $this->connectionHelper->getAutoIncrementValue('ngbm_block'), Type::INTEGER)
+            ->setParameter('id', $parameters['id'], Type::INTEGER)
             ->setParameter('zone_id', $parameters['zone_id'], Type::INTEGER)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
             ->setParameter('view_type', $parameters['view_type'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
+            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY)
+            ->setParameter('status', $parameters['status'], Type::INTEGER);
     }
 }

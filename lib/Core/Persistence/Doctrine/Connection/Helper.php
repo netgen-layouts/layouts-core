@@ -29,7 +29,7 @@ class Helper
 
         $this->databaseSpecificHelpers = array(
             'sqlite' => new Sqlite($this->connection),
-            'postgres' => new Postgres($this->connection)
+            'postgres' => new Postgres($this->connection),
         );
     }
 
@@ -54,5 +54,24 @@ class Helper
         }
 
         return 'null';
+    }
+
+    /**
+     * Returns the last inserted ID.
+     *
+     * @param string $table
+     * @param string $column
+     *
+     * @return mixed
+     */
+    public function lastInsertId($table, $column = 'id')
+    {
+        $databaseServer = $this->connection->getDatabasePlatform()->getName();
+        if (isset($this->databaseSpecificHelpers[$databaseServer])) {
+            return $this->databaseSpecificHelpers[$databaseServer]
+                ->lastInsertId($table, $column);
+        }
+
+        return $this->connection->lastInsertId($table);
     }
 }

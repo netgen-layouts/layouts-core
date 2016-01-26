@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Block;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 
 class MapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,6 +21,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
                 'name' => 'My block',
+                'status' => APILayout::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 84,
@@ -28,6 +30,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
                 'name' => 'My other block',
+                'status' => APILayout::STATUS_PUBLISHED,
             ),
         );
 
@@ -42,6 +45,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             new Block(
@@ -54,6 +58,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'small',
                     'name' => 'My other block',
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
         );

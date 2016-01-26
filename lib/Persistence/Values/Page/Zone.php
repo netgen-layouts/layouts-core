@@ -26,4 +26,11 @@ class Zone extends Value
      * @var string
      */
     public $identifier;
+
+    /**
+     * Zone status. One of Layout::STATUS_* flags.
+     *
+     * @var int
+     */
+    public $status;
 }

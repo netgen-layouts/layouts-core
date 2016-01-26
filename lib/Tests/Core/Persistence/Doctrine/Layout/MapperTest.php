@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Layout;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 
 class MapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,6 +22,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'name' => 'My layout',
                 'created' => 123,
                 'modified' => 456,
+                'status' => APILayout::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 84,
@@ -29,6 +31,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'name' => 'My other layout',
                 'created' => 789,
                 'modified' => 111,
+                'status' => APILayout::STATUS_PUBLISHED,
             ),
         );
 
@@ -41,6 +44,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     'name' => 'My layout',
                     'created' => 123,
                     'modified' => 456,
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             new Layout(
@@ -51,6 +55,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     'name' => 'My other layout',
                     'created' => 789,
                     'modified' => 111,
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
         );
@@ -69,11 +74,13 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'id' => 1,
                 'layout_id' => 1,
                 'identifier' => 'top_left',
+                'status' => APILayout::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 2,
                 'layout_id' => 1,
                 'identifier' => 'top_right',
+                'status' => APILayout::STATUS_PUBLISHED,
             ),
         );
 
@@ -83,6 +90,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'layoutId' => 1,
                     'identifier' => 'top_left',
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             new Zone(
@@ -90,6 +98,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     'id' => 2,
                     'layoutId' => 1,
                     'identifier' => 'top_right',
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
         );

@@ -42,6 +42,25 @@ class Sqlite extends Helper
 
         $data = $query->execute()->fetchAll();
 
-        return isset( $data[0]['id'] ) ? (int)$data[0]['id'] + 1 : 1;
+        return isset($data[0]['id']) ? (int)$data[0]['id'] + 1 : 1;
+    }
+
+    /**
+     * Returns the last inserted ID.
+     *
+     * @param string $table
+     * @param string $column
+     *
+     * @return mixed
+     */
+    public function lastInsertId($table, $column = 'id')
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
+            ->from($table);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['id']) ? (int)$data[0]['id'] : 0;
     }
 }

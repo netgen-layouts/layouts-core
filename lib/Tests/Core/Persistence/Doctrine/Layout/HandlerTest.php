@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Layout;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -37,6 +38,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             $handler->loadLayout(1)
@@ -66,6 +68,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'layoutId' => 1,
                     'identifier' => 'top_left',
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             $handler->loadZone(1)
@@ -96,6 +99,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 1,
                         'layoutId' => 1,
                         'identifier' => 'top_left',
+                        'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
@@ -103,6 +107,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 2,
                         'layoutId' => 1,
                         'identifier' => 'top_right',
+                        'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
@@ -110,6 +115,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 3,
                         'layoutId' => 1,
                         'identifier' => 'bottom',
+                        'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -148,6 +154,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertNull($createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->identifier);
         self::assertEquals('New layout', $createdLayout->name);
+        self::assertEquals(0, $createdLayout->status);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -162,6 +169,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 7,
                         'layoutId' => 3,
                         'identifier' => 'first_zone',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
@@ -169,10 +177,11 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 8,
                         'layoutId' => 3,
                         'identifier' => 'second_zone',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
             ),
-            $handler->loadLayoutZones($createdLayout->id)
+            $handler->loadLayoutZones($createdLayout->id, $createdLayout->status)
         );
     }
 
@@ -198,6 +207,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(1, $createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->identifier);
         self::assertEquals('New layout', $createdLayout->name);
+        self::assertEquals(0, $createdLayout->status);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -212,6 +222,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 7,
                         'layoutId' => 3,
                         'identifier' => 'first_zone',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
@@ -219,10 +230,11 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 8,
                         'layoutId' => 3,
                         'identifier' => 'second_zone',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
             ),
-            $handler->loadLayoutZones($createdLayout->id)
+            $handler->loadLayoutZones($createdLayout->id, $createdLayout->status)
         );
     }
 
@@ -243,6 +255,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertNull($copiedLayout->parentId);
         self::assertEquals('3_zones_a', $copiedLayout->identifier);
         self::assertEquals('My layout', $copiedLayout->name);
+        self::assertEquals(0, $copiedLayout->status);
 
         self::assertInternalType('int', $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->created);
@@ -257,6 +270,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 7,
                         'layoutId' => 3,
                         'identifier' => 'top_left',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
@@ -264,6 +278,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 8,
                         'layoutId' => 3,
                         'identifier' => 'top_right',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
@@ -271,10 +286,11 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 9,
                         'layoutId' => 3,
                         'identifier' => 'bottom',
+                        'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
             ),
-            $handler->loadLayoutZones($copiedLayout->id)
+            $handler->loadLayoutZones($copiedLayout->id, $copiedLayout->status)
         );
     }
 
@@ -303,5 +319,43 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler->deleteLayout(1);
 
         $handler->loadLayout(1);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testDeleteLayoutInDraftStatus()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $layoutZones = $handler->loadLayoutZones(1, APILayout::STATUS_DRAFT);
+
+        // We need to delete the blocks and block items from zones
+        // to be able to delete the zones themselves
+        foreach ($layoutZones as $layoutZone) {
+            $query = $this->databaseConnection->createQueryBuilder();
+            $query->delete('ngbm_block')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('zone_id', ':zone_id'),
+                        $query->expr()->eq('status', ':status')
+                    )
+                )
+                ->setParameter('zone_id', $layoutZone->id)
+                ->setParameter('status', APILayout::STATUS_DRAFT);
+            $query->execute();
+        }
+
+        $handler->deleteLayout(1, APILayout::STATUS_DRAFT);
+
+        // First, verify that NOT all layout statuses are deleted
+        try {
+            $handler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+        } catch (NotFoundException $e) {
+            self::fail('Deleting the layout in draft status deleted other/all statuses.');
+        }
+
+        $handler->loadLayout(1, APILayout::STATUS_DRAFT);
     }
 }

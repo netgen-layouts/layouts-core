@@ -45,4 +45,11 @@ interface Block
      * @return string
      */
     public function getName();
+
+    /**
+     * Returns the status of the block.
+     *
+     * @return string
+     */
+    public function getStatus();
 }

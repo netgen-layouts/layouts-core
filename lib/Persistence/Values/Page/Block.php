@@ -47,4 +47,11 @@ class Block extends Value
      * @var string
      */
     public $name;
+
+    /**
+     * Block status. One of Layout::STATUS_* flags.
+     *
+     * @var int
+     */
+    public $status;
 }

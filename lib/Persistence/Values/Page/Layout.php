@@ -47,4 +47,11 @@ class Layout extends Value
      * @var int
      */
     public $modified;
+
+    /**
+     * Layout status. One of Layout::STATUS_* flags.
+     *
+     * @var int
+     */
+    public $status;
 }

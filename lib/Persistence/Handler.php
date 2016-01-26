@@ -5,31 +5,31 @@ namespace Netgen\BlockManager\Persistence;
 interface Handler
 {
     /**
-     * Returns the block handler
+     * Returns the block handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\Block
      */
     public function getBlockHandler();
 
     /**
-     * Returns the layout handler
+     * Returns the layout handler.
      *
      * @return \Netgen\BlockManager\Persistence\Handler\Layout
      */
     public function getLayoutHandler();
 
     /**
-     * Begins the transaction
+     * Begins the transaction.
      */
     public function beginTransaction();
 
     /**
-     * Commits the transaction
+     * Commits the transaction.
      */
     public function commitTransaction();
 
     /**
-     * Rollbacks the transaction
+     * Rollbacks the transaction.
      */
     public function rollbackTransaction();
 }

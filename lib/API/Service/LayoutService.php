@@ -11,25 +11,27 @@ interface LayoutService
      * Loads a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function loadLayout($layoutId);
+    public function loadLayout($layoutId, $status = Layout::STATUS_PUBLISHED);
 
     /**
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
+     * @param int $status
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function loadZone($zoneId);
+    public function loadZone($zoneId, $status = Layout::STATUS_PUBLISHED);
 
     /**
      * Creates a layout.
@@ -54,8 +56,9 @@ interface LayoutService
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int $status
      */
-    public function deleteLayout(Layout $layout);
+    public function deleteLayout(Layout $layout, $status = null);
 
     /**
      * Creates a new layout create struct.

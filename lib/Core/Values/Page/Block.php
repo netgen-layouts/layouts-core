@@ -33,6 +33,11 @@ class Block extends Value implements BlockInterface
     protected $name;
 
     /**
+     * @var int
+     */
+    protected $status;
+
+    /**
      * @var array
      */
     protected $parameters = array();
@@ -95,5 +100,15 @@ class Block extends Value implements BlockInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the status of the block.
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

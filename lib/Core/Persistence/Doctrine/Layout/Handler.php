@@ -2,10 +2,11 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
 
+use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandlerInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -44,20 +45,25 @@ class Handler implements LayoutHandlerInterface
      * Loads a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
      *
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function loadLayout($layoutId)
+    public function loadLayout($layoutId, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified')
+        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified', 'status')
             ->from('ngbm_layout')
             ->where(
-                $query->expr()->eq('id', ':layout_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':layout_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -73,20 +79,25 @@ class Handler implements LayoutHandlerInterface
      * Loads a zone with specified ID.
      *
      * @param int|string $zoneId
+     * @param int $status
      *
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($zoneId)
+    public function loadZone($zoneId, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'identifier')
+        $query->select('id', 'layout_id', 'identifier', 'status')
             ->from('ngbm_zone')
             ->where(
-                $query->expr()->eq('id', ':zone_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':zone_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
-            ->setParameter('zone_id', $zoneId, Type::INTEGER);
+            ->setParameter('zone_id', $zoneId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -102,18 +113,23 @@ class Handler implements LayoutHandlerInterface
      * Loads all zones that belong to layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
      */
-    public function loadLayoutZones($layoutId)
+    public function loadLayoutZones($layoutId, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'identifier')
+        $query->select('id', 'layout_id', 'identifier', 'status')
             ->from('ngbm_zone')
             ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
+                $query->expr()->andX(
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('status', ':status')
+                )
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -128,103 +144,147 @@ class Handler implements LayoutHandlerInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param int|string $parentLayoutId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null, $status = Layout::STATUS_DRAFT)
     {
         $currentTimeStamp = time();
 
         $query = $this->createLayoutInsertQuery(
             array(
+                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_layout'),
                 'parent_id' => $parentLayoutId,
                 'identifier' => $layoutCreateStruct->identifier,
                 'name' => $layoutCreateStruct->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
+                'status' => $status,
             )
         );
 
         $query->execute();
 
-        $createdLayoutId = (int)$this->connection->lastInsertId();
+        $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
+
         foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
             $zoneQuery = $this->createZoneInsertQuery(
                 array(
+                    'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_zone'),
                     'layout_id' => $createdLayoutId,
                     'identifier' => $zoneIdentifier,
+                    'status' => $status,
                 )
             );
 
             $zoneQuery->execute();
         }
 
-        return $this->loadLayout($createdLayoutId);
+        return $this->loadLayout($createdLayoutId, $status);
     }
 
     /**
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
+     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId)
+    public function copyLayout($layoutId, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
     {
-        $originalLayout = $this->loadLayout($layoutId);
-        $originalZones = $this->loadLayoutZones($layoutId);
+        $originalLayout = $this->loadLayout($layoutId, $status);
+        $originalZones = $this->loadLayoutZones($layoutId, $status);
 
         $currentTimeStamp = time();
 
         $query = $this->createLayoutInsertQuery(
             array(
+                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_layout'),
                 'parent_id' => $originalLayout->parentId,
                 'identifier' => $originalLayout->identifier,
                 'name' => $originalLayout->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
+                'status' => $newStatus,
             )
         );
 
         $query->execute();
 
-        $copiedLayoutId = (int)$this->connection->lastInsertId();
+        $copiedLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
+
         foreach ($originalZones as $originalZone) {
             $zoneQuery = $this->createZoneInsertQuery(
                 array(
+                    'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_zone'),
                     'layout_id' => $copiedLayoutId,
                     'identifier' => $originalZone->identifier,
+                    'status' => $newStatus,
                 )
             );
 
             $zoneQuery->execute();
         }
 
-        return $this->loadLayout($copiedLayoutId);
+        return $this->loadLayout($copiedLayoutId, $newStatus);
     }
 
     /**
      * Deletes a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
      */
-    public function deleteLayout($layoutId)
+    public function deleteLayout($layoutId, $status = null)
     {
+        // First delete all zones
+
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_zone')
-            ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        if ($status !== null) {
+            $query->delete('ngbm_zone')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('layout_id', ':layout_id'),
+                        $query->expr()->eq('status', ':status')
+                    )
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+                ->setParameter('status', $status, Type::INTEGER);
+        } else {
+            $query->delete('ngbm_zone')
+                ->where(
+                    $query->expr()->eq('layout_id', ':layout_id')
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        }
 
         $query->execute();
 
-        $query->delete('ngbm_layout')
-            ->where(
-                $query->expr()->eq('id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        // Then delete the layout itself
+
+        $query = $this->connection->createQueryBuilder();
+
+        if ($status !== null) {
+            $query->delete('ngbm_layout')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('id', ':layout_id'),
+                        $query->expr()->eq('status', ':status')
+                    )
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+                ->setParameter('status', $status, Type::INTEGER);
+        } else {
+            $query->delete('ngbm_layout')
+                ->where(
+                    $query->expr()->eq('id', ':layout_id')
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        }
 
         $query->execute();
     }
@@ -248,14 +308,16 @@ class Handler implements LayoutHandlerInterface
                     'name' => ':name',
                     'created' => ':created',
                     'modified' => ':modified',
+                    'status' => ':status',
                 )
             )
-            ->setParameter('id', $this->connectionHelper->getAutoIncrementValue('ngbm_layout'), Type::INTEGER)
+            ->setParameter('id', $parameters['id'], Type::INTEGER)
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
             ->setParameter('created', $parameters['created'], Type::INTEGER)
-            ->setParameter('modified', $parameters['modified'], Type::INTEGER);
+            ->setParameter('modified', $parameters['modified'], Type::INTEGER)
+            ->setParameter('status', $parameters['status'], Type::INTEGER);
     }
 
     /**
@@ -274,10 +336,12 @@ class Handler implements LayoutHandlerInterface
                     'id' => ':id',
                     'layout_id' => ':layout_id',
                     'identifier' => ':identifier',
+                    'status' => ':status',
                 )
             )
-            ->setParameter('id', $this->connectionHelper->getAutoIncrementValue('ngbm_zone'), Type::INTEGER)
+            ->setParameter('id', $parameters['id'], Type::INTEGER)
             ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
-            ->setParameter('identifier', $parameters['identifier'], Type::STRING);
+            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
+            ->setParameter('status', $parameters['status'], Type::INTEGER);
     }
 }

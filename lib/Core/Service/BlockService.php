@@ -15,6 +15,7 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\API\Exception\BadStateException;
 use Exception;
 
 class BlockService implements BlockServiceInterface
@@ -45,13 +46,14 @@ class BlockService implements BlockServiceInterface
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
+     * @param int $status
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function loadBlock($blockId)
+    public function loadBlock($blockId, $status = APILayout::STATUS_PUBLISHED)
     {
         if (!is_int($blockId) && !is_string($blockId)) {
             throw new InvalidArgumentException('blockId', 'Value must be an integer or a string.');
@@ -62,7 +64,7 @@ class BlockService implements BlockServiceInterface
         }
 
         return $this->buildDomainBlockObject(
-            $this->persistenceHandler->getBlockHandler()->loadBlock($blockId)
+            $this->persistenceHandler->getBlockHandler()->loadBlock($blockId, $status)
         );
     }
 
@@ -70,12 +72,13 @@ class BlockService implements BlockServiceInterface
      * Loads blocks belonging to specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block[]
      */
-    public function loadZoneBlocks(APIZone $zone)
+    public function loadZoneBlocks(APIZone $zone, $status = APILayout::STATUS_PUBLISHED)
     {
-        $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks($zone->getId());
+        $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks($zone->getId(), $status);
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
@@ -89,15 +92,16 @@ class BlockService implements BlockServiceInterface
      * Loads blocks belonging to specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block[]
      */
-    public function loadLayoutBlocks(APILayout $layout)
+    public function loadLayoutBlocks(APILayout $layout, $status = APILayout::STATUS_PUBLISHED)
     {
         $blocks = array();
 
         foreach ($layout->getZones() as $zone) {
-            $zoneBlocks = $this->loadZoneBlocks($zone);
+            $zoneBlocks = $this->loadZoneBlocks($zone, $status);
             $blocks[$zone->getIdentifier()] = $zoneBlocks;
         }
 
@@ -110,10 +114,16 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone is not a draft
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, APIZone $zone)
     {
+        if ($zone->getStatus() !== APILayout::STATUS_DRAFT) {
+            throw new BadStateException('zone', 'Blocks can only be created in draft zones.');
+        }
+
         if ($blockCreateStruct->name === null) {
             $blockCreateStruct->name = '';
         }
@@ -122,8 +132,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->beginTransaction();
 
-        try
-        {
+        try {
             $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock($blockCreateStruct, $zone->getId());
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -141,10 +150,16 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function updateBlock(APIBlock $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
+        if ($block->getStatus() !== APILayout::STATUS_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in draft status can be updated.');
+        }
+
         if ($blockUpdateStruct->viewType === null) {
             $blockUpdateStruct->viewType = $block->getViewType();
         }
@@ -163,8 +178,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->beginTransaction();
 
-        try
-        {
+        try {
             $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock($block->getId(), $blockUpdateStruct);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -184,6 +198,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block or zone are not in a draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -197,12 +212,19 @@ class BlockService implements BlockServiceInterface
                     'Block cannot be copied to a different layout.'
                 );
             }
+
+            if ($zone->getStatus() !== APILayout::STATUS_DRAFT) {
+                throw new BadStateException('zone', 'Blocks can only be copied to a zone in draft status.');
+            }
+        }
+
+        if ($block->getStatus() !== APILayout::STATUS_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in draft status can be copied.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
-        try
-        {
+        try {
             $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
                 $block->getId(),
                 $zone instanceof APIZone ? $zone->getId() : $block->getZoneId()
@@ -225,6 +247,7 @@ class BlockService implements BlockServiceInterface
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
      *                                                                     If target zone is the same as current zone
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block or zone are not in a draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -245,10 +268,17 @@ class BlockService implements BlockServiceInterface
             );
         }
 
+        if ($zone->getStatus() !== APILayout::STATUS_DRAFT) {
+            throw new BadStateException('zone', 'Blocks can only be moved to a zone in draft status.');
+        }
+
+        if ($block->getStatus() !== APILayout::STATUS_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in draft status can be moved.');
+        }
+
         $this->persistenceHandler->beginTransaction();
 
-        try
-        {
+        try {
             $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock($block->getId(), $zone->getId());
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -264,14 +294,14 @@ class BlockService implements BlockServiceInterface
      * Deletes a specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param int $status
      */
-    public function deleteBlock(APIBlock $block)
+    public function deleteBlock(APIBlock $block, $status = null)
     {
         $this->persistenceHandler->beginTransaction();
 
-        try
-        {
-            $this->persistenceHandler->getBlockHandler()->deleteBlock($block->getId());
+        try {
+            $this->persistenceHandler->getBlockHandler()->deleteBlock($block->getId(), $status);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -317,17 +347,16 @@ class BlockService implements BlockServiceInterface
      */
     protected function buildDomainBlockObject(PersistenceBlock $persistenceBlock)
     {
-        $block = new Block(
-            array(
-                'id' => $persistenceBlock->id,
-                'zoneId' => $persistenceBlock->zoneId,
-                'definitionIdentifier' => $persistenceBlock->definitionIdentifier,
-                'parameters' => $persistenceBlock->parameters,
-                'viewType' => $persistenceBlock->viewType,
-                'name' => $persistenceBlock->name,
-            )
+        $blockData = array(
+            'id' => $persistenceBlock->id,
+            'zoneId' => $persistenceBlock->zoneId,
+            'definitionIdentifier' => $persistenceBlock->definitionIdentifier,
+            'parameters' => $persistenceBlock->parameters,
+            'viewType' => $persistenceBlock->viewType,
+            'name' => $persistenceBlock->name,
+            'status' => $persistenceBlock->status,
         );
 
-        return $block;
+        return new Block($blockData);
     }
 }

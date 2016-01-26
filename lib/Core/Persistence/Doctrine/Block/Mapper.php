@@ -30,6 +30,7 @@ class Mapper
                     'parameters' => is_array($parameters) ? $parameters : array(),
                     'viewType' => $dataItem['view_type'],
                     'name' => $dataItem['name'],
+                    'status' => (int)$dataItem['status'],
                 )
             );
         }

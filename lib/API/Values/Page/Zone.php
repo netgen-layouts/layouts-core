@@ -26,6 +26,13 @@ interface Zone
     public function getIdentifier();
 
     /**
+     * Returns the status of the zone.
+     *
+     * @return string
+     */
+    public function getStatus();
+
+    /**
      * Returns zone blocks.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block[]

@@ -2,9 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Block;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
@@ -38,6 +40,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             $handler->loadBlock(1)
@@ -73,6 +76,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
+                        'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -85,6 +89,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
+                        'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -126,6 +131,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
                 )
             ),
             $handler->createBlock($blockCreateStruct, 3)
@@ -155,6 +161,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
                 )
             ),
             $handler->updateBlock(1, $blockUpdateStruct)
@@ -180,6 +187,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
                 )
             ),
             $handler->copyBlock(1, 2)
@@ -204,6 +212,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
                 )
             ),
             $handler->copyBlock(1, 3)
@@ -228,6 +237,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
                 )
             ),
             $handler->moveBlock(1, 3)
@@ -244,5 +254,25 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler->deleteBlock(1);
         $handler->loadBlock(1);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testDeleteBlockInDraftStatus()
+    {
+        $handler = $this->createBlockHandler();
+
+        $handler->deleteBlock(1, APILayout::STATUS_DRAFT);
+
+        // First, verify that NOT all block statuses are deleted
+        try {
+            $handler->loadBlock(1, APILayout::STATUS_PUBLISHED);
+        } catch (NotFoundException $e) {
+            self::fail('Deleting the block in draft status deleted other/all statuses.');
+        }
+
+        $handler->loadBlock(1, APILayout::STATUS_DRAFT);
     }
 }

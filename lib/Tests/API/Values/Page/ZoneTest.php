@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\API\Values;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 
@@ -12,6 +13,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
      */
     public function testSetDefaultProperties()
@@ -21,6 +23,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
         self::assertNull($zone->getId());
         self::assertNull($zone->getLayoutId());
         self::assertNull($zone->getIdentifier());
+        self::assertNull($zone->getStatus());
         self::assertEquals(array(), $zone->getBlocks());
     }
 
@@ -29,6 +32,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
      */
     public function testSetProperties()
@@ -38,6 +42,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'layoutId' => 84,
                 'identifier' => 'top_left',
+                'status' => Layout::STATUS_PUBLISHED,
                 'blocks' => array(
                     new Block(),
                 ),
@@ -47,6 +52,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(42, $zone->getId());
         self::assertEquals(84, $zone->getLayoutId());
         self::assertEquals('top_left', $zone->getIdentifier());
+        self::assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
         self::assertEquals(array(new Block()), $zone->getBlocks());
     }
 }

@@ -27,6 +27,7 @@ class Mapper
                     'name' => $dataItem['name'],
                     'created' => (int)$dataItem['created'],
                     'modified' => (int)$dataItem['modified'],
+                    'status' => (int)$dataItem['status'],
                 )
             );
         }
@@ -51,6 +52,7 @@ class Mapper
                     'id' => (int)$dataItem['id'],
                     'layoutId' => (int)$dataItem['layout_id'],
                     'identifier' => $dataItem['identifier'],
+                    'status' => (int)$dataItem['status'],
                 )
             );
         }

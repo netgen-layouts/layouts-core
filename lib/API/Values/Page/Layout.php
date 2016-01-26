@@ -5,6 +5,21 @@ namespace Netgen\BlockManager\API\Values\Page;
 interface Layout
 {
     /**
+     * @const string
+     */
+    const STATUS_DRAFT = 0;
+
+    /**
+     * @const string
+     */
+    const STATUS_PUBLISHED = 1;
+
+    /**
+     * @const string
+     */
+    const STATUS_ARCHIVED = 2;
+
+    /**
      * Returns the layout ID.
      *
      * @return int|string
@@ -45,6 +60,13 @@ interface Layout
      * @return \DateTime
      */
     public function getModified();
+
+    /**
+     * Returns the status of the layout.
+     *
+     * @return string
+     */
+    public function getStatus();
 
     /**
      * Returns all zones from the layout.

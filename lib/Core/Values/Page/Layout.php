@@ -38,6 +38,11 @@ class Layout extends Value implements LayoutInterface
     protected $modified;
 
     /**
+     * @var int
+     */
+    protected $status;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Page\Zone[]
      */
     protected $zones = array();
@@ -100,6 +105,16 @@ class Layout extends Value implements LayoutInterface
     public function getModified()
     {
         return $this->modified;
+    }
+
+    /**
+     * Returns the status of the layout.
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**

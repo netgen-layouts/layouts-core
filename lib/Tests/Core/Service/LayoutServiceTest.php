@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\API\Exception\NotFoundException;
 
 abstract class LayoutServiceTest extends ServiceTest
 {
@@ -52,6 +52,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertNull($layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getIdentifier());
         self::assertEquals('My layout', $layout->getName());
+        self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
 
         self::assertInstanceOf('DateTime', $layout->getCreated());
         self::assertGreaterThan(0, $layout->getCreated()->getTimestamp());
@@ -66,6 +67,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 1,
                         'layoutId' => $layout->getId(),
                         'identifier' => 'top_left',
+                        'status' => Layout::STATUS_PUBLISHED,
                         'blocks' => array(),
                     )
                 ),
@@ -74,6 +76,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 2,
                         'layoutId' => $layout->getId(),
                         'identifier' => 'top_right',
+                        'status' => Layout::STATUS_PUBLISHED,
                         'blocks' => array(
                             new Block(
                                 array(
@@ -85,6 +88,7 @@ abstract class LayoutServiceTest extends ServiceTest
                                     ),
                                     'viewType' => 'default',
                                     'name' => 'My block',
+                                    'status' => Layout::STATUS_PUBLISHED,
                                 )
                             ),
                             new Block(
@@ -97,6 +101,7 @@ abstract class LayoutServiceTest extends ServiceTest
                                     ),
                                     'viewType' => 'small',
                                     'name' => 'My other block',
+                                    'status' => Layout::STATUS_PUBLISHED,
                                 )
                             ),
                         ),
@@ -107,6 +112,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 3,
                         'layoutId' => $layout->getId(),
                         'identifier' => 'bottom',
+                        'status' => Layout::STATUS_PUBLISHED,
                         'blocks' => array(),
                     )
                 ),
@@ -158,6 +164,7 @@ abstract class LayoutServiceTest extends ServiceTest
                     'id' => 1,
                     'layoutId' => 1,
                     'identifier' => 'top_left',
+                    'status' => Layout::STATUS_PUBLISHED,
                     'blocks' => array(),
                 )
             ),
@@ -216,6 +223,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertNull($createdLayout->getParentId());
         self::assertEquals('3_zones_a', $createdLayout->getIdentifier());
         self::assertEquals('My layout', $createdLayout->getName());
+        self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
 
         self::assertInstanceOf('DateTime', $createdLayout->getCreated());
         self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
@@ -230,6 +238,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 7,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'left',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -238,6 +247,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 8,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'right',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -246,6 +256,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 9,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'bottom',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -279,6 +290,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals($parentLayout->getId(), $createdLayout->getParentId());
         self::assertEquals('3_zones_a', $createdLayout->getIdentifier());
         self::assertEquals('My layout', $createdLayout->getName());
+        self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
 
         self::assertInstanceOf('DateTime', $createdLayout->getCreated());
         self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
@@ -293,6 +305,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 7,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'left',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -301,6 +314,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 8,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'right',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -309,6 +323,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 9,
                         'layoutId' => $createdLayout->getId(),
                         'identifier' => 'bottom',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -333,6 +348,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertNull($copiedLayout->getParentId());
         self::assertEquals('3_zones_a', $copiedLayout->getIdentifier());
         self::assertEquals('My layout', $copiedLayout->getName());
+        self::assertEquals(Layout::STATUS_DRAFT, $copiedLayout->getStatus());
 
         self::assertInstanceOf('DateTime', $copiedLayout->getCreated());
         self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
@@ -347,6 +363,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 7,
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'top_left',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -355,6 +372,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 8,
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'top_right',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),
@@ -363,6 +381,7 @@ abstract class LayoutServiceTest extends ServiceTest
                         'id' => 9,
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'bottom',
+                        'status' => Layout::STATUS_DRAFT,
                         'blocks' => array(),
                     )
                 ),

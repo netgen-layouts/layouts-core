@@ -15,6 +15,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      */
     public function testSetDefaultProperties()
@@ -27,6 +28,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertNull($layout->getName());
         self::assertNull($layout->getCreated());
         self::assertNull($layout->getModified());
+        self::assertNull($layout->getStatus());
         self::assertEquals(array(), $layout->getZones());
     }
 
@@ -38,6 +40,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      */
     public function testSetProperties()
@@ -56,6 +59,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
                 'name' => 'My layout',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
+                'status' => Layout::STATUS_PUBLISHED,
                 'zones' => array('top_left', 'top_right'),
             )
         );
@@ -66,6 +70,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('My layout', $layout->getName());
         self::assertEquals($createdDate, $layout->getCreated());
         self::assertEquals($modifiedDate, $layout->getModified());
+        self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         self::assertEquals(array('top_left', 'top_right'), $layout->getZones());
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\API\Exception\NotFoundException;
 
 abstract class BlockServiceTest extends ServiceTest
 {
@@ -53,6 +53,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'parameters' => array(
                         'some_param' => 'some_value',
                     ),
+                    'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
             $blockService->loadBlock(1)
@@ -109,6 +110,7 @@ abstract class BlockServiceTest extends ServiceTest
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -121,6 +123,7 @@ abstract class BlockServiceTest extends ServiceTest
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -150,6 +153,7 @@ abstract class BlockServiceTest extends ServiceTest
                             ),
                             'viewType' => 'default',
                             'name' => 'My block',
+                            'status' => Layout::STATUS_PUBLISHED,
                         )
                     ),
                     new Block(
@@ -162,6 +166,7 @@ abstract class BlockServiceTest extends ServiceTest
                             ),
                             'viewType' => 'small',
                             'name' => 'My other block',
+                            'status' => Layout::STATUS_PUBLISHED,
                         )
                     ),
                 ),
@@ -201,11 +206,12 @@ abstract class BlockServiceTest extends ServiceTest
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
             $blockService->createBlock(
                 $blockCreateStruct,
-                $layoutService->loadZone(1)
+                $layoutService->loadZone(1, Layout::STATUS_DRAFT)
             )
         );
     }
@@ -239,12 +245,33 @@ abstract class BlockServiceTest extends ServiceTest
                     ),
                     'viewType' => 'default',
                     'name' => '',
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
             $blockService->createBlock(
                 $blockCreateStruct,
-                $layoutService->loadZone(1)
+                $layoutService->loadZone(1, Layout::STATUS_DRAFT)
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateBlockInNonDraftZoneThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        $blockService->createBlock(
+            $blockCreateStruct,
+            $layoutService->loadZone(1)
         );
     }
 
@@ -255,7 +282,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
-        $block = $blockService->loadBlock(1);
+        $block = $blockService->loadBlock(1, Layout::STATUS_DRAFT);
 
         $blockUpdateStruct = $blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
@@ -281,6 +308,7 @@ abstract class BlockServiceTest extends ServiceTest
                     ),
                     'viewType' => 'small',
                     'name' => 'Super cool block',
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
             $blockService->updateBlock(
@@ -292,12 +320,31 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testUpdateBlockInNonDraftStatusThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $block = $blockService->loadBlock(1);
+
+        $blockUpdateStruct = $blockService->newBlockUpdateStruct();
+        $blockUpdateStruct->viewType = 'small';
+
+        $blockService->updateBlock(
+            $block,
+            $blockUpdateStruct
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlockWithBlankName()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
-        $block = $blockService->loadBlock(1);
+        $block = $blockService->loadBlock(1, Layout::STATUS_DRAFT);
 
         $blockUpdateStruct = $blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
@@ -338,7 +385,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
-        $block = $blockService->loadBlock(1);
+        $block = $blockService->loadBlock(1, Layout::STATUS_DRAFT);
 
         $blockUpdateStruct = $blockService->newBlockUpdateStruct();
         $blockUpdateStruct->name = 'Super cool block';
@@ -393,7 +440,7 @@ abstract class BlockServiceTest extends ServiceTest
                 )
             ),
             $blockService->copyBlock(
-                $blockService->loadBlock(1)
+                $blockService->loadBlock(1, Layout::STATUS_DRAFT)
             )
         );
     }
@@ -420,9 +467,37 @@ abstract class BlockServiceTest extends ServiceTest
                 )
             ),
             $blockService->copyBlock(
-                $blockService->loadBlock(1),
-                $layoutService->loadZone(3)
+                $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+                $layoutService->loadZone(3, Layout::STATUS_DRAFT)
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCopyBlockInNonDraftStatusThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->copyBlock(
+            $blockService->loadBlock(1)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCopyBlockToZoneInNonDraftStatusThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+
+        $blockService->copyBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            $layoutService->loadZone(3)
         );
     }
 
@@ -436,8 +511,8 @@ abstract class BlockServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->copyBlock(
-            $blockService->loadBlock(1),
-            $layoutService->loadZone(4)
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            $layoutService->loadZone(4, Layout::STATUS_DRAFT)
         );
     }
 
@@ -463,9 +538,39 @@ abstract class BlockServiceTest extends ServiceTest
                 )
             ),
             $blockService->moveBlock(
-                $blockService->loadBlock(1),
-                $layoutService->loadZone(3)
+                $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+                $layoutService->loadZone(3, Layout::STATUS_DRAFT)
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockInNonDraftStatusThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1),
+            $layoutService->loadZone(3, Layout::STATUS_DRAFT)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockToZoneInNonDraftStatusThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            $layoutService->loadZone(3)
         );
     }
 
@@ -479,8 +584,8 @@ abstract class BlockServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->moveBlock(
-            $blockService->loadBlock(1),
-            $layoutService->loadZone(4)
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            $layoutService->loadZone(4, Layout::STATUS_DRAFT)
         );
     }
 
@@ -494,8 +599,8 @@ abstract class BlockServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->moveBlock(
-            $blockService->loadBlock(1),
-            $layoutService->loadZone(2)
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            $layoutService->loadZone(2, Layout::STATUS_DRAFT)
         );
     }
 
