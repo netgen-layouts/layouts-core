@@ -36,7 +36,6 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::buildDomainBlockObject
      */
     public function testLoadBlock()
     {

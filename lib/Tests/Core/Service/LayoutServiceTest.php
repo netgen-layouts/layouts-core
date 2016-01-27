@@ -36,9 +36,6 @@ abstract class LayoutServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::buildDomainLayoutObject
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::buildDomainZoneObject
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDateTime
      */
     public function testLoadLayout()
     {
