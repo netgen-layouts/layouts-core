@@ -18,6 +18,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper::__construct
      */
     public function testMapBlock()
     {
@@ -80,6 +81,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper::mapLayout
+     * @covers \Netgen\BlockManager\Core\Service\Mapper::createDateTime
      */
     public function testMapLayout()
     {
