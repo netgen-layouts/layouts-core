@@ -35,22 +35,20 @@ interface Block
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param int|string $zoneId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId, $status = Layout::STATUS_DRAFT);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId);
 
     /**
      * Updates a block with specified ID.
      *
      * @param int|string $blockId
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct, $status = Layout::STATUS_DRAFT);
+    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct);
 
     /**
      * Copies a block with specified ID to a zone with specified ID.
@@ -62,7 +60,7 @@ interface Block
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $zoneId, $status = Layout::STATUS_DRAFT, $newStatus = Layout::STATUS_DRAFT);
+    public function copyBlock($blockId, $zoneId = null, $status = Layout::STATUS_DRAFT, $newStatus = Layout::STATUS_DRAFT);
 
     /**
      * Moves a block to zone with specified ID.

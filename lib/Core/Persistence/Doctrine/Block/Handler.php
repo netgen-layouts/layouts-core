@@ -111,12 +111,13 @@ class Handler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param int|string $zoneId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId, $status = Layout::STATUS_DRAFT)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId)
     {
+        // @TODO: Verify that zone has the same status as the block
+
         $query = $this->createBlockInsertQuery(
             array(
                 'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
@@ -125,7 +126,7 @@ class Handler implements BlockHandlerInterface
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
                 'parameters' => $blockCreateStruct->getParameters(),
-                'status' => $status,
+                'status' => Layout::STATUS_DRAFT,
             )
         );
 
@@ -133,7 +134,7 @@ class Handler implements BlockHandlerInterface
 
         return $this->loadBlock(
             $this->connectionHelper->lastInsertId('ngbm_block'),
-            $status
+            Layout::STATUS_DRAFT
         );
     }
 
@@ -142,13 +143,12 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct, $status = Layout::STATUS_DRAFT)
+    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct)
     {
-        $block = $this->loadBlock($blockId, $status);
+        $block = $this->loadBlock($blockId, Layout::STATUS_DRAFT);
 
         $query = $this->connection->createQueryBuilder();
         $query
@@ -166,11 +166,11 @@ class Handler implements BlockHandlerInterface
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
             ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('status', Layout::STATUS_DRAFT, Type::INTEGER);
 
         $query->execute();
 
-        return $this->loadBlock($blockId, $status);
+        return $this->loadBlock($blockId, Layout::STATUS_DRAFT);
     }
 
     /**
@@ -183,14 +183,16 @@ class Handler implements BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $zoneId, $status = Layout::STATUS_DRAFT, $newStatus = Layout::STATUS_DRAFT)
+    public function copyBlock($blockId, $zoneId = null, $status = Layout::STATUS_DRAFT, $newStatus = Layout::STATUS_DRAFT)
     {
+        // @TODO: Verify that zone has the same status as the block
+
         $originalBlock = $this->loadBlock($blockId, $status);
 
         $query = $this->createBlockInsertQuery(
             array(
                 'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
-                'zone_id' => $zoneId,
+                'zone_id' => $zoneId !== null ? $zoneId : $originalBlock->zoneId,
                 'definition_identifier' => $originalBlock->definitionIdentifier,
                 'view_type' => $originalBlock->viewType,
                 'name' => $originalBlock->name,
@@ -212,13 +214,14 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      * @param int|string $zoneId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $zoneId, $status = Layout::STATUS_DRAFT)
+    public function moveBlock($blockId, $zoneId)
     {
-        $block = $this->loadBlock($blockId, $status);
+        // @TODO: Verify that the zone has the same status as the block
+
+        $block = $this->loadBlock($blockId, Layout::STATUS_DRAFT);
 
         $query = $this->connection->createQueryBuilder();
 
@@ -233,11 +236,11 @@ class Handler implements BlockHandlerInterface
             )
             ->setParameter('block_id', $block->id, Type::INTEGER)
             ->setParameter('zone_id', $zoneId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('status', Layout::STATUS_DRAFT, Type::INTEGER);
 
         $query->execute();
 
-        return $this->loadBlock($blockId, $status);
+        return $this->loadBlock($blockId, Layout::STATUS_DRAFT);
     }
 
     /**

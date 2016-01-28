@@ -190,7 +190,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->copyBlock(1, 2)
+            $handler->copyBlock(1)
         );
     }
 

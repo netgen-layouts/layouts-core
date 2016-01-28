@@ -525,10 +525,22 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
-        $block = $blockService->loadBlock(1);
+        $block = $blockService->loadBlock(1, Layout::STATUS_DRAFT);
         $blockService->deleteBlock($block);
 
-        $blockService->loadBlock($block->getId());
+        $blockService->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testDeleteBlockInNonDraftStatusThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $block = $blockService->loadBlock(1);
+        $blockService->deleteBlock($block);
     }
 
     /**

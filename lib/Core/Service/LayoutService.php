@@ -148,7 +148,7 @@ class LayoutService implements LayoutServiceInterface
                 $newStatus
             );
 
-            // @TODO Copy blocks and block items
+            // @TODO Copy blocks
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -170,7 +170,7 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            // @TODO Delete blocks and block items
+            // @TODO Delete blocks
 
             $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId(), $status);
         } catch (Exception $e) {

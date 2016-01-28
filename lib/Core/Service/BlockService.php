@@ -102,7 +102,10 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock($blockCreateStruct, $zone->getId());
+            $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock(
+                $blockCreateStruct,
+                $zone->getId()
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -148,7 +151,10 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock($block->getId(), $blockUpdateStruct);
+            $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock(
+                $block->getId(),
+                $blockUpdateStruct
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -196,7 +202,7 @@ class BlockService implements BlockServiceInterface
         try {
             $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
                 $block->getId(),
-                $zone instanceof Zone ? $zone->getId() : $block->getZoneId()
+                $zone !== null ? $zone->getId() : null
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -248,7 +254,10 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock($block->getId(), $zone->getId());
+            $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock(
+                $block->getId(),
+                $zone->getId()
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -262,15 +271,23 @@ class BlockService implements BlockServiceInterface
     /**
      * Deletes a specified block.
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param int $status
      */
-    public function deleteBlock(Block $block, $status = null)
+    public function deleteBlock(Block $block)
     {
+        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in draft status can be deleted.');
+        }
+
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getBlockHandler()->deleteBlock($block->getId(), $status);
+            $this->persistenceHandler->getBlockHandler()->deleteBlock(
+                $block->getId(),
+                Layout::STATUS_DRAFT
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

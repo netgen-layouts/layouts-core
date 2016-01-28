@@ -78,10 +78,11 @@ interface BlockService
     /**
      * Deletes a specified block.
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param int $status
      */
-    public function deleteBlock(Block $block, $status = null);
+    public function deleteBlock(Block $block);
 
     /**
      * Creates a new block create struct.
