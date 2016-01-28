@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Block;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
@@ -253,26 +252,32 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createBlockHandler();
 
         $handler->deleteBlock(1);
-        $handler->loadBlock(1);
+        $handler->loadBlock(1, APILayout::STATUS_DRAFT);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteZoneBlocks
      */
-    public function testDeleteBlockInDraftStatus()
+    public function testDeleteZoneBlocks()
     {
         $handler = $this->createBlockHandler();
 
-        $handler->deleteBlock(1, APILayout::STATUS_DRAFT);
+        $handler->deleteZoneBlocks(2);
 
-        // First, verify that NOT all block statuses are deleted
-        try {
-            $handler->loadBlock(1, APILayout::STATUS_PUBLISHED);
-        } catch (NotFoundException $e) {
-            self::fail('Deleting the block in draft status deleted other/all statuses.');
-        }
+        self::assertEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_PUBLISHED));
+        self::assertEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_DRAFT));
+    }
 
-        $handler->loadBlock(1, APILayout::STATUS_DRAFT);
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteZoneBlocks
+     */
+    public function testDeleteZoneBlocksInStatus()
+    {
+        $handler = $this->createBlockHandler();
+
+        $handler->deleteZoneBlocks(2, APILayout::STATUS_DRAFT);
+
+        self::assertNotEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_PUBLISHED));
+        self::assertEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_DRAFT));
     }
 }

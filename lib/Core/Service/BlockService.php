@@ -285,8 +285,7 @@ class BlockService implements BlockServiceInterface
 
         try {
             $this->persistenceHandler->getBlockHandler()->deleteBlock(
-                $block->getId(),
-                Layout::STATUS_DRAFT
+                $block->getId()
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

@@ -245,9 +245,33 @@ class Handler implements BlockHandlerInterface
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
+     */
+    public function deleteBlock($blockId)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_block')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':block_id'),
+                    $query->expr()->eq('status', ':status')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('status', Layout::STATUS_DRAFT, Type::INTEGER);
+
+        $query->execute();
+
+        // @TODO: Delete block items
+    }
+
+    /**
+     * Deletes all blocks within the specified zone.
+     *
+     * @param int|string $zoneId
      * @param int $status
      */
-    public function deleteBlock($blockId, $status = null)
+    public function deleteZoneBlocks($zoneId, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -255,18 +279,18 @@ class Handler implements BlockHandlerInterface
             $query->delete('ngbm_block')
                 ->where(
                     $query->expr()->andX(
-                        $query->expr()->eq('id', ':block_id'),
+                        $query->expr()->in('zone_id', ':zone_id'),
                         $query->expr()->eq('status', ':status')
                     )
                 )
-                ->setParameter('block_id', $blockId, Type::INTEGER)
+                ->setParameter('zone_id', $zoneId, Type::INTEGER)
                 ->setParameter('status', $status, Type::INTEGER);
         } else {
             $query->delete('ngbm_block')
                 ->where(
-                    $query->expr()->eq('id', ':block_id')
+                    $query->expr()->in('zone_id', ':zone_id')
                 )
-                ->setParameter('block_id', $blockId, Type::INTEGER);
+                ->setParameter('zone_id', $zoneId, Type::INTEGER);
         }
 
         $query->execute();

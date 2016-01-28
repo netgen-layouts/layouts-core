@@ -173,9 +173,7 @@ class LayoutService implements LayoutServiceInterface
 
         try {
             foreach ($layout->getZones() as $zone) {
-                foreach ($zone->getBlocks() as $block) {
-                    $blockHandler->deleteBlock($block->getId(), $status);
-                }
+                $blockHandler->deleteZoneBlocks($zone->getId(), $status);
             }
 
             $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId(), $status);

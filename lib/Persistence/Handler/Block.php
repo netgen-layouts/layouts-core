@@ -74,7 +74,14 @@ interface Block
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
+     */
+    public function deleteBlock($blockId);
+
+    /**
+     * Deletes all blocks within the specified zone.
+     *
+     * @param int|string $zoneId
      * @param int $status
      */
-    public function deleteBlock($blockId, $status = null);
+    public function deleteZoneBlocks($zoneId, $status = null);
 }
