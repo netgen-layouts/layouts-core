@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Exception;
 
@@ -56,7 +56,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function loadLayout($layoutId, $status = APILayout::STATUS_PUBLISHED)
+    public function loadLayout($layoutId, $status = Layout::STATUS_PUBLISHED)
     {
         if (!is_int($layoutId) && !is_string($layoutId)) {
             throw new InvalidArgumentException('layoutId', 'Value must be an integer or a string.');
@@ -82,7 +82,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function loadZone($zoneId, $status = APILayout::STATUS_PUBLISHED)
+    public function loadZone($zoneId, $status = Layout::STATUS_PUBLISHED)
     {
         if (!is_int($zoneId) && !is_string($zoneId)) {
             throw new InvalidArgumentException('zoneId', 'Value must be an integer or a string.');
@@ -106,7 +106,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, APILayout $parentLayout = null, $status = APILayout::STATUS_DRAFT)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null, $status = Layout::STATUS_DRAFT)
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
@@ -138,7 +138,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(APILayout $layout, $createNew = true, $status = APILayout::STATUS_PUBLISHED, $newStatus = APILayout::STATUS_DRAFT)
+    public function copyLayout(Layout $layout, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
     {
         $this->persistenceHandler->beginTransaction();
 
@@ -167,7 +167,7 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param int $status
      */
-    public function deleteLayout(APILayout $layout, $status = null)
+    public function deleteLayout(Layout $layout, $status = null)
     {
         $this->persistenceHandler->beginTransaction();
 
