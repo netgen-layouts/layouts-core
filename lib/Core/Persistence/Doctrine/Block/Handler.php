@@ -178,16 +178,14 @@ class Handler implements BlockHandlerInterface
      *
      * @param int|string $blockId
      * @param int|string $zoneId
-     * @param int $status
-     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $zoneId = null, $status = Layout::STATUS_DRAFT, $newStatus = Layout::STATUS_DRAFT)
+    public function copyBlock($blockId, $zoneId = null)
     {
         // @TODO: Verify that zone has the same status as the block
 
-        $originalBlock = $this->loadBlock($blockId, $status);
+        $originalBlock = $this->loadBlock($blockId, Layout::STATUS_DRAFT);
 
         $query = $this->createBlockInsertQuery(
             array(
@@ -197,7 +195,7 @@ class Handler implements BlockHandlerInterface
                 'view_type' => $originalBlock->viewType,
                 'name' => $originalBlock->name,
                 'parameters' => $originalBlock->parameters,
-                'status' => $newStatus,
+                'status' => Layout::STATUS_DRAFT,
             )
         );
 
@@ -205,7 +203,7 @@ class Handler implements BlockHandlerInterface
 
         return $this->loadBlock(
             $this->connectionHelper->lastInsertId('ngbm_block'),
-            $newStatus
+            Layout::STATUS_DRAFT
         );
     }
 
