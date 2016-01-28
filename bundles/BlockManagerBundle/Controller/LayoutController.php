@@ -21,8 +21,8 @@ class LayoutController extends Controller
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
             $identifier,
-            array_keys($layoutConfig['zones']),
-            $name
+            $name,
+            array_keys($layoutConfig['zones'])
         );
 
         $layout = $layoutService->createLayout($layoutCreateStruct);

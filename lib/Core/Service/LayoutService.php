@@ -187,18 +187,18 @@ class LayoutService implements LayoutServiceInterface
      * Creates a new layout create struct.
      *
      * @param string $identifier
-     * @param string[] $zoneIdentifiers
      * @param string $name
+     * @param string[] $zoneIdentifiers
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($identifier, array $zoneIdentifiers, $name)
+    public function newLayoutCreateStruct($identifier, $name, array $zoneIdentifiers)
     {
         return new LayoutCreateStruct(
             array(
                 'identifier' => $identifier,
-                'zoneIdentifiers' => $zoneIdentifiers,
                 'name' => $name,
+                'zoneIdentifiers' => $zoneIdentifiers,
             )
         );
     }
