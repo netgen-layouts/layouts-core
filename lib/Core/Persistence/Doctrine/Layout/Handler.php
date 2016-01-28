@@ -188,21 +188,25 @@ class Handler implements LayoutHandlerInterface
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param bool $createNew
      * @param int $status
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
+    public function copyLayout($layoutId, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
     {
         $originalLayout = $this->loadLayout($layoutId, $status);
         $originalZones = $this->loadLayoutZones($layoutId, $status);
 
         $currentTimeStamp = time();
+        $newLayoutId = $createNew ?
+            $this->connectionHelper->getAutoIncrementValue('ngbm_layout') :
+            $layoutId;
 
         $query = $this->createLayoutInsertQuery(
             array(
-                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_layout'),
+                'id' => $newLayoutId,
                 'parent_id' => $originalLayout->parentId,
                 'identifier' => $originalLayout->identifier,
                 'name' => $originalLayout->name,
@@ -214,12 +218,18 @@ class Handler implements LayoutHandlerInterface
 
         $query->execute();
 
-        $copiedLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
+        $copiedLayoutId = $createNew ?
+            (int)$this->connectionHelper->lastInsertId('ngbm_layout') :
+            $layoutId;
 
         foreach ($originalZones as $originalZone) {
+            $newZoneId = $createNew ?
+                $this->connectionHelper->getAutoIncrementValue('ngbm_zone') :
+                $originalZone->id;
+
             $zoneQuery = $this->createZoneInsertQuery(
                 array(
-                    'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_zone'),
+                    'id' => $newZoneId,
                     'layout_id' => $copiedLayoutId,
                     'identifier' => $originalZone->identifier,
                     'status' => $newStatus,

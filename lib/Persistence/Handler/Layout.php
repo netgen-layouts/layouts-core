@@ -56,12 +56,13 @@ interface Layout
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param bool $createNew
      * @param int $status
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId, $status = LayoutValue::STATUS_PUBLISHED, $newStatus = LayoutValue::STATUS_DRAFT);
+    public function copyLayout($layoutId, $createNew = true, $status = LayoutValue::STATUS_PUBLISHED, $newStatus = LayoutValue::STATUS_DRAFT);
 
     /**
      * Deletes a layout with specified ID.

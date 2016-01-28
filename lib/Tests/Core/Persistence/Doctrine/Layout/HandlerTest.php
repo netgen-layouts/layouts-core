@@ -295,6 +295,55 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
+     */
+    public function testCopyLayoutWithDifferentStatuses()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $copiedLayout = $handler->copyLayout(1, true, APILayout::STATUS_DRAFT, APILayout::STATUS_ARCHIVED);
+
+        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $copiedLayout);
+
+        self::assertEquals(APILayout::STATUS_ARCHIVED, $copiedLayout->status);
+
+        $zones = $handler->loadLayoutZones($copiedLayout->id, $copiedLayout->status);
+
+        foreach ($zones as $zone) {
+            self::assertEquals(APILayout::STATUS_ARCHIVED, $zone->status);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
+     */
+    public function testCopyLayoutWithSameId()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $copiedLayout = $handler->copyLayout(1, false, APILayout::STATUS_DRAFT, APILayout::STATUS_ARCHIVED);
+
+        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $copiedLayout);
+
+        self::assertEquals(1, $copiedLayout->id);
+
+        $zones = $handler->loadLayoutZones($copiedLayout->id, $copiedLayout->status);
+
+        self::assertEquals(1, $zones[0]->id);
+        self::assertEquals(1, $zones[0]->layoutId);
+
+        self::assertEquals(2, $zones[1]->id);
+        self::assertEquals(1, $zones[1]->layoutId);
+
+        self::assertEquals(3, $zones[2]->id);
+        self::assertEquals(1, $zones[2]->layoutId);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */

@@ -130,15 +130,23 @@ class LayoutService implements LayoutServiceInterface
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param bool $createNew
+     * @param int $status
+     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(APILayout $layout)
+    public function copyLayout(APILayout $layout, $createNew = true, $status = APILayout::STATUS_PUBLISHED, $newStatus = APILayout::STATUS_DRAFT)
     {
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout($layout->getId());
+            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout(
+                $layout->getId(),
+                $createNew,
+                $status,
+                $newStatus
+            );
             // @TODO Copy blocks and block items
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

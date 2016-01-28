@@ -47,10 +47,13 @@ interface LayoutService
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param bool $createNew
+     * @param int $status
+     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout);
+    public function copyLayout(Layout $layout, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT);
 
     /**
      * Deletes a specified layout.
