@@ -46,11 +46,10 @@ interface Layout
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param int|string $parentLayoutId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null, $status = LayoutValue::STATUS_DRAFT);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null);
 
     /**
      * Copies a layout with specified ID.

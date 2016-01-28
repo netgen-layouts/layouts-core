@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\API\Values;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
+
 class LayoutCreateStruct extends Value
 {
     /**
@@ -10,9 +12,14 @@ class LayoutCreateStruct extends Value
     public $identifier;
 
     /**
-     * @var @string
+     * @var string
      */
     public $name;
+
+    /**
+     * @var int
+     */
+    public $status = Layout::STATUS_DRAFT;
 
     /**
      * @var string[]

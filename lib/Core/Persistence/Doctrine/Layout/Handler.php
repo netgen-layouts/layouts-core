@@ -144,11 +144,10 @@ class Handler implements LayoutHandlerInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param int|string $parentLayoutId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null, $status = Layout::STATUS_DRAFT)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null)
     {
         $currentTimeStamp = time();
 
@@ -160,7 +159,7 @@ class Handler implements LayoutHandlerInterface
                 'name' => $layoutCreateStruct->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
-                'status' => $status,
+                'status' => $layoutCreateStruct->status,
             )
         );
 
@@ -174,14 +173,14 @@ class Handler implements LayoutHandlerInterface
                     'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_zone'),
                     'layout_id' => $createdLayoutId,
                     'identifier' => $zoneIdentifier,
-                    'status' => $status,
+                    'status' => $layoutCreateStruct->status,
                 )
             );
 
             $zoneQuery->execute();
         }
 
-        return $this->loadLayout($createdLayoutId, $status);
+        return $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
     }
 
     /**
