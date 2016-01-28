@@ -24,26 +24,6 @@ interface BlockService
     public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED);
 
     /**
-     * Loads blocks belonging to specified zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
-     */
-    public function loadZoneBlocks(Zone $zone, $status = Layout::STATUS_PUBLISHED);
-
-    /**
-     * Loads blocks belonging to specified layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
-     */
-    public function loadLayoutBlocks(Layout $layout, $status = Layout::STATUS_PUBLISHED);
-
-    /**
      * Creates a block in specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct

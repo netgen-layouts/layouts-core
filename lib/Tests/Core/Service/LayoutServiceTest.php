@@ -401,8 +401,7 @@ abstract class LayoutServiceTest extends ServiceTest
         // We need to delete the blocks and block items from zones
         // to be able to delete the zones themselves
         foreach ($layout->getZones() as $zone) {
-            $zoneBlocks = $blockService->loadZoneBlocks($zone);
-            foreach ($zoneBlocks as $block) {
+            foreach ($zone->getBlocks() as $block) {
                 $blockService->deleteBlock($block);
             }
         }

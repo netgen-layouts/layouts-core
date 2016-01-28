@@ -78,46 +78,6 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
-     * Loads blocks belonging to specified zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
-     */
-    public function loadZoneBlocks(Zone $zone, $status = Layout::STATUS_PUBLISHED)
-    {
-        $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks($zone->getId(), $status);
-
-        $blocks = array();
-        foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->mapper->mapBlock($persistenceBlock);
-        }
-
-        return $blocks;
-    }
-
-    /**
-     * Loads blocks belonging to specified layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
-     */
-    public function loadLayoutBlocks(Layout $layout, $status = Layout::STATUS_PUBLISHED)
-    {
-        $blocks = array();
-
-        foreach ($layout->getZones() as $zone) {
-            $zoneBlocks = $this->loadZoneBlocks($zone, $status);
-            $blocks[$zone->getIdentifier()] = $zoneBlocks;
-        }
-
-        return $blocks;
-    }
-
-    /**
      * Creates a block in specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
