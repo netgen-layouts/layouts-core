@@ -12,11 +12,6 @@ abstract class LayoutServiceTest extends ServiceTest
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockValidatorMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     protected $layoutValidatorMock;
 
     /**
@@ -24,10 +19,6 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->blockValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\BlockValidator')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->layoutValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\LayoutValidator')
             ->disableOriginalConstructor()
             ->getMock();
@@ -394,17 +385,8 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testDeleteLayout()
     {
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $blockService = $this->createBlockService($this->blockValidatorMock);
 
         $layout = $layoutService->loadLayout(1);
-
-        // We need to delete the blocks and block items from zones
-        // to be able to delete the zones themselves
-        foreach ($layout->getZones() as $zone) {
-            foreach ($zone->getBlocks() as $block) {
-                $blockService->deleteBlock($block);
-            }
-        }
 
         $layoutService->deleteLayout($layout);
 

@@ -169,8 +169,14 @@ class LayoutService implements LayoutServiceInterface
     {
         $this->persistenceHandler->beginTransaction();
 
+        $blockHandler = $this->persistenceHandler->getBlockHandler();
+
         try {
-            // @TODO Delete blocks
+            foreach ($layout->getZones() as $zone) {
+                foreach ($zone->getBlocks() as $block) {
+                    $blockHandler->deleteBlock($block->getId(), $status);
+                }
+            }
 
             $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId(), $status);
         } catch (Exception $e) {
