@@ -38,10 +38,11 @@ interface LayoutService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
+     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null, $status = Layout::STATUS_DRAFT);
 
     /**
      * Copies a specified layout.

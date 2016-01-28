@@ -102,10 +102,11 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
+     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, APILayout $parentLayout = null)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, APILayout $parentLayout = null, $status = APILayout::STATUS_DRAFT)
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
@@ -114,7 +115,8 @@ class LayoutService implements LayoutServiceInterface
         try {
             $createdLayout = $this->persistenceHandler->getLayoutHandler()->createLayout(
                 $layoutCreateStruct,
-                $parentLayout !== null ? $parentLayout->getId() : null
+                $parentLayout !== null ? $parentLayout->getId() : null,
+                $status
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -147,6 +149,7 @@ class LayoutService implements LayoutServiceInterface
                 $status,
                 $newStatus
             );
+
             // @TODO Copy blocks and block items
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
