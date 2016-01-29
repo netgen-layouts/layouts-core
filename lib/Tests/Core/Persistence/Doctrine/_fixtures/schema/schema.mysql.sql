@@ -1,5 +1,3 @@
-SET FOREIGN_KEY_CHECKS=0;
-
 DROP TABLE IF EXISTS `ngbm_layout`;
 CREATE TABLE `ngbm_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -19,8 +17,7 @@ CREATE TABLE `ngbm_zone` (
   `identifier` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`, `status`),
-  KEY `idx_ngbm_zone_layout_id` (`layout_id`),
-  CONSTRAINT `fk_ngbm_zone_layout_id` FOREIGN KEY (`layout_id`, `status`) REFERENCES `ngbm_layout` (`id`, `status`)
+  KEY `idx_ngbm_zone_layout_id` (`layout_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ngbm_block`;
@@ -33,8 +30,5 @@ CREATE TABLE `ngbm_block` (
   `parameters` text NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`, `status`),
-  KEY `idx_ngbm_block_zone_id` (`zone_id`),
-  CONSTRAINT `fk_ngbm_block_zone_id` FOREIGN KEY (`zone_id`, `status`) REFERENCES `ngbm_zone` (`id`, `status`)
+  KEY `idx_ngbm_block_zone_id` (`zone_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-SET FOREIGN_KEY_CHECKS=1;
