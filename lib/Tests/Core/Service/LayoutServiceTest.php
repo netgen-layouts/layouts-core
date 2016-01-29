@@ -361,7 +361,34 @@ abstract class LayoutServiceTest extends ServiceTest
                         'layoutId' => $copiedLayout->getId(),
                         'identifier' => 'top_right',
                         'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
+                        'blocks' => array(
+                            new Block(
+                                array(
+                                    'id' => 5,
+                                    'zoneId' => 8,
+                                    'definitionIdentifier' => 'paragraph',
+                                    'parameters' => array(
+                                        'some_param' => 'some_value',
+                                    ),
+                                    'viewType' => 'default',
+                                    'name' => 'My block',
+                                    'status' => Layout::STATUS_DRAFT,
+                                )
+                            ),
+                            new Block(
+                                array(
+                                    'id' => 6,
+                                    'zoneId' => 8,
+                                    'definitionIdentifier' => 'title',
+                                    'parameters' => array(
+                                        'other_param' => 'other_value',
+                                    ),
+                                    'viewType' => 'small',
+                                    'name' => 'My other block',
+                                    'status' => Layout::STATUS_DRAFT,
+                                )
+                            ),
+                        ),
                     )
                 ),
                 'bottom' => new Zone(

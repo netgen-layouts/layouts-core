@@ -138,17 +138,38 @@ class LayoutService implements LayoutServiceInterface
      */
     public function copyLayout(Layout $layout, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
     {
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
+        $blockHandler = $this->persistenceHandler->getBlockHandler();
+
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout(
+            $copiedLayout = $layoutHandler->copyLayout(
                 $layout->getId(),
                 $createNew,
                 $status,
                 $newStatus
             );
 
-            // @TODO Copy blocks
+            $copiedZones = $layoutHandler->loadLayoutZones($copiedLayout->id, $newStatus);
+
+            foreach ($layout->getZones() as $originalZone) {
+                foreach ($copiedZones as $copiedZone) {
+                    if ($copiedZone->identifier !== $originalZone->getIdentifier()) {
+                        continue;
+                    }
+
+                    foreach ($originalZone->getBlocks() as $block) {
+                        $blockHandler->copyBlock(
+                            $block->getId(),
+                            $copiedZone->id,
+                            $createNew,
+                            $status,
+                            $newStatus
+                        );
+                    }
+                }
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

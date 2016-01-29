@@ -55,10 +55,13 @@ interface Block
      *
      * @param int|string $blockId
      * @param int|string $zoneId
+     * @param bool $createNew
+     * @param int $status
+     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $zoneId = null);
+    public function copyBlock($blockId, $zoneId = null, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT);
 
     /**
      * Moves a block to zone with specified ID.
