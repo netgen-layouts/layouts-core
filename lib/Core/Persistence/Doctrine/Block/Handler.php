@@ -201,6 +201,8 @@ class Handler implements BlockHandlerInterface
 
         $query->execute();
 
+        // @TODO: Copy block items
+
         return $this->loadBlock(
             $this->connectionHelper->lastInsertId('ngbm_block'),
             Layout::STATUS_DRAFT
