@@ -128,8 +128,8 @@ class BlockService implements BlockServiceInterface
      */
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in draft status can be updated.');
+        if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
         }
 
         if ($blockUpdateStruct->viewType === null) {
