@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\API\Exception\BadStateException;
 use Exception;
 
 class LayoutService implements LayoutServiceInterface
@@ -178,6 +179,37 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->commitTransaction();
 
         return $this->mapper->mapLayout($copiedLayout);
+    }
+
+    /**
+     * Publishes a layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function publishLayout(Layout $layout)
+    {
+        if ($layout->getStatus() !== Layout::STATUS_DRAFT) {
+            throw new BadStateException('layout', 'Only layouts in draft status can be published.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $publishedLayout = $this->persistenceHandler->getLayoutHandler()->publishLayout(
+                $layout->getId()
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->mapper->mapLayout($publishedLayout);
     }
 
     /**

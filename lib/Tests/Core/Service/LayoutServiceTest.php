@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -403,6 +404,42 @@ abstract class LayoutServiceTest extends ServiceTest
             ),
             $copiedLayout->getZones()
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     */
+    public function testPublishLayout()
+    {
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $layout = $layoutService->loadLayout(1, Layout::STATUS_DRAFT);
+        $publishedLayout = $layoutService->publishLayout($layout);
+
+        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $publishedLayout);
+        self::assertEquals(Layout::STATUS_PUBLISHED, $publishedLayout->getStatus());
+
+        $archivedLayout = $layoutService->loadLayout($layout->getId(), Layout::STATUS_ARCHIVED);
+        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $archivedLayout);
+
+        try {
+            $layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+            self::fail('Draft layout still exists after publishing.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testPublishLayoutThrowsBadStateException()
+    {
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $layout = $layoutService->loadLayout(1, Layout::STATUS_PUBLISHED);
+        $layoutService->publishLayout($layout);
     }
 
     /**

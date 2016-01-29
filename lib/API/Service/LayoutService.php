@@ -56,6 +56,17 @@ interface LayoutService
     public function copyLayout(Layout $layout, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT);
 
     /**
+     * Publishes a layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function publishLayout(Layout $layout);
+
+    /**
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

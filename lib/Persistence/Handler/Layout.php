@@ -64,6 +64,15 @@ interface Layout
     public function copyLayout($layoutId, $createNew = true, $status = LayoutValue::STATUS_PUBLISHED, $newStatus = LayoutValue::STATUS_DRAFT);
 
     /**
+     * Publishes a layout draft.
+     *
+     * @param int|string $layoutId
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function publishLayout($layoutId);
+
+    /**
      * Deletes a layout with specified ID.
      *
      * @param int|string $layoutId

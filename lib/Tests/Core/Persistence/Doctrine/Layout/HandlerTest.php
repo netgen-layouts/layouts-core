@@ -344,6 +344,31 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::publishLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateLayoutStatus
+     */
+    public function testPublishLayout()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $publishedLayout = $handler->publishLayout(1);
+
+        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $publishedLayout);
+        self::assertEquals(APILayout::STATUS_PUBLISHED, $publishedLayout->status);
+
+        $archivedLayout = $handler->loadLayout(1, APILayout::STATUS_ARCHIVED);
+
+        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $archivedLayout);
+
+        try {
+            $handler->loadLayout(1, APILayout::STATUS_DRAFT);
+            self::fail('Draft layout still exists after publishing.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
