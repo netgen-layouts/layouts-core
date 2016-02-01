@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\LayoutResolver\RuleLoader;
 
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\RuleBuilder\RuleBuilderInterface;
-use Netgen\BlockManager\LayoutResolver\RuleHandler\RuleHandlerInterface;;
+use Netgen\BlockManager\LayoutResolver\RuleHandler\RuleHandlerInterface;
 use Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoader;
 use Netgen\BlockManager\Tests\LayoutResolver\Stubs\Target;
 
