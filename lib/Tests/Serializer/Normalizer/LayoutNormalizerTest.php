@@ -9,6 +9,7 @@ use Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use DateTime;
 
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
@@ -69,7 +70,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getLayoutConfig')
@@ -120,7 +121,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
 
         $layoutNormalizer = new LayoutNormalizer($configurationMock);
 

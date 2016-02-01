@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Renderer;
 
 use Netgen\BlockManager\View\ViewRenderer;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Twig_Environment;
 
 class ViewRendererTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +19,7 @@ class ViewRendererTest extends \PHPUnit_Framework_TestCase
         $view->setParameters(array('some_param' => 'some_value'));
 
         $twigEnvironmentMock = $this
-            ->getMockBuilder('Twig_Environment')
+            ->getMockBuilder(Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 

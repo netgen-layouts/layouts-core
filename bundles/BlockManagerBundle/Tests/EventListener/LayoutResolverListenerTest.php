@@ -3,12 +3,16 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\LayoutResolver\LayoutResolverInterface;
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\Tests\LayoutResolver\Stubs\Target;
 use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -42,19 +46,19 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->layoutResolverMock = $this->getMock(
-            'Netgen\BlockManager\LayoutResolver\LayoutResolverInterface'
+            LayoutResolverInterface::class
         );
 
         $this->layoutServiceMock = $this->getMock(
-            'Netgen\BlockManager\API\Service\LayoutService'
+            LayoutService::class
         );
 
         $this->viewBuilderMock = $this->getMock(
-            'Netgen\BlockManager\View\ViewBuilderInterface'
+            ViewBuilderInterface::class
         );
 
         $this->globalHelperMock = $this
-            ->getMockBuilder('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper')
+            ->getMockBuilder(GlobalHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -105,7 +109,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = $this->getLayoutResolverListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -136,7 +140,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = $this->getLayoutResolverListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -172,7 +176,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = $this->getLayoutResolverListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -202,7 +206,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = $this->getLayoutResolverListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
@@ -232,7 +236,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = $this->getLayoutResolverListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

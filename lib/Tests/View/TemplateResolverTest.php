@@ -4,6 +4,9 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\View\TemplateResolver;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use DateTime;
 
 class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +19,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $matcherMock = $this->getMock('Netgen\BlockManager\View\Matcher\MatcherInterface');
+        $matcherMock = $this->getMock(MatcherInterface::class);
         $matcherMock
             ->expects($this->once())
             ->method('setConfig')
@@ -27,7 +30,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue(true));
 
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -66,7 +69,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -101,7 +104,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -137,7 +140,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -154,7 +157,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfEmptyContext()
     {
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -178,7 +181,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $matcherMock = $this->getMock('Netgen\BlockManager\View\Matcher\MatcherInterface');
+        $matcherMock = $this->getMock(MatcherInterface::class);
         $matcherMock
             ->expects($this->once())
             ->method('setConfig')
@@ -189,7 +192,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue(false));
 
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -225,7 +228,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')
@@ -261,9 +264,9 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $matcherMock = $this->getMock('DateTime');
+        $matcherMock = $this->getMock(DateTime::class);
 
-        $configurationMock = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configurationMock = $this->getMock(ConfigurationInterface::class);
         $configurationMock
             ->expects($this->any())
             ->method('getParameter')

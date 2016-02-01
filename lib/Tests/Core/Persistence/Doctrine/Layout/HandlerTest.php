@@ -148,7 +148,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $createdLayout = $handler->createLayout($layoutCreateStruct);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $createdLayout);
+        self::assertInstanceOf(Layout::class, $createdLayout);
 
         self::assertEquals(3, $createdLayout->id);
         self::assertNull($createdLayout->parentId);
@@ -201,7 +201,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $createdLayout = $handler->createLayout($layoutCreateStruct, 1);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $createdLayout);
+        self::assertInstanceOf(Layout::class, $createdLayout);
 
         self::assertEquals(3, $createdLayout->id);
         self::assertEquals(1, $createdLayout->parentId);
@@ -249,7 +249,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $copiedLayout = $handler->copyLayout(1);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $copiedLayout);
+        self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(3, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
@@ -305,7 +305,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $copiedLayout = $handler->copyLayout(1, true, APILayout::STATUS_DRAFT, APILayout::STATUS_ARCHIVED);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $copiedLayout);
+        self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(APILayout::STATUS_ARCHIVED, $copiedLayout->status);
 
@@ -327,7 +327,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $copiedLayout = $handler->copyLayout(1, false, APILayout::STATUS_DRAFT, APILayout::STATUS_ARCHIVED);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $copiedLayout);
+        self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(1, $copiedLayout->id);
 
@@ -353,12 +353,12 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $publishedLayout = $handler->publishLayout(1);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $publishedLayout);
+        self::assertInstanceOf(Layout::class, $publishedLayout);
         self::assertEquals(APILayout::STATUS_PUBLISHED, $publishedLayout->status);
 
         $archivedLayout = $handler->loadLayout(1, APILayout::STATUS_ARCHIVED);
 
-        self::assertInstanceOf('Netgen\BlockManager\Persistence\Values\Page\Layout', $archivedLayout);
+        self::assertInstanceOf(Layout::class, $archivedLayout);
 
         try {
             $handler->loadLayout(1, APILayout::STATUS_DRAFT);

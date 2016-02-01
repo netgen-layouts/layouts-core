@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Event\View;
 
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class CollectViewParametersEventTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,6 +20,6 @@ class CollectViewParametersEventTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(new View(), $event->getView());
         self::assertEquals(array(), $event->getViewParameters());
-        self::assertInstanceOf('Symfony\Component\HttpFoundation\ParameterBag', $event->getParameterBag());
+        self::assertInstanceOf(ParameterBag::class, $event->getParameterBag());
     }
 }

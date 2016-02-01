@@ -3,9 +3,12 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
+use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use DateTime;
 
 abstract class MapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +42,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         $mapper = $this->createMapper();
         $block = $mapper->mapBlock($persistenceBlock);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Block', $block);
+        self::assertInstanceOf(APIBlock::class, $block);
         self::assertEquals(1, $block->getId());
         self::assertEquals(2, $block->getZoneId());
         self::assertEquals('paragraph', $block->getDefinitionIdentifier());
@@ -66,7 +69,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         $mapper = $this->createMapper();
         $zone = $mapper->mapZone($persistenceZone);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Zone', $zone);
+        self::assertInstanceOf(APIZone::class, $zone);
         self::assertEquals(2, $zone->getId());
         self::assertEquals(1, $zone->getLayoutId());
         self::assertEquals('top_right', $zone->getIdentifier());
@@ -75,7 +78,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         self::assertNotEmpty($zone->getBlocks());
 
         foreach ($zone->getBlocks() as $block) {
-            self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Block', $block);
+            self::assertInstanceOf(APIBlock::class, $block);
         }
     }
 
@@ -100,21 +103,21 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         $mapper = $this->createMapper();
         $layout = $mapper->mapLayout($persistenceLayout);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $layout);
+        self::assertInstanceOf(APILayout::class, $layout);
         self::assertEquals(1, $layout->getId());
         self::assertEquals(null, $layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getIdentifier());
         self::assertEquals('My layout', $layout->getName());
-        self::assertInstanceOf('DateTime', $layout->getCreated());
+        self::assertInstanceOf(DateTime::class, $layout->getCreated());
         self::assertEquals(1447065813, $layout->getCreated()->getTimestamp());
-        self::assertInstanceOf('DateTime', $layout->getModified());
+        self::assertInstanceOf(DateTime::class, $layout->getModified());
         self::assertEquals(1447065813, $layout->getModified()->getTimestamp());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
 
         self::assertNotEmpty($layout->getZones());
 
         foreach ($layout->getZones() as $zone) {
-            self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Zone', $zone);
+            self::assertInstanceOf(APIZone::class, $zone);
         }
     }
 }

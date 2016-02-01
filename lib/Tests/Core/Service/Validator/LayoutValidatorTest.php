@@ -8,6 +8,7 @@ use Netgen\BlockManager\Validator\Constraint\Layout;
 use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +23,7 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->validatorMock = $this->getMock(
-            'Symfony\Component\Validator\Validator\ValidatorInterface'
+            ValidatorInterface::class
         );
     }
 

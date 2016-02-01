@@ -3,6 +3,9 @@
 namespace Netgen\BlockManager\Tests\LayoutResolver;
 
 use Netgen\BlockManager\LayoutResolver\Condition;
+use Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface as ConditionMatcherRegistryInterface;
+use Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface as TargetBuilderRegistryInterface;
+use Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface;
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\BlockManager\LayoutResolver\LayoutResolver;
 use Netgen\BlockManager\Tests\LayoutResolver\Stubs\ConditionMatcher;
@@ -30,15 +33,15 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->targetBuilderRegistryMock = $this->getMock(
-            'Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface'
+            TargetBuilderRegistryInterface::class
         );
 
         $this->conditionMatcherRegistryMock = $this->getMock(
-            'Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface'
+            ConditionMatcherRegistryInterface::class
         );
 
         $this->ruleLoaderMock = $this->getMock(
-            'Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface'
+            RuleLoaderInterface::class
         );
     }
 

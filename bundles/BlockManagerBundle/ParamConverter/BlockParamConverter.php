@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Page\Block;
 
 class BlockParamConverter extends ParamConverter
 {
@@ -48,7 +49,7 @@ class BlockParamConverter extends ParamConverter
      */
     public function getSupportedClass()
     {
-        return 'Netgen\BlockManager\API\Values\Page\Block';
+        return Block::class;
     }
 
     /**

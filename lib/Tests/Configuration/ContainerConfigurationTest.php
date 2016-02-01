@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Configuration;
 
 use Netgen\BlockManager\Configuration\ContainerConfiguration;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +12,7 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasParameter()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container = $this->getMock(ContainerInterface::class);
         $container
             ->expects($this->once())
             ->method('hasParameter')
@@ -28,7 +29,7 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasParameterWithNoParameter()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container = $this->getMock(ContainerInterface::class);
         $container
             ->expects($this->once())
             ->method('hasParameter')
@@ -45,7 +46,7 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameter()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container = $this->getMock(ContainerInterface::class);
         $container
             ->expects($this->once())
             ->method('hasParameter')
@@ -68,7 +69,7 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameterThrowsInvalidArgumentException()
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container = $this->getMock(ContainerInterface::class);
         $container
             ->expects($this->once())
             ->method('hasParameter')

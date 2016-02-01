@@ -6,6 +6,7 @@ use Netgen\BlockManager\View\Provider\LayoutViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\View\LayoutViewInterface;
 
 class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +22,7 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
         /** @var \Netgen\BlockManager\View\LayoutViewInterface $view */
         $view = $layoutViewProvider->provideView($layout);
 
-        self::assertInstanceOf('Netgen\BlockManager\View\LayoutViewInterface', $view);
+        self::assertInstanceOf(LayoutViewInterface::class, $view);
 
         self::assertEquals($layout, $view->getLayout());
         self::assertEquals(null, $view->getTemplate());

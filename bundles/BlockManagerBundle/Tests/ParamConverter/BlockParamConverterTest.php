@@ -4,6 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\API\Service\BlockService;
 
 class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +14,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $blockService = $this->getMock('Netgen\BlockManager\API\Service\BlockService');
+        $blockService = $this->getMock(BlockService::class);
         $blockParamConverter = new BlockParamConverter($blockService);
 
         self::assertEquals('blockId', $blockParamConverter->getSourceAttributeName());
@@ -23,7 +25,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        $blockService = $this->getMock('Netgen\BlockManager\API\Service\BlockService');
+        $blockService = $this->getMock(BlockService::class);
         $blockParamConverter = new BlockParamConverter($blockService);
 
         self::assertEquals('block', $blockParamConverter->getDestinationAttributeName());
@@ -34,10 +36,10 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedClass()
     {
-        $blockService = $this->getMock('Netgen\BlockManager\API\Service\BlockService');
+        $blockService = $this->getMock(BlockService::class);
         $blockParamConverter = new BlockParamConverter($blockService);
 
-        self::assertEquals('Netgen\BlockManager\API\Values\Page\Block', $blockParamConverter->getSupportedClass());
+        self::assertEquals(APIBlock::class, $blockParamConverter->getSupportedClass());
     }
 
     /**
@@ -48,7 +50,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $block = new Block();
 
-        $blockService = $this->getMock('Netgen\BlockManager\API\Service\BlockService');
+        $blockService = $this->getMock(BlockService::class);
         $blockService
             ->expects($this->once())
             ->method('loadBlock')

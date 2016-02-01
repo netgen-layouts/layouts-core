@@ -34,7 +34,7 @@ class ParamConverter extends BaseParamConverter
      */
     public function getSupportedClass()
     {
-        return 'Netgen\BlockManager\Tests\API\Stubs\Value';
+        return Value::class;
     }
 
     /**

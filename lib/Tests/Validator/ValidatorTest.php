@@ -2,6 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
+
 abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -40,27 +47,19 @@ abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->blockDefinitionRegistryMock = $this->getMock(
-            'Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface'
+            BlockDefinitionRegistryInterface::class
         );
 
-        $this->configurationMock = $this->getMock(
-            'Netgen\BlockManager\Configuration\ConfigurationInterface'
-        );
+        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
 
-        $this->validatorMock = $this->getMock(
-            'Symfony\Component\Validator\Validator\ValidatorInterface'
-        );
+        $this->validatorMock = $this->getMock(ValidatorInterface::class);
 
-        $this->constraintViolationMock = $this->getMock(
-            'Symfony\Component\Validator\ConstraintViolationInterface'
-        );
+        $this->constraintViolationMock = $this->getMock(ConstraintViolationInterface::class);
 
-        $this->executionContextMock = $this->getMock(
-            'Symfony\Component\Validator\Context\ExecutionContextInterface'
-        );
+        $this->executionContextMock = $this->getMock(ExecutionContextInterface::class);
 
         $this->violationBuilderMock = $this->getMockBuilder(
-            'Symfony\Component\Validator\Violation\ConstraintViolationBuilder'
+            ConstraintViolationBuilderInterface::class
         )
         ->disableOriginalConstructor()
         ->getMock();

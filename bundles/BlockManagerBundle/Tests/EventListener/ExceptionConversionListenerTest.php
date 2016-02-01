@@ -3,8 +3,11 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
+use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +37,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new NotFoundException('what', 'identifier');
 
@@ -48,7 +51,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener->onException($event);
 
         self::assertInstanceOf(
-            'Symfony\Component\HttpKernel\Exception\NotFoundHttpException',
+            NotFoundHttpException::class,
             $event->getException()
         );
 
@@ -65,7 +68,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new InvalidArgumentException('Some error');
 
@@ -79,7 +82,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener->onException($event);
 
         self::assertInstanceOf(
-            'Symfony\Component\HttpKernel\Exception\BadRequestHttpException',
+            BadRequestHttpException::class,
             $event->getException()
         );
 
@@ -96,7 +99,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new Exception('Some error');
 
@@ -110,7 +113,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener->onException($event);
 
         self::assertInstanceOf(
-            'Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException',
+            InternalServerErrorHttpException::class,
             $event->getException()
         );
 
@@ -127,7 +130,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new Exception('Some error');
 

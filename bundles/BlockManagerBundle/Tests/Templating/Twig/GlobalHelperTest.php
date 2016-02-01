@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 
 class GlobalHelperTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +14,7 @@ class GlobalHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConfiguration()
     {
-        $configuration = $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface');
+        $configuration = $this->getMock(ConfigurationInterface::class);
         $globalHelper = new GlobalHelper($configuration);
 
         self::assertEquals($configuration, $globalHelper->getConfiguration());
@@ -25,7 +26,7 @@ class GlobalHelperTest extends \PHPUnit_Framework_TestCase
     public function testGetDefaultLayoutView()
     {
         $globalHelper = new GlobalHelper(
-            $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface')
+            $this->getMock(ConfigurationInterface::class)
         );
 
         self::assertNull($globalHelper->getLayoutView());
@@ -38,7 +39,7 @@ class GlobalHelperTest extends \PHPUnit_Framework_TestCase
     public function testGetLayoutView()
     {
         $globalHelper = new GlobalHelper(
-            $this->getMock('Netgen\BlockManager\Configuration\ConfigurationInterface')
+            $this->getMock(ConfigurationInterface::class)
         );
 
         $layoutView = new LayoutView();

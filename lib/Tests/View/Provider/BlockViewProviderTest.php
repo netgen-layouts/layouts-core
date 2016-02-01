@@ -6,6 +6,7 @@ use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\View\BlockViewInterface;
 
 class BlockViewProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +22,7 @@ class BlockViewProviderTest extends \PHPUnit_Framework_TestCase
         /** @var \Netgen\BlockManager\View\BlockViewInterface $view */
         $view = $blockViewProvider->provideView($block);
 
-        self::assertInstanceOf('Netgen\BlockManager\View\BlockViewInterface', $view);
+        self::assertInstanceOf(BlockViewInterface::class, $view);
 
         self::assertEquals($block, $view->getBlock());
         self::assertEquals(null, $view->getTemplate());

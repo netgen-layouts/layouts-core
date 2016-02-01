@@ -4,7 +4,10 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\View\ViewBuilder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Netgen\BlockManager\View\TemplateResolverInterface;
 
 class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,7 +20,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider = $this->getMock(ViewProviderInterface::class);
         $viewProvider
             ->expects($this->once())
             ->method('supports')
@@ -29,14 +32,14 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
+        $templateResolver = $this->getMock(TemplateResolverInterface::class);
         $templateResolver
             ->expects($this->once())
             ->method('resolveTemplate')
             ->with($this->equalTo($view))
             ->will($this->returnValue('some_template.html.twig'));
 
-        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
         $eventDispatcherMock
             ->expects($this->once())
             ->method('dispatch');
@@ -50,7 +53,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $viewParameters = array('some_param' => 'some_value');
         $builtView = $viewBuilder->buildView($value, 'context', $viewParameters);
 
-        self::assertInstanceOf('Netgen\BlockManager\Tests\View\Stubs\View', $builtView);
+        self::assertInstanceOf(View::class, $builtView);
         self::assertEquals('some_template.html.twig', $builtView->getTemplate());
         self::assertEquals('context', $builtView->getContext());
         self::assertEquals($viewParameters, $builtView->getParameters());
@@ -64,8 +67,8 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $value = new Value();
 
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
-        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $templateResolver = $this->getMock(TemplateResolverInterface::class);
+        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
 
         $viewBuilder = new ViewBuilder(
             array(),
@@ -84,7 +87,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $value = new Value();
 
-        $viewProvider = $this->getMock('Netgen\BlockManager\View\Provider\ViewProviderInterface');
+        $viewProvider = $this->getMock(ViewProviderInterface::class);
         $viewProvider
             ->expects($this->once())
             ->method('supports')
@@ -94,8 +97,8 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('provideView');
 
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
-        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $templateResolver = $this->getMock(TemplateResolverInterface::class);
+        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
 
         $viewBuilder = new ViewBuilder(
             array($viewProvider),
@@ -116,9 +119,9 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider = $this->getMock('DateTime');
-        $templateResolver = $this->getMock('Netgen\BlockManager\View\TemplateResolverInterface');
-        $eventDispatcherMock = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $viewProvider = $this->getMock(DateTime::class);
+        $templateResolver = $this->getMock(TemplateResolverInterface::class);
+        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
 
         $viewBuilder = new ViewBuilder(
             array($viewProvider),

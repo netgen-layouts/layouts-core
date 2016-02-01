@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 
 class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +12,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $globalHelper = $this->getMockBuilder('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper')
+        $globalHelper = $this->getMockBuilder(GlobalHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -26,7 +27,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetGlobals()
     {
-        $globalHelper = $this->getMockBuilder('Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper')
+        $globalHelper = $this->getMockBuilder(GlobalHelper::class)
             ->disableOriginalConstructor()
             ->getMock();
 

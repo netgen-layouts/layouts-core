@@ -3,10 +3,12 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
+use DateTime;
 
 abstract class LayoutServiceTest extends ServiceTest
 {
@@ -20,7 +22,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->layoutValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\LayoutValidator')
+        $this->layoutValidatorMock = $this->getMockBuilder(LayoutValidator::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -35,7 +37,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $layout = $layoutService->loadLayout(1);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $layout);
+        self::assertInstanceOf(Layout::class, $layout);
 
         self::assertEquals(1, $layout->getId());
         self::assertNull($layout->getParentId());
@@ -43,10 +45,10 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals('My layout', $layout->getName());
         self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
 
-        self::assertInstanceOf('DateTime', $layout->getCreated());
+        self::assertInstanceOf(DateTime::class, $layout->getCreated());
         self::assertGreaterThan(0, $layout->getCreated()->getTimestamp());
 
-        self::assertInstanceOf('DateTime', $layout->getModified());
+        self::assertInstanceOf(DateTime::class, $layout->getModified());
         self::assertGreaterThan(0, $layout->getModified()->getTimestamp());
 
         self::assertEquals(
@@ -206,7 +208,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $createdLayout = $layoutService->createLayout($layoutCreateStruct);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $createdLayout);
+        self::assertInstanceOf(Layout::class, $createdLayout);
 
         self::assertEquals(3, $createdLayout->getId());
         self::assertNull($createdLayout->getParentId());
@@ -214,10 +216,10 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals('My layout', $createdLayout->getName());
         self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
 
-        self::assertInstanceOf('DateTime', $createdLayout->getCreated());
+        self::assertInstanceOf(DateTime::class, $createdLayout->getCreated());
         self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
 
-        self::assertInstanceOf('DateTime', $createdLayout->getModified());
+        self::assertInstanceOf(DateTime::class, $createdLayout->getModified());
         self::assertGreaterThan(0, $createdLayout->getModified()->getTimestamp());
 
         self::assertEquals(
@@ -273,7 +275,7 @@ abstract class LayoutServiceTest extends ServiceTest
             $parentLayout
         );
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $createdLayout);
+        self::assertInstanceOf(Layout::class, $createdLayout);
 
         self::assertEquals(3, $createdLayout->getId());
         self::assertEquals($parentLayout->getId(), $createdLayout->getParentId());
@@ -281,10 +283,10 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals('My layout', $createdLayout->getName());
         self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
 
-        self::assertInstanceOf('DateTime', $createdLayout->getCreated());
+        self::assertInstanceOf(DateTime::class, $createdLayout->getCreated());
         self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
 
-        self::assertInstanceOf('DateTime', $createdLayout->getModified());
+        self::assertInstanceOf(DateTime::class, $createdLayout->getModified());
         self::assertGreaterThan(0, $createdLayout->getModified()->getTimestamp());
 
         self::assertEquals(
@@ -331,7 +333,7 @@ abstract class LayoutServiceTest extends ServiceTest
         $layout = $layoutService->loadLayout(1);
         $copiedLayout = $layoutService->copyLayout($layout);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $copiedLayout);
+        self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(3, $copiedLayout->getId());
         self::assertNull($copiedLayout->getParentId());
@@ -339,10 +341,10 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals('My layout', $copiedLayout->getName());
         self::assertEquals(Layout::STATUS_DRAFT, $copiedLayout->getStatus());
 
-        self::assertInstanceOf('DateTime', $copiedLayout->getCreated());
+        self::assertInstanceOf(DateTime::class, $copiedLayout->getCreated());
         self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
 
-        self::assertInstanceOf('DateTime', $copiedLayout->getModified());
+        self::assertInstanceOf(DateTime::class, $copiedLayout->getModified());
         self::assertGreaterThan(0, $copiedLayout->getModified()->getTimestamp());
 
         self::assertEquals(
@@ -416,11 +418,11 @@ abstract class LayoutServiceTest extends ServiceTest
         $layout = $layoutService->loadLayout(1, Layout::STATUS_DRAFT);
         $publishedLayout = $layoutService->publishLayout($layout);
 
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $publishedLayout);
+        self::assertInstanceOf(Layout::class, $publishedLayout);
         self::assertEquals(Layout::STATUS_PUBLISHED, $publishedLayout->getStatus());
 
         $archivedLayout = $layoutService->loadLayout($layout->getId(), Layout::STATUS_ARCHIVED);
-        self::assertInstanceOf('Netgen\BlockManager\API\Values\Page\Layout', $archivedLayout);
+        self::assertInstanceOf(Layout::class, $archivedLayout);
 
         try {
             $layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);

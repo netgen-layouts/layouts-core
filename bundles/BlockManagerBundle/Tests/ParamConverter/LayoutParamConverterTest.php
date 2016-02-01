@@ -4,6 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\API\Service\LayoutService;
 
 class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +14,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSourceAttributeName()
     {
-        $layoutService = $this->getMock('Netgen\BlockManager\API\Service\LayoutService');
+        $layoutService = $this->getMock(LayoutService::class);
         $layoutParamConverter = new LayoutParamConverter($layoutService);
 
         self::assertEquals('layoutId', $layoutParamConverter->getSourceAttributeName());
@@ -23,7 +25,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        $layoutService = $this->getMock('Netgen\BlockManager\API\Service\LayoutService');
+        $layoutService = $this->getMock(LayoutService::class);
         $layoutParamConverter = new LayoutParamConverter($layoutService);
 
         self::assertEquals('layout', $layoutParamConverter->getDestinationAttributeName());
@@ -34,10 +36,10 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedClass()
     {
-        $layoutService = $this->getMock('Netgen\BlockManager\API\Service\LayoutService');
+        $layoutService = $this->getMock(LayoutService::class);
         $layoutParamConverter = new LayoutParamConverter($layoutService);
 
-        self::assertEquals('Netgen\BlockManager\API\Values\Page\Layout', $layoutParamConverter->getSupportedClass());
+        self::assertEquals(APILayout::class, $layoutParamConverter->getSupportedClass());
     }
 
     /**
@@ -48,7 +50,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $layout = new Layout();
 
-        $layoutService = $this->getMock('Netgen\BlockManager\API\Service\LayoutService');
+        $layoutService = $this->getMock(LayoutService::class);
         $layoutService
             ->expects($this->once())
             ->method('loadLayout')

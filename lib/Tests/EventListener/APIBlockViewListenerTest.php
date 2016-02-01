@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\EventListener;
 
+use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
@@ -10,6 +12,8 @@ use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\ViewInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
 class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
@@ -40,20 +44,15 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->blockServiceMock = $this->getMock(
-            'Netgen\BlockManager\API\Service\BlockService'
+            BlockService::class
         );
 
         $this->configurationMock = $this->getMock(
-            'Netgen\BlockManager\Configuration\ConfigurationInterface'
+            ConfigurationInterface::class
         );
 
-        $this->formFactoryMock = $this->getMock(
-            'Symfony\Component\Form\FormFactoryInterface'
-        );
-
-        $this->formMock = $this->getMock(
-            'Symfony\Component\Form\FormInterface'
-        );
+        $this->formFactoryMock = $this->getMock(FormFactoryInterface::class);
+        $this->formMock = $this->getMock(FormInterface::class);
 
         $this->formMock
             ->expects($this->any())
@@ -115,7 +114,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onBuildView($event);
 
         self::assertEquals(true, $event->getParameterBag()->has('form'));
-        self::assertInstanceOf('Symfony\Component\Form\FormView', $event->getParameterBag()->get('form'));
+        self::assertInstanceOf(FormView::class, $event->getParameterBag()->get('form'));
     }
 
     /**

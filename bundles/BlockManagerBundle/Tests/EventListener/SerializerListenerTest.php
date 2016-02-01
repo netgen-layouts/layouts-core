@@ -6,8 +6,10 @@ use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,7 +20,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $serializerMock = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $serializerMock = $this->getMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
         self::assertEquals(
@@ -35,7 +37,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $value = new SerializableValue(new Value(), 42);
 
-        $serializerMock = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $serializerMock = $this->getMock(SerializerInterface::class);
         $serializerMock
             ->expects($this->once())
             ->method('serialize')
@@ -49,7 +51,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -63,7 +65,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener->onView($event);
 
         self::assertInstanceOf(
-            'Symfony\Component\HttpFoundation\JsonResponse',
+            JsonResponse::class,
             $event->getResponse()
         );
 
@@ -78,10 +80,10 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewWithNoApiRequest()
     {
-        $serializerMock = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $serializerMock = $this->getMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForControllerResultEvent(
@@ -101,10 +103,10 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewInSubRequest()
     {
-        $serializerMock = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $serializerMock = $this->getMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForControllerResultEvent(
@@ -124,10 +126,10 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewWithoutSupportedValue()
     {
-        $serializerMock = $this->getMock('Symfony\Component\Serializer\SerializerInterface');
+        $serializerMock = $this->getMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

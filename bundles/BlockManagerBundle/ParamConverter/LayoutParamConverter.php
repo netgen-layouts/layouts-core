@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\Layout;
 
 class LayoutParamConverter extends ParamConverter
 {
@@ -48,7 +49,7 @@ class LayoutParamConverter extends ParamConverter
      */
     public function getSupportedClass()
     {
-        return 'Netgen\BlockManager\API\Values\Page\Layout';
+        return Layout::class;
     }
 
     /**

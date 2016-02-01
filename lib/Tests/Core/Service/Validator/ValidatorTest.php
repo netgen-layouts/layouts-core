@@ -3,8 +3,10 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Tests\Core\Service\Stubs\Validator;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,7 +21,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->validatorMock = $this->getMock(
-            'Symfony\Component\Validator\Validator\ValidatorInterface'
+            ValidatorInterface::class
         );
     }
 
@@ -60,7 +62,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                     new ConstraintViolationList(
                         array(
                             $this->getMock(
-                                'Symfony\Component\Validator\ConstraintViolationInterface'
+                                ConstraintViolationInterface::class
                             ),
                         )
                     )

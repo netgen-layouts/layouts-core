@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Form\Type;
 
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -42,8 +44,8 @@ class UpdateBlockType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('block');
-        $resolver->setAllowedTypes('block', 'Netgen\BlockManager\API\Values\Page\Block');
-        $resolver->setAllowedTypes('data', 'Netgen\BlockManager\API\Values\BlockUpdateStruct');
+        $resolver->setAllowedTypes('block', Block::class);
+        $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
     }
 
     /**

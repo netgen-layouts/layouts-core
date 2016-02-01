@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Service\Validator\BlockValidator;
+use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
@@ -24,11 +26,11 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->blockValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\BlockValidator')
+        $this->blockValidatorMock = $this->getMockBuilder(BlockValidator::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->layoutValidatorMock = $this->getMockBuilder('Netgen\BlockManager\Core\Service\Validator\LayoutValidator')
+        $this->layoutValidatorMock = $this->getMockBuilder(LayoutValidator::class)
             ->disableOriginalConstructor()
             ->getMock();
     }

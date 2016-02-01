@@ -11,6 +11,7 @@ use Netgen\BlockManager\Validator\Constraint\BlockParameters;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BlockValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,9 +25,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(
-            'Symfony\Component\Validator\Validator\ValidatorInterface'
-        );
+        $this->validatorMock = $this->getMock(ValidatorInterface::class);
     }
 
     /**

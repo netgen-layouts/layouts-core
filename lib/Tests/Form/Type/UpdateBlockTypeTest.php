@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Form\Type;
 
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -11,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UpdateBlockTypeTest extends TypeTestCase
 {
@@ -32,7 +35,7 @@ class UpdateBlockTypeTest extends TypeTestCase
         parent::setUp();
 
         $this->blockDefinitionRegistry = $this->getMock(
-            'Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface'
+            BlockDefinitionRegistryInterface::class
         );
 
         $this->blockDefinitionRegistry
@@ -42,7 +45,7 @@ class UpdateBlockTypeTest extends TypeTestCase
             ->will($this->returnValue(new BlockDefinition()));
 
         $this->configuration = $this->getMock(
-            'Netgen\BlockManager\Configuration\ConfigurationInterface'
+            ConfigurationInterface::class
         );
 
         $blockConfig = array(
@@ -58,7 +61,7 @@ class UpdateBlockTypeTest extends TypeTestCase
             ->with($this->equalTo('block_definition'))
             ->will($this->returnValue($blockConfig));
 
-        $validator = $this->getMock('Symfony\Component\Validator\Validator\ValidatorInterface');
+        $validator = $this->getMock(ValidatorInterface::class);
         $validator
             ->expects($this->any())
             ->method('validate')

@@ -3,6 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler as BlockHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler as LayoutHandler;
+use Doctrine\DBAL\Connection;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +28,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createPersistenceHandler();
 
         self::assertInstanceOf(
-            'Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler',
+            BlockHandler::class,
             $handler->getBlockHandler()
         );
     }
@@ -39,7 +42,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createPersistenceHandler();
 
         self::assertInstanceOf(
-            'Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler',
+            LayoutHandler::class,
             $handler->getLayoutHandler()
         );
     }
@@ -50,7 +53,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testBeginTransaction()
     {
         $databaseConnection = $this
-            ->getMockBuilder('Doctrine\DBAL\Connection')
+            ->getMockBuilder(Connection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -73,7 +76,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testCommitTransaction()
     {
         $databaseConnection = $this
-            ->getMockBuilder('Doctrine\DBAL\Connection')
+            ->getMockBuilder(Connection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -96,7 +99,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testRollbackTransaction()
     {
         $databaseConnection = $this
-            ->getMockBuilder('Doctrine\DBAL\Connection')
+            ->getMockBuilder(Connection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
