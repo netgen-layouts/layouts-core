@@ -47,7 +47,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -97,7 +98,7 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlock()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->name = 'My block';
@@ -113,7 +114,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_left',
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -126,7 +128,8 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->createBlock(
                 $blockCreateStruct,
-                $layoutService->loadZone(1, Layout::STATUS_DRAFT)
+                $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+                'top_left'
             )
         );
     }
@@ -137,7 +140,7 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlockWithBlankName()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->setParameter('some_param', 'some_value');
@@ -152,7 +155,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_left',
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -165,19 +169,20 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->createBlock(
                 $blockCreateStruct,
-                $layoutService->loadZone(1, Layout::STATUS_DRAFT)
+                $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+                'top_left'
             )
         );
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
-    public function testCreateBlockInNonDraftZoneThrowsBadStateException()
+    public function testCreateBlockWithNonExistingZoneThrowsNotFoundException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->name = 'My block';
@@ -186,7 +191,29 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockService->createBlock(
             $blockCreateStruct,
-            $layoutService->loadZone(1)
+            $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+            'non_existing'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateBlockInNonDraftLayoutThrowsBadStateException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        $blockService->createBlock(
+            $blockCreateStruct,
+            $layoutService->loadLayout(1),
+            'top_left'
         );
     }
 
@@ -214,7 +241,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -275,7 +303,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -316,7 +345,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -345,7 +375,8 @@ abstract class BlockServiceTest extends ServiceTest
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -366,13 +397,13 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCopyBlockToDifferentZone()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         self::assertEquals(
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 3,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -383,8 +414,22 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->copyBlock(
                 $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-                $layoutService->loadZone(3, Layout::STATUS_DRAFT)
+                'bottom'
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testCopyBlockWithNonExistingZoneThrowsNotFoundException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->copyBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            'non_existing'
         );
     }
 
@@ -402,48 +447,18 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCopyBlockToZoneInNonDraftStatusThrowsBadStateException()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
-
-        $blockService->copyBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            $layoutService->loadZone(3)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCopyBlockThrowsInvalidArgumentExceptionOnDifferentLayout()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
-
-        $blockService->copyBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            $layoutService->loadZone(4, Layout::STATUS_DRAFT)
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlock()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         self::assertEquals(
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 3,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -454,8 +469,22 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->moveBlock(
                 $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-                $layoutService->loadZone(3, Layout::STATUS_DRAFT)
+                'bottom'
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testMoveBlockInNonExistingZoneThrowsNotFoundException()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            'non_existing'
         );
     }
 
@@ -466,41 +495,10 @@ abstract class BlockServiceTest extends ServiceTest
     public function testMoveBlockInNonDraftStatusThrowsBadStateException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->moveBlock(
             $blockService->loadBlock(1),
-            $layoutService->loadZone(3, Layout::STATUS_DRAFT)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockToZoneInNonDraftStatusThrowsBadStateException()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
-
-        $blockService->moveBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            $layoutService->loadZone(3)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testMoveBlockThrowsInvalidArgumentExceptionOnDifferentLayout()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
-
-        $blockService->moveBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            $layoutService->loadZone(4, Layout::STATUS_DRAFT)
+            'bottom'
         );
     }
 
@@ -511,11 +509,10 @@ abstract class BlockServiceTest extends ServiceTest
     public function testMoveBlockThrowsInvalidArgumentExceptionOnSameZone()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock, $this->blockValidatorMock);
 
         $blockService->moveBlock(
             $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            $layoutService->loadZone(2, Layout::STATUS_DRAFT)
+            'top_right'
         );
     }
 

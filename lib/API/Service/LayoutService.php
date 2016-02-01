@@ -21,17 +21,18 @@ interface LayoutService
     public function loadLayout($layoutId, $status = Layout::STATUS_PUBLISHED);
 
     /**
-     * Loads a zone with specified ID.
+     * Loads a zone with specified identifier.
      *
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone ID has an invalid or empty value
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID or zone identifier have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function loadZone($zoneId, $status = Layout::STATUS_PUBLISHED);
+    public function loadZone($layoutId, $identifier, $status = Layout::STATUS_PUBLISHED);
 
     /**
      * Creates a layout.
@@ -47,13 +48,20 @@ interface LayoutService
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param bool $createNew
-     * @param int $status
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function copyLayout(Layout $layout);
+
+    /**
+     * Creates a new layout status.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT);
+    public function createLayoutStatus(Layout $layout, $newStatus);
 
     /**
      * Publishes a layout.

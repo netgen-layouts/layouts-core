@@ -55,7 +55,7 @@ class Handler implements BlockHandlerInterface
     public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
+        $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
             ->from('ngbm_block')
             ->where(
                 $query->expr()->andX(
@@ -77,25 +77,28 @@ class Handler implements BlockHandlerInterface
     }
 
     /**
-     * Loads all blocks from zone with specified ID.
+     * Loads all blocks from zone with specified identifier.
      *
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
      * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
-    public function loadZoneBlocks($zoneId, $status = Layout::STATUS_PUBLISHED)
+    public function loadZoneBlocks($layoutId, $zoneIdentifier, $status = Layout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'zone_id', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
+        $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
             ->from('ngbm_block')
             ->where(
                 $query->expr()->andX(
-                    $query->expr()->eq('zone_id', ':zone_id'),
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('zone_identifier', ':zone_identifier'),
                     $query->expr()->eq('status', ':status')
                 )
             )
-            ->setParameter('zone_id', $zoneId, Type::INTEGER)
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
@@ -110,18 +113,18 @@ class Handler implements BlockHandlerInterface
      * Creates a block in specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $zoneId)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier)
     {
-        // @TODO: Verify that zone has the same status as the block
-
         $query = $this->createBlockInsertQuery(
             array(
                 'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
-                'zone_id' => $zoneId,
+                'layout_id' => $layoutId,
+                'zone_identifier' => $zoneIdentifier,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
@@ -174,26 +177,32 @@ class Handler implements BlockHandlerInterface
     }
 
     /**
-     * Copies a block with specified ID to a zone with specified ID.
+     * Copies a block with specified ID to a zone with specified identifier.
      *
      * @param int|string $blockId
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
      * @param bool $createNew
      * @param int $status
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $zoneId = null, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
+    public function copyBlock($blockId, $layoutId = null, $zoneIdentifier = null, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
     {
-        // @TODO: Verify that zone has the same status as the block
+        // @TODO: Verify that layout has the same status as the block
 
         $originalBlock = $this->loadBlock($blockId, $status);
 
+        $newBlockId = $createNew ?
+            $this->connectionHelper->getAutoIncrementValue('ngbm_block') :
+            $blockId;
+
         $query = $this->createBlockInsertQuery(
             array(
-                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
-                'zone_id' => $zoneId !== null ? $zoneId : $originalBlock->zoneId,
+                'id' => $newBlockId,
+                'layout_id' => $layoutId !== null ? $layoutId : $originalBlock->layoutId,
+                'zone_identifier' => $zoneIdentifier !== null ? $zoneIdentifier : $originalBlock->zoneIdentifier,
                 'definition_identifier' => $originalBlock->definitionIdentifier,
                 'view_type' => $originalBlock->viewType,
                 'name' => $originalBlock->name,
@@ -206,31 +215,33 @@ class Handler implements BlockHandlerInterface
 
         // @TODO: Copy block items
 
+        $newBlockId = $createNew ?
+            (int)$this->connectionHelper->lastInsertId('ngbm_block') :
+            $blockId;
+
         return $this->loadBlock(
-            $this->connectionHelper->lastInsertId('ngbm_block'),
+            $newBlockId,
             $newStatus
         );
     }
 
     /**
-     * Moves a block to zone with specified ID.
+     * Moves a block to zone with specified identifier.
      *
      * @param int|string $blockId
-     * @param int|string $zoneId
+     * @param string $zoneIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $zoneId)
+    public function moveBlock($blockId, $zoneIdentifier)
     {
-        // @TODO: Verify that the zone has the same status as the block
-
         $block = $this->loadBlock($blockId, Layout::STATUS_DRAFT);
 
         $query = $this->connection->createQueryBuilder();
 
         $query
             ->update('ngbm_block')
-            ->set('zone_id', ':zone_id')
+            ->set('zone_identifier', ':zone_identifier')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('id', ':block_id'),
@@ -238,7 +249,7 @@ class Handler implements BlockHandlerInterface
                 )
             )
             ->setParameter('block_id', $block->id, Type::INTEGER)
-            ->setParameter('zone_id', $zoneId, Type::INTEGER)
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->setParameter('status', Layout::STATUS_DRAFT, Type::INTEGER);
 
         $query->execute();
@@ -271,12 +282,12 @@ class Handler implements BlockHandlerInterface
     }
 
     /**
-     * Deletes all blocks within the specified zone.
+     * Deletes all blocks within the specified layout.
      *
-     * @param int|string $zoneId
+     * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteZoneBlocks($zoneId, $status = null)
+    public function deleteLayoutBlocks($layoutId, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -284,18 +295,18 @@ class Handler implements BlockHandlerInterface
             $query->delete('ngbm_block')
                 ->where(
                     $query->expr()->andX(
-                        $query->expr()->in('zone_id', ':zone_id'),
+                        $query->expr()->in('layout_id', ':layout_id'),
                         $query->expr()->eq('status', ':status')
                     )
                 )
-                ->setParameter('zone_id', $zoneId, Type::INTEGER)
+                ->setParameter('layout_id', $layoutId, Type::INTEGER)
                 ->setParameter('status', $status, Type::INTEGER);
         } else {
             $query->delete('ngbm_block')
                 ->where(
-                    $query->expr()->in('zone_id', ':zone_id')
+                    $query->expr()->in('layout_id', ':layout_id')
                 )
-                ->setParameter('zone_id', $zoneId, Type::INTEGER);
+                ->setParameter('layout_id', $layoutId, Type::INTEGER);
         }
 
         $query->execute();
@@ -317,7 +328,8 @@ class Handler implements BlockHandlerInterface
             ->values(
                 array(
                     'id' => ':id',
-                    'zone_id' => ':zone_id',
+                    'layout_id' => ':layout_id',
+                    'zone_identifier' => ':zone_identifier',
                     'definition_identifier' => ':definition_identifier',
                     'view_type' => ':view_type',
                     'name' => ':name',
@@ -326,7 +338,8 @@ class Handler implements BlockHandlerInterface
                 )
             )
             ->setParameter('id', $parameters['id'], Type::INTEGER)
-            ->setParameter('zone_id', $parameters['zone_id'], Type::INTEGER)
+            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
+            ->setParameter('zone_identifier', $parameters['zone_identifier'], Type::STRING)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
             ->setParameter('view_type', $parameters['view_type'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)

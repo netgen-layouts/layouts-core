@@ -8,19 +8,14 @@ use Netgen\BlockManager\API\Values\Value;
 class Zone extends Value implements ZoneInterface
 {
     /**
-     * @var int|string
+     * @var string
      */
-    protected $id;
+    protected $identifier;
 
     /**
      * @var int|string
      */
     protected $layoutId;
-
-    /**
-     * @var string
-     */
-    protected $identifier;
 
     /**
      * @var int
@@ -33,13 +28,13 @@ class Zone extends Value implements ZoneInterface
     protected $blocks = array();
 
     /**
-     * Returns the zone ID.
+     * Returns zone identifier.
      *
-     * @return int|string
+     * @return string
      */
-    public function getId()
+    public function getIdentifier()
     {
-        return $this->id;
+        return $this->identifier;
     }
 
     /**
@@ -50,16 +45,6 @@ class Zone extends Value implements ZoneInterface
     public function getLayoutId()
     {
         return $this->layoutId;
-    }
-
-    /**
-     * Returns zone identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
     }
 
     /**

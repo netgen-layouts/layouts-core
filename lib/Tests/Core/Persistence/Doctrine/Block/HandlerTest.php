@@ -32,7 +32,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -68,7 +69,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 new Block(
                     array(
                         'id' => 1,
-                        'zoneId' => 2,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'top_right',
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
                             'some_param' => 'some_value',
@@ -81,7 +83,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 new Block(
                     array(
                         'id' => 2,
-                        'zoneId' => 2,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'top_right',
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
                             'other_param' => 'other_value',
@@ -92,7 +95,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
             ),
-            $handler->loadZoneBlocks(2)
+            $handler->loadZoneBlocks(1, 'top_right')
         );
     }
 
@@ -102,7 +105,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoadZoneBlocksForNonExistingZone()
     {
         $handler = $this->createBlockHandler();
-        self::assertEquals(array(), $handler->loadZoneBlocks(PHP_INT_MAX));
+        self::assertEquals(array(), $handler->loadZoneBlocks(1, 'non_existing'));
     }
 
     /**
@@ -123,7 +126,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 3,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -133,7 +137,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->createBlock($blockCreateStruct, 3)
+            $handler->createBlock($blockCreateStruct, 1, 'bottom')
         );
     }
 
@@ -153,7 +157,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -179,7 +184,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -204,7 +210,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 5,
-                    'zoneId' => 3,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -214,7 +221,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->copyBlock(1, 3)
+            $handler->copyBlock(1, 1, 'bottom')
         );
     }
 
@@ -229,7 +236,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 1,
-                    'zoneId' => 3,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -239,7 +247,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->moveBlock(1, 3)
+            $handler->moveBlock(1, 'bottom')
         );
     }
 
@@ -256,28 +264,28 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteZoneBlocks
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteLayoutBlocks
      */
-    public function testDeleteZoneBlocks()
+    public function testDeleteLayoutBlocks()
     {
         $handler = $this->createBlockHandler();
 
-        $handler->deleteZoneBlocks(2);
+        $handler->deleteLayoutBlocks(1);
 
-        self::assertEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_PUBLISHED));
-        self::assertEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_DRAFT));
+        self::assertEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED));
+        self::assertEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_DRAFT));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteZoneBlocks
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteLayoutBlocks
      */
-    public function testDeleteZoneBlocksInStatus()
+    public function testDeleteLayoutBlocksInStatus()
     {
         $handler = $this->createBlockHandler();
 
-        $handler->deleteZoneBlocks(2, APILayout::STATUS_DRAFT);
+        $handler->deleteLayoutBlocks(1, APILayout::STATUS_DRAFT);
 
-        self::assertNotEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_PUBLISHED));
-        self::assertEmpty($handler->loadZoneBlocks(2, APILayout::STATUS_DRAFT));
+        self::assertNotEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED));
+        self::assertEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_DRAFT));
     }
 }

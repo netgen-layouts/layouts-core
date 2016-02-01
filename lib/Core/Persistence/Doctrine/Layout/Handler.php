@@ -77,37 +77,70 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Loads a zone with specified ID.
+     * Loads a zone with specified identifier.
      *
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($zoneId, $status = APILayout::STATUS_PUBLISHED)
+    public function loadZone($layoutId, $identifier, $status = APILayout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'identifier', 'status')
+        $query->select('identifier', 'layout_id', 'status')
             ->from('ngbm_zone')
             ->where(
                 $query->expr()->andX(
-                    $query->expr()->eq('id', ':zone_id'),
+                    $query->expr()->eq('identifier', ':identifier'),
+                    $query->expr()->eq('layout_id', ':layout_id'),
                     $query->expr()->eq('status', ':status')
                 )
             )
-            ->setParameter('zone_id', $zoneId, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::STRING)
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('status', $status, Type::INTEGER);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
-            throw new NotFoundException('zone', $zoneId);
+            throw new NotFoundException('zone', $identifier);
         }
 
         $data = $this->mapper->mapZones($data);
 
         return reset($data);
+    }
+
+    /**
+     * Returns if zone with specified identifier exists in the layout.
+     *
+     * @param int|string $layoutId
+     * @param string $identifier
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function zoneExists($layoutId, $identifier, $status = APILayout::STATUS_PUBLISHED)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_zone')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('identifier', ':identifier'),
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('status', ':status')
+                )
+            )
+            ->setParameter('identifier', $identifier, Type::STRING)
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
     /**
@@ -121,7 +154,7 @@ class Handler implements LayoutHandlerInterface
     public function loadLayoutZones($layoutId, $status = APILayout::STATUS_PUBLISHED)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'identifier', 'status')
+        $query->select('identifier', 'layout_id', 'status')
             ->from('ngbm_zone')
             ->where(
                 $query->expr()->andX(
@@ -129,6 +162,7 @@ class Handler implements LayoutHandlerInterface
                     $query->expr()->eq('status', ':status')
                 )
             )
+            ->orderBy('identifier', 'ASC')
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('status', $status, Type::INTEGER);
 
@@ -171,9 +205,8 @@ class Handler implements LayoutHandlerInterface
         foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
             $zoneQuery = $this->createZoneInsertQuery(
                 array(
-                    'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_zone'),
-                    'layout_id' => $createdLayoutId,
                     'identifier' => $zoneIdentifier,
+                    'layout_id' => $createdLayoutId,
                     'status' => $layoutCreateStruct->status,
                 )
             );
@@ -223,15 +256,10 @@ class Handler implements LayoutHandlerInterface
             $layoutId;
 
         foreach ($originalZones as $originalZone) {
-            $newZoneId = $createNew ?
-                $this->connectionHelper->getAutoIncrementValue('ngbm_zone') :
-                $originalZone->id;
-
             $zoneQuery = $this->createZoneInsertQuery(
                 array(
-                    'id' => $newZoneId,
-                    'layout_id' => $copiedLayoutId,
                     'identifier' => $originalZone->identifier,
+                    'layout_id' => $copiedLayoutId,
                     'status' => $newStatus,
                 )
             );
@@ -361,15 +389,13 @@ class Handler implements LayoutHandlerInterface
             ->insert('ngbm_zone')
             ->values(
                 array(
-                    'id' => ':id',
-                    'layout_id' => ':layout_id',
                     'identifier' => ':identifier',
+                    'layout_id' => ':layout_id',
                     'status' => ':status',
                 )
             )
-            ->setParameter('id', $parameters['id'], Type::INTEGER)
-            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
+            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
             ->setParameter('status', $parameters['status'], Type::INTEGER);
     }
 
@@ -420,19 +446,7 @@ class Handler implements LayoutHandlerInterface
             ->set('status', ':new_status')
             ->where(
                 $query->expr()->andX(
-                    $query->expr()->in(
-                        'zone_id',
-                        $this->connection->createQueryBuilder()
-                            ->select('zone_id')
-                            ->from('ngbm_zone')
-                            ->where(
-                                $query->expr()->andX(
-                                    $query->expr()->eq('layout_id', ':layout_id'),
-                                    $query->expr()->eq('status', ':status')
-                                )
-                            )
-                            ->getSQL()
-                    ),
+                    $query->expr()->eq('layout_id', ':layout_id'),
                     $query->expr()->eq('status', ':status')
                 )
             )

@@ -14,11 +14,18 @@ class Block extends Value
     public $id;
 
     /**
-     * Zone ID to which this block belongs.
+     * Layout ID.
      *
      * @var int|string
      */
-    public $zoneId;
+    public $layoutId;
+
+    /**
+     * Zone identifier to which this block belongs.
+     *
+     * @var string
+     */
+    public $zoneIdentifier;
 
     /**
      * Block definition identifier.

@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Zone;
 
 interface BlockService
 {
@@ -24,16 +23,18 @@ interface BlockService
     public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED);
 
     /**
-     * Creates a block in specified zone.
+     * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Zone $zone);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier);
 
     /**
      * Updates a specified block.
@@ -41,7 +42,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -52,33 +53,33 @@ interface BlockService
      * placed in it, otherwise, it will be placed in the same zone where source block is.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block or zone are not in a draft status
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlock(Block $block, Zone $zone = null);
+    public function copyBlock(Block $block, $zoneIdentifier = null);
 
     /**
      * Moves a block to specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
-     *                                                                     If target zone is the same as current zone
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block or zone are not in a draft status
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If target zone is the same as current zone
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, Zone $zone);
+    public function moveBlock(Block $block, $zoneIdentifier);
 
     /**
      * Deletes a specified block.
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      */

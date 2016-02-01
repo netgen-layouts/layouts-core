@@ -10,7 +10,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
@@ -22,7 +23,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         $block = new Block();
 
         self::assertNull($block->getId());
-        self::assertNull($block->getZoneId());
+        self::assertNull($block->getLayoutId());
+        self::assertNull($block->getZoneIdentifier());
         self::assertNull($block->getDefinitionIdentifier());
         self::assertEquals(array(), $block->getParameters());
         self::assertNull($block->getViewType());
@@ -33,7 +35,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
@@ -45,7 +48,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         $block = new Block(
             array(
                 'id' => 42,
-                'zoneId' => 84,
+                'layoutId' => 84,
+                'zoneIdentifier' => 'top_left',
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -58,7 +62,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         );
 
         self::assertEquals(42, $block->getId());
-        self::assertEquals(84, $block->getZoneId());
+        self::assertEquals(84, $block->getLayoutId());
+        self::assertEquals('top_left', $block->getZoneIdentifier());
         self::assertEquals('paragraph', $block->getDefinitionIdentifier());
         self::assertEquals(
             array(

@@ -73,28 +73,45 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Loads a zone with specified ID.
+     * Loads a zone with specified identifier.
      *
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone ID has an invalid or empty value
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID or zone identifier have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function loadZone($zoneId, $status = Layout::STATUS_PUBLISHED)
+    public function loadZone($layoutId, $identifier, $status = Layout::STATUS_PUBLISHED)
     {
-        if (!is_int($zoneId) && !is_string($zoneId)) {
-            throw new InvalidArgumentException('zoneId', 'Value must be an integer or a string.');
+        if (!is_int($layoutId) && !is_string($layoutId)) {
+            throw new InvalidArgumentException('layoutId', 'Value must be an integer or a string.');
         }
 
-        if (empty($zoneId)) {
-            throw new InvalidArgumentException('zoneId', 'Value must not be empty.');
+        if (empty($layoutId)) {
+            throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
         }
+
+        if (!is_string($identifier)) {
+            throw new InvalidArgumentException('identifier', 'Value must be a string.');
+        }
+
+        if (empty($identifier)) {
+            throw new InvalidArgumentException('identifier', 'Value must not be empty.');
+        }
+
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
+
+        $layout = $layoutHandler->loadLayout($layoutId);
 
         return $this->mapper->mapZone(
-            $this->persistenceHandler->getLayoutHandler()->loadZone($zoneId, $status)
+            $layoutHandler->loadZone(
+                $layout->id,
+                $identifier,
+                $status
+            )
         );
     }
 
@@ -131,44 +148,77 @@ class LayoutService implements LayoutServiceInterface
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param bool $createNew
-     * @param int $status
-     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout, $createNew = true, $status = Layout::STATUS_PUBLISHED, $newStatus = Layout::STATUS_DRAFT)
+    public function copyLayout(Layout $layout)
     {
-        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
         $blockHandler = $this->persistenceHandler->getBlockHandler();
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $layoutHandler->copyLayout(
+            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout(
                 $layout->getId(),
-                $createNew,
-                $status,
+                true,
+                Layout::STATUS_PUBLISHED,
+                Layout::STATUS_DRAFT
+            );
+
+            foreach ($layout->getZones() as $zone) {
+                foreach ($zone->getBlocks() as $block) {
+                    $blockHandler->copyBlock(
+                        $block->getId(),
+                        $copiedLayout->id,
+                        $zone->getIdentifier(),
+                        true,
+                        Layout::STATUS_PUBLISHED,
+                        Layout::STATUS_DRAFT
+                    );
+                }
+            }
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->mapper->mapLayout($copiedLayout);
+    }
+
+    /**
+     * Creates a new layout status.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function createLayoutStatus(Layout $layout, $newStatus)
+    {
+        $blockHandler = $this->persistenceHandler->getBlockHandler();
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout(
+                $layout->getId(),
+                false,
+                $layout->getStatus(),
                 $newStatus
             );
 
-            $copiedZones = $layoutHandler->loadLayoutZones($copiedLayout->id, $newStatus);
-
-            foreach ($layout->getZones() as $originalZone) {
-                foreach ($copiedZones as $copiedZone) {
-                    if ($copiedZone->identifier !== $originalZone->getIdentifier()) {
-                        continue;
-                    }
-
-                    foreach ($originalZone->getBlocks() as $block) {
-                        $blockHandler->copyBlock(
-                            $block->getId(),
-                            $copiedZone->id,
-                            $createNew,
-                            $status,
-                            $newStatus
-                        );
-                    }
+            foreach ($layout->getZones() as $zone) {
+                foreach ($zone->getBlocks() as $block) {
+                    $blockHandler->copyBlock(
+                        $block->getId(),
+                        $layout->getId(),
+                        $zone->getIdentifier(),
+                        false,
+                        $layout->getStatus(),
+                        $newStatus
+                    );
                 }
             }
         } catch (Exception $e) {
@@ -222,13 +272,8 @@ class LayoutService implements LayoutServiceInterface
     {
         $this->persistenceHandler->beginTransaction();
 
-        $blockHandler = $this->persistenceHandler->getBlockHandler();
-
         try {
-            foreach ($layout->getZones() as $zone) {
-                $blockHandler->deleteZoneBlocks($zone->getId(), $status);
-            }
-
+            $this->persistenceHandler->getBlockHandler()->deleteLayoutBlocks($layout->getId(), $status);
             $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId(), $status);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

@@ -28,7 +28,8 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         $persistenceBlock = new Block(
             array(
                 'id' => 1,
-                'zoneId' => 2,
+                'layoutId' => 1,
+                'zoneIdentifier' => 'top_right',
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -44,7 +45,8 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(APIBlock::class, $block);
         self::assertEquals(1, $block->getId());
-        self::assertEquals(2, $block->getZoneId());
+        self::assertEquals(1, $block->getLayoutId());
+        self::assertEquals('top_right', $block->getZoneIdentifier());
         self::assertEquals('paragraph', $block->getDefinitionIdentifier());
         self::assertEquals(array('some_param' => 'some_value'), $block->getParameters());
         self::assertEquals('default', $block->getViewType());
@@ -59,9 +61,8 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
     {
         $persistenceZone = new Zone(
             array(
-                'id' => 2,
-                'layoutId' => 1,
                 'identifier' => 'top_right',
+                'layoutId' => 1,
                 'status' => APILayout::STATUS_PUBLISHED,
             )
         );
@@ -70,9 +71,8 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         $zone = $mapper->mapZone($persistenceZone);
 
         self::assertInstanceOf(APIZone::class, $zone);
-        self::assertEquals(2, $zone->getId());
-        self::assertEquals(1, $zone->getLayoutId());
         self::assertEquals('top_right', $zone->getIdentifier());
+        self::assertEquals(1, $zone->getLayoutId());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
 
         self::assertNotEmpty($zone->getBlocks());

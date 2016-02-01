@@ -25,7 +25,8 @@ class Mapper
             $blocks[] = new Block(
                 array(
                     'id' => (int)$dataItem['id'],
-                    'zoneId' => (int)$dataItem['zone_id'],
+                    'layoutId' => (int)$dataItem['layout_id'],
+                    'zoneIdentifier' => $dataItem['zone_identifier'],
                     'definitionIdentifier' => $dataItem['definition_identifier'],
                     'parameters' => is_array($parameters) ? $parameters : array(),
                     'viewType' => $dataItem['view_type'],

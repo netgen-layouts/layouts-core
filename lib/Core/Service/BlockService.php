@@ -12,8 +12,8 @@ use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Exception;
 
@@ -78,19 +78,25 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
-     * Creates a block in specified zone.
+     * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Zone $zone)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier)
     {
-        if ($zone->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('zone', 'Blocks can only be created in draft zones.');
+        if ($layout->getStatus() !== Layout::STATUS_DRAFT) {
+            throw new BadStateException('layout', 'Blocks can only be created in draft layouts.');
+        }
+
+        if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($layout->getId(), $zoneIdentifier, Layout::STATUS_DRAFT)) {
+            throw new NotFoundException('zoneIdentifier', 'Specified zone does not exist in the layout.');
         }
 
         if ($blockCreateStruct->name === null) {
@@ -104,7 +110,8 @@ class BlockService implements BlockServiceInterface
         try {
             $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock(
                 $blockCreateStruct,
-                $zone->getId()
+                $layout->getId(),
+                $zoneIdentifier
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -122,7 +129,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -170,31 +177,28 @@ class BlockService implements BlockServiceInterface
      * placed in it, otherwise, it will be placed in the same zone where source block is.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block or zone are not in a draft status
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlock(Block $block, Zone $zone = null)
+    public function copyBlock(Block $block, $zoneIdentifier = null)
     {
-        if ($zone instanceof Zone) {
-            $originalZone = $this->persistenceHandler->getLayoutHandler()->loadZone($block->getZoneId());
-            if ($zone->getLayoutId() !== $originalZone->layoutId) {
-                throw new InvalidArgumentException(
-                    'zone->layoutId',
-                    'Block cannot be copied to a different layout.'
-                );
-            }
-
-            if ($zone->getStatus() !== Layout::STATUS_DRAFT) {
-                throw new BadStateException('zone', 'Blocks can only be copied to a zone in draft status.');
-            }
-        }
-
         if ($block->getStatus() !== Layout::STATUS_DRAFT) {
             throw new BadStateException('block', 'Only blocks in draft status can be copied.');
+        }
+
+        if (
+            $zoneIdentifier !== null &&
+            !$this->persistenceHandler->getLayoutHandler()->zoneExists(
+                $block->getLayoutId(),
+                $zoneIdentifier,
+                Layout::STATUS_DRAFT
+            )
+        ) {
+            throw new NotFoundException('zoneIdentifier', 'Specified zone does not exist in the layout.');
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -202,7 +206,8 @@ class BlockService implements BlockServiceInterface
         try {
             $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
                 $block->getId(),
-                $zone !== null ? $zone->getId() : null
+                $block->getLayoutId(),
+                $zoneIdentifier
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -218,37 +223,29 @@ class BlockService implements BlockServiceInterface
      * Moves a block to specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If specified zone is in a different layout
-     *                                                                     If target zone is the same as current zone
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block or zone are not in a draft status
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If target zone is the same as current zone
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, Zone $zone)
+    public function moveBlock(Block $block, $zoneIdentifier)
     {
-        $originalZone = $this->persistenceHandler->getLayoutHandler()->loadZone($block->getZoneId());
-        if ($zone->getLayoutId() !== $originalZone->layoutId) {
-            throw new InvalidArgumentException(
-                'zone->layoutId',
-                'Block cannot be moved to a different layout.'
-            );
-        }
-
-        if ($block->getZoneId() === $zone->getId()) {
+        if ($block->getZoneIdentifier() === $zoneIdentifier) {
             throw new InvalidArgumentException(
                 'zone->id',
                 'Block is already in specified zone.'
             );
         }
 
-        if ($zone->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('zone', 'Blocks can only be moved to a zone in draft status.');
-        }
-
         if ($block->getStatus() !== Layout::STATUS_DRAFT) {
             throw new BadStateException('block', 'Only blocks in draft status can be moved.');
+        }
+
+        if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, Layout::STATUS_DRAFT)) {
+            throw new NotFoundException('zoneIdentifier', 'Specified zone does not exist in the layout.');
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -256,7 +253,7 @@ class BlockService implements BlockServiceInterface
         try {
             $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock(
                 $block->getId(),
-                $zone->getId()
+                $zoneIdentifier
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -271,7 +268,7 @@ class BlockService implements BlockServiceInterface
     /**
      * Deletes a specified block.
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      */

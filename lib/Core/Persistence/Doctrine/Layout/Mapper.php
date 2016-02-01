@@ -49,9 +49,8 @@ class Mapper
         foreach ($data as $dataItem) {
             $zones[] = new Zone(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'layoutId' => (int)$dataItem['layout_id'],
                     'identifier' => $dataItem['identifier'],
+                    'layoutId' => (int)$dataItem['layout_id'],
                     'status' => (int)$dataItem['status'],
                 )
             );

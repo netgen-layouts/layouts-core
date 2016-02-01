@@ -13,9 +13,8 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
     {
         $zone = new Zone();
 
-        self::assertNull($zone->id);
-        self::assertNull($zone->layoutId);
         self::assertNull($zone->identifier);
+        self::assertNull($zone->layoutId);
     }
 
     /**
@@ -25,14 +24,12 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
     {
         $zone = new Zone(
             array(
-                'id' => 42,
-                'layoutId' => 84,
                 'identifier' => 'top_left',
+                'layoutId' => 84,
             )
         );
 
-        self::assertEquals(42, $zone->id);
-        self::assertEquals(84, $zone->layoutId);
         self::assertEquals('top_left', $zone->identifier);
+        self::assertEquals(84, $zone->layoutId);
     }
 }

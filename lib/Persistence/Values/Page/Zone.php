@@ -7,11 +7,11 @@ use Netgen\BlockManager\Persistence\Values\Value;
 class Zone extends Value
 {
     /**
-     * Zone ID.
+     * Zone identifier.
      *
-     * @var int|string
+     * @var string
      */
-    public $id;
+    public $identifier;
 
     /**
      * Layout ID to which this zone belongs.
@@ -19,13 +19,6 @@ class Zone extends Value
      * @var int|string
      */
     public $layoutId;
-
-    /**
-     * Zone identifier.
-     *
-     * @var string
-     */
-    public $identifier;
 
     /**
      * Zone status. One of Layout::STATUS_* flags.

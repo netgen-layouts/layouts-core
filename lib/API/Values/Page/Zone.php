@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\API\Values\Page;
 interface Zone
 {
     /**
-     * Returns the zone ID.
+     * Returns zone identifier.
      *
-     * @return int|string
+     * @return string
      */
-    public function getId();
+    public function getIdentifier();
 
     /**
      * Returns the layout ID to which this zone belongs.
@@ -17,13 +17,6 @@ interface Zone
      * @return int|string
      */
     public function getLayoutId();
-
-    /**
-     * Returns zone identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier();
 
     /**
      * Returns the status of the zone.

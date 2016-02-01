@@ -76,14 +76,14 @@ class BlockController extends Controller
      * Creates the block from specified block type.
      *
      * @param string $identifier
-     * @param int|string $zoneId
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $zoneIdentifier
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create($identifier, $zoneId)
+    public function create($identifier, Layout $layout, $zoneIdentifier)
     {
         $blockService = $this->get('netgen_block_manager.api.service.block');
-        $layoutService = $this->get('netgen_block_manager.api.service.layout');
         $configuration = $this->get('netgen_block_manager.configuration');
 
         $defaultValues = $configuration->getBlockTypeConfig($identifier)['defaults'];
@@ -98,7 +98,8 @@ class BlockController extends Controller
 
         $createdBlock = $blockService->createBlock(
             $blockCreateStruct,
-            $layoutService->loadZone($zoneId)
+            $layout,
+            $zoneIdentifier
         );
 
         return $this->redirectToRoute(

@@ -65,13 +65,12 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Zone(
                 array(
-                    'id' => 1,
-                    'layoutId' => 1,
                     'identifier' => 'top_left',
+                    'layoutId' => 1,
                     'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
-            $handler->loadZone(1)
+            $handler->loadZone(1, 'top_left')
         );
     }
 
@@ -79,10 +78,40 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
-    public function testLoadZoneThrowsNotFoundException()
+    public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
         $handler = $this->createLayoutHandler();
-        $handler->loadZone(PHP_INT_MAX);
+        $handler->loadZone(PHP_INT_MAX, 'bottom');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
+    {
+        $handler = $this->createLayoutHandler();
+        $handler->loadZone(1, 'non_existing');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::zoneExists
+     */
+    public function testZoneExists()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(true, $handler->zoneExists(1, 'top_left'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::zoneExists
+     */
+    public function testZoneNotExists()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(false, $handler->zoneExists(1, 'non_existing'));
     }
 
     /**
@@ -96,25 +125,22 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Zone(
                     array(
-                        'id' => 1,
-                        'layoutId' => 1,
-                        'identifier' => 'top_left',
-                        'status' => APILayout::STATUS_PUBLISHED,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'id' => 2,
-                        'layoutId' => 1,
-                        'identifier' => 'top_right',
-                        'status' => APILayout::STATUS_PUBLISHED,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'id' => 3,
-                        'layoutId' => 1,
                         'identifier' => 'bottom',
+                        'layoutId' => 1,
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top_left',
+                        'layoutId' => 1,
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top_right',
+                        'layoutId' => 1,
                         'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
@@ -166,17 +192,15 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Zone(
                     array(
-                        'id' => 7,
-                        'layoutId' => 3,
                         'identifier' => 'first_zone',
+                        'layoutId' => 3,
                         'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
                     array(
-                        'id' => 8,
-                        'layoutId' => 3,
                         'identifier' => 'second_zone',
+                        'layoutId' => 3,
                         'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
@@ -219,17 +243,15 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Zone(
                     array(
-                        'id' => 7,
-                        'layoutId' => 3,
                         'identifier' => 'first_zone',
+                        'layoutId' => 3,
                         'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
                     array(
-                        'id' => 8,
-                        'layoutId' => 3,
                         'identifier' => 'second_zone',
+                        'layoutId' => 3,
                         'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
@@ -267,25 +289,22 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Zone(
                     array(
-                        'id' => 7,
-                        'layoutId' => 3,
-                        'identifier' => 'top_left',
-                        'status' => APILayout::STATUS_DRAFT,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'id' => 8,
-                        'layoutId' => 3,
-                        'identifier' => 'top_right',
-                        'status' => APILayout::STATUS_DRAFT,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'id' => 9,
-                        'layoutId' => 3,
                         'identifier' => 'bottom',
+                        'layoutId' => 3,
+                        'status' => APILayout::STATUS_DRAFT,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top_left',
+                        'layoutId' => 3,
+                        'status' => APILayout::STATUS_DRAFT,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top_right',
+                        'layoutId' => 3,
                         'status' => APILayout::STATUS_DRAFT,
                     )
                 ),
@@ -333,13 +352,13 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
         $zones = $handler->loadLayoutZones($copiedLayout->id, $copiedLayout->status);
 
-        self::assertEquals(1, $zones[0]->id);
+        self::assertEquals('bottom', $zones[0]->identifier);
         self::assertEquals(1, $zones[0]->layoutId);
 
-        self::assertEquals(2, $zones[1]->id);
+        self::assertEquals('top_left', $zones[1]->identifier);
         self::assertEquals(1, $zones[1]->layoutId);
 
-        self::assertEquals(3, $zones[2]->id);
+        self::assertEquals('top_right', $zones[2]->identifier);
         self::assertEquals(1, $zones[2]->layoutId);
     }
 
@@ -376,19 +395,14 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = $this->createLayoutHandler();
 
-        $layoutZones = $handler->loadLayoutZones(1);
-
-        // We need to delete the blocks and block items from zones
-        // to be able to delete the zones themselves
-        foreach ($layoutZones as $layoutZone) {
-            $query = $this->databaseConnection->createQueryBuilder();
-            $query->delete('ngbm_block')
-                ->where(
-                    $query->expr()->eq('zone_id', ':zone_id')
-                )
-                ->setParameter('zone_id', $layoutZone->id);
-            $query->execute();
-        }
+        // We need to delete the blocks and block items to delete the layout
+        $query = $this->databaseConnection->createQueryBuilder();
+        $query->delete('ngbm_block')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', 1);
+        $query->execute();
 
         $handler->deleteLayout(1);
 
@@ -403,23 +417,18 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = $this->createLayoutHandler();
 
-        $layoutZones = $handler->loadLayoutZones(1, APILayout::STATUS_DRAFT);
-
-        // We need to delete the blocks and block items from zones
-        // to be able to delete the zones themselves
-        foreach ($layoutZones as $layoutZone) {
-            $query = $this->databaseConnection->createQueryBuilder();
-            $query->delete('ngbm_block')
-                ->where(
-                    $query->expr()->andX(
-                        $query->expr()->eq('zone_id', ':zone_id'),
-                        $query->expr()->eq('status', ':status')
-                    )
+        // We need to delete the blocks and block items to delete the layout
+        $query = $this->databaseConnection->createQueryBuilder();
+        $query->delete('ngbm_block')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('status', ':status')
                 )
-                ->setParameter('zone_id', $layoutZone->id)
-                ->setParameter('status', APILayout::STATUS_DRAFT);
-            $query->execute();
-        }
+            )
+            ->setParameter('layout_id', 1)
+            ->setParameter('status', APILayout::STATUS_DRAFT);
+        $query->execute();
 
         $handler->deleteLayout(1, APILayout::STATUS_DRAFT);
 

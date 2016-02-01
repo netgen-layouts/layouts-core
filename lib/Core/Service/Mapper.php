@@ -40,7 +40,8 @@ class Mapper implements MapperInterface
     {
         $blockData = array(
             'id' => $block->id,
-            'zoneId' => $block->zoneId,
+            'layoutId' => $block->layoutId,
+            'zoneIdentifier' => $block->zoneIdentifier,
             'definitionIdentifier' => $block->definitionIdentifier,
             'parameters' => $block->parameters,
             'viewType' => $block->viewType,
@@ -61,7 +62,9 @@ class Mapper implements MapperInterface
     public function mapZone(PersistenceZone $zone)
     {
         $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks(
-            $zone->id, $zone->status
+            $zone->layoutId,
+            $zone->identifier,
+            $zone->status
         );
 
         $blocks = array();
@@ -70,9 +73,8 @@ class Mapper implements MapperInterface
         }
 
         $zoneData = array(
-            'id' => $zone->id,
-            'layoutId' => $zone->layoutId,
             'identifier' => $zone->identifier,
+            'layoutId' => $zone->layoutId,
             'status' => $zone->status,
             'blocks' => $blocks,
         );

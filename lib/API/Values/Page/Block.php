@@ -12,11 +12,18 @@ interface Block
     public function getId();
 
     /**
-     * Returns zone ID to which this block belongs.
+     * Returns layout ID to which this block belongs.
      *
      * @return int|string
      */
-    public function getZoneId();
+    public function getLayoutId();
+
+    /**
+     * Returns zone identifier to which this block belongs.
+     *
+     * @return string
+     */
+    public function getZoneIdentifier();
 
     /**
      * Returns block definition identifier.

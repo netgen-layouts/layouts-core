@@ -16,7 +16,8 @@ class MapperTest extends \PHPUnit_Framework_TestCase
         $data = array(
             array(
                 'id' => 42,
-                'zone_id' => 24,
+                'layout_id' => 24,
+                'zone_identifier' => 'bottom',
                 'definition_identifier' => 'paragraph',
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
@@ -25,7 +26,8 @@ class MapperTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'id' => 84,
-                'zone_id' => 48,
+                'layout_id' => 48,
+                'zone_identifier' => 'top',
                 'definition_identifier' => 'title',
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
@@ -38,7 +40,8 @@ class MapperTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 42,
-                    'zoneId' => 24,
+                    'layoutId' => 24,
+                    'zoneIdentifier' => 'bottom',
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'param1' => 'param2',
@@ -51,7 +54,8 @@ class MapperTest extends \PHPUnit_Framework_TestCase
             new Block(
                 array(
                     'id' => 84,
-                    'zoneId' => 48,
+                    'layoutId' => 48,
+                    'zoneIdentifier' => 'top',
                     'definitionIdentifier' => 'title',
                     'parameters' => array(
                         'param1' => 42,

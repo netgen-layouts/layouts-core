@@ -71,15 +71,13 @@ class MapperTest extends \PHPUnit_Framework_TestCase
     {
         $data = array(
             array(
-                'id' => 1,
-                'layout_id' => 1,
                 'identifier' => 'top_left',
+                'layout_id' => 1,
                 'status' => APILayout::STATUS_PUBLISHED,
             ),
             array(
-                'id' => 2,
-                'layout_id' => 1,
                 'identifier' => 'top_right',
+                'layout_id' => 1,
                 'status' => APILayout::STATUS_PUBLISHED,
             ),
         );
@@ -87,17 +85,15 @@ class MapperTest extends \PHPUnit_Framework_TestCase
         $expectedData = array(
             new Zone(
                 array(
-                    'id' => 1,
-                    'layoutId' => 1,
                     'identifier' => 'top_left',
+                    'layoutId' => 1,
                     'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),
             new Zone(
                 array(
-                    'id' => 2,
-                    'layoutId' => 1,
                     'identifier' => 'top_right',
+                    'layoutId' => 1,
                     'status' => APILayout::STATUS_PUBLISHED,
                 )
             ),

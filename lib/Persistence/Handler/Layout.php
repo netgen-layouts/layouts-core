@@ -20,16 +20,28 @@ interface Layout
     public function loadLayout($layoutId, $status = LayoutValue::STATUS_PUBLISHED);
 
     /**
-     * Loads a zone with specified ID.
+     * Loads a zone with specified identifier.
      *
-     * @param int|string $zoneId
+     * @param int|string $layoutId
+     * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone with specified ID does not exist
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($zoneId, $status = LayoutValue::STATUS_PUBLISHED);
+    public function loadZone($layoutId, $identifier, $status = LayoutValue::STATUS_PUBLISHED);
+
+    /**
+     * Returns if zone with specified identifier exists in the layout.
+     *
+     * @param int|string $layoutId
+     * @param string $identifier
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function zoneExists($layoutId, $identifier, $status = LayoutValue::STATUS_PUBLISHED);
 
     /**
      * Loads all zones that belong to layout with specified ID.

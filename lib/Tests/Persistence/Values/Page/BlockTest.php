@@ -14,7 +14,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         $block = new Block();
 
         self::assertNull($block->id);
-        self::assertNull($block->zoneId);
+        self::assertNull($block->layoutId);
+        self::assertNull($block->zoneIdentifier);
         self::assertNull($block->definitionIdentifier);
         self::assertNull($block->parameters);
         self::assertNull($block->viewType);
@@ -29,7 +30,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         $block = new Block(
             array(
                 'id' => 42,
-                'zoneId' => 84,
+                'layoutId' => 84,
+                'zoneIdentifier' => 'top',
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -41,7 +43,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         );
 
         self::assertEquals(42, $block->id);
-        self::assertEquals(84, $block->zoneId);
+        self::assertEquals(84, $block->layoutId);
+        self::assertEquals('top', $block->zoneIdentifier);
         self::assertEquals('paragraph', $block->definitionIdentifier);
         self::assertEquals(
             array(

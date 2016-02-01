@@ -15,7 +15,12 @@ class Block extends Value implements BlockInterface
     /**
      * @var int|string
      */
-    protected $zoneId;
+    protected $layoutId;
+
+    /**
+     * @var string
+     */
+    protected $zoneIdentifier;
 
     /**
      * @var string
@@ -53,13 +58,23 @@ class Block extends Value implements BlockInterface
     }
 
     /**
-     * Returns zone ID to which this block belongs.
+     * Returns layout ID to which this block belongs.
      *
      * @return int|string
      */
-    public function getZoneId()
+    public function getLayoutId()
     {
-        return $this->zoneId;
+        return $this->layoutId;
+    }
+
+    /**
+     * Returns zone identifier to which this block belongs.
+     *
+     * @return string
+     */
+    public function getZoneIdentifier()
+    {
+        return $this->zoneIdentifier;
     }
 
     /**
