@@ -3,11 +3,14 @@
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Layout;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Core\Values\BlockCreateStruct;
+use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Page\Block;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -159,6 +162,94 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::__construct
+     */
+    public function testLoadBlock()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_PUBLISHED,
+                )
+            ),
+            $handler->loadBlock(1)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testLoadBlockThrowsNotFoundException()
+    {
+        $handler = $this->createLayoutHandler();
+        $handler->loadBlock(PHP_INT_MAX);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadZoneBlocks
+     */
+    public function testLoadZoneBlocks()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            array(
+                new Block(
+                    array(
+                        'id' => 1,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'top_right',
+                        'definitionIdentifier' => 'paragraph',
+                        'parameters' => array(
+                            'some_param' => 'some_value',
+                        ),
+                        'viewType' => 'default',
+                        'name' => 'My block',
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Block(
+                    array(
+                        'id' => 2,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'top_right',
+                        'definitionIdentifier' => 'title',
+                        'parameters' => array(
+                            'other_param' => 'other_value',
+                        ),
+                        'viewType' => 'small',
+                        'name' => 'My other block',
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+            ),
+            $handler->loadZoneBlocks(1, 'top_right')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::loadZoneBlocks
+     */
+    public function testLoadZoneBlocksForNonExistingZone()
+    {
+        $handler = $this->createLayoutHandler();
+        self::assertEquals(array(), $handler->loadZoneBlocks(1, 'non_existing'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayout
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
@@ -257,6 +348,70 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 ),
             ),
             $handler->loadLayoutZones($createdLayout->id, $createdLayout->status)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlockInsertQuery
+     */
+    public function testCreateBlock()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('a_param', 'A value');
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
+                    'definitionIdentifier' => 'new_block',
+                    'parameters' => array(
+                        'a_param' => 'A value',
+                    ),
+                    'viewType' => 'large',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->createBlock($blockCreateStruct, 1, 'bottom')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::updateBlock
+     */
+    public function testUpdateBlock()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->name = 'My block';
+        $blockUpdateStruct->viewType = 'large';
+        $blockUpdateStruct->setParameter('a_param', 'A value');
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'a_param' => 'A value',
+                    ),
+                    'viewType' => 'large',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->updateBlock(1, $blockUpdateStruct)
         );
     }
 
@@ -363,6 +518,85 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::copyBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::createBlockInsertQuery
+     */
+    public function testCopyBlock()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->copyBlock(1)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::copyBlock
+     */
+    public function testCopyBlockToDifferentZone()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->copyBlock(1, 1, 'bottom')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::moveBlock
+     */
+    public function testMoveBlock()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->moveBlock(1, 'bottom')
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::publishLayout
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateLayoutStatus
      */
@@ -440,5 +674,43 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         }
 
         $handler->loadLayout(1, APILayout::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testDeleteBlock()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->deleteBlock(1);
+        $handler->loadBlock(1, APILayout::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteLayoutBlocks
+     */
+    public function testDeleteLayoutBlocks()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->deleteLayoutBlocks(1);
+
+        self::assertEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED));
+        self::assertEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_DRAFT));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler::deleteLayoutBlocks
+     */
+    public function testDeleteLayoutBlocksInStatus()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->deleteLayoutBlocks(1, APILayout::STATUS_DRAFT);
+
+        self::assertNotEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED));
+        self::assertEmpty($handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_DRAFT));
     }
 }

@@ -61,7 +61,7 @@ class Mapper implements MapperInterface
      */
     public function mapZone(PersistenceZone $zone)
     {
-        $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks(
+        $persistenceBlocks = $this->persistenceHandler->getLayoutHandler()->loadZoneBlocks(
             $zone->layoutId,
             $zone->identifier,
             $zone->status

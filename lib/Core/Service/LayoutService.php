@@ -153,12 +153,12 @@ class LayoutService implements LayoutServiceInterface
      */
     public function copyLayout(Layout $layout)
     {
-        $blockHandler = $this->persistenceHandler->getBlockHandler();
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout(
+            $copiedLayout = $layoutHandler->copyLayout(
                 $layout->getId(),
                 true,
                 Layout::STATUS_PUBLISHED,
@@ -167,7 +167,7 @@ class LayoutService implements LayoutServiceInterface
 
             foreach ($layout->getZones() as $zone) {
                 foreach ($zone->getBlocks() as $block) {
-                    $blockHandler->copyBlock(
+                    $layoutHandler->copyBlock(
                         $block->getId(),
                         $copiedLayout->id,
                         $zone->getIdentifier(),
@@ -197,12 +197,12 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
-        $blockHandler = $this->persistenceHandler->getBlockHandler();
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->persistenceHandler->getLayoutHandler()->copyLayout(
+            $copiedLayout = $layoutHandler->copyLayout(
                 $layout->getId(),
                 false,
                 $layout->getStatus(),
@@ -211,7 +211,7 @@ class LayoutService implements LayoutServiceInterface
 
             foreach ($layout->getZones() as $zone) {
                 foreach ($zone->getBlocks() as $block) {
-                    $blockHandler->copyBlock(
+                    $layoutHandler->copyBlock(
                         $block->getId(),
                         $layout->getId(),
                         $zone->getIdentifier(),
@@ -272,9 +272,11 @@ class LayoutService implements LayoutServiceInterface
     {
         $this->persistenceHandler->beginTransaction();
 
+        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
+
         try {
-            $this->persistenceHandler->getBlockHandler()->deleteLayoutBlocks($layout->getId(), $status);
-            $this->persistenceHandler->getLayoutHandler()->deleteLayout($layout->getId(), $status);
+            $layoutHandler->deleteLayoutBlocks($layout->getId(), $status);
+            $layoutHandler->deleteLayout($layout->getId(), $status);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

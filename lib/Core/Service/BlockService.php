@@ -73,7 +73,7 @@ class BlockService implements BlockServiceInterface
         }
 
         return $this->mapper->mapBlock(
-            $this->persistenceHandler->getBlockHandler()->loadBlock($blockId, $status)
+            $this->persistenceHandler->getLayoutHandler()->loadBlock($blockId, $status)
         );
     }
 
@@ -108,7 +108,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock(
+            $createdBlock = $this->persistenceHandler->getLayoutHandler()->createBlock(
                 $blockCreateStruct,
                 $layout->getId(),
                 $zoneIdentifier
@@ -158,7 +158,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock(
+            $updatedBlock = $this->persistenceHandler->getLayoutHandler()->updateBlock(
                 $block->getId(),
                 $blockUpdateStruct
             );
@@ -204,7 +204,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
+            $copiedBlock = $this->persistenceHandler->getLayoutHandler()->copyBlock(
                 $block->getId(),
                 $block->getLayoutId(),
                 $zoneIdentifier
@@ -251,7 +251,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock(
+            $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlock(
                 $block->getId(),
                 $zoneIdentifier
             );
@@ -281,7 +281,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getBlockHandler()->deleteBlock(
+            $this->persistenceHandler->getLayoutHandler()->deleteBlock(
                 $block->getId()
             );
         } catch (Exception $e) {
