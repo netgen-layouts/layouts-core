@@ -2,14 +2,13 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandlerInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Doctrine\DBAL\Connection;
@@ -58,17 +57,13 @@ class Handler implements LayoutHandlerInterface
      */
     public function loadLayout($layoutId, $status)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified', 'status')
-            ->from('ngbm_layout')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+        $query = $this->createLayoutSelectQuery();
+        $query->where(
+            $query->expr()->eq('id', ':id')
+        )
+        ->setParameter('id', $layoutId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -93,19 +88,17 @@ class Handler implements LayoutHandlerInterface
      */
     public function loadZone($layoutId, $identifier, $status)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('identifier', 'layout_id', 'status')
-            ->from('ngbm_zone')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('identifier', ':identifier'),
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
+        $query = $this->createZoneSelectQuery();
+        $query->where(
+            $query->expr()->andX(
+                $query->expr()->eq('layout_id', ':layout_id'),
+                $query->expr()->eq('identifier', ':identifier')
             )
-            ->setParameter('identifier', $identifier, Type::STRING)
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+        )
+        ->setParameter('layout_id', $layoutId, Type::INTEGER)
+        ->setParameter('identifier', $identifier, Type::STRING);
+
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -134,13 +127,13 @@ class Handler implements LayoutHandlerInterface
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('identifier', ':identifier'),
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
+                    $query->expr()->eq('layout_id', ':layout_id')
                 )
             )
             ->setParameter('identifier', $identifier, Type::STRING)
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -157,18 +150,14 @@ class Handler implements LayoutHandlerInterface
      */
     public function loadLayoutZones($layoutId, $status)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('identifier', 'layout_id', 'status')
-            ->from('ngbm_zone')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->orderBy('identifier', 'ASC')
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+        $query = $this->createZoneSelectQuery();
+        $query->where(
+            $query->expr()->eq('layout_id', ':layout_id')
+        )
+        ->orderBy('identifier', 'ASC')
+        ->setParameter('layout_id', $layoutId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -190,17 +179,13 @@ class Handler implements LayoutHandlerInterface
      */
     public function loadBlock($blockId, $status)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
-            ->from('ngbm_block')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':block_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+        $query = $this->createBlockSelectQuery();
+        $query->where(
+            $query->expr()->eq('id', ':id')
+        )
+        ->setParameter('id', $blockId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -223,19 +208,17 @@ class Handler implements LayoutHandlerInterface
      */
     public function loadZoneBlocks($layoutId, $zoneIdentifier, $status)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
-            ->from('ngbm_block')
-            ->where(
+        $query = $this->createBlockSelectQuery();
+        $query->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('zone_identifier', ':zone_identifier'),
-                    $query->expr()->eq('status', ':status')
+                    $query->expr()->eq('zone_identifier', ':zone_identifier')
                 )
             )
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
+
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -337,8 +320,6 @@ class Handler implements LayoutHandlerInterface
      */
     public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct)
     {
-        $block = $this->loadBlock($blockId, $status);
-
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_block')
@@ -346,16 +327,14 @@ class Handler implements LayoutHandlerInterface
             ->set('name', ':name')
             ->set('parameters', ':parameters')
             ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':block_id'),
-                    $query->expr()->eq('status', ':status')
-                )
+                $query->expr()->eq('id', ':id')
             )
-            ->setParameter('block_id', $block->id, Type::INTEGER)
+            ->setParameter('id', $blockId, Type::INTEGER)
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
-            ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY);
+
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -447,6 +426,73 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
+     * Updates the layout from one status to another.
+     *
+     * @param int $layoutId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function updateLayoutStatus($layoutId, $status, $newStatus)
+    {
+        try {
+            $this->loadLayout($layoutId, $newStatus);
+            throw new BadStateException('newStatus', 'Layout already has the provided status.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_layout')
+            ->set('status', ':new_status')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $layoutId, Type::INTEGER)
+            ->setParameter('new_status', $newStatus, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_zone')
+            ->set('status', ':new_status')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('new_status', $newStatus, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_block')
+            ->set('status', ':new_status')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('new_status', $newStatus, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+
+        // @TODO Update status of block items
+
+        return $this->loadLayout($layoutId, $newStatus);
+    }
+
+    /**
      * Copies a block with specified ID to a zone with specified identifier.
      *
      * @param int|string $blockId
@@ -519,36 +565,16 @@ class Handler implements LayoutHandlerInterface
             ->update('ngbm_block')
             ->set('zone_identifier', ':zone_identifier')
             ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':block_id'),
-                    $query->expr()->eq('status', ':status')
-                )
+                $query->expr()->eq('id', ':id')
             )
-            ->setParameter('block_id', $block->id, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('id', $block->id, Type::INTEGER)
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
+
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
 
         return $this->loadBlock($blockId, $status);
-    }
-
-    /**
-     * Publishes a layout draft.
-     *
-     * @param int|string $layoutId
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function publishLayout($layoutId)
-    {
-        $layout = $this->loadLayout($layoutId, APILayout::STATUS_DRAFT);
-
-        $this->deleteLayout($layout->id, APILayout::STATUS_ARCHIVED);
-        $this->updateLayoutStatus($layout, APILayout::STATUS_PUBLISHED, APILayout::STATUS_ARCHIVED);
-        $this->updateLayoutStatus($layout, APILayout::STATUS_DRAFT, APILayout::STATUS_PUBLISHED);
-
-        return $this->loadLayout($layout->id, APILayout::STATUS_PUBLISHED);
     }
 
     /**
@@ -572,8 +598,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $query->andWhere($query->expr()->eq('status', ':status'))
-                ->setParameter('status', $status, Type::INTEGER);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -588,8 +613,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $query->andWhere($query->expr()->eq('status', ':status'))
-                ->setParameter('status', $status, Type::INTEGER);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -599,13 +623,12 @@ class Handler implements LayoutHandlerInterface
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_layout')
             ->where(
-                $query->expr()->eq('id', ':layout_id')
+                $query->expr()->eq('id', ':id')
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $query->andWhere($query->expr()->eq('status', ':status'))
-                ->setParameter('status', $status, Type::INTEGER);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -623,17 +646,69 @@ class Handler implements LayoutHandlerInterface
 
         $query->delete('ngbm_block')
             ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':block_id'),
-                    $query->expr()->eq('status', ':status')
-                )
+                $query->expr()->eq('id', ':id')
             )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER);
+            ->setParameter('id', $blockId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
 
         // @TODO: Delete block items
+    }
+
+    /**
+     * Applies status condition to the query
+     *
+     * @param \Doctrine\DBAL\Query\QueryBuilder $query
+     * @param int $status
+     */
+    protected function applyStatusCondition(QueryBuilder $query, $status)
+    {
+        $query->andWhere($query->expr()->eq('status', ':status'))
+            ->setParameter('status', $status, Type::INTEGER);
+    }
+
+    /**
+     * Builds and returns a layout database SELECT query.
+     *
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
+    protected function createLayoutSelectQuery()
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified', 'status')
+            ->from('ngbm_layout');
+
+        return $query;
+    }
+
+    /**
+     * Builds and returns a zone database SELECT query.
+     *
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
+    protected function createZoneSelectQuery()
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('identifier', 'layout_id', 'status')
+            ->from('ngbm_zone');
+
+        return $query;
+    }
+
+    /**
+     * Builds and returns a block database SELECT query.
+     *
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
+    protected function createBlockSelectQuery()
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
+            ->from('ngbm_block');
+
+        return $query;
     }
 
     /**
@@ -729,65 +804,5 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('name', trim($parameters['name']), Type::STRING)
             ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY)
             ->setParameter('status', $parameters['status'], Type::INTEGER);
-    }
-
-    /**
-     * Updates the layout from one status to another.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param int $status
-     * @param int $newStatus
-     */
-    protected function updateLayoutStatus(Layout $layout, $status, $newStatus)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_layout')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $query->execute();
-
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_zone')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $query->execute();
-
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_block')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $query->execute();
-
-        // @TODO Update status of block items
     }
 }

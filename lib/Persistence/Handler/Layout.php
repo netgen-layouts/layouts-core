@@ -135,6 +135,19 @@ interface Layout
     public function createLayoutStatus($layoutId, $status, $newStatus);
 
     /**
+     * Updates the layout from one status to another.
+     *
+     * @param int $layoutId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function updateLayoutStatus($layoutId, $status, $newStatus);
+
+    /**
      * Copies a block with specified ID to a zone with specified identifier.
      *
      * @param int|string $blockId
@@ -160,15 +173,6 @@ interface Layout
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function moveBlock($blockId, $status, $zoneIdentifier);
-
-    /**
-     * Publishes a layout draft.
-     *
-     * @param int|string $layoutId
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function publishLayout($layoutId);
 
     /**
      * Deletes a layout with specified ID.
