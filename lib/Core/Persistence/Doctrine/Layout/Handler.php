@@ -259,7 +259,6 @@ class Handler implements LayoutHandlerInterface
 
         $query = $this->createLayoutInsertQuery(
             array(
-                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_layout'),
                 'parent_id' => $parentLayoutId,
                 'identifier' => $layoutCreateStruct->identifier,
                 'name' => $layoutCreateStruct->name,
@@ -309,7 +308,6 @@ class Handler implements LayoutHandlerInterface
 
         $query = $this->createBlockInsertQuery(
             array(
-                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
                 'layout_id' => $layout->id,
                 'zone_identifier' => $zoneIdentifier,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
@@ -400,14 +398,14 @@ class Handler implements LayoutHandlerInterface
         $currentTimeStamp = time();
         $query = $this->createLayoutInsertQuery(
             array(
-                'id' => $layout->id,
                 'parent_id' => $layout->parentId,
                 'identifier' => $layout->identifier,
                 'name' => $layout->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
                 'status' => $newStatus,
-            )
+            ),
+            $layout->id
         );
 
         $query->execute();
@@ -428,7 +426,6 @@ class Handler implements LayoutHandlerInterface
             foreach ($zoneBlocks as $block) {
                 $blockQuery = $this->createBlockInsertQuery(
                     array(
-                        'id' => $block->id,
                         'layout_id' => $layout->id,
                         'zone_identifier' => $zone->identifier,
                         'definition_identifier' => $block->definitionIdentifier,
@@ -436,7 +433,8 @@ class Handler implements LayoutHandlerInterface
                         'name' => $block->name,
                         'parameters' => $block->parameters,
                         'status' => $newStatus,
-                    )
+                    ),
+                    $block->id
                 );
 
                 $blockQuery->execute();
@@ -471,7 +469,6 @@ class Handler implements LayoutHandlerInterface
 
         $query = $this->createBlockInsertQuery(
             array(
-                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
                 'layout_id' => $block->layoutId,
                 'zone_identifier' => $zoneIdentifier !== null ? $zoneIdentifier : $block->zoneIdentifier,
                 'definition_identifier' => $block->definitionIdentifier,
@@ -666,10 +663,11 @@ class Handler implements LayoutHandlerInterface
      * Builds and returns a layout database INSERT query.
      *
      * @param array $parameters
+     * @param int $layoutId
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function createLayoutInsertQuery(array $parameters)
+    protected function createLayoutInsertQuery(array $parameters, $layoutId = null)
     {
         return $this->connection->createQueryBuilder()
             ->insert('ngbm_layout')
@@ -684,7 +682,11 @@ class Handler implements LayoutHandlerInterface
                     'status' => ':status',
                 )
             )
-            ->setParameter('id', $parameters['id'], Type::INTEGER)
+            ->setParameter(
+                'id',
+                $layoutId !== null ? $layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout'),
+                Type::INTEGER
+            )
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
@@ -720,10 +722,11 @@ class Handler implements LayoutHandlerInterface
      * Builds and returns a block database INSERT query.
      *
      * @param array $parameters
+     * @param int $blockId
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function createBlockInsertQuery(array $parameters)
+    protected function createBlockInsertQuery(array $parameters, $blockId = null)
     {
         return $this->connection->createQueryBuilder()
             ->insert('ngbm_block')
@@ -739,7 +742,11 @@ class Handler implements LayoutHandlerInterface
                     'status' => ':status',
                 )
             )
-            ->setParameter('id', $parameters['id'], Type::INTEGER)
+            ->setParameter(
+                'id',
+                $blockId !== null ? $blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
+                Type::INTEGER
+            )
             ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
             ->setParameter('zone_identifier', $parameters['zone_identifier'], Type::STRING)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
