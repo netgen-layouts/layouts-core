@@ -775,17 +775,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockWithSameZoneThrowsBadStateException()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlock(1, APILayout::STATUS_DRAFT, 'top_right');
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */

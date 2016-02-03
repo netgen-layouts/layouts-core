@@ -178,7 +178,6 @@ interface Layout
      * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is already in provided zone
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

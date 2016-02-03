@@ -503,6 +503,20 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testMoveBlockThrowsInvalidArgumentExceptionWhenAlreadyInZone()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            'top_right'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */

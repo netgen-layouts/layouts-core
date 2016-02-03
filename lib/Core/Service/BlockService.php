@@ -210,6 +210,7 @@ class BlockService implements BlockServiceInterface
      * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block is already in provided zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -217,6 +218,10 @@ class BlockService implements BlockServiceInterface
     {
         if ($block->getStatus() !== Layout::STATUS_DRAFT) {
             throw new BadStateException('block', 'Only blocks in draft status can be moved.');
+        }
+
+        if ($block->getZoneIdentifier() === $zoneIdentifier) {
+            throw new InvalidArgumentException('zoneIdentifier', 'Block is already in provided zone.');
         }
 
         $this->persistenceHandler->beginTransaction();
