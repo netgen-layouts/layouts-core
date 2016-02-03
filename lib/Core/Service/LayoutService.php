@@ -67,9 +67,12 @@ class LayoutService implements LayoutServiceInterface
             throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
         }
 
-        $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout($layoutId, $status);
-
-        return $this->mapper->mapLayout($layout);
+        return $this->mapper->mapLayout(
+            $this->persistenceHandler->getLayoutHandler()->loadLayout(
+                $layoutId,
+                $status
+            )
+        );
     }
 
     /**
@@ -102,13 +105,9 @@ class LayoutService implements LayoutServiceInterface
             throw new InvalidArgumentException('identifier', 'Value must not be empty.');
         }
 
-        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
-
-        $layout = $layoutHandler->loadLayout($layoutId, $status);
-
         return $this->mapper->mapZone(
-            $layoutHandler->loadZone(
-                $layout->id,
+            $this->persistenceHandler->getLayoutHandler()->loadZone(
+                $layoutId,
                 $identifier,
                 $status
             )
@@ -204,9 +203,7 @@ class LayoutService implements LayoutServiceInterface
             $layoutHandler = $this->persistenceHandler->getLayoutHandler();
             $layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_ARCHIVED);
             $layoutHandler->updateLayoutStatus($layout->getId(), Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
-            $layoutHandler->updateLayoutStatus($layout->getId(), Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
-
-            $publishedLayout = $layoutHandler->loadLayout($layout->getId(), Layout::STATUS_PUBLISHED);
+            $publishedLayout = $layoutHandler->updateLayoutStatus($layout->getId(), Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

@@ -72,7 +72,10 @@ class BlockService implements BlockServiceInterface
         }
 
         return $this->mapper->mapBlock(
-            $this->persistenceHandler->getLayoutHandler()->loadBlock($blockId, $status)
+            $this->persistenceHandler->getLayoutHandler()->loadBlock(
+                $blockId,
+                $status
+            )
         );
     }
 
