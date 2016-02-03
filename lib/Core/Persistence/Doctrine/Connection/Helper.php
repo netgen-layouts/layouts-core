@@ -29,7 +29,7 @@ class Helper
 
         $this->databaseSpecificHelpers = array(
             'sqlite' => new Sqlite($this->connection),
-            'postgres' => new Postgres($this->connection),
+            'postgresql' => new Postgres($this->connection),
         );
     }
 
