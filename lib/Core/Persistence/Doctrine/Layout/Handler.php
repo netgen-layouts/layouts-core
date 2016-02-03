@@ -564,23 +564,16 @@ class Handler implements LayoutHandlerInterface
         // First delete all blocks
 
         $query = $this->connection->createQueryBuilder();
+        $query
+            ->delete('ngbm_block')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $query->delete('ngbm_block')
-                ->where(
-                    $query->expr()->andX(
-                        $query->expr()->eq('layout_id', ':layout_id'),
-                        $query->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            $query->andWhere($query->expr()->eq('status', ':status'))
                 ->setParameter('status', $status, Type::INTEGER);
-        } else {
-            $query->delete('ngbm_block')
-                ->where(
-                    $query->expr()->eq('layout_id', ':layout_id')
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER);
         }
 
         $query->execute();
@@ -588,23 +581,15 @@ class Handler implements LayoutHandlerInterface
         // Then delete all zones
 
         $query = $this->connection->createQueryBuilder();
+        $query->delete('ngbm_zone')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $query->delete('ngbm_zone')
-                ->where(
-                    $query->expr()->andX(
-                        $query->expr()->eq('layout_id', ':layout_id'),
-                        $query->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            $query->andWhere($query->expr()->eq('status', ':status'))
                 ->setParameter('status', $status, Type::INTEGER);
-        } else {
-            $query->delete('ngbm_zone')
-                ->where(
-                    $query->expr()->eq('layout_id', ':layout_id')
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER);
         }
 
         $query->execute();
@@ -612,23 +597,15 @@ class Handler implements LayoutHandlerInterface
         // Then delete the layout itself
 
         $query = $this->connection->createQueryBuilder();
+        $query->delete('ngbm_layout')
+            ->where(
+                $query->expr()->eq('id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $query->delete('ngbm_layout')
-                ->where(
-                    $query->expr()->andX(
-                        $query->expr()->eq('id', ':layout_id'),
-                        $query->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            $query->andWhere($query->expr()->eq('status', ':status'))
                 ->setParameter('status', $status, Type::INTEGER);
-        } else {
-            $query->delete('ngbm_layout')
-                ->where(
-                    $query->expr()->eq('id', ':layout_id')
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER);
         }
 
         $query->execute();
