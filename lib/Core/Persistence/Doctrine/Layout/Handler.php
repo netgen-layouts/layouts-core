@@ -682,10 +682,9 @@ class Handler implements LayoutHandlerInterface
                     'status' => ':status',
                 )
             )
-            ->setParameter(
+            ->setValue(
                 'id',
-                $layoutId !== null ? $layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout'),
-                Type::INTEGER
+                $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
             )
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
@@ -742,10 +741,9 @@ class Handler implements LayoutHandlerInterface
                     'status' => ':status',
                 )
             )
-            ->setParameter(
+            ->setValue(
                 'id',
-                $blockId !== null ? $blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
-                Type::INTEGER
+                $blockId !== null ? (int)$blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
             )
             ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
             ->setParameter('zone_identifier', $parameters['zone_identifier'], Type::STRING)
