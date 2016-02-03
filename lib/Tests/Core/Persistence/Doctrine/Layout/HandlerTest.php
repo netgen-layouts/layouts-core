@@ -55,7 +55,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoadLayoutThrowsNotFoundException()
     {
         $handler = $this->createLayoutHandler();
-        $handler->loadLayout(PHP_INT_MAX, APILayout::STATUS_PUBLISHED);
+        $handler->loadLayout(999999, APILayout::STATUS_PUBLISHED);
     }
 
     /**
@@ -84,7 +84,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
         $handler = $this->createLayoutHandler();
-        $handler->loadZone(PHP_INT_MAX, 'bottom', APILayout::STATUS_PUBLISHED);
+        $handler->loadZone(999999, 'bottom', APILayout::STATUS_PUBLISHED);
     }
 
     /**
@@ -158,7 +158,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoadLayoutZonesForNonExistingLayout()
     {
         $handler = $this->createLayoutHandler();
-        self::assertEquals(array(), $handler->loadLayoutZones(PHP_INT_MAX, APILayout::STATUS_PUBLISHED));
+        self::assertEquals(array(), $handler->loadLayoutZones(999999, APILayout::STATUS_PUBLISHED));
     }
 
     /**
@@ -195,7 +195,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoadBlockThrowsNotFoundException()
     {
         $handler = $this->createLayoutHandler();
-        $handler->loadBlock(PHP_INT_MAX, APILayout::STATUS_PUBLISHED);
+        $handler->loadBlock(999999, APILayout::STATUS_PUBLISHED);
     }
 
     /**
