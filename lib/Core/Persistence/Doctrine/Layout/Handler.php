@@ -111,6 +111,31 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
+     * Returns if layout with specified ID exists.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function layoutExists($layoutId, $status)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_layout')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $layoutId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Returns if zone with specified identifier exists in the layout.
      *
      * @param int|string $layoutId
@@ -284,14 +309,13 @@ class Handler implements LayoutHandlerInterface
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status)
     {
-        $layout = $this->loadLayout($layoutId, $status);
         if (!$this->zoneExists($layoutId, $zoneIdentifier, $status)) {
             throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
         $query = $this->createBlockInsertQuery(
             array(
-                'layout_id' => $layout->id,
+                'layout_id' => $layoutId,
                 'zone_identifier' => $zoneIdentifier,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
@@ -365,11 +389,8 @@ class Handler implements LayoutHandlerInterface
      */
     public function createLayoutStatus($layoutId, $status, $newStatus)
     {
-        try {
-            $this->loadLayout($layoutId, $newStatus);
+        if ($this->layoutExists($layoutId, $newStatus)) {
             throw new BadStateException('newStatus', 'Layout already has the provided status.');
-        } catch (NotFoundException $e) {
-            // Do nothing
         }
 
         $layout = $this->loadLayout($layoutId, $status);
@@ -438,11 +459,8 @@ class Handler implements LayoutHandlerInterface
      */
     public function updateLayoutStatus($layoutId, $status, $newStatus)
     {
-        try {
-            $this->loadLayout($layoutId, $newStatus);
+        if ($this->layoutExists($layoutId, $newStatus)) {
             throw new BadStateException('newStatus', 'Layout already has the provided status.');
-        } catch (NotFoundException $e) {
-            // Do nothing
         }
 
         $query = $this->connection->createQueryBuilder();

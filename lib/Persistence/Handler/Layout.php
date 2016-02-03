@@ -34,6 +34,16 @@ interface Layout
     public function loadZone($layoutId, $identifier, $status);
 
     /**
+     * Returns if layout with specified ID exists.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function layoutExists($layoutId, $status);
+
+    /**
      * Returns if zone with specified identifier exists in the layout.
      *
      * @param int|string $layoutId
