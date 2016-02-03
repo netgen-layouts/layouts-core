@@ -569,7 +569,7 @@ class Handler implements LayoutHandlerInterface
             $query->delete('ngbm_block')
                 ->where(
                     $query->expr()->andX(
-                        $query->expr()->in('layout_id', ':layout_id'),
+                        $query->expr()->eq('layout_id', ':layout_id'),
                         $query->expr()->eq('status', ':status')
                     )
                 )
@@ -578,7 +578,7 @@ class Handler implements LayoutHandlerInterface
         } else {
             $query->delete('ngbm_block')
                 ->where(
-                    $query->expr()->in('layout_id', ':layout_id')
+                    $query->expr()->eq('layout_id', ':layout_id')
                 )
                 ->setParameter('layout_id', $layoutId, Type::INTEGER);
         }
