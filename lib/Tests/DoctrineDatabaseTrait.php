@@ -10,6 +10,11 @@ trait DoctrineDatabaseTrait
     /**
      * @var string
      */
+    protected $inMemoryDsn = 'sqlite://:memory:';
+
+    /**
+     * @var string
+     */
     protected $databaseUri;
 
     /**
@@ -30,12 +35,10 @@ trait DoctrineDatabaseTrait
      */
     protected function prepareDatabase($schemaPath, $fixturesPath)
     {
-        $databaseUri = getenv('DATABASE');
-        if (empty($databaseUri)) {
-            $databaseUri = 'sqlite://:memory:';
+        $this->databaseUri = getenv('DATABASE');
+        if (empty($this->databaseUri)) {
+            $this->databaseUri = $this->inMemoryDsn;
         }
-
-        $this->databaseUri = $databaseUri;
 
         preg_match('/^(?<db>.+):\/\//', $this->databaseUri, $matches);
         $this->databaseServer = $matches['db'];
@@ -44,6 +47,10 @@ trait DoctrineDatabaseTrait
         $this->executeStatements($schemaPath);
         $this->insertDatabaseFixtures($fixturesPath);
         $this->executeStatements($schemaPath, 'setval');
+
+        if ($this->databaseUri !== $this->inMemoryDsn) {
+            $this->databaseConnection->close();
+        }
     }
 
     /**
