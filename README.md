@@ -15,4 +15,10 @@ You can also run unit tests on a real database. After you create the database, r
 $ DATABASE=mysql://root@localhost/ngbm phpunit
 ```
 
-where `mysql://root@localhost/ngbm` is a DSN to your database.
+where `mysql://root@localhost/ngbm` is a DSN to your MySQL database.
+
+If you use PostgreSQL, you can use the following command:
+
+```
+$ DATABASE=pgsql://user:pass@localhost/ngbm phpunit
+```
