@@ -41,8 +41,9 @@ trait DoctrineDatabaseTrait
         $this->databaseServer = $matches['db'];
 
         $this->createDatabaseConnection();
-        $this->createDatabaseSchema($schemaPath);
+        $this->executeStatements($schemaPath);
         $this->insertDatabaseFixtures($fixturesPath);
+        $this->executeStatements($schemaPath, 'setval');
     }
 
     /**
@@ -61,10 +62,16 @@ trait DoctrineDatabaseTrait
      * Creates the database schema.
      *
      * @param string $schemaPath
+     * @param string $fileName
      */
-    protected function createDatabaseSchema($schemaPath)
+    protected function executeStatements($schemaPath, $fileName = 'schema')
     {
-        $schema = file_get_contents($schemaPath . '/schema.' . $this->databaseServer . '.sql');
+        $fullPath = $schemaPath . '/' . $fileName . '.' . $this->databaseServer . '.sql';
+        if (!file_exists($fullPath)) {
+            return;
+        }
+
+        $schema = file_get_contents($fullPath);
         $sqlQueries = explode(';', $schema);
 
         foreach ($sqlQueries as $sqlQuery) {
