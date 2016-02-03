@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
 
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
@@ -10,6 +11,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Exception\BadStateException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -54,7 +56,7 @@ class Handler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function loadLayout($layoutId, $status = APILayout::STATUS_PUBLISHED)
+    public function loadLayout($layoutId, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified', 'status')
@@ -89,7 +91,7 @@ class Handler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($layoutId, $identifier, $status = APILayout::STATUS_PUBLISHED)
+    public function loadZone($layoutId, $identifier, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('identifier', 'layout_id', 'status')
@@ -124,7 +126,7 @@ class Handler implements LayoutHandlerInterface
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $identifier, $status = APILayout::STATUS_PUBLISHED)
+    public function zoneExists($layoutId, $identifier, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -153,7 +155,7 @@ class Handler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
      */
-    public function loadLayoutZones($layoutId, $status = APILayout::STATUS_PUBLISHED)
+    public function loadLayoutZones($layoutId, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('identifier', 'layout_id', 'status')
@@ -186,7 +188,7 @@ class Handler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function loadBlock($blockId, $status = APILayout::STATUS_PUBLISHED)
+    public function loadBlock($blockId, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
@@ -219,7 +221,7 @@ class Handler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
-    public function loadZoneBlocks($layoutId, $zoneIdentifier, $status = APILayout::STATUS_PUBLISHED)
+    public function loadZoneBlocks($layoutId, $zoneIdentifier, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('id', 'layout_id', 'zone_identifier', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
@@ -287,26 +289,34 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Creates a block in specified zone.
+     * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param int|string $layoutId
      * @param string $zoneIdentifier
+     * @param int $status
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status)
     {
+        $layout = $this->loadLayout($layoutId, $status);
+        if (!$this->zoneExists($layoutId, $zoneIdentifier, $status)) {
+            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+        }
+
         $query = $this->createBlockInsertQuery(
             array(
                 'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
-                'layout_id' => $layoutId,
+                'layout_id' => $layout->id,
                 'zone_identifier' => $zoneIdentifier,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
                 'parameters' => $blockCreateStruct->getParameters(),
-                'status' => APILayout::STATUS_DRAFT,
+                'status' => $status,
             )
         );
 
@@ -314,7 +324,7 @@ class Handler implements LayoutHandlerInterface
 
         return $this->loadBlock(
             $this->connectionHelper->lastInsertId('ngbm_block'),
-            APILayout::STATUS_DRAFT
+            $status
         );
     }
 
@@ -322,13 +332,14 @@ class Handler implements LayoutHandlerInterface
      * Updates a block with specified ID.
      *
      * @param int|string $blockId
+     * @param int $status
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct)
     {
-        $block = $this->loadBlock($blockId, APILayout::STATUS_DRAFT);
+        $block = $this->loadBlock($blockId, $status);
 
         $query = $this->connection->createQueryBuilder();
         $query
@@ -346,39 +357,53 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
             ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY)
-            ->setParameter('status', APILayout::STATUS_DRAFT, Type::INTEGER);
+            ->setParameter('status', $status, Type::INTEGER);
 
         $query->execute();
 
-        return $this->loadBlock($blockId, APILayout::STATUS_DRAFT);
+        return $this->loadBlock($blockId, $status);
     }
 
     /**
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param bool $createNew
-     * @param int $status
-     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId, $createNew = true, $status = APILayout::STATUS_PUBLISHED, $newStatus = APILayout::STATUS_DRAFT)
+    public function copyLayout($layoutId)
     {
-        $originalLayout = $this->loadLayout($layoutId, $status);
-        $originalZones = $this->loadLayoutZones($layoutId, $status);
+    }
+
+    /**
+     * Creates a new layout status.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function createLayoutStatus($layoutId, $status, $newStatus)
+    {
+        try {
+            $this->loadLayout($layoutId, $newStatus);
+            throw new BadStateException('newStatus', 'Layout already has the provided status.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $layout = $this->loadLayout($layoutId, $status);
 
         $currentTimeStamp = time();
-        $newLayoutId = $createNew ?
-            $this->connectionHelper->getAutoIncrementValue('ngbm_layout') :
-            $layoutId;
-
         $query = $this->createLayoutInsertQuery(
             array(
-                'id' => $newLayoutId,
-                'parent_id' => $originalLayout->parentId,
-                'identifier' => $originalLayout->identifier,
-                'name' => $originalLayout->name,
+                'id' => $layout->id,
+                'parent_id' => $layout->parentId,
+                'identifier' => $layout->identifier,
+                'name' => $layout->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
                 'status' => $newStatus,
@@ -387,57 +412,73 @@ class Handler implements LayoutHandlerInterface
 
         $query->execute();
 
-        $copiedLayoutId = $createNew ?
-            (int)$this->connectionHelper->lastInsertId('ngbm_layout') :
-            $layoutId;
-
-        foreach ($originalZones as $originalZone) {
+        $layoutZones = $this->loadLayoutZones($layout->id, $status);
+        foreach ($layoutZones as $zone) {
             $zoneQuery = $this->createZoneInsertQuery(
                 array(
-                    'identifier' => $originalZone->identifier,
-                    'layout_id' => $copiedLayoutId,
+                    'identifier' => $zone->identifier,
+                    'layout_id' => $layout->id,
                     'status' => $newStatus,
                 )
             );
 
             $zoneQuery->execute();
+
+            $zoneBlocks = $this->loadZoneBlocks($layout->id, $zone->identifier, $status);
+            foreach ($zoneBlocks as $block) {
+                $blockQuery = $this->createBlockInsertQuery(
+                    array(
+                        'id' => $block->id,
+                        'layout_id' => $layout->id,
+                        'zone_identifier' => $zone->identifier,
+                        'definition_identifier' => $block->definitionIdentifier,
+                        'view_type' => $block->viewType,
+                        'name' => $block->name,
+                        'parameters' => $block->parameters,
+                        'status' => $newStatus,
+                    )
+                );
+
+                $blockQuery->execute();
+
+                // @TODO: Copy block items
+            }
         }
 
-        return $this->loadLayout($copiedLayoutId, $newStatus);
+        return $this->loadLayout($layout->id, $newStatus);
     }
 
     /**
      * Copies a block with specified ID to a zone with specified identifier.
      *
      * @param int|string $blockId
-     * @param int|string $layoutId
-     * @param string $zoneIdentifier
-     * @param bool $createNew
      * @param int $status
-     * @param int $newStatus
+     * @param string $zoneIdentifier
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $layoutId = null, $zoneIdentifier = null, $createNew = true, $status = APILayout::STATUS_PUBLISHED, $newStatus = APILayout::STATUS_DRAFT)
+    public function copyBlock($blockId, $status, $zoneIdentifier = null)
     {
-        // @TODO: Verify that layout has the same status as the block
+        $block = $this->loadBlock($blockId, $status);
 
-        $originalBlock = $this->loadBlock($blockId, $status);
-
-        $newBlockId = $createNew ?
-            $this->connectionHelper->getAutoIncrementValue('ngbm_block') :
-            $blockId;
+        if ($zoneIdentifier !== null) {
+            if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
+                throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            }
+        }
 
         $query = $this->createBlockInsertQuery(
             array(
-                'id' => $newBlockId,
-                'layout_id' => $layoutId !== null ? $layoutId : $originalBlock->layoutId,
-                'zone_identifier' => $zoneIdentifier !== null ? $zoneIdentifier : $originalBlock->zoneIdentifier,
-                'definition_identifier' => $originalBlock->definitionIdentifier,
-                'view_type' => $originalBlock->viewType,
-                'name' => $originalBlock->name,
-                'parameters' => $originalBlock->parameters,
-                'status' => $newStatus,
+                'id' => $this->connectionHelper->getAutoIncrementValue('ngbm_block'),
+                'layout_id' => $block->layoutId,
+                'zone_identifier' => $zoneIdentifier !== null ? $zoneIdentifier : $block->zoneIdentifier,
+                'definition_identifier' => $block->definitionIdentifier,
+                'view_type' => $block->viewType,
+                'name' => $block->name,
+                'parameters' => $block->parameters,
+                'status' => $block->status,
             )
         );
 
@@ -445,13 +486,9 @@ class Handler implements LayoutHandlerInterface
 
         // @TODO: Copy block items
 
-        $newBlockId = $createNew ?
-            (int)$this->connectionHelper->lastInsertId('ngbm_block') :
-            $blockId;
-
         return $this->loadBlock(
-            $newBlockId,
-            $newStatus
+            (int)$this->connectionHelper->lastInsertId('ngbm_block'),
+            $block->status
         );
     }
 
@@ -459,13 +496,25 @@ class Handler implements LayoutHandlerInterface
      * Moves a block to zone with specified identifier.
      *
      * @param int|string $blockId
+     * @param int $status
      * @param string $zoneIdentifier
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is already in provided zone
+     *                                                              If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $zoneIdentifier)
+    public function moveBlock($blockId, $status, $zoneIdentifier)
     {
-        $block = $this->loadBlock($blockId, APILayout::STATUS_DRAFT);
+        $block = $this->loadBlock($blockId, $status);
+
+        if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
+            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+        }
+
+        if ($block->zoneIdentifier === $zoneIdentifier) {
+            throw new BadStateException('zoneIdentifier', 'Block is already in provided zone.');
+        }
 
         $query = $this->connection->createQueryBuilder();
 
@@ -480,11 +529,11 @@ class Handler implements LayoutHandlerInterface
             )
             ->setParameter('block_id', $block->id, Type::INTEGER)
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('status', APILayout::STATUS_DRAFT, Type::INTEGER);
+            ->setParameter('status', $status, Type::INTEGER);
 
         $query->execute();
 
-        return $this->loadBlock($blockId, APILayout::STATUS_DRAFT);
+        return $this->loadBlock($blockId, $status);
     }
 
     /**
@@ -502,7 +551,7 @@ class Handler implements LayoutHandlerInterface
         $this->updateLayoutStatus($layout, APILayout::STATUS_PUBLISHED, APILayout::STATUS_ARCHIVED);
         $this->updateLayoutStatus($layout, APILayout::STATUS_DRAFT, APILayout::STATUS_PUBLISHED);
 
-        return $this->loadLayout($layout->id);
+        return $this->loadLayout($layout->id, APILayout::STATUS_PUBLISHED);
     }
 
     /**
@@ -513,7 +562,33 @@ class Handler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        // First delete all zones
+        // @TODO: Delete block items
+
+        // First delete all blocks
+
+        $query = $this->connection->createQueryBuilder();
+
+        if ($status !== null) {
+            $query->delete('ngbm_block')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->in('layout_id', ':layout_id'),
+                        $query->expr()->eq('status', ':status')
+                    )
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+                ->setParameter('status', $status, Type::INTEGER);
+        } else {
+            $query->delete('ngbm_block')
+                ->where(
+                    $query->expr()->in('layout_id', ':layout_id')
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        }
+
+        $query->execute();
+
+        // Then delete all zones
 
         $query = $this->connection->createQueryBuilder();
 
@@ -566,8 +641,9 @@ class Handler implements LayoutHandlerInterface
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
+     * @param int $status
      */
-    public function deleteBlock($blockId)
+    public function deleteBlock($blockId, $status)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -579,40 +655,7 @@ class Handler implements LayoutHandlerInterface
                 )
             )
             ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('status', APILayout::STATUS_DRAFT, Type::INTEGER);
-
-        $query->execute();
-
-        // @TODO: Delete block items
-    }
-
-    /**
-     * Deletes all blocks within the specified layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     */
-    public function deleteLayoutBlocks($layoutId, $status = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        if ($status !== null) {
-            $query->delete('ngbm_block')
-                ->where(
-                    $query->expr()->andX(
-                        $query->expr()->in('layout_id', ':layout_id'),
-                        $query->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER)
-                ->setParameter('status', $status, Type::INTEGER);
-        } else {
-            $query->delete('ngbm_block')
-                ->where(
-                    $query->expr()->in('layout_id', ':layout_id')
-                )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER);
-        }
+            ->setParameter('status', $status, Type::INTEGER);
 
         $query->execute();
 

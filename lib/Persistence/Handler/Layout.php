@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout as LayoutValue;
 
 interface Layout
 {
@@ -19,7 +18,7 @@ interface Layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function loadLayout($layoutId, $status = LayoutValue::STATUS_PUBLISHED);
+    public function loadLayout($layoutId, $status);
 
     /**
      * Loads a zone with specified identifier.
@@ -32,7 +31,7 @@ interface Layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($layoutId, $identifier, $status = LayoutValue::STATUS_PUBLISHED);
+    public function loadZone($layoutId, $identifier, $status);
 
     /**
      * Returns if zone with specified identifier exists in the layout.
@@ -43,7 +42,7 @@ interface Layout
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $identifier, $status = LayoutValue::STATUS_PUBLISHED);
+    public function zoneExists($layoutId, $identifier, $status);
 
     /**
      * Loads all zones that belong to layout with specified ID.
@@ -53,7 +52,7 @@ interface Layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
      */
-    public function loadLayoutZones($layoutId, $status = LayoutValue::STATUS_PUBLISHED);
+    public function loadLayoutZones($layoutId, $status);
 
     /**
      * Loads a block with specified ID.
@@ -65,7 +64,7 @@ interface Layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function loadBlock($blockId, $status = LayoutValue::STATUS_PUBLISHED);
+    public function loadBlock($blockId, $status);
 
     /**
      * Loads all blocks from zone with specified identifier.
@@ -76,7 +75,7 @@ interface Layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
-    public function loadZoneBlocks($layoutId, $zoneIdentifier, $status = LayoutValue::STATUS_PUBLISHED);
+    public function loadZoneBlocks($layoutId, $zoneIdentifier, $status);
 
     /**
      * Creates a layout.
@@ -88,62 +87,79 @@ interface Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null);
 
-   /**
-     * Creates a block in specified zone.
+    /**
+     * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param int|string $layoutId
      * @param string $zoneIdentifier
+     * @param int $status
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status);
 
     /**
      * Updates a block with specified ID.
      *
      * @param int|string $blockId
+     * @param int $status
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock($blockId, BlockUpdateStruct $blockUpdateStruct);
+    public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct);
 
     /**
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param bool $createNew
-     * @param int $status
-     * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId, $createNew = true, $status = LayoutValue::STATUS_PUBLISHED, $newStatus = LayoutValue::STATUS_DRAFT);
+    public function copyLayout($layoutId);
+
+    /**
+     * Creates a new layout status.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function createLayoutStatus($layoutId, $status, $newStatus);
 
     /**
      * Copies a block with specified ID to a zone with specified identifier.
      *
      * @param int|string $blockId
-     * @param int|string $layoutId
-     * @param string $zoneIdentifier
-     * @param bool $createNew
      * @param int $status
-     * @param int $newStatus
+     * @param string $zoneIdentifier
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $layoutId = null, $zoneIdentifier = null, $createNew = true, $status = LayoutValue::STATUS_PUBLISHED, $newStatus = LayoutValue::STATUS_DRAFT);
+    public function copyBlock($blockId, $status, $zoneIdentifier = null);
 
     /**
      * Moves a block to zone with specified identifier.
      *
      * @param int|string $blockId
+     * @param int $status
      * @param string $zoneIdentifier
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block is already in provided zone
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $zoneIdentifier);
+    public function moveBlock($blockId, $status, $zoneIdentifier);
 
     /**
      * Publishes a layout draft.
@@ -166,14 +182,7 @@ interface Layout
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
-     */
-    public function deleteBlock($blockId);
-
-    /**
-     * Deletes all blocks within the specified layout.
-     *
-     * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayoutBlocks($layoutId, $status = null);
+    public function deleteBlock($blockId, $status);
 }

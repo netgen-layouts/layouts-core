@@ -350,83 +350,6 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCopyLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layout = $layoutService->loadLayout(1);
-        $copiedLayout = $layoutService->copyLayout($layout);
-
-        self::assertInstanceOf(Layout::class, $copiedLayout);
-
-        self::assertEquals(3, $copiedLayout->getId());
-        self::assertNull($copiedLayout->getParentId());
-        self::assertEquals('3_zones_a', $copiedLayout->getIdentifier());
-        self::assertEquals('My layout', $copiedLayout->getName());
-        self::assertEquals(Layout::STATUS_DRAFT, $copiedLayout->getStatus());
-
-        self::assertInstanceOf(DateTime::class, $copiedLayout->getCreated());
-        self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
-
-        self::assertInstanceOf(DateTime::class, $copiedLayout->getModified());
-        self::assertGreaterThan(0, $copiedLayout->getModified()->getTimestamp());
-
-        self::assertEquals(
-            array(
-                'bottom' => new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => $copiedLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_left' => new Zone(
-                    array(
-                        'identifier' => 'top_left',
-                        'layoutId' => $copiedLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_right' => new Zone(
-                    array(
-                        'identifier' => 'top_right',
-                        'layoutId' => $copiedLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(
-                            new Block(
-                                array(
-                                    'id' => 5,
-                                    'layoutId' => $copiedLayout->getId(),
-                                    'zoneIdentifier' => 'top_right',
-                                    'definitionIdentifier' => 'paragraph',
-                                    'parameters' => array(
-                                        'some_param' => 'some_value',
-                                    ),
-                                    'viewType' => 'default',
-                                    'name' => 'My block',
-                                    'status' => Layout::STATUS_DRAFT,
-                                )
-                            ),
-                            new Block(
-                                array(
-                                    'id' => 6,
-                                    'layoutId' => $copiedLayout->getId(),
-                                    'zoneIdentifier' => 'top_right',
-                                    'definitionIdentifier' => 'title',
-                                    'parameters' => array(
-                                        'other_param' => 'other_value',
-                                    ),
-                                    'viewType' => 'small',
-                                    'name' => 'My other block',
-                                    'status' => Layout::STATUS_DRAFT,
-                                )
-                            ),
-                        ),
-                    )
-                ),
-            ),
-            $copiedLayout->getZones()
-        );
     }
 
     /**
@@ -514,6 +437,18 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayoutStatus
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateLayoutStatusThrowsBadStateException()
+    {
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $layout = $layoutService->loadLayout(1);
+        $layoutService->createLayoutStatus($layout, Layout::STATUS_DRAFT);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayout()
@@ -551,40 +486,39 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayout()
     {
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
-        $layout = $layoutService->loadLayout(1);
+        $layout = $layoutService->loadLayout(1, Layout::STATUS_DRAFT);
 
         $layoutService->deleteLayout($layout);
-
-        $layoutService->loadLayout($layout->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
-     */
-    public function testDeleteLayoutInStatus()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layout = $layoutService->loadLayout(1);
-
-        $layoutService->deleteLayout($layout, Layout::STATUS_DRAFT);
 
         try {
             $layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
             self::fail('Draft layout still exists after deleting it');
-        }
-        catch (NotFoundException $e) {
+        } catch (NotFoundException $e) {
             // Do nothing
         }
 
         $publishedLayout = $layoutService->loadLayout($layout->getId());
         self::assertInstanceOf(Layout::class, $publishedLayout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     */
+    public function testDeleteCompleteLayout()
+    {
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $layout = $layoutService->loadLayout(1);
+
+        $layoutService->deleteLayout($layout, true);
+
+        $layoutService->loadLayout($layout->getId());
     }
 
     /**

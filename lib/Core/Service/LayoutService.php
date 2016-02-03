@@ -104,7 +104,7 @@ class LayoutService implements LayoutServiceInterface
 
         $layoutHandler = $this->persistenceHandler->getLayoutHandler();
 
-        $layout = $layoutHandler->loadLayout($layoutId);
+        $layout = $layoutHandler->loadLayout($layoutId, $status);
 
         return $this->mapper->mapZone(
             $layoutHandler->loadZone(
@@ -153,74 +153,26 @@ class LayoutService implements LayoutServiceInterface
      */
     public function copyLayout(Layout $layout)
     {
-        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $copiedLayout = $layoutHandler->copyLayout(
-                $layout->getId(),
-                true,
-                Layout::STATUS_PUBLISHED,
-                Layout::STATUS_DRAFT
-            );
-
-            foreach ($layout->getZones() as $zone) {
-                foreach ($zone->getBlocks() as $block) {
-                    $layoutHandler->copyBlock(
-                        $block->getId(),
-                        $copiedLayout->id,
-                        $zone->getIdentifier(),
-                        true,
-                        Layout::STATUS_PUBLISHED,
-                        Layout::STATUS_DRAFT
-                    );
-                }
-            }
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->mapper->mapLayout($copiedLayout);
     }
 
     /**
      * Creates a new layout status.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $newStatus
+     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayoutStatus(Layout $layout, $newStatus)
+    public function createLayoutStatus(Layout $layout, $status)
     {
-        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
-
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $layoutHandler->copyLayout(
+            $createdLayout = $this->persistenceHandler->getLayoutHandler()->createLayoutStatus(
                 $layout->getId(),
-                false,
                 $layout->getStatus(),
-                $newStatus
+                $status
             );
-
-            foreach ($layout->getZones() as $zone) {
-                foreach ($zone->getBlocks() as $block) {
-                    $layoutHandler->copyBlock(
-                        $block->getId(),
-                        $layout->getId(),
-                        $zone->getIdentifier(),
-                        false,
-                        $layout->getStatus(),
-                        $newStatus
-                    );
-                }
-            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -228,7 +180,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapLayout($copiedLayout);
+        return $this->mapper->mapLayout($createdLayout);
     }
 
     /**
@@ -266,17 +218,17 @@ class LayoutService implements LayoutServiceInterface
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $status
+     * @param bool $deleteAll
      */
-    public function deleteLayout(Layout $layout, $status = null)
+    public function deleteLayout(Layout $layout, $deleteAll = false)
     {
         $this->persistenceHandler->beginTransaction();
 
-        $layoutHandler = $this->persistenceHandler->getLayoutHandler();
-
         try {
-            $layoutHandler->deleteLayoutBlocks($layout->getId(), $status);
-            $layoutHandler->deleteLayout($layout->getId(), $status);
+            $this->persistenceHandler->getLayoutHandler()->deleteLayout(
+                $layout->getId(),
+                $deleteAll ? null : $layout->getStatus()
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

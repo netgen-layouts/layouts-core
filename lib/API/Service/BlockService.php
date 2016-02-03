@@ -29,7 +29,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
@@ -55,7 +55,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
@@ -68,8 +68,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If target zone is the same as current zone
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block

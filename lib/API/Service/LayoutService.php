@@ -57,11 +57,13 @@ interface LayoutService
      * Creates a new layout status.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $newStatus
+     * @param int $status
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayoutStatus(Layout $layout, $newStatus);
+    public function createLayoutStatus(Layout $layout, $status);
 
     /**
      * Publishes a layout.
@@ -78,9 +80,9 @@ interface LayoutService
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $status
+     * @param bool $deleteAll
      */
-    public function deleteLayout(Layout $layout, $status = null);
+    public function deleteLayout(Layout $layout, $deleteAll = false);
 
     /**
      * Creates a new layout create struct.
