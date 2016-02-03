@@ -138,7 +138,7 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testLoadLayoutThrowsNotFoundException()
     {
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadLayout(PHP_INT_MAX);
+        $layoutService->loadLayout(999999);
     }
 
     /**
@@ -208,7 +208,7 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone(PHP_INT_MAX, 'bottom');
+        $layoutService->loadZone(999999, 'bottom');
     }
 
     /**

@@ -89,7 +89,7 @@ abstract class BlockServiceTest extends ServiceTest
     public function testLoadBlockThrowsNotFoundException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
-        $blockService->loadBlock(PHP_INT_MAX);
+        $blockService->loadBlock(999999);
     }
 
     /**
