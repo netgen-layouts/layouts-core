@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
@@ -310,7 +309,7 @@ class Handler implements LayoutHandlerInterface
     public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status)
     {
         if (!$this->zoneExists($layoutId, $zoneIdentifier, $status)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            throw new NotFoundException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
         $query = $this->createBlockInsertQuery(
@@ -527,7 +526,7 @@ class Handler implements LayoutHandlerInterface
 
         if ($zoneIdentifier !== null) {
             if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
-                throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+                throw new NotFoundException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
         }
 
@@ -569,7 +568,7 @@ class Handler implements LayoutHandlerInterface
         $block = $this->loadBlock($blockId, $status);
 
         if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            throw new NotFoundException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
         $query = $this->connection->createQueryBuilder();
