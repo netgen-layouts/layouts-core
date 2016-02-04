@@ -216,7 +216,7 @@ class BlockService implements BlockServiceInterface
      *
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block is already in provided zone
+     *                                                              If block is already in provided zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -227,7 +227,7 @@ class BlockService implements BlockServiceInterface
         }
 
         if ($block->getZoneIdentifier() === $zoneIdentifier) {
-            throw new InvalidArgumentException('zoneIdentifier', 'Block is already in provided zone.');
+            throw new BadStateException('zoneIdentifier', 'Block is already in provided zone.');
         }
 
         $this->persistenceHandler->beginTransaction();

@@ -504,9 +504,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testMoveBlockThrowsInvalidArgumentExceptionWhenAlreadyInZone()
+    public function testMoveBlockThrowsBadStateExceptionWhenAlreadyInZone()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
