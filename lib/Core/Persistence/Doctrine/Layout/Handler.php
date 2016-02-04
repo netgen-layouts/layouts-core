@@ -302,7 +302,7 @@ class Handler implements LayoutHandlerInterface
      * @param string $zoneIdentifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -516,7 +516,7 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -559,7 +559,7 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
