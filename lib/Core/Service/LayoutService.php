@@ -217,6 +217,8 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Deletes a specified layout.
      *
+     * If $deleteAll is set to true, layout is completely deleted (i.e. all statuses).
+     *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param bool $deleteAll
      */
