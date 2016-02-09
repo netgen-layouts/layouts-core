@@ -591,6 +591,8 @@ class Handler implements LayoutHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
+        // @TODO Reindex positions in the old zone?
+
         if ($zoneIdentifier === null) {
             $zoneIdentifier = $block->zoneIdentifier;
         }
