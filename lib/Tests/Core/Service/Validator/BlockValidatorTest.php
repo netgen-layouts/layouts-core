@@ -74,6 +74,18 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->at(3))
             ->method('validate')
             ->with(
+                $this->equalTo(3),
+                array(
+                    new Constraints\Type(array('type' => 'int')),
+                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
+                )
+            )
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validatorMock
+            ->expects($this->at(4))
+            ->method('validate')
+            ->with(
                 $this->equalTo(array('param' => 'value')),
                 array(
                     new BlockParameters(array('definitionIdentifier' => 'block_definition')),
