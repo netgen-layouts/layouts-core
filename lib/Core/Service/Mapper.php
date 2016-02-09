@@ -38,18 +38,18 @@ class Mapper implements MapperInterface
      */
     public function mapBlock(PersistenceBlock $block)
     {
-        $blockData = array(
-            'id' => $block->id,
-            'layoutId' => $block->layoutId,
-            'zoneIdentifier' => $block->zoneIdentifier,
-            'definitionIdentifier' => $block->definitionIdentifier,
-            'parameters' => $block->parameters,
-            'viewType' => $block->viewType,
-            'name' => $block->name,
-            'status' => $block->status,
+        return new Block(
+            array(
+                'id' => $block->id,
+                'layoutId' => $block->layoutId,
+                'zoneIdentifier' => $block->zoneIdentifier,
+                'definitionIdentifier' => $block->definitionIdentifier,
+                'parameters' => $block->parameters,
+                'viewType' => $block->viewType,
+                'name' => $block->name,
+                'status' => $block->status,
+            )
         );
-
-        return new Block($blockData);
     }
 
     /**
@@ -72,14 +72,14 @@ class Mapper implements MapperInterface
             $blocks[] = $this->mapBlock($persistenceBlock);
         }
 
-        $zoneData = array(
-            'identifier' => $zone->identifier,
-            'layoutId' => $zone->layoutId,
-            'status' => $zone->status,
-            'blocks' => $blocks,
+        return new Zone(
+            array(
+                'identifier' => $zone->identifier,
+                'layoutId' => $zone->layoutId,
+                'status' => $zone->status,
+                'blocks' => $blocks,
+            )
         );
-
-        return new Zone($zoneData);
     }
 
     /**
@@ -101,18 +101,18 @@ class Mapper implements MapperInterface
             $zones[$persistenceZone->identifier] = $this->mapZone($persistenceZone);
         }
 
-        $layoutData = array(
-            'id' => $layout->id,
-            'parentId' => $layout->parentId,
-            'identifier' => $layout->identifier,
-            'name' => $layout->name,
-            'created' => $this->createDateTime($layout->created),
-            'modified' => $this->createDateTime($layout->modified),
-            'status' => $layout->status,
-            'zones' => $zones,
+        return new Layout(
+            array(
+                'id' => $layout->id,
+                'parentId' => $layout->parentId,
+                'identifier' => $layout->identifier,
+                'name' => $layout->name,
+                'created' => $this->createDateTime($layout->created),
+                'modified' => $this->createDateTime($layout->modified),
+                'status' => $layout->status,
+                'zones' => $zones,
+            )
         );
-
-        return new Layout($layoutData);
     }
 
     /**
