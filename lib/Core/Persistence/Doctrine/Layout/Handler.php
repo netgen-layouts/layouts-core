@@ -327,7 +327,7 @@ class Handler implements LayoutHandlerInterface
         $query->execute();
 
         return $this->loadBlock(
-            $this->connectionHelper->lastInsertId('ngbm_block'),
+            (int)$this->connectionHelper->lastInsertId('ngbm_block'),
             $status
         );
     }
