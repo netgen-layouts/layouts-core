@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
@@ -22,7 +23,30 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $paramConverter = new ParamConverter();
         self::assertEquals(true, $paramConverter->apply($request, $configuration));
         self::assertEquals(true, $request->attributes->has('value'));
-        self::assertEquals(new Value(), $request->attributes->get('value'));
+        self::assertEquals(
+            new Value(array('status' => Layout::STATUS_PUBLISHED)),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
+    public function testApplyWithStatus()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->attributes->set('status', Layout::STATUS_DRAFT);
+        $configuration = new ParamConverterConfiguration(array());
+        $configuration->setClass(Value::class);
+
+        $paramConverter = new ParamConverter();
+        self::assertEquals(true, $paramConverter->apply($request, $configuration));
+        self::assertEquals(true, $request->attributes->has('value'));
+        self::assertEquals(
+            new Value(array('status' => Layout::STATUS_DRAFT)),
+            $request->attributes->get('value')
+        );
     }
 
     /**

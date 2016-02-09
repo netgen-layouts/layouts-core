@@ -41,11 +41,12 @@ class ParamConverter extends BaseParamConverter
      * Returns the value object.
      *
      * @param int|string $valueId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject($valueId, $status)
     {
-        return new Value();
+        return new Value(array('status' => $status));
     }
 }
