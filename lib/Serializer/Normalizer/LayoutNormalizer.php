@@ -46,7 +46,6 @@ class LayoutNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified(),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
-            'positions' => $this->getBlockPositions($layout),
         );
     }
 
@@ -91,36 +90,16 @@ class LayoutNormalizer implements NormalizerInterface
 
             $zones[] = array(
                 'identifier' => $zoneIdentifier,
-                'allowed_block_types' => $allowedBlockTypes,
-            );
-        }
-
-        return $zones;
-    }
-
-    /**
-     * Returns the array with block positions inside zones.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     *
-     * @return array
-     */
-    protected function getBlockPositions(Layout $layout)
-    {
-        $positions = array();
-
-        foreach ($layout->getZones() as $zoneIdentifier => $zone) {
-            $positions[] = array(
-                'zone' => $zoneIdentifier,
-                'blocks' => array_map(
+                'block_ids' => array_map(
                     function (Block $block) {
                         return $block->getId();
                     },
                     $zone->getBlocks()
                 ),
+                'allowed_block_types' => $allowedBlockTypes,
             );
         }
 
-        return $positions;
+        return $zones;
     }
 }

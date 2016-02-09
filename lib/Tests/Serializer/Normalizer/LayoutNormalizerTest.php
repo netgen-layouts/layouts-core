@@ -18,7 +18,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getZones
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getBlockPositions
      */
     public function testNormalize()
     {
@@ -90,21 +89,13 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                 'zones' => array(
                     array(
                         'identifier' => 'left',
+                        'block_ids' => array(24),
                         'allowed_block_types' => array('title'),
                     ),
                     array(
                         'identifier' => 'right',
+                        'block_ids' => array(),
                         'allowed_block_types' => true,
-                    ),
-                ),
-                'positions' => array(
-                    array(
-                        'zone' => 'left',
-                        'blocks' => array(24),
-                    ),
-                    array(
-                        'zone' => 'right',
-                        'blocks' => array(),
                     ),
                 ),
             ),
