@@ -64,7 +64,10 @@ class BlockController extends Controller
         $serializer = $this->get('serializer');
         $configuration = $this->get('netgen_block_manager.configuration');
 
-        $data = $configuration->getParameter('block_type_groups');
+        $data = array(
+            'block_type_groups' => $configuration->getParameter('block_type_groups'),
+            'block_types' => $configuration->getParameter('block_types')
+        );
 
         $response = new JsonResponse();
         $response->setContent($serializer->encode($data, 'json'));
