@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\SerializableValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use DateTime;
 
 class LayoutNormalizer implements NormalizerInterface
 {
@@ -42,8 +43,8 @@ class LayoutNormalizer implements NormalizerInterface
             'id' => $layout->getId(),
             'parent_id' => $layout->getParentId(),
             'identifier' => $layout->getIdentifier(),
-            'created_at' => $layout->getCreated(),
-            'updated_at' => $layout->getModified(),
+            'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
+            'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
         );
