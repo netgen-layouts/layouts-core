@@ -23,6 +23,7 @@ CREATE TABLE "ngbm_block" (
     "id" integer NOT NULL,
     "layout_id" integer NOT NULL,
     "zone_identifier" varchar(255) NOT NULL,
+    "position" integer NOT NULL,
     "definition_identifier" varchar(255) NOT NULL,
     "view_type" varchar(255) NOT NULL,
     "name" varchar(255) NOT NULL,

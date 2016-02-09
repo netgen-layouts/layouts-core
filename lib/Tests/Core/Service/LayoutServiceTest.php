@@ -80,6 +80,7 @@ abstract class LayoutServiceTest extends ServiceTest
                                     'id' => 1,
                                     'layoutId' => 1,
                                     'zoneIdentifier' => 'top_right',
+                                    'position' => 0,
                                     'definitionIdentifier' => 'paragraph',
                                     'parameters' => array(
                                         'some_param' => 'some_value',
@@ -94,6 +95,7 @@ abstract class LayoutServiceTest extends ServiceTest
                                     'id' => 2,
                                     'layoutId' => 1,
                                     'zoneIdentifier' => 'top_right',
+                                    'position' => 1,
                                     'definitionIdentifier' => 'title',
                                     'parameters' => array(
                                         'other_param' => 'other_value',
@@ -405,6 +407,7 @@ abstract class LayoutServiceTest extends ServiceTest
                                     'id' => 1,
                                     'layoutId' => 1,
                                     'zoneIdentifier' => 'top_right',
+                                    'position' => 0,
                                     'definitionIdentifier' => 'paragraph',
                                     'parameters' => array(
                                         'some_param' => 'some_value',
@@ -419,6 +422,7 @@ abstract class LayoutServiceTest extends ServiceTest
                                     'id' => 2,
                                     'layoutId' => 1,
                                     'zoneIdentifier' => 'top_right',
+                                    'position' => 1,
                                     'definitionIdentifier' => 'title',
                                     'parameters' => array(
                                         'other_param' => 'other_value',

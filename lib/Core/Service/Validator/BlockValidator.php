@@ -51,6 +51,15 @@ class BlockValidator extends Validator implements BlockValidatorInterface
         );
 
         $this->validate(
+            $blockCreateStruct->position,
+            array(
+                new Constraints\Type(array('type' => 'int')),
+                new Constraints\GreaterThanOrEqual(array('value' => 0)),
+            ),
+            'position'
+        );
+
+        $this->validate(
             $blockCreateStruct->getParameters(),
             array(
                 new BlockParameters(array('definitionIdentifier' => $blockCreateStruct->definitionIdentifier)),

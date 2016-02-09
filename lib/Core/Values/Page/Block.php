@@ -23,6 +23,11 @@ class Block extends Value implements BlockInterface
     protected $zoneIdentifier;
 
     /**
+     * @var int
+     */
+    protected $position;
+
+    /**
      * @var string
      */
     protected $definitionIdentifier;
@@ -75,6 +80,16 @@ class Block extends Value implements BlockInterface
     public function getZoneIdentifier()
     {
         return $this->zoneIdentifier;
+    }
+
+    /**
+     * Returns the position of this block in the zone.
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**

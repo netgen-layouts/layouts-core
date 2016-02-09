@@ -19,6 +19,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'layoutId' => 24,
                 'zoneIdentifier' => 'bottom',
+                'position' => 2,
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -37,6 +38,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => $block->getDefinitionIdentifier(),
                 'name' => $block->getName(),
                 'zone_identifier' => $block->getZoneIdentifier(),
+                'position' => 2,
                 'layout_id' => $block->getLayoutId(),
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),

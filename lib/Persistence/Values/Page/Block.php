@@ -28,6 +28,13 @@ class Block extends Value
     public $zoneIdentifier;
 
     /**
+     * Position of the block in the zone.
+     *
+     * @var int
+     */
+    public $position;
+
+    /**
      * Block definition identifier.
      *
      * @var string

@@ -43,6 +43,7 @@ class Mapper implements MapperInterface
                 'id' => $block->id,
                 'layoutId' => $block->layoutId,
                 'zoneIdentifier' => $block->zoneIdentifier,
+                'position' => $block->position,
                 'definitionIdentifier' => $block->definitionIdentifier,
                 'parameters' => $block->parameters,
                 'viewType' => $block->viewType,

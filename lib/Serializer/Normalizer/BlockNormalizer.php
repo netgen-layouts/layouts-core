@@ -26,6 +26,7 @@ class BlockNormalizer implements NormalizerInterface
             'definition_identifier' => $block->getDefinitionIdentifier(),
             'name' => $block->getName(),
             'zone_identifier' => $block->getZoneIdentifier(),
+            'position' => $block->getPosition(),
             'layout_id' => $block->getLayoutId(),
             'parameters' => $block->getParameters(),
             'view_type' => $block->getViewType(),

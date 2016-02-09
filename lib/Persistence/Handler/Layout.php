@@ -171,17 +171,18 @@ interface Layout
     public function copyBlock($blockId, $status, $zoneIdentifier = null);
 
     /**
-     * Moves a block to zone with specified identifier.
+     * Moves a block to specified position in a specified zone.
      *
      * @param int|string $blockId
      * @param int $status
+     * @param int $position
      * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $status, $zoneIdentifier);
+    public function moveBlock($blockId, $status, $position, $zoneIdentifier = null);
 
     /**
      * Deletes a layout with specified ID.

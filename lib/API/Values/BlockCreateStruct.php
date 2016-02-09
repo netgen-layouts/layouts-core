@@ -20,6 +20,11 @@ abstract class BlockCreateStruct extends Value
     public $name;
 
     /**
+     * @var int
+     */
+    public $position;
+
+    /**
      * Sets the parameters to the struct.
      *
      * @param array $parameters

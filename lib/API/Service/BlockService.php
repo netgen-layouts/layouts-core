@@ -63,18 +63,19 @@ interface BlockService
     public function copyBlock(Block $block, $zoneIdentifier = null);
 
     /**
-     * Moves a block to specified zone.
+     * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param int $position
      * @param string $zoneIdentifier
      *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *                                                              If block is already in provided zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, $zoneIdentifier);
+    public function moveBlock(Block $block, $position, $zoneIdentifier = null);
 
     /**
      * Deletes a specified block.

@@ -26,6 +26,13 @@ interface Block
     public function getZoneIdentifier();
 
     /**
+     * Returns the position of this block in the zone.
+     *
+     * @return int
+     */
+    public function getPosition();
+
+    /**
      * Returns block definition identifier.
      *
      * @return string

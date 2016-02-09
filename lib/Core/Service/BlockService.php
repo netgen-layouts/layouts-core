@@ -209,25 +209,30 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
-     * Moves a block to specified zone.
+     * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param int $position
      * @param string $zoneIdentifier
      *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If zone does not exist in the layout
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *                                                              If block is already in provided zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, $zoneIdentifier)
+    public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in draft status can be moved.');
+        if (!is_int($position)) {
+            throw new InvalidArgumentException('position', 'Value must be an integer.');
         }
 
-        if ($block->getZoneIdentifier() === $zoneIdentifier) {
-            throw new BadStateException('zoneIdentifier', 'Block is already in provided zone.');
+        if ($position < 0) {
+            throw new InvalidArgumentException('position', 'Value must be a positive integer or zero.');
+        }
+
+        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in draft status can be moved.');
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -236,6 +241,7 @@ class BlockService implements BlockServiceInterface
             $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlock(
                 $block->getId(),
                 $block->getStatus(),
+                $position,
                 $zoneIdentifier
             );
         } catch (Exception $e) {

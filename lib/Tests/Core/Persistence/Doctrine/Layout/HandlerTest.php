@@ -255,6 +255,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 1,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'top_right',
+                        'position' => 0,
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
                             'some_param' => 'some_value',
@@ -269,6 +270,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 2,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'top_right',
+                        'position' => 1,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
                             'other_param' => 'other_value',
@@ -408,6 +410,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->position = 1;
         $blockCreateStruct->setParameter('a_param', 'A value');
 
         self::assertEquals(
@@ -415,7 +418,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 array(
                     'id' => 5,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 1,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -425,8 +429,47 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->createBlock($blockCreateStruct, 1, 'bottom', APILayout::STATUS_DRAFT)
+            $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
         );
+
+        $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
+        self::assertEquals(2, $secondBlock->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
+     */
+    public function testCreateBlockWithBlankPosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('a_param', 'A value');
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 2,
+                    'definitionIdentifier' => 'new_block',
+                    'parameters' => array(
+                        'a_param' => 'A value',
+                    ),
+                    'viewType' => 'large',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
+        );
+
+
     }
 
     /**
@@ -465,6 +508,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -538,6 +582,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 1,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'top_right',
+                        'position' => 0,
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
                             'some_param' => 'some_value',
@@ -552,6 +597,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 2,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'top_right',
+                        'position' => 1,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
                             'other_param' => 'other_value',
@@ -629,6 +675,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 1,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'top_right',
+                        'position' => 0,
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
                             'some_param' => 'some_value',
@@ -643,6 +690,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 2,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'top_right',
+                        'position' => 1,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
                             'other_param' => 'other_value',
@@ -687,6 +735,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 5,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 2,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -713,6 +762,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 5,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'bottom',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -749,7 +799,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                 array(
                     'id' => 1,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 1,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -759,7 +810,37 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->moveBlock(1, APILayout::STATUS_DRAFT, 'bottom')
+            $handler->moveBlock(1, APILayout::STATUS_DRAFT, 1)
+        );
+
+        $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
+        self::assertEquals(2, $secondBlock->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
+     */
+    public function testMoveBlockToDifferentZone()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
+                    'position' => 0,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->moveBlock(1, APILayout::STATUS_DRAFT, 0, 'bottom')
         );
     }
 
@@ -771,7 +852,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = $this->createLayoutHandler();
 
-        $handler->moveBlock(1, APILayout::STATUS_DRAFT, 'non_existing');
+        $handler->moveBlock(1, APILayout::STATUS_DRAFT, 0, 'non_existing');
     }
 
     /**

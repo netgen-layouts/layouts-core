@@ -49,6 +49,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -102,6 +103,7 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->position = 1;
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
@@ -115,7 +117,8 @@ abstract class BlockServiceTest extends ServiceTest
                 array(
                     'id' => 5,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_left',
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 1,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -129,7 +132,53 @@ abstract class BlockServiceTest extends ServiceTest
             $blockService->createBlock(
                 $blockCreateStruct,
                 $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_left'
+                'top_right'
+            )
+        );
+
+        $secondBlock = $blockService->loadBlock(2, Layout::STATUS_DRAFT);
+        self::assertEquals(2, $secondBlock->getPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     */
+    public function testCreateBlockWithBlankPosition()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateBlockCreateStruct')
+            ->with($this->equalTo($blockCreateStruct));
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 5,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 2,
+                    'definitionIdentifier' => 'new_block',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                        'some_other_param' => 'some_other_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => Layout::STATUS_DRAFT,
+                )
+            ),
+            $blockService->createBlock(
+                $blockCreateStruct,
+                $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+                'top_right'
             )
         );
     }
@@ -143,6 +192,7 @@ abstract class BlockServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->position = 3;
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
@@ -157,6 +207,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 5,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_left',
+                    'position' => 3,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -186,6 +237,7 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->name = 'My block';
+
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
@@ -243,6 +295,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -286,6 +339,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -328,6 +382,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -377,6 +432,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 5,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 2,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -404,6 +460,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'id' => 5,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'bottom',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -458,7 +515,8 @@ abstract class BlockServiceTest extends ServiceTest
                 array(
                     'id' => 1,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 1,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -469,8 +527,72 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->moveBlock(
                 $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+                1,
+                'top_right'
+            )
+        );
+
+        $secondBlock = $blockService->loadBlock(2, Layout::STATUS_DRAFT);
+        self::assertEquals(2, $secondBlock->getPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     */
+    public function testMoveBlockToDifferentZone()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'bottom',
+                    'position' => 0,
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                )
+            ),
+            $blockService->moveBlock(
+                $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+                0,
                 'bottom'
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testMoveBlockThrowsInvalidArgumentExceptionWhenPositionIsNotInteger()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            '0',
+            'top_right'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testMoveBlockThrowsInvalidArgumentExceptionWhenPositionIsNegative()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            -5,
+            'top_right'
         );
     }
 
@@ -484,6 +606,7 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockService->moveBlock(
             $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            0,
             'non_existing'
         );
     }
@@ -498,21 +621,8 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockService->moveBlock(
             $blockService->loadBlock(1),
+            0,
             'bottom'
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockThrowsBadStateExceptionWhenAlreadyInZone()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-
-        $blockService->moveBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            'top_right'
         );
     }
 

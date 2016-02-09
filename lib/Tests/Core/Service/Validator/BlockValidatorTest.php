@@ -85,6 +85,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct->definitionIdentifier = 'block_definition';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->position = 3;
         $blockCreateStruct->setParameters(array('param' => 'value'));
 
         $blockValidator = new BlockValidator($this->validatorMock);

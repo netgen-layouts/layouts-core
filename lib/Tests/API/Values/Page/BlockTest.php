@@ -12,6 +12,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
@@ -25,6 +26,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertNull($block->getId());
         self::assertNull($block->getLayoutId());
         self::assertNull($block->getZoneIdentifier());
+        self::assertNull($block->getPosition());
         self::assertNull($block->getDefinitionIdentifier());
         self::assertEquals(array(), $block->getParameters());
         self::assertNull($block->getViewType());
@@ -37,6 +39,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
@@ -50,6 +53,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'layoutId' => 84,
                 'zoneIdentifier' => 'top_left',
+                'position' => 3,
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -64,6 +68,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(42, $block->getId());
         self::assertEquals(84, $block->getLayoutId());
         self::assertEquals('top_left', $block->getZoneIdentifier());
+        self::assertEquals(3, $block->getPosition());
         self::assertEquals('paragraph', $block->getDefinitionIdentifier());
         self::assertEquals(
             array(

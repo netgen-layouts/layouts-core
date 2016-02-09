@@ -24,6 +24,7 @@ CREATE TABLE `ngbm_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `layout_id` int(11) NOT NULL,
   `zone_identifier` varchar(255) NOT NULL,
+  `position` int(11) NOT NULL,
   `definition_identifier` varchar(255) NOT NULL,
   `view_type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,

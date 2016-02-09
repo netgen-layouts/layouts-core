@@ -30,6 +30,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
                 'id' => 1,
                 'layoutId' => 1,
                 'zoneIdentifier' => 'top_right',
+                'position' => 3,
                 'definitionIdentifier' => 'paragraph',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -47,6 +48,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(1, $block->getId());
         self::assertEquals(1, $block->getLayoutId());
         self::assertEquals('top_right', $block->getZoneIdentifier());
+        self::assertEquals(3, $block->getPosition());
         self::assertEquals('paragraph', $block->getDefinitionIdentifier());
         self::assertEquals(array('some_param' => 'some_value'), $block->getParameters());
         self::assertEquals('default', $block->getViewType());
@@ -77,8 +79,11 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
 
         self::assertNotEmpty($zone->getBlocks());
 
+        $position = 0;
         foreach ($zone->getBlocks() as $block) {
+            self::assertEquals($position, $block->getPosition());
             self::assertInstanceOf(APIBlock::class, $block);
+            $position++;
         }
     }
 

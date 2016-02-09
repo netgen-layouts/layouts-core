@@ -16,6 +16,7 @@ class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
         self::assertNull($blockCreateStruct->definitionIdentifier);
         self::assertNull($blockCreateStruct->viewType);
         self::assertNull($blockCreateStruct->name);
+        self::assertNull($blockCreateStruct->position);
         self::assertEquals(array(), $blockCreateStruct->getParameters());
     }
 
@@ -30,6 +31,7 @@ class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
                 'definitionIdentifier' => 'paragraph',
                 'viewType' => 'default',
                 'name' => 'My block',
+                'position' => 3,
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
@@ -40,6 +42,7 @@ class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('paragraph', $blockCreateStruct->definitionIdentifier);
         self::assertEquals('default', $blockCreateStruct->viewType);
         self::assertEquals('My block', $blockCreateStruct->name);
+        self::assertEquals(3, $blockCreateStruct->position);
         self::assertEquals(
             array(
                 'some_param' => 'some_value',

@@ -114,6 +114,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'layout_id' => 24,
                 'zone_identifier' => 'bottom',
+                'position' => 4,
                 'definition_identifier' => 'paragraph',
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
@@ -124,6 +125,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                 'id' => 84,
                 'layout_id' => 48,
                 'zone_identifier' => 'top',
+                'position' => 3,
                 'definition_identifier' => 'title',
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
@@ -138,6 +140,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     'id' => 42,
                     'layoutId' => 24,
                     'zoneIdentifier' => 'bottom',
+                    'position' => 4,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'param1' => 'param2',
@@ -152,6 +155,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
                     'id' => 84,
                     'layoutId' => 48,
                     'zoneIdentifier' => 'top',
+                    'position' => 3,
                     'definitionIdentifier' => 'title',
                     'parameters' => array(
                         'param1' => 42,

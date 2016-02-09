@@ -81,6 +81,7 @@ class Mapper
                     'id' => (int)$dataItem['id'],
                     'layoutId' => (int)$dataItem['layout_id'],
                     'zoneIdentifier' => $dataItem['zone_identifier'],
+                    'position' => (int)$dataItem['position'],
                     'definitionIdentifier' => $dataItem['definition_identifier'],
                     'parameters' => is_array($parameters) ? $parameters : array(),
                     'viewType' => $dataItem['view_type'],
