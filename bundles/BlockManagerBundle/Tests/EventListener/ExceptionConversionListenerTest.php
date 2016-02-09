@@ -2,12 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Netgen\BlockManager\API\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,6 +89,37 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         );
 
         self::assertEquals(Response::HTTP_BAD_REQUEST, $event->getException()->getStatusCode());
+        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
+        self::assertEquals($exception->getCode(), $event->getException()->getCode());
+        self::assertEquals($exception, $event->getException()->getPrevious());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionConvertsBadStateException()
+    {
+        $eventListener = new ExceptionConversionListener();
+
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $exception = new BadStateException('param', 'Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $exception
+        );
+
+        $eventListener->onException($event);
+
+        self::assertInstanceOf(
+            UnprocessableEntityHttpException::class,
+            $event->getException()
+        );
+
+        self::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $event->getException()->getStatusCode());
         self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
