@@ -62,7 +62,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             'zones' => array(
                 'left' => array(
                     'name' => 'Left',
-                    'allowed_blocks' => array('title'),
+                    'allowed_block_types' => array('title'),
                 ),
                 'right' => array(
                     'name' => 'Right',
@@ -90,11 +90,11 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                 'zones' => array(
                     array(
                         'identifier' => 'left',
-                        'allowed_blocks' => array('title'),
+                        'allowed_block_types' => array('title'),
                     ),
                     array(
                         'identifier' => 'right',
-                        'allowed_blocks' => true,
+                        'allowed_block_types' => true,
                     ),
                 ),
                 'positions' => array(

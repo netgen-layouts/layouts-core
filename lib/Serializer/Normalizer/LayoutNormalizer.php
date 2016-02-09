@@ -80,18 +80,18 @@ class LayoutNormalizer implements NormalizerInterface
         $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
-            $allowedBlocks = true;
+            $allowedBlocktypes = true;
 
             if (isset($layoutConfig['zones'][$zoneIdentifier])) {
                 $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
-                if (!empty($zoneConfig['allowed_blocks'])) {
-                    $allowedBlocks = $zoneConfig['allowed_blocks'];
+                if (!empty($zoneConfig['allowed_block_types'])) {
+                    $allowedBlocktypes = $zoneConfig['allowed_block_types'];
                 }
             }
 
             $zones[] = array(
                 'identifier' => $zoneIdentifier,
-                'allowed_blocks' => $allowedBlocks,
+                'allowed_block_types' => $allowedBlocktypes,
             );
         }
 

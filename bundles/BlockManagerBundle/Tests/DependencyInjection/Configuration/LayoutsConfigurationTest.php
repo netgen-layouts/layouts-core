@@ -53,7 +53,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_blocks' => array(),
+                            'allowed_block_types' => array(),
                         ),
                     ),
                 ),
@@ -115,11 +115,11 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'top' => array(
                             'name' => 'Top',
-                            'allowed_blocks' => array(),
+                            'allowed_block_types' => array(),
                         ),
                         'bottom' => array(
                             'name' => 'Bottom',
-                            'allowed_blocks' => array(),
+                            'allowed_block_types' => array(),
                         ),
                     ),
                 ),
@@ -139,7 +139,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutSettingsWithAllowedBlocks()
+    public function testLayoutSettingsWithAllowedBlocktypes()
     {
         $config = array(
             array(
@@ -149,7 +149,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
-                                'allowed_blocks' => array('title', 'paragraph'),
+                                'allowed_block_types' => array('title', 'paragraph'),
                             ),
                         ),
                     ),
@@ -164,7 +164,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_blocks' => array('title', 'paragraph'),
+                            'allowed_block_types' => array('title', 'paragraph'),
                         ),
                     ),
                 ),
@@ -184,7 +184,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutSettingsWithNonUniqueAllowedBlocks()
+    public function testLayoutSettingsWithNonUniqueAllowedBlocktypes()
     {
         $config = array(
             array(
@@ -194,7 +194,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
-                                'allowed_blocks' => array('title', 'paragraph', 'title'),
+                                'allowed_block_types' => array('title', 'paragraph', 'title'),
                             ),
                         ),
                     ),
@@ -209,7 +209,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_blocks' => array('title', 'paragraph'),
+                            'allowed_block_types' => array('title', 'paragraph'),
                         ),
                     ),
                 ),
@@ -402,7 +402,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyAllowedBlocks()
+    public function testLayoutSettingsWithEmptyAllowedBlocktypes()
     {
         $config = array(
             'layouts' => array(
@@ -410,7 +410,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'layout',
                     'zones' => array(
                         'name' => 'zone',
-                        'allowed_blocks' => array(),
+                        'allowed_block_types' => array(),
                     ),
                 ),
             ),
@@ -423,7 +423,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidAllowedBlocks()
+    public function testLayoutSettingsWithInvalidAllowedBlocktypes()
     {
         $config = array(
             'layouts' => array(
@@ -431,7 +431,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'layout',
                     'zones' => array(
                         'name' => 'zone',
-                        'allowed_blocks' => 'allowed_blocks',
+                        'allowed_block_types' => 'allowed_block_types',
                     ),
                 ),
             ),
@@ -453,7 +453,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_blocks' => array(''),
+                            'allowed_block_types' => array(''),
                         ),
                     ),
                 ),
@@ -476,7 +476,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_blocks' => array(array()),
+                            'allowed_block_types' => array(array()),
                         ),
                     ),
                 ),
