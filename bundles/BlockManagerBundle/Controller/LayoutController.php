@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
+
 class LayoutController extends Controller
 {
     /**
@@ -25,8 +27,9 @@ class LayoutController extends Controller
             array_keys($layoutConfig['zones'])
         );
 
-        $layout = $layoutService->createLayout($layoutCreateStruct);
+        $layoutCreateStruct->status = Layout::STATUS_DRAFT;
 
+        $layout = $layoutService->createLayout($layoutCreateStruct);
         $layoutView = $this->buildViewObject($layout);
 
         return $layoutView;
