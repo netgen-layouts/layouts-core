@@ -791,6 +791,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
      */
     public function testMoveBlock()
     {
@@ -815,14 +816,48 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             $handler->moveBlock(1, APILayout::STATUS_DRAFT, 1)
         );
 
-        $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
-        self::assertEquals(2, $secondBlock->position);
+        $firstBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
+        self::assertEquals(0, $firstBlock->position);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
      */
-    public function testMoveBlockToDifferentZone()
+    public function testMoveBlockToLowerPosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 2,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 0,
+                    'definitionIdentifier' => 'title',
+                    'parameters' => array(
+                        'other_param' => 'other_value',
+                    ),
+                    'viewType' => 'small',
+                    'name' => 'My other block',
+                    'status' => APILayout::STATUS_DRAFT,
+                )
+            ),
+            $handler->moveBlock(2, APILayout::STATUS_DRAFT, 0)
+        );
+
+        $firstBlock = $handler->loadBlock(1, APILayout::STATUS_DRAFT);
+        self::assertEquals(1, $firstBlock->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
+     */
+    public function testMoveBlockToZone()
     {
         $handler = $this->createLayoutHandler();
 
@@ -842,19 +877,30 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->moveBlock(1, APILayout::STATUS_DRAFT, 0, 'bottom')
+            $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 0)
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testMoveBlockInNonExistingZoneThrowsBadStateException()
+    public function testMoveBlockToZoneThrowsBadStateExceptionOnNonExistingZone()
     {
         $handler = $this->createLayoutHandler();
 
-        $handler->moveBlock(1, APILayout::STATUS_DRAFT, 0, 'non_existing');
+        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'non_existing', 0);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockToZoneThrowsBadStateExceptionOnSameZone()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'top_right', 0);
     }
 
     /**

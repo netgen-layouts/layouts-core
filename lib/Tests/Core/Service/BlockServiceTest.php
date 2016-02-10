@@ -605,7 +605,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         $secondBlock = $blockService->loadBlock(2, Layout::STATUS_DRAFT);
-        self::assertEquals(2, $secondBlock->getPosition());
+        self::assertEquals(0, $secondBlock->getPosition());
     }
 
     /**
