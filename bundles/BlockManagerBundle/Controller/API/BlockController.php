@@ -52,18 +52,17 @@ class BlockController extends Controller
         }
 
         $position = $request->request->get('position');
-        if (!is_numeric($position) || !ctype_digit($position)) {
+        if (!ctype_digit($position)) {
             throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
         }
 
         $layoutId = $request->request->get('layoutId');
-        if (!is_numeric($layoutId) || !ctype_digit($layoutId)) {
+        if (!ctype_digit($layoutId)) {
             throw new InvalidArgumentException('layoutId', 'The value needs to be a non negative integer.');
         }
 
-        $zoneIdentifier = $request->request->get('zoneIdentifier');
-        if ($zoneIdentifier === null) {
-            throw new InvalidArgumentException('zoneIdentifier', 'The value needs to be a non empty string.');
+        if (!$request->request->has('zoneIdentifier')) {
+            throw new InvalidArgumentException('zoneIdentifier', 'The value is missing.');
         }
 
         $blockService = $this->get('netgen_block_manager.api.service.block');
@@ -95,7 +94,7 @@ class BlockController extends Controller
         $createdBlock = $blockService->createBlock(
             $blockCreateStruct,
             $layout,
-            $zoneIdentifier
+            $request->request->get('zoneIdentifier')
         );
 
         $response = new JsonResponse();
@@ -121,7 +120,7 @@ class BlockController extends Controller
     public function move(Request $request, Block $block)
     {
         $position = $request->request->get('position');
-        if (!is_numeric($position) || !ctype_digit($position)) {
+        if (!ctype_digit($position)) {
             throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
         }
 
