@@ -36,7 +36,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'edit' => 'edit_form',
+                            'full' => 'block_update',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -55,7 +55,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => 'edit_form',
+                        'full' => 'block_update',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -82,7 +82,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testBlockSettingsWithNoFormEdit()
+    public function testBlockSettingsWithNoFullForm()
     {
         $config = array(
             array(
@@ -106,7 +106,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => 'block_update',
+                        'full' => 'block_update',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -140,7 +140,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'edit' => 'edit_form',
+                            'full' => 'block_update',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -157,7 +157,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'edit' => 'edit_form',
+                            'full' => 'block_update',
                         ),
                         'view_types' => array(
                             'title' => array(
@@ -176,7 +176,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => 'edit_form',
+                        'full' => 'block_update',
                     ),
                     'view_types' => array(
                         'title' => array(
@@ -246,13 +246,13 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithEmptyFormEdit()
+    public function testBlockSettingsWithEmptyFullForm()
     {
         $config = array(
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => '',
+                        'full' => '',
                     ),
                 ),
             ),
@@ -265,13 +265,13 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithInvalidFormEdit()
+    public function testBlockSettingsWithInvalidFullForm()
     {
         $config = array(
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => array(),
+                        'full' => array(),
                     ),
                 ),
             ),

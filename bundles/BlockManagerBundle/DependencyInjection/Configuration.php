@@ -128,7 +128,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('forms')
                         ->isRequired()
                         ->children()
-                            ->scalarNode('edit')
+                            ->scalarNode('full')
                                 ->cannotBeEmpty()
                                 ->defaultValue('block_update')
                             ->end()
