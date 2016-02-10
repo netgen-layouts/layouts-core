@@ -8,6 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\LengthRequiredHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -123,6 +124,37 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionNotConvertsHttpException()
+    {
+        $eventListener = new ExceptionConversionListener();
+
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $exception = new LengthRequiredHttpException('Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $exception
+        );
+
+        $eventListener->onException($event);
+
+        self::assertInstanceOf(
+            LengthRequiredHttpException::class,
+            $event->getException()
+        );
+
+        self::assertEquals(Response::HTTP_LENGTH_REQUIRED, $event->getException()->getStatusCode());
+        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
+        self::assertEquals($exception->getCode(), $event->getException()->getCode());
+        self::assertNull(null, $event->getException()->getPrevious());
     }
 
     /**
