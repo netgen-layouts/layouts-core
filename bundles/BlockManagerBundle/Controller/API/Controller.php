@@ -39,6 +39,7 @@ abstract class Controller extends BaseController
     public function serializeValueObject(Value $value)
     {
         $normalizedValueObject = $this->normalizeValueObject($value);
+
         return $this->serializeData($normalizedValueObject);
     }
 

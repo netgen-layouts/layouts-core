@@ -21,20 +21,20 @@ class BlockTypesController extends Controller
         $blockTypeGroups = array();
         foreach ($configBlockTypeGroups as $identifier => $blockTypeGroup) {
             $blockTypeGroups[] = array(
-                'identifier' => $identifier
+                'identifier' => $identifier,
             ) + $blockTypeGroup;
         }
 
         $blockTypes = array();
         foreach ($configBlockTypes as $identifier => $blockType) {
             $blockTypes[] = array(
-                'identifier' => $identifier
+                'identifier' => $identifier,
             ) + $blockType;
         }
 
         $data = array(
             'block_type_groups' => $blockTypeGroups,
-            'block_types' => $blockTypes
+            'block_types' => $blockTypes,
         );
 
         $response = new JsonResponse();

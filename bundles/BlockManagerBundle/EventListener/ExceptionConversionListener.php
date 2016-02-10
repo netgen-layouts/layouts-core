@@ -45,7 +45,7 @@ class ExceptionConversionListener implements EventSubscriberInterface
             $exceptionClass = BadRequestHttpException::class;
         } elseif ($exception instanceof BadStateException) {
             $exceptionClass = UnprocessableEntityHttpException::class;
-        } else if (!$exception instanceof HttpException) {
+        } elseif (!$exception instanceof HttpException) {
             $exceptionClass = InternalServerErrorHttpException::class;
         }
 

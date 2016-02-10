@@ -161,7 +161,7 @@ class BlockController extends Controller
             $updateStruct,
             array(
                 'block' => $block,
-                'method' => 'PATCH'
+                'method' => 'PATCH',
             )
         );
 
@@ -173,7 +173,7 @@ class BlockController extends Controller
                 ViewInterface::CONTEXT_API_EDIT,
                 array(
                     'form' => $form->createView(),
-                    'api_version' => self::API_VERSION
+                    'api_version' => self::API_VERSION,
                 )
             );
 
@@ -187,6 +187,7 @@ class BlockController extends Controller
             );
 
             $response->setContent($this->serializeData($data));
+
             return $response;
         }
 
@@ -231,7 +232,7 @@ class BlockController extends Controller
             $updateStruct,
             array(
                 'block' => $block,
-                'method' => 'PATCH'
+                'method' => 'PATCH',
             )
         );
 
@@ -244,6 +245,7 @@ class BlockController extends Controller
         if (!$form->isValid()) {
             $response = new JsonResponse(null, Response::HTTP_UNPROCESSABLE_ENTITY);
             $response->setContent(42);
+
             return $response;
         }
 

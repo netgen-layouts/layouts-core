@@ -9,7 +9,6 @@ use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandlerInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
@@ -712,7 +711,7 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Applies status condition to the query
+     * Applies status condition to the query.
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
      * @param int $status
@@ -863,7 +862,7 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Increments all block positions in a zone starting from provided position
+     * Increments all block positions in a zone starting from provided position.
      *
      * @param int $layoutId
      * @param string $zoneIdentifier
@@ -894,7 +893,7 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Returns the next available block position for provided zone
+     * Returns the next available block position for provided zone.
      *
      * @param int $layoutId
      * @param string $zoneIdentifier

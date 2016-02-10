@@ -83,7 +83,7 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
         foreach ($zone->getBlocks() as $block) {
             self::assertEquals($position, $block->getPosition());
             self::assertInstanceOf(APIBlock::class, $block);
-            $position++;
+            ++$position;
         }
     }
 

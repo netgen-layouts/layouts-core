@@ -468,8 +468,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
         );
-
-
     }
 
     /**
