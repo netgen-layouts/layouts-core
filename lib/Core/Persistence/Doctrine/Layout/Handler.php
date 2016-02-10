@@ -586,6 +586,8 @@ class Handler implements LayoutHandlerInterface
      */
     public function moveBlock($blockId, $status, $position)
     {
+        // @TODO Handle positions larger or equal than count of blocks in zone
+
         $block = $this->loadBlock($blockId, $status);
 
         if ($position > $block->position) {
@@ -641,6 +643,8 @@ class Handler implements LayoutHandlerInterface
      */
     public function moveBlockToZone($blockId, $status, $zoneIdentifier, $position)
     {
+        // @TODO Handle positions larger than count of blocks in zone
+
         $block = $this->loadBlock($blockId, $status);
 
         if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
