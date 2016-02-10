@@ -591,7 +591,7 @@ class Handler implements LayoutHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
-        // @TODO Reindex positions in the old zone?
+        // @TODO Handle positions when moving the block inside the zone
 
         if ($zoneIdentifier === null) {
             $zoneIdentifier = $block->zoneIdentifier;
@@ -601,12 +601,14 @@ class Handler implements LayoutHandlerInterface
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
-        $this->incrementBlockPositions(
-            $block->layoutId,
-            $zoneIdentifier,
-            $status,
-            $position
-        );
+        if ($zoneIdentifier !== null && $zoneIdentifier !== $block->zoneIdentifier) {
+            $this->incrementBlockPositions(
+                $block->layoutId,
+                $zoneIdentifier,
+                $status,
+                $position
+            );
+        }
 
         $query = $this->connection->createQueryBuilder();
 
@@ -624,6 +626,15 @@ class Handler implements LayoutHandlerInterface
         $this->applyStatusCondition($query, $status);
 
         $query->execute();
+
+        if ($zoneIdentifier !== null && $zoneIdentifier !== $block->zoneIdentifier) {
+            $this->decrementBlockPositions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status,
+                $block->position
+            );
+        }
 
         $movedBlock = $this->loadBlock($blockId, $status);
 
@@ -876,6 +887,37 @@ class Handler implements LayoutHandlerInterface
         $query
             ->update('ngbm_block')
             ->set('position', 'position + 1')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('zone_identifier', ':zone_identifier'),
+                    $query->expr()->gte('position', ':position')
+                )
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
+            ->setParameter('position', $position, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
+     * Decrements all block positions in a zone starting from provided position.
+     *
+     * @param int $layoutId
+     * @param string $zoneIdentifier
+     * @param int $status
+     * @param int $position
+     */
+    protected function decrementBlockPositions($layoutId, $zoneIdentifier, $status, $position)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('ngbm_block')
+            ->set('position', 'position - 1')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),
