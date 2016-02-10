@@ -228,9 +228,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testCreateBlockThrowsInvalidArgumentException()
+    public function testCreateBlockWithNonExistingZoneThrowsBadStateException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
@@ -478,9 +478,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testCopyBlockThrowsInvalidArgumentException()
+    public function testCopyBlockWithNonExistingZoneThrowsBadStateException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
@@ -598,9 +598,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testMoveBlockThrowsInvalidArgumentExceptionWhenZoneDoesNotExist()
+    public function testMoveBlockThrowsBadStateExceptionWhenZoneDoesNotExist()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 

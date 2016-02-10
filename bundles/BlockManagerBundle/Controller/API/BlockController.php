@@ -62,7 +62,7 @@ class BlockController extends Controller
         }
 
         $zoneIdentifier = $request->request->get('zoneIdentifier');
-        if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
+        if ($zoneIdentifier === null) {
             throw new InvalidArgumentException('zoneIdentifier', 'The value needs to be a non empty string.');
         }
 
@@ -125,17 +125,12 @@ class BlockController extends Controller
             throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
         }
 
-        $zoneIdentifier = $request->request->get('zoneIdentifier');
-        if (is_string($zoneIdentifier) && empty($zoneIdentifier)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'The value needs to be a non empty string.');
-        }
-
         $blockService = $this->get('netgen_block_manager.api.service.block');
 
         $blockService->moveBlock(
             $block,
             (int)$position,
-            $zoneIdentifier
+            $request->request->get('zoneIdentifier')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);

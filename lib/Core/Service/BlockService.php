@@ -86,13 +86,18 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
+     *                                                              If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier)
     {
+        if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
+            throw new InvalidArgumentException('zoneIdentifier', 'The value needs to be a non empty string.');
+        }
+
         if ($layout->getStatus() !== Layout::STATUS_DRAFT) {
             throw new BadStateException('layout', 'Blocks can only be created in draft layouts.');
         }
@@ -179,8 +184,9 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     *                                                              If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -188,6 +194,12 @@ class BlockService implements BlockServiceInterface
     {
         if ($block->getStatus() !== Layout::STATUS_DRAFT) {
             throw new BadStateException('block', 'Only blocks in draft status can be copied.');
+        }
+
+        if ($zoneIdentifier !== null) {
+            if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
+                throw new InvalidArgumentException('zoneIdentifier', 'Zone identifier must be a non empty string.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -215,9 +227,9 @@ class BlockService implements BlockServiceInterface
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid value
-     *                                                                     If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position or zone identifier have an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     *                                                              If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -229,6 +241,12 @@ class BlockService implements BlockServiceInterface
 
         if ($position < 0) {
             throw new InvalidArgumentException('position', 'Value must be a positive integer or zero.');
+        }
+
+        if ($zoneIdentifier !== null) {
+            if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
+                throw new InvalidArgumentException('zoneIdentifier', 'Zone identifier must be a non empty string.');
+            }
         }
 
         if ($block->getStatus() !== Layout::STATUS_DRAFT) {

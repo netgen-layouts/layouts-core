@@ -304,14 +304,14 @@ class Handler implements LayoutHandlerInterface
      * @param string $zoneIdentifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status)
     {
         if (!$this->zoneExists($layoutId, $zoneIdentifier, $status)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
         if ($blockCreateStruct->position === null) {
@@ -537,7 +537,7 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -550,7 +550,7 @@ class Handler implements LayoutHandlerInterface
         }
 
         if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
         $query = $this->createBlockInsertQuery(
@@ -584,7 +584,7 @@ class Handler implements LayoutHandlerInterface
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -599,7 +599,7 @@ class Handler implements LayoutHandlerInterface
         }
 
         if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
         $this->incrementBlockPositions(
