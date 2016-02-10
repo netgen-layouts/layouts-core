@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
@@ -59,6 +60,6 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
 
         $blockParamConverter = new BlockParamConverter($blockService);
 
-        self::assertEquals($block, $blockParamConverter->loadValueObject(42));
+        self::assertEquals($block, $blockParamConverter->loadValueObject(42, Layout::STATUS_DRAFT));
     }
 }
