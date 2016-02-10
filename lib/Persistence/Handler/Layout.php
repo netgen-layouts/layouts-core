@@ -177,6 +177,8 @@ interface Layout
      * @param int $status
      * @param int $position
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function moveBlock($blockId, $status, $position);
@@ -190,6 +192,8 @@ interface Layout
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     *                                                              If block is already in specified zone
+     *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

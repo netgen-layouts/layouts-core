@@ -853,6 +853,28 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->moveBlock(1, APILayout::STATUS_DRAFT, -1);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->moveBlock(1, APILayout::STATUS_DRAFT, 9999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
@@ -879,6 +901,28 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 0)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', -1);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 9999);
     }
 
     /**

@@ -230,6 +230,7 @@ class BlockService implements BlockServiceInterface
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position or zone identifier have an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
+     *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -237,10 +238,6 @@ class BlockService implements BlockServiceInterface
     {
         if (!is_int($position)) {
             throw new InvalidArgumentException('position', 'Value must be an integer.');
-        }
-
-        if ($position < 0) {
-            throw new InvalidArgumentException('position', 'Value must be a positive integer or zero.');
         }
 
         if ($zoneIdentifier !== null) {

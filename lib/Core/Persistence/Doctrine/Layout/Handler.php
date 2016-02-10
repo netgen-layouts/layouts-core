@@ -582,13 +582,23 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param int $position
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function moveBlock($blockId, $status, $position)
     {
-        // @TODO Handle positions larger or equal than count of blocks in zone
-
         $block = $this->loadBlock($blockId, $status);
+
+        $nextBlockPosition = $this->getNextBlockPosition(
+            $block->layoutId,
+            $block->zoneIdentifier,
+            $status
+        );
+
+        if ($position >= $nextBlockPosition || $position < 0) {
+            throw new BadStateException('position', 'Position is out of range.');
+        }
 
         if ($position > $block->position) {
             $this->decrementBlockPositions(
@@ -638,14 +648,23 @@ class Handler implements LayoutHandlerInterface
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *                                                              If block is already in specified zone
+     *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function moveBlockToZone($blockId, $status, $zoneIdentifier, $position)
     {
-        // @TODO Handle positions larger than count of blocks in zone
-
         $block = $this->loadBlock($blockId, $status);
+
+        $nextBlockPosition = $this->getNextBlockPosition(
+            $block->layoutId,
+            $block->zoneIdentifier,
+            $status
+        );
+
+        if ($position > $nextBlockPosition || $position < 0) {
+            throw new BadStateException('position', 'Position is out of range.');
+        }
 
         if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');

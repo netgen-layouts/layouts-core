@@ -649,13 +649,13 @@ abstract class BlockServiceTest extends ServiceTest
         $blockService->moveBlock(
             $blockService->loadBlock(1, Layout::STATUS_DRAFT),
             '0',
-            'top_right'
+            'bottom'
         );
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveBlockThrowsInvalidArgumentExceptionWhenPositionIsNegative()
     {
@@ -664,7 +664,22 @@ abstract class BlockServiceTest extends ServiceTest
         $blockService->moveBlock(
             $blockService->loadBlock(1, Layout::STATUS_DRAFT),
             -5,
-            'top_right'
+            'bottom'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $blockService->moveBlock(
+            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            9999,
+            'bottom'
         );
     }
 

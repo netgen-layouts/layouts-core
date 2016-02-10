@@ -39,7 +39,7 @@ class BlockController extends Controller
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If block type does not exist
-     *                                                              If provided position is not valid for current state of the zone
+     *                                                              If provided position is out of range
      *                                                              If layout with specified ID does not exist or layout does not have a specified zone
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -113,7 +113,7 @@ class BlockController extends Controller
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in does not have the specified zone
-     *                                                              If provided position is not valid for current state of the zone
+     *                                                              If provided position is out of range
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -207,6 +207,7 @@ class BlockController extends Controller
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If block does not support inline editing
+     *                                                              If request parameters required by the form are missing
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
