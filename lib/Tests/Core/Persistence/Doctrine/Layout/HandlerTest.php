@@ -401,6 +401,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::getNextBlockPosition
      */
     public function testCreateBlock()
     {
@@ -722,6 +724,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::getNextBlockPosition
      */
     public function testCopyBlock()
     {
@@ -787,6 +790,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
      */
     public function testMoveBlock()
     {
