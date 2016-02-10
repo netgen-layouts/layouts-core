@@ -4,6 +4,7 @@ parameters:
     netgen_block_manager.controller.block.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
     netgen_block_manager.controller.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\LayoutController
 
+    netgen_block_manager.controller.api.block_types.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockTypesController
     netgen_block_manager.controller.api.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\LayoutController
     netgen_block_manager.controller.api.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockController
 
@@ -29,6 +30,10 @@ services:
         alias: netgen_block_manager.controller.layout
 
     # API controllers
+
+    netgen_block_manager.controller.api.block_types:
+        class: %netgen_block_manager.controller.api.block_types.class%
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.layout:
         class: %netgen_block_manager.controller.api.layout.class%

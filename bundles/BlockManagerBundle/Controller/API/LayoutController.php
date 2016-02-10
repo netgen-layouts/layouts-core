@@ -16,12 +16,32 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        $serializer = $this->get('serializer');
+        $response = new JsonResponse();
+        $response->setContent(
+            $this->serializeValueObject($layout)
+        );
 
-        $normalizedLayout = $this->normalizeValueObject($layout);
+        return $response;
+    }
+
+    /**
+     * Serializes the blocks from provided layout object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function viewLayoutBlocks(Layout $layout)
+    {
+        $blocks = array();
+        foreach ($layout->getZones() as $zone) {
+            foreach ($zone->getBlocks() as $block) {
+                $blocks[] = $this->normalizeValueObject($block);
+            }
+        }
 
         $response = new JsonResponse();
-        $response->setContent($serializer->encode($normalizedLayout, 'json'));
+        $response->setContent($this->serializeData($blocks));
 
         return $response;
     }
