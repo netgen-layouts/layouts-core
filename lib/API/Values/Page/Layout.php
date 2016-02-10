@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-interface Layout
+use Netgen\BlockManager\API\Values\Value;
+
+abstract class Layout extends Value
 {
     /**
      * @const string
@@ -29,54 +31,54 @@ interface Layout
      *
      * @return int|string
      */
-    public function getId();
+    abstract public function getId();
 
     /**
      * Returns the parent layout ID.
      *
      * @return int|string
      */
-    public function getParentId();
+    abstract public function getParentId();
 
     /**
      * Returns the layout identifier.
      *
      * @return string
      */
-    public function getIdentifier();
+    abstract public function getIdentifier();
 
     /**
      * Returns the layout human readable name.
      *
      * @return string
      */
-    public function getName();
+    abstract public function getName();
 
     /**
      * Returns when was the layout created.
      *
      * @return \DateTime
      */
-    public function getCreated();
+    abstract public function getCreated();
 
     /**
      * Returns when was the layout last updated.
      *
      * @return \DateTime
      */
-    public function getModified();
+    abstract public function getModified();
 
     /**
      * Returns the status of the layout.
      *
      * @return string
      */
-    public function getStatus();
+    abstract public function getStatus();
 
     /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone[]
      */
-    public function getZones();
+    abstract public function getZones();
 }

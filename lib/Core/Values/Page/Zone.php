@@ -2,10 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\Zone as ZoneInterface;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 
-class Zone extends Value implements ZoneInterface
+class Zone extends APIZone
 {
     /**
      * @var string

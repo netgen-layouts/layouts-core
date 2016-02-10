@@ -2,33 +2,35 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-interface Zone
+use Netgen\BlockManager\API\Values\Value;
+
+abstract class Zone extends Value
 {
     /**
      * Returns zone identifier.
      *
      * @return string
      */
-    public function getIdentifier();
+    abstract public function getIdentifier();
 
     /**
      * Returns the layout ID to which this zone belongs.
      *
      * @return int|string
      */
-    public function getLayoutId();
+    abstract public function getLayoutId();
 
     /**
      * Returns the status of the zone.
      *
      * @return string
      */
-    public function getStatus();
+    abstract public function getStatus();
 
     /**
      * Returns zone blocks.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block[]
      */
-    public function getBlocks();
+    abstract public function getBlocks();
 }

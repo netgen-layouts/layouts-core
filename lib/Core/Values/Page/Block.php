@@ -2,10 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\Block as BlockInterface;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 
-class Block extends Value implements BlockInterface
+class Block extends APIBlock
 {
     /**
      * @var int|string
