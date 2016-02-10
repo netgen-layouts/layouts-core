@@ -228,9 +228,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testCreateBlockThrowsNotFoundException()
+    public function testCreateBlockThrowsInvalidArgumentException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
@@ -478,9 +478,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testCopyBlockThrowsNotFoundException()
+    public function testCopyBlockThrowsInvalidArgumentException()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
@@ -598,9 +598,9 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testMoveBlockThrowsNotFoundException()
+    public function testMoveBlockThrowsInvalidArgumentExceptionWhenZoneDoesNotExist()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 

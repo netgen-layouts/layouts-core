@@ -475,9 +475,9 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testCreateBlockInNonExistingZoneThrowsNotFoundException()
+    public function testCreateBlockInNonExistingZoneThrowsInvalidArgumentException()
     {
         $handler = $this->createLayoutHandler();
 
@@ -778,9 +778,9 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testCopyBlockInNonExistingZoneThrowsNotFoundException()
+    public function testCopyBlockInNonExistingZoneThrowsInvalidArgumentException()
     {
         $handler = $this->createLayoutHandler();
 
@@ -846,9 +846,9 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testMoveBlockInNonExistingZoneThrowsNotFoundException()
+    public function testMoveBlockInNonExistingZoneThrowsInvalidArgumentException()
     {
         $handler = $this->createLayoutHandler();
 
