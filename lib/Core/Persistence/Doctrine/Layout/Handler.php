@@ -576,39 +576,87 @@ class Handler implements LayoutHandlerInterface
     }
 
     /**
-     * Moves a block to specified position in a specified zone.
+     * Moves a block to specified position in the zone.
      *
      * @param int|string $blockId
      * @param int $status
      * @param int $position
-     * @param string $zoneIdentifier
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $status, $position, $zoneIdentifier = null)
+    public function moveBlock($blockId, $status, $position)
     {
         $block = $this->loadBlock($blockId, $status);
 
-        // @TODO Handle positions when moving the block inside the zone
-
-        if ($zoneIdentifier === null) {
-            $zoneIdentifier = $block->zoneIdentifier;
+        if ($position > $block->position) {
+            $this->decrementBlockPositions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status,
+                $block->position + 1,
+                $position
+            );
+        } elseif ($position < $block->position) {
+            $this->incrementBlockPositions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status,
+                $position,
+                $block->position - 1
+            );
         }
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('ngbm_block')
+            ->set('position', ':position')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $block->id, Type::INTEGER)
+            ->setParameter('position', $position, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+
+        $movedBlock = $this->loadBlock($blockId, $status);
+
+        return $movedBlock;
+    }
+
+    /**
+     * Moves a block to specified position in a specified zone.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $zoneIdentifier
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     *                                                              If block is already in specified zone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function moveBlockToZone($blockId, $status, $zoneIdentifier, $position)
+    {
+        $block = $this->loadBlock($blockId, $status);
 
         if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
-        if ($zoneIdentifier !== null && $zoneIdentifier !== $block->zoneIdentifier) {
-            $this->incrementBlockPositions(
-                $block->layoutId,
-                $zoneIdentifier,
-                $status,
-                $position
-            );
+        if ($zoneIdentifier === $block->zoneIdentifier) {
+            throw new BadStateException('zoneIdentifier', 'Block is already in specified zone.');
         }
+
+        $this->incrementBlockPositions(
+            $block->layoutId,
+            $zoneIdentifier,
+            $status,
+            $position
+        );
 
         $query = $this->connection->createQueryBuilder();
 
@@ -627,14 +675,12 @@ class Handler implements LayoutHandlerInterface
 
         $query->execute();
 
-        if ($zoneIdentifier !== null && $zoneIdentifier !== $block->zoneIdentifier) {
-            $this->decrementBlockPositions(
-                $block->layoutId,
-                $block->zoneIdentifier,
-                $status,
-                $block->position
-            );
-        }
+        $this->decrementBlockPositions(
+            $block->layoutId,
+            $block->zoneIdentifier,
+            $status,
+            $block->position
+        );
 
         $movedBlock = $this->loadBlock($blockId, $status);
 
@@ -878,9 +924,10 @@ class Handler implements LayoutHandlerInterface
      * @param int $layoutId
      * @param string $zoneIdentifier
      * @param int $status
-     * @param int $position
+     * @param int $startPosition
+     * @param int $endPosition
      */
-    protected function incrementBlockPositions($layoutId, $zoneIdentifier, $status, $position)
+    protected function incrementBlockPositions($layoutId, $zoneIdentifier, $status, $startPosition = null, $endPosition = null)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -890,13 +937,21 @@ class Handler implements LayoutHandlerInterface
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('zone_identifier', ':zone_identifier'),
-                    $query->expr()->gte('position', ':position')
+                    $query->expr()->eq('zone_identifier', ':zone_identifier')
                 )
             )
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('position', $position, Type::INTEGER);
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
+
+        if ($startPosition !== null) {
+            $query->andWhere($query->expr()->gte('position', ':start_position'));
+            $query->setParameter('start_position', $startPosition, Type::INTEGER);
+        }
+
+        if ($endPosition !== null) {
+            $query->andWhere($query->expr()->lte('position', ':end_position'));
+            $query->setParameter('end_position', $endPosition, Type::INTEGER);
+        }
 
         $this->applyStatusCondition($query, $status);
 
@@ -909,9 +964,10 @@ class Handler implements LayoutHandlerInterface
      * @param int $layoutId
      * @param string $zoneIdentifier
      * @param int $status
-     * @param int $position
+     * @param int $startPosition
+     * @param int $endPosition
      */
-    protected function decrementBlockPositions($layoutId, $zoneIdentifier, $status, $position)
+    protected function decrementBlockPositions($layoutId, $zoneIdentifier, $status, $startPosition = null, $endPosition = null)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -921,13 +977,21 @@ class Handler implements LayoutHandlerInterface
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('zone_identifier', ':zone_identifier'),
-                    $query->expr()->gte('position', ':position')
+                    $query->expr()->eq('zone_identifier', ':zone_identifier')
                 )
             )
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('position', $position, Type::INTEGER);
+            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
+
+        if ($startPosition !== null) {
+            $query->andWhere($query->expr()->gte('position', ':start_position'));
+            $query->setParameter('start_position', $startPosition, Type::INTEGER);
+        }
+
+        if ($endPosition !== null) {
+            $query->andWhere($query->expr()->lte('position', ':end_position'));
+            $query->setParameter('end_position', $endPosition, Type::INTEGER);
+        }
 
         $this->applyStatusCondition($query, $status);
 

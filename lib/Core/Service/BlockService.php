@@ -256,12 +256,20 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlock(
-                $block->getId(),
-                $block->getStatus(),
-                $position,
-                $zoneIdentifier
-            );
+            if ($zoneIdentifier === null || $zoneIdentifier === $block->getZoneIdentifier()) {
+                $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlock(
+                    $block->getId(),
+                    $block->getStatus(),
+                    $position
+                );
+            } else {
+                $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlockToZone(
+                    $block->getId(),
+                    $block->getStatus(),
+                    $zoneIdentifier,
+                    $position
+                );
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
