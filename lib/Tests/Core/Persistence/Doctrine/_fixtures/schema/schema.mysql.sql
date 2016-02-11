@@ -16,7 +16,6 @@ CREATE TABLE `ngbm_zone` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`identifier`, `layout_id`, `status`),
-  KEY `idx_ngbm_zone_layout_id` (`layout_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ngbm_block`;

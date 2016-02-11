@@ -12,7 +12,6 @@ CREATE TABLE `ngbm_rule_value` (
   `rule_id` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_ngbm_rule_value_rule_id` (`rule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
@@ -22,5 +21,4 @@ CREATE TABLE `ngbm_rule_condition` (
   `identifier` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_ngbm_rule_condition_rule_id` (`rule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

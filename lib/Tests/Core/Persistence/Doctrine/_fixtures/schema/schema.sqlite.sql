@@ -31,5 +31,3 @@ CREATE TABLE `ngbm_block` (
   `status` integer NOT NULL,
   PRIMARY KEY (`id`, `status`)
 );
-
-CREATE INDEX `idx_ngbm_zone_layout_id` ON `ngbm_zone` ( `layout_id` );

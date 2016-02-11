@@ -19,6 +19,3 @@ CREATE TABLE `ngbm_rule_condition` (
   `identifier` text(255) NOT NULL,
   `parameters` text NOT NULL
 );
-
-CREATE INDEX `idx_ngbm_rule_value_rule_id` ON `ngbm_rule_value` ( `rule_id` );
-CREATE INDEX `idx_ngbm_rule_condition_rule_id` ON `ngbm_rule_condition` ( `rule_id` );
