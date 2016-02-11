@@ -267,12 +267,12 @@ class Handler implements LayoutHandlerInterface
 
         $query = $this->createLayoutInsertQuery(
             array(
+                'status' => $layoutCreateStruct->status,
                 'parent_id' => $parentLayoutId,
                 'identifier' => $layoutCreateStruct->identifier,
                 'name' => $layoutCreateStruct->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
-                'status' => $layoutCreateStruct->status,
             )
         );
 
@@ -338,6 +338,7 @@ class Handler implements LayoutHandlerInterface
 
         $query = $this->createBlockInsertQuery(
             array(
+                'status' => $status,
                 'layout_id' => $layoutId,
                 'zone_identifier' => $zoneIdentifier,
                 'position' => $position,
@@ -345,7 +346,6 @@ class Handler implements LayoutHandlerInterface
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
                 'parameters' => $blockCreateStruct->getParameters(),
-                'status' => $status,
             )
         );
 
@@ -424,12 +424,12 @@ class Handler implements LayoutHandlerInterface
         $currentTimeStamp = time();
         $query = $this->createLayoutInsertQuery(
             array(
+                'status' => $newStatus,
                 'parent_id' => $layout->parentId,
                 'identifier' => $layout->identifier,
                 'name' => $layout->name,
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
-                'status' => $newStatus,
             ),
             $layout->id
         );
@@ -452,6 +452,7 @@ class Handler implements LayoutHandlerInterface
             foreach ($zoneBlocks as $block) {
                 $blockQuery = $this->createBlockInsertQuery(
                     array(
+                        'status' => $newStatus,
                         'layout_id' => $layout->id,
                         'zone_identifier' => $zone->identifier,
                         'position' => $block->position,
@@ -459,7 +460,6 @@ class Handler implements LayoutHandlerInterface
                         'view_type' => $block->viewType,
                         'name' => $block->name,
                         'parameters' => $block->parameters,
-                        'status' => $newStatus,
                     ),
                     $block->id
                 );
@@ -562,6 +562,7 @@ class Handler implements LayoutHandlerInterface
 
         $query = $this->createBlockInsertQuery(
             array(
+                'status' => $block->status,
                 'layout_id' => $block->layoutId,
                 'zone_identifier' => $zoneIdentifier,
                 'position' => $this->getNextBlockPosition($block->layoutId, $zoneIdentifier, $status),
@@ -569,7 +570,6 @@ class Handler implements LayoutHandlerInterface
                 'view_type' => $block->viewType,
                 'name' => $block->name,
                 'parameters' => $block->parameters,
-                'status' => $block->status,
             )
         );
 
@@ -818,7 +818,7 @@ class Handler implements LayoutHandlerInterface
     protected function createLayoutSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'parent_id', 'identifier', 'name', 'created', 'modified', 'status')
+        $query->select('id', 'status', 'parent_id', 'identifier', 'name', 'created', 'modified')
             ->from('ngbm_layout');
 
         return $query;
@@ -846,7 +846,7 @@ class Handler implements LayoutHandlerInterface
     protected function createBlockSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'name', 'parameters', 'status')
+        $query->select('id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'name', 'parameters')
             ->from('ngbm_block');
 
         return $query;
@@ -867,24 +867,24 @@ class Handler implements LayoutHandlerInterface
             ->values(
                 array(
                     'id' => ':id',
+                    'status' => ':status',
                     'parent_id' => ':parent_id',
                     'identifier' => ':identifier',
                     'name' => ':name',
                     'created' => ':created',
                     'modified' => ':modified',
-                    'status' => ':status',
                 )
             )
             ->setValue(
                 'id',
                 $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
             )
+            ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
             ->setParameter('created', $parameters['created'], Type::INTEGER)
-            ->setParameter('modified', $parameters['modified'], Type::INTEGER)
-            ->setParameter('status', $parameters['status'], Type::INTEGER);
+            ->setParameter('modified', $parameters['modified'], Type::INTEGER);
     }
 
     /**
@@ -925,6 +925,7 @@ class Handler implements LayoutHandlerInterface
             ->values(
                 array(
                     'id' => ':id',
+                    'status' => ':status',
                     'layout_id' => ':layout_id',
                     'zone_identifier' => ':zone_identifier',
                     'position' => ':position',
@@ -932,21 +933,20 @@ class Handler implements LayoutHandlerInterface
                     'view_type' => ':view_type',
                     'name' => ':name',
                     'parameters' => ':parameters',
-                    'status' => ':status',
                 )
             )
             ->setValue(
                 'id',
                 $blockId !== null ? (int)$blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
             )
+            ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
             ->setParameter('zone_identifier', $parameters['zone_identifier'], Type::STRING)
             ->setParameter('position', $parameters['position'], Type::INTEGER)
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
             ->setParameter('view_type', $parameters['view_type'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY)
-            ->setParameter('status', $parameters['status'], Type::INTEGER);
+            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
     }
 
     /**
