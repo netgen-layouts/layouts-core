@@ -104,12 +104,14 @@ interface Layout
      * @param int|string $layoutId
      * @param string $zoneIdentifier
      * @param int $status
+     * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position = null);
 
     /**
      * Updates a block with specified ID.

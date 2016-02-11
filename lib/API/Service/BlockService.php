@@ -28,14 +28,16 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $zoneIdentifier
+     * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *                                                              If zone does not exist in the layout
+     *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null);
 
     /**
      * Updates a specified block.

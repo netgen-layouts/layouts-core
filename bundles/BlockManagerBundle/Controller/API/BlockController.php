@@ -52,7 +52,7 @@ class BlockController extends Controller
         }
 
         $position = $request->request->get('position');
-        if (!ctype_digit($position)) {
+        if ($position !== null && !ctype_digit($position)) {
             throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
         }
 
@@ -88,13 +88,13 @@ class BlockController extends Controller
         );
 
         $blockCreateStruct->name = $defaultValues['name'];
-        $blockCreateStruct->position = (int)$position;
         $blockCreateStruct->setParameters($defaultValues['parameters']);
 
         $createdBlock = $blockService->createBlock(
             $blockCreateStruct,
             $layout,
-            $request->request->get('zoneIdentifier')
+            $request->request->get('zoneIdentifier'),
+            $position !== null ? (int)$position : null
         );
 
         $response = new JsonResponse();

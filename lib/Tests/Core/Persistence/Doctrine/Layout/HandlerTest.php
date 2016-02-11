@@ -412,7 +412,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->position = 1;
         $blockCreateStruct->setParameter('a_param', 'A value');
 
         self::assertEquals(
@@ -431,7 +430,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
+            $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, 1)
         );
 
         $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
@@ -442,7 +441,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
      */
-    public function testCreateBlockWithBlankPosition()
+    public function testCreateBlockWithNoPosition()
     {
         $handler = $this->createLayoutHandler();
 
@@ -470,6 +469,40 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('a_param', 'A value');
+
+        $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, -5);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
+    {
+        $handler = $this->createLayoutHandler();
+
+        $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->name = 'My block';
+        $blockCreateStruct->setParameter('a_param', 'A value');
+
+        $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, 9999);
     }
 
     /**

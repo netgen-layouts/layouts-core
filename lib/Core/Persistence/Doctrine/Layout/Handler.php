@@ -302,37 +302,45 @@ class Handler implements LayoutHandlerInterface
      * @param int|string $layoutId
      * @param string $zoneIdentifier
      * @param int $status
+     * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position = null)
     {
         if (!$this->zoneExists($layoutId, $zoneIdentifier, $status)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
-        if ($blockCreateStruct->position === null) {
-            $blockCreateStruct->position = $this->getNextBlockPosition(
-                $layoutId,
-                $zoneIdentifier,
-                $status
-            );
+        $nextBlockPosition = $this->getNextBlockPosition(
+            $layoutId,
+            $zoneIdentifier,
+            $status
+        );
+
+        if ($position !== null) {
+            if ($position > $nextBlockPosition || $position < 0) {
+                throw new BadStateException('position', 'Position is out of range.');
+            }
+        } else {
+            $position = $nextBlockPosition;
         }
 
         $this->incrementBlockPositions(
             $layoutId,
             $zoneIdentifier,
             $status,
-            $blockCreateStruct->position
+            $position
         );
 
         $query = $this->createBlockInsertQuery(
             array(
                 'layout_id' => $layoutId,
                 'zone_identifier' => $zoneIdentifier,
-                'position' => $blockCreateStruct->position,
+                'position' => $position,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,

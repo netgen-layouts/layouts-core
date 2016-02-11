@@ -103,7 +103,6 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->position = 1;
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
@@ -132,7 +131,8 @@ abstract class BlockServiceTest extends ServiceTest
             $blockService->createBlock(
                 $blockCreateStruct,
                 $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_right'
+                'top_right',
+                1
             )
         );
 
@@ -143,7 +143,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      */
-    public function testCreateBlockWithBlankPosition()
+    public function testCreateBlockWithNoPosition()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
@@ -192,7 +192,6 @@ abstract class BlockServiceTest extends ServiceTest
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
         $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
-        $blockCreateStruct->position = 3;
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
@@ -206,8 +205,8 @@ abstract class BlockServiceTest extends ServiceTest
                 array(
                     'id' => 5,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_left',
-                    'position' => 3,
+                    'zoneIdentifier' => 'top_right',
+                    'position' => 2,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -221,7 +220,8 @@ abstract class BlockServiceTest extends ServiceTest
             $blockService->createBlock(
                 $blockCreateStruct,
                 $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_left'
+                'top_right',
+                2
             )
         );
     }
@@ -267,6 +267,52 @@ abstract class BlockServiceTest extends ServiceTest
             $blockCreateStruct,
             $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
             ''
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsInvalidArgumentExceptionWhenPositionIsNegative()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->name = 'My block';
+
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        $blockService->createBlock(
+            $blockCreateStruct,
+            $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+            'top_right',
+            -5
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
+    {
+        $blockService = $this->createBlockService($this->blockValidatorMock);
+        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+
+        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
+        $blockCreateStruct->name = 'My block';
+
+        $blockCreateStruct->setParameter('some_param', 'some_value');
+        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+
+        $blockService->createBlock(
+            $blockCreateStruct,
+            $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+            'top_right',
+            9999
         );
     }
 
