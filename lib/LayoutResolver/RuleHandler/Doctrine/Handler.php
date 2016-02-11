@@ -67,7 +67,9 @@ class Handler implements RuleHandlerInterface
             ->where(
                 $query->expr()->eq('r.target_identifier', ':target_identifier')
             )
-            ->setParameter('target_identifier', $targetIdentifier, Type::STRING);
+            ->setParameter('target_identifier', $targetIdentifier, Type::STRING)
+            ->addOrderBy('r.id', 'ASC')
+            ->addOrderBy('rc.id', 'ASC');
 
         if (!isset($this->targetHandlers[$targetIdentifier])) {
             throw new InvalidArgumentException(
