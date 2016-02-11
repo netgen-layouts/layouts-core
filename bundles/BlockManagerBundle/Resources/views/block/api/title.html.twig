@@ -1,4 +1,4 @@
-<{{ block.parameters.tag }}>{{ block.parameters.title }}</{{ block.parameters.tag }}>
+<{{ block.parameters.tag|default('h1') }}>{{ block.parameters.title|default('') }}</{{ block.parameters.tag|default('h1') }}>
 
 {% if form is defined and form is not empty %}
     {% set form_action = path('netgen_block_manager_api_v1_edit_block_inline', { 'blockId': block.id }) %}
