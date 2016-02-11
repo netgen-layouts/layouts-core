@@ -15,7 +15,7 @@
         "twig/twig": "^1.23|^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.0",
+        "phpunit/phpunit": "^4.8|^5.0",
         "symfony/phpunit-bridge": "~2.7.0",
         "matthiasnoback/symfony-dependency-injection-test": "*",
         "ezsystems/ezpublish-kernel": "^6.0"
