@@ -18,6 +18,7 @@ Activate the Block Manager in your kernel class:
 ```
 ...
 
+$bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 
 return $bundles;
@@ -28,10 +29,20 @@ If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBund
 ```
 ...
 
+$bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 $bundles[] = new Netgen\Bundle\EzPublishBlockManagerBundle\NetgenEzPublishBlockManagerBundle();
 
 return $bundles;
+```
+
+Import database schema
+----------------------
+
+Run the following command to create the database schema:
+
+```
+php app/console doctrine:migrations:migrate --configuration=vendor/netgen/block-manager/migrations/doctrine.yml
 ```
 
 Activate the routes
