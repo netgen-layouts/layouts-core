@@ -6,6 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller as BaseController;
 use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\API\Values\Value;
+use Symfony\Component\Form\FormInterface;
 
 abstract class Controller extends BaseController
 {
@@ -14,16 +15,9 @@ abstract class Controller extends BaseController
      */
     const API_VERSION = 1;
 
-    public function normalizeValueObject(Value $value)
+    public function handleValueObject(Value $value)
     {
-        $serializer = $this->get('serializer');
-
-        $normalizedValue = $serializer->normalize(
-            new SerializableValue(
-                $value,
-                self::API_VERSION
-            )
-        );
+        $data = $this->normalizeValueObject($value);
 
         $view = $this->buildViewObject(
             $value,
@@ -31,9 +25,37 @@ abstract class Controller extends BaseController
             array('api_version' => self::API_VERSION)
         );
 
-        $normalizedValue['html'] = $this->renderViewObject($view);
+        $data['html'] = $this->renderViewObject($view);
 
-        return $normalizedValue;
+        return $this->serializeData($data);
+    }
+
+    public function handleValueObjectForm(Value $value, FormInterface $form)
+    {
+        $view = $this->buildViewObject(
+            $value,
+            ViewInterface::CONTEXT_API_EDIT,
+            array(
+                'form' => $form->createView(),
+                'api_version' => self::API_VERSION,
+            )
+        );
+
+        $data = array('form' => $this->renderViewObject($view));
+
+        return $this->serializeData($data);
+    }
+
+    public function normalizeValueObject(Value $value)
+    {
+        $serializer = $this->get('serializer');
+
+        return $serializer->normalize(
+            new SerializableValue(
+                $value,
+                self::API_VERSION
+            )
+        );
     }
 
     public function serializeValueObject(Value $value)

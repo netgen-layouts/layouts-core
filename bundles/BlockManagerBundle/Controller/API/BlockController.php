@@ -26,7 +26,7 @@ class BlockController extends Controller
     {
         $response = new JsonResponse();
         $response->setContent(
-            $this->serializeValueObject($block)
+            $this->handleValueObject($block)
         );
 
         return $response;
@@ -99,7 +99,7 @@ class BlockController extends Controller
 
         $response = new JsonResponse();
         $response->setContent(
-            $this->serializeValueObject($createdBlock)
+            $this->handleValueObject($createdBlock)
         );
 
         return $response;
@@ -167,17 +167,6 @@ class BlockController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
-            $view = $this->buildViewObject(
-                $block,
-                ViewInterface::CONTEXT_API_EDIT,
-                array(
-                    'form' => $form->createView(),
-                    'api_version' => self::API_VERSION,
-                )
-            );
-
-            $data = array('form' => $this->renderViewObject($view));
-
             $response = new JsonResponse(
                 null,
                 !$form->isSubmitted() ?
@@ -185,7 +174,9 @@ class BlockController extends Controller
                     Response::HTTP_UNPROCESSABLE_ENTITY
             );
 
-            $response->setContent($this->serializeData($data));
+            $response->setContent(
+                $this->handleValueObjectForm($block, $form)
+            );
 
             return $response;
         }
@@ -194,7 +185,7 @@ class BlockController extends Controller
 
         $response = new JsonResponse();
         $response->setContent(
-            $this->serializeValueObject($updatedBlock)
+            $this->handleValueObject($updatedBlock)
         );
 
         return $response;
@@ -253,7 +244,7 @@ class BlockController extends Controller
 
         $response = new JsonResponse();
         $response->setContent(
-            $this->serializeValueObject($updatedBlock)
+            $this->handleValueObject($updatedBlock)
         );
 
         return $response;

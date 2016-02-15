@@ -18,7 +18,7 @@ class LayoutController extends Controller
     {
         $response = new JsonResponse();
         $response->setContent(
-            $this->serializeValueObject($layout)
+            $this->handleValueObject($layout)
         );
 
         return $response;
