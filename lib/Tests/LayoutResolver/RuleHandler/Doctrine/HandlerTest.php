@@ -20,6 +20,14 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tears down the tests.
+     */
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::__construct
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::addTargetHandler
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler::loadRules

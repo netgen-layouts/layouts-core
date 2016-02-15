@@ -47,10 +47,6 @@ trait DoctrineDatabaseTrait
         $this->executeStatements($schemaPath);
         $this->insertDatabaseFixtures($fixturesPath);
         $this->executeStatements($schemaPath, 'setval');
-
-        if ($this->databaseUri !== $this->inMemoryDsn) {
-            $this->databaseConnection->close();
-        }
     }
 
     /**
@@ -63,6 +59,16 @@ trait DoctrineDatabaseTrait
                 'url' => $this->databaseUri,
             )
         );
+    }
+
+    /**
+     * Closes the database connection.
+     */
+    protected function closeDatabaseConnection()
+    {
+        if ($this->databaseUri !== $this->inMemoryDsn) {
+            $this->databaseConnection->close();
+        }
     }
 
     /**

@@ -20,6 +20,14 @@ abstract class TargetHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tears down the tests.
+     */
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
+
+    /**
      * Creates the handler under test.
      *
      * @param string $targetIdentifier
