@@ -18,7 +18,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
         $blockService = $this->getMock(BlockService::class);
         $blockParamConverter = new BlockParamConverter($blockService);
 
-        self::assertEquals('blockId', $blockParamConverter->getSourceAttributeName());
+        self::assertEquals('block_id', $blockParamConverter->getSourceAttributeName());
     }
 
     /**

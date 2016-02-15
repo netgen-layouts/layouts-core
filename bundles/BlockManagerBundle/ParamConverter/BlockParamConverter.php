@@ -29,7 +29,7 @@ class BlockParamConverter extends ParamConverter
      */
     public function getSourceAttributeName()
     {
-        return 'blockId';
+        return 'block_id';
     }
 
     /**

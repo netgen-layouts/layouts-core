@@ -46,9 +46,9 @@ class BlockController extends Controller
      */
     public function create(Request $request)
     {
-        $blockType = $request->request->get('blockType');
+        $blockType = $request->request->get('block_type');
         if (!is_string($blockType) || empty($blockType)) {
-            throw new InvalidArgumentException('blockType', 'The value needs to be a non empty string.');
+            throw new InvalidArgumentException('block_type', 'The value needs to be a non empty string.');
         }
 
         $position = $request->request->get('position');
@@ -56,13 +56,13 @@ class BlockController extends Controller
             throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
         }
 
-        $layoutId = $request->request->get('layoutId');
+        $layoutId = $request->request->get('layout_id');
         if (!ctype_digit($layoutId)) {
-            throw new InvalidArgumentException('layoutId', 'The value needs to be a non negative integer.');
+            throw new InvalidArgumentException('layout_id', 'The value needs to be a non negative integer.');
         }
 
-        if (!$request->request->has('zoneIdentifier')) {
-            throw new InvalidArgumentException('zoneIdentifier', 'The value is missing.');
+        if (!$request->request->has('zone_identifier')) {
+            throw new InvalidArgumentException('zone_identifier', 'The value is missing.');
         }
 
         $blockService = $this->get('netgen_block_manager.api.service.block');
@@ -72,13 +72,13 @@ class BlockController extends Controller
         try {
             $blockTypeConfig = $configuration->getBlockTypeConfig($blockType);
         } catch (BaseInvalidArgumentException $e) {
-            throw new BadStateException('blockType', 'Block type does not exist.', $e);
+            throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
         try {
             $layout = $layoutService->loadLayout($layoutId, Layout::STATUS_DRAFT);
         } catch (NotFoundException $e) {
-            throw new BadStateException('layoutId', 'Layout does not exist.', $e);
+            throw new BadStateException('layout_id', 'Layout does not exist.', $e);
         }
 
         $defaultValues = $blockTypeConfig['defaults'];
@@ -93,7 +93,7 @@ class BlockController extends Controller
         $createdBlock = $blockService->createBlock(
             $blockCreateStruct,
             $layout,
-            $request->request->get('zoneIdentifier'),
+            $request->request->get('zone_identifier'),
             $position !== null ? (int)$position : null
         );
 
@@ -129,7 +129,7 @@ class BlockController extends Controller
         $blockService->moveBlock(
             $block,
             (int)$position,
-            $request->request->get('zoneIdentifier')
+            $request->request->get('zone_identifier')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);

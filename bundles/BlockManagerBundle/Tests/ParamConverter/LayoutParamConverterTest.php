@@ -17,7 +17,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
         $layoutService = $this->getMock(LayoutService::class);
         $layoutParamConverter = new LayoutParamConverter($layoutService);
 
-        self::assertEquals('layoutId', $layoutParamConverter->getSourceAttributeName());
+        self::assertEquals('layout_id', $layoutParamConverter->getSourceAttributeName());
     }
 
     /**
