@@ -97,27 +97,20 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      */
     public function prepend(ContainerBuilder $container)
     {
-        $config = array(
-            'serializer' => array(
-                'enabled' => true,
-            ),
-        );
-
-        $container->prependExtensionConfig('framework', $config);
-
         $prependConfigs = array(
-            'blocks.yml',
-            'block_type_groups.yml',
-            'block_types.yml',
-            'layouts.yml',
-            'view/block_view.yml',
-            'view/layout_view.yml',
+            'framework/framework.yml' => 'framework',
+            'blocks.yml' => 'netgen_block_manager',
+            'block_type_groups.yml' => 'netgen_block_manager',
+            'block_types.yml' => 'netgen_block_manager',
+            'layouts.yml' => 'netgen_block_manager',
+            'view/block_view.yml' => 'netgen_block_manager',
+            'view/layout_view.yml' => 'netgen_block_manager',
         );
 
-        foreach ($prependConfigs as $prependConfig) {
-            $configFile = __DIR__ . '/../Resources/config/' . $prependConfig;
+        foreach ($prependConfigs as $configFile => $prependConfig) {
+            $configFile = __DIR__ . '/../Resources/config/' . $configFile;
             $config = Yaml::parse(file_get_contents($configFile));
-            $container->prependExtensionConfig($this->getAlias(), $config);
+            $container->prependExtensionConfig($prependConfig, $config);
             $container->addResource(new FileResource($configFile));
         }
     }
