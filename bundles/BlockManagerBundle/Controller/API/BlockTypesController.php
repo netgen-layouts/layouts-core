@@ -37,9 +37,6 @@ class BlockTypesController extends Controller
             'block_types' => $blockTypes,
         );
 
-        $response = new JsonResponse();
-        $response->setContent($this->serializeData($data));
-
-        return $response;
+        return $this->handleData($data);
     }
 }

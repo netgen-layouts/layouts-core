@@ -16,12 +16,7 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        $response = new JsonResponse();
-        $response->setContent(
-            $this->handleValueObject($layout)
-        );
-
-        return $response;
+        return $this->handleValueObject($layout);
     }
 
     /**
@@ -40,9 +35,6 @@ class LayoutController extends Controller
             }
         }
 
-        $response = new JsonResponse();
-        $response->setContent($this->serializeData($blocks));
-
-        return $response;
+        return $this->handleData($blocks);
     }
 }

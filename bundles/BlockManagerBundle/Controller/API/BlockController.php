@@ -24,12 +24,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        $response = new JsonResponse();
-        $response->setContent(
-            $this->handleValueObject($block)
-        );
-
-        return $response;
+        return $this->handleValueObject($block);
     }
 
     /**
@@ -97,12 +92,7 @@ class BlockController extends Controller
             $position !== null ? (int)$position : null
         );
 
-        $response = new JsonResponse();
-        $response->setContent(
-            $this->handleValueObject($createdBlock)
-        );
-
-        return $response;
+        return $this->handleValueObject($createdBlock);
     }
 
     /**
@@ -167,15 +157,11 @@ class BlockController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
-            $response = new JsonResponse(
-                null,
+            $response = $this->handleValueObjectForm($block, $form);
+            $response->setStatusCode(
                 !$form->isSubmitted() ?
                     Response::HTTP_OK :
                     Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-
-            $response->setContent(
-                $this->handleValueObjectForm($block, $form)
             );
 
             return $response;
@@ -183,12 +169,7 @@ class BlockController extends Controller
 
         $updatedBlock = $blockService->updateBlock($block, $form->getData());
 
-        $response = new JsonResponse();
-        $response->setContent(
-            $this->handleValueObject($updatedBlock)
-        );
-
-        return $response;
+        return $this->handleValueObject($updatedBlock);
     }
 
     /**
@@ -242,12 +223,7 @@ class BlockController extends Controller
 
         $updatedBlock = $blockService->updateBlock($block, $form->getData());
 
-        $response = new JsonResponse();
-        $response->setContent(
-            $this->handleValueObject($updatedBlock)
-        );
-
-        return $response;
+        return $this->handleValueObject($updatedBlock);
     }
 
     /**
