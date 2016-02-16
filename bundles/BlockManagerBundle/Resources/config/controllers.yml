@@ -7,6 +7,7 @@ parameters:
     netgen_block_manager.controller.api.block_types.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockTypesController
     netgen_block_manager.controller.api.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\LayoutController
     netgen_block_manager.controller.api.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockController
+    netgen_block_manager.controller.api.block.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator
 
 services:
     netgen_block_manager.controller.base:
@@ -42,3 +43,13 @@ services:
     netgen_block_manager.controller.api.block:
         class: %netgen_block_manager.controller.api.block.class%
         parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.controller.api.block.validator"
+
+    netgen_block_manager.controller.api.block.validator:
+        class: %netgen_block_manager.controller.api.block.validator.class%
+        arguments:
+            - "@validator"

@@ -2,18 +2,62 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
-use Netgen\BlockManager\API\Exception\BadStateException;
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\API\Exception\BadStateException;
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 
 class BlockController extends Controller
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator
+     */
+    protected $validator;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator $validator
+     */
+    public function __construct(
+        BlockService $blockService,
+        LayoutService $layoutService,
+        ConfigurationInterface $configuration,
+        BlockValidator $validator
+    ) {
+        $this->blockService = $blockService;
+        $this->layoutService = $layoutService;
+        $this->configuration = $configuration;
+        $this->validator = $validator;
+    }
+
     /**
      * Serializes the block object.
      *
@@ -42,46 +86,32 @@ class BlockController extends Controller
      */
     public function create(Request $request)
     {
-        $blockType = $request->request->get('block_type');
-        if (!is_string($blockType) || empty($blockType)) {
-            throw new InvalidArgumentException('block_type', 'The value needs to be a non empty string.');
-        }
-
-        $position = $request->request->get('position');
-        if ($position !== null) {
-            if (!is_int($position) && !ctype_digit($position)) {
-                throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
-            }
-        }
-
-        $layoutId = $request->request->get('layout_id');
-        if (!is_int($layoutId) && !ctype_digit($layoutId)) {
-            throw new InvalidArgumentException('layout_id', 'The value needs to be a non negative integer.');
-        }
-
-        $zoneIdentifier = $request->request->get('zone_identifier');
-        if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
-            throw new InvalidArgumentException('zone_identifier', 'The value needs to be a non empty string.');
-        }
-
-        $blockService = $this->get('netgen_block_manager.api.service.block');
-        $layoutService = $this->get('netgen_block_manager.api.service.layout');
-        $configuration = $this->get('netgen_block_manager.configuration');
+        $this->validator->validateCreateBlock($request);
 
         try {
-            $blockTypeConfig = $configuration->getBlockTypeConfig($blockType);
+            $blockTypeConfig = $this->configuration->getBlockTypeConfig(
+                $request->request->get('block_type')
+            );
         } catch (BaseInvalidArgumentException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
         try {
-            $layout = $layoutService->loadLayout($layoutId, Layout::STATUS_DRAFT);
+            $layout = $this->layoutService->loadLayout(
+                $request->request->get('layout_id'),
+                Layout::STATUS_DRAFT
+            );
         } catch (NotFoundException $e) {
             throw new BadStateException('layout_id', 'Layout does not exist.', $e);
         }
 
+        $zoneIdentifier = $request->request->get('zone_identifier');
+        if (!isset($layout->getZones()[$zoneIdentifier])) {
+            throw new BadStateException('zone_identifier', 'Zone does not exist in the layout.');
+        }
+
         $defaultValues = $blockTypeConfig['defaults'];
-        $blockCreateStruct = $blockService->newBlockCreateStruct(
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $defaultValues['definition_identifier'],
             $defaultValues['view_type']
         );
@@ -89,11 +119,11 @@ class BlockController extends Controller
         $blockCreateStruct->name = $defaultValues['name'];
         $blockCreateStruct->setParameters($defaultValues['parameters']);
 
-        $createdBlock = $blockService->createBlock(
+        $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,
             $layout,
-            $zoneIdentifier,
-            $position !== null ? (int)$position : null
+            $request->request->get('zone_identifier'),
+            $request->request->get('position')
         );
 
         $data = $this->handleValueObject($createdBlock);
@@ -115,24 +145,12 @@ class BlockController extends Controller
      */
     public function move(Request $request, Block $block)
     {
-        $position = $request->request->get('position');
-        if (!is_int($position) && !ctype_digit($position)) {
-            throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
-        }
+        $this->validator->validateMoveBlock($request);
 
-        $zoneIdentifier = $request->request->get('zone_identifier');
-        if ($zoneIdentifier !== null) {
-            if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
-                throw new InvalidArgumentException('zone_identifier', 'The value needs to be a non empty string.');
-            }
-        }
-
-        $blockService = $this->get('netgen_block_manager.api.service.block');
-
-        $blockService->moveBlock(
+        $this->blockService->moveBlock(
             $block,
-            (int)$position,
-            $zoneIdentifier
+            $request->request->get('position'),
+            $request->request->get('zone_identifier')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -148,12 +166,11 @@ class BlockController extends Controller
      */
     public function edit(Request $request, Block $block)
     {
-        $blockService = $this->get('netgen_block_manager.api.service.block');
-        $configuration = $this->get('netgen_block_manager.configuration');
+        $blockConfig = $this->configuration->getBlockConfig(
+            $block->getDefinitionIdentifier()
+        );
 
-        $blockConfig = $configuration->getBlockConfig($block->getDefinitionIdentifier());
-
-        $updateStruct = $blockService->newBlockUpdateStruct();
+        $updateStruct = $this->blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
         $updateStruct->viewType = $block->getViewType();
         $updateStruct->name = $block->getName();
@@ -180,7 +197,7 @@ class BlockController extends Controller
             );
         }
 
-        $updatedBlock = $blockService->updateBlock($block, $form->getData());
+        $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
         $data = $this->handleValueObject($updatedBlock);
 
@@ -200,16 +217,15 @@ class BlockController extends Controller
      */
     public function editInline(Request $request, Block $block)
     {
-        $blockService = $this->get('netgen_block_manager.api.service.block');
-        $configuration = $this->get('netgen_block_manager.configuration');
-
-        $blockConfig = $configuration->getBlockConfig($block->getDefinitionIdentifier());
+        $blockConfig = $this->configuration->getBlockConfig(
+            $block->getDefinitionIdentifier()
+        );
 
         if (!isset($blockConfig['forms']['inline'])) {
             throw new BadStateException('form', 'Block does not support inline editing.');
         }
 
-        $updateStruct = $blockService->newBlockUpdateStruct();
+        $updateStruct = $this->blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
         $updateStruct->viewType = $block->getViewType();
         $updateStruct->name = $block->getName();
@@ -236,7 +252,7 @@ class BlockController extends Controller
             return $response;
         }
 
-        $updatedBlock = $blockService->updateBlock($block, $form->getData());
+        $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
         $data = $this->handleValueObject($updatedBlock);
 
@@ -252,8 +268,7 @@ class BlockController extends Controller
      */
     public function delete(Block $block)
     {
-        $blockService = $this->get('netgen_block_manager.api.service.block');
-        $blockService->deleteBlock($block);
+        $this->blockService->deleteBlock($block);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
