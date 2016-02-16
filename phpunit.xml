@@ -31,6 +31,7 @@
             <directory suffix=".php">.</directory>
             <exclude>
                 <directory>lib/Tests</directory>
+                <directory>lib/Migrations</directory>
                 <directory>bundles/*Bundle/Tests</directory>
                 <directory>bundles/*Bundle/Resources</directory>
                 <directory>vendor</directory>
