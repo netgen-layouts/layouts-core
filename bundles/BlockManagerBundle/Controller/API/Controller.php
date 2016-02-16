@@ -7,6 +7,7 @@ use Netgen\BlockManager\Serializer\SerializableValue;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\API\Values\Value;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class Controller extends BaseController
@@ -28,7 +29,7 @@ abstract class Controller extends BaseController
 
         $data['html'] = $this->renderViewObject($view);
 
-        return $this->handleData($data);
+        return $data;
     }
 
     public function handleValueObjectForm(Value $value, FormInterface $form)
@@ -44,12 +45,12 @@ abstract class Controller extends BaseController
 
         $data = array('form' => $this->renderViewObject($view));
 
-        return $this->handleData($data);
+        return $data;
     }
 
-    public function handleData(array $data)
+    public function buildResponse(array $data, $statusCode = Response::HTTP_OK)
     {
-        $response = new JsonResponse();
+        $response = new JsonResponse(null, $statusCode);
         $response->setContent(
             $this->serializeData($data)
         );

@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LayoutController extends Controller
 {
@@ -16,7 +15,9 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        return $this->handleValueObject($layout);
+        $data = $this->handleValueObject($layout);
+
+        return $this->buildResponse($data);
     }
 
     /**
@@ -31,10 +32,10 @@ class LayoutController extends Controller
         $blocks = array();
         foreach ($layout->getZones() as $zone) {
             foreach ($zone->getBlocks() as $block) {
-                $blocks[] = $this->normalizeValueObject($block);
+                $blocks[] = $this->handleValueObject($block);
             }
         }
 
-        return $this->handleData($blocks);
+        return $this->buildResponse($blocks);
     }
 }

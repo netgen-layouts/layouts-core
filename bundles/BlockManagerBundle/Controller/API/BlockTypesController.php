@@ -2,8 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 class BlockTypesController extends Controller
 {
     /**
@@ -37,6 +35,6 @@ class BlockTypesController extends Controller
             'block_types' => $blockTypes,
         );
 
-        return $this->handleData($data);
+        return $this->buildResponse($data);
     }
 }

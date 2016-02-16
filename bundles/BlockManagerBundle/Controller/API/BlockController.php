@@ -23,7 +23,9 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        return $this->handleValueObject($block);
+        $data = $this->handleValueObject($block);
+
+        return $this->buildResponse($data);
     }
 
     /**
@@ -93,7 +95,9 @@ class BlockController extends Controller
             $position !== null ? (int)$position : null
         );
 
-        return $this->handleValueObject($createdBlock);
+        $data = $this->handleValueObject($createdBlock);
+
+        return $this->buildResponse($data);
     }
 
     /**
@@ -158,19 +162,21 @@ class BlockController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
-            $response = $this->handleValueObjectForm($block, $form);
-            $response->setStatusCode(
+            $data = $this->handleValueObjectForm($block, $form);
+
+            return $this->buildResponse(
+                $data,
                 !$form->isSubmitted() ?
                     Response::HTTP_OK :
                     Response::HTTP_UNPROCESSABLE_ENTITY
             );
-
-            return $response;
         }
 
         $updatedBlock = $blockService->updateBlock($block, $form->getData());
 
-        return $this->handleValueObject($updatedBlock);
+        $data = $this->handleValueObject($updatedBlock);
+
+        return $this->buildResponse($data);
     }
 
     /**
@@ -224,7 +230,9 @@ class BlockController extends Controller
 
         $updatedBlock = $blockService->updateBlock($block, $form->getData());
 
-        return $this->handleValueObject($updatedBlock);
+        $data = $this->handleValueObject($updatedBlock);
+
+        return $this->buildResponse($data);
     }
 
     /**
