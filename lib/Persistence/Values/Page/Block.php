@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\API\Values\Value;
 
 class Block extends Value
 {
