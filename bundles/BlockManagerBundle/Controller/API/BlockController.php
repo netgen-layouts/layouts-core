@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,12 +46,14 @@ class BlockController extends Controller
         }
 
         $position = $request->request->get('position');
-        if ($position !== null && !ctype_digit($position)) {
-            throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
+        if ($position !== null) {
+            if (!is_int($position) && !ctype_digit($position)) {
+                throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
+            }
         }
 
         $layoutId = $request->request->get('layout_id');
-        if (!ctype_digit($layoutId)) {
+        if (!is_int($layoutId) && !ctype_digit($layoutId)) {
             throw new InvalidArgumentException('layout_id', 'The value needs to be a non negative integer.');
         }
 
@@ -110,7 +111,7 @@ class BlockController extends Controller
     public function move(Request $request, Block $block)
     {
         $position = $request->request->get('position');
-        if (!ctype_digit($position)) {
+        if (!is_int($position) && !ctype_digit($position)) {
             throw new InvalidArgumentException('position', 'The value needs to be a non negative integer.');
         }
 
