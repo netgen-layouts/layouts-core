@@ -18,7 +18,7 @@ class SetIsApiRequestListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener = new SetIsApiRequestListener();
 
         self::assertEquals(
-            array(KernelEvents::REQUEST => 'onKernelRequest'),
+            array(KernelEvents::REQUEST => array('onKernelRequest', 30)),
             $eventListener->getSubscribedEvents()
         );
     }
