@@ -2,16 +2,15 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use InvalidArgumentException as BaseInvalidArgumentException;
@@ -162,6 +161,8 @@ class BlockController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(Request $request, Block $block)
@@ -186,20 +187,28 @@ class BlockController extends Controller
 
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            $data = $this->handleValueObjectForm($block, $form);
+        if ($request->getMethod() === 'PATCH') {
+            if (!$form->isSubmitted()) {
+                throw new InvalidArgumentException('form', 'Form is not submitted.');
+            }
 
-            return $this->buildResponse(
-                $data,
-                !$form->isSubmitted() ?
-                    Response::HTTP_OK :
-                    Response::HTTP_UNPROCESSABLE_ENTITY
+            if (!$form->isValid()) {
+                $data = $this->handleValueObjectForm($block, $form);
+
+                return $this->buildResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $updatedBlock = $this->blockService->updateBlock(
+                $block,
+                $form->getData()
             );
+
+            $data = $this->handleValueObject($updatedBlock);
+
+            return $this->buildResponse($data);
         }
 
-        $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
-
-        $data = $this->handleValueObject($updatedBlock);
+        $data = $this->handleValueObjectForm($block, $form);
 
         return $this->buildResponse($data);
     }
@@ -210,8 +219,8 @@ class BlockController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block does not support inline editing
-     *                                                              If request parameters required by the form are missing
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block does not support inline editing
+     *                                                                     If form was not submitted
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -222,7 +231,7 @@ class BlockController extends Controller
         );
 
         if (!isset($blockConfig['forms']['inline'])) {
-            throw new BadStateException('form', 'Block does not support inline editing.');
+            throw new InvalidArgumentException('form', 'Block does not support inline editing.');
         }
 
         $updateStruct = $this->blockService->newBlockUpdateStruct();
@@ -242,14 +251,13 @@ class BlockController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            throw new BadStateException('form', 'Form data is missing.');
+            throw new InvalidArgumentException('form', 'Form is not submitted.');
         }
 
         if (!$form->isValid()) {
-            $response = new JsonResponse(null, Response::HTTP_UNPROCESSABLE_ENTITY);
-            $response->setContent(42);
+            $data = $this->handleValueObjectForm($block, $form);
 
-            return $response;
+            return $this->buildResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
