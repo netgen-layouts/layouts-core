@@ -2,6 +2,7 @@ parameters:
     netgen_block_manager.event_listener.exception_conversion.class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
     netgen_block_manager.event_listener.exception_serializer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
     netgen_block_manager.event_listener.serializer.class: Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener
+    netgen_block_manager.event_listener.request_body_listener.class: Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
     netgen_block_manager.event_listener.view_renderer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
@@ -22,6 +23,13 @@ services:
 
     netgen_block_manager.event_listener.serializer:
         class: %netgen_block_manager.event_listener.serializer.class%
+        arguments:
+            - "@serializer"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.request_body_listener:
+        class: %netgen_block_manager.event_listener.request_body_listener.class%
         arguments:
             - "@serializer"
         tags:
