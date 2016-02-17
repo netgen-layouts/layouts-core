@@ -130,7 +130,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('full')
                                 ->cannotBeEmpty()
-                                ->defaultValue('block_update')
+                                ->defaultValue('block_edit')
                             ->end()
                             ->scalarNode('inline')
                                 ->cannotBeEmpty()

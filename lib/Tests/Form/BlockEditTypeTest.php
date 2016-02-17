@@ -7,7 +7,7 @@ use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Form\Type\UpdateBlockType;
+use Netgen\BlockManager\BlockDefinition\Form\BlockEditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -15,7 +15,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateBlockTypeTest extends TypeTestCase
+class BlockEditTypeTest extends TypeTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -69,7 +69,7 @@ class UpdateBlockTypeTest extends TypeTestCase
 
         $this->factory = Forms::createFormFactoryBuilder()
             ->addType(
-                new UpdateBlockType(
+                new BlockEditType(
                     $this->blockDefinitionRegistry,
                     $this->configuration
                 )
@@ -109,7 +109,7 @@ class UpdateBlockTypeTest extends TypeTestCase
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
-            'block_update',
+            'block_edit',
             $blockUpdateStruct,
             array('block' => $block)
         );
@@ -136,7 +136,7 @@ class UpdateBlockTypeTest extends TypeTestCase
      */
     public function testConfigureOptions()
     {
-        $formType = new UpdateBlockType(
+        $formType = new BlockEditType(
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -163,7 +163,7 @@ class UpdateBlockTypeTest extends TypeTestCase
      */
     public function testConfigureOptionsWithMissingBlock()
     {
-        $formType = new UpdateBlockType(
+        $formType = new BlockEditType(
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -182,7 +182,7 @@ class UpdateBlockTypeTest extends TypeTestCase
      */
     public function testConfigureOptionsWithInvalidBlock()
     {
-        $formType = new UpdateBlockType(
+        $formType = new BlockEditType(
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -205,7 +205,7 @@ class UpdateBlockTypeTest extends TypeTestCase
      */
     public function testConfigureOptionsWithInvalidData()
     {
-        $formType = new UpdateBlockType(
+        $formType = new BlockEditType(
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -228,12 +228,12 @@ class UpdateBlockTypeTest extends TypeTestCase
      */
     public function testGetName()
     {
-        $formType = new UpdateBlockType(
+        $formType = new BlockEditType(
             $this->blockDefinitionRegistry,
             $this->configuration
         );
 
-        self::assertEquals('block_update', $formType->getName());
+        self::assertEquals('block_edit', $formType->getName());
     }
 
     /**
@@ -241,11 +241,11 @@ class UpdateBlockTypeTest extends TypeTestCase
      */
     public function testGetBlockPrefix()
     {
-        $formType = new UpdateBlockType(
+        $formType = new BlockEditType(
             $this->blockDefinitionRegistry,
             $this->configuration
         );
 
-        self::assertEquals('block_update', $formType->getBlockPrefix());
+        self::assertEquals('block_edit', $formType->getBlockPrefix());
     }
 }

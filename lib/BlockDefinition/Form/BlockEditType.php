@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Form\Type;
+namespace Netgen\BlockManager\BlockDefinition\Form;
 
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class UpdateBlockType extends AbstractType
+class BlockEditType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
@@ -154,6 +154,6 @@ class UpdateBlockType extends AbstractType
     */
    public function getBlockPrefix()
    {
-       return 'block_update';
+       return 'block_edit';
    }
 }

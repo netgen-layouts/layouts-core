@@ -36,7 +36,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_update',
+                            'full' => 'block_edit',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -55,7 +55,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_update',
+                        'full' => 'block_edit',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -106,7 +106,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_update',
+                        'full' => 'block_edit',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -140,7 +140,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_update',
+                            'full' => 'block_edit',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -157,7 +157,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_update',
+                            'full' => 'block_edit',
                         ),
                         'view_types' => array(
                             'title' => array(
@@ -176,7 +176,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_update',
+                        'full' => 'block_edit',
                     ),
                     'view_types' => array(
                         'title' => array(

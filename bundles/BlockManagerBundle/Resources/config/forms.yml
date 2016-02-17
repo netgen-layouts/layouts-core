@@ -1,16 +1,16 @@
 parameters:
-    netgen_block_manager.form.update_block.class: Netgen\BlockManager\Form\Type\UpdateBlockType
+    netgen_block_manager.form.block_edit.class: Netgen\BlockManager\BlockDefinition\Form\BlockEditType
     netgen_block_manager.form.title.inline.class: Netgen\BlockManager\BlockDefinition\Form\TitleInlineType
     netgen_block_manager.form.paragraph.inline.class: Netgen\BlockManager\BlockDefinition\Form\ParagraphInlineType
 
 services:
-    netgen_block_manager.form.update_block:
-        class: %netgen_block_manager.form.update_block.class%
+    netgen_block_manager.form.block_edit:
+        class: %netgen_block_manager.form.block_edit.class%
         arguments:
             - "@netgen_block_manager.block_definition.registry"
             - "@netgen_block_manager.configuration"
         tags:
-            - { name: form.type, alias: block_update }
+            - { name: form.type, alias: block_edit }
 
     netgen_block_manager.form.title.inline:
         class: %netgen_block_manager.form.title.inline.class%
