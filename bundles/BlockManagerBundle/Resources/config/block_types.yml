@@ -34,3 +34,10 @@ block_types:
             parameters:
                 title: 'Title with h3'
                 tag: h3
+    paragraph:
+       name: 'Paragraph'
+       defaults:
+           view_type: default
+           definition_identifier: paragraph
+           parameters:
+               content: 'My cool paragraph'

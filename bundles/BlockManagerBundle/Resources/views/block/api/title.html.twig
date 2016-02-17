@@ -1,4 +1,7 @@
-<{{ block.parameters.tag|default('h1') }}>{{ block.parameters.title|default('') }}</{{ block.parameters.tag|default('h1') }}>
+<{{ block.parameters.tag|default('h1') }} data-inline>
+   #<span contenteditable="true" data-attr="tag" data-inline-child>{{ block.parameters.tag|default('h1') }}</span>
+   <span contenteditable="true" data-attr="title" data-inline-child>{{ block.parameters.title|default('Title') }}</span>
+</{{ block.parameters.tag|default('h1') }}>
 
 {% if form is defined and form is not empty %}
     {% set form_action = path('netgen_block_manager_api_v1_edit_block_inline', {'block_id': block.id}) %}
