@@ -1,10 +1,9 @@
-{% set form_action = path('netgen_block_manager_api_v1_edit_block', { 'block_id': block.id }) %}
+{% set form_action = path('netgen_block_manager_api_v1_edit_block', {'block_id': block.id}) %}
 
 <p>Editing "{{ block.name }}" block</p>
 
-<form action="{{ form_action }}" method="post" novalidate="novalidate">
+{{ form_start(form, {'action': form_action, 'method': 'PATCH', 'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
 
-    <input type="hidden" name="_method" value="patch" />
     <input type="submit" />
-</form>
+{{ form_end(form) }}
