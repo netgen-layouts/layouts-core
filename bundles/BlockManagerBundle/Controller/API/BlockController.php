@@ -255,9 +255,15 @@ class BlockController extends Controller
         }
 
         if (!$form->isValid()) {
-            $data = $this->handleValueObjectForm($block, $form);
+            $formErrors = $form->getErrors(true);
+            if (!empty($formErrors)) {
+                throw new BadStateException(
+                    $formErrors[0]->getOrigin()->getName(),
+                    $formErrors[0]->getMessage()
+                );
+            }
 
-            return $this->buildResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            throw new BadStateException('unknown', 'Unknown error');
         }
 
         $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
