@@ -1,13 +1,15 @@
 blocks:
     title:
-        forms: ~
+        forms:
+            inline: title_inline
         view_types:
             default:
                 name: Default
             large:
                 name: Large
     paragraph:
-        forms: ~
+        forms:
+            inline: paragraph_inline
         view_types:
             default:
                 name: Default
