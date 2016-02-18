@@ -1045,13 +1045,22 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteBlock()
     {
         $handler = $this->createLayoutHandler();
 
         $handler->deleteBlock(1, APILayout::STATUS_DRAFT);
-        $handler->loadBlock(1, APILayout::STATUS_DRAFT);
+
+        try {
+            $handler->loadBlock(1, APILayout::STATUS_DRAFT);
+            self::fail('Block still exists after deleting');
+        }
+        catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
+        self::assertEquals(0, $secondBlock->position);
     }
 }

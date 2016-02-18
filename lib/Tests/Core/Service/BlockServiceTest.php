@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\Validator\BlockValidator;
 use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -814,7 +815,6 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteBlock()
     {
@@ -823,7 +823,15 @@ abstract class BlockServiceTest extends ServiceTest
         $block = $blockService->loadBlock(1, Layout::STATUS_DRAFT);
         $blockService->deleteBlock($block);
 
-        $blockService->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        try {
+            $blockService->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+            self::fail('Block still exists after deleting.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $secondBlock = $blockService->loadBlock(2, Layout::STATUS_DRAFT);
+        self::assertEquals(0, $secondBlock->getPosition());
     }
 
     /**

@@ -783,6 +783,8 @@ class Handler implements LayoutHandlerInterface
      */
     public function deleteBlock($blockId, $status)
     {
+        $block = $this->loadBlock($blockId, $status);
+
         $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_block')
@@ -794,6 +796,13 @@ class Handler implements LayoutHandlerInterface
         $this->applyStatusCondition($query, $status);
 
         $query->execute();
+
+        $this->decrementBlockPositions(
+            $block->layoutId,
+            $block->zoneIdentifier,
+            $status,
+            $block->position
+        );
 
         // @TODO: Delete block items
     }
