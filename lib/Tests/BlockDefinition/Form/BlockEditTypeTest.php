@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Form\Type;
+namespace Netgen\BlockManager\Tests\BlockDefinition\Form;
 
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
