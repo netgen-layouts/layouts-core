@@ -666,7 +666,7 @@ class Handler implements LayoutHandlerInterface
 
         $nextBlockPosition = $this->getNextBlockPosition(
             $block->layoutId,
-            $block->zoneIdentifier,
+            $zoneIdentifier,
             $status
         );
 
