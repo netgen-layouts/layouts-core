@@ -127,7 +127,7 @@ class BlockController extends Controller
 
         $data = $this->handleValueObject($createdBlock);
 
-        return $this->buildResponse($data);
+        return $this->buildResponse($data, Response::HTTP_CREATED);
     }
 
     /**
