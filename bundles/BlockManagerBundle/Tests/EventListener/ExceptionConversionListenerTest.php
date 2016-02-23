@@ -2,21 +2,21 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
-use Netgen\BlockManager\API\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
+use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\NonAPIException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\LengthRequiredHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use InvalidArgumentException;
-use Exception;
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\API\Exception\BadStateException;
+use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\Exception;
 
 class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -73,7 +73,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $exception = new InvalidArgumentException('Some error');
+        $exception = new InvalidArgumentException('what', 'identifier');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -129,37 +129,6 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
      */
-    public function testOnExceptionNotConvertsHttpException()
-    {
-        $eventListener = new ExceptionConversionListener();
-
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-        $exception = new LengthRequiredHttpException('Some error');
-
-        $event = new GetResponseForExceptionEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception
-        );
-
-        $eventListener->onException($event);
-
-        self::assertInstanceOf(
-            LengthRequiredHttpException::class,
-            $event->getException()
-        );
-
-        self::assertEquals(Response::HTTP_LENGTH_REQUIRED, $event->getException()->getStatusCode());
-        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
-        self::assertEquals($exception->getCode(), $event->getException()->getCode());
-        self::assertNull(null, $event->getException()->getPrevious());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
-     */
     public function testOnExceptionConvertsOtherException()
     {
         $eventListener = new ExceptionConversionListener();
@@ -186,6 +155,32 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionNotConvertsNonAPIException()
+    {
+        $eventListener = new ExceptionConversionListener();
+
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $exception = new NonAPIException('Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $exception
+        );
+
+        $eventListener->onException($event);
+
+        self::assertInstanceOf(
+            NonAPIException::class,
+            $event->getException()
+        );
     }
 
     /**

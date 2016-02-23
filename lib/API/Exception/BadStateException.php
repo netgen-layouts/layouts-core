@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Exception;
 
-use Exception;
+use Exception as BaseException;
 
 class BadStateException extends Exception
 {
@@ -13,7 +13,7 @@ class BadStateException extends Exception
      * @param string $whatIsWrong
      * @param \Exception $previousException
      */
-    public function __construct($argument, $whatIsWrong, Exception $previousException = null)
+    public function __construct($argument, $whatIsWrong, BaseException $previousException = null)
     {
         parent::__construct(
             'Argument "' . $argument . '" has an invalid state. ' . $whatIsWrong,

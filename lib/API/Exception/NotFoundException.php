@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Exception;
 
-use Exception;
+use Exception as BaseException;
 
 class NotFoundException extends Exception
 {
@@ -13,7 +13,7 @@ class NotFoundException extends Exception
      * @param int|string $identifier
      * @param \Exception $previousException
      */
-    public function __construct($what, $identifier, Exception $previousException = null)
+    public function __construct($what, $identifier, BaseException $previousException = null)
     {
         parent::__construct(
             'Could not find ' . $what . ' with identifier "' . $identifier . '"',
