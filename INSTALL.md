@@ -19,6 +19,7 @@ Activate the Block Manager in your kernel class:
 ...
 
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
+$bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 
 return $bundles;
@@ -30,6 +31,7 @@ If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBund
 ...
 
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
+$bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
 $bundles[] = new Netgen\Bundle\EzPublishBlockManagerBundle\NetgenEzPublishBlockManagerBundle();
 
