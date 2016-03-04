@@ -30,7 +30,7 @@ class ValueTest extends \PHPUnit_Framework_TestCase
     {
         $value = new Value(
             array(
-                'someNonExistingProperty',
+                'someNonExistingProperty' => 42,
             )
         );
     }
