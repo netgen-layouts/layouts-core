@@ -23,7 +23,7 @@
         "ezsystems/ezpublish-kernel": "^6.0"
     },
     "repositories": [
-        { "type": "composer", "url": "http://packagist.netgen.biz" }
+        { "type": "composer", "url": "https://packagist.netgen.biz" }
     ],
     "autoload": {
         "psr-4": {
@@ -39,8 +39,5 @@
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
-    },
-    "config": {
-        "secure-http": false
     }
 }
