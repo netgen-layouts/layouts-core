@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": "~5.5",
-        "netgen/block-manager-ui": "^1.0@dev",
+        "netgen/block-manager-ui-bundle": "^1.0@dev",
         "netgen/content-browser-bundle": "^1.0@dev",
         "symfony/symfony": "~2.7.0",
         "sensio/framework-extra-bundle": "^3.0",
