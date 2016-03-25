@@ -23,7 +23,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener = new ExceptionSerializerListener($serializerMock);
 
         self::assertEquals(
-            array(KernelEvents::EXCEPTION => 'onException'),
+            array(KernelEvents::EXCEPTION => array('onException', 5)),
             $eventListener->getSubscribedEvents()
         );
     }
