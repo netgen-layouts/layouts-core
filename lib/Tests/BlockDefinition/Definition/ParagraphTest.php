@@ -28,7 +28,7 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'content' => new Parameter\Text('Content'),
+                'content' => new Parameter\Text('Content', true),
                 'css_id' => new Parameter\Text('CSS ID'),
                 'css_class' => new Parameter\Text('CSS class'),
             ),

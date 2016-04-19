@@ -60,12 +60,14 @@ class TitleInlineType extends AbstractType
             $options['block']->getDefinitionIdentifier()
         );
 
+        $parameters = $blockDefinition->getParameters();
         $parameterConstraints = $blockDefinition->getParameterConstraints();
 
         $builder->add(
             'tag',
             'hidden',
             array(
+                'required' => $parameters['tag']->isRequired(),
                 'property_path' => 'parameters[tag]',
                 'constraints' => isset($parameterConstraints['tag']) && is_array($parameterConstraints['tag']) ?
                     $parameterConstraints['tag'] :
@@ -77,6 +79,7 @@ class TitleInlineType extends AbstractType
             'title',
             'hidden',
             array(
+                'required' => $parameters['title']->isRequired(),
                 'property_path' => 'parameters[title]',
                 'constraints' => isset($parameterConstraints['title']) && is_array($parameterConstraints['title']) ?
                     $parameterConstraints['title'] :

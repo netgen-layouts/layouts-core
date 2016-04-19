@@ -119,6 +119,7 @@ class BlockEditType extends AbstractType
                 $parameterIdentifier,
                 $blockParameter->getFormType(),
                 array(
+                    'required' => $blockParameter->isRequired(),
                     'label' => $blockParameter->getName(),
                     'property_path' => 'parameters[' . $parameterIdentifier . ']',
                     'constraints' => isset($parameterConstraints[$parameterIdentifier]) && is_array($parameterConstraints[$parameterIdentifier]) ?

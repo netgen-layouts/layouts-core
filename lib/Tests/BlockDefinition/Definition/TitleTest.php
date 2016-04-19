@@ -39,9 +39,10 @@ class TitleTest extends \PHPUnit_Framework_TestCase
             array(
                 'tag' => new Parameter\Select(
                     'Tag',
+                    true,
                     array('options' => $this->options)
                 ),
-                'title' => new Parameter\Text('Title'),
+                'title' => new Parameter\Text('Title', true),
                 'css_id' => new Parameter\Text('CSS ID'),
                 'css_class' => new Parameter\Text('CSS class'),
             ),

@@ -60,12 +60,14 @@ class ParagraphInlineType extends AbstractType
             $options['block']->getDefinitionIdentifier()
         );
 
+        $parameters = $blockDefinition->getParameters();
         $parameterConstraints = $blockDefinition->getParameterConstraints();
 
         $builder->add(
             'content',
             'hidden',
             array(
+                'required' => $parameters['content']->isRequired(),
                 'property_path' => 'parameters[content]',
                 'constraints' => isset($parameterConstraints['content']) && is_array($parameterConstraints['content']) ?
                     $parameterConstraints['content'] :

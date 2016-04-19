@@ -12,6 +12,11 @@ abstract class Parameter
     protected $name;
 
     /**
+     * @var bool
+     */
+    protected $isRequired;
+
+    /**
      * @var array
      */
     protected $options = array();
@@ -20,11 +25,13 @@ abstract class Parameter
      * Constructor.
      *
      * @param string $name
+     * @param bool $isRequired
      * @param array $options
      */
-    public function __construct($name = null, array $options = array())
+    public function __construct($name = null, $isRequired = false, array $options = array())
     {
         $this->name = $name;
+        $this->isRequired = (bool)$isRequired;
 
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -39,6 +46,16 @@ abstract class Parameter
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns if the parameter is required.
+     *
+     * @return bool
+     */
+    public function isRequired()
+    {
+        return $this->isRequired;
     }
 
     /**

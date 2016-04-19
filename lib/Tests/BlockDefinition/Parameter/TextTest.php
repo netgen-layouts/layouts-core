@@ -62,7 +62,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
      */
     public function getParameter($options)
     {
-        return new Text('Test value', $options);
+        return new Text('Test value', false, $options);
     }
 
     /**
