@@ -78,7 +78,7 @@ class BlockEditType extends AbstractType
                 'choices_as_values' => true,
                 'property_path' => 'viewType',
                 // 'choice_value' is needed here since in Symfony 2.7
-                // using the fom with NON DEPRECATED 'choices_as_values'
+                // using the form with NON DEPRECATED 'choices_as_values'
                 // is broken.
                 // See: https://github.com/symfony/symfony/issues/14377
                 'choice_value' => function ($choice) {
