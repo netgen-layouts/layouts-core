@@ -5,19 +5,19 @@ parameters:
 
 services:
     netgen_block_manager.normalizer.block:
-        class: %netgen_block_manager.normalizer.block.class%
+        class: "%netgen_block_manager.normalizer.block.class%"
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.layout:
-        class: %netgen_block_manager.normalizer.layout.class%
+        class: "%netgen_block_manager.normalizer.layout.class%"
         arguments:
             - "@netgen_block_manager.configuration"
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.exception:
-        class: %netgen_block_manager.normalizer.exception.class%
+        class: "%netgen_block_manager.normalizer.exception.class%"
         calls:
             - [setOutputDebugInfo, [%kernel.debug%]]
         tags:

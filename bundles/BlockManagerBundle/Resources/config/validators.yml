@@ -11,7 +11,7 @@ services:
     # Validators
 
     netgen_block_manager.validator.block_parameters:
-        class: %netgen_block_manager.validator.block_parameters.class%
+        class: "%netgen_block_manager.validator.block_parameters.class%"
         arguments:
             - "@netgen_block_manager.block_definition.registry"
             - "@validator"
@@ -19,28 +19,28 @@ services:
             - { name: validator.constraint_validator, alias: ngbm_block_parameters }
 
     netgen_block_manager.validator.block_view_type:
-        class: %netgen_block_manager.validator.block_view_type.class%
+        class: "%netgen_block_manager.validator.block_view_type.class%"
         arguments:
             - "@netgen_block_manager.configuration"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_view_type }
 
     netgen_block_manager.validator.block_definition:
-        class: %netgen_block_manager.validator.block_definition.class%
+        class: "%netgen_block_manager.validator.block_definition.class%"
         arguments:
             - "@netgen_block_manager.block_definition.registry"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_definition }
 
     netgen_block_manager.validator.layout:
-        class: %netgen_block_manager.validator.layout.class%
+        class: "%netgen_block_manager.validator.layout.class%"
         arguments:
             - "@netgen_block_manager.configuration"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_layout }
 
     netgen_block_manager.validator.layout_zones:
-        class: %netgen_block_manager.validator.layout_zones.class%
+        class: "%netgen_block_manager.validator.layout_zones.class%"
         arguments:
             - "@netgen_block_manager.configuration"
         tags:
@@ -49,7 +49,7 @@ services:
     # API validator services
 
     netgen_block_manager.validator.service.block:
-        class: %netgen_block_manager.validator.service.block.class%
+        class: "%netgen_block_manager.validator.service.block.class%"
         arguments:
             - "@validator"
 
@@ -57,7 +57,7 @@ services:
         alias: netgen_block_manager.validator.service.block
 
     netgen_block_manager.validator.service.layout:
-        class: %netgen_block_manager.validator.service.layout.class%
+        class: "%netgen_block_manager.validator.service.layout.class%"
         arguments:
             - "@validator"
 

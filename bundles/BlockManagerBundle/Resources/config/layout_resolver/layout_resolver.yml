@@ -9,26 +9,26 @@ parameters:
 
 services:
     netgen_block_manager.layout_resolver:
-        class: %netgen_block_manager.layout_resolver.class%
+        class: "%netgen_block_manager.layout_resolver.class%"
         arguments:
             - "@netgen_block_manager.layout_resolver.target_builder.registry"
             - "@netgen_block_manager.layout_resolver.condition_matcher.registry"
             - "@netgen_block_manager.layout_resolver.rule_loader"
 
     netgen_block_manager.layout_resolver.target_builder.registry:
-        class: %netgen_block_manager.layout_resolver.target_builder.registry.class%
+        class: "%netgen_block_manager.layout_resolver.target_builder.registry.class%"
 
     netgen_block_manager.layout_resolver.condition_matcher.registry:
-        class: %netgen_block_manager.layout_resolver.condition_matcher.registry.class%
+        class: "%netgen_block_manager.layout_resolver.condition_matcher.registry.class%"
 
     netgen_block_manager.layout_resolver.rule_builder:
-        class: %netgen_block_manager.layout_resolver.rule_builder.class%
+        class: "%netgen_block_manager.layout_resolver.rule_builder.class%"
 
     netgen_block_manager.layout_resolver.rule_handler.doctrine.normalizer:
-        class: %netgen_block_manager.layout_resolver.rule_handler.doctrine.normalizer.class%
+        class: "%netgen_block_manager.layout_resolver.rule_handler.doctrine.normalizer.class%"
 
     netgen_block_manager.layout_resolver.rule_handler.doctrine.handler:
-        class: %netgen_block_manager.layout_resolver.rule_handler.doctrine.handler.class%
+        class: "%netgen_block_manager.layout_resolver.rule_handler.doctrine.handler.class%"
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.layout_resolver.rule_handler.doctrine.normalizer"
@@ -37,7 +37,7 @@ services:
         alias: netgen_block_manager.layout_resolver.rule_handler.doctrine.handler
 
     netgen_block_manager.layout_resolver.rule_loader:
-        class: %netgen_block_manager.layout_resolver.rule_loader.class%
+        class: "%netgen_block_manager.layout_resolver.rule_loader.class%"
         arguments:
             - "@netgen_block_manager.layout_resolver.rule_handler"
             - "@netgen_block_manager.layout_resolver.rule_builder"

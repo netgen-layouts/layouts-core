@@ -4,12 +4,12 @@ parameters:
 
 services:
     netgen_block_manager.templating.global_helper:
-        class: %netgen_block_manager.templating.global_helper.class%
+        class: "%netgen_block_manager.templating.global_helper.class%"
         arguments:
             - "@netgen_block_manager.configuration"
 
     netgen_block_manager.templating.twig.extension:
-        class: %netgen_block_manager.templating.twig.extension.class%
+        class: "%netgen_block_manager.templating.twig.extension.class%"
         arguments:
             - "@netgen_block_manager.templating.global_helper"
         tags:

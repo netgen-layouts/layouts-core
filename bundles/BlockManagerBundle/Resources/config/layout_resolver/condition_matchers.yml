@@ -3,7 +3,7 @@ parameters:
 
 services:
     netgen_block_manager.layout_resolver.condition_matcher.route_parameter:
-        class: %netgen_block_manager.layout_resolver.condition_matcher.route_parameter.class%
+        class: "%netgen_block_manager.layout_resolver.condition_matcher.route_parameter.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:

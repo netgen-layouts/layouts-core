@@ -10,45 +10,45 @@ parameters:
 
 services:
     netgen_block_manager.event_listener.exception_conversion:
-        class: %netgen_block_manager.event_listener.exception_conversion.class%
+        class: "%netgen_block_manager.event_listener.exception_conversion.class%"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.exception_serializer:
-        class: %netgen_block_manager.event_listener.exception_serializer.class%
+        class: "%netgen_block_manager.event_listener.exception_serializer.class%"
         arguments:
             - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.serializer:
-        class: %netgen_block_manager.event_listener.serializer.class%
+        class: "%netgen_block_manager.event_listener.serializer.class%"
         arguments:
             - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.request_body_listener:
-        class: %netgen_block_manager.event_listener.request_body_listener.class%
+        class: "%netgen_block_manager.event_listener.request_body_listener.class%"
         arguments:
             - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.view_renderer:
-        class: %netgen_block_manager.event_listener.view_renderer.class%
+        class: "%netgen_block_manager.event_listener.view_renderer.class%"
         arguments:
             - "@netgen_block_manager.view.renderer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.set_is_api_request:
-        class: %netgen_block_manager.event_listener.set_is_api_request.class%
+        class: "%netgen_block_manager.event_listener.set_is_api_request.class%"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.layout_resolver:
-        class: %netgen_block_manager.event_listener.layout_resolver.class%
+        class: "%netgen_block_manager.event_listener.layout_resolver.class%"
         arguments:
             - "@netgen_block_manager.layout_resolver"
             - "@netgen_block_manager.api.service.layout"
@@ -58,7 +58,7 @@ services:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.api_block_view:
-        class: %netgen_block_manager.event_listener.api_block_view.class%
+        class: "%netgen_block_manager.event_listener.api_block_view.class%"
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.configuration"

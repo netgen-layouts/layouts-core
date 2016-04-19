@@ -5,19 +5,19 @@ parameters:
 
 services:
     netgen_block_manager.view.builder:
-        class: %netgen_block_manager.view.builder.class%
+        class: "%netgen_block_manager.view.builder.class%"
         arguments:
             - []
             - "@netgen_block_manager.view.template_resolver"
             - "@event_dispatcher"
 
     netgen_block_manager.view.renderer:
-        class: %netgen_block_manager.view.renderer.class%
+        class: "%netgen_block_manager.view.renderer.class%"
         arguments:
             - "@twig"
 
     netgen_block_manager.view.template_resolver:
-        class: %netgen_block_manager.view.template_resolver.class%
+        class: "%netgen_block_manager.view.template_resolver.class%"
         lazy: true
         arguments:
             - []

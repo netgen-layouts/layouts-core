@@ -5,14 +5,14 @@ parameters:
 
 services:
     netgen_block_manager.block_definition.registry:
-        class: %netgen_block_manager.block_definition.registry.class%
+        class: "%netgen_block_manager.block_definition.registry.class%"
 
     netgen_block_manager.block_definition.definition.title:
-        class: %netgen_block_manager.block_definition.definition.title.class%
+        class: "%netgen_block_manager.block_definition.definition.title.class%"
         tags:
             - { name: netgen_block_manager.block_definition }
 
     netgen_block_manager.block_definition.definition.paragraph:
-        class: %netgen_block_manager.block_definition.definition.paragraph.class%
+        class: "%netgen_block_manager.block_definition.definition.paragraph.class%"
         tags:
             - { name: netgen_block_manager.block_definition }

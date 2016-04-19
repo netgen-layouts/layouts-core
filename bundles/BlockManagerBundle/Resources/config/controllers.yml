@@ -11,20 +11,20 @@ parameters:
 
 services:
     netgen_block_manager.controller.base:
-        class: %netgen_block_manager.controller.base.class%
+        class: "%netgen_block_manager.controller.base.class%"
         abstract: true
         calls:
             - [setContainer, ["@service_container"]]
 
     netgen_block_manager.controller.block:
-        class: %netgen_block_manager.controller.block.class%
+        class: "%netgen_block_manager.controller.block.class%"
         parent: netgen_block_manager.controller.base
 
     ngbm_block:
         alias: netgen_block_manager.controller.block
 
     netgen_block_manager.controller.layout:
-        class: %netgen_block_manager.controller.layout.class%
+        class: "%netgen_block_manager.controller.layout.class%"
         parent: netgen_block_manager.controller.base
 
     ngbm_layout:
@@ -33,15 +33,15 @@ services:
     # API controllers
 
     netgen_block_manager.controller.api.block_types:
-        class: %netgen_block_manager.controller.api.block_types.class%
+        class: "%netgen_block_manager.controller.api.block_types.class%"
         parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.layout:
-        class: %netgen_block_manager.controller.api.layout.class%
+        class: "%netgen_block_manager.controller.api.layout.class%"
         parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.block:
-        class: %netgen_block_manager.controller.api.block.class%
+        class: "%netgen_block_manager.controller.api.block.class%"
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
@@ -50,6 +50,6 @@ services:
             - "@netgen_block_manager.controller.api.block.validator"
 
     netgen_block_manager.controller.api.block.validator:
-        class: %netgen_block_manager.controller.api.block.validator.class%
+        class: "%netgen_block_manager.controller.api.block.validator.class%"
         arguments:
             - "@validator"

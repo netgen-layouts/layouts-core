@@ -6,21 +6,21 @@ parameters:
 
 services:
     netgen_block_manager.view.matcher.api_version:
-        class: %netgen_block_manager.view.matcher.api_version.class%
+        class: "%netgen_block_manager.view.matcher.api_version.class%"
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: api_version }
 
     netgen_block_manager.view.matcher.layout.identifier:
-        class: %netgen_block_manager.view.matcher.layout.identifier.class%
+        class: "%netgen_block_manager.view.matcher.layout.identifier.class%"
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: layout_identifier }
 
     netgen_block_manager.view.matcher.block.definition_identifier:
-        class: %netgen_block_manager.view.matcher.block.definition_identifier.class%
+        class: "%netgen_block_manager.view.matcher.block.definition_identifier.class%"
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block_definition_identifier }
 
     netgen_block_manager.view.matcher.block.view_type:
-        class: %netgen_block_manager.view.matcher.block.view_type.class%
+        class: "%netgen_block_manager.view.matcher.block.view_type.class%"
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block_view_type }
