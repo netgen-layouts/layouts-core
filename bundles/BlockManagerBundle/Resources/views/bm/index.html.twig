@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="no-js" data-manifest="manifest.appcache">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Netgen Block Manager</title>
+        <meta name="version" content="<!-- @echo VERSION -->">
+        <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" href="/bmdev/app/apple-touch-icon.png">
+        <!-- @if DEBUG -->
+            <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+            <!--
+             TODO
+             =========================================
+             android TODO: add manifest
+             -->
+        <!-- @endif -->
+
+        <!-- build:css({.tmp,app}) styles/main.css -->
+        <link rel="stylesheet" href="/bmdev/app/styles/main.css">
+        <!-- endbuild -->
+    </head>
+
+    <body>
+        <div id="app">
+            <div class="split s30-70">
+                <div class="l">
+                    <div class="blocks"></div>
+                </div>
+
+                <div class="r zones"></div>
+            </div>
+        </div>
+
+        <!--
+          <span class="the_pencil glyphicon glyphicon-pencil"></span>
+         -->
+
+        <div class="blackout"></div>
+
+        <!-- @if DEBUG -->
+        <script type="text/javascript">document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+        + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>');
+        </script>
+        <!-- @endif -->
+
+        <script src="/bmdev/app/scripts/vendor.js"></script>
+        <script src="/bmdev/app/scripts/main.js"></script>
+    </body>
+</html>
