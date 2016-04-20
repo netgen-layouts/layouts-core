@@ -21,7 +21,7 @@ class LayoutValidatorTest extends ValidatorTest
 
         $this->executionContextMock
             ->expects($this->never())
-            ->method('buildValidation');
+            ->method('buildViolation');
 
         $validator = new LayoutValidator($this->configurationMock);
         $validator->initialize($this->executionContextMock);

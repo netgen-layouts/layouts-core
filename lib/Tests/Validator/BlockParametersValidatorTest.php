@@ -32,7 +32,7 @@ class BlockParametersValidatorTest extends ValidatorTest
 
         $this->executionContextMock
             ->expects($this->never())
-            ->method('buildValidation');
+            ->method('buildViolation');
 
         $validator = new BlockParametersValidator(
             $this->blockDefinitionRegistryMock,

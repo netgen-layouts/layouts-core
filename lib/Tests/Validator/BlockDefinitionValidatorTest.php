@@ -21,7 +21,7 @@ class BlockDefinitionValidatorTest extends ValidatorTest
 
         $this->executionContextMock
             ->expects($this->never())
-            ->method('buildValidation');
+            ->method('buildViolation');
 
         $validator = new BlockDefinitionValidator($this->blockDefinitionRegistryMock);
         $validator->initialize($this->executionContextMock);

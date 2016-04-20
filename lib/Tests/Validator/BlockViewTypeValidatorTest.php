@@ -21,7 +21,7 @@ class BlockViewTypeValidatorTest extends ValidatorTest
 
         $this->executionContextMock
             ->expects($this->never())
-            ->method('buildValidation');
+            ->method('buildViolation');
 
         $validator = new BlockViewTypeValidator($this->configurationMock);
         $validator->initialize($this->executionContextMock);
