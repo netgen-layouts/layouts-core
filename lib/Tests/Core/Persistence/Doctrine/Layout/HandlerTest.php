@@ -1055,8 +1055,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         try {
             $handler->loadBlock(1, APILayout::STATUS_DRAFT);
             self::fail('Block still exists after deleting');
-        }
-        catch (NotFoundException $e) {
+        } catch (NotFoundException $e) {
             // Do nothing
         }
 

@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class BlockEditType extends AbstractType
+abstract class BlockInlineEditType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterMapperInterface
@@ -69,61 +69,19 @@ class BlockEditType extends AbstractType
             $options['block']->getDefinitionIdentifier()
         );
 
-        $blockConfig = $this->configuration->getBlockConfig(
-            $blockDefinition->getIdentifier()
+        $this->parameterMapper->mapHiddenParameters(
+            $builder,
+            $blockDefinition,
+            $this->getParameterNames()
         );
-
-        $choices = array();
-        foreach ($blockConfig['view_types'] as $identifier => $viewType) {
-            $choices[$viewType['name']] = $identifier;
-        }
-
-        $builder->add(
-            'view_type',
-            'choice',
-            array(
-                'label' => 'View type',
-                'choices' => $choices,
-                'choices_as_values' => true,
-                'property_path' => 'viewType',
-                // 'choice_value' is needed here since in Symfony 2.7
-                // using the form with NON DEPRECATED 'choices_as_values'
-                // is broken.
-                // See: https://github.com/symfony/symfony/issues/14377
-                'choice_value' => function ($choice) {
-                    return $choice;
-                },
-            )
-        );
-
-        $builder->add(
-            'name',
-            'text',
-            array(
-                'label' => 'Name',
-                'property_path' => 'name',
-                // null and empty string have different meanings for name
-                // so we set the default value to a single space (instead of
-                // an empty string) because of
-                // https://github.com/symfony/symfony/issues/5906
-                'empty_data' => ' ',
-            )
-        );
-
-        // We're grouping block parameters so they don't conflict with forms from block itself
-        $parameterBuilder = $builder->create(
-            'parameters',
-            'form',
-            array(
-                'label' => 'Parameters',
-                'inherit_data' => true,
-            )
-        );
-
-        $this->parameterMapper->mapParameters($parameterBuilder, $blockDefinition);
-
-        $builder->add($parameterBuilder);
     }
+
+   /**
+    * Returns the list of block definition parameters that will be editable inline.
+    *
+    * @return array
+    */
+   abstract public function getParameterNames();
 
    /**
     * Returns the name of this type.
@@ -146,8 +104,5 @@ class BlockEditType extends AbstractType
     *
     * @return string The prefix of the template block name
     */
-   public function getBlockPrefix()
-   {
-       return 'block_edit';
-   }
+   abstract public function getBlockPrefix();
 }

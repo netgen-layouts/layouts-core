@@ -125,27 +125,27 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
             array(
                 new NotFoundException('param', 'Some error'),
                 NotFoundHttpException::class,
-                Response::HTTP_NOT_FOUND
+                Response::HTTP_NOT_FOUND,
             ),
             array(
                 new InvalidArgumentException('param', 'Some error'),
                 BadRequestHttpException::class,
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ),
             array(
                 new BadStateException('param', 'Some error'),
                 UnprocessableEntityHttpException::class,
-                Response::HTTP_UNPROCESSABLE_ENTITY
+                Response::HTTP_UNPROCESSABLE_ENTITY,
             ),
             array(
                 new AccessDeniedException('Some error'),
                 AccessDeniedHttpException::class,
-                Response::HTTP_FORBIDDEN
+                Response::HTTP_FORBIDDEN,
             ),
             array(
                 new Exception('Some error'),
                 InternalServerErrorHttpException::class,
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_INTERNAL_SERVER_ERROR,
             ),
         );
     }

@@ -2,91 +2,16 @@
 
 namespace Netgen\BlockManager\BlockDefinition\Form;
 
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
-
-class ParagraphInlineType extends AbstractType
+class ParagraphInlineType extends BlockInlineEditType
 {
     /**
-     * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    protected $configuration;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
-     */
-    public function __construct(
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
-        ConfigurationInterface $configuration
-    ) {
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-        $this->configuration = $configuration;
-    }
-
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options.
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setRequired('block');
-        $resolver->setAllowedTypes('block', Block::class);
-        $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
-    }
-
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $options['block']->getDefinitionIdentifier()
-        );
-
-        $parameters = $blockDefinition->getParameters();
-        $parameterConstraints = $blockDefinition->getParameterConstraints();
-
-        $builder->add(
-            'content',
-            'hidden',
-            array(
-                'required' => $parameters['content']->isRequired(),
-                'property_path' => 'parameters[content]',
-                'constraints' => isset($parameterConstraints['content']) && is_array($parameterConstraints['content']) ?
-                    $parameterConstraints['content'] :
-                    null,
-            )
-        );
-    }
-
-   /**
-    * Returns the name of this type.
+    * Returns the list of block definition parameters that will be editable inline.
     *
-    * @return string The name of this type
-    *
-    * @deprecated Deprecated since Symfony 2.8, to be removed in Symfony 3.0.
-    *             Implemented in order not to trigger deprecation notices in Symfony <= 2.7
+    * @return array
     */
-   public function getName()
+   public function getParameterNames()
    {
-       return $this->getBlockPrefix();
+       return array('content');
    }
 
    /**

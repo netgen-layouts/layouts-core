@@ -39,6 +39,13 @@ abstract class Parameter
     }
 
     /**
+     * Returns the parameter type.
+     *
+     * @return string
+     */
+    abstract public function getType();
+
+    /**
      * Returns the parameter name.
      *
      * @return string
@@ -73,19 +80,7 @@ abstract class Parameter
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
-    abstract public function configureOptions(OptionsResolver $optionsResolver);
-
-    /**
-     * Returns the Symfony form type which matches this parameter.
-     *
-     * @return string
-     */
-    abstract public function getFormType();
-
-    /**
-     * Maps the parameter options to Symfony form options.
-     *
-     * @return array
-     */
-    abstract public function mapFormTypeOptions();
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+    }
 }

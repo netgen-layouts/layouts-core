@@ -4,69 +4,8 @@ namespace Netgen\BlockManager\Tests\BlockDefinition\Parameter;
 
 use Netgen\BlockManager\BlockDefinition\Parameter\Select;
 
-class SelectTest extends \PHPUnit_Framework_TestCase
+class SelectTest extends BaseTest
 {
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getFormType
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::mapFormTypeOptions
-     */
-    public function testParameter()
-    {
-        $options = array(
-            'multiple' => false,
-            'options' => array(
-                'Option 1' => 'o1',
-                'Option 2' => 'o2',
-            ),
-        );
-
-        $parameter = $this->getParameter($options);
-
-        self::assertEquals(
-            'choice',
-            $parameter->getFormType()
-        );
-        self::assertEquals(
-            array(
-                'multiple' => $options['multiple'],
-                'choices' => $options['options'],
-                'choices_as_values' => true,
-            ),
-            $parameter->mapFormTypeOptions()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getOptions
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::configureOptions
-     * @dataProvider validOptionsProvider
-     *
-     * @param array $options
-     * @param array $resolvedOptions
-     */
-    public function testValidOptions($options, $resolvedOptions)
-    {
-        $parameter = $this->getParameter($options);
-        self::assertEquals($resolvedOptions, $parameter->getOptions());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::getOptions
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Select::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
-     * @dataProvider invalidOptionsProvider
-     *
-     * @param array $options
-     */
-    public function testInvalidOptions($options)
-    {
-        if ($options === null) {
-            $this->markTestSkipped('This parameter has no invalid values.');
-        }
-
-        $parameter = $this->getParameter($options);
-    }
-
     /**
      * Returns the parameter under test.
      *
