@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\BlockDefinition\Parameter;
 
-use Netgen\BlockManager\BlockDefinition\Parameter;
-
 class Hidden extends Parameter
 {
     /**

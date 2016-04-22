@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterHandler;
 
 use Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterHandlerInterface;
-use Netgen\BlockManager\BlockDefinition\Parameter;
+use Netgen\BlockManager\BlockDefinition\Parameter\Parameter;
 
 class Hidden implements ParameterHandlerInterface
 {
@@ -20,7 +20,7 @@ class Hidden implements ParameterHandlerInterface
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\BlockDefinition\Parameter $parameter
+     * @param \Netgen\BlockManager\BlockDefinition\Parameter\Parameter $parameter
      *
      * @return array
      */

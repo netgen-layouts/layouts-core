@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\BlockDefinition\Form\ParameterMapper;
 
-use Netgen\BlockManager\BlockDefinition\Parameter;
+use Netgen\BlockManager\BlockDefinition\Parameter\Parameter;
 
 interface ParameterHandlerInterface
 {
@@ -16,7 +16,7 @@ interface ParameterHandlerInterface
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\BlockDefinition\Parameter $parameter
+     * @param \Netgen\BlockManager\BlockDefinition\Parameter\Parameter $parameter
      *
      * @return array
      */

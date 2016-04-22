@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\BlockDefinition\Stubs;
 
-use Netgen\BlockManager\BlockDefinition\Parameter as BaseParameter;
+use Netgen\BlockManager\BlockDefinition\Parameter\Parameter as BaseParameter;
 
 class Parameter extends BaseParameter
 {

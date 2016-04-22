@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\BlockDefinition;
 
-use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
@@ -30,7 +29,7 @@ class Title extends BlockDefinition
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\BlockDefinition\Parameter[]
+     * @return \Netgen\BlockManager\BlockDefinition\Parameter\Parameter[]
      */
     public function getParameters()
     {

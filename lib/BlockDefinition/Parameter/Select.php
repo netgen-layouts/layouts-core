@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\BlockDefinition\Parameter;
 
-use Netgen\BlockManager\BlockDefinition\Parameter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Select extends Parameter

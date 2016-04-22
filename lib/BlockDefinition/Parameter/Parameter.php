@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\BlockDefinition;
+namespace Netgen\BlockManager\BlockDefinition\Parameter;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

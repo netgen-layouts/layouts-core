@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\BlockDefinition;
+namespace Netgen\BlockManager\Tests\BlockDefinition\Parameter;
 
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\Parameter;
 
 class ParameterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::__construct
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getName
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Parameter::__construct
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Parameter::getName
      */
     public function testGetName()
     {
@@ -18,8 +18,8 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::__construct
-     * @covers \Netgen\BlockManager\BlockDefinition\Parameter::getName
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Parameter::__construct
+     * @covers \Netgen\BlockManager\BlockDefinition\Parameter\Parameter::getName
      */
     public function testGetIsRequired()
     {
