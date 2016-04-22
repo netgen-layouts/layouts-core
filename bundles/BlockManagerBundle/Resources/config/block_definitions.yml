@@ -1,7 +1,7 @@
 parameters:
     netgen_block_manager.block_definition.registry.class: Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry
-    netgen_block_manager.block_definition.definition.title.class: Netgen\BlockManager\BlockDefinition\Definition\Title
-    netgen_block_manager.block_definition.definition.paragraph.class: Netgen\BlockManager\BlockDefinition\Definition\Paragraph
+    netgen_block_manager.block_definition.definition.title.class: Netgen\BlockManager\BlockDefinition\Title
+    netgen_block_manager.block_definition.definition.paragraph.class: Netgen\BlockManager\BlockDefinition\Paragraph
 
 services:
     netgen_block_manager.block_definition.registry:

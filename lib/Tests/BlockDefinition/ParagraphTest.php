@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\BlockDefinition;
 
-use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
+use Netgen\BlockManager\BlockDefinition\Paragraph;
 use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints;
 class ParagraphTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getIdentifier
+     * @covers \Netgen\BlockManager\BlockDefinition\Paragraph::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -20,7 +20,7 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameters
+     * @covers \Netgen\BlockManager\BlockDefinition\Paragraph::getParameters
      */
     public function testGetParameters()
     {
@@ -37,7 +37,7 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getParameterConstraints
+     * @covers \Netgen\BlockManager\BlockDefinition\Paragraph::getParameterConstraints
      */
     public function testGetParameterConstraints()
     {
@@ -54,7 +54,7 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getValues
+     * @covers \Netgen\BlockManager\BlockDefinition\Paragraph::getValues
      */
     public function testGetValues()
     {
