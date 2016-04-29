@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\BlockDefinition;
+namespace Netgen\BlockManager\Tests\BlockDefinition\Definition;
 
-use Netgen\BlockManager\BlockDefinition\Title;
+use Netgen\BlockManager\BlockDefinition\Definition\Title;
 use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
@@ -19,7 +19,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     );
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Title::getIdentifier
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -29,7 +29,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Title::getParameters
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getParameters
      */
     public function testGetParameters()
     {
@@ -51,7 +51,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Title::getParameterConstraints
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getParameterConstraints
      */
     public function testGetParameterConstraints()
     {
@@ -72,7 +72,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Title::getValues
+     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getValues
      */
     public function testGetValues()
     {

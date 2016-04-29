@@ -1,21 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\BlockDefinition;
+namespace Netgen\BlockManager\BlockDefinition\Definition;
 
+use Netgen\BlockManager\BlockDefinition\BlockDefinition;
+use Netgen\BlockManager\BlockDefinition\Parameter;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
-class Title extends BlockDefinition
+class Paragraph extends BlockDefinition
 {
-    /**
-     * @var array
-     */
-    protected $options = array(
-        'Heading 1' => 'h1',
-        'Heading 2' => 'h2',
-        'Heading 3' => 'h3',
-    );
-
     /**
      * Returns block definition identifier.
      *
@@ -23,7 +16,7 @@ class Title extends BlockDefinition
      */
     public function getIdentifier()
     {
-        return 'title';
+        return 'paragraph';
     }
 
     /**
@@ -34,12 +27,7 @@ class Title extends BlockDefinition
     public function getParameters()
     {
         return array(
-            'tag' => new Parameter\Select(
-                'Tag',
-                true,
-                array('options' => $this->options)
-            ),
-            'title' => new Parameter\Text('Title', true),
+            'content' => new Parameter\Text('Content', true),
         ) + parent::getParameters();
     }
 
@@ -51,11 +39,7 @@ class Title extends BlockDefinition
     public function getParameterConstraints()
     {
         return array(
-            'tag' => array(
-                new Constraints\NotBlank(),
-                new Constraints\Choice(array('choices' => array_values($this->options))),
-            ),
-            'title' => array(
+            'content' => array(
                 new Constraints\NotBlank(),
             ),
         ) + parent::getParameterConstraints();
