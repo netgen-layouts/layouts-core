@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\BlockDefinition\Definition;
 
 use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
-use Netgen\BlockManager\BlockDefinition\Parameter;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 

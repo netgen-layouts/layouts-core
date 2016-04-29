@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\BlockDefinition\Form;
 
-use Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterMapperInterface;
+use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
@@ -21,7 +21,7 @@ class BlockEditTypeTest extends TypeTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterMapper;
+    protected $parameterFormMapper;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -40,8 +40,8 @@ class BlockEditTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->parameterMapper = $this->getMock(
-            ParameterMapperInterface::class
+        $this->parameterFormMapper = $this->getMock(
+            FormMapperInterface::class
         );
 
         $this->blockDefinitionRegistry = $this->getMock(
@@ -80,7 +80,7 @@ class BlockEditTypeTest extends TypeTestCase
         $this->factory = Forms::createFormFactoryBuilder()
             ->addType(
                 new BlockEditType(
-                    $this->parameterMapper,
+                    $this->parameterFormMapper,
                     $this->blockDefinitionRegistry,
                     $this->configuration
                 )
@@ -150,7 +150,7 @@ class BlockEditTypeTest extends TypeTestCase
     public function testConfigureOptions()
     {
         $formType = new BlockEditType(
-            $this->parameterMapper,
+            $this->parameterFormMapper,
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -178,7 +178,7 @@ class BlockEditTypeTest extends TypeTestCase
     public function testConfigureOptionsWithMissingBlock()
     {
         $formType = new BlockEditType(
-            $this->parameterMapper,
+            $this->parameterFormMapper,
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -198,7 +198,7 @@ class BlockEditTypeTest extends TypeTestCase
     public function testConfigureOptionsWithInvalidBlock()
     {
         $formType = new BlockEditType(
-            $this->parameterMapper,
+            $this->parameterFormMapper,
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -222,7 +222,7 @@ class BlockEditTypeTest extends TypeTestCase
     public function testConfigureOptionsWithInvalidData()
     {
         $formType = new BlockEditType(
-            $this->parameterMapper,
+            $this->parameterFormMapper,
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -246,7 +246,7 @@ class BlockEditTypeTest extends TypeTestCase
     public function testGetName()
     {
         $formType = new BlockEditType(
-            $this->parameterMapper,
+            $this->parameterFormMapper,
             $this->blockDefinitionRegistry,
             $this->configuration
         );
@@ -260,7 +260,7 @@ class BlockEditTypeTest extends TypeTestCase
     public function testGetBlockPrefix()
     {
         $formType = new BlockEditType(
-            $this->parameterMapper,
+            $this->parameterFormMapper,
             $this->blockDefinitionRegistry,
             $this->configuration
         );

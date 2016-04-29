@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\BlockDefinition\Form;
 
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterMapperInterface;
+use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,9 +14,9 @@ use Symfony\Component\Form\AbstractType;
 class BlockEditType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterMapperInterface
+     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
      */
-    protected $parameterMapper;
+    protected $parameterFormMapper;
 
     /**
      * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
@@ -31,16 +31,16 @@ class BlockEditType extends AbstractType
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\BlockDefinition\Form\ParameterMapper\ParameterMapperInterface $parameterMapper
+     * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $parameterFormMapper
      * @param \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
     public function __construct(
-        ParameterMapperInterface $parameterMapper,
+        FormMapperInterface $parameterFormMapper,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry,
         ConfigurationInterface $configuration
     ) {
-        $this->parameterMapper = $parameterMapper;
+        $this->parameterFormMapper = $parameterFormMapper;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->configuration = $configuration;
     }
@@ -120,7 +120,18 @@ class BlockEditType extends AbstractType
             )
         );
 
-        $this->parameterMapper->mapParameters($parameterBuilder, $blockDefinition);
+        $parameterConstraints = $blockDefinition->getParameterConstraints();
+
+        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
+            $this->parameterFormMapper->mapParameter(
+                $parameterBuilder,
+                $parameter,
+                $parameterName,
+                isset($parameterConstraints[$parameterName]) ?
+                    $parameterConstraints[$parameterName] :
+                    null
+            );
+        }
 
         $builder->add($parameterBuilder);
     }

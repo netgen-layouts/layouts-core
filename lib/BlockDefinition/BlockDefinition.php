@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\BlockDefinition;
 
+use Netgen\BlockManager\Parameters\Parameter;
+
 abstract class BlockDefinition implements BlockDefinitionInterface
 {
     /**
@@ -9,7 +11,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\BlockDefinition\Parameter\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
     public function getParameters()
     {

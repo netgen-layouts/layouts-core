@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\BlockDefinition;
 
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition;
-use Netgen\BlockManager\BlockDefinition\Parameter;
+use Netgen\BlockManager\Parameters\Parameter;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase

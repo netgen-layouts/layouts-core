@@ -18,7 +18,7 @@ interface BlockDefinitionInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\BlockDefinition\Parameter\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
     public function getParameters();
 
