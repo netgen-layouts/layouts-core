@@ -20,11 +20,6 @@ services:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.layout.handler"
 
-    netgen_block_manager.api.service.mapper:
-        class: "%netgen_block_manager.api.service.mapper.class%"
-        arguments:
-            - "@netgen_block_manager.persistence.handler"
-
     # Layout related persistence APIs
 
     netgen_block_manager.persistence.doctrine.connection_helper:
@@ -58,7 +53,7 @@ services:
     netgen_block_manager.api.service.layout.core:
         class: "%netgen_block_manager.api.service.layout.core.class%"
         arguments:
-            - "@netgen_block_manager.api.service.layout.validator"
+            - "@netgen_block_manager.api.service.layout.core.validator"
             - "@netgen_block_manager.api.service.layout.core.mapper"
             - "@netgen_block_manager.persistence.handler"
 
@@ -77,7 +72,7 @@ services:
     netgen_block_manager.api.service.block.core:
         class: "%netgen_block_manager.api.service.block.core.class%"
         arguments:
-            - "@netgen_block_manager.api.service.block.validator"
+            - "@netgen_block_manager.api.service.block.core.validator"
             - "@netgen_block_manager.api.service.block.core.mapper"
             - "@netgen_block_manager.persistence.handler"
 
