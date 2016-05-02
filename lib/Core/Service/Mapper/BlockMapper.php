@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Handler;
 
 class BlockMapper extends Mapper
 {
