@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
 
-use Doctrine\DBAL\Query\QueryBuilder;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
@@ -62,7 +61,7 @@ class Handler implements LayoutHandlerInterface
         )
         ->setParameter('id', $layoutId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -97,7 +96,7 @@ class Handler implements LayoutHandlerInterface
         ->setParameter('layout_id', $layoutId, Type::INTEGER)
         ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -127,7 +126,7 @@ class Handler implements LayoutHandlerInterface
             )
             ->setParameter('id', $layoutId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -157,7 +156,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('identifier', $identifier, Type::STRING)
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -181,7 +180,7 @@ class Handler implements LayoutHandlerInterface
         ->orderBy('identifier', 'ASC')
         ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -209,7 +208,7 @@ class Handler implements LayoutHandlerInterface
         )
         ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -243,7 +242,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->orderBy('position', 'ASC');
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -384,7 +383,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
             ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -500,7 +499,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('id', $layoutId, Type::INTEGER)
             ->setParameter('new_status', $newStatus, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -514,7 +513,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('new_status', $newStatus, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -528,7 +527,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('new_status', $newStatus, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -637,7 +636,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('id', $block->id, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -702,7 +701,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -739,7 +738,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
+            $this->connectionHelper->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -754,7 +753,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
+            $this->connectionHelper->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -769,7 +768,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
+            $this->connectionHelper->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -793,7 +792,7 @@ class Handler implements LayoutHandlerInterface
             )
             ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -805,18 +804,6 @@ class Handler implements LayoutHandlerInterface
         );
 
         // @TODO: Delete block items
-    }
-
-    /**
-     * Applies status condition to the query.
-     *
-     * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param int $status
-     */
-    protected function applyStatusCondition(QueryBuilder $query, $status)
-    {
-        $query->andWhere($query->expr()->eq('status', ':status'))
-            ->setParameter('status', $status, Type::INTEGER);
     }
 
     /**
@@ -993,7 +980,7 @@ class Handler implements LayoutHandlerInterface
             $query->setParameter('end_position', $endPosition, Type::INTEGER);
         }
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -1033,7 +1020,7 @@ class Handler implements LayoutHandlerInterface
             $query->setParameter('end_position', $endPosition, Type::INTEGER);
         }
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -1061,7 +1048,7 @@ class Handler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->connectionHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 

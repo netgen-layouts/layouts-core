@@ -4,7 +4,9 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine\Connection;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper\Sqlite;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper\Postgres;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Type;
 
 class Helper
 {
@@ -73,5 +75,17 @@ class Helper
         }
 
         return $this->connection->lastInsertId($table);
+    }
+
+    /**
+     * Applies status condition to the query.
+     *
+     * @param \Doctrine\DBAL\Query\QueryBuilder $query
+     * @param int $status
+     */
+    public function applyStatusCondition(QueryBuilder $query, $status)
+    {
+        $query->andWhere($query->expr()->eq('status', ':status'))
+            ->setParameter('status', $status, Type::INTEGER);
     }
 }
