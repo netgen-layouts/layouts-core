@@ -1,56 +1,34 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Service;
+namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
-use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
+use Netgen\BlockManager\API\Service\Mapper\BlockMapper as APIBlockMapper;
+use Netgen\BlockManager\API\Service\Mapper\LayoutMapper as LayoutMapperInterface;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler;
 use DateTime;
 
-class Mapper implements MapperInterface
+class LayoutMapper extends Mapper implements LayoutMapperInterface
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
+     * @var \Netgen\BlockManager\API\Service\Mapper\BlockMapper
      */
-    protected $persistenceHandler;
+    protected $blockMapper;
 
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\API\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
-    public function __construct(Handler $persistenceHandler)
+    public function __construct(APIBlockMapper $blockMapper, Handler $persistenceHandler)
     {
-        $this->persistenceHandler = $persistenceHandler;
-    }
+        parent::__construct($persistenceHandler);
 
-    /**
-     * Builds the API block value object from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
-     */
-    public function mapBlock(PersistenceBlock $block)
-    {
-        return new Block(
-            array(
-                'id' => $block->id,
-                'layoutId' => $block->layoutId,
-                'zoneIdentifier' => $block->zoneIdentifier,
-                'position' => $block->position,
-                'definitionIdentifier' => $block->definitionIdentifier,
-                'parameters' => $block->parameters,
-                'viewType' => $block->viewType,
-                'name' => $block->name,
-                'status' => $block->status,
-            )
-        );
+        $this->blockMapper = $blockMapper;
     }
 
     /**
@@ -70,7 +48,7 @@ class Mapper implements MapperInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->mapBlock($persistenceBlock);
+            $blocks[] = $this->blockMapper->mapBlock($persistenceBlock);
         }
 
         return new Zone(

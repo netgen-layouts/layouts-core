@@ -4,8 +4,6 @@ parameters:
     netgen_block_manager.validator.block_definition.class: Netgen\BlockManager\Validator\BlockDefinitionValidator
     netgen_block_manager.validator.layout.class: Netgen\BlockManager\Validator\LayoutValidator
     netgen_block_manager.validator.layout_zones.class: Netgen\BlockManager\Validator\LayoutZonesValidator
-    netgen_block_manager.validator.service.block.class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
-    netgen_block_manager.validator.service.layout.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
 
 services:
     # Validators
@@ -45,21 +43,3 @@ services:
             - "@netgen_block_manager.configuration"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_layout_zones }
-
-    # API validator services
-
-    netgen_block_manager.validator.service.block:
-        class: "%netgen_block_manager.validator.service.block.class%"
-        arguments:
-            - "@validator"
-
-    netgen_block_manager.api.service.block.validator:
-        alias: netgen_block_manager.validator.service.block
-
-    netgen_block_manager.validator.service.layout:
-        class: "%netgen_block_manager.validator.service.layout.class%"
-        arguments:
-            - "@validator"
-
-    netgen_block_manager.api.service.layout.validator:
-        alias: netgen_block_manager.validator.service.layout

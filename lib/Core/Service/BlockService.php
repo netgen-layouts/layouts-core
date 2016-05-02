@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
+use Netgen\BlockManager\API\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
@@ -24,30 +24,30 @@ class BlockService implements BlockServiceInterface
     protected $blockValidator;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\Mapper\BlockMapper
+     */
+    protected $blockMapper;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
     protected $persistenceHandler;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\Mapper
-     */
-    protected $mapper;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator $blockValidator
+     * @param \Netgen\BlockManager\API\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\API\Service\Mapper $mapper
      */
     public function __construct(
         BlockValidator $blockValidator,
-        Handler $persistenceHandler,
-        MapperInterface $mapper
+        BlockMapper $blockMapper,
+        Handler $persistenceHandler
     ) {
         $this->blockValidator = $blockValidator;
+        $this->blockMapper = $blockMapper;
         $this->persistenceHandler = $persistenceHandler;
-        $this->mapper = $mapper;
     }
 
     /**
@@ -71,7 +71,7 @@ class BlockService implements BlockServiceInterface
             throw new InvalidArgumentException('blockId', 'Value must not be empty.');
         }
 
-        return $this->mapper->mapBlock(
+        return $this->blockMapper->mapBlock(
             $this->persistenceHandler->getLayoutHandler()->loadBlock(
                 $blockId,
                 $status
@@ -131,7 +131,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapBlock($createdBlock);
+        return $this->blockMapper->mapBlock($createdBlock);
     }
 
     /**
@@ -181,7 +181,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapBlock($updatedBlock);
+        return $this->blockMapper->mapBlock($updatedBlock);
     }
 
     /**
@@ -224,7 +224,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapBlock($copiedBlock);
+        return $this->blockMapper->mapBlock($copiedBlock);
     }
 
     /**
@@ -281,7 +281,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapBlock($movedBlock);
+        return $this->blockMapper->mapBlock($movedBlock);
     }
 
     /**

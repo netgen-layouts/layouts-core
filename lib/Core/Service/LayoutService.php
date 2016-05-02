@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\API\Service\Mapper as MapperInterface;
+use Netgen\BlockManager\API\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
@@ -20,30 +20,30 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutValidator;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\Mapper\LayoutMapper
+     */
+    protected $layoutMapper;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
     protected $persistenceHandler;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\Mapper
-     */
-    protected $mapper;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\Validator\LayoutValidator $layoutValidator
+     * @param \Netgen\BlockManager\API\Service\Mapper\LayoutMapper $layoutMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\API\Service\Mapper $mapper
      */
     public function __construct(
         LayoutValidator $layoutValidator,
-        Handler $persistenceHandler,
-        MapperInterface $mapper
+        LayoutMapper $layoutMapper,
+        Handler $persistenceHandler
     ) {
         $this->layoutValidator = $layoutValidator;
+        $this->layoutMapper = $layoutMapper;
         $this->persistenceHandler = $persistenceHandler;
-        $this->mapper = $mapper;
     }
 
     /**
@@ -67,7 +67,7 @@ class LayoutService implements LayoutServiceInterface
             throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
         }
 
-        return $this->mapper->mapLayout(
+        return $this->layoutMapper->mapLayout(
             $this->persistenceHandler->getLayoutHandler()->loadLayout(
                 $layoutId,
                 $status
@@ -105,7 +105,7 @@ class LayoutService implements LayoutServiceInterface
             throw new InvalidArgumentException('identifier', 'Value must not be empty.');
         }
 
-        return $this->mapper->mapZone(
+        return $this->layoutMapper->mapZone(
             $this->persistenceHandler->getLayoutHandler()->loadZone(
                 $layoutId,
                 $identifier,
@@ -140,7 +140,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapLayout($createdLayout);
+        return $this->layoutMapper->mapLayout($createdLayout);
     }
 
     /**
@@ -179,7 +179,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapLayout($createdLayout);
+        return $this->layoutMapper->mapLayout($createdLayout);
     }
 
     /**
@@ -211,7 +211,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapLayout($publishedLayout);
+        return $this->layoutMapper->mapLayout($publishedLayout);
     }
 
     /**

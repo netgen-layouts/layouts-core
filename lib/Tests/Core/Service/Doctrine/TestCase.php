@@ -2,8 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase as PersistenceTestCase;
+use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\LayoutService;
 use Netgen\BlockManager\Core\Service\BlockService;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -28,8 +29,8 @@ trait TestCase
 
         return new LayoutService(
             $validatorMock,
-            $this->persistenceHandler,
-            $this->createMapper()
+            $this->createLayoutMapper(),
+            $this->persistenceHandler
         );
     }
 
@@ -47,20 +48,35 @@ trait TestCase
 
         return new BlockService(
             $validatorMock,
-            $this->persistenceHandler,
-            $this->createMapper()
+            $this->createBlockMapper(),
+            $this->persistenceHandler
         );
     }
 
     /**
-     * Creates the mapper under test.
+     * Creates the block mapper under test.
      *
-     * @return \Netgen\BlockManager\Core\Service\Mapper
+     * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
-    protected function createMapper()
+    protected function createBlockMapper()
     {
         $this->persistenceHandler = $this->persistenceHandler ?: $this->createPersistenceHandler();
 
-        return new Mapper($this->persistenceHandler);
+        return new BlockMapper($this->persistenceHandler);
+    }
+
+    /**
+     * Creates the layout mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+     */
+    protected function createLayoutMapper()
+    {
+        $this->persistenceHandler = $this->persistenceHandler ?: $this->createPersistenceHandler();
+
+        return new LayoutMapper(
+            $this->createBlockMapper(),
+            $this->persistenceHandler
+        );
     }
 }
