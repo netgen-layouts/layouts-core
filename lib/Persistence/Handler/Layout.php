@@ -149,7 +149,7 @@ interface Layout
     /**
      * Updates the layout from one status to another.
      *
-     * @param int $layoutId
+     * @param int|string $layoutId
      * @param int $status
      * @param int $newStatus
      *
