@@ -31,12 +31,14 @@ class FormMapper implements FormMapperInterface
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
      * @param \Symfony\Component\Validator\Constraint[] $parameterConstraints
+     * @param string $propertyPathPrefix
      */
     public function mapParameter(
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
-        array $parameterConstraints = null
+        array $parameterConstraints = null,
+        $propertyPathPrefix = 'parameters'
     ) {
         $parameterType = $parameter->getType();
 
@@ -50,7 +52,7 @@ class FormMapper implements FormMapperInterface
             array(
                 'required' => $parameter->isRequired(),
                 'label' => $parameter->getName(),
-                'property_path' => 'parameters[' . $parameterName . ']',
+                'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
                 'constraints' => $parameterConstraints,
             ) + $this->parameterHandlers[$parameterType]->convertOptions($parameter)
         );
@@ -63,21 +65,40 @@ class FormMapper implements FormMapperInterface
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
      * @param array $parameterConstraints
+     * @param string $propertyPathPrefix
      */
     public function mapHiddenParameter(
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
-        array $parameterConstraints = null
+        array $parameterConstraints = null,
+        $propertyPathPrefix = 'parameters'
     ) {
         $formBuilder->add(
             $parameterName,
             'hidden',
             array(
                 'required' => $parameter->isRequired(),
-                'property_path' => 'parameters[' . $parameterName . ']',
+                'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
                 'constraints' => $parameterConstraints,
             )
         );
+    }
+
+    /**
+     * Returns the property path based on parameter name and prefix.
+     *
+     * @param string $parameterName
+     * @param string $propertyPathPrefix
+     *
+     * @return string
+     */
+    protected function getPropertyPath($parameterName, $propertyPathPrefix)
+    {
+        if (empty($propertyPathPrefix)) {
+            return $parameterName;
+        }
+
+        return $propertyPathPrefix . '[' . $parameterName . ']';
     }
 }
