@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\API\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
 use Netgen\BlockManager\Validator\Constraint\BlockParameters;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
@@ -19,7 +19,7 @@ class BlockValidator extends Validator
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    public function validateBlockCreateStruct(APIBlockCreateStruct $blockCreateStruct)
+    public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
         $this->validate(
             $blockCreateStruct->definitionIdentifier,
@@ -41,13 +41,15 @@ class BlockValidator extends Validator
             'viewType'
         );
 
-        $this->validate(
-            $blockCreateStruct->name,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'name'
-        );
+        if ($blockCreateStruct->name !== null) {
+            $this->validate(
+                $blockCreateStruct->name,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'name'
+            );
+        }
 
         $this->validate(
             $blockCreateStruct->getParameters(),
@@ -65,25 +67,29 @@ class BlockValidator extends Validator
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    public function validateBlockUpdateStruct(APIBlock $block, APIBlockUpdateStruct $blockUpdateStruct)
+    public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
-        $this->validate(
-            $blockUpdateStruct->viewType,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definitionIdentifier' => $block->getDefinitionIdentifier())),
-            ),
-            'viewType'
-        );
+        if ($blockUpdateStruct->viewType !== null) {
+            $this->validate(
+                $blockUpdateStruct->viewType,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'string')),
+                    new BlockViewType(array('definitionIdentifier' => $block->getDefinitionIdentifier())),
+                ),
+                'viewType'
+            );
+        }
 
-        $this->validate(
-            $blockUpdateStruct->name,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'name'
-        );
+        if ($blockUpdateStruct->name !== null) {
+            $this->validate(
+                $blockUpdateStruct->name,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'name'
+            );
+        }
 
         $this->validate(
             $blockUpdateStruct->getParameters(),

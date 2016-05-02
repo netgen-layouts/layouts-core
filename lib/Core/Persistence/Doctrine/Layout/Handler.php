@@ -269,7 +269,7 @@ class Handler implements LayoutHandlerInterface
                 'status' => $layoutCreateStruct->status,
                 'parent_id' => $parentLayoutId,
                 'identifier' => $layoutCreateStruct->identifier,
-                'name' => $layoutCreateStruct->name,
+                'name' => trim($layoutCreateStruct->name),
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
             )
@@ -343,7 +343,7 @@ class Handler implements LayoutHandlerInterface
                 'position' => $position,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
-                'name' => $blockCreateStruct->name,
+                'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
                 'parameters' => $blockCreateStruct->getParameters(),
             )
         );
@@ -369,6 +369,8 @@ class Handler implements LayoutHandlerInterface
      */
     public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct)
     {
+        $block = $this->loadBlock($blockId, $status);
+
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_block')
@@ -379,8 +381,8 @@ class Handler implements LayoutHandlerInterface
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $blockId, Type::INTEGER)
-            ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
-            ->setParameter('name', trim($blockUpdateStruct->name), Type::STRING)
+            ->setParameter('view_type', $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType, Type::STRING)
+            ->setParameter('name', $blockUpdateStruct->name !== null ? trim($blockUpdateStruct->name) : $block->name, Type::STRING)
             ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY);
 
         $this->connectionHelper->applyStatusCondition($query, $status);

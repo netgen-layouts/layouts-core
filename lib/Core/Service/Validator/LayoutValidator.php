@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Validator\Constraint\Layout;
 use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 use Symfony\Component\Validator\Constraints;
@@ -16,7 +16,7 @@ class LayoutValidator extends Validator
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    public function validateLayoutCreateStruct(APILayoutCreateStruct $layoutCreateStruct)
+    public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
     {
         $this->validate(
             $layoutCreateStruct->name,

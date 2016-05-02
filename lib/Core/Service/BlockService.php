@@ -108,10 +108,6 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('layout', 'Blocks can only be created in draft layouts.');
         }
 
-        if ($blockCreateStruct->name === null) {
-            $blockCreateStruct->name = '';
-        }
-
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
         $this->persistenceHandler->beginTransaction();
@@ -148,14 +144,6 @@ class BlockService implements BlockServiceInterface
     {
         if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
-        }
-
-        if ($blockUpdateStruct->viewType === null) {
-            $blockUpdateStruct->viewType = $block->getViewType();
-        }
-
-        if ($blockUpdateStruct->name === null) {
-            $blockUpdateStruct->name = $block->getName();
         }
 
         // Merging the existing parameter array and those to be updated.
