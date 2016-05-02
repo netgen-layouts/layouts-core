@@ -464,8 +464,6 @@ class Handler implements LayoutHandlerInterface
                 );
 
                 $blockQuery->execute();
-
-                // @TODO: Copy block items
             }
         }
 
@@ -531,8 +529,6 @@ class Handler implements LayoutHandlerInterface
 
         $query->execute();
 
-        // @TODO Update status of block items
-
         return $this->loadLayout($layoutId, $newStatus);
     }
 
@@ -573,8 +569,6 @@ class Handler implements LayoutHandlerInterface
         );
 
         $query->execute();
-
-        // @TODO: Copy block items
 
         return $this->loadBlock(
             (int)$this->connectionHelper->lastInsertId('ngbm_block'),
@@ -725,8 +719,6 @@ class Handler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        // @TODO: Delete block items
-
         // First delete all blocks
 
         $query = $this->connection->createQueryBuilder();
@@ -802,8 +794,6 @@ class Handler implements LayoutHandlerInterface
             $status,
             $block->position
         );
-
-        // @TODO: Delete block items
     }
 
     /**
