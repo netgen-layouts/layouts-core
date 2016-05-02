@@ -2,12 +2,11 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Service\Mapper\BlockMapper as BlockMapperInterface;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Handler;
 
-class BlockMapper extends Mapper implements BlockMapperInterface
+class BlockMapper extends Mapper
 {
     /**
      * Builds the API block value object from persistence one.

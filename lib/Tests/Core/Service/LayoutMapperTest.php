@@ -14,7 +14,7 @@ abstract class LayoutMapperTest extends \PHPUnit_Framework_TestCase
     /**
      * Creates the mapper under test.
      *
-     * @return \Netgen\BlockManager\API\Service\Mapper\LayoutMapper
+     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
     abstract protected function createLayoutMapper();
 

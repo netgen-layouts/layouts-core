@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;

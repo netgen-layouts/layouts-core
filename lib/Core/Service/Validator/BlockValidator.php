@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Service\Validator\BlockValidator as BlockValidatorInterface;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
@@ -11,7 +10,7 @@ use Netgen\BlockManager\Validator\Constraint\BlockParameters;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraints;
 
-class BlockValidator extends Validator implements BlockValidatorInterface
+class BlockValidator extends Validator
 {
     /**
      * Validates block create struct.

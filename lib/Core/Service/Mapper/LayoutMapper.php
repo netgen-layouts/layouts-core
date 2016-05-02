@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Service\Mapper\BlockMapper as APIBlockMapper;
-use Netgen\BlockManager\API\Service\Mapper\LayoutMapper as LayoutMapperInterface;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
@@ -11,20 +9,20 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler;
 use DateTime;
 
-class LayoutMapper extends Mapper implements LayoutMapperInterface
+class LayoutMapper extends Mapper
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\Mapper\BlockMapper
+     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
     protected $blockMapper;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\Mapper\BlockMapper $blockMapper
+     * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
-    public function __construct(APIBlockMapper $blockMapper, Handler $persistenceHandler)
+    public function __construct(BlockMapper $blockMapper, Handler $persistenceHandler)
     {
         parent::__construct($persistenceHandler);
 

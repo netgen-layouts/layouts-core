@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\API\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\API\Service\Mapper\LayoutMapper;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
@@ -15,12 +15,12 @@ use Exception;
 class LayoutService implements LayoutServiceInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\Validator\LayoutValidator
+     * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
      */
     protected $layoutValidator;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\Mapper\LayoutMapper
+     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
     protected $layoutMapper;
 
@@ -32,8 +32,8 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\Validator\LayoutValidator $layoutValidator
-     * @param \Netgen\BlockManager\API\Service\Mapper\LayoutMapper $layoutMapper
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
+     * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(

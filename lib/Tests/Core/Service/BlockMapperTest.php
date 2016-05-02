@@ -11,7 +11,7 @@ abstract class BlockMapperTest extends \PHPUnit_Framework_TestCase
     /**
      * Creates the mapper under test.
      *
-     * @return \Netgen\BlockManager\API\Service\Mapper\BlockMapper
+     * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
     abstract protected function createBlockMapper();
 

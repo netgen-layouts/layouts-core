@@ -2,13 +2,12 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Service\Validator\LayoutValidator as LayoutValidatorInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct as APILayoutCreateStruct;
 use Netgen\BlockManager\Validator\Constraint\Layout;
 use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 use Symfony\Component\Validator\Constraints;
 
-class LayoutValidator extends Validator implements LayoutValidatorInterface
+class LayoutValidator extends Validator
 {
     /**
      * Validates layout create struct.

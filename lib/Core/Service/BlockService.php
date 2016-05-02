@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
-use Netgen\BlockManager\API\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\API\Service\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
@@ -19,12 +19,12 @@ use Exception;
 class BlockService implements BlockServiceInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\Validator\BlockValidator
+     * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
     protected $blockValidator;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\Mapper\BlockMapper
+     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
     protected $blockMapper;
 
@@ -36,8 +36,8 @@ class BlockService implements BlockServiceInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\Validator\BlockValidator $blockValidator
-     * @param \Netgen\BlockManager\API\Service\Mapper\BlockMapper $blockMapper
+     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
+     * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
