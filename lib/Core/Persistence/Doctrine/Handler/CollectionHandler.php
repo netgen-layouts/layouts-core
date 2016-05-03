@@ -689,6 +689,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct)
     {
         $originalQuery = $this->loadQuery($queryId, $status);
+        $parameters = $queryUpdateStruct->getParameters() + $originalQuery->parameters;
 
         $query = $this->connection->createQueryBuilder();
         $query
@@ -700,7 +701,7 @@ class CollectionHandler implements CollectionHandlerInterface
             )
             ->setParameter('id', $queryId, Type::INTEGER)
             ->setParameter('identifier', $queryUpdateStruct->identifier !== null ? $queryUpdateStruct->identifier : $originalQuery->identifier, Type::STRING)
-            ->setParameter('parameters', $queryUpdateStruct->getParameters(), Type::JSON_ARRAY);
+            ->setParameter('parameters', $parameters, Type::JSON_ARRAY);
 
         $this->connectionHelper->applyStatusCondition($query, $status);
 

@@ -5,13 +5,32 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
-use Netgen\BlockManager\Validator\Constraint\BlockParameters;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints;
 
 class BlockValidator extends Validator
 {
+    /**
+     * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
+     */
+    protected $blockDefinitionRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
+     * @param \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
+     */
+    public function __construct(ValidatorInterface $validator, BlockDefinitionRegistryInterface $blockDefinitionRegistry)
+    {
+        parent::__construct($validator);
+
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
+    }
+
     /**
      * Validates block create struct.
      *
@@ -51,11 +70,24 @@ class BlockValidator extends Validator
             );
         }
 
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($blockCreateStruct->definitionIdentifier);
+        $fields = $this->buildParameterValidationFields(
+            $blockDefinition->getParameters(),
+            $blockDefinition->getParameterConstraints()
+        );
+
         $this->validate(
             $blockCreateStruct->getParameters(),
             array(
-                new BlockParameters(array('definitionIdentifier' => $blockCreateStruct->definitionIdentifier)),
-            )
+                new Constraints\Collection(
+                    array(
+                        'fields' => $fields,
+                        'allowExtraFields' => false,
+                        'allowMissingFields' => true
+                    )
+                )
+            ),
+            'parameters'
         );
     }
 
@@ -91,11 +123,24 @@ class BlockValidator extends Validator
             );
         }
 
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
+        $fields = $this->buildParameterValidationFields(
+            $blockDefinition->getParameters(),
+            $blockDefinition->getParameterConstraints()
+        );
+
         $this->validate(
             $blockUpdateStruct->getParameters(),
             array(
-                new BlockParameters(array('definitionIdentifier' => $block->getDefinitionIdentifier())),
-            )
+                new Constraints\Collection(
+                    array(
+                        'fields' => $fields,
+                        'allowExtraFields' => false,
+                        'allowMissingFields' => true
+                    )
+                )
+            ),
+            'parameters'
         );
     }
 }

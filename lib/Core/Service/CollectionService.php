@@ -508,13 +508,7 @@ class CollectionService implements APICollectionService
             throw new BadStateException('query', 'Only queries in (temporary) draft status can be deleted.');
         }
 
-        // Merging the existing parameter array and those to be updated.
-        // Excess parameters should be handled by validation.
-        $queryUpdateStruct->setParameters(
-            $queryUpdateStruct->getParameters() + $query->getParameters()
-        );
-
-        $this->collectionValidator->validateQueryUpdateStruct($queryUpdateStruct);
+        $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
         if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $query->getIdentifier()) {
             if ($this->persistenceHandler->getCollectionHandler()->queryExists($query->getId(), $query->getStatus(), $queryUpdateStruct->identifier)) {
@@ -581,7 +575,7 @@ class CollectionService implements APICollectionService
         return new CollectionCreateStruct(
             array(
                 'type' => $type,
-                'name' => $name,
+                'name' => $name
             )
         );
     }

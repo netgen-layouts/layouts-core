@@ -2,12 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
-use Netgen\BlockManager\Validator\Constraint\BlockParameters;
+use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -21,11 +22,17 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
     protected $validatorMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockDefinitionRegistryMock;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
     {
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
+        $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
     }
 
     /**
@@ -74,20 +81,35 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->at(3))
             ->method('validate')
             ->with(
-                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(array('css_class' => 'class')),
                 array(
-                    new BlockParameters(array('definitionIdentifier' => 'block_definition')),
+                    new Constraints\Collection(
+                        array(
+                            'fields' => array(
+                                'css_class' => array(),
+                                'css_id' => array(new Constraints\NotBlank())
+                            ),
+                            'allowExtraFields' => false,
+                            'allowMissingFields' => true
+                        )
+                    ),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->blockDefinitionRegistryMock
+            ->expects($this->any())
+            ->method('getBlockDefinition')
+            ->with($this->equalTo('block_definition'))
+            ->will($this->returnValue(new BlockDefinitionStub()));
 
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'block_definition';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameters(array('param' => 'value'));
+        $blockCreateStruct->setParameters(array('css_class' => 'class'));
 
-        $blockValidator = new BlockValidator($this->validatorMock);
+        $blockValidator = new BlockValidator($this->validatorMock, $this->blockDefinitionRegistryMock);
         $blockValidator->validateBlockCreateStruct($blockCreateStruct);
     }
 
@@ -124,17 +146,32 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->at(2))
             ->method('validate')
             ->with(
-                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(array('css_class' => 'class')),
                 array(
-                    new BlockParameters(array('definitionIdentifier' => 'block_definition')),
+                    new Constraints\Collection(
+                        array(
+                            'fields' => array(
+                                'css_class' => array(),
+                                'css_id' => array(new Constraints\NotBlank())
+                            ),
+                            'allowExtraFields' => false,
+                            'allowMissingFields' => true
+                        )
+                    ),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
+        $this->blockDefinitionRegistryMock
+            ->expects($this->any())
+            ->method('getBlockDefinition')
+            ->with($this->equalTo('block_definition'))
+            ->will($this->returnValue(new BlockDefinitionStub()));
+
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->name = 'My block';
-        $blockUpdateStruct->setParameters(array('param' => 'value'));
+        $blockUpdateStruct->setParameters(array('css_class' => 'class'));
 
         $block = new Block(
             array(
@@ -142,7 +179,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $blockValidator = new BlockValidator($this->validatorMock);
+        $blockValidator = new BlockValidator($this->validatorMock, $this->blockDefinitionRegistryMock);
         $blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
     }
 }

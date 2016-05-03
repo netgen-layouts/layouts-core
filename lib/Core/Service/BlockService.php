@@ -151,12 +151,6 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
         }
 
-        // Merging the existing parameter array and those to be updated.
-        // Excess parameters should be handled by validation.
-        $blockUpdateStruct->setParameters(
-            $blockUpdateStruct->getParameters() + $block->getParameters()
-        );
-
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
         $this->persistenceHandler->beginTransaction();
@@ -214,6 +208,7 @@ class BlockService implements BlockServiceInterface
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
             );
+
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -305,6 +300,7 @@ class BlockService implements BlockServiceInterface
                 $block->getId(),
                 $block->getStatus()
             );
+
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

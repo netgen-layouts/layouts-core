@@ -237,6 +237,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->setParameter('a_param', 'A value');
+        $blockUpdateStruct->setParameter('some_param', 'Some other value');
 
         self::assertEquals(
             new Block(
@@ -248,6 +249,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'a_param' => 'A value',
+                        'some_param' => 'Some other value',
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',

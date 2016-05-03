@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints;
 
 abstract class Validator
 {
@@ -20,6 +21,28 @@ abstract class Validator
     public function __construct(ValidatorInterface $validator)
     {
         $this->validator = $validator;
+    }
+
+    /**
+     * Builds the "fields" array from provided parameters and constraints, used for validating set of parameters.
+     *
+     * @param array $parameters
+     * @param array $parameterConstraints
+     *
+     * @return array
+     */
+    protected function buildParameterValidationFields(array $parameters, array $parameterConstraints)
+    {
+        $fields = array();
+        foreach ($parameters as $parameterName => $parameter) {
+            if (isset($parameterConstraints[$parameterName]) && is_array($parameterConstraints[$parameterName])) {
+                $fields[$parameterName] = $parameterConstraints[$parameterName];
+            } else {
+                $fields[$parameterName] = array();
+            }
+        }
+
+        return $fields;
     }
 
     /**

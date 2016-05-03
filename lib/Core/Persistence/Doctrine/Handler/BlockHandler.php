@@ -175,6 +175,7 @@ class BlockHandler implements BlockHandlerInterface
     public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct)
     {
         $block = $this->loadBlock($blockId, $status);
+        $parameters = $blockUpdateStruct->getParameters() + $block->parameters;
 
         $query = $this->connection->createQueryBuilder();
         $query
@@ -188,7 +189,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('id', $blockId, Type::INTEGER)
             ->setParameter('view_type', $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType, Type::STRING)
             ->setParameter('name', $blockUpdateStruct->name !== null ? trim($blockUpdateStruct->name) : $block->name, Type::STRING)
-            ->setParameter('parameters', $blockUpdateStruct->getParameters(), Type::JSON_ARRAY);
+            ->setParameter('parameters', $parameters, Type::JSON_ARRAY);
 
         $this->connectionHelper->applyStatusCondition($query, $status);
 

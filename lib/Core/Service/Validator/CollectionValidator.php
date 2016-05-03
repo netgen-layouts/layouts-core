@@ -4,15 +4,36 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints;
 
 class CollectionValidator extends Validator
 {
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     */
+    protected $queryTypeRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
+     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
+     */
+    public function __construct(ValidatorInterface $validator, QueryTypeRegistryInterface $queryTypeRegistry)
+    {
+        parent::__construct($validator);
+
+        $this->queryTypeRegistry = $queryTypeRegistry;
+    }
+
     /**
      * Validates collection create struct.
      *
@@ -143,22 +164,36 @@ class CollectionValidator extends Validator
             'type'
         );
 
+        $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
+        $fields = $this->buildParameterValidationFields(
+            $queryType->getParameters(),
+            $queryType->getParameterConstraints()
+        );
+
         $this->validate(
             $queryCreateStruct->getParameters(),
             array(
-                new Parameters(),
-            )
+                new Constraints\Collection(
+                    array(
+                        'fields' => $fields,
+                        'allowExtraFields' => false,
+                        'allowMissingFields' => true
+                    )
+                )
+            ),
+            'parameters'
         );
     }
 
     /**
      * Validates query update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    public function validateQueryUpdateStruct(QueryUpdateStruct $queryUpdateStruct)
+    public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
         $this->validate(
             $queryUpdateStruct->identifier,
@@ -169,11 +204,24 @@ class CollectionValidator extends Validator
             'identifier'
         );
 
+        $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
+        $fields = $this->buildParameterValidationFields(
+            $queryType->getParameters(),
+            $queryType->getParameterConstraints()
+        );
+
         $this->validate(
             $queryUpdateStruct->getParameters(),
             array(
-                new Parameters(),
-            )
+                new Constraints\Collection(
+                    array(
+                        'fields' => $fields,
+                        'allowExtraFields' => false,
+                        'allowMissingFields' => true
+                    )
+                )
+            ),
+            'parameters'
         );
     }
 }
