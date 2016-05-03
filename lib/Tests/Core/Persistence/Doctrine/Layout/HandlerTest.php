@@ -514,24 +514,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCreateBlockInNonExistingZoneThrowsBadStateException()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->definitionIdentifier = 'new_block';
-        $blockCreateStruct->viewType = 'large';
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
-
-        $handler->createBlock($blockCreateStruct, 1, 'non_existing', APILayout::STATUS_DRAFT);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateBlock
      */
     public function testUpdateBlock()
@@ -654,16 +636,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutStatus
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCreateLayoutStatusThrowsBadStateException()
-    {
-        $handler = $this->createLayoutHandler();
-        $handler->createLayoutStatus(1, APILayout::STATUS_PUBLISHED, APILayout::STATUS_DRAFT);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateLayoutStatus
      */
     public function testUpdateLayoutStatus()
@@ -754,16 +726,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateLayoutStatus
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testUpdateLayoutStatusThrowsBadStateException()
-    {
-        $handler = $this->createLayoutHandler();
-        $handler->updateLayoutStatus(1, APILayout::STATUS_DRAFT, APILayout::STATUS_PUBLISHED);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::getNextBlockPosition
      */
@@ -787,7 +749,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     'status' => APILayout::STATUS_DRAFT,
                 )
             ),
-            $handler->copyBlock(1, APILayout::STATUS_DRAFT)
+            $handler->copyBlock(1, APILayout::STATUS_DRAFT, 'top_right')
         );
     }
 
@@ -816,17 +778,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $handler->copyBlock(1, APILayout::STATUS_DRAFT, 'bottom')
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCopyBlockInNonExistingZoneThrowsBadStateException()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->copyBlock(1, APILayout::STATUS_DRAFT, 'non_existing');
     }
 
     /**
@@ -964,28 +915,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler = $this->createLayoutHandler();
 
         $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 9999);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockToZoneThrowsBadStateExceptionOnNonExistingZone()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'non_existing', 0);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockToZoneThrowsBadStateExceptionOnSameZone()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'top_right', 0);
     }
 
     /**

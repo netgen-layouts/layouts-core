@@ -166,6 +166,10 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createLayoutStatus(Layout $layout, $status)
     {
+        if ($this->persistenceHandler->getLayoutHandler()->layoutExists($layout->getId(), $status)) {
+            throw new BadStateException('status', 'Layout already has the provided status.');
+        }
+
         $this->persistenceHandler->beginTransaction();
 
         try {

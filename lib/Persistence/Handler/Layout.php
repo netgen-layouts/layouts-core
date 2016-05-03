@@ -106,8 +106,7 @@ interface Layout
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If provided position is out of range
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -140,8 +139,6 @@ interface Layout
      * @param int $status
      * @param int $newStatus
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createLayoutStatus($layoutId, $status, $newStatus);
@@ -152,8 +149,6 @@ interface Layout
      * @param int|string $layoutId
      * @param int $status
      * @param int $newStatus
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
@@ -166,11 +161,9 @@ interface Layout
      * @param int $status
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $status, $zoneIdentifier = null);
+    public function copyBlock($blockId, $status, $zoneIdentifier);
 
     /**
      * Moves a block to specified position in the zone.
@@ -193,9 +186,7 @@ interface Layout
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If block is already in specified zone
-     *                                                              If provided position is out of range
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

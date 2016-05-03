@@ -100,6 +100,10 @@ class BlockService implements BlockServiceInterface
             throw new InvalidArgumentException('zoneIdentifier', 'The value needs to be a non empty string.');
         }
 
+        if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
+            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+        }
+
         if ($position !== null && !is_int($position)) {
             throw new InvalidArgumentException('position', 'Value must be an integer.');
         }
@@ -195,6 +199,10 @@ class BlockService implements BlockServiceInterface
             if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
                 throw new InvalidArgumentException('zoneIdentifier', 'Zone identifier must be a non empty string.');
             }
+
+            if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
+                throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -203,7 +211,7 @@ class BlockService implements BlockServiceInterface
             $copiedBlock = $this->persistenceHandler->getLayoutHandler()->copyBlock(
                 $block->getId(),
                 $block->getStatus(),
-                $zoneIdentifier
+                $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -238,6 +246,10 @@ class BlockService implements BlockServiceInterface
         if ($zoneIdentifier !== null) {
             if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
                 throw new InvalidArgumentException('zoneIdentifier', 'Zone identifier must be a non empty string.');
+            }
+
+            if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
+                throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
         }
 

@@ -303,17 +303,12 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If provided position is out of range
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position = null)
     {
-        if (!$this->zoneExists($layoutId, $zoneIdentifier, $status)) {
-            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-        }
-
         $nextBlockPosition = $this->getNextBlockPosition(
             $layoutId,
             $zoneIdentifier,
@@ -410,16 +405,10 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param int $newStatus
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createLayoutStatus($layoutId, $status, $newStatus)
     {
-        if ($this->layoutExists($layoutId, $newStatus)) {
-            throw new BadStateException('newStatus', 'Layout already has the provided status.');
-        }
-
         $layout = $this->loadLayout($layoutId, $status);
 
         $currentTimeStamp = time();
@@ -479,16 +468,10 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param int $newStatus
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function updateLayoutStatus($layoutId, $status, $newStatus)
     {
-        if ($this->layoutExists($layoutId, $newStatus)) {
-            throw new BadStateException('newStatus', 'Layout already has the provided status.');
-        }
-
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_layout')
@@ -541,21 +524,11 @@ class Handler implements LayoutHandlerInterface
      * @param int $status
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
-     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $status, $zoneIdentifier = null)
+    public function copyBlock($blockId, $status, $zoneIdentifier)
     {
         $block = $this->loadBlock($blockId, $status);
-
-        if ($zoneIdentifier === null) {
-            $zoneIdentifier = $block->zoneIdentifier;
-        }
-
-        if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
-            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-        }
 
         $query = $this->createBlockInsertQuery(
             array(
@@ -649,9 +622,7 @@ class Handler implements LayoutHandlerInterface
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If block is already in specified zone
-     *                                                              If provided position is out of range
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -667,14 +638,6 @@ class Handler implements LayoutHandlerInterface
 
         if ($position > $nextBlockPosition || $position < 0) {
             throw new BadStateException('position', 'Position is out of range.');
-        }
-
-        if (!$this->zoneExists($block->layoutId, $zoneIdentifier, $status)) {
-            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-        }
-
-        if ($zoneIdentifier === $block->zoneIdentifier) {
-            throw new BadStateException('zoneIdentifier', 'Block is already in specified zone.');
         }
 
         $this->incrementBlockPositions(
