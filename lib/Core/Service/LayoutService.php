@@ -160,6 +160,8 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param int $status
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayoutStatus(Layout $layout, $status)
