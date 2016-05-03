@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
@@ -90,6 +91,30 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      */
     public function deleteBlock(Block $block);
+
+    /**
+     * Adds the collection to the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     *                                                              If collection with specified identifier already exists within the block
+     *                                                              If specified collection already exists within the block
+     */
+    public function addCollectionToBlock(Block $block, Collection $collection, $identifier);
+
+    /**
+     * Removes the collection from the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     *                                                              If specified collection does not exist within the block
+     */
+    public function removeCollectionFromBlock(Block $block, Collection $collection);
 
     /**
      * Creates a new block create struct.

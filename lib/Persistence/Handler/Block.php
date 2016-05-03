@@ -101,4 +101,45 @@ interface Block
      * @param int $status
      */
     public function deleteBlock($blockId, $status);
+
+    /**
+     * Returns if collection with provided ID already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     *
+     * @return bool
+     */
+    public function collectionExists($blockId, $status, $collectionId);
+
+    /**
+     * Returns if provided collection identifier already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function collectionIdentifierExists($blockId, $status, $identifier);
+
+    /**
+     * Adds the collection to the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     * @param string $identifier
+     */
+    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier);
+
+    /**
+     * Removes the collection from the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     */
+    public function removeCollectionFromBlock($blockId, $status, $collectionId);
 }

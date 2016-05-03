@@ -9,6 +9,8 @@ use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler as LayoutHandle
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper as LayoutMapper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler as BlockHandler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper as BlockMapper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Collection\Handler as CollectionHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Collection\Mapper as CollectionMapper;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
 
 trait TestCase
@@ -33,7 +35,8 @@ trait TestCase
         return new Handler(
             $this->databaseConnection,
             $this->createLayoutHandler(),
-            $this->createBlockHandler()
+            $this->createBlockHandler(),
+            $this->createCollectionHandler()
         );
     }
 
@@ -64,6 +67,20 @@ trait TestCase
             new ConnectionHelper($this->databaseConnection),
             new PositionHelper($this->databaseConnection),
             new BlockMapper()
+        );
+    }
+
+    /**
+     * Returns the collection handler under test.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\Collection
+     */
+    protected function createCollectionHandler()
+    {
+        return new CollectionHandler(
+            $this->databaseConnection,
+            new ConnectionHelper($this->databaseConnection),
+            new CollectionMapper()
         );
     }
 }

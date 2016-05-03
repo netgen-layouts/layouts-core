@@ -19,6 +19,13 @@ interface Handler
     public function getBlockHandler();
 
     /**
+     * Returns the collection handler.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\Collection
+     */
+    public function getCollectionHandler();
+
+    /**
      * Begins the transaction.
      */
     public function beginTransaction();

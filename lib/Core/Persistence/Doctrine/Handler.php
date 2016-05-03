@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine;
 use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\Layout;
 use Netgen\BlockManager\Persistence\Handler\Block;
+use Netgen\BlockManager\Persistence\Handler\Collection;
 use Doctrine\DBAL\Connection;
 
 class Handler implements HandlerInterface
@@ -25,19 +26,28 @@ class Handler implements HandlerInterface
     protected $blockHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\Collection
+     */
+    protected $collectionHandler;
+
+    /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Persistence\Handler\Layout $layoutHandler
+     * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
+     * @param \Netgen\BlockManager\Persistence\Handler\Collection $collectionHandler
      */
     public function __construct(
         Connection $connection,
         Layout $layoutHandler,
-        Block $blockHandler
+        Block $blockHandler,
+        Collection $collectionHandler
     ) {
         $this->connection = $connection;
         $this->layoutHandler = $layoutHandler;
         $this->blockHandler = $blockHandler;
+        $this->collectionHandler = $collectionHandler;
     }
 
     /**
@@ -58,6 +68,16 @@ class Handler implements HandlerInterface
     public function getBlockHandler()
     {
         return $this->blockHandler;
+    }
+
+    /**
+     * Returns the collection handler.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\Collection
+     */
+    public function getCollectionHandler()
+    {
+        return $this->collectionHandler;
     }
 
     /**

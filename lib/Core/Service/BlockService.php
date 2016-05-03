@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
@@ -303,6 +304,83 @@ class BlockService implements BlockServiceInterface
             $this->persistenceHandler->getBlockHandler()->deleteBlock(
                 $block->getId(),
                 $block->getStatus()
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+    }
+
+    /**
+     * Adds the collection to the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     *                                                              If collection with specified identifier already exists within the block
+     *                                                              If specified collection already exists within the block
+     */
+    public function addCollectionToBlock(Block $block, Collection $collection, $identifier)
+    {
+        if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
+        }
+
+        if ($this->persistenceHandler->getBlockHandler()->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
+            throw new BadStateException('collection', 'Specified collection already exists in block.');
+        }
+
+        if ($this->persistenceHandler->getBlockHandler()->collectionIdentifierExists($block->getId(), $block->getStatus(), $identifier)) {
+            throw new BadStateException('identifier', 'Specified collection identifier already exists in block.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->persistenceHandler->getBlockHandler()->addCollectionToBlock(
+                $block->getId(),
+                $block->getStatus(),
+                $collection->getId(),
+                $identifier
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+    }
+
+    /**
+     * Removes the collection from the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
+     *                                                              If specified collection does not exist within the block
+     */
+    public function removeCollectionFromBlock(Block $block, Collection $collection)
+    {
+        if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
+            throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
+        }
+
+        if (!$this->persistenceHandler->getBlockHandler()->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
+            throw new BadStateException('collection', 'Specified collection does not exist in block.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->persistenceHandler->getBlockHandler()->removeCollectionFromBlock(
+                $block->getId(),
+                $block->getStatus(),
+                $collection->getId()
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

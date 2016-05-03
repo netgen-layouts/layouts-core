@@ -370,6 +370,121 @@ class Handler implements BlockHandlerInterface
     }
 
     /**
+     * Returns if collection with provided ID already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     *
+     * @return bool
+     */
+    public function collectionExists($blockId, $status, $collectionId)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_block_collection')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('collection_id', ':collection_id')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        $this->connectionHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
+     * Returns if provided collection identifier already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function collectionIdentifierExists($blockId, $status, $identifier)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_block_collection')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('identifier', ':identifier')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::STRING);
+
+        $this->connectionHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
+     * Adds the collection to the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     * @param string $identifier
+     */
+    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->insert('ngbm_block_collection')
+            ->values(
+                array(
+                    'block_id' => ':block_id',
+                    'status' => ':status',
+                    'collection_id' => ':collection_id',
+                    'identifier' => ':identifier',
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::INTEGER);
+
+        $query->execute();
+    }
+
+    /**
+     * Removes the collection from the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     */
+    public function removeCollectionFromBlock($blockId, $status, $collectionId)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_block_collection')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('collection_id', ':collection_id')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        $this->connectionHelper->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
      * Builds and returns a block database SELECT query.
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
