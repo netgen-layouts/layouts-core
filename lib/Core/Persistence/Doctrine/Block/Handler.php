@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\API\Exception\BadStateException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -24,6 +24,11 @@ class Handler implements BlockHandlerInterface
     protected $connectionHelper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper
+     */
+    protected $positionHelper;
+
+    /**
      * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper
      */
     protected $mapper;
@@ -33,12 +38,18 @@ class Handler implements BlockHandlerInterface
      *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper $positionHelper
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper $mapper
      */
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, Mapper $mapper)
-    {
+    public function __construct(
+        Connection $connection,
+        ConnectionHelper $connectionHelper,
+        PositionHelper $positionHelper,
+        Mapper $mapper
+    ) {
         $this->connection = $connection;
         $this->connectionHelper = $connectionHelper;
+        $this->positionHelper = $positionHelper;
         $this->mapper = $mapper;
     }
 
@@ -119,24 +130,12 @@ class Handler implements BlockHandlerInterface
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position = null)
     {
-        $nextBlockPosition = $this->getNextBlockPosition(
-            $layoutId,
-            $zoneIdentifier,
-            $status
-        );
-
-        if ($position !== null) {
-            if ($position > $nextBlockPosition || $position < 0) {
-                throw new BadStateException('position', 'Position is out of range.');
-            }
-        } else {
-            $position = $nextBlockPosition;
-        }
-
-        $this->incrementBlockPositions(
-            $layoutId,
-            $zoneIdentifier,
-            $status,
+        $position = $this->positionHelper->createPosition(
+            $this->getPositionHelperConditions(
+                $layoutId,
+                $zoneIdentifier,
+                $status
+            ),
             $position
         );
 
@@ -215,7 +214,13 @@ class Handler implements BlockHandlerInterface
                 'status' => $block->status,
                 'layout_id' => $block->layoutId,
                 'zone_identifier' => $zoneIdentifier,
-                'position' => $this->getNextBlockPosition($block->layoutId, $zoneIdentifier, $status),
+                'position' => $this->positionHelper->getNextPosition(
+                    $this->getPositionHelperConditions(
+                        $block->layoutId,
+                        $zoneIdentifier,
+                        $status
+                    )
+                ),
                 'definition_identifier' => $block->definitionIdentifier,
                 'view_type' => $block->viewType,
                 'name' => $block->name,
@@ -246,33 +251,15 @@ class Handler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
-        $nextBlockPosition = $this->getNextBlockPosition(
-            $block->layoutId,
-            $block->zoneIdentifier,
-            $status
+        $position = $this->positionHelper->moveToPosition(
+            $this->getPositionHelperConditions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status
+            ),
+            $block->position,
+            $position
         );
-
-        if ($position >= $nextBlockPosition || $position < 0) {
-            throw new BadStateException('position', 'Position is out of range.');
-        }
-
-        if ($position > $block->position) {
-            $this->decrementBlockPositions(
-                $block->layoutId,
-                $block->zoneIdentifier,
-                $status,
-                $block->position + 1,
-                $position
-            );
-        } elseif ($position < $block->position) {
-            $this->incrementBlockPositions(
-                $block->layoutId,
-                $block->zoneIdentifier,
-                $status,
-                $position,
-                $block->position - 1
-            );
-        }
 
         $query = $this->connection->createQueryBuilder();
 
@@ -310,20 +297,12 @@ class Handler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
-        $nextBlockPosition = $this->getNextBlockPosition(
-            $block->layoutId,
-            $zoneIdentifier,
-            $status
-        );
-
-        if ($position > $nextBlockPosition || $position < 0) {
-            throw new BadStateException('position', 'Position is out of range.');
-        }
-
-        $this->incrementBlockPositions(
-            $block->layoutId,
-            $zoneIdentifier,
-            $status,
+        $position = $this->positionHelper->createPosition(
+            $this->getPositionHelperConditions(
+                $block->layoutId,
+                $zoneIdentifier,
+                $status
+            ),
             $position
         );
 
@@ -344,10 +323,12 @@ class Handler implements BlockHandlerInterface
 
         $query->execute();
 
-        $this->decrementBlockPositions(
-            $block->layoutId,
-            $block->zoneIdentifier,
-            $status,
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperConditions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status
+            ),
             $block->position
         );
 
@@ -378,10 +359,12 @@ class Handler implements BlockHandlerInterface
 
         $query->execute();
 
-        $this->decrementBlockPositions(
-            $block->layoutId,
-            $block->zoneIdentifier,
-            $status,
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperConditions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status
+            ),
             $block->position
         );
     }
@@ -440,112 +423,24 @@ class Handler implements BlockHandlerInterface
     }
 
     /**
-     * Increments all block positions in a zone starting from provided position.
+     * Builds the condition array that will be used with position helper.
      *
-     * @param int $layoutId
-     * @param string $zoneIdentifier
-     * @param int $status
-     * @param int $startPosition
-     * @param int $endPosition
-     */
-    public function incrementBlockPositions($layoutId, $zoneIdentifier, $status, $startPosition = null, $endPosition = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query
-            ->update('ngbm_block')
-            ->set('position', 'position + 1')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('zone_identifier', ':zone_identifier')
-                )
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
-
-        if ($startPosition !== null) {
-            $query->andWhere($query->expr()->gte('position', ':start_position'));
-            $query->setParameter('start_position', $startPosition, Type::INTEGER);
-        }
-
-        if ($endPosition !== null) {
-            $query->andWhere($query->expr()->lte('position', ':end_position'));
-            $query->setParameter('end_position', $endPosition, Type::INTEGER);
-        }
-
-        $this->connectionHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
-     * Decrements all block positions in a zone starting from provided position.
-     *
-     * @param int $layoutId
-     * @param string $zoneIdentifier
-     * @param int $status
-     * @param int $startPosition
-     * @param int $endPosition
-     */
-    public function decrementBlockPositions($layoutId, $zoneIdentifier, $status, $startPosition = null, $endPosition = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query
-            ->update('ngbm_block')
-            ->set('position', 'position - 1')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('zone_identifier', ':zone_identifier')
-                )
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
-
-        if ($startPosition !== null) {
-            $query->andWhere($query->expr()->gte('position', ':start_position'));
-            $query->setParameter('start_position', $startPosition, Type::INTEGER);
-        }
-
-        if ($endPosition !== null) {
-            $query->andWhere($query->expr()->lte('position', ':end_position'));
-            $query->setParameter('end_position', $endPosition, Type::INTEGER);
-        }
-
-        $this->connectionHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
-     * Returns the next available block position for provided zone.
-     *
-     * @param int $layoutId
+     * @param int|string $layoutId
      * @param string $zoneIdentifier
      * @param int $status
      *
-     * @return int
+     * @return array
      */
-    public function getNextBlockPosition($layoutId, $zoneIdentifier, $status)
+    protected function getPositionHelperConditions($layoutId, $zoneIdentifier, $status)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select($this->connection->getDatabasePlatform()->getMaxExpression('position') . ' AS position')
-            ->from('ngbm_block')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('zone_identifier', ':zone_identifier')
-                )
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
-
-        $this->connectionHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['position']) ? (int)$data[0]['position'] + 1 : 0;
+        return array(
+            'table' => 'ngbm_block',
+            'column' => 'position',
+            'conditions' => array(
+                'layout_id' => $layoutId,
+                'zone_identifier' => $zoneIdentifier,
+                'status' => $status,
+            ),
+        );
     }
 }

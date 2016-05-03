@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler
     netgen_block_manager.persistence.doctrine.helpers.connection_helper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
+    netgen_block_manager.persistence.doctrine.helpers.position_helper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper
 
     netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper
     netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler
@@ -31,6 +32,11 @@ services:
         arguments:
             - "@database_connection"
 
+    netgen_block_manager.persistence.doctrine.helpers.position_helper:
+        class: "%netgen_block_manager.persistence.doctrine.helpers.position_helper.class%"
+        arguments:
+            - "@database_connection"
+
     netgen_block_manager.persistence.doctrine.layout.mapper:
         class: "%netgen_block_manager.persistence.doctrine.layout.mapper.class%"
 
@@ -50,6 +56,7 @@ services:
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.helpers.connection_helper"
+            - "@netgen_block_manager.persistence.doctrine.helpers.position_helper"
             - "@netgen_block_manager.persistence.doctrine.block.mapper"
 
     # Layout related APIs

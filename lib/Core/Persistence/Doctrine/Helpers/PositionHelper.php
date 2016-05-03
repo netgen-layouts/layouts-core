@@ -1,0 +1,219 @@
+<?php
+
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helpers;
+
+use Doctrine\DBAL\Query\QueryBuilder;
+use Netgen\BlockManager\API\Exception\BadStateException;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Type;
+
+class PositionHelper
+{
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    protected $connection;
+
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     */
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
+    /**
+     * Processes the database table to create space for an item which will
+     * be inserted at specified position.
+     *
+     * @param array $conditions
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If position is out of range
+     *
+     * @return int
+     */
+    public function createPosition(array $conditions, $position = null)
+    {
+        $nextBlockPosition = $this->getNextPosition($conditions);
+
+        if ($position !== null) {
+            if ($position > $nextBlockPosition || $position < 0) {
+                throw new BadStateException('position', 'Position is out of range.');
+            }
+        } else {
+            $position = $nextBlockPosition;
+        }
+
+        $this->incrementPositions(
+            $conditions,
+            $position
+        );
+
+        return $position;
+    }
+
+    /**
+     * Processes the database table to make space for the item which
+     * will be moved inside the table.
+     *
+     * @param array $conditions
+     * @param int $originalPosition
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If position is out of range
+     *
+     * @return int
+     */
+    public function moveToPosition(array $conditions, $originalPosition, $position)
+    {
+        $nextBlockPosition = $this->getNextPosition($conditions);
+
+        if ($position >= $nextBlockPosition || $position < 0) {
+            throw new BadStateException('position', 'Position is out of range.');
+        }
+
+        if ($position > $originalPosition) {
+            $this->decrementPositions(
+                $conditions,
+                $originalPosition + 1,
+                $position
+            );
+        } elseif ($position < $originalPosition) {
+            $this->incrementPositions(
+                $conditions,
+                $position,
+                $originalPosition - 1
+            );
+        }
+
+        return $position;
+    }
+
+    /**
+     * Reorders the positions after item at the specified position has been removed.
+     *
+     * @param array $conditions
+     * @param int $position
+     */
+    public function removePosition(array $conditions, $position)
+    {
+        $this->decrementPositions(
+            $conditions,
+            $position
+        );
+    }
+
+    /**
+     * Returns the next available position in the table.
+     *
+     * @param array $conditions
+     *
+     * @return int
+     */
+    public function getNextPosition(array $conditions)
+    {
+        $columnName = $conditions['column'];
+
+        $query = $this->connection->createQueryBuilder();
+        $query->select($this->connection->getDatabasePlatform()->getMaxExpression($columnName) . ' AS ' . $columnName)
+            ->from($conditions['table']);
+
+        $this->applyConditions($query, $conditions['conditions']);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0][$columnName]) ? (int)$data[0][$columnName] + 1 : 0;
+    }
+
+    /**
+     * Increments all positions in a table starting from provided position.
+     *
+     * @param array $conditions
+     * @param int $startPosition
+     * @param int $endPosition
+     */
+    protected function incrementPositions(array $conditions, $startPosition = null, $endPosition = null)
+    {
+        $columnName = $conditions['column'];
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update($conditions['table'])
+            ->set($columnName, $columnName . ' + 1');
+
+        if ($startPosition !== null) {
+            $query->andWhere($query->expr()->gte($columnName, ':start_position'));
+            $query->setParameter('start_position', $startPosition, Type::INTEGER);
+        }
+
+        if ($endPosition !== null) {
+            $query->andWhere($query->expr()->lte($columnName, ':end_position'));
+            $query->setParameter('end_position', $endPosition, Type::INTEGER);
+        }
+
+        $this->applyConditions($query, $conditions['conditions']);
+
+        $query->execute();
+    }
+
+    /**
+     * Decrements all positions in a table starting from provided position.
+     *
+     * @param array $conditions
+     * @param int $startPosition
+     * @param int $endPosition
+     */
+    protected function decrementPositions(array $conditions, $startPosition = null, $endPosition = null)
+    {
+        $columnName = $conditions['column'];
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update($conditions['table'])
+            ->set($columnName, $columnName . ' - 1');
+
+        if ($startPosition !== null) {
+            $query->andWhere($query->expr()->gte($columnName, ':start_position'));
+            $query->setParameter('start_position', $startPosition, Type::INTEGER);
+        }
+
+        if ($endPosition !== null) {
+            $query->andWhere($query->expr()->lte($columnName, ':end_position'));
+            $query->setParameter('end_position', $endPosition, Type::INTEGER);
+        }
+
+        $this->applyConditions($query, $conditions['conditions']);
+
+        $query->execute();
+    }
+
+    /**
+     * Applies the provided conditions to the query.
+     *
+     * @param \Doctrine\DBAL\Query\QueryBuilder $query
+     * @param array $conditions
+     */
+    protected function applyConditions(QueryBuilder $query, array $conditions)
+    {
+        if (empty($conditions)) {
+            return;
+        }
+
+        foreach ($conditions as $identifier => $value) {
+            if (!is_int($value) && !is_string($value)) {
+                continue;
+            }
+
+            $query->andWhere(
+                $query->expr()->eq($identifier, ':' . $identifier)
+            );
+
+            $query->setParameter($identifier, $value, is_int($value) ? Type::INTEGER : Type::STRING);
+        }
+    }
+}
