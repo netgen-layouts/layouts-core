@@ -1,17 +1,18 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper;
-use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
-class Handler implements BlockHandlerInterface
+class BlockHandler implements BlockHandlerInterface
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -19,38 +20,38 @@ class Handler implements BlockHandlerInterface
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper
      */
     protected $connectionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper
      */
     protected $positionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper
      */
-    protected $mapper;
+    protected $blockMapper;
 
     /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper $positionHelper
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper $mapper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper $positionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper $blockMapper
      */
     public function __construct(
         Connection $connection,
         ConnectionHelper $connectionHelper,
         PositionHelper $positionHelper,
-        Mapper $mapper
+        BlockMapper $blockMapper
     ) {
         $this->connection = $connection;
         $this->connectionHelper = $connectionHelper;
         $this->positionHelper = $positionHelper;
-        $this->mapper = $mapper;
+        $this->blockMapper = $blockMapper;
     }
 
     /**
@@ -78,7 +79,7 @@ class Handler implements BlockHandlerInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        $data = $this->mapper->mapBlocks($data);
+        $data = $this->blockMapper->mapBlocks($data);
 
         return reset($data);
     }
@@ -112,7 +113,7 @@ class Handler implements BlockHandlerInterface
             return array();
         }
 
-        return $this->mapper->mapBlocks($data);
+        return $this->blockMapper->mapBlocks($data);
     }
 
     /**

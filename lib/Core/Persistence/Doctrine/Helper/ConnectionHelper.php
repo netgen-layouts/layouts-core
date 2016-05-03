@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helpers;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper\Sqlite;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper\Postgres;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
@@ -16,9 +16,9 @@ class ConnectionHelper
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper[]
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper[]
      */
-    protected $databaseSpecificHelpers = array();
+    protected $databaseSpecificHelper = array();
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ class ConnectionHelper
     {
         $this->connection = $connection;
 
-        $this->databaseSpecificHelpers = array(
+        $this->databaseSpecificHelper = array(
             'sqlite' => new Sqlite($this->connection),
             'postgresql' => new Postgres($this->connection),
         );
@@ -50,8 +50,8 @@ class ConnectionHelper
     public function getAutoIncrementValue($table, $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
-        if (isset($this->databaseSpecificHelpers[$databaseServer])) {
-            return $this->databaseSpecificHelpers[$databaseServer]
+        if (isset($this->databaseSpecificHelper[$databaseServer])) {
+            return $this->databaseSpecificHelper[$databaseServer]
                 ->getAutoIncrementValue($table, $column);
         }
 
@@ -69,8 +69,8 @@ class ConnectionHelper
     public function lastInsertId($table, $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
-        if (isset($this->databaseSpecificHelpers[$databaseServer])) {
-            return $this->databaseSpecificHelpers[$databaseServer]
+        if (isset($this->databaseSpecificHelper[$databaseServer])) {
+            return $this->databaseSpecificHelper[$databaseServer]
                 ->lastInsertId($table, $column);
         }
 

@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler as LayoutHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper as LayoutMapper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler as BlockHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper as BlockMapper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Collection\Handler as CollectionHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Collection\Mapper as CollectionMapper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
 
 trait TestCase
@@ -43,7 +43,7 @@ trait TestCase
     /**
      * Returns the layout handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\Layout
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
     protected function createLayoutHandler()
     {
@@ -58,7 +58,7 @@ trait TestCase
     /**
      * Returns the block handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\Block
+     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     protected function createBlockHandler()
     {
@@ -73,7 +73,7 @@ trait TestCase
     /**
      * Returns the collection handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\Collection
+     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
     protected function createCollectionHandler()
     {

@@ -7,21 +7,21 @@ interface Handler
     /**
      * Returns the layout handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\Layout
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
     public function getLayoutHandler();
 
     /**
      * Returns the block handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\Block
+     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     public function getBlockHandler();
 
     /**
      * Returns the collection handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\Collection
+     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
     public function getCollectionHandler();
 

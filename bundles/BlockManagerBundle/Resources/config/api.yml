@@ -1,21 +1,21 @@
 parameters:
     netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler
-    netgen_block_manager.persistence.doctrine.helpers.connection_helper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
-    netgen_block_manager.persistence.doctrine.helpers.position_helper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\PositionHelper
+    netgen_block_manager.persistence.doctrine.helper.connection.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper
+    netgen_block_manager.persistence.doctrine.helper.position.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper
 
-    netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper
-    netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler
+    netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper
+    netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler
 
-    netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper
-    netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler
+    netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper
+    netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler
 
-    netgen_block_manager.api.service.layout.core.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
-    netgen_block_manager.api.service.layout.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
-    netgen_block_manager.api.service.layout.core.class: Netgen\BlockManager\Core\Service\LayoutService
+    netgen_block_manager.api.layout.core.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
+    netgen_block_manager.api.layout.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+    netgen_block_manager.api.layout.core.service.class: Netgen\BlockManager\Core\Service\LayoutService
 
-    netgen_block_manager.api.service.block.core.validator.class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
-    netgen_block_manager.api.service.block.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
-    netgen_block_manager.api.service.block.core.class: Netgen\BlockManager\Core\Service\BlockService
+    netgen_block_manager.api.block.core.validator.class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
+    netgen_block_manager.api.block.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
+    netgen_block_manager.api.block.core.service.class: Netgen\BlockManager\Core\Service\BlockService
 
 services:
     netgen_block_manager.persistence.doctrine.handler:
@@ -27,13 +27,13 @@ services:
 
     # Layout related persistence APIs
 
-    netgen_block_manager.persistence.doctrine.helpers.connection_helper:
-        class: "%netgen_block_manager.persistence.doctrine.helpers.connection_helper.class%"
+    netgen_block_manager.persistence.doctrine.helper.connection:
+        class: "%netgen_block_manager.persistence.doctrine.helper.connection.class%"
         arguments:
             - "@database_connection"
 
-    netgen_block_manager.persistence.doctrine.helpers.position_helper:
-        class: "%netgen_block_manager.persistence.doctrine.helpers.position_helper.class%"
+    netgen_block_manager.persistence.doctrine.helper.position:
+        class: "%netgen_block_manager.persistence.doctrine.helper.position.class%"
         arguments:
             - "@database_connection"
 
@@ -44,7 +44,7 @@ services:
         class: "%netgen_block_manager.persistence.doctrine.layout.handler.class%"
         arguments:
             - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.helpers.connection_helper"
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
 
@@ -55,56 +55,56 @@ services:
         class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
         arguments:
             - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.helpers.connection_helper"
-            - "@netgen_block_manager.persistence.doctrine.helpers.position_helper"
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
+            - "@netgen_block_manager.persistence.doctrine.helper.position"
             - "@netgen_block_manager.persistence.doctrine.block.mapper"
 
     # Layout related APIs
 
-    netgen_block_manager.api.service.layout.core.validator:
-        class: "%netgen_block_manager.api.service.layout.core.validator.class%"
+    netgen_block_manager.api.layout.core.validator:
+        class: "%netgen_block_manager.api.layout.core.validator.class%"
         arguments:
             - "@validator"
 
-    netgen_block_manager.api.service.layout.core.mapper:
-        class: "%netgen_block_manager.api.service.layout.core.mapper.class%"
+    netgen_block_manager.api.layout.core.mapper:
+        class: "%netgen_block_manager.api.layout.core.mapper.class%"
         arguments:
-            - "@netgen_block_manager.api.service.block.core.mapper"
+            - "@netgen_block_manager.api.block.core.mapper"
             - "@netgen_block_manager.persistence.handler"
 
-    netgen_block_manager.api.service.layout.core:
-        class: "%netgen_block_manager.api.service.layout.core.class%"
+    netgen_block_manager.api.layout.core.service:
+        class: "%netgen_block_manager.api.layout.core.service.class%"
         arguments:
-            - "@netgen_block_manager.api.service.layout.core.validator"
-            - "@netgen_block_manager.api.service.layout.core.mapper"
+            - "@netgen_block_manager.api.layout.core.validator"
+            - "@netgen_block_manager.api.layout.core.mapper"
             - "@netgen_block_manager.persistence.handler"
 
     # Block related APIs
 
-    netgen_block_manager.api.service.block.core.validator:
-        class: "%netgen_block_manager.api.service.block.core.validator.class%"
+    netgen_block_manager.api.block.core.validator:
+        class: "%netgen_block_manager.api.block.core.validator.class%"
         arguments:
             - "@validator"
 
-    netgen_block_manager.api.service.block.core.mapper:
-        class: "%netgen_block_manager.api.service.block.core.mapper.class%"
+    netgen_block_manager.api.block.core.mapper:
+        class: "%netgen_block_manager.api.block.core.mapper.class%"
         arguments:
             - "@netgen_block_manager.persistence.handler"
 
-    netgen_block_manager.api.service.block.core:
-        class: "%netgen_block_manager.api.service.block.core.class%"
+    netgen_block_manager.api.block.core.service:
+        class: "%netgen_block_manager.api.block.core.service.class%"
         arguments:
-            - "@netgen_block_manager.api.service.block.core.validator"
-            - "@netgen_block_manager.api.service.block.core.mapper"
+            - "@netgen_block_manager.api.block.core.validator"
+            - "@netgen_block_manager.api.block.core.mapper"
             - "@netgen_block_manager.persistence.handler"
 
     # Service aliases
 
     netgen_block_manager.api.service.layout:
-        alias: netgen_block_manager.api.service.layout.core
+        alias: netgen_block_manager.api.layout.core.service
 
     netgen_block_manager.api.service.block:
-        alias: netgen_block_manager.api.service.block.core
+        alias: netgen_block_manager.api.block.core.service
 
     netgen_block_manager.persistence.handler:
         alias: netgen_block_manager.persistence.doctrine.handler

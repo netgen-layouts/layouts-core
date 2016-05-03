@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Layout;
+namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
@@ -10,7 +10,7 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
-class HandlerTest extends \PHPUnit_Framework_TestCase
+class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 {
     use TestCase;
 
@@ -31,10 +31,10 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::__construct
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayout
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::applyStatusCondition
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutSelectQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::__construct
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::applyStatusCondition
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayoutSelectQuery
      */
     public function testLoadLayout()
     {
@@ -57,7 +57,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadLayoutThrowsNotFoundException()
@@ -67,8 +67,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneSelectQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadZone
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createZoneSelectQuery
      */
     public function testLoadZone()
     {
@@ -87,7 +87,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadZone
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
@@ -97,7 +97,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZone
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadZone
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
@@ -107,7 +107,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::layoutExists
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      */
     public function testLayoutExists()
     {
@@ -117,7 +117,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::layoutExists
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      */
     public function testLayoutNotExists()
     {
@@ -127,7 +127,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::layoutExists
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      */
     public function testLayoutNotExistsInStatus()
     {
@@ -137,7 +137,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::zoneExists
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
      */
     public function testZoneExists()
     {
@@ -147,7 +147,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::zoneExists
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
      */
     public function testZoneNotExists()
     {
@@ -157,7 +157,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::zoneExists
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
      */
     public function testZoneNotExistsInStatus()
     {
@@ -167,7 +167,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayoutZones
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
      */
     public function testLoadLayoutZones()
     {
@@ -202,7 +202,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadLayoutZones
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
      */
     public function testLoadLayoutZonesForNonExistingLayout()
     {
@@ -211,9 +211,9 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayout
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createZoneInsertQuery
      */
     public function testCreateLayout()
     {
@@ -263,9 +263,9 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayout
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createZoneInsertQuery
      */
     public function testCreateLayoutWithParentLayout()
     {
@@ -315,14 +315,14 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
      */
     public function testCopyLayout()
     {
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutStatus
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
      */
     public function testCreateLayoutStatus()
     {
@@ -406,7 +406,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateLayoutStatus
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutStatus
      */
     public function testUpdateLayoutStatus()
     {
@@ -497,7 +497,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayout()
@@ -519,7 +519,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteLayout
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayoutInOneStatus()

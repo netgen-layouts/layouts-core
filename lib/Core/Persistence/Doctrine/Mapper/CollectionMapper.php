@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Collection;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 
-class Mapper
+class CollectionMapper
 {
     /**
      * Maps data from database to collection value objects.

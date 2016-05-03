@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
-class Mapper
+class LayoutMapper
 {
     /**
      * Maps data from database to layout value objects.

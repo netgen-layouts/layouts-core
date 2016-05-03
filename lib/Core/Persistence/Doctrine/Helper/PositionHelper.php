@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helpers;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Netgen\BlockManager\API\Exception\BadStateException;

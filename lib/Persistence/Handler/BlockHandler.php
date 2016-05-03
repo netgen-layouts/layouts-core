@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 
-interface Block
+interface BlockHandler
 {
     /**
      * Loads a block with specified ID.

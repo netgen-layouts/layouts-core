@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Connection;
 
-class Sqlite extends ConnectionHelper
+class Postgres extends ConnectionHelper
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -36,13 +36,7 @@ class Sqlite extends ConnectionHelper
      */
     public function getAutoIncrementValue($table, $column = 'id')
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
-            ->from($table);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['id']) ? (int)$data[0]['id'] + 1 : 1;
+        return "nextval('"  . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
     }
 
     /**
@@ -55,12 +49,8 @@ class Sqlite extends ConnectionHelper
      */
     public function lastInsertId($table, $column = 'id')
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
-            ->from($table);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['id']) ? (int)$data[0]['id'] : 0;
+        return $this->connection->lastInsertId(
+            $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column)
+        );
     }
 }

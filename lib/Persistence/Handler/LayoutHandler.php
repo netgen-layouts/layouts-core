@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 
-interface Layout
+interface LayoutHandler
 {
     /**
      * Loads a layout with specified ID.

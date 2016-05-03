@@ -65,10 +65,10 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.view.provider.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.validator.block_definition');
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.api.service.block.core');
+        $this->assertContainerBuilderHasService('netgen_block_manager.api.block.core.service');
         $this->assertContainerBuilderHasAlias(
             'netgen_block_manager.api.service.block',
-            'netgen_block_manager.api.service.block.core'
+            'netgen_block_manager.api.block.core.service'
         );
 
         $this->assertContainerBuilderHasService('netgen_block_manager.configuration.container');

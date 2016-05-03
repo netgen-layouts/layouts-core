@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Layout;
+namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 
-class MapperTest extends \PHPUnit_Framework_TestCase
+class LayoutMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper::mapLayouts
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
      */
     public function testMapLayouts()
     {
@@ -60,12 +60,12 @@ class MapperTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $mapper = new Mapper();
+        $mapper = new LayoutMapper();
         self::assertEquals($expectedData, $mapper->mapLayouts($data));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper::mapZones
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
      */
     public function testMapZones()
     {
@@ -99,7 +99,7 @@ class MapperTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $mapper = new Mapper();
+        $mapper = new LayoutMapper();
         self::assertEquals($expectedData, $mapper->mapZones($data));
     }
 }

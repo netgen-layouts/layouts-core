@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 
-interface Collection
+interface CollectionHandler
 {
     /**
      * Loads a collection with specified ID.

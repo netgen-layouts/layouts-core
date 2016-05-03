@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
-class Mapper
+class BlockMapper
 {
     /**
      * Maps data from database to block value objects.

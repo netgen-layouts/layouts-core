@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Collection;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
@@ -8,13 +8,14 @@ use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Handler\Collection as CollectionHandlerInterface;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
-class Handler implements CollectionHandlerInterface
+class CollectionHandler implements CollectionHandlerInterface
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -22,27 +23,30 @@ class Handler implements CollectionHandlerInterface
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper
      */
     protected $connectionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Collection\Mapper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper
      */
-    protected $mapper;
+    protected $collectionMapper;
 
     /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Collection\Mapper $mapper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper $collectionMapper
      */
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, Mapper $mapper)
-    {
+    public function __construct(
+        Connection $connection,
+        ConnectionHelper $connectionHelper,
+        CollectionMapper $collectionMapper
+    ) {
         $this->connection = $connection;
         $this->connectionHelper = $connectionHelper;
-        $this->mapper = $mapper;
+        $this->collectionMapper = $collectionMapper;
     }
 
     /**
@@ -70,7 +74,7 @@ class Handler implements CollectionHandlerInterface
             throw new NotFoundException('collection', $collectionId);
         }
 
-        $data = $this->mapper->mapCollections($data);
+        $data = $this->collectionMapper->mapCollections($data);
 
         return reset($data);
     }
@@ -136,7 +140,7 @@ class Handler implements CollectionHandlerInterface
             throw new NotFoundException('item', $itemId);
         }
 
-        $data = $this->mapper->mapItems($data);
+        $data = $this->collectionMapper->mapItems($data);
 
         return reset($data);
     }
@@ -165,7 +169,7 @@ class Handler implements CollectionHandlerInterface
             return array();
         }
 
-        return $this->mapper->mapItems($data);
+        return $this->collectionMapper->mapItems($data);
     }
 
     /**
@@ -193,7 +197,7 @@ class Handler implements CollectionHandlerInterface
             throw new NotFoundException('query', $queryId);
         }
 
-        $data = $this->mapper->mapQueries($data);
+        $data = $this->collectionMapper->mapQueries($data);
 
         return reset($data);
     }
@@ -221,7 +225,7 @@ class Handler implements CollectionHandlerInterface
             return array();
         }
 
-        return $this->mapper->mapQueries($data);
+        return $this->collectionMapper->mapQueries($data);
     }
 
     /**
