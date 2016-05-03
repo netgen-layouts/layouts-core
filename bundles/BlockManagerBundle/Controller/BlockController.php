@@ -21,7 +21,7 @@ class BlockController extends Controller
         $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 
         $blockView->addParameters($parameters);
-        $blockView->addParameters($blockDefinition->getValues($block, $parameters));
+        $blockView->addParameters($blockDefinition->getDynamicParameters($block, $parameters));
 
         return $blockView;
     }

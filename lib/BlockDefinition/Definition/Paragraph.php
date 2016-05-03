@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\BlockDefinition\Definition;
 
 use Netgen\BlockManager\BlockDefinition\BlockDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
 class Paragraph extends BlockDefinition
@@ -43,18 +42,5 @@ class Paragraph extends BlockDefinition
                 new Constraints\NotBlank(),
             ),
         ) + parent::getParameterConstraints();
-    }
-
-    /**
-     * Returns the array of values provided by this block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $parameters
-     *
-     * @return array
-     */
-    public function getValues(Block $block, array $parameters = array())
-    {
-        return array();
     }
 }

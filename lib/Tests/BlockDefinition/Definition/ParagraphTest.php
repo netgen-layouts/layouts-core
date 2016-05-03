@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\BlockDefinition\Definition;
 
 use Netgen\BlockManager\BlockDefinition\Definition\Paragraph;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
 class ParagraphTest extends \PHPUnit_Framework_TestCase
@@ -51,15 +50,5 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
             ),
             $blockDefinition->getParameterConstraints()
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Paragraph::getValues
-     */
-    public function testGetValues()
-    {
-        $blockDefinition = new Paragraph();
-
-        self::assertEquals(array(), $blockDefinition->getValues(new Block()));
     }
 }

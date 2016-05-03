@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\BlockDefinition\Stubs;
 
 use Netgen\BlockManager\BlockDefinition\BlockDefinition as BaseBlockDefinition;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BlockDefinition extends BaseBlockDefinition
@@ -16,19 +15,6 @@ class BlockDefinition extends BaseBlockDefinition
     public function getIdentifier()
     {
         return 'block_definition';
-    }
-
-    /**
-     * Returns the array of values provided by this block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $parameters
-     *
-     * @return array
-     */
-    public function getValues(Block $block, array $parameters = array())
-    {
-        return array();
     }
 
     /**

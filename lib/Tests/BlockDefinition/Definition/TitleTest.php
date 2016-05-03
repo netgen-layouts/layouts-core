@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\BlockDefinition\Definition;
 
 use Netgen\BlockManager\BlockDefinition\Definition\Title;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Symfony\Component\Validator\Constraints;
 
 class TitleTest extends \PHPUnit_Framework_TestCase
@@ -69,15 +68,5 @@ class TitleTest extends \PHPUnit_Framework_TestCase
             ),
             $blockDefinition->getParameterConstraints()
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getValues
-     */
-    public function testGetValues()
-    {
-        $blockDefinition = new Title();
-
-        self::assertEquals(array(), $blockDefinition->getValues(new Block()));
     }
 }
