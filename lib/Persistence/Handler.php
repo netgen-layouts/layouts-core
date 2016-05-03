@@ -12,6 +12,13 @@ interface Handler
     public function getLayoutHandler();
 
     /**
+     * Returns the block handler.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\Block
+     */
+    public function getBlockHandler();
+
+    /**
      * Begins the transaction.
      */
     public function beginTransaction();

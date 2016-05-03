@@ -72,7 +72,7 @@ class BlockService implements BlockServiceInterface
         }
 
         return $this->blockMapper->mapBlock(
-            $this->persistenceHandler->getLayoutHandler()->loadBlock(
+            $this->persistenceHandler->getBlockHandler()->loadBlock(
                 $blockId,
                 $status
             )
@@ -117,7 +117,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdBlock = $this->persistenceHandler->getLayoutHandler()->createBlock(
+            $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock(
                 $blockCreateStruct,
                 $layout->getId(),
                 $zoneIdentifier,
@@ -161,7 +161,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedBlock = $this->persistenceHandler->getLayoutHandler()->updateBlock(
+            $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock(
                 $block->getId(),
                 $block->getStatus(),
                 $blockUpdateStruct
@@ -261,13 +261,13 @@ class BlockService implements BlockServiceInterface
 
         try {
             if ($zoneIdentifier === null || $zoneIdentifier === $block->getZoneIdentifier()) {
-                $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlock(
+                $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock(
                     $block->getId(),
                     $block->getStatus(),
                     $position
                 );
             } else {
-                $movedBlock = $this->persistenceHandler->getLayoutHandler()->moveBlockToZone(
+                $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlockToZone(
                     $block->getId(),
                     $block->getStatus(),
                     $zoneIdentifier,
@@ -300,7 +300,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getLayoutHandler()->deleteBlock(
+            $this->persistenceHandler->getBlockHandler()->deleteBlock(
                 $block->getId(),
                 $block->getStatus()
             );

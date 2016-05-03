@@ -3,8 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Layout;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\Core\Values\BlockCreateStruct;
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
@@ -213,96 +211,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockSelectQuery
-     */
-    public function testLoadBlock()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_PUBLISHED,
-                )
-            ),
-            $handler->loadBlock(1, APILayout::STATUS_PUBLISHED)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
-     */
-    public function testLoadBlockThrowsNotFoundException()
-    {
-        $handler = $this->createLayoutHandler();
-        $handler->loadBlock(999999, APILayout::STATUS_PUBLISHED);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZoneBlocks
-     */
-    public function testLoadZoneBlocks()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            array(
-                new Block(
-                    array(
-                        'id' => 1,
-                        'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
-                        'position' => 0,
-                        'definitionIdentifier' => 'paragraph',
-                        'parameters' => array(
-                            'some_param' => 'some_value',
-                        ),
-                        'viewType' => 'default',
-                        'name' => 'My block',
-                        'status' => APILayout::STATUS_PUBLISHED,
-                    )
-                ),
-                new Block(
-                    array(
-                        'id' => 2,
-                        'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
-                        'position' => 1,
-                        'definitionIdentifier' => 'title',
-                        'parameters' => array(
-                            'other_param' => 'other_value',
-                        ),
-                        'viewType' => 'small',
-                        'name' => 'My other block',
-                        'status' => APILayout::STATUS_PUBLISHED,
-                    )
-                ),
-            ),
-            $handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::loadZoneBlocks
-     */
-    public function testLoadZoneBlocksForNonExistingZone()
-    {
-        $handler = $this->createLayoutHandler();
-        self::assertEquals(array(), $handler->loadZoneBlocks(1, 'non_existing', APILayout::STATUS_PUBLISHED));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayout
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createLayoutInsertQuery
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createZoneInsertQuery
@@ -407,145 +315,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::getNextBlockPosition
-     */
-    public function testCreateBlock()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->definitionIdentifier = 'new_block';
-        $blockCreateStruct->viewType = 'large';
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 1,
-                    'definitionIdentifier' => 'new_block',
-                    'parameters' => array(
-                        'a_param' => 'A value',
-                    ),
-                    'viewType' => 'large',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, 1)
-        );
-
-        $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
-        self::assertEquals(2, $secondBlock->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlockInsertQuery
-     */
-    public function testCreateBlockWithNoPosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->definitionIdentifier = 'new_block';
-        $blockCreateStruct->viewType = 'large';
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 2,
-                    'definitionIdentifier' => 'new_block',
-                    'parameters' => array(
-                        'a_param' => 'A value',
-                    ),
-                    'viewType' => 'large',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->definitionIdentifier = 'new_block';
-        $blockCreateStruct->viewType = 'large';
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
-
-        $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, -5);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->definitionIdentifier = 'new_block';
-        $blockCreateStruct->viewType = 'large';
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
-
-        $handler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, 9999);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::updateBlock
-     */
-    public function testUpdateBlock()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $blockUpdateStruct = new BlockUpdateStruct();
-        $blockUpdateStruct->name = 'My block';
-        $blockUpdateStruct->viewType = 'large';
-        $blockUpdateStruct->setParameter('a_param', 'A value');
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'a_param' => 'A value',
-                    ),
-                    'viewType' => 'large',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->updateBlock(1, APILayout::STATUS_DRAFT, $blockUpdateStruct)
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyLayout
      */
     public function testCopyLayout()
@@ -558,6 +327,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateLayoutStatus()
     {
         $handler = $this->createLayoutHandler();
+        $blockHandler = $this->createBlockHandler();
         $copiedLayout = $handler->createLayoutStatus(1, APILayout::STATUS_PUBLISHED, APILayout::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
@@ -631,7 +401,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
             ),
-            $handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
+            $blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
         );
     }
 
@@ -641,6 +411,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testUpdateLayoutStatus()
     {
         $handler = $this->createLayoutHandler();
+        $blockHandler = $this->createBlockHandler();
         $copiedLayout = $handler->updateLayoutStatus(1, APILayout::STATUS_DRAFT, APILayout::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
@@ -714,7 +485,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
             ),
-            $handler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
+            $blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
         );
 
         try {
@@ -723,198 +494,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::getNextBlockPosition
-     */
-    public function testCopyBlock()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 2,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->copyBlock(1, APILayout::STATUS_DRAFT, 'top_right')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::copyBlock
-     */
-    public function testCopyBlockToDifferentZone()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->copyBlock(1, APILayout::STATUS_DRAFT, 'bottom')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
-     */
-    public function testMoveBlock()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 1,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->moveBlock(1, APILayout::STATUS_DRAFT, 1)
-        );
-
-        $firstBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
-        self::assertEquals(0, $firstBlock->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
-     */
-    public function testMoveBlockToLowerPosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 2,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 0,
-                    'definitionIdentifier' => 'title',
-                    'parameters' => array(
-                        'other_param' => 'other_value',
-                    ),
-                    'viewType' => 'small',
-                    'name' => 'My other block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->moveBlock(2, APILayout::STATUS_DRAFT, 0)
-        );
-
-        $firstBlock = $handler->loadBlock(1, APILayout::STATUS_DRAFT);
-        self::assertEquals(1, $firstBlock->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlock(1, APILayout::STATUS_DRAFT, -1);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlock(1, APILayout::STATUS_DRAFT, 9999);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::decrementBlockPositions
-     */
-    public function testMoveBlockToZone()
-    {
-        $handler = $this->createLayoutHandler();
-
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
-                )
-            ),
-            $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 0)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', -1);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 9999);
     }
 
     /**
@@ -970,25 +549,5 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         }
 
         $handler->loadLayout(1, APILayout::STATUS_DRAFT);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler::deleteBlock
-     */
-    public function testDeleteBlock()
-    {
-        $handler = $this->createLayoutHandler();
-
-        $handler->deleteBlock(1, APILayout::STATUS_DRAFT);
-
-        try {
-            $handler->loadBlock(1, APILayout::STATUS_DRAFT);
-            self::fail('Block still exists after deleting');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $secondBlock = $handler->loadBlock(2, APILayout::STATUS_DRAFT);
-        self::assertEquals(0, $secondBlock->position);
     }
 }

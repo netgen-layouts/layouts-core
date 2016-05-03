@@ -5,6 +5,9 @@ parameters:
     netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper
     netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler
 
+    netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper
+    netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Block\Handler
+
     netgen_block_manager.api.service.layout.core.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
     netgen_block_manager.api.service.layout.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
     netgen_block_manager.api.service.layout.core.class: Netgen\BlockManager\Core\Service\LayoutService
@@ -19,6 +22,7 @@ services:
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.layout.handler"
+            - "@netgen_block_manager.persistence.doctrine.block.handler"
 
     # Layout related persistence APIs
 
@@ -35,7 +39,18 @@ services:
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.connection_helper"
+            - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
+
+    netgen_block_manager.persistence.doctrine.block.mapper:
+        class: "%netgen_block_manager.persistence.doctrine.block.mapper.class%"
+
+    netgen_block_manager.persistence.doctrine.block.handler:
+        class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
+        arguments:
+            - "@database_connection"
+            - "@netgen_block_manager.persistence.doctrine.connection_helper"
+            - "@netgen_block_manager.persistence.doctrine.block.mapper"
 
     # Layout related APIs
 

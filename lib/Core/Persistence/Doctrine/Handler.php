@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine;
 
 use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\Layout;
+use Netgen\BlockManager\Persistence\Handler\Block;
 use Doctrine\DBAL\Connection;
 
 class Handler implements HandlerInterface
@@ -19,15 +20,24 @@ class Handler implements HandlerInterface
     protected $layoutHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\Block
+     */
+    protected $blockHandler;
+
+    /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Persistence\Handler\Layout $layoutHandler
      */
-    public function __construct(Connection $connection, Layout $layoutHandler)
-    {
+    public function __construct(
+        Connection $connection,
+        Layout $layoutHandler,
+        Block $blockHandler
+    ) {
         $this->connection = $connection;
         $this->layoutHandler = $layoutHandler;
+        $this->blockHandler = $blockHandler;
     }
 
     /**
@@ -38,6 +48,16 @@ class Handler implements HandlerInterface
     public function getLayoutHandler()
     {
         return $this->layoutHandler;
+    }
+
+    /**
+     * Returns the block handler.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\Block
+     */
+    public function getBlockHandler()
+    {
+        return $this->blockHandler;
     }
 
     /**
