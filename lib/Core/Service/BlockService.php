@@ -208,7 +208,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedBlock = $this->persistenceHandler->getLayoutHandler()->copyBlock(
+            $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
                 $block->getId(),
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
