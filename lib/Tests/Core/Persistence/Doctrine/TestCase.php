@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler as LayoutHandler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper as LayoutMapper;
@@ -45,7 +45,7 @@ trait TestCase
     {
         return new LayoutHandler(
             $this->databaseConnection,
-            new Helper($this->databaseConnection),
+            new ConnectionHelper($this->databaseConnection),
             $this->createBlockHandler(),
             new LayoutMapper()
         );
@@ -60,7 +60,7 @@ trait TestCase
     {
         return new BlockHandler(
             $this->databaseConnection,
-            new Helper($this->databaseConnection),
+            new ConnectionHelper($this->databaseConnection),
             new BlockMapper()
         );
     }

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Persistence\Doctrine\Block;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Exception\BadStateException;
@@ -19,7 +19,7 @@ class Handler implements BlockHandlerInterface
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
      */
     protected $connectionHelper;
 
@@ -32,10 +32,10 @@ class Handler implements BlockHandlerInterface
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper $connectionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Block\Mapper $mapper
      */
-    public function __construct(Connection $connection, Helper $connectionHelper, Mapper $mapper)
+    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, Mapper $mapper)
     {
         $this->connection = $connection;
         $this->connectionHelper = $connectionHelper;

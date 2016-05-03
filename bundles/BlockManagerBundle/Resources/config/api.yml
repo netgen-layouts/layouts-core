@@ -1,6 +1,6 @@
 parameters:
     netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler
-    netgen_block_manager.persistence.doctrine.connection_helper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper
+    netgen_block_manager.persistence.doctrine.helpers.connection_helper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
 
     netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper
     netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Handler
@@ -26,8 +26,8 @@ services:
 
     # Layout related persistence APIs
 
-    netgen_block_manager.persistence.doctrine.connection_helper:
-        class: "%netgen_block_manager.persistence.doctrine.connection_helper.class%"
+    netgen_block_manager.persistence.doctrine.helpers.connection_helper:
+        class: "%netgen_block_manager.persistence.doctrine.helpers.connection_helper.class%"
         arguments:
             - "@database_connection"
 
@@ -38,7 +38,7 @@ services:
         class: "%netgen_block_manager.persistence.doctrine.layout.handler.class%"
         arguments:
             - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.connection_helper"
+            - "@netgen_block_manager.persistence.doctrine.helpers.connection_helper"
             - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
 
@@ -49,7 +49,7 @@ services:
         class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
         arguments:
             - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.connection_helper"
+            - "@netgen_block_manager.persistence.doctrine.helpers.connection_helper"
             - "@netgen_block_manager.persistence.doctrine.block.mapper"
 
     # Layout related APIs

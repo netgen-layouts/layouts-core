@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Connection;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helpers;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper\Sqlite;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper\Postgres;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper\Sqlite;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper\Postgres;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
-class Helper
+class ConnectionHelper
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -16,7 +16,7 @@ class Helper
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper[]
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper[]
      */
     protected $databaseSpecificHelpers = array();
 

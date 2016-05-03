@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Persistence\Doctrine\Layout;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Handler\Layout as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\Block as BlockHandlerInterface;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
@@ -18,7 +18,7 @@ class Handler implements LayoutHandlerInterface
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper
      */
     protected $connectionHelper;
 
@@ -36,13 +36,13 @@ class Handler implements LayoutHandlerInterface
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper $connectionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Handler\Block $blockHandler
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Layout\Mapper $mapper
      */
     public function __construct(
         Connection $connection,
-        Helper $connectionHelper,
+        ConnectionHelper $connectionHelper,
         BlockHandlerInterface $blockHandler,
         Mapper $mapper
     ) {

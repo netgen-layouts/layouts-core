@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
+namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Connection\Helper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helpers\ConnectionHelper;
 use Doctrine\DBAL\Connection;
 
-class Postgres extends Helper
+class Postgres extends ConnectionHelper
 {
     /**
      * @var \Doctrine\DBAL\Connection
