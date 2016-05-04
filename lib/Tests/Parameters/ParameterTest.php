@@ -19,7 +19,7 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getName
+     * @covers \Netgen\BlockManager\Parameters\Parameter::isRequired
      */
     public function testGetIsRequired()
     {

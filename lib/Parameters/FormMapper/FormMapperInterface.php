@@ -13,13 +13,15 @@ interface FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
-     * @param \Symfony\Component\Validator\Constraint[] $parameterConstraints
+     * @param \Symfony\Component\Validator\Constraint[] $constraints
+     * @param string $propertyPathPrefix
      */
     public function mapParameter(
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
-        array $parameterConstraints = null
+        array $constraints = null,
+        $propertyPathPrefix = 'parameters'
     );
 
     /**
@@ -28,12 +30,14 @@ interface FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
-     * @param array $parameterConstraints
+     * @param array $constraints
+     * @param string $propertyPathPrefix
      */
     public function mapHiddenParameter(
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
-        array $parameterConstraints = null
+        array $constraints = null,
+        $propertyPathPrefix = 'parameters'
     );
 }

@@ -14,6 +14,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::addParameterHandler
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
      */
     public function testMapParameter()
     {
@@ -29,11 +30,17 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
         $parameterMapper = new FormMapper();
         $parameterMapper->addParameterHandler('text', new TextHandler());
 
-        $parameterMapper->mapParameter($formBuilder, new Text(), 'param_name');
+        $parameterMapper->mapParameter(
+            $formBuilder,
+            new Text(),
+            'param_name',
+            null
+        );
 
         self::assertCount(1, $formBuilder->all());
 
         self::assertEquals('text', $formBuilder->get('param_name')->getType()->getName());
+        self::assertEquals('parameters[param_name]', $formBuilder->get('param_name')->getPropertyPath());
     }
 
     /**
@@ -59,6 +66,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::addParameterHandler
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapHiddenParameter
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
      */
     public function testMapHiddenParameter()
     {
@@ -74,10 +82,17 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
         $parameterMapper = new FormMapper();
         $parameterMapper->addParameterHandler('text', new TextHandler());
 
-        $parameterMapper->mapHiddenParameter($formBuilder, new Text(), 'param_name');
+        $parameterMapper->mapHiddenParameter(
+            $formBuilder,
+            new Text(),
+            'param_name',
+            null,
+            null
+        );
 
         self::assertCount(1, $formBuilder->all());
 
         self::assertEquals('hidden', $formBuilder->get('param_name')->getType()->getName());
+        self::assertEquals('param_name', $formBuilder->get('param_name')->getPropertyPath());
     }
 }

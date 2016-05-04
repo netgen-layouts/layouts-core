@@ -30,14 +30,14 @@ class FormMapper implements FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
-     * @param \Symfony\Component\Validator\Constraint[] $parameterConstraints
+     * @param \Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPathPrefix
      */
     public function mapParameter(
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
-        array $parameterConstraints = null,
+        array $constraints = null,
         $propertyPathPrefix = 'parameters'
     ) {
         $parameterType = $parameter->getType();
@@ -53,7 +53,7 @@ class FormMapper implements FormMapperInterface
                 'required' => $parameter->isRequired(),
                 'label' => $parameter->getName(),
                 'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $parameterConstraints,
+                'constraints' => $constraints,
             ) + $this->parameterHandlers[$parameterType]->convertOptions($parameter)
         );
     }
@@ -64,14 +64,14 @@ class FormMapper implements FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
-     * @param array $parameterConstraints
+     * @param array $constraints
      * @param string $propertyPathPrefix
      */
     public function mapHiddenParameter(
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
-        array $parameterConstraints = null,
+        array $constraints = null,
         $propertyPathPrefix = 'parameters'
     ) {
         $formBuilder->add(
@@ -80,7 +80,7 @@ class FormMapper implements FormMapperInterface
             array(
                 'required' => $parameter->isRequired(),
                 'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $parameterConstraints,
+                'constraints' => $constraints
             )
         );
     }

@@ -18,7 +18,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden::convertOptions
      */
     public function testConvertOptions()
     {

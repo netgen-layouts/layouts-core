@@ -18,7 +18,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea::convertOptions
      */
     public function testConvertOptions()
     {

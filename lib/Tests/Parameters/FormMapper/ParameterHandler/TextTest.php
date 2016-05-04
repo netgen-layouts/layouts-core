@@ -18,7 +18,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text::convertOptions
      */
     public function testConvertOptions()
     {

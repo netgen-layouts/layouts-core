@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -19,8 +19,8 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
@@ -40,7 +40,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Hidden
+     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     abstract public function getParameter($options);
 
