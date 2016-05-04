@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Mapper;
 
 use Netgen\BlockManager\Tests\Core\Service\Doctrine\TestCase;
-use Netgen\BlockManager\Tests\Core\Service\BlockMapperTest as BaseBlockMapperTest;
+use Netgen\BlockManager\Tests\Core\Service\Mapper\BlockMapperTest as BaseBlockMapperTest;
 
 class BlockMapperTest extends BaseBlockMapperTest
 {
@@ -14,7 +14,7 @@ class BlockMapperTest extends BaseBlockMapperTest
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->prepareServices();
 
         parent::setUp();
     }

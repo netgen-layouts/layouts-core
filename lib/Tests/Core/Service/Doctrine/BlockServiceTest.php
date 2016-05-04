@@ -13,7 +13,7 @@ class BlockServiceTest extends BaseBlockServiceTest
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->prepareServices();
 
         parent::setUp();
     }

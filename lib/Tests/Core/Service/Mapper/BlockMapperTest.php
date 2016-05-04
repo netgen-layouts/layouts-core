@@ -1,19 +1,25 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
-abstract class BlockMapperTest extends \PHPUnit_Framework_TestCase
+abstract class BlockMapperTest extends MapperTest
 {
     /**
-     * Creates the mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
+     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
-    abstract protected function createBlockMapper();
+    protected $blockMapper;
+
+    /**
+     * Sets up the tests.
+     */
+    public function setUp()
+    {
+        $this->blockMapper = $this->createBlockMapper();
+    }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
@@ -37,8 +43,7 @@ abstract class BlockMapperTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mapper = $this->createBlockMapper();
-        $block = $mapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         self::assertInstanceOf(APIBlock::class, $block);
         self::assertEquals(1, $block->getId());

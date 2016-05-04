@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
@@ -9,14 +9,20 @@ use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use DateTime;
 
-abstract class LayoutMapperTest extends \PHPUnit_Framework_TestCase
+abstract class LayoutMapperTest extends MapperTest
 {
     /**
-     * Creates the mapper under test.
-     *
-     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
-    abstract protected function createLayoutMapper();
+    protected $layoutMapper;
+
+    /**
+     * Sets up the tests.
+     */
+    public function setUp()
+    {
+        $this->layoutMapper = $this->createLayoutMapper();
+    }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
@@ -31,8 +37,7 @@ abstract class LayoutMapperTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mapper = $this->createLayoutMapper();
-        $zone = $mapper->mapZone($persistenceZone);
+        $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         self::assertInstanceOf(APIZone::class, $zone);
         self::assertEquals('top_right', $zone->getIdentifier());
@@ -67,8 +72,7 @@ abstract class LayoutMapperTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $mapper = $this->createLayoutMapper();
-        $layout = $mapper->mapLayout($persistenceLayout);
+        $layout = $this->layoutMapper->mapLayout($persistenceLayout);
 
         self::assertInstanceOf(APILayout::class, $layout);
         self::assertEquals(1, $layout->getId());

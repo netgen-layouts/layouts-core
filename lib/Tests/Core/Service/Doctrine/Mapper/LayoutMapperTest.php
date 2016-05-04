@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Mapper;
 
 use Netgen\BlockManager\Tests\Core\Service\Doctrine\TestCase;
-use Netgen\BlockManager\Tests\Core\Service\LayoutMapperTest as BaseLayoutMapperTest;
+use Netgen\BlockManager\Tests\Core\Service\Mapper\LayoutMapperTest as BaseLayoutMapperTest;
 
 class LayoutMapperTest extends BaseLayoutMapperTest
 {
@@ -14,7 +14,7 @@ class LayoutMapperTest extends BaseLayoutMapperTest
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->prepareServices();
 
         parent::setUp();
     }
