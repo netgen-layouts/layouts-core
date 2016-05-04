@@ -276,9 +276,9 @@ class BlockService implements BlockServiceInterface
     /**
      * Deletes a specified block.
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      */
     public function deleteBlock(Block $block)
     {

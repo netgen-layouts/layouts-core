@@ -90,7 +90,7 @@ abstract class View implements ViewInterface
         $parameters = $this->getParameters();
 
         if (!isset($parameters[$identifier])) {
-            return null;
+            return;
         }
 
         return $parameters[$identifier];

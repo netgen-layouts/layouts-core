@@ -12,9 +12,9 @@ abstract class Value
      * Read only properties values must be set using $properties as they are not writable anymore
      * after object has been created.
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If one of the properties does not exist in value object
-     *
      * @param array $properties
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If one of the properties does not exist in value object
      */
     public function __construct(array $properties = array())
     {
