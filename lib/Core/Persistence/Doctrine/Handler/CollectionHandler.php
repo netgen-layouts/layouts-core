@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
@@ -28,6 +29,11 @@ class CollectionHandler implements CollectionHandlerInterface
     protected $connectionHelper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper
+     */
+    protected $positionHelper;
+
+    /**
      * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper
      */
     protected $collectionMapper;
@@ -37,15 +43,18 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper $positionHelper
      * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper $collectionMapper
      */
     public function __construct(
         Connection $connection,
         ConnectionHelper $connectionHelper,
+        PositionHelper $positionHelper,
         CollectionMapper $collectionMapper
     ) {
         $this->connection = $connection;
         $this->connectionHelper = $connectionHelper;
+        $this->positionHelper = $positionHelper;
         $this->collectionMapper = $collectionMapper;
     }
 
@@ -397,6 +406,7 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $newStatus,
                     'collection_id' => $collection->id,
+                    'position' => $collectionQuery->position,
                     'identifier' => $collectionQuery->identifier,
                     'type' => $collectionQuery->type,
                     'parameters' => $collectionQuery->parameters,
@@ -571,10 +581,24 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position)
+    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position = null)
     {
+        $collection = $this->loadCollection($collectionId, $status);
+
+        if ($collection->type === Collection::TYPE_MANUAL) {
+            $position = $this->positionHelper->createPosition(
+                $this->getPositionHelperItemConditions(
+                    $collectionId,
+                    $status
+                ),
+                $position
+            );
+        }
+
         $query = $this->createItemInsertQuery(
             array(
                 'status' => $status,
@@ -603,10 +627,26 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int $status
      * @param int $position
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
     public function moveItem($itemId, $status, $position)
     {
+        $item = $this->loadItem($itemId, $status);
+        $collection = $this->loadCollection($item->collectionId, $status);
+
+        if ($collection->type === Collection::TYPE_MANUAL) {
+            $position = $this->positionHelper->moveToPosition(
+                $this->getPositionHelperItemConditions(
+                    $item->collectionId,
+                    $status
+                ),
+                $item->position,
+                $position
+            );
+        }
+
         $query = $this->connection->createQueryBuilder();
 
         $query
@@ -682,15 +722,27 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct)
+    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct, $position = null)
     {
+        $position = $this->positionHelper->createPosition(
+            $this->getPositionHelperQueryConditions(
+                $collectionId,
+                $status
+            ),
+            $position
+        );
+
         $query = $this->createQueryInsertQuery(
             array(
                 'status' => $status,
                 'collection_id' => $collectionId,
+                'position' => $position,
                 'identifier' => $queryCreateStruct->identifier,
                 'type' => $queryCreateStruct->type,
                 'parameters' => $queryCreateStruct->getParameters(),
@@ -732,6 +784,48 @@ class CollectionHandler implements CollectionHandlerInterface
             ->setParameter('id', $queryId, Type::INTEGER)
             ->setParameter('identifier', $queryUpdateStruct->identifier !== null ? $queryUpdateStruct->identifier : $originalQuery->identifier, Type::STRING)
             ->setParameter('parameters', $parameters, Type::JSON_ARRAY);
+
+        $this->connectionHelper->applyStatusCondition($query, $status);
+
+        $query->execute();
+
+        return $this->loadQuery($queryId, $status);
+    }
+
+    /**
+     * Moves a query to specified position in the collection.
+     *
+     * @param int|string $queryId
+     * @param int $status
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
+     */
+    public function moveQuery($queryId, $status, $position)
+    {
+        $originalQuery = $this->loadQuery($queryId, $status);
+
+        $position = $this->positionHelper->moveToPosition(
+            $this->getPositionHelperQueryConditions(
+                $originalQuery->collectionId,
+                $status
+            ),
+            $originalQuery->position,
+            $position
+        );
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('ngbm_collection_query')
+            ->set('position', ':position')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $queryId, Type::INTEGER)
+            ->setParameter('position', $position, Type::INTEGER);
 
         $this->connectionHelper->applyStatusCondition($query, $status);
 
@@ -797,7 +891,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function createQuerySelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'status', 'collection_id', 'identifier', 'type', 'parameters')
+        $query->select('id', 'status', 'collection_id', 'position', 'identifier', 'type', 'parameters')
             ->from('ngbm_collection_query');
 
         return $query;
@@ -884,6 +978,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'id' => ':id',
                     'status' => ':status',
                     'collection_id' => ':collection_id',
+                    'position' => ':position',
                     'identifier' => ':identifier',
                     'type' => ':type',
                     'parameters' => ':parameters',
@@ -895,8 +990,49 @@ class CollectionHandler implements CollectionHandlerInterface
             )
             ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('collection_id', $parameters['collection_id'], Type::INTEGER)
+            ->setParameter('position', $parameters['position'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
             ->setParameter('type', $parameters['type'], Type::STRING)
             ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
+    }
+
+    /**
+     * Builds the condition array that will be used with position helper and items in collections.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @return array
+     */
+    protected function getPositionHelperItemConditions($collectionId, $status)
+    {
+        return array(
+            'table' => 'ngbm_collection_item',
+            'column' => 'position',
+            'conditions' => array(
+                'collection_id' => $collectionId,
+                'status' => $status,
+            ),
+        );
+    }
+
+    /**
+     * Builds the condition array that will be used with position helper and queries in collections.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @return array
+     */
+    protected function getPositionHelperQueryConditions($collectionId, $status)
+    {
+        return array(
+            'table' => 'ngbm_collection_query',
+            'column' => 'position',
+            'conditions' => array(
+                'collection_id' => $collectionId,
+                'status' => $status,
+            ),
+        );
     }
 }

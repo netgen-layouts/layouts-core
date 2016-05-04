@@ -81,6 +81,7 @@ class CollectionMapper
                 array(
                     'id' => (int)$dataItem['id'],
                     'collectionId' => (int)$dataItem['collection_id'],
+                    'position' => (int)$dataItem['position'],
                     'identifier' => $dataItem['identifier'],
                     'type' => $dataItem['type'],
                     'parameters' => is_array($parameters) ? $parameters : array(),

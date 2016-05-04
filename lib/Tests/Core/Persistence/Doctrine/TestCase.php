@@ -80,6 +80,7 @@ trait TestCase
         return new CollectionHandler(
             $this->databaseConnection,
             new ConnectionHelper($this->databaseConnection),
+            new PositionHelper($this->databaseConnection),
             new CollectionMapper()
         );
     }

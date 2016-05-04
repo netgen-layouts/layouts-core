@@ -28,6 +28,13 @@ abstract class Query extends Value
     abstract public function getCollectionId();
 
     /**
+     * Returns the position the query is at.
+     *
+     * @return int
+     */
+    abstract public function getPosition();
+
+    /**
      * Returns the query identifier.
      *
      * @return string

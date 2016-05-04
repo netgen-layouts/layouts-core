@@ -95,6 +95,7 @@ class CollectionMapper extends Mapper
                 'id' => $query->id,
                 'status' => $query->status,
                 'collectionId' => $query->collectionId,
+                'position' => $query->position,
                 'identifier' => $query->identifier,
                 'type' => $query->type,
                 'parameters' => $query->parameters,

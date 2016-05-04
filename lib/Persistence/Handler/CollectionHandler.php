@@ -174,9 +174,11 @@ interface CollectionHandler
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position);
+    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position = null);
 
     /**
      * Moves an item to specified position in the collection.
@@ -184,6 +186,8 @@ interface CollectionHandler
      * @param int|string $itemId
      * @param int $status
      * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -214,10 +218,13 @@ interface CollectionHandler
      * @param int|string $collectionId
      * @param int $status
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct);
+    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct, $position = null);
 
     /**
      * Updates a query with specified ID.
@@ -229,6 +236,19 @@ interface CollectionHandler
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct);
+
+    /**
+     * Moves a query to specified position in the collection.
+     *
+     * @param int|string $queryId
+     * @param int $status
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
+     */
+    public function moveQuery($queryId, $status, $position);
 
     /**
      * Removes a query.

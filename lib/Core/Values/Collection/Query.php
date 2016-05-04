@@ -22,6 +22,11 @@ class Query extends APIQuery
     protected $collectionId;
 
     /**
+     * @var int
+     */
+    protected $position;
+
+    /**
      * @var string
      */
     protected $identifier;
@@ -64,6 +69,16 @@ class Query extends APIQuery
     public function getCollectionId()
     {
         return $this->collectionId;
+    }
+
+    /**
+     * Returns the position the query is at.
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**
