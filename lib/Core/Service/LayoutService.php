@@ -8,7 +8,6 @@ use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Exception;
 
@@ -52,20 +51,13 @@ class LayoutService implements LayoutServiceInterface
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function loadLayout($layoutId, $status = Layout::STATUS_PUBLISHED)
     {
-        if (!is_int($layoutId) && !is_string($layoutId)) {
-            throw new InvalidArgumentException('layoutId', 'Value must be an integer or a string.');
-        }
-
-        if (empty($layoutId)) {
-            throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
-        }
+        $this->layoutValidator->validateId($layoutId, 'layoutId');
 
         return $this->layoutMapper->mapLayout(
             $this->persistenceHandler->getLayoutHandler()->loadLayout(
@@ -82,28 +74,14 @@ class LayoutService implements LayoutServiceInterface
      * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID or zone identifier have an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
     public function loadZone($layoutId, $identifier, $status = Layout::STATUS_PUBLISHED)
     {
-        if (!is_int($layoutId) && !is_string($layoutId)) {
-            throw new InvalidArgumentException('layoutId', 'Value must be an integer or a string.');
-        }
-
-        if (empty($layoutId)) {
-            throw new InvalidArgumentException('layoutId', 'Value must not be empty.');
-        }
-
-        if (!is_string($identifier)) {
-            throw new InvalidArgumentException('identifier', 'Value must be a string.');
-        }
-
-        if (empty($identifier)) {
-            throw new InvalidArgumentException('identifier', 'Value must not be empty.');
-        }
+        $this->layoutValidator->validateId($layoutId, 'layoutId');
+        $this->layoutValidator->validateIdentifier($identifier, 'identifier');
 
         return $this->layoutMapper->mapZone(
             $this->persistenceHandler->getLayoutHandler()->loadZone(

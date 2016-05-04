@@ -61,20 +61,13 @@ class CollectionService implements APICollectionService
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If collection ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function loadCollection($collectionId, $status = Collection::STATUS_PUBLISHED)
     {
-        if (!is_int($collectionId) && !is_string($collectionId)) {
-            throw new InvalidArgumentException('collectionId', 'Value must be an integer or a string.');
-        }
-
-        if (empty($collectionId)) {
-            throw new InvalidArgumentException('collectionId', 'Value must not be empty.');
-        }
+        $this->collectionValidator->validateId($collectionId, 'collectionId');
 
         return $this->collectionMapper->mapCollection(
             $this->persistenceHandler->getCollectionHandler()->loadCollection(
@@ -112,20 +105,13 @@ class CollectionService implements APICollectionService
      * @param int|string $itemId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If item ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If item with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function loadItem($itemId, $status = Collection::STATUS_PUBLISHED)
     {
-        if (!is_int($itemId) && !is_string($itemId)) {
-            throw new InvalidArgumentException('itemId', 'Value must be an integer or a string.');
-        }
-
-        if (empty($itemId)) {
-            throw new InvalidArgumentException('itemId', 'Value must not be empty.');
-        }
+        $this->collectionValidator->validateId($itemId, 'itemId');
 
         return $this->collectionMapper->mapItem(
             $this->persistenceHandler->getCollectionHandler()->loadItem(
@@ -141,20 +127,13 @@ class CollectionService implements APICollectionService
      * @param int|string $queryId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If query ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function loadQuery($queryId, $status = Collection::STATUS_PUBLISHED)
     {
-        if (!is_int($queryId) && !is_string($queryId)) {
-            throw new InvalidArgumentException('queryId', 'Value must be an integer or a string.');
-        }
-
-        if (empty($queryId)) {
-            throw new InvalidArgumentException('queryId', 'Value must not be empty.');
-        }
+        $this->collectionValidator->validateId($queryId, 'queryId');
 
         return $this->collectionMapper->mapQuery(
             $this->persistenceHandler->getCollectionHandler()->loadQuery(

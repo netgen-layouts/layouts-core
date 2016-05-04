@@ -20,7 +20,6 @@ interface CollectionService
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If collection ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
@@ -42,7 +41,6 @@ interface CollectionService
      * @param int|string $itemId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If item ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If item with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
@@ -55,7 +53,6 @@ interface CollectionService
      * @param int|string $queryId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If query ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query

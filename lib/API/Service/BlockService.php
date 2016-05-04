@@ -16,7 +16,6 @@ interface BlockService
      * @param int|string $blockId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
@@ -31,7 +30,7 @@ interface BlockService
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier or position have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
@@ -59,7 +58,6 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
      *
@@ -74,7 +72,7 @@ interface BlockService
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position or zone identifier have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range

@@ -24,6 +24,46 @@ abstract class Validator
     }
 
     /**
+     * Validates the provided ID.
+     *
+     * @param int|string $id
+     * @param string $propertyPath
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     */
+    public function validateId($id, $propertyPath = null)
+    {
+        $this->validate(
+            $id,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'scalar')),
+            ),
+            $propertyPath
+        );
+    }
+
+    /**
+     * Validates the provided identifier.
+     *
+     * @param string $identifier
+     * @param string $propertyPath
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     */
+    public function validateIdentifier($identifier, $propertyPath = null)
+    {
+        $this->validate(
+            $identifier,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+            ),
+            $propertyPath
+        );
+    }
+
+    /**
      * Builds the "fields" array from provided parameters and constraints, used for validating set of parameters.
      *
      * @param array $parameters

@@ -35,6 +35,11 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
+        $this->layoutValidatorMock
+            ->expects($this->once())
+            ->method('validateId')
+            ->with($this->equalTo(1), $this->equalTo('layoutId'));
+
         $layout = $layoutService->loadLayout(1);
 
         self::assertInstanceOf(Layout::class, $layout);
@@ -115,26 +120,6 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadLayoutThrowsInvalidArgumentExceptionOnInvalidId()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadLayout(42.24);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadLayoutThrowsInvalidArgumentExceptionOnEmptyId()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadLayout('');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadLayoutThrowsNotFoundException()
@@ -150,6 +135,16 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutService = $this->createLayoutService($this->layoutValidatorMock);
 
+        $this->layoutValidatorMock
+            ->expects($this->at(0))
+            ->method('validateId')
+            ->with($this->equalTo(1), $this->equalTo('layoutId'));
+
+        $this->layoutValidatorMock
+            ->expects($this->at(1))
+            ->method('validateIdentifier')
+            ->with($this->equalTo('top_left'), $this->equalTo('identifier'));
+
         self::assertEquals(
             new Zone(
                 array(
@@ -161,46 +156,6 @@ abstract class LayoutServiceTest extends ServiceTest
             ),
             $layoutService->loadZone(1, 'top_left')
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadZoneThrowsInvalidArgumentExceptionOnInvalidLayoutId()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone(42.24, 'zone');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadZoneThrowsInvalidArgumentExceptionOnEmptyLayoutId()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone('', 'zone');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadZoneThrowsInvalidArgumentExceptionOnInvalidIdentifier()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone(1, 42.24);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadZoneThrowsInvalidArgumentExceptionOnEmptyIdentifier()
-    {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone(1, '');
     }
 
     /**

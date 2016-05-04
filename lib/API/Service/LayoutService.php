@@ -13,7 +13,6 @@ interface LayoutService
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
@@ -27,7 +26,6 @@ interface LayoutService
      * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout ID or zone identifier have an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone

@@ -44,6 +44,11 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateId')
+            ->with($this->equalTo(1), $this->equalTo('blockId'));
+
         self::assertEquals(
             new Block(
                 array(
@@ -62,26 +67,6 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->loadBlock(1)
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadBlockThrowsInvalidArgumentExceptionOnInvalidId()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $blockService->loadBlock(42.24);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testLoadBlockThrowsInvalidArgumentExceptionOnEmptyId()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $blockService->loadBlock('');
     }
 
     /**
@@ -108,7 +93,12 @@ abstract class BlockServiceTest extends ServiceTest
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
         $this->blockValidatorMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('validateIdentifier')
+            ->with($this->equalTo('top_right'), $this->equalTo('zoneIdentifier'));
+
+        $this->blockValidatorMock
+            ->expects($this->at(1))
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
@@ -155,7 +145,12 @@ abstract class BlockServiceTest extends ServiceTest
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
         $this->blockValidatorMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('validateIdentifier')
+            ->with($this->equalTo('top_right'), $this->equalTo('zoneIdentifier'));
+
+        $this->blockValidatorMock
+            ->expects($this->at(1))
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
@@ -197,7 +192,12 @@ abstract class BlockServiceTest extends ServiceTest
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
         $this->blockValidatorMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('validateIdentifier')
+            ->with($this->equalTo('top_right'), $this->equalTo('zoneIdentifier'));
+
+        $this->blockValidatorMock
+            ->expects($this->at(1))
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
@@ -231,28 +231,6 @@ abstract class BlockServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
-    public function testCreateBlockThrowsInvalidArgumentExceptionWithInvalidZoneIdentifier()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
-        $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
-
-        $blockService->createBlock(
-            $blockCreateStruct,
-            $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-            42
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
     public function testCreateBlockThrowsInvalidArgumentExceptionWithInvalidPosition()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
@@ -269,28 +247,6 @@ abstract class BlockServiceTest extends ServiceTest
             $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
             'top_left',
             '0'
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCreateBlockThrowsInvalidArgumentExceptionWithEmptyZoneIdentifier()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $blockCreateStruct = $blockService->newBlockCreateStruct('new_block', 'default');
-        $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
-
-        $blockService->createBlock(
-            $blockCreateStruct,
-            $layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-            ''
         );
     }
 
@@ -568,6 +524,11 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
 
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateIdentifier')
+            ->with($this->equalTo('bottom'), $this->equalTo('zoneIdentifier'));
+
         self::assertEquals(
             new Block(
                 array(
@@ -587,34 +548,6 @@ abstract class BlockServiceTest extends ServiceTest
                 $blockService->loadBlock(1, Layout::STATUS_DRAFT),
                 'bottom'
             )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCopyBlockThrowsInvalidArgumentExceptionOnInvalidZoneIdentifier()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-
-        $blockService->copyBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            42
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testCopyBlockThrowsInvalidArgumentExceptionOnEmptyZoneIdentifier()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-
-        $blockService->copyBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            ''
         );
     }
 
@@ -669,8 +602,7 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $blockService->moveBlock(
                 $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-                1,
-                'top_right'
+                1
             )
         );
 
@@ -684,6 +616,11 @@ abstract class BlockServiceTest extends ServiceTest
     public function testMoveBlockToDifferentZone()
     {
         $blockService = $this->createBlockService($this->blockValidatorMock);
+
+        $this->blockValidatorMock
+            ->expects($this->once())
+            ->method('validateIdentifier')
+            ->with($this->equalTo('bottom'), $this->equalTo('zoneIdentifier'));
 
         self::assertEquals(
             new Block(
@@ -750,36 +687,6 @@ abstract class BlockServiceTest extends ServiceTest
             $blockService->loadBlock(1, Layout::STATUS_DRAFT),
             9999,
             'bottom'
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testMoveBlockThrowsInvalidArgumentExceptionOnInvalidZone()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-
-        $blockService->moveBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            0,
-            42
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testMoveBlockThrowsInvalidArgumentExceptionOnEmptyZone()
-    {
-        $blockService = $this->createBlockService($this->blockValidatorMock);
-
-        $blockService->moveBlock(
-            $blockService->loadBlock(1, Layout::STATUS_DRAFT),
-            0,
-            ''
         );
     }
 

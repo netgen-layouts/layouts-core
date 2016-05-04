@@ -57,20 +57,13 @@ class BlockService implements BlockServiceInterface
      * @param int|string $blockId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block ID has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED)
     {
-        if (!is_int($blockId) && !is_string($blockId)) {
-            throw new InvalidArgumentException('blockId', 'Value must be an integer or a string.');
-        }
-
-        if (empty($blockId)) {
-            throw new InvalidArgumentException('blockId', 'Value must not be empty.');
-        }
+        $this->blockValidator->validateId($blockId, 'blockId');
 
         return $this->blockMapper->mapBlock(
             $this->persistenceHandler->getBlockHandler()->loadBlock(
@@ -88,7 +81,7 @@ class BlockService implements BlockServiceInterface
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier or position have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
@@ -97,16 +90,14 @@ class BlockService implements BlockServiceInterface
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
-        if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
-            throw new InvalidArgumentException('zoneIdentifier', 'The value needs to be a non empty string.');
+        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
+
+        if ($position !== null && !is_int($position)) {
+            throw new InvalidArgumentException('position', 'Value must be an integer.');
         }
 
         if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-        }
-
-        if ($position !== null && !is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
         }
 
         if ($layout->getStatus() !== Layout::STATUS_DRAFT) {
@@ -178,7 +169,6 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided zone identifier has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
      *
@@ -191,9 +181,7 @@ class BlockService implements BlockServiceInterface
         }
 
         if ($zoneIdentifier !== null) {
-            if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
-                throw new InvalidArgumentException('zoneIdentifier', 'Zone identifier must be a non empty string.');
-            }
+            $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
             if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
@@ -226,7 +214,7 @@ class BlockService implements BlockServiceInterface
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position or zone identifier have an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
@@ -240,9 +228,7 @@ class BlockService implements BlockServiceInterface
         }
 
         if ($zoneIdentifier !== null) {
-            if (!is_string($zoneIdentifier) || empty($zoneIdentifier)) {
-                throw new InvalidArgumentException('zoneIdentifier', 'Zone identifier must be a non empty string.');
-            }
+            $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
             if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
