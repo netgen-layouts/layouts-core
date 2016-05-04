@@ -14,7 +14,7 @@ class LayoutMapperTest extends BaseLayoutMapperTest
      */
     public function setUp()
     {
-        $this->prepareServices();
+        $this->preparePersistence();
 
         parent::setUp();
     }

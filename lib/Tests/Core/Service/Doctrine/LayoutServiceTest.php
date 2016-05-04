@@ -13,7 +13,7 @@ class LayoutServiceTest extends BaseLayoutServiceTest
      */
     public function setUp()
     {
-        $this->prepareServices();
+        $this->preparePersistence();
 
         parent::setUp();
     }
