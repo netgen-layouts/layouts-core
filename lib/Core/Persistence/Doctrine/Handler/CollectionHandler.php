@@ -534,6 +534,36 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
+     * Returns if item exists on specified position.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int $position
+     *
+     * @return bool
+     */
+    public function itemExists($collectionId, $status, $position)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_collection_item')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('collection_id', ':collection_id'),
+                    $query->expr()->eq('position', ':position')
+                )
+            )
+            ->setParameter('collection_id', $collectionId, Type::INTEGER)
+            ->setParameter('position', $position, Type::INTEGER);
+
+        $this->connectionHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Adds an item to collection.
      *
      * @param int|string $collectionId

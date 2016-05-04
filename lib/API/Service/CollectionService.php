@@ -133,6 +133,7 @@ interface CollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
+     *                                                              If item already exists in provided position (only for non manual collections)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
@@ -145,6 +146,7 @@ interface CollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
+     *                                                              If item already exists in provided position (only for non manual collections)
      */
     public function moveItem(Item $item, $position);
 

@@ -156,6 +156,17 @@ interface CollectionHandler
     public function deleteCollection($collectionId, $status = null);
 
     /**
+     * Returns if item exists on specified position.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int $position
+     *
+     * @return bool
+     */
+    public function itemExists($collectionId, $status, $position);
+
+    /**
      * Adds an item to collection.
      *
      * @param int|string $collectionId

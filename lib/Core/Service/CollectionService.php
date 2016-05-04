@@ -331,6 +331,7 @@ class CollectionService implements APICollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
+     *                                                              If item already exists in provided position (only for non manual collections)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
@@ -342,6 +343,12 @@ class CollectionService implements APICollectionService
 
         if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('collection', 'Items can only be created in (temporary) draft collections.');
+        }
+
+        if ($collection->getType() !== Collection::TYPE_MANUAL) {
+            if ($this->persistenceHandler->getCollectionHandler()->itemExists($collection->getId(), $collection->getStatus(), $position)) {
+                throw new BadStateException('position', 'Item already exists on that position.');
+            }
         }
 
         $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
@@ -372,6 +379,7 @@ class CollectionService implements APICollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
+     *                                                              If item already exists in provided position (only for non manual collections)
      */
     public function moveItem(Item $item, $position)
     {
@@ -381,6 +389,17 @@ class CollectionService implements APICollectionService
 
         if ($item->getStatus() !== Collection::STATUS_DRAFT && $item->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('item', 'Only items in (temporary) draft status can be deleted.');
+        }
+
+        $collection = $this->persistenceHandler->getCollectionHandler()->loadCollection(
+            $item->getCollectionId(),
+            $item->getStatus()
+        );
+
+        if ($collection->type !== Collection::TYPE_MANUAL) {
+            if ($this->persistenceHandler->getCollectionHandler()->itemExists($collection->id, $collection->status, $position)) {
+                throw new BadStateException('position', 'Item already exists on that position.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();
