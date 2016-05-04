@@ -79,13 +79,7 @@ class BlockValidator extends Validator
         $this->validate(
             $blockCreateStruct->getParameters(),
             array(
-                new Constraints\Collection(
-                    array(
-                        'fields' => $fields,
-                        'allowExtraFields' => false,
-                        'allowMissingFields' => true,
-                    )
-                ),
+                new Constraints\Collection(array('fields' => $fields)),
             ),
             'parameters'
         );
@@ -126,19 +120,14 @@ class BlockValidator extends Validator
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
         $fields = $this->buildParameterValidationFields(
             $blockDefinition->getParameters(),
-            $blockDefinition->getParameterConstraints()
+            $blockDefinition->getParameterConstraints(),
+            false
         );
 
         $this->validate(
             $blockUpdateStruct->getParameters(),
             array(
-                new Constraints\Collection(
-                    array(
-                        'fields' => $fields,
-                        'allowExtraFields' => false,
-                        'allowMissingFields' => true,
-                    )
-                ),
+                new Constraints\Collection(array('fields' => $fields)),
             ),
             'parameters'
         );

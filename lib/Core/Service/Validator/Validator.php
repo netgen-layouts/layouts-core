@@ -86,19 +86,25 @@ abstract class Validator
     /**
      * Builds the "fields" array from provided parameters and constraints, used for validating set of parameters.
      *
-     * @param array $parameters
-     * @param array $parameterConstraints
+     * @param \Netgen\BlockManager\Parameters\Parameter[] $parameters
+     * @param array $constraints
+     * @param bool $useRequired
      *
      * @return array
      */
-    protected function buildParameterValidationFields(array $parameters, array $parameterConstraints)
+    protected function buildParameterValidationFields(array $parameters, array $constraints, $useRequired = true)
     {
         $fields = array();
         foreach ($parameters as $parameterName => $parameter) {
-            if (isset($parameterConstraints[$parameterName]) && is_array($parameterConstraints[$parameterName])) {
-                $fields[$parameterName] = $parameterConstraints[$parameterName];
+            $paramConstraints = array();
+            if (isset($constraints[$parameterName]) && is_array($constraints[$parameterName])) {
+                $paramConstraints = $constraints[$parameterName];
+            }
+
+            if ($useRequired && $parameter->isRequired()) {
+                $fields[$parameterName] = new Constraints\Required($paramConstraints);
             } else {
-                $fields[$parameterName] = array();
+                $fields[$parameterName] = new Constraints\Optional($paramConstraints);
             }
         }
 

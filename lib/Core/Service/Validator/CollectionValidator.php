@@ -173,13 +173,7 @@ class CollectionValidator extends Validator
         $this->validate(
             $queryCreateStruct->getParameters(),
             array(
-                new Constraints\Collection(
-                    array(
-                        'fields' => $fields,
-                        'allowExtraFields' => false,
-                        'allowMissingFields' => true,
-                    )
-                ),
+                new Constraints\Collection(array('fields' => $fields)),
             ),
             'parameters'
         );
@@ -207,19 +201,14 @@ class CollectionValidator extends Validator
         $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
         $fields = $this->buildParameterValidationFields(
             $queryType->getParameters(),
-            $queryType->getParameterConstraints()
+            $queryType->getParameterConstraints(),
+            false
         );
 
         $this->validate(
             $queryUpdateStruct->getParameters(),
             array(
-                new Constraints\Collection(
-                    array(
-                        'fields' => $fields,
-                        'allowExtraFields' => false,
-                        'allowMissingFields' => true,
-                    )
-                ),
+                new Constraints\Collection(array('fields' => $fields)),
             ),
             'parameters'
         );
