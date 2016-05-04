@@ -339,6 +339,7 @@ class CollectionService implements APICollectionService
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If position is not set (for non manual collections)
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
+     *                                                              If override item is added to manual collection
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
      *
@@ -365,6 +366,10 @@ class CollectionService implements APICollectionService
         }
 
         $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
+
+        if ($collection->getType() === Collection::TYPE_MANUAL && $itemCreateStruct->linkType === Item::LINK_TYPE_OVERRIDE) {
+            throw new BadStateException('linkType', 'Override item cannot be added to manual collection.');
+        }
 
         $this->persistenceHandler->beginTransaction();
 
