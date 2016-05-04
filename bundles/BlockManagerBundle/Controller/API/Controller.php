@@ -17,7 +17,14 @@ abstract class Controller extends BaseController
      */
     const API_VERSION = 1;
 
-    public function handleValueObject(Value $value)
+    /**
+     * Builds the array which will be serialized from provided value object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     *
+     * @return array
+     */
+    protected function buildData(Value $value)
     {
         $data = $this->normalizeValueObject($value);
 
@@ -32,7 +39,15 @@ abstract class Controller extends BaseController
         return $data;
     }
 
-    public function handleValueObjectForm(Value $value, FormInterface $form)
+    /**
+     * Builds the array which will be serialized from provided value object and form.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param \Symfony\Component\Form\FormInterface $form
+     *
+     * @return array
+     */
+    protected function buildDataForForm(Value $value, FormInterface $form)
     {
         $view = $this->buildViewObject(
             $value,
@@ -48,7 +63,15 @@ abstract class Controller extends BaseController
         return $data;
     }
 
-    public function buildResponse(array $data, $statusCode = Response::HTTP_OK)
+    /**
+     * Builds the response from provided data.
+     *
+     * @param array $data
+     * @param int $statusCode
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    protected function buildResponse(array $data, $statusCode = Response::HTTP_OK)
     {
         $response = new JsonResponse(null, $statusCode);
         $response->setContent(
@@ -58,7 +81,14 @@ abstract class Controller extends BaseController
         return $response;
     }
 
-    public function normalizeValueObject(Value $value)
+    /**
+     * Normalized the provided value object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     *
+     * @return array
+     */
+    protected function normalizeValueObject(Value $value)
     {
         $serializer = $this->get('serializer');
 
@@ -70,13 +100,27 @@ abstract class Controller extends BaseController
         );
     }
 
-    public function serializeValueObject(Value $value)
+    /**
+     * Serializes the provided value object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     *
+     * @return string
+     */
+    protected function serializeValueObject(Value $value)
     {
         $normalizedValueObject = $this->normalizeValueObject($value);
 
         return $this->serializeData($normalizedValueObject);
     }
 
+    /**
+     * Serializes the provided data.
+     *
+     * @param array $data
+     *
+     * @return string
+     */
     public function serializeData(array $data)
     {
         $serializer = $this->get('serializer');

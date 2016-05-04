@@ -15,7 +15,7 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        $data = $this->handleValueObject($layout);
+        $data = $this->buildData($layout);
 
         return $this->buildResponse($data);
     }
@@ -32,7 +32,7 @@ class LayoutController extends Controller
         $blocks = array();
         foreach ($layout->getZones() as $zone) {
             foreach ($zone->getBlocks() as $block) {
-                $blocks[] = $this->handleValueObject($block);
+                $blocks[] = $this->buildData($block);
             }
         }
 

@@ -8,6 +8,13 @@ use Symfony\Component\Validator\Constraints;
 
 class BlockValidator extends Validator
 {
+    /**
+     * Validates block creation parameters from the request.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If validation failed
+     */
     public function validateCreateBlock(Request $request)
     {
         $this->validate(
@@ -50,6 +57,13 @@ class BlockValidator extends Validator
         }
     }
 
+    /**
+     * Validates block moving parameters from the request.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If validation failed
+     */
     public function validateMoveBlock(Request $request)
     {
         $zoneIdentifier = $request->request->get('zone_identifier');

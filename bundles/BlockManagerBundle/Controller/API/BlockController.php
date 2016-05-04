@@ -66,7 +66,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        $data = $this->handleValueObject($block);
+        $data = $this->buildData($block);
 
         return $this->buildResponse($data);
     }
@@ -125,7 +125,7 @@ class BlockController extends Controller
             $request->request->get('position')
         );
 
-        $data = $this->handleValueObject($createdBlock);
+        $data = $this->buildData($createdBlock);
 
         return $this->buildResponse($data, Response::HTTP_CREATED);
     }
@@ -193,7 +193,7 @@ class BlockController extends Controller
             }
 
             if (!$form->isValid()) {
-                $data = $this->handleValueObjectForm($block, $form);
+                $data = $this->buildDataForForm($block, $form);
 
                 return $this->buildResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
@@ -203,12 +203,12 @@ class BlockController extends Controller
                 $form->getData()
             );
 
-            $data = $this->handleValueObject($updatedBlock);
+            $data = $this->buildData($updatedBlock);
 
             return $this->buildResponse($data);
         }
 
-        $data = $this->handleValueObjectForm($block, $form);
+        $data = $this->buildDataForForm($block, $form);
 
         return $this->buildResponse($data);
     }
@@ -221,6 +221,7 @@ class BlockController extends Controller
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block does not support inline editing
      *                                                                     If form was not submitted
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If unknown error occurred
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -268,7 +269,7 @@ class BlockController extends Controller
 
         $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
-        $data = $this->handleValueObject($updatedBlock);
+        $data = $this->buildData($updatedBlock);
 
         return $this->buildResponse($data);
     }
