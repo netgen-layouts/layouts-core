@@ -209,7 +209,6 @@ class BlockService implements BlockServiceInterface
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
             );
-
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -299,7 +298,6 @@ class BlockService implements BlockServiceInterface
                 $block->getId(),
                 $block->getStatus()
             );
-
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

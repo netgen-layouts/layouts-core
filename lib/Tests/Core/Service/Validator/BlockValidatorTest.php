@@ -87,10 +87,10 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                         array(
                             'fields' => array(
                                 'css_class' => array(),
-                                'css_id' => array(new Constraints\NotBlank())
+                                'css_id' => array(new Constraints\NotBlank()),
                             ),
                             'allowExtraFields' => false,
-                            'allowMissingFields' => true
+                            'allowMissingFields' => true,
                         )
                     ),
                 )
@@ -152,10 +152,10 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                         array(
                             'fields' => array(
                                 'css_class' => array(),
-                                'css_id' => array(new Constraints\NotBlank())
+                                'css_id' => array(new Constraints\NotBlank()),
                             ),
                             'allowExtraFields' => false,
-                            'allowMissingFields' => true
+                            'allowMissingFields' => true,
                         )
                     ),
                 )

@@ -80,7 +80,7 @@ class FormMapper implements FormMapperInterface
             array(
                 'required' => $parameter->isRequired(),
                 'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $constraints
+                'constraints' => $constraints,
             )
         );
     }

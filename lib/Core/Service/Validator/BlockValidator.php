@@ -83,9 +83,9 @@ class BlockValidator extends Validator
                     array(
                         'fields' => $fields,
                         'allowExtraFields' => false,
-                        'allowMissingFields' => true
+                        'allowMissingFields' => true,
                     )
-                )
+                ),
             ),
             'parameters'
         );
@@ -136,9 +136,9 @@ class BlockValidator extends Validator
                     array(
                         'fields' => $fields,
                         'allowExtraFields' => false,
-                        'allowMissingFields' => true
+                        'allowMissingFields' => true,
                     )
-                )
+                ),
             ),
             'parameters'
         );

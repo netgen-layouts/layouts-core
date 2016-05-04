@@ -53,7 +53,7 @@ class CollectionValidator extends Validator
                             Collection::TYPE_DYNAMIC,
                             Collection::TYPE_NAMED,
                         ),
-                        'strict' => true
+                        'strict' => true,
                     )
                 ),
             ),
@@ -109,7 +109,7 @@ class CollectionValidator extends Validator
                             Item::LINK_TYPE_MANUAL,
                             Item::LINK_TYPE_OVERRIDE,
                         ),
-                        'strict' => true
+                        'strict' => true,
                     )
                 ),
             ),
@@ -130,7 +130,7 @@ class CollectionValidator extends Validator
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new ValueType()
+                new ValueType(),
             ),
             'valueType'
         );
@@ -177,9 +177,9 @@ class CollectionValidator extends Validator
                     array(
                         'fields' => $fields,
                         'allowExtraFields' => false,
-                        'allowMissingFields' => true
+                        'allowMissingFields' => true,
                     )
-                )
+                ),
             ),
             'parameters'
         );
@@ -217,9 +217,9 @@ class CollectionValidator extends Validator
                     array(
                         'fields' => $fields,
                         'allowExtraFields' => false,
-                        'allowMissingFields' => true
+                        'allowMissingFields' => true,
                     )
-                )
+                ),
             ),
             'parameters'
         );
