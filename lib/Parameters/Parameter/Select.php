@@ -22,7 +22,7 @@ class Select extends Parameter
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
-    public function configureOptions(OptionsResolver $optionsResolver)
+    protected function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefaults(
             array(
