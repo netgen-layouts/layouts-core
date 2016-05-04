@@ -18,6 +18,11 @@ abstract class LayoutServiceTest extends ServiceTest
     protected $layoutValidatorMock;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
      * Sets up the tests.
      */
     public function setUp()
@@ -25,6 +30,8 @@ abstract class LayoutServiceTest extends ServiceTest
         $this->layoutValidatorMock = $this->getMockBuilder(LayoutValidator::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
     }
 
     /**
@@ -33,14 +40,12 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
         $this->layoutValidatorMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('validateId')
             ->with($this->equalTo(1), $this->equalTo('layoutId'));
 
-        $layout = $layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(1);
 
         self::assertInstanceOf(Layout::class, $layout);
 
@@ -124,8 +129,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadLayout(999999);
+        $this->layoutService->loadLayout(999999);
     }
 
     /**
@@ -133,8 +137,6 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZone()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
         $this->layoutValidatorMock
             ->expects($this->at(0))
             ->method('validateId')
@@ -154,7 +156,7 @@ abstract class LayoutServiceTest extends ServiceTest
                     'blocks' => array(),
                 )
             ),
-            $layoutService->loadZone(1, 'top_left')
+            $this->layoutService->loadZone(1, 'top_left')
         );
     }
 
@@ -164,8 +166,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone(999999, 'bottom');
+        $this->layoutService->loadZone(999999, 'bottom');
     }
 
     /**
@@ -174,8 +175,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $layoutService->loadZone(1, 'not_existing');
+        $this->layoutService->loadZone(1, 'not_existing');
     }
 
     /**
@@ -183,15 +183,13 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
             'My layout',
             array('left', 'right', 'bottom')
         );
 
-        $createdLayout = $layoutService->createLayout($layoutCreateStruct);
+        $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         self::assertInstanceOf(Layout::class, $createdLayout);
 
@@ -243,16 +241,14 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayoutWithParentId()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
             'My layout',
             array('left', 'right', 'bottom')
         );
 
-        $parentLayout = $layoutService->loadLayout(1);
-        $createdLayout = $layoutService->createLayout(
+        $parentLayout = $this->layoutService->loadLayout(1);
+        $createdLayout = $this->layoutService->createLayout(
             $layoutCreateStruct,
             $parentLayout
         );
@@ -314,10 +310,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayoutStatus()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layout = $layoutService->loadLayout(1);
-        $copiedLayout = $layoutService->createLayoutStatus($layout, Layout::STATUS_ARCHIVED);
+        $layout = $this->layoutService->loadLayout(1);
+        $copiedLayout = $this->layoutService->createLayoutStatus($layout, Layout::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
@@ -401,10 +395,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayoutStatusThrowsBadStateException()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layout = $layoutService->loadLayout(1);
-        $layoutService->createLayoutStatus($layout, Layout::STATUS_DRAFT);
+        $layout = $this->layoutService->loadLayout(1);
+        $this->layoutService->createLayoutStatus($layout, Layout::STATUS_DRAFT);
     }
 
     /**
@@ -412,19 +404,17 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testPublishLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layout = $layoutService->loadLayout(1, Layout::STATUS_DRAFT);
-        $publishedLayout = $layoutService->publishLayout($layout);
+        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
+        $publishedLayout = $this->layoutService->publishLayout($layout);
 
         self::assertInstanceOf(Layout::class, $publishedLayout);
         self::assertEquals(Layout::STATUS_PUBLISHED, $publishedLayout->getStatus());
 
-        $archivedLayout = $layoutService->loadLayout($layout->getId(), Layout::STATUS_ARCHIVED);
+        $archivedLayout = $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_ARCHIVED);
         self::assertInstanceOf(Layout::class, $archivedLayout);
 
         try {
-            $layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+            $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
             self::fail('Draft layout still exists after publishing.');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -437,10 +427,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testPublishLayoutThrowsBadStateException()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
-        $layout = $layoutService->loadLayout(1, Layout::STATUS_PUBLISHED);
-        $layoutService->publishLayout($layout);
+        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_PUBLISHED);
+        $this->layoutService->publishLayout($layout);
     }
 
     /**
@@ -448,20 +436,18 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testDeleteLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
 
-        $layout = $layoutService->loadLayout(1, Layout::STATUS_DRAFT);
-
-        $layoutService->deleteLayout($layout);
+        $this->layoutService->deleteLayout($layout);
 
         try {
-            $layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+            $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
             self::fail('Draft layout still exists after deleting it');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
-        $publishedLayout = $layoutService->loadLayout($layout->getId());
+        $publishedLayout = $this->layoutService->loadLayout($layout->getId());
         self::assertInstanceOf(Layout::class, $publishedLayout);
     }
 
@@ -471,13 +457,11 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testDeleteCompleteLayout()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $layout = $this->layoutService->loadLayout(1);
 
-        $layout = $layoutService->loadLayout(1);
+        $this->layoutService->deleteLayout($layout, true);
 
-        $layoutService->deleteLayout($layout, true);
-
-        $layoutService->loadLayout($layout->getId());
+        $this->layoutService->loadLayout($layout->getId());
     }
 
     /**
@@ -485,8 +469,6 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testNewLayoutCreateStruct()
     {
-        $layoutService = $this->createLayoutService($this->layoutValidatorMock);
-
         self::assertEquals(
             new LayoutCreateStruct(
                 array(
@@ -495,7 +477,7 @@ abstract class LayoutServiceTest extends ServiceTest
                     'zoneIdentifiers' => array('left', 'right', 'bottom'),
                 )
             ),
-            $layoutService->newLayoutCreateStruct('3_zones_a', 'New layout', array('left', 'right', 'bottom'))
+            $this->layoutService->newLayoutCreateStruct('3_zones_a', 'New layout', array('left', 'right', 'bottom'))
         );
     }
 }

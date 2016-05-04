@@ -64,6 +64,26 @@ abstract class Validator
     }
 
     /**
+     * Validates the provided position.
+     *
+     * @param int $position
+     * @param string $propertyPath
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     */
+    public function validatePosition($position, $propertyPath = null)
+    {
+        $this->validate(
+            $position,
+            array(
+                new Constraints\GreaterThanOrEqual(0),
+                new Constraints\Type(array('type' => 'int')),
+            ),
+            $propertyPath
+        );
+    }
+
+    /**
      * Builds the "fields" array from provided parameters and constraints, used for validating set of parameters.
      *
      * @param array $parameters

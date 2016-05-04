@@ -132,7 +132,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If position is not set (for non manual collections)
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
@@ -147,7 +147,6 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
@@ -170,7 +169,6 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
      *                                                              If query with specified identifier already exists within the collection
      *                                                              If position is out of range
@@ -198,7 +196,6 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
      *                                                              If position is out of range
      */

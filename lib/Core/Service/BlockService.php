@@ -13,7 +13,6 @@ use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Exception;
 
@@ -94,7 +93,6 @@ class BlockService implements BlockServiceInterface
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
@@ -105,8 +103,8 @@ class BlockService implements BlockServiceInterface
     {
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
-        if ($position !== null && !is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
+        if ($position !== null) {
+            $this->blockValidator->validatePosition($position, 'position');
         }
 
         if (!$this->layoutHandler->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
@@ -209,6 +207,7 @@ class BlockService implements BlockServiceInterface
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
             );
+
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -226,7 +225,6 @@ class BlockService implements BlockServiceInterface
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
@@ -235,9 +233,7 @@ class BlockService implements BlockServiceInterface
      */
     public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
-        if (!is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
-        }
+        $this->blockValidator->validatePosition($position, 'position');
 
         if ($zoneIdentifier !== null) {
             $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
@@ -298,6 +294,7 @@ class BlockService implements BlockServiceInterface
                 $block->getId(),
                 $block->getStatus()
             );
+
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

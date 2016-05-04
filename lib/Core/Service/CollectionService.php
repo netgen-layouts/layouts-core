@@ -337,7 +337,7 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If position is not set (for non manual collections)
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
@@ -346,8 +346,8 @@ class CollectionService implements APICollectionService
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
     {
-        if ($position !== null && !is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
+        if ($position !== null) {
+            $this->collectionValidator->validatePosition($position, 'position');
         }
 
         if ($collection->getType() !== Collection::TYPE_MANUAL && $position === null) {
@@ -391,16 +391,13 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
      */
     public function moveItem(Item $item, $position)
     {
-        if (!is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
-        }
+        $this->collectionValidator->validatePosition($position, 'position');
 
         if ($item->getStatus() !== Collection::STATUS_DRAFT && $item->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('item', 'Only items in (temporary) draft status can be moved.');
@@ -470,7 +467,6 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
      *                                                              If query with specified identifier already exists within the collection
      *                                                              If position is out of range
@@ -479,8 +475,8 @@ class CollectionService implements APICollectionService
      */
     public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
     {
-        if ($position !== null && !is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
+        if ($position !== null) {
+            $this->collectionValidator->validatePosition($position, 'position');
         }
 
         if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
@@ -561,15 +557,12 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
      *                                                              If position is out of range
      */
     public function moveQuery(Query $query, $position)
     {
-        if (!is_int($position)) {
-            throw new InvalidArgumentException('position', 'Value must be an integer.');
-        }
+        $this->collectionValidator->validatePosition($position, 'position');
 
         if ($query->getStatus() !== Collection::STATUS_DRAFT && $query->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('query', 'Only queries in (temporary) draft status can be moved.');
@@ -634,7 +627,7 @@ class CollectionService implements APICollectionService
         return new CollectionCreateStruct(
             array(
                 'type' => $type,
-                'name' => $name,
+                'name' => $name
             )
         );
     }

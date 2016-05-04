@@ -30,7 +30,6 @@ interface BlockService
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
@@ -72,7 +71,6 @@ interface BlockService
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If provided position has an invalid or empty value
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      *                                                              If zone does not exist in the layout
      *                                                              If provided position is out of range
