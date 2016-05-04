@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase as PersistenceTestCase;

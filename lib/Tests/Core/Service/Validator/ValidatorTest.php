@@ -87,7 +87,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(
                     array(
                         new Constraints\NotBlank(),
-                        new Constraints\Type(array('type' => 'scalar'))
+                        new Constraints\Type(array('type' => 'scalar')),
                     )
                 )
             )
@@ -109,7 +109,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(
                     array(
                         new Constraints\NotBlank(),
-                        new Constraints\Type(array('type' => 'string'))
+                        new Constraints\Type(array('type' => 'string')),
                     )
                 )
             )
@@ -131,7 +131,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(
                     array(
                         new Constraints\GreaterThanOrEqual(0),
-                        new Constraints\Type(array('type' => 'int'))
+                        new Constraints\Type(array('type' => 'int')),
                     )
                 )
             )
