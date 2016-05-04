@@ -225,6 +225,7 @@ class CollectionHandler implements CollectionHandlerInterface
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
+        ->orderBy('position', 'ASC')
         ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         $this->connectionHelper->applyStatusCondition($query, $status);
