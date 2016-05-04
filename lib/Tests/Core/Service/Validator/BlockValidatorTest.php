@@ -27,12 +27,22 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
     protected $blockDefinitionRegistryMock;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
+     */
+    protected $blockValidator;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
     {
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
         $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
+
+        $this->blockValidator = new BlockValidator(
+            $this->validatorMock,
+            $this->blockDefinitionRegistryMock
+        );
     }
 
     /**
@@ -87,10 +97,10 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                         array(
                             'fields' => array(
                                 'css_class' => array(),
-                                'css_id' => array(new Constraints\NotBlank()),
+                                'css_id' => array(new Constraints\NotBlank())
                             ),
                             'allowExtraFields' => false,
-                            'allowMissingFields' => true,
+                            'allowMissingFields' => true
                         )
                     ),
                 )
@@ -109,8 +119,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameters(array('css_class' => 'class'));
 
-        $blockValidator = new BlockValidator($this->validatorMock, $this->blockDefinitionRegistryMock);
-        $blockValidator->validateBlockCreateStruct($blockCreateStruct);
+        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
     }
 
     /**
@@ -152,10 +161,10 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                         array(
                             'fields' => array(
                                 'css_class' => array(),
-                                'css_id' => array(new Constraints\NotBlank()),
+                                'css_id' => array(new Constraints\NotBlank())
                             ),
                             'allowExtraFields' => false,
-                            'allowMissingFields' => true,
+                            'allowMissingFields' => true
                         )
                     ),
                 )
@@ -179,7 +188,6 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $blockValidator = new BlockValidator($this->validatorMock, $this->blockDefinitionRegistryMock);
-        $blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
+        $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
     }
 }

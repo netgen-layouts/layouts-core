@@ -16,13 +16,17 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     protected $validatorMock;
 
     /**
+     * @var \Netgen\BlockManager\Tests\Core\Service\Stubs\Validator
+     */
+    protected $validator;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(
-            ValidatorInterface::class
-        );
+        $this->validatorMock = $this->getMock(ValidatorInterface::class);
+        $this->validator = new Validator($this->validatorMock);
     }
 
     /**
@@ -40,12 +44,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $layoutValidator = new Validator($this->validatorMock);
-        $layoutValidator->validate('some value', array(new Constraints\NotBlank()));
+        $this->validator->validate('some value', array(new Constraints\NotBlank()));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validate
      * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
@@ -69,7 +71,72 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $layoutValidator = new Validator($this->validatorMock);
-        $layoutValidator->validate('some value', array(new Constraints\NotBlank()));
+        $this->validator->validate('some value', array(new Constraints\NotBlank()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateId
+     */
+    public function testValidateId()
+    {
+        $this->validatorMock
+            ->expects($this->once())
+            ->method('validate')
+            ->with(
+                $this->equalTo(42),
+                $this->equalTo(
+                    array(
+                        new Constraints\NotBlank(),
+                        new Constraints\Type(array('type' => 'scalar'))
+                    )
+                )
+            )
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validator->validateId(42);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
+     */
+    public function testValidateIdentifier()
+    {
+        $this->validatorMock
+            ->expects($this->once())
+            ->method('validate')
+            ->with(
+                $this->equalTo('identifier'),
+                $this->equalTo(
+                    array(
+                        new Constraints\NotBlank(),
+                        new Constraints\Type(array('type' => 'string'))
+                    )
+                )
+            )
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validator->validateIdentifier('identifier');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
+     */
+    public function testValidatePosition()
+    {
+        $this->validatorMock
+            ->expects($this->once())
+            ->method('validate')
+            ->with(
+                $this->equalTo(3),
+                $this->equalTo(
+                    array(
+                        new Constraints\GreaterThanOrEqual(0),
+                        new Constraints\Type(array('type' => 'int'))
+                    )
+                )
+            )
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validator->validatePosition(3);
     }
 }

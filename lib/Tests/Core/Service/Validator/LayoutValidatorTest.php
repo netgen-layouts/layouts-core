@@ -18,13 +18,17 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
     protected $validatorMock;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
+     */
+    protected $layoutValidator;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(
-            ValidatorInterface::class
-        );
+        $this->validatorMock = $this->getMock(ValidatorInterface::class);
+        $this->layoutValidator = new LayoutValidator($this->validatorMock);
     }
 
     /**
@@ -83,7 +87,6 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
         $layoutCreateStruct->identifier = '3_zones_a';
         $layoutCreateStruct->zoneIdentifiers = array('left', 'right', 'bottom');
 
-        $layoutValidator = new LayoutValidator($this->validatorMock);
-        $layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
+        $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
     }
 }
