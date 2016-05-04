@@ -7,15 +7,23 @@ use Netgen\BlockManager\Tests\Configuration\Stubs\Configuration;
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Configuration\Configuration
+     */
+    protected $configuration;
+
+    public function setUp()
+    {
+        $this->configuration = new Configuration();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockConfig
      */
     public function testGetBlockConfig()
     {
-        $configuration = new Configuration();
-
         self::assertEquals(
             array('name' => 'Some block'),
-            $configuration->getBlockConfig('some_block')
+            $this->configuration->getBlockConfig('some_block')
         );
     }
 
@@ -25,8 +33,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBlockConfigThrowsInvalidArgumentException()
     {
-        $configuration = new Configuration();
-        $configuration->getBlockConfig('some_other_block');
+        $this->configuration->getBlockConfig('some_other_block');
     }
 
     /**
@@ -34,11 +41,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBlockTypeConfig()
     {
-        $configuration = new Configuration();
-
         self::assertEquals(
             array('name' => 'Some block type'),
-            $configuration->getBlockTypeConfig('some_block_type')
+            $this->configuration->getBlockTypeConfig('some_block_type')
         );
     }
 
@@ -48,8 +53,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBlockTypeConfigThrowsInvalidArgumentException()
     {
-        $configuration = new Configuration();
-        $configuration->getBlockTypeConfig('some_other_block_type');
+        $this->configuration->getBlockTypeConfig('some_other_block_type');
     }
 
     /**
@@ -57,11 +61,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLayoutConfig()
     {
-        $configuration = new Configuration();
-
         self::assertEquals(
             array('name' => 'Some layout'),
-            $configuration->getLayoutConfig('some_layout')
+            $this->configuration->getLayoutConfig('some_layout')
         );
     }
 
@@ -71,7 +73,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLayoutConfigThrowsInvalidArgumentException()
     {
-        $configuration = new Configuration();
-        $configuration->getLayoutConfig('some_other_layout');
+        $this->configuration->getLayoutConfig('some_other_layout');
     }
 }

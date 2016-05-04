@@ -10,18 +10,26 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\BlockDefinition\BlockDefinition
+     */
+    protected $blockDefinition;
+
+    public function setUp()
+    {
+        $this->blockDefinition = new BlockDefinition();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\BlockDefinition\BlockDefinition::getParameters
      */
     public function testGetParameters()
     {
-        $blockDefinition = new BlockDefinition();
-
         self::assertEquals(
             array(
                 'css_id' => new Parameter\Text('CSS ID'),
                 'css_class' => new Parameter\Text('CSS class'),
             ),
-            $blockDefinition->getParameters()
+            $this->blockDefinition->getParameters()
         );
     }
 
@@ -30,13 +38,11 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameterConstraints()
     {
-        $blockDefinition = new BlockDefinition();
-
         self::assertEquals(
             array(
                 'css_id' => array(new NotBlank()),
             ),
-            $blockDefinition->getParameterConstraints()
+            $this->blockDefinition->getParameterConstraints()
         );
     }
 
@@ -45,8 +51,6 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDynamicParameters()
     {
-        $blockDefinition = new BlockDefinition();
-
-        self::assertEquals(array(), $blockDefinition->getDynamicParameters(new Block()));
+        self::assertEquals(array(), $this->blockDefinition->getDynamicParameters(new Block()));
     }
 }

@@ -8,13 +8,21 @@ use Netgen\BlockManager\Parameters\Parameter\Text as TextParameter;
 class TextTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
+     */
+    protected $handler;
+
+    public function setUp()
+    {
+        $this->handler = new Text();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text::getFormType
      */
     public function testGetFormType()
     {
-        $handler = new Text();
-
-        self::assertEquals('text', $handler->getFormType());
+        self::assertEquals('text', $this->handler->getFormType());
     }
 
     /**
@@ -22,9 +30,6 @@ class TextTest extends \PHPUnit_Framework_TestCase
      */
     public function testConvertOptions()
     {
-        $handler = new Text();
-        $parameter = new TextParameter();
-
-        self::assertEquals(array(), $handler->convertOptions($parameter));
+        self::assertEquals(array(), $this->handler->convertOptions(new TextParameter()));
     }
 }

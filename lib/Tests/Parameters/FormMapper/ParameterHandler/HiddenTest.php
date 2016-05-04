@@ -8,13 +8,21 @@ use Netgen\BlockManager\Parameters\Parameter\Hidden as HiddenParameter;
 class HiddenTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
+     */
+    protected $handler;
+
+    public function setUp()
+    {
+        $this->handler = new Hidden();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden::getFormType
      */
     public function testGetFormType()
     {
-        $handler = new Hidden();
-
-        self::assertEquals('hidden', $handler->getFormType());
+        self::assertEquals('hidden', $this->handler->getFormType());
     }
 
     /**
@@ -22,9 +30,6 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
      */
     public function testConvertOptions()
     {
-        $handler = new Hidden();
-        $parameter = new HiddenParameter();
-
-        self::assertEquals(array(), $handler->convertOptions($parameter));
+        self::assertEquals(array(), $this->handler->convertOptions(new HiddenParameter()));
     }
 }

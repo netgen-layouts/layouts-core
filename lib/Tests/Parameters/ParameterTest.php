@@ -25,6 +25,17 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
     {
         $parameter = new Parameter('Parameter', true);
 
-        self::assertEquals(true, $parameter->isRequired());
+        self::assertTrue($parameter->isRequired());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
+     * @covers \Netgen\BlockManager\Parameters\Parameter::isRequired
+     */
+    public function testGetIsRequiredReturnsFalse()
+    {
+        $parameter = new Parameter('Parameter');
+
+        self::assertFalse($parameter->isRequired());
     }
 }

@@ -133,7 +133,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array()));
 
         $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals(false, $layoutResolver->resolveLayout());
+        self::assertFalse($layoutResolver->resolveLayout());
     }
 
     /**
@@ -248,7 +248,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array()));
 
         $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals(false, $layoutResolver->resolveLayoutForTarget($target));
+        self::assertFalse($layoutResolver->resolveLayoutForTarget($target));
     }
 
     /**

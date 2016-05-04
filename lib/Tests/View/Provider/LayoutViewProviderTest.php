@@ -25,7 +25,7 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(LayoutViewInterface::class, $view);
 
         self::assertEquals($layout, $view->getLayout());
-        self::assertEquals(null, $view->getTemplate());
+        self::assertNull($view->getTemplate());
         self::assertEquals(
             array(
                 'layout' => $layout,

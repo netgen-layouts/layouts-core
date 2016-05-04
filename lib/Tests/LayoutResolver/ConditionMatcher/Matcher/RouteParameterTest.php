@@ -95,6 +95,6 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
         $conditionMatcher = new RouteParameter();
         $conditionMatcher->setRequestStack($this->requestStack);
 
-        self::assertEquals(false, $conditionMatcher->matches(array()));
+        self::assertFalse($conditionMatcher->matches(array()));
     }
 }

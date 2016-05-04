@@ -21,8 +21,8 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertEquals(true, $paramConverter->apply($request, $configuration));
-        self::assertEquals(true, $request->attributes->has('value'));
+        self::assertTrue($paramConverter->apply($request, $configuration));
+        self::assertTrue($request->attributes->has('value'));
         self::assertEquals(
             new Value(array('status' => Layout::STATUS_PUBLISHED)),
             $request->attributes->get('value')
@@ -41,8 +41,8 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertEquals(true, $paramConverter->apply($request, $configuration));
-        self::assertEquals(true, $request->attributes->has('value'));
+        self::assertTrue($paramConverter->apply($request, $configuration));
+        self::assertTrue($request->attributes->has('value'));
         self::assertEquals(
             new Value(array('status' => Layout::STATUS_DRAFT)),
             $request->attributes->get('value')
@@ -59,8 +59,8 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertEquals(false, $paramConverter->apply($request, $configuration));
-        self::assertEquals(false, $request->attributes->has('value'));
+        self::assertFalse($paramConverter->apply($request, $configuration));
+        self::assertFalse($request->attributes->has('value'));
     }
 
     /**
@@ -75,8 +75,8 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $configuration->setIsOptional(true);
 
         $paramConverter = new ParamConverter();
-        self::assertEquals(false, $paramConverter->apply($request, $configuration));
-        self::assertEquals(false, $request->attributes->has('value'));
+        self::assertFalse($paramConverter->apply($request, $configuration));
+        self::assertFalse($request->attributes->has('value'));
     }
 
     /**
@@ -103,7 +103,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertEquals(true, $paramConverter->supports($configuration));
+        self::assertTrue($paramConverter->supports($configuration));
     }
 
     /**
@@ -115,6 +115,6 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         $configuration->setClass('Some\Class');
 
         $paramConverter = new ParamConverter();
-        self::assertEquals(false, $paramConverter->supports($configuration));
+        self::assertFalse($paramConverter->supports($configuration));
     }
 }

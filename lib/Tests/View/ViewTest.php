@@ -38,7 +38,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $view = new View();
         $view->setParameters(array('param' => 'value'));
 
-        self::assertEquals(true, $view->hasParameter('param'));
+        self::assertTrue($view->hasParameter('param'));
     }
 
     /**
@@ -49,7 +49,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $view = new View();
         $view->setParameters(array('param' => 'value'));
 
-        self::assertEquals(false, $view->hasParameter('other_param'));
+        self::assertFalse($view->hasParameter('other_param'));
     }
 
     /**
@@ -71,7 +71,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
         $view = new View();
         $view->setParameters(array('param' => 'value'));
 
-        self::assertEquals(null, $view->getParameter('other_param'));
+        self::assertNull($view->getParameter('other_param'));
     }
 
     /**

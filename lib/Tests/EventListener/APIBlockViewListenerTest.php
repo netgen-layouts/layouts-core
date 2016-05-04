@@ -39,6 +39,11 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     protected $formMock;
 
     /**
+     * @var \Netgen\BlockManager\EventListener\APIBlockViewListener
+     */
+    protected $listener;
+
+    /**
      * Sets up the tests.
      */
     public function setUp()
@@ -58,6 +63,12 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('createView')
             ->will($this->returnValue(new FormView()));
+
+        $this->listener = new APIBlockViewListener(
+            $this->blockServiceMock,
+            $this->configurationMock,
+            $this->formFactoryMock
+        );
     }
 
     /**
@@ -66,10 +77,9 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $listener = $this->getEventListener();
         self::assertEquals(
             array(ViewEvents::BUILD_VIEW => 'onBuildView'),
-            $listener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -110,10 +120,9 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $event = new CollectViewParametersEvent($blockView);
 
-        $listener = $this->getEventListener();
-        $listener->onBuildView($event);
+        $this->listener->onBuildView($event);
 
-        self::assertEquals(true, $event->getParameterBag()->has('form'));
+        self::assertTrue($event->getParameterBag()->has('form'));
         self::assertInstanceOf(FormView::class, $event->getParameterBag()->get('form'));
     }
 
@@ -138,10 +147,9 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $event = new CollectViewParametersEvent($layoutView);
 
-        $listener = $this->getEventListener();
-        $listener->onBuildView($event);
+        $this->listener->onBuildView($event);
 
-        self::assertEquals(false, $event->getParameterBag()->has('form'));
+        self::assertFalse($event->getParameterBag()->has('form'));
     }
 
     /**
@@ -165,10 +173,9 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $event = new CollectViewParametersEvent($blockView);
 
-        $listener = $this->getEventListener();
-        $listener->onBuildView($event);
+        $this->listener->onBuildView($event);
 
-        self::assertEquals(false, $event->getParameterBag()->has('form'));
+        self::assertFalse($event->getParameterBag()->has('form'));
     }
 
     /**
@@ -197,23 +204,8 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $event = new CollectViewParametersEvent($blockView);
 
-        $listener = $this->getEventListener();
-        $listener->onBuildView($event);
+        $this->listener->onBuildView($event);
 
-        self::assertEquals(false, $event->getParameterBag()->has('form'));
-    }
-
-    /**
-     * Returns the listener under test.
-     *
-     * @return \Netgen\BlockManager\EventListener\APIBlockViewListener
-     */
-    protected function getEventListener()
-    {
-        return new APIBlockViewListener(
-            $this->blockServiceMock,
-            $this->configurationMock,
-            $this->formFactoryMock
-        );
+        self::assertFalse($event->getParameterBag()->has('form'));
     }
 }

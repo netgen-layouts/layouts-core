@@ -8,20 +8,34 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $containerMock;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\ContainerConfiguration
+     */
+    protected $configuration;
+
+    public function setUp()
+    {
+        $this->containerMock = $this->getMock(ContainerInterface::class);
+        $this->configuration = new ContainerConfiguration();
+        $this->configuration->setContainer($this->containerMock);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::hasParameter
      */
     public function testHasParameter()
     {
-        $container = $this->getMock(ContainerInterface::class);
-        $container
+        $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(true));
 
-        $configuration = new ContainerConfiguration();
-        $configuration->setContainer($container);
-        self::assertEquals(true, $configuration->hasParameter('some_param'));
+        self::assertTrue($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -29,16 +43,13 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasParameterWithNoParameter()
     {
-        $container = $this->getMock(ContainerInterface::class);
-        $container
+        $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(false));
 
-        $configuration = new ContainerConfiguration();
-        $configuration->setContainer($container);
-        self::assertEquals(false, $configuration->hasParameter('some_param'));
+        self::assertFalse($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -46,21 +57,19 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameter()
     {
-        $container = $this->getMock(ContainerInterface::class);
-        $container
+        $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(true));
-        $container
+
+        $this->containerMock
             ->expects($this->once())
             ->method('getParameter')
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue('some_param_value'));
 
-        $configuration = new ContainerConfiguration();
-        $configuration->setContainer($container);
-        self::assertEquals('some_param_value', $configuration->getParameter('some_param'));
+        self::assertEquals('some_param_value', $this->configuration->getParameter('some_param'));
     }
 
     /**
@@ -69,15 +78,12 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameterThrowsInvalidArgumentException()
     {
-        $container = $this->getMock(ContainerInterface::class);
-        $container
+        $this->containerMock
             ->expects($this->once())
             ->method('hasParameter')
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(false));
 
-        $configuration = new ContainerConfiguration();
-        $configuration->setContainer($container);
-        $configuration->getParameter('some_param');
+        $this->configuration->getParameter('some_param');
     }
 }

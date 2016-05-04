@@ -9,6 +9,11 @@ use Symfony\Component\Validator\Constraints;
 class TitleTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\BlockDefinition\Definition\Title
+     */
+    protected $blockDefinition;
+
+    /**
      * @var array
      */
     protected $options = array(
@@ -17,14 +22,17 @@ class TitleTest extends \PHPUnit_Framework_TestCase
         'Heading 3' => 'h3',
     );
 
+    public function setUp()
+    {
+        $this->blockDefinition = new Title();
+    }
+
     /**
      * @covers \Netgen\BlockManager\BlockDefinition\Definition\Title::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $blockDefinition = new Title();
-
-        self::assertEquals('title', $blockDefinition->getIdentifier());
+        self::assertEquals('title', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -32,8 +40,6 @@ class TitleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameters()
     {
-        $blockDefinition = new Title();
-
         self::assertEquals(
             array(
                 'tag' => new Parameter\Select(
@@ -45,7 +51,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
                 'css_id' => new Parameter\Text('CSS ID'),
                 'css_class' => new Parameter\Text('CSS class'),
             ),
-            $blockDefinition->getParameters()
+            $this->blockDefinition->getParameters()
         );
     }
 
@@ -54,8 +60,6 @@ class TitleTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameterConstraints()
     {
-        $blockDefinition = new Title();
-
         self::assertEquals(
             array(
                 'tag' => array(
@@ -66,7 +70,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
                     new Constraints\NotBlank(),
                 ),
             ),
-            $blockDefinition->getParameterConstraints()
+            $this->blockDefinition->getParameterConstraints()
         );
     }
 }

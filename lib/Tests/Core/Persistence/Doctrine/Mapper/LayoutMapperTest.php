@@ -10,6 +10,16 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 class LayoutMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper
+     */
+    protected $mapper;
+
+    public function setUp()
+    {
+        $this->mapper = new LayoutMapper();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
      */
     public function testMapLayouts()
@@ -60,8 +70,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $mapper = new LayoutMapper();
-        self::assertEquals($expectedData, $mapper->mapLayouts($data));
+        self::assertEquals($expectedData, $this->mapper->mapLayouts($data));
     }
 
     /**
@@ -99,7 +108,6 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $mapper = new LayoutMapper();
-        self::assertEquals($expectedData, $mapper->mapZones($data));
+        self::assertEquals($expectedData, $this->mapper->mapZones($data));
     }
 }

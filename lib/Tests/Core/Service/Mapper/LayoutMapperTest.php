@@ -76,7 +76,7 @@ abstract class LayoutMapperTest extends MapperTest
 
         self::assertInstanceOf(APILayout::class, $layout);
         self::assertEquals(1, $layout->getId());
-        self::assertEquals(null, $layout->getParentId());
+        self::assertNull($layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getIdentifier());
         self::assertEquals('My layout', $layout->getName());
         self::assertInstanceOf(DateTime::class, $layout->getCreated());

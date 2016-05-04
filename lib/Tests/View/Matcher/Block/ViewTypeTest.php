@@ -56,6 +56,6 @@ class ViewTypeTest extends \PHPUnit_Framework_TestCase
     public function testMatchWithNoBlockView()
     {
         $matcher = new ViewType();
-        self::assertEquals(false, $matcher->match(new View()));
+        self::assertFalse($matcher->match(new View()));
     }
 }

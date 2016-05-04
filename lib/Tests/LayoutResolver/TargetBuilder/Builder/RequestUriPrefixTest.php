@@ -46,6 +46,6 @@ class RequestUriPrefixTest extends \PHPUnit_Framework_TestCase
         $targetBuilder = new RequestUriPrefix();
         $targetBuilder->setRequestStack($this->requestStack);
 
-        self::assertEquals(false, $targetBuilder->buildTarget());
+        self::assertFalse($targetBuilder->buildTarget());
     }
 }

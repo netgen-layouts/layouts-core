@@ -129,7 +129,7 @@ class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->setParameter('some_param', 'some_value');
 
-        self::assertEquals(true, $blockUpdateStruct->hasParameter('some_param'));
+        self::assertTrue($blockUpdateStruct->hasParameter('some_param'));
     }
 
     /**
@@ -140,6 +140,6 @@ class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->setParameter('some_param', 'some_value');
 
-        self::assertEquals(false, $blockUpdateStruct->hasParameter('some_other_param'));
+        self::assertFalse($blockUpdateStruct->hasParameter('some_other_param'));
     }
 }

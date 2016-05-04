@@ -47,6 +47,6 @@ class RoutePrefixTest extends \PHPUnit_Framework_TestCase
         $targetBuilder = new RoutePrefix();
         $targetBuilder->setRequestStack($this->requestStack);
 
-        self::assertEquals(false, $targetBuilder->buildTarget());
+        self::assertFalse($targetBuilder->buildTarget());
     }
 }

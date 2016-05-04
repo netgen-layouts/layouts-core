@@ -132,7 +132,7 @@ class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->setParameter('some_param', 'some_value');
 
-        self::assertEquals(true, $blockCreateStruct->hasParameter('some_param'));
+        self::assertTrue($blockCreateStruct->hasParameter('some_param'));
     }
 
     /**
@@ -143,6 +143,6 @@ class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->setParameter('some_param', 'some_value');
 
-        self::assertEquals(false, $blockCreateStruct->hasParameter('some_other_param'));
+        self::assertFalse($blockCreateStruct->hasParameter('some_other_param'));
     }
 }

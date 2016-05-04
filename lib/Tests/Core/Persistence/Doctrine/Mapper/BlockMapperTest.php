@@ -9,6 +9,16 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 class BlockMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper
+     */
+    protected $mapper;
+
+    public function setUp()
+    {
+        $this->mapper = new BlockMapper();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
      */
     public function testMapBlocks()
@@ -71,7 +81,6 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $mapper = new BlockMapper();
-        self::assertEquals($expectedData, $mapper->mapBlocks($data));
+        self::assertEquals($expectedData, $this->mapper->mapBlocks($data));
     }
 }

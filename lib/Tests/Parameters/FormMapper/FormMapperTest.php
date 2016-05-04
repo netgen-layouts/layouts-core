@@ -12,13 +12,18 @@ use Symfony\Component\Form\Forms;
 class FormMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::addParameterHandler
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
+     * @var \Symfony\Component\Form\FormBuilderInterface
      */
-    public function testMapParameter()
+    protected $formBuilder;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapper
+     */
+    protected $formMapper;
+
+    public function setUp()
     {
-        $formBuilder = Forms::createFormFactoryBuilder()
+        $this->formBuilder = Forms::createFormFactoryBuilder()
             ->addTypeExtension(
                 new FormTypeValidatorExtension(
                     $this->getMock(ValidatorInterface::class)
@@ -27,20 +32,29 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             ->getFormFactory()
             ->createBuilder('form');
 
-        $parameterMapper = new FormMapper();
-        $parameterMapper->addParameterHandler('text', new TextHandler());
+        $this->formMapper = new FormMapper();
+    }
 
-        $parameterMapper->mapParameter(
-            $formBuilder,
+    /**
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::addParameterHandler
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
+     */
+    public function testMapParameter()
+    {
+        $this->formMapper->addParameterHandler('text', new TextHandler());
+
+        $this->formMapper->mapParameter(
+            $this->formBuilder,
             new Text(),
             'param_name',
             null
         );
 
-        self::assertCount(1, $formBuilder->all());
+        self::assertCount(1, $this->formBuilder->all());
 
-        self::assertEquals('text', $formBuilder->get('param_name')->getType()->getName());
-        self::assertEquals('parameters[param_name]', $formBuilder->get('param_name')->getPropertyPath());
+        self::assertEquals('text', $this->formBuilder->get('param_name')->getType()->getName());
+        self::assertEquals('parameters[param_name]', $this->formBuilder->get('param_name')->getPropertyPath());
     }
 
     /**
@@ -49,18 +63,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testMapParameterThrowsRuntimeException()
     {
-        $formBuilder = Forms::createFormFactoryBuilder()
-            ->addTypeExtension(
-                new FormTypeValidatorExtension(
-                    $this->getMock(ValidatorInterface::class)
-                )
-            )
-            ->getFormFactory()
-            ->createBuilder('form');
-
-        $parameterMapper = new FormMapper();
-
-        $parameterMapper->mapParameter($formBuilder, new Text(), 'param_name');
+        $this->formMapper->mapParameter($this->formBuilder, new Text(), 'param_name');
     }
 
     /**
@@ -70,29 +73,19 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testMapHiddenParameter()
     {
-        $formBuilder = Forms::createFormFactoryBuilder()
-            ->addTypeExtension(
-                new FormTypeValidatorExtension(
-                    $this->getMock(ValidatorInterface::class)
-                )
-            )
-            ->getFormFactory()
-            ->createBuilder('form');
+        $this->formMapper->addParameterHandler('text', new TextHandler());
 
-        $parameterMapper = new FormMapper();
-        $parameterMapper->addParameterHandler('text', new TextHandler());
-
-        $parameterMapper->mapHiddenParameter(
-            $formBuilder,
+        $this->formMapper->mapHiddenParameter(
+            $this->formBuilder,
             new Text(),
             'param_name',
             null,
             null
         );
 
-        self::assertCount(1, $formBuilder->all());
+        self::assertCount(1, $this->formBuilder->all());
 
-        self::assertEquals('hidden', $formBuilder->get('param_name')->getType()->getName());
-        self::assertEquals('param_name', $formBuilder->get('param_name')->getPropertyPath());
+        self::assertEquals('hidden', $this->formBuilder->get('param_name')->getType()->getName());
+        self::assertEquals('param_name', $this->formBuilder->get('param_name')->getPropertyPath());
     }
 }

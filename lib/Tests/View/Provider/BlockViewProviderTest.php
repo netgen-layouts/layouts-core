@@ -25,7 +25,7 @@ class BlockViewProviderTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(BlockViewInterface::class, $view);
 
         self::assertEquals($block, $view->getBlock());
-        self::assertEquals(null, $view->getTemplate());
+        self::assertNull($view->getTemplate());
         self::assertEquals(
             array(
                 'block' => $block,

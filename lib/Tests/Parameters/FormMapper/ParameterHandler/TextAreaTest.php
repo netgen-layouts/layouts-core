@@ -8,13 +8,21 @@ use Netgen\BlockManager\Parameters\Parameter\TextArea as TextAreaParameter;
 class TextAreaTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
+     */
+    protected $handler;
+
+    public function setUp()
+    {
+        $this->handler = new TextArea();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea::getFormType
      */
     public function testGetFormType()
     {
-        $handler = new TextArea();
-
-        self::assertEquals('textarea', $handler->getFormType());
+        self::assertEquals('textarea', $this->handler->getFormType());
     }
 
     /**
@@ -22,9 +30,6 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
      */
     public function testConvertOptions()
     {
-        $handler = new TextArea();
-        $parameter = new TextAreaParameter();
-
-        self::assertEquals(array(), $handler->convertOptions($parameter));
+        self::assertEquals(array(), $this->handler->convertOptions(new TextAreaParameter()));
     }
 }

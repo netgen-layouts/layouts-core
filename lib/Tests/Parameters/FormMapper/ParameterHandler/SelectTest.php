@@ -8,13 +8,21 @@ use Netgen\BlockManager\Parameters\Parameter\Select as SelectParameter;
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
+     */
+    protected $handler;
+
+    public function setUp()
+    {
+        $this->handler = new Select();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::getFormType
      */
     public function testGetFormType()
     {
-        $handler = new Select();
-
-        self::assertEquals('choice', $handler->getFormType());
+        self::assertEquals('choice', $this->handler->getFormType());
     }
 
     /**
@@ -22,7 +30,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConvertOptions()
     {
-        $handler = new Select();
         $parameter = new SelectParameter(
             null,
             false,
@@ -42,7 +49,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                 'multiple' => false,
                 'choices_as_values' => true,
             ),
-            $handler->convertOptions($parameter)
+            $this->handler->convertOptions($parameter)
         );
     }
 }
