@@ -50,7 +50,7 @@ class CollectionMapper
                     'id' => (int)$dataItem['id'],
                     'collectionId' => (int)$dataItem['collection_id'],
                     'position' => (int)$dataItem['position'],
-                    'linkType' => (int)$dataItem['link_type'],
+                    'type' => (int)$dataItem['type'],
                     'valueId' => $dataItem['value_id'],
                     'valueType' => $dataItem['value_type'],
                     'status' => (int)$dataItem['status'],

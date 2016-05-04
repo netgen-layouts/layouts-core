@@ -367,8 +367,8 @@ class CollectionService implements APICollectionService
 
         $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
 
-        if ($collection->getType() === Collection::TYPE_MANUAL && $itemCreateStruct->linkType === Item::LINK_TYPE_OVERRIDE) {
-            throw new BadStateException('linkType', 'Override item cannot be added to manual collection.');
+        if ($collection->getType() === Collection::TYPE_MANUAL && $itemCreateStruct->type === Item::TYPE_OVERRIDE) {
+            throw new BadStateException('type', 'Override item cannot be added to manual collection.');
         }
 
         $this->persistenceHandler->beginTransaction();

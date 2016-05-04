@@ -19,5 +19,5 @@ class ItemCreateStruct extends Value
     /**
      * @var int
      */
-    public $linkType = Item::LINK_TYPE_MANUAL;
+    public $type = Item::TYPE_MANUAL;
 }

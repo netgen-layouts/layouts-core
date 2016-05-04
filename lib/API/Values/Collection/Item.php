@@ -9,12 +9,12 @@ abstract class Item extends Value
     /**
      * @const int
      */
-    const LINK_TYPE_MANUAL = 0;
+    const TYPE_MANUAL = 0;
 
     /**
      * @const int
      */
-    const LINK_TYPE_OVERRIDE = 0;
+    const TYPE_OVERRIDE = 1;
 
     /**
      * Returns the item ID.
@@ -45,11 +45,11 @@ abstract class Item extends Value
     abstract public function getPosition();
 
     /**
-     * Returns the link type between the item and the collection.
+     * Returns the type of item in the collection.
      *
      * @return int
      */
-    abstract public function getLinkType();
+    abstract public function getType();
 
     /**
      * Returns the value ID.

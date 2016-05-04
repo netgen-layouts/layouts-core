@@ -29,7 +29,7 @@ class Item extends APIItem
     /**
      * @var int
      */
-    protected $linkType;
+    protected $type;
 
     /**
      * @var int|string
@@ -82,13 +82,13 @@ class Item extends APIItem
     }
 
     /**
-     * Returns the link type between the item and the collection.
+     * Returns the type of item in the collection.
      *
      * @return int
      */
-    public function getLinkType()
+    public function getType()
     {
-        return $this->linkType;
+        return $this->type;
     }
 
     /**

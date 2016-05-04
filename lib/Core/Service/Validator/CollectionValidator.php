@@ -101,19 +101,19 @@ class CollectionValidator extends Validator
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
     {
         $this->validate(
-            $itemCreateStruct->linkType,
+            $itemCreateStruct->type,
             array(
                 new Constraints\Choice(
                     array(
                         'choices' => array(
-                            Item::LINK_TYPE_MANUAL,
-                            Item::LINK_TYPE_OVERRIDE,
+                            Item::TYPE_MANUAL,
+                            Item::TYPE_OVERRIDE,
                         ),
                         'strict' => true,
                     )
                 ),
             ),
-            'linkType'
+            'type'
         );
 
         $this->validate(

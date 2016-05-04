@@ -28,11 +28,11 @@ class Item extends Value
     public $position;
 
     /**
-     * Link type. One of Item::LINK_TYPE_* flags.
+     * Type of the item. One of Item::TYPE_* flags.
      *
      * @var int
      */
-    public $linkType;
+    public $type;
 
     /**
      * ID of value this item holds.

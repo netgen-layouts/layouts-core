@@ -29,7 +29,7 @@ class CollectionMapper extends Mapper
         $manualItems = array();
         $overrideItems = array();
         foreach ($persistenceItems as $persistenceItem) {
-            if ($persistenceItem->linkType === APIItem::LINK_TYPE_MANUAL) {
+            if ($persistenceItem->type === APIItem::TYPE_MANUAL) {
                 $manualItems[] = $this->mapItem($persistenceItem);
             } else {
                 $overrideItems[] = $this->mapItem($persistenceItem);
@@ -74,7 +74,7 @@ class CollectionMapper extends Mapper
                 'status' => $item->status,
                 'collectionId' => $item->collectionId,
                 'position' => $item->position,
-                'linkType' => $item->linkType,
+                'type' => $item->type,
                 'valueId' => $item->valueId,
                 'valueType' => $item->valueType,
             )

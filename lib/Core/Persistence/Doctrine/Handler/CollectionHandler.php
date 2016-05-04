@@ -391,7 +391,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'status' => $newStatus,
                     'collection_id' => $collection->id,
                     'position' => $collectionItem->position,
-                    'link_type' => $collectionItem->linkType,
+                    'type' => $collectionItem->type,
                     'value_id' => $collectionItem->valueId,
                     'value_type' => $collectionItem->valueType,
                 )
@@ -604,7 +604,7 @@ class CollectionHandler implements CollectionHandlerInterface
                 'status' => $status,
                 'collection_id' => $collectionId,
                 'position' => $position,
-                'link_type' => $itemCreateStruct->linkType,
+                'type' => $itemCreateStruct->type,
                 'value_id' => $itemCreateStruct->valueId,
                 'value_type' => $itemCreateStruct->valueType,
             )
@@ -877,7 +877,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function createItemSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'status', 'collection_id', 'position', 'link_type', 'value_id', 'value_type')
+        $query->select('id', 'status', 'collection_id', 'position', 'type', 'value_id', 'value_type')
             ->from('ngbm_collection_item');
 
         return $query;
@@ -944,7 +944,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'position' => ':position',
-                    'link_type' => ':link_type',
+                    'type' => ':type',
                     'value_id' => ':value_id',
                     'value_type' => ':value_type',
                 )
@@ -956,7 +956,7 @@ class CollectionHandler implements CollectionHandlerInterface
             ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('collection_id', $parameters['collection_id'], Type::INTEGER)
             ->setParameter('position', $parameters['position'], Type::INTEGER)
-            ->setParameter('link_type', $parameters['link_type'], Type::INTEGER)
+            ->setParameter('type', $parameters['type'], Type::INTEGER)
             ->setParameter('value_id', $parameters['value_id'], Type::STRING)
             ->setParameter('value_type', trim($parameters['value_type']), Type::STRING);
     }
