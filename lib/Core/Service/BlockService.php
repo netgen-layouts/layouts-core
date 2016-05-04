@@ -35,6 +35,16 @@ class BlockService implements BlockServiceInterface
     protected $persistenceHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     */
+    protected $blockHandler;
+
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     */
+    protected $layoutHandler;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
@@ -49,6 +59,9 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->persistenceHandler = $persistenceHandler;
+
+        $this->blockHandler = $persistenceHandler->getBlockHandler();
+        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
 
     /**
@@ -66,7 +79,7 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator->validateId($blockId, 'blockId');
 
         return $this->blockMapper->mapBlock(
-            $this->persistenceHandler->getBlockHandler()->loadBlock(
+            $this->blockHandler->loadBlock(
                 $blockId,
                 $status
             )
@@ -96,7 +109,7 @@ class BlockService implements BlockServiceInterface
             throw new InvalidArgumentException('position', 'Value must be an integer.');
         }
 
-        if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
+        if (!$this->layoutHandler->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
@@ -109,7 +122,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdBlock = $this->persistenceHandler->getBlockHandler()->createBlock(
+            $createdBlock = $this->blockHandler->createBlock(
                 $blockCreateStruct,
                 $layout->getId(),
                 $zoneIdentifier,
@@ -147,7 +160,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedBlock = $this->persistenceHandler->getBlockHandler()->updateBlock(
+            $updatedBlock = $this->blockHandler->updateBlock(
                 $block->getId(),
                 $block->getStatus(),
                 $blockUpdateStruct
@@ -183,7 +196,7 @@ class BlockService implements BlockServiceInterface
         if ($zoneIdentifier !== null) {
             $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
-            if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
+            if (!$this->layoutHandler->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
         }
@@ -191,7 +204,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedBlock = $this->persistenceHandler->getBlockHandler()->copyBlock(
+            $copiedBlock = $this->blockHandler->copyBlock(
                 $block->getId(),
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
@@ -230,7 +243,7 @@ class BlockService implements BlockServiceInterface
         if ($zoneIdentifier !== null) {
             $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
-            if (!$this->persistenceHandler->getLayoutHandler()->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
+            if (!$this->layoutHandler->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
         }
@@ -243,13 +256,13 @@ class BlockService implements BlockServiceInterface
 
         try {
             if ($zoneIdentifier === null || $zoneIdentifier === $block->getZoneIdentifier()) {
-                $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlock(
+                $movedBlock = $this->blockHandler->moveBlock(
                     $block->getId(),
                     $block->getStatus(),
                     $position
                 );
             } else {
-                $movedBlock = $this->persistenceHandler->getBlockHandler()->moveBlockToZone(
+                $movedBlock = $this->blockHandler->moveBlockToZone(
                     $block->getId(),
                     $block->getStatus(),
                     $zoneIdentifier,
@@ -282,7 +295,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getBlockHandler()->deleteBlock(
+            $this->blockHandler->deleteBlock(
                 $block->getId(),
                 $block->getStatus()
             );
@@ -312,18 +325,18 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
         }
 
-        if ($this->persistenceHandler->getBlockHandler()->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
+        if ($this->blockHandler->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
             throw new BadStateException('collection', 'Specified collection already exists in block.');
         }
 
-        if ($this->persistenceHandler->getBlockHandler()->collectionIdentifierExists($block->getId(), $block->getStatus(), $identifier)) {
+        if ($this->blockHandler->collectionIdentifierExists($block->getId(), $block->getStatus(), $identifier)) {
             throw new BadStateException('identifier', 'Specified collection identifier already exists in block.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getBlockHandler()->addCollectionToBlock(
+            $this->blockHandler->addCollectionToBlock(
                 $block->getId(),
                 $block->getStatus(),
                 $collection->getId(),
@@ -352,14 +365,14 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
         }
 
-        if (!$this->persistenceHandler->getBlockHandler()->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
+        if (!$this->blockHandler->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
             throw new BadStateException('collection', 'Specified collection does not exist in block.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getBlockHandler()->removeCollectionFromBlock(
+            $this->blockHandler->removeCollectionFromBlock(
                 $block->getId(),
                 $block->getStatus(),
                 $collection->getId()

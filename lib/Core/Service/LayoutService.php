@@ -29,6 +29,11 @@ class LayoutService implements LayoutServiceInterface
     protected $persistenceHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     */
+    protected $layoutHandler;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
@@ -43,6 +48,8 @@ class LayoutService implements LayoutServiceInterface
         $this->layoutValidator = $layoutValidator;
         $this->layoutMapper = $layoutMapper;
         $this->persistenceHandler = $persistenceHandler;
+
+        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
 
     /**
@@ -60,7 +67,7 @@ class LayoutService implements LayoutServiceInterface
         $this->layoutValidator->validateId($layoutId, 'layoutId');
 
         return $this->layoutMapper->mapLayout(
-            $this->persistenceHandler->getLayoutHandler()->loadLayout(
+            $this->layoutHandler->loadLayout(
                 $layoutId,
                 $status
             )
@@ -84,7 +91,7 @@ class LayoutService implements LayoutServiceInterface
         $this->layoutValidator->validateIdentifier($identifier, 'identifier');
 
         return $this->layoutMapper->mapZone(
-            $this->persistenceHandler->getLayoutHandler()->loadZone(
+            $this->layoutHandler->loadZone(
                 $layoutId,
                 $identifier,
                 $status
@@ -107,7 +114,7 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdLayout = $this->persistenceHandler->getLayoutHandler()->createLayout(
+            $createdLayout = $this->layoutHandler->createLayout(
                 $layoutCreateStruct,
                 $parentLayout !== null ? $parentLayout->getId() : null
             );
@@ -144,14 +151,14 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createLayoutStatus(Layout $layout, $status)
     {
-        if ($this->persistenceHandler->getLayoutHandler()->layoutExists($layout->getId(), $status)) {
+        if ($this->layoutHandler->layoutExists($layout->getId(), $status)) {
             throw new BadStateException('status', 'Layout already has the provided status.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdLayout = $this->persistenceHandler->getLayoutHandler()->createLayoutStatus(
+            $createdLayout = $this->layoutHandler->createLayoutStatus(
                 $layout->getId(),
                 $layout->getStatus(),
                 $status
@@ -184,7 +191,7 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $layoutHandler = $this->persistenceHandler->getLayoutHandler();
+            $layoutHandler = $this->layoutHandler;
             $layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_ARCHIVED);
             $layoutHandler->updateLayoutStatus($layout->getId(), Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
             $publishedLayout = $layoutHandler->updateLayoutStatus($layout->getId(), Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
@@ -211,7 +218,7 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->persistenceHandler->getLayoutHandler()->deleteLayout(
+            $this->layoutHandler->deleteLayout(
                 $layout->getId(),
                 $deleteAll ? null : $layout->getStatus()
             );
