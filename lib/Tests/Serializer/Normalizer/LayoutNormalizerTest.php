@@ -15,6 +15,41 @@ use DateTime;
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $configurationMock;
+
+    /**
+     * @var \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer
+     */
+    protected $layoutNormalizer;
+
+    public function setUp()
+    {
+        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
+
+        $layoutConfig = array(
+            'zones' => array(
+                'left' => array(
+                    'name' => 'Left',
+                    'allowed_block_types' => array('title'),
+                ),
+                'right' => array(
+                    'name' => 'Right',
+                ),
+            ),
+        );
+
+        $this->configurationMock
+            ->expects($this->any())
+            ->method('getLayoutConfig')
+            ->with($this->equalTo('3_zones_a'))
+            ->will($this->returnValue($layoutConfig));
+
+        $this->layoutNormalizer = new LayoutNormalizer($this->configurationMock);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getZones
@@ -57,27 +92,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
         $layoutView = new LayoutView();
         $layoutView->setLayout($layout);
 
-        $layoutConfig = array(
-            'zones' => array(
-                'left' => array(
-                    'name' => 'Left',
-                    'allowed_block_types' => array('title'),
-                ),
-                'right' => array(
-                    'name' => 'Right',
-                ),
-            ),
-        );
-
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
-            ->expects($this->any())
-            ->method('getLayoutConfig')
-            ->with($this->equalTo('3_zones_a'))
-            ->will($this->returnValue($layoutConfig));
-
-        $layoutNormalizer = new LayoutNormalizer($configurationMock);
-
         self::assertEquals(
             array(
                 'id' => $layout->getId(),
@@ -99,7 +113,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $layoutNormalizer->normalize(new SerializableValue($layout, 1))
+            $this->layoutNormalizer->normalize(new SerializableValue($layout, 1))
         );
     }
 
@@ -112,11 +126,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-
-        $layoutNormalizer = new LayoutNormalizer($configurationMock);
-
-        self::assertEquals($expected, $layoutNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $this->layoutNormalizer->supportsNormalization($data));
     }
 
     /**

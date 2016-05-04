@@ -2,11 +2,34 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\BlockDefinitionValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
 
 class BlockDefinitionValidatorTest extends ValidatorTest
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockDefinitionRegistryMock;
+
+    /**
+     * @var \Netgen\BlockManager\Validator\BlockDefinitionValidator
+     */
+    protected $validator;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->blockDefinitionRegistryMock = $this->getMock(
+            BlockDefinitionRegistryInterface::class
+        );
+
+        $this->validator = new BlockDefinitionValidator($this->blockDefinitionRegistryMock);
+        $this->validator->initialize($this->executionContextMock);
+    }
+
     /**
      * @covers \Netgen\BlockManager\Validator\BlockDefinitionValidator::__construct
      * @covers \Netgen\BlockManager\Validator\BlockDefinitionValidator::validate
@@ -23,10 +46,7 @@ class BlockDefinitionValidatorTest extends ValidatorTest
             ->expects($this->never())
             ->method('buildViolation');
 
-        $validator = new BlockDefinitionValidator($this->blockDefinitionRegistryMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate('block_definition', new BlockDefinition());
+        $this->validator->validate('block_definition', new BlockDefinition());
     }
 
     /**
@@ -46,9 +66,6 @@ class BlockDefinitionValidatorTest extends ValidatorTest
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new BlockDefinitionValidator($this->blockDefinitionRegistryMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate('block_definition', new BlockDefinition());
+        $this->validator->validate('block_definition', new BlockDefinition());
     }
 }

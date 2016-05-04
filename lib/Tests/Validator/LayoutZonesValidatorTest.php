@@ -8,25 +8,35 @@ use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 class LayoutZonesValidatorTest extends ValidatorTest
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\LayoutZonesValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\LayoutZonesValidator::validate
+     * @var \Netgen\BlockManager\Validator\LayoutZonesValidator
      */
-    public function testValidate()
+    protected $validator;
+
+    public function setUp()
     {
+        parent::setUp();
+
         $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('layouts'))
             ->will($this->returnValue(array('layout' => array('zones' => array('zone' => array())))));
 
+        $this->validator = new LayoutZonesValidator($this->configurationMock);
+        $this->validator->initialize($this->executionContextMock);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\LayoutZonesValidator::__construct
+     * @covers \Netgen\BlockManager\Validator\LayoutZonesValidator::validate
+     */
+    public function testValidate()
+    {
         $this->executionContextMock
             ->expects($this->never())
             ->method('buildViolation');
 
-        $validator = new LayoutZonesValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate(array('zone'), new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(array('zone'), new LayoutZones(array('layoutIdentifier' => 'layout')));
     }
 
     /**
@@ -35,21 +45,12 @@ class LayoutZonesValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithNoLayout()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layouts'))
-            ->will($this->returnValue(array('layout' => array('zones' => array('zone' => array())))));
-
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new LayoutZonesValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate(array('zone'), new LayoutZones(array('layoutIdentifier' => 'other_layout')));
+        $this->validator->validate(array('zone'), new LayoutZones(array('layoutIdentifier' => 'other_layout')));
     }
 
     /**
@@ -58,21 +59,12 @@ class LayoutZonesValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithInvalidZones()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layouts'))
-            ->will($this->returnValue(array('layout' => array('zones' => array('zone' => array())))));
-
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new LayoutZonesValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate(42, new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(42, new LayoutZones(array('layoutIdentifier' => 'layout')));
     }
 
     /**
@@ -81,21 +73,12 @@ class LayoutZonesValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithExtraZone()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layouts'))
-            ->will($this->returnValue(array('layout' => array('zones' => array('zone' => array())))));
-
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new LayoutZonesValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate(array('zone', 'other_zone'), new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(array('zone', 'other_zone'), new LayoutZones(array('layoutIdentifier' => 'layout')));
     }
 
     /**
@@ -104,20 +87,11 @@ class LayoutZonesValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithMissingZone()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layouts'))
-            ->will($this->returnValue(array('layout' => array('zones' => array('zone' => array())))));
-
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new LayoutZonesValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate(array(), new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(array(), new LayoutZones(array('layoutIdentifier' => 'layout')));
     }
 }

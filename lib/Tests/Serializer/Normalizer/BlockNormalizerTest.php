@@ -10,6 +10,16 @@ use Netgen\BlockManager\Tests\API\Stubs\Value;
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer
+     */
+    protected $blockNormalizer;
+
+    public function setUp()
+    {
+        $this->blockNormalizer = new BlockNormalizer();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
@@ -30,8 +40,6 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $blockNormalizer = new BlockNormalizer();
-
         self::assertEquals(
             array(
                 'id' => $block->getId(),
@@ -43,7 +51,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
             ),
-            $blockNormalizer->normalize(new SerializableValue($block, 1))
+            $this->blockNormalizer->normalize(new SerializableValue($block, 1))
         );
     }
 
@@ -56,9 +64,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $blockNormalizer = new BlockNormalizer();
-
-        self::assertEquals($expected, $blockNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $this->blockNormalizer->supportsNormalization($data));
     }
 
     /**

@@ -11,12 +11,20 @@ use Exception;
 class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
+     */
+    protected $exceptionNormalizer;
+
+    public function setUp()
+    {
+        $this->exceptionNormalizer = new ExceptionNormalizer();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalize()
     {
-        $exceptionNormalizer = new ExceptionNormalizer();
-
         $exception = new Exception('Exception message', 123);
 
         self::assertEquals(
@@ -24,7 +32,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ),
-            $exceptionNormalizer->normalize($exception)
+            $this->exceptionNormalizer->normalize($exception)
         );
     }
 
@@ -34,12 +42,11 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalizeWithDebugOutput()
     {
-        $exceptionNormalizer = new ExceptionNormalizer();
-        $exceptionNormalizer->setOutputDebugInfo(true);
+        $this->exceptionNormalizer->setOutputDebugInfo(true);
 
         $previousException = new Exception('Previous exception', 321);
         $exception = new Exception('Exception message', 123, $previousException);
-        $data = $exceptionNormalizer->normalize($exception);
+        $data = $this->exceptionNormalizer->normalize($exception);
 
         self::assertInternalType('array', $data);
         self::assertArrayHasKey('code', $data);
@@ -61,8 +68,6 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalizeHttpException()
     {
-        $exceptionNormalizer = new ExceptionNormalizer();
-
         $exception = new NotFoundHttpException('Exception message', null, 123);
 
         self::assertEquals(
@@ -72,7 +77,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
             ),
-            $exceptionNormalizer->normalize($exception)
+            $this->exceptionNormalizer->normalize($exception)
         );
     }
 
@@ -85,8 +90,7 @@ class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        $exceptionNormalizer = new ExceptionNormalizer();
-        self::assertEquals($expected, $exceptionNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $this->exceptionNormalizer->supportsNormalization($data));
     }
 
     /**

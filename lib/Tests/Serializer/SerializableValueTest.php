@@ -8,13 +8,22 @@ use Netgen\BlockManager\Tests\API\Stubs\Value;
 class SerializableValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Serializer\SerializableValue
+     */
+    protected $value;
+
+    public function setUp()
+    {
+        $this->value = new SerializableValue(new Value(), 42);
+    }
+
+    /**
      * @covers Netgen\BlockManager\Serializer\SerializableValue::__construct
      * @covers Netgen\BlockManager\Serializer\SerializableValue::getValue
      */
     public function testGetValue()
     {
-        $value = new SerializableValue(new Value(), 42);
-        self::assertEquals(new Value(), $value->getValue());
+        self::assertEquals(new Value(), $this->value->getValue());
     }
 
     /**
@@ -23,7 +32,6 @@ class SerializableValueTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetVersion()
     {
-        $value = new SerializableValue(new Value(), 42);
-        self::assertEquals(42, $value->getVersion());
+        self::assertEquals(42, $this->value->getVersion());
     }
 }

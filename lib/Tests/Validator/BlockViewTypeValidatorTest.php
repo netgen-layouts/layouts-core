@@ -8,25 +8,35 @@ use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 class BlockViewTypeValidatorTest extends ValidatorTest
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
+     * @var \Netgen\BlockManager\Validator\BlockViewTypeValidator
      */
-    public function testValidate()
+    protected $validator;
+
+    public function setUp()
     {
+        parent::setUp();
+
         $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('blocks'))
             ->will($this->returnValue(array('block' => array('view_types' => array('large' => array())))));
 
+        $this->validator = new BlockViewTypeValidator($this->configurationMock);
+        $this->validator->initialize($this->executionContextMock);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::__construct
+     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
+     */
+    public function testValidate()
+    {
         $this->executionContextMock
             ->expects($this->never())
             ->method('buildViolation');
 
-        $validator = new BlockViewTypeValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate('large', new BlockViewType(array('definitionIdentifier' => 'block')));
+        $this->validator->validate('large', new BlockViewType(array('definitionIdentifier' => 'block')));
     }
 
     /**
@@ -35,21 +45,12 @@ class BlockViewTypeValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithNoBlockDefinition()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('blocks'))
-            ->will($this->returnValue(array('block' => array('view_types' => array('large' => array())))));
-
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new BlockViewTypeValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate('large', new BlockViewType(array('definitionIdentifier' => 'other_block')));
+        $this->validator->validate('large', new BlockViewType(array('definitionIdentifier' => 'other_block')));
     }
 
     /**
@@ -58,20 +59,11 @@ class BlockViewTypeValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithNoViewType()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('blocks'))
-            ->will($this->returnValue(array('block' => array('view_types' => array('large' => array())))));
-
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $validator = new BlockViewTypeValidator($this->configurationMock);
-        $validator->initialize($this->executionContextMock);
-
-        $validator->validate('small', new BlockViewType(array('definitionIdentifier' => 'block')));
+        $this->validator->validate('small', new BlockViewType(array('definitionIdentifier' => 'block')));
     }
 }
