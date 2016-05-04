@@ -627,7 +627,7 @@ class CollectionService implements APICollectionService
         return new CollectionCreateStruct(
             array(
                 'type' => $type,
-                'name' => $name
+                'name' => $name,
             )
         );
     }
