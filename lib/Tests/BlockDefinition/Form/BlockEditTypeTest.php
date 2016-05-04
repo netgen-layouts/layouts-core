@@ -91,8 +91,8 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::__construct
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::buildForm
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::__construct
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::buildForm
      */
     public function testSubmitValidData()
     {
@@ -145,7 +145,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -172,7 +172,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingBlock()
@@ -192,7 +192,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidBlock()
@@ -216,7 +216,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::configureOptions
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -241,7 +241,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::getName
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::getName
      */
     public function testGetName()
     {
@@ -255,7 +255,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\Type\UpdateBlockType::getBlockPrefix
+     * @covers \Netgen\BlockManager\BlockDefinition\Form\BlockEditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {

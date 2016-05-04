@@ -122,8 +122,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getNextBlockPosition
      */
     public function testCreateBlock()
     {
@@ -262,7 +260,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getNextBlockPosition
      */
     public function testCopyBlock()
     {
@@ -317,8 +314,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::decrementBlockPositions
      */
     public function testMoveBlock()
     {
@@ -349,8 +344,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::decrementBlockPositions
      */
     public function testMoveBlockToLowerPosition()
     {
@@ -403,8 +396,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::incrementBlockPositions
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::decrementBlockPositions
      */
     public function testMoveBlockToZone()
     {

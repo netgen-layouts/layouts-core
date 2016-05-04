@@ -41,7 +41,7 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\BlockDefinition\Definition\BlockDefinition::getDynamicParameters
+     * @covers \Netgen\BlockManager\BlockDefinition\BlockDefinition::getDynamicParameters
      */
     public function testGetDynamicParameters()
     {

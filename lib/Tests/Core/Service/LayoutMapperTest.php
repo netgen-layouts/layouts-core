@@ -51,7 +51,7 @@ abstract class LayoutMapperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayout
-     * @covers \Netgen\BlockManager\Core\Service\Mapper::createDateTime
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::createDateTime
      */
     public function testMapLayout()
     {

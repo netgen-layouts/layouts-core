@@ -33,7 +33,6 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::__construct
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::applyStatusCondition
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler::createLayoutSelectQuery
      */
     public function testLoadLayout()
