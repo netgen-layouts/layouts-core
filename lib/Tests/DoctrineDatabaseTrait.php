@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Tests;
 
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
+use Doctrine\DBAL\Migrations\Migration;
 use Doctrine\DBAL\Types\Type;
 
 trait DoctrineDatabaseTrait
@@ -32,8 +34,9 @@ trait DoctrineDatabaseTrait
      *
      * @param string $schemaPath
      * @param string $fixturesPath
+     * @param bool $useMigrations
      */
-    protected function prepareDatabase($schemaPath, $fixturesPath)
+    protected function prepareDatabase($schemaPath, $fixturesPath, $useMigrations = false)
     {
         $this->databaseUri = getenv('DATABASE');
         if (empty($this->databaseUri)) {
@@ -44,7 +47,13 @@ trait DoctrineDatabaseTrait
         $this->databaseServer = $matches['db'];
 
         $this->createDatabaseConnection();
-        $this->executeStatements($schemaPath);
+
+        if ($useMigrations) {
+            $this->executeMigrations();
+        } else {
+            $this->executeStatements($schemaPath);
+        }
+
         $this->insertDatabaseFixtures($fixturesPath);
         $this->executeStatements($schemaPath, 'setval');
     }
@@ -93,6 +102,19 @@ trait DoctrineDatabaseTrait
                 $this->databaseConnection->query($sqlQuery);
             }
         }
+    }
+
+    /**
+     * Creates the database schema from all available Doctrine migrations.
+     */
+    protected function executeMigrations()
+    {
+        $configuration = new YamlConfiguration($this->databaseConnection);
+        $configuration->load(__DIR__ . '/../../migrations/doctrine.yml');
+
+        $migration = new Migration($configuration);
+        $migration->migrate(0);
+        $migration->migrate();
     }
 
     /**
