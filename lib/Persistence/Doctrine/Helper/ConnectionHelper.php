@@ -76,17 +76,4 @@ class ConnectionHelper
 
         return $this->connection->lastInsertId($table);
     }
-
-    /**
-     * Applies status condition to the query.
-     *
-     * @param \Doctrine\DBAL\Query\QueryBuilder $query
-     * @param int $status
-     * @param string $statusColumn
-     */
-    public function applyStatusCondition(QueryBuilder $query, $status, $statusColumn = 'status')
-    {
-        $query->andWhere($query->expr()->eq($statusColumn, ':status'))
-            ->setParameter('status', $status, Type::INTEGER);
-    }
 }

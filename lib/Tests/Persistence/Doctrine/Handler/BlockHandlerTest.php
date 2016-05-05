@@ -39,7 +39,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getBlockSelectQuery
      */
     public function testLoadBlock()
     {
@@ -123,7 +123,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getBlockInsertQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlock()
@@ -159,7 +159,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getBlockInsertQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlockWithNoPosition()
@@ -222,6 +222,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::__construct
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::applyStatusCondition
      */
     public function testUpdateBlock()
     {

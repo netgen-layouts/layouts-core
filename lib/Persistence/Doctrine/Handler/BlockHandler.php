@@ -6,18 +6,18 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
 class BlockHandler implements BlockHandlerInterface
 {
     /**
-     * @var \Doctrine\DBAL\Connection
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
      */
-    protected $connection;
+    protected $blockMapper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
@@ -30,28 +30,28 @@ class BlockHandler implements BlockHandlerInterface
     protected $positionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper
      */
-    protected $blockMapper;
+    protected $queryHelper;
 
     /**
      * Constructor.
      *
-     * @param \Doctrine\DBAL\Connection $connection
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper $positionHelper
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper $blockMapper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
     public function __construct(
-        Connection $connection,
+        BlockMapper $blockMapper,
         ConnectionHelper $connectionHelper,
         PositionHelper $positionHelper,
-        BlockMapper $blockMapper
+        QueryHelper $queryHelper
     ) {
-        $this->connection = $connection;
+        $this->blockMapper = $blockMapper;
         $this->connectionHelper = $connectionHelper;
         $this->positionHelper = $positionHelper;
-        $this->blockMapper = $blockMapper;
+        $this->queryHelper = $queryHelper;
     }
 
     /**
@@ -66,13 +66,13 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function loadBlock($blockId, $status)
     {
-        $query = $this->createBlockSelectQuery();
+        $query = $this->queryHelper->getBlockSelectQuery();
         $query->where(
             $query->expr()->eq('id', ':id')
         )
         ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -95,7 +95,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function loadZoneBlocks($layoutId, $zoneIdentifier, $status)
     {
-        $query = $this->createBlockSelectQuery();
+        $query = $this->queryHelper->getBlockSelectQuery();
         $query->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),
@@ -106,7 +106,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->orderBy('position', 'ASC');
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -140,7 +140,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $query = $this->createBlockInsertQuery(
+        $query = $this->queryHelper->getBlockInsertQuery(
             array(
                 'status' => $status,
                 'layout_id' => $layoutId,
@@ -177,7 +177,7 @@ class BlockHandler implements BlockHandlerInterface
         $block = $this->loadBlock($blockId, $status);
         $parameters = $blockUpdateStruct->getParameters() + $block->parameters;
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query
             ->update('ngbm_block')
             ->set('view_type', ':view_type')
@@ -191,7 +191,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('name', $blockUpdateStruct->name !== null ? trim($blockUpdateStruct->name) : $block->name, Type::STRING)
             ->setParameter('parameters', $parameters, Type::JSON_ARRAY);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -211,7 +211,7 @@ class BlockHandler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
-        $query = $this->createBlockInsertQuery(
+        $query = $this->queryHelper->getBlockInsertQuery(
             array(
                 'status' => $block->status,
                 'layout_id' => $block->layoutId,
@@ -263,7 +263,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
 
         $query
             ->update('ngbm_block')
@@ -274,7 +274,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('id', $block->id, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -308,7 +308,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
 
         $query
             ->update('ngbm_block')
@@ -321,7 +321,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -349,7 +349,7 @@ class BlockHandler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
 
         $query->delete('ngbm_block')
             ->where(
@@ -357,7 +357,7 @@ class BlockHandler implements BlockHandlerInterface
             )
             ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -382,7 +382,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function collectionExists($blockId, $status, $collectionId)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
             ->from('ngbm_block_collection')
             ->where(
@@ -394,7 +394,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -412,7 +412,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function collectionIdentifierExists($blockId, $status, $identifier)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
             ->from('ngbm_block_collection')
             ->where(
@@ -424,7 +424,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -441,7 +441,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function addCollectionToBlock($blockId, $status, $collectionId, $identifier)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
 
         $query->insert('ngbm_block_collection')
             ->values(
@@ -469,7 +469,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function removeCollectionFromBlock($blockId, $status, $collectionId)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
 
         $query->delete('ngbm_block_collection')
             ->where(
@@ -481,62 +481,9 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
-    }
-
-    /**
-     * Builds and returns a block database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function createBlockSelectQuery()
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'name', 'parameters')
-            ->from('ngbm_block');
-
-        return $query;
-    }
-
-    /**
-     * Builds and returns a block database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $blockId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function createBlockInsertQuery(array $parameters, $blockId = null)
-    {
-        return $this->connection->createQueryBuilder()
-            ->insert('ngbm_block')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'layout_id' => ':layout_id',
-                    'zone_identifier' => ':zone_identifier',
-                    'position' => ':position',
-                    'definition_identifier' => ':definition_identifier',
-                    'view_type' => ':view_type',
-                    'name' => ':name',
-                    'parameters' => ':parameters',
-                )
-            )
-            ->setValue(
-                'id',
-                $blockId !== null ? (int)$blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
-            ->setParameter('zone_identifier', $parameters['zone_identifier'], Type::STRING)
-            ->setParameter('position', $parameters['position'], Type::INTEGER)
-            ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
-            ->setParameter('view_type', $parameters['view_type'], Type::STRING)
-            ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
     }
 
     /**

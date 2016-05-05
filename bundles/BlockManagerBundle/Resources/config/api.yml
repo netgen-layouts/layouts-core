@@ -2,6 +2,7 @@ parameters:
     netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler
     netgen_block_manager.persistence.doctrine.helper.connection.class: Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
     netgen_block_manager.persistence.doctrine.helper.position.class: Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
+    netgen_block_manager.persistence.doctrine.helper.query.class: Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper
 
     netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
     netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
@@ -37,16 +38,22 @@ services:
         arguments:
             - "@database_connection"
 
+    netgen_block_manager.persistence.doctrine.helper.query:
+        class: "%netgen_block_manager.persistence.doctrine.helper.query.class%"
+        arguments:
+            - "@database_connection"
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
+
     netgen_block_manager.persistence.doctrine.layout.mapper:
         class: "%netgen_block_manager.persistence.doctrine.layout.mapper.class%"
 
     netgen_block_manager.persistence.doctrine.layout.handler:
         class: "%netgen_block_manager.persistence.doctrine.layout.handler.class%"
         arguments:
-            - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
+            - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     netgen_block_manager.persistence.doctrine.block.mapper:
         class: "%netgen_block_manager.persistence.doctrine.block.mapper.class%"
@@ -54,10 +61,10 @@ services:
     netgen_block_manager.persistence.doctrine.block.handler:
         class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
         arguments:
-            - "@database_connection"
+            - "@netgen_block_manager.persistence.doctrine.block.mapper"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.position"
-            - "@netgen_block_manager.persistence.doctrine.block.mapper"
+            - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     # Layout related APIs
 

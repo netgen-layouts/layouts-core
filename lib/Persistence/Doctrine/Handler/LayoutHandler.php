@@ -3,26 +3,16 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
 class LayoutHandler implements LayoutHandlerInterface
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    protected $connection;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
-     */
-    protected $connectionHelper;
-
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
@@ -34,23 +24,33 @@ class LayoutHandler implements LayoutHandlerInterface
     protected $layoutMapper;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
+     */
+    protected $connectionHelper;
+
+    /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper
+     */
+    protected $queryHelper;
+
+    /**
      * Constructor.
      *
-     * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
     public function __construct(
-        Connection $connection,
-        ConnectionHelper $connectionHelper,
         BlockHandlerInterface $blockHandler,
-        LayoutMapper $layoutMapper
+        LayoutMapper $layoutMapper,
+        ConnectionHelper $connectionHelper,
+        QueryHelper $queryHelper
     ) {
-        $this->connection = $connection;
-        $this->connectionHelper = $connectionHelper;
         $this->blockHandler = $blockHandler;
         $this->layoutMapper = $layoutMapper;
+        $this->connectionHelper = $connectionHelper;
+        $this->queryHelper = $queryHelper;
     }
 
     /**
@@ -65,13 +65,13 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function loadLayout($layoutId, $status)
     {
-        $query = $this->createLayoutSelectQuery();
+        $query = $this->queryHelper->getLayoutSelectQuery();
         $query->where(
             $query->expr()->eq('id', ':id')
         )
         ->setParameter('id', $layoutId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -96,7 +96,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function loadZone($layoutId, $identifier, $status)
     {
-        $query = $this->createZoneSelectQuery();
+        $query = $this->queryHelper->getZoneSelectQuery();
         $query->where(
             $query->expr()->andX(
                 $query->expr()->eq('layout_id', ':layout_id'),
@@ -106,7 +106,7 @@ class LayoutHandler implements LayoutHandlerInterface
         ->setParameter('layout_id', $layoutId, Type::INTEGER)
         ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -128,7 +128,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function layoutExists($layoutId, $status)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
             ->from('ngbm_layout')
             ->where(
@@ -136,7 +136,7 @@ class LayoutHandler implements LayoutHandlerInterface
             )
             ->setParameter('id', $layoutId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -154,7 +154,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function zoneExists($layoutId, $identifier, $status)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
             ->from('ngbm_zone')
             ->where(
@@ -166,7 +166,7 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('identifier', $identifier, Type::STRING)
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -183,14 +183,14 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function loadLayoutZones($layoutId, $status)
     {
-        $query = $this->createZoneSelectQuery();
+        $query = $this->queryHelper->getZoneSelectQuery();
         $query->where(
             $query->expr()->eq('layout_id', ':layout_id')
         )
         ->orderBy('identifier', 'ASC')
         ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -212,7 +212,7 @@ class LayoutHandler implements LayoutHandlerInterface
     {
         $currentTimeStamp = time();
 
-        $query = $this->createLayoutInsertQuery(
+        $query = $this->queryHelper->getLayoutInsertQuery(
             array(
                 'status' => $layoutCreateStruct->status,
                 'parent_id' => $parentLayoutId,
@@ -228,7 +228,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
 
         foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
-            $zoneQuery = $this->createZoneInsertQuery(
+            $zoneQuery = $this->queryHelper->getZoneInsertQuery(
                 array(
                     'identifier' => $zoneIdentifier,
                     'layout_id' => $createdLayoutId,
@@ -267,7 +267,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $layout = $this->loadLayout($layoutId, $status);
 
         $currentTimeStamp = time();
-        $query = $this->createLayoutInsertQuery(
+        $query = $this->queryHelper->getLayoutInsertQuery(
             array(
                 'status' => $newStatus,
                 'parent_id' => $layout->parentId,
@@ -283,7 +283,7 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $layoutZones = $this->loadLayoutZones($layout->id, $status);
         foreach ($layoutZones as $zone) {
-            $zoneQuery = $this->createZoneInsertQuery(
+            $zoneQuery = $this->queryHelper->getZoneInsertQuery(
                 array(
                     'identifier' => $zone->identifier,
                     'layout_id' => $layout->id,
@@ -295,7 +295,7 @@ class LayoutHandler implements LayoutHandlerInterface
 
             $zoneBlocks = $this->blockHandler->loadZoneBlocks($layout->id, $zone->identifier, $status);
             foreach ($zoneBlocks as $block) {
-                $blockQuery = $this->blockHandler->createBlockInsertQuery(
+                $blockQuery = $this->queryHelper->getBlockInsertQuery(
                     array(
                         'status' => $newStatus,
                         'layout_id' => $layout->id,
@@ -327,7 +327,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function updateLayoutStatus($layoutId, $status, $newStatus)
     {
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query
             ->update('ngbm_layout')
             ->set('status', ':new_status')
@@ -337,11 +337,11 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('id', $layoutId, Type::INTEGER)
             ->setParameter('new_status', $newStatus, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query
             ->update('ngbm_zone')
             ->set('status', ':new_status')
@@ -351,11 +351,11 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('new_status', $newStatus, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query
             ->update('ngbm_block')
             ->set('status', ':new_status')
@@ -365,7 +365,7 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER)
             ->setParameter('new_status', $newStatus, Type::INTEGER);
 
-        $this->connectionHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
 
@@ -382,7 +382,7 @@ class LayoutHandler implements LayoutHandlerInterface
     {
         // First delete all blocks
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query
             ->delete('ngbm_block')
             ->where(
@@ -391,14 +391,14 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->connectionHelper->applyStatusCondition($query, $status);
+            $this->queryHelper->applyStatusCondition($query, $status);
         }
 
         $query->execute();
 
         // Then delete all zones
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query->delete('ngbm_zone')
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
@@ -406,14 +406,14 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->connectionHelper->applyStatusCondition($query, $status);
+            $this->queryHelper->applyStatusCondition($query, $status);
         }
 
         $query->execute();
 
         // Then delete the layout itself
 
-        $query = $this->connection->createQueryBuilder();
+        $query = $this->queryHelper->getQuery();
         $query->delete('ngbm_layout')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -421,95 +421,9 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->connectionHelper->applyStatusCondition($query, $status);
+            $this->queryHelper->applyStatusCondition($query, $status);
         }
 
         $query->execute();
-    }
-
-    /**
-     * Builds and returns a layout database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function createLayoutSelectQuery()
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id', 'status', 'parent_id', 'identifier', 'name', 'created', 'modified')
-            ->from('ngbm_layout');
-
-        return $query;
-    }
-
-    /**
-     * Builds and returns a zone database SELECT query.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function createZoneSelectQuery()
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('identifier', 'layout_id', 'status')
-            ->from('ngbm_zone');
-
-        return $query;
-    }
-
-    /**
-     * Builds and returns a layout database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $layoutId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function createLayoutInsertQuery(array $parameters, $layoutId = null)
-    {
-        return $this->connection->createQueryBuilder()
-            ->insert('ngbm_layout')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'parent_id' => ':parent_id',
-                    'identifier' => ':identifier',
-                    'name' => ':name',
-                    'created' => ':created',
-                    'modified' => ':modified',
-                )
-            )
-            ->setValue(
-                'id',
-                $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
-            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
-            ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('created', $parameters['created'], Type::INTEGER)
-            ->setParameter('modified', $parameters['modified'], Type::INTEGER);
-    }
-
-    /**
-     * Builds and returns a zone database INSERT query.
-     *
-     * @param array $parameters
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function createZoneInsertQuery(array $parameters)
-    {
-        return $this->connection->createQueryBuilder()
-            ->insert('ngbm_zone')
-            ->values(
-                array(
-                    'identifier' => ':identifier',
-                    'layout_id' => ':layout_id',
-                    'status' => ':status',
-                )
-            )
-            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
-            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
-            ->setParameter('status', $parameters['status'], Type::INTEGER);
     }
 }

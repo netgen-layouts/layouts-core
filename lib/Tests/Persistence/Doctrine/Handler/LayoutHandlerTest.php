@@ -46,7 +46,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getLayoutSelectQuery
      */
     public function testLoadLayout()
     {
@@ -77,7 +77,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZoneSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getZoneSelectQuery
      */
     public function testLoadZone()
     {
@@ -202,8 +202,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutInsertQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZoneInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getZoneInsertQuery
      */
     public function testCreateLayout()
     {
@@ -252,8 +252,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutInsertQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZoneInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getLayoutInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getZoneInsertQuery
      */
     public function testCreateLayoutWithParentLayout()
     {

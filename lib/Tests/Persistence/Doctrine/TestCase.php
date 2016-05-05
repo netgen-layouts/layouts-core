@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
@@ -47,11 +48,13 @@ trait TestCase
      */
     protected function createLayoutHandler()
     {
+        $connectionHelper = new ConnectionHelper($this->databaseConnection);
+
         return new LayoutHandler(
-            $this->databaseConnection,
-            new ConnectionHelper($this->databaseConnection),
             $this->createBlockHandler(),
-            new LayoutMapper()
+            new LayoutMapper(),
+            $connectionHelper,
+            new QueryHelper($this->databaseConnection, $connectionHelper)
         );
     }
 
@@ -62,11 +65,13 @@ trait TestCase
      */
     protected function createBlockHandler()
     {
+        $connectionHelper = new ConnectionHelper($this->databaseConnection);
+
         return new BlockHandler(
-            $this->databaseConnection,
-            new ConnectionHelper($this->databaseConnection),
+            new BlockMapper(),
+            $connectionHelper,
             new PositionHelper($this->databaseConnection),
-            new BlockMapper()
+            new QueryHelper($this->databaseConnection, $connectionHelper)
         );
     }
 
@@ -77,11 +82,13 @@ trait TestCase
      */
     protected function createCollectionHandler()
     {
+        $connectionHelper = new ConnectionHelper($this->databaseConnection);
+
         return new CollectionHandler(
-            $this->databaseConnection,
-            new ConnectionHelper($this->databaseConnection),
+            new CollectionMapper(),
+            $connectionHelper,
             new PositionHelper($this->databaseConnection),
-            new CollectionMapper()
+            new QueryHelper($this->databaseConnection, $connectionHelper)
         );
     }
 }
