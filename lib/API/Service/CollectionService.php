@@ -27,6 +27,15 @@ interface CollectionService
     public function loadCollection($collectionId, $status = Collection::STATUS_PUBLISHED);
 
     /**
+     * Loads all named collections.
+     *
+     * @param int $status
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
+     */
+    public function loadNamedCollections($status = Collection::STATUS_PUBLISHED);
+
+    /**
      * Loads all collections belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

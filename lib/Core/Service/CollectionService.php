@@ -85,6 +85,25 @@ class CollectionService implements APICollectionService
     }
 
     /**
+     * Loads all named collections.
+     *
+     * @param int $status
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
+     */
+    public function loadNamedCollections($status = Collection::STATUS_PUBLISHED)
+    {
+        $persistenceCollections = $this->collectionHandler->loadNamedCollections($status);
+
+        $collections = array();
+        foreach ($persistenceCollections as $persistenceCollection) {
+            $collections[] = $this->collectionMapper->mapCollection($persistenceCollection);
+        }
+
+        return $collections;
+    }
+
+    /**
      * Loads all collections belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

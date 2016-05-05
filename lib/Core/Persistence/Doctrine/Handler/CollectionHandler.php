@@ -89,6 +89,33 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
+     * Loads all named collections.
+     *
+     * @param int $status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
+     */
+    public function loadNamedCollections($status)
+    {
+        $query = $this->createCollectionSelectQuery();
+        $query->where(
+            $query->expr()->eq('type', ':type')
+        )
+        ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER);
+
+        $this->connectionHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+        if (empty($data)) {
+            return array();
+        }
+
+        $data = $this->collectionMapper->mapCollections($data);
+
+        return $data;
+    }
+
+    /**
      * Loads all collections belonging to the provided block.
      *
      * @param int|string $blockId
