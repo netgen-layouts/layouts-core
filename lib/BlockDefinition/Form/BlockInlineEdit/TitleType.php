@@ -1,8 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\BlockDefinition\Form;
+namespace Netgen\BlockManager\BlockDefinition\Form\BlockInlineEdit;
 
-class ParagraphInlineType extends BlockInlineEditType
+use Netgen\BlockManager\BlockDefinition\Form\BlockInlineEditType;
+
+class TitleType extends BlockInlineEditType
 {
     /**
      * Returns the list of block definition parameters that will be editable inline.
@@ -11,7 +13,7 @@ class ParagraphInlineType extends BlockInlineEditType
      */
     public function getParameterNames()
     {
-        return array('content');
+        return array('tag', 'title');
     }
 
     /**
@@ -24,6 +26,6 @@ class ParagraphInlineType extends BlockInlineEditType
      */
     public function getBlockPrefix()
     {
-        return 'paragraph_inline';
+        return 'block_inline_edit_title';
     }
 }
