@@ -484,7 +484,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteLayout()
     {
-        // We need to delete the blocks and block items to delete the layout
+        // We need to delete the blocks to delete the layout
         $query = $this->databaseConnection->createQueryBuilder();
         $query->delete('ngbm_block')
             ->where(
@@ -504,7 +504,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteLayoutInOneStatus()
     {
-        // We need to delete the blocks and block items to delete the layout
+        // We need to delete the blocks to delete the layout
         $query = $this->databaseConnection->createQueryBuilder();
         $query->delete('ngbm_block')
             ->where(

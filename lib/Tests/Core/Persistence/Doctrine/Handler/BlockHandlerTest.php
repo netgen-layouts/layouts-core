@@ -37,6 +37,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::__construct
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::loadBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockSelectQuery
      */
@@ -123,6 +124,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlock()
     {
@@ -158,6 +160,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlockWithNoPosition()
     {
@@ -251,6 +254,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlock()
     {
@@ -276,6 +280,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlockToDifferentZone()
     {
@@ -301,6 +306,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlock()
     {
@@ -329,6 +335,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlockToLowerPosition()
     {
@@ -375,6 +382,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlockToZone()
     {
@@ -418,6 +426,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testDeleteBlock()
     {
@@ -425,6 +434,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
         $secondBlock = $this->blockHandler->loadBlock(2, APILayout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->position);
+
         try {
             $this->blockHandler->loadBlock(1, APILayout::STATUS_DRAFT);
             self::fail('Block still exists after deleting');

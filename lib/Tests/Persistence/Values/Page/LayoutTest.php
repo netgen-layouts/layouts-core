@@ -17,7 +17,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertNull($layout->created);
         self::assertNull($layout->modified);
     }
-    
+
     public function testSetProperties()
     {
         $layout = new Layout(

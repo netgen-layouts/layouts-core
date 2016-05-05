@@ -13,7 +13,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
         self::assertNull($zone->identifier);
         self::assertNull($zone->layoutId);
     }
-    
+
     public function testSetProperties()
     {
         $zone = new Zone(
