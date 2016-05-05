@@ -28,13 +28,13 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">.</directory>
+            <directory suffix=".php">lib</directory>
+            <directory suffix=".php">bundles/*Bundle</directory>
             <exclude>
                 <directory>lib/Tests</directory>
                 <directory>lib/Migrations</directory>
                 <directory>bundles/*Bundle/Tests</directory>
                 <directory>bundles/*Bundle/Resources</directory>
-                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>
