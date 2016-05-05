@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "php": "~5.5",
+        "php": "~5.5|^7.0",
         "netgen/block-manager-ui-bundle": "^1.0@dev",
         "netgen/content-browser-bundle": "^1.0@dev",
         "symfony/symfony": "~2.7.0",
