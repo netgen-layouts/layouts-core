@@ -18,7 +18,7 @@ class ConnectionHelper
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper[]
      */
-    protected $databaseSpecificHelper = array();
+    protected $databaseSpecificHelpers = array();
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ class ConnectionHelper
     {
         $this->connection = $connection;
 
-        $this->databaseSpecificHelper = array(
+        $this->databaseSpecificHelpers = array(
             'sqlite' => new Sqlite($this->connection),
             'postgresql' => new Postgres($this->connection),
         );
@@ -50,8 +50,8 @@ class ConnectionHelper
     public function getAutoIncrementValue($table, $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
-        if (isset($this->databaseSpecificHelper[$databaseServer])) {
-            return $this->databaseSpecificHelper[$databaseServer]
+        if (isset($this->databaseSpecificHelpers[$databaseServer])) {
+            return $this->databaseSpecificHelpers[$databaseServer]
                 ->getAutoIncrementValue($table, $column);
         }
 
@@ -69,8 +69,8 @@ class ConnectionHelper
     public function lastInsertId($table, $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
-        if (isset($this->databaseSpecificHelper[$databaseServer])) {
-            return $this->databaseSpecificHelper[$databaseServer]
+        if (isset($this->databaseSpecificHelpers[$databaseServer])) {
+            return $this->databaseSpecificHelpers[$databaseServer]
                 ->lastInsertId($table, $column);
         }
 
@@ -82,10 +82,11 @@ class ConnectionHelper
      *
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
      * @param int $status
+     * @param string $statusColumn
      */
-    public function applyStatusCondition(QueryBuilder $query, $status)
+    public function applyStatusCondition(QueryBuilder $query, $status, $statusColumn = 'status')
     {
-        $query->andWhere($query->expr()->eq('status', ':status'))
+        $query->andWhere($query->expr()->eq($statusColumn, ':status'))
             ->setParameter('status', $status, Type::INTEGER);
     }
 }
