@@ -32,6 +32,7 @@ return array(
         array('id' => 4, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
     ),
     'ngbm_collection' => array(
+        array('id' => 1, 'status' => 0, 'type' => 0, 'name' => null),
         array('id' => 1, 'status' => 1, 'type' => 0, 'name' => null),
         array('id' => 2, 'status' => 1, 'type' => 1, 'name' => null),
         array('id' => 3, 'status' => 1, 'type' => 2, 'name' => 'My collection'),

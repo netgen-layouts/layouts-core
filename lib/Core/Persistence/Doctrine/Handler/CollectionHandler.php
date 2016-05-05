@@ -297,11 +297,16 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
+        $name = null;
+        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
+            $name = trim($collectionCreateStruct->name);
+        }
+
         $query = $this->createCollectionInsertQuery(
             array(
                 'status' => $collectionCreateStruct->status,
                 'type' => $collectionCreateStruct->type,
-                'name' => trim($collectionCreateStruct->name),
+                'name' => $name,
             )
         );
 
@@ -325,6 +330,11 @@ class CollectionHandler implements CollectionHandlerInterface
     {
         $collection = $this->loadCollection($collectionId, $status);
 
+        $name = $collection->name;
+        if ($collection->type === Collection::TYPE_NAMED && $collectionUpdateStruct->name !== null) {
+            $name = trim($collectionUpdateStruct->name);
+        }
+
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_collection')
@@ -333,7 +343,7 @@ class CollectionHandler implements CollectionHandlerInterface
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $collectionId, Type::INTEGER)
-            ->setParameter('name', $collectionUpdateStruct->name !== null ? trim($collectionUpdateStruct->name) : $collection->name, Type::STRING);
+            ->setParameter('name', $name, Type::STRING);
 
         $this->connectionHelper->applyStatusCondition($query, $status);
 
@@ -361,7 +371,7 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $collectionDataRow['status'],
                     'type' => $collectionDataRow['type'],
-                    'name' => $collectionDataRow['type'] === Collection::TYPE_NAMED ?
+                    'name' => (int)$collectionDataRow['type'] === Collection::TYPE_NAMED ?
                         $collectionDataRow['name'] . ' (copy) ' . crc32(microtime()) :
                         $collectionDataRow['name'],
                 ),
@@ -468,7 +478,8 @@ class CollectionHandler implements CollectionHandlerInterface
                     'type' => $collectionItem->type,
                     'value_id' => $collectionItem->valueId,
                     'value_type' => $collectionItem->valueType,
-                )
+                ),
+                $collectionItem->id
             );
 
             $itemQuery->execute();
@@ -484,7 +495,8 @@ class CollectionHandler implements CollectionHandlerInterface
                     'identifier' => $collectionQuery->identifier,
                     'type' => $collectionQuery->type,
                     'parameters' => $collectionQuery->parameters,
-                )
+                ),
+                $collectionQuery->id
             );
 
             $queryQuery->execute();
@@ -747,6 +759,9 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function deleteItem($itemId, $status)
     {
+        $item = $this->loadItem($itemId, $status);
+        $collection = $this->loadCollection($item->collectionId, $status);
+
         $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_collection_item')
@@ -758,6 +773,16 @@ class CollectionHandler implements CollectionHandlerInterface
         $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
+
+        if ($collection->type === Collection::TYPE_MANUAL) {
+            $this->positionHelper->removePosition(
+                $this->getPositionHelperItemConditions(
+                    $item->collectionId,
+                    $status
+                ),
+                $item->position
+            );
+        }
     }
 
     /**
@@ -916,6 +941,8 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function deleteQuery($queryId, $status)
     {
+        $originalQuery = $this->loadQuery($queryId, $status);
+
         $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_collection_query')
@@ -927,6 +954,14 @@ class CollectionHandler implements CollectionHandlerInterface
         $this->connectionHelper->applyStatusCondition($query, $status);
 
         $query->execute();
+
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperQueryConditions(
+                $originalQuery->collectionId,
+                $status
+            ),
+            $originalQuery->position
+        );
     }
 
     /**
@@ -997,7 +1032,7 @@ class CollectionHandler implements CollectionHandlerInterface
             )
             ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('type', $parameters['type'], Type::INTEGER)
-            ->setParameter('name', trim($parameters['name']), Type::STRING);
+            ->setParameter('name', $parameters['name'], Type::STRING);
     }
 
     /**
@@ -1032,7 +1067,7 @@ class CollectionHandler implements CollectionHandlerInterface
             ->setParameter('position', $parameters['position'], Type::INTEGER)
             ->setParameter('type', $parameters['type'], Type::INTEGER)
             ->setParameter('value_id', $parameters['value_id'], Type::STRING)
-            ->setParameter('value_type', trim($parameters['value_type']), Type::STRING);
+            ->setParameter('value_type', $parameters['value_type'], Type::STRING);
     }
 
     /**
