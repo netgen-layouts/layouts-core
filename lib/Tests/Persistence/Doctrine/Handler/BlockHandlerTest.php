@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Handler;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
@@ -14,7 +14,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     use TestCase;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
      */
     protected $blockHandler;
 
@@ -37,9 +37,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::__construct
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::loadBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::__construct
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockSelectQuery
      */
     public function testLoadBlock()
     {
@@ -63,7 +63,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::loadBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadBlockThrowsNotFoundException()
@@ -72,7 +72,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
      */
     public function testLoadZoneBlocks()
     {
@@ -114,7 +114,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
      */
     public function testLoadZoneBlocksForNonExistingZone()
     {
@@ -122,9 +122,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlock()
     {
@@ -158,9 +158,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlockWithNoPosition()
     {
@@ -191,7 +191,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
@@ -206,7 +206,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
@@ -221,7 +221,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::updateBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlock
      */
     public function testUpdateBlock()
     {
@@ -253,8 +253,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlock()
     {
@@ -279,8 +279,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlockToDifferentZone()
     {
@@ -305,8 +305,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlock()
     {
@@ -334,8 +334,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlockToLowerPosition()
     {
@@ -363,7 +363,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
@@ -372,7 +372,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
@@ -381,8 +381,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlockToZone()
     {
@@ -407,7 +407,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
@@ -416,7 +416,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
@@ -425,8 +425,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testDeleteBlock()
     {

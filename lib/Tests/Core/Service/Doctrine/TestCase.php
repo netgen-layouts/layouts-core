@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase as PersistenceTestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase as PersistenceTestCase;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\LayoutService;

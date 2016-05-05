@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine;
+namespace Netgen\BlockManager\Persistence\Doctrine;
 
 use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;

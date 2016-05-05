@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Mapper;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 
 class BlockMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
      */
     protected $mapper;
 
@@ -19,7 +19,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
      */
     public function testMapBlocks()
     {

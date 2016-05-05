@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Mapper;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\Core\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
@@ -12,7 +12,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query;
 class CollectionMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
      */
     protected $mapper;
 
@@ -22,7 +22,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
      */
     public function testMapLayouts()
     {
@@ -64,7 +64,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper::mapItems
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapItems
      */
     public function testMapItems()
     {
@@ -118,7 +118,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
      */
     public function testMapQueries()
     {

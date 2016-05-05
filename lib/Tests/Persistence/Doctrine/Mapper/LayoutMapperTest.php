@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Mapper;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 class LayoutMapperTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
      */
     protected $mapper;
 
@@ -20,7 +20,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
      */
     public function testMapLayouts()
     {
@@ -74,7 +74,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
      */
     public function testMapZones()
     {

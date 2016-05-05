@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
+namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
@@ -8,9 +8,9 @@ use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Doctrine\DBAL\Connection;
@@ -24,17 +24,17 @@ class CollectionHandler implements CollectionHandlerInterface
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
      */
     protected $connectionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
      */
     protected $positionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
      */
     protected $collectionMapper;
 
@@ -42,9 +42,9 @@ class CollectionHandler implements CollectionHandlerInterface
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper $positionHelper
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper $collectionMapper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper $positionHelper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper $collectionMapper
      */
     public function __construct(
         Connection $connection,

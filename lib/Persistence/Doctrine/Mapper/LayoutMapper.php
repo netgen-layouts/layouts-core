@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Mapper;
+namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;

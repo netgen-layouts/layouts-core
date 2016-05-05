@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+namespace Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Connection;
 
 class Sqlite extends ConnectionHelper

@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
+namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Doctrine\DBAL\Connection;
@@ -19,7 +19,7 @@ class LayoutHandler implements LayoutHandlerInterface
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
      */
     protected $connectionHelper;
 
@@ -29,7 +29,7 @@ class LayoutHandler implements LayoutHandlerInterface
     protected $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
      */
     protected $layoutMapper;
 
@@ -37,9 +37,9 @@ class LayoutHandler implements LayoutHandlerInterface
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
-     * @param \Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
      */
     public function __construct(
         Connection $connection,

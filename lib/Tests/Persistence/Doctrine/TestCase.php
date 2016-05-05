@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Handler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
 
 trait TestCase

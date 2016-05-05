@@ -1,13 +1,13 @@
 parameters:
-    netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler
-    netgen_block_manager.persistence.doctrine.helper.connection.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helper\ConnectionHelper
-    netgen_block_manager.persistence.doctrine.helper.position.class: Netgen\BlockManager\Core\Persistence\Doctrine\Helper\PositionHelper
+    netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler
+    netgen_block_manager.persistence.doctrine.helper.connection.class: Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
+    netgen_block_manager.persistence.doctrine.helper.position.class: Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
 
-    netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\LayoutMapper
-    netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler
+    netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
+    netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
 
-    netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Core\Persistence\Doctrine\Mapper\BlockMapper
-    netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler
+    netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
+    netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
 
     netgen_block_manager.api.layout.core.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
     netgen_block_manager.api.layout.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper

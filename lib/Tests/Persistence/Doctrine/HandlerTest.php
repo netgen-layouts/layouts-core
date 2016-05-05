@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler;
-use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Doctrine\DBAL\Connection;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
@@ -29,8 +29,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::__construct
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::getLayoutHandler
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::__construct
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getLayoutHandler
      */
     public function testGetLayoutHandler()
     {
@@ -43,7 +43,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::getBlockHandler
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getBlockHandler
      */
     public function testGetBlockHandler()
     {
@@ -56,7 +56,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::getCollectionHandler
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getCollectionHandler
      */
     public function testGetCollectionHandler()
     {
@@ -69,7 +69,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::beginTransaction
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::beginTransaction
      */
     public function testBeginTransaction()
     {
@@ -93,7 +93,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::commitTransaction
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::commitTransaction
      */
     public function testCommitTransaction()
     {
@@ -117,7 +117,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::rollbackTransaction
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::rollbackTransaction
      */
     public function testRollbackTransaction()
     {

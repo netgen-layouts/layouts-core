@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine\Handler;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Tests\Core\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
@@ -20,7 +20,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     use TestCase;
 
     /**
-     * @var \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
      */
     protected $collectionHandler;
 
@@ -43,10 +43,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::__construct
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::__construct
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionSelectQuery
      */
     public function testLoadCollection()
     {
@@ -64,9 +64,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionSelectQuery
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadCollectionThrowsNotFoundException()
@@ -75,7 +75,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadNamedCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadNamedCollections
      */
     public function testLoadNamedCollections()
     {
@@ -90,7 +90,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadNamedCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadNamedCollections
      */
     public function testLoadNamedCollectionsInNonExistentStatus()
     {
@@ -100,8 +100,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemSelectQuery
      */
     public function testLoadItem()
     {
@@ -122,8 +122,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemSelectQuery
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadItemThrowsNotFoundException()
@@ -132,8 +132,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
      */
     public function testLoadCollectionItems()
     {
@@ -147,8 +147,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
      */
     public function testLoadCollectionItemsForNonExistentCollection()
     {
@@ -158,8 +158,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQuerySelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuerySelectQuery
      */
     public function testLoadQuery()
     {
@@ -180,8 +180,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQuerySelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuerySelectQuery
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testLoadQueryThrowsNotFoundException()
@@ -190,8 +190,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueries
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueries
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
      */
     public function testLoadCollectionQueries()
     {
@@ -205,8 +205,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueries
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueries
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
      */
     public function testLoadCollectionQueriesForNonExistentCollection()
     {
@@ -216,7 +216,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
      */
     public function testCollectionExists()
     {
@@ -224,7 +224,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
      */
     public function testCollectionNotExists()
     {
@@ -232,7 +232,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
      */
     public function testCollectionNotExistsInStatus()
     {
@@ -240,7 +240,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
      */
     public function testNamedCollectionExists()
     {
@@ -248,7 +248,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
      */
     public function testNamedCollectionNotExists()
     {
@@ -256,7 +256,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
      */
     public function testNamedCollectionNotExistsInStatus()
     {
@@ -264,8 +264,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollection
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
      */
     public function testCreateCollection()
     {
@@ -285,8 +285,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollection
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
      */
     public function testCreateNamedCollection()
     {
@@ -306,7 +306,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
      */
     public function testUpdateCollection()
     {
@@ -328,7 +328,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
      */
     public function testUpdateNamedCollection()
     {
@@ -350,13 +350,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      */
     public function testCopyCollection()
     {
@@ -427,13 +427,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      */
     public function testCopyNamedCollection()
     {
@@ -448,10 +448,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      */
     public function testCreateCollectionStatus()
     {
@@ -522,10 +522,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::updateCollectionStatus
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollectionStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      */
     public function testUpdateCollectionStatus()
     {
@@ -603,7 +603,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteCollection()
@@ -614,7 +614,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteCollectionInOneStatus()
@@ -632,7 +632,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::itemExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemExists
      */
     public function testItemExists()
     {
@@ -640,7 +640,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::itemExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemExists
      */
     public function testItemNotExists()
     {
@@ -648,7 +648,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::itemExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemExists
      */
     public function testItemNotExistsInStatus()
     {
@@ -656,8 +656,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
      */
     public function testAddItem()
     {
@@ -686,8 +686,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
      */
     public function testAddItemWithNoPosition()
     {
@@ -713,8 +713,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
      */
     public function testAddItemInNonManualCollection()
     {
@@ -740,8 +740,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testAddItemThrowsBadStateExceptionOnNegativePosition()
@@ -755,8 +755,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemInsertQuery
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition()
@@ -770,8 +770,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      */
     public function testMoveItem()
     {
@@ -795,8 +795,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      */
     public function testMoveItemToLowerPosition()
     {
@@ -820,8 +820,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      */
     public function testMoveItemInNonManualCollection()
     {
@@ -842,8 +842,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition()
@@ -852,8 +852,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition()
@@ -862,8 +862,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      */
     public function testDeleteItem()
     {
@@ -881,7 +881,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
      */
     public function testDeleteItemInNonManualCollection()
     {
@@ -899,7 +899,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
      */
     public function testQueryExists()
     {
@@ -907,7 +907,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
      */
     public function testQueryNotExists()
     {
@@ -915,7 +915,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
      */
     public function testQueryNotExistsInStatus()
     {
@@ -923,8 +923,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      */
     public function testAddQuery()
     {
@@ -953,8 +953,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      */
     public function testAddQueryWithNoPosition()
     {
@@ -980,8 +980,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testAddQueryThrowsBadStateExceptionOnNegativePosition()
@@ -995,8 +995,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQueryInsertQuery
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testAddQueryThrowsBadStateExceptionOnTooLargePosition()
@@ -1010,7 +1010,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::updateQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQuery
      */
     public function testUpdateQuery()
     {
@@ -1039,8 +1039,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      */
     public function testMoveQuery()
     {
@@ -1064,8 +1064,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      */
     public function testMoveQueryToLowerPosition()
     {
@@ -1089,8 +1089,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveQueryThrowsBadStateExceptionOnNegativePosition()
@@ -1099,8 +1099,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testMoveQueryThrowsBadStateExceptionOnTooLargePosition()
@@ -1109,8 +1109,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      */
     public function testDeleteQuery()
     {
