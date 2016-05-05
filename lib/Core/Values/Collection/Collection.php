@@ -30,7 +30,7 @@ class Collection extends APICollection
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    protected $items;
+    protected $items = array();
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item[]
@@ -45,14 +45,14 @@ class Collection extends APICollection
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query[]
      */
-    protected $queries;
+    protected $queries = array();
 
     /**
      * Constructor.
      *
      * @param array $properties
      */
-    public function __construct(array $properties)
+    public function __construct(array $properties = array())
     {
         parent::__construct($properties);
 
