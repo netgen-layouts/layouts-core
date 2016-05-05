@@ -361,7 +361,9 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $collectionDataRow['status'],
                     'type' => $collectionDataRow['type'],
-                    'name' => $collectionDataRow['name'],
+                    'name' => $collectionDataRow['type'] === Collection::TYPE_NAMED ?
+                        $collectionDataRow['name'] . ' (copy) ' . crc32(microtime()) :
+                        $collectionDataRow['name'],
                 ),
                 $insertedCollectionId
             );
