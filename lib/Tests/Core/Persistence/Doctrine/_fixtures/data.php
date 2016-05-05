@@ -31,4 +31,27 @@ return array(
         array('id' => 3, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 0, 'definition_identifier' => 'paragraph', 'view_type' => 'large', 'name' => 'My third block', 'parameters' => '{"test_param": "test_value"}'),
         array('id' => 4, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
     ),
+    'ngbm_collection' => array(
+        array('id' => 1, 'status' => 1, 'type' => 0, 'name' => null),
+        array('id' => 2, 'status' => 1, 'type' => 1, 'name' => null),
+        array('id' => 3, 'status' => 1, 'type' => 2, 'name' => 'My collection'),
+    ),
+    'ngbm_collection_item' => array(
+        array('id' => 1, 'status' => 1, 'collection_id' => 1, 'position' => 0, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),
+        array('id' => 2, 'status' => 1, 'collection_id' => 1, 'position' => 1, 'type' => 0, 'value_id' => '71', 'value_type' => 'ezcontent'),
+        array('id' => 3, 'status' => 1, 'collection_id' => 1, 'position' => 2, 'type' => 0, 'value_id' => '72', 'value_type' => 'ezcontent'),
+        array('id' => 4, 'status' => 1, 'collection_id' => 2, 'position' => 1, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),
+        array('id' => 5, 'status' => 1, 'collection_id' => 2, 'position' => 2, 'type' => 0, 'value_id' => '71', 'value_type' => 'ezcontent'),
+        array('id' => 6, 'status' => 1, 'collection_id' => 2, 'position' => 5, 'type' => 1, 'value_id' => '72', 'value_type' => 'ezcontent'),
+        array('id' => 7, 'status' => 1, 'collection_id' => 3, 'position' => 2, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),
+        array('id' => 8, 'status' => 1, 'collection_id' => 3, 'position' => 3, 'type' => 0, 'value_id' => '71', 'value_type' => 'ezcontent'),
+        array('id' => 9, 'status' => 1, 'collection_id' => 3, 'position' => 5, 'type' => 0, 'value_id' => '72', 'value_type' => 'ezcontent'),
+        array('id' => 10, 'status' => 1, 'collection_id' => 3, 'position' => 7, 'type' => 1, 'value_id' => '154', 'value_type' => 'ezcontent'),
+        array('id' => 11, 'status' => 1, 'collection_id' => 3, 'position' => 8, 'type' => 1, 'value_id' => '155', 'value_type' => 'ezcontent'),
+    ),
+    'ngbm_collection_query' => array(
+        array('id' => 1, 'status' => 1, 'collection_id' => 2, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{}'),
+        array('id' => 2, 'status' => 1, 'collection_id' => 3, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{}'),
+        array('id' => 3, 'status' => 1, 'collection_id' => 3, 'position' => 1, 'identifier' => 'featured', 'type' => 'ezcontent_search', 'parameters' => '{}'),
+    ),
 );
