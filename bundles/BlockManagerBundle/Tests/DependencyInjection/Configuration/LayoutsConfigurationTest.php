@@ -444,7 +444,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyAllowedBlockItem()
+    public function testLayoutSettingsWithEmptyAllowedBlockTypesItem()
     {
         $config = array(
             'layouts' => array(
@@ -467,7 +467,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidAllowedBlockItem()
+    public function testLayoutSettingsWithInvalidAllowedBlockTypeItem()
     {
         $config = array(
             'layouts' => array(
