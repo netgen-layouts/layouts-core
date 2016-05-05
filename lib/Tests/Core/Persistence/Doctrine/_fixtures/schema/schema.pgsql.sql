@@ -29,6 +29,36 @@ CREATE TABLE "ngbm_block" (
   "parameters" text NOT NULL
 );
 
+DROP TABLE IF EXISTS "ngbm_collection";
+CREATE TABLE "ngbm_collection" (
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "type" integer NOT NULL,
+  "name" character varying(255)
+);
+
+DROP TABLE IF EXISTS "ngbm_collection_item";
+CREATE TABLE "ngbm_collection_item" (
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "collection_id" integer NOT NULL,
+  "position" integer NOT NULL,
+  "type" integer NOT NULL,
+  "value_id" character varying(255) NOT NULL,
+  "value_type" character varying(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS "ngbm_collection_query";
+CREATE TABLE "ngbm_collection_query" (
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "collection_id" integer NOT NULL,
+  "position" integer NOT NULL,
+  "identifier" character varying(255) NOT NULL,
+  "type" character varying(255) NOT NULL,
+  "parameters" text NOT NULL
+);
+
 DROP SEQUENCE IF EXISTS ngbm_layout_id_seq;
 CREATE SEQUENCE ngbm_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_layout ALTER COLUMN id SET DEFAULT nextval('ngbm_layout_id_seq'::regclass);
@@ -40,3 +70,18 @@ DROP SEQUENCE IF EXISTS ngbm_block_id_seq;
 CREATE SEQUENCE ngbm_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_block ALTER COLUMN id SET DEFAULT nextval('ngbm_block_id_seq'::regclass);
 ALTER TABLE ONLY ngbm_block ADD CONSTRAINT ngbm_block_pkey PRIMARY KEY ("id", "status");
+
+DROP SEQUENCE IF EXISTS ngbm_collection_id_seq;
+CREATE SEQUENCE ngbm_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY ngbm_collection ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_id_seq'::regclass);
+ALTER TABLE ONLY ngbm_collection ADD CONSTRAINT ngbm_collection_pkey PRIMARY KEY ("id", "status");
+
+DROP SEQUENCE IF EXISTS ngbm_collection_item_id_seq;
+CREATE SEQUENCE ngbm_collection_item_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY ngbm_collection_item ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_item_id_seq'::regclass);
+ALTER TABLE ONLY ngbm_collection_item ADD CONSTRAINT ngbm_collection_item_pkey PRIMARY KEY ("id", "status");
+
+DROP SEQUENCE IF EXISTS ngbm_collection_query_id_seq;
+CREATE SEQUENCE ngbm_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY ngbm_collection_query ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_query_id_seq'::regclass);
+ALTER TABLE ONLY ngbm_collection_query ADD CONSTRAINT ngbm_collection_query_pkey PRIMARY KEY ("id", "status");

@@ -31,3 +31,36 @@ CREATE TABLE `ngbm_block` (
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`, `status`)
 );
+
+DROP TABLE IF EXISTS `ngbm_collection`;
+CREATE TABLE `ngbm_collection` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `type` integer NOT NULL,
+  `name` text(255) DEFAULT NULL,
+  PRIMARY KEY (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_collection_item`;
+CREATE TABLE `ngbm_collection_item` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `collection_id` integer NOT NULL,
+  `position` integer NOT NULL,
+  `type` integer NOT NULL,
+  `value_id` text(255) NOT NULL,
+  `value_type` text(255) NOT NULL,
+  PRIMARY KEY (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_collection_query`;
+CREATE TABLE `ngbm_collection_query` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `collection_id` integer NOT NULL,
+  `position` integer NOT NULL,
+  `identifier` text(255) NOT NULL,
+  `type` text(255) NOT NULL,
+  `parameters` text NOT NULL,
+  PRIMARY KEY (`id`, `status`)
+);
