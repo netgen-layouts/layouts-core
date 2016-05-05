@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
+use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 
 class Collection extends APICollection
 {
@@ -29,17 +30,40 @@ class Collection extends APICollection
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    protected $manualItems;
+    protected $items;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    protected $overrideItems;
+    protected $manualItems = array();
+
+    /**
+     * @var \Netgen\BlockManager\API\Values\Collection\Item[]
+     */
+    protected $overrideItems = array();
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query[]
      */
     protected $queries;
+
+    /**
+     * Constructor.
+     *
+     * @param array $properties
+     */
+    public function __construct(array $properties)
+    {
+        parent::__construct($properties);
+
+        foreach ($this->items as $item) {
+            if ($item->getType() === APIItem::TYPE_MANUAL) {
+                $this->manualItems[$item->getPosition()] = $item;
+            } else {
+                $this->overrideItems[$item->getPosition()] = $item;
+            }
+        }
+    }
 
     /**
      * Returns the collection ID.
@@ -79,6 +103,16 @@ class Collection extends APICollection
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns all collection items.
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 
     /**

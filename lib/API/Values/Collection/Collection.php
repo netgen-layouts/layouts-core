@@ -70,6 +70,13 @@ abstract class Collection extends Value
     abstract public function getName();
 
     /**
+     * Returns all collection items.
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
+     */
+    abstract public function getItems();
+
+    /**
      * Returns the list of items manually added to the collection.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]

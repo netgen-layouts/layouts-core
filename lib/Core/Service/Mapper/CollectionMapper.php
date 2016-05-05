@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -26,14 +25,9 @@ class CollectionMapper extends Mapper
             $collection->status
         );
 
-        $manualItems = array();
-        $overrideItems = array();
+        $items = array();
         foreach ($persistenceItems as $persistenceItem) {
-            if ($persistenceItem->type === APIItem::TYPE_MANUAL) {
-                $manualItems[] = $this->mapItem($persistenceItem);
-            } else {
-                $overrideItems[] = $this->mapItem($persistenceItem);
-            }
+            $items[] = $this->mapItem($persistenceItem);
         }
 
         $persistenceQueries = $this->persistenceHandler->getCollectionHandler()->loadCollectionQueries(
@@ -52,8 +46,7 @@ class CollectionMapper extends Mapper
                 'status' => $collection->status,
                 'type' => $collection->type,
                 'name' => $collection->name,
-                'manualItems' => $manualItems,
-                'overrideItems' => $overrideItems,
+                'items' => $items,
                 'queries' => $queries,
             )
         );
