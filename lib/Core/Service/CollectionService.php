@@ -380,28 +380,28 @@ class CollectionService implements APICollectionService
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
     {
-        if ($position !== null) {
-            $this->collectionValidator->validatePosition($position, 'position');
-        }
-
-        if ($collection->getType() !== Collection::TYPE_MANUAL && $position === null) {
-            throw new InvalidArgumentException('position', 'Position must be set for non manual collections.');
-        }
-
         if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('collection', 'Items can only be created in (temporary) draft collections.');
         }
 
-        if ($collection->getType() !== Collection::TYPE_MANUAL) {
-            if ($this->collectionHandler->itemExists($collection->getId(), $collection->getStatus(), $position)) {
-                throw new BadStateException('position', 'Item already exists on that position.');
-            }
+        if ($position !== null) {
+            $this->collectionValidator->validatePosition($position, 'position');
         }
 
         $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
 
-        if ($collection->getType() === Collection::TYPE_MANUAL && $itemCreateStruct->type === Item::TYPE_OVERRIDE) {
-            throw new BadStateException('type', 'Override item cannot be added to manual collection.');
+        if ($collection->getType() === Collection::TYPE_MANUAL) {
+            if ($itemCreateStruct->type === Item::TYPE_OVERRIDE) {
+                throw new BadStateException('type', 'Override item cannot be added to manual collection.');
+            }
+        } else {
+            if ($position === null) {
+                throw new InvalidArgumentException('position', 'Position must be set for non manual collections.');
+            }
+
+            if ($this->collectionHandler->itemExists($collection->getId(), $collection->getStatus(), $position)) {
+                throw new BadStateException('position', 'Item already exists on that position.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -435,11 +435,11 @@ class CollectionService implements APICollectionService
      */
     public function moveItem(Item $item, $position)
     {
-        $this->collectionValidator->validatePosition($position, 'position');
-
         if ($item->getStatus() !== Collection::STATUS_DRAFT && $item->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('item', 'Only items in (temporary) draft status can be moved.');
         }
+
+        $this->collectionValidator->validatePosition($position, 'position');
 
         $collection = $this->collectionHandler->loadCollection(
             $item->getCollectionId(),
@@ -514,16 +514,16 @@ class CollectionService implements APICollectionService
      */
     public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
     {
+        if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
+            throw new BadStateException('collection', 'Queries can only be created in (temporary) draft collections.');
+        }
+
         if ($collection->getType() === Collection::TYPE_MANUAL) {
             throw new BadStateException('queryCreateStruct', 'Query cannot be added to manual collection.');
         }
 
         if ($position !== null) {
             $this->collectionValidator->validatePosition($position, 'position');
-        }
-
-        if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('collection', 'Queries can only be created in (temporary) draft collections.');
         }
 
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
@@ -605,11 +605,11 @@ class CollectionService implements APICollectionService
      */
     public function moveQuery(Query $query, $position)
     {
-        $this->collectionValidator->validatePosition($position, 'position');
-
         if ($query->getStatus() !== Collection::STATUS_DRAFT && $query->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
             throw new BadStateException('query', 'Only queries in (temporary) draft status can be moved.');
         }
+
+        $this->collectionValidator->validatePosition($position, 'position');
 
         $this->persistenceHandler->beginTransaction();
 
