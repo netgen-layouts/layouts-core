@@ -8,6 +8,11 @@ use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry;
 class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface
+     */
+    protected $blockDefinition;
+
+    /**
      * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistry
      */
     protected $registry;
@@ -15,6 +20,9 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->registry = new BlockDefinitionRegistry();
+
+        $this->blockDefinition = new BlockDefinition();
+        $this->registry->addBlockDefinition($this->blockDefinition);
     }
 
     /**
@@ -23,10 +31,7 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddBlockDefinition()
     {
-        $blockDefinition = new BlockDefinition();
-        $this->registry->addBlockDefinition($blockDefinition);
-
-        self::assertEquals(array('block_definition' => $blockDefinition), $this->registry->getBlockDefinitions());
+        self::assertEquals(array('block_definition' => $this->blockDefinition), $this->registry->getBlockDefinitions());
     }
 
     /**
@@ -34,10 +39,7 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBlockDefinition()
     {
-        $blockDefinition = new BlockDefinition();
-        $this->registry->addBlockDefinition($blockDefinition);
-
-        self::assertEquals($blockDefinition, $this->registry->getBlockDefinition('block_definition'));
+        self::assertEquals($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
     }
 
     /**
@@ -46,9 +48,6 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBlockDefinitionThrowsInvalidArgumentException()
     {
-        $blockDefinition = new BlockDefinition();
-        $this->registry->addBlockDefinition($blockDefinition);
-
         $this->registry->getBlockDefinition('title');
     }
 
@@ -57,9 +56,6 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasBlockDefinition()
     {
-        $blockDefinition = new BlockDefinition();
-        $this->registry->addBlockDefinition($blockDefinition);
-
         self::assertTrue($this->registry->hasBlockDefinition('block_definition'));
     }
 
@@ -68,9 +64,6 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasBlockDefinitionWithNoBlockDefinition()
     {
-        $blockDefinition = new BlockDefinition();
-        $this->registry->addBlockDefinition($blockDefinition);
-
         self::assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
     }
 }
