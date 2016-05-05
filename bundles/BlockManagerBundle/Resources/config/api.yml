@@ -9,13 +9,13 @@ parameters:
     netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
     netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
 
-    netgen_block_manager.api.layout.core.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
-    netgen_block_manager.api.layout.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
-    netgen_block_manager.api.layout.core.service.class: Netgen\BlockManager\Core\Service\LayoutService
+    netgen_block_manager.core.service.layout.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
+    netgen_block_manager.core.service.layout.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+    netgen_block_manager.core.service.layout.class: Netgen\BlockManager\Core\Service\LayoutService
 
-    netgen_block_manager.api.block.core.validator.class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
-    netgen_block_manager.api.block.core.mapper.class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
-    netgen_block_manager.api.block.core.service.class: Netgen\BlockManager\Core\Service\BlockService
+    netgen_block_manager.core.service.block.validator.class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
+    netgen_block_manager.core.service.block.mapper.class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
+    netgen_block_manager.core.service.block.class: Netgen\BlockManager\Core\Service\BlockService
 
 services:
     netgen_block_manager.persistence.doctrine.handler:
@@ -61,51 +61,51 @@ services:
 
     # Layout related APIs
 
-    netgen_block_manager.api.layout.core.validator:
-        class: "%netgen_block_manager.api.layout.core.validator.class%"
+    netgen_block_manager.core.service.layout.validator:
+        class: "%netgen_block_manager.core.service.layout.validator.class%"
         arguments:
             - "@validator"
 
-    netgen_block_manager.api.layout.core.mapper:
-        class: "%netgen_block_manager.api.layout.core.mapper.class%"
+    netgen_block_manager.core.service.layout.mapper:
+        class: "%netgen_block_manager.core.service.layout.mapper.class%"
         arguments:
-            - "@netgen_block_manager.api.block.core.mapper"
+            - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.persistence.handler"
 
-    netgen_block_manager.api.layout.core.service:
-        class: "%netgen_block_manager.api.layout.core.service.class%"
+    netgen_block_manager.core.service.layout:
+        class: "%netgen_block_manager.core.service.layout.class%"
         arguments:
-            - "@netgen_block_manager.api.layout.core.validator"
-            - "@netgen_block_manager.api.layout.core.mapper"
+            - "@netgen_block_manager.core.service.layout.validator"
+            - "@netgen_block_manager.core.service.layout.mapper"
             - "@netgen_block_manager.persistence.handler"
 
     # Block related APIs
 
-    netgen_block_manager.api.block.core.validator:
-        class: "%netgen_block_manager.api.block.core.validator.class%"
+    netgen_block_manager.core.service.block.validator:
+        class: "%netgen_block_manager.core.service.block.validator.class%"
         arguments:
             - "@validator"
             - "@netgen_block_manager.block_definition.registry"
 
-    netgen_block_manager.api.block.core.mapper:
-        class: "%netgen_block_manager.api.block.core.mapper.class%"
+    netgen_block_manager.core.service.block.mapper:
+        class: "%netgen_block_manager.core.service.block.mapper.class%"
         arguments:
             - "@netgen_block_manager.persistence.handler"
 
-    netgen_block_manager.api.block.core.service:
-        class: "%netgen_block_manager.api.block.core.service.class%"
+    netgen_block_manager.core.service.block:
+        class: "%netgen_block_manager.core.service.block.class%"
         arguments:
-            - "@netgen_block_manager.api.block.core.validator"
-            - "@netgen_block_manager.api.block.core.mapper"
+            - "@netgen_block_manager.core.service.block.validator"
+            - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.persistence.handler"
 
     # Service aliases
 
     netgen_block_manager.api.service.layout:
-        alias: netgen_block_manager.api.layout.core.service
+        alias: netgen_block_manager.core.service.layout
 
     netgen_block_manager.api.service.block:
-        alias: netgen_block_manager.api.block.core.service
+        alias: netgen_block_manager.core.service.block
 
     netgen_block_manager.persistence.handler:
         alias: netgen_block_manager.persistence.doctrine.handler
