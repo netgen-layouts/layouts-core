@@ -70,20 +70,9 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function loadCollection($collectionId, $status)
     {
-        $query = $this->createCollectionSelectQuery();
-        $query->where(
-            $query->expr()->eq('id', ':id')
-        )
-        ->setParameter('id', $collectionId, Type::INTEGER);
-
-        $this->connectionHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-        if (empty($data)) {
-            throw new NotFoundException('collection', $collectionId);
-        }
-
-        $data = $this->collectionMapper->mapCollections($data);
+        $data = $this->collectionMapper->mapCollections(
+            $this->loadCollectionData($collectionId, $status)
+        );
 
         return reset($data);
     }
@@ -191,21 +180,9 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function loadCollectionItems($collectionId, $status)
     {
-        $query = $this->createItemSelectQuery();
-        $query->where(
-            $query->expr()->eq('collection_id', ':collection_id')
-        )
-        ->orderBy('position', 'ASC')
-        ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        $this->connectionHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-        if (empty($data)) {
-            return array();
-        }
-
-        return $this->collectionMapper->mapItems($data);
+        return $this->collectionMapper->mapItems(
+            $this->loadCollectionItemsData($collectionId, $status)
+        );
     }
 
     /**
@@ -248,21 +225,9 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function loadCollectionQueries($collectionId, $status)
     {
-        $query = $this->createQuerySelectQuery();
-        $query->where(
-            $query->expr()->eq('collection_id', ':collection_id')
-        )
-        ->orderBy('position', 'ASC')
-        ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        $this->connectionHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-        if (empty($data)) {
-            return array();
-        }
-
-        return $this->collectionMapper->mapQueries($data);
+        return $this->collectionMapper->mapQueries(
+            $this->loadCollectionQueriesData($collectionId, $status)
+        );
     }
 
     /**
@@ -386,6 +351,85 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function copyCollection($collectionId)
     {
+        // First copy collection data
+
+        $collectionData = $this->loadCollectionData($collectionId);
+        $insertedCollectionId = null;
+
+        foreach ($collectionData as $collectionDataRow) {
+            $query = $this->createCollectionInsertQuery(
+                array(
+                    'status' => $collectionDataRow['status'],
+                    'type' => $collectionDataRow['type'],
+                    'name' => $collectionDataRow['name'],
+                ),
+                $insertedCollectionId
+            );
+
+            $query->execute();
+
+            $insertedCollectionId = (int)$this->connectionHelper->lastInsertId('ngbm_collection');
+        }
+
+        // Then copy collection item data
+
+        $collectionItemData = $this->loadCollectionItemsData($collectionId);
+        $insertedItemId = null;
+        $lastKnownItemId = null;
+
+        foreach ($collectionItemData as $collectionItemDataRow) {
+            if ($lastKnownItemId !== $collectionItemDataRow['id']) {
+                $insertedItemId = null;
+            }
+
+            $query = $this->createItemInsertQuery(
+                array(
+                    'status' => $collectionItemDataRow['status'],
+                    'collection_id' => $insertedCollectionId,
+                    'position' => $collectionItemDataRow['position'],
+                    'type' => $collectionItemDataRow['type'],
+                    'value_id' => $collectionItemDataRow['value_id'],
+                    'value_type' => $collectionItemDataRow['value_type'],
+                ),
+                $insertedItemId
+            );
+
+            $query->execute();
+
+            $lastKnownItemId = $collectionItemDataRow['id'];
+            $insertedItemId = (int)$this->connectionHelper->lastInsertId('ngbm_collection_item');
+        }
+
+        // Then copy collection query data
+
+        $collectionQueryData = $this->loadCollectionQueriesData($collectionId);
+        $insertedQueryId = null;
+        $lastKnownQueryId = null;
+
+        foreach ($collectionQueryData as $collectionQueryDataRow) {
+            if ($lastKnownQueryId !== $collectionQueryDataRow['id']) {
+                $insertedQueryId = null;
+            }
+
+            $query = $this->createQueryInsertQuery(
+                array(
+                'status' => $collectionQueryDataRow['status'],
+                'collection_id' => $insertedCollectionId,
+                'position' => $collectionQueryDataRow['position'],
+                'identifier' => $collectionQueryDataRow['identifier'],
+                'type' => $collectionQueryDataRow['type'],
+                'parameters' => $collectionQueryDataRow['parameters'],
+                ),
+                $insertedQueryId
+            );
+
+            $query->execute();
+
+            $lastKnownQueryId = $collectionQueryDataRow['id'];
+            $insertedQueryId = (int)$this->connectionHelper->lastInsertId('ngbm_collection_query');
+        }
+
+        return $this->loadCollection($insertedCollectionId, Collection::STATUS_PUBLISHED);
     }
 
     /**
@@ -1062,5 +1106,93 @@ class CollectionHandler implements CollectionHandlerInterface
                 'status' => $status,
             ),
         );
+    }
+
+    /**
+     * Loads all collection data for collection with specified ID.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
+     *
+     * @return array
+     */
+    protected function loadCollectionData($collectionId, $status = null)
+    {
+        $query = $this->createCollectionSelectQuery();
+        $query->where(
+            $query->expr()->eq('id', ':id')
+        )
+        ->setParameter('id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->connectionHelper->applyStatusCondition($query, $status);
+        }
+
+        $data = $query->execute()->fetchAll();
+        if (empty($data)) {
+            throw new NotFoundException('collection', $collectionId);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Loads all data for items that belong to collection with specified ID.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @return array
+     */
+    protected function loadCollectionItemsData($collectionId, $status = null)
+    {
+        $query = $this->createItemSelectQuery();
+        $query->where(
+            $query->expr()->eq('collection_id', ':collection_id')
+        )
+        ->orderBy('position', 'ASC')
+        ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->connectionHelper->applyStatusCondition($query, $status);
+        }
+
+        $data = $query->execute()->fetchAll();
+        if (empty($data)) {
+            return array();
+        }
+
+        return $data;
+    }
+
+    /**
+     * Loads all data for queries that belong to collection with specified ID.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @return array
+     */
+    protected function loadCollectionQueriesData($collectionId, $status = null)
+    {
+        $query = $this->createQuerySelectQuery();
+        $query->where(
+            $query->expr()->eq('collection_id', ':collection_id')
+        )
+        ->orderBy('position', 'ASC')
+        ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->connectionHelper->applyStatusCondition($query, $status);
+        }
+
+        $data = $query->execute()->fetchAll();
+        if (empty($data)) {
+            return array();
+        }
+
+        return $data;
     }
 }

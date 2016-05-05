@@ -256,6 +256,20 @@ class CollectionService implements APICollectionService
      */
     public function copyCollection(Collection $collection)
     {
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $copiedCollection = $this->collectionHandler->copyCollection(
+                $collection->getId()
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->collectionMapper->mapCollection($copiedCollection);
     }
 
     /**
