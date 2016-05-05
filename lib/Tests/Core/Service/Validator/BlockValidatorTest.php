@@ -46,7 +46,9 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
      */
     public function testValidateBlockCreateStruct()
     {
@@ -96,7 +98,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                     new Constraints\Collection(
                         array(
                             'fields' => array(
-                                'css_class' => new Constraints\Optional(array()),
+                                'css_class' => new Constraints\Required(array()),
                                 'css_id' => new Constraints\Optional(array(new Constraints\NotBlank())),
                             ),
                         )
@@ -122,6 +124,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockUpdateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
      */
     public function testValidateBlockUpdateStruct()
     {

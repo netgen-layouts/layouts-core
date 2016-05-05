@@ -6,9 +6,6 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 class LayoutTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Page\Layout::__construct
-     */
     public function testSetDefaultProperties()
     {
         $layout = new Layout();
@@ -20,10 +17,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertNull($layout->created);
         self::assertNull($layout->modified);
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Page\Layout::__construct
-     */
+    
     public function testSetProperties()
     {
         $layout = new Layout(

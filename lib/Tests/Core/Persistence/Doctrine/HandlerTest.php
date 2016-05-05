@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Tests\Core\Persistence\Doctrine;
 
 use Netgen\BlockManager\Core\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\BlockManager\Core\Persistence\Doctrine\Handler\CollectionHandler;
 use Doctrine\DBAL\Connection;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
@@ -37,6 +39,32 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(
             LayoutHandler::class,
             $handler->getLayoutHandler()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::getBlockHandler
+     */
+    public function testGetBlockHandler()
+    {
+        $handler = $this->createPersistenceHandler();
+
+        self::assertInstanceOf(
+            BlockHandler::class,
+            $handler->getBlockHandler()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Persistence\Doctrine\Handler::getCollectionHandler
+     */
+    public function testGetCollectionHandler()
+    {
+        $handler = $this->createPersistenceHandler();
+
+        self::assertInstanceOf(
+            CollectionHandler::class,
+            $handler->getCollectionHandler()
         );
     }
 

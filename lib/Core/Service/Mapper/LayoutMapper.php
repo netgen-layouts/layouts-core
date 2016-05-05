@@ -7,7 +7,6 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler;
-use DateTime;
 
 class LayoutMapper extends Mapper
 {
@@ -90,20 +89,5 @@ class LayoutMapper extends Mapper
                 'zones' => $zones,
             )
         );
-    }
-
-    /**
-     * Returns \DateTime object from the timestamp.
-     *
-     * @param int $timestamp
-     *
-     * @return \DateTime
-     */
-    protected function createDateTime($timestamp)
-    {
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp((int)$timestamp);
-
-        return $dateTime;
     }
 }

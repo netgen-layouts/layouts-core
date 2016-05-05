@@ -6,9 +6,6 @@ use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 class ZoneTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Page\Zone::__construct
-     */
     public function testSetDefaultProperties()
     {
         $zone = new Zone();
@@ -16,10 +13,7 @@ class ZoneTest extends \PHPUnit_Framework_TestCase
         self::assertNull($zone->identifier);
         self::assertNull($zone->layoutId);
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Page\Zone::__construct
-     */
+    
     public function testSetProperties()
     {
         $zone = new Zone(

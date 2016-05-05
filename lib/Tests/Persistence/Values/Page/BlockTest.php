@@ -6,9 +6,6 @@ use Netgen\BlockManager\Persistence\Values\Page\Block;
 
 class BlockTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Page\Block::__construct
-     */
     public function testSetDefaultProperties()
     {
         $block = new Block();
@@ -23,9 +20,6 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertNull($block->name);
     }
 
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Values\Page\Block::__construct
-     */
     public function testSetProperties()
     {
         $block = new Block(
