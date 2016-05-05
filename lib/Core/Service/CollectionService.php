@@ -473,6 +473,7 @@ class CollectionService implements APICollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
+     *                                                              If query is added to manual collection
      *                                                              If query with specified identifier already exists within the collection
      *                                                              If position is out of range
      *
@@ -480,6 +481,10 @@ class CollectionService implements APICollectionService
      */
     public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
     {
+        if ($collection->getType() === Collection::TYPE_MANUAL) {
+            throw new BadStateException('queryCreateStruct', 'Query cannot be added to manual collection.');
+        }
+
         if ($position !== null) {
             $this->collectionValidator->validatePosition($position, 'position');
         }

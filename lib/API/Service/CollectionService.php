@@ -171,6 +171,7 @@ interface CollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
+     *                                                              If query is added to manual collection
      *                                                              If query with specified identifier already exists within the collection
      *                                                              If position is out of range
      *
