@@ -4,9 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Helper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Type;
 
 class ConnectionHelper
 {

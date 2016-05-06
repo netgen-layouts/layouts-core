@@ -46,6 +46,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getLayoutSelectQuery
      */
     public function testLoadLayout()
@@ -161,6 +162,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
      */
     public function testLoadLayoutZones()
     {
@@ -302,9 +304,87 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZoneBlocksData
      */
     public function testCopyLayout()
     {
+        $copiedLayout = $this->layoutHandler->copyLayout(1);
+
+        self::assertInstanceOf(Layout::class, $copiedLayout);
+
+        self::assertEquals(3, $copiedLayout->id);
+        self::assertNull($copiedLayout->parentId);
+        self::assertEquals('3_zones_a', $copiedLayout->identifier);
+        self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
+        self::assertEquals(APILayout::STATUS_PUBLISHED, $copiedLayout->status);
+
+        self::assertGreaterThan(0, $copiedLayout->created);
+        self::assertGreaterThan(0, $copiedLayout->modified);
+
+        self::assertEquals(
+            array(
+                new Zone(
+                    array(
+                        'identifier' => 'bottom',
+                        'layoutId' => $copiedLayout->id,
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top_left',
+                        'layoutId' => $copiedLayout->id,
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top_right',
+                        'layoutId' => $copiedLayout->id,
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+            ),
+            $this->layoutHandler->loadLayoutZones($copiedLayout->id, APILayout::STATUS_PUBLISHED)
+        );
+
+        self::assertEquals(
+            array(
+                new Block(
+                    array(
+                        'id' => 5,
+                        'layoutId' => $copiedLayout->id,
+                        'zoneIdentifier' => 'top_right',
+                        'position' => 0,
+                        'definitionIdentifier' => 'paragraph',
+                        'parameters' => array(
+                            'some_param' => 'some_value',
+                        ),
+                        'viewType' => 'default',
+                        'name' => 'My block',
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Block(
+                    array(
+                        'id' => 6,
+                        'layoutId' => $copiedLayout->id,
+                        'zoneIdentifier' => 'top_right',
+                        'position' => 1,
+                        'definitionIdentifier' => 'title',
+                        'parameters' => array(
+                            'other_param' => 'other_value',
+                        ),
+                        'viewType' => 'small',
+                        'name' => 'My other block',
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadZoneBlocks($copiedLayout->id, 'top_right', APILayout::STATUS_PUBLISHED)
+        );
     }
 
     /**

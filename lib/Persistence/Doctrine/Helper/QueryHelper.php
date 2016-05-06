@@ -231,7 +231,7 @@ class QueryHelper
             ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
             ->setParameter('view_type', $parameters['view_type'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
+            ->setParameter('parameters', $parameters['parameters'], is_array($parameters['parameters']) ? Type::JSON_ARRAY : Type::STRING);
     }
 
     /**
@@ -330,6 +330,6 @@ class QueryHelper
             ->setParameter('position', $parameters['position'], Type::INTEGER)
             ->setParameter('identifier', $parameters['identifier'], Type::STRING)
             ->setParameter('type', $parameters['type'], Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], Type::JSON_ARRAY);
+            ->setParameter('parameters', $parameters['parameters'], is_array($parameters['parameters']) ? Type::JSON_ARRAY : Type::STRING);
     }
 }

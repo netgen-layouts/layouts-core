@@ -328,10 +328,10 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
     {
-        $collection = $this->loadCollection($collectionId, $status);
+        $collectionData = $this->loadCollectionData($collectionId, $status);
 
-        $name = $collection->name;
-        if ($collection->type === Collection::TYPE_NAMED && $collectionUpdateStruct->name !== null) {
+        $name = $collectionData[0]['name'];
+        if ((int)$collectionData[0]['type'] === Collection::TYPE_NAMED && $collectionUpdateStruct->name !== null) {
             $name = trim($collectionUpdateStruct->name);
         }
 
@@ -383,62 +383,58 @@ class CollectionHandler implements CollectionHandlerInterface
             $insertedCollectionId = (int)$this->connectionHelper->lastInsertId('ngbm_collection');
         }
 
-        // Then copy collection item data
+        // Then copy item data
 
-        $collectionItemData = $this->loadCollectionItemsData($collectionId);
-        $insertedItemId = null;
-        $lastKnownItemId = null;
+        $itemData = $this->loadCollectionItemsData($collectionId);
+        $itemIdMapping = array();
 
-        foreach ($collectionItemData as $collectionItemDataRow) {
-            if ($lastKnownItemId !== $collectionItemDataRow['id']) {
-                $insertedItemId = null;
-            }
-
+        foreach ($itemData as $itemDataRow) {
             $query = $this->queryHelper->getCollectionItemInsertQuery(
                 array(
-                    'status' => $collectionItemDataRow['status'],
+                    'status' => $itemDataRow['status'],
                     'collection_id' => $insertedCollectionId,
-                    'position' => $collectionItemDataRow['position'],
-                    'type' => $collectionItemDataRow['type'],
-                    'value_id' => $collectionItemDataRow['value_id'],
-                    'value_type' => $collectionItemDataRow['value_type'],
+                    'position' => $itemDataRow['position'],
+                    'type' => $itemDataRow['type'],
+                    'value_id' => $itemDataRow['value_id'],
+                    'value_type' => $itemDataRow['value_type'],
                 ),
-                $insertedItemId
+                isset($itemIdMapping[$itemDataRow['id']]) ?
+                    $itemIdMapping[$itemDataRow['id']] :
+                    null
             );
 
             $query->execute();
 
-            $lastKnownItemId = $collectionItemDataRow['id'];
-            $insertedItemId = (int)$this->connectionHelper->lastInsertId('ngbm_collection_item');
+            if (!isset($itemIdMapping[$itemDataRow['id']])) {
+                $itemIdMapping[$itemDataRow['id']] = (int)$this->connectionHelper->lastInsertId('ngbm_collection_item');
+            }
         }
 
         // Then copy collection query data
 
-        $collectionQueryData = $this->loadCollectionQueriesData($collectionId);
-        $insertedQueryId = null;
-        $lastKnownQueryId = null;
+        $queryData = $this->loadCollectionQueriesData($collectionId);
+        $queryIdMapping = array();
 
-        foreach ($collectionQueryData as $collectionQueryDataRow) {
-            if ($lastKnownQueryId !== $collectionQueryDataRow['id']) {
-                $insertedQueryId = null;
-            }
-
+        foreach ($queryData as $queryDataRow) {
             $query = $this->queryHelper->getCollectionQueryInsertQuery(
                 array(
-                'status' => $collectionQueryDataRow['status'],
-                'collection_id' => $insertedCollectionId,
-                'position' => $collectionQueryDataRow['position'],
-                'identifier' => $collectionQueryDataRow['identifier'],
-                'type' => $collectionQueryDataRow['type'],
-                'parameters' => $collectionQueryDataRow['parameters'],
+                    'status' => $queryDataRow['status'],
+                    'collection_id' => $insertedCollectionId,
+                    'position' => $queryDataRow['position'],
+                    'identifier' => $queryDataRow['identifier'],
+                    'type' => $queryDataRow['type'],
+                    'parameters' => $queryDataRow['parameters'],
                 ),
-                $insertedQueryId
+                isset($queryIdMapping[$queryDataRow['id']]) ?
+                    $queryIdMapping[$queryDataRow['id']] :
+                    null
             );
 
             $query->execute();
 
-            $lastKnownQueryId = $collectionQueryDataRow['id'];
-            $insertedQueryId = (int)$this->connectionHelper->lastInsertId('ngbm_collection_query');
+            if (!isset($queryIdMapping[$queryDataRow['id']])) {
+                $queryIdMapping[$queryDataRow['id']] = (int)$this->connectionHelper->lastInsertId('ngbm_collection_query');
+            }
         }
 
         return $this->loadCollection($insertedCollectionId, Collection::STATUS_PUBLISHED);
@@ -455,54 +451,54 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollectionStatus($collectionId, $status, $newStatus)
     {
-        $collection = $this->loadCollection($collectionId, $status);
+        $collectionData = $this->loadCollectionData($collectionId, $status);
 
         $query = $this->queryHelper->getCollectionInsertQuery(
             array(
                 'status' => $newStatus,
-                'type' => $collection->type,
-                'name' => $collection->name,
+                'type' => $collectionData[0]['type'],
+                'name' => $collectionData[0]['name'],
             ),
-            $collection->id
+            $collectionData[0]['id']
         );
 
         $query->execute();
 
-        $collectionItems = $this->loadCollectionItems($collection->id, $status);
-        foreach ($collectionItems as $collectionItem) {
+        $itemData = $this->loadCollectionItemsData($collectionData[0]['id'], $status);
+        foreach ($itemData as $itemDataRow) {
             $itemQuery = $this->queryHelper->getCollectionItemInsertQuery(
                 array(
                     'status' => $newStatus,
-                    'collection_id' => $collection->id,
-                    'position' => $collectionItem->position,
-                    'type' => $collectionItem->type,
-                    'value_id' => $collectionItem->valueId,
-                    'value_type' => $collectionItem->valueType,
+                    'collection_id' => $itemDataRow['collection_id'],
+                    'position' => $itemDataRow['position'],
+                    'type' => $itemDataRow['type'],
+                    'value_id' => $itemDataRow['value_id'],
+                    'value_type' => $itemDataRow['value_type'],
                 ),
-                $collectionItem->id
+                $itemDataRow['id']
             );
 
             $itemQuery->execute();
         }
 
-        $collectionQueries = $this->loadCollectionQueries($collection->id, $status);
-        foreach ($collectionQueries as $collectionQuery) {
+        $queryData = $this->loadCollectionQueriesData($collectionData[0]['id'], $status);
+        foreach ($queryData as $queryDataRow) {
             $queryQuery = $this->queryHelper->getCollectionQueryInsertQuery(
                 array(
                     'status' => $newStatus,
-                    'collection_id' => $collection->id,
-                    'position' => $collectionQuery->position,
-                    'identifier' => $collectionQuery->identifier,
-                    'type' => $collectionQuery->type,
-                    'parameters' => $collectionQuery->parameters,
+                    'collection_id' => $queryDataRow['collection_id'],
+                    'position' => $queryDataRow['position'],
+                    'identifier' => $queryDataRow['identifier'],
+                    'type' => $queryDataRow['type'],
+                    'parameters' => $queryDataRow['parameters'],
                 ),
-                $collectionQuery->id
+                $queryDataRow['id']
             );
 
             $queryQuery->execute();
         }
 
-        return $this->loadCollection($collection->id, $newStatus);
+        return $this->loadCollection($collectionData[0]['id'], $newStatus);
     }
 
     /**
@@ -673,9 +669,9 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position = null)
     {
-        $collection = $this->loadCollection($collectionId, $status);
+        $collectionData = $this->loadCollectionData($collectionId, $status);
 
-        if ($collection->type === Collection::TYPE_MANUAL) {
+        if ((int)$collectionData[0]['type'] === Collection::TYPE_MANUAL) {
             $position = $this->positionHelper->createPosition(
                 $this->getPositionHelperItemConditions(
                     $collectionId,
@@ -720,9 +716,9 @@ class CollectionHandler implements CollectionHandlerInterface
     public function moveItem($itemId, $status, $position)
     {
         $item = $this->loadItem($itemId, $status);
-        $collection = $this->loadCollection($item->collectionId, $status);
+        $collectionData = $this->loadCollectionData($item->collectionId, $status);
 
-        if ($collection->type === Collection::TYPE_MANUAL) {
+        if ((int)$collectionData[0]['type'] === Collection::TYPE_MANUAL) {
             $position = $this->positionHelper->moveToPosition(
                 $this->getPositionHelperItemConditions(
                     $item->collectionId,
@@ -760,7 +756,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function deleteItem($itemId, $status)
     {
         $item = $this->loadItem($itemId, $status);
-        $collection = $this->loadCollection($item->collectionId, $status);
+        $collectionData = $this->loadCollectionData($item->collectionId, $status);
 
         $query = $this->queryHelper->getQuery();
 
@@ -774,7 +770,7 @@ class CollectionHandler implements CollectionHandlerInterface
 
         $query->execute();
 
-        if ($collection->type === Collection::TYPE_MANUAL) {
+        if ((int)$collectionData[0]['type'] === Collection::TYPE_MANUAL) {
             $this->positionHelper->removePosition(
                 $this->getPositionHelperItemConditions(
                     $item->collectionId,
@@ -984,6 +980,7 @@ class CollectionHandler implements CollectionHandlerInterface
 
         if ($status !== null) {
             $this->queryHelper->applyStatusCondition($query, $status);
+            $query->addOrderBy('status', 'ASC');
         }
 
         $data = $query->execute()->fetchAll();
@@ -1008,12 +1005,14 @@ class CollectionHandler implements CollectionHandlerInterface
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
-        ->orderBy('position', 'ASC')
         ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
             $this->queryHelper->applyStatusCondition($query, $status);
+            $query->addOrderBy('status', 'ASC');
         }
+
+        $query->addOrderBy('position', 'ASC');
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -1037,12 +1036,14 @@ class CollectionHandler implements CollectionHandlerInterface
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
-        ->orderBy('position', 'ASC')
         ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
             $this->queryHelper->applyStatusCondition($query, $status);
+            $query->addOrderBy('status', 'ASC');
         }
+
+        $query->addOrderBy('position', 'ASC');
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {

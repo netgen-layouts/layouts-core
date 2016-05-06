@@ -51,8 +51,8 @@ return array(
         array('id' => 11, 'status' => 1, 'collection_id' => 3, 'position' => 8, 'type' => 1, 'value_id' => '155', 'value_type' => 'ezcontent'),
     ),
     'ngbm_collection_query' => array(
-        array('id' => 1, 'status' => 1, 'collection_id' => 2, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{}'),
-        array('id' => 2, 'status' => 1, 'collection_id' => 3, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{}'),
-        array('id' => 3, 'status' => 1, 'collection_id' => 3, 'position' => 1, 'identifier' => 'featured', 'type' => 'ezcontent_search', 'parameters' => '{}'),
+        array('id' => 1, 'status' => 1, 'collection_id' => 2, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{"param": "value"}'),
+        array('id' => 2, 'status' => 1, 'collection_id' => 3, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{"param": "value"}'),
+        array('id' => 3, 'status' => 1, 'collection_id' => 3, 'position' => 1, 'identifier' => 'featured', 'type' => 'ezcontent_search', 'parameters' => '{"param": "value"}'),
     ),
 );

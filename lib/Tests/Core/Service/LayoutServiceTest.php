@@ -303,6 +303,83 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCopyLayout()
     {
+        $layout = $this->layoutService->loadLayout(1);
+        $copiedLayout = $this->layoutService->copyLayout($layout);
+
+        self::assertInstanceOf(Layout::class, $copiedLayout);
+
+        self::assertEquals(3, $copiedLayout->getId());
+        self::assertNull($copiedLayout->getParentId());
+        self::assertEquals('3_zones_a', $copiedLayout->getIdentifier());
+        self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->getName());
+        self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->getStatus());
+
+        self::assertInstanceOf(DateTime::class, $copiedLayout->getCreated());
+        self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
+
+        self::assertInstanceOf(DateTime::class, $copiedLayout->getModified());
+        self::assertGreaterThan(0, $copiedLayout->getModified()->getTimestamp());
+
+        self::assertEquals(
+            array(
+                'bottom' => new Zone(
+                    array(
+                        'identifier' => 'bottom',
+                        'layoutId' => $copiedLayout->getId(),
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'blocks' => array(),
+                    )
+                ),
+                'top_left' => new Zone(
+                    array(
+                        'identifier' => 'top_left',
+                        'layoutId' => $copiedLayout->getId(),
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'blocks' => array(),
+                    )
+                ),
+                'top_right' => new Zone(
+                    array(
+                        'identifier' => 'top_right',
+                        'layoutId' => $copiedLayout->getId(),
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'blocks' => array(
+                            new Block(
+                                array(
+                                    'id' => 5,
+                                    'layoutId' => $copiedLayout->getId(),
+                                    'zoneIdentifier' => 'top_right',
+                                    'position' => 0,
+                                    'definitionIdentifier' => 'paragraph',
+                                    'parameters' => array(
+                                        'some_param' => 'some_value',
+                                    ),
+                                    'viewType' => 'default',
+                                    'name' => 'My block',
+                                    'status' => Layout::STATUS_PUBLISHED,
+                                )
+                            ),
+                            new Block(
+                                array(
+                                    'id' => 6,
+                                    'layoutId' => $copiedLayout->getId(),
+                                    'zoneIdentifier' => 'top_right',
+                                    'position' => 1,
+                                    'definitionIdentifier' => 'title',
+                                    'parameters' => array(
+                                        'other_param' => 'other_value',
+                                    ),
+                                    'viewType' => 'small',
+                                    'name' => 'My other block',
+                                    'status' => Layout::STATUS_PUBLISHED,
+                                )
+                            ),
+                        ),
+                    )
+                ),
+            ),
+            $copiedLayout->getZones()
+        );
     }
 
     /**

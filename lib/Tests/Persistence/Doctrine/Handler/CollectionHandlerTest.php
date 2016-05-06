@@ -171,7 +171,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 0,
                     'identifier' => 'default',
                     'type' => 'ezcontent_search',
-                    'parameters' => array(),
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
                     'status' => APICollection::STATUS_PUBLISHED,
                 )
             ),
@@ -417,7 +419,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 0,
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
-                        'parameters' => array(),
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
                         'status' => APICollection::STATUS_PUBLISHED,
                     )
                 ),
@@ -449,6 +453,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueriesData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getCollectionInsertQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getCollectionItemInsertQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getCollectionQueryInsertQuery
@@ -512,7 +519,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 0,
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
-                        'parameters' => array(),
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
                         'status' => APICollection::STATUS_ARCHIVED,
                     )
                 ),
@@ -586,7 +595,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 0,
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
-                        'parameters' => array(),
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
                         'status' => APICollection::STATUS_ARCHIVED,
                     )
                 ),
@@ -1016,8 +1027,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
-        $queryUpdateStruct->setParameter('a_param', 'A value');
-        $queryUpdateStruct->setParameter('some_param', 'Some other value');
+        $queryUpdateStruct->setParameter('some_param', 'Some value');
+        $queryUpdateStruct->setParameter('some_other_param', 'Some other value');
 
         self::assertEquals(
             new Query(
@@ -1028,8 +1039,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'new_identifier',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
-                        'a_param' => 'A value',
-                        'some_param' => 'Some other value',
+                        'param' => 'value',
+                        'some_param' => 'Some value',
+                        'some_other_param' => 'Some other value',
                     ),
                     'status' => APICollection::STATUS_PUBLISHED,
                 )
@@ -1052,7 +1064,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 1,
                     'identifier' => 'default',
                     'type' => 'ezcontent_search',
-                    'parameters' => array(),
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
                     'status' => APICollection::STATUS_PUBLISHED,
                 )
             ),
@@ -1077,7 +1091,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 0,
                     'identifier' => 'featured',
                     'type' => 'ezcontent_search',
-                    'parameters' => array(),
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
                     'status' => APICollection::STATUS_PUBLISHED,
                 )
             ),

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Connection;
 
 class Postgres

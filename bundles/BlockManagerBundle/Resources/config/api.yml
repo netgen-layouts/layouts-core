@@ -50,7 +50,6 @@ services:
     netgen_block_manager.persistence.doctrine.layout.handler:
         class: "%netgen_block_manager.persistence.doctrine.layout.handler.class%"
         arguments:
-            - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"

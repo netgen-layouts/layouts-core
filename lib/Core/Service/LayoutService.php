@@ -137,6 +137,20 @@ class LayoutService implements LayoutServiceInterface
      */
     public function copyLayout(Layout $layout)
     {
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $copiedLayout = $this->layoutHandler->copyLayout(
+                $layout->getId()
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->layoutMapper->mapLayout($copiedLayout);
     }
 
     /**
