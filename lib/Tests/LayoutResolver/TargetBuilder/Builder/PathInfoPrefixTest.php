@@ -13,6 +13,11 @@ class PathInfoPrefixTest extends \PHPUnit_Framework_TestCase
     use RequestStackAwareTrait;
 
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\PathInfoPrefix
+     */
+    protected $targetBuilder;
+
+    /**
      * Sets up the route target builder tests.
      */
     public function setUp()
@@ -22,6 +27,9 @@ class PathInfoPrefixTest extends \PHPUnit_Framework_TestCase
         $requestStack = new RequestStack();
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
+
+        $this->targetBuilder = new PathInfoPrefix();
+        $this->targetBuilder->setRequestStack($this->requestStack);
     }
 
     /**
@@ -29,10 +37,7 @@ class PathInfoPrefixTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildTarget()
     {
-        $targetBuilder = new PathInfoPrefix();
-        $targetBuilder->setRequestStack($this->requestStack);
-
-        self::assertEquals(new PathInfoPrefixTarget(array('/the/answer')), $targetBuilder->buildTarget());
+        self::assertEquals(new PathInfoPrefixTarget(array('/the/answer')), $this->targetBuilder->buildTarget());
     }
 
     /**
@@ -43,9 +48,6 @@ class PathInfoPrefixTest extends \PHPUnit_Framework_TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        $targetBuilder = new PathInfoPrefix();
-        $targetBuilder->setRequestStack($this->requestStack);
-
-        self::assertFalse($targetBuilder->buildTarget());
+        self::assertFalse($this->targetBuilder->buildTarget());
     }
 }

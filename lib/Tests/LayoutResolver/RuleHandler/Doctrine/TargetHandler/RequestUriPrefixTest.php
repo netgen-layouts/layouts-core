@@ -9,10 +9,8 @@ class RequestUriPrefixTest extends TargetHandlerTest
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RequestUriPrefix::handleQuery
      */
-    public function testLoadRequestUriPrefixRules()
+    public function testLoadRules()
     {
-        $handler = $this->createHandler('request_uri_prefix', $this->getTargetHandler());
-
         $expected = array(
             array(
                 'layout_id' => 7,
@@ -20,7 +18,17 @@ class RequestUriPrefixTest extends TargetHandlerTest
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('request_uri_prefix', array('/the/answer?a=42')));
+        self::assertEquals($expected, $this->handler->loadRules($this->getTargetIdentifier(), array('/the/answer?a=42')));
+    }
+
+    /**
+     * Returns the target handler identifier under test.
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected function getTargetIdentifier()
+    {
+        return 'request_uri_prefix';
     }
 
     /**

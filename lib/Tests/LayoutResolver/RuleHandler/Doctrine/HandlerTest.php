@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\LayoutResolver\RuleHandler\Doctrine;
 
-use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler;
+use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
@@ -12,11 +12,19 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     use DoctrineDatabaseTrait;
 
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler
+     */
+    protected $handler;
+
+    /**
      * Sets up the database connection.
      */
     protected function setUp()
     {
         $this->prepareDatabase(__DIR__ . '/_fixtures/schema', __DIR__ . '/_fixtures');
+
+        $this->handler = new Handler($this->databaseConnection, new Normalizer());
+        $this->handler->addTargetHandler('route', new Route());
     }
 
     /**
@@ -34,8 +42,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRules()
     {
-        $handler = $this->createHandler();
-
         $expected = array(
             array(
                 'layout_id' => 1,
@@ -43,7 +49,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('route', array('my_cool_route')));
+        self::assertEquals($expected, $this->handler->loadRules('route', array('my_cool_route')));
     }
 
     /**
@@ -53,8 +59,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithCondition()
     {
-        $handler = $this->createHandler();
-
         $expected = array(
             array(
                 'layout_id' => 2,
@@ -67,7 +71,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('route', array('my_second_cool_route')));
+        self::assertEquals($expected, $this->handler->loadRules('route', array('my_second_cool_route')));
     }
 
     /**
@@ -75,8 +79,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithMultipleConditions()
     {
-        $handler = $this->createHandler();
-
         $expected = array(
             array(
                 'layout_id' => 3,
@@ -93,7 +95,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('route', array('my_fourth_cool_route')));
+        self::assertEquals($expected, $this->handler->loadRules('route', array('my_fourth_cool_route')));
     }
 
     /**
@@ -101,8 +103,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithNoRules()
     {
-        $handler = $this->createHandler();
-        self::assertEquals(array(), $handler->loadRules('route', array('some_non_existing_route')));
+        self::assertEquals(array(), $this->handler->loadRules('route', array('some_non_existing_route')));
     }
 
     /**
@@ -111,20 +112,6 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithNonExistingTargetHandler()
     {
-        $handler = $this->createHandler();
-        $handler->loadRules('non_existing_target', array(1, 2, 3));
-    }
-
-    /**
-     * Creates the handler under test.
-     *
-     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\RuleHandlerInterface
-     */
-    protected function createHandler()
-    {
-        $handler = new Handler($this->databaseConnection, new Normalizer());
-        $handler->addTargetHandler('route', new TargetHandler\Route());
-
-        return $handler;
+        $this->handler->loadRules('non_existing_target', array(1, 2, 3));
     }
 }

@@ -9,10 +9,8 @@ class RoutePrefixTest extends TargetHandlerTest
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RoutePrefix::handleQuery
      */
-    public function testLoadRoutePrefixRules()
+    public function testLoadRules()
     {
-        $handler = $this->createHandler('route_prefix', $this->getTargetHandler());
-
         $expected = array(
             array(
                 'layout_id' => 1,
@@ -20,7 +18,17 @@ class RoutePrefixTest extends TargetHandlerTest
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('route_prefix', array('my_cool_route')));
+        self::assertEquals($expected, $this->handler->loadRules($this->getTargetIdentifier(), array('my_cool_route')));
+    }
+
+    /**
+     * Returns the target handler identifier under test.
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected function getTargetIdentifier()
+    {
+        return 'route_prefix';
     }
 
     /**

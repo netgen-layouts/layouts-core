@@ -8,17 +8,30 @@ use Netgen\BlockManager\Tests\LayoutResolver\Stubs\ConditionMatcher;
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\ConditionMatcher\ConditionMatcherInterface
+     */
+    protected $conditionMatcher;
+
+    /**
+     * @var \Netgen\BlockManager\LayoutResolver\ConditionMatcher\RegistryInterface
+     */
+    protected $registry;
+
+    public function setUp()
+    {
+        $this->conditionMatcher = new ConditionMatcher();
+
+        $this->registry = new Registry();
+        $this->registry->addConditionMatcher($this->conditionMatcher);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Registry::addConditionMatcher
      * @covers \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Registry::getConditionMatchers
      */
     public function testAddConditionMatcher()
     {
-        $registry = new Registry();
-
-        $conditionMatcher = new ConditionMatcher();
-        $registry->addConditionMatcher($conditionMatcher);
-
-        self::assertEquals(array('condition' => $conditionMatcher), $registry->getConditionMatchers());
+        self::assertEquals(array('condition' => $this->conditionMatcher), $this->registry->getConditionMatchers());
     }
 
     /**
@@ -26,12 +39,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConditionMatcher()
     {
-        $registry = new Registry();
-
-        $conditionMatcher = new ConditionMatcher();
-        $registry->addConditionMatcher($conditionMatcher);
-
-        self::assertEquals($conditionMatcher, $registry->getConditionMatcher('condition'));
+        self::assertEquals($this->conditionMatcher, $this->registry->getConditionMatcher('condition'));
     }
 
     /**
@@ -40,11 +48,6 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConditionMatcherThrowsInvalidArgumentException()
     {
-        $registry = new Registry();
-
-        $conditionMatcher = new ConditionMatcher();
-        $registry->addConditionMatcher($conditionMatcher);
-
-        $registry->getConditionMatcher('other_condition');
+        $this->registry->getConditionMatcher('other_condition');
     }
 }

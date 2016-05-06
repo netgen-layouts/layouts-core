@@ -9,10 +9,8 @@ class PathInfoTest extends TargetHandlerTest
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\PathInfo::handleQuery
      */
-    public function testLoadPathInfoRules()
+    public function testLoadRules()
     {
-        $handler = $this->createHandler('path_info', $this->getTargetHandler());
-
         $expected = array(
             array(
                 'layout_id' => 4,
@@ -20,7 +18,17 @@ class PathInfoTest extends TargetHandlerTest
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('path_info', array('/the/answer')));
+        self::assertEquals($expected, $this->handler->loadRules($this->getTargetIdentifier(), array('/the/answer')));
+    }
+
+    /**
+     * Returns the target handler identifier under test.
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected function getTargetIdentifier()
+    {
+        return 'path_info';
     }
 
     /**

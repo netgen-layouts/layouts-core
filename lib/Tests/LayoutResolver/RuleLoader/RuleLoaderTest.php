@@ -20,6 +20,11 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     protected $ruleBuilderMock;
 
+    /**
+     * @var \Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface
+     */
+    protected $ruleLoader;
+
     public function setUp()
     {
         $this->ruleHandlerMock = $this->getMock(
@@ -28,6 +33,11 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
 
         $this->ruleBuilderMock = $this->getMock(
             RuleBuilderInterface::class
+        );
+
+        $this->ruleLoader = new RuleLoader(
+            $this->ruleHandlerMock,
+            $this->ruleBuilderMock
         );
     }
 
@@ -52,8 +62,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target), $this->equalTo(array('some_data')))
             ->will($this->returnValue(array($rule)));
 
-        $ruleLoader = $this->getRuleLoader();
-        self::assertEquals(array($rule), $ruleLoader->loadRules($target));
+        self::assertEquals(array($rule), $this->ruleLoader->loadRules($target));
     }
 
     /**
@@ -71,8 +80,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildRules');
 
-        $ruleLoader = $this->getRuleLoader();
-        self::assertEquals(array(), $ruleLoader->loadRules($target));
+        self::assertEquals(array(), $this->ruleLoader->loadRules($target));
     }
 
     /**
@@ -92,20 +100,6 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildRules');
 
-        $ruleLoader = $this->getRuleLoader();
-        self::assertEquals(array(), $ruleLoader->loadRules($target));
-    }
-
-    /**
-     * Returns the rule loader under test.
-     *
-     * @return \Netgen\BlockManager\LayoutResolver\RuleLoader\RuleLoaderInterface
-     */
-    protected function getRuleLoader()
-    {
-        return new RuleLoader(
-            $this->ruleHandlerMock,
-            $this->ruleBuilderMock
-        );
+        self::assertEquals(array(), $this->ruleLoader->loadRules($target));
     }
 }

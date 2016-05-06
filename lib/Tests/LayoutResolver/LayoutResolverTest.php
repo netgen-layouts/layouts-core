@@ -30,6 +30,11 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     protected $ruleLoaderMock;
 
+    /**
+     * @var \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
+     */
+    protected $layoutResolver;
+
     public function setUp()
     {
         $this->targetBuilderRegistryMock = $this->getMock(
@@ -42,6 +47,12 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
 
         $this->ruleLoaderMock = $this->getMock(
             RuleLoaderInterface::class
+        );
+
+        $this->layoutResolver = new LayoutResolver(
+            $this->targetBuilderRegistryMock,
+            $this->conditionMatcherRegistryMock,
+            $this->ruleLoaderMock
         );
     }
 
@@ -74,8 +85,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target2))
             ->will($this->returnValue(array($rule2)));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals($rule2, $layoutResolver->resolveLayout());
+        self::assertEquals($rule2, $this->layoutResolver->resolveLayout());
     }
 
     /**
@@ -100,8 +110,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target2))
             ->will($this->returnValue(array($rule2)));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals($rule2, $layoutResolver->resolveLayout());
+        self::assertEquals($rule2, $this->layoutResolver->resolveLayout());
     }
 
     /**
@@ -132,8 +141,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target2))
             ->will($this->returnValue(array()));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertFalse($layoutResolver->resolveLayout());
+        self::assertFalse($this->layoutResolver->resolveLayout());
     }
 
     /**
@@ -151,8 +159,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target))
             ->will($this->returnValue(array($rule)));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals($rule, $layoutResolver->resolveLayoutForTarget($target));
+        self::assertEquals($rule, $this->layoutResolver->resolveLayoutForTarget($target));
     }
 
     /**
@@ -171,8 +178,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target))
             ->will($this->returnValue(array($rule1, $rule2)));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals($rule1, $layoutResolver->resolveLayoutForTarget($target));
+        self::assertEquals($rule1, $this->layoutResolver->resolveLayoutForTarget($target));
     }
 
     /**
@@ -212,8 +218,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target))
             ->will($this->returnValue(array($rule)));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertEquals($layoutId !== false ? $rule : false, $layoutResolver->resolveLayoutForTarget($target));
+        self::assertEquals($layoutId !== false ? $rule : false, $this->layoutResolver->resolveLayoutForTarget($target));
     }
 
     /**
@@ -247,21 +252,6 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target))
             ->will($this->returnValue(array()));
 
-        $layoutResolver = $this->getLayoutResolver();
-        self::assertFalse($layoutResolver->resolveLayoutForTarget($target));
-    }
-
-    /**
-     * Returns the layout resolver under test.
-     *
-     * @return \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
-     */
-    protected function getLayoutResolver()
-    {
-        return new LayoutResolver(
-            $this->targetBuilderRegistryMock,
-            $this->conditionMatcherRegistryMock,
-            $this->ruleLoaderMock
-        );
+        self::assertFalse($this->layoutResolver->resolveLayoutForTarget($target));
     }
 }

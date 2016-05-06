@@ -12,11 +12,19 @@ abstract class TargetHandlerTest extends \PHPUnit_Framework_TestCase
     use DoctrineDatabaseTrait;
 
     /**
-     * Sets up the database connection.
+     * @var \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected $handler;
+
+    /**
+     * Sets up the test.
      */
     protected function setUp()
     {
         $this->prepareDatabase(__DIR__ . '/../_fixtures/schema', __DIR__ . '/../_fixtures');
+
+        $this->handler = new Handler($this->databaseConnection, new Normalizer());
+        $this->handler->addTargetHandler($this->getTargetIdentifier(), $this->getTargetHandler());
     }
 
     /**
@@ -28,20 +36,11 @@ abstract class TargetHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Creates the handler under test.
+     * Returns the target identifier under test.
      *
-     * @param string $targetIdentifier
-     * @param \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler $targetHandler
-     *
-     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\RuleHandlerInterface
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
      */
-    protected function createHandler($targetIdentifier, TargetHandler $targetHandler)
-    {
-        $handler = new Handler($this->databaseConnection, new Normalizer());
-        $handler->addTargetHandler($targetIdentifier, $targetHandler);
-
-        return $handler;
-    }
+    abstract protected function getTargetIdentifier();
 
     /**
      * Creates the handler under test.

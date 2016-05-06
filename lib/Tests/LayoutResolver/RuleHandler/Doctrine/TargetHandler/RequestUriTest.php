@@ -9,10 +9,8 @@ class RequestUriTest extends TargetHandlerTest
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\RequestUri::handleQuery
      */
-    public function testLoadRequestUriRules()
+    public function testLoadRules()
     {
-        $handler = $this->createHandler('request_uri', $this->getTargetHandler());
-
         $expected = array(
             array(
                 'layout_id' => 6,
@@ -20,7 +18,17 @@ class RequestUriTest extends TargetHandlerTest
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('request_uri', array('/the/answer?a=42')));
+        self::assertEquals($expected, $this->handler->loadRules($this->getTargetIdentifier(), array('/the/answer?a=42')));
+    }
+
+    /**
+     * Returns the target handler identifier under test.
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected function getTargetIdentifier()
+    {
+        return 'request_uri';
     }
 
     /**

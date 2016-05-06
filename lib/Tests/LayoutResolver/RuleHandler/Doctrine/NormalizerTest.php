@@ -7,6 +7,16 @@ use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
 class NormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer
+     */
+    protected $normalizer;
+
+    public function setUp()
+    {
+        $this->normalizer = new Normalizer();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer::normalizeRules
      */
     public function testNormalizeRules()
@@ -28,8 +38,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 
     /**
@@ -59,8 +68,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 
     /**
@@ -90,8 +98,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 
     /**
@@ -132,8 +139,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 
     /**
@@ -169,8 +175,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 
     /**
@@ -216,8 +221,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 
     /**
@@ -285,7 +289,6 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $normalizer = new Normalizer();
-        self::assertEquals($expected, $normalizer->normalizeRules($data));
+        self::assertEquals($expected, $this->normalizer->normalizeRules($data));
     }
 }

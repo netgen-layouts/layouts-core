@@ -13,6 +13,11 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     use RequestStackAwareTrait;
 
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\TargetBuilder\Builder\Route
+     */
+    protected $targetBuilder;
+
+    /**
      * Sets up the route target builder tests.
      */
     public function setUp()
@@ -23,6 +28,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $requestStack = new RequestStack();
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
+
+        $this->targetBuilder = new Route();
+        $this->targetBuilder->setRequestStack($this->requestStack);
     }
 
     /**
@@ -30,10 +38,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildTarget()
     {
-        $targetBuilder = new Route();
-        $targetBuilder->setRequestStack($this->requestStack);
-
-        self::assertEquals(new RouteTarget(array('my_cool_route')), $targetBuilder->buildTarget());
+        self::assertEquals(new RouteTarget(array('my_cool_route')), $this->targetBuilder->buildTarget());
     }
 
     /**
@@ -44,9 +49,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        $targetBuilder = new Route();
-        $targetBuilder->setRequestStack($this->requestStack);
-
-        self::assertFalse($targetBuilder->buildTarget());
+        self::assertFalse($this->targetBuilder->buildTarget());
     }
 }

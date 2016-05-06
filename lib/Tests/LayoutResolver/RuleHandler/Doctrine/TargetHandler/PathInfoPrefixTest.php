@@ -9,10 +9,8 @@ class PathInfoPrefixTest extends TargetHandlerTest
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\PathInfoPrefix::handleQuery
      */
-    public function testLoadPathInfoPrefixRules()
+    public function testLoadRules()
     {
-        $handler = $this->createHandler('path_info_prefix', $this->getTargetHandler());
-
         $expected = array(
             array(
                 'layout_id' => 5,
@@ -20,7 +18,17 @@ class PathInfoPrefixTest extends TargetHandlerTest
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('path_info_prefix', array('/the/answer')));
+        self::assertEquals($expected, $this->handler->loadRules($this->getTargetIdentifier(), array('/the/answer')));
+    }
+
+    /**
+     * Returns the target handler identifier under test.
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected function getTargetIdentifier()
+    {
+        return 'path_info_prefix';
     }
 
     /**

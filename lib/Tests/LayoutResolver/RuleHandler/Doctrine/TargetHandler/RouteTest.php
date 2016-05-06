@@ -9,10 +9,8 @@ class RouteTest extends TargetHandlerTest
     /**
      * @covers \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler\Route::handleQuery
      */
-    public function testLoadRouteRules()
+    public function testLoadRules()
     {
-        $handler = $this->createHandler('route', $this->getTargetHandler());
-
         $expected = array(
             array(
                 'layout_id' => 1,
@@ -20,7 +18,17 @@ class RouteTest extends TargetHandlerTest
             ),
         );
 
-        self::assertEquals($expected, $handler->loadRules('route', array('my_cool_route')));
+        self::assertEquals($expected, $this->handler->loadRules($this->getTargetIdentifier(), array('my_cool_route')));
+    }
+
+    /**
+     * Returns the target handler identifier under test.
+     *
+     * @return \Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler
+     */
+    protected function getTargetIdentifier()
+    {
+        return 'route';
     }
 
     /**

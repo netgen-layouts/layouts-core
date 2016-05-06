@@ -12,6 +12,11 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     use RequestStackAwareTrait;
 
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\ConditionMatcher\Matcher\RouteParameter
+     */
+    protected $conditionMatcher;
+
+    /**
      * Sets up the route target tests.
      */
     public function setUp()
@@ -27,6 +32,9 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
         $requestStack = new RequestStack();
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
+
+        $this->conditionMatcher = new RouteParameter();
+        $this->conditionMatcher->setRequestStack($this->requestStack);
     }
 
     /**
@@ -34,9 +42,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConditionIdentifier()
     {
-        $conditionMatcher = new RouteParameter();
-
-        self::assertEquals('route_parameter', $conditionMatcher->getConditionIdentifier());
+        self::assertEquals('route_parameter', $this->conditionMatcher->getConditionIdentifier());
     }
 
     /**
@@ -49,10 +55,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatches(array $parameters, $matches)
     {
-        $conditionMatcher = new RouteParameter();
-        $conditionMatcher->setRequestStack($this->requestStack);
-
-        self::assertEquals($matches, $conditionMatcher->matches($parameters));
+        self::assertEquals($matches, $this->conditionMatcher->matches($parameters));
     }
 
     /**
@@ -92,9 +95,6 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        $conditionMatcher = new RouteParameter();
-        $conditionMatcher->setRequestStack($this->requestStack);
-
-        self::assertFalse($conditionMatcher->matches(array()));
+        self::assertFalse($this->conditionMatcher->matches(array()));
     }
 }

@@ -8,17 +8,30 @@ use Netgen\BlockManager\Tests\LayoutResolver\Stubs\TargetBuilder;
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\LayoutResolver\TargetBuilder\TargetBuilderInterface
+     */
+    protected $targetBuilder;
+
+    /**
+     * @var \Netgen\BlockManager\LayoutResolver\TargetBuilder\RegistryInterface
+     */
+    protected $registry;
+
+    public function setUp()
+    {
+        $this->targetBuilder = new TargetBuilder();
+
+        $this->registry = new Registry();
+        $this->registry->addTargetBuilder('target', $this->targetBuilder);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Registry::addTargetBuilder
      * @covers \Netgen\BlockManager\LayoutResolver\TargetBuilder\Registry::getTargetBuilders
      */
     public function testAddTargetBuilder()
     {
-        $registry = new Registry();
-
-        $targetBuilder = new TargetBuilder();
-        $registry->addTargetBuilder('target', $targetBuilder);
-
-        self::assertEquals(array('target' => $targetBuilder), $registry->getTargetBuilders());
+        self::assertEquals(array('target' => $this->targetBuilder), $this->registry->getTargetBuilders());
     }
 
     /**
@@ -26,12 +39,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTargetBuilder()
     {
-        $registry = new Registry();
-
-        $targetBuilder = new TargetBuilder();
-        $registry->addTargetBuilder('target', $targetBuilder);
-
-        self::assertEquals($targetBuilder, $registry->getTargetBuilder('target'));
+        self::assertEquals($this->targetBuilder, $this->registry->getTargetBuilder('target'));
     }
 
     /**
@@ -40,11 +48,6 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTargetBuilderThrowsInvalidArgumentException()
     {
-        $registry = new Registry();
-
-        $targetBuilder = new TargetBuilder();
-        $registry->addTargetBuilder('target', $targetBuilder);
-
-        $registry->getTargetBuilder('other_target');
+        $this->registry->getTargetBuilder('other_target');
     }
 }
