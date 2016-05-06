@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
+use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase as PersistenceTestCase;
@@ -82,6 +83,18 @@ trait TestCase
     {
         return new LayoutMapper(
             $this->createBlockMapper(),
+            $this->persistenceHandler
+        );
+    }
+
+    /**
+     * Creates the collection mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
+     */
+    protected function createCollectionMapper()
+    {
+        return new CollectionMapper(
             $this->persistenceHandler
         );
     }
