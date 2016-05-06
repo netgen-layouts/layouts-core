@@ -6,8 +6,23 @@ use Netgen\BlockManager\BlockDefinition\BlockDefinition as BaseBlockDefinition;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class BlockDefinition extends BaseBlockDefinition
+class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition
 {
+    /**
+     * Returns the array specifying block parameters.
+     *
+     * The keys are parameter identifiers.
+     *
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     */
+    public function getParameters()
+    {
+        $parameters = parent::getParameters();
+        $parameters['css_class'] = new Parameter\Text('CSS class', true);
+
+        return $parameters;
+    }
+
     /**
      * Returns block definition identifier.
      *

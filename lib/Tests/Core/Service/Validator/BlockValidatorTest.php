@@ -7,6 +7,7 @@ use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinitionWithRequiredParameter;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
 use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
@@ -111,7 +112,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getBlockDefinition')
             ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue(new BlockDefinitionStub()));
+            ->will($this->returnValue(new BlockDefinitionWithRequiredParameter()));
 
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'block_definition';
