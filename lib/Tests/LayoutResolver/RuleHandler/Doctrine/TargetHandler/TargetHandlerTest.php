@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\LayoutResolver\RuleHandler\Doctrine\TargetHa
 
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Normalizer;
 use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\Handler;
-use Netgen\BlockManager\LayoutResolver\RuleHandler\Doctrine\TargetHandler;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
 
 abstract class TargetHandlerTest extends \PHPUnit_Framework_TestCase
