@@ -39,12 +39,12 @@ class PositionHelper
     {
         $nextBlockPosition = $this->getNextPosition($conditions);
 
-        if ($position !== null) {
-            if ($position > $nextBlockPosition || $position < 0) {
-                throw new BadStateException('position', 'Position is out of range.');
-            }
-        } else {
-            $position = $nextBlockPosition;
+        if ($position === null) {
+            return $nextBlockPosition;
+        }
+
+        if ($position > $nextBlockPosition || $position < 0) {
+            throw new BadStateException('position', 'Position is out of range.');
         }
 
         $this->incrementPositions(
@@ -96,13 +96,13 @@ class PositionHelper
      * Reorders the positions after item at the specified position has been removed.
      *
      * @param array $conditions
-     * @param int $position
+     * @param int $removedPosition
      */
-    public function removePosition(array $conditions, $position)
+    public function removePosition(array $conditions, $removedPosition)
     {
         $this->decrementPositions(
             $conditions,
-            $position
+            $removedPosition + 1
         );
     }
 
@@ -200,15 +200,7 @@ class PositionHelper
      */
     protected function applyConditions(QueryBuilder $query, array $conditions)
     {
-        if (empty($conditions)) {
-            return;
-        }
-
         foreach ($conditions as $identifier => $value) {
-            if (!is_int($value) && !is_string($value)) {
-                continue;
-            }
-
             $query->andWhere(
                 $query->expr()->eq($identifier, ':' . $identifier)
             );
