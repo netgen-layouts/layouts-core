@@ -69,6 +69,24 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @expectedException \Exception
+     */
+    public function testCopyLayout()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->once())
+            ->method('copyLayout')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->copyLayout(new Layout());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayoutStatus
      * @expectedException \Exception
      */
