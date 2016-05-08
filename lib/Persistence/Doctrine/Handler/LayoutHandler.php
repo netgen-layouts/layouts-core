@@ -196,7 +196,7 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
 
-        foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
+        foreach (array_unique($layoutCreateStruct->zoneIdentifiers) as $zoneIdentifier) {
             $zoneQuery = $this->queryHelper->getZoneInsertQuery(
                 array(
                     'identifier' => $zoneIdentifier,
