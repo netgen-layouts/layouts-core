@@ -1,7 +1,7 @@
 parameters:
     netgen_block_manager.block_definition.form.block_edit.class: Netgen\BlockManager\BlockDefinition\Form\BlockEditType
-    netgen_block_manager.block_definition.form.block_inline_edit_title.class: Netgen\BlockManager\BlockDefinition\Form\TitleInlineType
-    netgen_block_manager.block_definition.form.block_inline_edit_paragraph.class: Netgen\BlockManager\BlockDefinition\Form\ParagraphInlineType
+    netgen_block_manager.block_definition.form.block_inline_edit.title.class: Netgen\BlockManager\BlockDefinition\Form\BlockInlineEdit\TitleType
+    netgen_block_manager.block_definition.form.block_inline_edit.paragraph.class: Netgen\BlockManager\BlockDefinition\Form\BlockInlineEdit\ParagraphType
 
 services:
     netgen_block_manager.block_definition.form.block_edit:
@@ -13,8 +13,8 @@ services:
         tags:
             - { name: form.type, alias: block_edit }
 
-    netgen_block_manager.block_definition.form.block_inline_edit_title:
-        class: "%netgen_block_manager.block_definition.form.block_inline_edit_title.class%"
+    netgen_block_manager.block_definition.form.block_inline_edit.title:
+        class: "%netgen_block_manager.block_definition.form.block_inline_edit.title.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
             - "@netgen_block_manager.block_definition.registry"
@@ -22,8 +22,8 @@ services:
         tags:
             - { name: form.type, alias: block_inline_edit_title }
 
-    netgen_block_manager.block_definition.form.block_inline_edit_paragraph:
-        class: "%netgen_block_manager.block_definition.form.block_inline_edit_paragraph.class%"
+    netgen_block_manager.block_definition.form.block_inline_edit.paragraph:
+        class: "%netgen_block_manager.block_definition.form.block_inline_edit.paragraph.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
             - "@netgen_block_manager.block_definition.registry"
