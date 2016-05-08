@@ -1,31 +1,31 @@
 parameters:
-    netgen_block_manager.parameters.form_handler.hidden.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
-    netgen_block_manager.parameters.form_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
-    netgen_block_manager.parameters.form_handler.textarea.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea
-    netgen_block_manager.parameters.form_handler.select.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select
+    netgen_block_manager.parameters.parameter_handler.hidden.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
+    netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
+    netgen_block_manager.parameters.parameter_handler.textarea.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea
+    netgen_block_manager.parameters.parameter_handler.select.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select
 
     netgen_block_manager.parameters.form_mapper.class: Netgen\BlockManager\Parameters\FormMapper\FormMapper
 
 services:
-    netgen_block_manager.parameters.form_handler.hidden:
-        class: "%netgen_block_manager.parameters.form_handler.hidden.class%"
+    netgen_block_manager.parameters.parameter_handler.hidden:
+        class: "%netgen_block_manager.parameters.parameter_handler.hidden.class%"
         tags:
-            - { name: netgen_block_manager.parameters.form_handler, parameter_type: hidden }
+            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: hidden }
 
-    netgen_block_manager.parameters.form_handler.text:
-        class: "%netgen_block_manager.parameters.form_handler.text.class%"
+    netgen_block_manager.parameters.parameter_handler.text:
+        class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
         tags:
-            - { name: netgen_block_manager.parameters.form_handler, parameter_type: text }
+            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: text }
 
-    netgen_block_manager.parameters.form_handler.textarea:
-        class: "%netgen_block_manager.parameters.form_handler.textarea.class%"
+    netgen_block_manager.parameters.parameter_handler.textarea:
+        class: "%netgen_block_manager.parameters.parameter_handler.textarea.class%"
         tags:
-            - { name: netgen_block_manager.parameters.form_handler, parameter_type: textarea }
+            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: textarea }
 
-    netgen_block_manager.parameters.form_handler.select:
-        class: "%netgen_block_manager.parameters.form_handler.select.class%"
+    netgen_block_manager.parameters.parameter_handler.select:
+        class: "%netgen_block_manager.parameters.parameter_handler.select.class%"
         tags:
-            - { name: netgen_block_manager.parameters.form_handler, parameter_type: select }
+            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: select }
 
     netgen_block_manager.parameters.form_mapper:
         class: "%netgen_block_manager.parameters.form_mapper.class%"
