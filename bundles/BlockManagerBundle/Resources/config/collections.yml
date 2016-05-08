@@ -1,0 +1,30 @@
+parameters:
+    netgen_block_manager.collection.result_generator.class: Netgen\BlockManager\Collection\ResultGenerator
+    netgen_block_manager.collection.query_runner.class: Netgen\BlockManager\Collection\ResultGenerator\QueryRunner
+    netgen_block_manager.collection.result_value_builder.class: Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder
+    netgen_block_manager.collection.query_type.registry.class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
+    netgen_block_manager.collection.value_loader.registry.class: Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry
+
+services:
+    netgen_block_manager.collection.result_generator:
+        class: "%netgen_block_manager.collection.result_generator.class%"
+        arguments:
+            - "@netgen_block_manager.collection.query_runner"
+            - "@netgen_block_manager.collection.result_value_builder"
+            - "@netgen_block_manager.collection.value_loader.registry"
+
+    netgen_block_manager.collection.query_runner:
+        class: "%netgen_block_manager.collection.query_runner.class%"
+        arguments:
+            - "@netgen_block_manager.collection.query_type.registry"
+
+    netgen_block_manager.collection.result_value_builder:
+        class: "%netgen_block_manager.collection.result_value_builder.class%"
+        arguments:
+            - []
+
+    netgen_block_manager.collection.query_type.registry:
+        class: "%netgen_block_manager.collection.query_type.registry.class%"
+
+    netgen_block_manager.collection.value_loader.registry:
+        class: "%netgen_block_manager.collection.value_loader.registry.class%"

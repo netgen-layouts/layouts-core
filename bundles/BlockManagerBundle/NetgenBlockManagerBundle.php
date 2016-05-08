@@ -3,6 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\BlockDefinition\BlockDefinitionRegistryPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypeRegistryPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ResultValueBuilderPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ValueLoaderRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\TargetBuilderRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\ConditionMatcherRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineRuleHandlerPass;
@@ -30,5 +33,8 @@ class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new TemplateResolverPass());
         $container->addCompilerPass(new ViewBuilderPass());
         $container->addCompilerPass(new FormMapperPass());
+        $container->addCompilerPass(new QueryTypeRegistryPass());
+        $container->addCompilerPass(new ValueLoaderRegistryPass());
+        $container->addCompilerPass(new ResultValueBuilderPass());
     }
 }

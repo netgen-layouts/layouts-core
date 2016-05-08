@@ -10,6 +10,9 @@ parameters:
     netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
     netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
 
+    netgen_block_manager.persistence.doctrine.collection.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
+    netgen_block_manager.persistence.doctrine.collection.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
+
     netgen_block_manager.core.service.layout.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
     netgen_block_manager.core.service.layout.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
     netgen_block_manager.core.service.layout.class: Netgen\BlockManager\Core\Service\LayoutService
@@ -18,6 +21,10 @@ parameters:
     netgen_block_manager.core.service.block.mapper.class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
     netgen_block_manager.core.service.block.class: Netgen\BlockManager\Core\Service\BlockService
 
+    netgen_block_manager.core.service.collection.validator.class: Netgen\BlockManager\Core\Service\Validator\CollectionValidator
+    netgen_block_manager.core.service.collection.mapper.class: Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
+    netgen_block_manager.core.service.collection.class: Netgen\BlockManager\Core\Service\CollectionService
+
 services:
     netgen_block_manager.persistence.doctrine.handler:
         class: "%netgen_block_manager.persistence.doctrine.handler.class%"
@@ -25,6 +32,7 @@ services:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.layout.handler"
             - "@netgen_block_manager.persistence.doctrine.block.handler"
+            - "@netgen_block_manager.persistence.doctrine.collection.handler"
 
     # Layout related persistence APIs
 
@@ -61,6 +69,17 @@ services:
         class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
         arguments:
             - "@netgen_block_manager.persistence.doctrine.block.mapper"
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
+            - "@netgen_block_manager.persistence.doctrine.helper.position"
+            - "@netgen_block_manager.persistence.doctrine.helper.query"
+
+    netgen_block_manager.persistence.doctrine.collection.mapper:
+        class: "%netgen_block_manager.persistence.doctrine.collection.mapper.class%"
+
+    netgen_block_manager.persistence.doctrine.collection.handler:
+        class: "%netgen_block_manager.persistence.doctrine.collection.handler.class%"
+        arguments:
+            - "@netgen_block_manager.persistence.doctrine.collection.mapper"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.position"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
@@ -105,6 +124,26 @@ services:
             - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.persistence.handler"
 
+    # Collection related APIs
+
+    netgen_block_manager.core.service.collection.validator:
+        class: "%netgen_block_manager.core.service.collection.validator.class%"
+        arguments:
+            - "@validator"
+            - "@netgen_block_manager.collection.query_type.registry"
+
+    netgen_block_manager.core.service.collection.mapper:
+        class: "%netgen_block_manager.core.service.collection.mapper.class%"
+        arguments:
+            - "@netgen_block_manager.persistence.handler"
+
+    netgen_block_manager.core.service.collection:
+        class: "%netgen_block_manager.core.service.collection.class%"
+        arguments:
+            - "@netgen_block_manager.core.service.collection.validator"
+            - "@netgen_block_manager.core.service.collection.mapper"
+            - "@netgen_block_manager.persistence.handler"
+
     # Service aliases
 
     netgen_block_manager.api.service.layout:
@@ -112,6 +151,9 @@ services:
 
     netgen_block_manager.api.service.block:
         alias: netgen_block_manager.core.service.block
+
+    netgen_block_manager.api.service.collection:
+        alias: netgen_block_manager.core.service.collection
 
     netgen_block_manager.persistence.handler:
         alias: netgen_block_manager.persistence.doctrine.handler

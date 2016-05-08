@@ -3,6 +3,8 @@ parameters:
     netgen_block_manager.validator.block_definition.class: Netgen\BlockManager\Validator\BlockDefinitionValidator
     netgen_block_manager.validator.layout.class: Netgen\BlockManager\Validator\LayoutValidator
     netgen_block_manager.validator.layout_zones.class: Netgen\BlockManager\Validator\LayoutZonesValidator
+    netgen_block_manager.validator.query_type.class: Netgen\BlockManager\Validator\QueryTypeValidator
+    netgen_block_manager.validator.value_type.class: Netgen\BlockManager\Validator\ValueTypeValidator
 
 services:
     netgen_block_manager.validator.block_view_type:
@@ -32,3 +34,17 @@ services:
             - "@netgen_block_manager.configuration"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_layout_zones }
+
+    netgen_block_manager.validator.query_type:
+        class: "%netgen_block_manager.validator.query_type.class%"
+        arguments:
+            - "@netgen_block_manager.collection.query_type.registry"
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_query_type }
+
+    netgen_block_manager.validator.value_type:
+        class: "%netgen_block_manager.validator.value_type.class%"
+        arguments:
+            - "@netgen_block_manager.collection.value_loader.registry"
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_value_type }

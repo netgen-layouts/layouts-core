@@ -21,7 +21,7 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\ViewBuilderPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\ViewBuilderPass::process
      */
     public function testProcess()
     {

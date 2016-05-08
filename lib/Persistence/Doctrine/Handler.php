@@ -42,7 +42,7 @@ class Handler implements HandlerInterface
         Connection $connection,
         LayoutHandler $layoutHandler,
         BlockHandler $blockHandler,
-        CollectionHandler $collectionHandler = null
+        CollectionHandler $collectionHandler
     ) {
         $this->connection = $connection;
         $this->layoutHandler = $layoutHandler;
