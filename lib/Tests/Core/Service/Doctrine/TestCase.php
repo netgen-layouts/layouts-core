@@ -2,8 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
+use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase as PersistenceTestCase;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
@@ -58,6 +60,22 @@ trait TestCase
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
+            $this->persistenceHandler
+        );
+    }
+
+    /**
+     * Creates a collection service under test.
+     *
+     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     *
+     * @return \Netgen\BlockManager\Core\Service\CollectionService
+     */
+    protected function createCollectionService(CollectionValidator $validator)
+    {
+        return new CollectionService(
+            $validator,
+            $this->createCollectionMapper(),
             $this->persistenceHandler
         );
     }
