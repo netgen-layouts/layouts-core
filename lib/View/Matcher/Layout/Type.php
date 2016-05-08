@@ -6,7 +6,7 @@ use Netgen\BlockManager\View\Matcher\Matcher;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-class Identifier extends Matcher
+class Type extends Matcher
 {
     /**
      * Returns if the view matches the config.
@@ -21,6 +21,6 @@ class Identifier extends Matcher
             return false;
         }
 
-        return in_array($view->getLayout()->getIdentifier(), $this->config);
+        return in_array($view->getLayout()->getType(), $this->config);
     }
 }

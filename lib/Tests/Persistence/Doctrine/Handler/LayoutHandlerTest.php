@@ -56,7 +56,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 array(
                     'id' => 1,
                     'parentId' => null,
-                    'identifier' => '3_zones_a',
+                    'type' => '3_zones_a',
                     'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
@@ -212,7 +212,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateLayout()
     {
         $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->identifier = 'new_layout';
+        $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
         $layoutCreateStruct->status = APILayout::STATUS_PUBLISHED;
@@ -223,7 +223,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(3, $createdLayout->id);
         self::assertNull($createdLayout->parentId);
-        self::assertEquals('new_layout', $createdLayout->identifier);
+        self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
         self::assertEquals(APILayout::STATUS_PUBLISHED, $createdLayout->status);
 
@@ -262,7 +262,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateLayoutWithParentLayout()
     {
         $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->identifier = 'new_layout';
+        $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
         $layoutCreateStruct->status = APILayout::STATUS_PUBLISHED;
@@ -273,7 +273,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(3, $createdLayout->id);
         self::assertEquals(1, $createdLayout->parentId);
-        self::assertEquals('new_layout', $createdLayout->identifier);
+        self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
         self::assertEquals(APILayout::STATUS_PUBLISHED, $createdLayout->status);
 
@@ -318,7 +318,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(3, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
-        self::assertEquals('3_zones_a', $copiedLayout->identifier);
+        self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
         self::assertEquals(APILayout::STATUS_PUBLISHED, $copiedLayout->status);
 
@@ -403,7 +403,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(1, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
-        self::assertEquals('3_zones_a', $copiedLayout->identifier);
+        self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertEquals('My layout', $copiedLayout->name);
         self::assertEquals(APILayout::STATUS_ARCHIVED, $copiedLayout->status);
 
@@ -485,7 +485,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(1, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
-        self::assertEquals('3_zones_a', $copiedLayout->identifier);
+        self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertEquals('My layout', $copiedLayout->name);
         self::assertEquals(APILayout::STATUS_ARCHIVED, $copiedLayout->status);
 

@@ -21,7 +21,7 @@ class Version20160211144645 extends AbstractMigration
         $layoutTable->addColumn('id', 'integer', array('autoincrement' => $platformName !== 'sqlite'));
         $layoutTable->addColumn('status', 'integer');
         $layoutTable->addColumn('parent_id', 'integer', array('notnull' => false));
-        $layoutTable->addColumn('identifier', 'string', array('length' => 255));
+        $layoutTable->addColumn('type', 'string', array('length' => 255));
         $layoutTable->addColumn('name', 'string', array('length' => 255));
         $layoutTable->addColumn('created', 'integer');
         $layoutTable->addColumn('modified', 'integer');

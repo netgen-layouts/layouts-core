@@ -19,7 +19,7 @@ class Layout extends APILayout
     /**
      * @var string
      */
-    protected $identifier;
+    protected $type;
 
     /**
      * @var string
@@ -67,13 +67,13 @@ class Layout extends APILayout
     }
 
     /**
-     * Returns the layout identifier.
+     * Returns the layout type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
-        return $this->identifier;
+        return $this->type;
     }
 
     /**

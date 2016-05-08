@@ -41,11 +41,11 @@ abstract class Layout extends Value
     abstract public function getParentId();
 
     /**
-     * Returns the layout identifier.
+     * Returns the layout type.
      *
      * @return string
      */
-    abstract public function getIdentifier();
+    abstract public function getType();
 
     /**
      * Returns the layout human readable name.

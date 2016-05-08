@@ -11,7 +11,7 @@ class LayoutCreateStructTest extends \PHPUnit_Framework_TestCase
     {
         $layoutCreateStruct = new LayoutCreateStruct();
 
-        self::assertNull($layoutCreateStruct->identifier);
+        self::assertNull($layoutCreateStruct->type);
         self::assertNull($layoutCreateStruct->name);
         self::assertEquals(Layout::STATUS_DRAFT, $layoutCreateStruct->status);
         self::assertEquals(array(), $layoutCreateStruct->zoneIdentifiers);
@@ -21,14 +21,14 @@ class LayoutCreateStructTest extends \PHPUnit_Framework_TestCase
     {
         $layoutCreateStruct = new LayoutCreateStruct(
             array(
-                'identifier' => '3_zones_a',
+                'type' => '3_zones_a',
                 'name' => 'My layout',
                 'status' => Layout::STATUS_PUBLISHED,
                 'zoneIdentifiers' => array('top', 'bottom'),
             )
         );
 
-        self::assertEquals('3_zones_a', $layoutCreateStruct->identifier);
+        self::assertEquals('3_zones_a', $layoutCreateStruct->type);
         self::assertEquals('My layout', $layoutCreateStruct->name);
         self::assertEquals(Layout::STATUS_PUBLISHED, $layoutCreateStruct->status);
         self::assertEquals(array('top', 'bottom'), $layoutCreateStruct->zoneIdentifiers);

@@ -42,7 +42,7 @@ class LayoutNormalizer implements NormalizerInterface
         return array(
             'id' => $layout->getId(),
             'parent_id' => $layout->getParentId(),
-            'identifier' => $layout->getIdentifier(),
+            'type' => $layout->getType(),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'name' => $layout->getName(),
@@ -77,7 +77,7 @@ class LayoutNormalizer implements NormalizerInterface
     protected function getZones(Layout $layout)
     {
         $zones = array();
-        $layoutConfig = $this->configuration->getLayoutConfig($layout->getIdentifier());
+        $layoutConfig = $this->configuration->getLayoutConfig($layout->getType());
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
             $allowedBlockTypes = true;

@@ -3,7 +3,7 @@ CREATE TABLE `ngbm_layout` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `parent_id` integer DEFAULT NULL,
-  `identifier` text(255) NOT NULL,
+  `type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
   `created` integer NOT NULL,
   `modified` integer NOT NULL,

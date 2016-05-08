@@ -7,22 +7,22 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 class LayoutController extends Controller
 {
     /**
-     * Creates the layout from specified layout identifier.
+     * Creates the layout from specified layout type.
      *
-     * @param string $identifier
+     * @param string $type
      * @param string $name
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create($identifier, $name)
+    public function create($type, $name)
     {
         $layoutService = $this->get('netgen_block_manager.api.service.layout');
         $configuration = $this->get('netgen_block_manager.configuration');
 
-        $layoutConfig = $configuration->getLayoutConfig($identifier);
+        $layoutConfig = $configuration->getLayoutConfig($type);
 
         $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
-            $identifier,
+            $type,
             $name,
             array_keys($layoutConfig['zones'])
         );

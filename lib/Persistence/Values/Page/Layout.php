@@ -21,11 +21,11 @@ class Layout extends Value
     public $parentId;
 
     /**
-     * Layout identifier.
+     * Layout type.
      *
      * @var string
      */
-    public $identifier;
+    public $type;
 
     /**
      * Human readable layout name.

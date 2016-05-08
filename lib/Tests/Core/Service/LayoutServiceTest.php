@@ -51,7 +51,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(1, $layout->getId());
         self::assertNull($layout->getParentId());
-        self::assertEquals('3_zones_a', $layout->getIdentifier());
+        self::assertEquals('3_zones_a', $layout->getType());
         self::assertEquals('My layout', $layout->getName());
         self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
 
@@ -200,7 +200,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(3, $createdLayout->getId());
         self::assertNull($createdLayout->getParentId());
-        self::assertEquals('3_zones_a', $createdLayout->getIdentifier());
+        self::assertEquals('3_zones_a', $createdLayout->getType());
         self::assertEquals('My layout', $createdLayout->getName());
         self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
 
@@ -267,7 +267,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(3, $createdLayout->getId());
         self::assertEquals($parentLayout->getId(), $createdLayout->getParentId());
-        self::assertEquals('3_zones_a', $createdLayout->getIdentifier());
+        self::assertEquals('3_zones_a', $createdLayout->getType());
         self::assertEquals('My layout', $createdLayout->getName());
         self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
 
@@ -320,7 +320,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(3, $copiedLayout->getId());
         self::assertNull($copiedLayout->getParentId());
-        self::assertEquals('3_zones_a', $copiedLayout->getIdentifier());
+        self::assertEquals('3_zones_a', $copiedLayout->getType());
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->getName());
         self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->getStatus());
 
@@ -404,7 +404,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertEquals(1, $copiedLayout->getId());
         self::assertNull($copiedLayout->getParentId());
-        self::assertEquals('3_zones_a', $copiedLayout->getIdentifier());
+        self::assertEquals('3_zones_a', $copiedLayout->getType());
         self::assertEquals('My layout', $copiedLayout->getName());
         self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->getStatus());
 
@@ -559,7 +559,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(
             new LayoutCreateStruct(
                 array(
-                    'identifier' => '3_zones_a',
+                    'type' => '3_zones_a',
                     'name' => 'New layout',
                     'zoneIdentifiers' => array('left', 'right', 'bottom'),
                 )

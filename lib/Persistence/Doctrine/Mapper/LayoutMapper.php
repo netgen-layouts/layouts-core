@@ -23,7 +23,7 @@ class LayoutMapper
                 array(
                     'id' => (int)$dataItem['id'],
                     'parentId' => $dataItem['parent_id'] !== null ? (int)$dataItem['parent_id'] : null,
-                    'identifier' => $dataItem['identifier'],
+                    'type' => $dataItem['type'],
                     'name' => $dataItem['name'],
                     'created' => (int)$dataItem['created'],
                     'modified' => (int)$dataItem['modified'],

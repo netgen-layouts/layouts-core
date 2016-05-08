@@ -185,7 +185,7 @@ class LayoutHandler implements LayoutHandlerInterface
             array(
                 'status' => $layoutCreateStruct->status,
                 'parent_id' => $parentLayoutId,
-                'identifier' => $layoutCreateStruct->identifier,
+                'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
@@ -232,7 +232,7 @@ class LayoutHandler implements LayoutHandlerInterface
                 array(
                     'status' => $layoutDataRow['status'],
                     'parent_id' => $layoutDataRow['parent_id'],
-                    'identifier' => $layoutDataRow['identifier'],
+                    'type' => $layoutDataRow['type'],
                     'name' => $layoutDataRow['name'] . ' (copy) ' . crc32(microtime()),
                     'created' => $currentTimeStamp,
                     'modified' => $currentTimeStamp,
@@ -317,7 +317,7 @@ class LayoutHandler implements LayoutHandlerInterface
             array(
                 'status' => $newStatus,
                 'parent_id' => $layoutData[0]['parent_id'],
-                'identifier' => $layoutData[0]['identifier'],
+                'type' => $layoutData[0]['type'],
                 'name' => $layoutData[0]['name'],
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,

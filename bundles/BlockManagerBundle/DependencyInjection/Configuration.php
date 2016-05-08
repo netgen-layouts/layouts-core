@@ -260,7 +260,7 @@ class Configuration implements ConfigurationInterface
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('identifier')
+            ->useAttributeAsKey('type')
             ->prototype('array')
                 ->children()
                     ->scalarNode('name')

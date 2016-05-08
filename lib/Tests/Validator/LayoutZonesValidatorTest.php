@@ -36,7 +36,7 @@ class LayoutZonesValidatorTest extends ValidatorTest
             ->expects($this->never())
             ->method('buildViolation');
 
-        $this->validator->validate(array('zone'), new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(array('zone'), new LayoutZones(array('layoutType' => 'layout')));
     }
 
     /**
@@ -50,7 +50,7 @@ class LayoutZonesValidatorTest extends ValidatorTest
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $this->validator->validate(array('zone'), new LayoutZones(array('layoutIdentifier' => 'other_layout')));
+        $this->validator->validate(array('zone'), new LayoutZones(array('layoutType' => 'other_layout')));
     }
 
     /**
@@ -64,7 +64,7 @@ class LayoutZonesValidatorTest extends ValidatorTest
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $this->validator->validate(42, new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(42, new LayoutZones(array('layoutType' => 'layout')));
     }
 
     /**
@@ -78,7 +78,7 @@ class LayoutZonesValidatorTest extends ValidatorTest
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $this->validator->validate(array('zone', 'other_zone'), new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(array('zone', 'other_zone'), new LayoutZones(array('layoutType' => 'layout')));
     }
 
     /**
@@ -92,6 +92,6 @@ class LayoutZonesValidatorTest extends ValidatorTest
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $this->validator->validate(array(), new LayoutZones(array('layoutIdentifier' => 'layout')));
+        $this->validator->validate(array(), new LayoutZones(array('layoutType' => 'layout')));
     }
 }

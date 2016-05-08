@@ -81,7 +81,7 @@ class LayoutMapper extends Mapper
             array(
                 'id' => $layout->id,
                 'parentId' => $layout->parentId,
-                'identifier' => $layout->identifier,
+                'type' => $layout->type,
                 'name' => $layout->name,
                 'created' => $this->createDateTime($layout->created),
                 'modified' => $this->createDateTime($layout->modified),

@@ -28,7 +28,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
             array(
                 'id' => 42,
                 'parent_id' => null,
-                'identifier' => '3_zones_a',
+                'type' => '3_zones_a',
                 'name' => 'My layout',
                 'created' => 123,
                 'modified' => 456,
@@ -37,7 +37,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
             array(
                 'id' => 84,
                 'parent_id' => 48,
-                'identifier' => '3_zones_b',
+                'type' => '3_zones_b',
                 'name' => 'My other layout',
                 'created' => 789,
                 'modified' => 111,
@@ -50,7 +50,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
                 array(
                     'id' => 42,
                     'parentId' => null,
-                    'identifier' => '3_zones_a',
+                    'type' => '3_zones_a',
                     'name' => 'My layout',
                     'created' => 123,
                     'modified' => 456,
@@ -61,7 +61,7 @@ class LayoutMapperTest extends \PHPUnit_Framework_TestCase
                 array(
                     'id' => 84,
                     'parentId' => 48,
-                    'identifier' => '3_zones_b',
+                    'type' => '3_zones_b',
                     'name' => 'My other layout',
                     'created' => 789,
                     'modified' => 111,

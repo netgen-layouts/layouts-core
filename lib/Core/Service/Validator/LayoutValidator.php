@@ -28,13 +28,13 @@ class LayoutValidator extends Validator
         );
 
         $this->validate(
-            $layoutCreateStruct->identifier,
+            $layoutCreateStruct->type,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
                 new Layout(),
             ),
-            'identifier'
+            'type'
         );
 
         $this->validate(
@@ -50,7 +50,7 @@ class LayoutValidator extends Validator
                         ),
                     )
                 ),
-                new LayoutZones(array('layoutIdentifier' => $layoutCreateStruct->identifier)),
+                new LayoutZones(array('layoutType' => $layoutCreateStruct->type)),
             ),
             'zoneIdentifiers'
         );

@@ -1,5 +1,5 @@
 parameters:
-    netgen_block_manager.view.matcher.layout.identifier.class: Netgen\BlockManager\View\Matcher\Layout\Identifier
+    netgen_block_manager.view.matcher.layout.type.class: Netgen\BlockManager\View\Matcher\Layout\Type
     netgen_block_manager.view.matcher.api_version.class: Netgen\BlockManager\View\Matcher\APIVersion
     netgen_block_manager.view.matcher.block.definition_identifier.class: Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier
     netgen_block_manager.view.matcher.block.view_type.class: Netgen\BlockManager\View\Matcher\Block\ViewType
@@ -10,10 +10,10 @@ services:
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: api_version }
 
-    netgen_block_manager.view.matcher.layout.identifier:
-        class: "%netgen_block_manager.view.matcher.layout.identifier.class%"
+    netgen_block_manager.view.matcher.layout.type:
+        class: "%netgen_block_manager.view.matcher.layout.type.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: layout_identifier }
+            - { name: netgen_block_manager.view.template_matcher, identifier: layout_type }
 
     netgen_block_manager.view.matcher.block.definition_identifier:
         class: "%netgen_block_manager.view.matcher.block.definition_identifier.class%"

@@ -69,7 +69,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             array(
                 'id' => 42,
                 'parentId' => null,
-                'identifier' => '3_zones_a',
+                'type' => '3_zones_a',
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'zones' => array(
@@ -96,7 +96,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             array(
                 'id' => $layout->getId(),
                 'parent_id' => $layout->getParentId(),
-                'identifier' => $layout->getIdentifier(),
+                'type' => $layout->getType(),
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
                 'name' => $layout->getName(),

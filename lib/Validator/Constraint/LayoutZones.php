@@ -24,12 +24,12 @@ class LayoutZones extends Constraint
     /**
      * @var string
      */
-    public $layoutMissingMessage = 'Layout "%layoutIdentifier%" does not exist.';
+    public $layoutMissingMessage = 'Layout "%layoutType%" does not exist.';
 
     /**
      * @var string
      */
-    public $layoutIdentifier;
+    public $layoutType;
 
     /**
      * Returns the name of the class that validates this constraint.

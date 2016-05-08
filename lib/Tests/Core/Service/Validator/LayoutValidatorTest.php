@@ -77,14 +77,14 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
                             ),
                         )
                     ),
-                    new LayoutZones(array('layoutIdentifier' => '3_zones_a')),
+                    new LayoutZones(array('layoutType' => '3_zones_a')),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->name = 'My layout';
-        $layoutCreateStruct->identifier = '3_zones_a';
+        $layoutCreateStruct->type = '3_zones_a';
         $layoutCreateStruct->zoneIdentifiers = array('left', 'right', 'bottom');
 
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);

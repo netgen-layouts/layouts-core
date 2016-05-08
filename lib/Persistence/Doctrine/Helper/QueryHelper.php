@@ -61,7 +61,7 @@ class QueryHelper
     public function getLayoutSelectQuery()
     {
         $query = $this->getQuery();
-        $query->select('id', 'status', 'parent_id', 'identifier', 'name', 'created', 'modified')
+        $query->select('id', 'status', 'parent_id', 'type', 'name', 'created', 'modified')
             ->from('ngbm_layout');
 
         return $query;
@@ -154,7 +154,7 @@ class QueryHelper
                     'id' => ':id',
                     'status' => ':status',
                     'parent_id' => ':parent_id',
-                    'identifier' => ':identifier',
+                    'type' => ':type',
                     'name' => ':name',
                     'created' => ':created',
                     'modified' => ':modified',
@@ -166,7 +166,7 @@ class QueryHelper
             )
             ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
-            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
+            ->setParameter('type', $parameters['type'], Type::STRING)
             ->setParameter('name', trim($parameters['name']), Type::STRING)
             ->setParameter('created', $parameters['created'], Type::INTEGER)
             ->setParameter('modified', $parameters['modified'], Type::INTEGER);
