@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ParametersFormMapperPass implements CompilerPassInterface
+class FormMapperPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.parameters.form_mapper';
     const TAG_NAME = 'netgen_block_manager.parameters.parameter_handler';
