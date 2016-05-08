@@ -36,7 +36,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_edit',
+                            'edit' => 'block_edit',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -55,7 +55,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_edit',
+                        'edit' => 'block_edit',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -106,7 +106,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_edit',
+                        'edit' => 'block_edit',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -140,7 +140,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_edit',
+                            'edit' => 'block_edit',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -157,7 +157,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
                 'blocks' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_edit',
+                            'edit' => 'block_edit',
                         ),
                         'view_types' => array(
                             'title' => array(
@@ -176,7 +176,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_edit',
+                        'edit' => 'block_edit',
                     ),
                     'view_types' => array(
                         'title' => array(
@@ -252,7 +252,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => '',
+                        'edit' => '',
                     ),
                 ),
             ),
@@ -271,7 +271,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => array(),
+                        'edit' => array(),
                     ),
                 ),
             ),
@@ -290,7 +290,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'inline' => '',
+                        'inline_edit' => '',
                     ),
                 ),
             ),
@@ -309,7 +309,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
             'blocks' => array(
                 'block' => array(
                     'forms' => array(
-                        'inline' => array(),
+                        'inline_edit' => array(),
                     ),
                 ),
             ),

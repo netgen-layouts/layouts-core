@@ -156,7 +156,7 @@ class BlockController extends Controller
     }
 
     /**
-     * Displays and processes full block edit form.
+     * Displays and processes block edit form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -177,7 +177,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockConfig['forms']['full'],
+            $blockConfig['forms']['edit'],
             $updateStruct,
             array(
                 'block' => $block,
@@ -231,7 +231,7 @@ class BlockController extends Controller
             $block->getDefinitionIdentifier()
         );
 
-        if (!isset($blockConfig['forms']['inline'])) {
+        if (!isset($blockConfig['forms']['inline_edit'])) {
             throw new InvalidArgumentException('form', 'Block does not support inline editing.');
         }
 
@@ -241,7 +241,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockConfig['forms']['inline'],
+            $blockConfig['forms']['inline_edit'],
             $updateStruct,
             array(
                 'block' => $block,

@@ -1,7 +1,7 @@
 blocks:
     title:
         forms:
-            inline: block_inline_edit_title
+            inline_edit: block_inline_edit_title
         view_types:
             default:
                 name: Default
@@ -9,7 +9,7 @@ blocks:
                 name: Large
     paragraph:
         forms:
-            inline: block_inline_edit_paragraph
+            inline_edit: block_inline_edit_paragraph
         view_types:
             default:
                 name: Default

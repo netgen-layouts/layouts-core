@@ -70,7 +70,7 @@ class APIBlockViewListener implements EventSubscriberInterface
         $block = $view->getBlock();
         $blockConfig = $this->configuration->getBlockConfig($block->getDefinitionIdentifier());
 
-        if (!isset($blockConfig['forms']['inline'])) {
+        if (!isset($blockConfig['forms']['inline_edit'])) {
             return;
         }
 
@@ -80,7 +80,7 @@ class APIBlockViewListener implements EventSubscriberInterface
         $updateStruct->name = $block->getName();
 
         $form = $this->formFactory->create(
-            $blockConfig['forms']['inline'],
+            $blockConfig['forms']['inline_edit'],
             $updateStruct,
             array('block' => $block)
         );

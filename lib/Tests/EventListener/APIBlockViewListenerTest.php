@@ -93,7 +93,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
         $blockView->setContext(ViewInterface::CONTEXT_API);
         $blockView->setBlock($block);
 
-        $blockConfig = array('forms' => array('inline' => 'inline_form'));
+        $blockConfig = array('forms' => array('inline_edit' => 'inline_edit_form'));
 
         $this->configurationMock
             ->expects($this->once())
@@ -112,7 +112,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create')
             ->with(
-                $this->equalTo('inline_form'),
+                $this->equalTo('inline_edit_form'),
                 $this->equalTo($blockUpdateStruct),
                 $this->equalTo(array('block' => $block))
             )
