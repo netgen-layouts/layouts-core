@@ -189,6 +189,11 @@ abstract class LayoutServiceTest extends ServiceTest
             array('left', 'right', 'bottom')
         );
 
+        $this->layoutValidatorMock
+            ->expects($this->at(0))
+            ->method('validateLayoutCreateStruct')
+            ->with($this->equalTo($layoutCreateStruct));
+
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         self::assertInstanceOf(Layout::class, $createdLayout);
@@ -241,13 +246,18 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateLayoutWithParentId()
     {
+        $parentLayout = $this->layoutService->loadLayout(1);
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
             'My layout',
             array('left', 'right', 'bottom')
         );
 
-        $parentLayout = $this->layoutService->loadLayout(1);
+        $this->layoutValidatorMock
+            ->expects($this->at(0))
+            ->method('validateLayoutCreateStruct')
+            ->with($this->equalTo($layoutCreateStruct));
+
         $createdLayout = $this->layoutService->createLayout(
             $layoutCreateStruct,
             $parentLayout

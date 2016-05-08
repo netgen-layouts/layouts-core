@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-
 class ItemCreateStruct extends Value
 {
     /**
@@ -19,5 +17,5 @@ class ItemCreateStruct extends Value
     /**
      * @var int
      */
-    public $type = Item::TYPE_MANUAL;
+    public $type;
 }

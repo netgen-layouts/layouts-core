@@ -182,10 +182,11 @@ class CollectionService implements APICollectionService
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
 
-        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
-            if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
-                throw new BadStateException('name', 'Named collection with provided name already exists.');
-            }
+        if (
+            $collectionCreateStruct->type === Collection::TYPE_NAMED &&
+            $this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)
+        ) {
+            throw new BadStateException('name', 'Named collection with provided name already exists.');
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -571,7 +572,7 @@ class CollectionService implements APICollectionService
         $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
         if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $query->getIdentifier()) {
-            if ($this->collectionHandler->queryExists($query->getId(), $query->getStatus(), $queryUpdateStruct->identifier)) {
+            if ($this->collectionHandler->queryExists($query->getCollectionId(), $query->getStatus(), $queryUpdateStruct->identifier)) {
                 throw new BadStateException('identifier', 'Query with specified identifier already exists.');
             }
         }
@@ -688,17 +689,17 @@ class CollectionService implements APICollectionService
     /**
      * Creates a new item create struct.
      *
+     * @param int $type
      * @param int|string $valueId
      * @param string $valueType
-     * @param int $position
      *
      * @return \Netgen\BlockManager\API\Values\ItemCreateStruct
      */
-    public function newItemCreateStruct($valueId, $valueType, $position)
+    public function newItemCreateStruct($type, $valueId, $valueType)
     {
         return new ItemCreateStruct(
             array(
-                'position' => $position,
+                'type' => $type,
                 'valueId' => $valueId,
                 'valueType' => $valueType,
             )

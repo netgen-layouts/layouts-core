@@ -224,12 +224,12 @@ interface CollectionService
     /**
      * Creates a new collection create struct.
      *
-     * @param string $identifier
      * @param int $type
+     * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($identifier, $type);
+    public function newCollectionCreateStruct($type, $name = null);
 
     /**
      * Creates a new collection update struct.
@@ -241,13 +241,13 @@ interface CollectionService
     /**
      * Creates a new item create struct.
      *
+     * @param int $type
      * @param int|string $valueId
      * @param string $valueType
-     * @param int $position
      *
      * @return \Netgen\BlockManager\API\Values\ItemCreateStruct
      */
-    public function newItemCreateStruct($valueId, $valueType, $position);
+    public function newItemCreateStruct($type, $valueId, $valueType);
 
     /**
      * Creates a new query create struct.
@@ -258,4 +258,11 @@ interface CollectionService
      * @return \Netgen\BlockManager\API\Values\QueryCreateStruct
      */
     public function newQueryCreateStruct($identifier, $type);
+
+    /**
+     * Creates a new query update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\QueryUpdateStruct
+     */
+    public function newQueryUpdateStruct();
 }

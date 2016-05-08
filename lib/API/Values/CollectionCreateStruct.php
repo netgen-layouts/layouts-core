@@ -9,7 +9,7 @@ class CollectionCreateStruct extends Value
     /**
      * @var int
      */
-    public $type = Collection::TYPE_MANUAL;
+    public $type;
 
     /**
      * @var string

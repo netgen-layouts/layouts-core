@@ -2,7 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\Core\Service\CollectionService;
+use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
@@ -60,6 +63,22 @@ trait TestCase
     }
 
     /**
+     * Creates a collection service under test.
+     *
+     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     *
+     * @return \Netgen\BlockManager\Core\Service\CollectionService
+     */
+    protected function createCollectionService(CollectionValidator $validator)
+    {
+        return new CollectionService(
+            $validator,
+            $this->createCollectionMapper(),
+            $this->persistenceHandler
+        );
+    }
+
+    /**
      * Creates the block mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
@@ -79,6 +98,18 @@ trait TestCase
     protected function createLayoutMapper()
     {
         return $this->getMockBuilder(LayoutMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * Creates the collection mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
+     */
+    protected function createCollectionMapper()
+    {
+        return $this->getMockBuilder(CollectionMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
