@@ -111,10 +111,6 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
-        if ($layout->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('layout', 'Blocks can only be created in draft layouts.');
-        }
-
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
         $this->persistenceHandler->beginTransaction();
@@ -149,10 +145,6 @@ class BlockService implements BlockServiceInterface
      */
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
-        }
-
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
         $this->persistenceHandler->beginTransaction();
@@ -187,10 +179,6 @@ class BlockService implements BlockServiceInterface
      */
     public function copyBlock(Block $block, $zoneIdentifier = null)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in draft status can be copied.');
-        }
-
         if ($zoneIdentifier !== null) {
             $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
@@ -242,10 +230,6 @@ class BlockService implements BlockServiceInterface
             }
         }
 
-        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in draft status can be moved.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -282,10 +266,6 @@ class BlockService implements BlockServiceInterface
      */
     public function deleteBlock(Block $block)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in draft status can be deleted.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -314,10 +294,6 @@ class BlockService implements BlockServiceInterface
      */
     public function addCollectionToBlock(Block $block, Collection $collection, $identifier)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
-        }
-
         if ($this->blockHandler->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
             throw new BadStateException('collection', 'Specified collection already exists in block.');
         }
@@ -354,10 +330,6 @@ class BlockService implements BlockServiceInterface
      */
     public function removeCollectionFromBlock(Block $block, Collection $collection)
     {
-        if ($block->getStatus() !== Layout::STATUS_DRAFT && $block->getStatus() !== Layout::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('block', 'Only blocks in (temporary) draft status can be updated.');
-        }
-
         if (!$this->blockHandler->collectionExists($block->getId(), $block->getStatus(), $collection->getId())) {
             throw new BadStateException('collection', 'Specified collection does not exist in block.');
         }

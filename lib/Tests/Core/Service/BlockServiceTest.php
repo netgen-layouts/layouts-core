@@ -278,24 +278,6 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCreateBlockInNonDraftLayoutThrowsBadStateException()
-    {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('new_block', 'default');
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
-
-        $this->blockService->createBlock(
-            $blockCreateStruct,
-            $this->layoutService->loadLayout(1),
-            'top_left'
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlock()
@@ -421,23 +403,6 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testUpdateBlockInNonDraftStatusThrowsBadStateException()
-    {
-        $block = $this->blockService->loadBlock(1);
-
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
-        $blockUpdateStruct->viewType = 'small';
-
-        $this->blockService->updateBlock(
-            $block,
-            $blockUpdateStruct
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlock()
@@ -504,17 +469,6 @@ abstract class BlockServiceTest extends ServiceTest
         $this->blockService->copyBlock(
             $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
             'non_existing'
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCopyBlockInNonDraftStatusThrowsBadStateException()
-    {
-        $this->blockService->copyBlock(
-            $this->blockService->loadBlock(1)
         );
     }
 
@@ -618,19 +572,6 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveBlockInNonDraftStatusThrowsBadStateException()
-    {
-        $this->blockService->moveBlock(
-            $this->blockService->loadBlock(1),
-            0,
-            'bottom'
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
      */
     public function testDeleteBlock()
@@ -647,16 +588,6 @@ abstract class BlockServiceTest extends ServiceTest
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->getPosition());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testDeleteBlockInNonDraftStatusThrowsBadStateException()
-    {
-        $block = $this->blockService->loadBlock(1);
-        $this->blockService->deleteBlock($block);
     }
 
     /**

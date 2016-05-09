@@ -258,23 +258,6 @@ abstract class CollectionServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testUpdateCollectionInNonDraftStatusThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-
-        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'New name';
-
-        $this->collectionService->updateCollection(
-            $collection,
-            $collectionUpdateStruct
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
     public function testUpdateCollectionWithExistingNameForNamedCollectionThrowsBadStateException()
     {
         $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
@@ -462,18 +445,6 @@ abstract class CollectionServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testAddItemInNonDraftStatusThrowsBadStateException()
-    {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
-        $collection = $this->collectionService->loadCollection(1);
-
-        $this->collectionService->addItem($collection, $itemCreateStruct, 1);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
     public function testAddOverrideItemInManualCollectionThrowsBadStateException()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '66', 'ezcontent');
@@ -574,18 +545,6 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveItemInNonDraftStatusThrowsBadStateException()
-    {
-        $this->collectionService->moveItem(
-            $this->collectionService->loadItem(1),
-            0
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
      */
     public function testDeleteItem()
@@ -610,16 +569,6 @@ abstract class CollectionServiceTest extends ServiceTest
         self::assertEquals(count($collection->getItems()) - 1, count($collectionAfterDelete->getItems()));
         self::assertEquals(count($collection->getManualItems()) - 1, count($collectionAfterDelete->getManualItems()));
         self::assertEquals(count($collection->getOverrideItems()), count($collectionAfterDelete->getOverrideItems()));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testDeleteItemInNonDraftStatusThrowsBadStateException()
-    {
-        $item = $this->collectionService->loadItem(1);
-        $this->collectionService->deleteItem($item);
     }
 
     /**
@@ -660,18 +609,6 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $secondQuery = $this->collectionService->loadQuery(3, Collection::STATUS_DRAFT);
         self::assertEquals(2, $secondQuery->getPosition());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testAddQueryInNonDraftStatusThrowsBadStateException()
-    {
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct('new_query', 'ezcontent_search');
-        $collection = $this->collectionService->loadCollection(3);
-
-        $this->collectionService->addQuery($collection, $queryCreateStruct, 1);
     }
 
     /**
@@ -744,20 +681,6 @@ abstract class CollectionServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testUpdateQueryInNonDraftStatusThrowsBadStateException()
-    {
-        $query = $this->collectionService->loadQuery(1);
-
-        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
-        $queryUpdateStruct->identifier = 'new_identifier';
-
-        $this->collectionService->updateQuery($query, $queryUpdateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
     public function testUpdateQueryWithExistingIdentifierThrowsBadStateException()
     {
         $query = $this->collectionService->loadQuery(2, Collection::STATUS_DRAFT);
@@ -812,18 +735,6 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testMoveQueryInNonDraftStatusThrowsBadStateException()
-    {
-        $this->collectionService->moveQuery(
-            $this->collectionService->loadQuery(1),
-            0
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
      */
     public function testDeleteQuery()
@@ -846,16 +757,6 @@ abstract class CollectionServiceTest extends ServiceTest
         self::assertEquals(0, $secondQuery->getPosition());
 
         self::assertEquals(count($collection->getQueries()) - 1, count($collectionAfterDelete->getQueries()));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testDeleteQueryInNonDraftStatusThrowsBadStateException()
-    {
-        $query = $this->collectionService->loadQuery(1);
-        $this->collectionService->deleteQuery($query);
     }
 
     /**

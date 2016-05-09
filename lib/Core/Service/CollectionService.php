@@ -218,10 +218,6 @@ class CollectionService implements APICollectionService
      */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
-        if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('collection', 'Only collections in (temporary) draft status can be updated.');
-        }
-
         $this->collectionValidator->validateCollectionUpdateStruct($collectionUpdateStruct);
 
         if ($collection->getType() === Collection::TYPE_NAMED && $collectionUpdateStruct->name !== null) {
@@ -381,10 +377,6 @@ class CollectionService implements APICollectionService
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
     {
-        if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('collection', 'Items can only be created in (temporary) draft collections.');
-        }
-
         if ($position !== null) {
             $this->collectionValidator->validatePosition($position, 'position');
         }
@@ -436,10 +428,6 @@ class CollectionService implements APICollectionService
      */
     public function moveItem(Item $item, $position)
     {
-        if ($item->getStatus() !== Collection::STATUS_DRAFT && $item->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('item', 'Only items in (temporary) draft status can be moved.');
-        }
-
         $this->collectionValidator->validatePosition($position, 'position');
 
         $collection = $this->collectionHandler->loadCollection(
@@ -480,10 +468,6 @@ class CollectionService implements APICollectionService
      */
     public function deleteItem(Item $item)
     {
-        if ($item->getStatus() !== Collection::STATUS_DRAFT && $item->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('item', 'Only items in (temporary) draft status can be deleted.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -515,10 +499,6 @@ class CollectionService implements APICollectionService
      */
     public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
     {
-        if ($collection->getStatus() !== Collection::STATUS_DRAFT && $collection->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('collection', 'Queries can only be created in (temporary) draft collections.');
-        }
-
         if ($collection->getType() === Collection::TYPE_MANUAL) {
             throw new BadStateException('queryCreateStruct', 'Query cannot be added to manual collection.');
         }
@@ -565,10 +545,6 @@ class CollectionService implements APICollectionService
      */
     public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
     {
-        if ($query->getStatus() !== Collection::STATUS_DRAFT && $query->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('query', 'Only queries in (temporary) draft status can be updated.');
-        }
-
         $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
         if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $query->getIdentifier()) {
@@ -606,10 +582,6 @@ class CollectionService implements APICollectionService
      */
     public function moveQuery(Query $query, $position)
     {
-        if ($query->getStatus() !== Collection::STATUS_DRAFT && $query->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('query', 'Only queries in (temporary) draft status can be moved.');
-        }
-
         $this->collectionValidator->validatePosition($position, 'position');
 
         $this->persistenceHandler->beginTransaction();
@@ -639,10 +611,6 @@ class CollectionService implements APICollectionService
      */
     public function deleteQuery(Query $query)
     {
-        if ($query->getStatus() !== Collection::STATUS_DRAFT && $query->getStatus() !== Collection::STATUS_TEMPORARY_DRAFT) {
-            throw new BadStateException('query', 'Only queries in (temporary) draft status can be deleted.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {
