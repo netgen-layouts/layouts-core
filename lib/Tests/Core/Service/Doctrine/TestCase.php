@@ -57,7 +57,12 @@ trait TestCase
      */
     protected function createBlockService(BlockValidator $validator)
     {
+        $collectionValidatorMock = $this->getMockBuilder(CollectionValidator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         return new BlockService(
+            $this->createCollectionService($collectionValidatorMock),
             $validator,
             $this->createBlockMapper(),
             $this->persistenceHandler

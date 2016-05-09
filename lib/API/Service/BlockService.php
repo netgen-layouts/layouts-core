@@ -23,6 +23,15 @@ interface BlockService
     public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED);
 
     /**
+     * Loads all collection references belonging to the provided block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference[]
+     */
+    public function loadBlockCollections(Block $block);
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
@@ -87,11 +96,13 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param string $identifier
+     * @param int $offset
+     * @param int $limit
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with specified identifier already exists within the block
      *                                                              If specified collection already exists within the block
      */
-    public function addCollectionToBlock(Block $block, Collection $collection, $identifier);
+    public function addCollectionToBlock(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
 
     /**
      * Removes the collection from the block.

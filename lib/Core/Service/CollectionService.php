@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Exception\BadStateException;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
@@ -98,28 +97,6 @@ class CollectionService implements APICollectionService
         $collections = array();
         foreach ($persistenceCollections as $persistenceCollection) {
             $collections[] = $this->collectionMapper->mapCollection($persistenceCollection);
-        }
-
-        return $collections;
-    }
-
-    /**
-     * Loads all collections belonging to the provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
-     */
-    public function loadBlockCollections(Block $block)
-    {
-        $persistenceCollections = $this->collectionHandler->loadBlockCollections(
-            $block->getId(),
-            $block->getStatus()
-        );
-
-        $collections = array();
-        foreach ($persistenceCollections as $identifier => $persistenceCollection) {
-            $collections[$identifier] = $this->collectionMapper->mapCollection($persistenceCollection);
         }
 
         return $collections;

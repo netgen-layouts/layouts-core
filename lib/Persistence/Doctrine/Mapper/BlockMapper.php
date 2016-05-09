@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 
 class BlockMapper
 {
@@ -38,5 +39,32 @@ class BlockMapper
         }
 
         return $blocks;
+    }
+
+    /**
+     * Maps data from database to collection reference value objects.
+     *
+     * @param array $data
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
+     */
+    public function mapCollectionReferences(array $data = array())
+    {
+        $collectionReferences = array();
+
+        foreach ($data as $dataItem) {
+            $collectionReferences[] = new CollectionReference(
+                array(
+                    'blockId' => (int)$dataItem['block_id'],
+                    'status' => (int)$dataItem['status'],
+                    'collectionId' => (int)$dataItem['collection_id'],
+                    'identifier' => $dataItem['identifier'],
+                    'offset' => (int)$dataItem['offset'],
+                    'limit' => $dataItem['length'] !== null ? (int)$dataItem['length'] : null,
+                )
+            );
+        }
+
+        return $collectionReferences;
     }
 }

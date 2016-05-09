@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 
@@ -34,15 +33,6 @@ interface CollectionService
      * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
      */
     public function loadNamedCollections($status = Collection::STATUS_PUBLISHED);
-
-    /**
-     * Loads all collections belonging to the provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
-     */
-    public function loadBlockCollections(Block $block);
 
     /**
      * Loads an item with specified ID.

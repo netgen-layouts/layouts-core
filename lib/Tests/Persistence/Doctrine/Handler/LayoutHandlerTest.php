@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
@@ -25,6 +26,11 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     protected $blockHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
+     */
+    protected $collectionHandler;
+
+    /**
      * Sets up the tests.
      */
     public function setUp()
@@ -33,6 +39,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->layoutHandler = $this->createLayoutHandler();
         $this->blockHandler = $this->createBlockHandler();
+        $this->collectionHandler = $this->createCollectionHandler();
     }
 
     /**
@@ -309,6 +316,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZoneBlocksData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadBlockCollectionsData
      */
     public function testCopyLayout()
     {
@@ -387,6 +395,30 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->blockHandler->loadZoneBlocks($copiedLayout->id, 'top_right', APILayout::STATUS_PUBLISHED)
         );
+
+        // Verify that non named collections were copied
+        $this->collectionHandler->loadCollection(4, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
+
+        // Verify the state of the collection references
+        $draftReferences = $this->blockHandler->loadBlockCollections(5, APILayout::STATUS_DRAFT);
+        self::assertCount(2, $draftReferences);
+        self::assertEquals(3, $draftReferences[0]->collectionId);
+        self::assertEquals(4, $draftReferences[1]->collectionId);
+
+        $publishedReferences = $this->blockHandler->loadBlockCollections(5, APILayout::STATUS_PUBLISHED);
+        self::assertCount(2, $draftReferences);
+        self::assertEquals(3, $publishedReferences[0]->collectionId);
+        self::assertEquals(5, $publishedReferences[1]->collectionId);
+
+        // Second block
+        $draftReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_DRAFT);
+        self::assertCount(1, $draftReferences);
+        self::assertEquals(3, $draftReferences[0]->collectionId);
+
+        $publishedReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_PUBLISHED);
+        self::assertCount(1, $draftReferences);
+        self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
 
     /**
@@ -394,6 +426,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZoneBlocksData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadBlockCollectionsData
      */
     public function testCreateLayoutStatus()
     {
@@ -472,6 +505,20 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
         );
+
+        // Verify that non named collection was copied
+        $this->collectionHandler->loadCollection(4, Collection::STATUS_PUBLISHED);
+
+        // Verify the state of the collection references
+        $archivedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_ARCHIVED);
+        self::assertCount(2, $archivedReferences);
+        self::assertEquals(3, $archivedReferences[0]->collectionId);
+        self::assertEquals(4, $archivedReferences[1]->collectionId);
+
+        // Second block
+        $archivedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_ARCHIVED);
+        self::assertCount(1, $archivedReferences);
+        self::assertEquals(3, $archivedReferences[0]->collectionId);
     }
 
     /**
@@ -561,56 +608,112 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+
+        // Verify the state of the collection references
+        $draftReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT);
+        self::assertEmpty($draftReferences);
+
+        $archivedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_ARCHIVED);
+        self::assertCount(2, $archivedReferences);
+        self::assertEquals(1, $archivedReferences[0]->collectionId);
+        self::assertEquals(3, $archivedReferences[1]->collectionId);
+
+        // Second block
+        $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);
+        self::assertEmpty($draftReferences);
+
+        $archivedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_ARCHIVED);
+        self::assertCount(1, $archivedReferences);
+        self::assertEquals(3, $archivedReferences[0]->collectionId);
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayout()
     {
-        // We need to delete the blocks to delete the layout
-        $query = $this->databaseConnection->createQueryBuilder();
-        $query->delete('ngbm_block')
-            ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', 1);
-        $query->execute();
-
         $this->layoutHandler->deleteLayout(1);
 
-        $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+        // Verify that we don't have the layout any more
+        try {
+            $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+            self::fail('Layout not removed after deleting it.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        // Verify that we don't have the collections that were related to the layout
+        try {
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
+            self::fail('Collections not deleted after deleting the layout.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        // Verify that NOT all collections are deleted, especially the named one (ID == 3)
+        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
+
+        // Verify the state of the collection references
+        $draftReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT);
+        self::assertEmpty($draftReferences);
+
+        $publishedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_PUBLISHED);
+        self::assertEmpty($publishedReferences);
+
+        // Second block
+        $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);
+        self::assertEmpty($draftReferences);
+
+        $publishedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_PUBLISHED);
+        self::assertEmpty($publishedReferences);
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteLayoutInOneStatus()
     {
-        // We need to delete the blocks to delete the layout
-        $query = $this->databaseConnection->createQueryBuilder();
-        $query->delete('ngbm_block')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
-            )
-            ->setParameter('layout_id', 1)
-            ->setParameter('status', APILayout::STATUS_DRAFT);
-        $query->execute();
-
         $this->layoutHandler->deleteLayout(1, APILayout::STATUS_DRAFT);
 
-        // First, verify that NOT all layout statuses are deleted
+        // Verify that we don't have the layout in deleted status any more
         try {
-            $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+            $this->layoutHandler->loadLayout(1, APILayout::STATUS_DRAFT);
+            self::fail('Layout not deleted after deleting it in one status.');
         } catch (NotFoundException $e) {
-            self::fail('Deleting the layout in draft status deleted other/all statuses.');
+            // Do nothing
         }
 
-        $this->layoutHandler->loadLayout(1, APILayout::STATUS_DRAFT);
+        // Verify that NOT all layout statuses are deleted
+        $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+
+        // Verify that we don't have the collection that was related to layout in deleted status any more
+        try {
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED);
+            self::fail('Collection not deleted after deleting layout in one status.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        // Verify that NOT all collections are deleted, especially the named one (ID == 3)
+        $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
+
+        // Verify the state of the collection references
+        $draftReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT);
+        self::assertEmpty($draftReferences);
+
+        $publishedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_PUBLISHED);
+        self::assertCount(2, $publishedReferences);
+        self::assertEquals(2, $publishedReferences[0]->collectionId);
+        self::assertEquals(3, $publishedReferences[1]->collectionId);
+
+        // Second block
+        $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);
+        self::assertEmpty($draftReferences);
+
+        $publishedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_PUBLISHED);
+        self::assertCount(1, $publishedReferences);
+        self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
 }

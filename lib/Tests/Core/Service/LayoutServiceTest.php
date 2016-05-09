@@ -6,10 +6,7 @@ use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Zone;
-use DateTime;
+use Netgen\BlockManager\API\Values\Page\Zone;
 
 abstract class LayoutServiceTest extends ServiceTest
 {
@@ -77,7 +74,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $zone = $this->layoutService->loadZone(1, 'top_left');
 
-        self::assertInstanceOf(APIZone::class, $zone);
+        self::assertInstanceOf(Zone::class, $zone);
     }
 
     /**

@@ -105,42 +105,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Loads all collections belonging to the provided block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
-     */
-    public function loadBlockCollections($blockId, $status)
-    {
-        $query = $this->queryHelper->getQuery();
-        $query->select('collection_id', 'identifier')
-            ->from('ngbm_block_collection')
-            ->where(
-                $query->expr()->eq('block_id', ':block_id')
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-        if (empty($data)) {
-            return array();
-        }
-
-        $collections = array();
-        foreach ($data as $dataItem) {
-            $collections[$dataItem['identifier']] = $this->loadCollection(
-                $dataItem['collection_id'],
-                $status
-            );
-        }
-
-        return $collections;
-    }
-
-    /**
      * Loads an item with specified ID.
      *
      * @param int|string $itemId

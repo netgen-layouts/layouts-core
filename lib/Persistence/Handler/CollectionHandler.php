@@ -32,16 +32,6 @@ interface CollectionHandler
     public function loadNamedCollections($status);
 
     /**
-     * Loads all collections belonging to the provided block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
-     */
-    public function loadBlockCollections($blockId, $status);
-
-    /**
      * Loads an item with specified ID.
      *
      * @param int|string $itemId

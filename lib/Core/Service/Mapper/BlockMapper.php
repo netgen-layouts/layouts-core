@@ -3,7 +3,9 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 
 class BlockMapper extends Mapper
 {
@@ -27,6 +29,27 @@ class BlockMapper extends Mapper
                 'viewType' => $block->viewType,
                 'name' => $block->name,
                 'status' => $block->status,
+            )
+        );
+    }
+
+    /**
+     * Builds the API collection reference value object from persistence one.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
+     */
+    public function mapCollectionReference(PersistenceCollectionReference $collectionReference)
+    {
+        return new CollectionReference(
+            array(
+                'blockId' => $collectionReference->blockId,
+                'status' => $collectionReference->status,
+                'collectionId' => $collectionReference->collectionId,
+                'identifier' => $collectionReference->identifier,
+                'offset' => $collectionReference->offset,
+                'limit' => $collectionReference->limit,
             )
         );
     }

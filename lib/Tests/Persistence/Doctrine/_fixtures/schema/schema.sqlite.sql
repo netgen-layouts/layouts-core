@@ -32,6 +32,17 @@ CREATE TABLE `ngbm_block` (
   PRIMARY KEY (`id`, `status`)
 );
 
+DROP TABLE IF EXISTS `ngbm_block_collection`;
+CREATE TABLE `ngbm_block_collection` (
+  `block_id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `collection_id` integer NOT NULL,
+  `identifier` text(255) NOT NULL,
+  `offset` integer NOT NULL,
+  `length` integer DEFAULT NULL,
+  PRIMARY KEY (`block_id`, `status`, `collection_id`)
+);
+
 DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` integer NOT NULL,

@@ -32,6 +32,17 @@ CREATE TABLE `ngbm_block` (
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `ngbm_block_collection`;
+CREATE TABLE `ngbm_block_collection` (
+  `block_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `collection_id` int(11) NOT NULL,
+  `identifier` varchar(255) NOT NULL,
+  `offset` int(11) NOT NULL,
+  `length` int(11),
+  PRIMARY KEY (`block_id`, `status`, `collection_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

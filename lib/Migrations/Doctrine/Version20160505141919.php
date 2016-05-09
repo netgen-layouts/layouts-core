@@ -14,6 +14,19 @@ class Version20160505141919 extends AbstractMigration
     {
         $platformName = $this->platform->getName();
 
+        // ngbm_block_collection table
+
+        $blockCollectionTable = $schema->createTable('ngbm_block_collection');
+
+        $blockCollectionTable->addColumn('block_id', 'integer');
+        $blockCollectionTable->addColumn('status', 'integer');
+        $blockCollectionTable->addColumn('collection_id', 'integer');
+        $blockCollectionTable->addColumn('identifier', 'string', array('length' => 255));
+        $blockCollectionTable->addColumn('offset', 'integer');
+        $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
+
+        $blockCollectionTable->setPrimaryKey(array('block_id', 'status', 'collection_id'));
+
         // ngbm_collection table
 
         $collectionTable = $schema->createTable('ngbm_collection');
@@ -59,6 +72,7 @@ class Version20160505141919 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
+        $schema->dropTable('ngbm_block_collection');
         $schema->dropTable('ngbm_collection');
         $schema->dropTable('ngbm_collection_item');
         $schema->dropTable('ngbm_collection_query');

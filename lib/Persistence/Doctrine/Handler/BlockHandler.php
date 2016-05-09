@@ -117,6 +117,34 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Loads all collection references belonging to the provided block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
+     */
+    public function loadBlockCollections($blockId, $status)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query->select('block_id', 'status', 'collection_id', 'identifier', 'offset', 'length')
+            ->from('ngbm_block_collection')
+            ->where(
+                $query->expr()->eq('block_id', ':block_id')
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER);
+
+        $this->queryHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+        if (empty($data)) {
+            return array();
+        }
+
+        return $this->blockMapper->mapCollectionReferences($data);
+    }
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
@@ -438,8 +466,10 @@ class BlockHandler implements BlockHandlerInterface
      * @param int $status
      * @param int|string $collectionId
      * @param string $identifier
+     * @param int $offset
+     * @param int $limit
      */
-    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier)
+    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier, $offset = 0, $limit = null)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -450,12 +480,16 @@ class BlockHandler implements BlockHandlerInterface
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'identifier' => ':identifier',
+                    'offset' => ':offset',
+                    'length' => ':length',
                 )
             )
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::INTEGER);
+            ->setParameter('identifier', $identifier, Type::INTEGER)
+            ->setParameter('offset', $offset, Type::INTEGER)
+            ->setParameter('length', $limit, Type::INTEGER);
 
         $query->execute();
     }

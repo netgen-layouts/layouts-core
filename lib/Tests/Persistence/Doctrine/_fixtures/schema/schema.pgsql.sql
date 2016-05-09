@@ -29,6 +29,16 @@ CREATE TABLE "ngbm_block" (
   "parameters" text NOT NULL
 );
 
+DROP TABLE IF EXISTS "ngbm_block_collection";
+CREATE TABLE "ngbm_block_collection" (
+  "block_id" character varying(255) NOT NULL,
+  "status" integer NOT NULL,
+  "collection_id" integer NOT NULL,
+  "identifier" character varying(255) NOT NULL,
+  "offset" integer NOT NULL,
+  "length" integer
+);
+
 DROP TABLE IF EXISTS "ngbm_collection";
 CREATE TABLE "ngbm_collection" (
   "id" integer NOT NULL,
@@ -70,6 +80,8 @@ DROP SEQUENCE IF EXISTS ngbm_block_id_seq;
 CREATE SEQUENCE ngbm_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_block ALTER COLUMN id SET DEFAULT nextval('ngbm_block_id_seq'::regclass);
 ALTER TABLE ONLY ngbm_block ADD CONSTRAINT ngbm_block_pkey PRIMARY KEY ("id", "status");
+
+ALTER TABLE ONLY ngbm_block_collection ADD CONSTRAINT ngbm_block_collection_pkey PRIMARY KEY ("block_id", "status", "collection_id");
 
 DROP SEQUENCE IF EXISTS ngbm_collection_id_seq;
 CREATE SEQUENCE ngbm_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

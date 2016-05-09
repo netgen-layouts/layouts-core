@@ -31,6 +31,16 @@ interface BlockHandler
     public function loadZoneBlocks($layoutId, $zoneIdentifier, $status);
 
     /**
+     * Loads all collection references belonging to the provided block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
+     */
+    public function loadBlockCollections($blockId, $status);
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
@@ -131,8 +141,10 @@ interface BlockHandler
      * @param int $status
      * @param int|string $collectionId
      * @param string $identifier
+     * @param int $offset
+     * @param int $limit
      */
-    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier);
+    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier, $offset = 0, $limit = null);
 
     /**
      * Removes the collection from the block.
