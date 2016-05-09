@@ -188,6 +188,37 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Creates a layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not published
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function createDraft(Layout $layout)
+    {
+        if ($layout->getStatus() !== Layout::STATUS_PUBLISHED) {
+            throw new BadStateException('layout', 'Drafts can be created only from published layouts.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_DRAFT);
+            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_TEMPORARY_DRAFT);
+            $layoutDraft = $this->layoutHandler->createLayoutStatus($layout->getId(), Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->layoutMapper->mapLayout($layoutDraft);
+    }
+
+    /**
      * Publishes a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

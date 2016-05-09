@@ -114,6 +114,17 @@ interface CollectionService
     public function createCollectionStatus(Collection $collection, $status);
 
     /**
+     * Creates a collection draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not published
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     */
+    public function createDraft(Collection $collection);
+
+    /**
      * Publishes a collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection

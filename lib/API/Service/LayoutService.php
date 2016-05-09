@@ -64,6 +64,17 @@ interface LayoutService
     public function createLayoutStatus(Layout $layout, $status);
 
     /**
+     * Creates a layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not published
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function createDraft(Layout $layout);
+
+    /**
      * Publishes a layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

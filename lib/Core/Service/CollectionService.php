@@ -304,6 +304,37 @@ class CollectionService implements APICollectionService
     }
 
     /**
+     * Creates a collection draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not published
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     */
+    public function createDraft(Collection $collection)
+    {
+        if ($collection->getStatus() !== Collection::STATUS_PUBLISHED) {
+            throw new BadStateException('collection', 'Drafts can be created only from published collections.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_DRAFT);
+            $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_TEMPORARY_DRAFT);
+            $collectionDraft = $this->collectionHandler->createCollectionStatus($collection->getId(), Collection::STATUS_PUBLISHED, Collection::STATUS_DRAFT);
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->collectionMapper->mapCollection($collectionDraft);
+    }
+
+    /**
      * Publishes a collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
