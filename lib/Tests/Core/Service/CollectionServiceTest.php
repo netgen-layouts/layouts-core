@@ -51,38 +51,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $collection = $this->collectionService->loadCollection(3);
 
         self::assertInstanceOf(Collection::class, $collection);
-
-        self::assertEquals(3, $collection->getId());
-        self::assertEquals('My collection', $collection->getName());
-        self::assertEquals(Collection::TYPE_NAMED, $collection->getType());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $collection->getStatus());
-
-        self::assertNotEmpty($collection->getItems());
-        foreach ($collection->getItems() as $item) {
-            self::assertInstanceOf(Item::class, $item);
-        }
-
-        self::assertEquals(
-            count($collection->getItems()),
-            count($collection->getManualItems()) + count($collection->getOverrideItems())
-        );
-
-        self::assertNotEmpty($collection->getManualItems());
-        foreach ($collection->getManualItems() as $item) {
-            self::assertInstanceOf(Item::class, $item);
-            self::assertEquals(Item::TYPE_MANUAL, $item->getType());
-        }
-
-        self::assertNotEmpty($collection->getOverrideItems());
-        foreach ($collection->getOverrideItems() as $item) {
-            self::assertInstanceOf(Item::class, $item);
-            self::assertEquals(Item::TYPE_OVERRIDE, $item->getType());
-        }
-
-        self::assertNotEmpty($collection->getQueries());
-        foreach ($collection->getQueries() as $query) {
-            self::assertInstanceOf(Query::class, $query);
-        }
     }
 
     /**
@@ -122,14 +90,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $item = $this->collectionService->loadItem(1);
 
         self::assertInstanceOf(Item::class, $item);
-
-        self::assertEquals(1, $item->getId());
-        self::assertEquals(1, $item->getCollectionId());
-        self::assertEquals(Item::TYPE_MANUAL, $item->getType());
-        self::assertEquals(0, $item->getPosition());
-        self::assertEquals('70', $item->getValueId());
-        self::assertEquals('ezcontent', $item->getValueType());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $item->getStatus());
     }
 
     /**
@@ -154,14 +114,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $query = $this->collectionService->loadQuery(1);
 
         self::assertInstanceOf(Query::class, $query);
-
-        self::assertEquals(1, $query->getId());
-        self::assertEquals(2, $query->getCollectionId());
-        self::assertEquals('ezcontent_search', $query->getType());
-        self::assertEquals(0, $query->getPosition());
-        self::assertEquals('default', $query->getIdentifier());
-        self::assertEquals(array('param' => 'value'), $query->getParameters());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $query->getStatus());
     }
 
     /**
@@ -188,11 +140,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
         self::assertInstanceOf(Collection::class, $createdCollection);
-
-        self::assertEquals(4, $createdCollection->getId());
-        self::assertNull($createdCollection->getName());
-        self::assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->getType());
-        self::assertEquals(Collection::STATUS_DRAFT, $createdCollection->getStatus());
     }
 
     /**
@@ -231,6 +178,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
+        self::assertInstanceOf(Collection::class, $updatedCollection);
         self::assertEquals('Super cool collection', $updatedCollection->getName());
     }
 
@@ -251,6 +199,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
+        self::assertInstanceOf(Collection::class, $updatedCollection);
         self::assertNull($updatedCollection->getName());
     }
 
@@ -280,14 +229,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-
         self::assertEquals(4, $copiedCollection->getId());
-        self::assertEquals($collection->getName(), $copiedCollection->getName());
-        self::assertEquals($collection->getType(), $copiedCollection->getType());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->getStatus());
-
-        self::assertEquals(count($collection->getItems()), count($copiedCollection->getItems()));
-        self::assertEquals(count($collection->getQueries()), count($copiedCollection->getQueries()));
     }
 
     /**
@@ -299,14 +241,8 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-
         self::assertEquals(4, $copiedCollection->getId());
         self::assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->getName());
-        self::assertEquals($collection->getType(), $copiedCollection->getType());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->getStatus());
-
-        self::assertEquals(count($collection->getItems()), count($copiedCollection->getItems()));
-        self::assertEquals(count($collection->getQueries()), count($copiedCollection->getQueries()));
     }
 
     /**
@@ -318,14 +254,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->createCollectionStatus($collection, Collection::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-
-        self::assertEquals($collection->getId(), $copiedCollection->getId());
-        self::assertEquals($collection->getName(), $copiedCollection->getName());
-        self::assertEquals($collection->getType(), $copiedCollection->getType());
-        self::assertEquals(Collection::STATUS_ARCHIVED, $copiedCollection->getStatus());
-
-        self::assertEquals(count($collection->getItems()), count($copiedCollection->getItems()));
-        self::assertEquals(count($collection->getQueries()), count($copiedCollection->getQueries()));
     }
 
     /**
@@ -428,17 +356,6 @@ abstract class CollectionServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(Item::class, $createdItem);
-
-        self::assertEquals(12, $createdItem->getId());
-        self::assertEquals(1, $createdItem->getCollectionId());
-        self::assertEquals(Item::TYPE_MANUAL, $createdItem->getType());
-        self::assertEquals(1, $createdItem->getPosition());
-        self::assertEquals('66', $createdItem->getValueId());
-        self::assertEquals('ezcontent', $createdItem->getValueType());
-        self::assertEquals(Collection::STATUS_DRAFT, $createdItem->getStatus());
-
-        $secondItem = $this->collectionService->loadItem(2, Collection::STATUS_DRAFT);
-        self::assertEquals(2, $secondItem->getPosition());
     }
 
     /**
@@ -506,14 +423,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
         /*
         self::assertInstanceOf(Item::class, $movedItem);
-
-        self::assertEquals(1, $movedItem->getId());
-        self::assertEquals(1, $movedItem->getCollectionId());
-        self::assertEquals(Item::TYPE_MANUAL, $movedItem->getType());
         self::assertEquals(1, $movedItem->getPosition());
-        self::assertEquals('70', $movedItem->getValueId());
-        self::assertEquals('ezcontent', $movedItem->getValueType());
-        self::assertEquals(Collection::STATUS_DRAFT, $movedItem->getStatus());
         */
 
         $secondItem = $this->collectionService->loadItem(2, Collection::STATUS_DRAFT);
@@ -565,10 +475,6 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $secondItem = $this->collectionService->loadItem(2, Collection::STATUS_DRAFT);
         self::assertEquals(0, $secondItem->getPosition());
-
-        self::assertEquals(count($collection->getItems()) - 1, count($collectionAfterDelete->getItems()));
-        self::assertEquals(count($collection->getManualItems()) - 1, count($collectionAfterDelete->getManualItems()));
-        self::assertEquals(count($collection->getOverrideItems()), count($collectionAfterDelete->getOverrideItems()));
     }
 
     /**
@@ -598,14 +504,6 @@ abstract class CollectionServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(Query::class, $createdQuery);
-
-        self::assertEquals(4, $createdQuery->getId());
-        self::assertEquals(3, $createdQuery->getCollectionId());
-        self::assertEquals('ezcontent_search', $createdQuery->getType());
-        self::assertEquals(1, $createdQuery->getPosition());
-        self::assertEquals('new_query', $createdQuery->getIdentifier());
-        self::assertEquals(array('param2' => 'value2'), $createdQuery->getParameters());
-        self::assertEquals(Collection::STATUS_DRAFT, $createdQuery->getStatus());
 
         $secondQuery = $this->collectionService->loadQuery(3, Collection::STATUS_DRAFT);
         self::assertEquals(2, $secondQuery->getPosition());
@@ -668,13 +566,8 @@ abstract class CollectionServiceTest extends ServiceTest
 
         self::assertInstanceOf(Query::class, $updatedQuery);
 
-        self::assertEquals(1, $updatedQuery->getId());
-        self::assertEquals(2, $updatedQuery->getCollectionId());
-        self::assertEquals('ezcontent_search', $updatedQuery->getType());
-        self::assertEquals(0, $updatedQuery->getPosition());
         self::assertEquals('new_identifier', $updatedQuery->getIdentifier());
         self::assertEquals(array('param' => 'value2', 'param3' => 'value3'), $updatedQuery->getParameters());
-        self::assertEquals(Collection::STATUS_DRAFT, $updatedQuery->getStatus());
     }
 
     /**
@@ -708,14 +601,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
         /*
         self::assertInstanceOf(Query::class, $movedQuery);
-
-        self::assertEquals(2, $movedQuery->getId());
-        self::assertEquals(3, $movedQuery->getCollectionId());
-        self::assertEquals('ezcontent_search', $movedQuery->getType());
         self::assertEquals(1, $movedQuery->getPosition());
-        self::assertEquals('default', $movedQuery->getIdentifier());
-        self::assertEquals(array('param' => 'value'), $movedQuery->getParameters());
-        self::assertEquals(Collection::STATUS_DRAFT, $movedQuery->getStatus());
         */
 
         $secondQuery = $this->collectionService->loadQuery(3, Collection::STATUS_DRAFT);

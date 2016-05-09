@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use DateTime;
@@ -48,79 +49,6 @@ abstract class LayoutServiceTest extends ServiceTest
         $layout = $this->layoutService->loadLayout(1);
 
         self::assertInstanceOf(Layout::class, $layout);
-
-        self::assertEquals(1, $layout->getId());
-        self::assertNull($layout->getParentId());
-        self::assertEquals('3_zones_a', $layout->getType());
-        self::assertEquals('My layout', $layout->getName());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
-
-        self::assertInstanceOf(DateTime::class, $layout->getCreated());
-        self::assertGreaterThan(0, $layout->getCreated()->getTimestamp());
-
-        self::assertInstanceOf(DateTime::class, $layout->getModified());
-        self::assertGreaterThan(0, $layout->getModified()->getTimestamp());
-
-        self::assertEquals(
-            array(
-                'bottom' => new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => $layout->getId(),
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_left' => new Zone(
-                    array(
-                        'identifier' => 'top_left',
-                        'layoutId' => $layout->getId(),
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_right' => new Zone(
-                    array(
-                        'identifier' => 'top_right',
-                        'layoutId' => $layout->getId(),
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'blocks' => array(
-                            new Block(
-                                array(
-                                    'id' => 1,
-                                    'layoutId' => 1,
-                                    'zoneIdentifier' => 'top_right',
-                                    'position' => 0,
-                                    'definitionIdentifier' => 'paragraph',
-                                    'parameters' => array(
-                                        'some_param' => 'some_value',
-                                    ),
-                                    'viewType' => 'default',
-                                    'name' => 'My block',
-                                    'status' => Layout::STATUS_PUBLISHED,
-                                )
-                            ),
-                            new Block(
-                                array(
-                                    'id' => 2,
-                                    'layoutId' => 1,
-                                    'zoneIdentifier' => 'top_right',
-                                    'position' => 1,
-                                    'definitionIdentifier' => 'title',
-                                    'parameters' => array(
-                                        'other_param' => 'other_value',
-                                    ),
-                                    'viewType' => 'small',
-                                    'name' => 'My other block',
-                                    'status' => Layout::STATUS_PUBLISHED,
-                                )
-                            ),
-                        ),
-                    )
-                ),
-            ),
-            $layout->getZones()
-        );
     }
 
     /**
@@ -147,17 +75,9 @@ abstract class LayoutServiceTest extends ServiceTest
             ->method('validateIdentifier')
             ->with($this->equalTo('top_left'), $this->equalTo('identifier'));
 
-        self::assertEquals(
-            new Zone(
-                array(
-                    'identifier' => 'top_left',
-                    'layoutId' => 1,
-                    'status' => Layout::STATUS_PUBLISHED,
-                    'blocks' => array(),
-                )
-            ),
-            $this->layoutService->loadZone(1, 'top_left')
-        );
+        $zone = $this->layoutService->loadZone(1, 'top_left');
+
+        self::assertInstanceOf(APIZone::class, $zone);
     }
 
     /**
@@ -197,48 +117,6 @@ abstract class LayoutServiceTest extends ServiceTest
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         self::assertInstanceOf(Layout::class, $createdLayout);
-
-        self::assertEquals(3, $createdLayout->getId());
-        self::assertNull($createdLayout->getParentId());
-        self::assertEquals('3_zones_a', $createdLayout->getType());
-        self::assertEquals('My layout', $createdLayout->getName());
-        self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
-
-        self::assertInstanceOf(DateTime::class, $createdLayout->getCreated());
-        self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
-
-        self::assertInstanceOf(DateTime::class, $createdLayout->getModified());
-        self::assertGreaterThan(0, $createdLayout->getModified()->getTimestamp());
-
-        self::assertEquals(
-            array(
-                'bottom' => new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => $createdLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-                'left' => new Zone(
-                    array(
-                        'identifier' => 'left',
-                        'layoutId' => $createdLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-                'right' => new Zone(
-                    array(
-                        'identifier' => 'right',
-                        'layoutId' => $createdLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-            ),
-            $createdLayout->getZones()
-        );
     }
 
     /**
@@ -264,48 +142,6 @@ abstract class LayoutServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(Layout::class, $createdLayout);
-
-        self::assertEquals(3, $createdLayout->getId());
-        self::assertEquals($parentLayout->getId(), $createdLayout->getParentId());
-        self::assertEquals('3_zones_a', $createdLayout->getType());
-        self::assertEquals('My layout', $createdLayout->getName());
-        self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->getStatus());
-
-        self::assertInstanceOf(DateTime::class, $createdLayout->getCreated());
-        self::assertGreaterThan(0, $createdLayout->getCreated()->getTimestamp());
-
-        self::assertInstanceOf(DateTime::class, $createdLayout->getModified());
-        self::assertGreaterThan(0, $createdLayout->getModified()->getTimestamp());
-
-        self::assertEquals(
-            array(
-                'bottom' => new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => $createdLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-                'left' => new Zone(
-                    array(
-                        'identifier' => 'left',
-                        'layoutId' => $createdLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-                'right' => new Zone(
-                    array(
-                        'identifier' => 'right',
-                        'layoutId' => $createdLayout->getId(),
-                        'status' => Layout::STATUS_DRAFT,
-                        'blocks' => array(),
-                    )
-                ),
-            ),
-            $createdLayout->getZones()
-        );
     }
 
     /**
@@ -319,77 +155,6 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(3, $copiedLayout->getId());
-        self::assertNull($copiedLayout->getParentId());
-        self::assertEquals('3_zones_a', $copiedLayout->getType());
-        self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->getName());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->getStatus());
-
-        self::assertInstanceOf(DateTime::class, $copiedLayout->getCreated());
-        self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
-
-        self::assertInstanceOf(DateTime::class, $copiedLayout->getModified());
-        self::assertGreaterThan(0, $copiedLayout->getModified()->getTimestamp());
-
-        self::assertEquals(
-            array(
-                'bottom' => new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => $copiedLayout->getId(),
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_left' => new Zone(
-                    array(
-                        'identifier' => 'top_left',
-                        'layoutId' => $copiedLayout->getId(),
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_right' => new Zone(
-                    array(
-                        'identifier' => 'top_right',
-                        'layoutId' => $copiedLayout->getId(),
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'blocks' => array(
-                            new Block(
-                                array(
-                                    'id' => 5,
-                                    'layoutId' => $copiedLayout->getId(),
-                                    'zoneIdentifier' => 'top_right',
-                                    'position' => 0,
-                                    'definitionIdentifier' => 'paragraph',
-                                    'parameters' => array(
-                                        'some_param' => 'some_value',
-                                    ),
-                                    'viewType' => 'default',
-                                    'name' => 'My block',
-                                    'status' => Layout::STATUS_PUBLISHED,
-                                )
-                            ),
-                            new Block(
-                                array(
-                                    'id' => 6,
-                                    'layoutId' => $copiedLayout->getId(),
-                                    'zoneIdentifier' => 'top_right',
-                                    'position' => 1,
-                                    'definitionIdentifier' => 'title',
-                                    'parameters' => array(
-                                        'other_param' => 'other_value',
-                                    ),
-                                    'viewType' => 'small',
-                                    'name' => 'My other block',
-                                    'status' => Layout::STATUS_PUBLISHED,
-                                )
-                            ),
-                        ),
-                    )
-                ),
-            ),
-            $copiedLayout->getZones()
-        );
     }
 
     /**
@@ -403,77 +168,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(1, $copiedLayout->getId());
-        self::assertNull($copiedLayout->getParentId());
-        self::assertEquals('3_zones_a', $copiedLayout->getType());
-        self::assertEquals('My layout', $copiedLayout->getName());
         self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->getStatus());
-
-        self::assertInstanceOf(DateTime::class, $copiedLayout->getCreated());
-        self::assertGreaterThan(0, $copiedLayout->getCreated()->getTimestamp());
-
-        self::assertInstanceOf(DateTime::class, $copiedLayout->getModified());
-        self::assertGreaterThan(0, $copiedLayout->getModified()->getTimestamp());
-
-        self::assertEquals(
-            array(
-                'bottom' => new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_left' => new Zone(
-                    array(
-                        'identifier' => 'top_left',
-                        'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
-                        'blocks' => array(),
-                    )
-                ),
-                'top_right' => new Zone(
-                    array(
-                        'identifier' => 'top_right',
-                        'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
-                        'blocks' => array(
-                            new Block(
-                                array(
-                                    'id' => 1,
-                                    'layoutId' => 1,
-                                    'zoneIdentifier' => 'top_right',
-                                    'position' => 0,
-                                    'definitionIdentifier' => 'paragraph',
-                                    'parameters' => array(
-                                        'some_param' => 'some_value',
-                                    ),
-                                    'viewType' => 'default',
-                                    'name' => 'My block',
-                                    'status' => Layout::STATUS_ARCHIVED,
-                                )
-                            ),
-                            new Block(
-                                array(
-                                    'id' => 2,
-                                    'layoutId' => 1,
-                                    'zoneIdentifier' => 'top_right',
-                                    'position' => 1,
-                                    'definitionIdentifier' => 'title',
-                                    'parameters' => array(
-                                        'other_param' => 'other_value',
-                                    ),
-                                    'viewType' => 'small',
-                                    'name' => 'My other block',
-                                    'status' => Layout::STATUS_ARCHIVED,
-                                )
-                            ),
-                        ),
-                    )
-                ),
-            ),
-            $copiedLayout->getZones()
-        );
     }
 
     /**

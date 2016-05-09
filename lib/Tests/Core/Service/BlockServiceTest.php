@@ -8,6 +8,7 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\Page\Block;
 
 abstract class BlockServiceTest extends ServiceTest
@@ -60,24 +61,9 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateId')
             ->with($this->equalTo(1), $this->equalTo('blockId'));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'status' => Layout::STATUS_PUBLISHED,
-                )
-            ),
-            $this->blockService->loadBlock(1)
-        );
+        $block = $this->blockService->loadBlock(1);
+
+        self::assertInstanceOf(APIBlock::class, $block);
     }
 
     /**
@@ -114,30 +100,14 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 1,
-                    'definitionIdentifier' => 'new_block',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                        'some_other_param' => 'some_other_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
-                )
-            ),
-            $this->blockService->createBlock(
-                $blockCreateStruct,
-                $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_right',
-                1
-            )
+        $block = $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+            'top_right',
+            1
         );
+
+        self::assertInstanceOf(APIBlock::class, $block);
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(2, $secondBlock->getPosition());
@@ -163,29 +133,14 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 2,
-                    'definitionIdentifier' => 'new_block',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                        'some_other_param' => 'some_other_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
-                )
-            ),
-            $this->blockService->createBlock(
-                $blockCreateStruct,
-                $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_right'
-            )
+        $block = $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+            'top_right'
         );
+
+        self::assertInstanceOf(APIBlock::class, $block);
+        self::assertEquals(2, $block->getPosition());
     }
 
     /**
@@ -212,30 +167,15 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 2,
-                    'definitionIdentifier' => 'new_block',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                        'some_other_param' => 'some_other_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => '',
-                    'status' => Layout::STATUS_DRAFT,
-                )
-            ),
-            $this->blockService->createBlock(
-                $blockCreateStruct,
-                $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_right',
-                2
-            )
+        $block = $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
+            'top_right',
+            2
         );
+
+        self::assertInstanceOf(APIBlock::class, $block);
+        self::assertEquals('', $block->getName());
     }
 
     /**
@@ -295,28 +235,18 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateBlockUpdateStruct')
             ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
 
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        self::assertInstanceOf(APIBlock::class, $block);
+        self::assertEquals('small', $block->getViewType());
+        self::assertEquals('Super cool block', $block->getName());
         self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                        'test_param' => 'test_value',
-                        'some_other_test_param' => 'some_other_test_value',
-                    ),
-                    'viewType' => 'small',
-                    'name' => 'Super cool block',
-                    'status' => Layout::STATUS_DRAFT,
-                )
+            array(
+                'test_param' => 'test_value',
+                'some_other_test_param' => 'some_other_test_value',
+                'some_param' => 'some_value',
             ),
-            $this->blockService->updateBlock(
-                $block,
-                $blockUpdateStruct
-            )
+            $block->getParameters()
         );
     }
 
@@ -332,32 +262,18 @@ abstract class BlockServiceTest extends ServiceTest
         $blockUpdateStruct->setParameter('test_param', 'test_value');
         $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
 
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateBlockUpdateStruct')
-            ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
+        self::assertInstanceOf(APIBlock::class, $block);
+        self::assertEquals('small', $block->getViewType());
+        self::assertEquals('My block', $block->getName());
         self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                        'test_param' => 'test_value',
-                        'some_other_test_param' => 'some_other_test_value',
-                    ),
-                    'viewType' => 'small',
-                    'name' => 'My block',
-                )
+            array(
+                'test_param' => 'test_value',
+                'some_other_test_param' => 'some_other_test_value',
+                'some_param' => 'some_value',
             ),
-            $this->blockService->updateBlock(
-                $block,
-                $blockUpdateStruct
-            )
+            $block->getParameters()
         );
     }
 
@@ -378,27 +294,18 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateBlockUpdateStruct')
             ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
 
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        self::assertInstanceOf(APIBlock::class, $block);
+        self::assertEquals('default', $block->getViewType());
+        self::assertEquals('Super cool block', $block->getName());
         self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                        'test_param' => 'test_value',
-                        'some_other_test_param' => 'some_other_test_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'Super cool block',
-                )
+            array(
+                'test_param' => 'test_value',
+                'some_other_test_param' => 'some_other_test_value',
+                'some_param' => 'some_value',
             ),
-            $this->blockService->updateBlock(
-                $block,
-                $blockUpdateStruct
-            )
+            $block->getParameters()
         );
     }
 
@@ -407,25 +314,12 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCopyBlock()
     {
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 2,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                )
-            ),
-            $this->blockService->copyBlock(
-                $this->blockService->loadBlock(1, Layout::STATUS_DRAFT)
-            )
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlock(1, Layout::STATUS_DRAFT)
         );
+
+        self::assertInstanceOf(APIBlock::class, $copiedBlock);
+        self::assertEquals(5, $copiedBlock->getId());
     }
 
     /**
@@ -438,26 +332,14 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateIdentifier')
             ->with($this->equalTo('bottom'), $this->equalTo('zoneIdentifier'));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 5,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                )
-            ),
-            $this->blockService->copyBlock(
-                $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
-                'bottom'
-            )
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            'bottom'
         );
+
+        self::assertInstanceOf(APIBlock::class, $copiedBlock);
+        self::assertEquals(5, $copiedBlock->getId());
+        self::assertEquals('bottom', $copiedBlock->getZoneIdentifier());
     }
 
     /**
@@ -482,26 +364,14 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validatePosition')
             ->with($this->equalTo(1), $this->equalTo('position'));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
-                    'position' => 1,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                )
-            ),
-            $this->blockService->moveBlock(
-                $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
-                1
-            )
+        $movedBlock = $this->blockService->moveBlock(
+            $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            1
         );
+
+        self::assertInstanceOf(APIBlock::class, $movedBlock);
+        self::assertEquals(1, $movedBlock->getId());
+        self::assertEquals(1, $movedBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->getPosition());
@@ -522,27 +392,16 @@ abstract class BlockServiceTest extends ServiceTest
             ->method('validateIdentifier')
             ->with($this->equalTo('bottom'), $this->equalTo('zoneIdentifier'));
 
-        self::assertEquals(
-            new Block(
-                array(
-                    'id' => 1,
-                    'layoutId' => 1,
-                    'zoneIdentifier' => 'bottom',
-                    'position' => 0,
-                    'definitionIdentifier' => 'paragraph',
-                    'parameters' => array(
-                        'some_param' => 'some_value',
-                    ),
-                    'viewType' => 'default',
-                    'name' => 'My block',
-                )
-            ),
-            $this->blockService->moveBlock(
-                $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
-                0,
-                'bottom'
-            )
+        $movedBlock = $this->blockService->moveBlock(
+            $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
+            0,
+            'bottom'
         );
+
+        self::assertInstanceOf(APIBlock::class, $movedBlock);
+        self::assertEquals(1, $movedBlock->getId());
+        self::assertEquals('bottom', $movedBlock->getZoneIdentifier());
+        self::assertEquals(0, $movedBlock->getPosition());
     }
 
     /**
