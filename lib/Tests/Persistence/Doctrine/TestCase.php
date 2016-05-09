@@ -68,6 +68,7 @@ trait TestCase
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
         return new BlockHandler(
+            $this->createCollectionHandler(),
             new BlockMapper(),
             $connectionHelper,
             new PositionHelper($this->databaseConnection),

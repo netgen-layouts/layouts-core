@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
-use Netgen\BlockManager\API\Service\CollectionService as CollectionServiceInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
@@ -19,11 +18,6 @@ use Exception;
 
 class BlockService implements BlockServiceInterface
 {
-    /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
@@ -52,18 +46,15 @@ class BlockService implements BlockServiceInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
-        CollectionServiceInterface $collectionService,
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
         Handler $persistenceHandler
     ) {
-        $this->collectionService = $collectionService;
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->persistenceHandler = $persistenceHandler;
@@ -222,34 +213,6 @@ class BlockService implements BlockServiceInterface
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
             );
-
-            $copiedBlock = $this->blockMapper->mapBlock($copiedBlock);
-
-            $collectionReferences = $this->blockHandler->loadBlockCollections(
-                $block->getId(),
-                $block->getStatus()
-            );
-
-            foreach ($collectionReferences as $collectionReference) {
-                $collection = $this->collectionService->loadCollection(
-                    $collectionReference->collectionId
-                );
-
-                if ($collection->getType() !== Collection::TYPE_NAMED) {
-                    $newCollection = $this->collectionService->copyCollection($collection);
-                } else {
-                    $newCollection = $collection;
-                }
-
-                $this->blockHandler->addCollectionToBlock(
-                    $copiedBlock->getId(),
-                    $copiedBlock->getStatus(),
-                    $newCollection->getId(),
-                    $collectionReference->identifier,
-                    $collectionReference->offset,
-                    $collectionReference->limit
-                );
-            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -257,7 +220,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $copiedBlock;
+        return $this->blockMapper->mapBlock($copiedBlock);
     }
 
     /**
@@ -325,27 +288,6 @@ class BlockService implements BlockServiceInterface
                 $block->getId(),
                 $block->getStatus()
             );
-
-            $collectionReferences = $this->blockHandler->loadBlockCollections(
-                $block->getId(),
-                $block->getStatus()
-            );
-
-            foreach ($collectionReferences as $collectionReference) {
-                $collection = $this->collectionService->loadCollection(
-                    $collectionReference->collectionId
-                );
-
-                $this->blockHandler->removeCollectionFromBlock(
-                    $block->getId(),
-                    $block->getStatus(),
-                    $collection->getId()
-                );
-
-                if ($collection->getType() !== Collection::TYPE_NAMED) {
-                    $this->collectionService->deleteCollection($collection, true);
-                }
-            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

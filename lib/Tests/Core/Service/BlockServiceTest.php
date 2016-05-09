@@ -9,7 +9,6 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
-use Netgen\BlockManager\Core\Values\Page\Block;
 
 abstract class BlockServiceTest extends ServiceTest
 {

@@ -4,16 +4,23 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Doctrine\DBAL\Types\Type;
 
 class BlockHandler implements BlockHandlerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     */
+    protected $collectionHandler;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
      */
@@ -37,17 +44,20 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper $positionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
     public function __construct(
+        CollectionHandlerInterface $collectionHandler,
         BlockMapper $blockMapper,
         ConnectionHelper $connectionHelper,
         PositionHelper $positionHelper,
         QueryHelper $queryHelper
     ) {
+        $this->collectionHandler = $collectionHandler;
         $this->blockMapper = $blockMapper;
         $this->connectionHelper = $connectionHelper;
         $this->positionHelper = $positionHelper;
@@ -260,10 +270,32 @@ class BlockHandler implements BlockHandlerInterface
 
         $query->execute();
 
-        return $this->loadBlock(
-            (int)$this->connectionHelper->lastInsertId('ngbm_block'),
-            $block->status
-        );
+        $copiedBlockId = (int)$this->connectionHelper->lastInsertId('ngbm_block');
+
+        $collectionReferences = $this->loadBlockCollections($blockId, $status);
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                Collection::STATUS_PUBLISHED
+            );
+
+            if ($collection->type !== Collection::TYPE_NAMED) {
+                $newCollection = $this->collectionHandler->copyCollection($collection->id);
+            } else {
+                $newCollection = $collection;
+            }
+
+            $this->addCollectionToBlock(
+                $copiedBlockId,
+                $block->status,
+                $newCollection->id,
+                $collectionReference->identifier,
+                $collectionReference->offset,
+                $collectionReference->limit
+            );
+        }
+
+        return $this->loadBlock($copiedBlockId, $block->status);
     }
 
     /**
@@ -388,6 +420,28 @@ class BlockHandler implements BlockHandlerInterface
         $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
+
+        $collectionReferences = $this->loadBlockCollections(
+            $blockId,
+            $status
+        );
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                Collection::STATUS_PUBLISHED
+            );
+
+            $this->removeCollectionFromBlock(
+                $blockId,
+                $status,
+                $collection->id
+            );
+
+            if ($collection->type !== Collection::TYPE_NAMED) {
+                $this->collectionHandler->deleteCollection($collection->id);
+            }
+        }
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
