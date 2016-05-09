@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use RuntimeException;
 
@@ -24,48 +23,6 @@ class QueryRunner implements QueryRunnerInterface
     }
 
     /**
-     * Runs all the provided queries.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query[] $queries
-     * @param int $offset
-     * @param int $limit
-     *
-     * @throws \RuntimeException If there are no queries to run
-     *
-     * @return mixed
-     */
-    public function runQueries(array $queries, $offset = 0, $limit = null)
-    {
-        if (empty($queries)) {
-            throw new RuntimeException('There are no queries to run.');
-        }
-
-        if (count($queries) === 1) {
-            return $this->runSingleQuery($queries[0], $offset, $limit);
-        }
-
-        return $this->runMultipleQueries($queries, $offset, $limit);
-    }
-
-    /**
-     * Runs a single query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return array
-     */
-    protected function runSingleQuery(Query $query, $offset = 0, $limit = null)
-    {
-        return $this->queryTypeRegistry->getQueryType($query->getType())->getValues(
-            $query->getParameters(),
-            $offset,
-            $limit
-        );
-    }
-
-    /**
      * Runs all the provided queries and merges result into one list.
      *
      * Considers all the queries as one big list for applying offset and limit.
@@ -76,9 +33,13 @@ class QueryRunner implements QueryRunnerInterface
      *
      * @return array
      */
-    protected function runMultipleQueries(array $queries, $offset = 0, $limit = null)
+    public function runQueries(array $queries, $offset = 0, $limit = null)
     {
-        $count = 0;
+        if (empty($queries)) {
+            throw new RuntimeException('There are no queries to run.');
+        }
+
+        $previousCount = 0;
         $values = array();
 
         foreach ($queries as $query) {
@@ -89,14 +50,15 @@ class QueryRunner implements QueryRunnerInterface
                 ->getQueryType($queryType)
                 ->getCount($queryParameters);
 
-            $count += $queryCount;
-            if ($count <= $offset) {
+            $totalCount = $previousCount + $queryCount;
+            if ($previousCount + $queryCount <= $offset) {
+                $previousCount = $totalCount;
                 continue;
             }
 
             $queryValues = $this->queryTypeRegistry->getQueryType($queryType)->getValues(
                 $queryParameters,
-                empty($values) ? $count - $offset : 0
+                empty($values) && $offset > 0 ? $offset - $previousCount : 0
             );
 
             $values = array_merge($values, $queryValues);
@@ -104,6 +66,8 @@ class QueryRunner implements QueryRunnerInterface
                 $values = array_slice($values, 0, $limit);
                 break;
             }
+
+            $previousCount = $totalCount;
         }
 
         return $values;
