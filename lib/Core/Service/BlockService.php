@@ -93,8 +93,7 @@ class BlockService implements BlockServiceInterface
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not in draft status
-     *                                                              If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
@@ -139,8 +138,6 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
@@ -172,8 +169,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *                                                              If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -212,8 +208,7 @@ class BlockService implements BlockServiceInterface
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *                                                              If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *                                                              If provided position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
@@ -261,8 +256,6 @@ class BlockService implements BlockServiceInterface
      * Deletes a specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
      */
     public function deleteBlock(Block $block)
     {
@@ -288,8 +281,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *                                                              If collection with specified identifier already exists within the block
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with specified identifier already exists within the block
      *                                                              If specified collection already exists within the block
      */
     public function addCollectionToBlock(Block $block, Collection $collection, $identifier)
@@ -325,8 +317,7 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in is not in draft status
-     *                                                              If specified collection does not exist within the block
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If specified collection does not exist within the block
      */
     public function removeCollectionFromBlock(Block $block, Collection $collection)
     {

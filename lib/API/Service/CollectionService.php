@@ -85,8 +85,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not in the draft status
-     *                                                              If named collection with provided name already exists
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If named collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
@@ -153,8 +152,7 @@ interface CollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If position is not set (for non manual collections)
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
-     *                                                              If override item is added to manual collection
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If override item is added to manual collection
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
      *
@@ -168,8 +166,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
-     *                                                              If item already exists in provided position (only for non manual collections)
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
      */
     public function moveItem(Item $item, $position);
@@ -178,8 +175,6 @@ interface CollectionService
      * Removes an item.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
      */
     public function deleteItem(Item $item);
 
@@ -190,8 +185,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
-     *                                                              If query is added to manual collection
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If query is added to manual collection
      *                                                              If query with specified identifier already exists within the collection
      *                                                              If position is out of range
      *
@@ -205,8 +199,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If query is not a draft
-     *                                                              If query with specified identifier already exists within the collection
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If query with specified identifier already exists within the collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
@@ -218,8 +211,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If item is not a draft
-     *                                                              If position is out of range
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If position is out of range
      */
     public function moveQuery(Query $query, $position);
 
@@ -227,8 +219,6 @@ interface CollectionService
      * Removes a query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If query is not a draft
      */
     public function deleteQuery(Query $query);
 
