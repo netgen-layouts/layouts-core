@@ -12,7 +12,6 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder::build
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder::addValueConverter
      */
     public function testBuild()
     {
@@ -35,7 +34,6 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder::build
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder::addValueConverter
      * @expectedException \RuntimeException
      */
     public function testBuildException()
