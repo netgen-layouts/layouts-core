@@ -332,7 +332,7 @@ class LayoutHandler implements LayoutHandlerInterface
                             'status' => ':status',
                             'collection_id' => ':collection_id',
                             'identifier' => ':identifier',
-                            'offset' => ':offset',
+                            'start' => ':start',
                             'length' => ':length',
                         )
                     )
@@ -340,7 +340,7 @@ class LayoutHandler implements LayoutHandlerInterface
                     ->setParameter('status', $collectionsDataRow['status'], Type::INTEGER)
                     ->setParameter('collection_id', $copiedCollection->id, Type::INTEGER)
                     ->setParameter('identifier', $collectionsDataRow['identifier'], Type::INTEGER)
-                    ->setParameter('offset', $collectionsDataRow['offset'], Type::INTEGER)
+                    ->setParameter('start', $collectionsDataRow['start'], Type::INTEGER)
                     ->setParameter('length', $collectionsDataRow['length'], Type::INTEGER);
 
                 $collectionQuery->execute();
@@ -430,7 +430,7 @@ class LayoutHandler implements LayoutHandlerInterface
                                 'status' => ':status',
                                 'collection_id' => ':collection_id',
                                 'identifier' => ':identifier',
-                                'offset' => ':offset',
+                                'start' => ':start',
                                 'length' => ':length',
                             )
                         )
@@ -438,7 +438,7 @@ class LayoutHandler implements LayoutHandlerInterface
                         ->setParameter('status', $newStatus, Type::INTEGER)
                         ->setParameter('collection_id', $copiedCollection->id, Type::INTEGER)
                         ->setParameter('identifier', $collectionsDataRow['identifier'], Type::INTEGER)
-                        ->setParameter('offset', $collectionsDataRow['offset'], Type::INTEGER)
+                        ->setParameter('start', $collectionsDataRow['start'], Type::INTEGER)
                         ->setParameter('length', $collectionsDataRow['length'], Type::INTEGER);
 
                     $collectionQuery->execute();
@@ -447,105 +447,6 @@ class LayoutHandler implements LayoutHandlerInterface
         }
 
         return $this->loadLayout($layoutData[0]['id'], $newStatus);
-    }
-
-    /**
-     * Updates the layout from one status to another.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function updateLayoutStatus($layoutId, $status, $newStatus)
-    {
-        // Get the list of all IDs in the layout, to be used when updating collection references
-
-        $query = $this->queryHelper->getQuery();
-        $query->select('id')
-            ->from('ngbm_block')
-            ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $blockData = $query->execute()->fetchAll();
-
-        $blockIds = array_map(
-            function (array $blockDataRow) {
-                return $blockDataRow['id'];
-            },
-            $blockData
-        );
-
-        // Update layout data
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_layout')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $layoutId, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        // Update zone data
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_zone')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        // Update block data
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_block')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        // Update collection reference data
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_block_collection')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->in('block_id', array(':block_ids'))
-            )
-            ->setParameter('block_ids', $blockIds, Connection::PARAM_INT_ARRAY)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        return $this->loadLayout($layoutId, $newStatus);
     }
 
     /**
@@ -761,7 +662,7 @@ class LayoutHandler implements LayoutHandlerInterface
     protected function loadBlockCollectionsData($blockId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('block_id', 'status', 'collection_id', 'identifier', 'offset', 'length')
+        $query->select('block_id', 'status', 'collection_id', 'identifier', 'start', 'length')
             ->from('ngbm_block_collection')
             ->where(
                 $query->expr()->eq('block_id', ':block_id')

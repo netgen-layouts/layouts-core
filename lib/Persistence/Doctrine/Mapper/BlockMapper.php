@@ -59,7 +59,7 @@ class BlockMapper
                     'status' => (int)$dataItem['status'],
                     'collectionId' => (int)$dataItem['collection_id'],
                     'identifier' => $dataItem['identifier'],
-                    'offset' => (int)$dataItem['offset'],
+                    'offset' => (int)$dataItem['start'],
                     'limit' => $dataItem['length'] !== null ? (int)$dataItem['length'] : null,
                 )
             );

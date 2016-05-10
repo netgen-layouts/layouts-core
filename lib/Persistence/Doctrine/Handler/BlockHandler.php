@@ -137,7 +137,7 @@ class BlockHandler implements BlockHandlerInterface
     public function loadBlockCollections($blockId, $status)
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('block_id', 'status', 'collection_id', 'identifier', 'offset', 'length')
+        $query->select('block_id', 'status', 'collection_id', 'identifier', 'start', 'length')
             ->from('ngbm_block_collection')
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
@@ -409,18 +409,6 @@ class BlockHandler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
-        $query = $this->queryHelper->getQuery();
-
-        $query->delete('ngbm_block')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $blockId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
         $collectionReferences = $this->loadBlockCollections(
             $blockId,
             $status
@@ -442,6 +430,18 @@ class BlockHandler implements BlockHandlerInterface
                 $this->collectionHandler->deleteCollection($collection->id);
             }
         }
+
+        $query = $this->queryHelper->getQuery();
+
+        $query->delete('ngbm_block')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $blockId, Type::INTEGER);
+
+        $this->queryHelper->applyStatusCondition($query, $status);
+
+        $query->execute();
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -534,7 +534,7 @@ class BlockHandler implements BlockHandlerInterface
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'identifier' => ':identifier',
-                    'offset' => ':offset',
+                    'start' => ':start',
                     'length' => ':length',
                 )
             )
@@ -542,7 +542,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
             ->setParameter('identifier', $identifier, Type::INTEGER)
-            ->setParameter('offset', $offset, Type::INTEGER)
+            ->setParameter('start', $offset, Type::INTEGER)
             ->setParameter('length', $limit, Type::INTEGER);
 
         $query->execute();

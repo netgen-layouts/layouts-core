@@ -1,4 +1,11 @@
+DROP TABLE IF EXISTS `ngbm_block_collection`;
+DROP TABLE IF EXISTS `ngbm_collection_item`;
+DROP TABLE IF EXISTS `ngbm_collection_query`;
+DROP TABLE IF EXISTS `ngbm_collection`;
+DROP TABLE IF EXISTS `ngbm_block`;
+DROP TABLE IF EXISTS `ngbm_zone`;
 DROP TABLE IF EXISTS `ngbm_layout`;
+
 CREATE TABLE `ngbm_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -10,15 +17,15 @@ CREATE TABLE `ngbm_layout` (
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ngbm_zone`;
 CREATE TABLE `ngbm_zone` (
   `identifier` varchar(255) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  PRIMARY KEY (`identifier`, `layout_id`, `status`)
+  PRIMARY KEY (`identifier`, `layout_id`, `status`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ngbm_block`;
 CREATE TABLE `ngbm_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -29,21 +36,23 @@ CREATE TABLE `ngbm_block` (
   `view_type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ngbm_block_collection`;
 CREATE TABLE `ngbm_block_collection` (
   `block_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  `offset` int(11) NOT NULL,
+  `start` int(11) NOT NULL,
   `length` int(11),
-  PRIMARY KEY (`block_id`, `status`, `collection_id`)
+  PRIMARY KEY (`block_id`, `status`, `collection_id`),
+  FOREIGN KEY (`block_id`, `status`)
+    REFERENCES ngbm_block (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -52,7 +61,6 @@ CREATE TABLE `ngbm_collection` (
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ngbm_collection_item`;
 CREATE TABLE `ngbm_collection_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -61,10 +69,11 @@ CREATE TABLE `ngbm_collection_item` (
   `type` int(11) NOT NULL,
   `value_id` varchar(255) NOT NULL,
   `value_type` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ngbm_collection_query`;
 CREATE TABLE `ngbm_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -73,5 +82,7 @@ CREATE TABLE `ngbm_collection_query` (
   `identifier` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

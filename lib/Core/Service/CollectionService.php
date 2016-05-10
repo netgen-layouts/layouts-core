@@ -328,10 +328,13 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $collectionHandler = $this->collectionHandler;
-            $collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_ARCHIVED);
-            $collectionHandler->updateCollectionStatus($collection->getId(), Collection::STATUS_PUBLISHED, Collection::STATUS_ARCHIVED);
-            $publishedCollection = $collectionHandler->updateCollectionStatus($collection->getId(), Collection::STATUS_DRAFT, Collection::STATUS_PUBLISHED);
+            $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_ARCHIVED);
+
+            $this->collectionHandler->createCollectionStatus($collection->getId(), Collection::STATUS_PUBLISHED, Collection::STATUS_ARCHIVED);
+            $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_PUBLISHED);
+
+            $publishedCollection = $this->collectionHandler->createCollectionStatus($collection->getId(), Collection::STATUS_DRAFT, Collection::STATUS_PUBLISHED);
+            $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

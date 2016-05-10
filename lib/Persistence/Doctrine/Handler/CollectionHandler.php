@@ -466,62 +466,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Updates the collection from one status to another.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
-    public function updateCollectionStatus($collectionId, $status, $newStatus)
-    {
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_collection')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $collectionId, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_collection_item')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
-            )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->update('ngbm_collection_query')
-            ->set('status', ':new_status')
-            ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
-            )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('new_status', $newStatus, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $query->execute();
-
-        return $this->loadCollection($collectionId, $newStatus);
-    }
-
-    /**
      * Deletes a collection with specified ID.
      *
      * @param int|string $collectionId

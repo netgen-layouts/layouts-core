@@ -403,13 +403,13 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         // Verify the state of the collection references
         $draftReferences = $this->blockHandler->loadBlockCollections(5, APILayout::STATUS_DRAFT);
         self::assertCount(2, $draftReferences);
-        self::assertEquals(3, $draftReferences[0]->collectionId);
-        self::assertEquals(4, $draftReferences[1]->collectionId);
+        self::assertContains($draftReferences[0]->collectionId, array(3, 4));
+        self::assertContains($draftReferences[1]->collectionId, array(3, 4));
 
         $publishedReferences = $this->blockHandler->loadBlockCollections(5, APILayout::STATUS_PUBLISHED);
         self::assertCount(2, $draftReferences);
-        self::assertEquals(3, $publishedReferences[0]->collectionId);
-        self::assertEquals(5, $publishedReferences[1]->collectionId);
+        self::assertContains($publishedReferences[0]->collectionId, array(3, 5));
+        self::assertContains($publishedReferences[1]->collectionId, array(3, 5));
 
         // Second block
         $draftReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_DRAFT);
@@ -512,116 +512,10 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         // Verify the state of the collection references
         $archivedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_ARCHIVED);
         self::assertCount(2, $archivedReferences);
-        self::assertEquals(3, $archivedReferences[0]->collectionId);
-        self::assertEquals(4, $archivedReferences[1]->collectionId);
+        self::assertContains($archivedReferences[0]->collectionId, array(3, 4));
+        self::assertContains($archivedReferences[1]->collectionId, array(3, 4));
 
         // Second block
-        $archivedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_ARCHIVED);
-        self::assertCount(1, $archivedReferences);
-        self::assertEquals(3, $archivedReferences[0]->collectionId);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutStatus
-     */
-    public function testUpdateLayoutStatus()
-    {
-        $copiedLayout = $this->layoutHandler->updateLayoutStatus(1, APILayout::STATUS_DRAFT, APILayout::STATUS_ARCHIVED);
-
-        self::assertInstanceOf(Layout::class, $copiedLayout);
-
-        self::assertEquals(1, $copiedLayout->id);
-        self::assertNull($copiedLayout->parentId);
-        self::assertEquals('3_zones_a', $copiedLayout->type);
-        self::assertEquals('My layout', $copiedLayout->name);
-        self::assertEquals(APILayout::STATUS_ARCHIVED, $copiedLayout->status);
-
-        self::assertGreaterThan(0, $copiedLayout->created);
-        self::assertGreaterThan(0, $copiedLayout->modified);
-
-        self::assertEquals(
-            array(
-                new Zone(
-                    array(
-                        'identifier' => 'bottom',
-                        'layoutId' => 1,
-                        'status' => APILayout::STATUS_ARCHIVED,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'identifier' => 'top_left',
-                        'layoutId' => 1,
-                        'status' => APILayout::STATUS_ARCHIVED,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'identifier' => 'top_right',
-                        'layoutId' => 1,
-                        'status' => APILayout::STATUS_ARCHIVED,
-                    )
-                ),
-            ),
-            $this->layoutHandler->loadLayoutZones(1, APILayout::STATUS_ARCHIVED)
-        );
-
-        self::assertEquals(
-            array(
-                new Block(
-                    array(
-                        'id' => 1,
-                        'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
-                        'position' => 0,
-                        'definitionIdentifier' => 'paragraph',
-                        'parameters' => array(
-                            'some_param' => 'some_value',
-                        ),
-                        'viewType' => 'default',
-                        'name' => 'My block',
-                        'status' => APILayout::STATUS_ARCHIVED,
-                    )
-                ),
-                new Block(
-                    array(
-                        'id' => 2,
-                        'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
-                        'position' => 1,
-                        'definitionIdentifier' => 'title',
-                        'parameters' => array(
-                            'other_param' => 'other_value',
-                        ),
-                        'viewType' => 'small',
-                        'name' => 'My other block',
-                        'status' => APILayout::STATUS_ARCHIVED,
-                    )
-                ),
-            ),
-            $this->blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
-        );
-
-        try {
-            $this->layoutHandler->loadLayout(1, APILayout::STATUS_DRAFT);
-            self::fail('Layout in old status still exists after updating the status');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT);
-        self::assertEmpty($draftReferences);
-
-        $archivedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_ARCHIVED);
-        self::assertCount(2, $archivedReferences);
-        self::assertEquals(1, $archivedReferences[0]->collectionId);
-        self::assertEquals(3, $archivedReferences[1]->collectionId);
-
-        // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);
-        self::assertEmpty($draftReferences);
-
         $archivedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_ARCHIVED);
         self::assertCount(1, $archivedReferences);
         self::assertEquals(3, $archivedReferences[0]->collectionId);
@@ -705,8 +599,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         $publishedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_PUBLISHED);
         self::assertCount(2, $publishedReferences);
-        self::assertEquals(2, $publishedReferences[0]->collectionId);
-        self::assertEquals(3, $publishedReferences[1]->collectionId);
+        self::assertContains($publishedReferences[0]->collectionId, array(2, 3));
+        self::assertContains($publishedReferences[1]->collectionId, array(2, 3));
 
         // Second block
         $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);

@@ -22,10 +22,11 @@ class Version20160505141919 extends AbstractMigration
         $blockCollectionTable->addColumn('status', 'integer');
         $blockCollectionTable->addColumn('collection_id', 'integer');
         $blockCollectionTable->addColumn('identifier', 'string', array('length' => 255));
-        $blockCollectionTable->addColumn('offset', 'integer');
+        $blockCollectionTable->addColumn('start', 'integer');
         $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
 
         $blockCollectionTable->setPrimaryKey(array('block_id', 'status', 'collection_id'));
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', array('block_id', 'status'), array('id', 'status'));
 
         // ngbm_collection table
 
@@ -51,6 +52,7 @@ class Version20160505141919 extends AbstractMigration
         $collectionItemTable->addColumn('value_type', 'string', array('length' => 255));
 
         $collectionItemTable->setPrimaryKey(array('id', 'status'));
+        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
 
         // ngbm_collection_query table
 
@@ -65,6 +67,7 @@ class Version20160505141919 extends AbstractMigration
         $collectionQueryTable->addColumn('parameters', 'text', array('length' => 65535));
 
         $collectionQueryTable->setPrimaryKey(array('id', 'status'));
+        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
     }
 
     /**

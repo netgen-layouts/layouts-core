@@ -93,17 +93,6 @@ interface LayoutHandler
     public function createLayoutStatus($layoutId, $status, $newStatus);
 
     /**
-     * Updates the layout from one status to another.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function updateLayoutStatus($layoutId, $status, $newStatus);
-
-    /**
      * Deletes a layout with specified ID.
      *
      * @param int|string $layoutId

@@ -136,17 +136,6 @@ interface CollectionHandler
     public function createCollectionStatus($collectionId, $status, $newStatus);
 
     /**
-     * Updates the collection from one status to another.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
-    public function updateCollectionStatus($collectionId, $status, $newStatus);
-
-    /**
      * Deletes a collection with specified ID.
      *
      * @param int|string $collectionId

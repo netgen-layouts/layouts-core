@@ -37,6 +37,7 @@ class Version20160211144645 extends AbstractMigration
         $zoneTable->addColumn('status', 'integer');
 
         $zoneTable->setPrimaryKey(array('identifier', 'layout_id', 'status'));
+        $zoneTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
 
         // ngbm_block table
 
@@ -53,37 +54,40 @@ class Version20160211144645 extends AbstractMigration
         $blockTable->addColumn('parameters', 'text', array('length' => 65535));
 
         $blockTable->setPrimaryKey(array('id', 'status'));
+        $blockTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
 
         // ngbm_rule table
 
-        $blockTable = $schema->createTable('ngbm_rule');
+        $ruleTable = $schema->createTable('ngbm_rule');
 
-        $blockTable->addColumn('id', 'integer', array('autoincrement' => true));
-        $blockTable->addColumn('layout_id', 'integer');
-        $blockTable->addColumn('target_identifier', 'string', array('length' => 255));
+        $ruleTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $ruleTable->addColumn('layout_id', 'integer');
+        $ruleTable->addColumn('target_identifier', 'string', array('length' => 255));
 
-        $blockTable->setPrimaryKey(array('id'));
+        $ruleTable->setPrimaryKey(array('id'));
 
         // ngbm_rule_value table
 
-        $blockTable = $schema->createTable('ngbm_rule_value');
+        $ruleValueTable = $schema->createTable('ngbm_rule_value');
 
-        $blockTable->addColumn('id', 'integer', array('autoincrement' => true));
-        $blockTable->addColumn('rule_id', 'integer');
-        $blockTable->addColumn('value', 'text', array('length' => 65535));
+        $ruleValueTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $ruleValueTable->addColumn('rule_id', 'integer');
+        $ruleValueTable->addColumn('value', 'text', array('length' => 65535));
 
-        $blockTable->setPrimaryKey(array('id'));
+        $ruleValueTable->setPrimaryKey(array('id'));
+        $ruleValueTable->addForeignKeyConstraint('ngbm_rule', array('rule_id'), array('id'));
 
         // ngbm_rule_condition table
 
-        $blockTable = $schema->createTable('ngbm_rule_condition');
+        $ruleConditionTable = $schema->createTable('ngbm_rule_condition');
 
-        $blockTable->addColumn('id', 'integer', array('autoincrement' => true));
-        $blockTable->addColumn('rule_id', 'integer');
-        $blockTable->addColumn('identifier', 'string', array('length' => 255));
-        $blockTable->addColumn('parameters', 'text', array('length' => 65535));
+        $ruleConditionTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $ruleConditionTable->addColumn('rule_id', 'integer');
+        $ruleConditionTable->addColumn('identifier', 'string', array('length' => 255));
+        $ruleConditionTable->addColumn('parameters', 'text', array('length' => 65535));
 
-        $blockTable->setPrimaryKey(array('id'));
+        $ruleConditionTable->setPrimaryKey(array('id'));
+        $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', array('rule_id'), array('id'));
     }
 
     /**
@@ -91,12 +95,12 @@ class Version20160211144645 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $schema->dropTable('ngbm_layout');
-        $schema->dropTable('ngbm_zone');
         $schema->dropTable('ngbm_block');
+        $schema->dropTable('ngbm_zone');
+        $schema->dropTable('ngbm_layout');
 
-        $schema->dropTable('ngbm_rule');
         $schema->dropTable('ngbm_rule_value');
         $schema->dropTable('ngbm_rule_condition');
+        $schema->dropTable('ngbm_rule');
     }
 }

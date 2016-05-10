@@ -38,7 +38,7 @@ CREATE TABLE `ngbm_block_collection` (
   `status` integer NOT NULL,
   `collection_id` integer NOT NULL,
   `identifier` text(255) NOT NULL,
-  `offset` integer NOT NULL,
+  `start` integer NOT NULL,
   `length` integer DEFAULT NULL,
   PRIMARY KEY (`block_id`, `status`, `collection_id`)
 );

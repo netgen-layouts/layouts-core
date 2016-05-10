@@ -32,12 +32,12 @@ return array(
         array('id' => 4, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
     ),
     'ngbm_block_collection' => array(
-        array('block_id' => 1, 'status' => 0, 'collection_id' => 1, 'identifier' => 'default', 'offset' => 0, 'length' => null),
-        array('block_id' => 1, 'status' => 0, 'collection_id' => 3, 'identifier' => 'featured', 'offset' => 0, 'length' => null),
-        array('block_id' => 1, 'status' => 1, 'collection_id' => 2, 'identifier' => 'default', 'offset' => 0, 'length' => null),
-        array('block_id' => 1, 'status' => 1, 'collection_id' => 3, 'identifier' => 'featured', 'offset' => 0, 'length' => null),
-        array('block_id' => 2, 'status' => 0, 'collection_id' => 3, 'identifier' => 'default', 'offset' => 0, 'length' => null),
-        array('block_id' => 2, 'status' => 1, 'collection_id' => 3, 'identifier' => 'default', 'offset' => 0, 'length' => null),
+        array('block_id' => 1, 'status' => 0, 'collection_id' => 1, 'identifier' => 'default', 'start' => 0, 'length' => null),
+        array('block_id' => 1, 'status' => 0, 'collection_id' => 3, 'identifier' => 'featured', 'start' => 0, 'length' => null),
+        array('block_id' => 1, 'status' => 1, 'collection_id' => 2, 'identifier' => 'default', 'start' => 0, 'length' => null),
+        array('block_id' => 1, 'status' => 1, 'collection_id' => 3, 'identifier' => 'featured', 'start' => 0, 'length' => null),
+        array('block_id' => 2, 'status' => 0, 'collection_id' => 3, 'identifier' => 'default', 'start' => 0, 'length' => null),
+        array('block_id' => 2, 'status' => 1, 'collection_id' => 3, 'identifier' => 'default', 'start' => 0, 'length' => null),
     ),
     'ngbm_collection' => array(
         array('id' => 1, 'status' => 0, 'type' => 0, 'name' => null),
