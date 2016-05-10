@@ -1,0 +1,22 @@
+sources:
+    dynamic:
+        name: 'Dynamic'
+        query_type: ezcontent_search
+        default_parameters:
+            parent_location_id: 2
+            content_types: [ng_news, ng_article]
+
+    my_custom_fetch:
+        name: 'My custom fetch'
+        queries:
+            default:
+                query_type: my_query
+                default_parameters:
+                    user_id: 14
+                    use_current_location: true
+                    limit: 5
+            featured:
+                query_type: ezcontent_search
+                default_parameters:
+                    parent_location_id: 2
+                    content_types: [ng_news, ng_article]

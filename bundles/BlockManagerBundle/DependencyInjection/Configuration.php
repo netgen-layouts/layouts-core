@@ -68,6 +68,7 @@ class Configuration implements ConfigurationInterface
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),
             $this->getLayoutsNodeDefinition(),
+            $this->getSourcesNodeDefinition(),
             $this->getPagelayoutNodeDefinition(),
         );
     }
@@ -286,6 +287,72 @@ class Configuration implements ConfigurationInterface
                                     ->requiresAtLeastOneElement()
                                     ->prototype('scalar')
                                         ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for sources.
+     *
+     * @param string $nodeName
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    protected function getSourcesNodeDefinition($nodeName = 'sources')
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root($nodeName);
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('source')
+            ->prototype('array')
+                ->beforeNormalization()
+                    ->ifTrue(function ($v) { return is_array($v) && !array_key_exists('queries', $v); })
+                    ->then(function ($v) {
+                        // Key that should not be rewritten to the query config
+                        $excludedKeys = array('name' => true);
+                        $query = array();
+                        foreach ($v as $key => $value) {
+                            if (isset($excludedKeys[$key])) {
+                                continue;
+                            }
+                            $query[$key] = $v[$key];
+                            unset($v[$key]);
+                        }
+                        $v['queries'] = array('default' => $query);
+
+                        return $v;
+                    })
+                ->end()
+                ->children()
+                    ->scalarNode('name')
+                        ->isRequired()
+                        ->cannotBeEmpty()
+                    ->end()
+                    ->arrayNode('queries')
+                        ->isRequired()
+                        ->performNoDeepMerging()
+                        ->requiresAtLeastOneElement()
+                        ->prototype('array')
+                            ->children()
+                                ->scalarNode('query_type')
+                                    ->isRequired()
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->arrayNode('default_parameters')
+                                    ->defaultValue(array())
+                                    ->performNoDeepMerging()
+                                    ->requiresAtLeastOneElement()
+                                    ->useAttributeAsKey('parameter')
+                                    ->prototype('variable')
                                     ->end()
                                 ->end()
                             ->end()

@@ -82,7 +82,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testBlockSettingsWithNoFullForm()
+    public function testBlockSettingsWithNoEditForm()
     {
         $config = array(
             array(
@@ -246,7 +246,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithEmptyFullForm()
+    public function testBlockSettingsWithEmptyEditForm()
     {
         $config = array(
             'blocks' => array(
@@ -265,7 +265,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithInvalidFullForm()
+    public function testBlockSettingsWithInvalidEditForm()
     {
         $config = array(
             'blocks' => array(
@@ -284,7 +284,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithEmptyFormInline()
+    public function testBlockSettingsWithEmptyInlineEditForm()
     {
         $config = array(
             'blocks' => array(
@@ -303,7 +303,7 @@ class BlocksConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlocksNodeDefinition
      */
-    public function testBlockSettingsWithInvalidFormInline()
+    public function testBlockSettingsWithInvalidInlineEditForm()
     {
         $config = array(
             'blocks' => array(
