@@ -3,9 +3,25 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 
 class BlockController extends Controller
 {
+    /**
+     * @var \Netgen\BlockManager\View\ViewBuilderInterface
+     */
+    protected $viewBuilder;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
+     */
+    public function __construct(ViewBuilderInterface $viewBuilder)
+    {
+        $this->viewBuilder = $viewBuilder;
+    }
+
     /**
      * Renders the provided block.
      *
@@ -16,7 +32,7 @@ class BlockController extends Controller
      */
     public function view(Block $block, array $parameters = array())
     {
-        $blockView = $this->buildViewObject($block);
+        $blockView = $this->viewBuilder->buildView($block);
 
         $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 

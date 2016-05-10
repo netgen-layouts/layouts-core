@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 
 class LayoutController extends Controller
 {
@@ -12,6 +13,11 @@ class LayoutController extends Controller
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     protected $layoutService;
+
+    /**
+     * @var \Netgen\BlockManager\View\ViewBuilderInterface
+     */
+    protected $viewBuilder;
 
     /**
      * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
@@ -22,11 +28,16 @@ class LayoutController extends Controller
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
-    public function __construct(LayoutService $layoutService, ConfigurationInterface $configuration)
-    {
+    public function __construct(
+        LayoutService $layoutService,
+        ViewBuilderInterface $viewBuilder,
+        ConfigurationInterface $configuration
+    ) {
         $this->layoutService = $layoutService;
+        $this->viewBuilder = $viewBuilder;
         $this->configuration = $configuration;
     }
 
@@ -51,7 +62,7 @@ class LayoutController extends Controller
         $layoutCreateStruct->status = Layout::STATUS_DRAFT;
 
         $layout = $this->layoutService->createLayout($layoutCreateStruct);
-        $layoutView = $this->buildViewObject($layout);
+        $layoutView = $this->viewBuilder->buildView($layout);
 
         return $layoutView;
     }
