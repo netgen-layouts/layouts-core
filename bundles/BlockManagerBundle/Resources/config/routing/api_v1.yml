@@ -2,59 +2,59 @@ netgen_block_manager_api_v1_block_types:
     path: /block_types
     methods: [GET]
     defaults:
-        _controller: netgen_block_manager.controller.api.block_types:viewBlockTypes
+        _controller: "netgen_block_manager.controller.api.block_types:viewBlockTypes"
 
 netgen_block_manager_api_v1_load_layout:
     path: /layouts/{layout_id}
     methods: [GET]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.layout:view
+        _controller: "netgen_block_manager.controller.api.layout:view"
 
 netgen_block_manager_api_v1_layout_blocks:
     path: /layouts/{layout_id}/blocks
     methods: [GET]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.layout:viewLayoutBlocks
+        _controller: "netgen_block_manager.controller.api.layout:viewLayoutBlocks"
 
 netgen_block_manager_api_v1_load_block:
     path: /blocks/{block_id}
     methods: [GET]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.block:view
+        _controller: "netgen_block_manager.controller.api.block:view"
 
 netgen_block_manager_api_v1_create_block:
     path: /blocks
     methods: [POST]
     defaults:
-        _controller: netgen_block_manager.controller.api.block:create
+        _controller: "netgen_block_manager.controller.api.block:create"
 
 netgen_block_manager_api_v1_move_block:
     path: /blocks/{block_id}/move
     methods: [PATCH]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.block:move
+        _controller: "netgen_block_manager.controller.api.block:move"
 
 netgen_block_manager_api_v1_edit_block:
     path: /blocks/{block_id}/edit/full
     methods: [GET, PATCH]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.block:edit
+        _controller: "netgen_block_manager.controller.api.block:edit"
 
 netgen_block_manager_api_v1_edit_block_inline:
     path: /blocks/{block_id}/edit/inline
     methods: [PATCH]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.block:editInline
+        _controller: "netgen_block_manager.controller.api.block:editInline"
 
 netgen_block_manager_api_v1_delete_block:
     path: /blocks/{block_id}
     methods: [DELETE]
     defaults:
         status: 0
-        _controller: netgen_block_manager.controller.api.block:delete
+        _controller: "netgen_block_manager.controller.api.block:delete"

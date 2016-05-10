@@ -1,12 +1,12 @@
 layout_view:
     view:
         3_zones_a:
-            template: NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig
+            template: "NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig"
             match:
                 layout_type: 3_zones_a
     api:
         3_zones_a:
-            template: NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig
+            template: "NetgenBlockManagerBundle:layout/api:3_zones_a.html.twig"
             match:
                 layout_type: 3_zones_a
                 api_version: 1
