@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\Serializer\Values\Value as SerializerValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
@@ -35,7 +35,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnView()
     {
-        $value = new SerializableValue(new Value(), 42);
+        $value = new SerializerValue(new Value(), 42);
 
         $serializerMock = $this->getMock(SerializerInterface::class);
         $serializerMock
@@ -90,7 +90,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new SerializableValue(new Value(), 42)
+            new SerializerValue(new Value(), 42)
         );
 
         $eventListener->onView($event);
@@ -113,7 +113,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new SerializableValue(new Value(), 42)
+            new SerializerValue(new Value(), 42)
         );
 
         $eventListener->onView($event);

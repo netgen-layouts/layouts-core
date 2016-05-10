@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\Serializer\Values\ValueInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -54,16 +54,13 @@ class SerializerListener implements EventSubscriberInterface
         }
 
         $controllerResult = $event->getControllerResult();
-        if (!$controllerResult instanceof SerializableValue) {
+        if (!$controllerResult instanceof ValueInterface) {
             return;
         }
 
-        $response = new JsonResponse();
+        $response = new JsonResponse(null, $controllerResult->getStatusCode());
         $response->setContent(
-            $this->serializer->serialize(
-                $controllerResult,
-                'json'
-            )
+            $this->serializer->serialize($controllerResult, 'json')
         );
 
         $event->setResponse($response);

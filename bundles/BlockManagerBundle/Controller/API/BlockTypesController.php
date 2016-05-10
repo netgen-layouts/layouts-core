@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Serializer\Values\SimpleArray;
 
 class BlockTypesController extends Controller
 {
@@ -50,6 +51,6 @@ class BlockTypesController extends Controller
             'block_types' => $blockTypes,
         );
 
-        return $this->buildResponse($data);
+        return new SimpleArray($data);
     }
 }

@@ -7,6 +7,8 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Serializer\Values\FormView;
+use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,9 +68,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        $data = $this->buildData($block);
-
-        return $this->buildResponse($data);
+        return new View($block, self::API_VERSION);
     }
 
     /**
@@ -125,9 +125,7 @@ class BlockController extends Controller
             $request->request->get('position')
         );
 
-        $data = $this->buildData($createdBlock);
-
-        return $this->buildResponse($data, Response::HTTP_CREATED);
+        return new View($createdBlock, self::API_VERSION, Response::HTTP_CREATED);
     }
 
     /**
@@ -193,9 +191,10 @@ class BlockController extends Controller
             }
 
             if (!$form->isValid()) {
-                $data = $this->buildDataForForm($block, $form);
+                $renderableForm = new FormView($block, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
+                $renderableForm->setForm($form);
 
-                return $this->buildResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+                return $renderableForm;
             }
 
             $updatedBlock = $this->blockService->updateBlock(
@@ -203,14 +202,13 @@ class BlockController extends Controller
                 $form->getData()
             );
 
-            $data = $this->buildData($updatedBlock);
-
-            return $this->buildResponse($data);
+            return new View($updatedBlock, self::API_VERSION);
         }
 
-        $data = $this->buildDataForForm($block, $form);
+        $renderableForm = new FormView($block, self::API_VERSION);
+        $renderableForm->setForm($form);
 
-        return $this->buildResponse($data);
+        return $renderableForm;
     }
 
     /**
@@ -269,9 +267,7 @@ class BlockController extends Controller
 
         $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
-        $data = $this->buildData($updatedBlock);
-
-        return $this->buildResponse($data);
+        return new View($updatedBlock, self::API_VERSION);
     }
 
     /**

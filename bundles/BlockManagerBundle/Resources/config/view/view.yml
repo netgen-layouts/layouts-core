@@ -13,6 +13,7 @@ services:
 
     netgen_block_manager.view.renderer:
         class: "%netgen_block_manager.view.renderer.class%"
+        lazy: true
         arguments:
             - "@twig"
 

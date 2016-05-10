@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\Normalizer;
+namespace Netgen\BlockManager\Serializer\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Serializer\SerializableValue;
+use Netgen\BlockManager\Serializer\Values\Value;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class BlockNormalizer implements NormalizerInterface
@@ -11,7 +11,7 @@ class BlockNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\Serializer\SerializableValue $object
+     * @param \Netgen\BlockManager\Serializer\Values\Value $object
      * @param string $format
      * @param array $context
      *
@@ -44,7 +44,7 @@ class BlockNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof SerializableValue) {
+        if (!$data instanceof Value) {
             return false;
         }
 
