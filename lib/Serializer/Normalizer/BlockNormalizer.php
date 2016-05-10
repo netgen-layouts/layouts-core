@@ -19,6 +19,7 @@ class BlockNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
+        /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
         $block = $object->getValue();
 
         return array(
