@@ -40,10 +40,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                             'default' => array(
                                 'query_type' => 'type',
                                 'default_parameters' => array(
-                                    'param' => 'value'
-                                )
-                            )
-                        )
+                                    'param' => 'value',
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -57,10 +57,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'default' => array(
                             'query_type' => 'type',
                             'default_parameters' => array(
-                                'param' => 'value'
-                            )
-                        )
-                    )
+                                'param' => 'value',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         );
@@ -87,8 +87,8 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'name' => 'Dynamic',
                         'query_type' => 'type',
                         'default_parameters' => array(
-                            'param' => 'value'
-                        )
+                            'param' => 'value',
+                        ),
                     ),
                 ),
             ),
@@ -102,10 +102,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                             'default' => array(
                                 'query_type' => 'type',
                                 'default_parameters' => array(
-                                    'param' => 'value'
-                                )
-                            )
-                        )
+                                    'param' => 'value',
+                                ),
+                            ),
+                        ),
                 ),
             ),
         );
@@ -136,9 +136,9 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'default_parameters' => array(
                                     'param1' => 'value1',
                                     'param2' => 'value2',
-                                )
-                            )
-                        )
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -150,10 +150,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                             'default' => array(
                                 'query_type' => 'type2',
                                 'default_parameters' => array(
-                                    'param3' => 'value3'
-                                )
-                            )
-                        )
+                                    'param3' => 'value3',
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -167,10 +167,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'default' => array(
                             'query_type' => 'type2',
                             'default_parameters' => array(
-                                'param3' => 'value3'
-                            )
-                        )
-                    )
+                                'param3' => 'value3',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         );
@@ -200,10 +200,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'query_type' => 'type',
                                 'default_parameters' => array(
                                     'param' => 'value',
-                                    'param2' => 'value2'
-                                )
-                            )
-                        )
+                                    'param2' => 'value2',
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -215,10 +215,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                             'default' => array(
                                 'query_type' => 'type',
                                 'default_parameters' => array(
-                                    'param3' => 'value3'
-                                )
-                            )
-                        )
+                                    'param3' => 'value3',
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -232,10 +232,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'default' => array(
                             'query_type' => 'type',
                             'default_parameters' => array(
-                                'param3' => 'value3'
-                            )
-                        )
-                    )
+                                'param3' => 'value3',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         );
@@ -263,8 +263,8 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'queries' => array(
                             'default' => array(
                                 'query_type' => 'type',
-                            )
-                        )
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -278,8 +278,8 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'default' => array(
                             'query_type' => 'type',
                             'default_parameters' => array(),
-                        )
-                    )
+                        ),
+                    ),
                 ),
             ),
         );
@@ -306,10 +306,10 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'queries' => array(
                         'default' => array(
                             'query_type' => 'type',
-                            'default_parameters' => array()
-                        )
-                    )
-                )
+                            'default_parameters' => array(),
+                        ),
+                    ),
+                ),
             ),
         );
 
@@ -444,7 +444,7 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'dynamic' => array(
                     'name' => 'Dynamic',
                     'queries' => array(
-                        'default' => array()
+                        'default' => array(),
                     ),
                 ),
             ),
@@ -465,8 +465,8 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'Dynamic',
                     'queries' => array(
                         'default' => array(
-                            'query_type' => ''
-                        )
+                            'query_type' => '',
+                        ),
                     ),
                 ),
             ),
@@ -487,8 +487,8 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'Dynamic',
                     'queries' => array(
                         'default' => array(
-                            'query_type' => array()
-                        )
+                            'query_type' => array(),
+                        ),
                     ),
                 ),
             ),

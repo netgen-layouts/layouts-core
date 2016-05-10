@@ -40,8 +40,6 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->queryRunnerMock = $this->getMock(QueryRunnerInterface::class);
 
-        $this->resultValueBuilder = new ResultValueBuilder(array(new ValueConverter()));
-
         $this->valueLoaderRegistryMock = $this->getMock(ValueLoaderRegistryInterface::class);
 
         $this->valueLoaderRegistryMock
@@ -49,10 +47,14 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('getValueLoader')
             ->will($this->returnValue(new ValueLoader()));
 
+        $this->resultValueBuilder = new ResultValueBuilder(
+            $this->valueLoaderRegistryMock,
+            array(new ValueConverter())
+        );
+
         $this->generator = new ResultGenerator(
             $this->queryRunnerMock,
-            $this->resultValueBuilder,
-            $this->valueLoaderRegistryMock
+            $this->resultValueBuilder
         );
     }
 
@@ -65,7 +67,6 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::__construct
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateManualValues
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::getValueFromItem
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleValues
      * @dataProvider generateResultForManualCollectionProvider
      */
@@ -93,7 +94,6 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateDynamicValues
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::getValueFromItem
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleValues
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsBeforeOffset
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsAtOffset

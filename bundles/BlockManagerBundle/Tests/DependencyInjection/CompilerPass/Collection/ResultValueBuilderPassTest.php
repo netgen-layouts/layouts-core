@@ -27,6 +27,7 @@ class ResultValueBuilderPassTest extends AbstractCompilerPassTestCase
     {
         $resultValueBuilder = new Definition();
         $resultValueBuilder->addArgument(array());
+        $resultValueBuilder->addArgument(array());
         $this->setDefinition('netgen_block_manager.collection.result_value_builder', $resultValueBuilder);
 
         $valueConverter = new Definition();
@@ -41,7 +42,7 @@ class ResultValueBuilderPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.collection.result_value_builder',
-            0,
+            1,
             array(
                 new Reference('netgen_block_manager.collection.value_converter.test'),
                 new Reference('netgen_block_manager.collection.value_converter.test2'),

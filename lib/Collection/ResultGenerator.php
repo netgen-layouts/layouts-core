@@ -3,10 +3,8 @@
 namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface;
-use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 use RuntimeException;
 
 class ResultGenerator implements ResultGeneratorInterface
@@ -22,25 +20,17 @@ class ResultGenerator implements ResultGeneratorInterface
     protected $resultValueBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface
-     */
-    protected $valueLoaderRegistry;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface $queryRunner
      * @param \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface $resultValueBuilder
-     * @param \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
      */
     public function __construct(
         QueryRunnerInterface $queryRunner,
-        ResultValueBuilderInterface $resultValueBuilder,
-        ValueLoaderRegistryInterface $valueLoaderRegistry
+        ResultValueBuilderInterface $resultValueBuilder
     ) {
         $this->queryRunner = $queryRunner;
         $this->resultValueBuilder = $resultValueBuilder;
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
     }
 
     /**
@@ -84,7 +74,7 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $resultValues = array();
         foreach ($items as $item) {
-            $resultValues[] = $this->getValueFromItem($item);
+            $resultValues[] = $this->resultValueBuilder->buildFromItem($item);
         }
 
         return $resultValues;
@@ -124,14 +114,14 @@ class ResultGenerator implements ResultGeneratorInterface
         $resultValues = array();
         for ($i = $offset, $queryValuesIndex = 0; $i < $offset + count($queryValues) + $numberOfItemsAtOffset; ++$i) {
             if (isset($overrideItems[$i])) {
-                $resultValues[] = $this->getValueFromItem($overrideItems[$i]);
+                $resultValues[] = $this->resultValueBuilder->buildFromItem($overrideItems[$i]);
 
                 // Since we're basically overriding the values that come
                 // from the outside of the collection (i.e. the queries),
                 // we need to advance the query pointer
                 ++$queryValuesIndex;
             } elseif (isset($manualItems[$i])) {
-                $resultValues[] = $this->getValueFromItem($manualItems[$i]);
+                $resultValues[] = $this->resultValueBuilder->buildFromItem($manualItems[$i]);
             } elseif (isset($queryValues[$queryValuesIndex])) {
                 $resultValues[] = $this->resultValueBuilder->build($queryValues[$queryValuesIndex]);
                 ++$queryValuesIndex;
@@ -195,22 +185,6 @@ class ResultGenerator implements ResultGeneratorInterface
                 }
             )
         );
-    }
-
-    /**
-     * Loads and builds the value from provided item.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @return \Netgen\BlockManager\Collection\ResultValue
-     */
-    protected function getValueFromItem(Item $item)
-    {
-        $loadedValue = $this->valueLoaderRegistry
-            ->getValueLoader($item->getValueType())
-            ->load($item->getValueId());
-
-        return $this->resultValueBuilder->build($loadedValue);
     }
 
     /**

@@ -2,12 +2,19 @@
 
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\ResultValue;
 use Netgen\BlockManager\Collection\ValueConverterInterface;
 use RuntimeException;
 
 class ResultValueBuilder implements ResultValueBuilderInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface
+     */
+    protected $valueLoaderRegistry;
+
     /**
      * @var \Netgen\BlockManager\Collection\ValueConverterInterface[]
      */
@@ -16,11 +23,15 @@ class ResultValueBuilder implements ResultValueBuilderInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
      * @param \Netgen\BlockManager\Collection\ValueConverterInterface[] $valueConverters
      */
-    public function __construct(array $valueConverters = array())
-    {
+    public function __construct(
+        ValueLoaderRegistryInterface $valueLoaderRegistry,
+        array $valueConverters = array()
+    ) {
         $this->valueConverters = $valueConverters;
+        $this->valueLoaderRegistry = $valueLoaderRegistry;
     }
 
     /**
@@ -58,5 +69,21 @@ class ResultValueBuilder implements ResultValueBuilderInterface
         }
 
         throw new RuntimeException('No result value builder for object of type "' . get_class($object) . '".');
+    }
+
+    /**
+     * Builds the result value from provided item.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     *
+     * @return \Netgen\BlockManager\Collection\ResultValue
+     */
+    public function buildFromItem(Item $item)
+    {
+        $loadedValue = $this->valueLoaderRegistry
+            ->getValueLoader($item->getValueType())
+            ->load($item->getValueId());
+
+        return $this->build($loadedValue);
     }
 }

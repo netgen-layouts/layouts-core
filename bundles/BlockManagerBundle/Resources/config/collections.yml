@@ -21,6 +21,7 @@ services:
     netgen_block_manager.collection.result_value_builder:
         class: "%netgen_block_manager.collection.result_value_builder.class%"
         arguments:
+            - "@netgen_block_manager.collection.value_loader.registry"
             - []
 
     netgen_block_manager.collection.query_type.registry:

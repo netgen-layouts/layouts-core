@@ -30,6 +30,6 @@ class ResultValueBuilderPass implements CompilerPassInterface
             $valueConverters[] = new Reference($serviceName);
         }
 
-        $resultValueBuilder->replaceArgument(0, $valueConverters);
+        $resultValueBuilder->replaceArgument(1, $valueConverters);
     }
 }
