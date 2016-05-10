@@ -28,6 +28,9 @@ services:
     netgen_block_manager.controller.layout:
         class: "%netgen_block_manager.controller.layout.class%"
         parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.configuration"
 
     ngbm_layout:
         alias: netgen_block_manager.controller.layout
@@ -37,6 +40,8 @@ services:
     netgen_block_manager.controller.api.block_types:
         class: "%netgen_block_manager.controller.api.block_types.class%"
         parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.configuration"
 
     netgen_block_manager.controller.api.layout:
         class: "%netgen_block_manager.controller.api.layout.class%"

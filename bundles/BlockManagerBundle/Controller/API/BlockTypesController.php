@@ -2,8 +2,25 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
+
 class BlockTypesController extends Controller
 {
+    /**
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     */
+    public function __construct(ConfigurationInterface $configuration)
+    {
+        $this->configuration = $configuration;
+    }
+
     /**
      * Serializes the block types.
      *
@@ -11,10 +28,8 @@ class BlockTypesController extends Controller
      */
     public function viewBlockTypes()
     {
-        $configuration = $this->get('netgen_block_manager.configuration');
-
-        $configBlockTypeGroups = $configuration->getParameter('block_type_groups');
-        $configBlockTypes = $configuration->getParameter('block_types');
+        $configBlockTypeGroups = $this->configuration->getParameter('block_type_groups');
+        $configBlockTypes = $this->configuration->getParameter('block_types');
 
         $blockTypeGroups = array();
         foreach ($configBlockTypeGroups as $identifier => $blockTypeGroup) {

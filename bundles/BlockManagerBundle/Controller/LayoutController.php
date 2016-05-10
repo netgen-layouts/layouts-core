@@ -2,10 +2,34 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 
 class LayoutController extends Controller
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     */
+    public function __construct(LayoutService $layoutService, ConfigurationInterface $configuration)
+    {
+        $this->layoutService = $layoutService;
+        $this->configuration = $configuration;
+    }
+
     /**
      * Creates the layout from specified layout type.
      *
@@ -16,12 +40,9 @@ class LayoutController extends Controller
      */
     public function create($type, $name)
     {
-        $layoutService = $this->get('netgen_block_manager.api.service.layout');
-        $configuration = $this->get('netgen_block_manager.configuration');
+        $layoutConfig = $this->configuration->getLayoutConfig($type);
 
-        $layoutConfig = $configuration->getLayoutConfig($type);
-
-        $layoutCreateStruct = $layoutService->newLayoutCreateStruct(
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $type,
             $name,
             array_keys($layoutConfig['zones'])
@@ -29,7 +50,7 @@ class LayoutController extends Controller
 
         $layoutCreateStruct->status = Layout::STATUS_DRAFT;
 
-        $layout = $layoutService->createLayout($layoutCreateStruct);
+        $layout = $this->layoutService->createLayout($layoutCreateStruct);
         $layoutView = $this->buildViewObject($layout);
 
         return $layoutView;
