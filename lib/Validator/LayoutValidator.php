@@ -36,7 +36,7 @@ class LayoutValidator extends ConstraintValidator
 
         if (!isset($layoutConfig[$value])) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('%identifier%', $value)
+                ->setParameter('%type%', $value)
                 ->addViolation();
         }
     }

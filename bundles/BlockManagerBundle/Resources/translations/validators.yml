@@ -1,0 +1,11 @@
+netgen_block_manager.block_definition.no_block_definition: 'Block definition "%definitionIdentifier%" does not exist.'
+netgen_block_manager.block_view_type.no_view_type: 'View type "%viewType%" does not exist.'
+netgen_block_manager.block_view_type.no_block_definition: 'Block definition "%definitionIdentifier%" does not exist.'
+netgen_block_manager.layout.no_layout_type: 'Layout "%type%" does not exist.'
+netgen_block_manager.layout_zones.no_zone: 'Layout zone "%zoneIdentifier%" does not exist.'
+netgen_block_manager.layout_zones.invalid_zone: 'Zone identifiers are not an array.'
+netgen_block_manager.layout_zones.zone_missing: 'Zone "%zoneIdentifier%" is missing.'
+netgen_block_manager.layout_zones.no_layout_type: 'Layout "%layoutType%" does not exist.'
+netgen_block_manager.query_type.no_query_type: 'Query type "%queryType%" does not exist.'
+netgen_block_manager.value_type.no_value_type: 'Value type "%valueType%" does not exist.'
+

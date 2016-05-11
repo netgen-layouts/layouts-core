@@ -9,7 +9,7 @@ class Layout extends Constraint
     /**
      * @var string
      */
-    public $message = 'Layout "%identifier%" does not exist.';
+    public $message = 'netgen_block_manager.layout.no_layout_type';
 
     /**
      * Returns the name of the class that validates this constraint.

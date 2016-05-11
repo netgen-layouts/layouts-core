@@ -9,12 +9,12 @@ class BlockViewType extends Constraint
     /**
      * @var string
      */
-    public $message = 'View type "%viewType%" does not exist.';
+    public $message = 'netgen_block_manager.block_view_type.no_view_type';
 
     /**
      * @var string
      */
-    public $definitionIdentifierMissingMessage = 'Block definition "%definitionIdentifier%" does not exist.';
+    public $definitionIdentifierMissingMessage = 'netgen_block_manager.block_view_type.no_block_definition';
 
     /**
      * @var string

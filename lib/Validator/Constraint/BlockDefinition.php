@@ -9,7 +9,7 @@ class BlockDefinition extends Constraint
     /**
      * @var string
      */
-    public $message = 'Block definition "%definitionIdentifier%" does not exist.';
+    public $message = 'netgen_block_manager.block_definition.no_block_definition';
 
     /**
      * Returns the name of the class that validates this constraint.

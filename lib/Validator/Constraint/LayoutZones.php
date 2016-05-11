@@ -9,22 +9,22 @@ class LayoutZones extends Constraint
     /**
      * @var string
      */
-    public $message = 'Layout zone "%zoneIdentifier%" does not exist.';
+    public $message = 'netgen_block_manager.layout_zones.no_zone';
 
     /**
      * @var string
      */
-    public $zonesInvalidMessage = 'Zone identifiers are not an array.';
+    public $zonesInvalidMessage = 'netgen_block_manager.layout_zones.invalid_zone';
 
     /**
      * @var string
      */
-    public $zoneMissingMessage = 'Zone "%zoneIdentifier%" is missing.';
+    public $zoneMissingMessage = 'netgen_block_manager.layout_zones.zone_missing';
 
     /**
      * @var string
      */
-    public $layoutMissingMessage = 'Layout "%layoutType%" does not exist.';
+    public $layoutMissingMessage = 'netgen_block_manager.layout_zones.no_layout_type';
 
     /**
      * @var string

@@ -9,7 +9,7 @@ class QueryType extends Constraint
     /**
      * @var string
      */
-    public $message = 'Query type "%queryType%" does not exist.';
+    public $message = 'netgen_block_manager.query_type.no_query_type';
 
     /**
      * Returns the name of the class that validates this constraint.

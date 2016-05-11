@@ -55,6 +55,7 @@ abstract class BlockInlineEditType extends AbstractType
         $resolver->setRequired('block');
         $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
+        $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
     /**

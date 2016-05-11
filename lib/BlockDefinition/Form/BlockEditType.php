@@ -55,6 +55,7 @@ class BlockEditType extends AbstractType
         $resolver->setRequired('block');
         $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
+        $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
     /**
@@ -82,7 +83,7 @@ class BlockEditType extends AbstractType
             'view_type',
             'choice',
             array(
-                'label' => 'View type',
+                'label' => 'block_definition.edit.view_type',
                 'choices' => $choices,
                 'choices_as_values' => true,
                 'property_path' => 'viewType',
@@ -100,7 +101,7 @@ class BlockEditType extends AbstractType
             'name',
             'text',
             array(
-                'label' => 'Name',
+                'label' => 'block_definition.edit.name',
                 'property_path' => 'name',
                 // null and empty string have different meanings for name
                 // so we set the default value to a single space (instead of
@@ -115,7 +116,7 @@ class BlockEditType extends AbstractType
             'parameters',
             'form',
             array(
-                'label' => 'Parameters',
+                'label' => 'block_definition.edit.parameters',
                 'inherit_data' => true,
             )
         );
