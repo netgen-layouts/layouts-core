@@ -12,13 +12,11 @@ class Version20160211144645 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $platformName = $this->platform->getName();
-
         // ngbm_layout table
 
         $layoutTable = $schema->createTable('ngbm_layout');
 
-        $layoutTable->addColumn('id', 'integer', array('autoincrement' => $platformName !== 'sqlite'));
+        $layoutTable->addColumn('id', 'integer', array('autoincrement' => true));
         $layoutTable->addColumn('status', 'integer');
         $layoutTable->addColumn('parent_id', 'integer', array('notnull' => false));
         $layoutTable->addColumn('type', 'string', array('length' => 255));
@@ -43,7 +41,7 @@ class Version20160211144645 extends AbstractMigration
 
         $blockTable = $schema->createTable('ngbm_block');
 
-        $blockTable->addColumn('id', 'integer', array('autoincrement' => $platformName !== 'sqlite'));
+        $blockTable->addColumn('id', 'integer', array('autoincrement' => true));
         $blockTable->addColumn('status', 'integer');
         $blockTable->addColumn('layout_id', 'integer');
         $blockTable->addColumn('zone_identifier', 'string', array('length' => 255));

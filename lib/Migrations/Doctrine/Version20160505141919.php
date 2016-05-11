@@ -12,8 +12,6 @@ class Version20160505141919 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $platformName = $this->platform->getName();
-
         // ngbm_block_collection table
 
         $blockCollectionTable = $schema->createTable('ngbm_block_collection');
@@ -32,7 +30,7 @@ class Version20160505141919 extends AbstractMigration
 
         $collectionTable = $schema->createTable('ngbm_collection');
 
-        $collectionTable->addColumn('id', 'integer', array('autoincrement' => $platformName !== 'sqlite'));
+        $collectionTable->addColumn('id', 'integer', array('autoincrement' => true));
         $collectionTable->addColumn('status', 'integer');
         $collectionTable->addColumn('type', 'integer');
         $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
@@ -43,7 +41,7 @@ class Version20160505141919 extends AbstractMigration
 
         $collectionItemTable = $schema->createTable('ngbm_collection_item');
 
-        $collectionItemTable->addColumn('id', 'integer', array('autoincrement' => $platformName !== 'sqlite'));
+        $collectionItemTable->addColumn('id', 'integer', array('autoincrement' => true));
         $collectionItemTable->addColumn('status', 'integer');
         $collectionItemTable->addColumn('collection_id', 'integer');
         $collectionItemTable->addColumn('position', 'integer');
@@ -58,7 +56,7 @@ class Version20160505141919 extends AbstractMigration
 
         $collectionQueryTable = $schema->createTable('ngbm_collection_query');
 
-        $collectionQueryTable->addColumn('id', 'integer', array('autoincrement' => $platformName !== 'sqlite'));
+        $collectionQueryTable->addColumn('id', 'integer', array('autoincrement' => true));
         $collectionQueryTable->addColumn('status', 'integer');
         $collectionQueryTable->addColumn('collection_id', 'integer');
         $collectionQueryTable->addColumn('position', 'integer');
