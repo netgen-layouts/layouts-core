@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
-interface ViewInterface extends ValueInterface
+interface ViewInterface extends VersionedValueInterface
 {
     /**
      * Sets the view parameters.

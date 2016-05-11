@@ -36,6 +36,6 @@ class LayoutController extends Controller
             }
         }
 
-        return new ValueArray($blocks, self::API_VERSION);
+        return new ValueArray($blocks);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
-abstract class AbstractView extends AbstractValue
+abstract class AbstractView extends AbstractVersionedValue
 {
     /**
      * @var array

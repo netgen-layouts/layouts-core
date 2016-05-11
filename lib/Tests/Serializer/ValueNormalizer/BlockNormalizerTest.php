@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\ValueNormalizer;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\ValueNormalizer\BlockNormalizer;
-use Netgen\BlockManager\Serializer\Values\Value as SerializerValue;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
@@ -51,7 +51,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
             ),
-            $this->blockNormalizer->normalize(new SerializerValue($block, 1))
+            $this->blockNormalizer->normalize(new VersionedValue($block, 1))
         );
     }
 
@@ -84,9 +84,9 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new Block(), false),
-            array(new SerializerValue(new Value(), 1), false),
-            array(new SerializerValue(new Block(), 2), false),
-            array(new SerializerValue(new Block(), 1), true),
+            array(new VersionedValue(new Value(), 1), false),
+            array(new VersionedValue(new Block(), 2), false),
+            array(new VersionedValue(new Block(), 1), true),
         );
     }
 }

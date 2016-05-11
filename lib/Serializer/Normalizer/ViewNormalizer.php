@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Values\Value;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
@@ -46,7 +46,7 @@ class ViewNormalizer extends SerializerAwareNormalizer implements NormalizerInte
     public function normalize($object, $format = null, array $context = array())
     {
         $normalizedData = $this->serializer->normalize(
-            new Value(
+            new VersionedValue(
                 $object->getValue(),
                 $object->getVersion(),
                 $object->getStatusCode()

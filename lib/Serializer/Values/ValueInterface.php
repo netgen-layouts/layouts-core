@@ -12,13 +12,6 @@ interface ValueInterface
     public function getValue();
 
     /**
-     * Returns the API version.
-     *
-     * @return int
-     */
-    public function getVersion();
-
-    /**
      * Returns the status code.
      *
      * @return int

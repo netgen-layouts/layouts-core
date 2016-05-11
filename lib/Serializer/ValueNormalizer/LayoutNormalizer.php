@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Serializer\ValueNormalizer;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Serializer\Values\Value;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use DateTime;
 
@@ -29,7 +29,7 @@ class LayoutNormalizer implements NormalizerInterface
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\Serializer\Values\Value $object
+     * @param \Netgen\BlockManager\Serializer\Values\VersionedValue $object
      * @param string $format
      * @param array $context
      *
@@ -61,7 +61,7 @@ class LayoutNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        if (!$data instanceof Value) {
+        if (!$data instanceof VersionedValue) {
             return false;
         }
 

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer;
-use Netgen\BlockManager\Serializer\Values\Value as SerializerValue;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
@@ -113,7 +113,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $this->layoutNormalizer->normalize(new SerializerValue($layout, 1))
+            $this->layoutNormalizer->normalize(new VersionedValue($layout, 1))
         );
     }
 
@@ -146,9 +146,9 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new Layout(), false),
-            array(new SerializerValue(new Value(), 1), false),
-            array(new SerializerValue(new Layout(), 2), false),
-            array(new SerializerValue(new Layout(), 1), true),
+            array(new VersionedValue(new Value(), 1), false),
+            array(new VersionedValue(new Layout(), 2), false),
+            array(new VersionedValue(new Layout(), 1), true),
         );
     }
 }

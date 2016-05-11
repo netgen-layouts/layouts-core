@@ -14,24 +14,17 @@ abstract class AbstractValue
     /**
      * @var int
      */
-    protected $version;
-
-    /**
-     * @var int
-     */
     protected $statusCode;
 
     /**
      * Constructor.
      *
      * @param mixed $value
-     * @param int $version
      * @param int $statusCode
      */
-    public function __construct($value, $version, $statusCode = Response::HTTP_OK)
+    public function __construct($value, $statusCode = Response::HTTP_OK)
     {
         $this->value = $value;
-        $this->version = $version;
         $this->statusCode = $statusCode;
     }
 
@@ -43,16 +36,6 @@ abstract class AbstractValue
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * Returns the API version.
-     *
-     * @return int
-     */
-    public function getVersion()
-    {
-        return $this->version;
     }
 
     /**

@@ -2,20 +2,20 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Values;
 
-use Netgen\BlockManager\Serializer\Values\Value as SerializerValue;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 
-class ValueTest extends \PHPUnit_Framework_TestCase
+class VersionedValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Values\Value
+     * @var \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
     protected $value;
 
     public function setUp()
     {
-        $this->value = new SerializerValue(new Value(), 42, Response::HTTP_ACCEPTED);
+        $this->value = new VersionedValue(new Value(), 42, Response::HTTP_ACCEPTED);
     }
 
     /**
