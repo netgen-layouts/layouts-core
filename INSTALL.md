@@ -55,7 +55,7 @@ Add the following to your main `routing.yml` file to activate Block Manager rout
 ```
 _netgen_block_manager:
     resource: "@NetgenBlockManagerBundle/Resources/config/routing.yml"
-    prefix: /bm
+    prefix: "%netgen_block_manager.route_prefix%"
 ```
 
 Adjusting your full views

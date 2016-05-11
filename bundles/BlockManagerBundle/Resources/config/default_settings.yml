@@ -1,0 +1,2 @@
+parameters:
+    netgen_block_manager.route_prefix: /bm
