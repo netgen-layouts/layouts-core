@@ -26,7 +26,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
-        $this->validator = new Validator($this->validatorMock);
+        $this->validator = new Validator();
+        $this->validator->setValidator($this->validatorMock);
     }
 
     /**

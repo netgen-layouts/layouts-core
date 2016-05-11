@@ -40,10 +40,8 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
         $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
 
-        $this->blockValidator = new BlockValidator(
-            $this->validatorMock,
-            $this->blockDefinitionRegistryMock
-        );
+        $this->blockValidator = new BlockValidator($this->blockDefinitionRegistryMock);
+        $this->blockValidator->setValidator($this->validatorMock);
     }
 
     /**

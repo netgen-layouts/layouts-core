@@ -28,7 +28,8 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
-        $this->layoutValidator = new LayoutValidator($this->validatorMock);
+        $this->layoutValidator = new LayoutValidator();
+        $this->layoutValidator->setValidator($this->validatorMock);
     }
 
     /**
