@@ -7,9 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 abstract class Parameter
 {
     /**
-     * @var string
+     * @var array
      */
-    protected $name;
+    protected $options = array();
 
     /**
      * @var bool
@@ -17,25 +17,18 @@ abstract class Parameter
     protected $isRequired;
 
     /**
-     * @var array
-     */
-    protected $options = array();
-
-    /**
      * Constructor.
      *
-     * @param string $name
-     * @param bool $isRequired
      * @param array $options
+     * @param bool $isRequired
      */
-    public function __construct($name = null, $isRequired = false, array $options = array())
+    public function __construct(array $options = array(), $isRequired = false)
     {
-        $this->name = $name;
-        $this->isRequired = (bool)$isRequired;
-
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
         $this->options = $optionsResolver->resolve($options);
+
+        $this->isRequired = (bool)$isRequired;
     }
 
     /**
@@ -46,13 +39,13 @@ abstract class Parameter
     abstract public function getType();
 
     /**
-     * Returns the parameter name.
+     * Returns the parameter options.
      *
-     * @return string
+     * @return array
      */
-    public function getName()
+    public function getOptions()
     {
-        return $this->name;
+        return $this->options;
     }
 
     /**
@@ -63,16 +56,6 @@ abstract class Parameter
     public function isRequired()
     {
         return $this->isRequired;
-    }
-
-    /**
-     * Returns the parameter options.
-     *
-     * @return array
-     */
-    public function getOptions()
-    {
-        return $this->options;
     }
 
     /**

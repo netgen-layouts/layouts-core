@@ -51,7 +51,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
      */
     public function getParameter($options)
     {
-        return new Hidden('Test value', false, $options);
+        return new Hidden($options);
     }
 
     /**

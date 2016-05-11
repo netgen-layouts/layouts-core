@@ -33,9 +33,9 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             array(
-                'content' => new Parameter\Text('Content', true),
-                'css_id' => new Parameter\Text('CSS ID'),
-                'css_class' => new Parameter\Text('CSS class'),
+                'content' => new Parameter\Text(array(), true),
+                'css_id' => new Parameter\Text(),
+                'css_class' => new Parameter\Text(),
             ),
             $this->blockDefinition->getParameters()
         );

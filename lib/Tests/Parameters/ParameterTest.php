@@ -8,22 +8,11 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getName
-     */
-    public function testGetName()
-    {
-        $parameter = new Parameter('Parameter');
-
-        self::assertEquals('Parameter', $parameter->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
      * @covers \Netgen\BlockManager\Parameters\Parameter::isRequired
      */
     public function testGetIsRequired()
     {
-        $parameter = new Parameter('Parameter', true);
+        $parameter = new Parameter(array(), true);
 
         self::assertTrue($parameter->isRequired());
     }
@@ -34,7 +23,7 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIsRequiredReturnsFalse()
     {
-        $parameter = new Parameter('Parameter');
+        $parameter = new Parameter();
 
         self::assertFalse($parameter->isRequired());
     }

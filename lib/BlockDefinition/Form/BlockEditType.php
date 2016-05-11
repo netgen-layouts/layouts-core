@@ -83,7 +83,7 @@ class BlockEditType extends AbstractType
             'view_type',
             'choice',
             array(
-                'label' => 'block_definition.edit.view_type',
+                'label' => 'block.edit.view_type',
                 'choices' => $choices,
                 'choices_as_values' => true,
                 'property_path' => 'viewType',
@@ -101,7 +101,7 @@ class BlockEditType extends AbstractType
             'name',
             'text',
             array(
-                'label' => 'block_definition.edit.name',
+                'label' => 'block.edit.name',
                 'property_path' => 'name',
                 // null and empty string have different meanings for name
                 // so we set the default value to a single space (instead of
@@ -116,7 +116,7 @@ class BlockEditType extends AbstractType
             'parameters',
             'form',
             array(
-                'label' => 'block_definition.edit.parameters',
+                'label' => 'block.edit.parameters',
                 'inherit_data' => true,
             )
         );
@@ -128,6 +128,7 @@ class BlockEditType extends AbstractType
                 $parameterBuilder,
                 $parameter,
                 $parameterName,
+                'block.' . $blockDefinition->getIdentifier(),
                 isset($parameterConstraints[$parameterName]) ?
                     $parameterConstraints[$parameterName] :
                     null

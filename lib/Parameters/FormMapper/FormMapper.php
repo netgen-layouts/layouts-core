@@ -30,6 +30,7 @@ class FormMapper implements FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
+     * @param string $labelPrefix
      * @param \Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPathPrefix
      */
@@ -37,6 +38,7 @@ class FormMapper implements FormMapperInterface
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
+        $labelPrefix,
         array $constraints = null,
         $propertyPathPrefix = 'parameters'
     ) {
@@ -51,7 +53,8 @@ class FormMapper implements FormMapperInterface
             $this->parameterHandlers[$parameterType]->getFormType(),
             array(
                 'required' => $parameter->isRequired(),
-                'label' => $parameter->getName(),
+                'label' => $labelPrefix . '.' . $parameterName,
+                'translation_domain' => 'ngbm_parameters',
                 'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
                 'constraints' => $constraints,
             ) + $this->parameterHandlers[$parameterType]->convertOptions($parameter)

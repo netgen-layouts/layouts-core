@@ -31,8 +31,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     public function testConvertOptions()
     {
         $parameter = new SelectParameter(
-            null,
-            false,
             array(
                 'options' => array(
                     'Heading 1' => 'h1',

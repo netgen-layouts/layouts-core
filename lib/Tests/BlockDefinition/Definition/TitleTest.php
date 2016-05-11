@@ -43,13 +43,12 @@ class TitleTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'tag' => new Parameter\Select(
-                    'Tag',
-                    true,
-                    array('options' => $this->options)
+                    array('options' => $this->options),
+                    true
                 ),
-                'title' => new Parameter\Text('Title', true),
-                'css_id' => new Parameter\Text('CSS ID'),
-                'css_class' => new Parameter\Text('CSS class'),
+                'title' => new Parameter\Text(array(), true),
+                'css_id' => new Parameter\Text(),
+                'css_class' => new Parameter\Text(),
             ),
             $this->blockDefinition->getParameters()
         );

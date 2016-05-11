@@ -51,7 +51,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     public function getParameter($options)
     {
-        return new Select('Test value', false, $options);
+        return new Select($options);
     }
 
     /**

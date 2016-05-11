@@ -4,7 +4,7 @@ layouts:
         zones:
             top_left:
                 name: 'Top left'
-                allowed_block_types: ['title', 'paragraph']
+                allowed_block_types: [title, paragraph]
             top_right:
                 name: 'Top right'
             bottom:

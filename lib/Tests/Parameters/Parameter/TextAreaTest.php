@@ -51,7 +51,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
      */
     public function getParameter($options)
     {
-        return new TextArea('Test value', false, $options);
+        return new TextArea($options);
     }
 
     /**

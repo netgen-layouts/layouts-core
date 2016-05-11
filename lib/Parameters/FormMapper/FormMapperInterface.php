@@ -13,6 +13,7 @@ interface FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\Parameter $parameter
      * @param string $parameterName
+     * @param string $labelPrefix,
      * @param \Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPathPrefix
      */
@@ -20,6 +21,7 @@ interface FormMapperInterface
         FormBuilderInterface $formBuilder,
         Parameter $parameter,
         $parameterName,
+        $labelPrefix,
         array $constraints = null,
         $propertyPathPrefix = 'parameters'
     );

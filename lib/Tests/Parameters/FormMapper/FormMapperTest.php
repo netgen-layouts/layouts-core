@@ -48,13 +48,17 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             $this->formBuilder,
             new Text(),
             'param_name',
+            'label_prefix',
             null
         );
 
         self::assertCount(1, $this->formBuilder->all());
 
-        self::assertEquals('text', $this->formBuilder->get('param_name')->getType()->getName());
-        self::assertEquals('parameters[param_name]', $this->formBuilder->get('param_name')->getPropertyPath());
+        $form = $this->formBuilder->get('param_name');
+
+        self::assertEquals('parameters[param_name]', $form->getPropertyPath());
+        self::assertEquals('label_prefix.param_name', $form->getOption('label'));
+        self::assertEquals('text', $form->getType()->getName());
     }
 
     /**
@@ -63,7 +67,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testMapParameterThrowsRuntimeException()
     {
-        $this->formMapper->mapParameter($this->formBuilder, new Text(), 'param_name');
+        $this->formMapper->mapParameter($this->formBuilder, new Text(), 'param_name', 'label_prefix');
     }
 
     /**

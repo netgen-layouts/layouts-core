@@ -36,11 +36,10 @@ class Title extends BlockDefinition
     {
         return array(
             'tag' => new Parameter\Select(
-                'Tag',
-                true,
-                array('options' => $this->options)
+                array('options' => $this->options),
+                true
             ),
-            'title' => new Parameter\Text('Title', true),
+            'title' => new Parameter\Text(array(), true),
         ) + parent::getParameters();
     }
 

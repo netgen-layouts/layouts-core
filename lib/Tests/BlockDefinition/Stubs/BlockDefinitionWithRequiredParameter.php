@@ -18,7 +18,7 @@ class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition
     public function getParameters()
     {
         $parameters = parent::getParameters();
-        $parameters['css_class'] = new Parameter\Text('CSS class', true);
+        $parameters['css_class'] = new Parameter\Text(array(), true);
 
         return $parameters;
     }

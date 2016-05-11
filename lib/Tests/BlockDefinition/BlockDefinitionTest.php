@@ -26,8 +26,8 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             array(
-                'css_id' => new Parameter\Text('CSS ID'),
-                'css_class' => new Parameter\Text('CSS class'),
+                'css_id' => new Parameter\Text(),
+                'css_class' => new Parameter\Text(),
             ),
             $this->blockDefinition->getParameters()
         );

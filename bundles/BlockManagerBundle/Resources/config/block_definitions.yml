@@ -4,14 +4,14 @@ block_definitions:
             inline_edit: block_inline_edit_title
         view_types:
             default:
-                name: Default
+                name: 'Default'
             large:
-                name: Large
+                name: 'Large'
     paragraph:
         forms:
             inline_edit: block_inline_edit_paragraph
         view_types:
             default:
-                name: Default
+                name: 'Default'
             small:
-                name: Small
+                name: 'Small'

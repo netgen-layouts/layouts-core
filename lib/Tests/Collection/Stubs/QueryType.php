@@ -27,7 +27,7 @@ class QueryType implements QueryTypeInterface
     public function getParameters()
     {
         return array(
-            'param' => new Text('Param'),
+            'param' => new Text(),
         );
     }
 

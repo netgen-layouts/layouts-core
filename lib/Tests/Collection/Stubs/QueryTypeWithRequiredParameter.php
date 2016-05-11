@@ -27,7 +27,7 @@ class QueryTypeWithRequiredParameter implements QueryTypeInterface
     public function getParameters()
     {
         return array(
-            'param' => new Text('Param', true),
+            'param' => new Text(array(), true),
         );
     }
 

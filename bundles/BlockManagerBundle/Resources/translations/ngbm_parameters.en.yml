@@ -1,0 +1,8 @@
+block.title.tag: 'Tag'
+block.title.title: 'Title'
+block.title.css_id: 'CSS ID'
+block.title.css_class: 'CSS class'
+
+block.paragraph.content: 'Content'
+block.paragraph.css_id: 'CSS ID'
+block.paragraph.css_class: 'CSS class'
