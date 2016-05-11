@@ -267,6 +267,41 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
+     */
+    public function testCreateDraft()
+    {
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_MANUAL);
+        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
+        $collection = $this->collectionService->createCollection($collectionCreateStruct);
+
+        $draftCollection = $this->collectionService->createDraft($collection);
+
+        self::assertInstanceOf(Collection::class, $draftCollection);
+        self::assertEquals(Collection::STATUS_DRAFT, $draftCollection->getStatus());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateDraftThrowsBadStateExceptionIfCollectionIsNotPublished()
+    {
+        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
+        $this->collectionService->createDraft($collection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
+    {
+        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_PUBLISHED);
+        $this->collectionService->createDraft($collection);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      */
     public function testPublishCollection()

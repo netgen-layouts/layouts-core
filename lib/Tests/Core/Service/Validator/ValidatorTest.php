@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Tests\Core\Service\Stubs\Validator;
-use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -28,51 +27,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
         $this->validator = new Validator();
         $this->validator->setValidator($this->validatorMock);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validate
-     */
-    public function testValidate()
-    {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo('some value'),
-                $this->equalTo(array(new Constraints\NotBlank()))
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validator->validate('some value', array(new Constraints\NotBlank()));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validate
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testValidateThrowsInvalidArgumentException()
-    {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo('some value'),
-                $this->equalTo(array(new Constraints\NotBlank()))
-            )->will(
-                $this->returnValue(
-                    new ConstraintViolationList(
-                        array(
-                            $this->getMock(
-                                ConstraintViolationInterface::class
-                            ),
-                        )
-                    )
-                )
-            );
-
-        $this->validator->validate('some value', array(new Constraints\NotBlank()));
     }
 
     /**

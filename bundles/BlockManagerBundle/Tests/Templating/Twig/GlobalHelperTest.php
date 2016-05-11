@@ -9,15 +9,28 @@ use Netgen\BlockManager\Configuration\ConfigurationInterface;
 class GlobalHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $configurationMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+     */
+    protected $globalHelper;
+
+    public function setUp()
+    {
+        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
+        $this->globalHelper = new GlobalHelper($this->configurationMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getConfiguration
      */
     public function testGetConfiguration()
     {
-        $configuration = $this->getMock(ConfigurationInterface::class);
-        $globalHelper = new GlobalHelper($configuration);
-
-        self::assertEquals($configuration, $globalHelper->getConfiguration());
+        self::assertEquals($this->configurationMock, $this->globalHelper->getConfiguration());
     }
 
     /**
@@ -25,11 +38,7 @@ class GlobalHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDefaultLayoutView()
     {
-        $globalHelper = new GlobalHelper(
-            $this->getMock(ConfigurationInterface::class)
-        );
-
-        self::assertNull($globalHelper->getLayoutView());
+        self::assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -38,13 +47,9 @@ class GlobalHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLayoutView()
     {
-        $globalHelper = new GlobalHelper(
-            $this->getMock(ConfigurationInterface::class)
-        );
-
         $layoutView = new LayoutView();
-        $globalHelper->setLayoutView($layoutView);
+        $this->globalHelper->setLayoutView($layoutView);
 
-        self::assertEquals($layoutView, $globalHelper->getLayoutView());
+        self::assertEquals($layoutView, $this->globalHelper->getLayoutView());
     }
 }

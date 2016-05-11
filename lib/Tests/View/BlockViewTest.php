@@ -8,6 +8,16 @@ use Netgen\BlockManager\View\BlockView;
 class BlockViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\BlockViewInterface
+     */
+    protected $view;
+
+    public function setUp()
+    {
+        $this->view = new BlockView();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\BlockView::setBlock
      * @covers \Netgen\BlockManager\View\BlockView::getBlock
      */
@@ -15,12 +25,11 @@ class BlockViewTest extends \PHPUnit_Framework_TestCase
     {
         $block = new Block(array('id' => 42));
 
-        $view = new BlockView();
-        $view->setParameters(array('block' => 42));
-        $view->setBlock($block);
+        $this->view->setParameters(array('block' => 42));
+        $this->view->setBlock($block);
 
-        self::assertEquals($block, $view->getBlock());
-        self::assertEquals(array('block' => $block), $view->getParameters());
+        self::assertEquals($block, $this->view->getBlock());
+        self::assertEquals(array('block' => $block), $this->view->getParameters());
     }
 
     /**
@@ -28,7 +37,6 @@ class BlockViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAlias()
     {
-        $view = new BlockView();
-        self::assertEquals('block_view', $view->getAlias());
+        self::assertEquals('block_view', $this->view->getAlias());
     }
 }

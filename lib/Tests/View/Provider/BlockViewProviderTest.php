@@ -11,16 +11,24 @@ use Netgen\BlockManager\View\BlockViewInterface;
 class BlockViewProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     */
+    protected $blockViewProvider;
+
+    public function setUp()
+    {
+        $this->blockViewProvider = new BlockViewProvider();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::provideView
      */
     public function testProvideView()
     {
         $block = new Block(array('id' => 42));
 
-        $blockViewProvider = new BlockViewProvider();
-
         /** @var \Netgen\BlockManager\View\BlockViewInterface $view */
-        $view = $blockViewProvider->provideView($block);
+        $view = $this->blockViewProvider->provideView($block);
 
         self::assertInstanceOf(BlockViewInterface::class, $view);
 
@@ -43,8 +51,7 @@ class BlockViewProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupports($value, $supports)
     {
-        $blockViewProvider = new BlockViewProvider();
-        self::assertEquals($supports, $blockViewProvider->supports($value));
+        self::assertEquals($supports, $this->blockViewProvider->supports($value));
     }
 
     /**

@@ -7,15 +7,24 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 class ViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\ViewInterface
+     */
+    protected $view;
+
+    public function setUp()
+    {
+        $this->view = new View();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\View::setContext
      * @covers \Netgen\BlockManager\View\View::getContext
      */
     public function testSetContext()
     {
-        $view = new View();
-        $view->setContext('context');
+        $this->view->setContext('context');
 
-        self::assertEquals('context', $view->getContext());
+        self::assertEquals('context', $this->view->getContext());
     }
 
     /**
@@ -24,10 +33,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetTemplate()
     {
-        $view = new View();
-        $view->setTemplate('template.html.twig');
+        $this->view->setTemplate('template.html.twig');
 
-        self::assertEquals('template.html.twig', $view->getTemplate());
+        self::assertEquals('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -35,10 +43,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasParameter()
     {
-        $view = new View();
-        $view->setParameters(array('param' => 'value'));
+        $this->view->setParameters(array('param' => 'value'));
 
-        self::assertTrue($view->hasParameter('param'));
+        self::assertTrue($this->view->hasParameter('param'));
     }
 
     /**
@@ -46,10 +53,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasParameterWithNoParam()
     {
-        $view = new View();
-        $view->setParameters(array('param' => 'value'));
+        $this->view->setParameters(array('param' => 'value'));
 
-        self::assertFalse($view->hasParameter('other_param'));
+        self::assertFalse($this->view->hasParameter('other_param'));
     }
 
     /**
@@ -57,10 +63,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameter()
     {
-        $view = new View();
-        $view->setParameters(array('param' => 'value'));
+        $this->view->setParameters(array('param' => 'value'));
 
-        self::assertEquals('value', $view->getParameter('param'));
+        self::assertEquals('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -68,10 +73,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameterWithNoParam()
     {
-        $view = new View();
-        $view->setParameters(array('param' => 'value'));
+        $this->view->setParameters(array('param' => 'value'));
 
-        self::assertNull($view->getParameter('other_param'));
+        self::assertNull($this->view->getParameter('other_param'));
     }
 
     /**
@@ -80,8 +84,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetParameters()
     {
-        $view = new View();
-        $view->setParameters(
+        $this->view->setParameters(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -93,7 +96,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ),
-            $view->getParameters()
+            $this->view->getParameters()
         );
     }
 
@@ -102,15 +105,14 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddParameters()
     {
-        $view = new View();
-        $view->setParameters(
+        $this->view->setParameters(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             )
         );
 
-        $view->addParameters(
+        $this->view->addParameters(
             array(
                 'some_param' => 'new_value',
                 'third_param' => 'third_value',
@@ -123,7 +125,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
                 'some_other_param' => 'some_other_value',
                 'third_param' => 'third_value',
             ),
-            $view->getParameters()
+            $this->view->getParameters()
         );
     }
 }

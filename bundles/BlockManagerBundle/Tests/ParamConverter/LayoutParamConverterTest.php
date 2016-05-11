@@ -10,14 +10,28 @@ use Netgen\BlockManager\API\Service\LayoutService;
 class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutServiceMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter
+     */
+    protected $paramConverter;
+
+    public function setUp()
+    {
+        $this->layoutServiceMock = $this->getMock(LayoutService::class);
+
+        $this->paramConverter = new LayoutParamConverter($this->layoutServiceMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::getSourceAttributeName
      */
     public function testGetSourceAttributeName()
     {
-        $layoutService = $this->getMock(LayoutService::class);
-        $layoutParamConverter = new LayoutParamConverter($layoutService);
-
-        self::assertEquals('layout_id', $layoutParamConverter->getSourceAttributeName());
+        self::assertEquals('layout_id', $this->paramConverter->getSourceAttributeName());
     }
 
     /**
@@ -25,10 +39,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        $layoutService = $this->getMock(LayoutService::class);
-        $layoutParamConverter = new LayoutParamConverter($layoutService);
-
-        self::assertEquals('layout', $layoutParamConverter->getDestinationAttributeName());
+        self::assertEquals('layout', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -36,10 +47,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedClass()
     {
-        $layoutService = $this->getMock(LayoutService::class);
-        $layoutParamConverter = new LayoutParamConverter($layoutService);
-
-        self::assertEquals(APILayout::class, $layoutParamConverter->getSupportedClass());
+        self::assertEquals(APILayout::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -50,15 +58,12 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $layout = new Layout();
 
-        $layoutService = $this->getMock(LayoutService::class);
-        $layoutService
+        $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        $layoutParamConverter = new LayoutParamConverter($layoutService);
-
-        self::assertEquals($layout, $layoutParamConverter->loadValueObject(42, APILayout::STATUS_DRAFT));
+        self::assertEquals($layout, $this->paramConverter->loadValueObject(42, APILayout::STATUS_DRAFT));
     }
 }

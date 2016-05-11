@@ -108,6 +108,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not published
+     *                                                              If draft already exists for collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */

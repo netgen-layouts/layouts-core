@@ -179,6 +179,46 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     */
+    public function testCreateDraft()
+    {
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+            '3_zones_a',
+            'My layout',
+            array('zone')
+        );
+        $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
+
+        $layout = $this->layoutService->createLayout($layoutCreateStruct);
+
+        $draftLayout = $this->layoutService->createDraft($layout);
+
+        self::assertInstanceOf(Layout::class, $draftLayout);
+        self::assertEquals(Layout::STATUS_DRAFT, $draftLayout->getStatus());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateDraftThrowsBadStateExceptionIfLayoutIsNotPublished()
+    {
+        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
+        $this->layoutService->createDraft($layout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
+    {
+        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_PUBLISHED);
+        $this->layoutService->createDraft($layout);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayout()

@@ -11,16 +11,24 @@ use Netgen\BlockManager\View\LayoutViewInterface;
 class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     */
+    protected $layoutViewProvider;
+
+    public function setUp()
+    {
+        $this->layoutViewProvider = new LayoutViewProvider();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::provideView
      */
     public function testProvideView()
     {
         $layout = new Layout(array('id' => 42));
 
-        $layoutViewProvider = new LayoutViewProvider();
-
         /** @var \Netgen\BlockManager\View\LayoutViewInterface $view */
-        $view = $layoutViewProvider->provideView($layout);
+        $view = $this->layoutViewProvider->provideView($layout);
 
         self::assertInstanceOf(LayoutViewInterface::class, $view);
 
@@ -43,8 +51,7 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupports($value, $supports)
     {
-        $layoutViewProvider = new LayoutViewProvider();
-        self::assertEquals($supports, $layoutViewProvider->supports($value));
+        self::assertEquals($supports, $this->layoutViewProvider->supports($value));
     }
 
     /**

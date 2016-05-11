@@ -8,6 +8,16 @@ use Netgen\BlockManager\View\LayoutView;
 class LayoutViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\LayoutViewInterface
+     */
+    protected $view;
+
+    public function setUp()
+    {
+        $this->view = new LayoutView();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\LayoutView::setLayout
      * @covers \Netgen\BlockManager\View\LayoutView::getLayout
      */
@@ -15,12 +25,11 @@ class LayoutViewTest extends \PHPUnit_Framework_TestCase
     {
         $layout = new Layout(array('id' => 42));
 
-        $view = new LayoutView();
-        $view->setParameters(array('layout' => 42));
-        $view->setLayout($layout);
+        $this->view->setParameters(array('layout' => 42));
+        $this->view->setLayout($layout);
 
-        self::assertEquals($layout, $view->getLayout());
-        self::assertEquals(array('layout' => $layout), $view->getParameters());
+        self::assertEquals($layout, $this->view->getLayout());
+        self::assertEquals(array('layout' => $layout), $this->view->getParameters());
     }
 
     /**
@@ -28,7 +37,6 @@ class LayoutViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAlias()
     {
-        $view = new LayoutView();
-        self::assertEquals('layout_view', $view->getAlias());
+        self::assertEquals('layout_view', $this->view->getAlias());
     }
 }

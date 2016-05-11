@@ -20,7 +20,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -59,7 +59,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\BlockNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\BlockNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
@@ -167,5 +168,63 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->deleteBlock(new Block(array('status' => Layout::STATUS_DRAFT)));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
+     * @expectedException \Exception
+     */
+    public function testAddCollectionToBlock()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('collectionExists')
+            ->will($this->returnValue(false));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('collectionIdentifierExists')
+            ->will($this->returnValue(false));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
+            ->method('addCollectionToBlock')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->addCollectionToBlock(
+            new Block(),
+            new Collection(),
+            'identifier'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::removeCollectionFromBlock
+     * @expectedException \Exception
+     */
+    public function testRemoveCollectionFromBlock()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('collectionExists')
+            ->will($this->returnValue(true));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('removeCollectionFromBlock')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->removeCollectionFromBlock(
+            new Block(),
+            new Collection()
+        );
     }
 }

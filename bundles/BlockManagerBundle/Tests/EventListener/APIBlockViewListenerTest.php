@@ -72,8 +72,8 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\EventListener\APIBlockViewListener::__construct
-     * @covers \Netgen\BlockManager\EventListener\APIBlockViewListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
@@ -84,7 +84,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\EventListener\APIBlockViewListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener::onBuildView
      */
     public function testOnBuildView()
     {
@@ -127,7 +127,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\EventListener\APIBlockViewListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener::onBuildView
      */
     public function testOnBuildViewWithNoBlockView()
     {
@@ -153,7 +153,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\EventListener\APIBlockViewListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener::onBuildView
      */
     public function testOnBuildViewWithNoApiContext()
     {
@@ -179,7 +179,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\EventListener\APIBlockViewListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener::onBuildView
      */
     public function testOnBuildViewWithNoInlineForm()
     {

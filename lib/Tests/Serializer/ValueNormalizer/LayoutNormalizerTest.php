@@ -50,9 +50,9 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::getZones
      */
     public function testNormalize()
     {
@@ -121,7 +121,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\LayoutNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

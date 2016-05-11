@@ -133,6 +133,31 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
+     * @expectedException \Exception
+     */
+    public function testCreateDraft()
+    {
+        $this->collectionHandlerMock
+            ->expects($this->at(0))
+            ->method('collectionExists')
+            ->will($this->returnValue(false));
+
+        $this->collectionHandlerMock
+            ->expects($this->at(1))
+            ->method('deleteCollection')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->createDraft(
+            new Collection(array('id' => 42, 'status' => Collection::STATUS_PUBLISHED))
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      * @expectedException \Exception
      */

@@ -11,6 +11,16 @@ use DateTime;
 class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $configurationMock;
+
+    public function setUp()
+    {
+        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
@@ -30,8 +40,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue(true));
 
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -54,7 +63,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $configurationMock
+            $this->configurationMock
         );
 
         self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
@@ -69,8 +78,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -89,7 +97,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $configurationMock
+            $this->configurationMock
         );
 
         self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
@@ -104,8 +112,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -128,7 +135,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $configurationMock
+            $this->configurationMock
         );
 
         self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
@@ -140,14 +147,13 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
             ->will($this->returnValue(array()));
 
-        $templateResolver = new TemplateResolver(array(), $configurationMock);
+        $templateResolver = new TemplateResolver(array(), $this->configurationMock);
         $templateResolver->resolveTemplate($this->getView());
     }
 
@@ -157,8 +163,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfEmptyContext()
     {
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -166,7 +171,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $configurationMock
+            $this->configurationMock
         );
 
         $templateResolver->resolveTemplate($this->getView());
@@ -192,8 +197,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue(false));
 
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -215,7 +219,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $configurationMock
+            $this->configurationMock
         );
 
         $templateResolver->resolveTemplate($view);
@@ -228,8 +232,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -249,7 +252,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $configurationMock
+            $this->configurationMock
         );
 
         $templateResolver->resolveTemplate($this->getView());
@@ -266,8 +269,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $matcherMock = $this->getMock(DateTime::class);
 
-        $configurationMock = $this->getMock(ConfigurationInterface::class);
-        $configurationMock
+        $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
             ->with($this->equalTo('view'))
@@ -289,7 +291,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $configurationMock
+            $this->configurationMock
         );
 
         $templateResolver->resolveTemplate($view);

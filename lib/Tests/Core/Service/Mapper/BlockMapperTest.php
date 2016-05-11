@@ -4,7 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 
 abstract class BlockMapperTest extends MapperTest
 {
@@ -55,5 +57,33 @@ abstract class BlockMapperTest extends MapperTest
         self::assertEquals('default', $block->getViewType());
         self::assertEquals('My block', $block->getName());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $block->getStatus());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapCollectionReference
+     */
+    public function testMapCollectionReference()
+    {
+        $persistenceReference = new CollectionReference(
+            array(
+                'blockId' => 1,
+                'status' => APILayout::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'identifier' => 'default',
+                'offset' => 5,
+                'limit' => 10,
+            )
+        );
+
+        $reference = $this->blockMapper->mapCollectionReference($persistenceReference);
+
+        self::assertInstanceOf(APICollectionReference::class, $reference);
+
+        self::assertEquals(1, $reference->getBlockId());
+        self::assertEquals(APILayout::STATUS_PUBLISHED, $reference->getStatus());
+        self::assertEquals(42, $reference->getCollectionId());
+        self::assertEquals('default', $reference->getIdentifier());
+        self::assertEquals(5, $reference->getOffset());
+        self::assertEquals(10, $reference->getLimit());
     }
 }

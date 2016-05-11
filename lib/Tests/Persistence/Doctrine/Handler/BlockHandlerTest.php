@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
@@ -110,6 +111,49 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlockCollections
+     */
+    public function testLoadBlockCollections()
+    {
+        self::assertEquals(
+            array(
+                new CollectionReference(
+                    array(
+                        'blockId' => 1,
+                        'status' => APILayout::STATUS_DRAFT,
+                        'collectionId' => 1,
+                        'identifier' => 'default',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+                new CollectionReference(
+                    array(
+                        'blockId' => 1,
+                        'status' => APILayout::STATUS_DRAFT,
+                        'collectionId' => 3,
+                        'identifier' => 'featured',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlockCollections
+     */
+    public function testLoadBlockCollectionsForNonExistingBlock()
+    {
+        self::assertEquals(
+            array(),
+            $this->blockHandler->loadBlockCollections(9999, APILayout::STATUS_DRAFT)
         );
     }
 
@@ -444,5 +488,59 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionExists
+     */
+    public function testCollectionExists()
+    {
+        self::assertTrue($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 1));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionExists
+     */
+    public function testCollectionNotExists()
+    {
+        self::assertFalse($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 5));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
+     */
+    public function testCollectionIdentifierExists()
+    {
+        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'default'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
+     */
+    public function testCollectionIdentifierNotExists()
+    {
+        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'something_else'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::addCollectionToBlock
+     */
+    public function testAddCollectionToBlock()
+    {
+        $this->blockHandler->addCollectionToBlock(1, APILayout::STATUS_DRAFT, 2, 'new');
+
+        self::assertTrue($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 2));
+        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'new'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::removeCollectionFromBlock
+     */
+    public function testRemoveCollectionFromBlock()
+    {
+        $this->blockHandler->removeCollectionFromBlock(1, APILayout::STATUS_DRAFT, 1);
+
+        self::assertFalse($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 1));
+        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'default'));
     }
 }

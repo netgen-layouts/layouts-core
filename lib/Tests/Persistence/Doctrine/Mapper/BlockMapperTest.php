@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 
 class BlockMapperTest extends \PHPUnit_Framework_TestCase
@@ -82,5 +83,55 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
         );
 
         self::assertEquals($expectedData, $this->mapper->mapBlocks($data));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapCollectionReferences
+     */
+    public function testMapCollectionReferences()
+    {
+        $data = array(
+            array(
+                'block_id' => 1,
+                'status' => APILayout::STATUS_PUBLISHED,
+                'collection_id' => 42,
+                'identifier' => 'default',
+                'start' => 5,
+                'length' => 10,
+            ),
+            array(
+                'block_id' => 2,
+                'status' => APILayout::STATUS_PUBLISHED,
+                'collection_id' => 43,
+                'identifier' => 'featured',
+                'start' => 10,
+                'length' => 15,
+            ),
+        );
+
+        $expectedData = array(
+            new CollectionReference(
+                array(
+                    'blockId' => 1,
+                    'status' => APILayout::STATUS_PUBLISHED,
+                    'collectionId' => 42,
+                    'identifier' => 'default',
+                    'offset' => 5,
+                    'limit' => 10,
+                )
+            ),
+            new CollectionReference(
+                array(
+                    'blockId' => 2,
+                    'status' => APILayout::STATUS_PUBLISHED,
+                    'collectionId' => 43,
+                    'identifier' => 'featured',
+                    'offset' => 10,
+                    'limit' => 15,
+                )
+            ),
+        );
+
+        self::assertEquals($expectedData, $this->mapper->mapCollectionReferences($data));
     }
 }

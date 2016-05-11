@@ -69,6 +69,7 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not published
+     *                                                              If draft already exists for layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */

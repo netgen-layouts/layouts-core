@@ -3,7 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
@@ -23,6 +25,11 @@ abstract class BlockServiceTest extends ServiceTest
     protected $layoutValidatorMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $collectionValidatorMock;
+
+    /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     protected $blockService;
@@ -31,6 +38,11 @@ abstract class BlockServiceTest extends ServiceTest
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     protected $layoutService;
+
+    /**
+     * @var \Netgen\BlockManager\API\Service\CollectionService
+     */
+    protected $collectionService;
 
     /**
      * Sets up the tests.
@@ -45,8 +57,13 @@ abstract class BlockServiceTest extends ServiceTest
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->collectionValidatorMock = $this->getMockBuilder(CollectionValidator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->blockService = $this->createBlockService($this->blockValidatorMock);
         $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }
 
     /**
@@ -72,6 +89,22 @@ abstract class BlockServiceTest extends ServiceTest
     public function testLoadBlockThrowsNotFoundException()
     {
         $this->blockService->loadBlock(999999);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockCollections
+     */
+    public function testLoadBlockCollections()
+    {
+        $collections = $this->blockService->loadBlockCollections(
+            $this->blockService->loadBlock(1)
+        );
+
+        self::assertNotEmpty($collections);
+
+        foreach ($collections as $collection) {
+            self::assertInstanceOf(CollectionReference::class, $collection);
+        }
     }
 
     /**
@@ -446,6 +479,76 @@ abstract class BlockServiceTest extends ServiceTest
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->getPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
+     */
+    public function testAddCollectionToBlock()
+    {
+        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
+        $this->blockService->addCollectionToBlock(
+            $block,
+            $this->collectionService->loadCollection(2),
+            'new'
+        );
+
+        self::assertCount(3, $this->blockService->loadBlockCollections($block));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testAddCollectionToBlockThrowsBadStateExceptionOnExistingCollectionId()
+    {
+        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
+        $this->blockService->addCollectionToBlock(
+            $block,
+            $this->collectionService->loadCollection(1),
+            'new'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testAddCollectionToBlockThrowsBadStateExceptionOnExistingCollectionIdentifier()
+    {
+        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
+        $this->blockService->addCollectionToBlock(
+            $block,
+            $this->collectionService->loadCollection(2),
+            'default'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::removeCollectionFromBlock
+     */
+    public function testRemoveCollectionFromBlock()
+    {
+        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
+        $this->blockService->removeCollectionFromBlock(
+            $block,
+            $this->collectionService->loadCollection(1)
+        );
+
+        self::assertCount(1, $this->blockService->loadBlockCollections($block));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::removeCollectionFromBlock
+     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     */
+    public function testRemoveCollectionFromBlockThrowsBadStateException()
+    {
+        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
+        $this->blockService->removeCollectionFromBlock(
+            $block,
+            $this->collectionService->loadCollection(2)
+        );
     }
 
     /**

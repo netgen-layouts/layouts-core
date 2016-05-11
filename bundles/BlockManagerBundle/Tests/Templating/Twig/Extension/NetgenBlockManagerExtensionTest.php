@@ -8,17 +8,30 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $globalHelperMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
+     */
+    protected $extension;
+
+    public function setUp()
+    {
+        $this->globalHelperMock = $this->getMockBuilder(GlobalHelper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->extension = new NetgenBlockManagerExtension($this->globalHelperMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::getName
      */
     public function testGetName()
     {
-        $globalHelper = $this->getMockBuilder(GlobalHelper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $extension = new NetgenBlockManagerExtension($globalHelper);
-
-        self::assertEquals('netgen_block_manager', $extension->getName());
+        self::assertEquals('netgen_block_manager', $this->extension->getName());
     }
 
     /**
@@ -27,17 +40,11 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetGlobals()
     {
-        $globalHelper = $this->getMockBuilder(GlobalHelper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $extension = new NetgenBlockManagerExtension($globalHelper);
-
         self::assertEquals(
             array(
-                'ngbm' => $globalHelper,
+                'ngbm' => $this->globalHelperMock,
             ),
-            $extension->getGlobals()
+            $this->extension->getGlobals()
         );
     }
 }

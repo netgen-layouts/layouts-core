@@ -541,7 +541,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::STRING)
             ->setParameter('start', $offset, Type::INTEGER)
             ->setParameter('length', $limit, Type::INTEGER);
 

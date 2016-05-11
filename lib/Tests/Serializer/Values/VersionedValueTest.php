@@ -19,8 +19,8 @@ class VersionedValueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\SerializerValue::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\SerializerValue::getValue
+     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::__construct
+     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::getValue
      */
     public function testGetValue()
     {
@@ -28,8 +28,8 @@ class VersionedValueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\SerializerValue::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\SerializerValue::getVersion
+     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::__construct
+     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::getVersion
      */
     public function testGetVersion()
     {
@@ -37,8 +37,8 @@ class VersionedValueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\SerializerValue::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\SerializerValue::getStatusCode
+     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::__construct
+     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::getStatusCode
      */
     public function testGetStatusCode()
     {

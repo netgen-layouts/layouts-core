@@ -67,16 +67,6 @@ class CollectionReference extends APICollectionReference
     }
 
     /**
-     * Returns the collection type.
-     *
-     * @return int
-     */
-    public function getCollectionType()
-    {
-        return $this->collectionType;
-    }
-
-    /**
      * Returns the configuration identifier.
      *
      * @return string

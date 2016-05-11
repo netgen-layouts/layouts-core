@@ -10,6 +10,16 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 class ViewTypeTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     */
+    protected $matcher;
+
+    public function setUp()
+    {
+        $this->matcher = new ViewType();
+    }
+
+    /**
      * @param array $config
      * @param bool $expected
      *
@@ -19,8 +29,7 @@ class ViewTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatch(array $config, $expected)
     {
-        $matcher = new ViewType();
-        $matcher->setConfig($config);
+        $this->matcher->setConfig($config);
 
         $block = new Block(
             array(
@@ -31,7 +40,7 @@ class ViewTypeTest extends \PHPUnit_Framework_TestCase
         $view = new BlockView();
         $view->setBlock($block);
 
-        self::assertEquals($expected, $matcher->match($view));
+        self::assertEquals($expected, $this->matcher->match($view));
     }
 
     /**
@@ -55,7 +64,6 @@ class ViewTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        $matcher = new ViewType();
-        self::assertFalse($matcher->match(new View()));
+        self::assertFalse($this->matcher->match(new View()));
     }
 }

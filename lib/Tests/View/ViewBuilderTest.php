@@ -12,6 +12,30 @@ use Netgen\BlockManager\View\TemplateResolverInterface;
 class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $viewProviderMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $templateResolverMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $eventDispatcherMock;
+
+    public function setUp()
+    {
+        $this->viewProviderMock = $this->getMock(ViewProviderInterface::class);
+
+        $this->templateResolverMock = $this->getMock(TemplateResolverInterface::class);
+
+        $this->eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      */
@@ -20,34 +44,32 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider = $this->getMock(ViewProviderInterface::class);
-        $viewProvider
+        $this->viewProviderMock
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(true));
-        $viewProvider
+
+        $this->viewProviderMock
             ->expects($this->once())
             ->method('provideView')
             ->with($this->equalTo($value))
             ->will($this->returnValue($view));
 
-        $templateResolver = $this->getMock(TemplateResolverInterface::class);
-        $templateResolver
+        $this->templateResolverMock
             ->expects($this->once())
             ->method('resolveTemplate')
             ->with($this->equalTo($view))
             ->will($this->returnValue('some_template.html.twig'));
 
-        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
-        $eventDispatcherMock
+        $this->eventDispatcherMock
             ->expects($this->once())
             ->method('dispatch');
 
         $viewBuilder = new ViewBuilder(
-            array($viewProvider),
-            $templateResolver,
-            $eventDispatcherMock
+            array($this->viewProviderMock),
+            $this->templateResolverMock,
+            $this->eventDispatcherMock
         );
 
         $viewParameters = array('some_param' => 'some_value');
@@ -67,13 +89,10 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $value = new Value();
 
-        $templateResolver = $this->getMock(TemplateResolverInterface::class);
-        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
-
         $viewBuilder = new ViewBuilder(
             array(),
-            $templateResolver,
-            $eventDispatcherMock
+            $this->templateResolverMock,
+            $this->eventDispatcherMock
         );
 
         $viewBuilder->buildView($value, 'context');
@@ -87,23 +106,20 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $value = new Value();
 
-        $viewProvider = $this->getMock(ViewProviderInterface::class);
-        $viewProvider
+        $this->viewProviderMock
             ->expects($this->once())
             ->method('supports')
             ->with($this->equalTo($value))
             ->will($this->returnValue(false));
-        $viewProvider
+
+        $this->viewProviderMock
             ->expects($this->never())
             ->method('provideView');
 
-        $templateResolver = $this->getMock(TemplateResolverInterface::class);
-        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
-
         $viewBuilder = new ViewBuilder(
-            array($viewProvider),
-            $templateResolver,
-            $eventDispatcherMock
+            array($this->viewProviderMock),
+            $this->templateResolverMock,
+            $this->eventDispatcherMock
         );
 
         $viewBuilder->buildView($value, 'context');
@@ -119,14 +135,10 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $value = new Value();
         $view = new View();
 
-        $viewProvider = $this->getMock(DateTime::class);
-        $templateResolver = $this->getMock(TemplateResolverInterface::class);
-        $eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
-
         $viewBuilder = new ViewBuilder(
-            array($viewProvider),
-            $templateResolver,
-            $eventDispatcherMock
+            array($this->getMock(DateTime::class)),
+            $this->templateResolverMock,
+            $this->eventDispatcherMock
         );
 
         self::assertEquals($view, $viewBuilder->buildView($value, 'context'));

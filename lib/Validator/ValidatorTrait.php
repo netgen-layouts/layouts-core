@@ -32,7 +32,7 @@ trait ValidatorTrait
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    protected function validate($value, array $constraints, $propertyPath = null)
+    public function validate($value, array $constraints, $propertyPath = null)
     {
         $violations = $this->validator->validate($value, $constraints);
 
