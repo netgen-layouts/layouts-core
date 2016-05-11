@@ -13,6 +13,8 @@ parameters:
     netgen_block_manager.persistence.doctrine.collection.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
     netgen_block_manager.persistence.doctrine.collection.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
 
+    netgen_block_manager.core.repository.class: Netgen\BlockManager\Core\Repository
+
     netgen_block_manager.core.service.layout.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
     netgen_block_manager.core.service.layout.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
     netgen_block_manager.core.service.layout.class: Netgen\BlockManager\Core\Service\LayoutService
@@ -86,6 +88,14 @@ services:
             - "@netgen_block_manager.persistence.doctrine.helper.position"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
 
+    netgen_block_manager.core.repository:
+        class: "%netgen_block_manager.core.repository.class%"
+        arguments:
+            - "@netgen_block_manager.core.service.layout"
+            - "@netgen_block_manager.core.service.block"
+            - "@netgen_block_manager.core.service.collection"
+            - "@netgen_block_manager.persistence.doctrine.handler"
+
     # Layout related APIs
 
     netgen_block_manager.core.service.layout.validator:
@@ -149,6 +159,9 @@ services:
             - "@netgen_block_manager.persistence.handler"
 
     # Service aliases
+
+    netgen_block_manager.api.repository:
+        alias: netgen_block_manager.core.repository
 
     netgen_block_manager.api.service.layout:
         alias: netgen_block_manager.core.service.layout
