@@ -19,7 +19,7 @@ class BlockViewTypeValidatorTest extends ValidatorTest
         $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
-            ->with($this->equalTo('blocks'))
+            ->with($this->equalTo('block_definitions'))
             ->will($this->returnValue(array('block' => array('view_types' => array('large' => array())))));
 
         $this->validator = new BlockViewTypeValidator($this->configurationMock);

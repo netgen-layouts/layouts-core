@@ -64,7 +64,7 @@ class Configuration implements ConfigurationInterface
         return array(
             $this->getTemplateResolverNodeDefinition('block_view'),
             $this->getTemplateResolverNodeDefinition('layout_view'),
-            $this->getBlocksNodeDefinition(),
+            $this->getBlockDefinitionsNodeDefinition(),
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),
             $this->getLayoutsNodeDefinition(),
@@ -110,13 +110,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns node definition for blocks.
+     * Returns node definition for block definitions.
      *
      * @param string $nodeName
      *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getBlocksNodeDefinition($nodeName = 'blocks')
+    protected function getBlockDefinitionsNodeDefinition($nodeName = 'block_definitions')
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root($nodeName);
@@ -210,7 +210,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns node definition for blocks.
+     * Returns node definition for block type groups.
      *
      * @param string $nodeName
      *

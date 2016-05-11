@@ -68,7 +68,7 @@ class APIBlockViewListener implements EventSubscriberInterface
         }
 
         $block = $view->getBlock();
-        $blockConfig = $this->configuration->getBlockConfig($block->getDefinitionIdentifier());
+        $blockConfig = $this->configuration->getBlockDefinitionConfig($block->getDefinitionIdentifier());
 
         if (!isset($blockConfig['forms']['inline_edit'])) {
             return;

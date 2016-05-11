@@ -1,4 +1,4 @@
-blocks:
+block_definitions:
     title:
         forms:
             inline_edit: block_inline_edit_title

@@ -69,12 +69,12 @@ class BlockEditType extends AbstractType
             $options['block']->getDefinitionIdentifier()
         );
 
-        $blockConfig = $this->configuration->getBlockConfig(
+        $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
             $blockDefinition->getIdentifier()
         );
 
         $choices = array();
-        foreach ($blockConfig['view_types'] as $identifier => $viewType) {
+        foreach ($blockDefinitionConfig['view_types'] as $identifier => $viewType) {
             $choices[$viewType['name']] = $identifier;
         }
 

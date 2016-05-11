@@ -27,15 +27,15 @@ interface ConfigurationInterface
     public function getParameter($parameterName);
 
     /**
-     * Returns the configuration for specified block.
+     * Returns the configuration for specified block definition.
      *
      * @param string $definitionIdentifier
      *
-     * @throws \InvalidArgumentException If configuration for specified block does not exist
+     * @throws \InvalidArgumentException If configuration for specified block definition does not exist
      *
      * @return array
      */
-    public function getBlockConfig($definitionIdentifier);
+    public function getBlockDefinitionConfig($definitionIdentifier);
 
     /**
      * Returns the configuration for specified block type.

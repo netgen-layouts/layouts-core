@@ -165,7 +165,7 @@ class BlockController extends Controller
      */
     public function edit(Request $request, Block $block)
     {
-        $blockConfig = $this->configuration->getBlockConfig(
+        $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
             $block->getDefinitionIdentifier()
         );
 
@@ -175,7 +175,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockConfig['forms']['edit'],
+            $blockDefinitionConfig['forms']['edit'],
             $updateStruct,
             array(
                 'block' => $block,
@@ -225,11 +225,11 @@ class BlockController extends Controller
      */
     public function editInline(Request $request, Block $block)
     {
-        $blockConfig = $this->configuration->getBlockConfig(
+        $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
             $block->getDefinitionIdentifier()
         );
 
-        if (!isset($blockConfig['forms']['inline_edit'])) {
+        if (!isset($blockDefinitionConfig['forms']['inline_edit'])) {
             throw new InvalidArgumentException('form', 'Block does not support inline editing.');
         }
 
@@ -239,7 +239,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockConfig['forms']['inline_edit'],
+            $blockDefinitionConfig['forms']['inline_edit'],
             $updateStruct,
             array(
                 'block' => $block,

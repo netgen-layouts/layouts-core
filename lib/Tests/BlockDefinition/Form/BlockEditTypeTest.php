@@ -58,7 +58,7 @@ class BlockEditTypeTest extends TypeTestCase
             ConfigurationInterface::class
         );
 
-        $blockConfig = array(
+        $blockDefinitionConfig = array(
             'view_types' => array(
                 'large' => array('name' => 'Large'),
                 'small' => array('name' => 'Small'),
@@ -67,9 +67,9 @@ class BlockEditTypeTest extends TypeTestCase
 
         $this->configuration
             ->expects($this->any())
-            ->method('getBlockConfig')
+            ->method('getBlockDefinitionConfig')
             ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue($blockConfig));
+            ->will($this->returnValue($blockDefinitionConfig));
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator

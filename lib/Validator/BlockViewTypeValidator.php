@@ -32,7 +32,7 @@ class BlockViewTypeValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\BlockViewType $constraint */
-        $blockConfig = $this->configuration->getParameter('blocks');
+        $blockConfig = $this->configuration->getParameter('block_definitions');
 
         if (!isset($blockConfig[$constraint->definitionIdentifier])) {
             $this->context->buildViolation($constraint->definitionIdentifierMissingMessage)

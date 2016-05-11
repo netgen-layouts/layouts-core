@@ -97,7 +97,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->configurationMock
             ->expects($this->once())
-            ->method('getBlockConfig')
+            ->method('getBlockDefinitionConfig')
             ->with($this->equalTo('block'))
             ->will($this->returnValue($blockConfig));
 
@@ -135,7 +135,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->configurationMock
             ->expects($this->never())
-            ->method('getBlockConfig');
+            ->method('getBlockDefinitionConfig');
 
         $this->blockServiceMock
             ->expects($this->never())
@@ -161,7 +161,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->configurationMock
             ->expects($this->never())
-            ->method('getBlockConfig');
+            ->method('getBlockDefinitionConfig');
 
         $this->blockServiceMock
             ->expects($this->never())
@@ -190,7 +190,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->configurationMock
             ->expects($this->once())
-            ->method('getBlockConfig')
+            ->method('getBlockDefinitionConfig')
             ->with($this->equalTo('block'))
             ->will($this->returnValue(array()));
 
