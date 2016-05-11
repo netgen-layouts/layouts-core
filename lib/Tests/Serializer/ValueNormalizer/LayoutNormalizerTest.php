@@ -22,7 +22,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer
      */
-    protected $layoutNormalizer;
+    protected $normalizer;
 
     public function setUp()
     {
@@ -46,7 +46,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('3_zones_a'))
             ->will($this->returnValue($layoutConfig));
 
-        $this->layoutNormalizer = new LayoutNormalizer($this->configurationMock);
+        $this->normalizer = new LayoutNormalizer($this->configurationMock);
     }
 
     /**
@@ -113,7 +113,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $this->layoutNormalizer->normalize(new VersionedValue($layout, 1))
+            $this->normalizer->normalize(new VersionedValue($layout, 1))
         );
     }
 
@@ -126,7 +126,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->layoutNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

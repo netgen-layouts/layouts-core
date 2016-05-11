@@ -4,10 +4,13 @@ parameters:
     netgen_block_manager.controller.block.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
     netgen_block_manager.controller.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\LayoutController
 
-    netgen_block_manager.controller.api.block_types.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockTypesController
+    netgen_block_manager.controller.api.config.class: Netgen\Bundle\BlockManagerBundle\Controller\API\ConfigController
     netgen_block_manager.controller.api.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\LayoutController
     netgen_block_manager.controller.api.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockController
+    netgen_block_manager.controller.api.collection.class: Netgen\Bundle\BlockManagerBundle\Controller\API\CollectionController
+
     netgen_block_manager.controller.api.block.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator
+    netgen_block_manager.controller.api.collection.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator
 
     netgen_block_manager.controller.block_manager.index.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockManager\IndexController
 
@@ -40,8 +43,8 @@ services:
 
     # API controllers
 
-    netgen_block_manager.controller.api.block_types:
-        class: "%netgen_block_manager.controller.api.block_types.class%"
+    netgen_block_manager.controller.api.config:
+        class: "%netgen_block_manager.controller.api.config.class%"
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.configuration"
@@ -59,8 +62,22 @@ services:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.controller.api.block.validator"
 
+    netgen_block_manager.controller.api.collection:
+        class: "%netgen_block_manager.controller.api.collection.class%"
+        parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.controller.api.collection.validator"
+
     netgen_block_manager.controller.api.block.validator:
         class: "%netgen_block_manager.controller.api.block.validator.class%"
+        calls:
+            - [setValidator, ["@validator"]]
+
+    netgen_block_manager.controller.api.collection.validator:
+        class: "%netgen_block_manager.controller.api.collection.validator.class%"
         calls:
             - [setValidator, ["@validator"]]
 

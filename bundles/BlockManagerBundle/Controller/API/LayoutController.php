@@ -9,11 +9,11 @@ use Netgen\BlockManager\Serializer\Values\ValueArray;
 class LayoutController extends Controller
 {
     /**
-     * Serializes the layout object.
+     * Loads a layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function view(Layout $layout)
     {
@@ -21,11 +21,11 @@ class LayoutController extends Controller
     }
 
     /**
-     * Serializes the blocks from provided layout object.
+     * Loads all layout blocks.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
     public function viewLayoutBlocks(Layout $layout)
     {

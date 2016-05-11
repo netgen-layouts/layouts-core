@@ -1,0 +1,26 @@
+netgen_block_manager_api_v1_load_named_collections:
+    path: /collections/named
+    methods: [GET]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.collection:loadNamedCollections"
+
+netgen_block_manager_api_v1_load_collection:
+    path: /collections/{collection_id}
+    methods: [GET]
+    defaults:
+        _ngbm_status: 0
+        _controller: "netgen_block_manager.controller.api.collection:view"
+
+netgen_block_manager_api_v1_load_collection_items:
+    path: /collections/{collection_id}/items
+    methods: [GET]
+    defaults:
+        _ngbm_status: 0
+        _controller: "netgen_block_manager.controller.api.collection:loadCollectionItems"
+
+netgen_block_manager_api_v1_load_collection_queries:
+    path: /collections/{collection_id}/queries
+    methods: [GET]
+    defaults:
+        _ngbm_status: 0
+        _controller: "netgen_block_manager.controller.api.collection:loadCollectionQueries"

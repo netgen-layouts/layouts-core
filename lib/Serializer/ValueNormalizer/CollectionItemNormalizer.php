@@ -47,7 +47,7 @@ class CollectionItemNormalizer implements NormalizerInterface
             'value_id' => $item->getValueId(),
             'value_type' => $item->getValueType(),
             'name' => $resultValue->name,
-            'visible' => $resultValue->type,
+            'visible' => $resultValue->isVisible,
         );
     }
 

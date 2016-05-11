@@ -21,12 +21,17 @@ class ValueArrayNormalizer extends SerializerAwareNormalizer implements Normaliz
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        foreach ($object->getValue() as $value) {
-            if (!$value instanceof ValueInterface) {
-                continue;
+
+        foreach ($object->getValue() as $key => $value) {
+            if ($value instanceof ValueInterface) {
+                $dataItem = $this->serializer->normalize($value);
+            } elseif (is_array($value)) {
+                $dataItem = $this->serializer->normalize(new ValueArray($value));
+            } else {
+                $dataItem = $value;
             }
 
-            $data[] = $this->serializer->normalize($value);
+            $data[$key] = $dataItem;
         }
 
         return $data;
@@ -42,6 +47,6 @@ class ValueArrayNormalizer extends SerializerAwareNormalizer implements Normaliz
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof ValueArray;
+        return $data instanceof ValueArray && is_array($data->getValue());
     }
 }

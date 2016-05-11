@@ -1,21 +1,19 @@
 parameters:
     netgen_block_manager.normalizer.value_array.class: Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer
-    netgen_block_manager.normalizer.simple_array.class: Netgen\BlockManager\Serializer\Normalizer\SimpleArrayNormalizer
     netgen_block_manager.normalizer.view.class: Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer
     netgen_block_manager.normalizer.form_view.class: Netgen\BlockManager\Serializer\Normalizer\FormViewNormalizer
     netgen_block_manager.normalizer.exception.class: Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
 
     netgen_block_manager.normalizer.block.class: Netgen\BlockManager\Serializer\ValueNormalizer\BlockNormalizer
+    netgen_block_manager.normalizer.collection_reference.class: Netgen\BlockManager\Serializer\ValueNormalizer\CollectionReferenceNormalizer
     netgen_block_manager.normalizer.layout.class: Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer
+    netgen_block_manager.normalizer.collection.class: Netgen\BlockManager\Serializer\ValueNormalizer\CollectionNormalizer
+    netgen_block_manager.normalizer.collection_item.class: Netgen\BlockManager\Serializer\ValueNormalizer\CollectionItemNormalizer
+    netgen_block_manager.normalizer.collection_query.class: Netgen\BlockManager\Serializer\ValueNormalizer\CollectionQueryNormalizer
 
 services:
     netgen_block_manager.normalizer.value_array:
         class: "%netgen_block_manager.normalizer.value_array.class%"
-        tags:
-            - { name: serializer.normalizer }
-
-    netgen_block_manager.normalizer.simple_array:
-        class: "%netgen_block_manager.normalizer.simple_array.class%"
         tags:
             - { name: serializer.normalizer }
 
@@ -47,9 +45,31 @@ services:
         tags:
             - { name: serializer.normalizer }
 
+    netgen_block_manager.normalizer.collection_reference:
+        class: "%netgen_block_manager.normalizer.collection_reference.class%"
+        tags:
+            - { name: serializer.normalizer }
+
     netgen_block_manager.normalizer.layout:
         class: "%netgen_block_manager.normalizer.layout.class%"
         arguments:
             - "@netgen_block_manager.configuration"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.collection:
+        class: "%netgen_block_manager.normalizer.collection.class%"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.collection_item:
+        class: "%netgen_block_manager.normalizer.collection_item.class%"
+        arguments:
+            - "@netgen_block_manager.collection.result_value_builder"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.collection_query:
+        class: "%netgen_block_manager.normalizer.collection_query.class%"
         tags:
             - { name: serializer.normalizer }

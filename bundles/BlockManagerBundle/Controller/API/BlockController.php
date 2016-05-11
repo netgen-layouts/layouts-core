@@ -5,9 +5,12 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
+use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,15 +63,34 @@ class BlockController extends Controller
     }
 
     /**
-     * Serializes the block object.
+     * Loads a block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function view(Block $block)
     {
         return new View($block, self::API_VERSION);
+    }
+
+    /**
+     * Loads all collection references from a block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function loadBlockCollections(Block $block)
+    {
+        $blockCollections = array_map(
+            function (CollectionReference $collection) {
+                return new VersionedValue($collection, self::API_VERSION);
+            },
+            $this->blockService->loadBlockCollections($block)
+        );
+
+        return new ValueArray($blockCollections);
     }
 
     /**
@@ -81,7 +103,7 @@ class BlockController extends Controller
      *                                                              If provided position is out of range
      *                                                              If layout with specified ID does not exist or layout does not have a specified zone
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function create(Request $request)
     {
@@ -161,7 +183,7 @@ class BlockController extends Controller
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function edit(Request $request, Block $block)
     {
@@ -221,7 +243,7 @@ class BlockController extends Controller
      *                                                                     If form was not submitted
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If unknown error occurred
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function editInline(Request $request, Block $block)
     {

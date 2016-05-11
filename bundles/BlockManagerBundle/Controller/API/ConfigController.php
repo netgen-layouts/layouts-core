@@ -3,9 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Serializer\Values\SimpleArray;
+use Netgen\BlockManager\Serializer\Values\ValueArray;
 
-class BlockTypesController extends Controller
+class ConfigController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
@@ -25,9 +25,9 @@ class BlockTypesController extends Controller
     /**
      * Serializes the block types.
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function viewBlockTypes()
+    public function getBlockTypes()
     {
         $configBlockTypeGroups = $this->configuration->getParameter('block_type_groups');
         $configBlockTypes = $this->configuration->getParameter('block_types');
@@ -51,6 +51,6 @@ class BlockTypesController extends Controller
             'block_types' => $blockTypes,
         );
 
-        return new SimpleArray($data);
+        return new ValueArray($data);
     }
 }

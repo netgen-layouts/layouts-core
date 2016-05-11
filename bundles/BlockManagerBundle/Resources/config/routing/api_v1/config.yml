@@ -1,0 +1,5 @@
+netgen_block_manager_api_v1_block_types:
+    path: /block_types
+    methods: [GET]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.config:getBlockTypes"

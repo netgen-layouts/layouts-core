@@ -40,8 +40,8 @@ abstract class ParamConverter implements ParamConverterInterface
         }
 
         $status = Layout::STATUS_PUBLISHED;
-        if ($request->attributes->has('status')) {
-            $status = $request->attributes->get('status');
+        if ($request->attributes->has('_ngbm_status')) {
+            $status = $request->attributes->get('_ngbm_status');
         }
 
         $request->attributes->set(

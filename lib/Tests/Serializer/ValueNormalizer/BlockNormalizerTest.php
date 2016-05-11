@@ -12,11 +12,11 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\ValueNormalizer\BlockNormalizer
      */
-    protected $blockNormalizer;
+    protected $normalizer;
 
     public function setUp()
     {
-        $this->blockNormalizer = new BlockNormalizer();
+        $this->normalizer = new BlockNormalizer();
     }
 
     /**
@@ -51,7 +51,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
             ),
-            $this->blockNormalizer->normalize(new VersionedValue($block, 1))
+            $this->normalizer->normalize(new VersionedValue($block, 1))
         );
     }
 
@@ -64,7 +64,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->blockNormalizer->supportsNormalization($data));
+        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

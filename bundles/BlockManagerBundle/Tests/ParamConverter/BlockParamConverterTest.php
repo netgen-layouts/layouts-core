@@ -62,7 +62,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
         $this->blockServiceMock
             ->expects($this->once())
             ->method('loadBlock')
-            ->with($this->equalTo(42))
+            ->with($this->equalTo(42), $this->equalTo(Layout::STATUS_DRAFT))
             ->will($this->returnValue($block));
 
         self::assertEquals($block, $this->paramConverter->loadValueObject(42, Layout::STATUS_DRAFT));
