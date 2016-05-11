@@ -6,7 +6,7 @@ use Netgen\BlockManager\Serializer\Values\Value as SerializerValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 
-class SerializerValueTest extends \PHPUnit_Framework_TestCase
+class ValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\Value

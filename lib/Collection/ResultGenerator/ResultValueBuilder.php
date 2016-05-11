@@ -30,8 +30,8 @@ class ResultValueBuilder implements ResultValueBuilderInterface
         ValueLoaderRegistryInterface $valueLoaderRegistry,
         array $valueConverters = array()
     ) {
-        $this->valueConverters = $valueConverters;
         $this->valueLoaderRegistry = $valueLoaderRegistry;
+        $this->valueConverters = $valueConverters;
     }
 
     /**
