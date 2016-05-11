@@ -364,7 +364,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Block(
                     array(
-                        'id' => 5,
+                        'id' => 6,
                         'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'top_right',
                         'position' => 0,
@@ -379,7 +379,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Block(
                     array(
-                        'id' => 6,
+                        'id' => 7,
                         'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'top_right',
                         'position' => 1,
@@ -392,6 +392,21 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
+                new Block(
+                    array(
+                        'id' => 8,
+                        'layoutId' => $copiedLayout->id,
+                        'zoneIdentifier' => 'top_right',
+                        'position' => 2,
+                        'definitionIdentifier' => 'title',
+                        'parameters' => array(
+                            'the_answer' => 42,
+                        ),
+                        'viewType' => 'small',
+                        'name' => 'My fourth block',
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
             ),
             $this->blockHandler->loadZoneBlocks($copiedLayout->id, 'top_right', APILayout::STATUS_PUBLISHED)
         );
@@ -401,22 +416,22 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(5, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_DRAFT);
         self::assertCount(2, $draftReferences);
         self::assertContains($draftReferences[0]->collectionId, array(3, 4));
         self::assertContains($draftReferences[1]->collectionId, array(3, 4));
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(5, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_PUBLISHED);
         self::assertCount(2, $draftReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(3, 5));
         self::assertContains($publishedReferences[1]->collectionId, array(3, 5));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(7, APILayout::STATUS_DRAFT);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $draftReferences[0]->collectionId);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(7, APILayout::STATUS_PUBLISHED);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
@@ -499,6 +514,21 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
+                        'status' => APILayout::STATUS_ARCHIVED,
+                    )
+                ),
+                new Block(
+                    array(
+                        'id' => 5,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'top_right',
+                        'position' => 2,
+                        'definitionIdentifier' => 'title',
+                        'parameters' => array(
+                            'the_answer' => 42,
+                        ),
+                        'viewType' => 'small',
+                        'name' => 'My fourth block',
                         'status' => APILayout::STATUS_ARCHIVED,
                     )
                 ),

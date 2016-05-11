@@ -30,6 +30,8 @@ return array(
         array('id' => 3, 'status' => 1, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 0, 'definition_identifier' => 'paragraph', 'view_type' => 'large', 'name' => 'My third block', 'parameters' => '{"test_param": "test_value"}'),
         array('id' => 4, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
         array('id' => 4, 'status' => 1, 'layout_id' => 2, 'zone_identifier' => 'bottom_right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
+        array('id' => 5, 'status' => 0, 'layout_id' => 1, 'zone_identifier' => 'top_right', 'position' => 2, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
+        array('id' => 5, 'status' => 1, 'layout_id' => 1, 'zone_identifier' => 'top_right', 'position' => 2, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
     ),
     'ngbm_block_collection' => array(
         array('block_id' => 1, 'status' => 0, 'collection_id' => 1, 'identifier' => 'default', 'start' => 0, 'length' => null),

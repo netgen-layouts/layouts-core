@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
@@ -45,7 +45,7 @@ class LayoutHandler implements LayoutHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
     public function __construct(
-        CollectionHandler $collectionHandler,
+        BaseCollectionHandler $collectionHandler,
         LayoutMapper $layoutMapper,
         ConnectionHelper $connectionHelper,
         QueryHelper $queryHelper

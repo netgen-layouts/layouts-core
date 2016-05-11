@@ -172,7 +172,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(APIBlock::class, $block);
-        self::assertEquals(2, $block->getPosition());
+        self::assertEquals(3, $block->getPosition());
     }
 
     /**
@@ -351,7 +351,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(APIBlock::class, $copiedBlock);
-        self::assertEquals(5, $copiedBlock->getId());
+        self::assertEquals(6, $copiedBlock->getId());
     }
 
     /**
@@ -370,7 +370,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(APIBlock::class, $copiedBlock);
-        self::assertEquals(5, $copiedBlock->getId());
+        self::assertEquals(6, $copiedBlock->getId());
         self::assertEquals('bottom', $copiedBlock->getZoneIdentifier());
     }
 

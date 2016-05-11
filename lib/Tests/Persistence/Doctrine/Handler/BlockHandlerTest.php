@@ -109,6 +109,21 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'status' => APILayout::STATUS_PUBLISHED,
                     )
                 ),
+                new Block(
+                    array(
+                        'id' => 5,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'top_right',
+                        'position' => 2,
+                        'definitionIdentifier' => 'title',
+                        'parameters' => array(
+                            'the_answer' => 42,
+                        ),
+                        'viewType' => 'small',
+                        'name' => 'My fourth block',
+                        'status' => APILayout::STATUS_PUBLISHED,
+                    )
+                ),
             ),
             $this->blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED)
         );
@@ -181,7 +196,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 5,
+                    'id' => 6,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
                     'position' => 1,
@@ -217,10 +232,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 5,
+                    'id' => 6,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
-                    'position' => 2,
+                    'position' => 3,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -308,10 +323,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 5,
+                    'id' => 6,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
-                    'position' => 2,
+                    'position' => 3,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
                         'some_param' => 'some_value',
@@ -334,7 +349,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 5,
+                    'id' => 6,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'bottom',
                     'position' => 0,
