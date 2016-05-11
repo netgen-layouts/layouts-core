@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\EventListener;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
-use Netgen\BlockManager\EventListener\APIBlockViewListener;
+use Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\LayoutView;
@@ -39,7 +39,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     protected $formMock;
 
     /**
-     * @var \Netgen\BlockManager\EventListener\APIBlockViewListener
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener
      */
     protected $listener;
 

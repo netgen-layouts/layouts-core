@@ -6,7 +6,7 @@ parameters:
     netgen_block_manager.event_listener.view_renderer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
-    netgen_block_manager.event_listener.api_block_view.class: Netgen\BlockManager\EventListener\APIBlockViewListener
+    netgen_block_manager.event_listener.api_block_view.class: Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener
 
 services:
     netgen_block_manager.event_listener.exception_conversion:

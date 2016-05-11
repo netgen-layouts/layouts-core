@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\EventListener;
+namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
