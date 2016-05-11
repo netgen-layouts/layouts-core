@@ -21,17 +21,22 @@ class BlockEditTypeTest extends TypeTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterFormMapper;
+    protected $parameterFormMapperMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockDefinitionRegistry;
+    protected $blockDefinitionRegistryMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configuration;
+    protected $configurationMock;
+
+    /**
+     * @var \Netgen\BlockManager\BlockDefinition\Form\BlockEditType
+     */
+    protected $formType;
 
     /**
      * Sets up the test.
@@ -40,21 +45,21 @@ class BlockEditTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->parameterFormMapper = $this->getMock(
+        $this->parameterFormMapperMock = $this->getMock(
             FormMapperInterface::class
         );
 
-        $this->blockDefinitionRegistry = $this->getMock(
+        $this->blockDefinitionRegistryMock = $this->getMock(
             BlockDefinitionRegistryInterface::class
         );
 
-        $this->blockDefinitionRegistry
+        $this->blockDefinitionRegistryMock
             ->expects($this->any())
             ->method('getBlockDefinition')
             ->with($this->equalTo('block_definition'))
             ->will($this->returnValue(new BlockDefinition()));
 
-        $this->configuration = $this->getMock(
+        $this->configurationMock = $this->getMock(
             ConfigurationInterface::class
         );
 
@@ -65,11 +70,17 @@ class BlockEditTypeTest extends TypeTestCase
             ),
         );
 
-        $this->configuration
+        $this->configurationMock
             ->expects($this->any())
             ->method('getBlockDefinitionConfig')
             ->with($this->equalTo('block_definition'))
             ->will($this->returnValue($blockDefinitionConfig));
+
+        $this->formType = new BlockEditType(
+            $this->parameterFormMapperMock,
+            $this->blockDefinitionRegistryMock,
+            $this->configurationMock
+        );
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -78,13 +89,7 @@ class BlockEditTypeTest extends TypeTestCase
             ->will($this->returnValue(new ConstraintViolationList()));
 
         $this->factory = Forms::createFormFactoryBuilder()
-            ->addType(
-                new BlockEditType(
-                    $this->parameterFormMapper,
-                    $this->blockDefinitionRegistry,
-                    $this->configuration
-                )
-            )
+            ->addType($this->formType)
             ->addExtensions($this->getExtensions())
             ->addTypeExtension(new FormTypeValidatorExtension($validator))
             ->getFormFactory();
@@ -149,16 +154,10 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testConfigureOptions()
     {
-        $formType = new BlockEditType(
-            $this->parameterFormMapper,
-            $this->blockDefinitionRegistry,
-            $this->configuration
-        );
-
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
-        $formType->configureOptions($optionsResolver);
+        $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
             array(
@@ -177,16 +176,10 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testConfigureOptionsWithMissingBlock()
     {
-        $formType = new BlockEditType(
-            $this->parameterFormMapper,
-            $this->blockDefinitionRegistry,
-            $this->configuration
-        );
-
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
-        $formType->configureOptions($optionsResolver);
+        $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve();
     }
@@ -197,16 +190,10 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testConfigureOptionsWithInvalidBlock()
     {
-        $formType = new BlockEditType(
-            $this->parameterFormMapper,
-            $this->blockDefinitionRegistry,
-            $this->configuration
-        );
-
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
-        $formType->configureOptions($optionsResolver);
+        $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
             array(
@@ -221,16 +208,10 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testConfigureOptionsWithInvalidData()
     {
-        $formType = new BlockEditType(
-            $this->parameterFormMapper,
-            $this->blockDefinitionRegistry,
-            $this->configuration
-        );
-
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
-        $formType->configureOptions($optionsResolver);
+        $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
             array(
@@ -245,13 +226,7 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testGetName()
     {
-        $formType = new BlockEditType(
-            $this->parameterFormMapper,
-            $this->blockDefinitionRegistry,
-            $this->configuration
-        );
-
-        self::assertEquals('block_edit', $formType->getName());
+        self::assertEquals('block_edit', $this->formType->getName());
     }
 
     /**
@@ -259,12 +234,6 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testGetBlockPrefix()
     {
-        $formType = new BlockEditType(
-            $this->parameterFormMapper,
-            $this->blockDefinitionRegistry,
-            $this->configuration
-        );
-
-        self::assertEquals('block_edit', $formType->getBlockPrefix());
+        self::assertEquals('block_edit', $this->formType->getBlockPrefix());
     }
 }
