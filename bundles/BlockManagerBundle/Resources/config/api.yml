@@ -90,8 +90,8 @@ services:
 
     netgen_block_manager.core.service.layout.validator:
         class: "%netgen_block_manager.core.service.layout.validator.class%"
-        arguments:
-            - "@validator"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.layout.mapper:
         class: "%netgen_block_manager.core.service.layout.mapper.class%"
@@ -111,8 +111,9 @@ services:
     netgen_block_manager.core.service.block.validator:
         class: "%netgen_block_manager.core.service.block.validator.class%"
         arguments:
-            - "@validator"
             - "@netgen_block_manager.block_definition.registry"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.block.mapper:
         class: "%netgen_block_manager.core.service.block.mapper.class%"
@@ -131,8 +132,9 @@ services:
     netgen_block_manager.core.service.collection.validator:
         class: "%netgen_block_manager.core.service.collection.validator.class%"
         arguments:
-            - "@validator"
             - "@netgen_block_manager.collection.query_type.registry"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.collection.mapper:
         class: "%netgen_block_manager.core.service.collection.mapper.class%"

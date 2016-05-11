@@ -61,8 +61,8 @@ services:
 
     netgen_block_manager.controller.api.block.validator:
         class: "%netgen_block_manager.controller.api.block.validator.class%"
-        arguments:
-            - "@validator"
+        calls:
+            - [setValidator, ["@validator"]]
 
     # Block Manager app controllers
 

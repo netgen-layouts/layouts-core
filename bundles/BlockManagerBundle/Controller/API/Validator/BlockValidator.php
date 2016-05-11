@@ -2,12 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\Validator;
 
-use Netgen\Bundle\BlockManagerBundle\Controller\Validator;
+use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class BlockValidator extends Validator
+class BlockValidator
 {
+    use ValidatorTrait;
+
     /**
      * Validates block creation parameters from the request.
      *

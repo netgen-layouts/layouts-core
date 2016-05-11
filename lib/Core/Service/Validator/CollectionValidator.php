@@ -13,7 +13,6 @@ use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\QueryType;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints;
 
 class CollectionValidator extends Validator
@@ -26,13 +25,10 @@ class CollectionValidator extends Validator
     /**
      * Constructor.
      *
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
      * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
-    public function __construct(ValidatorInterface $validator, QueryTypeRegistryInterface $queryTypeRegistry)
+    public function __construct(QueryTypeRegistryInterface $queryTypeRegistry)
     {
-        parent::__construct($validator);
-
         $this->queryTypeRegistry = $queryTypeRegistry;
     }
 

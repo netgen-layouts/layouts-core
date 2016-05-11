@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller;
+namespace Netgen\BlockManager\Validator;
 
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints;
 
-abstract class Validator
+trait ValidatorTrait
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
@@ -17,7 +18,7 @@ abstract class Validator
      *
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
      */
-    public function __construct(ValidatorInterface $validator)
+    public function setValidator(ValidatorInterface $validator)
     {
         $this->validator = $validator;
     }
