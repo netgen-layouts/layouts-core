@@ -128,28 +128,28 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             new FileLocator(__DIR__ . '/../Resources/config')
         );
 
-        $loader->load('view/providers.yml');
-        $loader->load('view/matchers.yml');
-        $loader->load('view/view.yml');
+        $loader->load('services/view/providers.yml');
+        $loader->load('services/view/matchers.yml');
+        $loader->load('services/view/view.yml');
 
-        $loader->load('block_definitions.yml');
-        $loader->load('block_forms.yml');
+        $loader->load('services/block_definitions.yml');
+        $loader->load('services/block_forms.yml');
 
-        $loader->load('layout_resolver/layout_resolver.yml');
-        $loader->load('layout_resolver/condition_matchers.yml');
-        $loader->load('layout_resolver/target_handlers.yml');
-        $loader->load('layout_resolver/target_builders.yml');
+        $loader->load('services/layout_resolver/layout_resolver.yml');
+        $loader->load('services/layout_resolver/condition_matchers.yml');
+        $loader->load('services/layout_resolver/target_handlers.yml');
+        $loader->load('services/layout_resolver/target_builders.yml');
 
-        $loader->load('param_converters.yml');
-        $loader->load('event_listeners.yml');
-        $loader->load('configuration.yml');
-        $loader->load('controllers.yml');
-        $loader->load('normalizers.yml');
-        $loader->load('validators.yml');
-        $loader->load('templating.yml');
-        $loader->load('parameters.yml');
-        $loader->load('collections.yml');
+        $loader->load('services/param_converters.yml');
+        $loader->load('services/event_listeners.yml');
+        $loader->load('services/configuration.yml');
+        $loader->load('services/controllers.yml');
+        $loader->load('services/normalizers.yml');
+        $loader->load('services/validators.yml');
+        $loader->load('services/templating.yml');
+        $loader->load('services/parameters.yml');
+        $loader->load('services/collections.yml');
 
-        $loader->load('api.yml');
+        $loader->load('services/api.yml');
     }
 }
