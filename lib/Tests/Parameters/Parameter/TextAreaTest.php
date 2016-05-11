@@ -4,8 +4,44 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\TextArea;
 
-class TextAreaTest extends BaseTest
+class TextAreaTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getType
+     */
+    public function testGetType()
+    {
+        $parameter = $this->getParameter(array());
+        self::assertEquals('textarea', $parameter->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::configureOptions
+     * @dataProvider validOptionsProvider
+     *
+     * @param array $options
+     * @param array $resolvedOptions
+     */
+    public function testValidOptions($options, $resolvedOptions)
+    {
+        $parameter = $this->getParameter($options);
+        self::assertEquals($resolvedOptions, $parameter->getOptions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidOptionsProvider
+     *
+     * @param array $options
+     */
+    public function testInvalidOptions($options)
+    {
+        $this->getParameter($options);
+    }
+
     /**
      * Returns the parameter under test.
      *

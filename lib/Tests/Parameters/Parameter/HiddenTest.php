@@ -4,8 +4,44 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Hidden;
 
-class HiddenTest extends BaseTest
+class HiddenTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getType
+     */
+    public function testGetType()
+    {
+        $parameter = $this->getParameter(array());
+        self::assertEquals('hidden', $parameter->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::configureOptions
+     * @dataProvider validOptionsProvider
+     *
+     * @param array $options
+     * @param array $resolvedOptions
+     */
+    public function testValidOptions($options, $resolvedOptions)
+    {
+        $parameter = $this->getParameter($options);
+        self::assertEquals($resolvedOptions, $parameter->getOptions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidOptionsProvider
+     *
+     * @param array $options
+     */
+    public function testInvalidOptions($options)
+    {
+        $this->getParameter($options);
+    }
+
     /**
      * Returns the parameter under test.
      *
