@@ -19,7 +19,10 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->prepareDatabase(__DIR__ . '/../../_fixtures/schema', __DIR__ . '/../../_fixtures');
+        $this->prepareDatabase(
+            __DIR__ . '/../../../../_fixtures/schema',
+            __DIR__ . '/../../../../_fixtures'
+        );
 
         $this->helper = new Sqlite($this->databaseConnection);
     }

@@ -20,7 +20,10 @@ abstract class TargetHandlerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->prepareDatabase(__DIR__ . '/../_fixtures/schema', __DIR__ . '/../_fixtures');
+        $this->prepareDatabase(
+            __DIR__ . '/../../../../_fixtures/schema',
+            __DIR__ . '/../../../../_fixtures'
+        );
 
         $this->handler = new Handler($this->databaseConnection, new Normalizer());
         $this->handler->addTargetHandler($this->getTargetIdentifier(), $this->getTargetHandler());

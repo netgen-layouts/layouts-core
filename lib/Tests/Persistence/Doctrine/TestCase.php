@@ -23,7 +23,10 @@ trait TestCase
      */
     public function prepareHandlers()
     {
-        $this->prepareDatabase(__DIR__ . '/_fixtures/schema', __DIR__ . '/_fixtures');
+        $this->prepareDatabase(
+            __DIR__ . '/../../_fixtures/schema',
+            __DIR__ . '/../../_fixtures'
+        );
     }
 
     /**
