@@ -27,35 +27,5 @@ class BlockValidator
             ),
             'block_type'
         );
-
-        $this->validate(
-            $request->request->get('layout_id'),
-            array(
-                new Constraints\GreaterThan(array('value' => 0)),
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'layout_id'
-        );
-
-        $this->validate(
-            $request->request->get('zone_identifier'),
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'zone_identifier'
-        );
-
-        $position = $request->request->get('position');
-        if ($position !== null) {
-            $this->validate(
-                $position,
-                array(
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                    new Constraints\Type(array('type' => 'int')),
-                ),
-                'position'
-            );
-        }
     }
 }

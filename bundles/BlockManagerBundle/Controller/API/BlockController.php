@@ -100,8 +100,7 @@ class BlockController extends Controller
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If block type does not exist
-     *                                                              If provided position is out of range
-     *                                                              If layout with specified ID does not exist or layout does not have a specified zone
+     *                                                              If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -124,11 +123,6 @@ class BlockController extends Controller
             );
         } catch (NotFoundException $e) {
             throw new BadStateException('layout_id', 'Layout does not exist.', $e);
-        }
-
-        $zoneIdentifier = $request->request->get('zone_identifier');
-        if (!isset($layout->getZones()[$zoneIdentifier])) {
-            throw new BadStateException('zone_identifier', 'Zone does not exist in the layout.');
         }
 
         $defaultValues = $blockTypeConfig['defaults'];
@@ -158,7 +152,6 @@ class BlockController extends Controller
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in does not have the specified zone
-     *                                                              If provided position is out of range
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
