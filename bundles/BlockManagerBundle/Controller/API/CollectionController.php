@@ -11,6 +11,8 @@ use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CollectionController extends Controller
 {
@@ -61,7 +63,7 @@ class CollectionController extends Controller
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function view(Collection $collection)
+    public function load(Collection $collection)
     {
         return new VersionedValue($collection, self::API_VERSION);
     }
@@ -131,5 +133,142 @@ class CollectionController extends Controller
         );
 
         return new ValueArray($queries);
+    }
+
+    /**
+     * Creates the collection.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function create(Request $request)
+    {
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
+            $request->request->get('type'),
+            $request->request->get('name')
+        );
+
+        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
+
+        $createdCollection = $this->collectionService->createCollection(
+            $collectionCreateStruct
+        );
+
+        return new VersionedValue($createdCollection, self::API_VERSION, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Deletes the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function delete(Collection $collection)
+    {
+        $this->collectionService->deleteCollection($collection, true);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Loads the item.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
+     */
+    public function loadItem(Item $collectionItem)
+    {
+        return new VersionedValue($collectionItem, self::API_VERSION);
+    }
+
+    /**
+     * Moves the item inside the collection.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function moveItem(Request $request, Item $collectionItem)
+    {
+        $this->validator->validateMove($request);
+
+        $this->collectionService->moveItem(
+            $collectionItem,
+            $request->request->get('position')
+        );
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Deletes the item.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteItem(Item $collectionItem)
+    {
+        $this->collectionService->deleteItem($collectionItem);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Loads the query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
+     */
+    public function loadQuery(Query $collectionQuery)
+    {
+        return new VersionedValue($collectionQuery, self::API_VERSION);
+    }
+
+    /**
+     * Moves the query inside the collection.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function moveQuery(Request $request, Query $collectionQuery)
+    {
+        $this->validator->validateMove($request);
+
+        $this->collectionService->moveQuery(
+            $collectionQuery,
+            $request->request->get('position')
+        );
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Deletes the query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteQuery(Query $collectionQuery)
+    {
+        $this->collectionService->deleteQuery($collectionQuery);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }
