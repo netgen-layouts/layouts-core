@@ -11,6 +11,8 @@ interface ResultValueBuilderInterface
      *
      * @param mixed $object
      *
+     * @throws \RuntimeException If value cannot be built
+     *
      * @return \Netgen\BlockManager\Collection\ResultValue
      */
     public function build($object);
@@ -19,6 +21,8 @@ interface ResultValueBuilderInterface
      * Builds the result value from provided item.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     *
+     * @throws \RuntimeException If value cannot be built
      *
      * @return \Netgen\BlockManager\Collection\ResultValue
      */

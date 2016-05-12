@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Exception;
 
 class CollectionItemNormalizer implements NormalizerInterface
 {
@@ -37,18 +38,27 @@ class CollectionItemNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Item $item */
         $item = $object->getValue();
-        $resultValue = $this->resultValueBuilder->buildFromItem($item);
 
-        return array(
+        $data = array(
             'id' => $item->getId(),
             'collection_id' => $item->getCollectionId(),
             'position' => $item->getPosition(),
             'type' => $item->getType(),
             'value_id' => $item->getValueId(),
             'value_type' => $item->getValueType(),
-            'name' => $resultValue->name,
-            'visible' => $resultValue->isVisible,
+            'name' => null,
+            'visible' => null,
         );
+
+        try {
+            $resultValue = $this->resultValueBuilder->buildFromItem($item);
+            $data['name'] = $resultValue->name;
+            $data['visible'] = $resultValue->isVisible;
+        } catch (Exception $e) {
+            // Do nothing
+        }
+
+        return $data;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\ResultValue;
@@ -38,6 +39,8 @@ class ResultValueBuilder implements ResultValueBuilderInterface
      * Builds the result value from provided object.
      *
      * @param mixed $object
+     *
+     * @throws \RuntimeException If value cannot be built
      *
      * @return \Netgen\BlockManager\Collection\ResultValue
      */
@@ -76,13 +79,20 @@ class ResultValueBuilder implements ResultValueBuilderInterface
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      *
+     * @throws \RuntimeException If value cannot be built
+     *
      * @return \Netgen\BlockManager\Collection\ResultValue
      */
     public function buildFromItem(Item $item)
     {
-        $loadedValue = $this->valueLoaderRegistry
-            ->getValueLoader($item->getValueType())
-            ->load($item->getValueId());
+        $valueLoader = $this->valueLoaderRegistry
+            ->getValueLoader($item->getValueType());
+
+        try {
+            $loadedValue = $valueLoader->load($item->getValueId());
+        } catch (NotFoundException $e) {
+            throw new RuntimeException('Value could not be loaded.');
+        }
 
         return $this->build($loadedValue);
     }
