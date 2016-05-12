@@ -63,7 +63,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo('identifier'),
                 $this->equalTo(
                     array(
-                        new Constraints\NotBlank(),
                         new Constraints\Type(array('type' => 'string')),
                     )
                 )
@@ -71,6 +70,28 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(new ConstraintViolationList()));
 
         $this->validator->validateIdentifier('identifier');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
+     */
+    public function testValidateRequiredIdentifier()
+    {
+        $this->validatorMock
+            ->expects($this->once())
+            ->method('validate')
+            ->with(
+                $this->equalTo('identifier'),
+                $this->equalTo(
+                    array(
+                        new Constraints\Type(array('type' => 'string')),
+                        new Constraints\NotBlank(),
+                    )
+                )
+            )
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validator->validateIdentifier('identifier', null, true);
     }
 
     /**

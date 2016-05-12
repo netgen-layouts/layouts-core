@@ -122,11 +122,9 @@ class BlockService implements BlockServiceInterface
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
-        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
+        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
 
-        if ($position !== null) {
-            $this->blockValidator->validatePosition($position, 'position');
-        }
+        $this->blockValidator->validatePosition($position, 'position');
 
         if (!$this->layoutHandler->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
@@ -197,9 +195,9 @@ class BlockService implements BlockServiceInterface
      */
     public function copyBlock(Block $block, $zoneIdentifier = null)
     {
-        if ($zoneIdentifier !== null) {
-            $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
+        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
+        if ($zoneIdentifier !== null) {
             if (!$this->layoutHandler->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
@@ -239,9 +237,9 @@ class BlockService implements BlockServiceInterface
     {
         $this->blockValidator->validatePosition($position, 'position', true);
 
-        if ($zoneIdentifier !== null) {
-            $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
+        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
+        if ($zoneIdentifier !== null) {
             if (!$this->layoutHandler->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }

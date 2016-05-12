@@ -34,19 +34,21 @@ abstract class Validator
      *
      * @param string $identifier
      * @param string $propertyPath
+     * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    public function validateIdentifier($identifier, $propertyPath = null)
+    public function validateIdentifier($identifier, $propertyPath = null, $isRequired = false)
     {
-        $this->validate(
-            $identifier,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            $propertyPath
+        $constraints = array(
+            new Constraints\Type(array('type' => 'string')),
         );
+
+        if ($isRequired) {
+            $constraints[] = new Constraints\NotBlank();
+        }
+
+        $this->validate($identifier, $constraints, $propertyPath);
     }
 
     /**

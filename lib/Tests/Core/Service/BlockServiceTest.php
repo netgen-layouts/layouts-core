@@ -162,6 +162,11 @@ abstract class BlockServiceTest extends ServiceTest
 
         $this->blockValidatorMock
             ->expects($this->at(1))
+            ->method('validatePosition')
+            ->with($this->equalTo(null), $this->equalTo('position'));
+
+        $this->blockValidatorMock
+            ->expects($this->at(2))
             ->method('validateBlockCreateStruct')
             ->with($this->equalTo($blockCreateStruct));
 
