@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
-class CollectionHelperTest extends \PHPUnit_Framework_TestCase
+class ConnectionHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

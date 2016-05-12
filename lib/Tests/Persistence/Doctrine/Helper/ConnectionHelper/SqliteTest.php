@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper\CollectionHelper;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
