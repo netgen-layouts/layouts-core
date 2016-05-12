@@ -7,7 +7,7 @@ parameters:
     netgen_block_manager.controller.api.config.class: Netgen\Bundle\BlockManagerBundle\Controller\API\ConfigController
     netgen_block_manager.controller.api.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\LayoutController
     netgen_block_manager.controller.api.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockController
-    netgen_block_manager.controller.api.collection.class: Netgen\Bundle\BlockManagerBundle\Controller\API\CollectionController
+    netgen_block_manager.controller.api.block_collection.class: Netgen\Bundle\BlockManagerBundle\Controller\API\BlockCollectionController
 
     netgen_block_manager.controller.api.block.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator
     netgen_block_manager.controller.api.collection.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator
@@ -62,8 +62,8 @@ services:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.controller.api.block.validator"
 
-    netgen_block_manager.controller.api.collection:
-        class: "%netgen_block_manager.controller.api.collection.class%"
+    netgen_block_manager.controller.api.block_collection:
+        class: "%netgen_block_manager.controller.api.block_collection.class%"
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"

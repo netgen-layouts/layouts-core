@@ -14,7 +14,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidato
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CollectionController extends Controller
+class BlockCollectionController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
@@ -66,23 +66,6 @@ class CollectionController extends Controller
     public function load(Collection $collection)
     {
         return new VersionedValue($collection, self::API_VERSION);
-    }
-
-    /**
-     * Loads the named collections.
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
-     */
-    public function loadNamedCollections()
-    {
-        $namedCollections = array_map(
-            function (Collection $collection) {
-                return new VersionedValue($collection, self::API_VERSION);
-            },
-            $this->collectionService->loadNamedCollections()
-        );
-
-        return new ValueArray($namedCollections);
     }
 
     /**
@@ -257,39 +240,5 @@ class CollectionController extends Controller
     public function loadQuery(Query $collectionQuery)
     {
         return new VersionedValue($collectionQuery, self::API_VERSION);
-    }
-
-    /**
-     * Moves the query inside the collection.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function moveQuery(Request $request, Query $collectionQuery)
-    {
-        $this->collectionService->moveQuery(
-            $collectionQuery,
-            $request->request->get('position')
-        );
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Deletes the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function deleteQuery(Query $collectionQuery)
-    {
-        $this->collectionService->deleteQuery($collectionQuery);
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }
