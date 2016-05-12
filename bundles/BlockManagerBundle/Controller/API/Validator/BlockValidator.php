@@ -58,35 +58,4 @@ class BlockValidator
             );
         }
     }
-
-    /**
-     * Validates block moving parameters from the request.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If validation failed
-     */
-    public function validateMoveBlock(Request $request)
-    {
-        $zoneIdentifier = $request->request->get('zone_identifier');
-        if ($zoneIdentifier !== null) {
-            $this->validate(
-                $zoneIdentifier,
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                ),
-                'zone_identifier'
-            );
-        }
-
-        $this->validate(
-            $request->request->get('position'),
-            array(
-                new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'position'
-        );
-    }
 }

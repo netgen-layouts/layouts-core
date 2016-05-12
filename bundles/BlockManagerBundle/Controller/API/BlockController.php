@@ -164,8 +164,6 @@ class BlockController extends Controller
      */
     public function move(Request $request, Block $block)
     {
-        $this->validator->validateMoveBlock($request);
-
         $this->blockService->moveBlock(
             $block,
             $request->request->get('position'),

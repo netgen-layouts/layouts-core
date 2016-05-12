@@ -199,8 +199,6 @@ class CollectionController extends Controller
      */
     public function moveItem(Request $request, Item $collectionItem)
     {
-        $this->validator->validateMove($request);
-
         $this->collectionService->moveItem(
             $collectionItem,
             $request->request->get('position')
@@ -248,8 +246,6 @@ class CollectionController extends Controller
      */
     public function moveQuery(Request $request, Query $collectionQuery)
     {
-        $this->validator->validateMove($request);
-
         $this->collectionService->moveQuery(
             $collectionQuery,
             $request->request->get('position')
