@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use RuntimeException;
 
 class TemplateResolver implements TemplateResolverInterface
@@ -14,20 +13,20 @@ class TemplateResolver implements TemplateResolverInterface
     protected $matchers = array();
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var array
      */
-    protected $configuration;
+    protected $configurations = array();
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param array $configurations
      */
-    public function __construct(array $matchers = array(), ConfigurationInterface $configuration)
+    public function __construct(array $matchers = array(), array $configurations = array())
     {
         $this->matchers = $matchers;
-        $this->configuration = $configuration;
+        $this->configurations = $configurations;
     }
 
     /**
@@ -43,9 +42,8 @@ class TemplateResolver implements TemplateResolverInterface
     {
         $matchedConfig = false;
         $context = $view->getContext();
-        $viewConfig = $this->configuration->getParameter($view->getAlias());
 
-        if (!isset($viewConfig[$context])) {
+        if (!isset($this->configurations[$view->getAlias()][$context])) {
             throw new RuntimeException(
                 sprintf(
                     'No configuration could be found for context "%s" and view object "%s".',
@@ -55,7 +53,7 @@ class TemplateResolver implements TemplateResolverInterface
             );
         }
 
-        foreach ($viewConfig[$context] as $config) {
+        foreach ($this->configurations[$view->getAlias()][$context] as $config) {
             $matchConfig = $config['match'];
             if (!$this->matches($view, $matchConfig)) {
                 continue;

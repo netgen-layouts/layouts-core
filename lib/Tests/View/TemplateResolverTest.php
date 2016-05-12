@@ -4,22 +4,11 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\View\TemplateResolver;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use DateTime;
 
 class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $configurationMock;
-
-    public function setUp()
-    {
-        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
-    }
-
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
@@ -40,30 +29,24 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue(true));
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will(
-                $this->returnValue(
-                    array(
-                        'context' => array(
-                            'paragraph' => array(
-                                'template' => 'some_template.html.twig',
-                                'match' => array(
-                                    'definition_identifier' => 'paragraph',
-                                ),
-                            ),
+        $viewConfiguration = array(
+            'view' => array(
+                'context' => array(
+                    'paragraph' => array(
+                        'template' => 'some_template.html.twig',
+                        'match' => array(
+                            'definition_identifier' => 'paragraph',
                         ),
-                    )
-                )
-            );
+                    ),
+                ),
+            )
+        );
 
         $templateResolver = new TemplateResolver(
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $this->configurationMock
+            $viewConfiguration
         );
 
         self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
@@ -78,26 +61,20 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will(
-                $this->returnValue(
-                    array(
-                        'context' => array(
-                            'paragraph' => array(
-                                'template' => 'some_template.html.twig',
-                                'match' => array(),
-                            ),
-                        ),
-                    )
-                )
-            );
+        $viewConfiguration = array(
+            'view' => array(
+                'context' => array(
+                    'paragraph' => array(
+                        'template' => 'some_template.html.twig',
+                        'match' => array(),
+                    ),
+                ),
+            )
+        );
 
         $templateResolver = new TemplateResolver(
             array(),
-            $this->configurationMock
+            $viewConfiguration
         );
 
         self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
@@ -112,30 +89,24 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $view = $this->getView();
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will(
-                $this->returnValue(
-                    array(
-                        'context' => array(
-                            'paragraph' => array(
-                                'template' => 'some_template.html.twig',
-                                'match' => array(),
-                            ),
-                            'paragraph_other' => array(
-                                'template' => 'some_other_template.html.twig',
-                                'match' => array(),
-                            ),
-                        ),
-                    )
-                )
-            );
+        $viewConfiguration = array(
+            'view' => array(
+                'context' => array(
+                    'paragraph' => array(
+                        'template' => 'some_template.html.twig',
+                        'match' => array(),
+                    ),
+                    'paragraph_other' => array(
+                        'template' => 'some_other_template.html.twig',
+                        'match' => array(),
+                    ),
+                ),
+            )
+        );
 
         $templateResolver = new TemplateResolver(
             array(),
-            $this->configurationMock
+            $viewConfiguration
         );
 
         self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
@@ -147,13 +118,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will($this->returnValue(array()));
-
-        $templateResolver = new TemplateResolver(array(), $this->configurationMock);
+        $templateResolver = new TemplateResolver(array(), array('view' => array()));
         $templateResolver->resolveTemplate($this->getView());
     }
 
@@ -163,15 +128,9 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfEmptyContext()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will($this->returnValue(array('context' => array())));
-
         $templateResolver = new TemplateResolver(
             array(),
-            $this->configurationMock
+            array('view' => array('context' => array()))
         );
 
         $templateResolver->resolveTemplate($this->getView());
@@ -197,29 +156,23 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue(false));
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will(
-                $this->returnValue(
-                    array(
-                        'context' => array(
-                            'title' => array(
-                                'match' => array(
-                                    'definition_identifier' => 'title',
-                                ),
-                            ),
+        $viewConfiguration = array(
+            'view' => array(
+                'context' => array(
+                    'title' => array(
+                        'match' => array(
+                            'definition_identifier' => 'title',
                         ),
-                    )
-                )
-            );
+                    ),
+                ),
+            )
+        );
 
         $templateResolver = new TemplateResolver(
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $this->configurationMock
+            $viewConfiguration
         );
 
         $templateResolver->resolveTemplate($view);
@@ -232,27 +185,21 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will(
-                $this->returnValue(
-                    array(
-                        'context' => array(
-                            'title' => array(
-                                'match' => array(
-                                    'definition_identifier' => 'title',
-                                ),
-                            ),
+        $viewConfiguration = array(
+            'view' => array(
+                'context' => array(
+                    'title' => array(
+                        'match' => array(
+                            'definition_identifier' => 'title',
                         ),
-                    )
-                )
-            );
+                    ),
+                ),
+            )
+        );
 
         $templateResolver = new TemplateResolver(
             array(),
-            $this->configurationMock
+            $viewConfiguration
         );
 
         $templateResolver->resolveTemplate($this->getView());
@@ -269,29 +216,23 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $matcherMock = $this->getMock(DateTime::class);
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('view'))
-            ->will(
-                $this->returnValue(
-                    array(
-                        'context' => array(
-                            'title' => array(
-                                'match' => array(
-                                    'definition_identifier' => 'title',
-                                ),
-                            ),
+        $viewConfiguration = array(
+            'view' => array(
+                'context' => array(
+                    'title' => array(
+                        'match' => array(
+                            'definition_identifier' => 'title',
                         ),
-                    )
-                )
-            );
+                    ),
+                ),
+            )
+        );
 
         $templateResolver = new TemplateResolver(
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $this->configurationMock
+            $viewConfiguration
         );
 
         $templateResolver->resolveTemplate($view);

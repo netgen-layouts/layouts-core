@@ -22,4 +22,6 @@ services:
         lazy: true
         arguments:
             - []
-            - "@netgen_block_manager.configuration"
+            -
+                layout_view: "@=service('netgen_block_manager.configuration').getParameter('layout_view')"
+                block_view: "@=service('netgen_block_manager.configuration').getParameter('block_view')"
