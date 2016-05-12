@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Value;
 
 class LayoutCreateStruct extends Value
 {

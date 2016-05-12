@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Values;
+namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;

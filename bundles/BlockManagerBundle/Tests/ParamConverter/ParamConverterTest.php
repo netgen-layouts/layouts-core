@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\HttpFoundation\Request;
 
 class ParamConverterTest extends \PHPUnit_Framework_TestCase

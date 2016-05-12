@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;

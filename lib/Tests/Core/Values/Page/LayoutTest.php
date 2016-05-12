@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use DateTime;

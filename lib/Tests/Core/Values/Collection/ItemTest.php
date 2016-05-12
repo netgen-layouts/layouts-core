@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;

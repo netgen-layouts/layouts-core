@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 
 class VersionedValueTest extends \PHPUnit_Framework_TestCase

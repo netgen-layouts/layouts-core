@@ -2,19 +2,14 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-abstract class QueryUpdateStruct extends Value
+interface QueryUpdateStruct
 {
-    /**
-     * @var string
-     */
-    public $identifier;
-
     /**
      * Sets the parameters to the struct.
      *
      * @param array $parameters
      */
-    abstract public function setParameters(array $parameters);
+    public function setParameters(array $parameters);
 
     /**
      * Sets the parameter to the struct.
@@ -22,14 +17,14 @@ abstract class QueryUpdateStruct extends Value
      * @param string $parameterName
      * @param mixed $parameterValue
      */
-    abstract public function setParameter($parameterName, $parameterValue);
+    public function setParameter($parameterName, $parameterValue);
 
     /**
      * Returns all parameters from the struct.
      *
      * @return array
      */
-    abstract public function getParameters();
+    public function getParameters();
 
     /**
      * Returns the parameter with provided identifier.
@@ -40,7 +35,7 @@ abstract class QueryUpdateStruct extends Value
      *
      * @return mixed
      */
-    abstract public function getParameter($parameterName);
+    public function getParameter($parameterName);
 
     /**
      * Returns if the struct has a parameter with provided identifier.
@@ -49,5 +44,5 @@ abstract class QueryUpdateStruct extends Value
      *
      * @return bool
      */
-    abstract public function hasParameter($parameterName);
+    public function hasParameter($parameterName);
 }

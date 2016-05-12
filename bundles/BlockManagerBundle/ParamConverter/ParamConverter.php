@@ -100,7 +100,7 @@ abstract class ParamConverter implements ParamConverterInterface
      * @param int|string $valueId
      * @param int $status
      *
-     * @return \Netgen\BlockManager\API\Values\Value
+     * @return \Netgen\BlockManager\Core\Values\Value
      */
     abstract public function loadValueObject($valueId, $status);
 }

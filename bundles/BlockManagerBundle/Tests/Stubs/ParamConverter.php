@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter as BaseParamConverter;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
 class ParamConverter extends BaseParamConverter
 {
@@ -53,7 +53,7 @@ class ParamConverter extends BaseParamConverter
      * @param int|string $valueId
      * @param int $status
      *
-     * @return \Netgen\BlockManager\API\Values\Value
+     * @return \Netgen\BlockManager\Core\Values\Value
      */
     public function loadValueObject($valueId, $status)
     {

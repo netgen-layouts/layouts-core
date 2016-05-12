@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Value;
-
-abstract class Collection extends Value
+interface Collection
 {
     /**
      * @const int
@@ -46,54 +44,47 @@ abstract class Collection extends Value
      *
      * @return int|string
      */
-    abstract public function getId();
-
-    /**
-     * Returns the collection status.
-     *
-     * @return int
-     */
-    abstract public function getStatus();
+    public function getId();
 
     /**
      * Returns the collection type.
      *
      * @return int
      */
-    abstract public function getType();
+    public function getType();
 
     /**
      * Returns the collection name.
      *
      * @return string
      */
-    abstract public function getName();
+    public function getName();
 
     /**
      * Returns all collection items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    abstract public function getItems();
+    public function getItems();
 
     /**
      * Returns the list of items manually added to the collection.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    abstract public function getManualItems();
+    public function getManualItems();
 
     /**
      * Returns the list of items that override the item present at a specific slot.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    abstract public function getOverrideItems();
+    public function getOverrideItems();
 
     /**
      * Returns the list of query configurations in the collection.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query[]
      */
-    abstract public function getQueries();
+    public function getQueries();
 }

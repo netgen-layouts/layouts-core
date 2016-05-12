@@ -68,7 +68,7 @@ class CollectionParamConverter extends ParamConverter
      * @param int|string $valueId
      * @param int $status
      *
-     * @return \Netgen\BlockManager\API\Values\Value
+     * @return \Netgen\BlockManager\Core\Values\Value
      */
     public function loadValueObject($valueId, $status)
     {

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 class Collection extends Value
 {

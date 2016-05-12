@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\ResultValue;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
 class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
 {

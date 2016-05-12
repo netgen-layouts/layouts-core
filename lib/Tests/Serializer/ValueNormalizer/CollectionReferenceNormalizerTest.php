@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\ValueNormalizer;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\ValueNormalizer\CollectionReferenceNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
 class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
 {

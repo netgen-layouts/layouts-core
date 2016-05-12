@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\LayoutView;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use DateTime;
 

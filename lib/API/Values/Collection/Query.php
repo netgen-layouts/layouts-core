@@ -2,56 +2,47 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Value;
-
-abstract class Query extends Value
+interface Query
 {
     /**
      * Returns the query ID.
      *
      * @return int|string
      */
-    abstract public function getId();
-
-    /**
-     * Returns the query status.
-     *
-     * @return int
-     */
-    abstract public function getStatus();
+    public function getId();
 
     /**
      * Returns the collection ID the query is in.
      *
      * @return int|string
      */
-    abstract public function getCollectionId();
+    public function getCollectionId();
 
     /**
      * Returns the position the query is at.
      *
      * @return int
      */
-    abstract public function getPosition();
+    public function getPosition();
 
     /**
      * Returns the query identifier.
      *
      * @return string
      */
-    abstract public function getIdentifier();
+    public function getIdentifier();
 
     /**
      * Returns the query type.
      *
      * @return string
      */
-    abstract public function getType();
+    public function getType();
 
     /**
      * Returns the query parameters.
      *
      * @return array
      */
-    abstract public function getParameters();
+    public function getParameters();
 }

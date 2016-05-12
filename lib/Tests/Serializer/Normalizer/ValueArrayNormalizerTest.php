@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
 
 class ValueArrayNormalizerTest extends \PHPUnit_Framework_TestCase

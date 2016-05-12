@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\FormView;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 

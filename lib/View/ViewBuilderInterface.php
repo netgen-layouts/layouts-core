@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 interface ViewBuilderInterface
 {
     /**
      * Builds the view.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param \Netgen\BlockManager\Core\Values\Value $value
      * @param string $context
      * @param array $parameters
      *

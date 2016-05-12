@@ -5,8 +5,18 @@ namespace Netgen\BlockManager\Core\Values;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 
-class BlockUpdateStruct extends APIBlockUpdateStruct
+class BlockUpdateStruct extends Value implements APIBlockUpdateStruct
 {
+    /**
+     * @var string
+     */
+    public $viewType;
+
+    /**
+     * @var string
+     */
+    public $name;
+
     /**
      * @var array
      */

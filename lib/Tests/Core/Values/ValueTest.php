@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Values;
+namespace Netgen\BlockManager\Tests\Core\Values;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
 class ValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Value::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Value::__construct
      */
     public function testSetProperties()
     {
@@ -23,7 +23,7 @@ class ValueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Value::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Value::__construct
      * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
     public function testSetNonExistingProperties()

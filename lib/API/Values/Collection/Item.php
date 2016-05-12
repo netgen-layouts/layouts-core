@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Value;
-
-abstract class Item extends Value
+interface Item
 {
     /**
      * @const int
@@ -21,47 +19,40 @@ abstract class Item extends Value
      *
      * @return int|string
      */
-    abstract public function getId();
-
-    /**
-     * Returns the item status.
-     *
-     * @return int
-     */
-    abstract public function getStatus();
+    public function getId();
 
     /**
      * Returns the collection ID the item is in.
      *
      * @return int|string
      */
-    abstract public function getCollectionId();
+    public function getCollectionId();
 
     /**
      * Returns the item position within the collection.
      *
      * @return int
      */
-    abstract public function getPosition();
+    public function getPosition();
 
     /**
      * Returns the type of item in the collection.
      *
      * @return int
      */
-    abstract public function getType();
+    public function getType();
 
     /**
      * Returns the value ID.
      *
      * @return int|string
      */
-    abstract public function getValueId();
+    public function getValueId();
 
     /**
      * Returns the value type.
      *
      * @return string
      */
-    abstract public function getValueType();
+    public function getValueType();
 }

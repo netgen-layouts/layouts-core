@@ -7,7 +7,7 @@ use Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\View\BlockView;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;

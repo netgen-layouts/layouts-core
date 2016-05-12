@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Stubs;
+namespace Netgen\BlockManager\Tests\Core\Stubs;
 
-use Netgen\BlockManager\API\Values\Value as BaseValue;
+use Netgen\BlockManager\Core\Values\Value as BaseValue;
 
 class Value extends BaseValue
 {

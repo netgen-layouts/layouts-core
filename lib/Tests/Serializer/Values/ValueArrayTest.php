@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\ValueArray;
-use Netgen\BlockManager\Tests\API\Stubs\Value as StubValue;
+use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
 use Symfony\Component\HttpFoundation\Response;
 
 class ValueArrayTest extends \PHPUnit_Framework_TestCase

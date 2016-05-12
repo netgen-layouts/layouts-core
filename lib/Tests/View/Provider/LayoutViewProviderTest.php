@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Provider;
 use Netgen\BlockManager\View\Provider\LayoutViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\LayoutViewInterface;
 
 class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +43,7 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param \Netgen\BlockManager\Core\Values\Value $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::supports

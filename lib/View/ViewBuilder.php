@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Values\Value;
 use RuntimeException;
 
 class ViewBuilder implements ViewBuilderInterface
@@ -43,7 +43,7 @@ class ViewBuilder implements ViewBuilderInterface
     /**
      * Builds the view.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param \Netgen\BlockManager\Core\Values\Value $value
      * @param string $context
      * @param array $parameters
      *

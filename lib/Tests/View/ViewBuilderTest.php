@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\View\ViewBuilder;
