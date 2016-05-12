@@ -21,6 +21,8 @@ class ValueLoader implements ValueLoaderInterface
      *
      * @param int|string $id
      *
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If value cannot be loaded
+     *
      * @return mixed
      */
     public function load($id)

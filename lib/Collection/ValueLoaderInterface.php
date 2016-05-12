@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Collection;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
+
 interface ValueLoaderInterface
 {
     /**
@@ -15,6 +17,8 @@ interface ValueLoaderInterface
      * Loads the value from provided ID.
      *
      * @param int|string $id
+     *
+     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If value cannot be loaded
      *
      * @return mixed
      */
