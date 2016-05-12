@@ -59,58 +59,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->at(0))
             ->method('validate')
             ->with(
-                $this->equalTo(Collection::TYPE_MANUAL),
-                array(
-                    new Constraints\Choice(
-                        array(
-                            'choices' => array(
-                                Collection::TYPE_MANUAL,
-                                Collection::TYPE_DYNAMIC,
-                                Collection::TYPE_NAMED,
-                            ),
-                            'strict' => true,
-                        )
-                    ),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_MANUAL;
-
-        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     */
-    public function testValidateCollectionCreateStructForNamedCollection()
-    {
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo(Collection::TYPE_NAMED),
-                array(
-                    new Constraints\Choice(
-                        array(
-                            'choices' => array(
-                                Collection::TYPE_MANUAL,
-                                Collection::TYPE_DYNAMIC,
-                                Collection::TYPE_NAMED,
-                            ),
-                            'strict' => true,
-                        )
-                    ),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validatorMock
-            ->expects($this->at(1))
-            ->method('validate')
-            ->with(
                 $this->equalTo('My collection'),
                 array(
                     new Constraints\NotBlank(),
@@ -120,7 +68,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(new ConstraintViolationList()));
 
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_NAMED;
         $collectionCreateStruct->name = 'My collection';
 
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);

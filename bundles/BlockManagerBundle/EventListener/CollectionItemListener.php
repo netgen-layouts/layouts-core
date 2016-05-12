@@ -65,7 +65,10 @@ class CollectionItemListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->collectionService->itemExists($collection, $item)) {
+        if (
+            $collection->getId() !== $item->getCollectionId() ||
+            $collection->getStatus() !== $item->getStatus()
+        ) {
             throw new NotFoundException('item', $item->getId());
         }
     }

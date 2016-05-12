@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
+use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
@@ -44,6 +45,11 @@ class BlockService implements BlockServiceInterface
     protected $layoutHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     */
+    protected $collectionHandler;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
@@ -61,6 +67,7 @@ class BlockService implements BlockServiceInterface
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
+        $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
 
     /**
@@ -108,23 +115,6 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
-     * Returns if the provided collection exists in the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return bool
-     */
-    public function collectionExists(Block $block, Collection $collection)
-    {
-        return $this->blockHandler->collectionExists(
-            $block->getId(),
-            $block->getStatus(),
-            $collection->getId()
-        );
-    }
-
-    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
@@ -158,6 +148,21 @@ class BlockService implements BlockServiceInterface
                 $zoneIdentifier,
                 $layout->getStatus(),
                 $position
+            );
+
+            $collectionCreateStruct = new CollectionCreateStruct();
+            $collectionCreateStruct->status = $layout->getStatus();
+
+            $createdCollection = $this->collectionHandler->createCollection(
+                $collectionCreateStruct,
+                Collection::TYPE_MANUAL
+            );
+
+            $this->blockHandler->addCollectionToBlock(
+                $createdBlock->id,
+                $createdBlock->status,
+                $createdCollection->id,
+                'default'
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -228,6 +233,33 @@ class BlockService implements BlockServiceInterface
                 $block->getStatus(),
                 $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
             );
+
+            $collectionReferences = $this->blockHandler->loadBlockCollections(
+                $block->getId(),
+                $block->getStatus()
+            );
+
+            foreach ($collectionReferences as $collectionReference) {
+                $collection = $this->collectionHandler->loadCollection(
+                    $collectionReference->collectionId,
+                    $block->getStatus()
+                );
+
+                if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
+                    $newCollectionId = $this->collectionHandler->copyCollection($collection->id, $block->getStatus());
+                } else {
+                    $newCollectionId = $collectionReference->collectionId;
+                }
+
+                $this->blockHandler->addCollectionToBlock(
+                    $copiedBlock->id,
+                    $block->getStatus(),
+                    $newCollectionId,
+                    $collectionReference->identifier,
+                    $collectionReference->offset,
+                    $collectionReference->limit
+                );
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -303,6 +335,23 @@ class BlockService implements BlockServiceInterface
                 $block->getId(),
                 $block->getStatus()
             );
+
+            $collectionReferences = $this->blockHandler->loadBlockCollections(
+                $block->getId(),
+                $block->getStatus()
+            );
+
+            foreach ($collectionReferences as $collectionReference) {
+                $this->blockHandler->removeCollectionFromBlock(
+                    $block->getId(),
+                    $block->getStatus(),
+                    $collectionReference->collectionId
+                );
+
+                if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
+                    $this->collectionHandler->deleteCollection($collectionReference->collectionId, $block->getStatus());
+                }
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

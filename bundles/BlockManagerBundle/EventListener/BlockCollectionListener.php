@@ -65,8 +65,13 @@ class BlockCollectionListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->blockService->collectionExists($block, $collection)) {
-            throw new NotFoundException('collection', $collection->getId());
+        $blockCollections = $this->blockService->loadBlockCollections($block);
+        foreach ($blockCollections as $blockCollection) {
+            if ($blockCollection->getCollectionId() === $collection->getId()) {
+                return;
+            }
         }
+
+        throw new NotFoundException('collection', $collection->getId());
     }
 }

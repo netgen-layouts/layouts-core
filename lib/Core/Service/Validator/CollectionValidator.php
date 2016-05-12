@@ -42,32 +42,13 @@ class CollectionValidator extends Validator
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
         $this->validate(
-            $collectionCreateStruct->type,
+            $collectionCreateStruct->name,
             array(
-                new Constraints\Choice(
-                    array(
-                        'choices' => array(
-                            Collection::TYPE_MANUAL,
-                            Collection::TYPE_DYNAMIC,
-                            Collection::TYPE_NAMED,
-                        ),
-                        'strict' => true,
-                    )
-                ),
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
             ),
-            'type'
+            'name'
         );
-
-        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
-            $this->validate(
-                $collectionCreateStruct->name,
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                ),
-                'name'
-            );
-        }
     }
 
     /**

@@ -124,23 +124,6 @@ class CollectionService implements APICollectionService
     }
 
     /**
-     * Returns if the provided item exists in the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @return bool
-     */
-    public function itemExists(Collection $collection, Item $item)
-    {
-        return $this->collectionHandler->itemExists(
-            $collection->getId(),
-            $collection->getStatus(),
-            $item->getId()
-        );
-    }
-
-    /**
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
@@ -163,23 +146,6 @@ class CollectionService implements APICollectionService
     }
 
     /**
-     * Returns if the provided query exists in the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return bool
-     */
-    public function queryExists(Collection $collection, Query $query)
-    {
-        return $this->collectionHandler->queryExists(
-            $collection->getId(),
-            $collection->getStatus(),
-            $query->getId()
-        );
-    }
-
-    /**
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
@@ -188,14 +154,11 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct)
+    public function createNamedCollection(CollectionCreateStruct $collectionCreateStruct)
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
 
-        if (
-            $collectionCreateStruct->type === Collection::TYPE_NAMED &&
-            $this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)
-        ) {
+        if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
             throw new BadStateException('name', 'Named collection with provided name already exists.');
         }
 
@@ -203,7 +166,8 @@ class CollectionService implements APICollectionService
 
         try {
             $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct
+                $collectionCreateStruct,
+                Collection::TYPE_NAMED
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -221,15 +185,20 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If named collection with provided name already exists
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
+     *                                                              If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateNamedCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $this->collectionValidator->validateCollectionUpdateStruct($collectionUpdateStruct);
 
-        if ($collection->getType() === Collection::TYPE_NAMED && $collectionUpdateStruct->name !== null) {
+        if ($collection->getType() !== Collection::TYPE_NAMED) {
+            throw new BadStateException('collection', 'Only named collections can be updated.');
+        }
+
+        if ($collectionUpdateStruct->name !== null) {
             if ($this->collectionHandler->namedCollectionExists($collectionUpdateStruct->name)) {
                 throw new BadStateException('name', 'Named collection with provided name already exists.');
             }
@@ -238,7 +207,7 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedCollection = $this->collectionHandler->updateCollection(
+            $updatedCollection = $this->collectionHandler->updateNamedCollection(
                 $collection->getId(),
                 $collection->getStatus(),
                 $collectionUpdateStruct
@@ -258,10 +227,16 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
+     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection)
+    public function copyNamedCollection(Collection $collection)
     {
+        if ($collection->getType() !== Collection::TYPE_NAMED) {
+            throw new BadStateException('collection', 'Only named collections can be copied.');
+        }
+
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -390,9 +365,15 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param bool $deleteAllStatuses
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
      */
-    public function deleteCollection(Collection $collection, $deleteAllStatuses = false)
+    public function deleteNamedCollection(Collection $collection, $deleteAllStatuses = false)
     {
+        if ($collection->getType() !== Collection::TYPE_NAMED) {
+            throw new BadStateException('collection', 'Only named collections can be copied.');
+        }
+
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -663,16 +644,14 @@ class CollectionService implements APICollectionService
     /**
      * Creates a new collection create struct.
      *
-     * @param int $type
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($type, $name = null)
+    public function newCollectionCreateStruct($name)
     {
         return new CollectionCreateStruct(
             array(
-                'type' => $type,
                 'name' => $name,
             )
         );

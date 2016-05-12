@@ -58,10 +58,10 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createNamedCollection
      * @expectedException \Exception
      */
-    public function testCreateCollection()
+    public function testCreateNamedCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->once())
@@ -72,35 +72,35 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->createCollection(new CollectionCreateStruct());
+        $this->collectionService->createNamedCollection(new CollectionCreateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
      * @expectedException \Exception
      */
-    public function testUpdateCollection()
+    public function testUpdateNamedCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->once())
-            ->method('updateCollection')
+            ->method('updateNamedCollection')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->updateCollection(
-            new Collection(array('status' => Collection::STATUS_DRAFT)),
+        $this->collectionService->updateNamedCollection(
+            new Collection(array('type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT)),
             new CollectionUpdateStruct()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyNamedCollection
      * @expectedException \Exception
      */
-    public function testCopyCollection()
+    public function testCopyNamedCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->once())
@@ -111,7 +111,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->copyCollection(new Collection());
+        $this->collectionService->copyNamedCollection(new Collection(array('type' => Collection::TYPE_NAMED)));
     }
 
     /**
@@ -176,10 +176,10 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteNamedCollection
      * @expectedException \Exception
      */
-    public function testDeleteCollection()
+    public function testDeleteNamedCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->once())
@@ -190,7 +190,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteCollection(new Collection());
+        $this->collectionService->deleteNamedCollection(new Collection(array('type' => Collection::TYPE_NAMED)));
     }
 
     /**

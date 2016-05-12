@@ -47,16 +47,6 @@ interface CollectionService
     public function loadItem($itemId, $status = Collection::STATUS_PUBLISHED);
 
     /**
-     * Returns if the provided item exists in the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @return bool
-     */
-    public function itemExists(Collection $collection, Item $item);
-
-    /**
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
@@ -69,25 +59,15 @@ interface CollectionService
     public function loadQuery($queryId, $status = Collection::STATUS_PUBLISHED);
 
     /**
-     * Returns if the provided query exists in the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return bool
-     */
-    public function queryExists(Collection $collection, Query $query);
-
-    /**
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If named collection with provided name already exists
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct);
+    public function createNamedCollection(CollectionCreateStruct $collectionCreateStruct);
 
     /**
      * Updates a specified collection.
@@ -95,20 +75,23 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If named collection with provided name already exists
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
+     *                                                              If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
+    public function updateNamedCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
      * Copies a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
+     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection);
+    public function copyNamedCollection(Collection $collection);
 
     /**
      * Creates a new collection status.
@@ -152,8 +135,10 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param bool $deleteAllStatuses
+     *
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
      */
-    public function deleteCollection(Collection $collection, $deleteAllStatuses = false);
+    public function deleteNamedCollection(Collection $collection, $deleteAllStatuses = false);
 
     /**
      * Adds an item to collection.
@@ -235,12 +220,11 @@ interface CollectionService
     /**
      * Creates a new collection create struct.
      *
-     * @param int $type
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($type, $name = null);
+    public function newCollectionCreateStruct($name);
 
     /**
      * Creates a new collection update struct.

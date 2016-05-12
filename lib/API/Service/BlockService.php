@@ -32,16 +32,6 @@ interface BlockService
     public function loadBlockCollections(Block $block);
 
     /**
-     * Returns if the provided collection exists in the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return bool
-     */
-    public function collectionExists(Block $block, Collection $collection);
-
-    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct

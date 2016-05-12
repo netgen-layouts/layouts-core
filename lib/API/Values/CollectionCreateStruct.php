@@ -8,11 +8,6 @@ use Netgen\BlockManager\Core\Values\Value;
 class CollectionCreateStruct extends Value
 {
     /**
-     * @var int
-     */
-    public $type;
-
-    /**
      * @var string
      */
     public $name;

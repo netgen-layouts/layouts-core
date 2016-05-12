@@ -264,17 +264,32 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isNamedCollection
+     */
+    public function testIsNamedCollection()
+    {
+        self::assertTrue($this->collectionHandler->isNamedCollection(3));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isNamedCollection
+     */
+    public function testIsNamedCollectionReturnsFalse()
+    {
+        self::assertFalse($this->collectionHandler->isNamedCollection(2));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getCollectionInsertQuery
      */
     public function testCreateCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_NAMED;
         $collectionCreateStruct->name = 'New collection';
         $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
 
-        $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
+        $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct, Collection::TYPE_NAMED);
 
         self::assertInstanceOf(Collection::class, $createdCollection);
 
@@ -285,14 +300,14 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateNamedCollection
      */
-    public function testUpdateCollection()
+    public function testUpdateNamedCollection()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
         $collectionUpdateStruct->name = 'Updated collection';
 
-        $updatedCollection = $this->collectionHandler->updateCollection(
+        $updatedCollection = $this->collectionHandler->updateNamedCollection(
             3,
             Collection::STATUS_PUBLISHED,
             $collectionUpdateStruct

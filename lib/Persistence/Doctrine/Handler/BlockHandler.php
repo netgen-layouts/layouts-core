@@ -271,29 +271,6 @@ class BlockHandler implements BlockHandlerInterface
 
         $copiedBlockId = (int)$this->connectionHelper->lastInsertId('ngbm_block');
 
-        $collectionReferences = $this->loadBlockCollections($blockId, $status);
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $status
-            );
-
-            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
-                $newCollectionId = $this->collectionHandler->copyCollection($collection->id, $status);
-            } else {
-                $newCollectionId = $collectionReference->collectionId;
-            }
-
-            $this->addCollectionToBlock(
-                $copiedBlockId,
-                $block->status,
-                $newCollectionId,
-                $collectionReference->identifier,
-                $collectionReference->offset,
-                $collectionReference->limit
-            );
-        }
-
         return $this->loadBlock($copiedBlockId, $block->status);
     }
 
@@ -407,23 +384,6 @@ class BlockHandler implements BlockHandlerInterface
     public function deleteBlock($blockId, $status)
     {
         $block = $this->loadBlock($blockId, $status);
-
-        $collectionReferences = $this->loadBlockCollections(
-            $blockId,
-            $status
-        );
-
-        foreach ($collectionReferences as $collectionReference) {
-            $this->removeCollectionFromBlock(
-                $blockId,
-                $status,
-                $collectionReference->collectionId
-            );
-
-            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
-                $this->collectionHandler->deleteCollection($collectionReference->collectionId, $status);
-            }
-        }
 
         $query = $this->queryHelper->getQuery();
 

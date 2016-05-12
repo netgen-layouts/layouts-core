@@ -144,6 +144,16 @@ abstract class BlockServiceTest extends ServiceTest
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(2, $secondBlock->getPosition());
+
+        $blockCollections = $this->blockService->loadBlockCollections($block);
+        self::assertCount(1, $blockCollections);
+
+        self::assertEquals('default', $blockCollections[0]->getIdentifier());
+        self::assertEquals(0, $blockCollections[0]->getOffset());
+        self::assertNull($blockCollections[0]->getLimit());
+
+        $collection = $this->collectionService->loadCollection(4, Layout::STATUS_DRAFT);
+        self::assertEquals(Collection::TYPE_MANUAL, $collection->getType());
     }
 
     /**

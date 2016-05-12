@@ -345,9 +345,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'top_right')
         );
-
-        $copiedCollection = $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
-        self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -374,9 +371,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'bottom')
         );
-
-        $copiedCollection = $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
-        self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -516,16 +510,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
-
-        try {
-            $this->collectionHandler->loadCollection(1, Layout::STATUS_DRAFT);
-            self::fail('Collection still exists after deleting a block.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        // Verify that named collection still exists
-        $this->collectionHandler->loadCollection(3, Collection::STATUS_DRAFT);
     }
 
     /**

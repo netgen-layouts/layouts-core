@@ -65,7 +65,10 @@ class CollectionQueryListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->collectionService->queryExists($collection, $query)) {
+        if (
+            $collection->getId() !== $query->getCollectionId() ||
+            $collection->getStatus() !== $query->getStatus()
+        ) {
             throw new NotFoundException('query', $query->getId());
         }
     }

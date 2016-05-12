@@ -270,20 +270,21 @@ class CollectionHandler implements CollectionHandlerInterface
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param int $type
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct)
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct, $type = Collection::TYPE_NAMED)
     {
         $name = null;
-        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
+        if ($type === Collection::TYPE_NAMED) {
             $name = trim($collectionCreateStruct->name);
         }
 
         $query = $this->queryHelper->getCollectionInsertQuery(
             array(
                 'status' => $collectionCreateStruct->status,
-                'type' => $collectionCreateStruct->type,
+                'type' => $type,
                 'name' => $name,
             )
         );
@@ -304,7 +305,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateNamedCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $collectionData = $this->loadCollectionData($collectionId, $status);
 
@@ -549,36 +550,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Returns if item exists in the collection.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param int|string $itemId
-     *
-     * @return bool
-     */
-    public function itemExists($collectionId, $status, $itemId)
-    {
-        $query = $this->queryHelper->getQuery();
-        $query->select('count(*) AS count')
-            ->from('ngbm_collection_item')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':item_id'),
-                    $query->expr()->eq('collection_id', ':collection_id')
-                )
-            )
-            ->setParameter('item_id', $itemId, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
      * Returns if item exists on specified position.
      *
      * @param int|string $collectionId
@@ -732,36 +703,6 @@ class CollectionHandler implements CollectionHandlerInterface
                 $item->position
             );
         }
-    }
-
-    /**
-     * Returns if query with specified ID exists within the collection.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param int|string $queryId
-     *
-     * @return bool
-     */
-    public function queryExists($collectionId, $status, $queryId)
-    {
-        $query = $this->queryHelper->getQuery();
-        $query->select('count(*) AS count')
-            ->from('ngbm_collection_query')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('id', ':query_id'),
-                    $query->expr()->eq('collection_id', ':collection_id')
-                )
-            )
-            ->setParameter('query_id', $queryId, Type::STRING)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
     /**
