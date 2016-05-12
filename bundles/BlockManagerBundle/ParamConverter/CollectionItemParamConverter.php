@@ -29,7 +29,17 @@ class CollectionItemParamConverter extends ParamConverter
      */
     public function getSourceAttributeName()
     {
-        return 'collection_item_id';
+        return 'item_id';
+    }
+
+    /**
+     * Returns source status attribute name.
+     *
+     * @return string
+     */
+    public function getSourceStatusStatusName()
+    {
+        return 'item_status';
     }
 
     /**
@@ -39,7 +49,7 @@ class CollectionItemParamConverter extends ParamConverter
      */
     public function getDestinationAttributeName()
     {
-        return 'collectionItem';
+        return 'item';
     }
 
     /**

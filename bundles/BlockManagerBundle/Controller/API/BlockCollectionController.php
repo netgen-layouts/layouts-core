@@ -6,6 +6,8 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -57,13 +59,33 @@ class BlockCollectionController extends Controller
     }
 
     /**
+     * Loads all block collections.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function loadCollections(Block $block)
+    {
+        $blockCollections = array_map(
+            function (CollectionReference $collection) {
+                return new VersionedValue($collection, self::API_VERSION);
+            },
+            $this->blockService->loadBlockCollections($block)
+        );
+
+        return new ValueArray($blockCollections);
+    }
+
+    /**
      * Loads the collection.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function load(Collection $collection)
+    public function loadCollection(Block $block, Collection $collection)
     {
         return new VersionedValue($collection, self::API_VERSION);
     }
@@ -71,11 +93,12 @@ class BlockCollectionController extends Controller
     /**
      * Loads all collection items.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function loadCollectionItems(Collection $collection)
+    public function loadCollectionItems(Block $block, Collection $collection)
     {
         $manualItems = array_map(
             function (Item $item) {
@@ -102,11 +125,12 @@ class BlockCollectionController extends Controller
     /**
      * Loads all collection queries.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function loadCollectionQueries(Collection $collection)
+    public function loadCollectionQueries(Block $block, Collection $collection)
     {
         $queries = array_map(
             function (Query $query) {
@@ -119,67 +143,30 @@ class BlockCollectionController extends Controller
     }
 
     /**
-     * Creates the collection.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
-     */
-    public function create(Request $request)
-    {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            $request->request->get('type'),
-            $request->request->get('name')
-        );
-
-        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
-
-        $createdCollection = $this->collectionService->createCollection(
-            $collectionCreateStruct
-        );
-
-        return new VersionedValue($createdCollection, self::API_VERSION, Response::HTTP_CREATED);
-    }
-
-    /**
-     * Deletes the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function delete(Collection $collection)
-    {
-        $this->collectionService->deleteCollection($collection, true);
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
      * Loads the item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadItem(Item $collectionItem)
+    public function loadItem(Block $block, Collection $collection, Item $item)
     {
-        return new VersionedValue($collectionItem, self::API_VERSION);
+        return new VersionedValue($item, self::API_VERSION);
     }
 
     /**
      * Adds an item inside the collection.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
+     * @return \Netgen\BlockManager\Serializer\Values\View If some of the required request parameters are empty, missing or have an invalid format
      *
-     * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function addItem(Collection $collection, Request $request)
+    public function addItem(Block $block, Collection $collection, Request $request)
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             $request->request->get('type'),
@@ -199,17 +186,18 @@ class BlockCollectionController extends Controller
     /**
      * Moves the item inside the collection.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
+     * @return \Symfony\Component\HttpFoundation\Response If some of the required request parameters are empty, missing or have an invalid format
      *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function moveItem(Request $request, Item $collectionItem)
+    public function moveItem(Block $block, Collection $collection, Item $item, Request $request)
     {
         $this->collectionService->moveItem(
-            $collectionItem,
+            $item,
             $request->request->get('position')
         );
 
@@ -219,13 +207,15 @@ class BlockCollectionController extends Controller
     /**
      * Deletes the item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteItem(Item $collectionItem)
+    public function deleteItem(Block $block, Collection $collection, Item $item)
     {
-        $this->collectionService->deleteItem($collectionItem);
+        $this->collectionService->deleteItem($item);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -233,12 +223,14 @@ class BlockCollectionController extends Controller
     /**
      * Loads the query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadQuery(Query $collectionQuery)
+    public function loadQuery(Block $block, Collection $collection, Query $query)
     {
-        return new VersionedValue($collectionQuery, self::API_VERSION);
+        return new VersionedValue($query, self::API_VERSION);
     }
 }

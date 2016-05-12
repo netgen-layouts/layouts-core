@@ -33,6 +33,16 @@ class LayoutParamConverter extends ParamConverter
     }
 
     /**
+     * Returns source status attribute name.
+     *
+     * @return string
+     */
+    public function getSourceStatusStatusName()
+    {
+        return 'layout_status';
+    }
+
+    /**
      * Returns destination attribute name.
      *
      * @return string

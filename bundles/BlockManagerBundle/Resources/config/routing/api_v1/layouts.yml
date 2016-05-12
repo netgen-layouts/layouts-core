@@ -2,12 +2,12 @@ netgen_block_manager_api_v1_load_layout:
     path: /layouts/{layout_id}
     methods: [GET]
     defaults:
-        _ngbm_status: 0
+        layout_status: 0
         _controller: "netgen_block_manager.controller.api.layout:view"
 
 netgen_block_manager_api_v1_layout_blocks:
     path: /layouts/{layout_id}/blocks
     methods: [GET]
     defaults:
-        _ngbm_status: 0
+        layout_status: 0
         _controller: "netgen_block_manager.controller.api.layout:viewLayoutBlocks"

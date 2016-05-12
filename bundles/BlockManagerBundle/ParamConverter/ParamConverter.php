@@ -21,6 +21,8 @@ abstract class ParamConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
         $sourceAttributeName = $this->getSourceAttributeName();
+        $sourceStatusAttributeName = $this->getSourceStatusStatusName();
+
         if (!$request->attributes->has($sourceAttributeName)) {
             return false;
         }
@@ -34,14 +36,14 @@ abstract class ParamConverter implements ParamConverterInterface
             throw new RuntimeException(
                 sprintf(
                     'Required request attribute "%s" is empty',
-                    $this->getSourceAttributeName()
+                    $sourceAttributeName
                 )
             );
         }
 
         $status = Layout::STATUS_PUBLISHED;
-        if ($request->attributes->has('_ngbm_status')) {
-            $status = $request->attributes->get('_ngbm_status');
+        if ($request->attributes->has($sourceStatusAttributeName)) {
+            $status = $request->attributes->get($sourceStatusAttributeName);
         }
 
         $request->attributes->set(
@@ -70,6 +72,13 @@ abstract class ParamConverter implements ParamConverterInterface
      * @return string
      */
     abstract public function getSourceAttributeName();
+
+    /**
+     * Returns source status attribute name.
+     *
+     * @return string
+     */
+    abstract public function getSourceStatusStatusName();
 
     /**
      * Returns destination attribute name.

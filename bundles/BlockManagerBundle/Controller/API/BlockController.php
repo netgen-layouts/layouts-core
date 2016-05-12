@@ -5,12 +5,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,30 +72,10 @@ class BlockController extends Controller
     }
 
     /**
-     * Loads all collection references from a block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
-     */
-    public function loadBlockCollections(Block $block)
-    {
-        $blockCollections = array_map(
-            function (CollectionReference $collection) {
-                return new VersionedValue($collection, self::API_VERSION);
-            },
-            $this->blockService->loadBlockCollections($block)
-        );
-
-        return new ValueArray($blockCollections);
-    }
-
-    /**
      * Creates the block.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If block type does not exist
      *                                                              If layout with specified ID does not exist
      *
@@ -147,15 +124,12 @@ class BlockController extends Controller
     /**
      * Moves the block.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout the block is in does not have the specified zone
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function move(Request $request, Block $block)
+    public function move(Block $block, Request $request)
     {
         $this->blockService->moveBlock(
             $block,
@@ -169,14 +143,14 @@ class BlockController extends Controller
     /**
      * Displays and processes block edit form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function edit(Request $request, Block $block)
+    public function edit(Block $block, Request $request)
     {
         $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
             $block->getDefinitionIdentifier()
@@ -227,8 +201,8 @@ class BlockController extends Controller
     /**
      * Processes inline block edit form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block does not support inline editing
      *                                                                     If form was not submitted
@@ -236,7 +210,7 @@ class BlockController extends Controller
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function editInline(Request $request, Block $block)
+    public function editInline(Block $block, Request $request)
     {
         $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
             $block->getDefinitionIdentifier()
