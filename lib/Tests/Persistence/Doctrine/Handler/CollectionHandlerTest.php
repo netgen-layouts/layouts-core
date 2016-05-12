@@ -560,27 +560,27 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemPositionExists
      */
-    public function testItemExists()
+    public function testItemPositionExists()
     {
-        self::assertTrue($this->collectionHandler->itemExists(2, APICollection::STATUS_PUBLISHED, 1));
+        self::assertTrue($this->collectionHandler->itemPositionExists(2, APICollection::STATUS_PUBLISHED, 1));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemPositionExists
      */
-    public function testItemNotExists()
+    public function testItemPositionNotExists()
     {
-        self::assertFalse($this->collectionHandler->itemExists(2, APICollection::STATUS_PUBLISHED, 50));
+        self::assertFalse($this->collectionHandler->itemPositionExists(2, APICollection::STATUS_PUBLISHED, 50));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemPositionExists
      */
-    public function testItemNotExistsInStatus()
+    public function testItemPositionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->itemExists(2, APICollection::STATUS_ARCHIVED, 1));
+        self::assertFalse($this->collectionHandler->itemPositionExists(2, APICollection::STATUS_ARCHIVED, 1));
     }
 
     /**
@@ -827,27 +827,27 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryIdentifierExists
      */
-    public function testQueryExists()
+    public function testQueryIdentifierExists()
     {
-        self::assertTrue($this->collectionHandler->queryExists(2, APICollection::STATUS_PUBLISHED, 'default'));
+        self::assertTrue($this->collectionHandler->queryIdentifierExists(2, APICollection::STATUS_PUBLISHED, 'default'));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryIdentifierExists
      */
-    public function testQueryNotExists()
+    public function testQueryIdentifierNotExists()
     {
-        self::assertFalse($this->collectionHandler->queryExists(2, APICollection::STATUS_PUBLISHED, 'featured'));
+        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, APICollection::STATUS_PUBLISHED, 'featured'));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryIdentifierExists
      */
-    public function testQueryNotExistsInStatus()
+    public function testQueryIdentifierNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->queryExists(2, APICollection::STATUS_ARCHIVED, 'default'));
+        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, APICollection::STATUS_ARCHIVED, 'default'));
     }
 
     /**

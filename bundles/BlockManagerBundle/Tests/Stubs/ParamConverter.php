@@ -28,6 +28,16 @@ class ParamConverter extends BaseParamConverter
     }
 
     /**
+     * Returns source status attribute name.
+     *
+     * @return string
+     */
+    public function getSourceStatusStatusName()
+    {
+        return 'status';
+    }
+
+    /**
      * Returns the supported class.
      *
      * @return string
