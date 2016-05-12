@@ -108,6 +108,23 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Returns if the provided collection exists in the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return bool
+     */
+    public function collectionExists(Block $block, Collection $collection)
+    {
+        return $this->blockHandler->collectionExists(
+            $block->getId(),
+            $block->getStatus(),
+            $collection->getId()
+        );
+    }
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
