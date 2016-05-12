@@ -80,7 +80,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getTemplateResolverNodeDefinition($nodeName)
+    public function getTemplateResolverNodeDefinition($nodeName)
     {
         $treeBuilder = new TreeBuilder();
         $node = $treeBuilder->root($nodeName);
@@ -112,14 +112,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for block definitions.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getBlockDefinitionsNodeDefinition($nodeName = 'block_definitions')
+    public function getBlockDefinitionsNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName);
+        $node = $treeBuilder->root('block_definitions');
 
         $node
             ->requiresAtLeastOneElement()
@@ -161,14 +159,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for block types.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getBlockTypesNodeDefinition($nodeName = 'block_types')
+    public function getBlockTypesNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName);
+        $node = $treeBuilder->root('block_types');
 
         $node
             ->requiresAtLeastOneElement()
@@ -212,14 +208,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for block type groups.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getBlockTypeGroupsNodeDefinition($nodeName = 'block_type_groups')
+    public function getBlockTypeGroupsNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName);
+        $node = $treeBuilder->root('block_type_groups');
 
         $node
             ->requiresAtLeastOneElement()
@@ -250,14 +244,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for layouts.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getLayoutsNodeDefinition($nodeName = 'layouts')
+    public function getLayoutsNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName);
+        $node = $treeBuilder->root('layouts');
 
         $node
             ->requiresAtLeastOneElement()
@@ -301,14 +293,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for sources.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    protected function getSourcesNodeDefinition($nodeName = 'sources')
+    public function getSourcesNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName);
+        $node = $treeBuilder->root('sources');
 
         $node
             ->requiresAtLeastOneElement()
@@ -367,14 +357,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for pagelayout.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
      */
-    protected function getPagelayoutNodeDefinition($nodeName = 'pagelayout')
+    public function getPagelayoutNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName, 'scalar');
+        $node = $treeBuilder->root('pagelayout', 'scalar');
 
         $node
             ->defaultValue('NetgenBlockManagerBundle::pagelayout_empty.html.twig')
