@@ -88,6 +88,26 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 $container->setParameter($extensionAlias . '.' . $key, $value);
             }
         }
+
+        $itemizedConfigKeys = array(
+            'block_definitions',
+            'sources',
+            'layouts',
+            'block_types',
+            'block_type_groups'
+        );
+
+        foreach ($config as $key => $value) {
+            if (!in_array($key, $itemizedConfigKeys)) {
+                continue;
+            }
+
+            foreach ($config[$key] as $identifier => $configValue)
+            $container->setParameter(
+                $extensionAlias . '.' . $key . '.' . $identifier,
+                $configValue
+            );
+        }
     }
 
     /**
