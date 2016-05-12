@@ -297,7 +297,7 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function delete(Block $block)
     {
