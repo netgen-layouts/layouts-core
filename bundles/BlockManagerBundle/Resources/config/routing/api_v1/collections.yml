@@ -44,6 +44,12 @@ netgen_block_manager_api_v1_load_item:
         _ngbm_status: 1
         _controller: "netgen_block_manager.controller.api.collection:loadItem"
 
+netgen_block_manager_api_v1_add_item:
+    path: /collections/{collection_id}/items
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.collection:addItem"
+
 netgen_block_manager_api_v1_move_item:
     path: /collections/items/{collection_item_id}/move
     methods: [PATCH]

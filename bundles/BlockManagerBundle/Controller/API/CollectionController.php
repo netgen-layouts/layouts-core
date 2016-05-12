@@ -187,13 +187,39 @@ class CollectionController extends Controller
     }
 
     /**
+     * Adds an item inside the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function addItem(Collection $collection, Request $request)
+    {
+        $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+            $request->request->get('type'),
+            $request->request->get('value_id'),
+            $request->request->get('value_type')
+        );
+
+        $createdItem = $this->collectionService->addItem(
+            $collection,
+            $itemCreateStruct,
+            $request->request->get('position')
+        );
+
+        return new VersionedValue($createdItem, self::API_VERSION, Response::HTTP_CREATED);
+    }
+
+    /**
      * Moves the item inside the collection.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -240,7 +266,6 @@ class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\Query $collectionQuery
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If some of the required request parameters are empty, missing or have an invalid format
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
