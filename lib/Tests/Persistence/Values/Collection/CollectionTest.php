@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,15 +21,15 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new Collection(
             array(
                 'id' => 42,
-                'type' => APICollection::TYPE_NAMED,
+                'type' => Collection::TYPE_NAMED,
                 'name' => 'My collection',
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Collection::STATUS_PUBLISHED,
             )
         );
 
         self::assertEquals(42, $collection->id);
-        self::assertEquals(APICollection::TYPE_NAMED, $collection->type);
+        self::assertEquals(Collection::TYPE_NAMED, $collection->type);
         self::assertEquals('My collection', $collection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $collection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $collection->status);
     }
 }

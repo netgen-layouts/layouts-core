@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;

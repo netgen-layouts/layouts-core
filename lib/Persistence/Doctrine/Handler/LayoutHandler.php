@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;

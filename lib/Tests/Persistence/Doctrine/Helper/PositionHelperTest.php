@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 

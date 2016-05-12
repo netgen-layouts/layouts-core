@@ -7,6 +7,41 @@ use Netgen\BlockManager\API\Values\Value;
 class Collection extends Value
 {
     /**
+     * @const int
+     */
+    const TYPE_MANUAL = 0;
+
+    /**
+     * @const int
+     */
+    const TYPE_DYNAMIC = 1;
+
+    /**
+     * @const int
+     */
+    const TYPE_NAMED = 2;
+
+    /**
+     * @const int
+     */
+    const STATUS_DRAFT = 0;
+
+    /**
+     * @const int
+     */
+    const STATUS_PUBLISHED = 1;
+
+    /**
+     * @const int
+     */
+    const STATUS_ARCHIVED = 2;
+
+    /**
+     * @const int
+     */
+    const STATUS_TEMPORARY_DRAFT = 3;
+
+    /**
      * Collection ID.
      *
      * @var int|string

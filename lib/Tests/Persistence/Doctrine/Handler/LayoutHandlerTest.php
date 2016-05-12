@@ -3,10 +3,9 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
@@ -67,10 +66,10 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                     'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
-            $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
         );
     }
 
@@ -81,7 +80,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
-        $this->layoutHandler->loadLayout(999999, APILayout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadLayout(999999, Layout::STATUS_PUBLISHED);
     }
 
     /**
@@ -95,10 +94,10 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 array(
                     'identifier' => 'top_left',
                     'layoutId' => 1,
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
-            $this->layoutHandler->loadZone(1, 'top_left', APILayout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadZone(1, 'top_left', Layout::STATUS_PUBLISHED)
         );
     }
 
@@ -108,7 +107,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
-        $this->layoutHandler->loadZone(999999, 'bottom', APILayout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadZone(999999, 'bottom', Layout::STATUS_PUBLISHED);
     }
 
     /**
@@ -117,7 +116,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
     {
-        $this->layoutHandler->loadZone(1, 'non_existing', APILayout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadZone(1, 'non_existing', Layout::STATUS_PUBLISHED);
     }
 
     /**
@@ -125,7 +124,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLayoutExists()
     {
-        self::assertTrue($this->layoutHandler->layoutExists(1, APILayout::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutHandler->layoutExists(1, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -133,7 +132,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLayoutNotExists()
     {
-        self::assertFalse($this->layoutHandler->layoutExists(999999, APILayout::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutHandler->layoutExists(999999, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -141,7 +140,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLayoutNotExistsInStatus()
     {
-        self::assertFalse($this->layoutHandler->layoutExists(1, APILayout::STATUS_ARCHIVED));
+        self::assertFalse($this->layoutHandler->layoutExists(1, Layout::STATUS_ARCHIVED));
     }
 
     /**
@@ -149,7 +148,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testZoneExists()
     {
-        self::assertTrue($this->layoutHandler->zoneExists(1, 'top_left', APILayout::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutHandler->zoneExists(1, 'top_left', Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -157,7 +156,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testZoneNotExists()
     {
-        self::assertFalse($this->layoutHandler->zoneExists(1, 'non_existing', APILayout::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutHandler->zoneExists(1, 'non_existing', Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -165,7 +164,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testZoneNotExistsInStatus()
     {
-        self::assertFalse($this->layoutHandler->zoneExists(1, 'top_left', APILayout::STATUS_ARCHIVED));
+        self::assertFalse($this->layoutHandler->zoneExists(1, 'top_left', Layout::STATUS_ARCHIVED));
     }
 
     /**
@@ -180,25 +179,25 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => 1,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'top_left',
                         'layoutId' => 1,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'top_right',
                         'layoutId' => 1,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones(1, APILayout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayoutZones(1, Layout::STATUS_PUBLISHED)
         );
     }
 
@@ -208,7 +207,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadLayoutZonesForNonExistingLayout()
     {
-        self::assertEquals(array(), $this->layoutHandler->loadLayoutZones(999999, APILayout::STATUS_PUBLISHED));
+        self::assertEquals(array(), $this->layoutHandler->loadLayoutZones(999999, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -222,7 +221,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
-        $layoutCreateStruct->status = APILayout::STATUS_PUBLISHED;
+        $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
 
         $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
@@ -232,7 +231,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertNull($createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $createdLayout->status);
+        self::assertEquals(Layout::STATUS_PUBLISHED, $createdLayout->status);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -246,14 +245,14 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'identifier' => 'first_zone',
                         'layoutId' => 3,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'second_zone',
                         'layoutId' => 3,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -272,7 +271,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
-        $layoutCreateStruct->status = APILayout::STATUS_PUBLISHED;
+        $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
 
         $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct, 1);
 
@@ -282,7 +281,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(1, $createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $createdLayout->status);
+        self::assertEquals(Layout::STATUS_PUBLISHED, $createdLayout->status);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -296,14 +295,14 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'identifier' => 'first_zone',
                         'layoutId' => 3,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'second_zone',
                         'layoutId' => 3,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -328,7 +327,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertNull($copiedLayout->parentId);
         self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $copiedLayout->status);
+        self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
 
         self::assertGreaterThan(0, $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->modified);
@@ -339,25 +338,25 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => $copiedLayout->id,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'top_left',
                         'layoutId' => $copiedLayout->id,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'top_right',
                         'layoutId' => $copiedLayout->id,
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones($copiedLayout->id, APILayout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayoutZones($copiedLayout->id, Layout::STATUS_PUBLISHED)
         );
 
         self::assertEquals(
@@ -374,7 +373,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -389,7 +388,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -404,11 +403,11 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My fourth block',
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks($copiedLayout->id, 'top_right', APILayout::STATUS_PUBLISHED)
+            $this->blockHandler->loadZoneBlocks($copiedLayout->id, 'top_right', Layout::STATUS_PUBLISHED)
         );
 
         // Verify that non named collections were copied
@@ -416,22 +415,22 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(6, Layout::STATUS_DRAFT);
         self::assertCount(2, $draftReferences);
         self::assertContains($draftReferences[0]->collectionId, array(3, 4));
         self::assertContains($draftReferences[1]->collectionId, array(3, 4));
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(6, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(6, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $draftReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(3, 5));
         self::assertContains($publishedReferences[1]->collectionId, array(3, 5));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(7, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(7, Layout::STATUS_DRAFT);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $draftReferences[0]->collectionId);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(7, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(7, Layout::STATUS_PUBLISHED);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
@@ -445,7 +444,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateLayoutStatus()
     {
-        $copiedLayout = $this->layoutHandler->createLayoutStatus(1, APILayout::STATUS_PUBLISHED, APILayout::STATUS_ARCHIVED);
+        $copiedLayout = $this->layoutHandler->createLayoutStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
@@ -453,7 +452,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertNull($copiedLayout->parentId);
         self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertEquals('My layout', $copiedLayout->name);
-        self::assertEquals(APILayout::STATUS_ARCHIVED, $copiedLayout->status);
+        self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->status);
 
         self::assertGreaterThan(0, $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->modified);
@@ -464,25 +463,25 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => 1,
-                        'status' => APILayout::STATUS_ARCHIVED,
+                        'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'top_left',
                         'layoutId' => 1,
-                        'status' => APILayout::STATUS_ARCHIVED,
+                        'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'top_right',
                         'layoutId' => 1,
-                        'status' => APILayout::STATUS_ARCHIVED,
+                        'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones(1, APILayout::STATUS_ARCHIVED)
+            $this->layoutHandler->loadLayoutZones(1, Layout::STATUS_ARCHIVED)
         );
 
         self::assertEquals(
@@ -499,7 +498,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
-                        'status' => APILayout::STATUS_ARCHIVED,
+                        'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
                 new Block(
@@ -514,7 +513,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
-                        'status' => APILayout::STATUS_ARCHIVED,
+                        'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
                 new Block(
@@ -529,24 +528,24 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My fourth block',
-                        'status' => APILayout::STATUS_ARCHIVED,
+                        'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_ARCHIVED)
+            $this->blockHandler->loadZoneBlocks(1, 'top_right', Layout::STATUS_ARCHIVED)
         );
 
         // Verify that non named collection was copied
         $this->collectionHandler->loadCollection(4, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $archivedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_ARCHIVED);
+        $archivedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_ARCHIVED);
         self::assertCount(2, $archivedReferences);
         self::assertContains($archivedReferences[0]->collectionId, array(3, 4));
         self::assertContains($archivedReferences[1]->collectionId, array(3, 4));
 
         // Second block
-        $archivedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_ARCHIVED);
+        $archivedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_ARCHIVED);
         self::assertCount(1, $archivedReferences);
         self::assertEquals(3, $archivedReferences[0]->collectionId);
     }
@@ -560,7 +559,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         // Verify that we don't have the layout any more
         try {
-            $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED);
             self::fail('Layout not removed after deleting it.');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -579,17 +578,17 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_PUBLISHED);
         self::assertEmpty($publishedReferences);
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_PUBLISHED);
         self::assertEmpty($publishedReferences);
     }
 
@@ -598,18 +597,18 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteLayoutInOneStatus()
     {
-        $this->layoutHandler->deleteLayout(1, APILayout::STATUS_DRAFT);
+        $this->layoutHandler->deleteLayout(1, Layout::STATUS_DRAFT);
 
         // Verify that we don't have the layout in deleted status any more
         try {
-            $this->layoutHandler->loadLayout(1, APILayout::STATUS_DRAFT);
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
             self::fail('Layout not deleted after deleting it in one status.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         // Verify that NOT all layout statuses are deleted
-        $this->layoutHandler->loadLayout(1, APILayout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED);
 
         // Verify that we don't have the collection that was related to layout in deleted status any more
         try {
@@ -624,19 +623,19 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $publishedReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(2, 3));
         self::assertContains($publishedReferences[1]->collectionId, array(2, 3));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(2, APILayout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_PUBLISHED);
         self::assertCount(1, $publishedReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }

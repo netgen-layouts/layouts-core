@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 
 class QueryTest extends \PHPUnit_Framework_TestCase

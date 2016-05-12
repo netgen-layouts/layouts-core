@@ -2,9 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +27,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'collectionId' => 30,
                 'position' => 3,
-                'type' => APIItem::TYPE_OVERRIDE,
+                'type' => Item::TYPE_OVERRIDE,
                 'valueId' => 32,
                 'valueType' => 'ezcontent',
                 'status' => Collection::STATUS_PUBLISHED,
@@ -38,7 +37,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(42, $item->id);
         self::assertEquals(30, $item->collectionId);
         self::assertEquals(3, $item->position);
-        self::assertEquals(APIItem::TYPE_OVERRIDE, $item->type);
+        self::assertEquals(Item::TYPE_OVERRIDE, $item->type);
         self::assertEquals(32, $item->valueId);
         self::assertEquals('ezcontent', $item->valueType);
         self::assertEquals(Collection::STATUS_PUBLISHED, $item->status);

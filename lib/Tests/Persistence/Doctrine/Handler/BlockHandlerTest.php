@@ -7,7 +7,7 @@ use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
 class BlockHandlerTest extends \PHPUnit_Framework_TestCase
@@ -56,10 +56,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
-            $this->blockHandler->loadBlock(1, APILayout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED)
         );
     }
 
@@ -69,7 +69,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadBlockThrowsNotFoundException()
     {
-        $this->blockHandler->loadBlock(999999, APILayout::STATUS_PUBLISHED);
+        $this->blockHandler->loadBlock(999999, Layout::STATUS_PUBLISHED);
     }
 
     /**
@@ -91,7 +91,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -106,7 +106,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -121,11 +121,11 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         ),
                         'viewType' => 'small',
                         'name' => 'My fourth block',
-                        'status' => APILayout::STATUS_PUBLISHED,
+                        'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(1, 'top_right', APILayout::STATUS_PUBLISHED)
+            $this->blockHandler->loadZoneBlocks(1, 'top_right', Layout::STATUS_PUBLISHED)
         );
     }
 
@@ -139,7 +139,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 1,
-                        'status' => APILayout::STATUS_DRAFT,
+                        'status' => Layout::STATUS_DRAFT,
                         'collectionId' => 1,
                         'identifier' => 'default',
                         'offset' => 0,
@@ -149,7 +149,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 1,
-                        'status' => APILayout::STATUS_DRAFT,
+                        'status' => Layout::STATUS_DRAFT,
                         'collectionId' => 3,
                         'identifier' => 'featured',
                         'offset' => 0,
@@ -157,7 +157,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
             ),
-            $this->blockHandler->loadBlockCollections(1, APILayout::STATUS_DRAFT)
+            $this->blockHandler->loadBlockCollections(1, Layout::STATUS_DRAFT)
         );
     }
 
@@ -168,7 +168,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             array(),
-            $this->blockHandler->loadBlockCollections(9999, APILayout::STATUS_DRAFT)
+            $this->blockHandler->loadBlockCollections(9999, Layout::STATUS_DRAFT)
         );
     }
 
@@ -177,7 +177,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadZoneBlocksForNonExistingZone()
     {
-        self::assertEquals(array(), $this->blockHandler->loadZoneBlocks(1, 'non_existing', APILayout::STATUS_PUBLISHED));
+        self::assertEquals(array(), $this->blockHandler->loadZoneBlocks(1, 'non_existing', Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -206,13 +206,13 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, 1)
+            $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT, 1)
         );
 
-        $secondBlock = $this->blockHandler->loadBlock(2, APILayout::STATUS_DRAFT);
+        $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(2, $secondBlock->position);
     }
 
@@ -242,10 +242,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT)
+            $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT)
         );
     }
 
@@ -261,7 +261,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
-        $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, -5);
+        $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT, -5);
     }
 
     /**
@@ -276,7 +276,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
-        $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', APILayout::STATUS_DRAFT, 9999);
+        $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT, 9999);
     }
 
     /**
@@ -307,10 +307,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->updateBlock(1, APILayout::STATUS_DRAFT, $blockUpdateStruct)
+            $this->blockHandler->updateBlock(1, Layout::STATUS_DRAFT, $blockUpdateStruct)
         );
     }
 
@@ -333,10 +333,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->copyBlock(1, APILayout::STATUS_DRAFT, 'top_right')
+            $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'top_right')
         );
     }
 
@@ -359,10 +359,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->copyBlock(1, APILayout::STATUS_DRAFT, 'bottom')
+            $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'bottom')
         );
     }
 
@@ -385,13 +385,13 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->moveBlock(1, APILayout::STATUS_DRAFT, 1)
+            $this->blockHandler->moveBlock(1, Layout::STATUS_DRAFT, 1)
         );
 
-        $firstBlock = $this->blockHandler->loadBlock(2, APILayout::STATUS_DRAFT);
+        $firstBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $firstBlock->position);
     }
 
@@ -414,13 +414,13 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'small',
                     'name' => 'My other block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->moveBlock(2, APILayout::STATUS_DRAFT, 0)
+            $this->blockHandler->moveBlock(2, Layout::STATUS_DRAFT, 0)
         );
 
-        $firstBlock = $this->blockHandler->loadBlock(1, APILayout::STATUS_DRAFT);
+        $firstBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
         self::assertEquals(1, $firstBlock->position);
     }
 
@@ -430,7 +430,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->blockHandler->moveBlock(1, APILayout::STATUS_DRAFT, -1);
+        $this->blockHandler->moveBlock(1, Layout::STATUS_DRAFT, -1);
     }
 
     /**
@@ -439,7 +439,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->blockHandler->moveBlock(1, APILayout::STATUS_DRAFT, 9999);
+        $this->blockHandler->moveBlock(1, Layout::STATUS_DRAFT, 9999);
     }
 
     /**
@@ -461,10 +461,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_DRAFT,
+                    'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 0)
+            $this->blockHandler->moveBlockToZone(1, Layout::STATUS_DRAFT, 'bottom', 0)
         );
     }
 
@@ -474,7 +474,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->blockHandler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', -1);
+        $this->blockHandler->moveBlockToZone(1, Layout::STATUS_DRAFT, 'bottom', -1);
     }
 
     /**
@@ -483,7 +483,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->blockHandler->moveBlockToZone(1, APILayout::STATUS_DRAFT, 'bottom', 9999);
+        $this->blockHandler->moveBlockToZone(1, Layout::STATUS_DRAFT, 'bottom', 9999);
     }
 
     /**
@@ -492,13 +492,13 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteBlock()
     {
-        $this->blockHandler->deleteBlock(1, APILayout::STATUS_DRAFT);
+        $this->blockHandler->deleteBlock(1, Layout::STATUS_DRAFT);
 
-        $secondBlock = $this->blockHandler->loadBlock(2, APILayout::STATUS_DRAFT);
+        $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->position);
 
         try {
-            $this->blockHandler->loadBlock(1, APILayout::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
             self::fail('Block still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -510,7 +510,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionExists()
     {
-        self::assertTrue($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 1));
+        self::assertTrue($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 1));
     }
 
     /**
@@ -518,7 +518,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionNotExists()
     {
-        self::assertFalse($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 5));
+        self::assertFalse($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 5));
     }
 
     /**
@@ -526,7 +526,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionIdentifierExists()
     {
-        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'default'));
+        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'default'));
     }
 
     /**
@@ -534,7 +534,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionIdentifierNotExists()
     {
-        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'something_else'));
+        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'something_else'));
     }
 
     /**
@@ -542,10 +542,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddCollectionToBlock()
     {
-        $this->blockHandler->addCollectionToBlock(1, APILayout::STATUS_DRAFT, 2, 'new');
+        $this->blockHandler->addCollectionToBlock(1, Layout::STATUS_DRAFT, 2, 'new');
 
-        self::assertTrue($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 2));
-        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'new'));
+        self::assertTrue($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 2));
+        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'new'));
     }
 
     /**
@@ -553,9 +553,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveCollectionFromBlock()
     {
-        $this->blockHandler->removeCollectionFromBlock(1, APILayout::STATUS_DRAFT, 1);
+        $this->blockHandler->removeCollectionFromBlock(1, Layout::STATUS_DRAFT, 1);
 
-        self::assertFalse($this->blockHandler->collectionExists(1, APILayout::STATUS_DRAFT, 1));
-        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, APILayout::STATUS_DRAFT, 'default'));
+        self::assertFalse($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 1));
+        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'default'));
     }
 }

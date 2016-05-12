@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;

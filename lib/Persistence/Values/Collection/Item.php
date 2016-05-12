@@ -7,6 +7,16 @@ use Netgen\BlockManager\API\Values\Value;
 class Item extends Value
 {
     /**
+     * @const int
+     */
+    const TYPE_MANUAL = 0;
+
+    /**
+     * @const int
+     */
+    const TYPE_OVERRIDE = 1;
+
+    /**
      * Item ID.
      *
      * @var int|string

@@ -7,6 +7,26 @@ use Netgen\BlockManager\API\Values\Value;
 class Layout extends Value
 {
     /**
+     * @const string
+     */
+    const STATUS_DRAFT = 0;
+
+    /**
+     * @const string
+     */
+    const STATUS_PUBLISHED = 1;
+
+    /**
+     * @const string
+     */
+    const STATUS_ARCHIVED = 2;
+
+    /**
+     * @const string
+     */
+    const STATUS_TEMPORARY_DRAFT = 3;
+
+    /**
      * Layout ID.
      *
      * @var int|string

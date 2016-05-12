@@ -8,8 +8,6 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
-use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -54,12 +52,12 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
             new Collection(
                 array(
                     'id' => 1,
-                    'type' => APICollection::TYPE_MANUAL,
+                    'type' => Collection::TYPE_MANUAL,
                     'name' => null,
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->loadCollection(1, APICollection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED)
         );
     }
 
@@ -71,7 +69,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadCollectionThrowsNotFoundException()
     {
-        $this->collectionHandler->loadCollection(999999, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(999999, Collection::STATUS_PUBLISHED);
     }
 
     /**
@@ -79,13 +77,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadNamedCollections()
     {
-        $collections = $this->collectionHandler->loadNamedCollections(APICollection::STATUS_PUBLISHED);
+        $collections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_PUBLISHED);
 
         self::assertNotEmpty($collections);
 
         foreach ($collections as $collection) {
             self::assertInstanceOf(Collection::class, $collection);
-            self::assertEquals(APICollection::TYPE_NAMED, $collection->type);
+            self::assertEquals(Collection::TYPE_NAMED, $collection->type);
         }
     }
 
@@ -94,7 +92,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadNamedCollectionsInNonExistentStatus()
     {
-        $collections = $this->collectionHandler->loadNamedCollections(APICollection::STATUS_ARCHIVED);
+        $collections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_ARCHIVED);
 
         self::assertEmpty($collections);
     }
@@ -111,13 +109,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 0,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '70',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->loadItem(1, APICollection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadItem(1, Collection::STATUS_PUBLISHED)
         );
     }
 
@@ -128,7 +126,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadItemThrowsNotFoundException()
     {
-        $this->collectionHandler->loadItem(999999, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadItem(999999, Collection::STATUS_PUBLISHED);
     }
 
     /**
@@ -137,7 +135,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadCollectionItems()
     {
-        $items = $this->collectionHandler->loadCollectionItems(1, APICollection::STATUS_PUBLISHED);
+        $items = $this->collectionHandler->loadCollectionItems(1, Collection::STATUS_PUBLISHED);
 
         self::assertNotEmpty($items);
 
@@ -152,7 +150,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadCollectionItemsForNonExistentCollection()
     {
-        $items = $this->collectionHandler->loadCollectionItems(999999, APICollection::STATUS_PUBLISHED);
+        $items = $this->collectionHandler->loadCollectionItems(999999, Collection::STATUS_PUBLISHED);
 
         self::assertEmpty($items);
     }
@@ -174,10 +172,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'parameters' => array(
                         'param' => 'value',
                     ),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->loadQuery(1, APICollection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadQuery(1, Collection::STATUS_PUBLISHED)
         );
     }
 
@@ -188,7 +186,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadQueryThrowsNotFoundException()
     {
-        $this->collectionHandler->loadQuery(999999, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadQuery(999999, Collection::STATUS_PUBLISHED);
     }
 
     /**
@@ -197,7 +195,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadCollectionQueries()
     {
-        $queries = $this->collectionHandler->loadCollectionQueries(2, APICollection::STATUS_PUBLISHED);
+        $queries = $this->collectionHandler->loadCollectionQueries(2, Collection::STATUS_PUBLISHED);
 
         self::assertNotEmpty($queries);
 
@@ -212,7 +210,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadCollectionQueriesForNonExistentCollection()
     {
-        $queries = $this->collectionHandler->loadCollectionQueries(999999, APICollection::STATUS_PUBLISHED);
+        $queries = $this->collectionHandler->loadCollectionQueries(999999, Collection::STATUS_PUBLISHED);
 
         self::assertEmpty($queries);
     }
@@ -222,7 +220,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionExists()
     {
-        self::assertTrue($this->collectionHandler->collectionExists(1, APICollection::STATUS_PUBLISHED));
+        self::assertTrue($this->collectionHandler->collectionExists(1, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -230,7 +228,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionNotExists()
     {
-        self::assertFalse($this->collectionHandler->collectionExists(999999, APICollection::STATUS_PUBLISHED));
+        self::assertFalse($this->collectionHandler->collectionExists(999999, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -238,7 +236,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCollectionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->collectionExists(1, APICollection::STATUS_ARCHIVED));
+        self::assertFalse($this->collectionHandler->collectionExists(1, Collection::STATUS_ARCHIVED));
     }
 
     /**
@@ -246,7 +244,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNamedCollectionExists()
     {
-        self::assertTrue($this->collectionHandler->namedCollectionExists('My collection', APICollection::STATUS_PUBLISHED));
+        self::assertTrue($this->collectionHandler->namedCollectionExists('My collection', Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -254,7 +252,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNamedCollectionNotExists()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('Non existent', APICollection::STATUS_PUBLISHED));
+        self::assertFalse($this->collectionHandler->namedCollectionExists('Non existent', Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -262,7 +260,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNamedCollectionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', APICollection::STATUS_ARCHIVED));
+        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', Collection::STATUS_ARCHIVED));
     }
 
     /**
@@ -272,18 +270,18 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = APICollection::TYPE_MANUAL;
+        $collectionCreateStruct->type = Collection::TYPE_MANUAL;
         $collectionCreateStruct->name = 'New collection';
-        $collectionCreateStruct->status = APICollection::STATUS_PUBLISHED;
+        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
 
         self::assertInstanceOf(Collection::class, $createdCollection);
 
         self::assertEquals(4, $createdCollection->id);
-        self::assertEquals(APICollection::TYPE_MANUAL, $createdCollection->type);
+        self::assertEquals(Collection::TYPE_MANUAL, $createdCollection->type);
         self::assertNull($createdCollection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $createdCollection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $createdCollection->status);
     }
 
     /**
@@ -293,18 +291,18 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateNamedCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = APICollection::TYPE_NAMED;
+        $collectionCreateStruct->type = Collection::TYPE_NAMED;
         $collectionCreateStruct->name = 'New collection';
-        $collectionCreateStruct->status = APICollection::STATUS_PUBLISHED;
+        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
 
         self::assertInstanceOf(Collection::class, $createdCollection);
 
         self::assertEquals(4, $createdCollection->id);
-        self::assertEquals(APICollection::TYPE_NAMED, $createdCollection->type);
+        self::assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
         self::assertEquals('New collection', $createdCollection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $createdCollection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $createdCollection->status);
     }
 
     /**
@@ -317,16 +315,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
 
         $updatedCollection = $this->collectionHandler->updateCollection(
             1,
-            APICollection::STATUS_PUBLISHED,
+            Collection::STATUS_PUBLISHED,
             $collectionUpdateStruct
         );
 
         self::assertInstanceOf(Collection::class, $updatedCollection);
 
         self::assertEquals(1, $updatedCollection->id);
-        self::assertEquals(APICollection::TYPE_MANUAL, $updatedCollection->type);
+        self::assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
         self::assertNull($updatedCollection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $updatedCollection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
     /**
@@ -339,16 +337,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
 
         $updatedCollection = $this->collectionHandler->updateCollection(
             3,
-            APICollection::STATUS_PUBLISHED,
+            Collection::STATUS_PUBLISHED,
             $collectionUpdateStruct
         );
 
         self::assertInstanceOf(Collection::class, $updatedCollection);
 
         self::assertEquals(3, $updatedCollection->id);
-        self::assertEquals(APICollection::TYPE_NAMED, $updatedCollection->type);
+        self::assertEquals(Collection::TYPE_NAMED, $updatedCollection->type);
         self::assertEquals('Updated collection', $updatedCollection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $updatedCollection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
     /**
@@ -367,9 +365,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(Collection::class, $copiedCollection);
 
         self::assertEquals(4, $copiedCollection->id);
-        self::assertEquals(APICollection::TYPE_DYNAMIC, $copiedCollection->type);
+        self::assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
         self::assertNull($copiedCollection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $copiedCollection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->status);
 
         self::assertEquals(
             array(
@@ -378,10 +376,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 12,
                         'collectionId' => 4,
                         'position' => 1,
-                        'type' => APIItem::TYPE_MANUAL,
+                        'type' => Item::TYPE_MANUAL,
                         'valueId' => '70',
                         'valueType' => 'ezcontent',
-                        'status' => APICollection::STATUS_PUBLISHED,
+                        'status' => Collection::STATUS_PUBLISHED,
                     )
                 ),
                 new Item(
@@ -389,10 +387,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 13,
                         'collectionId' => 4,
                         'position' => 2,
-                        'type' => APIItem::TYPE_MANUAL,
+                        'type' => Item::TYPE_MANUAL,
                         'valueId' => '71',
                         'valueType' => 'ezcontent',
-                        'status' => APICollection::STATUS_PUBLISHED,
+                        'status' => Collection::STATUS_PUBLISHED,
                     )
                 ),
                 new Item(
@@ -400,14 +398,14 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 14,
                         'collectionId' => 4,
                         'position' => 5,
-                        'type' => APIItem::TYPE_OVERRIDE,
+                        'type' => Item::TYPE_OVERRIDE,
                         'valueId' => '72',
                         'valueType' => 'ezcontent',
-                        'status' => APICollection::STATUS_PUBLISHED,
+                        'status' => Collection::STATUS_PUBLISHED,
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionItems(4, APICollection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollectionItems(4, Collection::STATUS_PUBLISHED)
         );
 
         self::assertEquals(
@@ -422,11 +420,11 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'parameters' => array(
                             'param' => 'value',
                         ),
-                        'status' => APICollection::STATUS_PUBLISHED,
+                        'status' => Collection::STATUS_PUBLISHED,
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionQueries(4, APICollection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollectionQueries(4, Collection::STATUS_PUBLISHED)
         );
     }
 
@@ -446,9 +444,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(Collection::class, $copiedCollection);
 
         self::assertEquals(4, $copiedCollection->id);
-        self::assertEquals(APICollection::TYPE_NAMED, $copiedCollection->type);
+        self::assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
         self::assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->name);
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $copiedCollection->status);
+        self::assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->status);
     }
 
     /**
@@ -462,14 +460,14 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateCollectionStatus()
     {
-        $copiedCollection = $this->collectionHandler->createCollectionStatus(2, APICollection::STATUS_PUBLISHED, APICollection::STATUS_ARCHIVED);
+        $copiedCollection = $this->collectionHandler->createCollectionStatus(2, Collection::STATUS_PUBLISHED, Collection::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
 
         self::assertEquals(2, $copiedCollection->id);
-        self::assertEquals(APICollection::TYPE_DYNAMIC, $copiedCollection->type);
+        self::assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
         self::assertNull($copiedCollection->name);
-        self::assertEquals(APICollection::STATUS_ARCHIVED, $copiedCollection->status);
+        self::assertEquals(Collection::STATUS_ARCHIVED, $copiedCollection->status);
 
         self::assertEquals(
             array(
@@ -478,10 +476,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 4,
                         'collectionId' => 2,
                         'position' => 1,
-                        'type' => APIItem::TYPE_MANUAL,
+                        'type' => Item::TYPE_MANUAL,
                         'valueId' => '70',
                         'valueType' => 'ezcontent',
-                        'status' => APICollection::STATUS_ARCHIVED,
+                        'status' => Collection::STATUS_ARCHIVED,
                     )
                 ),
                 new Item(
@@ -489,10 +487,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 5,
                         'collectionId' => 2,
                         'position' => 2,
-                        'type' => APIItem::TYPE_MANUAL,
+                        'type' => Item::TYPE_MANUAL,
                         'valueId' => '71',
                         'valueType' => 'ezcontent',
-                        'status' => APICollection::STATUS_ARCHIVED,
+                        'status' => Collection::STATUS_ARCHIVED,
                     )
                 ),
                 new Item(
@@ -500,14 +498,14 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'id' => 6,
                         'collectionId' => 2,
                         'position' => 5,
-                        'type' => APIItem::TYPE_OVERRIDE,
+                        'type' => Item::TYPE_OVERRIDE,
                         'valueId' => '72',
                         'valueType' => 'ezcontent',
-                        'status' => APICollection::STATUS_ARCHIVED,
+                        'status' => Collection::STATUS_ARCHIVED,
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionItems(2, APICollection::STATUS_ARCHIVED)
+            $this->collectionHandler->loadCollectionItems(2, Collection::STATUS_ARCHIVED)
         );
 
         self::assertEquals(
@@ -522,11 +520,11 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'parameters' => array(
                             'param' => 'value',
                         ),
-                        'status' => APICollection::STATUS_ARCHIVED,
+                        'status' => Collection::STATUS_ARCHIVED,
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionQueries(2, APICollection::STATUS_ARCHIVED)
+            $this->collectionHandler->loadCollectionQueries(2, Collection::STATUS_ARCHIVED)
         );
     }
 
@@ -538,7 +536,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $this->collectionHandler->deleteCollection(1);
 
-        $this->collectionHandler->loadCollection(1, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED);
     }
 
     /**
@@ -547,16 +545,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteCollectionInOneStatus()
     {
-        $this->collectionHandler->deleteCollection(1, APICollection::STATUS_DRAFT);
+        $this->collectionHandler->deleteCollection(1, Collection::STATUS_DRAFT);
 
         // First, verify that NOT all collection statuses are deleted
         try {
-            $this->collectionHandler->loadCollection(1, APICollection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED);
         } catch (NotFoundException $e) {
             self::fail('Deleting the collection in draft status deleted other/all statuses.');
         }
 
-        $this->collectionHandler->loadCollection(1, APICollection::STATUS_DRAFT);
+        $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT);
     }
 
     /**
@@ -564,7 +562,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testItemPositionExists()
     {
-        self::assertTrue($this->collectionHandler->itemPositionExists(2, APICollection::STATUS_PUBLISHED, 1));
+        self::assertTrue($this->collectionHandler->itemPositionExists(2, Collection::STATUS_PUBLISHED, 1));
     }
 
     /**
@@ -572,7 +570,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testItemPositionNotExists()
     {
-        self::assertFalse($this->collectionHandler->itemPositionExists(2, APICollection::STATUS_PUBLISHED, 50));
+        self::assertFalse($this->collectionHandler->itemPositionExists(2, Collection::STATUS_PUBLISHED, 50));
     }
 
     /**
@@ -580,7 +578,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testItemPositionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->itemPositionExists(2, APICollection::STATUS_ARCHIVED, 1));
+        self::assertFalse($this->collectionHandler->itemPositionExists(2, Collection::STATUS_ARCHIVED, 1));
     }
 
     /**
@@ -590,7 +588,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testAddItem()
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = APIItem::TYPE_MANUAL;
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
@@ -600,16 +598,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 12,
                     'collectionId' => 1,
                     'position' => 1,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '42',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addItem(1, APICollection::STATUS_PUBLISHED, $itemCreateStruct, 1)
+            $this->collectionHandler->addItem(1, Collection::STATUS_PUBLISHED, $itemCreateStruct, 1)
         );
 
-        $secondItem = $this->collectionHandler->loadItem(2, APICollection::STATUS_PUBLISHED);
+        $secondItem = $this->collectionHandler->loadItem(2, Collection::STATUS_PUBLISHED);
         self::assertEquals(2, $secondItem->position);
     }
 
@@ -620,7 +618,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testAddItemWithNoPosition()
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = APIItem::TYPE_MANUAL;
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
@@ -630,13 +628,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 12,
                     'collectionId' => 1,
                     'position' => 3,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '42',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addItem(1, APICollection::STATUS_PUBLISHED, $itemCreateStruct)
+            $this->collectionHandler->addItem(1, Collection::STATUS_PUBLISHED, $itemCreateStruct)
         );
     }
 
@@ -647,7 +645,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testAddItemInNonManualCollection()
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = APIItem::TYPE_MANUAL;
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
@@ -657,13 +655,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 12,
                     'collectionId' => 2,
                     'position' => 50,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '42',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addItem(2, APICollection::STATUS_PUBLISHED, $itemCreateStruct, 50)
+            $this->collectionHandler->addItem(2, Collection::STATUS_PUBLISHED, $itemCreateStruct, 50)
         );
     }
 
@@ -675,11 +673,11 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testAddItemThrowsBadStateExceptionOnNegativePosition()
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = APIItem::TYPE_MANUAL;
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
-        $this->collectionHandler->addItem(1, APICollection::STATUS_PUBLISHED, $itemCreateStruct, -1);
+        $this->collectionHandler->addItem(1, Collection::STATUS_PUBLISHED, $itemCreateStruct, -1);
     }
 
     /**
@@ -690,11 +688,11 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition()
     {
         $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = APIItem::TYPE_MANUAL;
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
-        $this->collectionHandler->addItem(1, APICollection::STATUS_PUBLISHED, $itemCreateStruct, -9999);
+        $this->collectionHandler->addItem(1, Collection::STATUS_PUBLISHED, $itemCreateStruct, -9999);
     }
 
     /**
@@ -709,16 +707,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 1,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '70',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveItem(1, APICollection::STATUS_PUBLISHED, 1)
+            $this->collectionHandler->moveItem(1, Collection::STATUS_PUBLISHED, 1)
         );
 
-        $firstItem = $this->collectionHandler->loadItem(2, APICollection::STATUS_PUBLISHED);
+        $firstItem = $this->collectionHandler->loadItem(2, Collection::STATUS_PUBLISHED);
         self::assertEquals(0, $firstItem->position);
     }
 
@@ -734,16 +732,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 2,
                     'collectionId' => 1,
                     'position' => 0,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '71',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveItem(2, APICollection::STATUS_PUBLISHED, 0)
+            $this->collectionHandler->moveItem(2, Collection::STATUS_PUBLISHED, 0)
         );
 
-        $firstItem = $this->collectionHandler->loadItem(1, APICollection::STATUS_PUBLISHED);
+        $firstItem = $this->collectionHandler->loadItem(1, Collection::STATUS_PUBLISHED);
         self::assertEquals(1, $firstItem->position);
     }
 
@@ -759,13 +757,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 4,
                     'collectionId' => 2,
                     'position' => 50,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '70',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveItem(4, APICollection::STATUS_PUBLISHED, 50)
+            $this->collectionHandler->moveItem(4, Collection::STATUS_PUBLISHED, 50)
         );
     }
 
@@ -776,7 +774,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->collectionHandler->moveItem(1, APICollection::STATUS_PUBLISHED, -1);
+        $this->collectionHandler->moveItem(1, Collection::STATUS_PUBLISHED, -1);
     }
 
     /**
@@ -786,7 +784,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->collectionHandler->moveItem(1, APICollection::STATUS_PUBLISHED, 9999);
+        $this->collectionHandler->moveItem(1, Collection::STATUS_PUBLISHED, 9999);
     }
 
     /**
@@ -795,13 +793,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteItem()
     {
-        $this->collectionHandler->deleteItem(2, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->deleteItem(2, Collection::STATUS_PUBLISHED);
 
-        $secondItem = $this->collectionHandler->loadItem(3, APICollection::STATUS_PUBLISHED);
+        $secondItem = $this->collectionHandler->loadItem(3, Collection::STATUS_PUBLISHED);
         self::assertEquals(1, $secondItem->position);
 
         try {
-            $this->collectionHandler->loadItem(2, APICollection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadItem(2, Collection::STATUS_PUBLISHED);
             self::fail('Item still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -813,13 +811,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteItemInNonManualCollection()
     {
-        $this->collectionHandler->deleteItem(5, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->deleteItem(5, Collection::STATUS_PUBLISHED);
 
-        $secondItem = $this->collectionHandler->loadItem(6, APICollection::STATUS_PUBLISHED);
+        $secondItem = $this->collectionHandler->loadItem(6, Collection::STATUS_PUBLISHED);
         self::assertEquals(5, $secondItem->position);
 
         try {
-            $this->collectionHandler->loadItem(5, APICollection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadItem(5, Collection::STATUS_PUBLISHED);
             self::fail('Item still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -831,7 +829,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryIdentifierExists()
     {
-        self::assertTrue($this->collectionHandler->queryIdentifierExists(2, APICollection::STATUS_PUBLISHED, 'default'));
+        self::assertTrue($this->collectionHandler->queryIdentifierExists(2, Collection::STATUS_PUBLISHED, 'default'));
     }
 
     /**
@@ -839,7 +837,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryIdentifierNotExists()
     {
-        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, APICollection::STATUS_PUBLISHED, 'featured'));
+        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, Collection::STATUS_PUBLISHED, 'featured'));
     }
 
     /**
@@ -847,7 +845,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testQueryIdentifierNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, APICollection::STATUS_ARCHIVED, 'default'));
+        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, Collection::STATUS_ARCHIVED, 'default'));
     }
 
     /**
@@ -870,13 +868,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'new_query',
                     'type' => 'ezcontent_search',
                     'parameters' => array('param' => 'value'),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addQuery(3, APICollection::STATUS_PUBLISHED, $queryCreateStruct, 1)
+            $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct, 1)
         );
 
-        $secondQuery = $this->collectionHandler->loadQuery(3, APICollection::STATUS_PUBLISHED);
+        $secondQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
         self::assertEquals(2, $secondQuery->position);
     }
 
@@ -900,10 +898,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'new_query',
                     'type' => 'ezcontent_search',
                     'parameters' => array('param' => 'value'),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addQuery(3, APICollection::STATUS_PUBLISHED, $queryCreateStruct)
+            $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct)
         );
     }
 
@@ -919,7 +917,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->setParameter('param', 'value');
 
-        $this->collectionHandler->addQuery(3, APICollection::STATUS_PUBLISHED, $queryCreateStruct, -1);
+        $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct, -1);
     }
 
     /**
@@ -934,7 +932,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->setParameter('param', 'value');
 
-        $this->collectionHandler->addQuery(3, APICollection::STATUS_PUBLISHED, $queryCreateStruct, -9999);
+        $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct, -9999);
     }
 
     /**
@@ -960,10 +958,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'some_param' => 'Some value',
                         'some_other_param' => 'Some other value',
                     ),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->updateQuery(1, APICollection::STATUS_PUBLISHED, $queryUpdateStruct)
+            $this->collectionHandler->updateQuery(1, Collection::STATUS_PUBLISHED, $queryUpdateStruct)
         );
     }
 
@@ -984,13 +982,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'parameters' => array(
                         'param' => 'value',
                     ),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveQuery(2, APICollection::STATUS_PUBLISHED, 1)
+            $this->collectionHandler->moveQuery(2, Collection::STATUS_PUBLISHED, 1)
         );
 
-        $firstQuery = $this->collectionHandler->loadQuery(3, APICollection::STATUS_PUBLISHED);
+        $firstQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
         self::assertEquals(0, $firstQuery->position);
     }
 
@@ -1011,13 +1009,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'parameters' => array(
                         'param' => 'value',
                     ),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveQuery(3, APICollection::STATUS_PUBLISHED, 0)
+            $this->collectionHandler->moveQuery(3, Collection::STATUS_PUBLISHED, 0)
         );
 
-        $firstQuery = $this->collectionHandler->loadQuery(2, APICollection::STATUS_PUBLISHED);
+        $firstQuery = $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED);
         self::assertEquals(1, $firstQuery->position);
     }
 
@@ -1028,7 +1026,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveQueryThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->collectionHandler->moveQuery(2, APICollection::STATUS_PUBLISHED, -1);
+        $this->collectionHandler->moveQuery(2, Collection::STATUS_PUBLISHED, -1);
     }
 
     /**
@@ -1038,7 +1036,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMoveQueryThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->collectionHandler->moveQuery(2, APICollection::STATUS_PUBLISHED, 9999);
+        $this->collectionHandler->moveQuery(2, Collection::STATUS_PUBLISHED, 9999);
     }
 
     /**
@@ -1047,13 +1045,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteQuery()
     {
-        $this->collectionHandler->deleteQuery(2, APICollection::STATUS_PUBLISHED);
+        $this->collectionHandler->deleteQuery(2, Collection::STATUS_PUBLISHED);
 
-        $secondQuery = $this->collectionHandler->loadQuery(3, APICollection::STATUS_PUBLISHED);
+        $secondQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
         self::assertEquals(0, $secondQuery->position);
 
         try {
-            $this->collectionHandler->loadQuery(2, APICollection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED);
             self::fail('Query still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing

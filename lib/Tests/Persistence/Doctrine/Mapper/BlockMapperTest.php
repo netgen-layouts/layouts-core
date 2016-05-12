@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 class BlockMapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +34,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
                 'name' => 'My block',
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Layout::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 84,
@@ -45,7 +45,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
                 'name' => 'My other block',
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Layout::STATUS_PUBLISHED,
             ),
         );
 
@@ -62,7 +62,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
             new Block(
@@ -77,7 +77,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                     ),
                     'viewType' => 'small',
                     'name' => 'My other block',
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
         );
@@ -93,7 +93,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
         $data = array(
             array(
                 'block_id' => 1,
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Layout::STATUS_PUBLISHED,
                 'collection_id' => 42,
                 'identifier' => 'default',
                 'start' => 5,
@@ -101,7 +101,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'block_id' => 2,
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Layout::STATUS_PUBLISHED,
                 'collection_id' => 43,
                 'identifier' => 'featured',
                 'start' => 10,
@@ -113,7 +113,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
             new CollectionReference(
                 array(
                     'blockId' => 1,
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                     'collectionId' => 42,
                     'identifier' => 'default',
                     'offset' => 5,
@@ -123,7 +123,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
             new CollectionReference(
                 array(
                     'blockId' => 2,
-                    'status' => APILayout::STATUS_PUBLISHED,
+                    'status' => Layout::STATUS_PUBLISHED,
                     'collectionId' => 43,
                     'identifier' => 'featured',
                     'offset' => 10,
