@@ -144,6 +144,17 @@ interface CollectionHandler
     public function deleteCollection($collectionId, $status = null);
 
     /**
+     * Returns if item exists in the collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int|string $itemId
+     *
+     * @return bool
+     */
+    public function itemExists($collectionId, $status, $itemId);
+
+    /**
      * Returns if item exists on specified position.
      *
      * @param int|string $collectionId
@@ -152,7 +163,7 @@ interface CollectionHandler
      *
      * @return bool
      */
-    public function itemExists($collectionId, $status, $position);
+    public function itemPositionExists($collectionId, $status, $position);
 
     /**
      * Adds an item to collection.
@@ -190,6 +201,17 @@ interface CollectionHandler
     public function deleteItem($itemId, $status);
 
     /**
+     * Returns if query with specified ID exists within the collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int|string $queryId
+     *
+     * @return bool
+     */
+    public function queryExists($collectionId, $status, $queryId);
+
+    /**
      * Returns if query with specified identifier exists within the collection.
      *
      * @param int|string $collectionId
@@ -198,7 +220,7 @@ interface CollectionHandler
      *
      * @return bool
      */
-    public function queryExists($collectionId, $status, $identifier);
+    public function queryIdentifierExists($collectionId, $status, $identifier);
 
     /**
      * Adds a query to collection.

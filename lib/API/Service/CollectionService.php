@@ -47,6 +47,16 @@ interface CollectionService
     public function loadItem($itemId, $status = Collection::STATUS_PUBLISHED);
 
     /**
+     * Returns if the provided item exists in the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     *
+     * @return bool
+     */
+    public function itemExists(Collection $collection, Item $item);
+
+    /**
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
@@ -57,6 +67,16 @@ interface CollectionService
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function loadQuery($queryId, $status = Collection::STATUS_PUBLISHED);
+
+    /**
+     * Returns if the provided query exists in the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function queryExists(Collection $collection, Query $query);
 
     /**
      * Creates a collection.

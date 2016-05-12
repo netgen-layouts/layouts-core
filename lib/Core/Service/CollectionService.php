@@ -124,6 +124,23 @@ class CollectionService implements APICollectionService
     }
 
     /**
+     * Returns if the provided item exists in the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     *
+     * @return bool
+     */
+    public function itemExists(Collection $collection, Item $item)
+    {
+        return $this->collectionHandler->itemExists(
+            $collection->getId(),
+            $collection->getStatus(),
+            $item->getId()
+        );
+    }
+
+    /**
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
@@ -142,6 +159,23 @@ class CollectionService implements APICollectionService
                 $queryId,
                 $status
             )
+        );
+    }
+
+    /**
+     * Returns if the provided query exists in the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function queryExists(Collection $collection, Query $query)
+    {
+        return $this->collectionHandler->queryExists(
+            $collection->getId(),
+            $collection->getStatus(),
+            $query->getId()
         );
     }
 
@@ -402,7 +436,7 @@ class CollectionService implements APICollectionService
                 throw new BadStateException('type', 'Override item cannot be added to manual collection.');
             }
         } else {
-            if ($this->collectionHandler->itemExists($collection->getId(), $collection->getStatus(), $position)) {
+            if ($this->collectionHandler->itemPositionExists($collection->getId(), $collection->getStatus(), $position)) {
                 throw new BadStateException('position', 'Item already exists on that position.');
             }
         }
@@ -445,7 +479,7 @@ class CollectionService implements APICollectionService
         );
 
         if ($collection->type !== Collection::TYPE_MANUAL) {
-            if ($this->collectionHandler->itemExists($collection->id, $collection->status, $position)) {
+            if ($this->collectionHandler->itemPositionExists($collection->id, $collection->status, $position)) {
                 throw new BadStateException('position', 'Item already exists on that position.');
             }
         }
@@ -513,7 +547,7 @@ class CollectionService implements APICollectionService
 
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
 
-        if ($this->collectionHandler->queryExists($collection->getId(), $collection->getStatus(), $queryCreateStruct->identifier)) {
+        if ($this->collectionHandler->queryIdentifierExists($collection->getId(), $collection->getStatus(), $queryCreateStruct->identifier)) {
             throw new BadStateException('identifier', 'Query with specified identifier already exists.');
         }
 
@@ -551,7 +585,7 @@ class CollectionService implements APICollectionService
         $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
         if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $query->getIdentifier()) {
-            if ($this->collectionHandler->queryExists($query->getCollectionId(), $query->getStatus(), $queryUpdateStruct->identifier)) {
+            if ($this->collectionHandler->queryIdentifierExists($query->getCollectionId(), $query->getStatus(), $queryUpdateStruct->identifier)) {
                 throw new BadStateException('identifier', 'Query with specified identifier already exists.');
             }
         }

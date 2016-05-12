@@ -534,6 +534,36 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
+     * Returns if item exists in the collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int|string $itemId
+     *
+     * @return bool
+     */
+    public function itemExists($collectionId, $status, $itemId)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query->select('count(*) AS count')
+            ->from('ngbm_collection_item')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':item_id'),
+                    $query->expr()->eq('collection_id', ':collection_id')
+                )
+            )
+            ->setParameter('item_id', $itemId, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        $this->queryHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Returns if item exists on specified position.
      *
      * @param int|string $collectionId
@@ -542,7 +572,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return bool
      */
-    public function itemExists($collectionId, $status, $position)
+    public function itemPositionExists($collectionId, $status, $position)
     {
         $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
@@ -690,6 +720,36 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
+     * Returns if query with specified ID exists within the collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int|string $queryId
+     *
+     * @return bool
+     */
+    public function queryExists($collectionId, $status, $queryId)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query->select('count(*) AS count')
+            ->from('ngbm_collection_query')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('id', ':query_id'),
+                    $query->expr()->eq('collection_id', ':collection_id')
+                )
+            )
+            ->setParameter('query_id', $queryId, Type::STRING)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        $this->queryHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Returns if query with specified identifier exists within the collection.
      *
      * @param int|string $collectionId
@@ -698,7 +758,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return bool
      */
-    public function queryExists($collectionId, $status, $identifier)
+    public function queryIdentifierExists($collectionId, $status, $identifier)
     {
         $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
