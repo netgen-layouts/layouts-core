@@ -4,7 +4,7 @@ parameters:
 services:
     netgen_block_manager.configuration.container:
         class: "%netgen_block_manager.configuration.container.class%"
-        arguments:
+        calls:
             - [setContainer, ["@service_container"]]
 
     netgen_block_manager.configuration:
