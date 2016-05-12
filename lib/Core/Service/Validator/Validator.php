@@ -54,19 +54,22 @@ abstract class Validator
      *
      * @param int $position
      * @param string $propertyPath
+     * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
      */
-    public function validatePosition($position, $propertyPath = null)
+    public function validatePosition($position, $propertyPath = null, $isRequired = false)
     {
-        $this->validate(
-            $position,
-            array(
-                new Constraints\GreaterThanOrEqual(0),
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            $propertyPath
+        $constraints = array(
+            new Constraints\GreaterThanOrEqual(0),
+            new Constraints\Type(array('type' => 'int')),
         );
+
+        if ($isRequired) {
+            $constraints[] = new Constraints\NotBlank();
+        }
+
+        $this->validate($position, $constraints, $propertyPath);
     }
 
     /**

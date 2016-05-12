@@ -237,7 +237,7 @@ class BlockService implements BlockServiceInterface
      */
     public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
-        $this->blockValidator->validatePosition($position, 'position');
+        $this->blockValidator->validatePosition($position, 'position', true);
 
         if ($zoneIdentifier !== null) {
             $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');

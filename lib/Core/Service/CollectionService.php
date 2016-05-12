@@ -17,7 +17,6 @@ use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Exception;
 
 class CollectionService implements APICollectionService
@@ -382,7 +381,6 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If position is not set (for non manual collections)
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If override item is added to manual collection
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
@@ -391,9 +389,11 @@ class CollectionService implements APICollectionService
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
     {
-        if ($position !== null) {
-            $this->collectionValidator->validatePosition($position, 'position');
-        }
+        $this->collectionValidator->validatePosition(
+            $position,
+            'position',
+            $collection->getType() !== Collection::TYPE_MANUAL
+        );
 
         $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
 
@@ -402,10 +402,6 @@ class CollectionService implements APICollectionService
                 throw new BadStateException('type', 'Override item cannot be added to manual collection.');
             }
         } else {
-            if ($position === null) {
-                throw new InvalidArgumentException('position', 'Position must be set for non manual collections.');
-            }
-
             if ($this->collectionHandler->itemExists($collection->getId(), $collection->getStatus(), $position)) {
                 throw new BadStateException('position', 'Item already exists on that position.');
             }
@@ -441,7 +437,7 @@ class CollectionService implements APICollectionService
      */
     public function moveItem(Item $item, $position)
     {
-        $this->collectionValidator->validatePosition($position, 'position');
+        $this->collectionValidator->validatePosition($position, 'position', true);
 
         $collection = $this->collectionHandler->loadCollection(
             $item->getCollectionId(),
@@ -513,9 +509,7 @@ class CollectionService implements APICollectionService
             throw new BadStateException('queryCreateStruct', 'Query cannot be added to manual collection.');
         }
 
-        if ($position !== null) {
-            $this->collectionValidator->validatePosition($position, 'position');
-        }
+        $this->collectionValidator->validatePosition($position, 'position');
 
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
 
@@ -590,7 +584,7 @@ class CollectionService implements APICollectionService
      */
     public function moveQuery(Query $query, $position)
     {
-        $this->collectionValidator->validatePosition($position, 'position');
+        $this->collectionValidator->validatePosition($position, 'position', true);
 
         $this->persistenceHandler->beginTransaction();
 

@@ -419,18 +419,6 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
-     */
-    public function testAddItemToDynamicCollectionWithWithNoPositionThrowsInvalidArgumentException()
-    {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '66', 'ezcontent');
-        $collection = $this->collectionService->loadCollection(2, Collection::STATUS_DRAFT);
-
-        $this->collectionService->addItem($collection, $itemCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()

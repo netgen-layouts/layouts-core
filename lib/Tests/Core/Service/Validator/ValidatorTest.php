@@ -94,4 +94,27 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->validator->validatePosition(3);
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
+     */
+    public function testValidateRequiredPosition()
+    {
+        $this->validatorMock
+            ->expects($this->once())
+            ->method('validate')
+            ->with(
+                $this->equalTo(3),
+                $this->equalTo(
+                    array(
+                        new Constraints\GreaterThanOrEqual(0),
+                        new Constraints\Type(array('type' => 'int')),
+                        new Constraints\NotBlank(),
+                    )
+                )
+            )
+            ->will($this->returnValue(new ConstraintViolationList()));
+
+        $this->validator->validatePosition(3, null, true);
+    }
 }
