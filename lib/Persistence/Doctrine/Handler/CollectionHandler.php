@@ -222,6 +222,20 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
+     * Returns if collection with specified ID is named.
+     *
+     * @param int|string $collectionId
+     *
+     * @return bool
+     */
+    public function isNamedCollection($collectionId)
+    {
+        $data = $this->loadCollectionData($collectionId);
+
+        return (int)$data[0]['type'] === Collection::TYPE_NAMED;
+    }
+
+    /**
      * Returns if named collection exists.
      *
      * @param int|string $name
@@ -320,14 +334,15 @@ class CollectionHandler implements CollectionHandlerInterface
      * Copies a collection with specified ID.
      *
      * @param int|string $collectionId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection($collectionId)
+    public function copyCollection($collectionId, $status = null)
     {
         // First copy collection data
 
-        $collectionData = $this->loadCollectionData($collectionId);
+        $collectionData = $this->loadCollectionData($collectionId, $status);
         $insertedCollectionId = null;
 
         foreach ($collectionData as $collectionDataRow) {
@@ -349,7 +364,7 @@ class CollectionHandler implements CollectionHandlerInterface
 
         // Then copy item data
 
-        $itemData = $this->loadCollectionItemsData($collectionId);
+        $itemData = $this->loadCollectionItemsData($collectionId, $status);
         $itemIdMapping = array();
 
         foreach ($itemData as $itemDataRow) {
@@ -376,7 +391,7 @@ class CollectionHandler implements CollectionHandlerInterface
 
         // Then copy collection query data
 
-        $queryData = $this->loadCollectionQueriesData($collectionId);
+        $queryData = $this->loadCollectionQueriesData($collectionId, $status);
         $queryIdMapping = array();
 
         foreach ($queryData as $queryDataRow) {
@@ -401,7 +416,7 @@ class CollectionHandler implements CollectionHandlerInterface
             }
         }
 
-        return $this->loadCollection($insertedCollectionId, Collection::STATUS_PUBLISHED);
+        return $insertedCollectionId;
     }
 
     /**

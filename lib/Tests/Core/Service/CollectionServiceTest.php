@@ -85,9 +85,9 @@ abstract class CollectionServiceTest extends ServiceTest
         $this->collectionValidatorMock
             ->expects($this->at(0))
             ->method('validateId')
-            ->with($this->equalTo(1), $this->equalTo('itemId'));
+            ->with($this->equalTo(7), $this->equalTo('itemId'));
 
-        $item = $this->collectionService->loadItem(1);
+        $item = $this->collectionService->loadItem(7);
 
         self::assertInstanceOf(Item::class, $item);
     }
@@ -130,7 +130,8 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateCollection()
     {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_DYNAMIC);
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_NAMED);
+        $collectionCreateStruct->name = 'New name';
 
         $this->collectionValidatorMock
             ->expects($this->at(0))
@@ -184,30 +185,9 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     */
-    public function testUpdateNonNamedCollectionDoesNotChangeName()
-    {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
-
-        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'Super cool collection';
-
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateCollectionUpdateStruct')
-            ->with($this->equalTo($collectionUpdateStruct));
-
-        $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
-
-        self::assertInstanceOf(Collection::class, $updatedCollection);
-        self::assertNull($updatedCollection->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
-    public function testUpdateCollectionWithExistingNameForNamedCollectionThrowsBadStateException()
+    public function testUpdateCollectionWithExistingNameThrowsBadStateException()
     {
         $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
 
@@ -225,18 +205,6 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCopyCollection()
     {
-        $collection = $this->collectionService->loadCollection(2);
-        $copiedCollection = $this->collectionService->copyCollection($collection);
-
-        self::assertInstanceOf(Collection::class, $copiedCollection);
-        self::assertEquals(4, $copiedCollection->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
-     */
-    public function testCopyNamedCollectionCollection()
-    {
         $collection = $this->collectionService->loadCollection(3);
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
@@ -250,7 +218,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateCollectionStatus()
     {
-        $collection = $this->collectionService->loadCollection(1);
+        $collection = $this->collectionService->loadCollection(3);
         $copiedCollection = $this->collectionService->createCollectionStatus($collection, Collection::STATUS_ARCHIVED);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
@@ -262,7 +230,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateCollectionStatusThrowsBadStateException()
     {
-        $collection = $this->collectionService->loadCollection(1);
+        $collection = $this->collectionService->loadCollection(3);
         $this->collectionService->createCollectionStatus($collection, Collection::STATUS_DRAFT);
     }
 
@@ -271,7 +239,8 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateDraft()
     {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_MANUAL);
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_NAMED);
+        $collectionCreateStruct->name = 'New collection';
         $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
         $collection = $this->collectionService->createCollection($collectionCreateStruct);
 
@@ -287,7 +256,11 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateDraftThrowsBadStateExceptionIfCollectionIsNotPublished()
     {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_NAMED);
+        $collectionCreateStruct->name = 'New collection';
+        $collectionCreateStruct->status = Collection::STATUS_DRAFT;
+        $collection = $this->collectionService->createCollection($collectionCreateStruct);
+
         $this->collectionService->createDraft($collection);
     }
 
@@ -297,7 +270,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_PUBLISHED);
+        $collection = $this->collectionService->loadCollection(3, Collection::STATUS_PUBLISHED);
         $this->collectionService->createDraft($collection);
     }
 
@@ -306,7 +279,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testPublishCollection()
     {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
+        $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
         $publishedCollection = $this->collectionService->publishCollection($collection);
 
         self::assertInstanceOf(Collection::class, $publishedCollection);
@@ -329,7 +302,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testPublishCollectionThrowsBadStateException()
     {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_PUBLISHED);
+        $collection = $this->collectionService->loadCollection(3, Collection::STATUS_PUBLISHED);
         $this->collectionService->publishCollection($collection);
     }
 
@@ -338,7 +311,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testDeleteCollection()
     {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
+        $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
 
         $this->collectionService->deleteCollection($collection);
 
@@ -359,7 +332,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testDeleteCompleteCollection()
     {
-        $collection = $this->collectionService->loadCollection(1);
+        $collection = $this->collectionService->loadCollection(3);
 
         $this->collectionService->deleteCollection($collection, true);
 
@@ -412,7 +385,7 @@ abstract class CollectionServiceTest extends ServiceTest
     public function testAddItemToDynamicCollectionWithExistingPositionThrowsBadStateException()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '66', 'ezcontent');
-        $collection = $this->collectionService->loadCollection(2, Collection::STATUS_DRAFT);
+        $collection = $this->collectionService->loadCollection(2);
 
         $this->collectionService->addItem($collection, $itemCreateStruct, 5);
     }
@@ -472,7 +445,7 @@ abstract class CollectionServiceTest extends ServiceTest
     public function testMoveItemInDynamicCollectionWithExistingPositionThrowsBadStateException()
     {
         $this->collectionService->moveItem(
-            $this->collectionService->loadItem(4, Collection::STATUS_DRAFT),
+            $this->collectionService->loadItem(4),
             5
         );
     }
@@ -573,7 +546,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testUpdateQuery()
     {
-        $query = $this->collectionService->loadQuery(1, Collection::STATUS_DRAFT);
+        $query = $this->collectionService->loadQuery(1);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
@@ -638,7 +611,7 @@ abstract class CollectionServiceTest extends ServiceTest
     public function testMoveQueryThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
         $this->collectionService->moveQuery(
-            $this->collectionService->loadQuery(1, Collection::STATUS_DRAFT),
+            $this->collectionService->loadQuery(1),
             9999
         );
     }

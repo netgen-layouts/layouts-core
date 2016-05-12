@@ -411,7 +411,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         );
 
         // Verify that non named collections were copied
-        $this->collectionHandler->loadCollection(4, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
         $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
@@ -535,14 +535,14 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
             $this->blockHandler->loadZoneBlocks(1, 'top_right', Layout::STATUS_ARCHIVED)
         );
 
-        // Verify that non named collection was copied
-        $this->collectionHandler->loadCollection(4, Collection::STATUS_PUBLISHED);
+        // Verify that non named collection status was copied
+        $this->collectionHandler->loadCollection(2, Collection::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
         $archivedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_ARCHIVED);
         self::assertCount(2, $archivedReferences);
-        self::assertContains($archivedReferences[0]->collectionId, array(3, 4));
-        self::assertContains($archivedReferences[1]->collectionId, array(3, 4));
+        self::assertContains($archivedReferences[0]->collectionId, array(2, 3));
+        self::assertContains($archivedReferences[1]->collectionId, array(2, 3));
 
         // Second block
         $archivedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_ARCHIVED);
@@ -567,7 +567,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         // Verify that we don't have the collections that were related to the layout
         try {
-            $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT);
             $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
             self::fail('Collections not deleted after deleting the layout.');
         } catch (NotFoundException $e) {
@@ -612,7 +612,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         // Verify that we don't have the collection that was related to layout in deleted status any more
         try {
-            $this->collectionHandler->loadCollection(1, Collection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT);
             self::fail('Collection not deleted after deleting layout in one status.');
         } catch (NotFoundException $e) {
             // Do nothing

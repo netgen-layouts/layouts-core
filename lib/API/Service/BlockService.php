@@ -101,30 +101,6 @@ interface BlockService
     public function deleteBlock(Block $block);
 
     /**
-     * Adds the collection to the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param string $identifier
-     * @param int $offset
-     * @param int $limit
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with specified identifier already exists within the block
-     *                                                              If specified collection already exists within the block
-     */
-    public function addCollectionToBlock(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
-
-    /**
-     * Removes the collection from the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If specified collection does not exist within the block
-     */
-    public function removeCollectionFromBlock(Block $block, Collection $collection);
-
-    /**
      * Creates a new block create struct.
      *
      * @param string $definitionIdentifier

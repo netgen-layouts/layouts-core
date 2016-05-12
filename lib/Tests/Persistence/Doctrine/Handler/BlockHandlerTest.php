@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
@@ -20,6 +21,11 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     protected $blockHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
+     */
+    protected $collectionHandler;
+
+    /**
      * Sets up the tests.
      */
     public function setUp()
@@ -27,6 +33,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $this->prepareHandlers();
 
         $this->blockHandler = $this->createBlockHandler();
+        $this->collectionHandler = $this->createCollectionHandler();
     }
 
     /**
@@ -338,6 +345,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'top_right')
         );
+
+        $copiedCollection = $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
+        self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -364,6 +374,9 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'bottom')
         );
+
+        $copiedCollection = $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
+        self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -503,6 +516,16 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+
+        try {
+            $this->collectionHandler->loadCollection(1, Layout::STATUS_DRAFT);
+            self::fail('Collection still exists after deleting a block.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        // Verify that named collection still exists
+        $this->collectionHandler->loadCollection(3, Collection::STATUS_DRAFT);
     }
 
     /**

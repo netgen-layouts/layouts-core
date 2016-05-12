@@ -265,7 +265,7 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedCollection = $this->collectionHandler->copyCollection(
+            $copiedCollectionId = $this->collectionHandler->copyCollection(
                 $collection->getId()
             );
         } catch (Exception $e) {
@@ -275,7 +275,7 @@ class CollectionService implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($copiedCollection);
+        return $this->loadCollection($copiedCollectionId, $collection->getStatus());
     }
 
     /**

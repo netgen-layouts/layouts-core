@@ -154,7 +154,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->setParameter('id', 2, Type::INTEGER)
-            ->setParameter('status', Collection::STATUS_PUBLISHED, Type::INTEGER);
+            ->setParameter('status', Collection::STATUS_DRAFT, Type::INTEGER);
 
         $query->execute();
 
@@ -187,7 +187,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
             'column' => 'position',
             'conditions' => array(
                 'collection_id' => 1,
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Collection::STATUS_DRAFT,
             ),
         );
     }
@@ -209,7 +209,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->setParameter('collection_id', 1, Type::INTEGER)
-            ->setParameter('status', Collection::STATUS_PUBLISHED, Type::INTEGER)
+            ->setParameter('status', Collection::STATUS_DRAFT, Type::INTEGER)
             ->orderBy('position', 'ASC');
 
         return array_map(

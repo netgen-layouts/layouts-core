@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
@@ -357,6 +358,9 @@ abstract class BlockServiceTest extends ServiceTest
 
         self::assertInstanceOf(APIBlock::class, $copiedBlock);
         self::assertEquals(6, $copiedBlock->getId());
+
+        $copiedCollection = $this->collectionService->loadCollection(4, Collection::STATUS_DRAFT);
+        self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -377,6 +381,9 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertInstanceOf(APIBlock::class, $copiedBlock);
         self::assertEquals(6, $copiedBlock->getId());
         self::assertEquals('bottom', $copiedBlock->getZoneIdentifier());
+
+        $copiedCollection = $this->collectionService->loadCollection(4, Collection::STATUS_DRAFT);
+        self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -484,76 +491,16 @@ abstract class BlockServiceTest extends ServiceTest
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->getPosition());
-    }
 
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
-     */
-    public function testAddCollectionToBlock()
-    {
-        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
-        $this->blockService->addCollectionToBlock(
-            $block,
-            $this->collectionService->loadCollection(2),
-            'new'
-        );
+        try {
+            $this->collectionService->loadCollection(1, Layout::STATUS_DRAFT);
+            self::fail('Collection still exists after deleting a block.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
-        self::assertCount(3, $this->blockService->loadBlockCollections($block));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testAddCollectionToBlockThrowsBadStateExceptionOnExistingCollectionId()
-    {
-        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
-        $this->blockService->addCollectionToBlock(
-            $block,
-            $this->collectionService->loadCollection(1),
-            'new'
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::addCollectionToBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testAddCollectionToBlockThrowsBadStateExceptionOnExistingCollectionIdentifier()
-    {
-        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
-        $this->blockService->addCollectionToBlock(
-            $block,
-            $this->collectionService->loadCollection(2),
-            'default'
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::removeCollectionFromBlock
-     */
-    public function testRemoveCollectionFromBlock()
-    {
-        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
-        $this->blockService->removeCollectionFromBlock(
-            $block,
-            $this->collectionService->loadCollection(1)
-        );
-
-        self::assertCount(1, $this->blockService->loadBlockCollections($block));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::removeCollectionFromBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testRemoveCollectionFromBlockThrowsBadStateException()
-    {
-        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
-        $this->blockService->removeCollectionFromBlock(
-            $block,
-            $this->collectionService->loadCollection(2)
-        );
+        // Verify that named collection still exists
+        $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
     }
 
     /**

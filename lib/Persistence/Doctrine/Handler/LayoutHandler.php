@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
+use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
@@ -16,6 +16,11 @@ use Doctrine\DBAL\Types\Type;
 
 class LayoutHandler implements LayoutHandlerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     */
+    protected $blockHandler;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
@@ -39,17 +44,20 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
      * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
     public function __construct(
+        BaseBlockHandler $blockHandler,
         BaseCollectionHandler $collectionHandler,
         LayoutMapper $layoutMapper,
         ConnectionHelper $connectionHelper,
         QueryHelper $queryHelper
     ) {
+        $this->blockHandler = $blockHandler;
         $this->collectionHandler = $collectionHandler;
         $this->layoutMapper = $layoutMapper;
         $this->connectionHelper = $connectionHelper;
@@ -308,42 +316,31 @@ class LayoutHandler implements LayoutHandlerInterface
             }
         }
 
+        $collectionIdMapping = array();
+
         foreach ($blockIdMapping as $oldBlockId => $newBlockId) {
             $collectionsData = $this->loadBlockCollectionsData($oldBlockId);
             foreach ($collectionsData as $collectionsDataRow) {
-                $originalCollection = $this->collectionHandler->loadCollection(
-                    $collectionsDataRow['collection_id'],
-                    Collection::STATUS_PUBLISHED
-                );
+                if (!isset($collectionIdMapping[$collectionsDataRow['collection_id']])) {
+                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'])) {
+                        $copiedCollectionId = $this->collectionHandler->copyCollection(
+                            $collectionsDataRow['collection_id']
+                        );
 
-                if ($originalCollection->type !== Collection::TYPE_NAMED) {
-                    $copiedCollection = $this->collectionHandler->copyCollection(
-                        $collectionsDataRow['collection_id']
-                    );
-                } else {
-                    $copiedCollection = $originalCollection;
+                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $copiedCollectionId;
+                    } else {
+                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $collectionsDataRow['collection_id'];
+                    }
                 }
 
-                $collectionQuery = $this->queryHelper->getQuery();
-                $collectionQuery->insert('ngbm_block_collection')
-                    ->values(
-                        array(
-                            'block_id' => ':block_id',
-                            'status' => ':status',
-                            'collection_id' => ':collection_id',
-                            'identifier' => ':identifier',
-                            'start' => ':start',
-                            'length' => ':length',
-                        )
-                    )
-                    ->setParameter('block_id', $newBlockId, Type::INTEGER)
-                    ->setParameter('status', $collectionsDataRow['status'], Type::INTEGER)
-                    ->setParameter('collection_id', $copiedCollection->id, Type::INTEGER)
-                    ->setParameter('identifier', $collectionsDataRow['identifier'], Type::INTEGER)
-                    ->setParameter('start', $collectionsDataRow['start'], Type::INTEGER)
-                    ->setParameter('length', $collectionsDataRow['length'], Type::INTEGER);
-
-                $collectionQuery->execute();
+                $this->blockHandler->addCollectionToBlock(
+                    $newBlockId,
+                    $collectionsDataRow['status'],
+                    $collectionIdMapping[$collectionsDataRow['collection_id']],
+                    $collectionsDataRow['identifier'],
+                    $collectionsDataRow['start'],
+                    $collectionsDataRow['length']
+                );
             }
         }
 
@@ -409,39 +406,22 @@ class LayoutHandler implements LayoutHandlerInterface
 
                 $collectionsData = $this->loadBlockCollectionsData($blockDataRow['id'], $status);
                 foreach ($collectionsData as $collectionsDataRow) {
-                    $originalCollection = $this->collectionHandler->loadCollection(
-                        $collectionsDataRow['collection_id'],
-                        Collection::STATUS_PUBLISHED
-                    );
-
-                    if ($originalCollection->type !== Collection::TYPE_NAMED) {
-                        $copiedCollection = $this->collectionHandler->copyCollection(
-                            $collectionsDataRow['collection_id']
+                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'])) {
+                        $this->collectionHandler->createCollectionStatus(
+                            $collectionsDataRow['collection_id'],
+                            $status,
+                            $newStatus
                         );
-                    } else {
-                        $copiedCollection = $originalCollection;
                     }
 
-                    $collectionQuery = $this->queryHelper->getQuery();
-                    $collectionQuery->insert('ngbm_block_collection')
-                        ->values(
-                            array(
-                                'block_id' => ':block_id',
-                                'status' => ':status',
-                                'collection_id' => ':collection_id',
-                                'identifier' => ':identifier',
-                                'start' => ':start',
-                                'length' => ':length',
-                            )
-                        )
-                        ->setParameter('block_id', $blockDataRow['id'], Type::INTEGER)
-                        ->setParameter('status', $newStatus, Type::INTEGER)
-                        ->setParameter('collection_id', $copiedCollection->id, Type::INTEGER)
-                        ->setParameter('identifier', $collectionsDataRow['identifier'], Type::INTEGER)
-                        ->setParameter('start', $collectionsDataRow['start'], Type::INTEGER)
-                        ->setParameter('length', $collectionsDataRow['length'], Type::INTEGER);
-
-                    $collectionQuery->execute();
+                    $this->blockHandler->addCollectionToBlock(
+                        $blockDataRow['id'],
+                        $newStatus,
+                        $collectionsDataRow['collection_id'],
+                        $collectionsDataRow['identifier'],
+                        $collectionsDataRow['start'],
+                        $collectionsDataRow['length']
+                    );
                 }
             }
         }
@@ -481,14 +461,11 @@ class LayoutHandler implements LayoutHandlerInterface
             $collectionData
         );
 
-        foreach ($collectionIds as $collectionId) {
-            $originalCollection = $this->collectionHandler->loadCollection(
-                $collectionId,
-                Collection::STATUS_PUBLISHED
-            );
+        $collectionIds = array_values(array_unique($collectionIds));
 
-            if ($originalCollection->type !== Collection::TYPE_NAMED) {
-                $this->collectionHandler->deleteCollection($collectionId);
+        foreach ($collectionIds as $collectionId) {
+            if (!$this->collectionHandler->isNamedCollection($collectionId)) {
+                $this->collectionHandler->deleteCollection($collectionId, $status);
             }
         }
 

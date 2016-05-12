@@ -54,6 +54,7 @@ trait TestCase
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
         return new LayoutHandler(
+            $this->createBlockHandler(),
             $this->createCollectionHandler(),
             new LayoutMapper(),
             $connectionHelper,

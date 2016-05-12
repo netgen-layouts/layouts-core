@@ -86,6 +86,15 @@ interface CollectionHandler
     public function collectionExists($collectionId, $status = null);
 
     /**
+     * Returns if collection with specified ID is named.
+     *
+     * @param int|string $collectionId
+     *
+     * @return bool
+     */
+    public function isNamedCollection($collectionId);
+
+    /**
      * Returns if named collection exists.
      *
      * @param int|string $name
@@ -119,10 +128,11 @@ interface CollectionHandler
      * Copies a collection with specified ID.
      *
      * @param int|string $collectionId
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection($collectionId);
+    public function copyCollection($collectionId, $status = null);
 
     /**
      * Creates a new collection status.

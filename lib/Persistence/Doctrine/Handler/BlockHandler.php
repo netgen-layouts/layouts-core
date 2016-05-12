@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
@@ -276,19 +275,19 @@ class BlockHandler implements BlockHandlerInterface
         foreach ($collectionReferences as $collectionReference) {
             $collection = $this->collectionHandler->loadCollection(
                 $collectionReference->collectionId,
-                Collection::STATUS_PUBLISHED
+                $status
             );
 
-            if ($collection->type !== Collection::TYPE_NAMED) {
-                $newCollection = $this->collectionHandler->copyCollection($collection->id);
+            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
+                $newCollectionId = $this->collectionHandler->copyCollection($collection->id, $status);
             } else {
-                $newCollection = $collection;
+                $newCollectionId = $collectionReference->collectionId;
             }
 
             $this->addCollectionToBlock(
                 $copiedBlockId,
                 $block->status,
-                $newCollection->id,
+                $newCollectionId,
                 $collectionReference->identifier,
                 $collectionReference->offset,
                 $collectionReference->limit
@@ -415,19 +414,14 @@ class BlockHandler implements BlockHandlerInterface
         );
 
         foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                Collection::STATUS_PUBLISHED
-            );
-
             $this->removeCollectionFromBlock(
                 $blockId,
                 $status,
-                $collection->id
+                $collectionReference->collectionId
             );
 
-            if ($collection->type !== Collection::TYPE_NAMED) {
-                $this->collectionHandler->deleteCollection($collection->id);
+            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
+                $this->collectionHandler->deleteCollection($collectionReference->collectionId, $status);
             }
         }
 
