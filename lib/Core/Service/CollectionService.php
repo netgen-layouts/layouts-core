@@ -348,6 +348,7 @@ class CollectionService implements APICollectionService
 
             $publishedCollection = $this->collectionHandler->createCollectionStatus($collection->getId(), Collection::STATUS_DRAFT, Collection::STATUS_PUBLISHED);
             $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_DRAFT);
+            $this->collectionHandler->deleteCollection($collection->getId(), Collection::STATUS_TEMPORARY_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

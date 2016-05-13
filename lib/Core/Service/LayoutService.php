@@ -248,6 +248,7 @@ class LayoutService implements LayoutServiceInterface
 
             $publishedLayout = $this->layoutHandler->createLayoutStatus($layout->getId(), Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
             $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_DRAFT);
+            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_TEMPORARY_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
