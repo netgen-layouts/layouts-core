@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -240,15 +241,28 @@ class BlockService implements BlockServiceInterface
             );
 
             foreach ($collectionReferences as $collectionReference) {
-                $collection = $this->collectionHandler->loadCollection(
-                    $collectionReference->collectionId,
-                    $block->getStatus()
-                );
-
                 if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
+                    try {
+                        $collection = $this->collectionHandler->loadCollection(
+                            $collectionReference->collectionId,
+                            $block->getStatus()
+                        );
+                    } catch (NotFoundException $e) {
+                        continue;
+                    }
+
                     $newCollectionId = $this->collectionHandler->copyCollection($collection->id, $block->getStatus());
                 } else {
-                    $newCollectionId = $collectionReference->collectionId;
+                    try {
+                        $collection = $this->collectionHandler->loadCollection(
+                            $collectionReference->collectionId,
+                            Collection::STATUS_PUBLISHED
+                        );
+                    } catch (NotFoundException $e) {
+                        continue;
+                    }
+
+                    $newCollectionId = $collection->id;
                 }
 
                 $this->blockHandler->addCollectionToBlock(
@@ -344,7 +358,19 @@ class BlockService implements BlockServiceInterface
                 );
 
                 if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
-                    $this->collectionHandler->deleteCollection($collectionReference->collectionId, $block->getStatus());
+                    try {
+                        $collection = $this->collectionHandler->loadCollection(
+                            $collectionReference->collectionId,
+                            $block->getStatus()
+                        );
+                    } catch (NotFoundException $e) {
+                        continue;
+                    }
+
+                    $this->collectionHandler->deleteCollection(
+                        $collection->id,
+                        $block->getStatus()
+                    );
                 }
             }
 

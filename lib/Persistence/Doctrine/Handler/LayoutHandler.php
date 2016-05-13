@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Doctrine\DBAL\Connection;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
@@ -323,13 +324,31 @@ class LayoutHandler implements LayoutHandlerInterface
             foreach ($collectionsData as $collectionsDataRow) {
                 if (!isset($collectionIdMapping[$collectionsDataRow['collection_id']])) {
                     if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'])) {
+                        try {
+                            $collection = $this->collectionHandler->loadCollection(
+                                $collectionsDataRow['collection_id'],
+                                $collectionsDataRow['status']
+                            );
+                        } catch (NotFoundException $e) {
+                            continue;
+                        }
+
                         $copiedCollectionId = $this->collectionHandler->copyCollection(
-                            $collectionsDataRow['collection_id']
+                            $collection->id
                         );
 
                         $collectionIdMapping[$collectionsDataRow['collection_id']] = $copiedCollectionId;
                     } else {
-                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $collectionsDataRow['collection_id'];
+                        try {
+                            $collection = $this->collectionHandler->loadCollection(
+                                $collectionsDataRow['collection_id'],
+                                Collection::STATUS_PUBLISHED
+                            );
+                        } catch (NotFoundException $e) {
+                            continue;
+                        }
+
+                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $collection->id;
                     }
                 }
 
@@ -407,11 +426,43 @@ class LayoutHandler implements LayoutHandlerInterface
                 $collectionsData = $this->loadBlockCollectionsData($blockDataRow['id'], $status);
                 foreach ($collectionsData as $collectionsDataRow) {
                     if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'])) {
+                        try {
+                            $this->collectionHandler->loadCollection(
+                                $collectionsDataRow['collection_id'],
+                                $status
+                            );
+                        } catch (NotFoundException $e) {
+                            continue;
+                        }
+
+                        try {
+                            $this->collectionHandler->loadCollection(
+                                $collectionsDataRow['collection_id'],
+                                $newStatus
+                            );
+
+                            $this->collectionHandler->deleteCollection(
+                                $collectionsDataRow['collection_id'],
+                                $newStatus
+                            );
+                        } catch (NotFoundException $e) {
+                            // Do nothing
+                        }
+
                         $this->collectionHandler->createCollectionStatus(
                             $collectionsDataRow['collection_id'],
                             $status,
                             $newStatus
                         );
+                    } {
+                        try {
+                            $this->collectionHandler->loadCollection(
+                                $collectionsDataRow['collection_id'],
+                                Collection::STATUS_PUBLISHED
+                            );
+                        } catch (NotFoundException $e) {
+                            continue;
+                        }
                     }
 
                     $this->blockHandler->addCollectionToBlock(

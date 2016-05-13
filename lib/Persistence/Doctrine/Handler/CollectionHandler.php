@@ -230,7 +230,11 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function isNamedCollection($collectionId)
     {
-        $data = $this->loadCollectionData($collectionId);
+        try {
+            $data = $this->loadCollectionData($collectionId);
+        } catch (NotFoundException $e) {
+            return false;
+        }
 
         return (int)$data[0]['type'] === Collection::TYPE_NAMED;
     }
