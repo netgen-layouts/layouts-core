@@ -33,16 +33,6 @@ class BlockParamConverter extends ParamConverter
     }
 
     /**
-     * Returns source status attribute name.
-     *
-     * @return string
-     */
-    public function getSourceStatusStatusName()
-    {
-        return 'block_status';
-    }
-
-    /**
      * Returns destination attribute name.
      *
      * @return string

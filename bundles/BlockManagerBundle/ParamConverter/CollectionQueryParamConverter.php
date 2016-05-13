@@ -33,16 +33,6 @@ class CollectionQueryParamConverter extends ParamConverter
     }
 
     /**
-     * Returns source status attribute name.
-     *
-     * @return string
-     */
-    public function getSourceStatusStatusName()
-    {
-        return 'query_status';
-    }
-
-    /**
      * Returns destination attribute name.
      *
      * @return string

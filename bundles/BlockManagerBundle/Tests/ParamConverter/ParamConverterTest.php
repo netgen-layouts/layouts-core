@@ -36,7 +36,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
-        $request->attributes->set('status', Layout::STATUS_DRAFT);
+        $request->attributes->set('_ngbm_value_status', Layout::STATUS_DRAFT);
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 

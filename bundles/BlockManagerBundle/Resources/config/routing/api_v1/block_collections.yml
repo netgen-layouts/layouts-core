@@ -2,70 +2,61 @@ netgen_block_manager_api_v1_load_block_collections:
     path: /blocks/{block_id}/collections
     methods: [GET]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:loadCollections"
 
 netgen_block_manager_api_v1_load_block_collection:
     path: /blocks/{block_id}/collections/{collection_id}
     methods: [GET]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:loadCollection"
 
 netgen_block_manager_api_v1_load_block_collection_items:
     path: /blocks/{block_id}/collections/{collection_id}/items
     methods: [GET]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:loadCollectionItems"
 
 netgen_block_manager_api_v1_load_block_collection_queries:
     path: /blocks/{block_id}/collections/{collection_id}/queries
     methods: [GET]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:loadCollectionQueries"
 
 netgen_block_manager_api_v1_load_block_collection_item:
     path: /blocks/{block_id}/collections/{collection_id}/items/{item_id}
     methods: [GET]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:loadItem"
 
 netgen_block_manager_api_v1_add_block_collection_item:
     path: /blocks/{block_id}/collections/{collection_id}/items
     methods: [POST]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:addItem"
 
 netgen_block_manager_api_v1_move_block_collection_item:
     path: /blocks/{block_id}/collections/{collection_id}/items/{item_id}/move
     methods: [PATCH]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:moveItem"
 
 netgen_block_manager_api_v1_delete_block_collection_item:
     path: /blocks/{block_id}/collections/{collection_id}/items/{item_id}
     methods: [DELETE]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:deleteItem"
 
 netgen_block_manager_api_v1_load_block_collection_query:
     path: /blocks/{block_id}/collections/{collection_id}/queries/{query_id}
     methods: [GET]
     defaults:
-        block_status: 0
-        collection_status: 1
+        _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.block_collection:loadQuery"
