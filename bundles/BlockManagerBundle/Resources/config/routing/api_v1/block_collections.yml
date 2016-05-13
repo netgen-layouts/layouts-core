@@ -1,9 +1,16 @@
-netgen_block_manager_api_v1_load_block_collection_references:
+netgen_block_manager_api_v1_load_block_named_collections:
+    path: /blocks/{block_id}/collections/named
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.block_collection:loadNamedCollections"
+
+netgen_block_manager_api_v1_load_block_collections:
     path: /blocks/{block_id}/collections
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.block_collection:loadCollectionReferences"
+        _controller: "netgen_block_manager.controller.api.block_collection:loadCollections"
 
 netgen_block_manager_api_v1_load_block_collection:
     path: /blocks/{block_id}/collections/{collection_id}

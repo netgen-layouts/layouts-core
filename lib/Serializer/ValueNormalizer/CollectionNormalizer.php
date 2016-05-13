@@ -3,10 +3,12 @@
 namespace Netgen\BlockManager\Serializer\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
-class CollectionNormalizer implements NormalizerInterface
+class CollectionNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -22,10 +24,22 @@ class CollectionNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
         $collection = $object->getValue();
 
+        $manualItems = array();
+        foreach ($collection->getManualItems() as $manualItem) {
+            $manualItems[] = new VersionedValue($manualItem, $object->getVersion());
+        }
+
+        $overrideItems = array();
+        foreach ($collection->getOverrideItems() as $overrideItem) {
+            $overrideItems[] = new VersionedValue($overrideItem, $object->getVersion());
+        }
+
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'name' => $collection->getName(),
+            'manual_items' => $this->serializer->normalize(new ValueArray($manualItems)),
+            'override_items' => $this->serializer->normalize(new ValueArray($overrideItems)),
         );
     }
 

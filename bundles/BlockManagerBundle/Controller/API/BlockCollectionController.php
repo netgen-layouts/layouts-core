@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -59,22 +58,41 @@ class BlockCollectionController extends Controller
     }
 
     /**
-     * Loads all block collection references.
+     * Loads all block collections.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function loadCollectionReferences(Block $block)
+    public function loadCollections(Block $block)
     {
-        $collectionReferences = array_map(
-            function (CollectionReference $collection) {
+        $collections = array_map(
+            function (Collection $collection) {
                 return new VersionedValue($collection, self::API_VERSION);
             },
-            $this->blockService->loadCollectionReferences($block)
+            $this->loadBlockCollections($block, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))
         );
 
-        return new ValueArray($collectionReferences);
+        return new ValueArray($collections);
+    }
+
+    /**
+     * Loads all named collections attached to block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function loadNamedCollections(Block $block)
+    {
+        $collections = array_map(
+            function (Collection $collection) {
+                return new VersionedValue($collection, self::API_VERSION);
+            },
+            $this->loadBlockCollections($block, array(Collection::TYPE_NAMED))
+        );
+
+        return new ValueArray($collections);
     }
 
     /**
@@ -230,5 +248,32 @@ class BlockCollectionController extends Controller
     public function loadQuery(Block $block, Collection $collection, Query $query)
     {
         return new VersionedValue($query, self::API_VERSION);
+    }
+
+    /**
+     * Loads all block collections.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $types
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
+     */
+    protected function loadBlockCollections(Block $block, array $types = array())
+    {
+        $collections = array();
+        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionService->loadCollection(
+                $collectionReference->getCollectionId(),
+                $collectionReference->getCollectionStatus()
+            );
+
+            if (in_array($collection->getType(), $types)) {
+                $collections[] = $collection;
+            }
+        }
+
+        return $collections;
     }
 }
