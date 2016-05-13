@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
@@ -320,42 +318,25 @@ class LayoutHandler implements LayoutHandlerInterface
         $collectionIdMapping = array();
 
         foreach ($blockIdMapping as $oldBlockId => $newBlockId) {
-            $collectionsData = $this->loadBlockCollectionsData($oldBlockId);
+            $collectionsData = $this->loadCollectionReferencesData($oldBlockId);
             foreach ($collectionsData as $collectionsDataRow) {
                 if (!isset($collectionIdMapping[$collectionsDataRow['collection_id']])) {
-                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'])) {
-                        try {
-                            $collection = $this->collectionHandler->loadCollection(
-                                $collectionsDataRow['collection_id'],
-                                $collectionsDataRow['status']
-                            );
-                        } catch (NotFoundException $e) {
-                            continue;
-                        }
-
+                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
                         $copiedCollectionId = $this->collectionHandler->copyCollection(
-                            $collection->id
+                            $collectionsDataRow['collection_id']
                         );
 
                         $collectionIdMapping[$collectionsDataRow['collection_id']] = $copiedCollectionId;
                     } else {
-                        try {
-                            $collection = $this->collectionHandler->loadCollection(
-                                $collectionsDataRow['collection_id'],
-                                Collection::STATUS_PUBLISHED
-                            );
-                        } catch (NotFoundException $e) {
-                            continue;
-                        }
-
-                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $collection->id;
+                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $collectionsDataRow['collection_id'];
                     }
                 }
 
                 $this->blockHandler->addCollectionToBlock(
                     $newBlockId,
-                    $collectionsDataRow['status'],
+                    $collectionsDataRow['block_status'],
                     $collectionIdMapping[$collectionsDataRow['collection_id']],
+                    $collectionsDataRow['collection_status'],
                     $collectionsDataRow['identifier'],
                     $collectionsDataRow['start'],
                     $collectionsDataRow['length']
@@ -423,18 +404,9 @@ class LayoutHandler implements LayoutHandlerInterface
 
                 $blockQuery->execute();
 
-                $collectionsData = $this->loadBlockCollectionsData($blockDataRow['id'], $status);
+                $collectionsData = $this->loadCollectionReferencesData($blockDataRow['id'], $status);
                 foreach ($collectionsData as $collectionsDataRow) {
-                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'])) {
-                        try {
-                            $this->collectionHandler->loadCollection(
-                                $collectionsDataRow['collection_id'],
-                                $status
-                            );
-                        } catch (NotFoundException $e) {
-                            continue;
-                        }
-
+                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
                         try {
                             $this->collectionHandler->loadCollection(
                                 $collectionsDataRow['collection_id'],
@@ -454,21 +426,17 @@ class LayoutHandler implements LayoutHandlerInterface
                             $status,
                             $newStatus
                         );
-                    } {
-                        try {
-                            $this->collectionHandler->loadCollection(
-                                $collectionsDataRow['collection_id'],
-                                Collection::STATUS_PUBLISHED
-                            );
-                        } catch (NotFoundException $e) {
-                            continue;
-                        }
+
+                        $newCollectionStatus = $newStatus;
+                    } else {
+                        $newCollectionStatus = $collectionsDataRow['collection_status'];
                     }
 
                     $this->blockHandler->addCollectionToBlock(
                         $blockDataRow['id'],
                         $newStatus,
                         $collectionsDataRow['collection_id'],
+                        $newCollectionStatus,
                         $collectionsDataRow['identifier'],
                         $collectionsDataRow['start'],
                         $collectionsDataRow['length']
@@ -491,48 +459,42 @@ class LayoutHandler implements LayoutHandlerInterface
         // First delete all non named collections
 
         $query = $this->queryHelper->getQuery();
-        $query->select('bc.collection_id')
+        $query->select('bc.block_id', 'bc.block_status', 'bc.collection_id', 'collection_status')
             ->from('ngbm_block_collection', 'bc')
-            ->innerJoin('bc', 'ngbm_block', 'b', 'bc.block_id = b.id and bc.status = b.status')
+            ->innerJoin('bc', 'ngbm_block', 'b', 'bc.block_id = b.id and bc.block_status = b.status')
             ->where(
                 $query->expr()->eq('b.layout_id', ':layout_id')
             )
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status, 'bc.status');
+            $this->queryHelper->applyStatusCondition($query, $status, 'bc.block_status');
         }
 
         $collectionData = $query->execute()->fetchAll();
+        foreach ($collectionData as $collectionDataRow) {
+            $query = $this->queryHelper->getQuery();
+            $query
+                ->delete('ngbm_block_collection')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('block_id', ':block_id'),
+                        $query->expr()->eq('block_status', ':block_status'),
+                        $query->expr()->eq('collection_id', ':collection_id'),
+                        $query->expr()->eq('collection_status', ':collection_status')
+                    )
+                )
+                ->setParameter('block_id', $collectionDataRow['block_id'], Type::INTEGER)
+                ->setParameter('block_status', $collectionDataRow['block_status'], Type::INTEGER)
+                ->setParameter('collection_id', $collectionDataRow['collection_id'], Type::INTEGER)
+                ->setParameter('collection_status', $collectionDataRow['collection_status'], Type::INTEGER);
 
-        $collectionIds = array_map(
-            function (array $collectionDataRow) {
-                return $collectionDataRow['collection_id'];
-            },
-            $collectionData
-        );
+            $query->execute();
 
-        $collectionIds = array_values(array_unique($collectionIds));
-
-        foreach ($collectionIds as $collectionId) {
-            if (!$this->collectionHandler->isNamedCollection($collectionId)) {
-                $this->collectionHandler->deleteCollection($collectionId, $status);
+            if (!$this->collectionHandler->isNamedCollection($collectionDataRow['collection_id'], $collectionDataRow['collection_status'])) {
+                $this->collectionHandler->deleteCollection($collectionDataRow['collection_id'], $collectionDataRow['collection_status']);
             }
         }
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->delete('ngbm_block_collection')
-            ->where(
-                $query->expr()->in('collection_id', array(':collection_ids'))
-            )
-            ->setParameter('collection_ids', $collectionIds, Connection::PARAM_INT_ARRAY);
-
-        if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
-        }
-
-        $query->execute();
 
         // Then delete all blocks
 
@@ -680,17 +642,17 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
-     * Loads all data for collections in specified block.
+     * Loads all data for collection references in specified block.
      *
      * @param int|string $blockId
      * @param int $status
      *
      * @return array
      */
-    protected function loadBlockCollectionsData($blockId, $status = null)
+    protected function loadCollectionReferencesData($blockId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('block_id', 'status', 'collection_id', 'identifier', 'start', 'length')
+        $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier', 'start', 'length')
             ->from('ngbm_block_collection')
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
@@ -698,8 +660,8 @@ class LayoutHandler implements LayoutHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
+            $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
+            $query->addOrderBy('block_status', 'ASC');
         }
 
         $data = $query->execute()->fetchAll();

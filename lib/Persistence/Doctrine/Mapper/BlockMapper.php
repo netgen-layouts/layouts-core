@@ -56,8 +56,9 @@ class BlockMapper
             $collectionReferences[] = new CollectionReference(
                 array(
                     'blockId' => (int)$dataItem['block_id'],
-                    'status' => (int)$dataItem['status'],
+                    'blockStatus' => (int)$dataItem['block_status'],
                     'collectionId' => (int)$dataItem['collection_id'],
+                    'collectionStatus' => (int)$dataItem['collection_status'],
                     'identifier' => $dataItem['identifier'],
                     'offset' => (int)$dataItem['start'],
                     'limit' => $dataItem['length'] !== null ? (int)$dataItem['length'] : null,

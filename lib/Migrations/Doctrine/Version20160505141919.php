@@ -12,20 +12,6 @@ class Version20160505141919 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        // ngbm_block_collection table
-
-        $blockCollectionTable = $schema->createTable('ngbm_block_collection');
-
-        $blockCollectionTable->addColumn('block_id', 'integer');
-        $blockCollectionTable->addColumn('status', 'integer');
-        $blockCollectionTable->addColumn('collection_id', 'integer');
-        $blockCollectionTable->addColumn('identifier', 'string', array('length' => 255));
-        $blockCollectionTable->addColumn('start', 'integer');
-        $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
-
-        $blockCollectionTable->setPrimaryKey(array('block_id', 'status', 'collection_id'));
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', array('block_id', 'status'), array('id', 'status'));
-
         // ngbm_collection table
 
         $collectionTable = $schema->createTable('ngbm_collection');
@@ -66,6 +52,22 @@ class Version20160505141919 extends AbstractMigration
 
         $collectionQueryTable->setPrimaryKey(array('id', 'status'));
         $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
+
+        // ngbm_block_collection table
+
+        $blockCollectionTable = $schema->createTable('ngbm_block_collection');
+
+        $blockCollectionTable->addColumn('block_id', 'integer');
+        $blockCollectionTable->addColumn('block_status', 'integer');
+        $blockCollectionTable->addColumn('collection_id', 'integer');
+        $blockCollectionTable->addColumn('collection_status', 'integer');
+        $blockCollectionTable->addColumn('identifier', 'string', array('length' => 255));
+        $blockCollectionTable->addColumn('start', 'integer');
+        $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
+
+        $blockCollectionTable->setPrimaryKey(array('block_id', 'block_status', 'collection_id', 'collection_status'));
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', array('block_id', 'block_status'), array('id', 'status'));
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'collection_status'), array('id', 'status'));
     }
 
     /**

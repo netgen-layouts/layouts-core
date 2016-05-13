@@ -16,7 +16,7 @@ interface CollectionReference
      *
      * @return int
      */
-    public function getStatus();
+    public function getBlockStatus();
 
     /**
      * Returns the collection ID.
@@ -24,6 +24,13 @@ interface CollectionReference
      * @return int|string
      */
     public function getCollectionId();
+
+    /**
+     * Returns the collection status.
+     *
+     * @return int|string
+     */
+    public function getCollectionStatus();
 
     /**
      * Returns the configuration identifier.

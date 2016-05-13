@@ -46,15 +46,6 @@ CREATE TABLE "ngbm_block" (
   "parameters" text NOT NULL
 );
 
-CREATE TABLE "ngbm_block_collection" (
-  "block_id" integer NOT NULL,
-  "status" integer NOT NULL,
-  "collection_id" integer NOT NULL,
-  "identifier" character varying(255) NOT NULL,
-  "start" integer NOT NULL,
-  "length" integer
-);
-
 CREATE TABLE "ngbm_collection" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
@@ -80,6 +71,16 @@ CREATE TABLE "ngbm_collection_query" (
   "identifier" character varying(255) NOT NULL,
   "type" character varying(255) NOT NULL,
   "parameters" text NOT NULL
+);
+
+CREATE TABLE "ngbm_block_collection" (
+  "block_id" integer NOT NULL,
+  "block_status" integer NOT NULL,
+  "collection_id" integer NOT NULL,
+  "collection_status" integer NOT NULL,
+  "identifier" character varying(255) NOT NULL,
+  "start" integer NOT NULL,
+  "length" integer
 );
 
 CREATE TABLE "ngbm_rule" (
@@ -115,9 +116,6 @@ ALTER TABLE ONLY ngbm_block ALTER COLUMN id SET DEFAULT nextval('ngbm_block_id_s
 ALTER TABLE ONLY ngbm_block ADD CONSTRAINT ngbm_block_pkey PRIMARY KEY ("id", "status");
 ALTER TABLE ONLY ngbm_block ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");
 
-ALTER TABLE ONLY ngbm_block_collection ADD CONSTRAINT ngbm_block_collection_pkey PRIMARY KEY ("block_id", "status", "collection_id");
-ALTER TABLE ONLY ngbm_block_collection ADD FOREIGN KEY ("block_id", "status") REFERENCES ngbm_block ("id", "status");
-
 CREATE SEQUENCE ngbm_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_collection ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_id_seq'::regclass);
 
@@ -134,6 +132,10 @@ ALTER TABLE ONLY ngbm_collection_query ALTER COLUMN id SET DEFAULT nextval('ngbm
 
 ALTER TABLE ONLY ngbm_collection_query ADD CONSTRAINT ngbm_collection_query_pkey PRIMARY KEY ("id", "status");
 ALTER TABLE ONLY ngbm_collection_query ADD FOREIGN KEY ("collection_id", "status") REFERENCES ngbm_collection ("id", "status");
+
+ALTER TABLE ONLY ngbm_block_collection ADD CONSTRAINT ngbm_block_collection_pkey PRIMARY KEY ("block_id", "block_status", "collection_id", "collection_status");
+ALTER TABLE ONLY ngbm_block_collection ADD FOREIGN KEY ("block_id", "block_status") REFERENCES ngbm_block ("id", "status");
+ALTER TABLE ONLY ngbm_block_collection ADD FOREIGN KEY ("collection_id", "collection_status") REFERENCES ngbm_collection ("id", "status");
 
 CREATE SEQUENCE ngbm_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_rule ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_id_seq'::regclass);

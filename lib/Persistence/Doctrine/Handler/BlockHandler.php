@@ -133,17 +133,17 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
      */
-    public function loadBlockCollections($blockId, $status)
+    public function loadCollectionReferences($blockId, $status)
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('block_id', 'status', 'collection_id', 'identifier', 'start', 'length')
+        $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier', 'start', 'length')
             ->from('ngbm_block_collection')
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
             )
             ->setParameter('block_id', $blockId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
 
         $data = $query->execute()->fetchAll();
         if (empty($data)) {
@@ -385,6 +385,36 @@ class BlockHandler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
+        $collectionReferences = $this->loadCollectionReferences(
+            $blockId,
+            $status
+        );
+
+        // Delete all connections between blocks and collections
+
+        $query = $this->queryHelper->getQuery();
+        $query
+            ->delete('ngbm_block_collection')
+            ->where(
+                $query->expr()->eq('block_id', ':block_id')
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
+        }
+
+        $query->execute();
+
+        foreach ($collectionReferences as $collectionReference) {
+            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId, $collectionReference->collectionStatus)) {
+                $this->collectionHandler->deleteCollection(
+                    $collectionReference->collectionId,
+                    $collectionReference->collectionStatus
+                );
+            }
+        }
+
         $query = $this->queryHelper->getQuery();
 
         $query->delete('ngbm_block')
@@ -405,36 +435,6 @@ class BlockHandler implements BlockHandlerInterface
             ),
             $block->position
         );
-    }
-
-    /**
-     * Returns if collection with provided ID already exists in the block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     * @param int|string $collectionId
-     *
-     * @return bool
-     */
-    public function collectionExists($blockId, $status, $collectionId)
-    {
-        $query = $this->queryHelper->getQuery();
-        $query->select('count(*) AS count')
-            ->from('ngbm_block_collection')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('collection_id', ':collection_id')
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
     /**
@@ -460,7 +460,7 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
 
         $data = $query->execute()->fetchAll();
 
@@ -471,13 +471,14 @@ class BlockHandler implements BlockHandlerInterface
      * Adds the collection to the block.
      *
      * @param int|string $blockId
-     * @param int $status
+     * @param int $blockStatus
      * @param int|string $collectionId
+     * @param int $collectionStatus
      * @param string $identifier
      * @param int $offset
      * @param int $limit
      */
-    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier, $offset = 0, $limit = null)
+    public function addCollectionToBlock($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -485,16 +486,18 @@ class BlockHandler implements BlockHandlerInterface
             ->values(
                 array(
                     'block_id' => ':block_id',
-                    'status' => ':status',
+                    'block_status' => ':block_status',
                     'collection_id' => ':collection_id',
+                    'collection_status' => ':collection_status',
                     'identifier' => ':identifier',
                     'start' => ':start',
                     'length' => ':length',
                 )
             )
             ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('block_status', $blockStatus, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
+            ->setParameter('collection_status', $collectionStatus, Type::INTEGER)
             ->setParameter('identifier', $identifier, Type::STRING)
             ->setParameter('start', $offset, Type::INTEGER)
             ->setParameter('length', $limit, Type::INTEGER);
@@ -506,10 +509,11 @@ class BlockHandler implements BlockHandlerInterface
      * Removes the collection from the block.
      *
      * @param int|string $blockId
-     * @param int $status
+     * @param int $blockStatus
      * @param int|string $collectionId
+     * @param int $collectionStatus
      */
-    public function removeCollectionFromBlock($blockId, $status, $collectionId)
+    public function removeCollectionFromBlock($blockId, $blockStatus, $collectionId, $collectionStatus)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -523,7 +527,8 @@ class BlockHandler implements BlockHandlerInterface
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $blockStatus, 'block_status');
+        $this->queryHelper->applyStatusCondition($query, $collectionStatus, 'collection_status');
 
         $query->execute();
     }

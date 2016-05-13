@@ -315,7 +315,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZoneBlocksData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadBlockCollectionsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadCollectionReferencesData
      */
     public function testCopyLayout()
     {
@@ -415,22 +415,22 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(6, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(6, Layout::STATUS_DRAFT);
         self::assertCount(2, $draftReferences);
         self::assertContains($draftReferences[0]->collectionId, array(3, 4));
         self::assertContains($draftReferences[1]->collectionId, array(3, 4));
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(6, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(6, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $draftReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(3, 5));
         self::assertContains($publishedReferences[1]->collectionId, array(3, 5));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(7, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_DRAFT);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $draftReferences[0]->collectionId);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(7, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_PUBLISHED);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
@@ -440,7 +440,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZoneBlocksData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadBlockCollectionsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadCollectionReferencesData
      */
     public function testCreateLayoutStatus()
     {
@@ -539,13 +539,13 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(2, Collection::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
-        $archivedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_ARCHIVED);
+        $archivedReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_ARCHIVED);
         self::assertCount(2, $archivedReferences);
         self::assertContains($archivedReferences[0]->collectionId, array(2, 3));
         self::assertContains($archivedReferences[1]->collectionId, array(2, 3));
 
         // Second block
-        $archivedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_ARCHIVED);
+        $archivedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_ARCHIVED);
         self::assertCount(1, $archivedReferences);
         self::assertEquals(3, $archivedReferences[0]->collectionId);
     }
@@ -578,17 +578,17 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_PUBLISHED);
         self::assertEmpty($publishedReferences);
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_PUBLISHED);
         self::assertEmpty($publishedReferences);
     }
 
@@ -623,19 +623,19 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(1, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $publishedReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(2, 3));
         self::assertContains($publishedReferences[1]->collectionId, array(2, 3));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_DRAFT);
         self::assertEmpty($draftReferences);
 
-        $publishedReferences = $this->blockHandler->loadBlockCollections(2, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_PUBLISHED);
         self::assertCount(1, $publishedReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }

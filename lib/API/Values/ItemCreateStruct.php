@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\API\Values\Value;
-
 class ItemCreateStruct extends Value
 {
     /**

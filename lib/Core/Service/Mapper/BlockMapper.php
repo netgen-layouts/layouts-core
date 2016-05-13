@@ -45,8 +45,9 @@ class BlockMapper extends Mapper
         return new CollectionReference(
             array(
                 'blockId' => $collectionReference->blockId,
-                'status' => $collectionReference->status,
+                'blockStatus' => $collectionReference->blockStatus,
                 'collectionId' => $collectionReference->collectionId,
+                'collectionStatus' => $collectionReference->collectionStatus,
                 'identifier' => $collectionReference->identifier,
                 'offset' => $collectionReference->offset,
                 'limit' => $collectionReference->limit,

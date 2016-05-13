@@ -44,18 +44,6 @@ CREATE TABLE `ngbm_block` (
     REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_block_collection` (
-  `block_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `collection_id` int(11) NOT NULL,
-  `identifier` varchar(255) NOT NULL,
-  `start` int(11) NOT NULL,
-  `length` int(11),
-  PRIMARY KEY (`block_id`, `status`, `collection_id`),
-  FOREIGN KEY (`block_id`, `status`)
-    REFERENCES ngbm_block (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -87,6 +75,21 @@ CREATE TABLE `ngbm_collection_query` (
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES ngbm_collection (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_block_collection` (
+  `block_id` int(11) NOT NULL,
+  `block_status` int(11) NOT NULL,
+  `collection_id` int(11) NOT NULL,
+  `collection_status` int(11) NOT NULL,
+  `identifier` varchar(255) NOT NULL,
+  `start` int(11) NOT NULL,
+  `length` int(11),
+  PRIMARY KEY (`block_id`, `block_status`, `collection_id`, `collection_status`),
+  FOREIGN KEY (`block_id`, `block_status`)
+    REFERENCES ngbm_block (`id`, `status`),
+  FOREIGN KEY (`collection_id`, `collection_status`)
     REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

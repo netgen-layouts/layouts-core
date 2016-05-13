@@ -94,7 +94,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'sources',
             'layouts',
             'block_types',
-            'block_type_groups'
+            'block_type_groups',
         );
 
         foreach ($config as $key => $value) {
@@ -102,11 +102,12 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 continue;
             }
 
-            foreach ($config[$key] as $identifier => $configValue)
-            $container->setParameter(
+            foreach ($config[$key] as $identifier => $configValue) {
+                $container->setParameter(
                 $extensionAlias . '.' . $key . '.' . $identifier,
                 $configValue
             );
+            }
         }
     }
 

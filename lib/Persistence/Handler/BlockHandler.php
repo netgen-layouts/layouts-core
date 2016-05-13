@@ -38,7 +38,7 @@ interface BlockHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
      */
-    public function loadBlockCollections($blockId, $status);
+    public function loadCollectionReferences($blockId, $status);
 
     /**
      * Creates a block in specified layout and zone.
@@ -113,17 +113,6 @@ interface BlockHandler
     public function deleteBlock($blockId, $status);
 
     /**
-     * Returns if collection with provided ID already exists in the block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     * @param int|string $collectionId
-     *
-     * @return bool
-     */
-    public function collectionExists($blockId, $status, $collectionId);
-
-    /**
      * Returns if provided collection identifier already exists in the block.
      *
      * @param int|string $blockId
@@ -138,20 +127,22 @@ interface BlockHandler
      * Adds the collection to the block.
      *
      * @param int|string $blockId
-     * @param int $status
+     * @param int $blockStatus
      * @param int|string $collectionId
+     * @param int $collectionStatus
      * @param string $identifier
      * @param int $offset
      * @param int $limit
      */
-    public function addCollectionToBlock($blockId, $status, $collectionId, $identifier, $offset = 0, $limit = null);
+    public function addCollectionToBlock($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null);
 
     /**
      * Removes the collection from the block.
      *
      * @param int|string $blockId
-     * @param int $status
+     * @param int $blockStatus
      * @param int|string $collectionId
+     * @param int $collectionStatus
      */
-    public function removeCollectionFromBlock($blockId, $status, $collectionId);
+    public function removeCollectionFromBlock($blockId, $blockStatus, $collectionId, $collectionStatus);
 }

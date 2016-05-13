@@ -33,14 +33,6 @@ return array(
         array('id' => 5, 'status' => 0, 'layout_id' => 1, 'zone_identifier' => 'top_right', 'position' => 2, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
         array('id' => 5, 'status' => 1, 'layout_id' => 1, 'zone_identifier' => 'top_right', 'position' => 2, 'definition_identifier' => 'title', 'view_type' => 'small', 'name' => 'My fourth block', 'parameters' => '{"the_answer": 42}'),
     ),
-    'ngbm_block_collection' => array(
-        array('block_id' => 1, 'status' => 0, 'collection_id' => 1, 'identifier' => 'default', 'start' => 0, 'length' => null),
-        array('block_id' => 1, 'status' => 0, 'collection_id' => 3, 'identifier' => 'featured', 'start' => 0, 'length' => null),
-        array('block_id' => 1, 'status' => 1, 'collection_id' => 2, 'identifier' => 'default', 'start' => 0, 'length' => null),
-        array('block_id' => 1, 'status' => 1, 'collection_id' => 3, 'identifier' => 'featured', 'start' => 0, 'length' => null),
-        array('block_id' => 2, 'status' => 0, 'collection_id' => 3, 'identifier' => 'default', 'start' => 0, 'length' => null),
-        array('block_id' => 2, 'status' => 1, 'collection_id' => 3, 'identifier' => 'default', 'start' => 0, 'length' => null),
-    ),
     'ngbm_collection' => array(
         array('id' => 1, 'status' => 0, 'type' => 0, 'name' => null),
         array('id' => 2, 'status' => 1, 'type' => 1, 'name' => null),
@@ -71,6 +63,14 @@ return array(
         array('id' => 2, 'status' => 1, 'collection_id' => 3, 'position' => 0, 'identifier' => 'default', 'type' => 'ezcontent_search', 'parameters' => '{"param": "value"}'),
         array('id' => 3, 'status' => 0, 'collection_id' => 3, 'position' => 1, 'identifier' => 'featured', 'type' => 'ezcontent_search', 'parameters' => '{"param": "value"}'),
         array('id' => 3, 'status' => 1, 'collection_id' => 3, 'position' => 1, 'identifier' => 'featured', 'type' => 'ezcontent_search', 'parameters' => '{"param": "value"}'),
+    ),
+    'ngbm_block_collection' => array(
+        array('block_id' => 1, 'block_status' => 0, 'collection_id' => 1, 'collection_status' => 0, 'identifier' => 'default', 'start' => 0, 'length' => null),
+        array('block_id' => 1, 'block_status' => 0, 'collection_id' => 3, 'collection_status' => 1, 'identifier' => 'featured', 'start' => 0, 'length' => null),
+        array('block_id' => 1, 'block_status' => 1, 'collection_id' => 2, 'collection_status' => 1, 'identifier' => 'default', 'start' => 0, 'length' => null),
+        array('block_id' => 1, 'block_status' => 1, 'collection_id' => 3, 'collection_status' => 1, 'identifier' => 'featured', 'start' => 0, 'length' => null),
+        array('block_id' => 2, 'block_status' => 0, 'collection_id' => 3, 'collection_status' => 1, 'identifier' => 'default', 'start' => 0, 'length' => null),
+        array('block_id' => 2, 'block_status' => 1, 'collection_id' => 3, 'collection_status' => 1, 'identifier' => 'default', 'start' => 0, 'length' => null),
     ),
     'ngbm_rule' => array(
         array('id' => 1, 'layout_id' => 1, 'target_identifier' => 'route'),

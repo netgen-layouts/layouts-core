@@ -23,7 +23,7 @@ class CollectionCreateStructTest extends \PHPUnit_Framework_TestCase
                 'status' => Collection::STATUS_PUBLISHED,
             )
         );
-        
+
         self::assertEquals('My collection', $collectionCreateStruct->name);
         self::assertEquals(Collection::STATUS_PUBLISHED, $collectionCreateStruct->status);
     }

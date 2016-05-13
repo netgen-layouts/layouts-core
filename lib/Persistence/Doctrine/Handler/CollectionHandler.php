@@ -202,7 +202,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return bool
      */
-    public function collectionExists($collectionId, $status = null)
+    public function collectionExists($collectionId, $status)
     {
         $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
@@ -212,9 +212,7 @@ class CollectionHandler implements CollectionHandlerInterface
             )
             ->setParameter('id', $collectionId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
-        }
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -225,16 +223,13 @@ class CollectionHandler implements CollectionHandlerInterface
      * Returns if collection with specified ID is named.
      *
      * @param int|string $collectionId
+     * @param $status
      *
      * @return bool
      */
-    public function isNamedCollection($collectionId)
+    public function isNamedCollection($collectionId, $status)
     {
-        try {
-            $data = $this->loadCollectionData($collectionId);
-        } catch (NotFoundException $e) {
-            return false;
-        }
+        $data = $this->loadCollectionData($collectionId, $status);
 
         return (int)$data[0]['type'] === Collection::TYPE_NAMED;
     }
@@ -493,6 +488,22 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function deleteCollection($collectionId, $status = null)
     {
+        // Delete all connections between blocks and collections
+
+        $query = $this->queryHelper->getQuery();
+        $query
+            ->delete('ngbm_block_collection')
+            ->where(
+                $query->expr()->eq('collection_id', ':collection_id')
+            )
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status, 'collection_status');
+        }
+
+        $query->execute();
+
         // First delete all items
 
         $query = $this->queryHelper->getQuery();

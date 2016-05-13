@@ -89,12 +89,12 @@ interface LayoutService
     /**
      * Deletes a specified layout.
      *
-     * If $deleteAll is set to true, layout is completely deleted (i.e. all statuses).
+     * If $deleteAllStatuses is set to true, layout is completely deleted.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param bool $deleteAll
+     * @param bool $deleteAllStatuses
      */
-    public function deleteLayout(Layout $layout, $deleteAll = false);
+    public function deleteLayout(Layout $layout, $deleteAllStatuses = false);
 
     /**
      * Creates a new layout create struct.

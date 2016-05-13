@@ -59,22 +59,22 @@ class BlockCollectionController extends Controller
     }
 
     /**
-     * Loads all block collections.
+     * Loads all block collection references.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function loadCollections(Block $block)
+    public function loadCollectionReferences(Block $block)
     {
-        $blockCollections = array_map(
+        $collectionReferences = array_map(
             function (CollectionReference $collection) {
                 return new VersionedValue($collection, self::API_VERSION);
             },
-            $this->blockService->loadBlockCollections($block)
+            $this->blockService->loadCollectionReferences($block)
         );
 
-        return new ValueArray($blockCollections);
+        return new ValueArray($collectionReferences);
     }
 
     /**

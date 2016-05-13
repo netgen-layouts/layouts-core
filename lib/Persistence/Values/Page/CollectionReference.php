@@ -18,7 +18,7 @@ class CollectionReference extends Value
      *
      * @var int
      */
-    public $status;
+    public $blockStatus;
 
     /**
      * Collection ID.
@@ -26,6 +26,13 @@ class CollectionReference extends Value
      * @var int|string
      */
     public $collectionId;
+
+    /**
+     * Collection ID.
+     *
+     * @var int|string
+     */
+    public $collectionStatus;
 
     /**
      * Identifier of the collection reference.

@@ -15,12 +15,17 @@ class CollectionReference extends Value implements APICollectionReference
     /**
      * @var int
      */
-    protected $status;
+    protected $blockStatus;
 
     /**
      * @var int
      */
     protected $collectionId;
+
+    /**
+     * @var int
+     */
+    protected $collectionStatus;
 
     /**
      * @var string
@@ -52,9 +57,9 @@ class CollectionReference extends Value implements APICollectionReference
      *
      * @return int
      */
-    public function getStatus()
+    public function getBlockStatus()
     {
-        return $this->status;
+        return $this->blockStatus;
     }
 
     /**
@@ -65,6 +70,16 @@ class CollectionReference extends Value implements APICollectionReference
     public function getCollectionId()
     {
         return $this->collectionId;
+    }
+
+    /**
+     * Returns the collection status.
+     *
+     * @return int|string
+     */
+    public function getCollectionStatus()
+    {
+        return $this->collectionStatus;
     }
 
     /**

@@ -268,7 +268,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsNamedCollection()
     {
-        self::assertTrue($this->collectionHandler->isNamedCollection(3));
+        self::assertTrue($this->collectionHandler->isNamedCollection(3, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -276,7 +276,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsNamedCollectionReturnsFalse()
     {
-        self::assertFalse($this->collectionHandler->isNamedCollection(2));
+        self::assertFalse($this->collectionHandler->isNamedCollection(2, Collection::STATUS_PUBLISHED));
     }
 
     /**

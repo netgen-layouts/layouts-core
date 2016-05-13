@@ -39,7 +39,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
         );
 
         $templateResolver = new TemplateResolver(
@@ -69,7 +69,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                         'match' => array(),
                     ),
                 ),
-            )
+            ),
         );
 
         $templateResolver = new TemplateResolver(
@@ -101,7 +101,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                         'match' => array(),
                     ),
                 ),
-            )
+            ),
         );
 
         $templateResolver = new TemplateResolver(
@@ -165,7 +165,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
         );
 
         $templateResolver = new TemplateResolver(
@@ -194,7 +194,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
         );
 
         $templateResolver = new TemplateResolver(
@@ -225,7 +225,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
-            )
+            ),
         );
 
         $templateResolver = new TemplateResolver(

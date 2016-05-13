@@ -84,16 +84,17 @@ interface CollectionHandler
      *
      * @return bool
      */
-    public function collectionExists($collectionId, $status = null);
+    public function collectionExists($collectionId, $status);
 
     /**
      * Returns if collection with specified ID is named.
      *
      * @param int|string $collectionId
+     * @param int $status
      *
      * @return bool
      */
-    public function isNamedCollection($collectionId);
+    public function isNamedCollection($collectionId, $status);
 
     /**
      * Returns if named collection exists.

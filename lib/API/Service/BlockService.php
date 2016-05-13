@@ -29,7 +29,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\CollectionReference[]
      */
-    public function loadBlockCollections(Block $block);
+    public function loadCollectionReferences(Block $block);
 
     /**
      * Creates a block in specified layout and zone.

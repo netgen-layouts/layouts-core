@@ -217,26 +217,29 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
      */
     public function testCopyCollection()
     {
+        $collection = $this->collectionService->loadCollection(2);
+        $copiedCollection = $this->collectionService->copyCollection($collection);
+
+        self::assertInstanceOf(Collection::class, $copiedCollection);
+        self::assertEquals(4, $copiedCollection->getId());
+        self::assertNull($copiedCollection->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
+     */
+    public function testCopyNamedCollection()
+    {
         $collection = $this->collectionService->loadCollection(3);
-        $copiedCollection = $this->collectionService->copyNamedCollection($collection);
+        $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
         self::assertEquals(4, $copiedCollection->getId());
         self::assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyNamedCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testCopyNonNamedCollectionThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollection(2);
-        $this->collectionService->copyNamedCollection($collection);
     }
 
     /**
@@ -331,13 +334,13 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
      */
     public function testDeleteCollection()
     {
         $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
 
-        $this->collectionService->deleteNamedCollection($collection);
+        $this->collectionService->deleteCollection($collection);
 
         try {
             $this->collectionService->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
@@ -351,27 +354,16 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
      * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
      */
     public function testDeleteCompleteCollection()
     {
         $collection = $this->collectionService->loadCollection(3);
 
-        $this->collectionService->deleteNamedCollection($collection, true);
+        $this->collectionService->deleteCollection($collection, true);
 
         $this->collectionService->loadCollection($collection->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteNamedCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
-     */
-    public function testDeleteNonNamedCollectionThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollection(2);
-
-        $this->collectionService->deleteNamedCollection($collection, true);
     }
 
     /**

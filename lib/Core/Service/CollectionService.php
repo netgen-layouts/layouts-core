@@ -227,16 +227,10 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
-     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyNamedCollection(Collection $collection)
+    public function copyCollection(Collection $collection)
     {
-        if ($collection->getType() !== Collection::TYPE_NAMED) {
-            throw new BadStateException('collection', 'Only named collections can be copied.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -366,15 +360,9 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param bool $deleteAllStatuses
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
      */
-    public function deleteNamedCollection(Collection $collection, $deleteAllStatuses = false)
+    public function deleteCollection(Collection $collection, $deleteAllStatuses = false)
     {
-        if ($collection->getType() !== Collection::TYPE_NAMED) {
-            throw new BadStateException('collection', 'Only named collections can be copied.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {

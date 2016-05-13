@@ -262,19 +262,19 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Deletes a specified layout.
      *
-     * If $deleteAll is set to true, layout is completely deleted (i.e. all statuses).
+     * If $deleteAllStatuses is set to true, layout is completely deleted.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param bool $deleteAll
      */
-    public function deleteLayout(Layout $layout, $deleteAll = false)
+    public function deleteLayout(Layout $layout, $deleteAllStatuses = false)
     {
         $this->persistenceHandler->beginTransaction();
 
         try {
             $this->layoutHandler->deleteLayout(
                 $layout->getId(),
-                $deleteAll ? null : $layout->getStatus()
+                $deleteAllStatuses ? null : $layout->getStatus()
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

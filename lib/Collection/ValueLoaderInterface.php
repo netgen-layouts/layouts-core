@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
-
 interface ValueLoaderInterface
 {
     /**

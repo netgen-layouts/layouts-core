@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
@@ -159,12 +158,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testDeleteBlock()
     {
         $this->blockHandlerMock
-            ->expects($this->at(0))
-            ->method('loadBlockCollections')
-            ->will($this->returnValue(array()));
-
-        $this->blockHandlerMock
-            ->expects($this->at(1))
+            ->expects($this->once())
             ->method('deleteBlock')
             ->will($this->throwException(new Exception()));
 

@@ -97,10 +97,10 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
      * @expectedException \Exception
      */
-    public function testCopyNamedCollection()
+    public function testCopyCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->once())
@@ -111,7 +111,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->copyNamedCollection(new Collection(array('type' => Collection::TYPE_NAMED)));
+        $this->collectionService->copyCollection(new Collection(array('type' => Collection::TYPE_NAMED)));
     }
 
     /**
@@ -176,10 +176,10 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
      * @expectedException \Exception
      */
-    public function testDeleteNamedCollection()
+    public function testDeleteCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->once())
@@ -190,7 +190,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteNamedCollection(new Collection(array('type' => Collection::TYPE_NAMED)));
+        $this->collectionService->deleteCollection(new Collection(array('type' => Collection::TYPE_NAMED)));
     }
 
     /**

@@ -32,17 +32,6 @@ CREATE TABLE `ngbm_block` (
   PRIMARY KEY (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_block_collection`;
-CREATE TABLE `ngbm_block_collection` (
-  `block_id` integer NOT NULL,
-  `status` integer NOT NULL,
-  `collection_id` integer NOT NULL,
-  `identifier` text(255) NOT NULL,
-  `start` integer NOT NULL,
-  `length` integer DEFAULT NULL,
-  PRIMARY KEY (`block_id`, `status`, `collection_id`)
-);
-
 DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` integer NOT NULL,
@@ -74,6 +63,18 @@ CREATE TABLE `ngbm_collection_query` (
   `type` text(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_block_collection`;
+CREATE TABLE `ngbm_block_collection` (
+  `block_id` integer NOT NULL,
+  `block_status` integer NOT NULL,
+  `collection_id` integer NOT NULL,
+  `collection_status` integer NOT NULL,
+  `identifier` text(255) NOT NULL,
+  `start` integer NOT NULL,
+  `length` integer DEFAULT NULL,
+  PRIMARY KEY (`block_id`, `block_status`, `collection_id`, `collection_status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_rule`;

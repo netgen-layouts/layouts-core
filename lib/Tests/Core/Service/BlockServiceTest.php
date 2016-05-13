@@ -93,11 +93,11 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockCollections
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReferences
      */
-    public function testLoadBlockCollections()
+    public function testLoadCollectionReferences()
     {
-        $collections = $this->blockService->loadBlockCollections(
+        $collections = $this->blockService->loadCollectionReferences(
             $this->blockService->loadBlock(1)
         );
 
@@ -145,12 +145,12 @@ abstract class BlockServiceTest extends ServiceTest
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(2, $secondBlock->getPosition());
 
-        $blockCollections = $this->blockService->loadBlockCollections($block);
-        self::assertCount(1, $blockCollections);
+        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        self::assertCount(1, $collectionReferences);
 
-        self::assertEquals('default', $blockCollections[0]->getIdentifier());
-        self::assertEquals(0, $blockCollections[0]->getOffset());
-        self::assertNull($blockCollections[0]->getLimit());
+        self::assertEquals('default', $collectionReferences[0]->getIdentifier());
+        self::assertEquals(0, $collectionReferences[0]->getOffset());
+        self::assertNull($collectionReferences[0]->getLimit());
 
         $collection = $this->collectionService->loadCollection(4, Layout::STATUS_DRAFT);
         self::assertEquals(Collection::TYPE_MANUAL, $collection->getType());
@@ -501,16 +501,6 @@ abstract class BlockServiceTest extends ServiceTest
 
         $secondBlock = $this->blockService->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->getPosition());
-
-        try {
-            $this->collectionService->loadCollection(1, Layout::STATUS_DRAFT);
-            self::fail('Collection still exists after deleting a block.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        // Verify that named collection still exists
-        $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
     }
 
     /**

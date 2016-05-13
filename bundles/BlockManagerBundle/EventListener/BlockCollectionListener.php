@@ -65,9 +65,9 @@ class BlockCollectionListener implements EventSubscriberInterface
             return;
         }
 
-        $blockCollections = $this->blockService->loadBlockCollections($block);
-        foreach ($blockCollections as $blockCollection) {
-            if ($blockCollection->getCollectionId() === $collection->getId()) {
+        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        foreach ($collectionReferences as $collectionReference) {
+            if ($collectionReference->getCollectionId() === $collection->getId()) {
                 return;
             }
         }

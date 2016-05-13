@@ -87,11 +87,9 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
-     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyNamedCollection(Collection $collection);
+    public function copyCollection(Collection $collection);
 
     /**
      * Creates a new collection status.
@@ -135,10 +133,8 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param bool $deleteAllStatuses
-     *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
      */
-    public function deleteNamedCollection(Collection $collection, $deleteAllStatuses = false);
+    public function deleteCollection(Collection $collection, $deleteAllStatuses = false);
 
     /**
      * Adds an item to collection.
