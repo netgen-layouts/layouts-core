@@ -227,7 +227,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo('updated_query'),
                 array(
-                    new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
                 )
             )
