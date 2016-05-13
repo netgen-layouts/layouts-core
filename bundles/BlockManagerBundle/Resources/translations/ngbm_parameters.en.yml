@@ -6,3 +6,6 @@ block.title.css_class: 'CSS class'
 block.paragraph.content: 'Content'
 block.paragraph.css_id: 'CSS ID'
 block.paragraph.css_class: 'CSS class'
+
+query.ezcontent_search.parent_location_id: 'Parent location'
+query.ezcontent_search.content_types: 'Content types'

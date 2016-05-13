@@ -171,7 +171,6 @@ class CollectionValidator extends Validator
         $this->validate(
             $queryUpdateStruct->identifier,
             array(
-                new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
             ),
             'identifier'

@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.view.provider.block.class: Netgen\BlockManager\View\Provider\BlockViewProvider
     netgen_block_manager.view.provider.layout.class: Netgen\BlockManager\View\Provider\LayoutViewProvider
+    netgen_block_manager.view.provider.query.class: Netgen\BlockManager\View\Provider\QueryViewProvider
 
 services:
     netgen_block_manager.view.provider.block:
@@ -10,5 +11,12 @@ services:
 
     netgen_block_manager.view.provider.layout:
         class: "%netgen_block_manager.view.provider.layout.class%"
+        tags:
+            - { name: netgen_block_manager.view.provider, priority: 0 }
+
+    netgen_block_manager.view.provider.query:
+        class: "%netgen_block_manager.view.provider.query.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }

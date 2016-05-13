@@ -1,0 +1,6 @@
+query_view:
+    api_edit:
+        query:
+            template: "NetgenBlockManagerBundle:query/edit:edit.html.twig"
+            match:
+                api_version: 1

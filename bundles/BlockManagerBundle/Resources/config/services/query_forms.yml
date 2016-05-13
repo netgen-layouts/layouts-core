@@ -1,0 +1,11 @@
+parameters:
+    netgen_block_manager.collection.form.query_edit.class: Netgen\BlockManager\Collection\Query\Form\QueryEditType
+
+services:
+    netgen_block_manager.collection.form.query_edit:
+        class: "%netgen_block_manager.collection.form.query_edit.class%"
+        arguments:
+            - "@netgen_block_manager.parameters.form_mapper"
+            - "@netgen_block_manager.collection.query_type.registry"
+        tags:
+            - { name: form.type, alias: query_edit }

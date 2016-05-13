@@ -6,9 +6,15 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\ValueNormalizer\CollectionNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Symfony\Component\Serializer\Serializer;
 
 class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $serializerMock;
+
     /**
      * @var \Netgen\BlockManager\Serializer\ValueNormalizer\CollectionNormalizer
      */
@@ -16,7 +22,10 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $this->serializerMock = $this->getMock(Serializer::class);
+
         $this->normalizer = new CollectionNormalizer();
+        $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
@@ -24,6 +33,21 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalize()
     {
+        $this->serializerMock
+            ->expects($this->at(0))
+            ->method('normalize')
+            ->will($this->returnValue(array('manual_items')));
+
+        $this->serializerMock
+            ->expects($this->at(1))
+            ->method('normalize')
+            ->will($this->returnValue(array('override_items')));
+
+        $this->serializerMock
+            ->expects($this->at(2))
+            ->method('normalize')
+            ->will($this->returnValue(array('queries')));
+
         $collection = new Collection(
             array(
                 'id' => 42,
@@ -37,6 +61,9 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
                 'name' => $collection->getName(),
+                'manual_items' => array('manual_items'),
+                'override_items' => array('override_items'),
+                'queries' => array('queries'),
             ),
             $this->normalizer->normalize(new VersionedValue($collection, 1))
         );

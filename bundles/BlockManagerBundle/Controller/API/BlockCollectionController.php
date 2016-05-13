@@ -8,12 +8,14 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 
 class BlockCollectionController extends Controller
 {
@@ -248,6 +250,71 @@ class BlockCollectionController extends Controller
     public function loadQuery(Block $block, Collection $collection, Query $query)
     {
         return new VersionedValue($query, self::API_VERSION);
+    }
+
+    /**
+     * Displays and processes query edit form.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function editQuery(Query $query, Request $request)
+    {
+        $queryTypeConfig = $this->configuration->getParameter('query_types');
+        $queryTypeConfig = $queryTypeConfig[$query->getType()];
+
+        $updateStruct = $this->collectionService->newQueryUpdateStruct();
+        $updateStruct->setParameters($query->getParameters());
+
+        $form = $this->createForm(
+            $queryTypeConfig['forms']['edit'],
+            $updateStruct,
+            array(
+                'query' => $query,
+                'method' => 'PATCH',
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() === 'PATCH') {
+            if (!$form->isSubmitted()) {
+                throw new InvalidArgumentException('form', 'Form is not submitted.');
+            }
+
+            if (!$form->isValid()) {
+                $renderableForm = new FormView($query, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
+                $renderableForm->setForm($form);
+
+                return $renderableForm;
+            }
+
+            $query = $this->collectionService->updateQuery(
+                $query,
+                $form->getData()
+            );
+        }
+
+        $renderableForm = new FormView($query, self::API_VERSION);
+        $renderableForm->setForm($form);
+
+        return $renderableForm;
+    }
+
+    /**
+     * Updates the block to change the collection type it has.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function changeCollectionType(Block $block, Request $request)
+    {
     }
 
     /**

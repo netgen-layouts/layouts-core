@@ -92,6 +92,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $itemizedConfigKeys = array(
             'block_definitions',
             'sources',
+            'query_types',
             'layouts',
             'block_types',
             'block_type_groups',
@@ -125,8 +126,10 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'block_types.yml' => 'netgen_block_manager',
             'layouts.yml' => 'netgen_block_manager',
             'sources.yml' => 'netgen_block_manager',
+            'query_types.yml' => 'netgen_block_manager',
             'view/block_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
+            'view/query_view.yml' => 'netgen_block_manager',
         );
 
         foreach ($prependConfigs as $configFile => $prependConfig) {
@@ -156,6 +159,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $loader->load('services/block_definitions.yml');
         $loader->load('services/block_forms.yml');
+
+        $loader->load('services/query_forms.yml');
 
         $loader->load('services/layout_resolver/layout_resolver.yml');
         $loader->load('services/layout_resolver/condition_matchers.yml');

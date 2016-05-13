@@ -34,12 +34,18 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
             $overrideItems[] = new VersionedValue($overrideItem, $object->getVersion());
         }
 
+        $queries = array();
+        foreach ($collection->getQueries() as $query) {
+            $queries[] = new VersionedValue($query, $object->getVersion());
+        }
+
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'name' => $collection->getName(),
             'manual_items' => $this->serializer->normalize(new ValueArray($manualItems)),
             'override_items' => $this->serializer->normalize(new ValueArray($overrideItems)),
+            'queries' => $this->serializer->normalize(new ValueArray($queries)),
         );
     }
 

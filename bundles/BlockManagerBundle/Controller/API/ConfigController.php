@@ -53,4 +53,23 @@ class ConfigController extends Controller
 
         return new ValueArray($data);
     }
+
+    /**
+     * Serializes the collection sources.
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function getSources()
+    {
+        $sources = array();
+        $configSources = $this->configuration->getParameter('sources');
+
+        foreach ($configSources as $identifier => $source) {
+            $sources[] = array(
+                'identifier' => $identifier
+            ) + $source;
+        }
+
+        return new ValueArray($sources);
+    }
 }

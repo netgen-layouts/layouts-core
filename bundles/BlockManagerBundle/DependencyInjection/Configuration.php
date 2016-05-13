@@ -64,11 +64,13 @@ class Configuration implements ConfigurationInterface
         return array(
             $this->getTemplateResolverNodeDefinition('block_view'),
             $this->getTemplateResolverNodeDefinition('layout_view'),
+            $this->getTemplateResolverNodeDefinition('query_view'),
             $this->getBlockDefinitionsNodeDefinition(),
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),
             $this->getLayoutsNodeDefinition(),
             $this->getSourcesNodeDefinition(),
+            $this->getQueryTypesNodeDefinition(),
             $this->getPagelayoutNodeDefinition(),
         );
     }
@@ -147,6 +149,36 @@ class Configuration implements ConfigurationInterface
                                     ->isRequired()
                                     ->cannotBeEmpty()
                                 ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for query types.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    public function getQueryTypesNodeDefinition()
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root('query_types');
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('identifier')
+            ->prototype('array')
+                ->children()
+                    ->arrayNode('forms')
+                        ->isRequired()
+                        ->children()
+                            ->scalarNode('edit')
+                                ->cannotBeEmpty()
+                                ->defaultValue('query_edit')
                             ->end()
                         ->end()
                     ->end()
