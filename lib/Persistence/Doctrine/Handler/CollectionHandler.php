@@ -538,19 +538,6 @@ class CollectionHandler implements CollectionHandlerInterface
         }
 
         $query->execute();
-
-        // Delete all connections between blocks and collections
-        // If status === null or if we deleted the last status for collection
-
-        if ($status === null || !$this->collectionExists($collectionId)) {
-            $query = $this->queryHelper->getQuery();
-            $query
-                ->delete('ngbm_block_collection')
-                ->where(
-                    $query->expr()->eq('collection_id', ':collection_id')
-                )
-                ->setParameter('collection_id', $collectionId, Type::INTEGER);
-        }
     }
 
     /**
