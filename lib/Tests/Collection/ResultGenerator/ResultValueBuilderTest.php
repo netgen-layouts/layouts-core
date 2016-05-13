@@ -22,11 +22,6 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->valueLoaderRegistryMock = $this->getMock(ValueLoaderRegistryInterface::class);
-
-        $this->valueLoaderRegistryMock
-            ->expects($this->any())
-            ->method('getValueLoader')
-            ->will($this->returnValue(new ValueLoader()));
     }
 
     /**
@@ -61,6 +56,11 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildFromItem()
     {
+        $this->valueLoaderRegistryMock
+            ->expects($this->any())
+            ->method('getValueLoader')
+            ->will($this->returnValue(new ValueLoader()));
+
         $resultValue = new ResultValue();
         $resultValue->id = 42;
         $resultValue->name = 'Some value';
@@ -77,6 +77,25 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
             $resultValue,
             $builder->buildFromItem(new Item(array('valueId' => 42, 'valueType' => 'value')))
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder::buildFromItem
+     * @expectedException \RuntimeException
+     */
+    public function testBuildFromItemThrowsRuntimeException()
+    {
+        $this->valueLoaderRegistryMock
+            ->expects($this->any())
+            ->method('getValueLoader')
+            ->will($this->returnValue(new ValueLoader(true)));
+
+        $builder = new ResultValueBuilder(
+            $this->valueLoaderRegistryMock,
+            array(new ValueConverter())
+        );
+
+        $builder->buildFromItem(new Item(array('valueId' => 42, 'valueType' => 'value')));
     }
 
     /**

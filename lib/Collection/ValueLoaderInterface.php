@@ -18,7 +18,7 @@ interface ValueLoaderInterface
      *
      * @param int|string $id
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If value cannot be loaded
+     * @throws \RuntimeException If value cannot be loaded
      *
      * @return mixed
      */

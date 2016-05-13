@@ -3,9 +3,22 @@
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\Collection\ValueLoaderInterface;
+use RuntimeException;
 
 class ValueLoader implements ValueLoaderInterface
 {
+    protected $throwException = false;
+
+    /**
+     * Constructor.
+     *
+     * @param bool $throwException
+     */
+    public function __construct($throwException = false)
+    {
+        $this->throwException = $throwException;
+    }
+
     /**
      * Returns the value type this loader loads.
      *
@@ -21,12 +34,16 @@ class ValueLoader implements ValueLoaderInterface
      *
      * @param int|string $id
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If value cannot be loaded
+     * @throws \RuntimeException If value cannot be loaded
      *
      * @return mixed
      */
     public function load($id)
     {
+        if ($this->throwException) {
+            throw new RuntimeException();
+        }
+
         return new Value($id);
     }
 }
