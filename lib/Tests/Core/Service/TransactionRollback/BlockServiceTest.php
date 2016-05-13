@@ -159,7 +159,12 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testDeleteBlock()
     {
         $this->blockHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadBlockCollections')
+            ->will($this->returnValue(array()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
             ->method('deleteBlock')
             ->will($this->throwException(new Exception()));
 

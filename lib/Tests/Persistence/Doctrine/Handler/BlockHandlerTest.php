@@ -499,6 +499,25 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeleteBlock()
     {
+        // We need to delete all collections before deleting the block
+
+        $collectionReferences = $this->blockHandler->loadBlockCollections(
+            1,
+            Layout::STATUS_DRAFT
+        );
+
+        foreach ($collectionReferences as $collectionReference) {
+            $this->blockHandler->removeCollectionFromBlock(
+                1,
+                Layout::STATUS_DRAFT,
+                $collectionReference->collectionId
+            );
+
+            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId)) {
+                $this->collectionHandler->deleteCollection($collectionReference->collectionId, Collection::STATUS_DRAFT);
+            }
+        }
+
         $this->blockHandler->deleteBlock(1, Layout::STATUS_DRAFT);
 
         $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);

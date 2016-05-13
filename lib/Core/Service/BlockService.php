@@ -331,11 +331,6 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->blockHandler->deleteBlock(
-                $block->getId(),
-                $block->getStatus()
-            );
-
             $collectionReferences = $this->blockHandler->loadBlockCollections(
                 $block->getId(),
                 $block->getStatus()
@@ -352,6 +347,11 @@ class BlockService implements BlockServiceInterface
                     $this->collectionHandler->deleteCollection($collectionReference->collectionId, $block->getStatus());
                 }
             }
+
+            $this->blockHandler->deleteBlock(
+                $block->getId(),
+                $block->getStatus()
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
