@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\ResultValue;
@@ -88,11 +87,7 @@ class ResultValueBuilder implements ResultValueBuilderInterface
         $valueLoader = $this->valueLoaderRegistry
             ->getValueLoader($item->getValueType());
 
-        try {
-            $loadedValue = $valueLoader->load($item->getValueId());
-        } catch (NotFoundException $e) {
-            throw new RuntimeException('Value could not be loaded.');
-        }
+        $loadedValue = $valueLoader->load($item->getValueId());
 
         return $this->build($loadedValue);
     }
