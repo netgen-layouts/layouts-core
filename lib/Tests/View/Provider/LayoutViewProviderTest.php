@@ -43,7 +43,7 @@ class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param \Netgen\BlockManager\Core\Values\Value $value
+     * @param \Netgen\BlockManager\API\Values\Value $value
      * @param bool $supports
      *
      * @covers \Netgen\BlockManager\View\Provider\LayoutViewProvider::supports

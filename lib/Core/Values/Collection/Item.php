@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\API\Values\Value;
 
 class Item extends Value implements APIItem
 {

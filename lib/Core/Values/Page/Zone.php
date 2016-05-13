@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\API\Values\Value;
 
 class Zone extends Value implements APIZone
 {

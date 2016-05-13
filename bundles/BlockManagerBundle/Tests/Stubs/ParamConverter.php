@@ -53,7 +53,7 @@ class ParamConverter extends BaseParamConverter
      * @param int|string $valueId
      * @param int $status
      *
-     * @return \Netgen\BlockManager\Core\Values\Value
+     * @return \Netgen\BlockManager\API\Values\Value
      */
     public function loadValueObject($valueId, $status)
     {

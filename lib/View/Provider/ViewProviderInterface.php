@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\API\Values\Value;
 
 interface ViewProviderInterface
 {
     /**
      * Provides the view.
      *
-     * @param \Netgen\BlockManager\Core\Values\Value $value
+     * @param \Netgen\BlockManager\API\Values\Value $value
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
@@ -18,7 +18,7 @@ interface ViewProviderInterface
     /**
      * Returns if this view provider supports the given value object.
      *
-     * @param \Netgen\BlockManager\Core\Values\Value $value
+     * @param \Netgen\BlockManager\API\Values\Value $value
      *
      * @return bool
      */

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\API\Values\Value;
 
 class CollectionReference extends Value implements APICollectionReference
 {

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\API\Values\Value;
 
 class Item extends Value
 {

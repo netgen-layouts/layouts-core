@@ -5,23 +5,8 @@ namespace Netgen\BlockManager\Core\Values;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 
-class BlockCreateStruct extends Value implements APIBlockCreateStruct
+class BlockCreateStruct extends APIBlockCreateStruct
 {
-    /**
-     * @var string
-     */
-    public $definitionIdentifier;
-
-    /**
-     * @var string
-     */
-    public $viewType;
-
-    /**
-     * @var string
-     */
-    public $name;
-
     /**
      * @var array
      */

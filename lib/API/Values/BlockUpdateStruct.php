@@ -2,14 +2,24 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-interface BlockUpdateStruct
+abstract class BlockUpdateStruct extends Value
 {
+    /**
+     * @var string
+     */
+    public $viewType;
+
+    /**
+     * @var string
+     */
+    public $name;
+
     /**
      * Sets the parameters to the struct.
      *
      * @param array $parameters
      */
-    public function setParameters(array $parameters);
+    abstract public function setParameters(array $parameters);
 
     /**
      * Sets the parameter to the struct.
@@ -17,14 +27,14 @@ interface BlockUpdateStruct
      * @param string $parameterName
      * @param mixed $parameterValue
      */
-    public function setParameter($parameterName, $parameterValue);
+    abstract public function setParameter($parameterName, $parameterValue);
 
     /**
      * Returns all parameters from the struct.
      *
      * @return array
      */
-    public function getParameters();
+    abstract public function getParameters();
 
     /**
      * Returns the parameter with provided identifier.
@@ -35,7 +45,7 @@ interface BlockUpdateStruct
      *
      * @return mixed
      */
-    public function getParameter($parameterName);
+    abstract public function getParameter($parameterName);
 
     /**
      * Returns if the struct has a parameter with provided identifier.
@@ -44,5 +54,5 @@ interface BlockUpdateStruct
      *
      * @return bool
      */
-    public function hasParameter($parameterName);
+    abstract public function hasParameter($parameterName);
 }

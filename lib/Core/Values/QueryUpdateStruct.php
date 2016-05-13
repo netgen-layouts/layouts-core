@@ -5,13 +5,8 @@ namespace Netgen\BlockManager\Core\Values;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
 
-class QueryUpdateStruct extends Value implements APIQueryUpdateStruct
+class QueryUpdateStruct extends APIQueryUpdateStruct
 {
-    /**
-     * @var string
-     */
-    public $identifier;
-
     /**
      * @var array
      */

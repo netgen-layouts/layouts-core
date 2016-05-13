@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values;
+namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 

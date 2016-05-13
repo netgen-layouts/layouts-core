@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 class ValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Value::__construct
+     * @covers \Netgen\BlockManager\API\Values\Value::__construct
      */
     public function testSetProperties()
     {
@@ -23,7 +23,7 @@ class ValueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Value::__construct
+     * @covers \Netgen\BlockManager\API\Values\Value::__construct
      * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
      */
     public function testSetNonExistingProperties()

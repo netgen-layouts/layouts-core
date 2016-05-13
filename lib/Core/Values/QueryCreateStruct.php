@@ -5,18 +5,8 @@ namespace Netgen\BlockManager\Core\Values;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
 
-class QueryCreateStruct extends Value implements APIQueryCreateStruct
+class QueryCreateStruct extends APIQueryCreateStruct
 {
-    /**
-     * @var string
-     */
-    public $identifier;
-
-    /**
-     * @var string
-     */
-    public $type;
-
     /**
      * @var array
      */
