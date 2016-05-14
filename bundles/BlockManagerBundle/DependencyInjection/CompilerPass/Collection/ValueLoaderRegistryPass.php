@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ValueLoaderRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.collection.value_loader.registry';
+    const SERVICE_NAME = 'netgen_block_manager.collection.registry.value_loader';
     const TAG_NAME = 'netgen_block_manager.collection.value_loader';
 
     /**

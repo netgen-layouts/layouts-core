@@ -25,8 +25,7 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $queryTypeRegistry = new Definition();
-        $this->setDefinition('netgen_block_manager.collection.query_type.registry', $queryTypeRegistry);
+        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
         $queryType = new Definition();
         $queryType->addTag('netgen_block_manager.collection.query_type');
@@ -35,7 +34,7 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.collection.query_type.registry',
+            'netgen_block_manager.collection.registry.query_type',
             'addQueryType',
             array(
                 new Reference('netgen_block_manager.collection.query_type.test'),

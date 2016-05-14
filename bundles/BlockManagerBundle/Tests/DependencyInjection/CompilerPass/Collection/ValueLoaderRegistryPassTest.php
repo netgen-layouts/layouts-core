@@ -25,8 +25,7 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $valueLoaderRegistry = new Definition();
-        $this->setDefinition('netgen_block_manager.collection.value_loader.registry', $valueLoaderRegistry);
+        $this->setDefinition('netgen_block_manager.collection.registry.value_loader', new Definition());
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.collection.value_loader');
@@ -35,7 +34,7 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.collection.value_loader.registry',
+            'netgen_block_manager.collection.registry.value_loader',
             'addValueLoader',
             array(
                 new Reference('netgen_block_manager.collection.value_loader.test'),

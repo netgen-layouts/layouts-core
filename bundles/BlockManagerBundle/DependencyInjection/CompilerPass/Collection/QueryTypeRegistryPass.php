@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class QueryTypeRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.collection.query_type.registry';
+    const SERVICE_NAME = 'netgen_block_manager.collection.registry.query_type';
     const TAG_NAME = 'netgen_block_manager.collection.query_type';
 
     /**

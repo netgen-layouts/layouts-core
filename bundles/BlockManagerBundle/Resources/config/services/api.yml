@@ -143,7 +143,7 @@ services:
     netgen_block_manager.core.service.collection.validator:
         class: "%netgen_block_manager.core.service.collection.validator.class%"
         arguments:
-            - "@netgen_block_manager.collection.query_type.registry"
+            - "@netgen_block_manager.collection.registry.query_type"
         calls:
             - [setValidator, ["@validator"]]
 
