@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Coll
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class QueryTypeRegistryPass implements CompilerPassInterface
 {
@@ -23,9 +24,25 @@ class QueryTypeRegistryPass implements CompilerPassInterface
         }
 
         $queryTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $queryTypes = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $queryTypes = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($queryTypes as $queryType) {
+        foreach ($queryTypes as $queryType => $tag) {
+            if (!isset($tag[0]['identifier'])) {
+                throw new RuntimeException(
+                    "Query type service definition must have an 'identifier' attribute in its' tag."
+                );
+            }
+
+            $configService = sprintf('netgen_block_manager.configuration.query_type.%s', $tag[0]['identifier']);
+            if (!$container->has($configService)) {
+                throw new RuntimeException(
+                    sprintf('Query type "%s" does not have a configuration.', $tag[0]['identifier'])
+                );
+            }
+
+            $queryTypeService = $container->findDefinition($queryType);
+            $queryTypeService->addMethodCall('setConfiguration', array(new Reference($configService)));
+
             $queryTypeRegistry->addMethodCall(
                 'addQueryType',
                 array(new Reference($queryType))
