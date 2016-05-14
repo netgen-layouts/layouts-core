@@ -53,7 +53,7 @@ services:
     netgen_block_manager.normalizer.layout:
         class: "%netgen_block_manager.normalizer.layout.class%"
         arguments:
-            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.configuration.registry.layout_type"
         tags:
             - { name: serializer.normalizer }
 

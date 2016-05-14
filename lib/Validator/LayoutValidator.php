@@ -2,25 +2,25 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
 class LayoutValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
      */
-    protected $configuration;
+    protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
      */
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(Registry $layoutTypeRegistry)
     {
-        $this->configuration = $configuration;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -32,9 +32,8 @@ class LayoutValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\Layout $constraint */
-        $layoutTypes = $this->configuration->getParameter('layout_types');
 
-        if (!isset($layoutTypes[$value])) {
+        if (!$this->layoutTypeRegistry->hasLayoutType($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%type%', $value)
                 ->addViolation();

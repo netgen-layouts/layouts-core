@@ -55,24 +55,4 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $this->configuration->getBlockTypeConfig('some_other_block_type');
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\Configuration::getLayoutConfig
-     */
-    public function testGetLayoutConfig()
-    {
-        self::assertEquals(
-            array('name' => 'Some layout'),
-            $this->configuration->getLayoutConfig('some_layout')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\Configuration::getLayoutConfig
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetLayoutConfigThrowsInvalidArgumentException()
-    {
-        $this->configuration->getLayoutConfig('some_other_layout');
-    }
 }

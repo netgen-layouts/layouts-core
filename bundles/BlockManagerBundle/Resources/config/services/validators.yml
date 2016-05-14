@@ -24,14 +24,14 @@ services:
     netgen_block_manager.validator.layout:
         class: "%netgen_block_manager.validator.layout.class%"
         arguments:
-            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.configuration.registry.layout_type"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_layout }
 
     netgen_block_manager.validator.layout_zones:
         class: "%netgen_block_manager.validator.layout_zones.class%"
         arguments:
-            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.configuration.registry.layout_type"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_layout_zones }
 

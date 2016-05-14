@@ -2,11 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
 use Netgen\BlockManager\Validator\LayoutValidator;
 use Netgen\BlockManager\Validator\Constraint\Layout;
 
 class LayoutValidatorTest extends ValidatorTest
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutTypeRegistryMock;
+
     /**
      * @var \Netgen\BlockManager\Validator\LayoutValidator
      */
@@ -16,13 +22,9 @@ class LayoutValidatorTest extends ValidatorTest
     {
         parent::setUp();
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layout_types'))
-            ->will($this->returnValue(array('layout' => array())));
+        $this->layoutTypeRegistryMock = $this->getMock(Registry::class);
 
-        $this->validator = new LayoutValidator($this->configurationMock);
+        $this->validator = new LayoutValidator($this->layoutTypeRegistryMock);
         $this->validator->initialize($this->executionContextMock);
     }
 
@@ -32,11 +34,17 @@ class LayoutValidatorTest extends ValidatorTest
      */
     public function testValidate()
     {
+        $this->layoutTypeRegistryMock
+            ->expects($this->any())
+            ->method('hasLayoutType')
+            ->with($this->equalTo('layout_type'))
+            ->will($this->returnValue(true));
+
         $this->executionContextMock
             ->expects($this->never())
             ->method('buildViolation');
 
-        $this->validator->validate('layout', new Layout());
+        $this->validator->validate('layout_type', new Layout());
     }
 
     /**
@@ -45,11 +53,17 @@ class LayoutValidatorTest extends ValidatorTest
      */
     public function testValidateFailedWithNoLayout()
     {
+        $this->layoutTypeRegistryMock
+            ->expects($this->any())
+            ->method('hasLayoutType')
+            ->with($this->equalTo('layout_type'))
+            ->will($this->returnValue(false));
+
         $this->executionContextMock
             ->expects($this->once())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
 
-        $this->validator->validate('other_layout', new Layout());
+        $this->validator->validate('layout_type', new Layout());
     }
 }

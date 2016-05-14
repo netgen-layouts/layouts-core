@@ -62,4 +62,28 @@ class LayoutType
     {
         return $this->zones;
     }
+
+    /**
+     * Returns if the layout type has a zone with provided identifier.
+     *
+     * @param $zoneIdentifier
+     *
+     * @return bool
+     */
+    public function hasZone($zoneIdentifier)
+    {
+        return isset($this->zones[$zoneIdentifier]);
+    }
+
+    /**
+     * Returns the zone with provided identifier.
+     *
+     * @param $zoneIdentifier
+     *
+     * @return \Netgen\BlockManager\Configuration\LayoutType\Zone
+     */
+    public function getZone($zoneIdentifier)
+    {
+        return $this->zones[$zoneIdentifier];
+    }
 }

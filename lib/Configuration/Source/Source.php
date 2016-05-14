@@ -62,4 +62,28 @@ class Source
     {
         return $this->queries;
     }
+
+    /**
+     * Returns if the source has a query with provided identifier.
+     *
+     * @param $queryIdentifier
+     *
+     * @return bool
+     */
+    public function hasQuery($queryIdentifier)
+    {
+        return isset($this->queries[$queryIdentifier]);
+    }
+
+    /**
+     * Returns the query with provided identifier.
+     *
+     * @param $queryIdentifier
+     *
+     * @return \Netgen\BlockManager\Configuration\Source\Query
+     */
+    public function getQuery($queryIdentifier)
+    {
+        return $this->queries[$queryIdentifier];
+    }
 }

@@ -62,4 +62,16 @@ class Zone
     {
         return $this->allowedBlockTypes;
     }
+
+    /**
+     * Returns if block type is allowed within the zone.
+     *
+     * @param string $blockType
+     *
+     * @return bool
+     */
+    public function isBlockTypeAllowed($blockType)
+    {
+        return in_array($blockType, $this->allowedBlockTypes);
+    }
 }

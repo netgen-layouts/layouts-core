@@ -47,15 +47,4 @@ interface ConfigurationInterface
      * @return array
      */
     public function getBlockTypeConfig($identifier);
-
-    /**
-     * Returns the configuration for specified layout.
-     *
-     * @param string $layoutType
-     *
-     * @throws \InvalidArgumentException If configuration for specified layout does not exist
-     *
-     * @return array
-     */
-    public function getLayoutConfig($layoutType);
 }

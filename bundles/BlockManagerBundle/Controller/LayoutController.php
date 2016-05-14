@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 
 class LayoutController extends Controller
@@ -20,25 +21,25 @@ class LayoutController extends Controller
     protected $viewBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
      */
-    protected $configuration;
+    protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
      */
     public function __construct(
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
-        ConfigurationInterface $configuration
+        Registry $layoutTypeRegistry
     ) {
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
-        $this->configuration = $configuration;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -51,12 +52,12 @@ class LayoutController extends Controller
      */
     public function create($type, $name)
     {
-        $layoutConfig = $this->configuration->getLayoutConfig($type);
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($type);
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $type,
             $name,
-            array_keys($layoutConfig['zones'])
+            array_keys($layoutType->getZones())
         );
 
         $layoutCreateStruct->status = Layout::STATUS_DRAFT;

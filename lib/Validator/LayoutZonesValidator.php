@@ -2,25 +2,25 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
 class LayoutZonesValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
      */
-    protected $configuration;
+    protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
      */
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(Registry $layoutTypeRegistry)
     {
-        $this->configuration = $configuration;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -32,9 +32,8 @@ class LayoutZonesValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\LayoutZones $constraint */
-        $layoutTypes = $this->configuration->getParameter('layout_types');
 
-        if (!isset($layoutTypes[$constraint->layoutType])) {
+        if (!$this->layoutTypeRegistry->hasLayoutType($constraint->layoutType)) {
             $this->context->buildViolation($constraint->layoutMissingMessage)
                 ->setParameter('%layoutType%', $constraint->layoutType)
                 ->addViolation();
@@ -49,15 +48,17 @@ class LayoutZonesValidator extends ConstraintValidator
             return;
         }
 
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($constraint->layoutType);
+
         foreach ($value as $zoneIdentifier) {
-            if (!isset($layoutTypes[$constraint->layoutType]['zones'][$zoneIdentifier])) {
+            if (!$layoutType->hasZone($zoneIdentifier)) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('%zoneIdentifier%', $zoneIdentifier)
                     ->addViolation();
             }
         }
 
-        foreach ($layoutTypes[$constraint->layoutType]['zones'] as $zoneIdentifier => $zone) {
+        foreach ($layoutType->getZones() as $zoneIdentifier => $zone) {
             if (!in_array($zoneIdentifier, $value)) {
                 $this->context->buildViolation($constraint->zoneMissingMessage)
                     ->setParameter('%zoneIdentifier%', $zoneIdentifier)

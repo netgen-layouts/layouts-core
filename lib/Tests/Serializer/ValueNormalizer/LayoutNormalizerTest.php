@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\ValueNormalizer;
 
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -9,15 +12,14 @@ use Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use DateTime;
 
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
      */
-    protected $configurationMock;
+    protected $layoutTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer
@@ -26,27 +28,19 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
+        $this->layoutTypeRegistry = new Registry();
 
-        $layoutConfig = array(
-            'zones' => array(
-                'left' => array(
-                    'name' => 'Left',
-                    'allowed_block_types' => array('title'),
-                ),
-                'right' => array(
-                    'name' => 'Right',
-                ),
-            ),
+        $layoutType = new LayoutType(
+            '3_zones_a',
+            '3 zones A',
+            array(
+                'left' => new LayoutTypeZone('left', 'Left', array('title')),
+                'right' => new LayoutTypeZone('right', 'Right', array())
+            )
         );
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getLayoutConfig')
-            ->with($this->equalTo('3_zones_a'))
-            ->will($this->returnValue($layoutConfig));
-
-        $this->normalizer = new LayoutNormalizer($this->configurationMock);
+        $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
+        $this->normalizer = new LayoutNormalizer($this->layoutTypeRegistry);
     }
 
     /**

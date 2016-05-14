@@ -17,7 +17,7 @@ class Factory
         $zones = array();
 
         foreach ($config['zones'] as $zoneIdentifier => $zoneConfig) {
-            $zones[] = new Zone(
+            $zones[$zoneIdentifier] = new Zone(
                 $zoneIdentifier,
                 $config['zones'][$zoneIdentifier]['name'],
                 $config['zones'][$zoneIdentifier]['allowed_block_types']

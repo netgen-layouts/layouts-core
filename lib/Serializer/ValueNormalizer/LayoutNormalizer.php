@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Serializer\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use DateTime;
@@ -12,18 +12,18 @@ use DateTime;
 class LayoutNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
      */
-    protected $configuration;
+    protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
      */
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(Registry $layoutTypeRegistry)
     {
-        $this->configuration = $configuration;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -78,15 +78,15 @@ class LayoutNormalizer implements NormalizerInterface
     protected function getZones(Layout $layout)
     {
         $zones = array();
-        $layoutConfig = $this->configuration->getLayoutConfig($layout->getType());
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->getType());
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
             $allowedBlockTypes = true;
 
-            if (isset($layoutConfig['zones'][$zoneIdentifier])) {
-                $zoneConfig = $layoutConfig['zones'][$zoneIdentifier];
-                if (!empty($zoneConfig['allowed_block_types'])) {
-                    $allowedBlockTypes = $zoneConfig['allowed_block_types'];
+            if ($layoutType->hasZone($zoneIdentifier)) {
+                $layoutTypeZone = $layoutType->getZone($zoneIdentifier);
+                if (!empty($layoutTypeZone->getAllowedBlockTypes())) {
+                    $allowedBlockTypes = $layoutTypeZone->getAllowedBlockTypes();
                 }
             }
 

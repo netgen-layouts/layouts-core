@@ -55,29 +55,4 @@ abstract class Configuration implements ConfigurationInterface
 
         return $blockTypeConfig[$identifier];
     }
-
-    /**
-     * Returns the configuration for specified layout.
-     *
-     * @param string $layoutType
-     *
-     * @throws \InvalidArgumentException If configuration for specified layout does not exist
-     *
-     * @return array
-     */
-    public function getLayoutConfig($layoutType)
-    {
-        $layoutTypes = $this->getParameter('layout_types');
-
-        if (!isset($layoutTypes[$layoutType])) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Configuration for "%s" layout does not exist.',
-                    $layoutType
-                )
-            );
-        }
-
-        return $layoutTypes[$layoutType];
-    }
 }

@@ -2,11 +2,19 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Validator\LayoutZonesValidator;
 use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 
 class LayoutZonesValidatorTest extends ValidatorTest
 {
+    /**
+     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
+     */
+    protected $layoutTypeRegistry;
+
     /**
      * @var \Netgen\BlockManager\Validator\LayoutZonesValidator
      */
@@ -16,13 +24,19 @@ class LayoutZonesValidatorTest extends ValidatorTest
     {
         parent::setUp();
 
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getParameter')
-            ->with($this->equalTo('layout_types'))
-            ->will($this->returnValue(array('layout' => array('zones' => array('zone' => array())))));
+        $this->layoutTypeRegistry = new Registry();
 
-        $this->validator = new LayoutZonesValidator($this->configurationMock);
+        $layoutType = new LayoutType(
+            'layout',
+            'Layout',
+            array(
+                'zone' => new Zone('zone', 'Zone', array()),
+            )
+        );
+
+        $this->layoutTypeRegistry->addLayoutType('layout', $layoutType);
+
+        $this->validator = new LayoutZonesValidator($this->layoutTypeRegistry);
         $this->validator->initialize($this->executionContextMock);
     }
 

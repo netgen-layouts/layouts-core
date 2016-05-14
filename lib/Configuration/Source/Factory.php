@@ -17,7 +17,7 @@ class Factory
         $queries = array();
 
         foreach ($config['queries'] as $queryIdentifier => $queryConfig) {
-            $queries[] = new Query(
+            $queries[$queryIdentifier] = new Query(
                 $queryIdentifier,
                 $config['queries'][$queryIdentifier]['query_type'],
                 $config['queries'][$queryIdentifier]['default_parameters']
