@@ -17,7 +17,7 @@ services:
     netgen_block_manager.validator.block_definition:
         class: "%netgen_block_manager.validator.block_definition.class%"
         arguments:
-            - "@netgen_block_manager.block_definition.registry"
+            - "@netgen_block_manager.block.registry.block_definition"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_definition }
 

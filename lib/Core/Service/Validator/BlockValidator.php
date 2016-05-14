@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraints;
@@ -13,14 +13,14 @@ use Symfony\Component\Validator\Constraints;
 class BlockValidator extends Validator
 {
     /**
-     * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
     public function __construct(BlockDefinitionRegistryInterface $blockDefinitionRegistry)
     {

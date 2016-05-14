@@ -2,21 +2,21 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
 class BlockDefinitionValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
     public function __construct(BlockDefinitionRegistryInterface $blockDefinitionRegistry)
     {

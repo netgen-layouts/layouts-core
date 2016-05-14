@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\BlockDefinition\BlockDefinitionRegistryPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypeRegistryPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ResultValueBuilderPass;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ValueLoaderRegistryPass;

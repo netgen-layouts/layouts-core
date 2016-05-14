@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\BlockDefinitionValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
 

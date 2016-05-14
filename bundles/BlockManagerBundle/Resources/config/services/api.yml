@@ -122,7 +122,7 @@ services:
     netgen_block_manager.core.service.block.validator:
         class: "%netgen_block_manager.core.service.block.validator.class%"
         arguments:
-            - "@netgen_block_manager.block_definition.registry"
+            - "@netgen_block_manager.block.registry.block_definition"
         calls:
             - [setValidator, ["@validator"]]
 

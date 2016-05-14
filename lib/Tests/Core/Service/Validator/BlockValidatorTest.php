@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\BlockDefinition\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinitionWithRequiredParameter;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionWithRequiredParameter;
 use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
-use Netgen\BlockManager\Tests\BlockDefinition\Stubs\BlockDefinition as BlockDefinitionStub;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationList;

@@ -11,11 +11,11 @@ abstract class Controller extends BaseController
      *
      * @param string $definitionIdentifier
      *
-     * @return \Netgen\BlockManager\BlockDefinition\BlockDefinitionInterface
+     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected function getBlockDefinition($definitionIdentifier)
     {
-        $blockDefinitionRegistry = $this->get('netgen_block_manager.block_definition.registry');
+        $blockDefinitionRegistry = $this->get('netgen_block_manager.block.registry.block_definition');
 
         return $blockDefinitionRegistry->getBlockDefinition($definitionIdentifier);
     }
