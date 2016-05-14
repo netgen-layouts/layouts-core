@@ -51,6 +51,12 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateBlockCreateStruct()
     {
+        $this->blockDefinitionRegistryMock
+            ->expects($this->any())
+            ->method('getBlockDefinition')
+            ->with($this->equalTo('block_definition'))
+            ->will($this->returnValue(new BlockDefinitionWithRequiredParameter()));
+
         $this->validatorMock
             ->expects($this->at(0))
             ->method('validate')
@@ -72,7 +78,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new BlockViewType(array('definitionIdentifier' => 'block_definition')),
+                    new BlockViewType(array('definition' => new BlockDefinitionWithRequiredParameter())),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
@@ -106,12 +112,6 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $this->blockDefinitionRegistryMock
-            ->expects($this->any())
-            ->method('getBlockDefinition')
-            ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue(new BlockDefinitionWithRequiredParameter()));
-
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'block_definition';
         $blockCreateStruct->viewType = 'large';
@@ -127,6 +127,12 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateBlockUpdateStruct()
     {
+        $this->blockDefinitionRegistryMock
+            ->expects($this->any())
+            ->method('getBlockDefinition')
+            ->with($this->equalTo('block_definition'))
+            ->will($this->returnValue(new BlockDefinitionStub()));
+
         $this->validatorMock
             ->expects($this->at(0))
             ->method('validate')
@@ -135,7 +141,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new BlockViewType(array('definitionIdentifier' => 'block_definition')),
+                    new BlockViewType(array('definition' => new BlockDefinitionStub())),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
@@ -168,12 +174,6 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->blockDefinitionRegistryMock
-            ->expects($this->any())
-            ->method('getBlockDefinition')
-            ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue(new BlockDefinitionStub()));
 
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->viewType = 'large';

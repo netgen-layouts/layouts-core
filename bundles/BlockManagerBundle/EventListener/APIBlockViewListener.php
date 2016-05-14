@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\BlockViewInterface;
@@ -19,9 +19,9 @@ class APIBlockViewListener implements EventSubscriberInterface
     protected $blockService;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
-    protected $configuration;
+    protected $blockDefinitionRegistry;
 
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface
@@ -32,16 +32,16 @@ class APIBlockViewListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
      */
     public function __construct(
         BlockService $blockService,
-        ConfigurationInterface $configuration,
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
         FormFactoryInterface $formFactory
     ) {
         $this->blockService = $blockService;
-        $this->configuration = $configuration;
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->formFactory = $formFactory;
     }
 
@@ -68,9 +68,9 @@ class APIBlockViewListener implements EventSubscriberInterface
         }
 
         $block = $view->getBlock();
-        $blockConfig = $this->configuration->getBlockDefinitionConfig($block->getDefinitionIdentifier());
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
 
-        if (!isset($blockConfig['forms']['inline_edit'])) {
+        if (!$blockDefinition->getConfiguration()->hasForm('inline_edit')) {
             return;
         }
 
@@ -80,9 +80,9 @@ class APIBlockViewListener implements EventSubscriberInterface
         $updateStruct->name = $block->getName();
 
         $form = $this->formFactory->create(
-            $blockConfig['forms']['inline_edit'],
+            $blockDefinition->getConfiguration()->getForm('inline_edit'),
             $updateStruct,
-            array('block' => $block)
+            array('blockDefinition' => $blockDefinition)
         );
 
         $event->getParameterBag()->set('form', $form->createView());

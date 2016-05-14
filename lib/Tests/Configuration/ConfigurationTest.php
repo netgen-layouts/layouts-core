@@ -17,26 +17,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockDefinitionConfig
-     */
-    public function testGetBlockDefinitionConfig()
-    {
-        self::assertEquals(
-            array('name' => 'Some block'),
-            $this->configuration->getBlockDefinitionConfig('some_block')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockDefinitionConfig
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetBlockDefinitionConfigThrowsInvalidArgumentException()
-    {
-        $this->configuration->getBlockDefinitionConfig('some_other_block');
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Configuration\Configuration::getBlockTypeConfig
      */
     public function testGetBlockTypeConfig()

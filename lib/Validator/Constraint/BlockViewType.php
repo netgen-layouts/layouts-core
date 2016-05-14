@@ -12,14 +12,9 @@ class BlockViewType extends Constraint
     public $message = 'netgen_block_manager.block_view_type.no_view_type';
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public $definitionIdentifierMissingMessage = 'netgen_block_manager.block_view_type.no_block_definition';
-
-    /**
-     * @var string
-     */
-    public $definitionIdentifier;
+    public $definition;
 
     /**
      * Returns the name of the class that validates this constraint.

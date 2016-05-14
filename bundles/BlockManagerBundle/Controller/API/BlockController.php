@@ -152,9 +152,7 @@ class BlockController extends Controller
      */
     public function edit(Block $block, Request $request)
     {
-        $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
-            $block->getDefinitionIdentifier()
-        );
+        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 
         $updateStruct = $this->blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
@@ -162,10 +160,10 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockDefinitionConfig['forms']['edit'],
+            $blockDefinition->getConfiguration()->getForm('edit'),
             $updateStruct,
             array(
-                'block' => $block,
+                'blockDefinition' => $blockDefinition,
                 'method' => 'PATCH',
             )
         );
@@ -212,11 +210,9 @@ class BlockController extends Controller
      */
     public function editInline(Block $block, Request $request)
     {
-        $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
-            $block->getDefinitionIdentifier()
-        );
+        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 
-        if (!isset($blockDefinitionConfig['forms']['inline_edit'])) {
+        if (!$blockDefinition->getConfiguration()->hasForm('inline_edit')) {
             throw new InvalidArgumentException('form', 'Block does not support inline editing.');
         }
 
@@ -226,10 +222,10 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockDefinitionConfig['forms']['inline_edit'],
+            $blockDefinition->getConfiguration()->getForm('inline_edit'),
             $updateStruct,
             array(
-                'block' => $block,
+                'blockDefinition' => $blockDefinition,
                 'method' => 'PATCH',
             )
         );

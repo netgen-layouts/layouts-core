@@ -11,11 +11,6 @@ abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configurationMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     protected $executionContextMock;
 
     /**
@@ -28,8 +23,6 @@ abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->configurationMock = $this->getMock(ConfigurationInterface::class);
-
         $this->executionContextMock = $this->getMock(ExecutionContextInterface::class);
 
         $this->violationBuilderMock = $this

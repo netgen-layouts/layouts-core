@@ -3,10 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
@@ -26,7 +28,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configurationMock;
+    protected $blockDefinitionRegistryMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -39,6 +41,11 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     protected $formMock;
 
     /**
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    protected $blockDefinition;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\APIBlockViewListener
      */
     protected $listener;
@@ -48,13 +55,17 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->blockServiceMock = $this->getMock(
-            BlockService::class
-        );
+        $this->blockServiceMock = $this->getMock(BlockService::class);
 
-        $this->configurationMock = $this->getMock(
-            ConfigurationInterface::class
-        );
+        $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
+
+        $this->blockDefinition = new BlockDefinition();
+
+        $this->blockDefinitionRegistryMock
+            ->expects($this->any())
+            ->method('getBlockDefinition')
+            ->with($this->equalTo('block'))
+            ->will($this->returnValue($this->blockDefinition));
 
         $this->formFactoryMock = $this->getMock(FormFactoryInterface::class);
         $this->formMock = $this->getMock(FormInterface::class);
@@ -66,7 +77,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->listener = new APIBlockViewListener(
             $this->blockServiceMock,
-            $this->configurationMock,
+            $this->blockDefinitionRegistryMock,
             $this->formFactoryMock
         );
     }
@@ -93,13 +104,13 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
         $blockView->setContext(ViewInterface::CONTEXT_API);
         $blockView->setBlock($block);
 
-        $blockConfig = array('forms' => array('inline_edit' => 'inline_edit_form'));
-
-        $this->configurationMock
-            ->expects($this->once())
-            ->method('getBlockDefinitionConfig')
-            ->with($this->equalTo('block'))
-            ->will($this->returnValue($blockConfig));
+        $this->blockDefinition->setConfiguration(
+            new Configuration(
+                'block',
+                array('inline_edit' => 'inline_edit_form'),
+                array()
+            )
+        );
 
         $blockUpdateStruct = new BlockUpdateStruct();
 
@@ -114,7 +125,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo('inline_edit_form'),
                 $this->equalTo($blockUpdateStruct),
-                $this->equalTo(array('block' => $block))
+                $this->equalTo(array('blockDefinition' => $this->blockDefinition))
             )
             ->will($this->returnValue($this->formMock));
 
@@ -132,10 +143,6 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     public function testOnBuildViewWithNoBlockView()
     {
         $layoutView = new LayoutView();
-
-        $this->configurationMock
-            ->expects($this->never())
-            ->method('getBlockDefinitionConfig');
 
         $this->blockServiceMock
             ->expects($this->never())
@@ -159,10 +166,6 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     {
         $blockView = new BlockView();
 
-        $this->configurationMock
-            ->expects($this->never())
-            ->method('getBlockDefinitionConfig');
-
         $this->blockServiceMock
             ->expects($this->never())
             ->method('newBlockUpdateStruct');
@@ -183,16 +186,18 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildViewWithNoInlineForm()
     {
+        $this->blockDefinition->setConfiguration(
+            new Configuration(
+                'block',
+                array(),
+                array()
+            )
+        );
+
         $block = new Block(array('definitionIdentifier' => 'block'));
         $blockView = new BlockView();
         $blockView->setContext(ViewInterface::CONTEXT_API);
         $blockView->setBlock($block);
-
-        $this->configurationMock
-            ->expects($this->once())
-            ->method('getBlockDefinitionConfig')
-            ->with($this->equalTo('block'))
-            ->will($this->returnValue(array()));
 
         $this->blockServiceMock
             ->expects($this->never())

@@ -25,11 +25,11 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $blockDefinitionRegistry = new Definition();
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', $blockDefinitionRegistry);
+        $this->setDefinition('netgen_block_manager.configuration.block_definition.block_definition', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
         $blockDefinition = new Definition();
-        $blockDefinition->addTag('netgen_block_manager.block.block_definition');
+        $blockDefinition->addTag('netgen_block_manager.block.block_definition', array('identifier' => 'block_definition'));
         $this->setDefinition('netgen_block_manager.block.block_definition.test', $blockDefinition);
 
         $this->compile();

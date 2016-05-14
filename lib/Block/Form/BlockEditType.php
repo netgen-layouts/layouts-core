@@ -3,10 +3,8 @@
 namespace Netgen\BlockManager\Block\Form;
 
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -19,30 +17,13 @@ class BlockEditType extends AbstractType
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    protected $configuration;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $parameterFormMapper
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      */
-    public function __construct(
-        FormMapperInterface $parameterFormMapper,
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
-        ConfigurationInterface $configuration
-    ) {
+    public function __construct(FormMapperInterface $parameterFormMapper)
+    {
         $this->parameterFormMapper = $parameterFormMapper;
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-        $this->configuration = $configuration;
     }
 
     /**
@@ -52,8 +33,8 @@ class BlockEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('block');
-        $resolver->setAllowedTypes('block', Block::class);
+        $resolver->setRequired('blockDefinition');
+        $resolver->setAllowedTypes('blockDefinition', BlockDefinitionInterface::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
@@ -66,17 +47,12 @@ class BlockEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $options['block']->getDefinitionIdentifier()
-        );
-
-        $blockDefinitionConfig = $this->configuration->getBlockDefinitionConfig(
-            $blockDefinition->getIdentifier()
-        );
+        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
+        $blockDefinition = $options['blockDefinition'];
 
         $choices = array();
-        foreach ($blockDefinitionConfig['view_types'] as $identifier => $viewType) {
-            $choices[$viewType['name']] = $identifier;
+        foreach ($blockDefinition->getConfiguration()->getViewTypes() as $viewType) {
+            $choices[$viewType->getName()] = $viewType->getIdentifier();
         }
 
         $builder->add(

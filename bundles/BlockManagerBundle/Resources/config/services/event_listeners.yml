@@ -65,7 +65,7 @@ services:
         class: "%netgen_block_manager.event_listener.api_block_view.class%"
         arguments:
             - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.block.registry.block_definition"
             - "@form.factory"
         tags:
             - { name: kernel.event_subscriber }

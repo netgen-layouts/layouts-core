@@ -266,6 +266,7 @@ class BlockCollectionController extends Controller
      */
     public function editQuery(Query $query, Request $request)
     {
+        $queryType = $this->getQueryType($query->getType());
         $queryTypeConfig = $this->configuration->getParameter('query_types');
         $queryTypeConfig = $queryTypeConfig[$query->getType()];
 
@@ -276,7 +277,7 @@ class BlockCollectionController extends Controller
             $queryTypeConfig['forms']['edit'],
             $updateStruct,
             array(
-                'query' => $query,
+                'queryType' => $queryType,
                 'method' => 'PATCH',
             )
         );

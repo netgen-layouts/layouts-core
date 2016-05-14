@@ -36,6 +36,8 @@ class BlockValidator extends Validator
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($blockCreateStruct->definitionIdentifier);
+
         $this->validate(
             $blockCreateStruct->definitionIdentifier,
             array(
@@ -51,7 +53,7 @@ class BlockValidator extends Validator
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definitionIdentifier' => $blockCreateStruct->definitionIdentifier)),
+                new BlockViewType(array('definition' => $blockDefinition)),
             ),
             'viewType'
         );
@@ -66,7 +68,6 @@ class BlockValidator extends Validator
             );
         }
 
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($blockCreateStruct->definitionIdentifier);
         $fields = $this->buildParameterValidationFields(
             $blockDefinition->getParameters(),
             $blockDefinition->getParameterConstraints()
@@ -91,13 +92,15 @@ class BlockValidator extends Validator
      */
     public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
+
         if ($blockUpdateStruct->viewType !== null) {
             $this->validate(
                 $blockUpdateStruct->viewType,
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new BlockViewType(array('definitionIdentifier' => $block->getDefinitionIdentifier())),
+                    new BlockViewType(array('definition' => $blockDefinition)),
                 ),
                 'viewType'
             );
@@ -113,7 +116,6 @@ class BlockValidator extends Validator
             );
         }
 
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
         $fields = $this->buildParameterValidationFields(
             $blockDefinition->getParameters(),
             $blockDefinition->getParameterConstraints(),

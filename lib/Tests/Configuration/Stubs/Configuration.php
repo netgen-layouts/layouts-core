@@ -29,12 +29,6 @@ class Configuration extends BaseConfiguration
      */
     public function getParameter($parameterName)
     {
-        if ($parameterName == 'block_definitions') {
-            return array(
-                'some_block' => array('name' => 'Some block'),
-            );
-        }
-
         if ($parameterName == 'block_types') {
             return array(
                 'some_block_type' => array('name' => 'Some block type'),

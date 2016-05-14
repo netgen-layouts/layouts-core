@@ -7,31 +7,6 @@ use InvalidArgumentException;
 abstract class Configuration implements ConfigurationInterface
 {
     /**
-     * Returns the configuration for specified block definition.
-     *
-     * @param string $definitionIdentifier
-     *
-     * @throws \InvalidArgumentException If configuration for specified block definition does not exist
-     *
-     * @return array
-     */
-    public function getBlockDefinitionConfig($definitionIdentifier)
-    {
-        $blockDefinitionConfig = $this->getParameter('block_definitions');
-
-        if (!isset($blockDefinitionConfig[$definitionIdentifier])) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Configuration for "%s" block definition does not exist.',
-                    $definitionIdentifier
-                )
-            );
-        }
-
-        return $blockDefinitionConfig[$definitionIdentifier];
-    }
-
-    /**
      * Returns the configuration for specified block type.
      *
      * @param string $identifier

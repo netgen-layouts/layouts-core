@@ -19,4 +19,18 @@ abstract class Controller extends BaseController
 
         return $blockDefinitionRegistry->getBlockDefinition($definitionIdentifier);
     }
+
+    /**
+     * Returns the specified query type from the registry.
+     *
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
+     */
+    protected function getQueryType($identifier)
+    {
+        $queryTypeRegistry = $this->get('netgen_block_manager.collection.registry.query_type');
+
+        return $queryTypeRegistry->getQueryType($identifier);
+    }
 }

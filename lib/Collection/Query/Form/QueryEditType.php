@@ -2,9 +2,8 @@
 
 namespace Netgen\BlockManager\Collection\Query\Form;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,22 +17,13 @@ class QueryEditType extends AbstractType
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $parameterFormMapper
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
-    public function __construct(
-        FormMapperInterface $parameterFormMapper,
-        QueryTypeRegistryInterface $queryTypeRegistry
-    ) {
+    public function __construct(FormMapperInterface $parameterFormMapper)
+    {
         $this->parameterFormMapper = $parameterFormMapper;
-        $this->queryTypeRegistry = $queryTypeRegistry;
     }
 
     /**
@@ -43,8 +33,8 @@ class QueryEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('query');
-        $resolver->setAllowedTypes('query', Query::class);
+        $resolver->setRequired('queryType');
+        $resolver->setAllowedTypes('queryType', QueryTypeInterface::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
@@ -57,9 +47,8 @@ class QueryEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $queryType = $this->queryTypeRegistry->getQueryType(
-            $options['query']->getType()
-        );
+        /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
+        $queryType = $options['queryType'];
 
         // We're grouping query parameters so they don't conflict with forms from query itself
         $parameterBuilder = $builder->create(

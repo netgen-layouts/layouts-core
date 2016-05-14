@@ -2,12 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
+use Netgen\BlockManager\Configuration\BlockDefinition\ViewType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Block\Form\BlockEditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,16 +23,6 @@ class BlockEditTypeTest extends TypeTestCase
     protected $parameterFormMapperMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockDefinitionRegistryMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $configurationMock;
-
-    /**
      * @var \Netgen\BlockManager\Block\Form\BlockEditType
      */
     protected $formType;
@@ -45,42 +34,9 @@ class BlockEditTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->parameterFormMapperMock = $this->getMock(
-            FormMapperInterface::class
-        );
+        $this->parameterFormMapperMock = $this->getMock(FormMapperInterface::class);
 
-        $this->blockDefinitionRegistryMock = $this->getMock(
-            BlockDefinitionRegistryInterface::class
-        );
-
-        $this->blockDefinitionRegistryMock
-            ->expects($this->any())
-            ->method('getBlockDefinition')
-            ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue(new BlockDefinition()));
-
-        $this->configurationMock = $this->getMock(
-            ConfigurationInterface::class
-        );
-
-        $blockDefinitionConfig = array(
-            'view_types' => array(
-                'large' => array('name' => 'Large'),
-                'small' => array('name' => 'Small'),
-            ),
-        );
-
-        $this->configurationMock
-            ->expects($this->any())
-            ->method('getBlockDefinitionConfig')
-            ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue($blockDefinitionConfig));
-
-        $this->formType = new BlockEditType(
-            $this->parameterFormMapperMock,
-            $this->blockDefinitionRegistryMock,
-            $this->configurationMock
-        );
+        $this->formType = new BlockEditType($this->parameterFormMapperMock);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -112,12 +68,6 @@ class BlockEditTypeTest extends TypeTestCase
             'name' => 'My block',
         );
 
-        $block = new Block(
-            array(
-                'definitionIdentifier' => 'block_definition',
-            )
-        );
-
         $blockUpdateStruct = new BlockUpdateStruct();
 
         $updatedStruct = new BlockUpdateStruct();
@@ -126,10 +76,22 @@ class BlockEditTypeTest extends TypeTestCase
         $updatedStruct->setParameter('css_id', 'Some CSS ID');
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
+        $blockDefinition = new BlockDefinition();
+        $blockDefinition->setConfiguration(
+            new Configuration(
+                'block_definition',
+                array(),
+                array(
+                    'large' => new ViewType('large', 'Large'),
+                    'small' => new ViewType('small', 'Small')
+                )
+            )
+        );
+
         $form = $this->factory->create(
             'block_edit',
             $blockUpdateStruct,
-            array('block' => $block)
+            array('blockDefinition' => $blockDefinition)
         );
 
         $form->submit($submittedData);
@@ -161,12 +123,12 @@ class BlockEditTypeTest extends TypeTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'block' => new Block(),
+                'blockDefinition' => new BlockDefinition(),
                 'data' => new BlockUpdateStruct(),
             )
         );
 
-        self::assertEquals($options['block'], new Block());
+        self::assertEquals($options['blockDefinition'], new BlockDefinition());
         self::assertEquals($options['data'], new BlockUpdateStruct());
     }
 
@@ -174,7 +136,7 @@ class BlockEditTypeTest extends TypeTestCase
      * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
-    public function testConfigureOptionsWithMissingBlock()
+    public function testConfigureOptionsWithMissingBlockDefinition()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -188,7 +150,7 @@ class BlockEditTypeTest extends TypeTestCase
      * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testConfigureOptionsWithInvalidBlock()
+    public function testConfigureOptionsWithInvalidBlockDefinition()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -197,7 +159,7 @@ class BlockEditTypeTest extends TypeTestCase
 
         $optionsResolver->resolve(
             array(
-                'block' => '',
+                'blockDefinition' => '',
             )
         );
     }
@@ -215,7 +177,7 @@ class BlockEditTypeTest extends TypeTestCase
 
         $optionsResolver->resolve(
             array(
-                'block' => new Block(),
+                'blockDefinition' => new BlockDefinition(),
                 'data' => '',
             )
         );
