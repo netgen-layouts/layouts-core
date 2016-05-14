@@ -28,7 +28,7 @@ class DoctrineRuleHandlerPass implements CompilerPassInterface
 
         foreach ($targetHandlers as $targetHandler => $tag) {
             if (!isset($tag[0]['alias'])) {
-                throw new RuntimeException('Target handler tags should have an alias.');
+                throw new RuntimeException('Doctrine target handler service tags should have an "alias" attribute.');
             }
 
             $ruleHandler->addMethodCall(

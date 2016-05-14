@@ -31,7 +31,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
         $parameterHandler = new Definition();
         $parameterHandler->addTag(
             'netgen_block_manager.parameters.parameter_handler',
-            array('parameter_type' => 'test')
+            array('type' => 'test')
         );
         $this->setDefinition('netgen_block_manager.parameters.parameter_handler.test', $parameterHandler);
 

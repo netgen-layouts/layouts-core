@@ -10,22 +10,22 @@ services:
     netgen_block_manager.parameters.parameter_handler.hidden:
         class: "%netgen_block_manager.parameters.parameter_handler.hidden.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: hidden }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: hidden }
 
     netgen_block_manager.parameters.parameter_handler.text:
         class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: text }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: text }
 
     netgen_block_manager.parameters.parameter_handler.textarea:
         class: "%netgen_block_manager.parameters.parameter_handler.textarea.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: textarea }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: textarea }
 
     netgen_block_manager.parameters.parameter_handler.select:
         class: "%netgen_block_manager.parameters.parameter_handler.select.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, parameter_type: select }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: select }
 
     netgen_block_manager.parameters.form_mapper:
         class: "%netgen_block_manager.parameters.form_mapper.class%"

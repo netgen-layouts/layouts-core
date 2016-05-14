@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Para
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class FormMapperPass implements CompilerPassInterface
 {
@@ -25,10 +26,16 @@ class FormMapperPass implements CompilerPassInterface
         $formMapper = $container->findDefinition(self::SERVICE_NAME);
         $parameterHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($parameterHandlers as $parameterHandler => $parameterHandlerTag) {
+        foreach ($parameterHandlers as $parameterHandler => $tag) {
+            if (!isset($tag[0]['type'])) {
+                throw new RuntimeException(
+                    "Parameter handler service definition must have a 'type' attribute in its' tag."
+                );
+            }
+
             $formMapper->addMethodCall(
                 'addParameterHandler',
-                array($parameterHandlerTag[0]['parameter_type'], new Reference($parameterHandler))
+                array($tag[0]['type'], new Reference($parameterHandler))
             );
         }
     }

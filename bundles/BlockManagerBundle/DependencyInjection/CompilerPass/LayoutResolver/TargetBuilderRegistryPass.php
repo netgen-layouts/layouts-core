@@ -29,7 +29,7 @@ class TargetBuilderRegistryPass implements CompilerPassInterface
         $flattenedTargetBuilders = array();
         foreach ($targetBuilders as $targetBuilder => $tag) {
             if (!isset($tag[0]['alias'])) {
-                throw new RuntimeException('Target builder tags should have an alias.');
+                throw new RuntimeException('Target builder service tags should have an "alias" attribute.');
             }
 
             $priority = isset($tag[0]['priority']) ? $tag[0]['priority'] : 0;
