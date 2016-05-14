@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
 
@@ -57,7 +58,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreateLayout()
     {
         $this->layoutHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('createLayout')
             ->will($this->throwException(new Exception()));
 
@@ -75,7 +76,12 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     public function testCopyLayout()
     {
         $this->layoutHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('copyLayout')
             ->will($this->throwException(new Exception()));
 
@@ -93,7 +99,17 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreateLayoutStatus()
     {
         $this->layoutHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('loadLayout')
+            ->will($this->returnValue(false));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(2))
             ->method('createLayoutStatus')
             ->will($this->throwException(new Exception()));
 
@@ -112,8 +128,36 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('status' => Layout::STATUS_PUBLISHED))));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('layoutExists')
             ->will($this->returnValue(false));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(2))
+            ->method('deleteLayout')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->createDraft(new Layout());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     * @expectedException \Exception
+     */
+    public function testPublishLayout()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('status' => Layout::STATUS_DRAFT))));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -124,27 +168,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(
-            new Layout(array('id' => 42, 'status' => Layout::STATUS_PUBLISHED))
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
-     * @expectedException \Exception
-     */
-    public function testPublishLayout()
-    {
-        $this->layoutHandlerMock
-            ->expects($this->once())
-            ->method('deleteLayout')
-            ->will($this->throwException(new Exception()));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->layoutService->publishLayout(new Layout(array('status' => Layout::STATUS_DRAFT)));
+        $this->layoutService->publishLayout(new Layout());
     }
 
     /**
@@ -154,7 +178,12 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     public function testDeleteLayout()
     {
         $this->layoutHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('deleteLayout')
             ->will($this->throwException(new Exception()));
 

@@ -6,6 +6,8 @@ use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
@@ -74,12 +76,17 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreateBlock()
     {
         $this->layoutHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('zoneExists')
             ->will($this->returnValue(true));
 
         $this->blockHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('createBlock')
             ->will($this->throwException(new Exception()));
 
@@ -101,7 +108,12 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testUpdateBlock()
     {
         $this->blockHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
             ->method('updateBlock')
             ->will($this->throwException(new Exception()));
 
@@ -122,7 +134,12 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testCopyBlock()
     {
         $this->blockHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
             ->method('copyBlock')
             ->will($this->throwException(new Exception()));
 
@@ -140,7 +157,12 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testMoveBlock()
     {
         $this->blockHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
             ->method('moveBlock')
             ->will($this->throwException(new Exception()));
 
@@ -158,7 +180,12 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     public function testDeleteBlock()
     {
         $this->blockHandlerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
             ->method('deleteBlock')
             ->will($this->throwException(new Exception()));
 

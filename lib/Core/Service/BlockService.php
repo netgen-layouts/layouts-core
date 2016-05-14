@@ -129,11 +129,13 @@ class BlockService implements BlockServiceInterface
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
 
         $this->blockValidator->validatePosition($position, 'position');
 
-        if (!$this->layoutHandler->zoneExists($layout->getId(), $zoneIdentifier, $layout->getStatus())) {
+        if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $zoneIdentifier, $persistenceLayout->status)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
@@ -144,14 +146,14 @@ class BlockService implements BlockServiceInterface
         try {
             $createdBlock = $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $layout->getId(),
+                $persistenceLayout->id,
                 $zoneIdentifier,
-                $layout->getStatus(),
+                $persistenceLayout->status,
                 $position
             );
 
             $collectionCreateStruct = new CollectionCreateStruct();
-            $collectionCreateStruct->status = $layout->getStatus();
+            $collectionCreateStruct->status = $persistenceLayout->status;
 
             $createdCollection = $this->collectionHandler->createCollection(
                 $collectionCreateStruct,
@@ -185,14 +187,16 @@ class BlockService implements BlockServiceInterface
      */
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
             $updatedBlock = $this->blockHandler->updateBlock(
-                $block->getId(),
-                $block->getStatus(),
+                $persistenceBlock->id,
+                $persistenceBlock->status,
                 $blockUpdateStruct
             );
         } catch (Exception $e) {
@@ -218,10 +222,12 @@ class BlockService implements BlockServiceInterface
      */
     public function copyBlock(Block $block, $zoneIdentifier = null)
     {
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
         if ($zoneIdentifier !== null) {
-            if (!$this->layoutHandler->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
+            if (!$this->layoutHandler->zoneExists($persistenceBlock->layoutId, $zoneIdentifier, $persistenceBlock->status)) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
         }
@@ -230,21 +236,21 @@ class BlockService implements BlockServiceInterface
 
         try {
             $copiedBlock = $this->blockHandler->copyBlock(
-                $block->getId(),
-                $block->getStatus(),
-                $zoneIdentifier !== null ? $zoneIdentifier : $block->getZoneIdentifier()
+                $persistenceBlock->id,
+                $persistenceBlock->status,
+                $zoneIdentifier !== null ? $zoneIdentifier : $persistenceBlock->zoneIdentifier
             );
 
             $collectionReferences = $this->blockHandler->loadCollectionReferences(
-                $block->getId(),
-                $block->getStatus()
+                $persistenceBlock->id,
+                $persistenceBlock->status
             );
 
             foreach ($collectionReferences as $collectionReference) {
                 if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId, $collectionReference->collectionStatus)) {
                     $newCollectionId = $this->collectionHandler->copyCollection(
                         $collectionReference->collectionId,
-                        $block->getStatus()
+                        $persistenceBlock->status
                     );
                 } else {
                     $newCollectionId = $collectionReference->collectionId;
@@ -284,12 +290,14 @@ class BlockService implements BlockServiceInterface
      */
     public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+
         $this->blockValidator->validatePosition($position, 'position', true);
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
         if ($zoneIdentifier !== null) {
-            if (!$this->layoutHandler->zoneExists($block->getLayoutId(), $zoneIdentifier, $block->getStatus())) {
+            if (!$this->layoutHandler->zoneExists($persistenceBlock->layoutId, $zoneIdentifier, $persistenceBlock->status)) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
         }
@@ -297,16 +305,16 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            if ($zoneIdentifier === null || $zoneIdentifier === $block->getZoneIdentifier()) {
+            if ($zoneIdentifier === null || $zoneIdentifier === $persistenceBlock->zoneIdentifier) {
                 $movedBlock = $this->blockHandler->moveBlock(
-                    $block->getId(),
-                    $block->getStatus(),
+                    $persistenceBlock->id,
+                    $persistenceBlock->status,
                     $position
                 );
             } else {
                 $movedBlock = $this->blockHandler->moveBlockToZone(
-                    $block->getId(),
-                    $block->getStatus(),
+                    $persistenceBlock->id,
+                    $persistenceBlock->status,
                     $zoneIdentifier,
                     $position
                 );
@@ -328,12 +336,14 @@ class BlockService implements BlockServiceInterface
      */
     public function deleteBlock(Block $block)
     {
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $this->blockHandler->deleteBlock(
-                $block->getId(),
-                $block->getStatus()
+                $persistenceBlock->id,
+                $persistenceBlock->status
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

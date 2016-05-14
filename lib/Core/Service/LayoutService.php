@@ -137,11 +137,13 @@ class LayoutService implements LayoutServiceInterface
      */
     public function copyLayout(Layout $layout)
     {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $copiedLayout = $this->layoutHandler->copyLayout(
-                $layout->getId()
+                $persistenceLayout->id
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -165,7 +167,9 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createLayoutStatus(Layout $layout, $status)
     {
-        if ($this->layoutHandler->layoutExists($layout->getId(), $status)) {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
+        if ($this->layoutHandler->layoutExists($persistenceLayout->id, $status)) {
             throw new BadStateException('status', 'Layout already has the provided status.');
         }
 
@@ -173,8 +177,8 @@ class LayoutService implements LayoutServiceInterface
 
         try {
             $createdLayout = $this->layoutHandler->createLayoutStatus(
-                $layout->getId(),
-                $layout->getStatus(),
+                $persistenceLayout->id,
+                $persistenceLayout->status,
                 $status
             );
         } catch (Exception $e) {
@@ -199,20 +203,22 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createDraft(Layout $layout)
     {
-        if ($layout->getStatus() !== Layout::STATUS_PUBLISHED) {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
+        if ($persistenceLayout->status !== Layout::STATUS_PUBLISHED) {
             throw new BadStateException('layout', 'Drafts can be created only from published layouts.');
         }
 
-        if ($this->layoutHandler->layoutExists($layout->getId(), Layout::STATUS_DRAFT)) {
+        if ($this->layoutHandler->layoutExists($persistenceLayout->id, Layout::STATUS_DRAFT)) {
             throw new BadStateException('layout', 'The provided layout already has a draft.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_DRAFT);
-            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_TEMPORARY_DRAFT);
-            $layoutDraft = $this->layoutHandler->createLayoutStatus($layout->getId(), Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_DRAFT);
+            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_TEMPORARY_DRAFT);
+            $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -234,21 +240,23 @@ class LayoutService implements LayoutServiceInterface
      */
     public function publishLayout(Layout $layout)
     {
-        if ($layout->getStatus() !== Layout::STATUS_DRAFT) {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
+        if ($persistenceLayout->status !== Layout::STATUS_DRAFT) {
             throw new BadStateException('layout', 'Only layouts in draft status can be published.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_ARCHIVED);
+            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_ARCHIVED);
 
-            $this->layoutHandler->createLayoutStatus($layout->getId(), Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
-            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_PUBLISHED);
+            $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
+            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_PUBLISHED);
 
-            $publishedLayout = $this->layoutHandler->createLayoutStatus($layout->getId(), Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
-            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_DRAFT);
-            $this->layoutHandler->deleteLayout($layout->getId(), Layout::STATUS_TEMPORARY_DRAFT);
+            $publishedLayout = $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
+            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_DRAFT);
+            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_TEMPORARY_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -265,16 +273,18 @@ class LayoutService implements LayoutServiceInterface
      * If $deleteAllStatuses is set to true, layout is completely deleted.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param bool $deleteAll
+     * @param bool $deleteAllStatuses
      */
     public function deleteLayout(Layout $layout, $deleteAllStatuses = false)
     {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $this->layoutHandler->deleteLayout(
-                $layout->getId(),
-                $deleteAllStatuses ? null : $layout->getStatus()
+                $persistenceLayout->id,
+                $deleteAllStatuses ? null : $persistenceLayout->status
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
