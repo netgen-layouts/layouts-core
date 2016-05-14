@@ -90,8 +90,9 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             }
         }
 
-        $this->buildLayoutTypeConfigObjects($container, $config['layout_types']);
-        $this->buildSourceConfigObjects($container, $config['sources']);
+        $this->buildConfigObjects($container, 'layout_type', $config['layout_types']);
+        $this->buildConfigObjects($container, 'source', $config['sources']);
+        $this->buildConfigObjects($container, 'block_definition', $config['block_definitions']);
     }
 
     /**
@@ -163,45 +164,24 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     }
 
     /**
-     * Builds the Source objects from provided array config.
+     * Builds the config objects from provided array config.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $sources
+     * @param string $configName
+     * @param array $configs
      */
-    protected function buildSourceConfigObjects(ContainerBuilder $container, array $sources = array())
+    protected function buildConfigObjects(ContainerBuilder $container, $configName, array $configs = array())
     {
-        foreach ($sources as $identifier => $source) {
-            $definitionIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
+        foreach ($configs as $identifier => $config) {
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.%s.%s', $configName, $identifier);
 
             $container
                 ->setDefinition(
-                    $definitionIdentifier,
-                    new DefinitionDecorator('netgen_block_manager.configuration.source')
+                    $serviceIdentifier,
+                    new DefinitionDecorator(sprintf('netgen_block_manager.configuration.%s', $configName))
                 )
-                ->setArguments(array($source, $identifier))
-                ->addTag('netgen_block_manager.configuration.source', array('identifier' => $identifier))
-                ->setAbstract(false);
-        }
-    }
-
-    /**
-     * Builds the LayoutType objects from provided array config.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $layoutTypes
-     */
-    protected function buildLayoutTypeConfigObjects(ContainerBuilder $container, array $layoutTypes = array())
-    {
-        foreach ($layoutTypes as $identifier => $layoutType) {
-            $definitionIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
-
-            $container
-                ->setDefinition(
-                    $definitionIdentifier,
-                    new DefinitionDecorator('netgen_block_manager.configuration.layout_type')
-                )
-                ->setArguments(array($layoutType, $identifier))
-                ->addTag('netgen_block_manager.configuration.layout_type', array('identifier' => $identifier))
+                ->setArguments(array($config, $identifier))
+                ->addTag(sprintf('netgen_block_manager.configuration.%s', $configName), array('identifier' => $identifier))
                 ->setAbstract(false);
         }
     }

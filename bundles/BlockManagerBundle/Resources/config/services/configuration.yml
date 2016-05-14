@@ -3,12 +3,14 @@ parameters:
 
     netgen_block_manager.configuration.source.class: Netgen\BlockManager\Configuration\Source\Source
     netgen_block_manager.configuration.layout_type.class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
+    netgen_block_manager.configuration.block_definition.class: Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
 
     netgen_block_manager.configuration.registry.source.class: Netgen\BlockManager\Configuration\Registry\SourceRegistry
     netgen_block_manager.configuration.registry.layout_type.class: Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
 
     netgen_block_manager.configuration.factory.source.class: Netgen\BlockManager\Configuration\Factory\SourceFactory
     netgen_block_manager.configuration.factory.layout_type.class: Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory
+    netgen_block_manager.configuration.factory.block_definition.class: Netgen\BlockManager\Configuration\Factory\BlockDefinitionFactory
 
 services:
     netgen_block_manager.configuration.container:
@@ -38,5 +40,11 @@ services:
     netgen_block_manager.configuration.layout_type:
         class: "%netgen_block_manager.configuration.layout_type.class%"
         factory: ["%netgen_block_manager.configuration.factory.layout_type.class%", "buildLayoutType"]
+        abstract: true
+        synthetic: true
+
+    netgen_block_manager.configuration.block_definition:
+        class: "%netgen_block_manager.configuration.block_definition.class%"
+        factory: ["%netgen_block_manager.configuration.factory.block_definition.class%", "buildBlockDefinition"]
         abstract: true
         synthetic: true

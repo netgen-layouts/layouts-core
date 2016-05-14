@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Bloc
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class BlockDefinitionRegistryPass implements CompilerPassInterface
 {
@@ -23,9 +24,25 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
         }
 
         $blockDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $blockDefinitions = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $blockDefinitions = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($blockDefinitions as $blockDefinition) {
+        foreach ($blockDefinitions as $blockDefinition => $tag) {
+            if (!isset($tag[0]['identifier'])) {
+                throw new RuntimeException(
+                    "Block definition service definition must have an 'identifier' attribute in its' tag."
+                );
+            }
+
+            $configService = sprintf('netgen_block_manager.configuration.block_definition.%s', $tag[0]['identifier']);
+            if (!$container->has($configService)) {
+                throw new RuntimeException(
+                    sprintf('Block definition "%s" does not have a configuration.', $tag[0]['identifier'])
+                );
+            }
+
+            $blockDefinitionService = $container->findDefinition($blockDefinition);
+            $blockDefinitionService->addMethodCall('setConfiguration', array(new Reference($configService)));
+
             $blockDefinitionRegistry->addMethodCall(
                 'addBlockDefinition',
                 array(new Reference($blockDefinition))

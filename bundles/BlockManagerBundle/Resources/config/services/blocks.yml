@@ -10,9 +10,9 @@ services:
     netgen_block_manager.block.block_definition.title:
         class: "%netgen_block_manager.block.block_definition.title.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition }
+            - { name: netgen_block_manager.block.block_definition, identifier: 'title' }
 
     netgen_block_manager.block.block_definition.paragraph:
         class: "%netgen_block_manager.block.block_definition.paragraph.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition }
+            - { name: netgen_block_manager.block.block_definition, identifier: 'paragraph' }
