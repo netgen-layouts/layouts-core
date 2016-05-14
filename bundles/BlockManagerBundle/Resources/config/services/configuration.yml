@@ -1,6 +1,12 @@
 parameters:
     netgen_block_manager.configuration.container.class: Netgen\BlockManager\Configuration\ContainerConfiguration
 
+    netgen_block_manager.configuration.source.class: Netgen\BlockManager\Configuration\Source\Source
+
+    netgen_block_manager.configuration.registry.source.class: Netgen\BlockManager\Configuration\Source\Registry
+
+    netgen_block_manager.configuration.factory.source.class: Netgen\BlockManager\Configuration\Source\Factory
+
 services:
     netgen_block_manager.configuration.container:
         class: "%netgen_block_manager.configuration.container.class%"
@@ -9,3 +15,16 @@ services:
 
     netgen_block_manager.configuration:
         alias: netgen_block_manager.configuration.container
+
+    # Registries
+
+    netgen_block_manager.configuration.registry.source:
+        class: "%netgen_block_manager.configuration.registry.source.class%"
+
+    # Synthetic services
+
+    netgen_block_manager.configuration.source:
+        class: "%netgen_block_manager.configuration.source.class%"
+        factory: ["%netgen_block_manager.configuration.factory.source.class%", "buildSource"]
+        abstract: true
+        synthetic: true

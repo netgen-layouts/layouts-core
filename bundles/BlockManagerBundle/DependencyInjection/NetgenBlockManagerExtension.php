@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -89,27 +90,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             }
         }
 
-        $itemizedConfigKeys = array(
-            'block_definitions',
-            'sources',
-            'query_types',
-            'layouts',
-            'block_types',
-            'block_type_groups',
-        );
-
-        foreach ($config as $key => $value) {
-            if (!in_array($key, $itemizedConfigKeys)) {
-                continue;
-            }
-
-            foreach ($config[$key] as $identifier => $configValue) {
-                $container->setParameter(
-                $extensionAlias . '.' . $key . '.' . $identifier,
-                $configValue
-            );
-            }
-        }
+        $this->buildSourceConfigObjects($container, $config['sources']);
     }
 
     /**
@@ -178,5 +159,27 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/collections.yml');
 
         $loader->load('services/api.yml');
+    }
+
+    /**
+     * Builds the Source objects from provided array config.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $sources
+     */
+    protected function buildSourceConfigObjects(ContainerBuilder $container, array $sources = array())
+    {
+        foreach ($sources as $identifier => $source) {
+            $definitionIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
+
+            $container
+                ->setDefinition(
+                    $definitionIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.source')
+                )
+                ->setArguments(array($source, $identifier))
+                ->addTag('netgen_block_manager.configuration.source', array('identifier' => $identifier))
+                ->setAbstract(false);
+        }
     }
 }
