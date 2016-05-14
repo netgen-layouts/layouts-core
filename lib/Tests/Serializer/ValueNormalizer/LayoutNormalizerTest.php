@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\ValueNormalizer;
 
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
-use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -17,7 +17,7 @@ use DateTime;
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
      */
     protected $layoutTypeRegistry;
 
@@ -28,7 +28,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->layoutTypeRegistry = new Registry();
+        $this->layoutTypeRegistry = new LayoutTypeRegistry();
 
         $layoutType = new LayoutType(
             '3_zones_a',

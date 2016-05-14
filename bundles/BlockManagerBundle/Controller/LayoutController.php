@@ -4,8 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 
 class LayoutController extends Controller
@@ -21,7 +20,7 @@ class LayoutController extends Controller
     protected $viewBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
      */
     protected $layoutTypeRegistry;
 
@@ -30,12 +29,12 @@ class LayoutController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      */
     public function __construct(
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
-        Registry $layoutTypeRegistry
+        LayoutTypeRegistry $layoutTypeRegistry
     ) {
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;

@@ -1,10 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\LayoutType;
+namespace Netgen\BlockManager\Configuration\Registry;
 
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use RuntimeException;
 
-class Registry
+class LayoutTypeRegistry
 {
     protected $layoutTypes = array();
 

@@ -2,23 +2,23 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
 class LayoutZonesValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
      */
     protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      */
-    public function __construct(Registry $layoutTypeRegistry)
+    public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }

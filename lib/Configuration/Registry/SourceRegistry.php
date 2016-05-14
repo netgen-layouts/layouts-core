@@ -1,10 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Source;
+namespace Netgen\BlockManager\Configuration\Registry;
 
+use Netgen\BlockManager\Configuration\Source\Source;
 use RuntimeException;
 
-class Registry
+class SourceRegistry
 {
     protected $sources = array();
 

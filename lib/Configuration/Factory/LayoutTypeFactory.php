@@ -1,8 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\LayoutType;
+namespace Netgen\BlockManager\Configuration\Factory;
 
-class Factory
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone;
+
+class LayoutTypeFactory
 {
     /**
      * Builds the layout type.

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Validator\LayoutValidator;
 use Netgen\BlockManager\Validator\Constraint\Layout;
 
@@ -22,7 +22,7 @@ class LayoutValidatorTest extends ValidatorTest
     {
         parent::setUp();
 
-        $this->layoutTypeRegistryMock = $this->getMock(Registry::class);
+        $this->layoutTypeRegistryMock = $this->getMock(LayoutTypeRegistry::class);
 
         $this->validator = new LayoutValidator($this->layoutTypeRegistryMock);
         $this->validator->initialize($this->executionContextMock);

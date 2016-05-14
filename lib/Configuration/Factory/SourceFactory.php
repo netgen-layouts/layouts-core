@@ -1,8 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Source;
+namespace Netgen\BlockManager\Configuration\Factory;
 
-class Factory
+use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Configuration\Source\Query;
+
+class SourceFactory
 {
     /**
      * Builds the source.

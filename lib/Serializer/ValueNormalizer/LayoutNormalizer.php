@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Serializer\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use DateTime;
@@ -12,16 +12,16 @@ use DateTime;
 class LayoutNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
      */
     protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\LayoutType\Registry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      */
-    public function __construct(Registry $layoutTypeRegistry)
+    public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }

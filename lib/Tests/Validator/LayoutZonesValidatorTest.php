@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Registry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Validator\LayoutZonesValidator;
 use Netgen\BlockManager\Validator\Constraint\LayoutZones;
@@ -11,7 +11,7 @@ use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 class LayoutZonesValidatorTest extends ValidatorTest
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Registry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
      */
     protected $layoutTypeRegistry;
 
@@ -24,7 +24,7 @@ class LayoutZonesValidatorTest extends ValidatorTest
     {
         parent::setUp();
 
-        $this->layoutTypeRegistry = new Registry();
+        $this->layoutTypeRegistry = new LayoutTypeRegistry();
 
         $layoutType = new LayoutType(
             'layout',
