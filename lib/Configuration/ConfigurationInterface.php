@@ -51,11 +51,11 @@ interface ConfigurationInterface
     /**
      * Returns the configuration for specified layout.
      *
-     * @param string $layoutIdentifier
+     * @param string $layoutType
      *
      * @throws \InvalidArgumentException If configuration for specified layout does not exist
      *
      * @return array
      */
-    public function getLayoutConfig($layoutIdentifier);
+    public function getLayoutConfig($layoutType);
 }

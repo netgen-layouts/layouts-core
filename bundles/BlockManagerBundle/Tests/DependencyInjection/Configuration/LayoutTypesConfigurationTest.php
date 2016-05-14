@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 
-class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
+class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -26,14 +26,14 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutSettings()
+    public function testLayoutTypeSettings()
     {
         $config = array(
             array(
-                'layouts' => array(
+                'layout_types' => array(
                     'layout' => array(
                         'name' => 'layout',
                         'zones' => array(
@@ -47,7 +47,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -63,21 +63,21 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layouts'
+            'layout_types'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutSettingsNoZonesMerge()
+    public function testLayoutTypeSettingsNoZonesMerge()
     {
         $config = array(
             array(
-                'layouts' => array(
+                'layout_types' => array(
                     'layout' => array(
                         'name' => 'layout',
                         'zones' => array(
@@ -92,7 +92,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
                 ),
             ),
             array(
-                'layouts' => array(
+                'layout_types' => array(
                     'layout' => array(
                         'name' => 'layout',
                         'zones' => array(
@@ -109,7 +109,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -129,21 +129,21 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layouts'
+            'layout_types'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutSettingsWithAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithAllowedBlockTypes()
     {
         $config = array(
             array(
-                'layouts' => array(
+                'layout_types' => array(
                     'layout' => array(
                         'name' => 'layout',
                         'zones' => array(
@@ -158,7 +158,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -174,21 +174,21 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layouts'
+            'layout_types'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutSettingsWithNonUniqueAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithNonUniqueAllowedBlockTypes()
     {
         $config = array(
             array(
-                'layouts' => array(
+                'layout_types' => array(
                     'layout' => array(
                         'name' => 'layout',
                         'zones' => array(
@@ -203,7 +203,7 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectedConfig = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -219,48 +219,48 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layouts'
+            'layout_types'
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyLayouts()
+    public function testLayoutTypeSettingsWithEmptyLayouts()
     {
-        $config = array('layouts' => array());
+        $config = array('layout_types' => array());
         $this->assertConfigurationIsInvalid(array($config));
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidLayouts()
+    public function testLayoutTypeSettingsWithInvalidLayouts()
     {
-        $config = array('layouts' => 'layouts');
+        $config = array('layout_types' => 'layout_types');
         $this->assertConfigurationIsInvalid(array($config));
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithNoName()
+    public function testLayoutTypeSettingsWithNoName()
     {
-        $config = array('layouts' => array('layout' => array()));
+        $config = array('layout_types' => array('layout' => array()));
         $this->assertConfigurationIsInvalid(array($config));
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyName()
+    public function testLayoutTypeSettingsWithEmptyName()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => '',
                 ),
@@ -272,12 +272,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidName()
+    public function testLayoutTypeSettingsWithInvalidName()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => array(),
                 ),
@@ -289,12 +289,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithNoZones()
+    public function testLayoutTypeSettingsWithNoZones()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                 ),
@@ -306,12 +306,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyZones()
+    public function testLayoutTypeSettingsWithEmptyZones()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(),
@@ -324,12 +324,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidZones()
+    public function testLayoutTypeSettingsWithInvalidZones()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => 'zone',
@@ -342,12 +342,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithNoZoneName()
+    public function testLayoutTypeSettingsWithNoZoneName()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(),
@@ -360,12 +360,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyZoneName()
+    public function testLayoutTypeSettingsWithEmptyZoneName()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -380,12 +380,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidZoneName()
+    public function testLayoutTypeSettingsWithInvalidZoneName()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -400,12 +400,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithEmptyAllowedBlockTypes()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -421,12 +421,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithInvalidAllowedBlockTypes()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -442,12 +442,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithEmptyAllowedBlockTypesItem()
+    public function testLayoutTypeSettingsWithEmptyAllowedBlockTypesItem()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(
@@ -465,12 +465,12 @@ class LayoutsConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutSettingsWithInvalidAllowedBlockTypeItem()
+    public function testLayoutTypeSettingsWithInvalidAllowedBlockTypeItem()
     {
         $config = array(
-            'layouts' => array(
+            'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(

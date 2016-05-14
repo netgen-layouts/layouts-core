@@ -68,7 +68,7 @@ class Configuration implements ConfigurationInterface
             $this->getBlockDefinitionsNodeDefinition(),
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),
-            $this->getLayoutsNodeDefinition(),
+            $this->getLayoutTypesNodeDefinition(),
             $this->getSourcesNodeDefinition(),
             $this->getQueryTypesNodeDefinition(),
             $this->getPagelayoutNodeDefinition(),
@@ -278,10 +278,10 @@ class Configuration implements ConfigurationInterface
      *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    public function getLayoutsNodeDefinition()
+    public function getLayoutTypesNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('layouts');
+        $node = $treeBuilder->root('layout_types');
 
         $node
             ->requiresAtLeastOneElement()

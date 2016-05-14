@@ -1,4 +1,4 @@
-layouts:
+layout_types:
     3_zones_a:
         name: '3 zones A'
         zones:

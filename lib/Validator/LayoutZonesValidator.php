@@ -32,9 +32,9 @@ class LayoutZonesValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\LayoutZones $constraint */
-        $layoutConfig = $this->configuration->getParameter('layouts');
+        $layoutTypes = $this->configuration->getParameter('layout_types');
 
-        if (!isset($layoutConfig[$constraint->layoutType])) {
+        if (!isset($layoutTypes[$constraint->layoutType])) {
             $this->context->buildViolation($constraint->layoutMissingMessage)
                 ->setParameter('%layoutType%', $constraint->layoutType)
                 ->addViolation();
@@ -50,14 +50,14 @@ class LayoutZonesValidator extends ConstraintValidator
         }
 
         foreach ($value as $zoneIdentifier) {
-            if (!isset($layoutConfig[$constraint->layoutType]['zones'][$zoneIdentifier])) {
+            if (!isset($layoutTypes[$constraint->layoutType]['zones'][$zoneIdentifier])) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('%zoneIdentifier%', $zoneIdentifier)
                     ->addViolation();
             }
         }
 
-        foreach ($layoutConfig[$constraint->layoutType]['zones'] as $zoneIdentifier => $zone) {
+        foreach ($layoutTypes[$constraint->layoutType]['zones'] as $zoneIdentifier => $zone) {
             if (!in_array($zoneIdentifier, $value)) {
                 $this->context->buildViolation($constraint->zoneMissingMessage)
                     ->setParameter('%zoneIdentifier%', $zoneIdentifier)

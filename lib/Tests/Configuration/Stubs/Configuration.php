@@ -41,7 +41,7 @@ class Configuration extends BaseConfiguration
             );
         }
 
-        if ($parameterName == 'layouts') {
+        if ($parameterName == 'layout_types') {
             return array(
                 'some_layout' => array('name' => 'Some layout'),
             );

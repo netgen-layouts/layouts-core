@@ -59,25 +59,25 @@ abstract class Configuration implements ConfigurationInterface
     /**
      * Returns the configuration for specified layout.
      *
-     * @param string $layoutIdentifier
+     * @param string $layoutType
      *
      * @throws \InvalidArgumentException If configuration for specified layout does not exist
      *
      * @return array
      */
-    public function getLayoutConfig($layoutIdentifier)
+    public function getLayoutConfig($layoutType)
     {
-        $layoutConfig = $this->getParameter('layouts');
+        $layoutTypes = $this->getParameter('layout_types');
 
-        if (!isset($layoutConfig[$layoutIdentifier])) {
+        if (!isset($layoutTypes[$layoutType])) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" layout does not exist.',
-                    $layoutIdentifier
+                    $layoutType
                 )
             );
         }
 
-        return $layoutConfig[$layoutIdentifier];
+        return $layoutTypes[$layoutType];
     }
 }

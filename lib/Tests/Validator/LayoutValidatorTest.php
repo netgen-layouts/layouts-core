@@ -19,7 +19,7 @@ class LayoutValidatorTest extends ValidatorTest
         $this->configurationMock
             ->expects($this->any())
             ->method('getParameter')
-            ->with($this->equalTo('layouts'))
+            ->with($this->equalTo('layout_types'))
             ->will($this->returnValue(array('layout' => array())));
 
         $this->validator = new LayoutValidator($this->configurationMock);
