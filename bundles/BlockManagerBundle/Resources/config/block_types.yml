@@ -4,20 +4,19 @@ block_types:
 #        defaults:
 #            view_type: default
 #            definition_identifier: container
-#        groups: [simple_blocks, container]
     title:
         name: 'Title'
+        definition_identifier: title
         defaults:
             view_type: default
-            definition_identifier: title
             parameters:
                 tag: h1
                 title: 'My cool title'
     title_with_h3:
         name: 'Title with h3'
+        definition_identifier: title
         defaults:
             view_type: large
-            definition_identifier: title
 #            sub_blocks:
 #                left:
 #                    type: container
@@ -36,8 +35,8 @@ block_types:
                 tag: h3
     paragraph:
        name: 'Paragraph'
+       definition_identifier: paragraph
        defaults:
            view_type: default
-           definition_identifier: paragraph
            parameters:
                content: 'My cool paragraph'
