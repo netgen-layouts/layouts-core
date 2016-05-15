@@ -109,6 +109,16 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
+            array(
+                array(
+                    'multiple' => true,
+                    'options' => function () {},
+                ),
+                array(
+                    'multiple' => true,
+                    'options' => function () {},
+                ),
+            ),
         );
     }
 

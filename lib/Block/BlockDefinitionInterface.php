@@ -34,14 +34,14 @@ interface BlockDefinitionInterface
     public function getDynamicParameters(Block $block, array $parameters = array());
 
     /**
-     * Sets the block definition configuration
+     * Sets the block definition configuration.
      *
      * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
      */
     public function setConfiguration(Configuration $configuration);
 
     /**
-     * Returns the block definition configuration
+     * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
      */

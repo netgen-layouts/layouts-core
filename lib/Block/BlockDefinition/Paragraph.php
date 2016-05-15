@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
-use Symfony\Component\Validator\Constraints;
 
 class Paragraph extends BlockDefinition
 {

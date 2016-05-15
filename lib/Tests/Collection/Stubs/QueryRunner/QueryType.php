@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Stubs\QueryRunner;
 
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType as BaseQueryType;
 
-class QueryType implements QueryTypeInterface
+class QueryType extends BaseQueryType
 {
     protected $queryType;
 

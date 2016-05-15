@@ -83,7 +83,7 @@ class BlockEditTypeTest extends TypeTestCase
                 array(),
                 array(
                     'large' => new ViewType('large', 'Large'),
-                    'small' => new ViewType('small', 'Small')
+                    'small' => new ViewType('small', 'Small'),
                 )
             )
         );

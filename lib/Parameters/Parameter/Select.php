@@ -25,24 +25,19 @@ class Select extends Parameter
      */
     protected function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setDefaults(
-            array(
-                'multiple' => false,
-            )
-        );
-
+        $optionsResolver->setDefault('multiple', false);
         $optionsResolver->setRequired(array('multiple', 'options'));
         $optionsResolver->setAllowedTypes('multiple', 'bool');
-        $optionsResolver->setAllowedTypes('options', 'array');
+        $optionsResolver->setAllowedTypes('options', array('array', 'callable'));
 
         $optionsResolver->setAllowedValues(
             'options',
-            function (array $value) {
-                if (empty($value)) {
-                    return false;
+            function ($value) {
+                if (is_callable($value)) {
+                    return true;
                 }
 
-                return true;
+                return !empty($value);
             }
         );
     }
@@ -57,8 +52,12 @@ class Select extends Parameter
         return array(
             new Constraints\Choice(
                 array(
-                    'choices' => array_values($this->options['options']),
-                    'multiple' => $this->options['multiple']
+                    'choices' => array_values(
+                        is_callable($this->options['options']) ?
+                            $this->options['options']() :
+                            $this->options['options']
+                        ),
+                    'multiple' => $this->options['multiple'],
                 )
             ),
         );

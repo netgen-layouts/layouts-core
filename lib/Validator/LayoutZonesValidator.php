@@ -32,7 +32,6 @@ class LayoutZonesValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\LayoutZones $constraint */
-
         if (!$this->layoutTypeRegistry->hasLayoutType($constraint->layoutType)) {
             $this->context->buildViolation($constraint->layoutMissingMessage)
                 ->setParameter('%layoutType%', $constraint->layoutType)

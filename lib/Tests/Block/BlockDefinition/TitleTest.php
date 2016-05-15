@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\Title;
 use Netgen\BlockManager\Parameters\Parameter;
-use Symfony\Component\Validator\Constraints;
 
 class TitleTest extends \PHPUnit_Framework_TestCase
 {

@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Block;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {

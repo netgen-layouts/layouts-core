@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\Paragraph;
 use Netgen\BlockManager\Parameters\Parameter;
-use Symfony\Component\Validator\Constraints;
 
 class ParagraphTest extends \PHPUnit_Framework_TestCase
 {

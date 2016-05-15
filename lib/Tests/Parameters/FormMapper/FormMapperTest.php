@@ -48,8 +48,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             $this->formBuilder,
             new Text(),
             'param_name',
-            'label_prefix',
-            null
+            'label_prefix'
         );
 
         self::assertCount(1, $this->formBuilder->all());
@@ -83,7 +82,6 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             $this->formBuilder,
             new Text(),
             'param_name',
-            null,
             null
         );
 

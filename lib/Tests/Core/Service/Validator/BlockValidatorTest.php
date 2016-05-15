@@ -103,8 +103,8 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                     new Constraints\Collection(
                         array(
                             'fields' => array(
-                                'css_class' => new Constraints\Required(array()),
-                                'css_id' => new Constraints\Optional(array(new Constraints\NotBlank())),
+                                'css_class' => new Constraints\Required(array(new Constraints\NotBlank())),
+                                'css_id' => new Constraints\Optional(array()),
                             ),
                         )
                     ),
@@ -167,7 +167,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                         array(
                             'fields' => array(
                                 'css_class' => new Constraints\Optional(array()),
-                                'css_id' => new Constraints\Optional(array(new Constraints\NotBlank())),
+                                'css_id' => new Constraints\Optional(array()),
                             ),
                         )
                     ),

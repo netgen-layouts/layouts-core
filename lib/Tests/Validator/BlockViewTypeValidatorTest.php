@@ -30,7 +30,7 @@ class BlockViewTypeValidatorTest extends ValidatorTest
                 'block',
                 array(),
                 array(
-                    'large' => new ViewType('large', 'Large')
+                    'large' => new ViewType('large', 'Large'),
                 )
             )
         );

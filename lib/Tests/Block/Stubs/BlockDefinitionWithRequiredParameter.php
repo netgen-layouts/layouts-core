@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\Block\BlockDefinition as BaseBlockDefinition;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Netgen\BlockManager\Parameters\Parameter;
 
 class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition

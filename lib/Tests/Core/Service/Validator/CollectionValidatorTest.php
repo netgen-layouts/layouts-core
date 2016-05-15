@@ -193,7 +193,7 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
                     new Constraints\Collection(
                         array(
                             'fields' => array(
-                                'param' => new Constraints\Required(array()),
+                                'param' => new Constraints\Required(array(new Constraints\NotBlank())),
                             ),
                         )
                     ),

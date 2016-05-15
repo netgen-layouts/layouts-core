@@ -30,7 +30,9 @@ class Select implements ParameterHandlerInterface
 
         return array(
             'multiple' => $parameterOptions['multiple'],
-            'choices' => $parameterOptions['options'],
+            'choices' => is_callable($parameterOptions['options']) ?
+                $parameterOptions['options']() :
+                $parameterOptions['options'],
             'choices_as_values' => true,
         );
     }

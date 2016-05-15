@@ -43,14 +43,14 @@ interface QueryTypeInterface
     public function getCount(array $parameters);
 
     /**
-     * Sets the query type configuration
+     * Sets the query type configuration.
      *
      * @param \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
      */
     public function setConfiguration(Configuration $configuration);
 
     /**
-     * Returns the query type configuration
+     * Returns the query type configuration.
      *
      * @return \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
      */

@@ -66,7 +66,7 @@ class ConfigController extends Controller
 
         foreach ($configSources as $identifier => $source) {
             $sources[] = array(
-                'identifier' => $identifier
+                'identifier' => $identifier,
             ) + $source;
         }
 

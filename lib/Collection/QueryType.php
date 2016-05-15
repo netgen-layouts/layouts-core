@@ -12,7 +12,7 @@ abstract class QueryType implements QueryTypeInterface
     protected $configuration;
 
     /**
-     * Sets the query type configuration
+     * Sets the query type configuration.
      *
      * @param \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
      */
@@ -22,7 +22,7 @@ abstract class QueryType implements QueryTypeInterface
     }
 
     /**
-     * Returns the query type configuration
+     * Returns the query type configuration.
      *
      * @return \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
      */

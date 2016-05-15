@@ -32,7 +32,6 @@ class LayoutValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\Layout $constraint */
-
         if (!$this->layoutTypeRegistry->hasLayoutType($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%type%', $value)

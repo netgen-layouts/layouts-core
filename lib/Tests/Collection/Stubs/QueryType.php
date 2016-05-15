@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\QueryType as BaseQueryType;
 use Netgen\BlockManager\Parameters\Parameter\Text;
 
-class QueryType implements QueryTypeInterface
+class QueryType extends BaseQueryType
 {
     /**
      * Returns the query type.

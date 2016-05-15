@@ -42,7 +42,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
-     * Sets the block definition configuration
+     * Sets the block definition configuration.
      *
      * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
      */
@@ -52,7 +52,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
-     * Returns the block definition configuration
+     * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
      */

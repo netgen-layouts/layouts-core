@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
@@ -17,7 +16,6 @@ class BlockViewTypeValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\BlockViewType $constraint */
-
         if (!$constraint->definition->getConfiguration()->hasViewType($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%viewType%', $value)
