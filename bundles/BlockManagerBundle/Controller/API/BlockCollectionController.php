@@ -30,11 +30,6 @@ class BlockCollectionController extends Controller
     protected $blockService;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    protected $configuration;
-
-    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator
      */
     protected $validator;
@@ -44,18 +39,15 @@ class BlockCollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator $validator
      */
     public function __construct(
         CollectionService $collectionService,
         BlockService $blockService,
-        ConfigurationInterface $configuration,
         CollectionValidator $validator
     ) {
         $this->collectionService = $collectionService;
         $this->blockService = $blockService;
-        $this->configuration = $configuration;
         $this->validator = $validator;
     }
 

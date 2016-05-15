@@ -36,7 +36,6 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.view.builder"
-            - "@netgen_block_manager.configuration"
 
     ngbm_layout:
         alias: netgen_block_manager.controller.layout
@@ -68,7 +67,6 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.controller.api.collection.validator"
 
     netgen_block_manager.controller.api.block.validator:

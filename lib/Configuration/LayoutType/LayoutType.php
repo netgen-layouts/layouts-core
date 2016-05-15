@@ -64,6 +64,16 @@ class LayoutType
     }
 
     /**
+     * Returns the layout type zone identifiers.
+     *
+     * @return string[]
+     */
+    public function getZoneIdentifiers()
+    {
+        return array_keys($this->zones);
+    }
+
+    /**
      * Returns if the layout type has a zone with provided identifier.
      *
      * @param $zoneIdentifier

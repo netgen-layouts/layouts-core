@@ -35,6 +35,20 @@ abstract class Controller extends BaseController
     }
 
     /**
+     * Returns the specified layout type from the registry.
+     *
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     */
+    protected function getLayoutType($identifier)
+    {
+        $layoutTypeRegistry = $this->get('netgen_block_manager.configuration.registry.layout_type');
+
+        return $layoutTypeRegistry->getLayoutType($identifier);
+    }
+
+    /**
      * Returns the specified block type from the registry.
      *
      * @param string $identifier

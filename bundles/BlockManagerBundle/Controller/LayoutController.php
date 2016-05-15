@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 
 class LayoutController extends Controller
@@ -20,25 +19,15 @@ class LayoutController extends Controller
     protected $viewBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
-     */
-    protected $layoutTypeRegistry;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      */
-    public function __construct(
-        LayoutService $layoutService,
-        ViewBuilderInterface $viewBuilder,
-        LayoutTypeRegistry $layoutTypeRegistry
-    ) {
+    public function __construct(LayoutService $layoutService, ViewBuilderInterface $viewBuilder)
+    {
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -51,12 +40,12 @@ class LayoutController extends Controller
      */
     public function create($type, $name)
     {
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($type);
+        $layoutType = $this->getLayoutType($type);
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $type,
             $name,
-            array_keys($layoutType->getZones())
+            $layoutType->getZoneIdentifiers()
         );
 
         $layoutCreateStruct->status = Layout::STATUS_DRAFT;
