@@ -2,9 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Configuration\BlockDefinition\ViewType;
+use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\BlockEditType;
@@ -18,9 +22,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class BlockEditTypeTest extends TypeTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
      */
-    protected $parameterFormMapperMock;
+    protected $parameterFormMapper;
 
     /**
      * @var \Netgen\BlockManager\Block\Form\BlockEditType
@@ -34,9 +38,10 @@ class BlockEditTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->parameterFormMapperMock = $this->getMock(FormMapperInterface::class);
+        $this->parameterFormMapper = new FormMapper();
+        $this->parameterFormMapper->addParameterHandler('text', new Text());
 
-        $this->formType = new BlockEditType($this->parameterFormMapperMock);
+        $this->formType = new BlockEditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -57,8 +62,6 @@ class BlockEditTypeTest extends TypeTestCase
      */
     public function testSubmitValidData()
     {
-        $this->markTestIncomplete('Not yet working');
-
         $submittedData = array(
             'parameters' => array(
                 'css_id' => 'Some CSS ID',
@@ -67,8 +70,6 @@ class BlockEditTypeTest extends TypeTestCase
             'view_type' => 'large',
             'name' => 'My block',
         );
-
-        $blockUpdateStruct = new BlockUpdateStruct();
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->viewType = 'large';
@@ -90,7 +91,7 @@ class BlockEditTypeTest extends TypeTestCase
 
         $form = $this->factory->create(
             'block_edit',
-            $blockUpdateStruct,
+            new BlockUpdateStruct(),
             array('blockDefinition' => $blockDefinition)
         );
 
