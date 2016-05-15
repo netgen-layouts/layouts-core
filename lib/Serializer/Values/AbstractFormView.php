@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Serializer\Values;
 
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractFormView extends AbstractView
 {
@@ -12,12 +13,17 @@ abstract class AbstractFormView extends AbstractView
     protected $form;
 
     /**
-     * Sets the form.
+     * Constructor.
      *
      * @param \Symfony\Component\Form\FormInterface $form
+     * @param mixed $value
+     * @param int $version
+     * @param int $statusCode
      */
-    public function setForm(FormInterface $form)
+    public function __construct(FormInterface $form, $value, $version, $statusCode = Response::HTTP_OK)
     {
+        parent::__construct($value, $version, $statusCode);
+
         $this->form = $form;
     }
 

@@ -288,10 +288,7 @@ class BlockCollectionController extends Controller
             }
 
             if (!$form->isValid()) {
-                $renderableForm = new FormView($query, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
-                $renderableForm->setForm($form);
-
-                return $renderableForm;
+                return new FormView($form, $query, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
             $query = $this->collectionService->updateQuery(
@@ -300,10 +297,7 @@ class BlockCollectionController extends Controller
             );
         }
 
-        $renderableForm = new FormView($query, self::API_VERSION);
-        $renderableForm->setForm($form);
-
-        return $renderableForm;
+        return new FormView($form, $query, self::API_VERSION);
     }
 
     /**

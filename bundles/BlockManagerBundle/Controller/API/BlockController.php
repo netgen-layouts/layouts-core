@@ -176,10 +176,7 @@ class BlockController extends Controller
             }
 
             if (!$form->isValid()) {
-                $renderableForm = new FormView($block, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
-                $renderableForm->setForm($form);
-
-                return $renderableForm;
+                return new FormView($form, $block, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
             $updatedBlock = $this->blockService->updateBlock(
@@ -190,10 +187,7 @@ class BlockController extends Controller
             return new View($updatedBlock, self::API_VERSION);
         }
 
-        $renderableForm = new FormView($block, self::API_VERSION);
-        $renderableForm->setForm($form);
-
-        return $renderableForm;
+        return new FormView($form, $block, self::API_VERSION);
     }
 
     /**
