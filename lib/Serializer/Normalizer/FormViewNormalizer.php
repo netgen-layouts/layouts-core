@@ -6,7 +6,7 @@ use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\BlockManager\View\ViewRendererInterface;
+use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
@@ -18,7 +18,7 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
     protected $viewBuilder;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewRendererInterface
+     * @var \Netgen\BlockManager\View\RendererInterface
      */
     protected $viewRenderer;
 
@@ -26,9 +26,9 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
+     * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      */
-    public function __construct(ViewBuilderInterface $viewBuilder, ViewRendererInterface $viewRenderer)
+    public function __construct(ViewBuilderInterface $viewBuilder, RendererInterface $viewRenderer)
     {
         $this->viewBuilder = $viewBuilder;
         $this->viewRenderer = $viewRenderer;

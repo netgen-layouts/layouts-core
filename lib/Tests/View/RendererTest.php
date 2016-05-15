@@ -2,35 +2,46 @@
 
 namespace Netgen\BlockManager\Tests\View\Renderer;
 
-use Netgen\BlockManager\View\ViewRenderer;
+use Netgen\BlockManager\View\Renderer;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 use Twig_Environment;
 
-class ViewRendererTest extends \PHPUnit_Framework_TestCase
+class RendererTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $viewBuilderMock;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $twigEnvironmentMock;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewRendererInterface
+     * @var \Netgen\BlockManager\View\RendererInterface
      */
     protected $viewRenderer;
 
     public function setUp()
     {
+        $this->viewBuilderMock = $this
+            ->getMockBuilder(ViewBuilderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->twigEnvironmentMock = $this
             ->getMockBuilder(Twig_Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->viewRenderer = new ViewRenderer($this->twigEnvironmentMock);
+        $this->viewRenderer = new Renderer($this->viewBuilderMock, $this->twigEnvironmentMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ViewRenderer::__construct
-     * @covers \Netgen\BlockManager\View\ViewRenderer::renderView
+     * @covers \Netgen\BlockManager\View\Renderer::__construct
+     * @covers \Netgen\BlockManager\View\Renderer::renderView
      */
     public function testRenderView()
     {

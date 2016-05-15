@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\ViewRendererInterface;
+use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -18,7 +18,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $viewRendererMock = $this->getMock(ViewRendererInterface::class);
+        $viewRendererMock = $this->getMock(RendererInterface::class);
         $eventListener = new ViewRendererListener($viewRendererMock);
 
         self::assertEquals(
@@ -35,7 +35,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
     {
         $value = new View();
 
-        $viewRendererMock = $this->getMock(ViewRendererInterface::class);
+        $viewRendererMock = $this->getMock(RendererInterface::class);
         $viewRendererMock
             ->expects($this->once())
             ->method('renderView')
@@ -72,7 +72,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewWithoutSupportedValue()
     {
-        $viewRendererMock = $this->getMock(ViewRendererInterface::class);
+        $viewRendererMock = $this->getMock(RendererInterface::class);
         $eventListener = new ViewRendererListener($viewRendererMock);
 
         $kernelMock = $this->getMock(HttpKernelInterface::class);

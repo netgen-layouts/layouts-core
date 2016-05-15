@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\BlockManager\View\ViewRendererInterface;
+use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 use Symfony\Component\Serializer\Serializer;
@@ -40,7 +40,7 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->viewBuilderMock = $this->getMock(ViewBuilderInterface::class);
-        $this->viewRendererMock = $this->getMock(ViewRendererInterface::class);
+        $this->viewRendererMock = $this->getMock(RendererInterface::class);
         $this->serializerMock = $this->getMock(Serializer::class);
 
         $this->normalizer = new FormViewNormalizer($this->viewBuilderMock, $this->viewRendererMock);
