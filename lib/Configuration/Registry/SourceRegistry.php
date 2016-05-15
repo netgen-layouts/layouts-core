@@ -7,6 +7,9 @@ use RuntimeException;
 
 class SourceRegistry
 {
+    /**
+     * @var array
+     */
     protected $sources = array();
 
     /**

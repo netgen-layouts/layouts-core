@@ -94,6 +94,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $this->buildConfigObjects($container, 'source', $config['sources']);
         $this->buildConfigObjects($container, 'block_definition', $config['block_definitions']);
         $this->buildConfigObjects($container, 'query_type', $config['query_types']);
+        $this->buildConfigObjects($container, 'block_type', $config['block_types']);
+        $this->buildConfigObjects($container, 'block_type_group', $config['block_type_groups']);
     }
 
     /**

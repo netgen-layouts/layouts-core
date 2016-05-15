@@ -7,6 +7,9 @@ use RuntimeException;
 
 class LayoutTypeRegistry
 {
+    /**
+     * @var array
+     */
     protected $layoutTypes = array();
 
     /**

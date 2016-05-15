@@ -5,14 +5,19 @@ parameters:
     netgen_block_manager.configuration.layout_type.class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
     netgen_block_manager.configuration.block_definition.class: Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
     netgen_block_manager.configuration.query_type.class: Netgen\BlockManager\Configuration\QueryType\QueryType
+    netgen_block_manager.configuration.block_type.class: Netgen\BlockManager\Configuration\BlockType\BlockType
+    netgen_block_manager.configuration.block_type_group.class: Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
 
     netgen_block_manager.configuration.registry.source.class: Netgen\BlockManager\Configuration\Registry\SourceRegistry
     netgen_block_manager.configuration.registry.layout_type.class: Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+    netgen_block_manager.configuration.registry.block_type.class: Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
 
     netgen_block_manager.configuration.factory.source.class: Netgen\BlockManager\Configuration\Factory\SourceFactory
     netgen_block_manager.configuration.factory.layout_type.class: Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory
     netgen_block_manager.configuration.factory.block_definition.class: Netgen\BlockManager\Configuration\Factory\BlockDefinitionFactory
     netgen_block_manager.configuration.factory.query_type.class: Netgen\BlockManager\Configuration\Factory\QueryTypeFactory
+    netgen_block_manager.configuration.factory.block_type.class: Netgen\BlockManager\Configuration\Factory\BlockTypeFactory
+    netgen_block_manager.configuration.factory.block_type_group.class: Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory
 
 services:
     netgen_block_manager.configuration.container:
@@ -54,5 +59,17 @@ services:
     netgen_block_manager.configuration.query_type:
         class: "%netgen_block_manager.configuration.query_type.class%"
         factory: ["%netgen_block_manager.configuration.factory.query_type.class%", "buildQueryType"]
+        abstract: true
+        synthetic: true
+
+    netgen_block_manager.configuration.block_type:
+        class: "%netgen_block_manager.configuration.block_type.class%"
+        factory: ["%netgen_block_manager.configuration.factory.block_type.class%", "buildBlockType"]
+        abstract: true
+        synthetic: true
+
+    netgen_block_manager.configuration.block_type_group:
+        class: "%netgen_block_manager.configuration.block_type_group.class%"
+        factory: ["%netgen_block_manager.configuration.factory.block_type_group.class%", "buildBlockTypeGroup"]
         abstract: true
         synthetic: true
