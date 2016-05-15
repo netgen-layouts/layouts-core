@@ -47,7 +47,8 @@ services:
         class: "%netgen_block_manager.controller.api.config.class%"
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.configuration.registry.block_type"
+            - "@netgen_block_manager.configuration.registry.source"
 
     netgen_block_manager.controller.api.layout:
         class: "%netgen_block_manager.controller.api.layout.class%"

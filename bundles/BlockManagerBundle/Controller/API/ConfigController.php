@@ -2,24 +2,36 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
 
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
+use Netgen\BlockManager\Configuration\Registry\SourceRegistry;
+use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 
 class ConfigController extends Controller
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
      */
-    protected $configuration;
+    protected $blockTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\Registry\SourceRegistry
+     */
+    protected $sourceRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry $blockTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\SourceRegistry $sourceRegistry
      */
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(BlockTypeRegistry $blockTypeRegistry, SourceRegistry $sourceRegistry)
     {
-        $this->configuration = $configuration;
+        $this->blockTypeRegistry = $blockTypeRegistry;
+        $this->sourceRegistry = $sourceRegistry;
     }
 
     /**
@@ -29,29 +41,26 @@ class ConfigController extends Controller
      */
     public function getBlockTypes()
     {
-        $configBlockTypeGroups = $this->configuration->getParameter('block_type_groups');
-        $configBlockTypes = $this->configuration->getParameter('block_types');
-
-        $blockTypeGroups = array();
-        foreach ($configBlockTypeGroups as $identifier => $blockTypeGroup) {
-            $blockTypeGroups[] = array(
-                'identifier' => $identifier,
-            ) + $blockTypeGroup;
-        }
-
-        $blockTypes = array();
-        foreach ($configBlockTypes as $identifier => $blockType) {
-            $blockTypes[] = array(
-                'identifier' => $identifier,
-            ) + $blockType;
-        }
-
-        $data = array(
-            'block_type_groups' => $blockTypeGroups,
-            'block_types' => $blockTypes,
+        $blockTypeGroups = array_map(
+            function (BlockTypeGroup $blockTypeGroup) {
+                return new VersionedValue($blockTypeGroup, self::API_VERSION);
+            },
+            array_values($this->blockTypeRegistry->allBlockTypeGroups())
         );
 
-        return new ValueArray($data);
+        $blockTypes = array_map(
+            function (BlockType $blockType) {
+                return new VersionedValue($blockType, self::API_VERSION);
+            },
+            array_values($this->blockTypeRegistry->allBlockTypes())
+        );
+
+        return new ValueArray(
+            array(
+                'block_type_groups' => $blockTypeGroups,
+                'block_types' => $blockTypes,
+            )
+        );
     }
 
     /**
@@ -61,14 +70,12 @@ class ConfigController extends Controller
      */
     public function getSources()
     {
-        $sources = array();
-        $configSources = $this->configuration->getParameter('sources');
-
-        foreach ($configSources as $identifier => $source) {
-            $sources[] = array(
-                'identifier' => $identifier,
-            ) + $source;
-        }
+        $sources = array_map(
+            function (Source $source) {
+                return new VersionedValue($source, self::API_VERSION);
+            },
+            array_values($this->sourceRegistry->all())
+        );
 
         return new ValueArray($sources);
     }

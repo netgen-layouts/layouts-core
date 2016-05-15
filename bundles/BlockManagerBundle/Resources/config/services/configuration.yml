@@ -36,6 +36,9 @@ services:
     netgen_block_manager.configuration.registry.layout_type:
         class: "%netgen_block_manager.configuration.registry.layout_type.class%"
 
+    netgen_block_manager.configuration.registry.block_type:
+        class: "%netgen_block_manager.configuration.registry.block_type.class%"
+
     # Synthetic services
 
     netgen_block_manager.configuration.source:
