@@ -26,7 +26,7 @@ class BlockTypeRegistryPass implements CompilerPassInterface
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $blockTypes = $container->findTaggedServiceIds(self::TAG_NAME);
-        $blockTypeGroups = $container->findTaggedServiceIds(self::TAG_NAME);
+        $blockTypeGroups = $container->findTaggedServiceIds(self::GROUP_TAG_NAME);
 
         foreach ($blockTypes as $blockType => $tag) {
             if (!isset($tag[0]['identifier'])) {
