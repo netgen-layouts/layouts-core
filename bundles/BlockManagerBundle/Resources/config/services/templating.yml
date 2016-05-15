@@ -5,8 +5,9 @@ parameters:
 services:
     netgen_block_manager.templating.global_helper:
         class: "%netgen_block_manager.templating.global_helper.class%"
-        arguments:
-            - "@netgen_block_manager.configuration"
+        calls:
+            - [setPageLayout, ["@=service('netgen_block_manager.configuration').getParameter('pagelayout')"]]
+        lazy: true
 
     netgen_block_manager.templating.twig.extension:
         class: "%netgen_block_manager.templating.twig.extension.class%"

@@ -2,40 +2,19 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 
 class GlobalHelper
 {
-    /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    protected $configuration;
-
     /**
      * @var \Netgen\BlockManager\View\LayoutViewInterface
      */
     protected $layoutView;
 
     /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @var string
      */
-    public function __construct(ConfigurationInterface $configuration)
-    {
-        $this->configuration = $configuration;
-    }
-
-    /**
-     * Returns the configuration object.
-     *
-     * @return \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    public function getConfiguration()
-    {
-        return $this->configuration;
-    }
+    protected $pageLayout;
 
     /**
      * Returns the layout view object.
@@ -52,8 +31,48 @@ class GlobalHelper
      *
      * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
      */
-    public function setLayoutView(LayoutViewInterface $layoutView = null)
+    public function setLayoutView(LayoutViewInterface $layoutView)
     {
         $this->layoutView = $layoutView;
+    }
+
+    /**
+     * Sets the pagelayout template.
+     *
+     * @param string
+     */
+    public function setPageLayout($pageLayout)
+    {
+        $this->pageLayout = $pageLayout;
+    }
+
+    /**
+     * Returns the pagelayout template.
+     *
+     * @return string
+     */
+    public function getPageLayout()
+    {
+        return $this->pageLayout;
+    }
+
+    /**
+     * Returns the resolved layout.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function getLayout()
+    {
+        return $this->layoutView ? $this->layoutView->getLayout() : null;
+    }
+
+    /**
+     * Returns the resolved layout template.
+     *
+     * @return string
+     */
+    public function getLayoutTemplate()
+    {
+        return $this->layoutView ? $this->layoutView->getTemplate() : null;
     }
 }
