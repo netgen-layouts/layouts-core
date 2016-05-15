@@ -16,17 +16,19 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->value = new FormView(new Value(), 42, Response::HTTP_ACCEPTED);
+        $this->value = new FormView(
+            $this->getMock(FormInterface::class),
+            new Value(),
+            42,
+            Response::HTTP_ACCEPTED
+        );
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::setForm
      * @covers Netgen\BlockManager\Serializer\Values\FormView::getForm
      */
-    public function testForm()
+    public function testGetForm()
     {
-        $form = $this->getMock(FormInterface::class);
-        $this->value->setForm($form);
-        self::assertEquals($form, $this->value->getForm());
+        self::assertInstanceOf(FormInterface::class, $this->value->getForm());
     }
 }

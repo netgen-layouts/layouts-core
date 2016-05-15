@@ -85,10 +85,7 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered form view'));
 
-        $formView = new FormView(new Value(), 1);
-        $formView->setForm($form);
-
-        $data = $this->normalizer->normalize($formView);
+        $data = $this->normalizer->normalize(new FormView($form, new Value(), 1));
 
         self::assertEquals(array('id' => 42, 'form' => 'rendered form view'), $data);
     }
@@ -123,7 +120,7 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
             array(new Value(), false),
             array(new Block(), false),
             array(new VersionedValue(new Block(), 1), false),
-            array(new FormView(new Block(), 1), true),
+            array(new FormView($this->getMock(FormInterface::class), new Block(), 1), true),
         );
     }
 }
