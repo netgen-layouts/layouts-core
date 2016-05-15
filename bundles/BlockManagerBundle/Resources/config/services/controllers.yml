@@ -60,7 +60,6 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.controller.api.block.validator"
 
     netgen_block_manager.controller.api.block_collection:

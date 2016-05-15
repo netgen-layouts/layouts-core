@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
@@ -15,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Exception\BadStateException;
 use Netgen\BlockManager\API\Exception\NotFoundException;
-use InvalidArgumentException as BaseInvalidArgumentException;
+use RuntimeException;
 
 class BlockController extends Controller
 {
@@ -30,11 +29,6 @@ class BlockController extends Controller
     protected $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    protected $configuration;
-
-    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator
      */
     protected $validator;
@@ -44,18 +38,15 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator $validator
      */
     public function __construct(
         BlockService $blockService,
         LayoutService $layoutService,
-        ConfigurationInterface $configuration,
         BlockValidator $validator
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;
-        $this->configuration = $configuration;
         $this->validator = $validator;
     }
 
@@ -86,10 +77,8 @@ class BlockController extends Controller
         $this->validator->validateCreateBlock($request);
 
         try {
-            $blockTypeConfig = $this->configuration->getBlockTypeConfig(
-                $request->request->get('block_type')
-            );
-        } catch (BaseInvalidArgumentException $e) {
+            $blockType = $this->getBlockType($request->request->get('block_type'));
+        } catch (RuntimeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
@@ -102,14 +91,13 @@ class BlockController extends Controller
             throw new BadStateException('layout_id', 'Layout does not exist.', $e);
         }
 
-        $defaultValues = $blockTypeConfig['defaults'];
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $defaultValues['definition_identifier'],
-            $defaultValues['view_type']
+            $blockType->getDefinitionIdentifier(),
+            $blockType->getDefaultBlockViewType()
         );
 
-        $blockCreateStruct->name = $defaultValues['name'];
-        $blockCreateStruct->setParameters($defaultValues['parameters']);
+        $blockCreateStruct->name = $blockType->getDefaultBlockName();
+        $blockCreateStruct->setParameters($blockType->getDefaultBlockParameters());
 
         $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,
