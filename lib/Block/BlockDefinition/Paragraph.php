@@ -21,26 +21,12 @@ class Paragraph extends BlockDefinition
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
         return array(
             'content' => new Parameter\Text(array(), true),
         ) + parent::getParameters();
-    }
-
-    /**
-     * Returns the array specifying block parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints()
-    {
-        return array(
-            'content' => array(
-                new Constraints\NotBlank(),
-            ),
-        ) + parent::getParameterConstraints();
     }
 }

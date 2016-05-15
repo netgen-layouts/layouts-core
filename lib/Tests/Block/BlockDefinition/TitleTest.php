@@ -53,23 +53,4 @@ class TitleTest extends \PHPUnit_Framework_TestCase
             $this->blockDefinition->getParameters()
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Title::getParameterConstraints
-     */
-    public function testGetParameterConstraints()
-    {
-        self::assertEquals(
-            array(
-                'tag' => array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Choice(array('choices' => array_values($this->options))),
-                ),
-                'title' => array(
-                    new Constraints\NotBlank(),
-                ),
-            ),
-            $this->blockDefinition->getParameterConstraints()
-        );
-    }
 }

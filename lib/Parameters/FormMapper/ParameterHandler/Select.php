@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 
 class Select implements ParameterHandlerInterface
 {
@@ -20,11 +20,11 @@ class Select implements ParameterHandlerInterface
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\Parameter $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      *
      * @return array
      */
-    public function convertOptions(Parameter $parameter)
+    public function convertOptions(ParameterInterface $parameter)
     {
         $parameterOptions = $parameter->getOptions();
 

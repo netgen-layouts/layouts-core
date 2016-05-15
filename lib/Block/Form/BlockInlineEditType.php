@@ -51,16 +51,11 @@ abstract class BlockInlineEditType extends AbstractType
         $blockDefinition = $options['blockDefinition'];
 
         $parameters = $blockDefinition->getParameters();
-        $parameterConstraints = $blockDefinition->getParameterConstraints();
-
         foreach ($this->getParameterNames() as $parameterName) {
             $this->parameterFormMapper->mapHiddenParameter(
                 $builder,
                 $parameters[$parameterName],
-                $parameterName,
-                isset($parameterConstraints[$parameterName]) ?
-                    $parameterConstraints[$parameterName] :
-                    null
+                $parameterName
             );
         }
     }

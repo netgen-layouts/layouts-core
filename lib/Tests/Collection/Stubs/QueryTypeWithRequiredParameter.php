@@ -22,23 +22,13 @@ class QueryTypeWithRequiredParameter implements QueryTypeInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
         return array(
             'param' => new Text(array(), true),
         );
-    }
-
-    /**
-     * Returns the array specifying query parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints()
-    {
-        return array();
     }
 
     /**

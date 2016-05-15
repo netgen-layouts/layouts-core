@@ -30,7 +30,7 @@ class Title extends BlockDefinition
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
@@ -41,23 +41,5 @@ class Title extends BlockDefinition
             ),
             'title' => new Parameter\Text(array(), true),
         ) + parent::getParameters();
-    }
-
-    /**
-     * Returns the array specifying block parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints()
-    {
-        return array(
-            'tag' => array(
-                new Constraints\NotBlank(),
-                new Constraints\Choice(array('choices' => array_values($this->options))),
-            ),
-            'title' => array(
-                new Constraints\NotBlank(),
-            ),
-        ) + parent::getParameterConstraints();
     }
 }

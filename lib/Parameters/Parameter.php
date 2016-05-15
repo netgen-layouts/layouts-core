@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Parameters;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
-abstract class Parameter
+abstract class Parameter implements ParameterInterface
 {
     /**
      * @var array
@@ -49,6 +50,19 @@ abstract class Parameter
     }
 
     /**
+     * Returns the parameter constraints.
+     *
+     * @return array
+     */
+    public function getConstraints()
+    {
+        return array_merge(
+            $this->getBaseConstraints(),
+            $this->getParameterConstraints()
+        );
+    }
+
+    /**
      * Returns if the parameter is required.
      *
      * @return bool
@@ -65,5 +79,29 @@ abstract class Parameter
      */
     protected function configureOptions(OptionsResolver $optionsResolver)
     {
+    }
+
+    /**
+     * Returns constraints that are common to all parameters.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    protected function getBaseConstraints()
+    {
+        if ($this->isRequired()) {
+            return array(new Constraints\NotBlank());
+        }
+
+        return array();
+    }
+
+    /**
+     * Returns constraints that are specific to parameter.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    protected function getParameterConstraints()
+    {
+        return array();
     }
 }

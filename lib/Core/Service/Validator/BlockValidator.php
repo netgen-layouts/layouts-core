@@ -68,10 +68,7 @@ class BlockValidator extends Validator
             );
         }
 
-        $fields = $this->buildParameterValidationFields(
-            $blockDefinition->getParameters(),
-            $blockDefinition->getParameterConstraints()
-        );
+        $fields = $this->buildParameterValidationFields($blockDefinition->getParameters());
 
         $this->validate(
             $blockCreateStruct->getParameters(),
@@ -116,11 +113,7 @@ class BlockValidator extends Validator
             );
         }
 
-        $fields = $this->buildParameterValidationFields(
-            $blockDefinition->getParameters(),
-            $blockDefinition->getParameterConstraints(),
-            false
-        );
+        $fields = $this->buildParameterValidationFields($blockDefinition->getParameters(), false);
 
         $this->validate(
             $blockUpdateStruct->getParameters(),

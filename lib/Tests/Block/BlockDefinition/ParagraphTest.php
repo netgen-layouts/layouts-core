@@ -40,19 +40,4 @@ class ParagraphTest extends \PHPUnit_Framework_TestCase
             $this->blockDefinition->getParameters()
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Paragraph::getParameterConstraints
-     */
-    public function testGetParameterConstraints()
-    {
-        self::assertEquals(
-            array(
-                'content' => array(
-                    new Constraints\NotBlank(),
-                ),
-            ),
-            $this->blockDefinition->getParameterConstraints()
-        );
-    }
 }

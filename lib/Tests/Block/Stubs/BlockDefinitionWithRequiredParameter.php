@@ -13,7 +13,7 @@ class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
@@ -31,18 +31,5 @@ class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition
     public function getIdentifier()
     {
         return 'block_definition';
-    }
-
-    /**
-     * Returns the array specifying block parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints()
-    {
-        $constraints = parent::getParameterConstraints();
-        $constraints['css_id'] = array(new NotBlank());
-
-        return $constraints;
     }
 }

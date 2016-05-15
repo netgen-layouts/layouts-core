@@ -60,17 +60,12 @@ class QueryEditType extends AbstractType
             )
         );
 
-        $parameterConstraints = $queryType->getParameterConstraints();
-
         foreach ($queryType->getParameters() as $parameterName => $parameter) {
             $this->parameterFormMapper->mapParameter(
                 $parameterBuilder,
                 $parameter,
                 $parameterName,
-                'query.' . $queryType->getType(),
-                isset($parameterConstraints[$parameterName]) ?
-                    $parameterConstraints[$parameterName] :
-                    null
+                'query.' . $queryType->getType()
             );
         }
 

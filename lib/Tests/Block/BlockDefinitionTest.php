@@ -34,19 +34,6 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getParameterConstraints
-     */
-    public function testGetParameterConstraints()
-    {
-        self::assertEquals(
-            array(
-                'css_id' => array(new NotBlank()),
-            ),
-            $this->blockDefinition->getParameterConstraints()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
      */
     public function testGetDynamicParameters()

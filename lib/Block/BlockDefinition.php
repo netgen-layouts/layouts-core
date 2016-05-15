@@ -18,7 +18,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
@@ -26,16 +26,6 @@ abstract class BlockDefinition implements BlockDefinitionInterface
             'css_id' => new Parameter\Text(),
             'css_class' => new Parameter\Text(),
         );
-    }
-
-    /**
-     * Returns the array specifying block parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints()
-    {
-        return array();
     }
 
     /**

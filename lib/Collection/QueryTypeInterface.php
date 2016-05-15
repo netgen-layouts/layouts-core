@@ -18,16 +18,9 @@ interface QueryTypeInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters();
-
-    /**
-     * Returns the array specifying query parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints();
 
     /**
      * Returns the values from the query.

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
 class Select extends Parameter
 {
@@ -43,6 +44,23 @@ class Select extends Parameter
 
                 return true;
             }
+        );
+    }
+
+    /**
+     * Returns constraints that are specific to parameter.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    protected function getParameterConstraints()
+    {
+        return array(
+            new Constraints\Choice(
+                array(
+                    'choices' => array_values($this->options['options']),
+                    'multiple' => $this->options['multiple']
+                )
+            ),
         );
     }
 }

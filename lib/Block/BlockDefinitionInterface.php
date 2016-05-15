@@ -19,16 +19,9 @@ interface BlockDefinitionInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters();
-
-    /**
-     * Returns the array specifying block parameter validator constraints.
-     *
-     * @return array
-     */
-    public function getParameterConstraints();
 
     /**
      * Returns the array of dynamic parameters provided by this block definition.

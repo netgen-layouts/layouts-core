@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use RuntimeException;
 
@@ -28,18 +28,16 @@ class FormMapper implements FormMapperInterface
      * Maps the parameter to form type in provided builder.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
-     * @param \Netgen\BlockManager\Parameters\Parameter $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param string $parameterName
      * @param string $labelPrefix
-     * @param \Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPathPrefix
      */
     public function mapParameter(
         FormBuilderInterface $formBuilder,
-        Parameter $parameter,
+        ParameterInterface $parameter,
         $parameterName,
         $labelPrefix,
-        array $constraints = null,
         $propertyPathPrefix = 'parameters'
     ) {
         $parameterType = $parameter->getType();
@@ -56,7 +54,7 @@ class FormMapper implements FormMapperInterface
                 'label' => $labelPrefix . '.' . $parameterName,
                 'translation_domain' => 'ngbm_parameters',
                 'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $constraints,
+                'constraints' => $parameter->getConstraints(),
             ) + $this->parameterHandlers[$parameterType]->convertOptions($parameter)
         );
     }
@@ -65,16 +63,14 @@ class FormMapper implements FormMapperInterface
      * Maps the parameter to hidden form type in provided builder.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
-     * @param \Netgen\BlockManager\Parameters\Parameter $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param string $parameterName
-     * @param array $constraints
      * @param string $propertyPathPrefix
      */
     public function mapHiddenParameter(
         FormBuilderInterface $formBuilder,
-        Parameter $parameter,
+        ParameterInterface $parameter,
         $parameterName,
-        array $constraints = null,
         $propertyPathPrefix = 'parameters'
     ) {
         $formBuilder->add(
@@ -83,7 +79,7 @@ class FormMapper implements FormMapperInterface
             array(
                 'required' => $parameter->isRequired(),
                 'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $constraints,
+                'constraints' => $parameter->getConstraints(),
             )
         );
     }

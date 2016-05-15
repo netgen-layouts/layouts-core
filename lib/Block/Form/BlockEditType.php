@@ -97,17 +97,12 @@ class BlockEditType extends AbstractType
             )
         );
 
-        $parameterConstraints = $blockDefinition->getParameterConstraints();
-
         foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
             $this->parameterFormMapper->mapParameter(
                 $parameterBuilder,
                 $parameter,
                 $parameterName,
-                'block.' . $blockDefinition->getIdentifier(),
-                isset($parameterConstraints[$parameterName]) ?
-                    $parameterConstraints[$parameterName] :
-                    null
+                'block.' . $blockDefinition->getIdentifier()
             );
         }
 
