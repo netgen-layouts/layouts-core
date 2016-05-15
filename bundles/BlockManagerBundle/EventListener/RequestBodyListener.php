@@ -82,7 +82,12 @@ class RequestBodyListener implements EventSubscriberInterface
      */
     protected function isDecodeable(Request $request)
     {
-        if (!in_array($request->getMethod(), array('POST', 'PUT', 'PATCH', 'DELETE'))) {
+        if (
+            !in_array(
+                $request->getMethod(),
+                array(Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH, Request::METHOD_DELETE)
+            )
+        ) {
             return false;
         }
 

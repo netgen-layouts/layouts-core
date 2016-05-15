@@ -164,13 +164,13 @@ class BlockController extends Controller
             $updateStruct,
             array(
                 'blockDefinition' => $blockDefinition,
-                'method' => 'PATCH',
+                'method' => Request::METHOD_PATCH,
             )
         );
 
         $form->handleRequest($request);
 
-        if ($request->getMethod() === 'PATCH') {
+        if ($request->getMethod() === Request::METHOD_PATCH) {
             if (!$form->isSubmitted()) {
                 throw new InvalidArgumentException('form', 'Form is not submitted.');
             }
@@ -220,7 +220,7 @@ class BlockController extends Controller
             $updateStruct,
             array(
                 'blockDefinition' => $blockDefinition,
-                'method' => 'PATCH',
+                'method' => Request::METHOD_PATCH,
             )
         );
 
