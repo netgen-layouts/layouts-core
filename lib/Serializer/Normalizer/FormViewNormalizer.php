@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -13,11 +12,6 @@ use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 class FormViewNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\ViewBuilderInterface
-     */
-    protected $viewBuilder;
-
-    /**
      * @var \Netgen\BlockManager\View\RendererInterface
      */
     protected $viewRenderer;
@@ -25,12 +19,10 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      */
-    public function __construct(ViewBuilderInterface $viewBuilder, RendererInterface $viewRenderer)
+    public function __construct(RendererInterface $viewRenderer)
     {
-        $this->viewBuilder = $viewBuilder;
         $this->viewRenderer = $viewRenderer;
     }
 
@@ -53,7 +45,7 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
             )
         );
 
-        $view = $this->viewBuilder->buildView(
+        $normalizedData['form'] = $this->viewRenderer->renderValue(
             $object->getValue(),
             ViewInterface::CONTEXT_API_EDIT,
             array(
@@ -61,8 +53,6 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
                 'api_version' => $object->getVersion(),
             ) + $object->getViewParameters()
         );
-
-        $normalizedData['form'] = $this->viewRenderer->renderView($view);
 
         return $normalizedData;
     }

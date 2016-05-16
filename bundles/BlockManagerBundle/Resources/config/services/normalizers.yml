@@ -25,7 +25,6 @@ services:
     netgen_block_manager.normalizer.view:
         class: "%netgen_block_manager.normalizer.view.class%"
         arguments:
-            - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }
@@ -33,7 +32,6 @@ services:
     netgen_block_manager.normalizer.form_view:
         class: "%netgen_block_manager.normalizer.form_view.class%"
         arguments:
-            - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.view.renderer"
         tags:
             - { name: serializer.normalizer }

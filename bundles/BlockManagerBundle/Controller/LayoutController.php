@@ -14,20 +14,13 @@ class LayoutController extends Controller
     protected $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewBuilderInterface
-     */
-    protected $viewBuilder;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      */
-    public function __construct(LayoutService $layoutService, ViewBuilderInterface $viewBuilder)
+    public function __construct(LayoutService $layoutService)
     {
         $this->layoutService = $layoutService;
-        $this->viewBuilder = $viewBuilder;
     }
 
     /**
@@ -51,7 +44,7 @@ class LayoutController extends Controller
         $layoutCreateStruct->status = Layout::STATUS_DRAFT;
 
         $layout = $this->layoutService->createLayout($layoutCreateStruct);
-        $layoutView = $this->viewBuilder->buildView($layout);
+        $layoutView = $this->buildView($layout);
 
         return $layoutView;
     }

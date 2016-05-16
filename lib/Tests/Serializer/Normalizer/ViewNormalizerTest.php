@@ -18,11 +18,6 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewBuilderMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     protected $viewRendererMock;
 
     /**
@@ -37,11 +32,10 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->viewBuilderMock = $this->getMock(ViewBuilderInterface::class);
         $this->viewRendererMock = $this->getMock(RendererInterface::class);
         $this->serializerMock = $this->getMock(Serializer::class);
 
-        $this->normalizer = new ViewNormalizer($this->viewBuilderMock, $this->viewRendererMock);
+        $this->normalizer = new ViewNormalizer($this->viewRendererMock);
         $this->normalizer->setSerializer($this->serializerMock);
     }
 
@@ -57,9 +51,9 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(new VersionedValue(new Value(), 1)))
             ->will($this->returnValue(array('id' => 42)));
 
-        $this->viewBuilderMock
+        $this->viewRendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Value()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -70,12 +64,6 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-            ->will($this->returnValue(new BlockView()));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered view'));
 
         $view = new View(new Value(), 1);

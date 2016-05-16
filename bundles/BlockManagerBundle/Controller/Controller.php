@@ -2,10 +2,28 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 
 abstract class Controller extends BaseController
 {
+    /**
+     * Builds the view from provided value object.
+     *
+     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param string $context
+     * @param array $parameters
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
+     */
+    protected function buildView(Value $value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
+    {
+        $viewBuilder = $this->get('netgen_block_manager.view.builder');
+
+        return $viewBuilder->buildView($value, $context, $parameters);
+    }
+
     /**
      * Returns the specified block definition from the registry.
      *
