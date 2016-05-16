@@ -16,7 +16,5 @@ services:
 
     netgen_block_manager.view.provider.query:
         class: "%netgen_block_manager.view.provider.query.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
