@@ -20,9 +20,7 @@ class TemplateResolverPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->has(self::SERVICE_NAME)) {
-            if (!$container->has(self::SERVICE_NAME)) {
-                throw new RuntimeException("Service '{self::SERVICE_NAME}' is missing.");
-            }
+            return;
         }
 
         $templateResolver = $container->findDefinition(self::SERVICE_NAME);
