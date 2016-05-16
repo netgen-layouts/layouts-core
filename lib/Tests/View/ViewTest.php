@@ -70,12 +70,13 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\View::getParameter
+     * @expectedException \RuntimeException
      */
-    public function testGetParameterWithNoParam()
+    public function testGetParameterThrowsRuntimeException()
     {
         $this->view->setParameters(array('param' => 'value'));
 
-        self::assertNull($this->view->getParameter('other_param'));
+        $this->view->getParameter('other_param');
     }
 
     /**
