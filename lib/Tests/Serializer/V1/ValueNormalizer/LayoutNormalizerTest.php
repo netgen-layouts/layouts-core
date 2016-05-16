@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\ValueNormalizer;
+namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
@@ -8,7 +8,7 @@ use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer;
+use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -22,7 +22,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     protected $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer
+     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer
      */
     protected $normalizer;
 
@@ -44,9 +44,9 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZones
      */
     public function testNormalize()
     {
@@ -115,7 +115,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\LayoutNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

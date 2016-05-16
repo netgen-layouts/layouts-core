@@ -1,12 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class BlockNormalizer implements NormalizerInterface
+class BlockTypeGroupNormalizer implements NormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -19,18 +20,13 @@ class BlockNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-        $block = $object->getValue();
+        /** @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup $blockTypeGroup */
+        $blockTypeGroup = $object->getValue();
 
         return array(
-            'id' => $block->getId(),
-            'definition_identifier' => $block->getDefinitionIdentifier(),
-            'name' => $block->getName(),
-            'zone_identifier' => $block->getZoneIdentifier(),
-            'position' => $block->getPosition(),
-            'layout_id' => $block->getLayoutId(),
-            'parameters' => $block->getParameters(),
-            'view_type' => $block->getViewType(),
+            'identifier' => $blockTypeGroup->getIdentifier(),
+            'name' => $blockTypeGroup->getName(),
+            'block_types' => $blockTypeGroup->getBlockTypes(),
         );
     }
 
@@ -48,6 +44,6 @@ class BlockNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Block && $data->getVersion() === 1;
+        return $data->getValue() instanceof BlockTypeGroup && $data->getVersion() === Version::API_V1;
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\ValueNormalizer;
+namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Serializer\ValueNormalizer\CollectionQueryNormalizer;
+use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
 class CollectionQueryNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\ValueNormalizer\CollectionQueryNormalizer
+     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer
      */
     protected $normalizer;
 
@@ -20,7 +20,7 @@ class CollectionQueryNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\CollectionQueryNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -57,7 +57,7 @@ class CollectionQueryNormalizerTest extends \PHPUnit_Framework_TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\ValueNormalizer\CollectionQueryNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

@@ -1,10 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Version;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 class LayoutController extends Controller
 {
@@ -17,7 +19,7 @@ class LayoutController extends Controller
      */
     public function view(Layout $layout)
     {
-        return new View($layout, self::API_VERSION);
+        return new View($layout, Version::API_V1);
     }
 
     /**
@@ -32,7 +34,7 @@ class LayoutController extends Controller
         $blocks = array();
         foreach ($layout->getZones() as $zone) {
             foreach ($zone->getBlocks() as $block) {
-                $blocks[] = new View($block, self::API_VERSION);
+                $blocks[] = new View($block, Version::API_V1);
             }
         }
 

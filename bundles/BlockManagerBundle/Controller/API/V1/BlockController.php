@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
@@ -8,7 +8,9 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator;
+use Netgen\BlockManager\Serializer\Version;
+use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
@@ -29,7 +31,7 @@ class BlockController extends Controller
     protected $layoutService;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator
+     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
      */
     protected $validator;
 
@@ -38,7 +40,7 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\BlockValidator $validator
+     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator $validator
      */
     public function __construct(
         BlockService $blockService,
@@ -59,7 +61,7 @@ class BlockController extends Controller
      */
     public function view(Block $block)
     {
-        return new View($block, self::API_VERSION);
+        return new View($block, Version::API_V1);
     }
 
     /**
@@ -106,7 +108,7 @@ class BlockController extends Controller
             $request->request->get('position')
         );
 
-        return new View($createdBlock, self::API_VERSION, Response::HTTP_CREATED);
+        return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
     }
 
     /**
@@ -164,7 +166,7 @@ class BlockController extends Controller
             }
 
             if (!$form->isValid()) {
-                return new FormView($form, $block, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
+                return new FormView($form, $block, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
             $updatedBlock = $this->blockService->updateBlock(
@@ -172,10 +174,10 @@ class BlockController extends Controller
                 $form->getData()
             );
 
-            return new View($updatedBlock, self::API_VERSION);
+            return new View($updatedBlock, Version::API_V1);
         }
 
-        return new FormView($form, $block, self::API_VERSION);
+        return new FormView($form, $block, Version::API_V1);
     }
 
     /**
@@ -232,7 +234,7 @@ class BlockController extends Controller
 
         $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
-        return new View($updatedBlock, self::API_VERSION);
+        return new View($updatedBlock, Version::API_V1);
     }
 
     /**

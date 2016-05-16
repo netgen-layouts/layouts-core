@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use DateTime;
 
@@ -65,7 +66,7 @@ class LayoutNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Layout && $data->getVersion() === 1;
+        return $data->getValue() instanceof Layout && $data->getVersion() === Version::API_V1;
     }
 
     /**

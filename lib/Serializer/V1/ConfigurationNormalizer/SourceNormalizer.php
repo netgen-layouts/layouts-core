@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\ConfigurationNormalizer;
+namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
@@ -53,6 +54,6 @@ class SourceNormalizer extends SerializerAwareNormalizer implements NormalizerIn
             return false;
         }
 
-        return $data->getValue() instanceof Source && $data->getVersion() === 1;
+        return $data->getValue() instanceof Source && $data->getVersion() === Version::API_V1;
     }
 }

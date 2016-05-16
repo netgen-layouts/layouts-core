@@ -57,7 +57,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.controller.base');
         $this->assertContainerBuilderHasService('netgen_block_manager.event_listener.exception_conversion');
         $this->assertContainerBuilderHasService('netgen_block_manager.block.form.block_edit');
-        $this->assertContainerBuilderHasService('netgen_block_manager.normalizer.block');
+        $this->assertContainerBuilderHasService('netgen_block_manager.normalizer.v1.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.param_converter.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.layout_resolver');
         $this->assertContainerBuilderHasService('netgen_block_manager.layout_resolver.target_builder.route');

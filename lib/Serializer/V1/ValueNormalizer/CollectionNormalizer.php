@@ -1,10 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
@@ -63,6 +64,6 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
             return false;
         }
 
-        return $data->getValue() instanceof Collection && $data->getVersion() === 1;
+        return $data->getValue() instanceof Collection && $data->getVersion() === Version::API_V1;
     }
 }

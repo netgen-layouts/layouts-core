@@ -3,38 +3,38 @@ netgen_block_manager_api_v1_load_block:
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.block:view"
+        _controller: "netgen_block_manager.controller.api.v1.block:view"
 
 netgen_block_manager_api_v1_create_block:
     path: /blocks
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.block:create"
+        _controller: "netgen_block_manager.controller.api.v1.block:create"
 
 netgen_block_manager_api_v1_move_block:
     path: /blocks/{block_id}/move
     methods: [PATCH]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.block:move"
+        _controller: "netgen_block_manager.controller.api.v1.block:move"
 
 netgen_block_manager_api_v1_edit_block:
     path: /blocks/{block_id}/edit/full
     methods: [GET, PATCH]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.block:edit"
+        _controller: "netgen_block_manager.controller.api.v1.block:edit"
 
 netgen_block_manager_api_v1_edit_block_inline:
     path: /blocks/{block_id}/edit/inline
     methods: [PATCH]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.block:editInline"
+        _controller: "netgen_block_manager.controller.api.v1.block:editInline"
 
 netgen_block_manager_api_v1_delete_block:
     path: /blocks/{block_id}
     methods: [DELETE]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.block:delete"
+        _controller: "netgen_block_manager.controller.api.v1.block:delete"

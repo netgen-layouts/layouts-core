@@ -1,18 +1,19 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator;
+use Netgen\BlockManager\Serializer\Version;
+use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
@@ -30,7 +31,7 @@ class BlockCollectionController extends Controller
     protected $blockService;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator
+     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator
      */
     protected $validator;
 
@@ -39,7 +40,7 @@ class BlockCollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\Validator\CollectionValidator $validator
+     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
      */
     public function __construct(
         CollectionService $collectionService,
@@ -62,7 +63,7 @@ class BlockCollectionController extends Controller
     {
         $collections = array_map(
             function (Collection $collection) {
-                return new VersionedValue($collection, self::API_VERSION);
+                return new VersionedValue($collection, Version::API_V1);
             },
             $this->loadBlockCollections($block, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))
         );
@@ -81,7 +82,7 @@ class BlockCollectionController extends Controller
     {
         $collections = array_map(
             function (Collection $collection) {
-                return new VersionedValue($collection, self::API_VERSION);
+                return new VersionedValue($collection, Version::API_V1);
             },
             $this->loadBlockCollections($block, array(Collection::TYPE_NAMED))
         );
@@ -99,7 +100,7 @@ class BlockCollectionController extends Controller
      */
     public function loadCollection(Block $block, Collection $collection)
     {
-        return new VersionedValue($collection, self::API_VERSION);
+        return new VersionedValue($collection, Version::API_V1);
     }
 
     /**
@@ -114,14 +115,14 @@ class BlockCollectionController extends Controller
     {
         $manualItems = array_map(
             function (Item $item) {
-                return new VersionedValue($item, self::API_VERSION);
+                return new VersionedValue($item, Version::API_V1);
             },
             array_values($collection->getManualItems())
         );
 
         $overrideItems = array_map(
             function (Item $item) {
-                return new VersionedValue($item, self::API_VERSION);
+                return new VersionedValue($item, Version::API_V1);
             },
             array_values($collection->getOverrideItems())
         );
@@ -146,7 +147,7 @@ class BlockCollectionController extends Controller
     {
         $queries = array_map(
             function (Query $query) {
-                return new VersionedValue($query, self::API_VERSION);
+                return new VersionedValue($query, Version::API_V1);
             },
             $collection->getQueries()
         );
@@ -165,7 +166,7 @@ class BlockCollectionController extends Controller
      */
     public function loadItem(Block $block, Collection $collection, Item $item)
     {
-        return new VersionedValue($item, self::API_VERSION);
+        return new VersionedValue($item, Version::API_V1);
     }
 
     /**
@@ -191,7 +192,7 @@ class BlockCollectionController extends Controller
             $request->request->get('position')
         );
 
-        return new VersionedValue($createdItem, self::API_VERSION, Response::HTTP_CREATED);
+        return new VersionedValue($createdItem, Version::API_V1, Response::HTTP_CREATED);
     }
 
     /**
@@ -241,14 +242,12 @@ class BlockCollectionController extends Controller
      */
     public function loadQuery(Block $block, Collection $collection, Query $query)
     {
-        return new VersionedValue($query, self::API_VERSION);
+        return new VersionedValue($query, Version::API_V1);
     }
 
     /**
      * Displays and processes query edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -280,7 +279,7 @@ class BlockCollectionController extends Controller
             }
 
             if (!$form->isValid()) {
-                return new FormView($form, $query, self::API_VERSION, Response::HTTP_UNPROCESSABLE_ENTITY);
+                return new FormView($form, $query, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
             $query = $this->collectionService->updateQuery(
@@ -289,7 +288,7 @@ class BlockCollectionController extends Controller
             );
         }
 
-        return new FormView($form, $query, self::API_VERSION);
+        return new FormView($form, $query, Version::API_V1);
     }
 
     /**

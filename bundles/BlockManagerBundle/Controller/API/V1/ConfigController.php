@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
@@ -9,6 +9,8 @@ use Netgen\BlockManager\Configuration\Registry\SourceRegistry;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Version;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 class ConfigController extends Controller
 {
@@ -43,14 +45,14 @@ class ConfigController extends Controller
     {
         $blockTypeGroups = array_map(
             function (BlockTypeGroup $blockTypeGroup) {
-                return new VersionedValue($blockTypeGroup, self::API_VERSION);
+                return new VersionedValue($blockTypeGroup, Version::API_V1);
             },
             array_values($this->blockTypeRegistry->allBlockTypeGroups())
         );
 
         $blockTypes = array_map(
             function (BlockType $blockType) {
-                return new VersionedValue($blockType, self::API_VERSION);
+                return new VersionedValue($blockType, Version::API_V1);
             },
             array_values($this->blockTypeRegistry->allBlockTypes())
         );
@@ -72,7 +74,7 @@ class ConfigController extends Controller
     {
         $sources = array_map(
             function (Source $source) {
-                return new VersionedValue($source, self::API_VERSION);
+                return new VersionedValue($source, Version::API_V1);
             },
             array_values($this->sourceRegistry->all())
         );

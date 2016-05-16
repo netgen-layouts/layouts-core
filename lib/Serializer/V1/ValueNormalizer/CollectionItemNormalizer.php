@@ -1,10 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Exception;
 
@@ -75,6 +76,6 @@ class CollectionItemNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Item && $data->getVersion() === 1;
+        return $data->getValue() instanceof Item && $data->getVersion() === Version::API_V1;
     }
 }
