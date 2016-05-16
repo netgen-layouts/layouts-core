@@ -152,15 +152,12 @@ class BlockController extends Controller
         $form = $this->createForm(
             $blockDefinition->getConfiguration()->getForm('edit'),
             $updateStruct,
-            array(
-                'blockDefinition' => $blockDefinition,
-                'method' => Request::METHOD_PATCH,
-            )
+            array('blockDefinition' => $blockDefinition)
         );
 
         $form->handleRequest($request);
 
-        if ($request->getMethod() === Request::METHOD_PATCH) {
+        if ($request->getMethod() === Request::METHOD_POST) {
             if (!$form->isSubmitted()) {
                 throw new InvalidArgumentException('form', 'Form is not submitted.');
             }
@@ -208,10 +205,7 @@ class BlockController extends Controller
         $form = $this->createForm(
             $blockDefinition->getConfiguration()->getForm('inline_edit'),
             $updateStruct,
-            array(
-                'blockDefinition' => $blockDefinition,
-                'method' => Request::METHOD_PATCH,
-            )
+            array('blockDefinition' => $blockDefinition)
         );
 
         $form->handleRequest($request);

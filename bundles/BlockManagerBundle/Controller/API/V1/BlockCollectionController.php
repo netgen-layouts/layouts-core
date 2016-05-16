@@ -265,15 +265,12 @@ class BlockCollectionController extends Controller
         $form = $this->createForm(
             $queryType->getConfiguration()->getForm('edit'),
             $updateStruct,
-            array(
-                'queryType' => $queryType,
-                'method' => Request::METHOD_PATCH,
-            )
+            array('queryType' => $queryType)
         );
 
         $form->handleRequest($request);
 
-        if ($request->getMethod() === Request::METHOD_PATCH) {
+        if ($request->getMethod() === Request::METHOD_POST) {
             if (!$form->isSubmitted()) {
                 throw new InvalidArgumentException('form', 'Form is not submitted.');
             }

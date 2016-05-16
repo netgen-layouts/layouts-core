@@ -20,14 +20,14 @@ netgen_block_manager_api_v1_move_block:
 
 netgen_block_manager_api_v1_edit_block:
     path: /blocks/{block_id}/edit/full
-    methods: [GET, PATCH]
+    methods: [GET, POST]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:edit"
 
 netgen_block_manager_api_v1_edit_block_inline:
     path: /blocks/{block_id}/edit/inline
-    methods: [PATCH]
+    methods: [POST]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:editInline"
