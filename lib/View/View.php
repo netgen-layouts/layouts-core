@@ -96,6 +96,7 @@ abstract class View implements ViewInterface
         }
 
         $parameters = $this->getParameters();
+
         return $parameters[$identifier];
     }
 

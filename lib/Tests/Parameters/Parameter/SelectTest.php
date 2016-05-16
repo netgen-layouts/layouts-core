@@ -175,7 +175,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                         'choices' => array(1),
                         'multiple' => false,
                     )
-                )
+                ),
             ),
             $parameter->getConstraints()
         );
@@ -186,7 +186,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameterConstraintsWithClosure()
     {
-        $parameter = $this->getParameter(array('options' => function() {return array('One' => 1);}));
+        $parameter = $this->getParameter(array('options' => function () {return array('One' => 1);}));
 
         self::assertEquals(
             array(
@@ -195,7 +195,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                         'choices' => array(1),
                         'multiple' => false,
                     )
-                )
+                ),
             ),
             $parameter->getConstraints()
         );

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\ResultGenerator;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
 

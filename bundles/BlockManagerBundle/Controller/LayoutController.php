@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\View\ViewBuilderInterface;
 
 class LayoutController extends Controller
 {

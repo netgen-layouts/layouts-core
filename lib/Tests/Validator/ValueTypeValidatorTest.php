@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
-    use Netgen\BlockManager\Validator\ValueTypeValidator;
-    use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Netgen\BlockManager\Validator\ValueTypeValidator;
+use Netgen\BlockManager\Validator\Constraint\ValueType;
 
-    class ValueTypeValidatorTest extends ValidatorTest
-    {
-        /**
+class ValueTypeValidatorTest extends ValidatorTest
+{
+    /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $valueLoaderRegistryMock;
@@ -18,17 +18,17 @@ use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
      */
     protected $validator;
 
-        public function setUp()
-        {
-            parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
 
-            $this->valueLoaderRegistryMock = $this->getMock(
+        $this->valueLoaderRegistryMock = $this->getMock(
             ValueLoaderRegistryInterface::class
         );
 
-            $this->validator = new ValueTypeValidator($this->valueLoaderRegistryMock);
-            $this->validator->initialize($this->executionContextMock);
-        }
+        $this->validator = new ValueTypeValidator($this->valueLoaderRegistryMock);
+        $this->validator->initialize($this->executionContextMock);
+    }
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::__construct
@@ -68,4 +68,4 @@ use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 
         $this->validator->validate('value', new ValueType());
     }
-    }
+}

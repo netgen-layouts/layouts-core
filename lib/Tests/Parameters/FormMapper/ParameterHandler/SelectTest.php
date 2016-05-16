@@ -58,7 +58,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     {
         $parameter = new SelectParameter(
             array(
-                'options' => function() {
+                'options' => function () {
                     return array(
                         'Heading 1' => 'h1',
                     );

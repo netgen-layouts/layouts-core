@@ -44,11 +44,11 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'items' => array(
                     new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)),
                     new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)),
-                    new Item(array('position' => 5, 'type' => Item::TYPE_OVERRIDE))
+                    new Item(array('position' => 5, 'type' => Item::TYPE_OVERRIDE)),
                 ),
                 'queries' => array(
                     new Query(array('position' => 0)),
-                )
+                ),
             )
         );
 
