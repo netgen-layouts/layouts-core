@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Symfony\Component\Validator\Constraints;
 
 class ParameterTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,5 +27,31 @@ class ParameterTest extends \PHPUnit_Framework_TestCase
         $parameter = new Parameter();
 
         self::assertFalse($parameter->isRequired());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints
+     */
+    public function testGetConstraints()
+    {
+        $parameter = new Parameter();
+
+        self::assertEquals(array(), $parameter->getConstraints());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints
+     */
+    public function testGetConstraintsForRequiredParameter()
+    {
+        $parameter = new Parameter(array(), true);
+
+        self::assertEquals(array(new Constraints\NotBlank()), $parameter->getConstraints());
     }
 }

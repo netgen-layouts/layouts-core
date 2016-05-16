@@ -50,4 +50,32 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             $this->handler->convertOptions($parameter)
         );
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::convertOptions
+     */
+    public function testConvertOptionsWithClosure()
+    {
+        $parameter = new SelectParameter(
+            array(
+                'options' => function() {
+                    return array(
+                        'Heading 1' => 'h1',
+                    );
+                },
+                'multiple' => false,
+            )
+        );
+
+        self::assertEquals(
+            array(
+                'choices' => array(
+                    'Heading 1' => 'h1',
+                ),
+                'multiple' => false,
+                'choices_as_values' => true,
+            ),
+            $this->handler->convertOptions($parameter)
+        );
+    }
 }

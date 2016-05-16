@@ -40,7 +40,6 @@ class BlockViewTypeValidatorTest extends ValidatorTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::__construct
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
      */
     public function testValidate()
@@ -53,7 +52,6 @@ class BlockViewTypeValidatorTest extends ValidatorTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::__construct
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
      */
     public function testValidateFailedWithNoViewType()

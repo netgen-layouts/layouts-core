@@ -8,6 +8,7 @@ use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use RuntimeException;
 
 class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -67,6 +68,44 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
                 'value_type' => $item->getValueType(),
                 'name' => 'Value name',
                 'visible' => true,
+            ),
+            $this->normalizer->normalize(new VersionedValue($item, 1))
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer::normalize
+     */
+    public function testNormalizeWithNoValue()
+    {
+        $item = new Item(
+            array(
+                'id' => 42,
+                'collectionId' => 24,
+                'position' => 3,
+                'type' => Item::TYPE_OVERRIDE,
+                'valueId' => 12,
+                'valueType' => 'ezcontent',
+            )
+        );
+
+        $this->resultValueBuilderMock
+            ->expects($this->any())
+            ->method('buildFromItem')
+            ->with($item)
+            ->will($this->throwException(new RuntimeException()));
+
+        self::assertEquals(
+            array(
+                'id' => $item->getId(),
+                'collection_id' => $item->getCollectionId(),
+                'position' => $item->getPosition(),
+                'type' => $item->getType(),
+                'value_id' => $item->getValueId(),
+                'value_type' => $item->getValueType(),
+                'name' => null,
+                'visible' => null,
             ),
             $this->normalizer->normalize(new VersionedValue($item, 1))
         );

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Select;
+use Symfony\Component\Validator\Constraints;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
@@ -157,6 +158,46 @@ class SelectTest extends \PHPUnit_Framework_TestCase
             array(
                 array(),
             ),
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
+     */
+    public function testGetParameterConstraints()
+    {
+        $parameter = $this->getParameter(array('options' => array('One' => 1)));
+
+        self::assertEquals(
+            array(
+                new Constraints\Choice(
+                    array(
+                        'choices' => array(1),
+                        'multiple' => false,
+                    )
+                )
+            ),
+            $parameter->getConstraints()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
+     */
+    public function testGetParameterConstraintsWithClosure()
+    {
+        $parameter = $this->getParameter(array('options' => function() {return array('One' => 1);}));
+
+        self::assertEquals(
+            array(
+                new Constraints\Choice(
+                    array(
+                        'choices' => array(1),
+                        'multiple' => false,
+                    )
+                )
+            ),
+            $parameter->getConstraints()
         );
     }
 }

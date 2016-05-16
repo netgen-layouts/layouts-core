@@ -25,6 +25,7 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Netgen\BlockManager\Serializer\Values\FormView::__construct
      * @covers Netgen\BlockManager\Serializer\Values\FormView::getForm
      */
     public function testGetForm()

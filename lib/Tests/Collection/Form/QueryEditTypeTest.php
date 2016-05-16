@@ -1,14 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\Form;
+namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
-use Netgen\BlockManager\Configuration\BlockDefinition\ViewType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
+use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Block\Form\BlockEditType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\Query\Form\QueryEditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -16,7 +15,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class BlockEditTypeTest extends TypeTestCase
+class QueryEditTypeTest extends TypeTestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -24,7 +23,7 @@ class BlockEditTypeTest extends TypeTestCase
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Block\Form\BlockEditType
+     * @var \Netgen\BlockManager\Collection\Query\Form\QueryEditType
      */
     protected $formType;
 
@@ -38,7 +37,7 @@ class BlockEditTypeTest extends TypeTestCase
         $this->parameterFormMapper = new FormMapper();
         $this->parameterFormMapper->addParameterHandler('text', new Text());
 
-        $this->formType = new BlockEditType($this->parameterFormMapper);
+        $this->formType = new QueryEditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -54,42 +53,32 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::__construct
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::__construct
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::buildForm
      */
     public function testSubmitValidData()
     {
         $submittedData = array(
             'parameters' => array(
-                'css_id' => 'Some CSS ID',
-                'css_class' => 'Some CSS class',
+                'param' => 'Param value',
             ),
-            'view_type' => 'large',
-            'name' => 'My block',
         );
 
-        $updatedStruct = new BlockUpdateStruct();
-        $updatedStruct->viewType = 'large';
-        $updatedStruct->name = 'My block';
-        $updatedStruct->setParameter('css_id', 'Some CSS ID');
-        $updatedStruct->setParameter('css_class', 'Some CSS class');
+        $updatedStruct = new QueryUpdateStruct();
+        $updatedStruct->setParameter('param', 'Param value');
 
-        $blockDefinition = new BlockDefinition();
-        $blockDefinition->setConfiguration(
+        $queryType = new QueryType();
+        $queryType->setConfiguration(
             new Configuration(
-                'block_definition',
-                array(),
-                array(
-                    'large' => new ViewType('large', 'Large'),
-                    'small' => new ViewType('small', 'Small'),
-                )
+                'query_type',
+                array()
             )
         );
 
         $form = $this->factory->create(
-            'block_edit',
-            new BlockUpdateStruct(),
-            array('blockDefinition' => $blockDefinition)
+            'query_edit',
+            new QueryUpdateStruct(),
+            array('queryType' => $queryType)
         );
 
         $form->submit($submittedData);
@@ -110,7 +99,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -121,20 +110,20 @@ class BlockEditTypeTest extends TypeTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'blockDefinition' => new BlockDefinition(),
-                'data' => new BlockUpdateStruct(),
+                'queryType' => new QueryType(),
+                'data' => new QueryUpdateStruct(),
             )
         );
 
-        self::assertEquals($options['blockDefinition'], new BlockDefinition());
-        self::assertEquals($options['data'], new BlockUpdateStruct());
+        self::assertEquals($options['queryType'], new QueryType());
+        self::assertEquals($options['data'], new QueryUpdateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
-    public function testConfigureOptionsWithMissingBlockDefinition()
+    public function testConfigureOptionsWithMissingQueryType()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -145,10 +134,10 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testConfigureOptionsWithInvalidBlockDefinition()
+    public function testConfigureOptionsWithInvalidQueryType()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -157,13 +146,13 @@ class BlockEditTypeTest extends TypeTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => '',
+                'queryType' => '',
             )
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -175,25 +164,25 @@ class BlockEditTypeTest extends TypeTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => new BlockDefinition(),
+                'queryType' => new QueryType(),
                 'data' => '',
             )
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::getName
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::getName
      */
     public function testGetName()
     {
-        self::assertEquals('block_edit', $this->formType->getName());
+        self::assertEquals('query_edit', $this->formType->getName());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('block_edit', $this->formType->getBlockPrefix());
+        self::assertEquals('query_edit', $this->formType->getBlockPrefix());
     }
 }
