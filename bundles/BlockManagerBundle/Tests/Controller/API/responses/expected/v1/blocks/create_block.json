@@ -1,0 +1,13 @@
+{
+    "id": 6,
+    "definition_identifier": "title",
+    "name": "",
+    "zone_identifier": "bottom",
+    "position": 0,
+    "layout_id": 1,
+    "parameters": {
+        "tag": "h1",
+        "title": "My cool title"
+    },
+    "view_type": "default"
+}

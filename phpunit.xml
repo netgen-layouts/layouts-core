@@ -20,6 +20,7 @@
         </testsuite>
         <testsuite name="Netgen\Bundle\BlockManagerBundle">
             <directory>bundles/BlockManagerBundle/Tests</directory>
+            <exclude>bundles/BlockManagerBundle/Tests/Controller</exclude>
         </testsuite>
         <testsuite name="Netgen\Bundle\EzPublishBlockManagerBundle">
             <directory>bundles/EzPublishBlockManagerBundle/Tests</directory>
@@ -33,6 +34,7 @@
             <exclude>
                 <directory>lib/Tests</directory>
                 <directory>lib/Migrations</directory>
+                <directory>bundles/*Bundle/Controller</directory>
                 <directory>bundles/*Bundle/Tests</directory>
                 <directory>bundles/*Bundle/Resources</directory>
             </exclude>

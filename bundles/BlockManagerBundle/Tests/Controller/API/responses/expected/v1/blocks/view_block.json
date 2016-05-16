@@ -1,0 +1,12 @@
+{
+    "id": 1,
+    "definition_identifier": "paragraph",
+    "name": "My block",
+    "zone_identifier": "top_right",
+    "position": 0,
+    "layout_id": 1,
+    "parameters": {
+        "some_param": "some_value"
+    },
+    "view_type": "default"
+}
