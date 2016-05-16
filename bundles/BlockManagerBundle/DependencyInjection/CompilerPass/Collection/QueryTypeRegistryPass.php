@@ -20,7 +20,9 @@ class QueryTypeRegistryPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->has(self::SERVICE_NAME)) {
-            return;
+            if (!$container->has(self::SERVICE_NAME)) {
+                throw new RuntimeException("Service '{self::SERVICE_NAME}' is missing.");
+            }
         }
 
         $queryTypeRegistry = $container->findDefinition(self::SERVICE_NAME);

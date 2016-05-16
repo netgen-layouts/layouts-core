@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\View;
 
+use RuntimeException;
+
 abstract class View implements ViewInterface
 {
     /**
@@ -83,16 +85,17 @@ abstract class View implements ViewInterface
      *
      * @param string $identifier
      *
+     * @throws \RuntimeException If view does not have the parameter.
+     *
      * @return mixed
      */
     public function getParameter($identifier)
     {
-        $parameters = $this->getParameters();
-
-        if (!isset($parameters[$identifier])) {
-            return;
+        if (!$this->hasParameter($identifier)) {
+            throw new RuntimeException("View does not have the '{$identifier}' parameter.");
         }
 
+        $parameters = $this->getParameters();
         return $parameters[$identifier];
     }
 

@@ -6,6 +6,7 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
 use Doctrine\DBAL\Migrations\Migration;
 use Doctrine\DBAL\Types\Type;
+use RuntimeException;
 
 trait DoctrineDatabaseTrait
 {
@@ -55,7 +56,10 @@ trait DoctrineDatabaseTrait
         }
 
         $this->insertDatabaseFixtures($fixturesPath);
-        $this->executeStatements($schemaPath, 'setval');
+
+        if ($this->databaseServer === 'pgsql') {
+            $this->executeStatements($schemaPath, 'setval');
+        }
     }
 
     /**
@@ -90,7 +94,7 @@ trait DoctrineDatabaseTrait
     {
         $fullPath = $schemaPath . '/' . $fileName . '.' . $this->databaseServer . '.sql';
         if (!file_exists($fullPath)) {
-            return;
+            throw new RuntimeException("File '{$fullPath}' does not exist.");
         }
 
         $schema = file_get_contents($fullPath);
