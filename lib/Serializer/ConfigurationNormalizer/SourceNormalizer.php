@@ -29,7 +29,7 @@ class SourceNormalizer extends SerializerAwareNormalizer implements NormalizerIn
             function (Query $query) use ($object) {
                 return new VersionedValue($query, $object->getVersion());
             },
-            $source->getQueries()
+            array_values($source->getQueries())
         );
 
         return array(
