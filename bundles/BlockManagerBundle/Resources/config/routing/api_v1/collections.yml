@@ -1,0 +1,62 @@
+netgen_block_manager_api_v1_load_collection:
+    path: /collections/{collection_id}
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:loadCollection"
+
+netgen_block_manager_api_v1_load_collection_items:
+    path: /collections/{collection_id}/items
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionItems"
+
+netgen_block_manager_api_v1_load_collection_queries:
+    path: /collections/{collection_id}/queries
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQueries"
+
+netgen_block_manager_api_v1_load_collection_item:
+    path: /collections/items/{item_id}
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:loadItem"
+
+netgen_block_manager_api_v1_add_collection_item:
+    path: /collections/{collection_id}/items
+    methods: [POST]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:addItem"
+
+netgen_block_manager_api_v1_move_collection_item:
+    path: /collections/items/{item_id}/move
+    methods: [PATCH]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:moveItem"
+
+netgen_block_manager_api_v1_delete_collection_item:
+    path: /collections/items/{item_id}
+    methods: [DELETE]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:deleteItem"
+
+netgen_block_manager_api_v1_load_collection_query:
+    path: /collections/queries/{query_id}
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"
+
+netgen_block_manager_api_v1_edit_query:
+    path: /collections/queries/{query_id}/edit/full
+    methods: [GET, POST]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.collection:editQuery"

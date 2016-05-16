@@ -4,6 +4,9 @@ netgen_block_manager_api_v1_config:
 netgen_block_manager_api_v1_blocks:
     resource: "api_v1/blocks.yml"
 
+netgen_block_manager_api_v1_collections:
+    resource: "api_v1/collections.yml"
+
 netgen_block_manager_api_v1_block_collections:
     resource: "api_v1/block_collections.yml"
 
