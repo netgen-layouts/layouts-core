@@ -25,9 +25,8 @@ services:
     netgen_block_manager.controller.block:
         class: "%netgen_block_manager.controller.block.class%"
         parent: netgen_block_manager.controller.base
-
-    ngbm_block:
-        alias: netgen_block_manager.controller.block
+        arguments:
+            - "@netgen_block_manager.renderer.block"
 
     netgen_block_manager.controller.layout:
         class: "%netgen_block_manager.controller.layout.class%"
@@ -35,8 +34,8 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
-    ngbm_layout:
-        alias: netgen_block_manager.controller.layout
+    ngbm_block:
+        alias: netgen_block_manager.controller.block
 
     # API controllers
 

@@ -1,0 +1,10 @@
+parameters:
+    netgen_block_manager.renderer.block.class: Netgen\Bundle\BlockManagerBundle\Renderer\BlockRenderer
+
+services:
+    netgen_block_manager.renderer.block:
+        class: "%netgen_block_manager.renderer.block.class%"
+        arguments:
+            - "@netgen_block_manager.block.registry.block_definition"
+            - "@netgen_block_manager.view.renderer"
+            - "@fragment.handler"

@@ -2,7 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
+use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\View\ViewInterface;
 use Twig_Extension_GlobalsInterface;
 use Twig_Extension;
 
@@ -14,13 +18,22 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     protected $globalHelper;
 
     /**
+     * @var \Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface
+     */
+    protected $blockRenderer;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
+     * @param \Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface $blockRenderer
      */
-    public function __construct(GlobalHelper $globalHelper)
-    {
+    public function __construct(
+        GlobalHelper $globalHelper,
+        BlockRendererInterface $blockRenderer
+    ) {
         $this->globalHelper = $globalHelper;
+        $this->blockRenderer = $blockRenderer;
     }
 
     /**
@@ -34,6 +47,19 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     }
 
     /**
+     * Returns a list of functions to add to the existing list.
+     *
+     * @return array An array of functions
+     */
+    public function getFunctions()
+    {
+        return array(
+            new \Twig_SimpleFunction('ngbm_render_zone', array($this, 'renderZone'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('ngbm_render_block', array($this, 'renderBlock'), array('is_safe' => array('html'))),
+        );
+    }
+
+    /**
      * Returns a list of global variables to add to the existing list.
      *
      * @return array
@@ -43,5 +69,38 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
         return array(
             'ngbm' => $this->globalHelper,
         );
+    }
+
+    /**
+     * Renders the provided zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $context
+     *
+     * @return string
+     */
+    public function renderZone(Zone $zone, $context = ViewInterface::CONTEXT_VIEW)
+    {
+        $html = '';
+
+        foreach ($zone->getBlocks() as $block) {
+            $html .= $this->blockRenderer->renderBlockFragment($block, $context);
+        }
+
+        return $html;
+    }
+
+    /**
+     * Renders the provided block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
+     * @param string $context
+     *
+     * @return string
+     */
+    public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    {
+        return $this->blockRenderer->renderBlockFragment($block, $context, $parameters);
     }
 }

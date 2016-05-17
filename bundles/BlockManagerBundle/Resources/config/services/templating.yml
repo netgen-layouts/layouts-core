@@ -11,6 +11,7 @@ services:
         class: "%netgen_block_manager.templating.twig.extension.class%"
         arguments:
             - "@netgen_block_manager.templating.global_helper"
+            - "@netgen_block_manager.renderer.block"
         tags:
             - { name: twig.extension }
 
