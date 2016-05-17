@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\LayoutResolver\Rule;
+use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -19,6 +20,11 @@ class LayoutResolverListener implements EventSubscriberInterface
      * @var \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
      */
     protected $layoutResolver;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface
+     */
+    protected $pageLayoutResolver;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
@@ -39,17 +45,20 @@ class LayoutResolverListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface $layoutResolver
+     * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
+        PageLayoutResolverInterface $pageLayoutResolver,
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
         GlobalHelper $globalHelper
     ) {
         $this->layoutResolver = $layoutResolver;
+        $this->pageLayoutResolver = $pageLayoutResolver;
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
         $this->globalHelper = $globalHelper;
@@ -81,6 +90,10 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
+        $this->globalHelper->setPageLayout(
+            $this->pageLayoutResolver->resolvePageLayout()
+        );
+
         $rule = $this->layoutResolver->resolveLayout();
         if (!$rule instanceof Rule) {
             return;
@@ -94,7 +107,8 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
-        $layoutView = $this->viewBuilder->buildView($layout);
-        $this->globalHelper->setLayoutView($layoutView);
+        $this->globalHelper->setLayoutView(
+            $this->viewBuilder->buildView($layout)
+        );
     }
 }

@@ -1,13 +1,11 @@
 parameters:
     netgen_block_manager.templating.global_helper.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
     netgen_block_manager.templating.twig.extension.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
+    netgen_block_manager.templating.pagelayout_resolver.default.class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
 
 services:
     netgen_block_manager.templating.global_helper:
         class: "%netgen_block_manager.templating.global_helper.class%"
-        calls:
-            - [setPageLayout, ["@=service('netgen_block_manager.configuration').getParameter('pagelayout')"]]
-        lazy: true
 
     netgen_block_manager.templating.twig.extension:
         class: "%netgen_block_manager.templating.twig.extension.class%"
@@ -15,3 +13,11 @@ services:
             - "@netgen_block_manager.templating.global_helper"
         tags:
             - { name: twig.extension }
+
+    netgen_block_manager.templating.pagelayout_resolver.default:
+        class: "%netgen_block_manager.templating.pagelayout_resolver.default.class%"
+        arguments:
+            - "%netgen_block_manager.pagelayout%"
+
+    netgen_block_manager.templating.pagelayout_resolver:
+        alias: netgen_block_manager.templating.pagelayout_resolver.default

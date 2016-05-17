@@ -428,7 +428,7 @@ class Configuration implements ConfigurationInterface
         $node = $treeBuilder->root('pagelayout', 'scalar');
 
         $node
-            ->defaultValue('NetgenBlockManagerBundle::pagelayout_empty.html.twig')
+            ->defaultValue('NetgenBlockManagerBundle::pagelayout.html.twig')
             ->cannotBeEmpty();
 
         return $node;

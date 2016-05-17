@@ -55,24 +55,4 @@ class GlobalHelper
     {
         return $this->pageLayout;
     }
-
-    /**
-     * Returns the resolved layout.
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    public function getLayout()
-    {
-        return $this->layoutView ? $this->layoutView->getLayout() : null;
-    }
-
-    /**
-     * Returns the resolved layout template.
-     *
-     * @return string
-     */
-    public function getLayoutTemplate()
-    {
-        return $this->layoutView ? $this->layoutView->getTemplate() : null;
-    }
 }
