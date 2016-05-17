@@ -8,6 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Twig_Extension_GlobalsInterface;
+use Twig_SimpleFunction;
 use Twig_Extension;
 
 class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
@@ -49,13 +50,37 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     /**
      * Returns a list of functions to add to the existing list.
      *
-     * @return array An array of functions
+     * @return \Twig_SimpleFunction[]
      */
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('ngbm_render_zone', array($this, 'renderZone'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('ngbm_render_block', array($this, 'renderBlock'), array('is_safe' => array('html'))),
+            new Twig_SimpleFunction(
+                'ngbm_render_zone',
+                array($this, 'renderZone'),
+                array(
+                    'is_safe' => array('html'),
+                )
+            ),
+            new Twig_SimpleFunction(
+                'ngbm_render_block',
+                array($this, 'renderBlock'),
+                array(
+                    'is_safe' => array('html'),
+                )
+            ),
+        );
+    }
+
+    /**
+     * Returns the token parser instances to add to the existing list.
+     *
+     * @return \Twig_TokenParserInterface[]
+     */
+    public function getTokenParsers()
+    {
+        return array(
+            new RenderZoneTokenParser(),
         );
     }
 
@@ -84,7 +109,9 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
         $html = '';
 
         foreach ($zone->getBlocks() as $block) {
-            $html .= $this->blockRenderer->renderBlockFragment($block, $context);
+            if ($block->getDefinitionIdentifier() !== 'content') {
+                $html .= $this->blockRenderer->renderBlockFragment($block, $context, array());
+            }
         }
 
         return $html;
@@ -102,5 +129,21 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
         return $this->blockRenderer->renderBlockFragment($block, $context, $parameters);
+    }
+
+    /**
+     * Displays the provided block.
+     *
+     * Used by "ngbm_render_zone" Twig tag, hence usage of "echo".
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
+     * @param string $context
+     *
+     * @return string
+     */
+    public function displayBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    {
+        echo $this->blockRenderer->renderBlockFragment($block, $context, $parameters);
     }
 }
