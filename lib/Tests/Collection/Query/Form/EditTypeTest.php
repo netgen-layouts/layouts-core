@@ -7,7 +7,7 @@ use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Query\Form\QueryEditType;
+use Netgen\BlockManager\Collection\Query\Form\EditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -15,7 +15,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class QueryEditTypeTest extends TypeTestCase
+class EditTypeTest extends TypeTestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -23,7 +23,7 @@ class QueryEditTypeTest extends TypeTestCase
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Query\Form\QueryEditType
+     * @var \Netgen\BlockManager\Collection\Query\Form\EditType
      */
     protected $formType;
 
@@ -37,7 +37,7 @@ class QueryEditTypeTest extends TypeTestCase
         $this->parameterFormMapper = new FormMapper();
         $this->parameterFormMapper->addParameterHandler('text', new Text());
 
-        $this->formType = new QueryEditType($this->parameterFormMapper);
+        $this->formType = new EditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -53,8 +53,8 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::__construct
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::__construct
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::buildForm
      */
     public function testSubmitValidData()
     {
@@ -99,7 +99,7 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -120,7 +120,7 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingQueryType()
@@ -134,7 +134,7 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidQueryType()
@@ -152,7 +152,7 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -171,7 +171,7 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::getName
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::getName
      */
     public function testGetName()
     {
@@ -179,7 +179,7 @@ class QueryEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\QueryEditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {

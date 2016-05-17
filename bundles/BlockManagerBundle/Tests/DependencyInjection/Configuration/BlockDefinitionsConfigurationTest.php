@@ -36,7 +36,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'edit' => 'block_edit',
+                            'full' => 'block_edit',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -55,7 +55,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => 'block_edit',
+                        'full' => 'block_edit',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -82,7 +82,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testBlockDefinitionSettingsWithNoEditForm()
+    public function testBlockDefinitionSettingsWithNoFullForm()
     {
         $config = array(
             array(
@@ -106,7 +106,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => 'block_edit',
+                        'full' => 'block_edit',
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -140,7 +140,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'edit' => 'block_edit',
+                            'full' => 'block_edit',
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -157,7 +157,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'edit' => 'block_edit',
+                            'full' => 'block_edit',
                         ),
                         'view_types' => array(
                             'title' => array(
@@ -176,7 +176,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => 'block_edit',
+                        'full' => 'block_edit',
                     ),
                     'view_types' => array(
                         'title' => array(
@@ -246,13 +246,13 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithEmptyEditForm()
+    public function testBlockDefinitionSettingsWithEmptyFullForm()
     {
         $config = array(
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => '',
+                        'full' => '',
                     ),
                 ),
             ),
@@ -265,13 +265,13 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithInvalidEditForm()
+    public function testBlockDefinitionSettingsWithInvalidFullForm()
     {
         $config = array(
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'edit' => array(),
+                        'full' => array(),
                     ),
                 ),
             ),
@@ -284,13 +284,13 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithEmptyInlineEditForm()
+    public function testBlockDefinitionSettingsWithEmptyInlineForm()
     {
         $config = array(
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'inline_edit' => '',
+                        'inline' => '',
                     ),
                 ),
             ),
@@ -303,13 +303,13 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithInvalidInlineEditForm()
+    public function testBlockDefinitionSettingsWithInvalidInlineForm()
     {
         $config = array(
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'inline_edit' => array(),
+                        'inline' => array(),
                     ),
                 ),
             ),

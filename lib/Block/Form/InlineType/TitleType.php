@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Block\Form\BlockInlineEdit;
+namespace Netgen\BlockManager\Block\Form\InlineType;
 
-use Netgen\BlockManager\Block\Form\BlockInlineEditType;
+use Netgen\BlockManager\Block\Form\InlineType;
 
-class TitleType extends BlockInlineEditType
+class TitleType extends InlineType
 {
     /**
      * Returns the list of block definition parameters that will be editable inline.

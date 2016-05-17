@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
@@ -47,7 +46,7 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
 
         $normalizedData['form'] = $this->viewRenderer->renderValue(
             $object->getValue(),
-            ViewInterface::CONTEXT_API_EDIT,
+            $object->getContext(),
             array(
                 'form' => $object->getForm()->createView(),
                 'api_version' => $object->getVersion(),

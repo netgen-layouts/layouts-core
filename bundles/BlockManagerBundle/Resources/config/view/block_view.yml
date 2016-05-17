@@ -18,19 +18,24 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view/paragraph:default.html.twig"
             match:
                 block_definition_identifier: paragraph
-    api:
+    api_view:
         title:
-            template: "NetgenBlockManagerBundle:block/api:title.html.twig"
+            template: "NetgenBlockManagerBundle:api/block/view:title.html.twig"
             match:
                 block_definition_identifier: title
                 api_version: 1
         paragraph:
-            template: "NetgenBlockManagerBundle:block/api:paragraph.html.twig"
+            template: "NetgenBlockManagerBundle:api/block/view:paragraph.html.twig"
             match:
                 block_definition_identifier: paragraph
                 api_version: 1
     api_edit:
         block:
-            template: "NetgenBlockManagerBundle:block/edit:edit.html.twig"
+            template: "NetgenBlockManagerBundle:api/block/edit:edit.html.twig"
+            match:
+                api_version: 1
+    api_form:
+        block:
+            template: "NetgenBlockManagerBundle:api/block/form:full.html.twig"
             match:
                 api_version: 1

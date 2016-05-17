@@ -36,7 +36,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'query_types' => array(
                     'type' => array(
                         'forms' => array(
-                            'edit' => 'query_edit',
+                            'full' => 'query_edit',
                         ),
                     ),
                 ),
@@ -47,7 +47,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'query_types' => array(
                 'type' => array(
                     'forms' => array(
-                        'edit' => 'query_edit',
+                        'full' => 'query_edit',
                     ),
                 ),
             ),
@@ -66,7 +66,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testQueryTypeSettingsWithNoEditForm()
+    public function testQueryTypeSettingsWithNoFullForm()
     {
         $config = array(
             array(
@@ -82,7 +82,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'query_types' => array(
                 'type' => array(
                     'forms' => array(
-                        'edit' => 'query_edit',
+                        'full' => 'query_edit',
                     ),
                 ),
             ),
@@ -144,13 +144,13 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
      */
-    public function testQueryTypeSettingsWithEmptyEditForm()
+    public function testQueryTypeSettingsWithEmptyFullForm()
     {
         $config = array(
             'query_types' => array(
                 'type' => array(
                     'forms' => array(
-                        'edit' => '',
+                        'full' => '',
                     ),
                 ),
             ),
@@ -163,13 +163,13 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
      */
-    public function testQueryTypeSettingsWithInvalidEditForm()
+    public function testQueryTypeSettingsWithInvalidFullForm()
     {
         $config = array(
             'query_types' => array(
                 'type' => array(
                     'forms' => array(
-                        'edit' => array(),
+                        'full' => array(),
                     ),
                 ),
             ),

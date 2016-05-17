@@ -17,4 +17,11 @@ interface ViewInterface extends VersionedValueInterface
      * @return array
      */
     public function getViewParameters();
+
+    /**
+     * Returns the context that will be used to render this view.
+     *
+     * @return array
+     */
+    public function getContext();
 }

@@ -63,14 +63,14 @@ class APIBlockViewListener implements EventSubscriberInterface
     public function onBuildView(CollectViewParametersEvent $event)
     {
         $view = $event->getView();
-        if (!$view instanceof BlockViewInterface || $view->getContext() !== ViewInterface::CONTEXT_API) {
+        if (!$view instanceof BlockViewInterface || $view->getContext() !== ViewInterface::CONTEXT_API_VIEW) {
             return;
         }
 
         $block = $view->getBlock();
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
 
-        if (!$blockDefinition->getConfiguration()->hasForm('inline_edit')) {
+        if (!$blockDefinition->getConfiguration()->hasForm('inline')) {
             return;
         }
 
@@ -80,7 +80,7 @@ class APIBlockViewListener implements EventSubscriberInterface
         $updateStruct->name = $block->getName();
 
         $form = $this->formFactory->create(
-            $blockDefinition->getConfiguration()->getForm('inline_edit'),
+            $blockDefinition->getConfiguration()->getForm('inline'),
             $updateStruct,
             array('blockDefinition' => $blockDefinition)
         );

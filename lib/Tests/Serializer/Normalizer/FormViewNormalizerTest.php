@@ -61,7 +61,7 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->method('renderValue')
             ->with(
                 $this->equalTo(new Value()),
-                $this->equalTo(ViewInterface::CONTEXT_API_EDIT),
+                $this->equalTo(ViewInterface::CONTEXT_API_FORM),
                 $this->equalTo(
                     array(
                         'form' => new SymfonyFormView(),

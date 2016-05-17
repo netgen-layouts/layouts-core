@@ -1,4 +1,4 @@
-{% set form_action = path('netgen_block_manager_api_v1_edit_block', {'block_id': block.id}) %}
+{% set form_action = path('netgen_block_manager_api_v1_block_form', {'block_id': block.id, 'formName': 'full'}) %}
 
 <h1>Editing "{{ block.name }}" block</h1>
 

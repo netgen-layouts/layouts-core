@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
@@ -47,7 +46,7 @@ class ViewNormalizer extends SerializerAwareNormalizer implements NormalizerInte
 
         $normalizedData['html'] = $this->viewRenderer->renderValue(
             $object->getValue(),
-            ViewInterface::CONTEXT_API,
+            $object->getContext(),
             array(
                 'api_version' => $object->getVersion(),
             ) + $object->getViewParameters()

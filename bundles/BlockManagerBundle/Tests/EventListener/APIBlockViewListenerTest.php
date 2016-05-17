@@ -101,13 +101,13 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
     {
         $block = new Block(array('definitionIdentifier' => 'block'));
         $blockView = new BlockView();
-        $blockView->setContext(ViewInterface::CONTEXT_API);
+        $blockView->setContext(ViewInterface::CONTEXT_API_VIEW);
         $blockView->setBlock($block);
 
         $this->blockDefinition->setConfiguration(
             new Configuration(
                 'block',
-                array('inline_edit' => 'inline_edit_form'),
+                array('inline' => 'inline_edit_form'),
                 array()
             )
         );
@@ -196,7 +196,7 @@ class APIBlockViewListenerTest extends \PHPUnit_Framework_TestCase
 
         $block = new Block(array('definitionIdentifier' => 'block'));
         $blockView = new BlockView();
-        $blockView->setContext(ViewInterface::CONTEXT_API);
+        $blockView->setContext(ViewInterface::CONTEXT_API_VIEW);
         $blockView->setBlock($block);
 
         $this->blockServiceMock

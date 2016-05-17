@@ -1,9 +1,9 @@
 parameters:
-    netgen_block_manager.collection.form.query_edit.class: Netgen\BlockManager\Collection\Query\Form\QueryEditType
+    netgen_block_manager.collection.query.form.edit.class: Netgen\BlockManager\Collection\Query\Form\EditType
 
 services:
-    netgen_block_manager.collection.form.query_edit:
-        class: "%netgen_block_manager.collection.form.query_edit.class%"
+    netgen_block_manager.collection.query.form.edit:
+        class: "%netgen_block_manager.collection.query.form.edit.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:

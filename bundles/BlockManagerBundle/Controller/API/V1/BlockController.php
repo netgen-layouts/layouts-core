@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\View;
+use Netgen\BlockManager\Serializer\Values\EditView;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -112,6 +113,25 @@ class BlockController extends Controller
     }
 
     /**
+     * Displays block edit interface.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\EditView
+     */
+    public function edit(Block $block)
+    {
+        $editView = new EditView($block, Version::API_V1);
+        $editView->setViewParameters(
+            array(
+                'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier())
+            )
+        );
+
+        return $editView;
+    }
+
+    /**
      * Moves the block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -134,15 +154,21 @@ class BlockController extends Controller
      * Displays and processes block edit form.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If unknown error occurred
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function edit(Block $block, Request $request)
+    public function form(Block $block, $formName, Request $request)
     {
         $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
+
+        if (!$blockDefinition->getConfiguration()->hasForm($formName)) {
+            throw new InvalidArgumentException('form', 'Block does not support specified form.');
+        }
 
         $updateStruct = $this->blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
@@ -150,7 +176,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockDefinition->getConfiguration()->getForm('edit'),
+            $blockDefinition->getConfiguration()->getForm($formName),
             $updateStruct,
             array('blockDefinition' => $blockDefinition)
         );
@@ -163,72 +189,27 @@ class BlockController extends Controller
             }
 
             if (!$form->isValid()) {
+                if ($formName === 'inline') {
+                    $formErrors = $form->getErrors(true);
+                    if (!empty($formErrors)) {
+                        throw new BadStateException(
+                            $formErrors[0]->getOrigin()->getName(),
+                            $formErrors[0]->getMessage()
+                        );
+                    }
+
+                    throw new BadStateException('unknown', 'Unknown error');
+                }
+
                 return new FormView($form, $block, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            $updatedBlock = $this->blockService->updateBlock(
-                $block,
-                $form->getData()
-            );
+            $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
             return new View($updatedBlock, Version::API_V1);
         }
 
         return new FormView($form, $block, Version::API_V1);
-    }
-
-    /**
-     * Processes inline block edit form.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If block does not support inline editing
-     *                                                                     If form was not submitted
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If unknown error occurred
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
-     */
-    public function editInline(Block $block, Request $request)
-    {
-        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
-
-        if (!$blockDefinition->getConfiguration()->hasForm('inline_edit')) {
-            throw new InvalidArgumentException('form', 'Block does not support inline editing.');
-        }
-
-        $updateStruct = $this->blockService->newBlockUpdateStruct();
-        $updateStruct->setParameters($block->getParameters());
-        $updateStruct->viewType = $block->getViewType();
-        $updateStruct->name = $block->getName();
-
-        $form = $this->createForm(
-            $blockDefinition->getConfiguration()->getForm('inline_edit'),
-            $updateStruct,
-            array('blockDefinition' => $blockDefinition)
-        );
-
-        $form->handleRequest($request);
-
-        if (!$form->isSubmitted()) {
-            throw new InvalidArgumentException('form', 'Form is not submitted.');
-        }
-
-        if (!$form->isValid()) {
-            $formErrors = $form->getErrors(true);
-            if (!empty($formErrors)) {
-                throw new BadStateException(
-                    $formErrors[0]->getOrigin()->getName(),
-                    $formErrors[0]->getMessage()
-                );
-            }
-
-            throw new BadStateException('unknown', 'Unknown error');
-        }
-
-        $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
-
-        return new View($updatedBlock, Version::API_V1);
     }
 
     /**

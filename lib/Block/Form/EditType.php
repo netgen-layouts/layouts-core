@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Collection\Query\Form;
+namespace Netgen\BlockManager\Block\Form;
 
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class QueryEditType extends AbstractType
+class EditType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -33,9 +33,9 @@ class QueryEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('queryType');
-        $resolver->setAllowedTypes('queryType', QueryTypeInterface::class);
-        $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
+        $resolver->setRequired('blockDefinition');
+        $resolver->setAllowedTypes('blockDefinition', BlockDefinitionInterface::class);
+        $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
@@ -47,25 +47,62 @@ class QueryEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
-        $queryType = $options['queryType'];
+        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
+        $blockDefinition = $options['blockDefinition'];
 
-        // We're grouping query parameters so they don't conflict with forms from query itself
+        $choices = array();
+        foreach ($blockDefinition->getConfiguration()->getViewTypes() as $viewType) {
+            $choices[$viewType->getName()] = $viewType->getIdentifier();
+        }
+
+        $builder->add(
+            'view_type',
+            'choice',
+            array(
+                'label' => 'block.edit.view_type',
+                'choices' => $choices,
+                'choices_as_values' => true,
+                'property_path' => 'viewType',
+                // 'choice_value' is needed here since in Symfony 2.7
+                // using the form with NON DEPRECATED 'choices_as_values'
+                // is broken.
+                // See: https://github.com/symfony/symfony/issues/14377
+                'choice_value' => function ($choice) {
+                    return $choice;
+                },
+            )
+        );
+
+        $builder->add(
+            'name',
+            'text',
+            array(
+                'label' => 'block.edit.name',
+                'property_path' => 'name',
+                // null and empty string have different meanings for name
+                // so we set the default value to a single space (instead of
+                // an empty string) because of
+                // https://github.com/symfony/symfony/issues/5906
+                'empty_data' => ' ',
+            )
+        );
+
+        // We're grouping block parameters so they don't conflict with forms from block itself
         $parameterBuilder = $builder->create(
             'parameters',
             'form',
             array(
-                'label' => 'query.edit.parameters',
+                'label' => 'block.edit.parameters',
                 'inherit_data' => true,
             )
         );
 
-        foreach ($queryType->getParameters() as $parameterName => $parameter) {
+        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
             $this->parameterFormMapper->mapParameter(
                 $parameterBuilder,
                 $parameter,
                 $parameterName,
-                'query.' . $queryType->getType()
+                'block.' . $blockDefinition->getIdentifier()
             );
         }
 
@@ -95,6 +132,6 @@ class QueryEditType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'query_edit';
+        return 'block_edit';
     }
 }

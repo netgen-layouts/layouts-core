@@ -184,24 +184,29 @@ class CollectionController extends Controller
     }
 
     /**
-     * Displays and processes query edit form.
+     * Displays and processes query form.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function editQuery(Query $query, Request $request)
+    public function queryForm(Query $query, $formName, Request $request)
     {
         $queryType = $this->getQueryType($query->getType());
+
+        if (!$queryType->getConfiguration()->hasForm($formName)) {
+            throw new InvalidArgumentException('form', 'Query does not support specified form.');
+        }
 
         $updateStruct = $this->collectionService->newQueryUpdateStruct();
         $updateStruct->setParameters($query->getParameters());
 
         $form = $this->createForm(
-            $queryType->getConfiguration()->getForm('edit'),
+            $queryType->getConfiguration()->getForm($formName),
             $updateStruct,
             array('queryType' => $queryType)
         );
@@ -217,10 +222,7 @@ class CollectionController extends Controller
                 return new FormView($form, $query, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            $query = $this->collectionService->updateQuery(
-                $query,
-                $form->getData()
-            );
+            $query = $this->collectionService->updateQuery($query, $form->getData());
         }
 
         return new FormView($form, $query, Version::API_V1);

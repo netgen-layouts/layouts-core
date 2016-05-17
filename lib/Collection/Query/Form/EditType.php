@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Block\Form;
+namespace Netgen\BlockManager\Collection\Query\Form;
 
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-abstract class BlockInlineEditType extends AbstractType
+class EditType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -33,9 +33,9 @@ abstract class BlockInlineEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('blockDefinition');
-        $resolver->setAllowedTypes('blockDefinition', BlockDefinitionInterface::class);
-        $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
+        $resolver->setRequired('queryType');
+        $resolver->setAllowedTypes('queryType', QueryTypeInterface::class);
+        $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
@@ -47,25 +47,30 @@ abstract class BlockInlineEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['blockDefinition'];
+        /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
+        $queryType = $options['queryType'];
 
-        $parameters = $blockDefinition->getParameters();
-        foreach ($this->getParameterNames() as $parameterName) {
-            $this->parameterFormMapper->mapHiddenParameter(
-                $builder,
-                $parameters[$parameterName],
-                $parameterName
+        // We're grouping query parameters so they don't conflict with forms from query itself
+        $parameterBuilder = $builder->create(
+            'parameters',
+            'form',
+            array(
+                'label' => 'query.edit.parameters',
+                'inherit_data' => true,
+            )
+        );
+
+        foreach ($queryType->getParameters() as $parameterName => $parameter) {
+            $this->parameterFormMapper->mapParameter(
+                $parameterBuilder,
+                $parameter,
+                $parameterName,
+                'query.' . $queryType->getType()
             );
         }
-    }
 
-    /**
-     * Returns the list of block definition parameters that will be editable inline.
-     *
-     * @return array
-     */
-    abstract public function getParameterNames();
+        $builder->add($parameterBuilder);
+    }
 
     /**
      * Returns the name of this type.
@@ -78,5 +83,18 @@ abstract class BlockInlineEditType extends AbstractType
     public function getName()
     {
         return $this->getBlockPrefix();
+    }
+
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * The block prefixes default to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+     *
+     * @return string The prefix of the template block name
+     */
+    public function getBlockPrefix()
+    {
+        return 'query_edit';
     }
 }

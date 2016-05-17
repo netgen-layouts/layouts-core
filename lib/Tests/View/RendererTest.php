@@ -48,14 +48,14 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     public function testRenderValue()
     {
         $view = new View();
-        $view->setContext(ViewInterface::CONTEXT_API);
+        $view->setContext(ViewInterface::CONTEXT_API_VIEW);
         $view->setTemplate('some_template.html.twig');
         $view->setParameters(array('some_param' => 'some_value'));
 
         $this->viewBuilderMock
             ->expects($this->once())
             ->method('buildView')
-            ->with(new Value(), ViewInterface::CONTEXT_API, array('some_param' => 'some_value'))
+            ->with(new Value(), ViewInterface::CONTEXT_API_VIEW, array('some_param' => 'some_value'))
             ->will($this->returnValue($view));
 
         $this->twigEnvironmentMock
@@ -69,7 +69,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase
 
         $renderedTemplate = $this->viewRenderer->renderValue(
             new Value(),
-            ViewInterface::CONTEXT_API,
+            ViewInterface::CONTEXT_API_VIEW,
             array('some_param' => 'some_value')
         );
 

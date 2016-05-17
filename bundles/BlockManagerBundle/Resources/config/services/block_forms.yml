@@ -1,31 +1,31 @@
 parameters:
-    netgen_block_manager.block.form.block_edit.class: Netgen\BlockManager\Block\Form\BlockEditType
-    netgen_block_manager.block.form.block_inline_edit.class: Netgen\BlockManager\Block\Form\BlockInlineEditType
-    netgen_block_manager.block.form.block_inline_edit.title.class: Netgen\BlockManager\Block\Form\BlockInlineEdit\TitleType
-    netgen_block_manager.block.form.block_inline_edit.paragraph.class: Netgen\BlockManager\Block\Form\BlockInlineEdit\ParagraphType
+    netgen_block_manager.block.form.edit.class: Netgen\BlockManager\Block\Form\EditType
+    netgen_block_manager.block.form.inline.class: Netgen\BlockManager\Block\Form\InlineType
+    netgen_block_manager.block.form.inline.title.class: Netgen\BlockManager\Block\Form\InlineType\TitleType
+    netgen_block_manager.block.form.inline.paragraph.class: Netgen\BlockManager\Block\Form\InlineType\ParagraphType
 
 services:
-    netgen_block_manager.block.form.block_edit:
-        class: "%netgen_block_manager.block.form.block_edit.class%"
+    netgen_block_manager.block.form.edit:
+        class: "%netgen_block_manager.block.form.edit.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:
             - { name: form.type, alias: block_edit }
 
-    netgen_block_manager.block.form.block_inline_edit:
-        class: "%netgen_block_manager.block.form.block_inline_edit.class%"
+    netgen_block_manager.block.form.inline:
+        class: "%netgen_block_manager.block.form.inline.class%"
         abstract: true
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
 
-    netgen_block_manager.block.form.block_inline_edit.title:
-        class: "%netgen_block_manager.block.form.block_inline_edit.title.class%"
-        parent: netgen_block_manager.block.form.block_inline_edit
+    netgen_block_manager.block.form.inline.title:
+        class: "%netgen_block_manager.block.form.inline.title.class%"
+        parent: netgen_block_manager.block.form.inline
         tags:
             - { name: form.type, alias: block_inline_edit_title }
 
-    netgen_block_manager.block.form.block_inline_edit.paragraph:
-        class: "%netgen_block_manager.block.form.block_inline_edit.paragraph.class%"
-        parent: netgen_block_manager.block.form.block_inline_edit
+    netgen_block_manager.block.form.inline.paragraph:
+        class: "%netgen_block_manager.block.form.inline.paragraph.class%"
+        parent: netgen_block_manager.block.form.inline
         tags:
             - { name: form.type, alias: block_inline_edit_paragraph }

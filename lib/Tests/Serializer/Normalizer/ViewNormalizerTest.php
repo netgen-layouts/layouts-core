@@ -54,7 +54,7 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
             ->method('renderValue')
             ->with(
                 $this->equalTo(new Value()),
-                $this->equalTo(ViewInterface::CONTEXT_API),
+                $this->equalTo(ViewInterface::CONTEXT_API_VIEW),
                 $this->equalTo(
                     array(
                         'api_version' => 1,

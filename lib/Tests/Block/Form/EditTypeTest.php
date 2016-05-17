@@ -8,7 +8,7 @@ use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configu
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Block\Form\BlockEditType;
+use Netgen\BlockManager\Block\Form\EditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class BlockEditTypeTest extends TypeTestCase
+class EditTypeTest extends TypeTestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -24,7 +24,7 @@ class BlockEditTypeTest extends TypeTestCase
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Block\Form\BlockEditType
+     * @var \Netgen\BlockManager\Block\Form\EditType
      */
     protected $formType;
 
@@ -38,7 +38,7 @@ class BlockEditTypeTest extends TypeTestCase
         $this->parameterFormMapper = new FormMapper();
         $this->parameterFormMapper->addParameterHandler('text', new Text());
 
-        $this->formType = new BlockEditType($this->parameterFormMapper);
+        $this->formType = new EditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -54,8 +54,8 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::__construct
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::__construct
+     * @covers \Netgen\BlockManager\Block\Form\EditType::buildForm
      */
     public function testSubmitValidData()
     {
@@ -110,7 +110,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -131,7 +131,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingBlockDefinition()
@@ -145,7 +145,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidBlockDefinition()
@@ -163,7 +163,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -182,7 +182,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::getName
+     * @covers \Netgen\BlockManager\Block\Form\EditType::getName
      */
     public function testGetName()
     {
@@ -190,7 +190,7 @@ class BlockEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\BlockEditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Block\Form\EditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {

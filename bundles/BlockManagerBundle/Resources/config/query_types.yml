@@ -1,4 +1,4 @@
 query_types:
     ezcontent_search:
         forms:
-            edit: query_edit
+            full: query_edit

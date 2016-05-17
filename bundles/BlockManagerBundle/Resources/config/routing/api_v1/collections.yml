@@ -54,9 +54,9 @@ netgen_block_manager_api_v1_load_collection_query:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"
 
-netgen_block_manager_api_v1_edit_query:
-    path: /collections/queries/{query_id}/edit/full
+netgen_block_manager_api_v1_query_form:
+    path: /collections/queries/{query_id}/form/{formName}
     methods: [GET, POST]
     defaults:
         _ngbm_value_status: 0
-        _controller: "netgen_block_manager.controller.api.v1.collection:editQuery"
+        _controller: "netgen_block_manager.controller.api.v1.collection:queryForm"
