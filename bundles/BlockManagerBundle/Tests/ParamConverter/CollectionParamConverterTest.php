@@ -31,7 +31,7 @@ class CollectionParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('collection_id', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals('collectionId', $this->paramConverter->getSourceAttributeName());
     }
 
     /**

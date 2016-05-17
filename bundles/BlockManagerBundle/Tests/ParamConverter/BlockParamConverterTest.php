@@ -32,7 +32,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('block_id', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals('blockId', $this->paramConverter->getSourceAttributeName());
     }
 
     /**

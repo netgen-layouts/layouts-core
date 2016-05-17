@@ -29,7 +29,7 @@ class LayoutParamConverter extends ParamConverter
      */
     public function getSourceAttributeName()
     {
-        return 'layout_id';
+        return 'layoutId';
     }
 
     /**

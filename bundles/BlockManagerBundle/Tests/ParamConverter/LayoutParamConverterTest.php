@@ -31,7 +31,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('layout_id', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals('layoutId', $this->paramConverter->getSourceAttributeName());
     }
 
     /**

@@ -4,7 +4,7 @@
 </{{ block.parameters.tag|default('h1') }}>
 
 {% if form is defined and form is not empty %}
-    {% set form_action = path('netgen_block_manager_api_v1_block_form', {'block_id': block.id, 'formName': 'inline'}) %}
+    {% set form_action = path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'inline'}) %}
 
     {{ form_start(form, {'action': form_action, 'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_widget(form) }}

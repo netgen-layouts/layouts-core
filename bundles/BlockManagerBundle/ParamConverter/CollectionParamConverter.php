@@ -29,7 +29,7 @@ class CollectionParamConverter extends ParamConverter
      */
     public function getSourceAttributeName()
     {
-        return 'collection_id';
+        return 'collectionId';
     }
 
     /**

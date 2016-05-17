@@ -1,5 +1,5 @@
 netgen_block_manager_api_v1_load_block:
-    path: /blocks/{block_id}
+    path: /blocks/{blockId}
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
@@ -12,28 +12,28 @@ netgen_block_manager_api_v1_create_block:
         _controller: "netgen_block_manager.controller.api.v1.block:create"
 
 netgen_block_manager_api_v1_edit_block:
-    path: /blocks/{block_id}/edit
+    path: /blocks/{blockId}/edit
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:edit"
 
 netgen_block_manager_api_v1_move_block:
-    path: /blocks/{block_id}/move
+    path: /blocks/{blockId}/move
     methods: [PATCH]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:move"
 
 netgen_block_manager_api_v1_block_form:
-    path: /blocks/{block_id}/form/{formName}
+    path: /blocks/{blockId}/form/{formName}
     methods: [GET, POST]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:form"
 
 netgen_block_manager_api_v1_delete_block:
-    path: /blocks/{block_id}
+    path: /blocks/{blockId}
     methods: [DELETE]
     defaults:
         _ngbm_value_status: 0

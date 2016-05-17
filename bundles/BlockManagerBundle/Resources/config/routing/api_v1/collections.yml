@@ -1,61 +1,61 @@
 netgen_block_manager_api_v1_load_collection:
-    path: /collections/{collection_id}
+    path: /collections/{collectionId}
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollection"
 
 netgen_block_manager_api_v1_load_collection_items:
-    path: /collections/{collection_id}/items
+    path: /collections/{collectionId}/items
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionItems"
 
 netgen_block_manager_api_v1_load_collection_queries:
-    path: /collections/{collection_id}/queries
+    path: /collections/{collectionId}/queries
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQueries"
 
 netgen_block_manager_api_v1_load_collection_item:
-    path: /collections/items/{item_id}
+    path: /collections/items/{itemId}
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:loadItem"
 
 netgen_block_manager_api_v1_add_collection_item:
-    path: /collections/{collection_id}/items
+    path: /collections/{collectionId}/items
     methods: [POST]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:addItem"
 
 netgen_block_manager_api_v1_move_collection_item:
-    path: /collections/items/{item_id}/move
+    path: /collections/items/{itemId}/move
     methods: [PATCH]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:moveItem"
 
 netgen_block_manager_api_v1_delete_collection_item:
-    path: /collections/items/{item_id}
+    path: /collections/items/{itemId}
     methods: [DELETE]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:deleteItem"
 
 netgen_block_manager_api_v1_load_collection_query:
-    path: /collections/queries/{query_id}
+    path: /collections/queries/{queryId}
     methods: [GET]
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"
 
 netgen_block_manager_api_v1_query_form:
-    path: /collections/queries/{query_id}/form/{formName}
+    path: /collections/queries/{queryId}/form/{formName}
     methods: [GET, POST]
     defaults:
         _ngbm_value_status: 0
