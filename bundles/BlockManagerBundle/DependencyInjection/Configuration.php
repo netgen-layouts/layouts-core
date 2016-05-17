@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 class Configuration implements ConfigurationInterface
 {
@@ -128,12 +129,42 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->arrayNode('forms')
                         ->isRequired()
+                        ->validate()
+                            ->always(function ($v) {
+                                $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
+
+                                if (isset($v['full']) && (isset($v['design']) || isset($v['content']))) {
+                                    throw $exception;
+                                }
+
+                                if (!isset($v['full'])) {
+                                    if (isset($v['design']) && !isset($v['content'])) {
+                                        throw $exception;
+                                    }
+
+                                    if (!isset($v['design']) && isset($v['content'])) {
+                                        throw $exception;
+                                    }
+
+                                    if (!isset($v['design']) && !isset($v['content'])) {
+                                        $v['full'] = 'block_edit';
+                                    }
+                                }
+
+                                return $v;
+                            })
+                        ->end()
                         ->children()
                             ->scalarNode('full')
                                 ->cannotBeEmpty()
-                                ->defaultValue('block_edit')
                             ->end()
                             ->scalarNode('inline')
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('design')
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('content')
                                 ->cannotBeEmpty()
                             ->end()
                         ->end()

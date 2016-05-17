@@ -124,7 +124,7 @@ class BlockController extends Controller
         $editView = new EditView($block, Version::API_V1);
         $editView->setViewParameters(
             array(
-                'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier())
+                'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),
             )
         );
 
