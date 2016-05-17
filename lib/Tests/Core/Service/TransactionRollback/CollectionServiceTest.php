@@ -60,18 +60,13 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
      * @expectedException \Exception
      */
-    public function testCreateNamedCollection()
+    public function testCreateCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
-            ->method('namedCollectionExists')
-            ->will($this->returnValue(false));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
             ->method('createCollection')
             ->will($this->throwException(new Exception()));
 
@@ -79,7 +74,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->createNamedCollection(new CollectionCreateStruct());
+        $this->collectionService->createCollection(new CollectionCreateStruct());
     }
 
     /**

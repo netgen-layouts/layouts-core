@@ -126,30 +126,55 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
      */
-    public function testCreateNamedCollection()
+    public function testCreateCollection()
     {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_NAMED);
-        $collectionCreateStruct->name = 'New name';
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
+            Collection::TYPE_MANUAL,
+            'New name'
+        );
 
         $this->collectionValidatorMock
             ->expects($this->at(0))
             ->method('validateCollectionCreateStruct')
             ->with($this->equalTo($collectionCreateStruct));
 
-        $createdCollection = $this->collectionService->createNamedCollection($collectionCreateStruct);
+        $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
         self::assertInstanceOf(Collection::class, $createdCollection);
+        self::assertNull($createdCollection->getName());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
+     */
+    public function testCreateNamedCollection()
+    {
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
+            Collection::TYPE_NAMED,
+            'New name'
+        );
+
+        $this->collectionValidatorMock
+            ->expects($this->at(0))
+            ->method('validateCollectionCreateStruct')
+            ->with($this->equalTo($collectionCreateStruct));
+
+        $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
+
+        self::assertInstanceOf(Collection::class, $createdCollection);
+        self::assertEquals('New name', $createdCollection->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
      * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
      */
     public function testCreateNamedCollectionThrowsBadStateException()
     {
         $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
+            Collection::TYPE_NAMED,
             'My collection'
         );
 
@@ -158,7 +183,7 @@ abstract class CollectionServiceTest extends ServiceTest
             ->method('validateCollectionCreateStruct')
             ->with($this->equalTo($collectionCreateStruct));
 
-        $this->collectionService->createNamedCollection($collectionCreateStruct);
+        $this->collectionService->createCollection($collectionCreateStruct);
     }
 
     /**
@@ -268,9 +293,11 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateDraft()
     {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct('New collection');
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
+            Collection::TYPE_MANUAL
+        );
         $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
-        $collection = $this->collectionService->createNamedCollection($collectionCreateStruct);
+        $collection = $this->collectionService->createCollection($collectionCreateStruct);
 
         $draftCollection = $this->collectionService->createDraft($collection);
 
@@ -284,9 +311,11 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testCreateDraftThrowsBadStateExceptionIfCollectionIsNotPublished()
     {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct('New collection');
+        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
+            Collection::TYPE_MANUAL
+        );
         $collectionCreateStruct->status = Collection::STATUS_DRAFT;
-        $collection = $this->collectionService->createNamedCollection($collectionCreateStruct);
+        $collection = $this->collectionService->createCollection($collectionCreateStruct);
 
         $this->collectionService->createDraft($collection);
     }
@@ -482,12 +511,8 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testDeleteItem()
     {
-        $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
-
         $item = $this->collectionService->loadItem(1, Collection::STATUS_DRAFT);
         $this->collectionService->deleteItem($item);
-
-        $collectionAfterDelete = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
 
         try {
             $this->collectionService->loadItem($item->getId(), Collection::STATUS_DRAFT);
@@ -676,11 +701,15 @@ abstract class CollectionServiceTest extends ServiceTest
         self::assertEquals(
             new CollectionCreateStruct(
                 array(
+                    'type' => Collection::TYPE_NAMED,
                     'name' => 'New collection',
                     'status' => Collection::STATUS_DRAFT,
                 )
             ),
-            $this->collectionService->newCollectionCreateStruct('New collection')
+            $this->collectionService->newCollectionCreateStruct(
+                Collection::TYPE_NAMED,
+                'New collection'
+            )
         );
     }
 

@@ -286,10 +286,13 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCreateCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->type = Collection::TYPE_NAMED;
         $collectionCreateStruct->name = 'New collection';
         $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
 
-        $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct, Collection::TYPE_NAMED);
+        $createdCollection = $this->collectionHandler->createCollection(
+            $collectionCreateStruct
+        );
 
         self::assertInstanceOf(Collection::class, $createdCollection);
 

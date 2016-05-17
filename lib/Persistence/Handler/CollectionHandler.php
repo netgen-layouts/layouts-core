@@ -110,11 +110,10 @@ interface CollectionHandler
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
-     * @param int $type
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct, $type = Collection::TYPE_NAMED);
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct);
 
     /**
      * Updates a collection with specified ID.

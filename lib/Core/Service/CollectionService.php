@@ -150,24 +150,25 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If named collection with provided name already exists
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createNamedCollection(CollectionCreateStruct $collectionCreateStruct)
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
 
-        if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
-            throw new BadStateException('name', 'Named collection with provided name already exists.');
+        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
+            if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
+                throw new BadStateException('name', 'Named collection with provided name already exists.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct,
-                Collection::TYPE_NAMED
+                $collectionCreateStruct
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -659,14 +660,16 @@ class CollectionService implements APICollectionService
     /**
      * Creates a new collection create struct.
      *
+     * @param string $type
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($name)
+    public function newCollectionCreateStruct($type, $name = null)
     {
         return new CollectionCreateStruct(
             array(
+                'type' => $type,
                 'name' => $name,
             )
         );

@@ -63,11 +63,11 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with provided name already exists
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createNamedCollection(CollectionCreateStruct $collectionCreateStruct);
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct);
 
     /**
      * Updates a specified collection.
@@ -216,11 +216,12 @@ interface CollectionService
     /**
      * Creates a new collection create struct.
      *
+     * @param string $type
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($name);
+    public function newCollectionCreateStruct($type, $name = null);
 
     /**
      * Creates a new collection update struct.

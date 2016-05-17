@@ -67,8 +67,12 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue(new ConstraintViolationList()));
 
-        $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->name = 'My collection';
+        $collectionCreateStruct = new CollectionCreateStruct(
+            array(
+                'type' => Collection::TYPE_NAMED,
+                'name' => 'My collection',
+            )
+        );
 
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
     }
