@@ -184,6 +184,24 @@ class CollectionController extends Controller
     }
 
     /**
+     * Moves the query inside the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response If some of the required request parameters are empty, missing or have an invalid format
+     */
+    public function moveQuery(Query $query, Request $request)
+    {
+        $this->collectionService->moveQuery(
+            $query,
+            $request->request->get('position')
+        );
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Displays and processes query form.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
@@ -226,5 +244,19 @@ class CollectionController extends Controller
         }
 
         return new FormView($form, $query, Version::API_V1);
+    }
+
+    /**
+     * Deletes the query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteQuery(Query $query)
+    {
+        $this->collectionService->deleteQuery($query);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }
