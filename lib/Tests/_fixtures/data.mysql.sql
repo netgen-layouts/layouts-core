@@ -21,16 +21,16 @@
 
 LOCK TABLES `ngbm_block` WRITE;
 /*!40000 ALTER TABLE `ngbm_block` DISABLE KEYS */;
-INSERT INTO `ngbm_block` VALUES (1,0,1,'top_right',0,'paragraph','default','My block','{\"some_param\": \"some_value\"}');
-INSERT INTO `ngbm_block` VALUES (1,1,1,'top_right',0,'paragraph','default','My block','{\"some_param\": \"some_value\"}');
-INSERT INTO `ngbm_block` VALUES (2,0,1,'top_right',1,'title','small','My other block','{\"other_param\": \"other_value\"}');
-INSERT INTO `ngbm_block` VALUES (2,1,1,'top_right',1,'title','small','My other block','{\"other_param\": \"other_value\"}');
-INSERT INTO `ngbm_block` VALUES (3,0,2,'bottom_right',0,'paragraph','large','My third block','{\"test_param\": \"test_value\"}');
-INSERT INTO `ngbm_block` VALUES (3,1,2,'bottom_right',0,'paragraph','large','My third block','{\"test_param\": \"test_value\"}');
-INSERT INTO `ngbm_block` VALUES (4,0,2,'bottom_right',1,'title','small','My fourth block','{\"the_answer\": 42}');
-INSERT INTO `ngbm_block` VALUES (4,1,2,'bottom_right',1,'title','small','My fourth block','{\"the_answer\": 42}');
-INSERT INTO `ngbm_block` VALUES (5,0,1,'top_right',2,'title','small','My fourth block','{\"the_answer\": 42}');
-INSERT INTO `ngbm_block` VALUES (5,1,1,'top_right',2,'title','small','My fourth block','{\"the_answer\": 42}');
+INSERT INTO `ngbm_block` VALUES (1,0,1,'top_right',0,'paragraph','default','My block','{}');
+INSERT INTO `ngbm_block` VALUES (1,1,1,'top_right',0,'paragraph','default','My block','{}');
+INSERT INTO `ngbm_block` VALUES (2,0,1,'top_right',1,'title','small','My other block','{}');
+INSERT INTO `ngbm_block` VALUES (2,1,1,'top_right',1,'title','small','My other block','{}');
+INSERT INTO `ngbm_block` VALUES (3,0,2,'bottom_right',0,'paragraph','large','My third block','{}');
+INSERT INTO `ngbm_block` VALUES (3,1,2,'bottom_right',0,'paragraph','large','My third block','{}');
+INSERT INTO `ngbm_block` VALUES (4,0,2,'bottom_right',1,'title','small','My fourth block','{}');
+INSERT INTO `ngbm_block` VALUES (4,1,2,'bottom_right',1,'title','small','My fourth block','{}');
+INSERT INTO `ngbm_block` VALUES (5,0,1,'top_right',2,'title','small','My fourth block','{}');
+INSERT INTO `ngbm_block` VALUES (5,1,1,'top_right',2,'title','small','My fourth block','{}');
 /*!40000 ALTER TABLE `ngbm_block` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,11 +93,11 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection_query` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection_query` DISABLE KEYS */;
-INSERT INTO `ngbm_collection_query` VALUES (1,1,2,0,'default','ezcontent_search','{\"param\": \"value\"}');
-INSERT INTO `ngbm_collection_query` VALUES (2,0,3,0,'default','ezcontent_search','{\"param\": \"value\"}');
-INSERT INTO `ngbm_collection_query` VALUES (2,1,3,0,'default','ezcontent_search','{\"param\": \"value\"}');
-INSERT INTO `ngbm_collection_query` VALUES (3,0,3,1,'featured','ezcontent_search','{\"param\": \"value\"}');
-INSERT INTO `ngbm_collection_query` VALUES (3,1,3,1,'featured','ezcontent_search','{\"param\": \"value\"}');
+INSERT INTO `ngbm_collection_query` VALUES (1,1,2,0,'default','ezcontent_search','{}');
+INSERT INTO `ngbm_collection_query` VALUES (2,0,3,0,'default','ezcontent_search','{}');
+INSERT INTO `ngbm_collection_query` VALUES (2,1,3,0,'default','ezcontent_search','{}');
+INSERT INTO `ngbm_collection_query` VALUES (3,0,3,1,'featured','ezcontent_search','{}');
+INSERT INTO `ngbm_collection_query` VALUES (3,1,3,1,'featured','ezcontent_search','{}');
 /*!40000 ALTER TABLE `ngbm_collection_query` ENABLE KEYS */;
 UNLOCK TABLES;
 
