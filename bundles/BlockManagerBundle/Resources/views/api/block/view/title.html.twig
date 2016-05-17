@@ -1,12 +1,14 @@
-<{{ block.parameters.tag|default('h1') }} data-inline>
-   #<span contenteditable="true" data-attr="tag" data-inline-child>{{ block.parameters.tag|default('h1') }}</span>
-   <span contenteditable="true" data-attr="title" data-inline-child>{{ block.parameters.title|default('Title') }}</span>
-</{{ block.parameters.tag|default('h1') }}>
+{% extends 'NetgenBlockManagerBundle:api/block/view:block.html.twig' %}
 
-{% if form is defined and form is not empty %}
-    {% set form_action = path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'inline'}) %}
+{% import 'NetgenBlockManagerBundle:api/block:macros.html.twig' as macros %}
 
-    {{ form_start(form, {'action': form_action, 'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
-{% endif %}
+{% block inline_data %}
+    {% if form is defined and form is not empty %}
+        <{{ block.parameters.tag|default('h1') }} data-inline>
+           #<span contenteditable="true" data-attr="tag" data-inline-child>{{ block.parameters.tag|default('h1') }}</span>
+           <span contenteditable="true" data-attr="title" data-inline-child>{{ block.parameters.title|default('Title') }}</span>
+        </{{ block.parameters.tag|default('h1') }}>
+
+        {{ macros.inline_form(block, form) }}
+    {% endif %}
+{% endblock %}

@@ -1,13 +1,15 @@
-<p data-inline>
-    <span contenteditable="true" data-attr="content" data-inline-child>
-        {{ block.parameters.content|default('Paragraph') }}
-    </span>
-</p>
+{% extends 'NetgenBlockManagerBundle:api/block/view:block.html.twig' %}
 
-{% if form is defined and form is not empty %}
-    {% set form_action = path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'inline'}) %}
+{% import 'NetgenBlockManagerBundle:api/block:macros.html.twig' as macros %}
 
-    {{ form_start(form, {'action': form_action, 'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
-{% endif %}
+{% block inline_data %}
+    {% if form is defined and form is not empty %}
+        <p data-inline>
+            <span contenteditable="true" data-attr="content" data-inline-child>
+                {{ block.parameters.content|default('Paragraph') }}
+            </span>
+        </p>
+
+        {{ macros.inline_form(block, form) }}
+    {% endif %}
+{% endblock %}
