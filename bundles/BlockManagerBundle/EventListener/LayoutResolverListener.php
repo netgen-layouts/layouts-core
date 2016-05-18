@@ -6,6 +6,8 @@ use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\LayoutResolver\Rule;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -42,6 +44,11 @@ class LayoutResolverListener implements EventSubscriberInterface
     protected $globalHelper;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface $layoutResolver
@@ -49,19 +56,22 @@ class LayoutResolverListener implements EventSubscriberInterface
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
         PageLayoutResolverInterface $pageLayoutResolver,
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
-        GlobalHelper $globalHelper
+        GlobalHelper $globalHelper,
+        LoggerInterface $logger = null
     ) {
         $this->layoutResolver = $layoutResolver;
         $this->pageLayoutResolver = $pageLayoutResolver;
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
         $this->globalHelper = $globalHelper;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -103,7 +113,14 @@ class LayoutResolverListener implements EventSubscriberInterface
             $layout = $this->layoutService->loadLayout($rule->layoutId);
         } catch (NotFoundException $e) {
             // If layout was not found, we still want to display the page
-            // @TODO Log something
+            $this->logger->notice(
+                sprintf(
+                    'Layout resolver rule matched a layout with ID %d, but it was not found',
+                    $rule->layoutId
+                ),
+                'ngbm'
+            );
+
             return;
         }
 
