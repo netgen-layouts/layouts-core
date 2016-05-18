@@ -15,3 +15,9 @@ block_definitions:
                 name: 'Default'
             small:
                 name: 'Small'
+    twig_block:
+        forms:
+            full: ~
+        view_types:
+            default:
+                name: 'Default'

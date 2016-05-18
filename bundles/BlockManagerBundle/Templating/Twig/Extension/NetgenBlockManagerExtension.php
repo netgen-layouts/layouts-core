@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Netgen\BlockManager\Block\BlockDefinition\TwigBlock;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
@@ -111,7 +112,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
         $html = '';
 
         foreach ($zone->getBlocks() as $block) {
-            if ($block->getDefinitionIdentifier() !== 'content') {
+            if ($block->getDefinitionIdentifier() !== TwigBlock::DEFINITION_IDENTIFIER) {
                 $html .= $this->blockRenderer->renderBlockFragment($block, $context, array());
             }
         }
@@ -150,9 +151,9 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
         array $twigBocks = array()
     ) {
         foreach ($zone->getBlocks() as $block) {
-            if ($block->getDefinitionIdentifier() === 'content') {
+            if ($block->getDefinitionIdentifier() === TwigBlock::DEFINITION_IDENTIFIER) {
                 $twigTemplate->displayBlock(
-                    $block->getParameters()['block_name'],
+                    $block->getParameter('block_name'),
                     $twigContext,
                     $twigBocks
                 );

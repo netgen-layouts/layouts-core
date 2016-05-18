@@ -2,6 +2,7 @@ parameters:
     netgen_block_manager.block.registry.block_definition.class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
     netgen_block_manager.block.block_definition.title.class: Netgen\BlockManager\Block\BlockDefinition\Title
     netgen_block_manager.block.block_definition.paragraph.class: Netgen\BlockManager\Block\BlockDefinition\Paragraph
+    netgen_block_manager.block.block_definition.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\TwigBlock
 
 services:
     netgen_block_manager.block.registry.block_definition:
@@ -16,3 +17,8 @@ services:
         class: "%netgen_block_manager.block.block_definition.paragraph.class%"
         tags:
             - { name: netgen_block_manager.block.block_definition, identifier: 'paragraph' }
+
+    netgen_block_manager.block.block_definition.twig_block:
+        class: "%netgen_block_manager.block.block_definition.twig_block.class%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition, identifier: 'twig_block' }

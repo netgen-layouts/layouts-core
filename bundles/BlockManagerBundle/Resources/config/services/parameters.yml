@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.parameters.parameter_handler.hidden.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
     netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
+    netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier
     netgen_block_manager.parameters.parameter_handler.textarea.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea
     netgen_block_manager.parameters.parameter_handler.select.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select
 
@@ -16,6 +17,11 @@ services:
         class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_handler, type: text }
+
+    netgen_block_manager.parameters.parameter_handler.identifier:
+        class: "%netgen_block_manager.parameters.parameter_handler.identifier.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_handler, type: identifier }
 
     netgen_block_manager.parameters.parameter_handler.textarea:
         class: "%netgen_block_manager.parameters.parameter_handler.textarea.class%"

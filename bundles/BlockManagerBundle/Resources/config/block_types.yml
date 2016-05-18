@@ -40,3 +40,10 @@ block_types:
            view_type: default
            parameters:
                content: 'My cool paragraph'
+    twig_block:
+       name: 'Content block'
+       definition_identifier: twig_block
+       defaults:
+           view_type: default
+           parameters:
+               block_name: 'content'
