@@ -67,7 +67,7 @@ interface Query
      *
      * @param string $parameter
      *
-     * @return array
+     * @return bool
      */
     public function hasParameter($parameter);
 }

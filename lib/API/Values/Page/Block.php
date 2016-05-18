@@ -60,7 +60,7 @@ interface Block
      *
      * @param string $parameter
      *
-     * @return array
+     * @return bool
      */
     public function hasParameter($parameter);
 

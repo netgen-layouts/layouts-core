@@ -35,11 +35,15 @@ class RenderZone extends Twig_Node
     {
         $compiler
             ->addDebugInfo($this)
-            ->write('$this->env->getExtension("netgen_block_manager")->displayZone(')
+            ->write('$ngbmZone = ')
             ->subcompile($this->getNode('zone'))
-            ->raw(', ')
-            ->repr($this->getAttribute('context'))
-            ->raw(', $this, $context, $blocks);')
-            ->raw(PHP_EOL);
+            ->write(';' . PHP_EOL)
+            ->write('if ($ngbmZone instanceof \Netgen\BlockManager\API\Values\Page\Zone) {'. PHP_EOL)
+            ->indent()
+                ->write('$this->env->getExtension("netgen_block_manager")->displayZone($ngbmZone, ')
+                ->repr($this->getAttribute('context'))
+                ->raw(', $this, $context, $blocks);' . PHP_EOL)
+            ->outdent()
+            ->write('}' . PHP_EOL);
     }
 }

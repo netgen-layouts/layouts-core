@@ -129,7 +129,7 @@ class Query extends Value implements APIQuery
      *
      * @param string $parameter
      *
-     * @return array
+     * @return bool
      */
     public function hasParameter($parameter)
     {

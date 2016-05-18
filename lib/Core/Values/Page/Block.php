@@ -129,7 +129,7 @@ class Block extends Value implements APIBlock
      *
      * @param string $parameter
      *
-     * @return array
+     * @return bool
      */
     public function hasParameter($parameter)
     {
