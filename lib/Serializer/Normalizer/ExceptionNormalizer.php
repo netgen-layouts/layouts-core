@@ -54,10 +54,17 @@ class ExceptionNormalizer implements NormalizerInterface
                 $debugException = $object->getPrevious();
             }
 
+            // We disable serializing trace arguments as it can lead to
+            // recursion calls in serializer.
+            $trace = $debugException->getTrace();
+            foreach ($trace as &$traceItem) {
+                $traceItem['args'] = array();
+            }
+
             $data['debug'] = array(
                 'file' => $debugException->getFile(),
                 'line' => $debugException->getLine(),
-                'trace' => $debugException->getTrace(),
+                'trace' => $trace,
             );
         }
 
