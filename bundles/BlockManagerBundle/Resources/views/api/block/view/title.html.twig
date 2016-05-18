@@ -5,10 +5,7 @@
 {% block inline_data %}
     {% if form is defined and form is not empty %}
         <{{ block.parameters.tag|default('h1') }} data-inline>
-           #<span contenteditable="true" data-attr="tag" data-inline-child>{{ block.parameters.tag|default('h1') }}</span>
-           <span contenteditable="true" data-attr="title" data-inline-child>{{ block.parameters.title|default('Title') }}</span>
+           <span contenteditable="true" data-attr="title" data-hint="click to write" data-inline-child>{{ block.parameters.title|default('Title') }}</span>
         </{{ block.parameters.tag|default('h1') }}>
-
-        {{ macros.inline_form(block, form) }}
     {% endif %}
 {% endblock %}
