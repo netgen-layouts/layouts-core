@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
@@ -10,6 +11,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
 use Twig_Extension;
+use Twig_Template;
 
 class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
@@ -80,7 +82,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function getTokenParsers()
     {
         return array(
-            new RenderZoneTokenParser(),
+            new RenderZone(),
         );
     }
 
@@ -129,6 +131,35 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
         return $this->blockRenderer->renderBlockFragment($block, $context, $parameters);
+    }
+
+    /**
+     * Displays the provided zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $context
+     * @param \Twig_Template $twigTemplate
+     * @param array $twigContext
+     * @param array $twigBocks
+     */
+    public function displayZone(
+        Zone $zone,
+        $context = ViewInterface::CONTEXT_VIEW,
+        Twig_Template $twigTemplate,
+        $twigContext,
+        array $twigBocks = array()
+    ) {
+        foreach ($zone->getBlocks() as $block) {
+            if ($block->getDefinitionIdentifier() === 'content') {
+                $twigTemplate->displayBlock(
+                    $block->getParameters()['block_name'],
+                    $twigContext,
+                    $twigBocks
+                );
+            } else {
+                $this->displayBlock($block, array(), $context);
+            }
+        }
     }
 
     /**

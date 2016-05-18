@@ -1,13 +1,14 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
+namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser;
 
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
 use Netgen\BlockManager\View\ViewInterface;
 use Twig_TokenParser;
 use Twig_Error_Syntax;
 use Twig_Token;
 
-class RenderZoneTokenParser extends Twig_TokenParser
+class RenderZone extends Twig_TokenParser
 {
     /**
      * Parses a token and returns a node.
