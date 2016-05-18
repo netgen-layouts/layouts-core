@@ -18,6 +18,11 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view/paragraph:default.html.twig"
             match:
                 block_definition_identifier: paragraph
+        # Fallback for block with `twig_block` definition identifier. Do not remove!
+        twig_block:
+            template: "NetgenBlockManagerBundle:block/view:twig_block.html.twig"
+            match:
+                block_definition_identifier: twig_block
     api_view:
         title:
             template: "NetgenBlockManagerBundle:api/block/view:title.html.twig"
