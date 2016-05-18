@@ -26,19 +26,19 @@ class ConditionMatcherRegistryPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $conditionMatcherRegistry = new Definition();
-        $this->setDefinition('netgen_block_manager.layout_resolver.condition_matcher.registry', $conditionMatcherRegistry);
+        $this->setDefinition('netgen_block_manager.layout.resolver.condition_matcher.registry', $conditionMatcherRegistry);
 
         $conditionMatcher = new Definition();
-        $conditionMatcher->addTag('netgen_block_manager.layout_resolver.condition_matcher');
-        $this->setDefinition('netgen_block_manager.layout_resolver.condition_matcher.test', $conditionMatcher);
+        $conditionMatcher->addTag('netgen_block_manager.layout.resolver.condition_matcher');
+        $this->setDefinition('netgen_block_manager.layout.resolver.condition_matcher.test', $conditionMatcher);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.layout_resolver.condition_matcher.registry',
+            'netgen_block_manager.layout.resolver.condition_matcher.registry',
             'addConditionMatcher',
             array(
-                new Reference('netgen_block_manager.layout_resolver.condition_matcher.test'),
+                new Reference('netgen_block_manager.layout.resolver.condition_matcher.test'),
             )
         );
     }

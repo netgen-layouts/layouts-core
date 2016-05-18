@@ -9,8 +9,8 @@ use RuntimeException;
 
 class TargetBuilderRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.layout_resolver.target_builder.registry';
-    const TAG_NAME = 'netgen_block_manager.layout_resolver.target_builder';
+    const SERVICE_NAME = 'netgen_block_manager.layout.resolver.target_builder.registry';
+    const TAG_NAME = 'netgen_block_manager.layout.resolver.target_builder';
 
     /**
      * You can modify the container here before it is dumped to PHP code.

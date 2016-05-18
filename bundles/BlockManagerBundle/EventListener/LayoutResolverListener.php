@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\LayoutResolver\Rule;
+use Netgen\BlockManager\Layout\Resolver\Rule;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -12,14 +12,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Netgen\BlockManager\LayoutResolver\LayoutResolverInterface;
+use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 
 class LayoutResolverListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
      */
     protected $layoutResolver;
 
@@ -51,7 +51,7 @@ class LayoutResolverListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\LayoutResolver\LayoutResolverInterface $layoutResolver
+     * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder

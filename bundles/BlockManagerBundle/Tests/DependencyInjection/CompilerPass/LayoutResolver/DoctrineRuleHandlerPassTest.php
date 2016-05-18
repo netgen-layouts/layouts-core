@@ -26,24 +26,24 @@ class DoctrineRuleHandlerPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $ruleHandler = new Definition();
-        $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.handler', $ruleHandler);
+        $this->setDefinition('netgen_block_manager.layout.resolver.rule_handler.doctrine.handler', $ruleHandler);
 
         $targetHandler = new Definition();
         $targetHandler->addTag(
-            'netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler',
+            'netgen_block_manager.layout.resolver.rule_handler.doctrine.target_handler',
             array(
                 'alias' => 'test',
             )
         );
-        $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test', $targetHandler);
+        $this->setDefinition('netgen_block_manager.layout.resolver.rule_handler.doctrine.target_handler.test', $targetHandler);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.layout_resolver.rule_handler.doctrine.handler',
+            'netgen_block_manager.layout.resolver.rule_handler.doctrine.handler',
             'addTargetHandler',
             array(
-                'test', new Reference('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test'),
+                'test', new Reference('netgen_block_manager.layout.resolver.rule_handler.doctrine.target_handler.test'),
             )
         );
     }
@@ -55,11 +55,11 @@ class DoctrineRuleHandlerPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsRuntimeExceptionWhenNoAlias()
     {
         $ruleHandler = new Definition();
-        $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.handler', $ruleHandler);
+        $this->setDefinition('netgen_block_manager.layout.resolver.rule_handler.doctrine.handler', $ruleHandler);
 
         $targetHandler = new Definition();
-        $targetHandler->addTag('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler');
-        $this->setDefinition('netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler.test', $targetHandler);
+        $targetHandler->addTag('netgen_block_manager.layout.resolver.rule_handler.doctrine.target_handler');
+        $this->setDefinition('netgen_block_manager.layout.resolver.rule_handler.doctrine.target_handler.test', $targetHandler);
 
         $this->compile();
     }

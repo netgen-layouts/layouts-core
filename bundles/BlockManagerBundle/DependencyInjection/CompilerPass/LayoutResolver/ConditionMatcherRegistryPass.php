@@ -8,8 +8,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ConditionMatcherRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.layout_resolver.condition_matcher.registry';
-    const TAG_NAME = 'netgen_block_manager.layout_resolver.condition_matcher';
+    const SERVICE_NAME = 'netgen_block_manager.layout.resolver.condition_matcher.registry';
+    const TAG_NAME = 'netgen_block_manager.layout.resolver.condition_matcher';
 
     /**
      * You can modify the container here before it is dumped to PHP code.

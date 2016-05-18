@@ -9,8 +9,8 @@ use RuntimeException;
 
 class DoctrineRuleHandlerPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.layout_resolver.rule_handler.doctrine.handler';
-    const TAG_NAME = 'netgen_block_manager.layout_resolver.rule_handler.doctrine.target_handler';
+    const SERVICE_NAME = 'netgen_block_manager.layout.resolver.rule_handler.doctrine.handler';
+    const TAG_NAME = 'netgen_block_manager.layout.resolver.rule_handler.doctrine.target_handler';
 
     /**
      * You can modify the container here before it is dumped to PHP code.

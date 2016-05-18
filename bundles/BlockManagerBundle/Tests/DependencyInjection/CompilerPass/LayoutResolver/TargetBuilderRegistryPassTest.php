@@ -26,43 +26,43 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $targetBuilderRegistry = new Definition();
-        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.registry', $targetBuilderRegistry);
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_builder.registry', $targetBuilderRegistry);
 
         $targetBuilder1 = new Definition();
         $targetBuilder1->addTag(
-            'netgen_block_manager.layout_resolver.target_builder',
+            'netgen_block_manager.layout.resolver.target_builder',
             array(
                 'alias' => 'test1',
                 'priority' => 10,
             )
         );
-        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test1', $targetBuilder1);
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_builder.test1', $targetBuilder1);
 
         $targetBuilder2 = new Definition();
         $targetBuilder2->addTag(
-            'netgen_block_manager.layout_resolver.target_builder',
+            'netgen_block_manager.layout.resolver.target_builder',
             array(
                 'alias' => 'test2',
                 'priority' => 20,
             )
         );
-        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test2', $targetBuilder2);
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_builder.test2', $targetBuilder2);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.layout_resolver.target_builder.registry',
+            'netgen_block_manager.layout.resolver.target_builder.registry',
             'addTargetBuilder',
             array(
-                'test2', new Reference('netgen_block_manager.layout_resolver.target_builder.test2'),
+                'test2', new Reference('netgen_block_manager.layout.resolver.target_builder.test2'),
             )
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.layout_resolver.target_builder.registry',
+            'netgen_block_manager.layout.resolver.target_builder.registry',
             'addTargetBuilder',
             array(
-                'test1', new Reference('netgen_block_manager.layout_resolver.target_builder.test1'),
+                'test1', new Reference('netgen_block_manager.layout.resolver.target_builder.test1'),
             )
         );
     }
@@ -74,11 +74,11 @@ class TargetBuilderRegistryPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsRuntimeExceptionWhenNoAlias()
     {
         $targetBuilderRegistry = new Definition();
-        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.registry', $targetBuilderRegistry);
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_builder.registry', $targetBuilderRegistry);
 
         $targetBuilder = new Definition();
-        $targetBuilder->addTag('netgen_block_manager.layout_resolver.target_builder');
-        $this->setDefinition('netgen_block_manager.layout_resolver.target_builder.test', $targetBuilder);
+        $targetBuilder->addTag('netgen_block_manager.layout.resolver.target_builder');
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_builder.test', $targetBuilder);
 
         $this->compile();
     }
