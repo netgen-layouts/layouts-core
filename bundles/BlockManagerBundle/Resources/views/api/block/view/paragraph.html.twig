@@ -3,7 +3,7 @@
 {% block inline_data %}
     <p data-inline>
         <span contenteditable="true" data-attr="content" data-inline-child>
-            {{ block.parameters.content }}
+            {{ block.parameter('content') }}
         </span>
     </p>
 {% endblock %}

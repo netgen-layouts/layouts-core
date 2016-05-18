@@ -47,6 +47,24 @@ interface Block
     public function getParameters();
 
     /**
+     * Returns specified block parameter.
+     *
+     * @param string $parameter
+     *
+     * @return array
+     */
+    public function getParameter($parameter);
+
+    /**
+     * Returns if block has a specified parameter.
+     *
+     * @param string $parameter
+     *
+     * @return array
+     */
+    public function hasParameter($parameter);
+
+    /**
      * Returns view type which will be used to render this block.
      *
      * @return string

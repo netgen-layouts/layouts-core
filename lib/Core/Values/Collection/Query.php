@@ -111,4 +111,28 @@ class Query extends Value implements APIQuery
     {
         return $this->parameters;
     }
+
+    /**
+     * Returns specified query parameter.
+     *
+     * @param string $parameter
+     *
+     * @return array
+     */
+    public function getParameter($parameter)
+    {
+        return isset($this->parameters[$parameter]) ? $this->parameters[$parameter] : null;
+    }
+
+    /**
+     * Returns if query has a specified parameter.
+     *
+     * @param string $parameter
+     *
+     * @return array
+     */
+    public function hasParameter($parameter)
+    {
+        return isset($this->parameters[$parameter]);
+    }
 }

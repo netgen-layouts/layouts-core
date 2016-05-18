@@ -113,6 +113,30 @@ class Block extends Value implements APIBlock
     }
 
     /**
+     * Returns specified block parameter.
+     *
+     * @param string $parameter
+     *
+     * @return array
+     */
+    public function getParameter($parameter)
+    {
+        return isset($this->parameters[$parameter]) ? $this->parameters[$parameter] : null;
+    }
+
+    /**
+     * Returns if block has a specified parameter.
+     *
+     * @param string $parameter
+     *
+     * @return array
+     */
+    public function hasParameter($parameter)
+    {
+        return isset($this->parameters[$parameter]);
+    }
+
+    /**
      * Returns view type which will be used to render this block.
      *
      * @return string
