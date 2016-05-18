@@ -12,6 +12,7 @@ services:
         arguments:
             - "@netgen_block_manager.templating.global_helper"
             - "@netgen_block_manager.renderer.block"
+            - "@logger"
         tags:
             - { name: twig.extension }
 

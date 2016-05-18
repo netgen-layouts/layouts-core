@@ -9,10 +9,13 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
 use Twig_Extension;
 use Twig_Template;
+use Exception;
 
 class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
@@ -27,17 +30,25 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     protected $blockRenderer;
 
     /**
+     * @var \Psr\Log\NullLogger
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
      * @param \Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface $blockRenderer
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         GlobalHelper $globalHelper,
-        BlockRendererInterface $blockRenderer
+        BlockRendererInterface $blockRenderer,
+        LoggerInterface $logger
     ) {
         $this->globalHelper = $globalHelper;
         $this->blockRenderer = $blockRenderer;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -58,13 +69,6 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function getFunctions()
     {
         return array(
-            new Twig_SimpleFunction(
-                'ngbm_render_zone',
-                array($this, 'renderZone'),
-                array(
-                    'is_safe' => array('html'),
-                )
-            ),
             new Twig_SimpleFunction(
                 'ngbm_render_block',
                 array($this, 'renderBlock'),
@@ -100,27 +104,6 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     }
 
     /**
-     * Renders the provided zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param string $context
-     *
-     * @return string
-     */
-    public function renderZone(Zone $zone, $context = ViewInterface::CONTEXT_VIEW)
-    {
-        $html = '';
-
-        foreach ($zone->getBlocks() as $block) {
-            if ($block->getDefinitionIdentifier() !== TwigBlock::DEFINITION_IDENTIFIER) {
-                $html .= $this->blockRenderer->renderBlockFragment($block, $context, array());
-            }
-        }
-
-        return $html;
-    }
-
-    /**
      * Renders the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -152,30 +135,31 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     ) {
         foreach ($zone->getBlocks() as $block) {
             if ($block->getDefinitionIdentifier() === TwigBlock::DEFINITION_IDENTIFIER) {
-                $twigTemplate->displayBlock(
-                    $block->getParameter('block_name'),
-                    $twigContext,
-                    $twigBocks
-                );
+                try {
+                    $twigTemplate->displayBlock(
+                        $block->getParameter('block_name'),
+                        $twigContext,
+                        $twigBocks
+                    );
+                }
+                catch (Exception $e) {
+                    // In most cases when rendering a Twig template on frontend
+                    // we do not want rendering of the block to crash the page,
+                    // hence we log an error.
+                    $this->logger->error(
+                        sprintf(
+                            'Error rendering a content block with ID %d in layout ID %d and zone identifier %s: %s',
+                            $block->getId(),
+                            $block->getLayoutId(),
+                            $block->getZoneIdentifier(),
+                            $e->getMessage()
+                        ),
+                        'ngbm'
+                    );
+                }
             } else {
-                $this->displayBlock($block, array(), $context);
+                echo $this->blockRenderer->renderBlockFragment($block, $context);
             }
         }
-    }
-
-    /**
-     * Displays the provided block.
-     *
-     * Used by "ngbm_render_zone" Twig tag, hence usage of "echo".
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $parameters
-     * @param string $context
-     *
-     * @return string
-     */
-    public function displayBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
-    {
-        echo $this->blockRenderer->renderBlockFragment($block, $context, $parameters);
     }
 }

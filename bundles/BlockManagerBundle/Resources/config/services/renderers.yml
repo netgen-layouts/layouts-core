@@ -8,3 +8,4 @@ services:
             - "@netgen_block_manager.block.registry.block_definition"
             - "@netgen_block_manager.view.renderer"
             - "@fragment.handler"
+            - "@logger"

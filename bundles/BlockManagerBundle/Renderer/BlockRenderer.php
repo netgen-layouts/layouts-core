@@ -6,8 +6,11 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use Exception;
 
 class BlockRenderer implements BlockRendererInterface
 {
@@ -29,20 +32,28 @@ class BlockRenderer implements BlockRendererInterface
     protected $fragmentHandler;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         BlockDefinitionRegistryInterface $blockDefinitionRegistry,
         RendererInterface $viewRenderer,
-        FragmentHandler $fragmentHandler
+        FragmentHandler $fragmentHandler,
+        LoggerInterface $logger = null
     ) {
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -56,15 +67,33 @@ class BlockRenderer implements BlockRendererInterface
      */
     public function renderBlock(Block $block, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $block->getDefinitionIdentifier()
-        );
+        try {
+            $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+                $block->getDefinitionIdentifier()
+            );
 
-        return $this->viewRenderer->renderValue(
-            $block,
-            $context,
-            $blockDefinition->getDynamicParameters($block, $parameters) + $parameters
-        );
+            return $this->viewRenderer->renderValue(
+                $block,
+                $context,
+                $blockDefinition->getDynamicParameters($block, $parameters) + $parameters
+            );
+        } catch (Exception $e) {
+            // In most cases when rendering a Twig template on frontend
+            // we do not want rendering of the block to crash the page,
+            // hence we return an empty string and log an error.
+            $this->logger->error(
+                sprintf(
+                    'Error rendering a block with ID %d in layout ID %d and zone identifier %s: %s',
+                    $block->getId(),
+                    $block->getLayoutId(),
+                    $block->getZoneIdentifier(),
+                    $e->getMessage()
+                ),
+                'ngbm'
+            );
+
+            return '';
+        }
     }
 
     /**
@@ -79,17 +108,35 @@ class BlockRenderer implements BlockRendererInterface
     public function renderBlockFragment(Block $block, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         if ($this->isBlockCacheable($block)) {
-            return $this->fragmentHandler->render(
-                new ControllerReference(
-                    self::BLOCK_CONTROLLER,
-                    array(
-                        'blockId' => $block->getId(),
-                        'context' => $context,
-                        'parameters' => $parameters,
-                    )
-                ),
-                'esi'
-            );
+            try {
+                return $this->fragmentHandler->render(
+                    new ControllerReference(
+                        self::BLOCK_CONTROLLER,
+                        array(
+                            'blockId' => $block->getId(),
+                            'context' => $context,
+                            'parameters' => $parameters,
+                        )
+                    ),
+                    'esi'
+                );
+            } catch (Exception $e) {
+                // In most cases when rendering a Twig template on frontend
+                // we do not want rendering of the block to crash the page,
+                // hence we return an empty string and log an error.
+                $this->logger->error(
+                    sprintf(
+                        'Error rendering a block fragment with ID %d in layout ID %d and zone identifier %s: %s',
+                        $block->getId(),
+                        $block->getLayoutId(),
+                        $block->getZoneIdentifier(),
+                        $e->getMessage()
+                    ),
+                    'ngbm'
+                );
+
+                return '';
+            }
         }
 
         return $this->renderBlock($block, $context, $parameters);
