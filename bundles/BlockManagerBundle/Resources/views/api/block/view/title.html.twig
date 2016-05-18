@@ -1,7 +1,7 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
 {% block inline_data %}
-    <{{ block.parameter('tag') }} data-inline>
+    <{{ block.parameter('tag')|default('h1') }} data-inline>
        <span contenteditable="true" data-attr="title" data-hint="click to write" data-inline-child>{{ block.parameter('title') }}</span>
-    </{{ block.parameter('tag') }}>
+    </{{ block.parameter('tag')|default('h1') }}>
 {% endblock %}
