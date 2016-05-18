@@ -18,8 +18,7 @@ class QueryViewProvider implements ViewProviderInterface
     public function provideView(Value $value)
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Query $value */
-        $queryView = new QueryView();
-        $queryView->setQuery($value);
+        $queryView = new QueryView($value);
 
         return $queryView;
     }

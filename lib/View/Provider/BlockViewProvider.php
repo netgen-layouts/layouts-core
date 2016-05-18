@@ -18,9 +18,7 @@ class BlockViewProvider implements ViewProviderInterface
     public function provideView(Value $value)
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Block $value */
-        $blockView = new BlockView();
-
-        $blockView->setBlock($value);
+        $blockView = new BlockView($value);
 
         return $blockView;
     }

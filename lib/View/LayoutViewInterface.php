@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
-
 interface LayoutViewInterface extends ViewInterface
 {
     /**
@@ -12,11 +10,4 @@ interface LayoutViewInterface extends ViewInterface
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function getLayout();
-
-    /**
-     * Sets the layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     */
-    public function setLayout(Layout $layout);
 }

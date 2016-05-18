@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\API\Values\Page\Block;
-
 interface BlockViewInterface extends ViewInterface
 {
     /**
@@ -12,11 +10,4 @@ interface BlockViewInterface extends ViewInterface
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function getBlock();
-
-    /**
-     * Sets the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     */
-    public function setBlock(Block $block);
 }

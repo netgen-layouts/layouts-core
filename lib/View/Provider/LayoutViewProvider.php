@@ -18,9 +18,7 @@ class LayoutViewProvider implements ViewProviderInterface
     public function provideView(Value $value)
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $value */
-        $layoutView = new LayoutView();
-
-        $layoutView->setLayout($value);
+        $layoutView = new LayoutView($value);
 
         return $layoutView;
     }
