@@ -15,6 +15,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
@@ -29,6 +31,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertNull($block->getPosition());
         self::assertNull($block->getDefinitionIdentifier());
         self::assertEquals(array(), $block->getParameters());
+        self::assertNull($block->getParameter('test'));
+        self::assertFalse($block->hasParameter('test'));
         self::assertNull($block->getViewType());
         self::assertNull($block->getName());
         self::assertNull($block->getStatus());
@@ -42,6 +46,8 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
@@ -77,6 +83,10 @@ class BlockTest extends \PHPUnit_Framework_TestCase
             ),
             $block->getParameters()
         );
+        self::assertNull($block->getParameter('test'));
+        self::assertEquals('some_value', $block->getParameter('some_param'));
+        self::assertFalse($block->hasParameter('test'));
+        self::assertTrue($block->hasParameter('some_param'));
         self::assertEquals('default', $block->getViewType());
         self::assertEquals('My block', $block->getName());
         self::assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());

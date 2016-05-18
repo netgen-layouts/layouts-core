@@ -43,4 +43,21 @@ class TemplateResolverPassTest extends AbstractCompilerPassTestCase
             )
         );
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsExceptionWithNoTagIdentifier()
+    {
+        $templateResolver = new Definition();
+        $templateResolver->addArgument(array());
+        $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);
+
+        $matcher = new Definition();
+        $matcher->addTag('netgen_block_manager.view.template_matcher');
+        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $matcher);
+
+        $this->compile();
+    }
 }

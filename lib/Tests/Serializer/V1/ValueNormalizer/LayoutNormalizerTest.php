@@ -84,9 +84,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $layoutView = new LayoutView();
-        $layoutView->setLayout($layout);
-
         self::assertEquals(
             array(
                 'id' => $layout->getId(),

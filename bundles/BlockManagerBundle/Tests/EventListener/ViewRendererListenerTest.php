@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener;
@@ -33,7 +34,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnView()
     {
-        $value = new View();
+        $value = new View(new Value());
 
         $viewRendererMock = $this->getMock(RendererInterface::class);
         $viewRendererMock

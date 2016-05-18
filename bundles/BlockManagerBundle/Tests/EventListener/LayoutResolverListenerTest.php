@@ -101,7 +101,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     public function testOnKernelRequest()
     {
         $layout = new Layout();
-        $layoutView = new LayoutView();
+        $layoutView = new LayoutView($layout);
 
         $this->layoutResolverMock
             ->expects($this->once())

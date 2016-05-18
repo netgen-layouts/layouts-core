@@ -42,7 +42,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildView()
     {
         $value = new Value();
-        $view = new View();
+        $view = new View($value);
 
         $this->viewProviderMock
             ->expects($this->once())
@@ -133,7 +133,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildViewThrowsRuntimeExceptionWithNoViewProviderInterface()
     {
         $value = new Value();
-        $view = new View();
+        $view = new View($value);
 
         $viewBuilder = new ViewBuilder(
             array($this->getMock(DateTime::class)),

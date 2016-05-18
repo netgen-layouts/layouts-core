@@ -25,8 +25,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $formMapper = new Definition();
-        $this->setDefinition('netgen_block_manager.parameters.form_mapper', $formMapper);
+        $this->setDefinition('netgen_block_manager.parameters.form_mapper', new Definition());
 
         $parameterHandler = new Definition();
         $parameterHandler->addTag(
@@ -45,5 +44,20 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
                 new Reference('netgen_block_manager.parameters.parameter_handler.test'),
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\FormMapperPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsRuntimeExceptionWithNoTagType()
+    {
+        $this->setDefinition('netgen_block_manager.parameters.form_mapper', new Definition());
+
+        $parameterHandler = new Definition();
+        $parameterHandler->addTag('netgen_block_manager.parameters.parameter_handler');
+        $this->setDefinition('netgen_block_manager.parameters.parameter_handler.test', $parameterHandler);
+
+        $this->compile();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 
 class ViewTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +14,15 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->view = new View();
+        $this->view = new View(new Value());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::getValue
+     */
+    public function testGetValue()
+    {
+        self::assertEquals(new Value(), $this->view->getValue());
     }
 
     /**

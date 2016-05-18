@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class ViewTest extends \PHPUnit_Framework_TestCase
@@ -19,12 +20,20 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::setViewParameters
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::getViewParameters
+     * @covers Netgen\BlockManager\Serializer\Values\View::setViewParameters
+     * @covers Netgen\BlockManager\Serializer\Values\View::getViewParameters
      */
     public function testViewParameters()
     {
         $this->value->setViewParameters(array('param' => 'value'));
         self::assertEquals(array('param' => 'value'), $this->value->getViewParameters());
+    }
+
+    /**
+     * @covers Netgen\BlockManager\Serializer\Values\View::getContext
+     */
+    public function testGetContext()
+    {
+        self::assertEquals(ViewInterface::CONTEXT_API_VIEW, $this->value->getContext());
     }
 }

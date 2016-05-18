@@ -117,25 +117,6 @@ abstract class EditType extends AbstractType
         $builder->add($parameterBuilder);
     }
 
-    protected function addHiddenParametersForm(FormBuilderInterface $builder, array $options, array $parameterNames = array())
-    {
-        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['blockDefinition'];
-        $blockDefinitionParameters = $blockDefinition->getParameters();
-
-        if (empty($parameterNames)) {
-            $parameterNames = array_keys($blockDefinitionParameters);
-        }
-
-        foreach ($parameterNames as $parameterName) {
-            $this->parameterFormMapper->mapHiddenParameter(
-                $builder,
-                $blockDefinitionParameters[$parameterName],
-                $parameterName
-            );
-        }
-    }
-
     /**
      * Returns the name of this type.
      *

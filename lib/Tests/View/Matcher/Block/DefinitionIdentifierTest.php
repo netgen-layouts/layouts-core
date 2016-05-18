@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -37,8 +38,7 @@ class DefinitionIdentifierTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $view = new BlockView();
-        $view->setBlock($block);
+        $view = new BlockView($block);
 
         self::assertEquals($expected, $this->matcher->match($view));
     }
@@ -64,6 +64,6 @@ class DefinitionIdentifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        self::assertFalse($this->matcher->match(new View()));
+        self::assertFalse($this->matcher->match(new View(new Value())));
     }
 }

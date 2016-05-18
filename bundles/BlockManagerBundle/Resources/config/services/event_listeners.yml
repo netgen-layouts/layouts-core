@@ -7,10 +7,6 @@ parameters:
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
 
-    netgen_block_manager.event_listener.block_collection.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockCollectionListener
-    netgen_block_manager.event_listener.collection_item.class: Netgen\Bundle\BlockManagerBundle\EventListener\CollectionItemListener
-    netgen_block_manager.event_listener.collection_query.class: Netgen\Bundle\BlockManagerBundle\EventListener\CollectionQueryListener
-
 services:
     netgen_block_manager.event_listener.exception_conversion:
         class: "%netgen_block_manager.event_listener.exception_conversion.class%"
@@ -59,26 +55,5 @@ services:
             - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.templating.global_helper"
             - "@logger"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_block_manager.event_listener.block_collection:
-        class: "%netgen_block_manager.event_listener.block_collection.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.block"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_block_manager.event_listener.collection_item:
-        class: "%netgen_block_manager.event_listener.collection_item.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_block_manager.event_listener.collection_query:
-        class: "%netgen_block_manager.event_listener.collection_query.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: kernel.event_subscriber }

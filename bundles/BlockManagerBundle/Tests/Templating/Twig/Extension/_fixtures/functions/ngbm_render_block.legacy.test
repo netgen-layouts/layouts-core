@@ -1,0 +1,12 @@
+--TEST--
+"ngbm_render_block" function
+--TEMPLATE--
+{{ ngbm_render_block(block) }}
+--DATA--
+return array(
+    'block' => new \Netgen\BlockManager\Core\Values\Page\Block(array('definitionIdentifier' => 'block_definition')),
+)
+--CONFIG--
+return array()
+--EXPECT--
+rendered block

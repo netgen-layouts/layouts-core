@@ -8,28 +8,38 @@ use Netgen\BlockManager\View\LayoutView;
 class LayoutViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    protected $layout;
+
+    /**
      * @var \Netgen\BlockManager\View\LayoutViewInterface
      */
     protected $view;
 
     public function setUp()
     {
-        $this->view = new LayoutView();
+        $this->layout = new Layout(array('id' => 42));
+
+        $this->view = new LayoutView($this->layout);
+        $this->view->addParameters(array('param' => 'value'));
+        $this->view->addParameters(array('layout' => 42));
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\LayoutView::setLayout
+     * @covers \Netgen\BlockManager\View\LayoutView::__construct
      * @covers \Netgen\BlockManager\View\LayoutView::getLayout
      */
-    public function testSetLayout()
+    public function testGetLayout()
     {
-        $layout = new Layout(array('id' => 42));
-
-        $this->view->setParameters(array('layout' => 42));
-        $this->view->setLayout($layout);
-
-        self::assertEquals($layout, $this->view->getLayout());
-        self::assertEquals(array('layout' => $layout), $this->view->getParameters());
+        self::assertEquals($this->layout, $this->view->getLayout());
+        self::assertEquals(
+            array(
+                'param' => 'value',
+                'layout' => $this->layout,
+            ),
+            $this->view->getParameters()
+        );
     }
 
     /**

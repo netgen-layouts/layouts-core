@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Select;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Validation;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,7 +51,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
      *
      * @return \Netgen\BlockManager\Parameters\Parameter\Select
      */
-    public function getParameter($options)
+    public function getParameter(array $options = array())
     {
         return new Select($options);
     }
@@ -198,6 +199,38 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                 ),
             ),
             $parameter->getConstraints()
+        );
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isValid
+     *
+     * @dataProvider validationProvider
+     */
+    public function testValidation($value, $isValid)
+    {
+        $parameter = $this->getParameter(array('options' => array('One' => 1, 'Two' => 2)));
+        $validator = Validation::createValidator();
+
+        $errors = $validator->validate($value, $parameter->getConstraints());
+        self::assertEquals($isValid, $errors->count() == 0);
+    }
+
+    /**
+     * Provider for testing valid parameter values.
+     *
+     * @return array
+     */
+    public function validationProvider()
+    {
+        return array(
+            array(1, true),
+            array('One', false),
+            array(2, true),
+            array('Two', false),
+            array('123abc.ASD', false),
+            array(0, false),
         );
     }
 }

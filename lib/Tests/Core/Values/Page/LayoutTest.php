@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
+use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use DateTime;
 
@@ -17,6 +19,8 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
      */
     public function testSetDefaultProperties()
     {
@@ -30,6 +34,8 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertNull($layout->getModified());
         self::assertNull($layout->getStatus());
         self::assertEquals(array(), $layout->getZones());
+        self::assertNull($layout->getZone('test'));
+        self::assertFalse($layout->hasZone('test'));
     }
 
     /**
@@ -42,6 +48,8 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
      */
     public function testSetProperties()
     {
@@ -60,7 +68,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
                 'status' => Layout::STATUS_PUBLISHED,
-                'zones' => array('top_left', 'top_right'),
+                'zones' => array('top_left' => new Zone(), 'top_right' => new Zone()),
             )
         );
 
@@ -71,6 +79,13 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($createdDate, $layout->getCreated());
         self::assertEquals($modifiedDate, $layout->getModified());
         self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
-        self::assertEquals(array('top_left', 'top_right'), $layout->getZones());
+        self::assertEquals(
+            array('top_left' => new Zone(), 'top_right' => new Zone()),
+            $layout->getZones()
+        );
+        self::assertNull($layout->getZone('test'));
+        self::assertFalse($layout->hasZone('test'));
+        self::assertInstanceOf(Zone::class, $layout->getZone('top_left'));
+        self::assertTrue($layout->hasZone('top_left'));
     }
 }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,5 +32,13 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
     public function testGetForm()
     {
         self::assertInstanceOf(FormInterface::class, $this->value->getForm());
+    }
+
+    /**
+     * @covers Netgen\BlockManager\Serializer\Values\FormView::getContext
+     */
+    public function testGetContext()
+    {
+        self::assertEquals(ViewInterface::CONTEXT_API_FORM, $this->value->getContext());
     }
 }

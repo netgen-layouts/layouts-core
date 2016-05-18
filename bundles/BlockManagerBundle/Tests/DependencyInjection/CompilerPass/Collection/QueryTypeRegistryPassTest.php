@@ -42,4 +42,35 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
             )
         );
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypeRegistryPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsExceptionWithNoTagIdentifier()
+    {
+        $this->setDefinition('netgen_block_manager.configuration.query_type.query_type', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
+
+        $queryType = new Definition();
+        $queryType->addTag('netgen_block_manager.collection.query_type');
+        $this->setDefinition('netgen_block_manager.collection.query_type.test', $queryType);
+
+        $this->compile();
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypeRegistryPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsExceptionWithNoConfiguration()
+    {
+        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
+
+        $queryType = new Definition();
+        $queryType->addTag('netgen_block_manager.collection.query_type', array('identifier' => 'query_type'));
+        $this->setDefinition('netgen_block_manager.collection.query_type.test', $queryType);
+
+        $this->compile();
+    }
 }

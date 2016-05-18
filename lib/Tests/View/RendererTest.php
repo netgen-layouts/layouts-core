@@ -47,7 +47,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderValue()
     {
-        $view = new View();
+        $view = new View(new Value());
         $view->setContext(ViewInterface::CONTEXT_API_VIEW);
         $view->setTemplate('some_template.html.twig');
         $view->setParameters(array('some_param' => 'some_value'));
@@ -82,7 +82,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderView()
     {
-        $view = new View();
+        $view = new View(new Value());
         $view->setTemplate('some_template.html.twig');
         $view->setParameters(array('some_param' => 'some_value'));
 

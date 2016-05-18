@@ -1,0 +1,35 @@
+--TEST--
+"ngbm_render_zone" tag
+--TEMPLATE(base.html.twig)--
+--TEMPLATE--
+{% extends 'base.html.twig' %}
+
+{% ngbm_render_zone zone %}
+
+{% block my_block %}
+This is my block
+{% endblock %}
+--DATA--
+return array(
+    'zone' => new \Netgen\BlockManager\Core\Values\Page\Zone(
+        array(
+            'blocks' => array(
+                new \Netgen\BlockManager\Core\Values\Page\Block(array('definitionIdentifier' => 'block_definition')),
+                new \Netgen\BlockManager\Core\Values\Page\Block(
+                    array(
+                        'definitionIdentifier' => 'twig_block',
+                        'parameters' => array(
+                            'block_name' => 'my_block',
+                        ),
+                    )
+                ),
+                new \Netgen\BlockManager\Core\Values\Page\Block(array('definitionIdentifier' => 'block_definition')),
+            )
+        )
+    ),
+)
+--CONFIG--
+return array()
+--EXPECT--
+rendered blockThis is my block
+rendered block

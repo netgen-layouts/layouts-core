@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 
@@ -31,9 +32,28 @@ class GlobalHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLayoutView()
     {
-        $layoutView = new LayoutView();
+        $layoutView = new LayoutView(new Layout());
         $this->globalHelper->setLayoutView($layoutView);
 
         self::assertEquals($layoutView, $this->globalHelper->getLayoutView());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getPageLayout
+     */
+    public function testGetDefaultPageLayout()
+    {
+        self::assertNull($this->globalHelper->getPageLayout());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::setPageLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getPageLayout
+     */
+    public function testGetPageLayout()
+    {
+        $this->globalHelper->setPageLayout('defaultPagelayout');
+
+        self::assertEquals('defaultPagelayout', $this->globalHelper->getPageLayout());
     }
 }

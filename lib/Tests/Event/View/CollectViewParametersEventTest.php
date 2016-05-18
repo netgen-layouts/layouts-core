@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Event\View;
 
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -15,7 +16,7 @@ class CollectViewParametersEventTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->event = new CollectViewParametersEvent(new View());
+        $this->event = new CollectViewParametersEvent(new View(new Value()));
     }
 
     /**
@@ -40,6 +41,6 @@ class CollectViewParametersEventTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetView()
     {
-        self::assertEquals(new View(), $this->event->getView());
+        self::assertEquals(new View(new Value()), $this->event->getView());
     }
 }

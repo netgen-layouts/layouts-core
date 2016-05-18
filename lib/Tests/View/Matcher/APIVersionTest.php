@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher;
 
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Matcher\APIVersion;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 
@@ -29,7 +30,7 @@ class APIVersionTest extends \PHPUnit_Framework_TestCase
     {
         $this->matcher->setConfig($config);
 
-        $view = new View();
+        $view = new View(new Value());
         $view->addParameters(array('api_version' => 42));
 
         self::assertEquals($expected, $this->matcher->match($view));
@@ -56,6 +57,6 @@ class APIVersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchWithNoAPIVersion()
     {
-        self::assertFalse($this->matcher->match(new View()));
+        self::assertFalse($this->matcher->match(new View(new Value())));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\TemplateResolver;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
@@ -10,14 +11,23 @@ use DateTime;
 class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \Netgen\BlockManager\View\ViewInterface
+     */
+    protected $view;
+
+    public function setUp()
+    {
+        $this->view = new View(new Value());
+        $this->view->setContext('context');
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
     public function testResolveTemplate()
     {
-        $view = $this->getView();
-
         $matcherMock = $this->getMock(MatcherInterface::class);
         $matcherMock
             ->expects($this->once())
@@ -26,10 +36,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($view))
+            ->with($this->equalTo($this->view))
             ->will($this->returnValue(true));
 
-        $viewConfiguration = array(
+        $this->viewConfiguration = array(
             'view' => array(
                 'context' => array(
                     'paragraph' => array(
@@ -46,10 +56,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $viewConfiguration
+            $this->viewConfiguration
         );
 
-        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
+        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
     }
 
     /**
@@ -59,9 +69,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateWithEmptyMatchConfig()
     {
-        $view = $this->getView();
-
-        $viewConfiguration = array(
+        $this->viewConfiguration = array(
             'view' => array(
                 'context' => array(
                     'paragraph' => array(
@@ -74,10 +82,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $viewConfiguration
+            $this->viewConfiguration
         );
 
-        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
+        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
     }
 
     /**
@@ -87,9 +95,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateWithMultipleMatches()
     {
-        $view = $this->getView();
-
-        $viewConfiguration = array(
+        $this->viewConfiguration = array(
             'view' => array(
                 'context' => array(
                     'paragraph' => array(
@@ -106,10 +112,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $viewConfiguration
+            $this->viewConfiguration
         );
 
-        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($view));
+        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
     }
 
     /**
@@ -119,7 +125,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
         $templateResolver = new TemplateResolver(array(), array('view' => array()));
-        $templateResolver->resolveTemplate($this->getView());
+        $templateResolver->resolveTemplate($this->view);
     }
 
     /**
@@ -133,7 +139,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array('view' => array('context' => array()))
         );
 
-        $templateResolver->resolveTemplate($this->getView());
+        $templateResolver->resolveTemplate($this->view);
     }
 
     /**
@@ -143,8 +149,6 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatch()
     {
-        $view = $this->getView();
-
         $matcherMock = $this->getMock(MatcherInterface::class);
         $matcherMock
             ->expects($this->once())
@@ -153,10 +157,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($view))
+            ->with($this->equalTo($this->view))
             ->will($this->returnValue(false));
 
-        $viewConfiguration = array(
+        $this->viewConfiguration = array(
             'view' => array(
                 'context' => array(
                     'title' => array(
@@ -172,10 +176,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $viewConfiguration
+            $this->viewConfiguration
         );
 
-        $templateResolver->resolveTemplate($view);
+        $templateResolver->resolveTemplate($this->view);
     }
 
     /**
@@ -185,7 +189,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {
-        $viewConfiguration = array(
+        $this->viewConfiguration = array(
             'view' => array(
                 'context' => array(
                     'title' => array(
@@ -199,10 +203,10 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $viewConfiguration
+            $this->viewConfiguration
         );
 
-        $templateResolver->resolveTemplate($this->getView());
+        $templateResolver->resolveTemplate($this->view);
     }
 
     /**
@@ -212,11 +216,9 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcherInterface()
     {
-        $view = $this->getView();
-
         $matcherMock = $this->getMock(DateTime::class);
 
-        $viewConfiguration = array(
+        $this->viewConfiguration = array(
             'view' => array(
                 'context' => array(
                     'title' => array(
@@ -232,22 +234,9 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
             array(
                 'definition_identifier' => $matcherMock,
             ),
-            $viewConfiguration
+            $this->viewConfiguration
         );
 
-        $templateResolver->resolveTemplate($view);
-    }
-
-    /**
-     * Returns the view used for testing.
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
-     */
-    protected function getView()
-    {
-        $view = new View();
-        $view->setContext('context');
-
-        return $view;
+        $templateResolver->resolveTemplate($this->view);
     }
 }

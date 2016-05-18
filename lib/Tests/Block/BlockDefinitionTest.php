@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
 
@@ -16,7 +16,7 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->blockDefinition = new BlockDefinition();
+        $this->blockDefinition = $this->getMockForAbstractClass(BlockDefinition::class);
     }
 
     /**

@@ -16,6 +16,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
      */
     public function testSetDefaultProperties()
     {
@@ -28,6 +30,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertNull($query->getIdentifier());
         self::assertNull($query->getType());
         self::assertEquals(array(), $query->getParameters());
+        self::assertNull($query->getParameter('test'));
+        self::assertFalse($query->hasParameter('test'));
     }
 
     /**
@@ -39,6 +43,8 @@ class QueryTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
      */
     public function testSetProperties()
     {
@@ -61,5 +67,9 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('my_query', $query->getIdentifier());
         self::assertEquals('ezcontent_search', $query->getType());
         self::assertEquals(array('param' => 'value'), $query->getParameters());
+        self::assertNull($query->getParameter('test'));
+        self::assertEquals('value', $query->getParameter('param'));
+        self::assertFalse($query->hasParameter('test'));
+        self::assertTrue($query->hasParameter('param'));
     }
 }
