@@ -46,7 +46,7 @@ class TemplateResolver implements TemplateResolverInterface
         if (!isset($this->configurations[$view->getAlias()][$context])) {
             throw new RuntimeException(
                 sprintf(
-                    'No configuration could be found for context "%s" and view object "%s".',
+                    'No template could be found for context "%s" and view object "%s".',
                     $context,
                     get_class($view)
                 )
@@ -66,7 +66,8 @@ class TemplateResolver implements TemplateResolverInterface
         if (!is_array($matchedConfig) || !isset($matchedConfig['template'])) {
             throw new RuntimeException(
                 sprintf(
-                    'No templates could be found for view object "%s".',
+                    'No template could be found for context "%s" view object "%s".',
+                    $context,
                     get_class($view)
                 )
             );
