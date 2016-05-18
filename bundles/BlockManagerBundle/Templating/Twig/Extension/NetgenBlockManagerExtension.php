@@ -35,6 +35,11 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     protected $logger;
 
     /**
+     * @var bool
+     */
+    protected $debug = false;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
@@ -44,11 +49,21 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function __construct(
         GlobalHelper $globalHelper,
         BlockRendererInterface $blockRenderer,
-        LoggerInterface $logger
+        LoggerInterface $logger = null
     ) {
         $this->globalHelper = $globalHelper;
         $this->blockRenderer = $blockRenderer;
         $this->logger = $logger ?: new NullLogger();
+    }
+
+    /**
+     * Sets if debug is enabled or not.
+     *
+     * @param bool $debug
+     */
+    public function setDebug($debug)
+    {
+        $this->debug = (bool)$debug;
     }
 
     /**
@@ -143,9 +158,13 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                     );
                 }
                 catch (Exception $e) {
+                    if ($this->debug) {
+                        throw $e;
+                    }
+
                     // In most cases when rendering a Twig template on frontend
                     // we do not want rendering of the block to crash the page,
-                    // hence we log an error.
+                    // hence we log an error and discard the exception if debug is disabled.
                     $this->logger->error(
                         sprintf(
                             'Error rendering a content block with ID %d in layout ID %d and zone identifier %s: %s',

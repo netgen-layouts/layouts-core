@@ -37,6 +37,11 @@ class BlockRenderer implements BlockRendererInterface
     protected $logger;
 
     /**
+     * @var bool
+     */
+    protected $debug = false;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
@@ -54,6 +59,16 @@ class BlockRenderer implements BlockRendererInterface
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
         $this->logger = $logger ?: new NullLogger();
+    }
+
+    /**
+     * Sets if debug is enabled or not.
+     *
+     * @param bool $debug
+     */
+    public function setDebug($debug)
+    {
+        $this->debug = (bool)$debug;
     }
 
     /**
@@ -78,6 +93,10 @@ class BlockRenderer implements BlockRendererInterface
                 $blockDefinition->getDynamicParameters($block, $parameters) + $parameters
             );
         } catch (Exception $e) {
+            if ($this->debug) {
+                throw $e;
+            }
+
             // In most cases when rendering a Twig template on frontend
             // we do not want rendering of the block to crash the page,
             // hence we return an empty string and log an error.
@@ -121,6 +140,10 @@ class BlockRenderer implements BlockRendererInterface
                     'esi'
                 );
             } catch (Exception $e) {
+                if ($this->debug) {
+                    throw $e;
+                }
+
                 // In most cases when rendering a Twig template on frontend
                 // we do not want rendering of the block to crash the page,
                 // hence we return an empty string and log an error.

@@ -9,3 +9,5 @@ services:
             - "@netgen_block_manager.view.renderer"
             - "@fragment.handler"
             - "@logger"
+        calls:
+            - [setDebug, ["%kernel.debug%"]]
