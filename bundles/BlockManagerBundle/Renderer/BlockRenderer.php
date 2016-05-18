@@ -108,7 +108,7 @@ class BlockRenderer implements BlockRendererInterface
                     $block->getZoneIdentifier(),
                     $e->getMessage()
                 ),
-                'ngbm'
+                array('ngbm')
             );
 
             return '';
@@ -155,7 +155,7 @@ class BlockRenderer implements BlockRendererInterface
                         $block->getZoneIdentifier(),
                         $e->getMessage()
                     ),
-                    'ngbm'
+                    array('ngbm')
                 );
 
                 return '';

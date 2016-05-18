@@ -173,7 +173,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                             $block->getZoneIdentifier(),
                             $e->getMessage()
                         ),
-                        'ngbm'
+                        array('ngbm')
                     );
                 }
             } else {
