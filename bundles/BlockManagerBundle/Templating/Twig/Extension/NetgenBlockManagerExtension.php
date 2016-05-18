@@ -144,7 +144,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      */
     public function displayZone(
         Zone $zone,
-        $context = ViewInterface::CONTEXT_VIEW,
+        $context,
         Twig_Template $twigTemplate,
         $twigContext,
         array $twigBocks = array()
