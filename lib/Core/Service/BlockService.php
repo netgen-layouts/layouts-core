@@ -132,14 +132,12 @@ class BlockService implements BlockServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
-
         $this->blockValidator->validatePosition($position, 'position');
+        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
         if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $zoneIdentifier, $persistenceLayout->status)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
-
-        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
         $this->persistenceHandler->beginTransaction();
 
@@ -153,11 +151,11 @@ class BlockService implements BlockServiceInterface
             );
 
             $collectionCreateStruct = new CollectionCreateStruct();
+            $collectionCreateStruct->type = Collection::TYPE_MANUAL;
             $collectionCreateStruct->status = $persistenceLayout->status;
 
             $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct,
-                Collection::TYPE_MANUAL
+                $collectionCreateStruct
             );
 
             $this->blockHandler->addCollectionToBlock(
