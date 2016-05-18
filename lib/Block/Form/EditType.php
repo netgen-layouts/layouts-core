@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class EditType extends AbstractType
+abstract class EditType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -39,13 +39,7 @@ class EditType extends AbstractType
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    protected function addViewTypeForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['blockDefinition'];
@@ -72,7 +66,10 @@ class EditType extends AbstractType
                 },
             )
         );
+    }
 
+    protected function addBlockNameForm(FormBuilderInterface $builder, array $options)
+    {
         $builder->add(
             'name',
             'text',
@@ -86,6 +83,17 @@ class EditType extends AbstractType
                 'empty_data' => ' ',
             )
         );
+    }
+
+    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $parameterNames = array())
+    {
+        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
+        $blockDefinition = $options['blockDefinition'];
+        $blockDefinitionParameters = $blockDefinition->getParameters();
+
+        if (empty($parameterNames)) {
+            $parameterNames = array_keys($blockDefinitionParameters);
+        }
 
         // We're grouping block parameters so they don't conflict with forms from block itself
         $parameterBuilder = $builder->create(
@@ -97,16 +105,35 @@ class EditType extends AbstractType
             )
         );
 
-        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
+        foreach ($parameterNames as $parameterName) {
             $this->parameterFormMapper->mapParameter(
                 $parameterBuilder,
-                $parameter,
+                $blockDefinitionParameters[$parameterName],
                 $parameterName,
                 'block.' . $blockDefinition->getIdentifier()
             );
         }
 
         $builder->add($parameterBuilder);
+    }
+
+    protected function addHiddenParametersForm(FormBuilderInterface $builder, array $options, array $parameterNames = array())
+    {
+        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
+        $blockDefinition = $options['blockDefinition'];
+        $blockDefinitionParameters = $blockDefinition->getParameters();
+
+        if (empty($parameterNames)) {
+            $parameterNames = array_keys($blockDefinitionParameters);
+        }
+
+        foreach ($parameterNames as $parameterName) {
+            $this->parameterFormMapper->mapHiddenParameter(
+                $builder,
+                $blockDefinitionParameters[$parameterName],
+                $parameterName
+            );
+        }
     }
 
     /**
@@ -120,18 +147,5 @@ class EditType extends AbstractType
     public function getName()
     {
         return $this->getBlockPrefix();
-    }
-
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefixes default to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
-    public function getBlockPrefix()
-    {
-        return 'block_edit';
     }
 }

@@ -1,13 +1,10 @@
 parameters:
-    netgen_block_manager.block.form.edit.class: Netgen\BlockManager\Block\Form\EditType
-    netgen_block_manager.block.form.inline.class: Netgen\BlockManager\Block\Form\InlineType
-    netgen_block_manager.block.form.inline.title.class: Netgen\BlockManager\Block\Form\InlineType\TitleType
-    netgen_block_manager.block.form.inline.paragraph.class: Netgen\BlockManager\Block\Form\InlineType\ParagraphType
+    netgen_block_manager.block.form.full_edit.class: Netgen\BlockManager\Block\Form\FullEditType
 
 services:
-    netgen_block_manager.block.form.edit:
-        class: "%netgen_block_manager.block.form.edit.class%"
+    netgen_block_manager.block.form.full_edit:
+        class: "%netgen_block_manager.block.form.full_edit.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:
-            - { name: form.type, alias: block_edit }
+            - { name: form.type, alias: block_full_edit }

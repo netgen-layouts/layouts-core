@@ -8,7 +8,7 @@ use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configu
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Block\Form\EditType;
+use Netgen\BlockManager\Block\Form\FullEditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class EditTypeTest extends TypeTestCase
+class FullEditTypeTest extends TypeTestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -24,7 +24,7 @@ class EditTypeTest extends TypeTestCase
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Block\Form\EditType
+     * @var \Netgen\BlockManager\Block\Form\FullEditType
      */
     protected $formType;
 
@@ -38,7 +38,7 @@ class EditTypeTest extends TypeTestCase
         $this->parameterFormMapper = new FormMapper();
         $this->parameterFormMapper->addParameterHandler('text', new Text());
 
-        $this->formType = new EditType($this->parameterFormMapper);
+        $this->formType = new FullEditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -54,8 +54,8 @@ class EditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::__construct
-     * @covers \Netgen\BlockManager\Block\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::__construct
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
      */
     public function testSubmitValidData()
     {
@@ -87,7 +87,7 @@ class EditTypeTest extends TypeTestCase
         );
 
         $form = $this->factory->create(
-            'block_edit',
+            'block_full_edit',
             new BlockUpdateStruct(),
             array('blockDefinition' => $blockDefinition)
         );
@@ -110,7 +110,7 @@ class EditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -131,7 +131,7 @@ class EditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingBlockDefinition()
@@ -145,7 +145,7 @@ class EditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidBlockDefinition()
@@ -163,7 +163,7 @@ class EditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -182,18 +182,18 @@ class EditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::getName
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::getName
      */
     public function testGetName()
     {
-        self::assertEquals('block_edit', $this->formType->getName());
+        self::assertEquals('block_full_edit', $this->formType->getName());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\EditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('block_edit', $this->formType->getBlockPrefix());
+        self::assertEquals('block_full_edit', $this->formType->getBlockPrefix());
     }
 }

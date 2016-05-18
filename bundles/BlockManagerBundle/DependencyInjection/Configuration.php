@@ -145,10 +145,6 @@ class Configuration implements ConfigurationInterface
                                     if (!isset($v['design']) && isset($v['content'])) {
                                         throw $exception;
                                     }
-
-                                    if (!isset($v['design']) && !isset($v['content'])) {
-                                        $v['full'] = 'block_edit';
-                                    }
                                 }
 
                                 return $v;
@@ -156,12 +152,15 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->children()
                             ->scalarNode('full')
+                                ->treatNullLike('block_full_edit')
                                 ->cannotBeEmpty()
                             ->end()
                             ->scalarNode('design')
+                                ->treatNullLike('block_design_edit')
                                 ->cannotBeEmpty()
                             ->end()
                             ->scalarNode('content')
+                                ->treatNullLike('block_content_edit')
                                 ->cannotBeEmpty()
                             ->end()
                         ->end()

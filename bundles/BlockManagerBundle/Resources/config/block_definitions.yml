@@ -1,13 +1,15 @@
 block_definitions:
     title:
-        forms: ~
+        forms:
+            full: ~
         view_types:
             default:
                 name: 'Default'
             large:
                 name: 'Large'
     paragraph:
-        forms: ~
+        forms:
+            full: ~
         view_types:
             default:
                 name: 'Default'
