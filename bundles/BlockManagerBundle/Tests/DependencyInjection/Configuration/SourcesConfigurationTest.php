@@ -53,6 +53,7 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
             'sources' => array(
                 'dynamic' => array(
                     'name' => 'Dynamic',
+                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
                             'query_type' => 'type',
@@ -98,14 +99,15 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
             'sources' => array(
                 'dynamic' => array(
                     'name' => 'Dynamic',
-                        'queries' => array(
-                            'default' => array(
-                                'query_type' => 'type',
-                                'default_parameters' => array(
-                                    'param' => 'value',
-                                ),
+                    'enabled' => true,
+                    'queries' => array(
+                        'default' => array(
+                            'query_type' => 'type',
+                            'default_parameters' => array(
+                                'param' => 'value',
                             ),
                         ),
+                    ),
                 ),
             ),
         );
@@ -163,6 +165,7 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
             'sources' => array(
                 'dynamic' => array(
                     'name' => 'Dynamic',
+                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
                             'query_type' => 'type2',
@@ -228,6 +231,7 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
             'sources' => array(
                 'dynamic' => array(
                     'name' => 'Dynamic',
+                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
                             'query_type' => 'type',
@@ -274,6 +278,7 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
             'sources' => array(
                 'dynamic' => array(
                     'name' => 'Dynamic',
+                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
                             'query_type' => 'type',

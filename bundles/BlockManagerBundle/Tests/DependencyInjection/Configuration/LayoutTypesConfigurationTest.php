@@ -50,6 +50,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
+                    'enabled' => true,
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
@@ -112,6 +113,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
+                    'enabled' => true,
                     'zones' => array(
                         'top' => array(
                             'name' => 'Top',
@@ -161,6 +163,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
+                    'enabled' => true,
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
@@ -206,6 +209,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
+                    'enabled' => true,
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',

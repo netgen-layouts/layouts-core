@@ -105,9 +105,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'block_definitions' => array(
                 'block' => array(
-                    'forms' => array(
-                        'full' => 'block_full_edit',
-                    ),
+                    'forms' => array(),
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',

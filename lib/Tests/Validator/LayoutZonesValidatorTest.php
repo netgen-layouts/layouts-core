@@ -28,6 +28,7 @@ class LayoutZonesValidatorTest extends ValidatorTest
 
         $layoutType = new LayoutType(
             'layout',
+            true,
             'Layout',
             array(
                 'zone' => new Zone('zone', 'Zone', array()),

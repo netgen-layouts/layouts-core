@@ -12,6 +12,7 @@ use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -28,6 +29,11 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    protected $pageLayoutResolverMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $layoutServiceMock;
 
     /**
@@ -36,9 +42,14 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     protected $viewBuilderMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
      */
-    protected $globalHelperMock;
+    protected $globalHelper;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
+     */
+    protected $listener;
 
     /**
      * Sets up the test.
@@ -49,6 +60,10 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             LayoutResolverInterface::class
         );
 
+        $this->pageLayoutResolverMock = $this->getMock(
+            PageLayoutResolverInterface::class
+        );
+
         $this->layoutServiceMock = $this->getMock(
             LayoutService::class
         );
@@ -57,10 +72,15 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ViewBuilderInterface::class
         );
 
-        $this->globalHelperMock = $this
-            ->getMockBuilder(GlobalHelper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->globalHelper = new GlobalHelper();
+
+        $this->listener = new LayoutResolverListener(
+            $this->layoutResolverMock,
+            $this->pageLayoutResolverMock,
+            $this->layoutServiceMock,
+            $this->viewBuilderMock,
+            $this->globalHelper
+        );
     }
 
     /**
@@ -68,11 +88,9 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $eventListener = $this->getLayoutResolverListener();
-
         self::assertEquals(
             array(KernelEvents::REQUEST => array('onKernelRequest', -255)),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -102,18 +120,13 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($layout))
             ->will($this->returnValue($layoutView));
 
-        $this->globalHelperMock
-            ->expects($this->once())
-            ->method('setLayoutView')
-            ->with($this->equalTo($layoutView));
-
-        $eventListener = $this->getLayoutResolverListener();
-
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
+
+        self::assertEquals($layoutView, $this->globalHelper->getLayoutView());
     }
 
     /**
@@ -134,17 +147,13 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $this->globalHelperMock
-            ->expects($this->never())
-            ->method('setLayoutView');
-
-        $eventListener = $this->getLayoutResolverListener();
-
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
+
+        self::assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -170,17 +179,13 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $this->globalHelperMock
-            ->expects($this->never())
-            ->method('setLayoutView');
-
-        $eventListener = $this->getLayoutResolverListener();
-
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
+
+        self::assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -200,17 +205,13 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $this->globalHelperMock
-            ->expects($this->never())
-            ->method('setLayoutView');
-
-        $eventListener = $this->getLayoutResolverListener();
-
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
+
+        self::assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -230,32 +231,13 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $this->globalHelperMock
-            ->expects($this->never())
-            ->method('setLayoutView');
-
-        $eventListener = $this->getLayoutResolverListener();
-
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
-    }
+        $this->listener->onKernelRequest($event);
 
-    /**
-     * Returns the layout resolver listener under test.
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
-     */
-    protected function getLayoutResolverListener()
-    {
-        return new LayoutResolverListener(
-            $this->layoutResolverMock,
-            $this->layoutServiceMock,
-            $this->viewBuilderMock,
-            $this->globalHelperMock
-        );
+        self::assertNull($this->globalHelper->getLayoutView());
     }
 }

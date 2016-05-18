@@ -32,6 +32,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $layoutType = new LayoutType(
             '3_zones_a',
+            true,
             '3 zones A',
             array(
                 'left' => new LayoutTypeZone('left', 'Left', array('title')),

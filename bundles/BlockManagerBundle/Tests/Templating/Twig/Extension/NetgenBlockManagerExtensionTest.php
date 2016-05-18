@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 
@@ -11,6 +12,11 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $globalHelperMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockRendererMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
@@ -23,7 +29,14 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->extension = new NetgenBlockManagerExtension($this->globalHelperMock);
+        $this->blockRendererMock = $this->getMockBuilder(BlockRendererInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->extension = new NetgenBlockManagerExtension(
+            $this->globalHelperMock,
+            $this->blockRendererMock
+        );
     }
 
     /**
