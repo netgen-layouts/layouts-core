@@ -158,7 +158,6 @@ class BlockController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If unknown error occurred
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -189,18 +188,6 @@ class BlockController extends Controller
             }
 
             if (!$form->isValid()) {
-                if ($formName === 'inline') {
-                    $formErrors = $form->getErrors(true);
-                    if (!empty($formErrors)) {
-                        throw new BadStateException(
-                            $formErrors[0]->getOrigin()->getName(),
-                            $formErrors[0]->getMessage()
-                        );
-                    }
-
-                    throw new BadStateException('unknown', 'Unknown error');
-                }
-
                 return new FormView($form, $block, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 

@@ -1,15 +1,13 @@
 block_definitions:
     title:
-        forms:
-            inline: block_inline_edit_title
+        forms: ~
         view_types:
             default:
                 name: 'Default'
             large:
                 name: 'Large'
     paragraph:
-        forms:
-            inline: block_inline_edit_paragraph
+        forms: ~
         view_types:
             default:
                 name: 'Default'

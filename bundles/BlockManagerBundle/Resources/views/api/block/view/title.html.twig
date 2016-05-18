@@ -1,11 +1,7 @@
 {% extends 'NetgenBlockManagerBundle:api/block/view:block.html.twig' %}
 
-{% import 'NetgenBlockManagerBundle:api/block:macros.html.twig' as macros %}
-
 {% block inline_data %}
-    {% if form is defined and form is not empty %}
-        <{{ block.parameters.tag|default('h1') }} data-inline>
-           <span contenteditable="true" data-attr="title" data-hint="click to write" data-inline-child>{{ block.parameters.title|default('Title') }}</span>
-        </{{ block.parameters.tag|default('h1') }}>
-    {% endif %}
+    <{{ block.parameters.tag }} data-inline>
+       <span contenteditable="true" data-attr="title" data-hint="click to write" data-inline-child>{{ block.parameters.title }}</span>
+    </{{ block.parameters.tag }}>
 {% endblock %}

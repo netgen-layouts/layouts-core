@@ -339,44 +339,6 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithEmptyInlineForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'inline' => '',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidInlineForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'inline' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
     public function testBlockDefinitionSettingsWithEmptyDesignForm()
     {
         $config = array(

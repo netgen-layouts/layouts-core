@@ -1,13 +1,9 @@
 {% extends 'NetgenBlockManagerBundle:api/block/view:block.html.twig' %}
 
-{% import 'NetgenBlockManagerBundle:api/block:macros.html.twig' as macros %}
-
 {% block inline_data %}
-    {% if form is defined and form is not empty %}
-        <p data-inline>
-            <span contenteditable="true" data-attr="content" data-inline-child>
-                {{ block.parameters.content|default('Paragraph') }}
-            </span>
-        </p>
-    {% endif %}
+    <p data-inline>
+        <span contenteditable="true" data-attr="content" data-inline-child>
+            {{ block.parameters.content }}
+        </span>
+    </p>
 {% endblock %}
