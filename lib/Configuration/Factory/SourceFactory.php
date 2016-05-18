@@ -27,6 +27,6 @@ class SourceFactory
             );
         }
 
-        return new Source($identifier, $config['name'], $queries);
+        return new Source($identifier, $config['enabled'], $config['name'], $queries);
     }
 }

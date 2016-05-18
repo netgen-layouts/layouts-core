@@ -27,6 +27,6 @@ class LayoutTypeFactory
             );
         }
 
-        return new LayoutType($identifier, $config['name'], $zones);
+        return new LayoutType($identifier, $config['enabled'], $config['name'], $zones);
     }
 }
