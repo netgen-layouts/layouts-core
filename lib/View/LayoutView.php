@@ -7,18 +7,13 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 class LayoutView extends View implements LayoutViewInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    protected $layout;
-
-    /**
      * Returns the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function getLayout()
     {
-        return $this->layout;
+        return $this->value;
     }
 
     /**
@@ -28,8 +23,8 @@ class LayoutView extends View implements LayoutViewInterface
      */
     public function setLayout(Layout $layout)
     {
-        $this->layout = $layout;
-        $this->internalParameters['layout'] = $this->layout;
+        $this->value = $layout;
+        $this->internalParameters['layout'] = $this->value;
     }
 
     /**

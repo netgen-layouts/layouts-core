@@ -90,7 +90,7 @@ class TemplateResolver implements TemplateResolverInterface
             if (!isset($this->matchers[$matcher])) {
                 throw new RuntimeException(
                     sprintf(
-                        'No matcher could be found with identifier "%s".',
+                        'No template matcher could be found with identifier "%s".',
                         $matcher
                     )
                 );
@@ -99,7 +99,7 @@ class TemplateResolver implements TemplateResolverInterface
             if (!$this->matchers[$matcher] instanceof MatcherInterface) {
                 throw new RuntimeException(
                     sprintf(
-                        'Matcher "%s" needs to implement MatcherInterface.',
+                        'Template matcher "%s" needs to implement MatcherInterface.',
                         $matcher
                     )
                 );

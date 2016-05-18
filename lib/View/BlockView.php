@@ -7,18 +7,13 @@ use Netgen\BlockManager\API\Values\Page\Block;
 class BlockView extends View implements BlockViewInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Block
-     */
-    protected $block;
-
-    /**
      * Returns the block.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function getBlock()
     {
-        return $this->block;
+        return $this->value;
     }
 
     /**
@@ -28,8 +23,8 @@ class BlockView extends View implements BlockViewInterface
      */
     public function setBlock(Block $block)
     {
-        $this->block = $block;
-        $this->internalParameters['block'] = $this->block;
+        $this->value = $block;
+        $this->internalParameters['block'] = $this->value;
     }
 
     /**

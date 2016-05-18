@@ -7,6 +7,11 @@ use RuntimeException;
 abstract class View implements ViewInterface
 {
     /**
+     * @var \Netgen\BlockManager\API\Values\Value
+     */
+    protected $value;
+
+    /**
      * @var string
      */
     protected $context;
@@ -25,6 +30,16 @@ abstract class View implements ViewInterface
      * @var array
      */
     protected $internalParameters = array();
+
+    /**
+     * Returns the value in this view.
+     *
+     * @return \Netgen\BlockManager\API\Values\Value
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Returns the view context.

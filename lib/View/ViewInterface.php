@@ -20,6 +20,13 @@ interface ViewInterface
     public function getAlias();
 
     /**
+     * Returns the value in this view.
+     *
+     * @return \Netgen\BlockManager\API\Values\Value
+     */
+    public function getValue();
+
+    /**
      * Returns the view context.
      *
      * @return string

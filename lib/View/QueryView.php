@@ -7,18 +7,13 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 class QueryView extends View implements QueryViewInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query
-     */
-    protected $query;
-
-    /**
      * Returns the query.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function getQuery()
     {
-        return $this->query;
+        return $this->value;
     }
 
     /**
@@ -28,8 +23,8 @@ class QueryView extends View implements QueryViewInterface
      */
     public function setQuery(Query $query)
     {
-        $this->query = $query;
-        $this->internalParameters['query'] = $this->query;
+        $this->value = $query;
+        $this->internalParameters['query'] = $this->value;
     }
 
     /**
