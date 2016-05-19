@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-interface Layout
+use Netgen\BlockManager\API\Values\Value;
+
+interface Layout extends Value
 {
     /**
      * @const string

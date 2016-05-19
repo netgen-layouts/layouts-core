@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-interface Query
+use Netgen\BlockManager\API\Values\Value;
+
+interface Query extends Value
 {
     /**
      * Returns the query ID.

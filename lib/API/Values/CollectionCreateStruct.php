@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
-class CollectionCreateStruct extends Value
+class CollectionCreateStruct extends AbstractValue
 {
     /**
      * @var string

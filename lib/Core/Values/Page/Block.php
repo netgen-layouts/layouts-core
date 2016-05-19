@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\AbstractValue;
 
-class Block extends Value implements APIBlock
+class Block extends AbstractValue implements APIBlock
 {
     /**
      * @var int|string

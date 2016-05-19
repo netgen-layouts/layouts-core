@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 
-class LayoutCreateStruct extends Value
+class LayoutCreateStruct extends AbstractValue
 {
     /**
      * @var string

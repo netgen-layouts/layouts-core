@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-abstract class BlockUpdateStruct extends Value
+abstract class BlockUpdateStruct extends AbstractValue
 {
     /**
      * @var string

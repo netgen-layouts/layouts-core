@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\AbstractValue;
 
-class Zone extends Value
+class Zone extends AbstractValue
 {
     /**
      * Zone identifier.

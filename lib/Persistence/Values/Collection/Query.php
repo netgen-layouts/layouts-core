@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\AbstractValue;
 
-class Query extends Value
+class Query extends AbstractValue
 {
     /**
      * Query ID.

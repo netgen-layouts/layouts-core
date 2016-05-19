@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-interface Zone
+use Netgen\BlockManager\API\Values\Value;
+
+interface Zone extends Value
 {
     /**
      * Returns zone identifier.

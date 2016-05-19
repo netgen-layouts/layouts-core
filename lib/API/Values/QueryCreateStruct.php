@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-abstract class QueryCreateStruct extends Value
+abstract class QueryCreateStruct extends AbstractValue
 {
     /**
      * @var string

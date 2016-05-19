@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\AbstractValue;
 
-class CollectionReference extends Value implements APICollectionReference
+class CollectionReference extends AbstractValue implements APICollectionReference
 {
     /**
      * @var int

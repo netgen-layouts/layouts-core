@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-interface Collection
+use Netgen\BlockManager\API\Values\Value;
+
+interface Collection extends Value
 {
     /**
      * @const int

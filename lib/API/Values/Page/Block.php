@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-interface Block
+use Netgen\BlockManager\API\Values\Value;
+
+interface Block extends Value
 {
     /**
      * Returns the block ID.
