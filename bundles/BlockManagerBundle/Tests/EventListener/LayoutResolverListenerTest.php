@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\Layout\Resolver\Rule;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\Target;
+use Netgen\BlockManager\Layout\Resolver\Target;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
@@ -106,7 +106,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
-            ->will($this->returnValue(new Rule(42, new Target(array('value')))));
+            ->will($this->returnValue(new Rule(42, new Target('target', array('value')))));
 
         $this->layoutServiceMock
             ->expects($this->once())
@@ -164,7 +164,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
-            ->will($this->returnValue(new Rule(42, new Target(array('value')))));
+            ->will($this->returnValue(new Rule(42, new Target('target', array('value')))));
 
         $this->layoutServiceMock
             ->expects($this->once())

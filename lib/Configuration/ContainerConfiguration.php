@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Configuration;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use InvalidArgumentException;
+use OutOfBoundsException;
 
 class ContainerConfiguration extends Configuration
 {
@@ -28,14 +28,14 @@ class ContainerConfiguration extends Configuration
      *
      * @param string $parameterName
      *
-     * @throws \InvalidArgumentException If parameter is undefined
+     * @throws \OutOfBoundsException If parameter is undefined
      *
      * @return mixed
      */
     public function getParameter($parameterName)
     {
         if (!$this->hasParameter($parameterName)) {
-            throw new InvalidArgumentException(
+            throw new OutOfBoundsException(
                 sprintf(
                     'Parameter "%s" does not exist in configuration.',
                     $parameterName

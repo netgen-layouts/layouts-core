@@ -3,19 +3,22 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver;
 
 use Netgen\BlockManager\Layout\Resolver\Rule;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\Target;
+use Netgen\BlockManager\Layout\Resolver\Target;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Rule::__construct
+     * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getLayoutId
+     * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getConditions
      */
     public function testConstructor()
     {
-        $target = new Target(array('values'));
+        $target = new Target('target', array('values'));
         $rule = new Rule(42, $target, array('conditions'));
-        self::assertEquals(42, $rule->layoutId);
-        self::assertEquals($target, $rule->target);
-        self::assertEquals(array('conditions'), $rule->conditions);
+        self::assertEquals(42, $rule->getLayoutId());
+        self::assertEquals($target, $rule->getTarget());
+        self::assertEquals(array('conditions'), $rule->getConditions());
     }
 }

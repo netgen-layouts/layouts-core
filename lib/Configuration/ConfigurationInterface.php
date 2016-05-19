@@ -20,7 +20,7 @@ interface ConfigurationInterface
      *
      * @param string $parameterName
      *
-     * @throws \InvalidArgumentException If parameter is undefined
+     * @throws \OutOfBoundsException If parameter is undefined
      *
      * @return mixed
      */

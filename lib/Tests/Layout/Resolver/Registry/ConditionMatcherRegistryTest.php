@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionMatcher;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Registry;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionMatcher;
 
 class RegistryTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     protected $conditionMatcher;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RegistryInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface
      */
     protected $registry;
 
@@ -21,13 +21,13 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     {
         $this->conditionMatcher = new ConditionMatcher();
 
-        $this->registry = new Registry();
+        $this->registry = new ConditionMatcherRegistry();
         $this->registry->addConditionMatcher($this->conditionMatcher);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Registry::addConditionMatcher
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Registry::getConditionMatchers
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry::addConditionMatcher
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry::getConditionMatchers
      */
     public function testAddConditionMatcher()
     {
@@ -35,7 +35,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Registry::getConditionMatcher
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry::getConditionMatcher
      */
     public function testGetConditionMatcher()
     {
@@ -43,10 +43,10 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Registry::getConditionMatcher
-     * @expectedException \InvalidArgumentException
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry::getConditionMatcher
+     * @expectedException \RuntimeException
      */
-    public function testGetConditionMatcherThrowsInvalidArgumentException()
+    public function testGetConditionMatcherThrowsRuntimeException()
     {
         $this->registry->getConditionMatcher('other_condition');
     }

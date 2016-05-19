@@ -1,19 +1,19 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder\Builder;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder;
 
-use Netgen\BlockManager\Layout\Resolver\Target\RequestUriPrefix as RequestUriPrefixTarget;
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUriPrefix;
+use Netgen\BlockManager\Layout\Resolver\Target;
+use Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUri;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 
-class RequestUriPrefixTest extends \PHPUnit_Framework_TestCase
+class RequestUriTest extends \PHPUnit_Framework_TestCase
 {
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUriPrefix
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUri
      */
     protected $targetBuilder;
 
@@ -28,20 +28,20 @@ class RequestUriPrefixTest extends \PHPUnit_Framework_TestCase
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
 
-        $this->targetBuilder = new RequestUriPrefix();
+        $this->targetBuilder = new RequestUri();
         $this->targetBuilder->setRequestStack($this->requestStack);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUriPrefix::buildTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUri::buildTarget
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new RequestUriPrefixTarget(array('/the/answer?a=42')), $this->targetBuilder->buildTarget());
+        self::assertEquals(new Target('request_uri', array('/the/answer?a=42')), $this->targetBuilder->buildTarget());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUriPrefix::buildTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUri::buildTarget
      */
     public function testBuildTargetWithNoRequest()
     {

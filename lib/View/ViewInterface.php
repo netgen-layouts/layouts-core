@@ -64,9 +64,11 @@ interface ViewInterface
     public function hasParameter($identifier);
 
     /**
-     * Returns the view parameter by identifier or null if parameter does not exist.
+     * Returns the view parameter by identifier.
      *
      * @param string $identifier
+     *
+     * @throws \OutOfBoundsException If view does not have the parameter.
      *
      * @return mixed
      */

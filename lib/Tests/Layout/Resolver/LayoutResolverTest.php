@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver;
 
 use Netgen\BlockManager\Layout\Resolver\Condition;
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RegistryInterface as ConditionMatcherRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\RegistryInterface as TargetBuilderRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoaderInterface;
 use Netgen\BlockManager\Layout\Resolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolver;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionMatcher;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\Target as TargetStub;
+use Netgen\BlockManager\Layout\Resolver\Target;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetBuilder;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetBuilderReturnsFalse;
 
@@ -64,8 +64,8 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         $targetBuilder1 = new TargetBuilder(array(42));
         $targetBuilder2 = new TargetBuilder(array(84));
-        $target1 = new TargetStub(array(42));
-        $target2 = new TargetStub(array(84));
+        $target1 = new Target('target', array(42));
+        $target2 = new Target('target', array(84));
         $rule2 = new Rule(84, $target2);
 
         $this->targetBuilderRegistryMock
@@ -96,7 +96,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         $targetBuilder1 = new TargetBuilderReturnsFalse();
         $targetBuilder2 = new TargetBuilder(array(84));
-        $target2 = new TargetStub(array(84));
+        $target2 = new Target('target', array(84));
         $rule2 = new Rule(84, $target2);
 
         $this->targetBuilderRegistryMock
@@ -121,8 +121,8 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         $targetBuilder1 = new TargetBuilder(array(42));
         $targetBuilder2 = new TargetBuilder(array(84));
-        $target1 = new TargetStub(array(42));
-        $target2 = new TargetStub(array(84));
+        $target1 = new Target('target', array(42));
+        $target2 = new Target('target', array(84));
 
         $this->targetBuilderRegistryMock
             ->expects($this->once())
@@ -150,7 +150,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutForTarget()
     {
-        $target = new TargetStub(array(42));
+        $target = new Target('target', array(42));
         $rule = new Rule(42, $target);
 
         $this->ruleLoaderMock
@@ -168,7 +168,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveFirstLayoutForTargetWithMoreThanOneMatchingRule()
     {
-        $target = new TargetStub(array(42));
+        $target = new Target('target', array(42));
         $rule1 = new Rule(42, $target);
         $rule2 = new Rule(84, $target);
 
@@ -193,7 +193,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutForTargetWithRuleConditions(array $matches, $layoutId)
     {
-        $target = new TargetStub(array('value'));
+        $target = new Target('target', array('value'));
 
         $conditions = array();
         $matchFailed = false;
@@ -244,7 +244,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutForTargetWithNoRules()
     {
-        $target = new TargetStub(array(42));
+        $target = new Target('target', array(42));
 
         $this->ruleLoaderMock
             ->expects($this->once())

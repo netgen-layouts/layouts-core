@@ -7,12 +7,12 @@ class Condition
     /**
      * @var string
      */
-    public $identifier;
+    protected $identifier;
 
     /**
      * @var array
      */
-    public $parameters;
+    protected $parameters;
 
     /**
      * Constructor.
@@ -24,5 +24,25 @@ class Condition
     {
         $this->identifier = $identifier;
         $this->parameters = $parameters;
+    }
+
+    /**
+     * Returns the identifier.
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Returns the parameters.
+     *
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
     }
 }

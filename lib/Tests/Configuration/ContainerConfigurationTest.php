@@ -74,9 +74,9 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
-     * @expectedException \InvalidArgumentException
+     * @expectedException \OutOfBoundsException
      */
-    public function testGetParameterThrowsInvalidArgumentException()
+    public function testGetParameterThrowsOutOfBoundsException()
     {
         $this->containerMock
             ->expects($this->once())

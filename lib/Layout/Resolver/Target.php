@@ -2,8 +2,13 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-abstract class Target implements TargetInterface
+class Target
 {
+    /**
+     * @var string
+     */
+    protected $identifier;
+
     /**
      * @var array
      */
@@ -12,21 +17,23 @@ abstract class Target implements TargetInterface
     /**
      * Constructor.
      *
+     * @param $identifier
      * @param array $values
      */
-    public function __construct(array $values = array())
+    public function __construct($identifier, array $values = array())
     {
+        $this->identifier = $identifier;
         $this->values = $values;
     }
 
     /**
-     * Sets the values to the target.
+     * Returns the unique identifier of the target.
      *
-     * @param array $values
+     * @return string
      */
-    public function setValues(array $values)
+    public function getIdentifier()
     {
-        $this->values = $values;
+        return $this->identifier;
     }
 
     /**

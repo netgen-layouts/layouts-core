@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\RuleBuilder;
 use Netgen\BlockManager\Layout\Resolver\RuleBuilder\RuleBuilder;
 use Netgen\BlockManager\Layout\Resolver\Condition;
 use Netgen\BlockManager\Layout\Resolver\Rule;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\Target;
+use Netgen\BlockManager\Layout\Resolver\Target;
 
 class RuleBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $target = new Target(array('values'));
+        $target = new Target('target', array('values'));
         $rule1 = new Rule(
             42,
             $target,

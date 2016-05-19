@@ -1,10 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetBuilder;
+namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-use InvalidArgumentException;
+use Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface;
+use RuntimeException;
 
-class Registry implements RegistryInterface
+class TargetBuilderRegistry implements TargetBuilderRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface[]
@@ -27,14 +28,14 @@ class Registry implements RegistryInterface
      *
      * @param string $targetIdentifier
      *
-     * @throws \InvalidArgumentException If target with provided target identifier does not exist
+     * @throws \RuntimeException If target with provided target identifier does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface
      */
     public function getTargetBuilder($targetIdentifier)
     {
         if (!isset($this->targetBuilders[$targetIdentifier])) {
-            throw new InvalidArgumentException(
+            throw new RuntimeException(
                 sprintf(
                     'Target builder with "%s" target identifier does not exist.',
                     $targetIdentifier

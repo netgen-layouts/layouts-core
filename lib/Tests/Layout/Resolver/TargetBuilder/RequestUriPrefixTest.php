@@ -1,19 +1,19 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder\Builder;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder;
 
-use Netgen\BlockManager\Layout\Resolver\Target\RequestUri as RequestUriTarget;
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUri;
+use Netgen\BlockManager\Layout\Resolver\Target;
+use Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUriPrefix;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 
-class RequestUriTest extends \PHPUnit_Framework_TestCase
+class RequestUriPrefixTest extends \PHPUnit_Framework_TestCase
 {
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUri
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUriPrefix
      */
     protected $targetBuilder;
 
@@ -28,20 +28,20 @@ class RequestUriTest extends \PHPUnit_Framework_TestCase
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
 
-        $this->targetBuilder = new RequestUri();
+        $this->targetBuilder = new RequestUriPrefix();
         $this->targetBuilder->setRequestStack($this->requestStack);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUri::buildTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUriPrefix::buildTarget
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new RequestUriTarget(array('/the/answer?a=42')), $this->targetBuilder->buildTarget());
+        self::assertEquals(new Target('request_uri_prefix', array('/the/answer?a=42')), $this->targetBuilder->buildTarget());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUri::buildTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUriPrefix::buildTarget
      */
     public function testBuildTargetWithNoRequest()
     {

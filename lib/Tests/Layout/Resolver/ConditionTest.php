@@ -8,11 +8,13 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Condition::__construct
+     * @covers \Netgen\BlockManager\Layout\Resolver\Condition::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\Condition::getParameters
      */
     public function testConstructor()
     {
         $condition = new Condition('identifier', array('value'));
-        self::assertEquals('identifier', $condition->identifier);
-        self::assertEquals(array('value'), $condition->parameters);
+        self::assertEquals('identifier', $condition->getIdentifier());
+        self::assertEquals(array('value'), $condition->getParameters());
     }
 }

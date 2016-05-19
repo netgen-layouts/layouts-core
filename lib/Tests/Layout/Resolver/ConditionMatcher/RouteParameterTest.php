@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionMatcher\Matcher;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionMatcher;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Matcher\RouteParameter;
+use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +12,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Matcher\RouteParameter
+     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter
      */
     protected $conditionMatcher;
 
@@ -38,7 +38,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Matcher\RouteParameter::getConditionIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::getConditionIdentifier
      */
     public function testGetConditionIdentifier()
     {
@@ -46,7 +46,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Matcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::matches
      *
      * @param array $parameters
      * @param bool $matches
@@ -88,7 +88,7 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Matcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::matches
      */
     public function testMatchesWithNoRequest()
     {

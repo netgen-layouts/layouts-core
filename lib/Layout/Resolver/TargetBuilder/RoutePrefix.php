@@ -1,13 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder;
+namespace Netgen\BlockManager\Layout\Resolver\TargetBuilder;
 
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
-use Netgen\BlockManager\Layout\Resolver\Target\PathInfoPrefix as PathInfoPrefixTarget;
+use Netgen\BlockManager\Layout\Resolver\Target;
 use Symfony\Component\HttpFoundation\Request;
 
-class PathInfoPrefix implements TargetBuilderInterface
+class RoutePrefix implements TargetBuilderInterface
 {
     use RequestStackAwareTrait;
 
@@ -23,8 +22,9 @@ class PathInfoPrefix implements TargetBuilderInterface
             return false;
         }
 
-        return new PathInfoPrefixTarget(
-            array($currentRequest->getPathInfo())
+        return new Target(
+            'route_prefix',
+            array($currentRequest->attributes->get('_route'))
         );
     }
 }

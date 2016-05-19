@@ -1,20 +1,19 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder;
+namespace Netgen\BlockManager\Layout\Resolver\TargetBuilder;
 
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
-use Netgen\BlockManager\Layout\Resolver\Target\Route as RouteTarget;
+use Netgen\BlockManager\Layout\Resolver\Target;
 use Symfony\Component\HttpFoundation\Request;
 
-class Route implements TargetBuilderInterface
+class PathInfo implements TargetBuilderInterface
 {
     use RequestStackAwareTrait;
 
     /**
      * Builds the target object that will be used to search for resolver rules.
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\TargetInterface
+     * @return \Netgen\BlockManager\Layout\Resolver\Target
      */
     public function buildTarget()
     {
@@ -23,8 +22,9 @@ class Route implements TargetBuilderInterface
             return false;
         }
 
-        return new RouteTarget(
-            array($currentRequest->attributes->get('_route'))
+        return new Target(
+            'path_info',
+            array($currentRequest->getPathInfo())
         );
     }
 }

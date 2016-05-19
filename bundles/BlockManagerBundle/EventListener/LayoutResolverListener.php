@@ -110,13 +110,13 @@ class LayoutResolverListener implements EventSubscriberInterface
         }
 
         try {
-            $layout = $this->layoutService->loadLayout($rule->layoutId);
+            $layout = $this->layoutService->loadLayout($rule->getLayoutId());
         } catch (NotFoundException $e) {
             // If layout was not found, we still want to display the page
             $this->logger->notice(
                 sprintf(
                     'Layout resolver rule matched a layout with ID %d, but it was not found',
-                    $rule->layoutId
+                    $rule->getLayoutId()
                 ),
                 array('ngbm')
             );

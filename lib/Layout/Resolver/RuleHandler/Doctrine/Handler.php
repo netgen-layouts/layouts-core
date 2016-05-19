@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine;
 use Netgen\BlockManager\Layout\Resolver\RuleHandler\RuleHandlerInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
-use InvalidArgumentException;
+use RuntimeException;
 
 class Handler implements RuleHandlerInterface
 {
@@ -53,7 +53,7 @@ class Handler implements RuleHandlerInterface
      * @param string $targetIdentifier
      * @param array $values
      *
-     * @throws \InvalidArgumentException If target handler does not exist for given target identifier
+     * @throws \RuntimeException If target handler does not exist for given target identifier
      *
      * @return array
      */
@@ -72,7 +72,7 @@ class Handler implements RuleHandlerInterface
             ->addOrderBy('rc.id', 'ASC');
 
         if (!isset($this->targetHandlers[$targetIdentifier])) {
-            throw new InvalidArgumentException(
+            throw new RuntimeException(
                 sprintf(
                     'Target handler for "%s" identifier does not exist.',
                     $targetIdentifier

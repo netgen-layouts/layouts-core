@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\RuleBuilder\RuleBuilderInterface;
 use Netgen\BlockManager\Layout\Resolver\RuleHandler\RuleHandlerInterface;
 use Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoader;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\Target;
+use Netgen\BlockManager\Layout\Resolver\Target;
 
 class RuleLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,7 +47,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRules()
     {
-        $target = new Target(array(42));
+        $target = new Target('target', array(42));
         $rule = new Rule(42, $target);
 
         $this->ruleHandlerMock
@@ -70,7 +70,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithEmptyValues()
     {
-        $target = new Target(array());
+        $target = new Target('target', array());
 
         $this->ruleHandlerMock
             ->expects($this->never())
@@ -88,7 +88,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithNoDataFound()
     {
-        $target = new Target(array(42));
+        $target = new Target('target', array(42));
 
         $this->ruleHandlerMock
             ->expects($this->once())

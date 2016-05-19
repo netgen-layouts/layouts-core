@@ -1,19 +1,19 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder\Builder;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder;
 
-use Netgen\BlockManager\Layout\Resolver\Target\PathInfo as PathInfoTarget;
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\PathInfo;
+use Netgen\BlockManager\Layout\Resolver\Target;
+use Netgen\BlockManager\Layout\Resolver\TargetBuilder\RoutePrefix;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 
-class PathInfoTest extends \PHPUnit_Framework_TestCase
+class RoutePrefixTest extends \PHPUnit_Framework_TestCase
 {
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\PathInfo
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RoutePrefix
      */
     protected $targetBuilder;
 
@@ -22,26 +22,27 @@ class PathInfoTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $request = Request::create('/the/answer');
+        $request = Request::create('/');
+        $request->attributes->set('_route', 'my_cool_route');
 
         $requestStack = new RequestStack();
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
 
-        $this->targetBuilder = new PathInfo();
+        $this->targetBuilder = new RoutePrefix();
         $this->targetBuilder->setRequestStack($this->requestStack);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\PathInfo::buildTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RoutePrefix::buildTarget
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new PathInfoTarget(array('/the/answer')), $this->targetBuilder->buildTarget());
+        self::assertEquals(new Target('route_prefix', array('my_cool_route')), $this->targetBuilder->buildTarget());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\PathInfo::buildTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RoutePrefix::buildTarget
      */
     public function testBuildTargetWithNoRequest()
     {

@@ -119,55 +119,6 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::displayZone
-     *
-     * @TODO How to test Twig_Template::displayBlock method?
-     */
-    public function testDisplayZone()
-    {
-        $twigTemplateMock = $this->getMockBuilder(Twig_Template::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->blockRendererMock
-            ->expects($this->at(0))
-            ->method('renderBlockFragment')
-            ->will($this->returnValue('rendered block 1'));
-
-        $this->blockRendererMock
-            ->expects($this->at(1))
-            ->method('renderBlockFragment')
-            ->will($this->returnValue('rendered block 2'));
-
-        ob_start();
-
-        $this->extension->displayZone(
-            new Zone(
-                array(
-                    'blocks' => array(
-                        new Block(array('definitionIdentifier' => 'block_definition')),
-                        new Block(array('definitionIdentifier' => 'twig_block')),
-                        new Block(array('definitionIdentifier' => 'block_definition')),
-                    ),
-                )
-            ),
-            ViewInterface::CONTEXT_VIEW,
-            $twigTemplateMock,
-            array(),
-            array()
-        );
-
-        $renderedTemplate = ob_get_contents();
-
-        ob_get_clean();
-
-        self::assertEquals(
-            'rendered block 1rendered block 2',
-            $renderedTemplate
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::displayZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::setDebug
      * @expectedException \Exception
      */

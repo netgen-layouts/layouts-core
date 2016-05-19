@@ -2,19 +2,19 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\RegistryInterface as BuilderRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RegistryInterface as MatcherRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoaderInterface;
 
 class LayoutResolver implements LayoutResolverInterface
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RegistryInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface
      */
     protected $targetBuilderRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RegistryInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface
      */
     protected $conditionMatcherRegistry;
 
@@ -26,12 +26,15 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RegistryInterface $targetBuilderRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RegistryInterface $conditionMatcherRegistry
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface $targetBuilderRegistry
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface $conditionMatcherRegistry
      * @param \Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoaderInterface $ruleLoader
      */
-    public function __construct(BuilderRegistryInterface $targetBuilderRegistry, MatcherRegistryInterface $conditionMatcherRegistry, RuleLoaderInterface $ruleLoader)
-    {
+    public function __construct(
+        TargetBuilderRegistryInterface $targetBuilderRegistry,
+        ConditionMatcherRegistryInterface $conditionMatcherRegistry,
+        RuleLoaderInterface $ruleLoader
+    ) {
         $this->targetBuilderRegistry = $targetBuilderRegistry;
         $this->conditionMatcherRegistry = $conditionMatcherRegistry;
         $this->ruleLoader = $ruleLoader;
@@ -62,11 +65,11 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * Resolves the layout based on provided target.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\TargetInterface $target
+     * @param \Netgen\BlockManager\Layout\Resolver\Target $target
      *
      * @return \Netgen\BlockManager\Layout\Resolver\Rule
      */
-    public function resolveLayoutForTarget(TargetInterface $target)
+    public function resolveLayoutForTarget(Target $target)
     {
         $rules = $this->ruleLoader->loadRules($target);
         if (empty($rules)) {
@@ -74,7 +77,7 @@ class LayoutResolver implements LayoutResolverInterface
         }
 
         foreach ($rules as $rule) {
-            if ($this->matchConditions($rule->conditions)) {
+            if ($this->matchConditions($rule->getConditions())) {
                 return $rule;
             }
         }
@@ -92,8 +95,8 @@ class LayoutResolver implements LayoutResolverInterface
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
-            $conditionMatcher = $this->conditionMatcherRegistry->getConditionMatcher($condition->identifier);
-            if (!$conditionMatcher->matches($condition->parameters)) {
+            $conditionMatcher = $this->conditionMatcherRegistry->getConditionMatcher($condition->getIdentifier());
+            if (!$conditionMatcher->matches($condition->getParameters())) {
                 return false;
             }
         }

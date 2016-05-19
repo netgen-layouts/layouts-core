@@ -1,8 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetBuilder;
+namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-interface RegistryInterface
+use Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface;
+
+interface TargetBuilderRegistryInterface
 {
     /**
      * Adds the target builder to the registry.
@@ -17,7 +19,7 @@ interface RegistryInterface
      *
      * @param string $targetIdentifier
      *
-     * @throws \InvalidArgumentException If target builder with provided target identifier does not exist
+     * @throws \RuntimeException If target builder with provided target identifier does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface
      */

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Stubs;
 
 use Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\Target as TargetStub;
+use Netgen\BlockManager\Layout\Resolver\Target;
 
 class TargetBuilder implements TargetBuilderInterface
 {
@@ -29,6 +29,6 @@ class TargetBuilder implements TargetBuilderInterface
      */
     public function buildTarget()
     {
-        return new TargetStub($this->values);
+        return new Target('target', $this->values);
     }
 }

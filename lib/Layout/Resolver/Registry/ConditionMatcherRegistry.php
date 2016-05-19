@@ -1,10 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\ConditionMatcher;
+namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-use InvalidArgumentException;
+use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface;
+use RuntimeException;
 
-class Registry implements RegistryInterface
+class ConditionMatcherRegistry implements ConditionMatcherRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface[]
@@ -26,14 +27,14 @@ class Registry implements RegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \InvalidArgumentException If condition matcher with provided identifier does not exist
+     * @throws \RuntimeException If condition matcher with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface
      */
     public function getConditionMatcher($identifier)
     {
         if (!isset($this->conditionMatchers[$identifier])) {
-            throw new InvalidArgumentException(
+            throw new RuntimeException(
                 sprintf(
                     'Condition matcher with "%s" identifier does not exist.',
                     $identifier

@@ -79,9 +79,9 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\View::getParameter
-     * @expectedException \RuntimeException
+     * @expectedException \OutOfBoundsException
      */
-    public function testGetParameterThrowsRuntimeException()
+    public function testGetParameterThrowsOutOfBoundsException()
     {
         $this->view->setParameters(array('param' => 'value'));
 

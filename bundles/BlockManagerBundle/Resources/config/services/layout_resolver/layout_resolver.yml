@@ -1,6 +1,6 @@
 parameters:
-    netgen_block_manager.layout.resolver.condition_matcher.registry.class: Netgen\BlockManager\Layout\Resolver\ConditionMatcher\Registry
-    netgen_block_manager.layout.resolver.target_builder.registry.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Registry
+    netgen_block_manager.layout.resolver.registry.condition_matcher.class: Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry
+    netgen_block_manager.layout.resolver.registry.target_builder.class: Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry
     netgen_block_manager.layout.resolver.rule_builder.class: Netgen\BlockManager\Layout\Resolver\RuleBuilder\RuleBuilder
     netgen_block_manager.layout.resolver.rule_handler.doctrine.normalizer.class: Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\Normalizer
     netgen_block_manager.layout.resolver.rule_handler.doctrine.handler.class: Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\Handler
@@ -11,15 +11,15 @@ services:
     netgen_block_manager.layout.resolver:
         class: "%netgen_block_manager.layout.resolver.class%"
         arguments:
-            - "@netgen_block_manager.layout.resolver.target_builder.registry"
-            - "@netgen_block_manager.layout.resolver.condition_matcher.registry"
+            - "@netgen_block_manager.layout.resolver.registry.target_builder"
+            - "@netgen_block_manager.layout.resolver.registry.condition_matcher"
             - "@netgen_block_manager.layout.resolver.rule_loader"
 
-    netgen_block_manager.layout.resolver.target_builder.registry:
-        class: "%netgen_block_manager.layout.resolver.target_builder.registry.class%"
+    netgen_block_manager.layout.resolver.registry.target_builder:
+        class: "%netgen_block_manager.layout.resolver.registry.target_builder.class%"
 
-    netgen_block_manager.layout.resolver.condition_matcher.registry:
-        class: "%netgen_block_manager.layout.resolver.condition_matcher.registry.class%"
+    netgen_block_manager.layout.resolver.registry.condition_matcher:
+        class: "%netgen_block_manager.layout.resolver.registry.condition_matcher.class%"
 
     netgen_block_manager.layout.resolver.rule_builder:
         class: "%netgen_block_manager.layout.resolver.rule_builder.class%"

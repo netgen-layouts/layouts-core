@@ -1,8 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\ConditionMatcher;
+namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-interface RegistryInterface
+use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface;
+
+interface ConditionMatcherRegistryInterface
 {
     /**
      * Adds the condition matcher to the registry.
@@ -16,7 +18,7 @@ interface RegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \InvalidArgumentException If condition matcher with provided identifier does not exist
+     * @throws \RuntimeException If condition matcher with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface
      */

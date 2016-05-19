@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetBuilder;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Layout\Resolver\TargetBuilder\Registry;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetBuilder;
 
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class TargetBuilderRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\TargetBuilderInterface
@@ -13,7 +13,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     protected $targetBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetBuilder\RegistryInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry
      */
     protected $registry;
 
@@ -21,13 +21,13 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     {
         $this->targetBuilder = new TargetBuilder();
 
-        $this->registry = new Registry();
+        $this->registry = new TargetBuilderRegistry();
         $this->registry->addTargetBuilder('target', $this->targetBuilder);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Registry::addTargetBuilder
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Registry::getTargetBuilders
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry::addTargetBuilder
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry::getTargetBuilders
      */
     public function testAddTargetBuilder()
     {
@@ -35,7 +35,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Registry::getTargetBuilder
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry::getTargetBuilder
      */
     public function testGetTargetBuilder()
     {
@@ -43,10 +43,10 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetBuilder\Registry::getTargetBuilder
-     * @expectedException \InvalidArgumentException
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistry::getTargetBuilder
+     * @expectedException \RuntimeException
      */
-    public function testGetTargetBuilderThrowsInvalidArgumentException()
+    public function testGetTargetBuilderThrowsRuntimeException()
     {
         $this->registry->getTargetBuilder('other_target');
     }

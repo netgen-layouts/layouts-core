@@ -14,9 +14,9 @@ interface LayoutResolverInterface
     /**
      * Resolves the layout based on provided target.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\TargetInterface $target
+     * @param \Netgen\BlockManager\Layout\Resolver\Target $target
      *
      * @return \Netgen\BlockManager\Layout\Resolver\Rule
      */
-    public function resolveLayoutForTarget(TargetInterface $target);
+    public function resolveLayoutForTarget(Target $target);
 }

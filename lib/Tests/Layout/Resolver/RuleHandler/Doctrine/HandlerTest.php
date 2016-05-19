@@ -111,7 +111,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\Handler::loadRules
-     * @expectedException \InvalidArgumentException
+     * @expectedException \RuntimeException
      */
     public function testLoadRulesWithNonExistingTargetHandler()
     {
