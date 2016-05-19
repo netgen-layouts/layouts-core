@@ -59,7 +59,7 @@ class LayoutResolver implements LayoutResolverInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -73,7 +73,7 @@ class LayoutResolver implements LayoutResolverInterface
     {
         $rules = $this->ruleLoader->loadRules($target);
         if (empty($rules)) {
-            return null;
+            return;
         }
 
         foreach ($rules as $rule) {
@@ -82,7 +82,7 @@ class LayoutResolver implements LayoutResolverInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**

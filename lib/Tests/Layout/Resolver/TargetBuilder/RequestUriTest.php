@@ -48,6 +48,6 @@ class RequestUriTest extends \PHPUnit_Framework_TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertFalse($this->targetBuilder->buildTarget());
+        self::assertNull($this->targetBuilder->buildTarget());
     }
 }
