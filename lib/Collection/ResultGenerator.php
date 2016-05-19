@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
-use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface;
+use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface;
 use RuntimeException;
 
 class ResultGenerator implements ResultGeneratorInterface
@@ -15,22 +15,22 @@ class ResultGenerator implements ResultGeneratorInterface
     protected $queryRunner;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface
+     * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface
      */
-    protected $resultValueBuilder;
+    protected $resultItemBuilder;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface $queryRunner
-     * @param \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface $resultValueBuilder
+     * @param \Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface $resultItemBuilder
      */
     public function __construct(
         QueryRunnerInterface $queryRunner,
-        ResultValueBuilderInterface $resultValueBuilder
+        ResultItemBuilderInterface $resultItemBuilder
     ) {
         $this->queryRunner = $queryRunner;
-        $this->resultValueBuilder = $resultValueBuilder;
+        $this->resultItemBuilder = $resultItemBuilder;
     }
 
     /**
@@ -78,13 +78,9 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $resultItems = array();
         foreach ($items as $item) {
-            $resultItems[] = new ResultItem(
-                array(
-                    'value' => $this->resultValueBuilder->buildFromItem($item),
-                    'collectionItem' => $item,
-                    'type' => ResultItem::TYPE_MANUAL,
-                    'position' => $item->getPosition(),
-                )
+            $resultItems[] = $this->resultItemBuilder->buildFromItem(
+                $item,
+                $item->getPosition()
             );
         }
 
@@ -125,36 +121,21 @@ class ResultGenerator implements ResultGeneratorInterface
         $resultItems = array();
         for ($i = $offset, $queryValuesIndex = 0; $i < $offset + count($queryValues) + $numberOfItemsAtOffset; ++$i) {
             if (isset($overrideItems[$i])) {
-                $resultItem = new ResultItem(
-                    array(
-                        'value' => $this->resultValueBuilder->buildFromItem($overrideItems[$i]),
-                        'collectionItem' => $overrideItems[$i],
-                        'type' => ResultItem::TYPE_OVERRIDE,
-                        'position' => $i,
-                    )
-                );
+                $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
 
                 // Since we're basically overriding the values that come
                 // from the outside of the collection (i.e. the queries),
                 // we need to advance the query pointer
                 ++$queryValuesIndex;
             } elseif (isset($manualItems[$i])) {
-                $resultItem = new ResultItem(
-                    array(
-                        'value' => $this->resultValueBuilder->buildFromItem($manualItems[$i]),
-                        'collectionItem' => $manualItems[$i],
-                        'type' => ResultItem::TYPE_MANUAL,
-                        'position' => $i,
-                    )
+                $resultItem = $this->resultItemBuilder->buildFromItem(
+                    $manualItems[$i],
+                    $i
                 );
             } elseif (isset($queryValues[$queryValuesIndex])) {
-                $resultItem = new ResultItem(
-                    array(
-                        'value' => $this->resultValueBuilder->build($queryValues[$queryValuesIndex]),
-                        'collectionItem' => null,
-                        'type' => ResultItem::TYPE_DYNAMIC,
-                        'position' => $i,
-                    )
+                $resultItem = $this->resultItemBuilder->build(
+                    $queryValues[$queryValuesIndex],
+                    $i
                 );
 
                 ++$queryValuesIndex;

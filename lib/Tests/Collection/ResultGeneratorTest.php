@@ -7,6 +7,7 @@ use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Collection\ResultGenerator;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder;
+use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilder;
 use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -21,6 +22,11 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $queryRunnerMock;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface
+     */
+    protected $resultItemBuilder;
 
     /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface
@@ -53,9 +59,13 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             array(new ValueConverter())
         );
 
+        $this->resultItemBuilder = new ResultItemBuilder(
+            $this->resultValueBuilder
+        );
+
         $this->generator = new ResultGenerator(
             $this->queryRunnerMock,
-            $this->resultValueBuilder
+            $this->resultItemBuilder
         );
     }
 
