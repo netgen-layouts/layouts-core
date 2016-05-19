@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
@@ -500,6 +501,35 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $archivedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_ARCHIVED);
         self::assertCount(1, $archivedReferences);
         self::assertEquals(3, $archivedReferences[0]->collectionId);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZoneBlocksData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadCollectionReferencesData
+     */
+    public function testCreateLayoutStatusWithExistingCollectionStatus()
+    {
+        // First create a collection in archived status separately and delete an item from it
+        $this->collectionHandler->createCollectionStatus(
+            2,
+            Collection::STATUS_PUBLISHED,
+            Collection::STATUS_ARCHIVED
+        );
+
+        $this->collectionHandler->deleteItem(4, Collection::STATUS_ARCHIVED);
+
+        // Then verify that archived status is recreated after creating a layout in archived status
+        $this->layoutHandler->createLayoutStatus(
+            1,
+            Layout::STATUS_PUBLISHED,
+            Layout::STATUS_ARCHIVED
+        );
+
+        $item = $this->collectionHandler->loadItem(4, Collection::STATUS_ARCHIVED);
+        self::assertInstanceOf(Item::class, $item);
     }
 
     /**
