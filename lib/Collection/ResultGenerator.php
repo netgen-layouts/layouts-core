@@ -125,10 +125,9 @@ class ResultGenerator implements ResultGeneratorInterface
         $resultItems = array();
         for ($i = $offset, $queryValuesIndex = 0; $i < $offset + count($queryValues) + $numberOfItemsAtOffset; ++$i) {
             if (isset($overrideItems[$i])) {
-                $resultValue = $this->resultValueBuilder->buildFromItem($overrideItems[$i]);
                 $resultItem = new ResultItem(
                     array(
-                        'value' => $resultValue,
+                        'value' => $this->resultValueBuilder->buildFromItem($overrideItems[$i]),
                         'collectionItem' => $overrideItems[$i],
                         'type' => ResultItem::TYPE_OVERRIDE,
                         'position' => $i,
@@ -140,20 +139,18 @@ class ResultGenerator implements ResultGeneratorInterface
                 // we need to advance the query pointer
                 ++$queryValuesIndex;
             } elseif (isset($manualItems[$i])) {
-                $resultValue = $this->resultValueBuilder->buildFromItem($manualItems[$i]);
                 $resultItem = new ResultItem(
                     array(
-                        'value' => $resultValue,
+                        'value' => $this->resultValueBuilder->buildFromItem($manualItems[$i]),
                         'collectionItem' => $manualItems[$i],
                         'type' => ResultItem::TYPE_MANUAL,
                         'position' => $i,
                     )
                 );
             } elseif (isset($queryValues[$queryValuesIndex])) {
-                $resultValue = $this->resultValueBuilder->build($queryValues[$queryValuesIndex]);
                 $resultItem = new ResultItem(
                     array(
-                        'value' => $resultValue,
+                        'value' => $this->resultValueBuilder->build($queryValues[$queryValuesIndex]),
                         'collectionItem' => null,
                         'type' => ResultItem::TYPE_DYNAMIC,
                         'position' => $i,
