@@ -70,7 +70,7 @@ class BlockController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block type does not exist
+     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block type or block definition does not exist
      *                                                              If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
@@ -83,6 +83,12 @@ class BlockController extends Controller
             $blockType = $this->getBlockType($request->request->get('block_type'));
         } catch (RuntimeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
+        }
+
+        try {
+            $this->getBlockDefinition($blockType->getDefinitionIdentifier());
+        } catch (RuntimeException $e) {
+            throw new BadStateException('block_type', 'Block definition specified in block type does not exist.', $e);
         }
 
         try {

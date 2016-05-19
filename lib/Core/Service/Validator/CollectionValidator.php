@@ -140,7 +140,6 @@ class CollectionValidator extends Validator
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new QueryType(),
             ),
             'type'
         );

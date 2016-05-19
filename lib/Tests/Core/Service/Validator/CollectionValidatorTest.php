@@ -13,7 +13,6 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithRequiredParameter;
-use Netgen\BlockManager\Validator\Constraint\QueryType;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
@@ -183,7 +182,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new QueryType(),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));

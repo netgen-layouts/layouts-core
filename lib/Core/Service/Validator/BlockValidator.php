@@ -36,14 +36,15 @@ class BlockValidator extends Validator
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($blockCreateStruct->definitionIdentifier);
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $blockCreateStruct->definitionIdentifier
+        );
 
         $this->validate(
             $blockCreateStruct->definitionIdentifier,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new BlockDefinition(),
             ),
             'definitionIdentifier'
         );

@@ -8,7 +8,6 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionWithRequiredParameter;
-use Netgen\BlockManager\Validator\Constraint\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraints;
@@ -65,7 +64,6 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new BlockDefinition(),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
