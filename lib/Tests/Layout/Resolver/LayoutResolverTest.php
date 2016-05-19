@@ -252,6 +252,6 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($target))
             ->will($this->returnValue(array()));
 
-        self::assertFalse($this->layoutResolver->resolveLayoutForTarget($target));
+        self::assertNull($this->layoutResolver->resolveLayoutForTarget($target));
     }
 }

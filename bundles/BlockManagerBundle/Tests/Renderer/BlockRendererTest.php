@@ -45,7 +45,9 @@ class BlockRendererTest extends \PHPUnit_Framework_TestCase
 
         $this->viewRendererMock = $this->getMock(RendererInterface::class);
 
-        $this->fragmentHandlerMock = $this->getMock(FragmentHandler::class);
+        $this->fragmentHandlerMock = $this->getMockBuilder(FragmentHandler::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->blockRenderer = new BlockRenderer(
             $this->blockDefinitionRegistryMock,

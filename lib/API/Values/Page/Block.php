@@ -51,7 +51,7 @@ interface Block
      *
      * @param string $parameter
      *
-     * @return array
+     * @return mixed
      */
     public function getParameter($parameter);
 

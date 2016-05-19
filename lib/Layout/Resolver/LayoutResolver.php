@@ -73,7 +73,7 @@ class LayoutResolver implements LayoutResolverInterface
     {
         $rules = $this->ruleLoader->loadRules($target);
         if (empty($rules)) {
-            return false;
+            return null;
         }
 
         foreach ($rules as $rule) {
