@@ -7,6 +7,9 @@ parameters:
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
 
+    netgen_block_manager.event_listener.block_view.get_collection_results.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
+    netgen_block_manager.event_listener.block_view.get_dynamic_parameters.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener
+
 services:
     netgen_block_manager.event_listener.exception_conversion:
         class: "%netgen_block_manager.event_listener.exception_conversion.class%"
@@ -55,5 +58,23 @@ services:
             - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.templating.global_helper"
             - "@logger"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.block_view.get_collection_results:
+        class: "%netgen_block_manager.event_listener.block_view.get_collection_results.class%"
+        arguments:
+            - "@netgen_block_manager.collection.result_generator"
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.api.service.collection"
+            - "%netgen_block_manager.block_view.collection_results_contexts%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.block_view.get_dynamic_parameters:
+        class: "%netgen_block_manager.event_listener.block_view.get_dynamic_parameters.class%"
+        arguments:
+            - "@netgen_block_manager.block.registry.block_definition"
+            - "%netgen_block_manager.block_view.dynamic_parameters_contexts%"
         tags:
             - { name: kernel.event_subscriber }

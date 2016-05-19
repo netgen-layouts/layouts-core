@@ -78,10 +78,14 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $resultItems = array();
         foreach ($items as $item) {
-            $resultItems[] = $this->resultItemBuilder->buildFromItem(
-                $item,
-                $item->getPosition()
-            );
+            try {
+                $resultItems[] = $this->resultItemBuilder->buildFromItem(
+                    $item,
+                    $item->getPosition()
+                );
+            } catch (RuntimeException $e) {
+                continue;
+            }
         }
 
         return $resultItems;
@@ -120,31 +124,35 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $resultItems = array();
         for ($i = $offset, $queryValuesIndex = 0; $i < $offset + count($queryValues) + $numberOfItemsAtOffset; ++$i) {
-            if (isset($overrideItems[$i])) {
-                $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
+            try {
+                if (isset($overrideItems[$i])) {
+                    $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
 
-                // Since we're basically overriding the values that come
-                // from the outside of the collection (i.e. the queries),
-                // we need to advance the query pointer
-                ++$queryValuesIndex;
-            } elseif (isset($manualItems[$i])) {
-                $resultItem = $this->resultItemBuilder->buildFromItem(
-                    $manualItems[$i],
-                    $i
-                );
-            } elseif (isset($queryValues[$queryValuesIndex])) {
-                $resultItem = $this->resultItemBuilder->build(
-                    $queryValues[$queryValuesIndex],
-                    $i
-                );
+                    // Since we're basically overriding the values that come
+                    // from the outside of the collection (i.e. the queries),
+                    // we need to advance the query pointer
+                    ++$queryValuesIndex;
+                } elseif (isset($manualItems[$i])) {
+                    $resultItem = $this->resultItemBuilder->buildFromItem(
+                        $manualItems[$i],
+                        $i
+                    );
+                } elseif (isset($queryValues[$queryValuesIndex])) {
+                    $resultItem = $this->resultItemBuilder->build(
+                        $queryValues[$queryValuesIndex],
+                        $i
+                    );
 
-                ++$queryValuesIndex;
-            } else {
-                // We don't want empty slots in final result.
-                break;
+                    ++$queryValuesIndex;
+                } else {
+                    // We don't want empty slots in final result.
+                    break;
+                }
+
+                $resultItems[] = $resultItem;
+            } catch (RuntimeException $e) {
+                continue;
             }
-
-            $resultItems[] = $resultItem;
         }
 
         return $resultItems;

@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 {
@@ -18,7 +18,12 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockRendererMock;
+    protected $viewRendererMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $fragmentHandlerMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
@@ -31,13 +36,17 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->blockRendererMock = $this->getMockBuilder(BlockRendererInterface::class)
+        $this->viewRendererMock = $this->getMockBuilder(RendererInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->blockRendererMock
+        $this->fragmentHandlerMock = $this->getMockBuilder(FragmentHandler::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->viewRendererMock
             ->expects($this->any())
-            ->method('renderBlockFragment')
+            ->method('renderValue')
             ->will(
                 $this->returnCallback(
                     function ($block, $context) {
@@ -54,7 +63,8 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 
         $this->extension = new NetgenBlockManagerExtension(
             $this->globalHelperMock,
-            $this->blockRendererMock
+            $this->viewRendererMock,
+            $this->fragmentHandlerMock
         );
     }
 

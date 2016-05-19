@@ -41,11 +41,7 @@ class Renderer implements RendererInterface
     public function renderValue(Value $value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         return $this->renderView(
-            $this->viewBuilder->buildView(
-                $value,
-                $context,
-                $parameters
-            )
+            $this->viewBuilder->buildView($value, $context, $parameters)
         );
     }
 
@@ -58,9 +54,6 @@ class Renderer implements RendererInterface
      */
     public function renderView(ViewInterface $view)
     {
-        return $this->twig->render(
-            $view->getTemplate(),
-            $view->getParameters()
-        );
+        return $this->twig->render($view->getTemplate(), $view->getParameters());
     }
 }

@@ -3,14 +3,16 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlock;
+use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
-use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
+use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
 use Twig_Extension;
@@ -19,15 +21,22 @@ use Exception;
 
 class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
+    const BLOCK_CONTROLLER = 'ngbm_block:viewBlockById';
+
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
      */
     protected $globalHelper;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface
+     * @var \Netgen\BlockManager\View\RendererInterface
      */
-    protected $blockRenderer;
+    protected $viewRenderer;
+
+    /**
+     * @var \Symfony\Component\HttpKernel\Fragment\FragmentHandler
+     */
+    protected $fragmentHandler;
 
     /**
      * @var \Psr\Log\NullLogger
@@ -43,16 +52,19 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      * Constructor.
      *
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
-     * @param \Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface $blockRenderer
+     * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
+     * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         GlobalHelper $globalHelper,
-        BlockRendererInterface $blockRenderer,
+        RendererInterface $viewRenderer,
+        FragmentHandler $fragmentHandler,
         LoggerInterface $logger = null
     ) {
         $this->globalHelper = $globalHelper;
-        $this->blockRenderer = $blockRenderer;
+        $this->viewRenderer = $viewRenderer;
+        $this->fragmentHandler = $fragmentHandler;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -125,11 +137,37 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      * @param array $parameters
      * @param string $context
      *
+     * @throws \Exception If an error occurred
+     *
      * @return string
      */
     public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
-        return $this->blockRenderer->renderBlockFragment($block, $context, $parameters);
+        try {
+            if ($this->isBlockCacheable($block)) {
+                return $this->fragmentHandler->render(
+                    new ControllerReference(
+                        self::BLOCK_CONTROLLER,
+                        array(
+                            'blockId' => $block->getId(),
+                            'context' => $context,
+                            'parameters' => $parameters,
+                        )
+                    ),
+                    'esi'
+                );
+            }
+
+            return $this->viewRenderer->renderValue($block, $context, $parameters);
+        } catch (Exception $e) {
+            $this->logError($block, $e);
+
+            if ($this->debug) {
+                throw $e;
+            }
+
+            return '';
+        }
     }
 
     /**
@@ -140,44 +178,54 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      * @param \Twig_Template $twigTemplate
      * @param array $twigContext
      * @param array $twigBocks
+     *
+     * @throws \Exception If an error occurred
      */
-    public function displayZone(
-        Zone $zone,
-        $context,
-        Twig_Template $twigTemplate,
-        $twigContext,
-        array $twigBocks = array()
-    ) {
+    public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBocks = array())
+    {
         foreach ($zone->getBlocks() as $block) {
-            if ($block->getDefinitionIdentifier() === TwigBlock::DEFINITION_IDENTIFIER) {
-                try {
-                    $twigTemplate->displayBlock(
-                        $block->getParameter('block_name'),
-                        $twigContext,
-                        $twigBocks
-                    );
-                } catch (Exception $e) {
-                    if ($this->debug) {
-                        throw $e;
-                    }
+            if ($block->getDefinitionIdentifier() !== TwigBlock::DEFINITION_IDENTIFIER) {
+                echo $this->renderBlock($block, array(), $context);
+                continue;
+            }
 
-                    // In most cases when rendering a Twig template on frontend
-                    // we do not want rendering of the block to crash the page,
-                    // hence we log an error and discard the exception if debug is disabled.
-                    $this->logger->error(
-                        sprintf(
-                            'Error rendering a content block with ID %d in layout ID %d and zone identifier %s: %s',
-                            $block->getId(),
-                            $block->getLayoutId(),
-                            $block->getZoneIdentifier(),
-                            $e->getMessage()
-                        ),
-                        array('ngbm')
-                    );
+            try {
+                $twigTemplate->displayBlock($block->getParameter('block_name'), $twigContext, $twigBocks);
+            } catch (Exception $e) {
+                $this->logError($block, $e);
+
+                if ($this->debug) {
+                    throw $e;
                 }
-            } else {
-                echo $this->blockRenderer->renderBlockFragment($block, $context);
             }
         }
+    }
+
+    /**
+     * Returns if the block instance is cacheable.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return bool
+     */
+    protected function isBlockCacheable(Block $block)
+    {
+        return false;
+    }
+
+    /**
+     * In most cases when rendering a Twig template on frontend
+     * we do not want rendering of the block to crash the page,
+     * hence we log an error.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Exception $exception
+     */
+    protected function logError(Block $block, Exception $exception)
+    {
+        $this->logger->error(
+            sprintf('Error rendering a block with ID %d: %s', $block->getId(), $exception->getMessage()),
+            array('ngbm')
+        );
     }
 }

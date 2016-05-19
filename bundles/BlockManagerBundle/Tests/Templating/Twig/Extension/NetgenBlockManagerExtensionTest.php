@@ -4,10 +4,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_SimpleFunction;
 use Twig_TokenParser;
 use Twig_Template;
@@ -23,7 +24,12 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockRendererMock;
+    protected $viewRendererMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $fragmentHandlerMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
@@ -36,13 +42,18 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->blockRendererMock = $this->getMockBuilder(BlockRendererInterface::class)
+        $this->viewRendererMock = $this->getMockBuilder(RendererInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->fragmentHandlerMock = $this->getMockBuilder(FragmentHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->extension = new NetgenBlockManagerExtension(
             $this->globalHelperMock,
-            $this->blockRendererMock
+            $this->viewRendererMock,
+            $this->fragmentHandlerMock
         );
     }
 
@@ -97,9 +108,9 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderBlock()
     {
-        $this->blockRendererMock
+        $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderBlockFragment')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_VIEW),
@@ -133,9 +144,9 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('displayBlock')
             ->will($this->throwException(new Exception()));
 
-        $this->blockRendererMock
+        $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderBlockFragment');
+            ->method('renderValue');
 
         $this->extension->setDebug(true);
         $this->extension->displayZone(
@@ -169,14 +180,14 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
             ->method('displayBlock')
             ->will($this->throwException(new Exception()));
 
-        $this->blockRendererMock
+        $this->viewRendererMock
             ->expects($this->at(0))
-            ->method('renderBlockFragment')
+            ->method('renderValue')
             ->will($this->returnValue('rendered block 1'));
 
-        $this->blockRendererMock
+        $this->viewRendererMock
             ->expects($this->at(1))
-            ->method('renderBlockFragment')
+            ->method('renderValue')
             ->will($this->returnValue('rendered block 2'));
 
         ob_start();

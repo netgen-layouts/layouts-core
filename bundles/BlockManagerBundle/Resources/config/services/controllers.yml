@@ -26,7 +26,9 @@ services:
         class: "%netgen_block_manager.controller.block.class%"
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.renderer.block"
+            - "@netgen_block_manager.api.service.block"
+        calls:
+            - [setDebug, ["%kernel.debug%"]]
 
     netgen_block_manager.controller.layout:
         class: "%netgen_block_manager.controller.layout.class%"
