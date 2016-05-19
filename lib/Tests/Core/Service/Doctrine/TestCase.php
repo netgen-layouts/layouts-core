@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -36,15 +37,17 @@ trait TestCase
      * Creates a layout service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(LayoutValidator $validator)
+    protected function createLayoutService(LayoutValidator $validator, LayoutTypeRegistry $layoutTypeRegistry)
     {
         return new LayoutService(
             $validator,
             $this->createLayoutMapper(),
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $layoutTypeRegistry
         );
     }
 

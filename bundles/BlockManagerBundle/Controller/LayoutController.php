@@ -35,9 +35,8 @@ class LayoutController extends Controller
         $layoutType = $this->getLayoutType($type);
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            $type,
-            $name,
-            $layoutType->getZoneIdentifiers()
+            $layoutType->getIdentifier(),
+            $name
         );
 
         $layoutCreateStruct->status = Layout::STATUS_DRAFT;

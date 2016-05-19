@@ -20,9 +20,4 @@ class LayoutCreateStruct extends Value
      * @var int
      */
     public $status = Layout::STATUS_DRAFT;
-
-    /**
-     * @var string[]
-     */
-    public $zoneIdentifiers = array();
 }

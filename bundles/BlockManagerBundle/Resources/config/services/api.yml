@@ -116,6 +116,7 @@ services:
             - "@netgen_block_manager.core.service.layout.validator"
             - "@netgen_block_manager.core.service.layout.mapper"
             - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.configuration.registry.layout_type"
 
     # Block related APIs
 

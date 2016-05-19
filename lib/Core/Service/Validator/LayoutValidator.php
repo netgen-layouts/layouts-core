@@ -3,8 +3,6 @@
 namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Validator\Constraint\Layout;
-use Netgen\BlockManager\Validator\Constraint\LayoutZones;
 use Symfony\Component\Validator\Constraints;
 
 class LayoutValidator extends Validator
@@ -32,27 +30,8 @@ class LayoutValidator extends Validator
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new Layout(),
             ),
             'type'
-        );
-
-        $this->validate(
-            $layoutCreateStruct->zoneIdentifiers,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'array')),
-                new Constraints\All(
-                    array(
-                        'constraints' => array(
-                            new Constraints\NotBlank(),
-                            new Constraints\Type(array('type' => 'string')),
-                        ),
-                    )
-                ),
-                new LayoutZones(array('layoutType' => $layoutCreateStruct->type)),
-            ),
-            'zoneIdentifiers'
         );
     }
 }

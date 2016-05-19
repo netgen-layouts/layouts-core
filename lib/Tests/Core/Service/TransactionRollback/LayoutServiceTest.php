@@ -3,6 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
@@ -22,6 +25,11 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $layoutValidatorMock;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     */
+    protected $layoutTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
@@ -48,7 +56,24 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $layoutType = new LayoutType(
+            '3_zones_a',
+            true,
+            '3 zones A',
+            array(
+                new LayoutTypeZone('left', 'Left', array()),
+                new LayoutTypeZone('right', 'Right', array()),
+                new LayoutTypeZone('bottom', 'Bottom', array()),
+            )
+        );
+
+        $this->layoutTypeRegistry = new LayoutTypeRegistry();
+        $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
+
+        $this->layoutService = $this->createLayoutService(
+            $this->layoutValidatorMock,
+            $this->layoutTypeRegistry
+        );
     }
 
     /**
@@ -66,7 +91,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createLayout(new LayoutCreateStruct());
+        $this->layoutService->createLayout(new LayoutCreateStruct(array('type' => '3_zones_a')));
     }
 
     /**

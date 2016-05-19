@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
@@ -34,20 +36,28 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutHandler;
 
     /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     */
+    protected $layoutTypeRegistry;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      */
     public function __construct(
         LayoutValidator $layoutValidator,
         LayoutMapper $layoutMapper,
-        Handler $persistenceHandler
+        Handler $persistenceHandler,
+        LayoutTypeRegistry $layoutTypeRegistry
     ) {
         $this->layoutValidator = $layoutValidator;
         $this->layoutMapper = $layoutMapper;
         $this->persistenceHandler = $persistenceHandler;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
 
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
@@ -105,17 +115,26 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout type does not exist
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null)
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
+        if (!$this->layoutTypeRegistry->hasLayoutType($layoutCreateStruct->type)) {
+            throw new InvalidArgumentException('layoutCreateStruct', 'Provided layout type does not exist.');
+        }
+
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutCreateStruct->type);
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdLayout = $this->layoutHandler->createLayout(
                 $layoutCreateStruct,
+                $layoutType->getZoneIdentifiers(),
                 $parentLayout !== null ? $parentLayout->getId() : null
             );
         } catch (Exception $e) {
@@ -299,17 +318,15 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param string $type
      * @param string $name
-     * @param string[] $zoneIdentifiers
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($type, $name, array $zoneIdentifiers)
+    public function newLayoutCreateStruct($type, $name)
     {
         return new LayoutCreateStruct(
             array(
                 'type' => $type,
                 'name' => $name,
-                'zoneIdentifiers' => $zoneIdentifiers,
             )
         );
     }

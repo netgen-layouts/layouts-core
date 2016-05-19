@@ -38,6 +38,8 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
+     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout type does not exist
+     *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null);
@@ -101,9 +103,8 @@ interface LayoutService
      *
      * @param string $type
      * @param string $name
-     * @param string[] $zoneIdentifiers
      *
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($type, $name, array $zoneIdentifiers);
+    public function newLayoutCreateStruct($type, $name);
 }

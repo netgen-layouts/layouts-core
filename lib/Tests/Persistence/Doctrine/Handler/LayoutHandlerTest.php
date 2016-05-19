@@ -220,10 +220,12 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
-        $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
         $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
 
-        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
+        $createdLayout = $this->layoutHandler->createLayout(
+            $layoutCreateStruct,
+            array('first_zone', 'second_zone')
+        );
 
         self::assertInstanceOf(Layout::class, $createdLayout);
 
@@ -270,10 +272,13 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
-        $layoutCreateStruct->zoneIdentifiers = array('first_zone', 'second_zone');
         $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
 
-        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct, 1);
+        $createdLayout = $this->layoutHandler->createLayout(
+            $layoutCreateStruct,
+            array('first_zone', 'second_zone'),
+            1
+        );
 
         self::assertInstanceOf(Layout::class, $createdLayout);
 

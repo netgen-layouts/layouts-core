@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -29,6 +30,11 @@ abstract class BlockServiceTest extends ServiceTest
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $collectionValidatorMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutTypeRegistryMock;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -62,9 +68,16 @@ abstract class BlockServiceTest extends ServiceTest
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->layoutTypeRegistryMock = $this->getMockBuilder(LayoutTypeRegistry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->blockService = $this->createBlockService($this->blockValidatorMock);
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
+        $this->layoutService = $this->createLayoutService(
+            $this->layoutValidatorMock,
+            $this->layoutTypeRegistryMock
+        );
     }
 
     /**

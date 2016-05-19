@@ -191,11 +191,12 @@ class LayoutHandler implements LayoutHandlerInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param array $zoneIdentifiers
      * @param int|string $parentLayoutId
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneIdentifiers = array(), $parentLayoutId = null)
     {
         $currentTimeStamp = time();
 
@@ -214,7 +215,7 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
 
-        foreach (array_unique($layoutCreateStruct->zoneIdentifiers) as $zoneIdentifier) {
+        foreach (array_unique($zoneIdentifiers) as $zoneIdentifier) {
             $zoneQuery = $this->queryHelper->getZoneInsertQuery(
                 array(
                     'identifier' => $zoneIdentifier,

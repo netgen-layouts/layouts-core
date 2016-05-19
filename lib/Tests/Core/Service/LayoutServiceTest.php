@@ -3,6 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -14,6 +17,11 @@ abstract class LayoutServiceTest extends ServiceTest
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $layoutValidatorMock;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     */
+    protected $layoutTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
@@ -29,7 +37,24 @@ abstract class LayoutServiceTest extends ServiceTest
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $layoutType = new LayoutType(
+            '3_zones_a',
+            true,
+            '3 zones A',
+            array(
+                new LayoutTypeZone('left', 'Left', array()),
+                new LayoutTypeZone('right', 'Right', array()),
+                new LayoutTypeZone('bottom', 'Bottom', array()),
+            )
+        );
+
+        $this->layoutTypeRegistry = new LayoutTypeRegistry();
+        $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
+
+        $this->layoutService = $this->createLayoutService(
+            $this->layoutValidatorMock,
+            $this->layoutTypeRegistry
+        );
     }
 
     /**
@@ -102,8 +127,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
-            'My layout',
-            array('left', 'right', 'bottom')
+            'My layout'
         );
 
         $this->layoutValidatorMock
@@ -118,14 +142,32 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     */
+    public function testCreateLayoutThrowsInvalidArgumentException()
+    {
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+            'non_existing',
+            'My layout'
+        );
+
+        $this->layoutValidatorMock
+            ->expects($this->at(0))
+            ->method('validateLayoutCreateStruct')
+            ->with($this->equalTo($layoutCreateStruct));
+
+        $this->layoutService->createLayout($layoutCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
      */
     public function testCreateLayoutWithParentId()
     {
         $parentLayout = $this->layoutService->loadLayout(1);
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
-            'My layout',
-            array('left', 'right', 'bottom')
+            'My layout'
         );
 
         $this->layoutValidatorMock
@@ -185,8 +227,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
-            'My layout',
-            array('zone')
+            'My layout'
         );
         $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
 
@@ -293,10 +334,9 @@ abstract class LayoutServiceTest extends ServiceTest
                 array(
                     'type' => '3_zones_a',
                     'name' => 'New layout',
-                    'zoneIdentifiers' => array('left', 'right', 'bottom'),
                 )
             ),
-            $this->layoutService->newLayoutCreateStruct('3_zones_a', 'New layout', array('left', 'right', 'bottom'))
+            $this->layoutService->newLayoutCreateStruct('3_zones_a', 'New layout')
         );
     }
 }

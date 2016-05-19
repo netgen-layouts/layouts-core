@@ -66,11 +66,12 @@ interface LayoutHandler
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param array $zoneIdentifiers
      * @param int|string $parentLayoutId
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $parentLayoutId = null);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneIdentifiers = array(), $parentLayoutId = null);
 
     /**
      * Copies a layout with specified ID.
