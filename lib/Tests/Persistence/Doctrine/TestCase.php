@@ -12,11 +12,10 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
-use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
 
 trait TestCase
 {
-    use DoctrineDatabaseTrait;
+    use DatabaseTrait;
 
     /**
      * Sets up the database connection.

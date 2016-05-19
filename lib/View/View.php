@@ -107,7 +107,7 @@ abstract class View implements ViewInterface
     public function getParameter($identifier)
     {
         if (!$this->hasParameter($identifier)) {
-            throw new \OutOfBoundsException("View does not have the '{$identifier}' parameter.");
+            throw new OutOfBoundsException("View does not have the '{$identifier}' parameter.");
         }
 
         $parameters = $this->getParameters();

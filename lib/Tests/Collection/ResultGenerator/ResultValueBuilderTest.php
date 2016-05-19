@@ -32,12 +32,15 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $value = new Value(42);
 
-        $resultValue = new ResultValue();
-        $resultValue->id = 42;
-        $resultValue->name = 'Some value';
-        $resultValue->type = 'value';
-        $resultValue->isVisible = true;
-        $resultValue->object = $value;
+        $resultValue = new ResultValue(
+            array(
+                'id' => 42,
+                'name' => 'Some value',
+                'type' => 'value',
+                'isVisible' => true,
+                'object' => $value,
+            )
+        );
 
         $builder = new ResultValueBuilder(
             $this->valueLoaderRegistryMock,
@@ -61,12 +64,15 @@ class ResultValueBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('getValueLoader')
             ->will($this->returnValue(new ValueLoader()));
 
-        $resultValue = new ResultValue();
-        $resultValue->id = 42;
-        $resultValue->name = 'Some value';
-        $resultValue->type = 'value';
-        $resultValue->isVisible = true;
-        $resultValue->object = new Value(42);
+        $resultValue = new ResultValue(
+            array(
+                'id' => 42,
+                'name' => 'Some value',
+                'type' => 'value',
+                'isVisible' => true,
+                'object' => new Value(42),
+            )
+        );
 
         $builder = new ResultValueBuilder(
             $this->valueLoaderRegistryMock,

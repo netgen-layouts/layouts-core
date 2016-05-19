@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionMatcher;
 
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class ConditionMatcherRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface

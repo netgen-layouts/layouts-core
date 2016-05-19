@@ -48,9 +48,12 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $resultValue = new ResultValue();
-        $resultValue->name = 'Value name';
-        $resultValue->isVisible = true;
+        $resultValue = new ResultValue(
+            array(
+                'name' => 'Value name',
+                'isVisible' => true,
+            )
+        );
 
         $this->resultValueBuilderMock
             ->expects($this->any())

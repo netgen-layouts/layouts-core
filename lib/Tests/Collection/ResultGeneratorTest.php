@@ -7,6 +7,7 @@ use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Collection\ResultGenerator;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder;
+use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -66,8 +67,8 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::__construct
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateManualValues
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleValues
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateFromManualCollection
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @dataProvider generateResultForManualCollectionProvider
      */
     public function testGenerateResultForManualCollection(array $items, array $values, $offset = 0, $limit = null)
@@ -76,10 +77,18 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
         self::assertInstanceOf(Result::class, $result);
-        self::assertEquals($collection, $result->collection);
-        self::assertEquals($this->buildResultValues($values), $result->values);
-        self::assertEquals($offset, $result->offset);
-        self::assertEquals($limit, $result->limit);
+        self::assertEquals($collection, $result->getCollection());
+        self::assertEquals($offset, $result->getOffset());
+        self::assertEquals($limit, $result->getLimit());
+
+        $resultValues = array();
+        foreach ($result->getItems() as $resultItem) {
+            $resultValues[] = $resultItem->getValue();
+            self::assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
+            // Test items and positions?
+        }
+
+        self::assertEquals($this->buildExpectedResultValues($values), $resultValues);
     }
 
     /**
@@ -93,8 +102,8 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      * @param int $queryLimit
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateDynamicValues
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleValues
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateFromDynamicCollection
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsBeforeOffset
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsAtOffset
      * @dataProvider generateResultForDynamicCollectionProvider
@@ -130,15 +139,22 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
         self::assertInstanceOf(Result::class, $result);
-        self::assertEquals($collection, $result->collection);
-        self::assertEquals($this->buildResultValues($values), $result->values);
-        self::assertEquals($offset, $result->offset);
-        self::assertEquals($limit, $result->limit);
+        self::assertEquals($collection, $result->getCollection());
+        self::assertEquals($offset, $result->getOffset());
+        self::assertEquals($limit, $result->getLimit());
+
+        $resultValues = array();
+        foreach ($result->getItems() as $resultItem) {
+            $resultValues[] = $resultItem->getValue();
+            // Test type, items and positions?
+        }
+
+        self::assertEquals($this->buildExpectedResultValues($values), $resultValues);
     }
 
     /**
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateDynamicValues
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateFromDynamicCollection
      * @expectedException \RuntimeException
      */
     public function testGenerateResultForDynamicCollectionThrowsRuntimeException()
@@ -303,7 +319,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @return \Netgen\BlockManager\Collection\ResultValue[]
      */
-    protected function buildResultValues(array $ids = array())
+    protected function buildExpectedResultValues(array $ids = array())
     {
         return array_map(
             function ($id) {
@@ -328,6 +344,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             $items[] = new Item(
                 array(
                     'position' => $position,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => $id,
                     'valueType' => 'value',
                 )

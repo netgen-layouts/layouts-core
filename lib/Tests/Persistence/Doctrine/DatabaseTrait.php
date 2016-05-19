@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests;
+namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
@@ -8,7 +8,7 @@ use Doctrine\DBAL\Migrations\Migration;
 use Doctrine\DBAL\Types\Type;
 use RuntimeException;
 
-trait DoctrineDatabaseTrait
+trait DatabaseTrait
 {
     /**
      * @var string

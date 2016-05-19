@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\RuleHandler\Doctrine;
 use Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\TargetHandler\Route;
 use Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\Normalizer;
 use Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\Handler;
-use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
 {
-    use DoctrineDatabaseTrait;
+    use DatabaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\RuleHandler\Doctrine\Handler
