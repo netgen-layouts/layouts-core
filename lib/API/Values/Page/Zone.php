@@ -21,7 +21,7 @@ interface Zone
     /**
      * Returns the status of the zone.
      *
-     * @return string
+     * @return int
      */
     public function getStatus();
 

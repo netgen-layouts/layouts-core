@@ -56,7 +56,7 @@ class Query
     /**
      * Returns the query default parameters.
      *
-     * @return string
+     * @return array
      */
     public function getDefaultParameters()
     {

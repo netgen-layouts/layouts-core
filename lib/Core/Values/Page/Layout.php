@@ -110,7 +110,7 @@ class Layout extends Value implements APILayout
     /**
      * Returns the status of the layout.
      *
-     * @return string
+     * @return int
      */
     public function getStatus()
     {

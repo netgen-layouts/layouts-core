@@ -27,7 +27,7 @@ class BlockRenderer implements BlockRendererInterface
     protected $viewRenderer;
 
     /**
-     * @var \Symfony\Component\HttpKernel\Fragment\EsiFragmentRenderer
+     * @var \Symfony\Component\HttpKernel\Fragment\FragmentHandler
      */
     protected $fragmentHandler;
 

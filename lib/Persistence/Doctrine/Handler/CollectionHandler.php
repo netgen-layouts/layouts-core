@@ -223,7 +223,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * Returns if collection with specified ID is named.
      *
      * @param int|string $collectionId
-     * @param $status
+     * @param int $status
      *
      * @return bool
      */
@@ -335,7 +335,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     * @return int The ID of copied collection
      */
     public function copyCollection($collectionId, $status = null)
     {

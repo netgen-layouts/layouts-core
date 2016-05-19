@@ -132,7 +132,7 @@ interface CollectionHandler
      * @param int|string $collectionId
      * @param int $status
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     * @return int The ID of copied collection
      */
     public function copyCollection($collectionId, $status = null);
 

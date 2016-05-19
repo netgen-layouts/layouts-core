@@ -159,7 +159,7 @@ class Block extends Value implements APIBlock
     /**
      * Returns the status of the block.
      *
-     * @return string
+     * @return int
      */
     public function getStatus()
     {

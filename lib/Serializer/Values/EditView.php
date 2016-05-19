@@ -9,7 +9,7 @@ class EditView extends View
     /**
      * Returns the context that will be used to render this view.
      *
-     * @return array
+     * @return string
      */
     public function getContext()
     {

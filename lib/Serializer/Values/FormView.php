@@ -9,7 +9,7 @@ class FormView extends AbstractFormView implements FormViewInterface
     /**
      * Returns the context that will be used to render this view.
      *
-     * @return array
+     * @return string
      */
     public function getContext()
     {

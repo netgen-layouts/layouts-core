@@ -12,7 +12,7 @@ class BlockTypeGroupFactory
      * @param array $config
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
+     * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
      */
     public static function buildBlockTypeGroup(array $config, $identifier)
     {

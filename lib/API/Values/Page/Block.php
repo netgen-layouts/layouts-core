@@ -81,7 +81,7 @@ interface Block
     /**
      * Returns the status of the block.
      *
-     * @return string
+     * @return int
      */
     public function getStatus();
 }

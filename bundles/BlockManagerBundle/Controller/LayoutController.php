@@ -28,7 +28,7 @@ class LayoutController extends Controller
      * @param string $type
      * @param string $name
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\LayoutViewInterface
      */
     public function create($type, $name)
     {

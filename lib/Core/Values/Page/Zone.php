@@ -23,7 +23,7 @@ class Zone extends Value implements APIZone
     protected $status;
 
     /**
-     * @var string
+     * @var array
      */
     protected $blocks = array();
 
@@ -50,7 +50,7 @@ class Zone extends Value implements APIZone
     /**
      * Returns the status of the zone.
      *
-     * @return string
+     * @return int
      */
     public function getStatus()
     {
