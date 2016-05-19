@@ -45,43 +45,54 @@ class ResultGenerator implements ResultGeneratorInterface
     public function generateResult(Collection $collection, $offset = 0, $limit = null)
     {
         if ($collection->getType() === Collection::TYPE_MANUAL) {
-            $values = $this->generateManualValues($collection, $offset, $limit);
+            $resultItems = $this->generateFromManualCollection($collection, $offset, $limit);
         } else {
-            $values = $this->generateDynamicValues($collection, $offset, $limit);
+            $resultItems = $this->generateFromDynamicCollection($collection, $offset, $limit);
         }
 
-        $result = new Result();
-        $result->collection = $collection;
-        $result->values = $this->filterInvisibleValues($values);
-        $result->offset = $offset;
-        $result->limit = $limit;
+        $result = new Result(
+            array(
+                'collection' => $collection,
+                'items' => $this->filterInvisibleItems($resultItems),
+                'offset' => $offset,
+                'limit' => $limit,
+            )
+        );
 
         return $result;
     }
 
     /**
-     * Builds the list of values from a manual collection.
+     * Builds the list of result items from a manual collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue[]
+     * @return \Netgen\BlockManager\Collection\ResultItem[]
      */
-    protected function generateManualValues(Collection $collection, $offset = 0, $limit = null)
+    protected function generateFromManualCollection(Collection $collection, $offset = 0, $limit = null)
     {
-        $items = array_slice($collection->getItems(), $offset, $limit);
+        /** @var \Netgen\BlockManager\API\Values\Collection\Item[] $items */
+        $items = array_slice($collection->getManualItems(), $offset, $limit);
 
-        $resultValues = array();
+        $resultItems = array();
         foreach ($items as $item) {
-            $resultValues[] = $this->resultValueBuilder->buildFromItem($item);
+            $resultItems[] = new ResultItem(
+                array(
+                    'value' => $this->resultValueBuilder->buildFromItem($item),
+                    'collectionItem' => $item,
+                    'type' => ResultItem::TYPE_MANUAL,
+                    'position' => $item->getPosition(),
+                )
+            );
         }
 
-        return $resultValues;
+        return $resultItems;
     }
 
     /**
-     * Builds the list of values merged from the collection items
+     * Builds the list of result items merged from the collection items
      * and the list of dynamic values retrieved from collection queries.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
@@ -90,9 +101,9 @@ class ResultGenerator implements ResultGeneratorInterface
      *
      * @throws \RuntimeException If collection has no queries.
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue[]
+     * @return \Netgen\BlockManager\Collection\ResultItem[]
      */
-    protected function generateDynamicValues(Collection $collection, $offset = 0, $limit = null)
+    protected function generateFromDynamicCollection(Collection $collection, $offset = 0, $limit = null)
     {
         $collectionQueries = $collection->getQueries();
         if (empty($collectionQueries)) {
@@ -111,27 +122,54 @@ class ResultGenerator implements ResultGeneratorInterface
             $limit !== null ? $limit - $numberOfItemsAtOffset : null
         );
 
-        $resultValues = array();
+        $resultItems = array();
         for ($i = $offset, $queryValuesIndex = 0; $i < $offset + count($queryValues) + $numberOfItemsAtOffset; ++$i) {
             if (isset($overrideItems[$i])) {
-                $resultValues[] = $this->resultValueBuilder->buildFromItem($overrideItems[$i]);
+                $resultValue = $this->resultValueBuilder->buildFromItem($overrideItems[$i]);
+                $resultItem = new ResultItem(
+                    array(
+                        'value' => $resultValue,
+                        'collectionItem' => $overrideItems[$i],
+                        'type' => ResultItem::TYPE_OVERRIDE,
+                        'position' => $i,
+                    )
+                );
 
                 // Since we're basically overriding the values that come
                 // from the outside of the collection (i.e. the queries),
                 // we need to advance the query pointer
                 ++$queryValuesIndex;
             } elseif (isset($manualItems[$i])) {
-                $resultValues[] = $this->resultValueBuilder->buildFromItem($manualItems[$i]);
+                $resultValue = $this->resultValueBuilder->buildFromItem($manualItems[$i]);
+                $resultItem = new ResultItem(
+                    array(
+                        'value' => $resultValue,
+                        'collectionItem' => $manualItems[$i],
+                        'type' => ResultItem::TYPE_MANUAL,
+                        'position' => $i,
+                    )
+                );
             } elseif (isset($queryValues[$queryValuesIndex])) {
-                $resultValues[] = $this->resultValueBuilder->build($queryValues[$queryValuesIndex]);
+                $resultValue = $this->resultValueBuilder->build($queryValues[$queryValuesIndex]);
+                $resultItem = new ResultItem(
+                    array(
+                        'value' => $resultValue,
+                        'collectionItem' => null,
+                        'type' => ResultItem::TYPE_DYNAMIC,
+                        'position' => $i,
+                    )
+                );
+
                 ++$queryValuesIndex;
             } else {
                 // We don't want empty slots in final result.
                 break;
             }
+
+            $resultItems[] = $resultItem;
         }
 
-        return $resultValues;
+        return $resultItems;
     }
 
     /**
@@ -188,23 +226,23 @@ class ResultGenerator implements ResultGeneratorInterface
     }
 
     /**
-     * Removes invisible values from the list.
+     * Removes invisible items from the list.
      *
-     * @param \Netgen\BlockManager\Collection\ResultValue[] $values
+     * @param \Netgen\BlockManager\Collection\ResultItem[] $items
      *
      * @TODO Refactor out to separate service
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue[]
+     * @return \Netgen\BlockManager\Collection\ResultItem[]
      */
-    protected function filterInvisibleValues(array $values)
+    protected function filterInvisibleItems(array $items)
     {
-        $visibleValues = array();
-        foreach ($values as $value) {
-            if ($value->isVisible) {
-                $visibleValues[] = $value;
+        $visibleItems = array();
+        foreach ($items as $item) {
+            if ($item->getValue()->isVisible()) {
+                $visibleItems[] = $item;
             }
         }
 
-        return $visibleValues;
+        return $visibleItems;
     }
 }

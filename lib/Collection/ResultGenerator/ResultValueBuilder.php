@@ -59,13 +59,15 @@ class ResultValueBuilder implements ResultValueBuilderInterface
                 continue;
             }
 
-            $resultValue = new ResultValue();
-
-            $resultValue->id = $valueConverter->getId($object);
-            $resultValue->type = $valueConverter->getValueType($object);
-            $resultValue->name = $valueConverter->getName($object);
-            $resultValue->isVisible = $valueConverter->getIsVisible($object);
-            $resultValue->object = $object;
+            $resultValue = new ResultValue(
+                array(
+                    'id' => $valueConverter->getId($object),
+                    'type' => $valueConverter->getValueType($object),
+                    'name' => $valueConverter->getName($object),
+                    'isVisible' => $valueConverter->getIsVisible($object),
+                    'object' => $object,
+                )
+            );
 
             return $resultValue;
         }

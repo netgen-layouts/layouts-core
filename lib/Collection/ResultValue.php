@@ -2,30 +2,82 @@
 
 namespace Netgen\BlockManager\Collection;
 
-class ResultValue
+use Netgen\BlockManager\Value as BaseValue;
+
+class ResultValue extends BaseValue
 {
     /**
      * @var int|string
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      */
-    public $type;
+    protected $type;
 
     /**
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * @var bool
      */
-    public $isVisible;
+    protected $isVisible;
 
     /**
      * @var mixed
      */
-    public $object;
+    protected $object;
+
+    /**
+     * Returns the external value ID.
+     *
+     * @return int|string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Returns the external value type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Returns the external value name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Returns if the external value is visible.
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->isVisible;
+    }
+
+    /**
+     * Returns the external value object.
+     *
+     * @return mixed
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
 }

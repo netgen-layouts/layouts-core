@@ -53,8 +53,8 @@ class CollectionItemNormalizer implements NormalizerInterface
 
         try {
             $resultValue = $this->resultValueBuilder->buildFromItem($item);
-            $data['name'] = $resultValue->name;
-            $data['visible'] = $resultValue->isVisible;
+            $data['name'] = $resultValue->getName();
+            $data['visible'] = $resultValue->isVisible();
         } catch (Exception $e) {
             // Do nothing
         }

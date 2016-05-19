@@ -2,25 +2,67 @@
 
 namespace Netgen\BlockManager\Collection;
 
-class Result
+use Netgen\BlockManager\Value;
+
+class Result extends Value
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public $collection;
+    protected $collection;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultValue[]
+     * @var \Netgen\BlockManager\Collection\ResultItem[]
      */
-    public $values;
-
-    /**
-     * @var int
-     */
-    public $offset;
+    protected $items;
 
     /**
      * @var int
      */
-    public $limit;
+    protected $offset;
+
+    /**
+     * @var int
+     */
+    protected $limit;
+
+    /**
+     * Returns the collection from which was this result generated.
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * Returns the items in this result.
+     *
+     * @return \Netgen\BlockManager\Collection\ResultItem[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Returns the offset with which was this result generated.
+     *
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * Returns the limit with which was this result generated.
+     *
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
 }
