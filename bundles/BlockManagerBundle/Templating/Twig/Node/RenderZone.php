@@ -38,7 +38,7 @@ class RenderZone extends Twig_Node
             ->write('$ngbmZone = ')
             ->subcompile($this->getNode('zone'))
             ->write(';' . PHP_EOL)
-            ->write('if ($ngbmZone instanceof \Netgen\BlockManager\API\Values\Page\Zone) {'. PHP_EOL)
+            ->write('if ($ngbmZone instanceof \Netgen\BlockManager\API\Values\Page\Zone) {' . PHP_EOL)
             ->indent()
                 ->write('$this->env->getExtension("netgen_block_manager")->displayZone($ngbmZone, ')
                 ->repr($this->getAttribute('context'))

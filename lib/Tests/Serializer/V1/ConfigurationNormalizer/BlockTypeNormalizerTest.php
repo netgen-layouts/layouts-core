@@ -41,7 +41,7 @@ class BlockTypeNormalizerTest extends \PHPUnit_Framework_TestCase
                 'identifier' => $blockType->getIdentifier(),
                 'name' => $blockType->getName(),
                 'definition_identifier' => $blockType->getDefinitionIdentifier(),
-                'defaults' => $blockType->getDefaults()
+                'defaults' => $blockType->getDefaults(),
             ),
             $this->normalizer->normalize(new VersionedValue($blockType, 1))
         );

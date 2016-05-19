@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Renderer\BlockRendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
@@ -36,7 +38,19 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
         $this->blockRendererMock
             ->expects($this->any())
             ->method('renderBlockFragment')
-            ->will($this->returnValue('rendered block'));
+            ->will(
+                $this->returnCallback(
+                    function ($block, $context) {
+                        if ($context === ViewInterface::CONTEXT_VIEW) {
+                            return 'rendered block';
+                        } elseif ($context === 'json') {
+                            return '{"block_id": 5}';
+                        }
+
+                        return '';
+                    }
+                )
+            );
 
         $this->extension = new NetgenBlockManagerExtension(
             $this->globalHelperMock,

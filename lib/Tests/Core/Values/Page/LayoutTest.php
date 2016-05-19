@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use DateTime;
 

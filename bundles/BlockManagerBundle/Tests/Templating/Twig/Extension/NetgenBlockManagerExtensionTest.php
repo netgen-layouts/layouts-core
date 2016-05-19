@@ -147,7 +147,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
                         new Block(array('definitionIdentifier' => 'block_definition')),
                         new Block(array('definitionIdentifier' => 'twig_block')),
                         new Block(array('definitionIdentifier' => 'block_definition')),
-                    )
+                    ),
                 )
             ),
             ViewInterface::CONTEXT_VIEW,
@@ -194,7 +194,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
                         new Block(array('definitionIdentifier' => 'block_definition')),
                         new Block(array('definitionIdentifier' => 'twig_block')),
                         new Block(array('definitionIdentifier' => 'block_definition')),
-                    )
+                    ),
                 )
             ),
             ViewInterface::CONTEXT_VIEW,
@@ -237,7 +237,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
                         new Block(array('definitionIdentifier' => 'block_definition')),
                         new Block(array('definitionIdentifier' => 'twig_block')),
                         new Block(array('definitionIdentifier' => 'block_definition')),
-                    )
+                    ),
                 )
             ),
             ViewInterface::CONTEXT_VIEW,

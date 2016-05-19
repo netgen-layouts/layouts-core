@@ -35,7 +35,7 @@ class RenderZone extends Twig_TokenParser
                 $token = $stream->getCurrent();
                 throw new Twig_Error_Syntax(
                     sprintf(
-                        'Unexpected token "%s" of value "%s"',
+                        'Unexpected token "%s" of value "%s".',
                         Twig_Token::typeToEnglish($token->getType()),
                         $token->getValue()
                     ),

@@ -10,7 +10,6 @@ use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use DateTime;
 

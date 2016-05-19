@@ -9,7 +9,6 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
 class SourceQueryNormalizerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer
      */
@@ -35,7 +34,7 @@ class SourceQueryNormalizerTest extends \PHPUnit_Framework_TestCase
             array(
                 'identifier' => $sourceQuery->getIdentifier(),
                 'query_type' => $sourceQuery->getQueryType(),
-                'default_parameters' => $sourceQuery->getDefaultParameters()
+                'default_parameters' => $sourceQuery->getDefaultParameters(),
             ),
             $this->normalizer->normalize(new VersionedValue($sourceQuery, 1))
         );

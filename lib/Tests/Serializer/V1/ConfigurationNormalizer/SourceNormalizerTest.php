@@ -64,7 +64,7 @@ class SourceNormalizerTest extends \PHPUnit_Framework_TestCase
             array(
                 'identifier' => $source->getIdentifier(),
                 'name' => $source->getName(),
-                'queries' => array('queries')
+                'queries' => array('queries'),
             ),
             $this->normalizer->normalize(new VersionedValue($source, 1))
         );
