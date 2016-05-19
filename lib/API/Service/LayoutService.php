@@ -36,13 +36,12 @@ interface LayoutService
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout type does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct);
 
     /**
      * Copies a specified layout.

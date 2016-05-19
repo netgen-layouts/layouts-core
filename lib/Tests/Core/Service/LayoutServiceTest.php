@@ -160,30 +160,6 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     */
-    public function testCreateLayoutWithParentId()
-    {
-        $parentLayout = $this->layoutService->loadLayout(1);
-        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            '3_zones_a',
-            'My layout'
-        );
-
-        $this->layoutValidatorMock
-            ->expects($this->at(0))
-            ->method('validateLayoutCreateStruct')
-            ->with($this->equalTo($layoutCreateStruct));
-
-        $createdLayout = $this->layoutService->createLayout(
-            $layoutCreateStruct,
-            $parentLayout
-        );
-
-        self::assertInstanceOf(Layout::class, $createdLayout);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout()

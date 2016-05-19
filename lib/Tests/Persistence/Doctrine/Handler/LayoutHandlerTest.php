@@ -263,59 +263,6 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getLayoutInsertQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getZoneInsertQuery
-     */
-    public function testCreateLayoutWithParentLayout()
-    {
-        $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->type = 'new_layout';
-        $layoutCreateStruct->name = 'New layout';
-        $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
-
-        $createdLayout = $this->layoutHandler->createLayout(
-            $layoutCreateStruct,
-            array('first_zone', 'second_zone'),
-            1
-        );
-
-        self::assertInstanceOf(Layout::class, $createdLayout);
-
-        self::assertEquals(3, $createdLayout->id);
-        self::assertEquals(1, $createdLayout->parentId);
-        self::assertEquals('new_layout', $createdLayout->type);
-        self::assertEquals('New layout', $createdLayout->name);
-        self::assertEquals(Layout::STATUS_PUBLISHED, $createdLayout->status);
-
-        self::assertInternalType('int', $createdLayout->created);
-        self::assertGreaterThan(0, $createdLayout->created);
-
-        self::assertInternalType('int', $createdLayout->modified);
-        self::assertGreaterThan(0, $createdLayout->modified);
-
-        self::assertEquals(
-            array(
-                new Zone(
-                    array(
-                        'identifier' => 'first_zone',
-                        'layoutId' => 3,
-                        'status' => Layout::STATUS_PUBLISHED,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'identifier' => 'second_zone',
-                        'layoutId' => 3,
-                        'status' => Layout::STATUS_PUBLISHED,
-                    )
-                ),
-            ),
-            $this->layoutHandler->loadLayoutZones($createdLayout->id, $createdLayout->status)
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZonesData

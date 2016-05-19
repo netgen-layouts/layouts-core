@@ -113,13 +113,12 @@ class LayoutService implements LayoutServiceInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $parentLayout
      *
      * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout type does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, Layout $parentLayout = null)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
@@ -134,8 +133,7 @@ class LayoutService implements LayoutServiceInterface
         try {
             $createdLayout = $this->layoutHandler->createLayout(
                 $layoutCreateStruct,
-                $layoutType->getZoneIdentifiers(),
-                $parentLayout !== null ? $parentLayout->getId() : null
+                $layoutType->getZoneIdentifiers()
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

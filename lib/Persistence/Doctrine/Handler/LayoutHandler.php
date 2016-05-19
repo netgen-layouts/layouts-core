@@ -192,18 +192,17 @@ class LayoutHandler implements LayoutHandlerInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      * @param array $zoneIdentifiers
-     * @param int|string $parentLayoutId
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneIdentifiers = array(), $parentLayoutId = null)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneIdentifiers = array())
     {
         $currentTimeStamp = time();
 
         $query = $this->queryHelper->getLayoutInsertQuery(
             array(
                 'status' => $layoutCreateStruct->status,
-                'parent_id' => $parentLayoutId,
+                'parent_id' => null,
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
                 'created' => $currentTimeStamp,
