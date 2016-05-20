@@ -53,8 +53,8 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::__construct
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::__construct
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
      */
     public function testSubmitValidData()
     {
@@ -99,7 +99,7 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -120,7 +120,7 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingQueryType()
@@ -134,7 +134,7 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidQueryType()
@@ -152,7 +152,7 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -171,7 +171,7 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::getName
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::getName
      */
     public function testGetName()
     {
@@ -179,7 +179,7 @@ class FullEditTypeTest extends TypeTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\EditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {
