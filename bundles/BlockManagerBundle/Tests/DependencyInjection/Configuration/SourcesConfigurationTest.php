@@ -335,53 +335,9 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
      */
-    public function testSourceSettingsWithInvalidSources()
-    {
-        $config = array('sources' => 'sources');
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
-     */
     public function testSourceSettingsWithNoName()
     {
         $config = array('sources' => array('dynamic' => array()));
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
-     */
-    public function testSourceSettingsWithEmptyName()
-    {
-        $config = array(
-            'sources' => array(
-                'dynamic' => array(
-                    'name' => '',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
-     */
-    public function testSourceSettingsWithInvalidName()
-    {
-        $config = array(
-            'sources' => array(
-                'dynamic' => array(
-                    'name' => array(),
-                ),
-            ),
-        );
-
         $this->assertConfigurationIsInvalid(array($config));
     }
 
@@ -424,24 +380,6 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
      */
-    public function testSourceSettingsWithInvalidQueries()
-    {
-        $config = array(
-            'sources' => array(
-                'dynamic' => array(
-                    'name' => 'Dynamic',
-                    'queries' => 'queries',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
-     */
     public function testSourceSettingsWithNoQueryType()
     {
         $config = array(
@@ -450,50 +388,6 @@ class SourcesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'Dynamic',
                     'queries' => array(
                         'default' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
-     */
-    public function testSourceSettingsWithEmptyQueryType()
-    {
-        $config = array(
-            'sources' => array(
-                'dynamic' => array(
-                    'name' => 'Dynamic',
-                    'queries' => array(
-                        'default' => array(
-                            'query_type' => '',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getSourcesNodeDefinition
-     */
-    public function testSourceSettingsWithInvalidQueryType()
-    {
-        $config = array(
-            'sources' => array(
-                'dynamic' => array(
-                    'name' => 'Dynamic',
-                    'queries' => array(
-                        'default' => array(
-                            'query_type' => array(),
-                        ),
                     ),
                 ),
             ),

@@ -207,101 +207,13 @@ class BlockTypeGroupsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockTypeGroupsSettingsWithEmptyName()
-    {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'name' => '',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
-     */
-    public function testBlockTypeGroupsSettingsWithInvalidName()
-    {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'name' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
-     */
-    public function testBlockTypeGroupsSettingsWithEmptyBlockTypeGroups()
+    public function testBlockTypeGroupsSettingsWithEmptyBlockTypes()
     {
         $config = array(
             'block_type_groups' => array(
                 'block_type_group' => array(
                     'name' => 'block_type_group',
                     'block_types' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
-     */
-    public function testBlockTypeGroupsSettingsWithInvalidBlockTypeGroups()
-    {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'name' => 'block_type_group',
-                    'block_types' => 'paragraph',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
-     */
-    public function testBlockTypeGroupsSettingsWithEmptyBlockTypeGroupItem()
-    {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'name' => 'block_type_group',
-                    'block_types' => array(''),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
-     */
-    public function testBlockTypeGroupsSettingsWithInvalidBlockTypeGroupItem()
-    {
-        $config = array(
-            'block_type_groups' => array(
-                'block_type_group' => array(
-                    'name' => 'block_type_group',
-                    'block_types' => array(array()),
                 ),
             ),
         );

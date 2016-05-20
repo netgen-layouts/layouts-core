@@ -1,7 +1,12 @@
 block_definitions:
     title:
         forms:
-            full: ~
+            design:
+                type: ~
+                parameters: [tag]
+            content:
+                type: ~
+                parameters: [title]
         view_types:
             default:
                 name: 'Default'
@@ -9,7 +14,8 @@ block_definitions:
                 name: 'Large'
     paragraph:
         forms:
-            full: ~
+            full:
+                type: ~
         view_types:
             default:
                 name: 'Default'
@@ -17,7 +23,8 @@ block_definitions:
                 name: 'Small'
     twig_block:
         forms:
-            full: ~
+            full:
+                type: ~
         view_types:
             default:
                 name: 'Default'

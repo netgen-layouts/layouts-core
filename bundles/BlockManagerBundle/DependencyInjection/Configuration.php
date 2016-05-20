@@ -133,6 +133,10 @@ class Configuration implements ConfigurationInterface
                             ->always(function ($v) {
                                 $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
 
+                                if (empty($v)) {
+                                    throw $exception;
+                                }
+
                                 if (isset($v['full']) && (isset($v['design']) || isset($v['content']))) {
                                     throw $exception;
                                 }
@@ -151,17 +155,56 @@ class Configuration implements ConfigurationInterface
                             })
                         ->end()
                         ->children()
-                            ->scalarNode('full')
-                                ->treatNullLike('block_full_edit')
-                                ->cannotBeEmpty()
+                            ->arrayNode('full')
+                                ->children()
+                                    ->scalarNode('type')
+                                        ->isRequired()
+                                        ->treatNullLike('block_full_edit')
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
                             ->end()
-                            ->scalarNode('design')
-                                ->treatNullLike('block_design_edit')
-                                ->cannotBeEmpty()
+                            ->arrayNode('design')
+                                ->children()
+                                    ->scalarNode('type')
+                                        ->isRequired()
+                                        ->treatNullLike('block_design_edit')
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                    ->arrayNode('parameters')
+                                        ->isRequired()
+                                        ->requiresAtLeastOneElement()
+                                        ->validate()
+                                            ->always(function ($v) {
+                                                return array_values(array_unique($v));
+                                            })
+                                        ->end()
+                                        ->prototype('scalar')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                    ->end()
+                                ->end()
                             ->end()
-                            ->scalarNode('content')
-                                ->treatNullLike('block_content_edit')
-                                ->cannotBeEmpty()
+                            ->arrayNode('content')
+                                ->children()
+                                    ->scalarNode('type')
+                                        ->isRequired()
+                                        ->treatNullLike('block_content_edit')
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                    ->arrayNode('parameters')
+                                        ->isRequired()
+                                        ->requiresAtLeastOneElement()
+                                        ->validate()
+                                            ->always(function ($v) {
+                                                return array_values(array_unique($v));
+                                            })
+                                        ->end()
+                                        ->prototype('scalar')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()

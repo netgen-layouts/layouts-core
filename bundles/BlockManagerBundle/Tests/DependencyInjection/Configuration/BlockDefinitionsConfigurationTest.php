@@ -36,7 +36,9 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'test_form',
+                            'full' => array(
+                                'type' => 'test_form'
+                            ),
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -55,57 +57,10 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'test_form',
-                    ),
-                    'view_types' => array(
-                        'default' => array(
-                            'name' => 'Default',
-                        ),
-                        'large' => array(
-                            'name' => 'Large',
+                        'full' => array(
+                            'type' => 'test_form'
                         ),
                     ),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'block_definitions'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     */
-    public function testBlockDefinitionSettingsWithNoFullForm()
-    {
-        $config = array(
-            array(
-                'block_definitions' => array(
-                    'block' => array(
-                        'forms' => array(),
-                        'view_types' => array(
-                            'default' => array(
-                                'name' => 'Default',
-                            ),
-                            'large' => array(
-                                'name' => 'Large',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $expectedConfig = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',
@@ -138,8 +93,14 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'design' => 'design_form',
-                            'content' => 'content_form',
+                            'design' => array(
+                                'type' => 'design_form',
+                                'parameters' => array('param1'),
+                            ),
+                            'content' => array(
+                                'type' => 'content_form',
+                                'parameters' => array('param2'),
+                            ),
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -158,8 +119,14 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'design' => 'design_form',
-                        'content' => 'content_form',
+                        'design' => array(
+                            'type' => 'design_form',
+                            'parameters' => array('param1'),
+                        ),
+                        'content' => array(
+                            'type' => 'content_form',
+                            'parameters' => array('param2'),
+                        ),
                     ),
                     'view_types' => array(
                         'default' => array(
@@ -193,7 +160,9 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_full_edit',
+                            'full' => array(
+                                'type' => 'test_form'
+                            ),
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -210,7 +179,9 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
-                            'full' => 'block_full_edit',
+                            'full' => array(
+                                'type' => 'test_form'
+                            ),
                         ),
                         'view_types' => array(
                             'title' => array(
@@ -229,7 +200,9 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'block_full_edit',
+                        'full' => array(
+                            'type' => 'test_form'
+                        ),
                     ),
                     'view_types' => array(
                         'title' => array(
@@ -254,7 +227,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithNoBlocks()
+    public function testBlockDefinitionSettingsWithNoBlockDefinitions()
     {
         $config = array(
             'block_definitions' => array(),
@@ -271,141 +244,11 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'block_definitions' => array(
-                'block' => array(),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidForms()
-    {
-        $config = array(
-            'block_definitions' => array(
                 'block' => array(
-                    'forms' => 'forms',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithEmptyFullForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'full' => '',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidFullForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'full' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithEmptyDesignForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'design' => '',
-                        'content' => 'content_form',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidDesignForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'design' => array(),
-                        'content' => 'content_form',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithEmptyContentForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'design' => 'design_form',
-                        'content' => '',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidContentForm()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(
-                        'design' => 'design_form',
-                        'content' => array(),
-                    ),
+                    'forms' => array(),
+                    'view_types' => array(
+                        'default' => array('name' => 'Default')
+                    )
                 ),
             ),
         );
@@ -423,8 +266,14 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'design' => 'design_form',
+                        'design' => array(
+                            'type' => 'design_form',
+                            'parameters' => array('param')
+                        ),
                     ),
+                    'view_types' => array(
+                        'default' => array('name' => 'Default')
+                    )
                 ),
             ),
         );
@@ -442,8 +291,14 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'content' => 'content_form',
+                        'content' => array(
+                            'type' => 'content_form',
+                            'parameters' => array('param')
+                        ),
                     ),
+                    'view_types' => array(
+                        'default' => array('name' => 'Default')
+                    )
                 ),
             ),
         );
@@ -461,9 +316,17 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'full_form',
-                        'design' => 'design_form',
+                        'full' => array(
+                            'type' => 'full_form',
+                        ),
+                        'design' => array(
+                            'type' => 'design_form',
+                            'parameters' => array('param')
+                        ),
                     ),
+                    'view_types' => array(
+                        'default' => array('name' => 'Default')
+                    )
                 ),
             ),
         );
@@ -481,9 +344,17 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'full_form',
-                        'content' => 'content_form',
+                        'full' => array(
+                            'type' => 'full_form',
+                        ),
+                        'content' => array(
+                            'type' => 'content_form',
+                            'parameters' => array('param')
+                        ),
                     ),
+                    'view_types' => array(
+                        'default' => array('name' => 'Default')
+                    )
                 ),
             ),
         );
@@ -501,10 +372,21 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
-                        'full' => 'full_form',
-                        'design' => 'design_form',
-                        'content' => 'content_form',
+                        'full' => array(
+                            'type' => 'full_form',
+                        ),
+                        'design' => array(
+                            'type' => 'design_form',
+                            'parameters' => array('param')
+                        ),
+                        'content' => array(
+                            'type' => 'content_form',
+                            'parameters' => array('param')
+                        ),
                     ),
+                    'view_types' => array(
+                        'default' => array('name' => 'Default')
+                    )
                 ),
             ),
         );
@@ -521,127 +403,12 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
-                    'forms' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithEmptyViewTypes()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
+                    'forms' => array(
+                        'full' => array(
+                            'type' => 'full_form',
+                        ),
+                    ),
                     'view_types' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidViewTypes()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
-                    'view_types' => 'default',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidViewTypeItem()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
-                    'view_types' => array(
-                        'default' => 'default',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithNoViewTypeItemName()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
-                    'view_types' => array(
-                        'default' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithEmptyViewTypeItemName()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
-                    'view_types' => array(
-                        'default' => array(
-                            'name' => '',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
-    public function testBlockDefinitionSettingsWithInvalidViewTypeItemName()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
-                    'view_types' => array(
-                        'default' => array(
-                            'name' => array(),
-                        ),
-                    ),
                 ),
             ),
         );

@@ -241,53 +241,9 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutTypeSettingsWithInvalidLayouts()
-    {
-        $config = array('layout_types' => 'layout_types');
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
     public function testLayoutTypeSettingsWithNoName()
     {
         $config = array('layout_types' => array('layout' => array()));
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithEmptyName()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => '',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithInvalidName()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => array(),
-                ),
-            ),
-        );
-
         $this->assertConfigurationIsInvalid(array($config));
     }
 
@@ -330,24 +286,6 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutTypeSettingsWithInvalidZones()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => 'layout',
-                    'zones' => 'zone',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
     public function testLayoutTypeSettingsWithNoZoneName()
     {
         $config = array(
@@ -355,46 +293,6 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'layout' => array(
                     'name' => 'layout',
                     'zones' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithEmptyZoneName()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => 'layout',
-                    'zones' => array(
-                        'name' => '',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithInvalidZoneName()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => 'layout',
-                    'zones' => array(
-                        'name' => array(),
-                    ),
                 ),
             ),
         );
@@ -415,73 +313,6 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'name' => 'zone',
                         'allowed_block_types' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithInvalidAllowedBlockTypes()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => 'layout',
-                    'zones' => array(
-                        'name' => 'zone',
-                        'allowed_block_types' => 'allowed_block_types',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithEmptyAllowedBlockTypesItem()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => 'layout',
-                    'zones' => array(
-                        'zone' => array(
-                            'name' => 'zone',
-                            'allowed_block_types' => array(''),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
-     */
-    public function testLayoutTypeSettingsWithInvalidAllowedBlockTypeItem()
-    {
-        $config = array(
-            'layout_types' => array(
-                'layout' => array(
-                    'name' => 'layout',
-                    'zones' => array(
-                        'zone' => array(
-                            'name' => 'zone',
-                            'allowed_block_types' => array(array()),
-                        ),
                     ),
                 ),
             ),

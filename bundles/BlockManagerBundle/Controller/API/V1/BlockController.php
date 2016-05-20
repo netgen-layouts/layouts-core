@@ -181,7 +181,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockDefinition->getConfiguration()->getForm($formName),
+            $blockDefinition->getConfiguration()->getForm($formName)->getType(),
             $updateStruct,
             array('blockDefinition' => $blockDefinition)
         );

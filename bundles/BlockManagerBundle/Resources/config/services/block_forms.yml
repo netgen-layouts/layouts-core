@@ -1,10 +1,30 @@
 parameters:
+    netgen_block_manager.block.form.edit.class: Netgen\BlockManager\Block\Form\EditType
     netgen_block_manager.block.form.full_edit.class: Netgen\BlockManager\Block\Form\FullEditType
+    netgen_block_manager.block.form.design_edit.class: Netgen\BlockManager\Block\Form\DesignEditType
+    netgen_block_manager.block.form.content_edit.class: Netgen\BlockManager\Block\Form\ContentEditType
 
 services:
-    netgen_block_manager.block.form.full_edit:
-        class: "%netgen_block_manager.block.form.full_edit.class%"
+    netgen_block_manager.block.form.edit:
+        class: "%netgen_block_manager.block.form.edit.class%"
+        abstract: true
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
+
+    netgen_block_manager.block.form.full_edit:
+        class: "%netgen_block_manager.block.form.full_edit.class%"
+        parent: netgen_block_manager.block.form.edit
         tags:
             - { name: form.type, alias: block_full_edit }
+
+    netgen_block_manager.block.form.design_edit:
+        class: "%netgen_block_manager.block.form.design_edit.class%"
+        parent: netgen_block_manager.block.form.edit
+        tags:
+            - { name: form.type, alias: block_design_edit }
+
+    netgen_block_manager.block.form.content_edit:
+        class: "%netgen_block_manager.block.form.content_edit.class%"
+        parent: netgen_block_manager.block.form.edit
+        tags:
+            - { name: form.type, alias: block_content_edit }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Configuration\Factory;
 
 use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition;
 use Netgen\BlockManager\Configuration\BlockDefinition\ViewType;
+use Netgen\BlockManager\Configuration\BlockDefinition\Form;
 
 class BlockDefinitionFactory
 {
@@ -17,15 +18,24 @@ class BlockDefinitionFactory
      */
     public static function buildBlockDefinition(array $config, $identifier)
     {
+        $forms = array();
         $viewTypes = array();
+
+        foreach ($config['forms'] as $formIdentifier => $formConfig) {
+            $forms[$formIdentifier] = new Form(
+                $formIdentifier,
+                $formConfig['type'],
+                isset($formConfig['parameters']) ? $formConfig['parameters'] : array()
+            );
+        }
 
         foreach ($config['view_types'] as $viewTypeIdentifier => $viewTypeConfig) {
             $viewTypes[$viewTypeIdentifier] = new ViewType(
                 $viewTypeIdentifier,
-                $config['view_types'][$viewTypeIdentifier]['name']
+                $viewTypeConfig['name']
             );
         }
 
-        return new BlockDefinition($identifier, $config['forms'], $viewTypes);
+        return new BlockDefinition($identifier, $forms, $viewTypes);
     }
 }

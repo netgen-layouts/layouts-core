@@ -268,40 +268,6 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
      */
-    public function testBlockTypeSettingsWithEmptyBlockTypeName()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => '',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithInvalidBlockTypeName()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
     public function testBlockTypeSettingsWithNoDefaultDefinitionIdentifier()
     {
         $config = array(
@@ -310,50 +276,6 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => 'large',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithInvalidDefaultDefinitionIdentifier()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'definition_identifier' => array(),
-                    'defaults' => array(
-                        'view_type' => 'large',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithEmptyDefaultDefinitionIdentifier()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'definition_identifier' => array(),
-                    'defaults' => array(
-                        'default' => array(
-                        'view_type' => 'large',
-                        ),
                     ),
                 ),
             ),
@@ -383,44 +305,6 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
      */
-    public function testBlockTypeSettingsWithInvalidDefaults()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'defaults' => 'defaults',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithInvalidDefaultName()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'defaults' => array(
-                        'name' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
     public function testBlockTypeSettingsWithNoDefaultViewType()
     {
         $config = array(
@@ -428,90 +312,6 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_type' => array(
                     'name' => 'Block type',
                     'defaults' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithEmptyDefaultViewType()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'defaults' => array(
-                        'view_type' => '',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithInvalidDefaultViewType()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'defaults' => array(
-                        'view_type' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithInvalidParameters()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'definition_identifier' => 'definition_identifier',
-                    'defaults' => array(
-                        'view_type' => 'large',
-                        'parameters' => 'parameters',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithEmptyParameters()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'definition_identifier' => 'definition_identifier',
-                    'defaults' => array(
-                        'view_type' => 'large',
-                        'parameters' => array(),
-                    ),
                 ),
             ),
         );

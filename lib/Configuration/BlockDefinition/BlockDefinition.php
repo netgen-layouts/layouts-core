@@ -46,7 +46,7 @@ class BlockDefinition
     /**
      * Returns all forms.
      *
-     * @return array
+     * @return \Netgen\BlockManager\Configuration\BlockDefinition\Form[]
      */
     public function getForms()
     {
@@ -70,7 +70,7 @@ class BlockDefinition
      *
      * @param $formIdentifier
      *
-     * @return string
+     * @return \Netgen\BlockManager\Configuration\BlockDefinition\Form
      */
     public function getForm($formIdentifier)
     {

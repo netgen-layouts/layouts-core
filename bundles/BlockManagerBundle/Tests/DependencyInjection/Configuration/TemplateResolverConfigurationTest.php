@@ -168,72 +168,12 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
      */
-    public function testTemplateResolverSettingsWithInvalidMatch()
-    {
-        $config = array(
-            'block_view' => array(
-                ViewInterface::CONTEXT_VIEW => array(
-                    'block' => array(
-                        'template' => 'block.html.twig',
-                        'match' => 'match',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
-     */
     public function testTemplateResolverSettingsWithNoTemplate()
     {
         $config = array(
             'block_view' => array(
                 ViewInterface::CONTEXT_VIEW => array(
                     'block' => array(
-                        'match' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
-     */
-    public function testTemplateResolverSettingsWithInvalidTemplate()
-    {
-        $config = array(
-            'block_view' => array(
-                ViewInterface::CONTEXT_VIEW => array(
-                    'block' => array(
-                        'template' => array(),
-                        'match' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
-     */
-    public function testTemplateResolverSettingsWithEmptyTemplate()
-    {
-        $config = array(
-            'block_view' => array(
-                ViewInterface::CONTEXT_VIEW => array(
-                    'block' => array(
-                        'template' => '',
                         'match' => array(),
                     ),
                 ),
@@ -262,42 +202,10 @@ class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
      */
-    public function testTemplateResolverSettingsWithInvalidBlock()
-    {
-        $config = array(
-            'block_view' => array(
-                ViewInterface::CONTEXT_VIEW => array(
-                    'block' => 'block',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
-     */
     public function testTemplateResolverSettingsWithNoContext()
     {
         $config = array(
             'block_view' => array(),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getTemplateResolverNodeDefinition
-     */
-    public function testTemplateResolverSettingsWithInvalidContext()
-    {
-        $config = array(
-            'block_view' => array(
-                ViewInterface::CONTEXT_VIEW => ViewInterface::CONTEXT_VIEW,
-            ),
         );
 
         $this->assertConfigurationIsInvalid(array($config));

@@ -47,30 +47,4 @@ class PagelayoutConfigurationTest extends \PHPUnit_Framework_TestCase
             'pagelayout'
         );
     }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPagelayoutNodeDefinition
-     */
-    public function testPagelayoutSettingsWithEmptyPagelayout()
-    {
-        $config = array(
-            'pagelayout' => '',
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getPagelayoutNodeDefinition
-     */
-    public function testPagelayoutSettingsWithInvalidPagelayout()
-    {
-        $config = array(
-            'pagelayout' => array('pagelayout.html.twig'),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
 }
