@@ -92,7 +92,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $this->buildConfigObjects($container, 'layout_type', $config['layout_types']);
         $this->buildConfigObjects($container, 'source', $config['sources']);
-        $this->buildConfigObjects($container, 'query_type', $config['query_types']);
         $this->buildConfigObjects($container, 'block_type', $config['block_types']);
         $this->buildConfigObjects($container, 'block_type_group', $config['block_type_groups']);
     }
@@ -152,6 +151,9 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/layout_resolver/target_handlers.yml');
         $loader->load('services/layout_resolver/target_builders.yml');
 
+        $loader->load('services/collection/collections.yml');
+        $loader->load('services/collection/query_types.yml');
+
         $loader->load('services/param_converters.yml');
         $loader->load('services/event_listeners.yml');
         $loader->load('services/configuration.yml');
@@ -160,7 +162,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/validators.yml');
         $loader->load('services/templating.yml');
         $loader->load('services/parameters.yml');
-        $loader->load('services/collections.yml');
 
         $loader->load('services/api.yml');
     }

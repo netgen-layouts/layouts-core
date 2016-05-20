@@ -2,13 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Registry;
 
+use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 
 class QueryTypeRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     protected $queryType;
 
@@ -21,7 +23,16 @@ class QueryTypeRegistryTest extends \PHPUnit_Framework_TestCase
     {
         $this->registry = new QueryTypeRegistry();
 
-        $this->queryType = new QueryType();
+        $configMock = $this->getMockBuilder(Configuration::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->queryType = new QueryType(
+            'query_type',
+            $this->getMock(QueryTypeHandlerInterface::class),
+            $configMock
+        );
+
         $this->registry->addQueryType($this->queryType);
     }
 

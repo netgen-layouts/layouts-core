@@ -2,8 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
+use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
@@ -28,6 +29,11 @@ class FullEditTypeTest extends TypeTestCase
     protected $formType;
 
     /**
+     * @var \Netgen\BlockManager\Collection\QueryType
+     */
+    protected $queryType;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
@@ -50,6 +56,17 @@ class FullEditTypeTest extends TypeTestCase
             ->addExtensions($this->getExtensions())
             ->addTypeExtension(new FormTypeValidatorExtension($validator))
             ->getFormFactory();
+
+        $config = new Configuration(
+            'query_type',
+            array()
+        );
+
+        $this->queryType = new QueryType(
+            'query_type',
+            $this->getMock(QueryTypeHandlerInterface::class),
+            $config
+        );
     }
 
     /**
@@ -67,18 +84,10 @@ class FullEditTypeTest extends TypeTestCase
         $updatedStruct = new QueryUpdateStruct();
         $updatedStruct->setParameter('param', 'Param value');
 
-        $queryType = new QueryType();
-        $queryType->setConfig(
-            new Configuration(
-                'query_type',
-                array()
-            )
-        );
-
         $form = $this->factory->create(
             'query_full_edit',
             new QueryUpdateStruct(),
-            array('queryType' => $queryType)
+            array('queryType' => $this->queryType)
         );
 
         $form->submit($submittedData);
@@ -110,12 +119,12 @@ class FullEditTypeTest extends TypeTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'queryType' => new QueryType(),
+                'queryType' => $this->queryType,
                 'data' => new QueryUpdateStruct(),
             )
         );
 
-        self::assertEquals($options['queryType'], new QueryType());
+        self::assertEquals($options['queryType'], $this->queryType);
         self::assertEquals($options['data'], new QueryUpdateStruct());
     }
 
@@ -164,7 +173,7 @@ class FullEditTypeTest extends TypeTestCase
 
         $optionsResolver->resolve(
             array(
-                'queryType' => new QueryType(),
+                'queryType' => $this->queryType,
                 'data' => '',
             )
         );

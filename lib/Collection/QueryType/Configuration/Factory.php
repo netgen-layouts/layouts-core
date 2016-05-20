@@ -1,21 +1,18 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Factory;
+namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
-use Netgen\BlockManager\Configuration\QueryType\Form;
-use Netgen\BlockManager\Configuration\QueryType\QueryType;
-
-class QueryTypeFactory
+class Factory
 {
     /**
      * Builds the query type configuration.
      *
-     * @param array $config
      * @param string $identifier
+     * @param array $config
      *
-     * @return \Netgen\BlockManager\Configuration\QueryType\QueryType
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
      */
-    public static function buildQueryType(array $config, $identifier)
+    public static function buildQueryTypeConfig($identifier, array $config)
     {
         $forms = array();
 
@@ -27,6 +24,6 @@ class QueryTypeFactory
             );
         }
 
-        return new QueryType($identifier, $forms);
+        return new Configuration($identifier, $forms);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\QueryType;
+namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
 class Form
 {

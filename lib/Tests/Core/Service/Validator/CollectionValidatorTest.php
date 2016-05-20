@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
+use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
@@ -21,6 +23,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $queryTypeHandlerMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $queryTypeConfigMock;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -43,6 +55,11 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
         $this->queryTypeRegistryMock = $this->getMock(QueryTypeRegistryInterface::class);
+
+        $this->queryTypeHandlerMock = $this->getMock(QueryTypeHandlerInterface::class);
+        $this->queryTypeConfigMock = $this->getMockBuilder(Configuration::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->collectionValidator = new CollectionValidator($this->queryTypeRegistryMock);
         $this->collectionValidator->setValidator($this->validatorMock);
@@ -162,6 +179,12 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateQueryCreateStruct()
     {
+        $queryType = new QueryTypeWithRequiredParameter(
+            'query_type',
+            $this->queryTypeHandlerMock,
+            $this->queryTypeConfigMock
+        );
+
         $this->validatorMock
             ->expects($this->at(0))
             ->method('validate')
@@ -207,7 +230,7 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getQueryType')
             ->with($this->equalTo('query_type'))
-            ->will($this->returnValue(new QueryTypeWithRequiredParameter()));
+            ->will($this->returnValue($queryType));
 
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'my_query';
@@ -223,6 +246,12 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateQueryUpdateStruct()
     {
+        $queryType = new QueryTypeStub(
+            'query_type',
+            $this->queryTypeHandlerMock,
+            $this->queryTypeConfigMock
+        );
+
         $this->validatorMock
             ->expects($this->at(0))
             ->method('validate')
@@ -255,7 +284,7 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getQueryType')
             ->with($this->equalTo('query_type'))
-            ->will($this->returnValue(new QueryTypeStub()));
+            ->will($this->returnValue($queryType));
 
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->identifier = 'updated_query';

@@ -1,8 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\QueryType;
+namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
-class QueryType
+use RuntimeException;
+
+class Configuration
 {
     /**
      * @var string
@@ -39,7 +41,7 @@ class QueryType
     /**
      * Returns all forms.
      *
-     * @return \Netgen\BlockManager\Configuration\QueryType\Form[]
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
      */
     public function getForms()
     {
@@ -63,10 +65,18 @@ class QueryType
      *
      * @param $formIdentifier
      *
-     * @return \Netgen\BlockManager\Configuration\QueryType\Form
+     * @throws \RuntimeException If query type does not have the form
+     *
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form
      */
     public function getForm($formIdentifier)
     {
+        if (!$this->hasForm($formIdentifier)) {
+            throw new RuntimeException(
+                "Form '{$formIdentifier}' does not exist in '{$this->identifier}' query type."
+            );
+        }
+
         return $this->forms[$formIdentifier];
     }
 }

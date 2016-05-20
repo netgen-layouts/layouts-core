@@ -1,20 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Collection;
+namespace Netgen\BlockManager\Collection\QueryType;
 
-interface QueryTypeInterface
+interface QueryTypeHandlerInterface
 {
-    /**
-     * Returns the query type.
-     *
-     * @return string
-     */
-    public function getType();
-
     /**
      * Returns the array specifying query parameters.
      *
-     * The keys are parameter types.
+     * The keys are parameter identifiers.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
@@ -39,11 +32,4 @@ interface QueryTypeInterface
      * @return int
      */
     public function getCount(array $parameters);
-
-    /**
-     * Returns the query type configuration.
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
-     */
-    public function getConfig();
 }
