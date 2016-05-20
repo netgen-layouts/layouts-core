@@ -5,6 +5,7 @@ parameters:
     netgen_block_manager.event_listener.request_body_listener.class: Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
     netgen_block_manager.event_listener.view_renderer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
+    netgen_block_manager.event_listener.pagelayout.class: Netgen\Bundle\BlockManagerBundle\EventListener\PageLayoutListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
 
     netgen_block_manager.event_listener.block_view.get_collection_results.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
@@ -49,11 +50,18 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_block_manager.event_listener.pagelayout:
+        class: "%netgen_block_manager.event_listener.pagelayout.class%"
+        arguments:
+            - "@netgen_block_manager.templating.pagelayout_resolver"
+            - "@netgen_block_manager.templating.global_helper"
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.layout_resolver:
         class: "%netgen_block_manager.event_listener.layout_resolver.class%"
         arguments:
             - "@netgen_block_manager.layout.resolver"
-            - "@netgen_block_manager.templating.pagelayout_resolver"
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.templating.global_helper"

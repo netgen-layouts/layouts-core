@@ -5,9 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Netgen\BlockManager\API\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Layout\Resolver\Rule;
-use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -15,6 +12,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class LayoutResolverListener implements EventSubscriberInterface
 {
@@ -22,11 +21,6 @@ class LayoutResolverListener implements EventSubscriberInterface
      * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
      */
     protected $layoutResolver;
-
-    /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface
-     */
-    protected $pageLayoutResolver;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
@@ -52,7 +46,6 @@ class LayoutResolverListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
@@ -60,14 +53,12 @@ class LayoutResolverListener implements EventSubscriberInterface
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
-        PageLayoutResolverInterface $pageLayoutResolver,
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
         GlobalHelper $globalHelper,
         LoggerInterface $logger = null
     ) {
         $this->layoutResolver = $layoutResolver;
-        $this->pageLayoutResolver = $pageLayoutResolver;
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
         $this->globalHelper = $globalHelper;
@@ -99,10 +90,6 @@ class LayoutResolverListener implements EventSubscriberInterface
         if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) === true) {
             return;
         }
-
-        $this->globalHelper->setPageLayout(
-            $this->pageLayoutResolver->resolvePageLayout()
-        );
 
         $rule = $this->layoutResolver->resolveLayout();
         if (!$rule instanceof Rule) {

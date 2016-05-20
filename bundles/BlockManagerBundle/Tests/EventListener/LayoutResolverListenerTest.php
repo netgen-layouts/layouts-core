@@ -29,11 +29,6 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $pageLayoutResolverMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     protected $layoutServiceMock;
 
     /**
@@ -60,10 +55,6 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             LayoutResolverInterface::class
         );
 
-        $this->pageLayoutResolverMock = $this->getMock(
-            PageLayoutResolverInterface::class
-        );
-
         $this->layoutServiceMock = $this->getMock(
             LayoutService::class
         );
@@ -76,7 +67,6 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->listener = new LayoutResolverListener(
             $this->layoutResolverMock,
-            $this->pageLayoutResolverMock,
             $this->layoutServiceMock,
             $this->viewBuilderMock,
             $this->globalHelper
