@@ -425,6 +425,7 @@ class BlockService implements BlockServiceInterface
         }
 
         $zone = $layoutType->getZone($zoneIdentifier);
+
         return $zone->isBlockDefinitionAllowed($definitionIdentifier);
     }
 }

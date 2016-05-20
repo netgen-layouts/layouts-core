@@ -1,8 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-class BlockDefinition
+use RuntimeException;
+
+class Configuration
 {
     /**
      * @var string
@@ -15,7 +17,7 @@ class BlockDefinition
     protected $forms = array();
 
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockDefinition\ViewType[]
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
     protected $viewTypes = array();
 
@@ -24,7 +26,7 @@ class BlockDefinition
      *
      * @param string $identifier
      * @param array $forms
-     * @param \Netgen\BlockManager\Configuration\BlockDefinition\ViewType[] $viewTypes
+     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[] $viewTypes
      */
     public function __construct($identifier, array $forms, array $viewTypes)
     {
@@ -46,7 +48,7 @@ class BlockDefinition
     /**
      * Returns all forms.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\Form[]
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
      */
     public function getForms()
     {
@@ -70,17 +72,25 @@ class BlockDefinition
      *
      * @param $formIdentifier
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\Form
+     * @throws \RuntimeException If form does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
      */
     public function getForm($formIdentifier)
     {
+        if (!$this->hasForm($formIdentifier)) {
+            throw new RuntimeException(
+                "Form '{$formIdentifier}' does not exist in '{$this->identifier}' block definition."
+            );
+        }
+
         return $this->forms[$formIdentifier];
     }
 
     /**
      * Returns the block definition view types.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\ViewType[]
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
     public function getViewTypes()
     {
@@ -104,10 +114,18 @@ class BlockDefinition
      *
      * @param $viewTypeIdentifier
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\ViewType
+     * @throws \RuntimeException If view type does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
      */
     public function getViewType($viewTypeIdentifier)
     {
+        if (!$this->hasViewType($viewTypeIdentifier)) {
+            throw new RuntimeException(
+                "View type '{$viewTypeIdentifier}' does not exist in '{$this->identifier}' block definition."
+            );
+        }
+
         return $this->viewTypes[$viewTypeIdentifier];
     }
 }

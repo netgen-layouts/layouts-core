@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\Block\BlockDefinition\Title;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TitleTest extends \PHPUnit_Framework_TestCase
+class TitleHandlerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Title
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
      */
-    protected $blockDefinition;
+    protected $handler;
 
     /**
      * @var array
@@ -23,19 +23,11 @@ class TitleTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->blockDefinition = new Title();
+        $this->handler = new TitleHandler();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Title::getIdentifier
-     */
-    public function testGetIdentifier()
-    {
-        self::assertEquals('title', $this->blockDefinition->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Title::getParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::getParameters
      */
     public function testGetParameters()
     {
@@ -49,7 +41,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
                 'css_id' => new Parameter\Text(),
                 'css_class' => new Parameter\Text(),
             ),
-            $this->blockDefinition->getParameters()
+            $this->handler->getParameters()
         );
     }
 }

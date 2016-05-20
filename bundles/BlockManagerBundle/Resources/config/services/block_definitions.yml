@@ -1,0 +1,28 @@
+parameters:
+    netgen_block_manager.block.block_definition.class: Netgen\BlockManager\Block\BlockDefinition
+    netgen_block_manager.block.block_definition.configuration.class: Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
+    netgen_block_manager.block.block_definition.configuration.factory.class: Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory
+    netgen_block_manager.block.registry.block_definition.class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+
+    netgen_block_manager.block.block_definition.handler.title.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
+    netgen_block_manager.block.block_definition.handler.paragraph.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler
+    netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
+
+services:
+    netgen_block_manager.block.registry.block_definition:
+        class: "%netgen_block_manager.block.registry.block_definition.class%"
+
+    netgen_block_manager.block.block_definition.handler.title:
+        class: "%netgen_block_manager.block.block_definition.handler.title.class%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'title' }
+
+    netgen_block_manager.block.block_definition.handler.paragraph:
+        class: "%netgen_block_manager.block.block_definition.handler.paragraph.class%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'paragraph' }
+
+    netgen_block_manager.block.block_definition.handler.twig_block:
+        class: "%netgen_block_manager.block.block_definition.handler.twig_block.class%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'twig_block' }

@@ -2,13 +2,23 @@
 
 namespace Netgen\BlockManager\Tests\Block;
 
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $handlerMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $configMock;
+
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition
      */
@@ -16,7 +26,25 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->blockDefinition = $this->getMockForAbstractClass(BlockDefinition::class);
+        $this->handlerMock = $this->getMock(BlockDefinitionHandlerInterface::class);
+
+        $this->configMock = $this->getMockBuilder(Configuration::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->blockDefinition = new BlockDefinition(
+            'block_definition',
+            $this->handlerMock,
+            $this->configMock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getIdentifier
+     */
+    public function testGetIdentifier()
+    {
+        self::assertEquals('block_definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -24,13 +52,12 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetParameters()
     {
-        self::assertEquals(
-            array(
-                'css_id' => new Parameter\Text(),
-                'css_class' => new Parameter\Text(),
-            ),
-            $this->blockDefinition->getParameters()
-        );
+        $this->handlerMock
+            ->expects($this->once())
+            ->method('getParameters')
+            ->will($this->returnValue(array('params')));
+
+        self::assertEquals(array('params'), $this->blockDefinition->getParameters());
     }
 
     /**
@@ -38,16 +65,23 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDynamicParameters()
     {
-        self::assertEquals(array(), $this->blockDefinition->getDynamicParameters(new Block()));
+        $this->handlerMock
+            ->expects($this->once())
+            ->method('getDynamicParameters')
+            ->with($this->equalTo(new Block()), $this->equalTo(array('params')))
+            ->will($this->returnValue(array('dynamic')));
+
+        self::assertEquals(
+            array('dynamic'),
+            $this->blockDefinition->getDynamicParameters(new Block(), array('params'))
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::setConfig
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfig
      */
     public function testGetConfig()
     {
-        $this->blockDefinition->setConfig(new Config('identifier', array(), array()));
-        self::assertEquals(new Config('identifier', array(), array()), $this->blockDefinition->getConfig());
+        self::assertEquals($this->configMock, $this->blockDefinition->getConfig());
     }
 }

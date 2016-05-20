@@ -8,6 +8,16 @@ use Netgen\BlockManager\Parameters\Parameter;
 class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition
 {
     /**
+     * Returns block definition identifier.
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return 'block_definition';
+    }
+
+    /**
      * Returns the array specifying block parameters.
      *
      * The keys are parameter identifiers.
@@ -16,19 +26,9 @@ class BlockDefinitionWithRequiredParameter extends BaseBlockDefinition
      */
     public function getParameters()
     {
-        $parameters = parent::getParameters();
-        $parameters['css_class'] = new Parameter\Text(array(), true);
-
-        return $parameters;
-    }
-
-    /**
-     * Returns block definition identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return 'block_definition';
+        return array(
+            'css_class' => new Parameter\Text(array(), true),
+            'css_id' => new Parameter\Text(array()),
+        );
     }
 }

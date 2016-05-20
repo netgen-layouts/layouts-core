@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 class Form
 {

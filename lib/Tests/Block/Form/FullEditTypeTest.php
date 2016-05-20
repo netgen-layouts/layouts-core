@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\Configuration\BlockDefinition\ViewType;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
@@ -29,6 +30,11 @@ class FullEditTypeTest extends TypeTestCase
     protected $formType;
 
     /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition
+     */
+    protected $blockDefinition;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
@@ -51,6 +57,21 @@ class FullEditTypeTest extends TypeTestCase
             ->addExtensions($this->getExtensions())
             ->addTypeExtension(new FormTypeValidatorExtension($validator))
             ->getFormFactory();
+
+        $config = new Configuration(
+            'block_definition',
+            array(),
+            array(
+                'large' => new ViewType('large', 'Large'),
+                'small' => new ViewType('small', 'Small'),
+            )
+        );
+
+        $this->blockDefinition = new BlockDefinition(
+            'block_definition',
+            $this->getMock(BlockDefinitionHandlerInterface::class),
+            $config
+        );
     }
 
     /**
@@ -77,22 +98,10 @@ class FullEditTypeTest extends TypeTestCase
         $updatedStruct->setParameter('css_id', 'Some CSS ID');
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
-        $blockDefinition = new BlockDefinition();
-        $blockDefinition->setConfig(
-            new Configuration(
-                'block_definition',
-                array(),
-                array(
-                    'large' => new ViewType('large', 'Large'),
-                    'small' => new ViewType('small', 'Small'),
-                )
-            )
-        );
-
         $form = $this->factory->create(
             'block_full_edit',
             new BlockUpdateStruct(),
-            array('blockDefinition' => $blockDefinition)
+            array('blockDefinition' => $this->blockDefinition)
         );
 
         $form->submit($submittedData);
@@ -124,12 +133,12 @@ class FullEditTypeTest extends TypeTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'blockDefinition' => new BlockDefinition(),
+                'blockDefinition' => $this->blockDefinition,
                 'data' => new BlockUpdateStruct(),
             )
         );
 
-        self::assertEquals($options['blockDefinition'], new BlockDefinition());
+        self::assertEquals($options['blockDefinition'], $this->blockDefinition);
         self::assertEquals($options['data'], new BlockUpdateStruct());
     }
 
@@ -178,7 +187,7 @@ class FullEditTypeTest extends TypeTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => new BlockDefinition(),
+                'blockDefinition' => $this->blockDefinition,
                 'data' => '',
             )
         );

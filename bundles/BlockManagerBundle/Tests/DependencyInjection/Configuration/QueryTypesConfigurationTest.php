@@ -37,7 +37,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'type' => array(
                         'forms' => array(
                             'full' => array(
-                                'type' => 'full_edit'
+                                'type' => 'full_edit',
                             ),
                         ),
                     ),
@@ -50,7 +50,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'type' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'full_edit'
+                            'type' => 'full_edit',
                         ),
                     ),
                 ),
@@ -86,7 +86,7 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = array(
             'query_types' => array(
                 'type' => array(
-                    'forms' => array()
+                    'forms' => array(),
                 ),
             ),
         );

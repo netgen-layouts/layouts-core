@@ -12,7 +12,6 @@ use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;

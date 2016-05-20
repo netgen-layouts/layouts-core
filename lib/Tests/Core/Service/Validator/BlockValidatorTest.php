@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -16,6 +18,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BlockValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockDefinitionHandlerMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockDefinitionConfigMock;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -39,6 +51,11 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validatorMock = $this->getMock(ValidatorInterface::class);
         $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
 
+        $this->blockDefinitionHandlerMock = $this->getMock(BlockDefinitionHandlerInterface::class);
+        $this->blockDefinitionConfigMock = $this->getMockBuilder(Configuration::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->blockValidator = new BlockValidator($this->blockDefinitionRegistryMock);
         $this->blockValidator->setValidator($this->validatorMock);
     }
@@ -50,11 +67,17 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateBlockCreateStruct()
     {
+        $blockDefinition = new BlockDefinitionWithRequiredParameter(
+            'block',
+            $this->blockDefinitionHandlerMock,
+            $this->blockDefinitionConfigMock
+        );
+
         $this->blockDefinitionRegistryMock
             ->expects($this->any())
             ->method('getBlockDefinition')
             ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue(new BlockDefinitionWithRequiredParameter()));
+            ->will($this->returnValue($blockDefinition));
 
         $this->validatorMock
             ->expects($this->at(0))
@@ -76,7 +99,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new BlockViewType(array('definition' => new BlockDefinitionWithRequiredParameter())),
+                    new BlockViewType(array('definition' => $blockDefinition)),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));
@@ -125,11 +148,17 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateBlockUpdateStruct()
     {
+        $blockDefinition = new BlockDefinitionStub(
+            'block',
+            $this->blockDefinitionHandlerMock,
+            $this->blockDefinitionConfigMock
+        );
+
         $this->blockDefinitionRegistryMock
             ->expects($this->any())
             ->method('getBlockDefinition')
             ->with($this->equalTo('block_definition'))
-            ->will($this->returnValue(new BlockDefinitionStub()));
+            ->will($this->returnValue($blockDefinition));
 
         $this->validatorMock
             ->expects($this->at(0))
@@ -139,7 +168,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new BlockViewType(array('definition' => new BlockDefinitionStub())),
+                    new BlockViewType(array('definition' => $blockDefinition)),
                 )
             )
             ->will($this->returnValue(new ConstraintViolationList()));

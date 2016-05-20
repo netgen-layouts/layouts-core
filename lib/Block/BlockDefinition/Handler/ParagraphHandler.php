@@ -1,22 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class Paragraph extends BlockDefinition
+class ParagraphHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
-    /**
-     * Returns block definition identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return 'paragraph';
-    }
-
     /**
      * Returns the array specifying block parameters.
      *

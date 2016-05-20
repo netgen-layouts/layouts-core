@@ -1,23 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TwigBlock extends BlockDefinition
+class TwigBlockHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
     const DEFINITION_IDENTIFIER = 'twig_block';
-
-    /**
-     * Returns block definition identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return self::DEFINITION_IDENTIFIER;
-    }
 
     /**
      * Returns the array specifying block parameters.

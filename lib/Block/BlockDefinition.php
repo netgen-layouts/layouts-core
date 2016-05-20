@@ -2,16 +2,51 @@
 
 namespace Netgen\BlockManager\Block;
 
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 
-abstract class BlockDefinition implements BlockDefinitionInterface
+class BlockDefinition implements BlockDefinitionInterface
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
+     * @var string
+     */
+    protected $identifier;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
+     */
+    protected $handler;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
     protected $config;
+
+    /**
+     * Constructor.
+     *
+     * @param string $identifier
+     * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
+     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration $config
+     */
+    public function __construct($identifier, BlockDefinitionHandlerInterface $handler, Configuration $config)
+    {
+        $this->identifier = $identifier;
+        $this->handler = $handler;
+        $this->config = $config;
+    }
+
+    /**
+     * Returns block definition identifier.
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
 
     /**
      * Returns the array specifying block parameters.
@@ -22,10 +57,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
      */
     public function getParameters()
     {
-        return array(
-            'css_id' => new Parameter\Text(),
-            'css_class' => new Parameter\Text(),
-        );
+        return $this->handler->getParameters();
     }
 
     /**
@@ -38,23 +70,13 @@ abstract class BlockDefinition implements BlockDefinitionInterface
      */
     public function getDynamicParameters(Block $block, array $parameters = array())
     {
-        return array();
-    }
-
-    /**
-     * Sets the block definition configuration.
-     *
-     * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $config
-     */
-    public function setConfig(Config $config)
-    {
-        $this->config = $config;
+        return $this->handler->getDynamicParameters($block, $parameters);
     }
 
     /**
      * Returns the block definition configuration.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
     public function getConfig()
     {

@@ -37,7 +37,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'block' => array(
                         'forms' => array(
                             'full' => array(
-                                'type' => 'test_form'
+                                'type' => 'test_form',
                             ),
                         ),
                         'view_types' => array(
@@ -58,7 +58,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'test_form'
+                            'type' => 'test_form',
                         ),
                     ),
                     'view_types' => array(
@@ -161,7 +161,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'block' => array(
                         'forms' => array(
                             'full' => array(
-                                'type' => 'test_form'
+                                'type' => 'test_form',
                             ),
                         ),
                         'view_types' => array(
@@ -180,7 +180,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'block' => array(
                         'forms' => array(
                             'full' => array(
-                                'type' => 'test_form'
+                                'type' => 'test_form',
                             ),
                         ),
                         'view_types' => array(
@@ -201,7 +201,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'test_form'
+                            'type' => 'test_form',
                         ),
                     ),
                     'view_types' => array(
@@ -247,8 +247,8 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block' => array(
                     'forms' => array(),
                     'view_types' => array(
-                        'default' => array('name' => 'Default')
-                    )
+                        'default' => array('name' => 'Default'),
+                    ),
                 ),
             ),
         );
@@ -268,12 +268,12 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'forms' => array(
                         'design' => array(
                             'type' => 'design_form',
-                            'parameters' => array('param')
+                            'parameters' => array('param'),
                         ),
                     ),
                     'view_types' => array(
-                        'default' => array('name' => 'Default')
-                    )
+                        'default' => array('name' => 'Default'),
+                    ),
                 ),
             ),
         );
@@ -293,12 +293,12 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                     'forms' => array(
                         'content' => array(
                             'type' => 'content_form',
-                            'parameters' => array('param')
+                            'parameters' => array('param'),
                         ),
                     ),
                     'view_types' => array(
-                        'default' => array('name' => 'Default')
-                    )
+                        'default' => array('name' => 'Default'),
+                    ),
                 ),
             ),
         );
@@ -321,12 +321,12 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                         'design' => array(
                             'type' => 'design_form',
-                            'parameters' => array('param')
+                            'parameters' => array('param'),
                         ),
                     ),
                     'view_types' => array(
-                        'default' => array('name' => 'Default')
-                    )
+                        'default' => array('name' => 'Default'),
+                    ),
                 ),
             ),
         );
@@ -349,12 +349,12 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                         'content' => array(
                             'type' => 'content_form',
-                            'parameters' => array('param')
+                            'parameters' => array('param'),
                         ),
                     ),
                     'view_types' => array(
-                        'default' => array('name' => 'Default')
-                    )
+                        'default' => array('name' => 'Default'),
+                    ),
                 ),
             ),
         );
@@ -377,16 +377,16 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                         'design' => array(
                             'type' => 'design_form',
-                            'parameters' => array('param')
+                            'parameters' => array('param'),
                         ),
                         'content' => array(
                             'type' => 'content_form',
-                            'parameters' => array('param')
+                            'parameters' => array('param'),
                         ),
                     ),
                     'view_types' => array(
-                        'default' => array('name' => 'Default')
-                    )
+                        'default' => array('name' => 'Default'),
+                    ),
                 ),
             ),
         );

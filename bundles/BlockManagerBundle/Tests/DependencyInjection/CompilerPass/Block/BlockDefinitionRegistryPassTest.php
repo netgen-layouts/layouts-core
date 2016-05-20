@@ -25,20 +25,53 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $this->setDefinition('netgen_block_manager.configuration.block_definition.block_definition', new Definition());
+        $blockDefinitions = array('block_definition' => array('config'));
+        $this->setParameter('netgen_block_manager.block_definitions', $blockDefinitions);
+        $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
+
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
-        $blockDefinition = new Definition();
-        $blockDefinition->addTag('netgen_block_manager.block.block_definition', array('identifier' => 'block_definition'));
-        $this->setDefinition('netgen_block_manager.block.block_definition.test', $blockDefinition);
+        $blockDefinitionHandler = new Definition();
+        $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler', array('identifier' => 'block_definition'));
+        $this->setDefinition('netgen_block_manager.block.block_definition.handler.test', $blockDefinitionHandler);
 
         $this->compile();
+
+        $this->assertContainerBuilderHasService(
+            'netgen_block_manager.block.block_definition.configuration.block_definition',
+            'config_class'
+        );
+
+        $this->assertContainerBuilderHasService(
+            'netgen_block_manager.block.block_definition.block_definition',
+            'definition_class'
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.block.block_definition.block_definition',
+            0,
+            'block_definition'
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.block.block_definition.block_definition',
+            1,
+            new Reference('netgen_block_manager.block.block_definition.handler.test')
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.block.block_definition.block_definition',
+            2,
+            new Reference('netgen_block_manager.block.block_definition.configuration.block_definition')
+        );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_definition',
             'addBlockDefinition',
             array(
-                new Reference('netgen_block_manager.block.block_definition.test'),
+                new Reference('netgen_block_manager.block.block_definition.block_definition'),
             )
         );
     }
@@ -49,27 +82,17 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {
-        $this->setDefinition('netgen_block_manager.configuration.block_definition.block_definition', new Definition());
+        $blockDefinitions = array('block_definition' => array('config'));
+        $this->setParameter('netgen_block_manager.block_definitions', $blockDefinitions);
+        $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
+
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
-        $blockDefinition = new Definition();
-        $blockDefinition->addTag('netgen_block_manager.block.block_definition');
-        $this->setDefinition('netgen_block_manager.block.block_definition.test', $blockDefinition);
-
-        $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionRegistryPass::process
-     * @expectedException \RuntimeException
-     */
-    public function testProcessThrowsExceptionWithNoConfiguration()
-    {
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
-
-        $blockDefinition = new Definition();
-        $blockDefinition->addTag('netgen_block_manager.block.block_definition', array('identifier' => 'block_definition'));
-        $this->setDefinition('netgen_block_manager.block.block_definition.test', $blockDefinition);
+        $blockDefinitionHandler = new Definition();
+        $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler');
+        $this->setDefinition('netgen_block_manager.block.block_definition.handler.test', $blockDefinitionHandler);
 
         $this->compile();
     }

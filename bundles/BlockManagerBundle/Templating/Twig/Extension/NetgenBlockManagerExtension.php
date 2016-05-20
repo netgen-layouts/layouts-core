@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlock;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -184,7 +184,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBocks = array())
     {
         foreach ($zone->getBlocks() as $block) {
-            if ($block->getDefinitionIdentifier() !== TwigBlock::DEFINITION_IDENTIFIER) {
+            if ($block->getDefinitionIdentifier() !== TwigBlockHandler::DEFINITION_IDENTIFIER) {
                 echo $this->renderBlock($block, array(), $context);
                 continue;
             }

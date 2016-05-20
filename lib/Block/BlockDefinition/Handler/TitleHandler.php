@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class Title extends BlockDefinition
+class TitleHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
     /**
      * @var array
@@ -15,16 +16,6 @@ class Title extends BlockDefinition
         'Heading 2' => 'h2',
         'Heading 3' => 'h3',
     );
-
-    /**
-     * Returns block definition identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return 'title';
-    }
 
     /**
      * Returns the array specifying block parameters.
