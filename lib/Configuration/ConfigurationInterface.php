@@ -25,15 +25,4 @@ interface ConfigurationInterface
      * @return mixed
      */
     public function getParameter($parameterName);
-
-    /**
-     * Returns the configuration for specified block type.
-     *
-     * @param string $identifier
-     *
-     * @throws \InvalidArgumentException If configuration for specified block type does not exist
-     *
-     * @return array
-     */
-    public function getBlockTypeConfig($identifier);
 }

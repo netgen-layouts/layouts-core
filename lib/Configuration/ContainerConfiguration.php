@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Configuration;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use OutOfBoundsException;
 
-class ContainerConfiguration extends Configuration
+class ContainerConfiguration implements ConfigurationInterface
 {
     use ContainerAwareTrait;
 
