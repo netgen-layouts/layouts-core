@@ -8,7 +8,6 @@ parameters:
     netgen_block_manager.controller.api.v1.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController
     netgen_block_manager.controller.api.v1.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController
     netgen_block_manager.controller.api.v1.collection.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController
-    netgen_block_manager.controller.api.v1.block_collection.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController
 
     netgen_block_manager.controller.api.v1.block.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
     netgen_block_manager.controller.api.v1.collection.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator
