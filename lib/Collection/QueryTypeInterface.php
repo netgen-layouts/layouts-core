@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
+use Netgen\BlockManager\Configuration\QueryType\QueryType as Config;
 
 interface QueryTypeInterface
 {
@@ -45,14 +45,14 @@ interface QueryTypeInterface
     /**
      * Sets the query type configuration.
      *
-     * @param \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
+     * @param \Netgen\BlockManager\Configuration\QueryType\QueryType $config
      */
-    public function setConfiguration(Configuration $configuration);
+    public function setConfig(Config $config);
 
     /**
      * Returns the query type configuration.
      *
-     * @return \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
+     * @return \Netgen\BlockManager\Configuration\QueryType\QueryType
      */
-    public function getConfiguration();
+    public function getConfig();
 }

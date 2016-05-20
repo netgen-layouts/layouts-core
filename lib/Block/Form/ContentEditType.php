@@ -21,7 +21,7 @@ class ContentEditType extends EditType
         $this->addParametersForm(
             $builder,
             $options,
-            $blockDefinition->getConfiguration()->getForm('content')->getParameters()
+            $blockDefinition->getConfig()->getForm('content')->getParameters()
         );
     }
 

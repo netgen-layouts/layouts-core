@@ -2,32 +2,32 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
+use Netgen\BlockManager\Configuration\QueryType\QueryType as Config;
 
 abstract class QueryType implements QueryTypeInterface
 {
     /**
      * @var \Netgen\BlockManager\Configuration\QueryType\QueryType
      */
-    protected $configuration;
+    protected $config;
 
     /**
      * Sets the query type configuration.
      *
-     * @param \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
+     * @param \Netgen\BlockManager\Configuration\QueryType\QueryType $config
      */
-    public function setConfiguration(Configuration $configuration)
+    public function setConfig(Config $config)
     {
-        $this->configuration = $configuration;
+        $this->config = $config;
     }
 
     /**
      * Returns the query type configuration.
      *
-     * @return \Netgen\BlockManager\Configuration\QueryType\QueryType $configuration
+     * @return \Netgen\BlockManager\Configuration\QueryType\QueryType
      */
-    public function getConfiguration()
+    public function getConfig()
     {
-        return $this->configuration;
+        return $this->config;
     }
 }

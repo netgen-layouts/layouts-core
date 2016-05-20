@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block;
 
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
+use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Parameter;
 
@@ -11,7 +11,7 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     /**
      * @var \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
      */
-    protected $configuration;
+    protected $config;
 
     /**
      * Returns the array specifying block parameters.
@@ -44,20 +44,20 @@ abstract class BlockDefinition implements BlockDefinitionInterface
     /**
      * Sets the block definition configuration.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
+     * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $config
      */
-    public function setConfiguration(Configuration $configuration)
+    public function setConfig(Config $config)
     {
-        $this->configuration = $configuration;
+        $this->config = $config;
     }
 
     /**
      * Returns the block definition configuration.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
+     * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
      */
-    public function getConfiguration()
+    public function getConfig()
     {
-        return $this->configuration;
+        return $this->config;
     }
 }

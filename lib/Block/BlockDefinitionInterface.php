@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
+use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 
 interface BlockDefinitionInterface
 {
@@ -36,14 +36,14 @@ interface BlockDefinitionInterface
     /**
      * Sets the block definition configuration.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
+     * @param \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $config
      */
-    public function setConfiguration(Configuration $configuration);
+    public function setConfig(Config $config);
 
     /**
      * Returns the block definition configuration.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition $configuration
+     * @return \Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition
      */
-    public function getConfiguration();
+    public function getConfig();
 }

@@ -45,7 +45,7 @@ abstract class EditType extends AbstractType
         $blockDefinition = $options['blockDefinition'];
 
         $choices = array();
-        foreach ($blockDefinition->getConfiguration()->getViewTypes() as $viewType) {
+        foreach ($blockDefinition->getConfig()->getViewTypes() as $viewType) {
             $choices[$viewType->getName()] = $viewType->getIdentifier();
         }
 

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
+use Netgen\BlockManager\Configuration\QueryType\QueryType as Config;
 
 class QueryTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,12 +18,12 @@ class QueryTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::setConfiguration
-     * @covers \Netgen\BlockManager\Collection\QueryType::getConfiguration
+     * @covers \Netgen\BlockManager\Collection\QueryType::setConfig
+     * @covers \Netgen\BlockManager\Collection\QueryType::getConfig
      */
-    public function testGetConfiguration()
+    public function testGetConfig()
     {
-        $this->queryType->setConfiguration(new Configuration('identifier', array()));
-        self::assertEquals(new Configuration('identifier', array()), $this->queryType->getConfiguration());
+        $this->queryType->setConfig(new Config('identifier', array()));
+        self::assertEquals(new Config('identifier', array()), $this->queryType->getConfig());
     }
 }

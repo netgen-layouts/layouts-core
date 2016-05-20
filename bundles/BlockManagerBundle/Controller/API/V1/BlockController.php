@@ -171,7 +171,7 @@ class BlockController extends Controller
     {
         $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 
-        if (!$blockDefinition->getConfiguration()->hasForm($formName)) {
+        if (!$blockDefinition->getConfig()->hasForm($formName)) {
             throw new InvalidArgumentException('form', 'Block does not support specified form.');
         }
 
@@ -181,7 +181,7 @@ class BlockController extends Controller
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
-            $blockDefinition->getConfiguration()->getForm($formName)->getType(),
+            $blockDefinition->getConfig()->getForm($formName)->getType(),
             $updateStruct,
             array('blockDefinition' => $blockDefinition)
         );

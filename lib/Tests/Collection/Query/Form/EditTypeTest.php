@@ -68,7 +68,7 @@ class EditTypeTest extends TypeTestCase
         $updatedStruct->setParameter('param', 'Param value');
 
         $queryType = new QueryType();
-        $queryType->setConfiguration(
+        $queryType->setConfig(
             new Configuration(
                 'query_type',
                 array()

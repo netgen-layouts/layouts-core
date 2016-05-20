@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Configuration;
+use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 
 class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,12 +42,12 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::setConfiguration
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfiguration
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::setConfig
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfig
      */
-    public function testGetConfiguration()
+    public function testGetConfig()
     {
-        $this->blockDefinition->setConfiguration(new Configuration('identifier', array(), array()));
-        self::assertEquals(new Configuration('identifier', array(), array()), $this->blockDefinition->getConfiguration());
+        $this->blockDefinition->setConfig(new Config('identifier', array(), array()));
+        self::assertEquals(new Config('identifier', array(), array()), $this->blockDefinition->getConfig());
     }
 }

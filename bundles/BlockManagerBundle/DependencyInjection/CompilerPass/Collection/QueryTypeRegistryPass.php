@@ -41,7 +41,7 @@ class QueryTypeRegistryPass implements CompilerPassInterface
             }
 
             $queryTypeService = $container->findDefinition($queryType);
-            $queryTypeService->addMethodCall('setConfiguration', array(new Reference($configService)));
+            $queryTypeService->addMethodCall('setConfig', array(new Reference($configService)));
 
             $queryTypeRegistry->addMethodCall(
                 'addQueryType',

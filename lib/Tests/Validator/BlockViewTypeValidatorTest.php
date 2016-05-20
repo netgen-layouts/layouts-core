@@ -25,7 +25,7 @@ class BlockViewTypeValidatorTest extends ValidatorTest
         parent::setUp();
 
         $this->blockDefinition = new BlockDefinition();
-        $this->blockDefinition->setConfiguration(
+        $this->blockDefinition->setConfig(
             new Configuration(
                 'block',
                 array(),

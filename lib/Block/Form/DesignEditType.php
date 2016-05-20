@@ -21,7 +21,7 @@ class DesignEditType extends EditType
         $this->addParametersForm(
             $builder,
             $options,
-            $blockDefinition->getConfiguration()->getForm('design')->getParameters()
+            $blockDefinition->getConfig()->getForm('design')->getParameters()
         );
     }
 

@@ -41,7 +41,7 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
             }
 
             $blockDefinitionService = $container->findDefinition($blockDefinition);
-            $blockDefinitionService->addMethodCall('setConfiguration', array(new Reference($configService)));
+            $blockDefinitionService->addMethodCall('setConfig', array(new Reference($configService)));
 
             $blockDefinitionRegistry->addMethodCall(
                 'addBlockDefinition',

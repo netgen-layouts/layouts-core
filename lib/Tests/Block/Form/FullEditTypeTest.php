@@ -78,7 +78,7 @@ class FullEditTypeTest extends TypeTestCase
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $blockDefinition = new BlockDefinition();
-        $blockDefinition->setConfiguration(
+        $blockDefinition->setConfig(
             new Configuration(
                 'block_definition',
                 array(),
