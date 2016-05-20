@@ -138,6 +138,7 @@ services:
             - "@netgen_block_manager.core.service.block.validator"
             - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.configuration.registry.layout_type"
 
     # Collection related APIs
 

@@ -95,12 +95,12 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                     array(
                         'identifier' => 'left',
                         'block_ids' => array(24),
-                        'allowed_block_types' => array('title'),
+                        'allowed_block_definitions' => array('title'),
                     ),
                     array(
                         'identifier' => 'right',
                         'block_ids' => array(),
-                        'allowed_block_types' => true,
+                        'allowed_block_definitions' => true,
                     ),
                 ),
             ),

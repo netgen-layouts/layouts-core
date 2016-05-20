@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
@@ -33,6 +34,11 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     protected $blockValidatorMock;
 
     /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     */
+    protected $layoutTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     protected $blockService;
@@ -52,6 +58,8 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->layoutTypeRegistry = new LayoutTypeRegistry();
+
         $this->persistenceHandler
             ->expects($this->any())
             ->method('getBlockHandler')
@@ -66,7 +74,10 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->blockService = $this->createBlockService($this->blockValidatorMock);
+        $this->blockService = $this->createBlockService(
+            $this->blockValidatorMock,
+            $this->layoutTypeRegistry
+        );
     }
 
     /**

@@ -381,7 +381,7 @@ class Configuration implements ConfigurationInterface
                                     ->isRequired()
                                     ->cannotBeEmpty()
                                 ->end()
-                                ->arrayNode('allowed_block_types')
+                                ->arrayNode('allowed_block_definitions')
                                     ->validate()
                                         ->always(function ($v) {
                                             return array_values(array_unique($v));

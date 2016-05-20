@@ -53,15 +53,17 @@ trait TestCase
      * Creates a block service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\BlockService
      */
-    protected function createBlockService(BlockValidator $validator)
+    protected function createBlockService(BlockValidator $validator, LayoutTypeRegistry $layoutTypeRegistry)
     {
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $layoutTypeRegistry
         );
     }
 

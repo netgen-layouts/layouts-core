@@ -54,7 +54,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_block_types' => array(),
+                            'allowed_block_definitions' => array(),
                         ),
                     ),
                 ),
@@ -117,11 +117,11 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'top' => array(
                             'name' => 'Top',
-                            'allowed_block_types' => array(),
+                            'allowed_block_definitions' => array(),
                         ),
                         'bottom' => array(
                             'name' => 'Bottom',
-                            'allowed_block_types' => array(),
+                            'allowed_block_definitions' => array(),
                         ),
                     ),
                 ),
@@ -141,7 +141,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutTypeSettingsWithAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithAllowedBlockDefinitions()
     {
         $config = array(
             array(
@@ -151,7 +151,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
-                                'allowed_block_types' => array('title', 'paragraph'),
+                                'allowed_block_definitions' => array('title', 'paragraph'),
                             ),
                         ),
                     ),
@@ -167,7 +167,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_block_types' => array('title', 'paragraph'),
+                            'allowed_block_definitions' => array('title', 'paragraph'),
                         ),
                     ),
                 ),
@@ -187,7 +187,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testLayoutTypeSettingsWithNonUniqueAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithNonUniqueAllowedBlockDefinitions()
     {
         $config = array(
             array(
@@ -197,7 +197,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
-                                'allowed_block_types' => array('title', 'paragraph', 'title'),
+                                'allowed_block_definitions' => array('title', 'paragraph', 'title'),
                             ),
                         ),
                     ),
@@ -213,7 +213,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_block_types' => array('title', 'paragraph'),
+                            'allowed_block_definitions' => array('title', 'paragraph'),
                         ),
                     ),
                 ),
@@ -304,7 +304,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getLayoutTypesNodeDefinition
      */
-    public function testLayoutTypeSettingsWithEmptyAllowedBlockTypes()
+    public function testLayoutTypeSettingsWithEmptyAllowedBlockDefinitions()
     {
         $config = array(
             'layout_types' => array(
@@ -312,7 +312,7 @@ class LayoutTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'layout',
                     'zones' => array(
                         'name' => 'zone',
-                        'allowed_block_types' => array(),
+                        'allowed_block_definitions' => array(),
                     ),
                 ),
             ),

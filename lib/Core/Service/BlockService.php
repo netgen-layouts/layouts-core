@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
@@ -35,6 +36,11 @@ class BlockService implements BlockServiceInterface
     protected $persistenceHandler;
 
     /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     */
+    protected $layoutTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     protected $blockHandler;
@@ -55,15 +61,18 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      */
     public function __construct(
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
-        Handler $persistenceHandler
+        Handler $persistenceHandler,
+        LayoutTypeRegistry $layoutTypeRegistry
     ) {
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->persistenceHandler = $persistenceHandler;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
@@ -124,6 +133,7 @@ class BlockService implements BlockServiceInterface
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *                                                              If provided position is out of range
+     *                                                              If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -134,6 +144,10 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
         $this->blockValidator->validatePosition($position, 'position');
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
+
+        if (!$this->isBlockAllowedWithinZone($blockCreateStruct->definitionIdentifier, $persistenceLayout->type, $zoneIdentifier)) {
+            throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
+        }
 
         if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $zoneIdentifier, $persistenceLayout->status)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
@@ -215,18 +229,24 @@ class BlockService implements BlockServiceInterface
      * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     *                                                              If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function copyBlock(Block $block, $zoneIdentifier = null)
     {
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), $block->getStatus());
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
         if ($zoneIdentifier !== null) {
             if (!$this->layoutHandler->zoneExists($persistenceBlock->layoutId, $zoneIdentifier, $persistenceBlock->status)) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            }
+
+            if (!$this->isBlockAllowedWithinZone($block->getDefinitionIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
+                throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
             }
         }
 
@@ -283,20 +303,25 @@ class BlockService implements BlockServiceInterface
      *
      * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
      *                                                              If provided position is out of range
+     *                                                              If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), $block->getStatus());
 
         $this->blockValidator->validatePosition($position, 'position', true);
-
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
         if ($zoneIdentifier !== null) {
             if (!$this->layoutHandler->zoneExists($persistenceBlock->layoutId, $zoneIdentifier, $persistenceBlock->status)) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+            }
+
+            if (!$this->isBlockAllowedWithinZone($block->getDefinitionIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
+                throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
             }
         }
 
@@ -377,5 +402,29 @@ class BlockService implements BlockServiceInterface
     public function newBlockUpdateStruct()
     {
         return new BlockUpdateStruct();
+    }
+
+    /**
+     * Returns if the block is allowed within the zone.
+     *
+     * @param string $definitionIdentifier
+     * @param string $layoutType
+     * @param string $zoneIdentifier
+     *
+     * @return bool
+     */
+    protected function isBlockAllowedWithinZone($definitionIdentifier, $layoutType, $zoneIdentifier)
+    {
+        if (!$this->layoutTypeRegistry->hasLayoutType($layoutType)) {
+            return true;
+        }
+
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutType);
+        if (!$layoutType->hasZone($zoneIdentifier)) {
+            return true;
+        }
+
+        $zone = $layoutType->getZone($zoneIdentifier);
+        return $zone->isBlockDefinitionAllowed($definitionIdentifier);
     }
 }

@@ -82,12 +82,12 @@ class LayoutNormalizer implements NormalizerInterface
         $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->getType());
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
-            $allowedBlockTypes = true;
+            $allowedBlockDefinitions = true;
 
             if ($layoutType->hasZone($zoneIdentifier)) {
                 $layoutTypeZone = $layoutType->getZone($zoneIdentifier);
-                if (!empty($layoutTypeZone->getAllowedBlockTypes())) {
-                    $allowedBlockTypes = $layoutTypeZone->getAllowedBlockTypes();
+                if (!empty($layoutTypeZone->getAllowedBlockDefinitions())) {
+                    $allowedBlockDefinitions = $layoutTypeZone->getAllowedBlockDefinitions();
                 }
             }
 
@@ -99,7 +99,7 @@ class LayoutNormalizer implements NormalizerInterface
                     },
                     $zone->getBlocks()
                 ),
-                'allowed_block_types' => $allowedBlockTypes,
+                'allowed_block_definitions' => $allowedBlockDefinitions,
             );
         }
 

@@ -22,8 +22,8 @@ class LayoutTypeFactory
         foreach ($config['zones'] as $zoneIdentifier => $zoneConfig) {
             $zones[$zoneIdentifier] = new Zone(
                 $zoneIdentifier,
-                $config['zones'][$zoneIdentifier]['name'],
-                $config['zones'][$zoneIdentifier]['allowed_block_types']
+                $zoneConfig['name'],
+                $zoneConfig['allowed_block_definitions']
             );
         }
 

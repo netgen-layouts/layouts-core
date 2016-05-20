@@ -17,20 +17,20 @@ class Zone
     /**
      * @var array
      */
-    protected $allowedBlockTypes = array();
+    protected $allowedBlockDefinitions = array();
 
     /**
      * Constructor.
      *
      * @param string $identifier
      * @param string $name
-     * @param array $allowedBlockTypes
+     * @param array $allowedBlockDefinitions
      */
-    public function __construct($identifier, $name, array $allowedBlockTypes)
+    public function __construct($identifier, $name, array $allowedBlockDefinitions)
     {
         $this->identifier = $identifier;
         $this->name = $name;
-        $this->allowedBlockTypes = $allowedBlockTypes;
+        $this->allowedBlockDefinitions = $allowedBlockDefinitions;
     }
 
     /**
@@ -54,24 +54,28 @@ class Zone
     }
 
     /**
-     * Returns allowed block type identifiers.
+     * Returns allowed block definition identifiers.
      *
      * @return array
      */
-    public function getAllowedBlockTypes()
+    public function getAllowedBlockDefinitions()
     {
-        return $this->allowedBlockTypes;
+        return $this->allowedBlockDefinitions;
     }
 
     /**
-     * Returns if block type is allowed within the zone.
+     * Returns if block definition is allowed within the zone.
      *
-     * @param string $blockType
+     * @param string $blockDefinition
      *
      * @return bool
      */
-    public function isBlockTypeAllowed($blockType)
+    public function isBlockDefinitionAllowed($blockDefinition)
     {
-        return in_array($blockType, $this->allowedBlockTypes);
+        if (empty($this->allowedBlockDefinitions)) {
+            return true;
+        }
+
+        return in_array($blockDefinition, $this->allowedBlockDefinitions);
     }
 }

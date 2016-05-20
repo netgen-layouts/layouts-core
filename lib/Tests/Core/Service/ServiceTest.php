@@ -23,10 +23,11 @@ abstract class ServiceTest extends \PHPUnit_Framework_TestCase
      * Creates a block service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\API\Service\BlockService
      */
-    abstract protected function createBlockService(BlockValidator $validator);
+    abstract protected function createBlockService(BlockValidator $validator, LayoutTypeRegistry $layoutTypeRegistry);
 
     /**
      * Creates a collection service under test.
