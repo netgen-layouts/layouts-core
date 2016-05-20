@@ -1,6 +1,6 @@
 sources:
     dynamic:
-        name: 'Dynamic'
+        name: 'Dynamic source'
         query_type: ezcontent_search
         default_parameters:
             parent_location_id: 2

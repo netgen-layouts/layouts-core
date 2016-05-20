@@ -5,6 +5,13 @@ netgen_block_manager_api_v1_load_block:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:view"
 
+netgen_block_manager_api_v1_load_block_collections:
+    path: /blocks/{blockId}/collections
+    methods: [GET]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.block:loadCollections"
+
 netgen_block_manager_api_v1_create_block:
     path: /blocks
     methods: [POST]

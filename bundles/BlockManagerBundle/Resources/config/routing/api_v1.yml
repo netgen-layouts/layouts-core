@@ -7,8 +7,5 @@ netgen_block_manager_api_v1_blocks:
 netgen_block_manager_api_v1_collections:
     resource: "api_v1/collections.yml"
 
-netgen_block_manager_api_v1_block_collections:
-    resource: "api_v1/block_collections.yml"
-
 netgen_block_manager_api_v1_layouts:
     resource: "api_v1/layouts.yml"

@@ -1,1 +1,56 @@
-<div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
+{% set collection_class = '\\Netgen\\BlockManager\\API\\Values\\Collection\\Collection' %}
+{% set type_manual = constant(collection_class ~ '::TYPE_MANUAL') %}
+{% set type_dynamic = constant(collection_class ~ '::TYPE_DYNAMIC') %}
+{% set type_named = constant(collection_class ~ '::TYPE_NAMED') %}
+
+{% set query = null %}
+
+{% if collection is not empty %}
+    <label for="collection-type">Collection</label>
+    <select id="collection-type">
+        <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">Manual collection</option>
+        <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">Dynamic collection</option>
+
+        {% if named_collections is not empty %}
+            <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">Named collection</option>
+        {% endif %}
+    </select>
+
+    {% if named_collections is not empty %}
+        <label for="named-collections">Named collections</label>
+        <select id="named-collections">
+            {% for named_collection in named_collections %}
+                <option value="{{ named_collection.id }}">{{ named_collection.name }}</option>
+            {% endfor %}
+        </select>
+    {% endif %}
+
+    {% if collection.type == constant('TYPE_DYNAMIC', collection) %}
+        {% if collection.queries is not empty %}
+            {% set query = collection.queries.0 %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% if block_definition.config.hasForm('full') %}
+    <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
+
+    {% if query is not empty %}
+        <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
+    {% endif %}
+{% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
+    <div class="tabs">
+        <div class="content">
+            <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
+
+            {% if query is not empty %}
+                <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
+            {% endif %}
+        </div>
+        <div class="design">
+            <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'design'}) }}"></div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="collection-items"></div>

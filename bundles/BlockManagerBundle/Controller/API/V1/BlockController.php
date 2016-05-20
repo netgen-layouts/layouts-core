@@ -4,9 +4,13 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\FormView;
+use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\EditView;
 use Netgen\BlockManager\Serializer\Version;
@@ -32,6 +36,11 @@ class BlockController extends Controller
     protected $layoutService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\CollectionService
+     */
+    protected $collectionService;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
      */
     protected $validator;
@@ -41,15 +50,18 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator $validator
      */
     public function __construct(
         BlockService $blockService,
         LayoutService $layoutService,
+        CollectionService $collectionService,
         BlockValidator $validator
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;
+        $this->collectionService = $collectionService;
         $this->validator = $validator;
     }
 
@@ -63,6 +75,25 @@ class BlockController extends Controller
     public function view(Block $block)
     {
         return new View($block, Version::API_V1);
+    }
+
+    /**
+     * Loads all block collections.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function loadCollections(Block $block)
+    {
+        $collections = array_map(
+            function (Collection $collection) {
+                return new VersionedValue($collection, Version::API_V1);
+            },
+            $this->loadBlockCollections($block)
+        );
+
+        return new ValueArray($collections);
     }
 
     /**
@@ -127,10 +158,23 @@ class BlockController extends Controller
      */
     public function edit(Block $block)
     {
+        $defaultCollection = null;
+        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        foreach ($collectionReferences as $collectionReference) {
+            if ($collectionReference->getIdentifier() === 'default') {
+                $defaultCollection = $this->collectionService->loadCollection(
+                    $collectionReference->getCollectionId(),
+                    $collectionReference->getCollectionStatus()
+                );
+            }
+        }
+
         $editView = new EditView($block, Version::API_V1);
         $editView->setViewParameters(
             array(
                 'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),
+                'collection' => $defaultCollection,
+                'named_collections' => $this->collectionService->loadNamedCollections(),
             )
         );
 
@@ -217,5 +261,32 @@ class BlockController extends Controller
         $this->blockService->deleteBlock($block);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Loads all block collections.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $types
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
+     */
+    protected function loadBlockCollections(Block $block, array $types = array())
+    {
+        $collections = array();
+        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionService->loadCollection(
+                $collectionReference->getCollectionId(),
+                $collectionReference->getCollectionStatus()
+            );
+
+            if (empty($types) || in_array($collection->getType(), $types)) {
+                $collections[] = $collection;
+            }
+        }
+
+        return $collections;
     }
 }

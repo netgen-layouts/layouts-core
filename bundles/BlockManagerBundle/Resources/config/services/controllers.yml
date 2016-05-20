@@ -58,6 +58,8 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_block_manager.configuration.registry.source"
             - "@netgen_block_manager.controller.api.v1.block.validator"
 
     netgen_block_manager.controller.api.v1.collection:
@@ -65,14 +67,6 @@ services:
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.controller.api.v1.collection.validator"
-
-    netgen_block_manager.controller.api.v1.block_collection:
-        class: "%netgen_block_manager.controller.api.v1.block_collection.class%"
-        parent: netgen_block_manager.controller.base
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.controller.api.v1.collection.validator"
 
     netgen_block_manager.controller.api.v1.block.validator:
