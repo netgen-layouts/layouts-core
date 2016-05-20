@@ -1,10 +1,10 @@
 parameters:
-    netgen_block_manager.collection.query.form.edit.class: Netgen\BlockManager\Collection\Query\Form\EditType
+    netgen_block_manager.collection.query.form.full_edit.class: Netgen\BlockManager\Collection\Query\Form\FullEditType
 
 services:
-    netgen_block_manager.collection.query.form.edit:
-        class: "%netgen_block_manager.collection.query.form.edit.class%"
+    netgen_block_manager.collection.query.form.full_edit:
+        class: "%netgen_block_manager.collection.query.form.full_edit.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:
-            - { name: form.type, alias: query_edit }
+            - { name: form.type, alias: query_full_edit }

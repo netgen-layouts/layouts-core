@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class EditType extends AbstractType
+class FullEditType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -95,6 +95,6 @@ class EditType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'query_edit';
+        return 'query_full_edit';
     }
 }

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Configuration\QueryType\QueryType as Configuration;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Query\Form\EditType;
+use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -15,7 +15,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class EditTypeTest extends TypeTestCase
+class FullEditTypeTest extends TypeTestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
@@ -23,7 +23,7 @@ class EditTypeTest extends TypeTestCase
     protected $parameterFormMapper;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Query\Form\EditType
+     * @var \Netgen\BlockManager\Collection\Query\Form\FullEditType
      */
     protected $formType;
 
@@ -37,7 +37,7 @@ class EditTypeTest extends TypeTestCase
         $this->parameterFormMapper = new FormMapper();
         $this->parameterFormMapper->addParameterHandler('text', new Text());
 
-        $this->formType = new EditType($this->parameterFormMapper);
+        $this->formType = new FullEditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);
         $validator
@@ -76,7 +76,7 @@ class EditTypeTest extends TypeTestCase
         );
 
         $form = $this->factory->create(
-            'query_edit',
+            'query_full_edit',
             new QueryUpdateStruct(),
             array('queryType' => $queryType)
         );
@@ -175,7 +175,7 @@ class EditTypeTest extends TypeTestCase
      */
     public function testGetName()
     {
-        self::assertEquals('query_edit', $this->formType->getName());
+        self::assertEquals('query_full_edit', $this->formType->getName());
     }
 
     /**
@@ -183,6 +183,6 @@ class EditTypeTest extends TypeTestCase
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('query_edit', $this->formType->getBlockPrefix());
+        self::assertEquals('query_full_edit', $this->formType->getBlockPrefix());
     }
 }

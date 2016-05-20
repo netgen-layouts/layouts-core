@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Configuration\Factory;
 
+use Netgen\BlockManager\Configuration\QueryType\Form;
 use Netgen\BlockManager\Configuration\QueryType\QueryType;
 
 class QueryTypeFactory
@@ -16,6 +17,16 @@ class QueryTypeFactory
      */
     public static function buildQueryType(array $config, $identifier)
     {
-        return new QueryType($identifier, $config['forms']);
+        $forms = array();
+
+        foreach ($config['forms'] as $formIdentifier => $formConfig) {
+            $forms[$formIdentifier] = new Form(
+                $formIdentifier,
+                $formConfig['type'],
+                isset($formConfig['parameters']) ? $formConfig['parameters'] : array()
+            );
+        }
+
+        return new QueryType($identifier, $forms);
     }
 }

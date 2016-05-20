@@ -224,7 +224,7 @@ class CollectionController extends Controller
         $updateStruct->setParameters($query->getParameters());
 
         $form = $this->createForm(
-            $queryType->getConfig()->getForm($formName),
+            $queryType->getConfig()->getForm($formName)->getType(),
             $updateStruct,
             array('queryType' => $queryType)
         );

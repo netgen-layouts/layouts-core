@@ -36,7 +36,9 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'query_types' => array(
                     'type' => array(
                         'forms' => array(
-                            'full' => 'query_edit',
+                            'full' => array(
+                                'type' => 'full_edit'
+                            ),
                         ),
                     ),
                 ),
@@ -47,42 +49,9 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
             'query_types' => array(
                 'type' => array(
                     'forms' => array(
-                        'full' => 'query_edit',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'query_types'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     */
-    public function testQueryTypeSettingsWithNoFullForm()
-    {
-        $config = array(
-            array(
-                'query_types' => array(
-                    'type' => array(
-                        'forms' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $expectedConfig = array(
-            'query_types' => array(
-                'type' => array(
-                    'forms' => array(
-                        'full' => 'query_edit',
+                        'full' => array(
+                            'type' => 'full_edit'
+                        ),
                     ),
                 ),
             ),
@@ -116,7 +85,9 @@ class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $config = array(
             'query_types' => array(
-                'type' => array(),
+                'type' => array(
+                    'forms' => array()
+                ),
             ),
         );
 

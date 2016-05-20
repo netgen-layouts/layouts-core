@@ -39,7 +39,7 @@ class QueryType
     /**
      * Returns all forms.
      *
-     * @return array
+     * @return \Netgen\BlockManager\Configuration\QueryType\Form[]
      */
     public function getForms()
     {
@@ -63,7 +63,7 @@ class QueryType
      *
      * @param $formIdentifier
      *
-     * @return string
+     * @return \Netgen\BlockManager\Configuration\QueryType\Form
      */
     public function getForm($formIdentifier)
     {
