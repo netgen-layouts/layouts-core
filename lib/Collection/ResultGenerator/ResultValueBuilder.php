@@ -72,7 +72,12 @@ class ResultValueBuilder implements ResultValueBuilderInterface
             return $resultValue;
         }
 
-        throw new RuntimeException('No result value builder for object of type "' . get_class($object) . '".');
+        throw new RuntimeException(
+            sprintf(
+                'Value converter for object of type "%s" does not exist.',
+                get_class($object)
+            )
+        );
     }
 
     /**
