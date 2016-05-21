@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -37,11 +37,11 @@ trait TestCase
      * Creates a layout service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(LayoutValidator $validator, LayoutTypeRegistry $layoutTypeRegistry)
+    protected function createLayoutService(LayoutValidator $validator, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         return new LayoutService(
             $validator,
@@ -55,11 +55,11 @@ trait TestCase
      * Creates a block service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\BlockService
      */
-    protected function createBlockService(BlockValidator $validator, LayoutTypeRegistry $layoutTypeRegistry)
+    protected function createBlockService(BlockValidator $validator, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         return new BlockService(
             $validator,

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
@@ -36,7 +36,7 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 
@@ -46,13 +46,13 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(
         LayoutValidator $layoutValidator,
         LayoutMapper $layoutMapper,
         Handler $persistenceHandler,
-        LayoutTypeRegistry $layoutTypeRegistry
+        LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
         $this->layoutValidator = $layoutValidator;
         $this->layoutMapper = $layoutMapper;

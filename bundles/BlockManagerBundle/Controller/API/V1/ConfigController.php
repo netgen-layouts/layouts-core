@@ -4,8 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
-use Netgen\BlockManager\Configuration\Registry\SourceRegistry;
+use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface;
+use Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -15,22 +15,22 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 class ConfigController extends Controller
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface
      */
     protected $blockTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\SourceRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface
      */
     protected $sourceRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry $blockTypeRegistry
-     * @param \Netgen\BlockManager\Configuration\Registry\SourceRegistry $sourceRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface $blockTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface $sourceRegistry
      */
-    public function __construct(BlockTypeRegistry $blockTypeRegistry, SourceRegistry $sourceRegistry)
+    public function __construct(BlockTypeRegistryInterface $blockTypeRegistry, SourceRegistryInterface $sourceRegistry)
     {
         $this->blockTypeRegistry = $blockTypeRegistry;
         $this->sourceRegistry = $sourceRegistry;

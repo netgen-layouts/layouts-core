@@ -3,7 +3,6 @@ parameters:
 
     netgen_block_manager.configuration.source.class: Netgen\BlockManager\Configuration\Source\Source
     netgen_block_manager.configuration.layout_type.class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
-    netgen_block_manager.configuration.query_type.class: Netgen\BlockManager\Configuration\QueryType\QueryType
     netgen_block_manager.configuration.block_type.class: Netgen\BlockManager\Configuration\BlockType\BlockType
     netgen_block_manager.configuration.block_type_group.class: Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
 
@@ -13,7 +12,6 @@ parameters:
 
     netgen_block_manager.configuration.factory.source.class: Netgen\BlockManager\Configuration\Factory\SourceFactory
     netgen_block_manager.configuration.factory.layout_type.class: Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory
-    netgen_block_manager.configuration.factory.query_type.class: Netgen\BlockManager\Configuration\Factory\QueryTypeFactory
     netgen_block_manager.configuration.factory.block_type.class: Netgen\BlockManager\Configuration\Factory\BlockTypeFactory
     netgen_block_manager.configuration.factory.block_type_group.class: Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory
 
@@ -48,12 +46,6 @@ services:
     netgen_block_manager.configuration.layout_type:
         class: "%netgen_block_manager.configuration.layout_type.class%"
         factory: ["%netgen_block_manager.configuration.factory.layout_type.class%", "buildLayoutType"]
-        abstract: true
-        synthetic: true
-
-    netgen_block_manager.configuration.query_type:
-        class: "%netgen_block_manager.configuration.query_type.class%"
-        factory: ["%netgen_block_manager.configuration.factory.query_type.class%", "buildQueryType"]
         abstract: true
         synthetic: true
 

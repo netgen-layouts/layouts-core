@@ -5,23 +5,15 @@ namespace Netgen\BlockManager\Configuration\Registry;
 use Netgen\BlockManager\Configuration\Source\Source;
 use RuntimeException;
 
-class SourceRegistry implements SourceRegistryInterface
+interface SourceRegistryInterface
 {
-    /**
-     * @var array
-     */
-    protected $sources = array();
-
     /**
      * Adds a source.
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Configuration\Source\Source $source
      */
-    public function addSource($identifier, Source $source)
-    {
-        $this->sources[$identifier] = $source;
-    }
+    public function addSource($identifier, Source $source);
 
     /**
      * Returns if source exists in the registry.
@@ -30,10 +22,7 @@ class SourceRegistry implements SourceRegistryInterface
      *
      * @return bool
      */
-    public function hasSource($identifier)
-    {
-        return isset($this->sources[$identifier]);
-    }
+    public function hasSource($identifier);
 
     /**
      * Returns the source.
@@ -44,22 +33,12 @@ class SourceRegistry implements SourceRegistryInterface
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source
      */
-    public function getSource($identifier)
-    {
-        if (!$this->hasSource($identifier)) {
-            throw new RuntimeException(sprintf('Source "%s" does not exist.', $identifier));
-        }
-
-        return $this->sources[$identifier];
-    }
+    public function getSource($identifier);
 
     /**
      * Returns all sources.
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source[]
      */
-    public function all()
-    {
-        return $this->sources;
-    }
+    public function all();
 }
