@@ -25,13 +25,10 @@ class DefinitionIdentifierTest extends \PHPUnit_Framework_TestCase
      * @param bool $expected
      *
      * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier::match
-     * @covers \Netgen\BlockManager\View\Matcher\Matcher::setConfig
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, $expected)
     {
-        $this->matcher->setConfig($config);
-
         $block = new Block(
             array(
                 'definitionIdentifier' => 'paragraph',
@@ -40,7 +37,7 @@ class DefinitionIdentifierTest extends \PHPUnit_Framework_TestCase
 
         $view = new BlockView($block);
 
-        self::assertEquals($expected, $this->matcher->match($view));
+        self::assertEquals($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -64,6 +61,6 @@ class DefinitionIdentifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        self::assertFalse($this->matcher->match(new View(new Value())));
+        self::assertFalse($this->matcher->match(new View(new Value()), array()));
     }
 }

@@ -2,25 +2,26 @@
 
 namespace Netgen\BlockManager\View\Matcher\Layout;
 
-use Netgen\BlockManager\View\Matcher\Matcher;
+use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-class Type extends Matcher
+class Type implements MatcherInterface
 {
     /**
      * Returns if the view matches the config.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
+     * @param array $config
      *
      * @return bool
      */
-    public function match(ViewInterface $view)
+    public function match(ViewInterface $view, array $config)
     {
         if (!$view instanceof LayoutViewInterface) {
             return false;
         }
 
-        return in_array($view->getLayout()->getType(), $this->config);
+        return in_array($view->getLayout()->getType(), $config);
     }
 }

@@ -23,17 +23,14 @@ class APIVersionTest extends \PHPUnit_Framework_TestCase
      * @param bool $expected
      *
      * @covers \Netgen\BlockManager\View\Matcher\APIVersion::match
-     * @covers \Netgen\BlockManager\View\Matcher\Matcher::setConfig
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, $expected)
     {
-        $this->matcher->setConfig($config);
-
         $view = new View(new Value());
         $view->addParameters(array('api_version' => 42));
 
-        self::assertEquals($expected, $this->matcher->match($view));
+        self::assertEquals($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -57,6 +54,6 @@ class APIVersionTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchWithNoAPIVersion()
     {
-        self::assertFalse($this->matcher->match(new View(new Value())));
+        self::assertFalse($this->matcher->match(new View(new Value()), array()));
     }
 }

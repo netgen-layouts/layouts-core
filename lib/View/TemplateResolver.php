@@ -106,8 +106,7 @@ class TemplateResolver implements TemplateResolverInterface
             }
 
             $matcherConfig = !is_array($matcherConfig) ? array($matcherConfig) : $matcherConfig;
-            $this->matchers[$matcher]->setConfig($matcherConfig);
-            if (!$this->matchers[$matcher]->match($view)) {
+            if (!$this->matchers[$matcher]->match($view, $matcherConfig)) {
                 return false;
             }
         }

@@ -25,13 +25,10 @@ class TypeTest extends \PHPUnit_Framework_TestCase
      * @param bool $expected
      *
      * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
-     * @covers \Netgen\BlockManager\View\Matcher\Matcher::setConfig
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, $expected)
     {
-        $this->matcher->setConfig($config);
-
         $layout = new Layout(
             array(
                 'type' => '3_zones_a',
@@ -40,7 +37,7 @@ class TypeTest extends \PHPUnit_Framework_TestCase
 
         $view = new LayoutView($layout);
 
-        self::assertEquals($expected, $this->matcher->match($view));
+        self::assertEquals($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -64,6 +61,6 @@ class TypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatchWithNoLayoutView()
     {
-        self::assertFalse($this->matcher->match(new View(new Value())));
+        self::assertFalse($this->matcher->match(new View(new Value()), array()));
     }
 }
