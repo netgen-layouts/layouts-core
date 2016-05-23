@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use RuntimeException;
 
 interface LayoutTypeRegistryInterface
 {

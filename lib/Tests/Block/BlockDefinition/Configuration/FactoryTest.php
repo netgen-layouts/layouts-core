@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 
-class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory
@@ -28,8 +28,8 @@ class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
             'forms' => array(
                 'content' => array(
                     'type' => 'form_type',
-                    'parameters' => array('param1', 'param2')
-                )
+                    'parameters' => array('param1', 'param2'),
+                ),
             ),
             'view_types' => array(
                 'large' => array(
@@ -38,7 +38,7 @@ class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
                 'small' => array(
                     'name' => 'Small',
                 ),
-            )
+            ),
         );
 
         $blockDefinition = $this->factory->buildBlockDefinitionConfig(
@@ -50,7 +50,7 @@ class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
             new Configuration(
                 'block_definition',
                 array(
-                    'content' => new Form('content', 'form_type', array('param1', 'param2'))
+                    'content' => new Form('content', 'form_type', array('param1', 'param2')),
                 ),
                 array(
                     'large' => new ViewType('large', 'Large'),

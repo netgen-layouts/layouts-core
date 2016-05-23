@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 
-class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Factory
@@ -27,8 +27,8 @@ class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
             'forms' => array(
                 'full' => array(
                     'type' => 'form_type',
-                    'parameters' => array('param1', 'param2')
-                )
+                    'parameters' => array('param1', 'param2'),
+                ),
             ),
         );
 
@@ -41,7 +41,7 @@ class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
             new Configuration(
                 'query_type',
                 array(
-                    'full' => new Form('full', 'form_type', array('param1', 'param2'))
+                    'full' => new Form('full', 'form_type', array('param1', 'param2')),
                 )
             ),
             $queryType

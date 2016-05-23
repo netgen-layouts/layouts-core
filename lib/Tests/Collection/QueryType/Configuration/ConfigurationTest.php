@@ -17,7 +17,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->configuration = new Configuration(
             'query_type',
             array(
-                'full' => new Form('full', 'form_type', array('param1', 'param2'))
+                'full' => new Form('full', 'form_type', array('param1', 'param2')),
             )
         );
     }
@@ -38,7 +38,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             array(
-                'full' => new Form('full', 'form_type', array('param1', 'param2'))
+                'full' => new Form('full', 'form_type', array('param1', 'param2')),
             ),
             $this->configuration->getForms()
         );

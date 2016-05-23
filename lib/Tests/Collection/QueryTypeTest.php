@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Collection;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Parameters\Parameter;
 
 class QueryTypeTest extends \PHPUnit_Framework_TestCase
 {

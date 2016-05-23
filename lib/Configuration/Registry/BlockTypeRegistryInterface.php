@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use RuntimeException;
 
 interface BlockTypeRegistryInterface
 {

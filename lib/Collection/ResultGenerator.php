@@ -152,14 +152,13 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $itemsCount = $this->getNumberOfItemsBeforeOffset($collection->getManualItems(), $queryCount);
 
-        for($i = $queryCount + $itemsCount;; ++$i) {
+        for ($i = $queryCount + $itemsCount;; ++$i) {
             if (isset($manualItems[$i]) || isset($overrideItems[$i])) {
                 ++$itemsCount;
             } else {
                 break;
             }
         }
-
 
         return $queryCount + $itemsCount;
     }

@@ -160,7 +160,6 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue($queryCount));
 
-
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
         self::assertInstanceOf(Result::class, $result);

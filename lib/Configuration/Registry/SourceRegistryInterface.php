@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\Source\Source;
-use RuntimeException;
 
 interface SourceRegistryInterface
 {

@@ -18,7 +18,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->configuration = new Configuration(
             'block_definition',
             array(
-                'content' => new Form('content', 'form_type', array('param1', 'param2'))
+                'content' => new Form('content', 'form_type', array('param1', 'param2')),
             ),
             array(
                 'large' => new ViewType('large', 'Large'),
@@ -43,7 +43,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             array(
-                'content' => new Form('content', 'form_type', array('param1', 'param2'))
+                'content' => new Form('content', 'form_type', array('param1', 'param2')),
             ),
             $this->configuration->getForms()
         );
