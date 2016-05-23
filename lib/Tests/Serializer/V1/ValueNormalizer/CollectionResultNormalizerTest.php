@@ -41,6 +41,7 @@ class CollectionResultNormalizerTest extends \PHPUnit_Framework_TestCase
                     new ResultItem(),
                     new ResultItem(),
                 ),
+                'totalCount' => 5,
             )
         );
 
@@ -60,7 +61,10 @@ class CollectionResultNormalizerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('items')));
 
         self::assertEquals(
-            array('items'),
+            array(
+                'items' => array('items'),
+                'item_count' => 5,
+            ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
     }

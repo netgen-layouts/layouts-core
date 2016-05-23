@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -10,13 +12,24 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $collectionServiceMock;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer
      */
     protected $normalizer;
 
     public function setUp()
     {
-        $this->normalizer = new CollectionReferenceNormalizer();
+        $this->collectionServiceMock = $this->getMockBuilder(CollectionService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->normalizer = new CollectionReferenceNormalizer(
+            $this->collectionServiceMock
+        );
     }
 
     /**
@@ -24,25 +37,41 @@ class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalize()
     {
-        $collection = new CollectionReference(
+        $collectionReference = new CollectionReference(
             array(
                 'blockId' => 42,
                 'collectionId' => 24,
+                'collectionStatus' => Collection::STATUS_PUBLISHED,
                 'identifier' => 'default',
                 'offset' => 10,
                 'limit' => 5,
             )
         );
 
+        $collection = new Collection(
+            array(
+                'id' => 24,
+                'type' => Collection::TYPE_MANUAL,
+                'name' => null,
+            )
+        );
+
+        $this->collectionServiceMock
+            ->expects($this->once())
+            ->method('loadCollection')
+            ->with($this->equalTo(24), $this->equalTo(Collection::STATUS_PUBLISHED))
+            ->will($this->returnValue($collection));
+
         self::assertEquals(
             array(
-                'block_id' => $collection->getBlockId(),
-                'collection_id' => $collection->getCollectionId(),
-                'identifier' => $collection->getIdentifier(),
-                'offset' => $collection->getOffset(),
-                'limit' => $collection->getLimit(),
+                'id' => $collection->getId(),
+                'type' => $collection->getType(),
+                'name' => $collection->getName(),
+                'identifier' => $collectionReference->getIdentifier(),
+                'offset' => $collectionReference->getOffset(),
+                'limit' => $collectionReference->getLimit(),
             ),
-            $this->normalizer->normalize(new VersionedValue($collection, 1))
+            $this->normalizer->normalize(new VersionedValue($collectionReference, 1))
         );
     }
 
