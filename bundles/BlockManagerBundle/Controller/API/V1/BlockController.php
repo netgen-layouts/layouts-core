@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
@@ -87,10 +87,10 @@ class BlockController extends Controller
     public function loadCollections(Block $block)
     {
         $collections = array_map(
-            function (Collection $collection) {
+            function (CollectionReference $collection) {
                 return new VersionedValue($collection, Version::API_V1);
             },
-            $this->loadBlockCollections($block)
+            $this->blockService->loadCollectionReferences($block)
         );
 
         return new ValueArray($collections);

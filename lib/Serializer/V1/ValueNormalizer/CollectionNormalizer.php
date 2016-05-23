@@ -25,14 +25,9 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
         /** @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
         $collection = $object->getValue();
 
-        $manualItems = array();
-        foreach ($collection->getManualItems() as $manualItem) {
-            $manualItems[] = new VersionedValue($manualItem, $object->getVersion());
-        }
-
-        $overrideItems = array();
-        foreach ($collection->getOverrideItems() as $overrideItem) {
-            $overrideItems[] = new VersionedValue($overrideItem, $object->getVersion());
+        $items = array();
+        foreach ($collection->getItems() as $item) {
+            $items[] = new VersionedValue($item, $object->getVersion());
         }
 
         $queries = array();
@@ -44,8 +39,7 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'name' => $collection->getName(),
-            'manual_items' => $this->serializer->normalize(new ValueArray($manualItems)),
-            'override_items' => $this->serializer->normalize(new ValueArray($overrideItems)),
+            'items' => $this->serializer->normalize(new ValueArray($items)),
             'queries' => $this->serializer->normalize(new ValueArray($queries)),
         );
     }

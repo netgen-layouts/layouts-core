@@ -61,26 +61,14 @@ class CollectionController extends Controller
      */
     public function loadCollectionItems(Collection $collection)
     {
-        $manualItems = array_map(
+        $items = array_map(
             function (Item $item) {
                 return new VersionedValue($item, Version::API_V1);
             },
-            array_values($collection->getManualItems())
+            $collection->getItems()
         );
 
-        $overrideItems = array_map(
-            function (Item $item) {
-                return new VersionedValue($item, Version::API_V1);
-            },
-            array_values($collection->getOverrideItems())
-        );
-
-        return new ValueArray(
-            array(
-                'manual_items' => $manualItems,
-                'override_items' => $overrideItems,
-            )
-        );
+        return new ValueArray($items);
     }
 
     /**

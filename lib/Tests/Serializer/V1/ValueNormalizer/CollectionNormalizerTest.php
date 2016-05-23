@@ -44,7 +44,6 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'items' => array(
                     new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)),
                     new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)),
-                    new Item(array('position' => 5, 'type' => Item::TYPE_OVERRIDE)),
                 ),
                 'queries' => array(
                     new Query(array('position' => 0)),
@@ -65,24 +64,10 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
-            ->will($this->returnValue(array('manual_items')));
+            ->will($this->returnValue(array('items')));
 
         $this->serializerMock
             ->expects($this->at(1))
-            ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    new ValueArray(
-                        array(
-                            new VersionedValue(new Item(array('position' => 5, 'type' => Item::TYPE_OVERRIDE)), 1),
-                        )
-                    )
-                )
-            )
-            ->will($this->returnValue(array('override_items')));
-
-        $this->serializerMock
-            ->expects($this->at(2))
             ->method('normalize')
             ->with(
                 $this->equalTo(
@@ -100,8 +85,7 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
                 'name' => $collection->getName(),
-                'manual_items' => array('manual_items'),
-                'override_items' => array('override_items'),
+                'items' => array('items'),
                 'queries' => array('queries'),
             ),
             $this->normalizer->normalize(new VersionedValue($collection, 1))
