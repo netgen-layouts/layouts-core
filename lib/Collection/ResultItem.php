@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\ValueObject;
 
-class ResultItem extends Value
+class ResultItem extends ValueObject
 {
     const TYPE_MANUAL = 0;
 

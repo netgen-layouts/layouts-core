@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\API\Values\AbstractValue;
+use Netgen\BlockManager\ValueObject;
 
-class Block extends AbstractValue
+class Block extends ValueObject
 {
     /**
      * Block ID.

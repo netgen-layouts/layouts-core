@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\ValueObject;
 
-class Result extends Value
+class Result extends ValueObject
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection

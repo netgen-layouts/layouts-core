@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\API\Values\AbstractValue;
+use Netgen\BlockManager\ValueObject;
 
-class Item extends AbstractValue
+class Item extends ValueObject
 {
     /**
      * @const int

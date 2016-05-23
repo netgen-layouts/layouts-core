@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
-use Netgen\BlockManager\API\Values\AbstractValue;
+use Netgen\BlockManager\ValueObject;
 
-class Zone extends AbstractValue implements APIZone
+class Zone extends ValueObject implements APIZone
 {
     /**
      * @var string

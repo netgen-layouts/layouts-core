@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
-use Netgen\BlockManager\API\Values\AbstractValue;
+use Netgen\BlockManager\ValueObject;
 
-class Layout extends AbstractValue implements APILayout
+class Layout extends ValueObject implements APILayout
 {
     /**
      * @var int|string

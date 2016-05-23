@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Stubs;
 
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\ValueObject as BaseValueObject;
 
-class Value extends BaseValue
+class ValueObject extends BaseValueOBject
 {
     /**
      * @var int

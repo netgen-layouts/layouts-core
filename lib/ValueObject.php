@@ -1,12 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values;
+namespace Netgen\BlockManager;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use InvalidArgumentException as BaseInvalidArgumentException;
-use Netgen\BlockManager\Value as BaseValue;
 
-abstract class AbstractValue extends BaseValue
+abstract class ValueObject
 {
     /**
      * Construct object optionally with a set of properties.
@@ -20,10 +18,15 @@ abstract class AbstractValue extends BaseValue
      */
     public function __construct(array $properties = array())
     {
-        try {
-            parent::__construct($properties);
-        } catch (BaseInvalidArgumentException $e) {
-            throw new InvalidArgumentException('properties', $e->getMessage());
+        foreach ($properties as $property => $value) {
+            if (!property_exists($this, $property)) {
+                throw new InvalidArgumentException(
+                    'properties',
+                    'Property "' . $property . '" does not exist in "' . get_class($this) . '" class.'
+                );
+            }
+
+            $this->$property = $value;
         }
     }
 }

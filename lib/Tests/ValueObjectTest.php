@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests;
 
-use Netgen\BlockManager\Tests\Stubs\Value;
+use Netgen\BlockManager\Tests\Stubs\ValueObject;
 
-class ValueTest extends \PHPUnit_Framework_TestCase
+class ValueObjectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Value::__construct
+     * @covers \Netgen\BlockManager\ValueObject::__construct
      */
     public function testSetProperties()
     {
-        $value = new Value(
+        $value = new ValueObject(
             array(
                 'someProperty' => 42,
                 'someOtherProperty' => 84,
@@ -23,12 +23,12 @@ class ValueTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Value::__construct
-     * @expectedException \InvalidArgumentException
+     * @covers \Netgen\BlockManager\ValueObject::__construct
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testSetNonExistingProperties()
     {
-        $value = new Value(
+        $value = new ValueObject(
             array(
                 'someNonExistingProperty' => 42,
             )

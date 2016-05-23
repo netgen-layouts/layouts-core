@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\API\Values\AbstractValue;
+use Netgen\BlockManager\ValueObject;
 
-class Query extends AbstractValue implements APIQuery
+class Query extends ValueObject implements APIQuery
 {
     /**
      * @var int|string

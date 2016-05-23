@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\API\Values\AbstractValue;
+use Netgen\BlockManager\ValueObject;
 
-class Item extends AbstractValue implements APIItem
+class Item extends ValueObject implements APIItem
 {
     /**
      * @var int|string

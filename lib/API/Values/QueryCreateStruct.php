@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-abstract class QueryCreateStruct extends AbstractValue
+use Netgen\BlockManager\ValueObject;
+
+abstract class QueryCreateStruct extends ValueObject
 {
     /**
      * @var string

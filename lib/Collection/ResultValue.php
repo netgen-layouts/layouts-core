@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Collection;
 
-use Netgen\BlockManager\Value as BaseValue;
+use Netgen\BlockManager\ValueObject;
 
-class ResultValue extends BaseValue
+class ResultValue extends ValueObject
 {
     /**
      * @var int|string

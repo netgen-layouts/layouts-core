@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Stubs;
 
-use Netgen\BlockManager\API\Values\AbstractValue;
 use Netgen\BlockManager\API\Values\Value as APIValue;
+use Netgen\BlockManager\ValueObject;
 
-class Value extends AbstractValue implements APIValue
+class Value extends ValueObject implements APIValue
 {
     /**
      * @var int
