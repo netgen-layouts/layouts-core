@@ -72,22 +72,24 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
     /**
      * @param array $items
      * @param array $values
+     * @param int $totalCount
      * @param int $offset
      * @param int $limit
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::__construct
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateFromManualCollection
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateItems
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @dataProvider generateResultForManualCollectionProvider
      */
-    public function testGenerateResultForManualCollection(array $items, array $values, $offset = 0, $limit = null)
+    public function testGenerateResultForManualCollection(array $items, array $values, $totalCount, $offset = 0, $limit = null)
     {
         $collection = $this->generateManualCollection($items);
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
         self::assertInstanceOf(Result::class, $result);
         self::assertEquals($collection, $result->getCollection());
+        self::assertEquals($totalCount, $result->getTotalCount());
         self::assertEquals($offset, $result->getOffset());
         self::assertEquals($limit, $result->getLimit());
 
@@ -105,14 +107,16 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      * @param array $manualItems
      * @param array $overrideItems
      * @param array $queryItems
+     * @param int $queryCount
      * @param array $values
+     * @param int $totalCount
      * @param int $offset
      * @param int $limit
      * @param int $queryOffset
      * @param int $queryLimit
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateFromDynamicCollection
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateItems
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsBeforeOffset
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsAtOffset
@@ -122,7 +126,9 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
         array $manualItems,
         array $overrideItems,
         array $queryItems,
+        $queryCount,
         array $values,
+        $totalCount,
         $offset = 0,
         $limit = null,
         $queryOffset = 0,
@@ -146,10 +152,20 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
+        $this->queryRunnerMock
+            ->expects($this->once())
+            ->method('getTotalCount')
+            ->with(
+                $this->equalTo($collection->getQueries())
+            )
+            ->will($this->returnValue($queryCount));
+
+
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
         self::assertInstanceOf(Result::class, $result);
         self::assertEquals($collection, $result->getCollection());
+        self::assertEquals($totalCount, $result->getTotalCount());
         self::assertEquals($offset, $result->getOffset());
         self::assertEquals($limit, $result->getLimit());
 
@@ -160,17 +176,6 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
         }
 
         self::assertEquals($this->buildExpectedResultValues($values), $resultValues);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateFromDynamicCollection
-     * @expectedException \RuntimeException
-     */
-    public function testGenerateResultForDynamicCollectionThrowsRuntimeException()
-    {
-        $collection = new Collection(array('type' => Collection::TYPE_DYNAMIC));
-        $this->generator->generateResult($collection);
     }
 
     /**
@@ -187,31 +192,37 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
                 array(42, 44, 46),
+                13,
                 0,
                 5,
             ),
             array(
                 array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
                 array(42, 44, 46, 47, 48, 49, 50, 53, 54),
+                13,
             ),
             array(
                 array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
                 array(48, 49, 50),
+                13,
                 6,
                 5,
             ),
             array(
                 array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
                 array(48, 49, 50, 53, 54),
+                13,
                 6,
             ),
             array(
                 array(),
                 array(),
+                0,
             ),
             array(
                 array(),
                 array(),
+                0,
                 5,
             ),
         );
@@ -228,79 +239,79 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(3 => 25, 9 => 26),
-                array(42, 143, 44, 145),
-                array(42, 10, 25),
+                array(42, 143, 44, 145), 13,
+                array(42, 10, 25), 17,
                 0, 5, 0, 4,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(3 => 25, 9 => 26),
-                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
-                array(42, 10, 25, 46, 47, 14, 16, 26, 49, 20, 50, 53, 54),
+                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54), 13,
+                array(42, 10, 25, 46, 47, 14, 16, 26, 49, 20, 50, 53, 54), 17,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(3 => 25, 9 => 26),
-                array(42, 143, 44),
-                array(42, 14, 16, 26, 44),
+                array(42, 143, 44), 13,
+                array(42, 14, 16, 26, 44), 17,
                 6, 5, 5, 3,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(3 => 25, 9 => 26),
-                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
-                array(42, 14, 16, 26, 44, 20, 46, 47, 48, 49, 50, 53, 54),
+                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54), 13,
+                array(42, 14, 16, 26, 44, 20, 46, 47, 48, 49, 50, 53, 54), 17,
                 6, null, 5, null,
             ),
             array(
                 array(),
                 array(3 => 25, 9 => 26),
-                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
-                array(42, 44, 25, 46, 47, 48, 49, 50, 26, 53, 54),
+                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54), 13,
+                array(42, 44, 25, 46, 47, 48, 49, 50, 26, 53, 54), 13,
             ),
             array(
                 array(),
                 array(3 => 25, 9 => 26),
-                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
-                array(42, 44, 26, 46, 47, 48, 49, 50, 53, 54),
+                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54), 13,
+                array(42, 44, 26, 46, 47, 48, 49, 50, 53, 54), 13,
                 6, null, 6, null,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(),
-                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
-                array(42, 10, 44, 46, 47, 14, 16, 48, 49, 20, 50, 53, 54),
+                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54), 13,
+                array(42, 10, 44, 46, 47, 14, 16, 48, 49, 20, 50, 53, 54), 17,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(),
-                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54),
-                array(42, 14, 16, 44, 20, 46, 47, 48, 49, 50, 53, 54),
+                array(42, 143, 44, 145, 46, 47, 48, 49, 50, 151, 152, 53, 54), 13,
+                array(42, 14, 16, 44, 20, 46, 47, 48, 49, 50, 53, 54), 17,
                 6, null, 5, null,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(3 => 25, 9 => 26),
-                array(),
-                array(),
+                array(), 0,
+                array(), 0,
             ),
             array(
                 array(0 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(3 => 25, 9 => 26),
-                array(),
-                array(10),
+                array(), 0,
+                array(10), 1,
             ),
             array(
                 array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
                 array(0 => 25, 9 => 26),
-                array(),
-                array(25),
+                array(), 0,
+                array(25), 1,
             ),
             array(
                 array(),
                 array(),
-                array(),
-                array(),
+                array(), 0,
+                array(), 0,
             ),
         );
     }

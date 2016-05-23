@@ -49,11 +49,7 @@ class ResultGenerator implements ResultGeneratorInterface
      */
     public function generateResult(Collection $collection, $offset = 0, $limit = null)
     {
-        if ($collection->getType() === Collection::TYPE_MANUAL) {
-            $resultItems = $this->generateFromManualCollection($collection, $offset, $limit);
-        } else {
-            $resultItems = $this->generateFromDynamicCollection($collection, $offset, $limit);
-        }
+        $resultItems = $this->generateItems($collection, $offset, $limit);
 
         $result = new Result(
             array(
@@ -69,35 +65,6 @@ class ResultGenerator implements ResultGeneratorInterface
     }
 
     /**
-     * Builds the list of result items from a manual collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Collection\ResultItem[]
-     */
-    protected function generateFromManualCollection(Collection $collection, $offset = 0, $limit = null)
-    {
-        /** @var \Netgen\BlockManager\API\Values\Collection\Item[] $items */
-        $items = array_slice($collection->getManualItems(), $offset, $limit);
-
-        $resultItems = array();
-        foreach ($items as $item) {
-            try {
-                $resultItems[] = $this->resultItemBuilder->buildFromItem(
-                    $item,
-                    $item->getPosition()
-                );
-            } catch (RuntimeException $e) {
-                continue;
-            }
-        }
-
-        return $resultItems;
-    }
-
-    /**
      * Builds the list of result items merged from the collection items
      * and the list of dynamic values retrieved from collection queries.
      *
@@ -105,31 +72,32 @@ class ResultGenerator implements ResultGeneratorInterface
      * @param int $offset
      * @param int $limit
      *
-     * @throws \RuntimeException If collection has no queries.
-     *
      * @return \Netgen\BlockManager\Collection\ResultItem[]
      */
-    protected function generateFromDynamicCollection(Collection $collection, $offset = 0, $limit = null)
+    protected function generateItems(Collection $collection, $offset = 0, $limit = null)
     {
-        $collectionQueries = $collection->getQueries();
-        if (empty($collectionQueries)) {
-            throw new RuntimeException('Collection has no queries.');
-        }
-
         $manualItems = $collection->getManualItems();
         $overrideItems = $collection->getOverrideItems();
 
         $numberOfItemsBeforeOffset = $this->getNumberOfItemsBeforeOffset($manualItems, $offset);
         $numberOfItemsAtOffset = $this->getNumberOfItemsAtOffset($manualItems, $offset, $limit);
 
-        $queryValues = $this->queryRunner->runQueries(
-            $collectionQueries,
-            $offset - $numberOfItemsBeforeOffset,
-            $limit !== null ? $limit - $numberOfItemsAtOffset : null
-        );
+        $queryValues = array();
+        $collectionQueries = $collection->getQueries();
+        if (empty(!$collectionQueries)) {
+            $queryValues = $this->queryRunner->runQueries(
+                $collectionQueries,
+                $offset - $numberOfItemsBeforeOffset,
+                $limit !== null ? $limit - $numberOfItemsAtOffset : null
+            );
+        }
 
         $resultItems = array();
-        for ($i = $offset, $queryValuesIndex = 0; $i < $offset + ($limit !== null ? $limit : self::DEFAULT_LIMIT + $numberOfItemsAtOffset); ++$i) {
+        for ($i = $offset, $queryValuesIndex = 0;; ++$i) {
+            if ($limit !== null && $i >= $offset + $limit) {
+                break;
+            }
+
             try {
                 if (isset($overrideItems[$i])) {
                     $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
@@ -162,6 +130,38 @@ class ResultGenerator implements ResultGeneratorInterface
         }
 
         return $resultItems;
+    }
+
+    /**
+     * Returns the total count of items in the result.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return int
+     */
+    protected function getResultCount(Collection $collection)
+    {
+        $manualItems = $collection->getManualItems();
+        $overrideItems = $collection->getOverrideItems();
+
+        $queryCount = 0;
+        $collectionQueries = $collection->getQueries();
+        if (empty(!$collectionQueries)) {
+            $queryCount = $this->queryRunner->getTotalCount($collectionQueries);
+        }
+
+        $itemsCount = $this->getNumberOfItemsBeforeOffset($collection->getManualItems(), $queryCount);
+
+        for($i = $queryCount + $itemsCount;; ++$i) {
+            if (isset($manualItems[$i]) || isset($overrideItems[$i])) {
+                ++$itemsCount;
+            } else {
+                break;
+            }
+        }
+
+
+        return $queryCount + $itemsCount;
     }
 
     /**
@@ -215,25 +215,6 @@ class ResultGenerator implements ResultGeneratorInterface
                 }
             )
         );
-    }
-
-    /**
-     * Returns the total count of items in the result.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return int
-     */
-    protected function getResultCount(Collection $collection)
-    {
-        $totalCount = count($collection->getManualItems());
-
-        $collectionQueries = $collection->getQueries();
-        if (!empty($collectionQueries)) {
-            $totalCount += $this->queryRunner->getTotalCount($collectionQueries);
-        }
-
-        return $totalCount;
     }
 
     /**
