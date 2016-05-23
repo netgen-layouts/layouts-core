@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface;
-use Netgen\BlockManager\Collection\ResultValue;
+use Netgen\BlockManager\Value\ValueBuilderInterface;
+use Netgen\BlockManager\Value\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use RuntimeException;
 
 class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
@@ -15,7 +15,7 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $resultValueBuilderMock;
+    protected $valueBuilderMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer
@@ -24,10 +24,10 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->resultValueBuilderMock = $this->getMock(ResultValueBuilderInterface::class);
+        $this->valueBuilderMock = $this->getMock(ValueBuilderInterface::class);
 
         $this->normalizer = new CollectionItemNormalizer(
-            $this->resultValueBuilderMock
+            $this->valueBuilderMock
         );
     }
 
@@ -48,18 +48,18 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $resultValue = new ResultValue(
+        $value = new Value(
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
             )
         );
 
-        $this->resultValueBuilderMock
+        $this->valueBuilderMock
             ->expects($this->any())
-            ->method('buildFromItem')
-            ->with($item)
-            ->will($this->returnValue($resultValue));
+            ->method('build')
+            ->with($this->equalTo(12), $this->equalTo('ezcontent'))
+            ->will($this->returnValue($value));
 
         self::assertEquals(
             array(
@@ -93,10 +93,10 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->resultValueBuilderMock
+        $this->valueBuilderMock
             ->expects($this->any())
-            ->method('buildFromItem')
-            ->with($item)
+            ->method('build')
+            ->with($this->equalTo(12), $this->equalTo('ezcontent'))
             ->will($this->throwException(new RuntimeException()));
 
         self::assertEquals(
@@ -141,9 +141,9 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
             array(array(), false),
             array(42, false),
             array(42.12, false),
-            array(new Value(), false),
+            array(new APIValue(), false),
             array(new Item(), false),
-            array(new VersionedValue(new Value(), 1), false),
+            array(new VersionedValue(new APIValue(), 1), false),
             array(new VersionedValue(new Item(), 2), false),
             array(new VersionedValue(new Item(), 1), true),
         );

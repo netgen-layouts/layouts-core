@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Collection\Registry;
+namespace Netgen\BlockManager\Value\Registry;
 
-use Netgen\BlockManager\Collection\ValueLoaderInterface;
+use Netgen\BlockManager\Value\ValueLoaderInterface;
 use InvalidArgumentException;
 
 class ValueLoaderRegistry implements ValueLoaderRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\ValueLoaderInterface[]
+     * @var \Netgen\BlockManager\Value\ValueLoaderInterface[]
      */
     protected $valueLoaders = array();
 
@@ -19,7 +19,7 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
      *
      * @throws \InvalidArgumentException If value loader does not exist
      *
-     * @return \Netgen\BlockManager\Collection\ValueLoaderInterface
+     * @return \Netgen\BlockManager\Value\ValueLoaderInterface
      */
     public function getValueLoader($valueType)
     {
@@ -35,7 +35,7 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     /**
      * Adds a value loader to registry.
      *
-     * @param \Netgen\BlockManager\Collection\ValueLoaderInterface $valueLoader
+     * @param \Netgen\BlockManager\Value\ValueLoaderInterface $valueLoader
      */
     public function addValueLoader(ValueLoaderInterface $valueLoader)
     {
@@ -45,7 +45,7 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     /**
      * Returns all value loaders.
      *
-     * @return \Netgen\BlockManager\Collection\ValueLoaderInterface[]
+     * @return \Netgen\BlockManager\Value\ValueLoaderInterface[]
      */
     public function getValueLoaders()
     {

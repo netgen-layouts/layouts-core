@@ -1,27 +1,27 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\Stubs;
+namespace Netgen\BlockManager\Tests\Value\Stubs;
 
-use Netgen\BlockManager\Collection\ValueConverterInterface;
+use Netgen\BlockManager\Value\ValueConverterInterface;
 
-class UnsupportedValueConverter implements ValueConverterInterface
+class ValueConverter implements ValueConverterInterface
 {
     /**
      * Returns if the converter supports the object.
      *
-     * @param \Netgen\BlockManager\Tests\Collection\Stubs\Value $object
+     * @param \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue $object
      *
      * @return bool
      */
     public function supports($object)
     {
-        return false;
+        return $object instanceof ExternalValue;
     }
 
     /**
      * Returns the value type for this object.
      *
-     * @param \Netgen\BlockManager\Tests\Collection\Stubs\Value $object
+     * @param \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue $object
      *
      * @return string
      */
@@ -33,7 +33,7 @@ class UnsupportedValueConverter implements ValueConverterInterface
     /**
      * Returns the object ID.
      *
-     * @param \Netgen\BlockManager\Tests\Collection\Stubs\Value $object
+     * @param \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue $object
      *
      * @return int|string
      */
@@ -45,7 +45,7 @@ class UnsupportedValueConverter implements ValueConverterInterface
     /**
      * Returns the object name.
      *
-     * @param \Netgen\BlockManager\Tests\Collection\Stubs\Value $object
+     * @param \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue $object
      *
      * @return string
      */
@@ -57,7 +57,7 @@ class UnsupportedValueConverter implements ValueConverterInterface
     /**
      * Returns if the object is visible.
      *
-     * @param \Netgen\BlockManager\Tests\Collection\Stubs\Value $object
+     * @param \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue $object
      *
      * @return bool
      */

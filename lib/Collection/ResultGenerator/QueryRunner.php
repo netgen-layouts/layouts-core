@@ -31,7 +31,7 @@ class QueryRunner implements QueryRunnerInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue[]
+     * @return \Netgen\BlockManager\Value\Value[]
      */
     public function runQueries(array $queries, $offset = 0, $limit = null)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Value;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,8 +8,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ValueLoaderRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.collection.registry.value_loader';
-    const TAG_NAME = 'netgen_block_manager.collection.value_loader';
+    const SERVICE_NAME = 'netgen_block_manager.value.registry.value_loader';
+    const TAG_NAME = 'netgen_block_manager.value.value_loader';
 
     /**
      * You can modify the container here before it is dumped to PHP code.

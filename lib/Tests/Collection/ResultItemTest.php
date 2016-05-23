@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\ResultItem;
-use Netgen\BlockManager\Collection\ResultValue;
+use Netgen\BlockManager\Value\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 
 class ResultItemTest extends \PHPUnit_Framework_TestCase
@@ -18,14 +18,14 @@ class ResultItemTest extends \PHPUnit_Framework_TestCase
     {
         $resultItem = new ResultItem(
             array(
-                'value' => new ResultValue(),
+                'value' => new Value(),
                 'collectionItem' => new Item(),
                 'type' => ResultItem::TYPE_MANUAL,
                 'position' => 3,
             )
         );
 
-        self::assertEquals(new ResultValue(), $resultItem->getValue());
+        self::assertEquals(new Value(), $resultItem->getValue());
         self::assertEquals(new Item(), $resultItem->getCollectionItem());
         self::assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
         self::assertEquals(3, $resultItem->getPosition());

@@ -1,30 +1,27 @@
 <?php
 
-namespace Netgen\BlockManager\Collection\ResultGenerator;
+namespace Netgen\BlockManager\Value;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
-use Netgen\BlockManager\Collection\ResultValue;
-use Netgen\BlockManager\Collection\ValueConverterInterface;
+use Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface;
 use RuntimeException;
 
-class ResultValueBuilder implements ResultValueBuilderInterface
+class ValueBuilder implements ValueBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface
+     * @var \Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface
      */
     protected $valueLoaderRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ValueConverterInterface[]
+     * @var \Netgen\BlockManager\Value\ValueConverterInterface[]
      */
     protected $valueConverters = array();
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     * @param \Netgen\BlockManager\Collection\ValueConverterInterface[] $valueConverters
+     * @param \Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
+     * @param \Netgen\BlockManager\Value\ValueConverterInterface[] $valueConverters
      */
     public function __construct(
         ValueLoaderRegistryInterface $valueLoaderRegistry,
@@ -35,15 +32,15 @@ class ResultValueBuilder implements ResultValueBuilderInterface
     }
 
     /**
-     * Builds the result value from provided object.
+     * Builds the value from provided object.
      *
      * @param mixed $object
      *
      * @throws \RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue
+     * @return \Netgen\BlockManager\Value\Value
      */
-    public function build($object)
+    public function buildFromObject($object)
     {
         foreach ($this->valueConverters as $valueConverter) {
             if (!$valueConverter instanceof ValueConverterInterface) {
@@ -59,7 +56,7 @@ class ResultValueBuilder implements ResultValueBuilderInterface
                 continue;
             }
 
-            $resultValue = new ResultValue(
+            $value = new Value(
                 array(
                     'id' => $valueConverter->getId($object),
                     'type' => $valueConverter->getValueType($object),
@@ -69,7 +66,7 @@ class ResultValueBuilder implements ResultValueBuilderInterface
                 )
             );
 
-            return $resultValue;
+            return $value;
         }
 
         throw new RuntimeException(
@@ -81,21 +78,22 @@ class ResultValueBuilder implements ResultValueBuilderInterface
     }
 
     /**
-     * Builds the result value from provided item.
+     * Builds the value from provided ID.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     * @param int|string $valueId
+     * @param string $valueType
      *
      * @throws \RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue
+     * @return \Netgen\BlockManager\Value\Value
      */
-    public function buildFromItem(Item $item)
+    public function build($valueId, $valueType)
     {
         $valueLoader = $this->valueLoaderRegistry
-            ->getValueLoader($item->getValueType());
+            ->getValueLoader($valueType);
 
-        $loadedValue = $valueLoader->load($item->getValueId());
+        $loadedValue = $valueLoader->load($valueId);
 
-        return $this->build($loadedValue);
+        return $this->buildFromObject($loadedValue);
     }
 }

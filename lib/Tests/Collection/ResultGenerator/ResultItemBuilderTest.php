@@ -2,19 +2,19 @@
 
 namespace Netgen\BlockManager\Tests\Collection\ResultGenerator;
 
-use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface;
+use Netgen\BlockManager\Value\ValueBuilderInterface;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilder;
 use Netgen\BlockManager\Collection\ResultItem;
-use Netgen\BlockManager\Collection\ResultValue;
+use Netgen\BlockManager\Value\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Tests\Collection\Stubs\Value;
+use Netgen\BlockManager\Tests\Value\Stubs\ExternalValue;
 
 class ResultItemBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $resultValueBuilderMock;
+    protected $valueBuilderMock;
 
     /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilder
@@ -23,9 +23,9 @@ class ResultItemBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->resultValueBuilderMock = $this->getMock(ResultValueBuilderInterface::class);
+        $this->valueBuilderMock = $this->getMock(ValueBuilderInterface::class);
 
-        $this->builder = new ResultItemBuilder($this->resultValueBuilderMock);
+        $this->builder = new ResultItemBuilder($this->valueBuilderMock);
     }
 
     /**
@@ -34,17 +34,17 @@ class ResultItemBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuild()
     {
-        $value = new Value(42);
+        $value = new ExternalValue(42);
 
-        $this->resultValueBuilderMock
+        $this->valueBuilderMock
             ->expects($this->once())
-            ->method('build')
-            ->with($this->equalTo(new Value(42)))
-            ->will($this->returnValue(new ResultValue()));
+            ->method('buildFromObject')
+            ->with($this->equalTo(new ExternalValue(42)))
+            ->will($this->returnValue(new Value()));
 
         $resultItem = new ResultItem(
             array(
-                'value' => new ResultValue(),
+                'value' => new Value(),
                 'collectionItem' => null,
                 'type' => ResultItem::TYPE_DYNAMIC,
                 'position' => 5,
@@ -68,15 +68,15 @@ class ResultItemBuilderTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->resultValueBuilderMock
+        $this->valueBuilderMock
             ->expects($this->once())
-            ->method('buildFromItem')
-            ->with($this->equalTo($item))
-            ->will($this->returnValue(new ResultValue()));
+            ->method('build')
+            ->with($this->equalTo(42), $this->equalTo('value'))
+            ->will($this->returnValue(new Value()));
 
         $resultItem = new ResultItem(
             array(
-                'value' => new ResultValue(),
+                'value' => new Value(),
                 'collectionItem' => $item,
                 'type' => ResultItem::TYPE_MANUAL,
                 'position' => 5,

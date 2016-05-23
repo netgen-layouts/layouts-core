@@ -2,24 +2,25 @@
 
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
+use Netgen\BlockManager\Value\ValueBuilderInterface;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\ResultItem;
 
 class ResultItemBuilder implements ResultItemBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface
+     * @var \Netgen\BlockManager\Value\ValueBuilderInterface
      */
-    protected $resultValueBuilder;
+    protected $valueBuilder;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface $resultValueBuilder
+     * @param \Netgen\BlockManager\Value\ValueBuilderInterface $valueBuilder
      */
-    public function __construct(ResultValueBuilderInterface $resultValueBuilder)
+    public function __construct(ValueBuilderInterface $valueBuilder)
     {
-        $this->resultValueBuilder = $resultValueBuilder;
+        $this->valueBuilder = $valueBuilder;
     }
 
     /**
@@ -34,7 +35,7 @@ class ResultItemBuilder implements ResultItemBuilderInterface
     {
         return new ResultItem(
             array(
-                'value' => $this->resultValueBuilder->build($object),
+                'value' => $this->valueBuilder->buildFromObject($object),
                 'collectionItem' => null,
                 'type' => ResultItem::TYPE_DYNAMIC,
                 'position' => $position,
@@ -54,7 +55,7 @@ class ResultItemBuilder implements ResultItemBuilderInterface
     {
         return new ResultItem(
             array(
-                'value' => $this->resultValueBuilder->buildFromItem($item),
+                'value' => $this->valueBuilder->build($item->getValueId(), $item->getValueType()),
                 'collectionItem' => $item,
                 'type' => $item->getType() === Item::TYPE_MANUAL ?
                     ResultItem::TYPE_MANUAL :

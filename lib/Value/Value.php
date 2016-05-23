@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Collection;
+namespace Netgen\BlockManager\Value;
 
 use Netgen\BlockManager\ValueObject;
 
-class ResultValue extends ValueObject
+class Value extends ValueObject
 {
     /**
      * @var int|string

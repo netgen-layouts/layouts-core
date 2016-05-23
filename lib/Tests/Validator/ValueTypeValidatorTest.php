@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 

@@ -13,7 +13,7 @@ class ResultItem extends ValueObject
     const TYPE_DYNAMIC = 2;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultValue
+     * @var \Netgen\BlockManager\Value\Value
      */
     protected $value;
 
@@ -35,7 +35,7 @@ class ResultItem extends ValueObject
     /**
      * Returns the value.
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue
+     * @return \Netgen\BlockManager\Value\Value
      */
     public function getValue()
     {

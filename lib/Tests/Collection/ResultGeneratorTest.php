@@ -3,18 +3,18 @@
 namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
-use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Collection\ResultGenerator;
-use Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilder;
+use Netgen\BlockManager\Value\ValueBuilder;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilder;
 use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Collection\Stubs\Value;
-use Netgen\BlockManager\Tests\Collection\Stubs\ValueConverter;
-use Netgen\BlockManager\Tests\Collection\Stubs\ValueLoader;
+use Netgen\BlockManager\Tests\Value\Stubs\ExternalValue;
+use Netgen\BlockManager\Tests\Value\Stubs\ValueConverter;
+use Netgen\BlockManager\Tests\Value\Stubs\ValueLoader;
 
 class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,9 +29,9 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
     protected $resultItemBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultGenerator\ResultValueBuilderInterface
+     * @var \Netgen\BlockManager\Value\ValueBuilderInterface
      */
-    protected $resultValueBuilder;
+    protected $valueBuilder;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -54,13 +54,13 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('getValueLoader')
             ->will($this->returnValue(new ValueLoader()));
 
-        $this->resultValueBuilder = new ResultValueBuilder(
+        $this->valueBuilder = new ValueBuilder(
             $this->valueLoaderRegistryMock,
             array(new ValueConverter())
         );
 
         $this->resultItemBuilder = new ResultItemBuilder(
-            $this->resultValueBuilder
+            $this->valueBuilder
         );
 
         $this->generator = new ResultGenerator(
@@ -100,7 +100,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             // Test items and positions?
         }
 
-        self::assertEquals($this->buildExpectedResultValues($values), $resultValues);
+        self::assertEquals($this->buildExpectedValues($values), $resultValues);
     }
 
     /**
@@ -174,7 +174,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             // Test type, items and positions?
         }
 
-        self::assertEquals($this->buildExpectedResultValues($values), $resultValues);
+        self::assertEquals($this->buildExpectedValues($values), $resultValues);
     }
 
     /**
@@ -320,30 +320,30 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $ids
      *
-     * @return \Netgen\BlockManager\Tests\Collection\Stubs\Value[]
+     * @return \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue[]
      */
     protected function buildQueryValues(array $ids = array())
     {
         return array_map(
             function ($id) {
-                return new Value($id);
+                return new ExternalValue($id);
             },
             $ids
         );
     }
 
     /**
-     * Builds the list of ResultValue objects from provided IDs.
+     * Builds the list of Value objects from provided IDs.
      *
      * @param array $ids
      *
-     * @return \Netgen\BlockManager\Collection\ResultValue[]
+     * @return \Netgen\BlockManager\Value\Value[]
      */
-    protected function buildExpectedResultValues(array $ids = array())
+    protected function buildExpectedValues(array $ids = array())
     {
         return array_map(
             function ($id) {
-                return $this->resultValueBuilder->build(new Value($id));
+                return $this->valueBuilder->buildFromObject(new ExternalValue($id));
             },
             $ids
         );

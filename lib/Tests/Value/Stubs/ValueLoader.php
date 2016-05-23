@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\Stubs;
+namespace Netgen\BlockManager\Tests\Value\Stubs;
 
-use Netgen\BlockManager\Collection\ValueLoaderInterface;
+use Netgen\BlockManager\Value\ValueLoaderInterface;
 use RuntimeException;
 
 class ValueLoader implements ValueLoaderInterface
@@ -44,6 +44,6 @@ class ValueLoader implements ValueLoaderInterface
             throw new RuntimeException();
         }
 
-        return new Value($id);
+        return new ExternalValue($id);
     }
 }

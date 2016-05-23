@@ -1,0 +1,13 @@
+parameters:
+    netgen_block_manager.value.value_builder.class: Netgen\BlockManager\Value\ValueBuilder
+    netgen_block_manager.value.registry.value_loader.class: Netgen\BlockManager\Value\Registry\ValueLoaderRegistry
+
+services:
+    netgen_block_manager.value.value_builder:
+        class: "%netgen_block_manager.value.value_builder.class%"
+        arguments:
+            - "@netgen_block_manager.value.registry.value_loader"
+            - []
+
+    netgen_block_manager.value.registry.value_loader:
+        class: "%netgen_block_manager.value.registry.value_loader.class%"

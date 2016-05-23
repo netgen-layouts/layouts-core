@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Collection\ResultItem;
-use Netgen\BlockManager\Collection\ResultValue;
+use Netgen\BlockManager\Value\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 
 class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +33,7 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $resultValue = new ResultValue(
+        $value = new Value(
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
@@ -42,7 +42,7 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $resultItem = new ResultItem(
             array(
-                'value' => $resultValue,
+                'value' => $value,
                 'collectionItem' => $item,
                 'type' => ResultItem::TYPE_MANUAL,
                 'position' => 3,
@@ -55,10 +55,10 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
                 'collection_id' => $item->getCollectionId(),
                 'position' => $resultItem->getPosition(),
                 'type' => $resultItem->getType(),
-                'value_id' => $resultValue->getId(),
-                'value_type' => $resultValue->getType(),
-                'name' => $resultValue->getName(),
-                'visible' => $resultValue->isVisible(),
+                'value_id' => $value->getId(),
+                'value_type' => $value->getType(),
+                'name' => $value->getName(),
+                'visible' => $value->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($resultItem, 1))
         );
@@ -69,7 +69,7 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalizeWithoutCollectionItem()
     {
-        $resultValue = new ResultValue(
+        $value = new Value(
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
@@ -78,7 +78,7 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $resultItem = new ResultItem(
             array(
-                'value' => $resultValue,
+                'value' => $value,
                 'collectionItem' => null,
                 'type' => ResultItem::TYPE_DYNAMIC,
                 'position' => 3,
@@ -91,10 +91,10 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
                 'collection_id' => null,
                 'position' => $resultItem->getPosition(),
                 'type' => $resultItem->getType(),
-                'value_id' => $resultValue->getId(),
-                'value_type' => $resultValue->getType(),
-                'name' => $resultValue->getName(),
-                'visible' => $resultValue->isVisible(),
+                'value_id' => $value->getId(),
+                'value_type' => $value->getType(),
+                'name' => $value->getName(),
+                'visible' => $value->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($resultItem, 1))
         );
@@ -127,9 +127,9 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
             array(array(), false),
             array(42, false),
             array(42.12, false),
-            array(new Value(), false),
+            array(new APIValue(), false),
             array(new ResultItem(), false),
-            array(new VersionedValue(new Value(), 1), false),
+            array(new VersionedValue(new APIValue(), 1), false),
             array(new VersionedValue(new ResultItem(), 2), false),
             array(new VersionedValue(new ResultItem(), 1), true),
         );

@@ -1,19 +1,19 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\Registry;
+namespace Netgen\BlockManager\Tests\Value\Registry;
 
-use Netgen\BlockManager\Tests\Collection\Stubs\ValueLoader;
-use Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry;
+use Netgen\BlockManager\Tests\Value\Stubs\ValueLoader;
+use Netgen\BlockManager\Value\Registry\ValueLoaderRegistry;
 
 class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\ValueLoader\ValueLoaderInterface
+     * @var \Netgen\BlockManager\Value\ValueLoader\ValueLoaderInterface
      */
     protected $valueLoader;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry
+     * @var \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry
      */
     protected $registry;
 
@@ -26,8 +26,8 @@ class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry::addValueLoader
-     * @covers \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry::getValueLoaders
+     * @covers \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry::addValueLoader
+     * @covers \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry::getValueLoaders
      */
     public function testAddValueLoader()
     {
@@ -35,7 +35,7 @@ class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry::getValueLoader
+     * @covers \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry::getValueLoader
      */
     public function testGetValueLoader()
     {
@@ -43,7 +43,7 @@ class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry::getValueLoader
+     * @covers \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry::getValueLoader
      * @expectedException \InvalidArgumentException
      */
     public function testGetValueLoaderThrowsInvalidArgumentException()
@@ -52,7 +52,7 @@ class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry::hasValueLoader
+     * @covers \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry::hasValueLoader
      */
     public function testHasValueLoader()
     {
@@ -60,7 +60,7 @@ class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ValueLoaderRegistry::hasValueLoader
+     * @covers \Netgen\BlockManager\Value\Registry\ValueLoaderRegistry::hasValueLoader
      */
     public function testHasValueLoaderWithNoValueLoader()
     {
