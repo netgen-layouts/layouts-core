@@ -92,6 +92,6 @@ class GetCollectionResultsListener implements EventSubscriberInterface
             );
         }
 
-        $event->getParameterBag()->add(array('block_items' => $results));
+        $event->getParameterBag()->add(array('collections' => $results));
     }
 }
