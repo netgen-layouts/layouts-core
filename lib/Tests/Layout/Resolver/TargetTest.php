@@ -13,7 +13,13 @@ class TargetTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $target = new Target('target', array('value'));
+        $target = new Target(
+            array(
+                'identifier' => 'target',
+                'values' => array('value'),
+            )
+        );
+
         self::assertEquals('target', $target->getIdentifier());
         self::assertEquals(array('value'), $target->getValues());
     }

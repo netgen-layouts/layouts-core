@@ -23,8 +23,10 @@ class RequestUriPrefix implements TargetBuilderInterface
         }
 
         return new Target(
-            'request_uri_prefix',
-            array($currentRequest->getRequestUri())
+            array(
+                'identifier' => 'request_uri_prefix',
+                'values' => array($currentRequest->getRequestUri()),
+            )
         );
     }
 }

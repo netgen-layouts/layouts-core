@@ -23,8 +23,10 @@ class RoutePrefix implements TargetBuilderInterface
         }
 
         return new Target(
-            'route_prefix',
-            array($currentRequest->attributes->get('_route'))
+            array(
+                'identifier' => 'route_prefix',
+                'values' => array($currentRequest->attributes->get('_route')),
+            )
         );
     }
 }

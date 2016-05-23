@@ -95,7 +95,16 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
-            ->will($this->returnValue(new Rule(42, new Target('target', array('value')))));
+            ->will(
+                $this->returnValue(
+                    new Rule(
+                        array(
+                            'layoutId' => 42,
+                            'target' => new Target(array('identifier' => 'target', 'values' => array('value')))
+                        )
+                    )
+                )
+            );
 
         $this->layoutServiceMock
             ->expects($this->once())
@@ -153,7 +162,16 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveLayout')
-            ->will($this->returnValue(new Rule(42, new Target('target', array('value')))));
+            ->will(
+                $this->returnValue(
+                    new Rule(
+                        array(
+                            'layoutId' => 42,
+                            'target' => new Target(array('identifier' => 'target', 'values' => array('value')))
+                        )
+                    )
+                )
+            );
 
         $this->layoutServiceMock
             ->expects($this->once())

@@ -15,8 +15,15 @@ class RuleTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $target = new Target('target', array('values'));
-        $rule = new Rule(42, $target, array('conditions'));
+        $target = new Target();
+        $rule = new Rule(
+            array(
+                'layoutId' => 42,
+                'target' => $target,
+                'conditions' => array('conditions'),
+            )
+        );
+
         self::assertEquals(42, $rule->getLayoutId());
         self::assertEquals($target, $rule->getTarget());
         self::assertEquals(array('conditions'), $rule->getConditions());

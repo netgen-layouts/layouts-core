@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-class Target
+use Netgen\BlockManager\ValueObject;
+
+class Target extends ValueObject
 {
     /**
      * @var string
@@ -12,19 +14,7 @@ class Target
     /**
      * @var array
      */
-    protected $values;
-
-    /**
-     * Constructor.
-     *
-     * @param $identifier
-     * @param array $values
-     */
-    public function __construct($identifier, array $values = array())
-    {
-        $this->identifier = $identifier;
-        $this->values = $values;
-    }
+    protected $values = array();
 
     /**
      * Returns the unique identifier of the target.

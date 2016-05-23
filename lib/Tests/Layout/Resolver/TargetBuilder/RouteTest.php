@@ -38,7 +38,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new Target('route', array('my_cool_route')), $this->targetBuilder->buildTarget());
+        self::assertEquals(
+            new Target(array('identifier' => 'route', 'values' => array('my_cool_route'))),
+            $this->targetBuilder->buildTarget()
+        );
     }
 
     /**

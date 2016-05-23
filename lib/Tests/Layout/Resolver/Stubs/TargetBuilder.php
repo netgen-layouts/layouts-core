@@ -29,6 +29,11 @@ class TargetBuilder implements TargetBuilderInterface
      */
     public function buildTarget()
     {
-        return new Target('target', $this->values);
+        return new Target(
+            array(
+                'identifier' => 'target',
+                'values' => $this->values,
+            )
+        );
     }
 }

@@ -23,8 +23,10 @@ class Route implements TargetBuilderInterface
         }
 
         return new Target(
-            'route',
-            array($currentRequest->attributes->get('_route'))
+            array(
+                'identifier' => 'route',
+                'values' => array($currentRequest->attributes->get('_route')),
+            )
         );
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-class Condition
+use Netgen\BlockManager\ValueObject;
+
+class Condition extends ValueObject
 {
     /**
      * @var string
@@ -12,19 +14,7 @@ class Condition
     /**
      * @var array
      */
-    protected $parameters;
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param array $parameters
-     */
-    public function __construct($identifier, array $parameters)
-    {
-        $this->identifier = $identifier;
-        $this->parameters = $parameters;
-    }
+    protected $parameters = array();
 
     /**
      * Returns the identifier.

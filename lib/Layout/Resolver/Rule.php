@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-class Rule
+use Netgen\BlockManager\ValueObject;
+
+class Rule extends ValueObject
 {
     /**
      * @var int|string
@@ -17,21 +19,17 @@ class Rule
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Condition[]
      */
-    protected $conditions;
+    protected $conditions = array();
 
     /**
-     * Constructor.
-     *
-     * @param int|string $layoutId
-     * @param \Netgen\BlockManager\Layout\Resolver\Target $target
-     * @param \Netgen\BlockManager\Layout\Resolver\Condition[] $conditions
+     * @var bool
      */
-    public function __construct($layoutId, Target $target, array $conditions = array())
-    {
-        $this->layoutId = $layoutId;
-        $this->target = $target;
-        $this->conditions = $conditions;
-    }
+    protected $enabled = true;
+
+    /**
+     * @var string
+     */
+    protected $comment;
 
     /**
      * Returns resolved layout ID.
@@ -61,5 +59,25 @@ class Rule
     public function getConditions()
     {
         return $this->conditions;
+    }
+
+    /**
+     * Returns if the rule is enabled.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Returns the rule comment.
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

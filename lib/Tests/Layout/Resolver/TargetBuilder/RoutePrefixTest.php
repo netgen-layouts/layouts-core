@@ -38,7 +38,10 @@ class RoutePrefixTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new Target('route_prefix', array('my_cool_route')), $this->targetBuilder->buildTarget());
+        self::assertEquals(
+            new Target(array('identifier' => 'route_prefix', 'values' => array('my_cool_route'))),
+            $this->targetBuilder->buildTarget()
+        );
     }
 
     /**

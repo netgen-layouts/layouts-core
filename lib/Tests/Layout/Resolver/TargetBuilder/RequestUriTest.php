@@ -37,7 +37,10 @@ class RequestUriTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new Target('request_uri', array('/the/answer?a=42')), $this->targetBuilder->buildTarget());
+        self::assertEquals(
+            new Target(array('identifier' => 'request_uri', 'values' => array('/the/answer?a=42'))),
+            $this->targetBuilder->buildTarget()
+        );
     }
 
     /**

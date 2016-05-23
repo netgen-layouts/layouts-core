@@ -37,7 +37,10 @@ class PathInfoTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildTarget()
     {
-        self::assertEquals(new Target('path_info', array('/the/answer')), $this->targetBuilder->buildTarget());
+        self::assertEquals(
+            new Target(array('identifier' => 'path_info', 'values' => array('/the/answer'))),
+            $this->targetBuilder->buildTarget()
+        );
     }
 
     /**

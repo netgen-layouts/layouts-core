@@ -23,8 +23,10 @@ class PathInfo implements TargetBuilderInterface
         }
 
         return new Target(
-            'path_info',
-            array($currentRequest->getPathInfo())
+            array(
+                'identifier' => 'path_info',
+                'values' => array($currentRequest->getPathInfo()),
+            )
         );
     }
 }

@@ -47,8 +47,13 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRules()
     {
-        $target = new Target('target', array(42));
-        $rule = new Rule(42, $target);
+        $target = new Target(array('identifier' => 'target', 'values' => array(42)));
+        $rule = new Rule(
+            array(
+                'layoutId' => 42,
+                'target' => $target,
+            )
+        );
 
         $this->ruleHandlerMock
             ->expects($this->once())
@@ -70,7 +75,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithEmptyValues()
     {
-        $target = new Target('target', array());
+        $target = new Target(array('identifier' => 'target', 'values' => array()));
 
         $this->ruleHandlerMock
             ->expects($this->never())
@@ -88,7 +93,7 @@ class RuleLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadRulesWithNoDataFound()
     {
-        $target = new Target('target', array(42));
+        $target = new Target(array('identifier' => 'target', 'values' => array(42)));
 
         $this->ruleHandlerMock
             ->expects($this->once())

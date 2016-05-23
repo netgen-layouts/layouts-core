@@ -23,8 +23,10 @@ class RequestUri implements TargetBuilderInterface
         }
 
         return new Target(
-            'request_uri',
-            array($currentRequest->getRequestUri())
+            array(
+                'identifier' => 'request_uri',
+                'values' => array($currentRequest->getRequestUri()),
+            )
         );
     }
 }

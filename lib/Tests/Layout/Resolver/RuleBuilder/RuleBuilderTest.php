@@ -39,28 +39,41 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $target = new Target('target', array('values'));
+        $target = new Target(array('identifier' => 'target', 'values' => array('values')));
         $rule1 = new Rule(
-            42,
-            $target,
             array(
-                new Condition(
-                    'condition',
-                    array(1, 2, 3)
-                ),
+                'layoutId' => 42,
+                'target' => $target,
+                'conditions' => array(
+                    new Condition(
+                        array(
+                            'identifier' => 'condition',
+                            'parameters' => array(1, 2, 3),
+                        )
+                    )
+                )
             )
         );
 
-        $rule2 = new Rule(84, $target);
+        $rule2 = new Rule(
+            array(
+                'layoutId' => 84,
+                'target' => $target,
+            )
+        );
 
         $rule3 = new Rule(
-            85,
-            $target,
             array(
-                new Condition(
-                    'condition',
-                    array()
-                ),
+                'layoutId' => 85,
+                'target' => $target,
+                'conditions' => array(
+                    new Condition(
+                        array(
+                            'identifier' => 'condition',
+                            'parameters' => array(),
+                        )
+                    )
+                )
             )
         );
 

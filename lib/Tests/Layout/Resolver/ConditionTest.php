@@ -13,7 +13,13 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $condition = new Condition('identifier', array('value'));
+        $condition = new Condition(
+            array(
+                'identifier' => 'identifier',
+                'parameters' => array('value')
+            )
+        );
+
         self::assertEquals('identifier', $condition->getIdentifier());
         self::assertEquals(array('value'), $condition->getParameters());
     }

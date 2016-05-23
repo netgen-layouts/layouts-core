@@ -26,14 +26,22 @@ class RuleBuilder implements RuleBuilderInterface
 
             foreach ($rule['conditions'] as $condition) {
                 $builtConditions[] = new Condition(
-                    $condition['identifier'],
-                    is_array($condition['parameters']) ?
-                        $condition['parameters'] :
-                        array()
+                    array(
+                        'identifier' => $condition['identifier'],
+                        'parameters' => is_array($condition['parameters']) ?
+                            $condition['parameters'] :
+                            array()
+                    )
                 );
             }
 
-            $builtRules[] = new Rule($layoutId, $target, $builtConditions);
+            $builtRules[] = new Rule(
+                array(
+                    'layoutId' => $layoutId,
+                    'target' => $target,
+                    'conditions' => $builtConditions,
+                )
+            );
         }
 
         return $builtRules;

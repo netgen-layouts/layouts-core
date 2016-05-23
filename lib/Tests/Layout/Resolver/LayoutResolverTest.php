@@ -64,9 +64,14 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         $targetBuilder1 = new TargetBuilder(array(42));
         $targetBuilder2 = new TargetBuilder(array(84));
-        $target1 = new Target('target', array(42));
-        $target2 = new Target('target', array(84));
-        $rule2 = new Rule(84, $target2);
+        $target1 = new Target(array('identifier' => 'target', 'values' => array(42)));
+        $target2 = new Target(array('identifier' => 'target', 'values' => array(84)));
+        $rule2 = new Rule(
+            array(
+                'layoutId' => 84,
+                'target' => $target2,
+            )
+        );
 
         $this->targetBuilderRegistryMock
             ->expects($this->once())
@@ -96,8 +101,13 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         $targetBuilder1 = new TargetBuilderReturnsFalse();
         $targetBuilder2 = new TargetBuilder(array(84));
-        $target2 = new Target('target', array(84));
-        $rule2 = new Rule(84, $target2);
+        $target2 = new Target(array('identifier' => 'target', 'values' => array(84)));
+        $rule2 = new Rule(
+            array(
+                'layoutId' => 84,
+                'target' => $target2,
+            )
+        );
 
         $this->targetBuilderRegistryMock
             ->expects($this->once())
@@ -121,8 +131,8 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     {
         $targetBuilder1 = new TargetBuilder(array(42));
         $targetBuilder2 = new TargetBuilder(array(84));
-        $target1 = new Target('target', array(42));
-        $target2 = new Target('target', array(84));
+        $target1 = new Target(array('identifier' => 'target', 'values' => array(42)));
+        $target2 = new Target(array('identifier' => 'target', 'values' => array(84)));
 
         $this->targetBuilderRegistryMock
             ->expects($this->once())
@@ -150,8 +160,13 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutForTarget()
     {
-        $target = new Target('target', array(42));
-        $rule = new Rule(42, $target);
+        $target = new Target(array('identifier' => 'target', 'values' => array(42)));
+        $rule = new Rule(
+            array(
+                'layoutId' => 42,
+                'target' => $target,
+            )
+        );
 
         $this->ruleLoaderMock
             ->expects($this->once())
@@ -168,9 +183,21 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveFirstLayoutForTargetWithMoreThanOneMatchingRule()
     {
-        $target = new Target('target', array(42));
-        $rule1 = new Rule(42, $target);
-        $rule2 = new Rule(84, $target);
+        $target = new Target(array('identifier' => 'target', 'values' => array(42)));
+
+        $rule1 = new Rule(
+            array(
+                'layoutId' => 42,
+                'target' => $target,
+            )
+        );
+
+        $rule2 = new Rule(
+            array(
+                'layoutId' => 84,
+                'target' => $target,
+            )
+        );
 
         $this->ruleLoaderMock
             ->expects($this->once())
@@ -193,12 +220,12 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutForTargetWithRuleConditions(array $matches, $layoutId)
     {
-        $target = new Target('target', array('value'));
+        $target = new Target(array('identifier' => 'target', 'values' => array('value')));
 
         $conditions = array();
         $matchFailed = false;
         foreach ($matches as $index => $match) {
-            $conditions[] = new Condition('condition', array('value'));
+            $conditions[] = new Condition(array('identifier' => 'condition', 'parameters' => array('value')));
 
             if (!$matchFailed) {
                 $this->conditionMatcherRegistryMock
@@ -210,7 +237,13 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             $matchFailed = !$matchFailed && !$match;
         }
 
-        $rule = new Rule($layoutId, $target, $conditions);
+        $rule = new Rule(
+            array(
+                'layoutId' => $layoutId,
+                'target' => $target,
+                'conditions' => $conditions,
+            )
+        );
 
         $this->ruleLoaderMock
             ->expects($this->once())
@@ -244,7 +277,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveLayoutForTargetWithNoRules()
     {
-        $target = new Target('target', array(42));
+        $target = new Target(array('identifier' => 'target', 'values' => array(42)));
 
         $this->ruleLoaderMock
             ->expects($this->once())
