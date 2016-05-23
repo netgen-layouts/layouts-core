@@ -40,6 +40,7 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getIdentifier
      */
     public function testGetIdentifier()

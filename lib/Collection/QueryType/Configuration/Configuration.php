@@ -9,7 +9,7 @@ class Configuration
     /**
      * @var string
      */
-    protected $identifier;
+    protected $type;
 
     /**
      * @var array
@@ -19,23 +19,23 @@ class Configuration
     /**
      * Constructor.
      *
-     * @param string $identifier
+     * @param string $type
      * @param array $forms
      */
-    public function __construct($identifier, array $forms)
+    public function __construct($type, array $forms)
     {
-        $this->identifier = $identifier;
+        $this->type = $type;
         $this->forms = $forms;
     }
 
     /**
-     * Returns the query type identifier.
+     * Returns the query type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
-        return $this->identifier;
+        return $this->type;
     }
 
     /**
@@ -73,7 +73,7 @@ class Configuration
     {
         if (!$this->hasForm($formIdentifier)) {
             throw new RuntimeException(
-                "Form '{$formIdentifier}' does not exist in '{$this->identifier}' query type."
+                "Form '{$formIdentifier}' does not exist in '{$this->type}' query type."
             );
         }
 

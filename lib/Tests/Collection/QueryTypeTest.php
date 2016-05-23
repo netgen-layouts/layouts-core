@@ -40,6 +40,7 @@ class QueryTypeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType::getType
      */
     public function testGetType()
