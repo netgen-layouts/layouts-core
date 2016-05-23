@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -24,6 +25,11 @@ class CollectionController extends Controller
     protected $collectionService;
 
     /**
+     * @var \Netgen\BlockManager\Collection\ResultGeneratorInterface
+     */
+    protected $resultGenerator;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator
      */
     protected $validator;
@@ -32,11 +38,16 @@ class CollectionController extends Controller
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
      */
-    public function __construct(CollectionService $collectionService, CollectionValidator $validator)
-    {
+    public function __construct(
+        CollectionService $collectionService,
+        ResultGeneratorInterface $resultGenerator,
+        CollectionValidator $validator
+    ) {
         $this->collectionService = $collectionService;
+        $this->resultGenerator = $resultGenerator;
         $this->validator = $validator;
     }
 
@@ -50,6 +61,21 @@ class CollectionController extends Controller
     public function loadCollection(Collection $collection)
     {
         return new VersionedValue($collection, Version::API_V1);
+    }
+
+    /**
+     * Returns the collection result.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
+     */
+    public function loadCollectionResult(Collection $collection)
+    {
+        return new VersionedValue(
+            $this->resultGenerator->generateResult($collection),
+            Version::API_V1
+        );
     }
 
     /**

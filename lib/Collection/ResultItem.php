@@ -6,11 +6,11 @@ use Netgen\BlockManager\Value;
 
 class ResultItem extends Value
 {
-    const TYPE_MANUAL = 1;
+    const TYPE_MANUAL = 0;
 
-    const TYPE_OVERRIDE = 2;
+    const TYPE_OVERRIDE = 1;
 
-    const TYPE_DYNAMIC = 3;
+    const TYPE_DYNAMIC = 2;
 
     /**
      * @var \Netgen\BlockManager\Collection\ResultValue
