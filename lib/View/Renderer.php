@@ -32,13 +32,13 @@ class Renderer implements RendererInterface
     /**
      * Renders the value.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param string $context
      * @param array $parameters
      *
      * @return string
      */
-    public function renderValue(Value $value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
+    public function renderValue($value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         return $this->renderView(
             $this->viewBuilder->buildView($value, $context, $parameters)

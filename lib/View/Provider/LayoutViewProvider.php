@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 
@@ -11,11 +10,11 @@ class LayoutViewProvider implements ViewProviderInterface
     /**
      * Provides the view.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView(Value $value)
+    public function provideView($value)
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $value */
         $layoutView = new LayoutView($value);
@@ -26,11 +25,11 @@ class LayoutViewProvider implements ViewProviderInterface
     /**
      * Returns if this view provider supports the given value object.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      *
      * @return bool
      */
-    public function supports(Value $value)
+    public function supports($value)
     {
         return $value instanceof Layout;
     }

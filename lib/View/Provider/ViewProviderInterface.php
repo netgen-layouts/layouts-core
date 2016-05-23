@@ -2,18 +2,16 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Value;
-
 interface ViewProviderInterface
 {
     /**
      * Provides the view.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView(Value $value);
+    public function provideView($value);
 
     /**
      * Returns if this view provider supports the given value object.
@@ -22,5 +20,5 @@ interface ViewProviderInterface
      *
      * @return bool
      */
-    public function supports(Value $value);
+    public function supports($value);
 }

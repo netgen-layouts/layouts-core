@@ -34,7 +34,7 @@ abstract class View implements ViewInterface
     /**
      * Returns the value in this view.
      *
-     * @return \Netgen\BlockManager\API\Values\Value
+     * @return mixed
      */
     public function getValue()
     {
