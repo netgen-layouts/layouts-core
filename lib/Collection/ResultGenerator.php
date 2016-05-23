@@ -10,6 +10,11 @@ use RuntimeException;
 class ResultGenerator implements ResultGeneratorInterface
 {
     /**
+     * @const int
+     */
+    const DEFAULT_LIMIT = 20;
+
+    /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface
      */
     protected $queryRunner;
@@ -54,6 +59,7 @@ class ResultGenerator implements ResultGeneratorInterface
             array(
                 'collection' => $collection,
                 'items' => $this->filterInvisibleItems($resultItems),
+                'totalCount' => $this->getResultCount($collection),
                 'offset' => $offset,
                 'limit' => $limit,
             )
@@ -123,7 +129,7 @@ class ResultGenerator implements ResultGeneratorInterface
         );
 
         $resultItems = array();
-        for ($i = $offset, $queryValuesIndex = 0; $i < $offset + count($queryValues) + $numberOfItemsAtOffset; ++$i) {
+        for ($i = $offset, $queryValuesIndex = 0; $i < $offset + ($limit !== null ? $limit : self::DEFAULT_LIMIT + $numberOfItemsAtOffset); ++$i) {
             try {
                 if (isset($overrideItems[$i])) {
                     $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
@@ -209,6 +215,25 @@ class ResultGenerator implements ResultGeneratorInterface
                 }
             )
         );
+    }
+
+    /**
+     * Returns the total count of items in the result.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return int
+     */
+    protected function getResultCount(Collection $collection)
+    {
+        $totalCount = count($collection->getManualItems());
+
+        $collectionQueries = $collection->getQueries();
+        if (!empty($collectionQueries)) {
+            $totalCount += $this->queryRunner->getTotalCount($collectionQueries);
+        }
+
+        return $totalCount;
     }
 
     /**

@@ -262,31 +262,4 @@ class BlockController extends Controller
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
-
-    /**
-     * Loads all block collections.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $types
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
-     */
-    protected function loadBlockCollections(Block $block, array $types = array())
-    {
-        $collections = array();
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionService->loadCollection(
-                $collectionReference->getCollectionId(),
-                $collectionReference->getCollectionStatus()
-            );
-
-            if (empty($types) || in_array($collection->getType(), $types)) {
-                $collections[] = $collection;
-            }
-        }
-
-        return $collections;
-    }
 }

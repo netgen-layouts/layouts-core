@@ -16,4 +16,13 @@ interface QueryRunnerInterface
      * @return mixed
      */
     public function runQueries(array $queries, $offset = 0, $limit = null);
+
+    /**
+     * Returns the total count of all queries.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query[] $queries
+     *
+     * @return int
+     */
+    public function getTotalCount(array $queries);
 }

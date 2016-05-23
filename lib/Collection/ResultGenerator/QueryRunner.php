@@ -72,4 +72,23 @@ class QueryRunner implements QueryRunnerInterface
 
         return $values;
     }
+
+    /**
+     * Returns the total count of all queries.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query[] $queries
+     *
+     * @return int
+     */
+    public function getTotalCount(array $queries)
+    {
+        $totalCount = 0;
+        foreach ($queries as $query) {
+            $totalCount += $this->queryTypeRegistry->getQueryType($query->getType())->getCount(
+                $query->getParameters()
+            );
+        }
+
+        return $totalCount;
+    }
 }

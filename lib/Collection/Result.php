@@ -19,6 +19,11 @@ class Result extends Value
     /**
      * @var int
      */
+    protected $totalCount;
+
+    /**
+     * @var int
+     */
     protected $offset;
 
     /**
@@ -44,6 +49,16 @@ class Result extends Value
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Returns the total count of items in this result.
+     *
+     * @return int
+     */
+    public function getTotalCount()
+    {
+        return $this->totalCount;
     }
 
     /**

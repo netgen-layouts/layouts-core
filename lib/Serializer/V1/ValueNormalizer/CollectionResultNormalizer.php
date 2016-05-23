@@ -30,7 +30,10 @@ class CollectionResultNormalizer extends SerializerAwareNormalizer implements No
             $items[] = new VersionedValue($item, $object->getVersion());
         }
 
-        return $this->serializer->normalize(new ValueArray($items));
+        return array(
+            'items' => $this->serializer->normalize(new ValueArray($items)),
+            'item_count' => $result->getTotalCount(),
+        );
     }
 
     /**

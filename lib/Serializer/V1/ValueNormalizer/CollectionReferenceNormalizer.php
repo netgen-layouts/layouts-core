@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -9,6 +10,21 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CollectionReferenceNormalizer implements NormalizerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\CollectionService
+     */
+    protected $collectionService;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     */
+    public function __construct(CollectionService $collectionService)
+    {
+        $this->collectionService = $collectionService;
+    }
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
@@ -20,15 +36,21 @@ class CollectionReferenceNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\CollectionReference $collection */
-        $collection = $object->getValue();
+        /** @var \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference */
+        $collectionReference = $object->getValue();
+
+        $collection = $this->collectionService->loadCollection(
+            $collectionReference->getCollectionId(),
+            $collectionReference->getCollectionStatus()
+        );
 
         return array(
-            'block_id' => $collection->getBlockId(),
-            'collection_id' => $collection->getCollectionId(),
-            'identifier' => $collection->getIdentifier(),
-            'offset' => $collection->getOffset(),
-            'limit' => $collection->getLimit(),
+            'id' => $collection->getId(),
+            'type' => $collection->getType(),
+            'name' => $collection->getName(),
+            'identifier' => $collectionReference->getIdentifier(),
+            'offset' => $collectionReference->getOffset(),
+            'limit' => $collectionReference->getLimit(),
         );
     }
 
