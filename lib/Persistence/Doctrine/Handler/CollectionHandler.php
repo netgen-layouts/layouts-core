@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Doctrine\DBAL\Types\Type;
 
 class CollectionHandler implements CollectionHandlerInterface
@@ -64,7 +64,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
@@ -110,7 +110,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $itemId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -155,7 +155,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $queryId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
@@ -588,7 +588,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -634,7 +634,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -744,7 +744,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
@@ -819,7 +819,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
@@ -891,7 +891,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return array
      */

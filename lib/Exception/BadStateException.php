@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\API\Exception;
+namespace Netgen\BlockManager\Exception;
 
 use Exception as BaseException;
 
 class BadStateException extends Exception
 {
     /**
-     * Creates a new invalid argument exception.
+     * Creates a new bad state exception.
      *
      * @param string $argument
      * @param string $whatIsWrong

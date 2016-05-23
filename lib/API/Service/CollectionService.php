@@ -19,7 +19,7 @@ interface CollectionService
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
@@ -40,7 +40,7 @@ interface CollectionService
      * @param int|string $itemId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
@@ -52,7 +52,7 @@ interface CollectionService
      * @param int|string $queryId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
@@ -63,7 +63,7 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
@@ -75,7 +75,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not named
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not named
      *                                                              If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
@@ -97,7 +97,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection already has the provided status
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has the provided status
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
@@ -108,7 +108,7 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not published
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not published
      *                                                              If draft already exists for collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
@@ -120,7 +120,7 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If collection is not a draft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
@@ -143,7 +143,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If override item is added to manual collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If override item is added to manual collection
      *                                                              If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
      *
@@ -157,7 +157,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If item already exists in provided position (only for non manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If item already exists in provided position (only for non manual collections)
      *                                                              If position is out of range (for manual collections)
      */
     public function moveItem(Item $item, $position);
@@ -176,7 +176,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If query is added to manual collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query is added to manual collection
      *                                                              If query with specified identifier already exists within the collection
      *                                                              If position is out of range
      *
@@ -190,7 +190,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If query with specified identifier already exists within the collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query with specified identifier already exists within the collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
@@ -202,7 +202,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      */
     public function moveQuery(Query $query, $position);
 

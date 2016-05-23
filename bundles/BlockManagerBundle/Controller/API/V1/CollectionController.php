@@ -15,7 +15,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValid
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class CollectionController extends Controller
 {
@@ -222,7 +222,7 @@ class CollectionController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form was not submitted
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */

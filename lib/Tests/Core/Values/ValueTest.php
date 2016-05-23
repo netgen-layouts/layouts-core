@@ -24,7 +24,7 @@ class ValueTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\AbstractValue::__construct
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testSetNonExistingProperties()
     {

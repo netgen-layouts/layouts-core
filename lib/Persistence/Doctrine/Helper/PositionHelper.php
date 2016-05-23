@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Netgen\BlockManager\API\Exception\BadStateException;
+use Netgen\BlockManager\Exception\BadStateException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
@@ -31,7 +31,7 @@ class PositionHelper
      * @param array $conditions
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      *
      * @return int
      */
@@ -63,7 +63,7 @@ class PositionHelper
      * @param int $originalPosition
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      *
      * @return int
      */

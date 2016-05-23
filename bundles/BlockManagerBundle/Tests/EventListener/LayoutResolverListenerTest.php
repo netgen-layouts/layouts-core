@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;

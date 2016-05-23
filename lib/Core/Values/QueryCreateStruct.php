@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values;
 
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
 
 class QueryCreateStruct extends APIQueryCreateStruct
@@ -48,7 +48,7 @@ class QueryCreateStruct extends APIQueryCreateStruct
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter does not exist
      *
      * @return mixed
      */

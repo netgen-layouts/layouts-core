@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Layout\Resolver\Rule;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

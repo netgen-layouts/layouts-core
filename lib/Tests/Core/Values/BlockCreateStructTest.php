@@ -114,7 +114,7 @@ class BlockCreateStructTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::getParameter
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
     {

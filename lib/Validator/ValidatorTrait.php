@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints;
 
@@ -30,7 +30,7 @@ trait ValidatorTrait
      * @param \Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPath
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validate($value, array $constraints, $propertyPath = null)
     {

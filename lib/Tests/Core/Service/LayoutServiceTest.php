@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
@@ -75,7 +75,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
@@ -104,7 +104,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
@@ -113,7 +113,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
     {
@@ -142,7 +142,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testCreateLayoutThrowsInvalidArgumentException()
     {
@@ -188,7 +188,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayoutStatus
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateLayoutStatusThrowsBadStateException()
     {
@@ -217,7 +217,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionIfLayoutIsNotPublished()
     {
@@ -227,7 +227,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
@@ -259,7 +259,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testPublishLayoutThrowsBadStateException()
     {
@@ -289,7 +289,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteCompleteLayout()
     {

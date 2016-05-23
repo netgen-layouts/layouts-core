@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -19,8 +19,8 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Exception\BadStateException;
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use RuntimeException;
 
 class BlockController extends Controller
@@ -101,7 +101,7 @@ class BlockController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If block type or block definition does not exist
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block type or block definition does not exist
      *                                                              If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
@@ -207,7 +207,7 @@ class BlockController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If form was not submitted
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form was not submitted
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */

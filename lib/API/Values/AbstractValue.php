@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Value as BaseValue;
 
@@ -16,7 +16,7 @@ abstract class AbstractValue extends BaseValue
      *
      * @param array $properties
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If one of the properties does not exist in value object
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If one of the properties does not exist in value object
      */
     public function __construct(array $properties = array())
     {

@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\API\Exception\BadStateException;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Netgen\BlockManager\API\Exception\Exception;
+use Netgen\BlockManager\Exception\Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;

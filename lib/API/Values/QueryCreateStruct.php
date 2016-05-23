@@ -41,7 +41,7 @@ abstract class QueryCreateStruct extends AbstractValue
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter does not exist
      *
      * @return mixed
      */

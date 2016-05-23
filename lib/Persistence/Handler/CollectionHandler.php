@@ -17,7 +17,7 @@ interface CollectionHandler
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
@@ -38,7 +38,7 @@ interface CollectionHandler
      * @param int|string $itemId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -60,7 +60,7 @@ interface CollectionHandler
      * @param int|string $queryId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
@@ -174,7 +174,7 @@ interface CollectionHandler
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -187,7 +187,7 @@ interface CollectionHandler
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
@@ -220,7 +220,7 @@ interface CollectionHandler
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
@@ -244,7 +244,7 @@ interface CollectionHandler
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */

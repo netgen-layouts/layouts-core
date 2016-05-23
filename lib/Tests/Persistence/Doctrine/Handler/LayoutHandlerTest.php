@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
@@ -77,7 +77,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutData
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
@@ -104,7 +104,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
@@ -113,7 +113,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
     {

@@ -13,7 +13,7 @@ interface BlockHandler
      * @param int|string $blockId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -49,7 +49,7 @@ interface BlockHandler
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -84,7 +84,7 @@ interface BlockHandler
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -98,7 +98,7 @@ interface BlockHandler
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

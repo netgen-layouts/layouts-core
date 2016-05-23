@@ -108,7 +108,7 @@ class QueryUpdateStructTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::getParameter
-     * @expectedException \Netgen\BlockManager\API\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
     {

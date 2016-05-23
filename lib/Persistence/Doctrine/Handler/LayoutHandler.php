@@ -10,7 +10,7 @@ use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionH
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Doctrine\DBAL\Types\Type;
 
 class LayoutHandler implements LayoutHandlerInterface
@@ -69,7 +69,7 @@ class LayoutHandler implements LayoutHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
@@ -89,7 +89,7 @@ class LayoutHandler implements LayoutHandlerInterface
      * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
@@ -549,7 +549,7 @@ class LayoutHandler implements LayoutHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return array
      */

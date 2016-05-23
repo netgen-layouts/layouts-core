@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
@@ -117,7 +117,7 @@ abstract class BlockServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadBlockThrowsNotFoundException()
     {
@@ -264,7 +264,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
@@ -285,7 +285,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockWithNonExistingZoneThrowsBadStateException()
     {
@@ -305,7 +305,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockWithWithDisallowedIdentifierThrowsBadStateException()
     {
@@ -458,7 +458,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCopyBlockWithNonExistingZoneThrowsBadStateException()
     {
@@ -471,7 +471,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCopyBlockWithDisallowedIdentifierThrowsBadStateException()
     {
@@ -536,7 +536,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
@@ -550,7 +550,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionWhenZoneDoesNotExist()
     {
@@ -564,7 +564,7 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionWithDisallowedIdentifier()
     {

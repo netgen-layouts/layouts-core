@@ -12,7 +12,7 @@ class LayoutValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
     {

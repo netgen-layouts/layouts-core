@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
@@ -72,7 +72,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadBlockThrowsNotFoundException()
     {
@@ -260,7 +260,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
     {
@@ -275,7 +275,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -435,7 +435,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
     {
@@ -444,7 +444,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -479,7 +479,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
     {
@@ -488,7 +488,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
     {

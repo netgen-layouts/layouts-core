@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\API\Exception;
+namespace Netgen\BlockManager\Tests\Exception;
 
-use Netgen\BlockManager\API\Exception\BadStateException;
+use Netgen\BlockManager\Exception\BadStateException;
 
 class BadStateExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Exception\BadStateException::__construct
+     * @covers \Netgen\BlockManager\Exception\BadStateException::__construct
      */
     public function testExceptionMessage()
     {

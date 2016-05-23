@@ -76,7 +76,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -85,7 +85,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreatePositionThrowsBadStateExceptionOnNegativePosition()
     {
@@ -122,7 +122,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveToPositionBadStateExceptionOnTooLargePosition()
     {
@@ -131,7 +131,7 @@ class PositionHelperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveToPositionBadStateExceptionOnNegativePosition()
     {

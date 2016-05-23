@@ -10,7 +10,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Doctrine\DBAL\Types\Type;
 
 class BlockHandler implements BlockHandlerInterface
@@ -69,7 +69,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param int|string $blockId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -162,7 +162,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -281,7 +281,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param int $status
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -327,7 +327,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

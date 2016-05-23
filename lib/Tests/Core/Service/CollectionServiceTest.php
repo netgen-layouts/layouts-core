@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -55,7 +55,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadCollectionThrowsNotFoundException()
     {
@@ -94,7 +94,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItem
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadItemThrowsNotFoundException()
     {
@@ -118,7 +118,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadQueryThrowsNotFoundException()
     {
@@ -169,7 +169,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateNamedCollectionThrowsBadStateException()
     {
@@ -209,7 +209,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testUpdateNamedCollectionWithExistingNameThrowsBadStateException()
     {
@@ -226,7 +226,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testUpdateNonNamedCollectionThrowsBadStateException()
     {
@@ -280,7 +280,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollectionStatus
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateCollectionStatusThrowsBadStateException()
     {
@@ -307,7 +307,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionIfCollectionIsNotPublished()
     {
@@ -322,7 +322,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
@@ -354,7 +354,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testPublishCollectionThrowsBadStateException()
     {
@@ -384,7 +384,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
-     * @expectedException \Netgen\BlockManager\API\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteCompleteCollection()
     {
@@ -424,7 +424,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testAddOverrideItemInManualCollectionThrowsBadStateException()
     {
@@ -436,7 +436,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testAddItemToDynamicCollectionWithExistingPositionThrowsBadStateException()
     {
@@ -448,7 +448,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -484,7 +484,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveItemThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
@@ -496,7 +496,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveItemInDynamicCollectionWithExistingPositionThrowsBadStateException()
     {
@@ -559,7 +559,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testAddQueryInManualCollectionThrowsBadStateException()
     {
@@ -571,7 +571,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testAddQueryWithExistingIdentifierThrowsBadStateException()
     {
@@ -583,7 +583,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testAddQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -620,7 +620,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testUpdateQueryWithExistingIdentifierThrowsBadStateException()
     {
@@ -658,7 +658,7 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     * @expectedException \Netgen\BlockManager\API\Exception\BadStateException
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveQueryThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {

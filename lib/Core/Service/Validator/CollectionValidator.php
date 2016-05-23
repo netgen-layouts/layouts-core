@@ -36,7 +36,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
@@ -57,7 +57,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
     {
@@ -76,7 +76,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
     {
@@ -121,7 +121,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct)
     {
@@ -161,7 +161,7 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {

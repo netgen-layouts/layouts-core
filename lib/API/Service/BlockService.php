@@ -16,7 +16,7 @@ interface BlockService
      * @param int|string $blockId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
@@ -39,7 +39,7 @@ interface BlockService
      * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone does not exist in the layout
      *                                                              If provided position is out of range
      *                                                              If block cannot be placed in specified zone
      *
@@ -64,7 +64,7 @@ interface BlockService
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone does not exist in the layout
      *                                                              If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
@@ -78,7 +78,7 @@ interface BlockService
      * @param int $position
      * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone does not exist in the layout
      *                                                              If provided position is out of range
      *                                                              If block cannot be placed in specified zone
      *

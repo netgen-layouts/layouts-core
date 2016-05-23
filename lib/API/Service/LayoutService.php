@@ -13,7 +13,7 @@ interface LayoutService
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -26,7 +26,7 @@ interface LayoutService
      * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
@@ -37,7 +37,7 @@ interface LayoutService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If layout type does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -58,7 +58,7 @@ interface LayoutService
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout already has the provided status
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout already has the provided status
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
@@ -69,7 +69,7 @@ interface LayoutService
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not published
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
      *                                                              If draft already exists for layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
@@ -81,7 +81,7 @@ interface LayoutService
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @throws \Netgen\BlockManager\API\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */

@@ -15,7 +15,7 @@ abstract class Validator
      * @param int|string $id
      * @param string $propertyPath
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateId($id, $propertyPath = null)
     {
@@ -36,7 +36,7 @@ abstract class Validator
      * @param string $propertyPath
      * @param bool $isRequired
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validateIdentifier($identifier, $propertyPath = null, $isRequired = false)
     {
@@ -58,7 +58,7 @@ abstract class Validator
      * @param string $propertyPath
      * @param bool $isRequired
      *
-     * @throws \Netgen\BlockManager\API\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
     public function validatePosition($position, $propertyPath = null, $isRequired = false)
     {

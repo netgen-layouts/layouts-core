@@ -14,9 +14,9 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
-use Netgen\BlockManager\API\Exception\NotFoundException;
-use Netgen\BlockManager\API\Exception\InvalidArgumentException;
-use Netgen\BlockManager\API\Exception\BadStateException;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\BadStateException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\Exception;
 

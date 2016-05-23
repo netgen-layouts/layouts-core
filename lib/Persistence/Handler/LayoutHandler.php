@@ -12,7 +12,7 @@ interface LayoutHandler
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
@@ -25,7 +25,7 @@ interface LayoutHandler
      * @param string $identifier
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\API\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
