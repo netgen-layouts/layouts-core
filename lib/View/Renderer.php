@@ -30,18 +30,18 @@ class Renderer implements RendererInterface
     }
 
     /**
-     * Renders the value.
+     * Renders the value object.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      * @param string $context
      * @param array $parameters
      *
      * @return string
      */
-    public function renderValue($value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
+    public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         return $this->renderView(
-            $this->viewBuilder->buildView($value, $context, $parameters)
+            $this->viewBuilder->buildView($valueObject, $context, $parameters)
         );
     }
 

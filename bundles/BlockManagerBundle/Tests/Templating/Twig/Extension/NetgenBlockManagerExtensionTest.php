@@ -110,7 +110,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderValue')
+            ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_VIEW),
@@ -146,7 +146,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderValue');
+            ->method('renderValueObject');
 
         $this->extension->setDebug(true);
         $this->extension->displayZone(
@@ -182,12 +182,12 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->viewRendererMock
             ->expects($this->at(0))
-            ->method('renderValue')
+            ->method('renderValueObject')
             ->will($this->returnValue('rendered block 1'));
 
         $this->viewRendererMock
             ->expects($this->at(1))
-            ->method('renderValue')
+            ->method('renderValueObject')
             ->will($this->returnValue('rendered block 2'));
 
         ob_start();

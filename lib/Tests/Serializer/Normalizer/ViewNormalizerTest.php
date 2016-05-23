@@ -51,7 +51,7 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderValue')
+            ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Value()),
                 $this->equalTo(ViewInterface::CONTEXT_API_VIEW),

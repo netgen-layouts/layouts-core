@@ -7,11 +7,11 @@ interface ViewBuilderInterface
     /**
      * Builds the view.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      * @param string $context
      * @param array $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView($value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array());
+    public function buildView($valueObject, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array());
 }

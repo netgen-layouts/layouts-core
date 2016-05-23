@@ -13,7 +13,7 @@ class BlockView extends View implements BlockViewInterface
      */
     public function __construct(Block $block)
     {
-        $this->value = $block;
+        $this->valueObject = $block;
         $this->internalParameters['block'] = $block;
     }
 
@@ -24,7 +24,7 @@ class BlockView extends View implements BlockViewInterface
      */
     public function getBlock()
     {
-        return $this->value;
+        return $this->valueObject;
     }
 
     /**

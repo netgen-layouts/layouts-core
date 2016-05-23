@@ -46,7 +46,7 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 
         $this->viewRendererMock
             ->expects($this->any())
-            ->method('renderValue')
+            ->method('renderValueObject')
             ->will(
                 $this->returnCallback(
                     function ($block, $context) {

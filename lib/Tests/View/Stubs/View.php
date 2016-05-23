@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\View\Stubs;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\View\View as BaseView;
 
 class View extends BaseView
@@ -10,11 +9,11 @@ class View extends BaseView
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $valueObject
      */
-    public function __construct(Value $value)
+    public function __construct($valueObject)
     {
-        $this->value = $value;
+        $this->valueObject = $valueObject;
     }
 
     /**

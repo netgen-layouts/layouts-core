@@ -43,29 +43,29 @@ class ViewBuilder implements ViewBuilderInterface
     /**
      * Builds the view.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      * @param string $context
      * @param array $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView($value, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
+    public function buildView($valueObject, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         foreach ($this->viewProviders as $viewProvider) {
             if (!$viewProvider instanceof ViewProviderInterface) {
                 throw new RuntimeException(
                     sprintf(
-                        'View provider for "%s" value needs to implement ViewProviderInterface.',
-                        get_class($value)
+                        'View provider for "%s" value object needs to implement ViewProviderInterface.',
+                        get_class($valueObject)
                     )
                 );
             }
 
-            if (!$viewProvider->supports($value)) {
+            if (!$viewProvider->supports($valueObject)) {
                 continue;
             }
 
-            $view = $viewProvider->provideView($value);
+            $view = $viewProvider->provideView($valueObject);
             $view->setContext($context);
             $view->addParameters($parameters);
 
@@ -79,8 +79,8 @@ class ViewBuilder implements ViewBuilderInterface
         if (!isset($view)) {
             throw new RuntimeException(
                 sprintf(
-                    'No view providers found for "%s" value.',
-                    get_class($value)
+                    'No view providers found for "%s" value object.',
+                    get_class($valueObject)
                 )
             );
         }

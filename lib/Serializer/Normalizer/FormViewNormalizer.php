@@ -44,7 +44,7 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
             )
         );
 
-        $normalizedData['form'] = $this->viewRenderer->renderValue(
+        $normalizedData['form'] = $this->viewRenderer->renderValueObject(
             $object->getValue(),
             $object->getContext(),
             array(

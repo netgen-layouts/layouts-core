@@ -24,7 +24,7 @@ interface ViewInterface
      *
      * @return mixed
      */
-    public function getValue();
+    public function getValueObject();
 
     /**
      * Returns the view context.

@@ -13,7 +13,7 @@ class QueryView extends View implements QueryViewInterface
      */
     public function __construct(Query $query)
     {
-        $this->value = $query;
+        $this->valueObject = $query;
         $this->internalParameters['query'] = $query;
     }
 
@@ -24,7 +24,7 @@ class QueryView extends View implements QueryViewInterface
      */
     public function getQuery()
     {
-        return $this->value;
+        return $this->valueObject;
     }
 
     /**

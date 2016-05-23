@@ -7,9 +7,9 @@ use OutOfBoundsException;
 abstract class View implements ViewInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Value
+     * @var mixed
      */
-    protected $value;
+    protected $valueObject;
 
     /**
      * @var string
@@ -32,13 +32,13 @@ abstract class View implements ViewInterface
     protected $internalParameters = array();
 
     /**
-     * Returns the value in this view.
+     * Returns the value object in this view.
      *
      * @return mixed
      */
-    public function getValue()
+    public function getValueObject()
     {
-        return $this->value;
+        return $this->valueObject;
     }
 
     /**

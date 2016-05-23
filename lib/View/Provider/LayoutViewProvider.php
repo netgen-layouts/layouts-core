@@ -10,14 +10,14 @@ class LayoutViewProvider implements ViewProviderInterface
     /**
      * Provides the view.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView($value)
+    public function provideView($valueObject)
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Layout $value */
-        $layoutView = new LayoutView($value);
+        /** @var \Netgen\BlockManager\API\Values\Page\Layout $valueObject */
+        $layoutView = new LayoutView($valueObject);
 
         return $layoutView;
     }
@@ -25,12 +25,12 @@ class LayoutViewProvider implements ViewProviderInterface
     /**
      * Returns if this view provider supports the given value object.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      *
      * @return bool
      */
-    public function supports($value)
+    public function supports($valueObject)
     {
-        return $value instanceof Layout;
+        return $valueObject instanceof Layout;
     }
 }

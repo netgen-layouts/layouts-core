@@ -7,18 +7,18 @@ interface ViewProviderInterface
     /**
      * Provides the view.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView($value);
+    public function provideView($valueObject);
 
     /**
      * Returns if this view provider supports the given value object.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param \Netgen\BlockManager\API\Values\Value $valueObject
      *
      * @return bool
      */
-    public function supports($value);
+    public function supports($valueObject);
 }

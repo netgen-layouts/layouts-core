@@ -13,7 +13,7 @@ class LayoutView extends View implements LayoutViewInterface
      */
     public function __construct(Layout $layout)
     {
-        $this->value = $layout;
+        $this->valueObject = $layout;
         $this->internalParameters['layout'] = $layout;
     }
 
@@ -24,7 +24,7 @@ class LayoutView extends View implements LayoutViewInterface
      */
     public function getLayout()
     {
-        return $this->value;
+        return $this->valueObject;
     }
 
     /**

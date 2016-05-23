@@ -158,7 +158,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                 );
             }
 
-            return $this->viewRenderer->renderValue($block, $context, $parameters);
+            return $this->viewRenderer->renderValueObject($block, $context, $parameters);
         } catch (Exception $e) {
             $this->logError($block, $e);
 

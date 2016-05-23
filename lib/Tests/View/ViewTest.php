@@ -18,11 +18,11 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::getValue
+     * @covers \Netgen\BlockManager\View\View::getValueObject
      */
-    public function testGetValue()
+    public function testGetValueObject()
     {
-        self::assertEquals(new Value(), $this->view->getValue());
+        self::assertEquals(new Value(), $this->view->getValueObject());
     }
 
     /**

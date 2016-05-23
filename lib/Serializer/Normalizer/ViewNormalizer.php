@@ -44,7 +44,7 @@ class ViewNormalizer extends SerializerAwareNormalizer implements NormalizerInte
             )
         );
 
-        $normalizedData['html'] = $this->viewRenderer->renderValue(
+        $normalizedData['html'] = $this->viewRenderer->renderValueObject(
             $object->getValue(),
             $object->getContext(),
             array(

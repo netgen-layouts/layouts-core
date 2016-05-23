@@ -10,14 +10,14 @@ class BlockViewProvider implements ViewProviderInterface
     /**
      * Provides the view.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView($value)
+    public function provideView($valueObject)
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Block $value */
-        $blockView = new BlockView($value);
+        /** @var \Netgen\BlockManager\API\Values\Page\Block $valueObject */
+        $blockView = new BlockView($valueObject);
 
         return $blockView;
     }
@@ -25,12 +25,12 @@ class BlockViewProvider implements ViewProviderInterface
     /**
      * Returns if this view provider supports the given value object.
      *
-     * @param mixed $value
+     * @param mixed $valueObject
      *
      * @return bool
      */
-    public function supports($value)
+    public function supports($valueObject)
     {
-        return $value instanceof Block;
+        return $valueObject instanceof Block;
     }
 }

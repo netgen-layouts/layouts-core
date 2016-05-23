@@ -43,9 +43,9 @@ class RendererTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Renderer::__construct
-     * @covers \Netgen\BlockManager\View\Renderer::renderValue
+     * @covers \Netgen\BlockManager\View\Renderer::renderValueObject
      */
-    public function testRenderValue()
+    public function testRenderValueObject()
     {
         $view = new View(new Value());
         $view->setContext(ViewInterface::CONTEXT_API_VIEW);
@@ -67,7 +67,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->viewRenderer->renderValue(
+        $renderedTemplate = $this->viewRenderer->renderValueObject(
             new Value(),
             ViewInterface::CONTEXT_API_VIEW,
             array('some_param' => 'some_value')
