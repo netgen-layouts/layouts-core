@@ -16,7 +16,7 @@ use DateTime;
 class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 

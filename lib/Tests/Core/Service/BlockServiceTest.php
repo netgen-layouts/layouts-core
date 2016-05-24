@@ -34,7 +34,7 @@ abstract class BlockServiceTest extends ServiceTest
     protected $collectionValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 

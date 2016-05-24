@@ -27,7 +27,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     protected $layoutValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 

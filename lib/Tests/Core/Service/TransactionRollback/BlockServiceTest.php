@@ -34,7 +34,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     protected $blockValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
@@ -36,7 +36,7 @@ class BlockService implements BlockServiceInterface
     protected $persistenceHandler;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 
@@ -61,13 +61,13 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
         Handler $persistenceHandler,
-        LayoutTypeRegistry $layoutTypeRegistry
+        LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
