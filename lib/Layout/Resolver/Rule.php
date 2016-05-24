@@ -27,6 +27,11 @@ class Rule extends ValueObject
     protected $enabled = true;
 
     /**
+     * @var bool
+     */
+    protected $priority;
+
+    /**
      * @var string
      */
     protected $comment;
@@ -69,6 +74,16 @@ class Rule extends ValueObject
     public function isEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Returns the rule priority.
+     *
+     * @return bool
+     */
+    public function getPriority()
+    {
+        return $this->priority;
     }
 
     /**
