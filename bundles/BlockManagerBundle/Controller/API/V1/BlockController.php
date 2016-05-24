@@ -207,7 +207,7 @@ class BlockController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form was not submitted
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block does not support the specified form
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -241,21 +241,18 @@ class BlockController extends Controller
 
         $form->handleRequest($request);
 
+        $responseCode = Response::HTTP_OK;
         if ($request->getMethod() === Request::METHOD_POST) {
-            if (!$form->isSubmitted()) {
-                throw new InvalidArgumentException('form', 'Form is not submitted.');
+            if ($form->isValid()) {
+                $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
+
+                return new View($updatedBlock, Version::API_V1);
+            } else {
+                $responseCode = Response::HTTP_UNPROCESSABLE_ENTITY;
             }
-
-            if (!$form->isValid()) {
-                return new FormView($form, $block, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
-            $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
-
-            return new View($updatedBlock, Version::API_V1);
         }
 
-        return new FormView($form, $block, Version::API_V1);
+        return new FormView($form, $block, Version::API_V1, $responseCode);
     }
 
     /**

@@ -222,7 +222,7 @@ class CollectionController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form was not submitted
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query does not support the specified form
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -254,19 +254,16 @@ class CollectionController extends Controller
 
         $form->handleRequest($request);
 
+        $responseCode = Response::HTTP_OK;
         if ($request->getMethod() === Request::METHOD_POST) {
-            if (!$form->isSubmitted()) {
-                throw new InvalidArgumentException('form', 'Form is not submitted.');
+            if ($form->isValid()) {
+                $query = $this->collectionService->updateQuery($query, $form->getData());
+            } else {
+                $responseCode = Response::HTTP_UNPROCESSABLE_ENTITY;
             }
-
-            if (!$form->isValid()) {
-                return new FormView($form, $query, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
-            $query = $this->collectionService->updateQuery($query, $form->getData());
         }
 
-        return new FormView($form, $query, Version::API_V1);
+        return new FormView($form, $query, Version::API_V1, $responseCode);
     }
 
     /**
