@@ -240,7 +240,16 @@ class CollectionController extends Controller
         $form = $this->createForm(
             $queryType->getConfig()->getForm($formName)->getType(),
             $updateStruct,
-            array('queryType' => $queryType)
+            array(
+                'queryType' => $queryType,
+                'action' => $this->generateUrl(
+                    'netgen_block_manager_api_v1_query_form',
+                    array(
+                        'queryId' => $query->getId(),
+                        'formName' => $formName,
+                    )
+                )
+            )
         );
 
         $form->handleRequest($request);

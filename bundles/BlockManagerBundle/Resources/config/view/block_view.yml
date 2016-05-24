@@ -45,6 +45,6 @@ block_view:
                 api_version: 1
     api_form:
         block:
-            template: "NetgenBlockManagerBundle:api/block/form:full.html.twig"
+            template: "NetgenBlockManagerBundle:api/block:form.html.twig"
             match:
                 api_version: 1

@@ -227,7 +227,16 @@ class BlockController extends Controller
         $form = $this->createForm(
             $blockDefinition->getConfig()->getForm($formName)->getType(),
             $updateStruct,
-            array('blockDefinition' => $blockDefinition)
+            array(
+                'blockDefinition' => $blockDefinition,
+                'action' => $this->generateUrl(
+                    'netgen_block_manager_api_v1_block_form',
+                    array(
+                        'blockId' => $block->getId(),
+                        'formName' => $formName,
+                    )
+                )
+            )
         );
 
         $form->handleRequest($request);
