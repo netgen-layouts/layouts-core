@@ -30,7 +30,7 @@ class RuleBuilder implements RuleBuilderInterface
                         'identifier' => $condition['identifier'],
                         'parameters' => is_array($condition['parameters']) ?
                             $condition['parameters'] :
-                            array()
+                            array(),
                     )
                 );
             }

@@ -50,8 +50,8 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
                             'identifier' => 'condition',
                             'parameters' => array(1, 2, 3),
                         )
-                    )
-                )
+                    ),
+                ),
             )
         );
 
@@ -72,8 +72,8 @@ class RuleBuilderTest extends \PHPUnit_Framework_TestCase
                             'identifier' => 'condition',
                             'parameters' => array(),
                         )
-                    )
-                )
+                    ),
+                ),
             )
         );
 

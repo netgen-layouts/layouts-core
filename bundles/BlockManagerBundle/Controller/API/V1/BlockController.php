@@ -235,7 +235,7 @@ class BlockController extends Controller
                         'blockId' => $block->getId(),
                         'formName' => $formName,
                     )
-                )
+                ),
             )
         );
 

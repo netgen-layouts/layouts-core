@@ -16,7 +16,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
         $condition = new Condition(
             array(
                 'identifier' => 'identifier',
-                'parameters' => array('value')
+                'parameters' => array('value'),
             )
         );
 

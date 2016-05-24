@@ -100,7 +100,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
                     new Rule(
                         array(
                             'layoutId' => 42,
-                            'target' => new Target(array('identifier' => 'target', 'values' => array('value')))
+                            'target' => new Target(array('identifier' => 'target', 'values' => array('value'))),
                         )
                     )
                 )
@@ -167,7 +167,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
                     new Rule(
                         array(
                             'layoutId' => 42,
-                            'target' => new Target(array('identifier' => 'target', 'values' => array('value')))
+                            'target' => new Target(array('identifier' => 'target', 'values' => array('value'))),
                         )
                     )
                 )

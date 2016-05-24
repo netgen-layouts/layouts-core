@@ -248,7 +248,7 @@ class CollectionController extends Controller
                         'queryId' => $query->getId(),
                         'formName' => $formName,
                     )
-                )
+                ),
             )
         );
 
