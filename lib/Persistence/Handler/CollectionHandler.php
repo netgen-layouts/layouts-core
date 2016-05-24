@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 
 interface CollectionHandler
 {

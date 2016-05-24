@@ -23,12 +23,12 @@ class ValueArrayNormalizer extends SerializerAwareNormalizer implements Normaliz
         $data = array();
 
         foreach ($object->getValue() as $key => $value) {
+            $dataItem = $value;
+
             if ($value instanceof ValueInterface) {
                 $dataItem = $this->serializer->normalize($value);
             } elseif (is_array($value)) {
                 $dataItem = $this->serializer->normalize(new ValueArray($value));
-            } else {
-                $dataItem = $value;
             }
 
             $data[$key] = $dataItem;

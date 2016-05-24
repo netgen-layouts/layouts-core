@@ -265,13 +265,13 @@ class BlockService implements BlockServiceInterface
             );
 
             foreach ($collectionReferences as $collectionReference) {
+                $newCollectionId = $collectionReference->collectionId;
+
                 if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId, $collectionReference->collectionStatus)) {
                     $newCollectionId = $this->collectionHandler->copyCollection(
                         $collectionReference->collectionId,
                         $persistenceBlock->status
                     );
-                } else {
-                    $newCollectionId = $collectionReference->collectionId;
                 }
 
                 $this->blockHandler->addCollectionToBlock(

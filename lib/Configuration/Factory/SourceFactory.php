@@ -22,8 +22,8 @@ class SourceFactory
         foreach ($config['queries'] as $queryIdentifier => $queryConfig) {
             $queries[$queryIdentifier] = new Query(
                 $queryIdentifier,
-                $config['queries'][$queryIdentifier]['query_type'],
-                $config['queries'][$queryIdentifier]['default_parameters']
+                $queryConfig['query_type'],
+                $queryConfig['default_parameters']
             );
         }
 
