@@ -12,6 +12,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 
 trait TestCase
 {
@@ -89,10 +90,12 @@ trait TestCase
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
         return new CollectionHandler(
+            new CollectionQueryHandler(
+                $connectionHelper,
+                new QueryHelper($this->databaseConnection, $connectionHelper)
+            ),
             new CollectionMapper(),
-            $connectionHelper,
-            new PositionHelper($this->databaseConnection),
-            new QueryHelper($this->databaseConnection, $connectionHelper)
+            new PositionHelper($this->databaseConnection)
         );
     }
 }

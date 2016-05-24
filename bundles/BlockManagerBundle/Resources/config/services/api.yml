@@ -10,6 +10,7 @@ parameters:
     netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
     netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
 
+    netgen_block_manager.persistence.doctrine.collection.query_handler.class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
     netgen_block_manager.persistence.doctrine.collection.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
     netgen_block_manager.persistence.doctrine.collection.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
 
@@ -36,7 +37,7 @@ services:
             - "@netgen_block_manager.persistence.doctrine.block.handler"
             - "@netgen_block_manager.persistence.doctrine.collection.handler"
 
-    # Layout related persistence APIs
+    # Persistence helpers
 
     netgen_block_manager.persistence.doctrine.helper.connection:
         class: "%netgen_block_manager.persistence.doctrine.helper.connection.class%"
@@ -54,6 +55,8 @@ services:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
 
+    # Layout related persistence APIs
+
     netgen_block_manager.persistence.doctrine.layout.mapper:
         class: "%netgen_block_manager.persistence.doctrine.layout.mapper.class%"
 
@@ -65,6 +68,8 @@ services:
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
+
+    # Block related persistence APIs
 
     netgen_block_manager.persistence.doctrine.block.mapper:
         class: "%netgen_block_manager.persistence.doctrine.block.mapper.class%"
@@ -78,16 +83,26 @@ services:
             - "@netgen_block_manager.persistence.doctrine.helper.position"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
 
+    # Collection related persistence APIs
+
+    netgen_block_manager.persistence.doctrine.collection.query_handler:
+        class: "%netgen_block_manager.persistence.doctrine.collection.query_handler.class%"
+        arguments:
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
+            - "@netgen_block_manager.persistence.doctrine.helper.query"
+
     netgen_block_manager.persistence.doctrine.collection.mapper:
         class: "%netgen_block_manager.persistence.doctrine.collection.mapper.class%"
 
     netgen_block_manager.persistence.doctrine.collection.handler:
         class: "%netgen_block_manager.persistence.doctrine.collection.handler.class%"
         arguments:
+            - "@netgen_block_manager.persistence.doctrine.collection.query_handler"
             - "@netgen_block_manager.persistence.doctrine.collection.mapper"
-            - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.position"
-            - "@netgen_block_manager.persistence.doctrine.helper.query"
+
+
+    # Repository
 
     netgen_block_manager.core.repository:
         class: "%netgen_block_manager.core.repository.class%"
