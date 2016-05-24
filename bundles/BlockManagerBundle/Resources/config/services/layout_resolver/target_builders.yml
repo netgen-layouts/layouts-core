@@ -1,10 +1,10 @@
 parameters:
-    netgen_block_manager.layout.resolver.target_builder.route.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\Route
-    netgen_block_manager.layout.resolver.target_builder.route_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RoutePrefix
-    netgen_block_manager.layout.resolver.target_builder.path_info.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\PathInfo
-    netgen_block_manager.layout.resolver.target_builder.path_info_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\PathInfoPrefix
-    netgen_block_manager.layout.resolver.target_builder.request_uri.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUri
-    netgen_block_manager.layout.resolver.target_builder.request_uri_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Builder\RequestUriPrefix
+    netgen_block_manager.layout.resolver.target_builder.route.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\Route
+    netgen_block_manager.layout.resolver.target_builder.route_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\RoutePrefix
+    netgen_block_manager.layout.resolver.target_builder.path_info.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\PathInfo
+    netgen_block_manager.layout.resolver.target_builder.path_info_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\PathInfoPrefix
+    netgen_block_manager.layout.resolver.target_builder.request_uri.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUri
+    netgen_block_manager.layout.resolver.target_builder.request_uri_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetBuilder\RequestUriPrefix
 
 services:
     netgen_block_manager.layout.resolver.target_builder.route:
