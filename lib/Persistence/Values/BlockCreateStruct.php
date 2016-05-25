@@ -7,6 +7,26 @@ use Netgen\BlockManager\ValueObject;
 class BlockCreateStruct extends ValueObject
 {
     /**
+     * @var int|string
+     */
+    public $layoutId;
+
+    /**
+     * @var string
+     */
+    public $zoneIdentifier;
+
+    /**
+     * @var int
+     */
+    public $status;
+
+    /**
+     * @var int
+     */
+    public $position;
+
+    /**
      * @var string
      */
     public $definitionIdentifier;

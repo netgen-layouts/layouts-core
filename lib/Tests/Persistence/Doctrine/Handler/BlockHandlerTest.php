@@ -47,7 +47,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getBlockSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::__construct
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      */
     public function testLoadBlock()
     {
@@ -72,6 +73,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testLoadBlockThrowsNotFoundException()
@@ -81,6 +83,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
      */
     public function testLoadZoneBlocks()
     {
@@ -137,7 +140,17 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
+     */
+    public function testLoadZoneBlocksForNonExistingZone()
+    {
+        self::assertEquals(array(), $this->blockHandler->loadZoneBlocks(1, 'non_existing', Layout::STATUS_PUBLISHED));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
     public function testLoadCollectionReferences()
     {
@@ -172,6 +185,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
     public function testLoadCollectionReferencesForNonExistingBlock()
     {
@@ -182,16 +196,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
-     */
-    public function testLoadZoneBlocksForNonExistingZone()
-    {
-        self::assertEquals(array(), $this->blockHandler->loadZoneBlocks(1, 'non_existing', Layout::STATUS_PUBLISHED));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getBlockInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlock()
@@ -227,7 +233,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getBlockInsertQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlockWithNoPosition()
@@ -260,6 +266,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
@@ -275,6 +282,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
@@ -290,9 +298,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::getQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper::applyStatusCondition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
      */
     public function testUpdateBlock()
     {
@@ -325,6 +331,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlock()
@@ -351,6 +358,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlockToDifferentZone()
@@ -377,6 +385,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlock()
@@ -406,6 +415,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlockToLowerPosition()
@@ -435,6 +445,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
@@ -444,6 +455,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
@@ -453,6 +465,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testMoveBlockToZone()
@@ -479,6 +492,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
@@ -488,6 +502,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
@@ -497,6 +512,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testDeleteBlock()
@@ -526,6 +542,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionIdentifierExists
      */
     public function testCollectionIdentifierExists()
     {
@@ -534,6 +551,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionIdentifierExists
      */
     public function testCollectionIdentifierNotExists()
     {
@@ -542,6 +560,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::addCollectionToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::addCollectionToBlock
      */
     public function testAddCollectionToBlock()
     {
@@ -551,6 +570,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::removeCollectionFromBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::removeCollectionFromBlock
      */
     public function testRemoveCollectionFromBlock()
     {

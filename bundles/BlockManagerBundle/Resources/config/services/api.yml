@@ -55,7 +55,6 @@ services:
         class: "%netgen_block_manager.persistence.doctrine.helper.query.class%"
         arguments:
             - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.helper.connection"
 
     # Layout related persistence APIs
 

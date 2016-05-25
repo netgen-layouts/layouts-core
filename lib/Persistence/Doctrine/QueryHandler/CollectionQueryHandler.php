@@ -64,6 +64,13 @@ class CollectionQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Loads all data for named collections.
+     *
+     * @param int $status
+     *
+     * @return array
+     */
     public function loadNamedCollectionsData($status = null)
     {
         $query = $this->getCollectionSelectQuery();
@@ -79,6 +86,14 @@ class CollectionQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Loads all data for an item.
+     *
+     * @param int|string $itemId
+     * @param int $status
+     *
+     * @return array
+     */
     public function loadItemData($itemId, $status = null)
     {
         $query = $this->getCollectionItemSelectQuery();
@@ -94,6 +109,14 @@ class CollectionQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Loads all data for a query.
+     *
+     * @param int|string $queryId
+     * @param int $status
+     *
+     * @return array
+     */
     public function loadQueryData($queryId, $status = null)
     {
         $query = $this->getCollectionQuerySelectQuery();
@@ -161,6 +184,14 @@ class CollectionQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Returns if the collection exists.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @return bool
+     */
     public function collectionExists($collectionId, $status)
     {
         $query = $this->queryHelper->getQuery();
@@ -178,6 +209,14 @@ class CollectionQueryHandler
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
+    /**
+     * Returns if the named collection exists.
+     *
+     * @param string $name
+     * @param int $status
+     *
+     * @return bool
+     */
     public function namedCollectionExists($name, $status = null)
     {
         $query = $this->queryHelper->getQuery();
@@ -201,6 +240,14 @@ class CollectionQueryHandler
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
+    /**
+     * Creates a collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param int|string $collectionId
+     *
+     * @return int
+     */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct, $collectionId = null)
     {
         $query = $this->getCollectionInsertQuery(
@@ -217,6 +264,12 @@ class CollectionQueryHandler
         return (int)$this->connectionHelper->lastInsertId('ngbm_collection');
     }
 
+    /**
+     * Updates a collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct $collectionUpdateStruct
+     */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $query = $this->queryHelper->getQuery();
@@ -234,6 +287,12 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Deletes a collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     */
     public function deleteCollection($collectionId, $status = null)
     {
         // Delete all connections between blocks and collections
@@ -268,6 +327,15 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Returns if an item exists at specified position.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int $position
+     *
+     * @return bool
+     */
     public function itemPositionExists($collectionId, $status, $position)
     {
         $query = $this->queryHelper->getQuery();
@@ -289,13 +357,21 @@ class CollectionQueryHandler
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
-    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position, $itemId = null)
+    /**
+     * Adds an item.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct
+     * @param int|string $itemId
+     *
+     * @return int
+     */
+    public function addItem(ItemCreateStruct $itemCreateStruct, $itemId = null)
     {
         $query = $this->getCollectionItemInsertQuery(
             array(
-                'status' => $status,
-                'collection_id' => $collectionId,
-                'position' => $position,
+                'status' => $itemCreateStruct->status,
+                'collection_id' => $itemCreateStruct->collectionId,
+                'position' => $itemCreateStruct->position,
                 'type' => $itemCreateStruct->type,
                 'value_id' => $itemCreateStruct->valueId,
                 'value_type' => $itemCreateStruct->valueType,
@@ -308,6 +384,12 @@ class CollectionQueryHandler
         return (int)$this->connectionHelper->lastInsertId('ngbm_collection_item');
     }
 
+    /**
+     * Moves an item.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
+     * @param int $position
+     */
     public function moveItem(Item $item, $position)
     {
         $query = $this->queryHelper->getQuery();
@@ -326,6 +408,11 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Deletes an item.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
+     */
     public function deleteItem(Item $item)
     {
         $query = $this->queryHelper->getQuery();
@@ -341,6 +428,12 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Deletes all collection items.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     */
     public function deleteCollectionItems($collectionId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
@@ -358,6 +451,15 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Returns if the query with specified identifier exists.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param string $identifier
+     *
+     * @return bool
+     */
     public function queryIdentifierExists($collectionId, $status, $identifier)
     {
         $query = $this->queryHelper->getQuery();
@@ -379,13 +481,21 @@ class CollectionQueryHandler
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
-    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct, $position, $queryId = null)
+    /**
+     * Adds a query.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\QueryCreateStruct $queryCreateStruct
+     * @param int|string $queryId
+     *
+     * @return int
+     */
+    public function addQuery(QueryCreateStruct $queryCreateStruct, $queryId = null)
     {
         $query = $this->getCollectionQueryInsertQuery(
             array(
-                'status' => $status,
-                'collection_id' => $collectionId,
-                'position' => $position,
+                'status' => $queryCreateStruct->status,
+                'collection_id' => $queryCreateStruct->collectionId,
+                'position' => $queryCreateStruct->position,
                 'identifier' => $queryCreateStruct->identifier,
                 'type' => $queryCreateStruct->type,
                 'parameters' => $queryCreateStruct->parameters,
@@ -398,7 +508,13 @@ class CollectionQueryHandler
         return (int)$this->connectionHelper->lastInsertId('ngbm_collection_query');
     }
 
-    public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct)
+    /**
+     * Updates a query.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
+     * @param \Netgen\BlockManager\Persistence\Values\QueryUpdateStruct $queryUpdateStruct
+     */
+    public function updateQuery(Query $originalQuery, QueryUpdateStruct $queryUpdateStruct)
     {
         $query = $this->queryHelper->getQuery();
         $query
@@ -408,15 +524,21 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $queryId, Type::INTEGER)
+            ->setParameter('id', $originalQuery->id, Type::INTEGER)
             ->setParameter('identifier', $queryUpdateStruct->identifier, Type::STRING)
             ->setParameter('parameters', $queryUpdateStruct->parameters, Type::JSON_ARRAY);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $originalQuery->status);
 
         $query->execute();
     }
 
+    /**
+     * Moves a query
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
+     * @param int $position
+     */
     public function moveQuery(Query $originalQuery, $position)
     {
         $query = $this->queryHelper->getQuery();
@@ -435,6 +557,11 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Deletes a query.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
+     */
     public function deleteQuery(Query $originalQuery)
     {
         $query = $this->queryHelper->getQuery();
@@ -450,6 +577,12 @@ class CollectionQueryHandler
         $query->execute();
     }
 
+    /**
+     * Deletes all collection queries.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     */
     public function deleteCollectionQueries($collectionId, $status = null)
     {
         $query = $this->queryHelper->getQuery();

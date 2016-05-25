@@ -170,9 +170,9 @@ class LayoutHandler implements LayoutHandlerInterface
                     'type' => $layoutCreateStruct->type,
                     'name' => trim($layoutCreateStruct->name),
                     'status' => $layoutCreateStruct->status,
+                    'zoneIdentifiers' => array_unique($zoneIdentifiers),
                 )
-            ),
-            array_unique($zoneIdentifiers)
+            )
         );
 
         return $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
@@ -208,9 +208,9 @@ class LayoutHandler implements LayoutHandlerInterface
                         'type' => $layoutDataRow['type'],
                         'name' => $layoutDataRow['name'] . ' (copy) ' . crc32(microtime()),
                         'status' => $layoutDataRow['status'],
+                        'zoneIdentifiers' => $zoneIdentifiers,
                     )
                 ),
-                $zoneIdentifiers,
                 $insertedLayoutId
             );
         }
@@ -225,16 +225,16 @@ class LayoutHandler implements LayoutHandlerInterface
                 $createdBlockId = $this->blockQueryHandler->createBlock(
                     new BlockCreateStruct(
                         array(
+                            'layoutId' => $insertedLayoutId,
+                            'zoneIdentifier' => $blockDataRow['zone_identifier'],
+                            'status' => $blockDataRow['status'],
+                            'position' => $blockDataRow['position'],
                             'definitionIdentifier' => $blockDataRow['definition_identifier'],
                             'viewType' => $blockDataRow['view_type'],
                             'name' => $blockDataRow['name'],
                             'parameters' => $blockDataRow['parameters'],
                         )
                     ),
-                    $insertedLayoutId,
-                    $blockDataRow['zone_identifier'],
-                    $blockDataRow['status'],
-                    $blockDataRow['position'],
                     isset($blockIdMapping[$blockDataRow['id']]) ?
                         $blockIdMapping[$blockDataRow['id']] :
                         null
@@ -304,9 +304,9 @@ class LayoutHandler implements LayoutHandlerInterface
                     'type' => $layoutData[0]['type'],
                     'name' => $layoutData[0]['name'],
                     'status' => $newStatus,
+                    'zoneIdentifiers' => $zoneIdentifiers,
                 )
             ),
-            $zoneIdentifiers,
             $layoutData[0]['id']
         );
 
@@ -316,16 +316,16 @@ class LayoutHandler implements LayoutHandlerInterface
                 $this->blockQueryHandler->createBlock(
                     new BlockCreateStruct(
                         array(
+                            'layoutId' => $blockDataRow['layout_id'],
+                            'zoneIdentifier' => $blockDataRow['zone_identifier'],
+                            'status' => $newStatus,
+                            'position' => $blockDataRow['position'],
                             'definitionIdentifier' => $blockDataRow['definition_identifier'],
                             'viewType' => $blockDataRow['view_type'],
                             'name' => $blockDataRow['name'],
                             'parameters' => $blockDataRow['parameters'],
                         )
                     ),
-                    $blockDataRow['layout_id'],
-                    $blockDataRow['zone_identifier'],
-                    $newStatus,
-                    $blockDataRow['position'],
                     $blockDataRow['id']
                 );
 

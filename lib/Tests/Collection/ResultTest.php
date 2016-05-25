@@ -10,6 +10,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result::getCollection
      * @covers \Netgen\BlockManager\Collection\Result::getItems
+     * @covers \Netgen\BlockManager\Collection\Result::getTotalCount
      * @covers \Netgen\BlockManager\Collection\Result::getOffset
      * @covers \Netgen\BlockManager\Collection\Result::getLimit
      */
@@ -19,6 +20,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
             array(
                 'collection' => new Collection(),
                 'items' => array('items'),
+                'totalCount' => 15,
                 'offset' => 3,
                 'limit' => 5,
             )
@@ -26,6 +28,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(new Collection(), $result->getCollection());
         self::assertEquals(array('items'), $result->getItems());
+        self::assertEquals(15, $result->getTotalCount());
         self::assertEquals(3, $result->getOffset());
         self::assertEquals(5, $result->getLimit());
     }

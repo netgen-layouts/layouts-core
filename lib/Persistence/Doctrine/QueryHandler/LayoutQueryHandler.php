@@ -57,7 +57,16 @@ class LayoutQueryHandler
         return $query->execute()->fetchAll();
     }
 
-    public function loadZoneData($layoutId, $identifier, $status)
+    /**
+     * Loads all zone data with provided identifier.
+     *
+     * @param int|string $layoutId
+     * @param string $identifier
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadZoneData($layoutId, $identifier, $status = null)
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
@@ -69,7 +78,9 @@ class LayoutQueryHandler
         ->setParameter('layout_id', $layoutId, Type::INTEGER)
         ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status);
+        }
 
         return $query->execute()->fetchAll();
     }
@@ -100,6 +111,14 @@ class LayoutQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Loads all layout collections data.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     *
+     * @return array
+     */
     public function loadLayoutCollectionsData($layoutId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
@@ -118,6 +137,14 @@ class LayoutQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Returns if layout exists.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     *
+     * @return bool
+     */
     public function layoutExists($layoutId, $status)
     {
         $query = $this->queryHelper->getQuery();
@@ -135,6 +162,15 @@ class LayoutQueryHandler
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
+    /**
+     * Returns if the zone exists.
+     *
+     * @param int|string $layoutId
+     * @param string $identifier
+     * @param int $status
+     *
+     * @return bool
+     */
     public function zoneExists($layoutId, $identifier, $status)
     {
         $query = $this->queryHelper->getQuery();
@@ -156,7 +192,15 @@ class LayoutQueryHandler
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
 
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneIdentifiers = array(), $layoutId = null)
+    /**
+     * Creates a layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param int|string $layoutId
+     *
+     * @return int
+     */
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $layoutId = null)
     {
         $currentTimeStamp = time();
 
@@ -179,7 +223,7 @@ class LayoutQueryHandler
             $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
         }
 
-        foreach ($zoneIdentifiers as $zoneIdentifier) {
+        foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
             $zoneQuery = $this->getZoneInsertQuery(
                 array(
                     'identifier' => $zoneIdentifier,
@@ -194,6 +238,12 @@ class LayoutQueryHandler
         return $createdLayoutId;
     }
 
+    /**
+     * Deletes all layout blocks.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     */
     public function deleteLayoutBlocks($layoutId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
@@ -211,6 +261,12 @@ class LayoutQueryHandler
         $query->execute();
     }
 
+    /**
+     * Deletes the layout.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     */
     public function deleteLayout($layoutId, $status = null)
     {
         // Delete all zones

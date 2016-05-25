@@ -33,6 +33,7 @@ class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer::normalize
      */
     public function testNormalize()

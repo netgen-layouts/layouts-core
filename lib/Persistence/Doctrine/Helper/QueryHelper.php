@@ -14,20 +14,13 @@ class QueryHelper
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
-     */
-    protected $connectionHelper;
-
-    /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      */
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->connectionHelper = $connectionHelper;
     }
 
     /**

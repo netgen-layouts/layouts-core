@@ -144,16 +144,16 @@ class BlockHandler implements BlockHandlerInterface
         $createdBlockId = $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
+                    'layoutId' => $layoutId,
+                    'zoneIdentifier' => $zoneIdentifier,
+                    'status' => $status,
+                    'position' => $position,
                     'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
                     'viewType' => $blockCreateStruct->viewType,
                     'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
                     'parameters' => $blockCreateStruct->getParameters(),
                 )
-            ),
-            $layoutId,
-            $zoneIdentifier,
-            $status,
-            $position
+            )
         );
 
         return $this->loadBlock($createdBlockId, $status);
@@ -210,16 +210,16 @@ class BlockHandler implements BlockHandlerInterface
         $createdBlockId = $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
+                    'layoutId' => $block->layoutId,
+                    'zoneIdentifier' => $zoneIdentifier,
+                    'status' => $block->status,
+                    'position' => $position,
                     'definitionIdentifier' => $block->definitionIdentifier,
                     'viewType' => $block->viewType,
                     'name' => $block->name,
                     'parameters' => $block->parameters,
                 )
-            ),
-            $block->layoutId,
-            $zoneIdentifier,
-            $block->status,
-            $position
+            )
         );
 
         return $this->loadBlock($createdBlockId, $block->status);
@@ -250,7 +250,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveBlock($blockId, $status, $position);
+        $this->queryHandler->moveBlock($block, $position);
 
         return $this->loadBlock($blockId, $status);
     }
@@ -280,7 +280,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveBlock($blockId, $status, $position, $zoneIdentifier);
+        $this->queryHandler->moveBlock($block, $position, $zoneIdentifier);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -318,7 +318,7 @@ class BlockHandler implements BlockHandlerInterface
             }
         }
 
-        $this->queryHandler->deleteBlock($blockId, $status);
+        $this->queryHandler->deleteBlock($block);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(

@@ -27,15 +27,21 @@ class BlockQueryHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
-    public function __construct(
-        ConnectionHelper $connectionHelper,
-        QueryHelper $queryHelper
-    ) {
+    public function __construct(ConnectionHelper $connectionHelper, QueryHelper $queryHelper)
+    {
         $this->connectionHelper = $connectionHelper;
         $this->queryHelper = $queryHelper;
     }
 
-    public function loadBlockData($blockId, $status)
+    /**
+     * Loads all block data.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadBlockData($blockId, $status = null)
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -43,11 +49,21 @@ class BlockQueryHandler
         )
         ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status);
+        }
 
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Loads all collection reference data.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return array
+     */
     public function loadCollectionReferencesData($blockId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
@@ -66,6 +82,15 @@ class BlockQueryHandler
         return $query->execute()->fetchAll();
     }
 
+    /**
+     * Loads all block data from specified zone.
+     *
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
+     * @param int $status
+     *
+     * @return array
+     */
     public function loadZoneBlocksData($layoutId, $zoneIdentifier, $status = null)
     {
         $query = $this->getBlockSelectQuery();
@@ -87,14 +112,22 @@ class BlockQueryHandler
         return $query->execute()->fetchAll();
     }
 
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position, $blockId = null)
+    /**
+     * Creates a block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
+     * @param int|string $blockId
+     *
+     * @return int
+     */
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $blockId = null)
     {
         $query = $this->getBlockInsertQuery(
             array(
-                'status' => $status,
-                'layout_id' => $layoutId,
-                'zone_identifier' => $zoneIdentifier,
-                'position' => $position,
+                'status' => $blockCreateStruct->status,
+                'layout_id' => $blockCreateStruct->layoutId,
+                'zone_identifier' => $blockCreateStruct->zoneIdentifier,
+                'position' => $blockCreateStruct->position,
                 'definition_identifier' => $blockCreateStruct->definitionIdentifier,
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
@@ -108,6 +141,12 @@ class BlockQueryHandler
         return (int)$this->connectionHelper->lastInsertId('ngbm_block');
     }
 
+    /**
+     * Updates a block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\BlockUpdateStruct $blockUpdateStruct
+     */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
         $query = $this->queryHelper->getQuery();
@@ -129,7 +168,14 @@ class BlockQueryHandler
         $query->execute();
     }
 
-    public function moveBlock($blockId, $status, $position, $zoneIdentifier = null)
+    /**
+     * Moves a block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $position
+     * @param string $zoneIdentifier
+     */
+    public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -139,7 +185,7 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $blockId, Type::INTEGER)
+            ->setParameter('id', $block->id, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
         if ($zoneIdentifier !== null) {
@@ -148,12 +194,17 @@ class BlockQueryHandler
                 ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
         }
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $block->status);
 
         $query->execute();
     }
 
-    public function deleteBlock($blockId, $status)
+    /**
+     * Deletes a block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     */
+    public function deleteBlock(Block $block)
     {
         // Delete all connections between blocks and collections
 
@@ -163,11 +214,9 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
             )
-            ->setParameter('block_id', $blockId, Type::INTEGER);
+            ->setParameter('block_id', $block->id, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
-        }
+        $this->queryHelper->applyStatusCondition($query, $block->status, 'block_status');
 
         $query->execute();
 
@@ -179,9 +228,9 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $blockId, Type::INTEGER);
+            ->setParameter('id', $block->id, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->queryHelper->applyStatusCondition($query, $block->status);
 
         $query->execute();
     }

@@ -308,16 +308,16 @@ class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($itemData as $itemDataRow) {
             $insertedItemId = $this->queryHandler->addItem(
-                $insertedCollectionId,
-                $itemDataRow['status'],
                 new ItemCreateStruct(
                     array(
+                        'collectionId' => $insertedCollectionId,
+                        'position' => $itemDataRow['position'],
+                        'status' => $itemDataRow['status'],
                         'valueId' => $itemDataRow['value_id'],
                         'valueType' => $itemDataRow['value_type'],
                         'type' => $itemDataRow['type'],
                     )
                 ),
-                $itemDataRow['position'],
                 isset($itemIdMapping[$itemDataRow['id']]) ?
                     $itemIdMapping[$itemDataRow['id']] :
                     null
@@ -335,16 +335,16 @@ class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($queryData as $queryDataRow) {
             $insertedQueryId = $this->queryHandler->addQuery(
-                $insertedCollectionId,
-                $queryDataRow['status'],
                 new QueryCreateStruct(
                     array(
+                        'collectionId' => $insertedCollectionId,
+                        'position' => $queryDataRow['position'],
+                        'status' => $queryDataRow['status'],
                         'identifier' => $queryDataRow['identifier'],
                         'type' => $queryDataRow['type'],
                         'parameters' => $queryDataRow['parameters'],
                     )
                 ),
-                $queryDataRow['position'],
                 isset($queryIdMapping[$queryDataRow['id']]) ?
                     $queryIdMapping[$queryDataRow['id']] :
                     null
@@ -385,16 +385,16 @@ class CollectionHandler implements CollectionHandlerInterface
         $itemData = $this->queryHandler->loadCollectionItemsData($collectionData[0]['id'], $status);
         foreach ($itemData as $itemDataRow) {
             $this->queryHandler->addItem(
-                $itemDataRow['collection_id'],
-                $newStatus,
                 new ItemCreateStruct(
                     array(
+                        'collectionId' => $itemDataRow['collection_id'],
+                        'position' => $itemDataRow['position'],
+                        'status' => $newStatus,
                         'valueId' => $itemDataRow['value_id'],
                         'valueType' => $itemDataRow['value_type'],
                         'type' => $itemDataRow['type'],
                     )
                 ),
-                $itemDataRow['position'],
                 $itemDataRow['id']
             );
         }
@@ -402,16 +402,16 @@ class CollectionHandler implements CollectionHandlerInterface
         $queryData = $this->queryHandler->loadCollectionQueriesData($collectionData[0]['id'], $status);
         foreach ($queryData as $queryDataRow) {
             $this->queryHandler->addQuery(
-                $queryDataRow['collection_id'],
-                $newStatus,
                 new QueryCreateStruct(
                     array(
+                        'collectionId' => $queryDataRow['collection_id'],
+                        'position' => $queryDataRow['position'],
+                        'status' => $newStatus,
                         'identifier' => $queryDataRow['identifier'],
                         'type' => $queryDataRow['type'],
                         'parameters' => $queryDataRow['parameters'],
                     )
                 ),
-                $queryDataRow['position'],
                 $queryDataRow['id']
             );
         }
@@ -473,16 +473,16 @@ class CollectionHandler implements CollectionHandlerInterface
         }
 
         $createdItemId = $this->queryHandler->addItem(
-            $collectionId,
-            $status,
             new ItemCreateStruct(
                 array(
+                    'collectionId' => $collectionId,
+                    'position' => $position,
+                    'status' => $status,
                     'valueId' => $itemCreateStruct->valueId,
                     'valueType' => $itemCreateStruct->valueType,
                     'type' => $itemCreateStruct->type,
                 )
-            ),
-            $position
+            )
         );
 
         return $this->loadItem($createdItemId, $status);
@@ -581,16 +581,16 @@ class CollectionHandler implements CollectionHandlerInterface
         );
 
         $createdQueryId = $this->queryHandler->addQuery(
-            $collectionId,
-            $status,
             new QueryCreateStruct(
                 array(
+                    'collectionId' => $collectionId,
+                    'position' => $position,
+                    'status' => $status,
                     'identifier' => $queryCreateStruct->identifier,
                     'type' => $queryCreateStruct->type,
                     'parameters' => $queryCreateStruct->getParameters()
                 )
-            ),
-            $position
+            )
         );
 
         return $this->loadQuery($createdQueryId, $status);
@@ -610,8 +610,7 @@ class CollectionHandler implements CollectionHandlerInterface
         $originalQuery = $this->loadQuery($queryId, $status);
 
         $this->queryHandler->updateQuery(
-            $queryId,
-            $status,
+            $originalQuery,
             new QueryUpdateStruct(
                 array(
                     'identifier' => $queryUpdateStruct->identifier !== null ?

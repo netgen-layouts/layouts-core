@@ -79,6 +79,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::__construct
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateItems
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::getResultCount
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @dataProvider generateResultForManualCollectionProvider
      */
@@ -117,6 +118,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateItems
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::getResultCount
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsBeforeOffset
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::getNumberOfItemsAtOffset

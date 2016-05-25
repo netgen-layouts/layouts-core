@@ -54,7 +54,7 @@ trait TestCase
     protected function createLayoutHandler()
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
-        $queryHelper = new QueryHelper($this->databaseConnection, $connectionHelper);
+        $queryHelper = new QueryHelper($this->databaseConnection);
 
         return new LayoutHandler(
             new LayoutQueryHandler(
@@ -83,7 +83,7 @@ trait TestCase
         return new BlockHandler(
             new BlockQueryHandler(
                 $connectionHelper,
-                new QueryHelper($this->databaseConnection, $connectionHelper)
+                new QueryHelper($this->databaseConnection)
             ),
             $this->createCollectionHandler(),
             new BlockMapper(),
@@ -103,7 +103,7 @@ trait TestCase
         return new CollectionHandler(
             new CollectionQueryHandler(
                 $connectionHelper,
-                new QueryHelper($this->databaseConnection, $connectionHelper)
+                new QueryHelper($this->databaseConnection)
             ),
             new CollectionMapper(),
             new PositionHelper($this->databaseConnection)

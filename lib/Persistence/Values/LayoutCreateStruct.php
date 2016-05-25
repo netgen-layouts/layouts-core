@@ -20,4 +20,9 @@ class LayoutCreateStruct extends ValueObject
      * @var int
      */
     public $status;
+
+    /**
+     * @var array
+     */
+    public $zoneIdentifiers;
 }

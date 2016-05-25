@@ -11,6 +11,9 @@ class RuleTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Layout\Resolver\Rule::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getLayoutId
      * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getTarget
+     * @covers \Netgen\BlockManager\Layout\Resolver\Rule::isEnabled
+     * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getPriority
+     * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getComment
      * @covers \Netgen\BlockManager\Layout\Resolver\Rule::getConditions
      */
     public function testConstructor()
@@ -21,11 +24,17 @@ class RuleTest extends \PHPUnit_Framework_TestCase
                 'layoutId' => 42,
                 'target' => $target,
                 'conditions' => array('conditions'),
+                'enabled' => false,
+                'priority' => 3,
+                'comment' => 'comment'
             )
         );
 
         self::assertEquals(42, $rule->getLayoutId());
         self::assertEquals($target, $rule->getTarget());
+        self::assertEquals(false, $rule->isEnabled());
+        self::assertEquals(3, $rule->getPriority());
+        self::assertEquals('comment', $rule->getComment());
         self::assertEquals(array('conditions'), $rule->getConditions());
     }
 }

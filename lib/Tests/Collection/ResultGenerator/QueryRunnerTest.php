@@ -33,6 +33,7 @@ class QueryRunnerTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::__construct
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
      * @dataProvider runSingleQueryProvider
      */
     public function testRunSingleQuery($offset, $limit, $expectedResult)
@@ -41,15 +42,13 @@ class QueryRunnerTest extends \PHPUnit_Framework_TestCase
             new QueryType('query', array(40, 41, 42, 43, 44, 45, 46, 47, 48))
         );
 
-        $results = $this->queryRunner->runQueries(
-            array(new Query(array('type' => 'query'))),
-            $offset, $limit
-        );
+        $query = array(new Query(array('type' => 'query')));
 
-        self::assertEquals(
-            $expectedResult,
-            $results
-        );
+        $results = $this->queryRunner->runQueries($query, $offset, $limit);
+        $resultCount = $this->queryRunner->getTotalCount($query);
+
+        self::assertEquals($expectedResult, $results);
+        self::assertEquals(9, $resultCount);
     }
 
     /**
@@ -58,6 +57,7 @@ class QueryRunnerTest extends \PHPUnit_Framework_TestCase
      * @param array $expectedResult
      *
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
      * @dataProvider runMultipleQueriesProvider
      */
     public function testRunMultipleQueries($offset, $limit, $expectedResult)
@@ -78,20 +78,18 @@ class QueryRunnerTest extends \PHPUnit_Framework_TestCase
             new QueryType('query4', array(70, 71, 72, 73, 74, 75, 76))
         );
 
-        $results = $this->queryRunner->runQueries(
-            array(
-                new Query(array('type' => 'query1')),
-                new Query(array('type' => 'query2')),
-                new Query(array('type' => 'query3')),
-                new Query(array('type' => 'query4')),
-            ),
-            $offset, $limit
+        $queries = array(
+            new Query(array('type' => 'query1')),
+            new Query(array('type' => 'query2')),
+            new Query(array('type' => 'query3')),
+            new Query(array('type' => 'query4')),
         );
 
-        self::assertEquals(
-            $expectedResult,
-            $results
-        );
+        $results = $this->queryRunner->runQueries($queries, $offset, $limit);
+        $resultCount = $this->queryRunner->getTotalCount($queries);
+
+        self::assertEquals($expectedResult, $results);
+        self::assertEquals(29, $resultCount);
     }
 
     /**
