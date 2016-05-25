@@ -7,6 +7,7 @@ parameters:
     netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
     netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
 
+    netgen_block_manager.persistence.doctrine.block.query_handler.class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler
     netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
     netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
 
@@ -70,6 +71,12 @@ services:
             - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     # Block related persistence APIs
+
+    netgen_block_manager.persistence.doctrine.block.query_handler:
+        class: "%netgen_block_manager.persistence.doctrine.block.query_handler.class%"
+        arguments:
+            - "@netgen_block_manager.persistence.doctrine.helper.connection"
+            - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     netgen_block_manager.persistence.doctrine.block.mapper:
         class: "%netgen_block_manager.persistence.doctrine.block.mapper.class%"
