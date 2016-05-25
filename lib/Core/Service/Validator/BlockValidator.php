@@ -58,15 +58,13 @@ class BlockValidator extends Validator
             'viewType'
         );
 
-        if ($blockCreateStruct->name !== null) {
-            $this->validate(
-                $blockCreateStruct->name,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
-                'name'
-            );
-        }
+        $this->validate(
+            $blockCreateStruct->name,
+            array(
+                new Constraints\Type(array('type' => 'string')),
+            ),
+            'name'
+        );
 
         $fields = $this->buildParameterValidationFields($blockDefinition->getParameters());
 
@@ -91,27 +89,22 @@ class BlockValidator extends Validator
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
 
-        if ($blockUpdateStruct->viewType !== null) {
-            $this->validate(
-                $blockUpdateStruct->viewType,
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                    new BlockViewType(array('definition' => $blockDefinition)),
-                ),
-                'viewType'
-            );
-        }
+        $this->validate(
+            $blockUpdateStruct->viewType,
+            array(
+                new Constraints\Type(array('type' => 'string')),
+                new BlockViewType(array('definition' => $blockDefinition)),
+            ),
+            'viewType'
+        );
 
-        if ($blockUpdateStruct->name !== null) {
-            $this->validate(
-                $blockUpdateStruct->name,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
-                'name'
-            );
-        }
+        $this->validate(
+            $blockUpdateStruct->name,
+            array(
+                new Constraints\Type(array('type' => 'string')),
+            ),
+            'name'
+        );
 
         $fields = $this->buildParameterValidationFields($blockDefinition->getParameters(), false);
 
