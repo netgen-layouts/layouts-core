@@ -14,7 +14,6 @@ use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
@@ -588,7 +587,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'status' => $status,
                     'identifier' => $queryCreateStruct->identifier,
                     'type' => $queryCreateStruct->type,
-                    'parameters' => $queryCreateStruct->getParameters()
+                    'parameters' => $queryCreateStruct->getParameters(),
                 )
             )
         );

@@ -32,10 +32,8 @@ class CollectionQueryHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
-    public function __construct(
-        ConnectionHelper $connectionHelper,
-        QueryHelper $queryHelper
-    ) {
+    public function __construct(ConnectionHelper $connectionHelper, QueryHelper $queryHelper)
+    {
         $this->connectionHelper = $connectionHelper;
         $this->queryHelper = $queryHelper;
     }
@@ -534,7 +532,7 @@ class CollectionQueryHandler
     }
 
     /**
-     * Moves a query
+     * Moves a query.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
      * @param int $position

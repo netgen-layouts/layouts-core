@@ -6,7 +6,6 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;

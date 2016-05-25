@@ -25,10 +25,8 @@ class LayoutQueryHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
      */
-    public function __construct(
-        ConnectionHelper $connectionHelper,
-        QueryHelper $queryHelper
-    ) {
+    public function __construct(ConnectionHelper $connectionHelper, QueryHelper $queryHelper)
+    {
         $this->connectionHelper = $connectionHelper;
         $this->queryHelper = $queryHelper;
     }
