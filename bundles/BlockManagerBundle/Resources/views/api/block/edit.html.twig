@@ -6,23 +6,27 @@
 {% set query = null %}
 
 {% if collection is not empty %}
-    <label for="collection-type">Collection</label>
-    <select id="collection-type">
-        <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">Manual collection</option>
-        <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">Dynamic collection</option>
+    <div class="form-group">
+        <label for="collection-type">Collection</label>
+        <select id="collection-type" class="form-control">
+            <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">Manual collection</option>
+            <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">Dynamic collection</option>
 
-        {% if named_collections is not empty %}
-            <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">Named collection</option>
-        {% endif %}
-    </select>
+            {% if named_collections is not empty %}
+                <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">Named collection</option>
+            {% endif %}
+        </select>
+    </div>
 
     {% if named_collections is not empty %}
-        <label for="named-collections">Named collections</label>
-        <select id="named-collections">
-            {% for named_collection in named_collections %}
-                <option value="{{ named_collection.id }}">{{ named_collection.name }}</option>
-            {% endfor %}
-        </select>
+        <div class="form-group">
+            <label for="named-collections">Named collections</label>
+            <select id="named-collections" class="form-control">
+                {% for named_collection in named_collections %}
+                    <option value="{{ named_collection.id }}">{{ named_collection.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
     {% endif %}
 
     {% if collection.type == constant('TYPE_DYNAMIC', collection) %}
@@ -39,15 +43,19 @@
         <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
     {% endif %}
 {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
-    <div class="tabs">
-        <div class="content">
+    <div id="aside-tabs">
+        <ul class="aside-tab-control">
+            <li><a id="content">Content</a></li>
+            <li><a id="design">Design</a></li>
+        </ul>
+        <div class="tab-pane" id="content-tab">
             <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
             {% if query is not empty %}
                 <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
             {% endif %}
         </div>
-        <div class="design">
+        <div class="tab-pane" id="design-tab">
             <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'design'}) }}"></div>
         </div>
     </div>
