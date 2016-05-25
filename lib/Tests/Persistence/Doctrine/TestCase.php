@@ -12,7 +12,9 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 
 trait TestCase
 {
@@ -52,13 +54,20 @@ trait TestCase
     protected function createLayoutHandler()
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
+        $queryHelper = new QueryHelper($this->databaseConnection, $connectionHelper);
 
         return new LayoutHandler(
+            new LayoutQueryHandler(
+                $connectionHelper,
+                $queryHelper
+            ),
+            new BlockQueryHandler(
+                $connectionHelper,
+                $queryHelper
+            ),
             $this->createBlockHandler(),
             $this->createCollectionHandler(),
-            new LayoutMapper(),
-            $connectionHelper,
-            new QueryHelper($this->databaseConnection, $connectionHelper)
+            new LayoutMapper()
         );
     }
 
@@ -72,11 +81,13 @@ trait TestCase
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
         return new BlockHandler(
+            new BlockQueryHandler(
+                $connectionHelper,
+                new QueryHelper($this->databaseConnection, $connectionHelper)
+            ),
             $this->createCollectionHandler(),
             new BlockMapper(),
-            $connectionHelper,
-            new PositionHelper($this->databaseConnection),
-            new QueryHelper($this->databaseConnection, $connectionHelper)
+            new PositionHelper($this->databaseConnection)
         );
     }
 

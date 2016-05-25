@@ -48,7 +48,7 @@ class BlockQueryHandler
         return $query->execute()->fetchAll();
     }
 
-    public function loadCollectionReferencesData($blockId, $status)
+    public function loadCollectionReferencesData($blockId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier', 'start', 'length')
@@ -58,12 +58,15 @@ class BlockQueryHandler
             )
             ->setParameter('block_id', $blockId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
+            $query->addOrderBy('block_status', 'ASC');
+        }
 
         return $query->execute()->fetchAll();
     }
 
-    public function loadZoneBlocksData($layoutId, $zoneIdentifier, $status)
+    public function loadZoneBlocksData($layoutId, $zoneIdentifier, $status = null)
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -76,12 +79,15 @@ class BlockQueryHandler
             ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING)
             ->orderBy('position', 'ASC');
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status);
+            $query->addOrderBy('status', 'ASC');
+        }
 
         return $query->execute()->fetchAll();
     }
 
-    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position = null)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position, $blockId = null)
     {
         $query = $this->getBlockInsertQuery(
             array(
@@ -93,7 +99,8 @@ class BlockQueryHandler
                 'view_type' => $blockCreateStruct->viewType,
                 'name' => $blockCreateStruct->name,
                 'parameters' => $blockCreateStruct->parameters,
-            )
+            ),
+            $blockId
         );
 
         $query->execute();
@@ -269,8 +276,8 @@ class BlockQueryHandler
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $blockStatus, 'block_status');
-        $this->queryHelper->applyStatusCondition($query, $collectionStatus, 'collection_status');
+        $this->queryHelper->applyStatusCondition($query, $blockStatus, 'block_status', 'block_status');
+        $this->queryHelper->applyStatusCondition($query, $collectionStatus, 'collection_status', 'collection_status');
 
         $query->execute();
     }
