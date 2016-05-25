@@ -26,7 +26,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
                 'conditions' => array('conditions'),
                 'enabled' => false,
                 'priority' => 3,
-                'comment' => 'comment'
+                'comment' => 'comment',
             )
         );
 

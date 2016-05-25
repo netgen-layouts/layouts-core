@@ -26,6 +26,13 @@ interface Handler
     public function getCollectionHandler();
 
     /**
+     * Returns the layout resolver handler.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     */
+    public function getLayoutResolverHandler();
+
+    /**
      * Begins the transaction.
      */
     public function beginTransaction();

@@ -5,8 +5,9 @@ DROP TABLE IF EXISTS `ngbm_collection`;
 DROP TABLE IF EXISTS `ngbm_block`;
 DROP TABLE IF EXISTS `ngbm_zone`;
 DROP TABLE IF EXISTS `ngbm_layout`;
-DROP TABLE IF EXISTS `ngbm_rule_value`;
+DROP TABLE IF EXISTS `ngbm_rule_target`;
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
+DROP TABLE IF EXISTS `ngbm_rule_data`;
 DROP TABLE IF EXISTS `ngbm_rule`;
 
 CREATE TABLE `ngbm_layout` (
@@ -95,26 +96,37 @@ CREATE TABLE `ngbm_block_collection` (
 
 CREATE TABLE `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `layout_id` int(11) NOT NULL,
-  `target_identifier` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `status` int(11) NOT NULL,
+  `layout_id` int(11) DEFAULT NULL,
+  `priority` int(11) NOT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_rule_value` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ngbm_rule_data` (
   `rule_id` int(11) NOT NULL,
+  `enabled` tinyint NOT NULL,
+  PRIMARY KEY (`rule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_rule_target` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `rule_id` int(11) NOT NULL,
+  `identifier` varchar(255) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`rule_id`)
-    REFERENCES `ngbm_rule` (`id`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`rule_id`, `status`)
+    REFERENCES `ngbm_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  `parameters` text NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`rule_id`)
-    REFERENCES `ngbm_rule` (`id`)
+  `value` text NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`rule_id`, `status`)
+    REFERENCES `ngbm_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

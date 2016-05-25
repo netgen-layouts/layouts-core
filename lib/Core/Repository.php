@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core;
 use Netgen\BlockManager\API\Repository as APIRepository;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Persistence\Handler;
 use RuntimeException;
@@ -28,6 +29,11 @@ class Repository implements APIRepository
     protected $collectionService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\CollectionService
+     */
+    protected $layoutResolverService;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
     protected $persistenceHandler;
@@ -38,17 +44,20 @@ class Repository implements APIRepository
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
         LayoutService $layoutService,
         BlockService $blockService,
         CollectionService $collectionService,
+        LayoutResolverService $layoutResolverService,
         Handler $persistenceHandler
     ) {
         $this->layoutService = $layoutService;
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
+        $this->layoutResolverService = $layoutResolverService;
         $this->persistenceHandler = $persistenceHandler;
     }
 
@@ -80,6 +89,16 @@ class Repository implements APIRepository
     public function getCollectionService()
     {
         return $this->collectionService;
+    }
+
+    /**
+     * Returns the layout resolver service.
+     *
+     * @return \Netgen\BlockManager\API\Service\LayoutResolverService
+     */
+    public function getLayoutResolverService()
+    {
+        return $this->layoutResolverService;
     }
 
     /**

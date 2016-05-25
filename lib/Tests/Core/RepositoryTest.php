@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Repository;
 use Netgen\BlockManager\Persistence\Handler;
@@ -29,6 +30,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $layoutServiceMock = $this->getMock(LayoutService::class);
         $blockServiceMock = $this->getMock(BlockService::class);
         $collectionServiceMock = $this->getMock(CollectionService::class);
+        $layoutResolverServiceMock = $this->getMock(LayoutResolverService::class);
 
         $this->persistenceHandlerMock = $this->getMock(Handler::class);
 
@@ -36,6 +38,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
             $layoutServiceMock,
             $blockServiceMock,
             $collectionServiceMock,
+            $layoutResolverServiceMock,
             $this->persistenceHandlerMock
         );
     }

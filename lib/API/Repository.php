@@ -26,6 +26,13 @@ interface Repository
     public function getCollectionService();
 
     /**
+     * Returns the layout resolver service.
+     *
+     * @return \Netgen\BlockManager\API\Service\LayoutResolverService
+     */
+    public function getLayoutResolverService();
+
+    /**
      * Begins a transaction.
      */
     public function beginTransaction();

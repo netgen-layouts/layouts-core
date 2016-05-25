@@ -6,7 +6,8 @@ DROP TABLE IF EXISTS "ngbm_block";
 DROP TABLE IF EXISTS "ngbm_zone";
 DROP TABLE IF EXISTS "ngbm_layout";
 DROP TABLE IF EXISTS "ngbm_rule_condition";
-DROP TABLE IF EXISTS "ngbm_rule_value";
+DROP TABLE IF EXISTS "ngbm_rule_target";
+DROP TABLE IF EXISTS "ngbm_rule_data";
 DROP TABLE IF EXISTS "ngbm_rule";
 
 DROP SEQUENCE IF EXISTS ngbm_layout_id_seq;
@@ -15,7 +16,7 @@ DROP SEQUENCE IF EXISTS ngbm_collection_id_seq;
 DROP SEQUENCE IF EXISTS ngbm_collection_item_id_seq;
 DROP SEQUENCE IF EXISTS ngbm_collection_query_id_seq;
 DROP SEQUENCE IF EXISTS ngbm_rule_condition_id_seq;
-DROP SEQUENCE IF EXISTS ngbm_rule_value_id_seq;
+DROP SEQUENCE IF EXISTS ngbm_rule_target_id_seq;
 DROP SEQUENCE IF EXISTS ngbm_rule_id_seq;
 
 CREATE TABLE "ngbm_layout" (
@@ -85,21 +86,31 @@ CREATE TABLE "ngbm_block_collection" (
 
 CREATE TABLE "ngbm_rule" (
     "id" integer NOT NULL,
-    "layout_id" integer NOT NULL,
-    "target_identifier" character varying(255) NOT NULL
+    "status" integer NOT NULL,
+    "layout_id" integer,
+    "priority" integer NOT NULL,
+    "comment" character varying(255)
 );
 
-CREATE TABLE "ngbm_rule_value" (
-    "id" integer NOT NULL,
+CREATE TABLE "ngbm_rule_data" (
     "rule_id" integer NOT NULL,
+    "enabled" boolean NOT NULL
+);
+
+CREATE TABLE "ngbm_rule_target" (
+    "id" integer NOT NULL,
+    "status" integer NOT NULL,
+    "rule_id" integer NOT NULL,
+    "identifier" character varying(255) NOT NULL,
     "value" text NOT NULL
 );
 
 CREATE TABLE "ngbm_rule_condition" (
     "id" integer NOT NULL,
+    "status" integer NOT NULL,
     "rule_id" integer NOT NULL,
     "identifier" character varying(255) NOT NULL,
-    "parameters" text NOT NULL
+    "value" text NOT NULL
 );
 
 CREATE SEQUENCE ngbm_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
@@ -140,16 +151,18 @@ ALTER TABLE ONLY ngbm_block_collection ADD FOREIGN KEY ("collection_id", "collec
 CREATE SEQUENCE ngbm_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_rule ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_id_seq'::regclass);
 
-ALTER TABLE ONLY ngbm_rule ADD CONSTRAINT ngbm_rule_pkey PRIMARY KEY ("id");
+ALTER TABLE ONLY ngbm_rule ADD CONSTRAINT ngbm_rule_pkey PRIMARY KEY ("id", "status");
 
-CREATE SEQUENCE ngbm_rule_value_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_rule_value ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_value_id_seq'::regclass);
+ALTER TABLE ONLY ngbm_rule_data ADD CONSTRAINT ngbm_rule_data_pkey PRIMARY KEY ("rule_id");
 
-ALTER TABLE ONLY ngbm_rule_value ADD CONSTRAINT ngbm_rule_value_pkey PRIMARY KEY ("id");
-ALTER TABLE ONLY ngbm_rule_value ADD FOREIGN KEY ("rule_id") REFERENCES ngbm_rule ("id");
+CREATE SEQUENCE ngbm_rule_target_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY ngbm_rule_target ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_target_id_seq'::regclass);
+
+ALTER TABLE ONLY ngbm_rule_target ADD CONSTRAINT ngbm_rule_target_pkey PRIMARY KEY ("id", "status");
+ALTER TABLE ONLY ngbm_rule_target ADD FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status");
 
 CREATE SEQUENCE ngbm_rule_condition_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_rule_condition ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_condition_id_seq'::regclass);
 
-ALTER TABLE ONLY ngbm_rule_condition ADD CONSTRAINT ngbm_rule_condition_pkey PRIMARY KEY ("id");
-ALTER TABLE ONLY ngbm_rule_value ADD FOREIGN KEY ("rule_id") REFERENCES ngbm_rule ("id");
+ALTER TABLE ONLY ngbm_rule_condition ADD CONSTRAINT ngbm_rule_condition_pkey PRIMARY KEY ("id", "status");
+ALTER TABLE ONLY ngbm_rule_condition ADD FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status");

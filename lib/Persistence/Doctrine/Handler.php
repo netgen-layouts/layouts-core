@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 use Doctrine\DBAL\Connection;
 
 class Handler implements HandlerInterface
@@ -31,23 +32,31 @@ class Handler implements HandlerInterface
     protected $collectionHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     */
+    protected $layoutResolverHandler;
+
+    /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Persistence\Handler\LayoutHandler $layoutHandler
      * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
      * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
+     * @param \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler $layoutResolverHandler
      */
     public function __construct(
         Connection $connection,
         LayoutHandler $layoutHandler,
         BlockHandler $blockHandler,
-        CollectionHandler $collectionHandler
+        CollectionHandler $collectionHandler,
+        LayoutResolverHandler $layoutResolverHandler
     ) {
         $this->connection = $connection;
         $this->layoutHandler = $layoutHandler;
         $this->blockHandler = $blockHandler;
         $this->collectionHandler = $collectionHandler;
+        $this->layoutResolverHandler = $layoutResolverHandler;
     }
 
     /**
@@ -78,6 +87,16 @@ class Handler implements HandlerInterface
     public function getCollectionHandler()
     {
         return $this->collectionHandler;
+    }
+
+    /**
+     * Returns the layout resolver handler.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     */
+    public function getLayoutResolverHandler()
+    {
+        return $this->layoutResolverHandler;
     }
 
     /**

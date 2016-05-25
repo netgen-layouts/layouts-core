@@ -6,15 +6,18 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 
 trait TestCase
 {
@@ -42,7 +45,8 @@ trait TestCase
             $this->databaseConnection,
             $this->createLayoutHandler(),
             $this->createBlockHandler(),
-            $this->createCollectionHandler()
+            $this->createCollectionHandler(),
+            $this->createLayoutResolverHandler()
         );
     }
 
@@ -107,6 +111,24 @@ trait TestCase
             ),
             new CollectionMapper(),
             new PositionHelper($this->databaseConnection)
+        );
+    }
+
+    /**
+     * Returns the layout resolver handler under test.
+     *
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     */
+    protected function createLayoutResolverHandler()
+    {
+        $connectionHelper = new ConnectionHelper($this->databaseConnection);
+
+        return new LayoutResolverHandler(
+            new LayoutResolverQueryHandler(
+                $connectionHelper,
+                new QueryHelper($this->databaseConnection)
+            ),
+            new LayoutResolverMapper()
         );
     }
 }

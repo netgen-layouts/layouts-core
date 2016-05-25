@@ -86,7 +86,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             $databaseConnection,
             $this->createLayoutHandler(),
             $this->createBlockHandler(),
-            $this->createCollectionHandler()
+            $this->createCollectionHandler(),
+            $this->createLayoutResolverHandler()
         );
 
         $handler->beginTransaction();
@@ -110,7 +111,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             $databaseConnection,
             $this->createLayoutHandler(),
             $this->createBlockHandler(),
-            $this->createCollectionHandler()
+            $this->createCollectionHandler(),
+            $this->createLayoutResolverHandler()
         );
 
         $handler->commitTransaction();
@@ -134,7 +136,8 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
             $databaseConnection,
             $this->createLayoutHandler(),
             $this->createBlockHandler(),
-            $this->createCollectionHandler()
+            $this->createCollectionHandler(),
+            $this->createLayoutResolverHandler()
         );
 
         $handler->rollbackTransaction();

@@ -77,24 +77,39 @@ CREATE TABLE `ngbm_block_collection` (
   PRIMARY KEY (`block_id`, `block_status`, `collection_id`, `collection_status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_rule`;
-CREATE TABLE `ngbm_rule` (
-  `id` integer PRIMARY KEY AUTOINCREMENT,
-  `layout_id` integer NOT NULL,
-  `target_identifier` text(255) NOT NULL
+DROP TABLE IF EXISTS `ngbm_rule_data`;
+CREATE TABLE `ngbm_rule_data` (
+  `rule_id` integer NOT NULL,
+  `enabled` integer NOT NULL,
+  PRIMARY KEY (`rule_id`)
 );
 
-DROP TABLE IF EXISTS `ngbm_rule_value`;
-CREATE TABLE `ngbm_rule_value` (
-  `id` integer PRIMARY KEY AUTOINCREMENT,
+DROP TABLE IF EXISTS `ngbm_rule_target`;
+CREATE TABLE `ngbm_rule_target` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
   `rule_id` integer NOT NULL,
-  `value` text NOT NULL
+  `identifier` text(255) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
 CREATE TABLE `ngbm_rule_condition` (
-  `id` integer PRIMARY KEY AUTOINCREMENT,
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
   `rule_id` integer NOT NULL,
   `identifier` text(255) NOT NULL,
-  `parameters` text NOT NULL
+  `value` text NOT NULL,
+  PRIMARY KEY (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_rule`;
+CREATE TABLE `ngbm_rule` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `layout_id` integer DEFAULT NULL,
+  `priority` integer NOT NULL,
+  `comment` text(255) DEFAULT NULL,
+  PRIMARY KEY (`id`, `status`)
 );
