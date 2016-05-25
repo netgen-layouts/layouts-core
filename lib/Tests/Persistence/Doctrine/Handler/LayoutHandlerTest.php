@@ -549,7 +549,6 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutCollectionsData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::removeCollectionFromBlock
      */
     public function testDeleteLayout()
     {
@@ -595,7 +594,6 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutCollectionsData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::removeCollectionFromBlock
      */
     public function testDeleteLayoutInOneStatus()
     {

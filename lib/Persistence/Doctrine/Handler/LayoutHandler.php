@@ -385,7 +385,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $collectionData = $this->queryHandler->loadLayoutCollectionsData($layoutId, $status);
 
         foreach ($collectionData as $collectionDataRow) {
-            $this->blockQueryHandler->removeCollectionFromBlock(
+            $this->blockHandler->removeCollectionFromBlock(
                 $collectionDataRow['block_id'],
                 $collectionDataRow['block_status'],
                 $collectionDataRow['collection_id'],
