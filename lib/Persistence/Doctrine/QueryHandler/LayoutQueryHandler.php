@@ -202,17 +202,29 @@ class LayoutQueryHandler
     {
         $currentTimeStamp = time();
 
-        $query = $this->getLayoutInsertQuery(
-            array(
-                'status' => $layoutCreateStruct->status,
-                'parent_id' => null,
-                'type' => $layoutCreateStruct->type,
-                'name' => $layoutCreateStruct->name,
-                'created' => $currentTimeStamp,
-                'modified' => $currentTimeStamp,
-            ),
-            $layoutId
-        );
+        $query = $this->queryHelper->getQuery()
+            ->insert('ngbm_layout')
+            ->values(
+                array(
+                    'id' => ':id',
+                    'status' => ':status',
+                    'parent_id' => ':parent_id',
+                    'type' => ':type',
+                    'name' => ':name',
+                    'created' => ':created',
+                    'modified' => ':modified',
+                )
+            )
+            ->setValue(
+                'id',
+                $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
+            )
+            ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
+            ->setParameter('parent_id', null, Type::INTEGER)
+            ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
+            ->setParameter('name', trim($layoutCreateStruct->name), Type::STRING)
+            ->setParameter('created', $currentTimeStamp, Type::INTEGER)
+            ->setParameter('modified', $currentTimeStamp, Type::INTEGER);
 
         $query->execute();
 
@@ -222,15 +234,20 @@ class LayoutQueryHandler
         }
 
         foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
-            $zoneQuery = $this->getZoneInsertQuery(
-                array(
-                    'identifier' => $zoneIdentifier,
-                    'layout_id' => $createdLayoutId,
-                    'status' => $layoutCreateStruct->status,
+            $query = $this->queryHelper->getQuery()
+                ->insert('ngbm_zone')
+                ->values(
+                    array(
+                        'identifier' => ':identifier',
+                        'layout_id' => ':layout_id',
+                        'status' => ':status',
+                    )
                 )
-            );
+                ->setParameter('identifier', $zoneIdentifier, Type::STRING)
+                ->setParameter('layout_id', $createdLayoutId, Type::INTEGER)
+                ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER);
 
-            $zoneQuery->execute();
+            $query->execute();
         }
 
         return $createdLayoutId;
@@ -324,63 +341,5 @@ class LayoutQueryHandler
             ->from('ngbm_zone');
 
         return $query;
-    }
-
-    /**
-     * Builds and returns a layout database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $layoutId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    protected function getLayoutInsertQuery(array $parameters, $layoutId = null)
-    {
-        return $this->queryHelper->getQuery()
-            ->insert('ngbm_layout')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'parent_id' => ':parent_id',
-                    'type' => ':type',
-                    'name' => ':name',
-                    'created' => ':created',
-                    'modified' => ':modified',
-                )
-            )
-            ->setValue(
-                'id',
-                $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('parent_id', $parameters['parent_id'], Type::INTEGER)
-            ->setParameter('type', $parameters['type'], Type::STRING)
-            ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('created', $parameters['created'], Type::INTEGER)
-            ->setParameter('modified', $parameters['modified'], Type::INTEGER);
-    }
-
-    /**
-     * Builds and returns a zone database INSERT query.
-     *
-     * @param array $parameters
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    protected function getZoneInsertQuery(array $parameters)
-    {
-        return $this->queryHelper->getQuery()
-            ->insert('ngbm_zone')
-            ->values(
-                array(
-                    'identifier' => ':identifier',
-                    'layout_id' => ':layout_id',
-                    'status' => ':status',
-                )
-            )
-            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
-            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
-            ->setParameter('status', $parameters['status'], Type::INTEGER);
     }
 }

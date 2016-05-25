@@ -122,19 +122,33 @@ class BlockQueryHandler
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, $blockId = null)
     {
-        $query = $this->getBlockInsertQuery(
-            array(
-                'status' => $blockCreateStruct->status,
-                'layout_id' => $blockCreateStruct->layoutId,
-                'zone_identifier' => $blockCreateStruct->zoneIdentifier,
-                'position' => $blockCreateStruct->position,
-                'definition_identifier' => $blockCreateStruct->definitionIdentifier,
-                'view_type' => $blockCreateStruct->viewType,
-                'name' => $blockCreateStruct->name,
-                'parameters' => $blockCreateStruct->parameters,
-            ),
-            $blockId
-        );
+        $query = $this->queryHelper->getQuery()
+            ->insert('ngbm_block')
+            ->values(
+                array(
+                    'id' => ':id',
+                    'status' => ':status',
+                    'layout_id' => ':layout_id',
+                    'zone_identifier' => ':zone_identifier',
+                    'position' => ':position',
+                    'definition_identifier' => ':definition_identifier',
+                    'view_type' => ':view_type',
+                    'name' => ':name',
+                    'parameters' => ':parameters',
+                )
+            )
+            ->setValue(
+                'id',
+                $blockId !== null ? (int)$blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
+            )
+            ->setParameter('status', $blockCreateStruct->status, Type::INTEGER)
+            ->setParameter('layout_id', $blockCreateStruct->layoutId, Type::INTEGER)
+            ->setParameter('zone_identifier', $blockCreateStruct->zoneIdentifier, Type::STRING)
+            ->setParameter('position', $blockCreateStruct->position, Type::INTEGER)
+            ->setParameter('definition_identifier', $blockCreateStruct->definitionIdentifier, Type::STRING)
+            ->setParameter('view_type', $blockCreateStruct->viewType, Type::STRING)
+            ->setParameter('name', trim($blockCreateStruct->name), Type::STRING)
+            ->setParameter('parameters', $blockCreateStruct->parameters, is_array($blockCreateStruct->parameters) ? Type::JSON_ARRAY : Type::STRING);
 
         $query->execute();
 
@@ -343,44 +357,5 @@ class BlockQueryHandler
             ->from('ngbm_block');
 
         return $query;
-    }
-
-    /**
-     * Builds and returns a block database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $blockId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    protected function getBlockInsertQuery(array $parameters, $blockId = null)
-    {
-        return $this->queryHelper->getQuery()
-            ->insert('ngbm_block')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'layout_id' => ':layout_id',
-                    'zone_identifier' => ':zone_identifier',
-                    'position' => ':position',
-                    'definition_identifier' => ':definition_identifier',
-                    'view_type' => ':view_type',
-                    'name' => ':name',
-                    'parameters' => ':parameters',
-                )
-            )
-            ->setValue(
-                'id',
-                $blockId !== null ? (int)$blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('layout_id', $parameters['layout_id'], Type::INTEGER)
-            ->setParameter('zone_identifier', $parameters['zone_identifier'], Type::STRING)
-            ->setParameter('position', $parameters['position'], Type::INTEGER)
-            ->setParameter('definition_identifier', $parameters['definition_identifier'], Type::STRING)
-            ->setParameter('view_type', $parameters['view_type'], Type::STRING)
-            ->setParameter('name', trim($parameters['name']), Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], is_array($parameters['parameters']) ? Type::JSON_ARRAY : Type::STRING);
     }
 }

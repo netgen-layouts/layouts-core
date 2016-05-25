@@ -248,14 +248,23 @@ class CollectionQueryHandler
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct, $collectionId = null)
     {
-        $query = $this->getCollectionInsertQuery(
-            array(
-                'status' => $collectionCreateStruct->status,
-                'type' => $collectionCreateStruct->type,
-                'name' => $collectionCreateStruct->name,
-            ),
-            $collectionId
-        );
+        $query = $this->queryHelper->getQuery()
+            ->insert('ngbm_collection')
+            ->values(
+                array(
+                    'id' => ':id',
+                    'status' => ':status',
+                    'type' => ':type',
+                    'name' => ':name',
+                )
+            )
+            ->setValue(
+                'id',
+                $collectionId !== null ? (int)$collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
+            )
+            ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER)
+            ->setParameter('type', $collectionCreateStruct->type, Type::INTEGER)
+            ->setParameter('name', $collectionCreateStruct->name, Type::STRING);
 
         $query->execute();
 
@@ -365,17 +374,29 @@ class CollectionQueryHandler
      */
     public function addItem(ItemCreateStruct $itemCreateStruct, $itemId = null)
     {
-        $query = $this->getCollectionItemInsertQuery(
-            array(
-                'status' => $itemCreateStruct->status,
-                'collection_id' => $itemCreateStruct->collectionId,
-                'position' => $itemCreateStruct->position,
-                'type' => $itemCreateStruct->type,
-                'value_id' => $itemCreateStruct->valueId,
-                'value_type' => $itemCreateStruct->valueType,
-            ),
-            $itemId
-        );
+        $query = $this->queryHelper->getQuery()
+            ->insert('ngbm_collection_item')
+            ->values(
+                array(
+                    'id' => ':id',
+                    'status' => ':status',
+                    'collection_id' => ':collection_id',
+                    'position' => ':position',
+                    'type' => ':type',
+                    'value_id' => ':value_id',
+                    'value_type' => ':value_type',
+                )
+            )
+            ->setValue(
+                'id',
+                $itemId !== null ? (int)$itemId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
+            )
+            ->setParameter('status', $itemCreateStruct->status, Type::INTEGER)
+            ->setParameter('collection_id', $itemCreateStruct->collectionId, Type::INTEGER)
+            ->setParameter('position', $itemCreateStruct->position, Type::INTEGER)
+            ->setParameter('type', $itemCreateStruct->type, Type::INTEGER)
+            ->setParameter('value_id', $itemCreateStruct->valueId, Type::STRING)
+            ->setParameter('value_type', $itemCreateStruct->valueType, Type::STRING);
 
         $query->execute();
 
@@ -489,17 +510,29 @@ class CollectionQueryHandler
      */
     public function addQuery(QueryCreateStruct $queryCreateStruct, $queryId = null)
     {
-        $query = $this->getCollectionQueryInsertQuery(
-            array(
-                'status' => $queryCreateStruct->status,
-                'collection_id' => $queryCreateStruct->collectionId,
-                'position' => $queryCreateStruct->position,
-                'identifier' => $queryCreateStruct->identifier,
-                'type' => $queryCreateStruct->type,
-                'parameters' => $queryCreateStruct->parameters,
-            ),
-            $queryId
-        );
+        $query = $this->queryHelper->getQuery()
+            ->insert('ngbm_collection_query')
+            ->values(
+                array(
+                    'id' => ':id',
+                    'status' => ':status',
+                    'collection_id' => ':collection_id',
+                    'position' => ':position',
+                    'identifier' => ':identifier',
+                    'type' => ':type',
+                    'parameters' => ':parameters',
+                )
+            )
+            ->setValue(
+                'id',
+                $queryId !== null ? (int)$queryId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
+            )
+            ->setParameter('status', $queryCreateStruct->status, Type::INTEGER)
+            ->setParameter('collection_id', $queryCreateStruct->collectionId, Type::INTEGER)
+            ->setParameter('position', $queryCreateStruct->position, Type::INTEGER)
+            ->setParameter('identifier', $queryCreateStruct->identifier, Type::STRING)
+            ->setParameter('type', $queryCreateStruct->type, Type::STRING)
+            ->setParameter('parameters', $queryCreateStruct->parameters, is_array($queryCreateStruct->parameters) ? Type::JSON_ARRAY : Type::STRING);
 
         $query->execute();
 
@@ -667,75 +700,5 @@ class CollectionQueryHandler
             ->setParameter('status', $parameters['status'], Type::INTEGER)
             ->setParameter('type', $parameters['type'], Type::INTEGER)
             ->setParameter('name', $parameters['name'], Type::STRING);
-    }
-
-    /**
-     * Builds and returns an item database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $itemId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    protected function getCollectionItemInsertQuery(array $parameters, $itemId = null)
-    {
-        return $this->queryHelper->getQuery()
-            ->insert('ngbm_collection_item')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'collection_id' => ':collection_id',
-                    'position' => ':position',
-                    'type' => ':type',
-                    'value_id' => ':value_id',
-                    'value_type' => ':value_type',
-                )
-            )
-            ->setValue(
-                'id',
-                $itemId !== null ? (int)$itemId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('collection_id', $parameters['collection_id'], Type::INTEGER)
-            ->setParameter('position', $parameters['position'], Type::INTEGER)
-            ->setParameter('type', $parameters['type'], Type::INTEGER)
-            ->setParameter('value_id', $parameters['value_id'], Type::STRING)
-            ->setParameter('value_type', $parameters['value_type'], Type::STRING);
-    }
-
-    /**
-     * Builds and returns an query database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $queryId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    protected function getCollectionQueryInsertQuery(array $parameters, $queryId = null)
-    {
-        return $this->queryHelper->getQuery()
-            ->insert('ngbm_collection_query')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'collection_id' => ':collection_id',
-                    'position' => ':position',
-                    'identifier' => ':identifier',
-                    'type' => ':type',
-                    'parameters' => ':parameters',
-                )
-            )
-            ->setValue(
-                'id',
-                $queryId !== null ? (int)$queryId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('collection_id', $parameters['collection_id'], Type::INTEGER)
-            ->setParameter('position', $parameters['position'], Type::INTEGER)
-            ->setParameter('identifier', $parameters['identifier'], Type::STRING)
-            ->setParameter('type', $parameters['type'], Type::STRING)
-            ->setParameter('parameters', $parameters['parameters'], is_array($parameters['parameters']) ? Type::JSON_ARRAY : Type::STRING);
     }
 }
