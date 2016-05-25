@@ -314,7 +314,6 @@ class CollectionService implements APICollectionService
 
         try {
             $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_DRAFT);
-            $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_TEMPORARY_DRAFT);
             $collectionDraft = $this->collectionHandler->createCollectionStatus($persistenceCollection->id, Collection::STATUS_PUBLISHED, Collection::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -353,7 +352,6 @@ class CollectionService implements APICollectionService
 
             $publishedCollection = $this->collectionHandler->createCollectionStatus($persistenceCollection->id, Collection::STATUS_DRAFT, Collection::STATUS_PUBLISHED);
             $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_DRAFT);
-            $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_TEMPORARY_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

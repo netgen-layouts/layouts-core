@@ -37,11 +37,6 @@ class Collection extends ValueObject
     const STATUS_ARCHIVED = 2;
 
     /**
-     * @const int
-     */
-    const STATUS_TEMPORARY_DRAFT = 3;
-
-    /**
      * Collection ID.
      *
      * @var int|string

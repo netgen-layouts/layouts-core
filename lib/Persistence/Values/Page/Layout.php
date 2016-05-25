@@ -22,11 +22,6 @@ class Layout extends ValueObject
     const STATUS_ARCHIVED = 2;
 
     /**
-     * @const string
-     */
-    const STATUS_TEMPORARY_DRAFT = 3;
-
-    /**
      * Layout ID.
      *
      * @var int|string

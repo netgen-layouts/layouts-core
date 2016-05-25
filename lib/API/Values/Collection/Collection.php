@@ -37,11 +37,6 @@ interface Collection extends Value
     const STATUS_ARCHIVED = 2;
 
     /**
-     * @const int
-     */
-    const STATUS_TEMPORARY_DRAFT = 3;
-
-    /**
      * Returns the collection ID.
      *
      * @return int|string

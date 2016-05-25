@@ -22,11 +22,6 @@ interface Layout extends Value
     const STATUS_ARCHIVED = 2;
 
     /**
-     * @const string
-     */
-    const STATUS_TEMPORARY_DRAFT = 3;
-
-    /**
      * Returns the layout ID.
      *
      * @return int|string
