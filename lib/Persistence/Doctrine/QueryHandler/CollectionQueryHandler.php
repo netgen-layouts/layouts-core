@@ -672,33 +672,4 @@ class CollectionQueryHandler
 
         return $query;
     }
-
-    /**
-     * Builds and returns a collection database INSERT query.
-     *
-     * @param array $parameters
-     * @param int $collectionId
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    protected function getCollectionInsertQuery(array $parameters, $collectionId = null)
-    {
-        return $this->queryHelper->getQuery()
-            ->insert('ngbm_collection')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'type' => ':type',
-                    'name' => ':name',
-                )
-            )
-            ->setValue(
-                'id',
-                $collectionId !== null ? (int)$collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
-            )
-            ->setParameter('status', $parameters['status'], Type::INTEGER)
-            ->setParameter('type', $parameters['type'], Type::INTEGER)
-            ->setParameter('name', $parameters['name'], Type::STRING);
-    }
 }
