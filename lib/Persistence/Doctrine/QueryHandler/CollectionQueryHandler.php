@@ -94,7 +94,7 @@ class CollectionQueryHandler
      */
     public function loadItemData($itemId, $status = null)
     {
-        $query = $this->getCollectionItemSelectQuery();
+        $query = $this->getItemSelectQuery();
         $query->where(
             $query->expr()->eq('id', ':id')
         )
@@ -117,7 +117,7 @@ class CollectionQueryHandler
      */
     public function loadQueryData($queryId, $status = null)
     {
-        $query = $this->getCollectionQuerySelectQuery();
+        $query = $this->getQuerySelectQuery();
         $query->where(
             $query->expr()->eq('id', ':id')
         )
@@ -140,7 +140,7 @@ class CollectionQueryHandler
      */
     public function loadCollectionItemsData($collectionId, $status = null)
     {
-        $query = $this->getCollectionItemSelectQuery();
+        $query = $this->getItemSelectQuery();
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
@@ -166,7 +166,7 @@ class CollectionQueryHandler
      */
     public function loadCollectionQueriesData($collectionId, $status = null)
     {
-        $query = $this->getCollectionQuerySelectQuery();
+        $query = $this->getQuerySelectQuery();
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
@@ -650,7 +650,7 @@ class CollectionQueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getCollectionItemSelectQuery()
+    protected function getItemSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
         $query->select('id', 'status', 'collection_id', 'position', 'type', 'value_id', 'value_type')
@@ -664,7 +664,7 @@ class CollectionQueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getCollectionQuerySelectQuery()
+    protected function getQuerySelectQuery()
     {
         $query = $this->queryHelper->getQuery();
         $query->select('id', 'status', 'collection_id', 'position', 'identifier', 'type', 'parameters')
