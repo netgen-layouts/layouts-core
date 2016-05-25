@@ -198,7 +198,7 @@ class CollectionHandler implements CollectionHandlerInterface
     {
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
 
-        return (int)$data[0]['type'] === Collection::TYPE_NAMED;
+        return isset($data[0]['type']) && (int)$data[0]['type'] === Collection::TYPE_NAMED;
     }
 
     /**
