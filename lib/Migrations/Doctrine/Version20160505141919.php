@@ -76,8 +76,8 @@ class Version20160505141919 extends AbstractMigration
     public function down(Schema $schema)
     {
         $schema->dropTable('ngbm_block_collection');
-        $schema->dropTable('ngbm_collection');
         $schema->dropTable('ngbm_collection_item');
         $schema->dropTable('ngbm_collection_query');
+        $schema->dropTable('ngbm_collection');
     }
 }
