@@ -67,13 +67,21 @@ class CollectionController extends Controller
      * Returns the collection result.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadCollectionResult(Collection $collection)
+    public function loadCollectionResult(Collection $collection, Request $request)
     {
+        $offset = $request->query->get('offset', 0);
+        $limit = $request->query->get('limit', null);
+
         return new VersionedValue(
-            $this->resultGenerator->generateResult($collection),
+            $this->resultGenerator->generateResult(
+                $collection,
+                (int)$offset,
+                !empty($limit) ? (int)$limit : null
+            ),
             Version::API_V1
         );
     }
