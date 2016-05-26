@@ -37,13 +37,13 @@ class PositionHelper
      */
     public function createPosition(array $conditions, $position = null)
     {
-        $nextBlockPosition = $this->getNextPosition($conditions);
+        $nextPosition = $this->getNextPosition($conditions);
 
         if ($position === null) {
-            return $nextBlockPosition;
+            return $nextPosition;
         }
 
-        if ($position > $nextBlockPosition || $position < 0) {
+        if ($position > $nextPosition || $position < 0) {
             throw new BadStateException('position', 'Position is out of range.');
         }
 
@@ -69,9 +69,9 @@ class PositionHelper
      */
     public function moveToPosition(array $conditions, $originalPosition, $position)
     {
-        $nextBlockPosition = $this->getNextPosition($conditions);
+        $nextPosition = $this->getNextPosition($conditions);
 
-        if ($position >= $nextBlockPosition || $position < 0) {
+        if ($position >= $nextPosition || $position < 0) {
             throw new BadStateException('position', 'Position is out of range.');
         }
 
