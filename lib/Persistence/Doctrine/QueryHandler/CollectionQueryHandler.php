@@ -10,8 +10,6 @@ use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Doctrine\DBAL\Types\Type;
 
 class CollectionQueryHandler
@@ -274,10 +272,11 @@ class CollectionQueryHandler
     /**
      * Updates a collection.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param int|string $collectionId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct $collectionUpdateStruct
      */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $query = $this->queryHelper->getQuery();
         $query
@@ -286,10 +285,10 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $collection->id, Type::INTEGER)
+            ->setParameter('id', $collectionId, Type::INTEGER)
             ->setParameter('name', $collectionUpdateStruct->name, Type::STRING);
 
-        $this->queryHelper->applyStatusCondition($query, $collection->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -406,10 +405,11 @@ class CollectionQueryHandler
     /**
      * Moves an item.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
+     * @param int|string $itemId
+     * @param int $status
      * @param int $position
      */
-    public function moveItem(Item $item, $position)
+    public function moveItem($itemId, $status, $position)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -419,10 +419,10 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $item->id, Type::INTEGER)
+            ->setParameter('id', $itemId, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $item->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -430,9 +430,10 @@ class CollectionQueryHandler
     /**
      * Deletes an item.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
+     * @param int|string $itemId
+     * @param int $status
      */
-    public function deleteItem(Item $item)
+    public function deleteItem($itemId, $status)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -440,9 +441,9 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $item->id, Type::INTEGER);
+            ->setParameter('id', $itemId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $item->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -542,10 +543,11 @@ class CollectionQueryHandler
     /**
      * Updates a query.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
+     * @param int|string $queryId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\QueryUpdateStruct $queryUpdateStruct
      */
-    public function updateQuery(Query $originalQuery, QueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct)
     {
         $query = $this->queryHelper->getQuery();
         $query
@@ -555,11 +557,11 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $originalQuery->id, Type::INTEGER)
+            ->setParameter('id', $queryId, Type::INTEGER)
             ->setParameter('identifier', $queryUpdateStruct->identifier, Type::STRING)
             ->setParameter('parameters', $queryUpdateStruct->parameters, Type::JSON_ARRAY);
 
-        $this->queryHelper->applyStatusCondition($query, $originalQuery->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -567,10 +569,11 @@ class CollectionQueryHandler
     /**
      * Moves a query.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
+     * @param int|string $queryId
+     * @param int $status
      * @param int $position
      */
-    public function moveQuery(Query $originalQuery, $position)
+    public function moveQuery($queryId, $status, $position)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -580,10 +583,10 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $originalQuery->id, Type::INTEGER)
+            ->setParameter('id', $queryId, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $originalQuery->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -591,9 +594,10 @@ class CollectionQueryHandler
     /**
      * Deletes a query.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $originalQuery
+     * @param int|string $queryId
+     * @param int $status
      */
-    public function deleteQuery(Query $originalQuery)
+    public function deleteQuery($queryId, $status)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -601,9 +605,9 @@ class CollectionQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $originalQuery->id, Type::INTEGER);
+            ->setParameter('id', $queryId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $originalQuery->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }

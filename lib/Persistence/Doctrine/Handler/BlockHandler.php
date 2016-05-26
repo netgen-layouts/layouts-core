@@ -173,7 +173,8 @@ class BlockHandler implements BlockHandlerInterface
         $block = $this->loadBlock($blockId, $status);
 
         $this->queryHandler->updateBlock(
-            $block,
+            $blockId,
+            $status,
             new BlockUpdateStruct(
                 array(
                     'viewType' => $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType,
@@ -250,7 +251,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveBlock($block, $position);
+        $this->queryHandler->moveBlock($blockId, $status, $position);
 
         return $this->loadBlock($blockId, $status);
     }
@@ -280,7 +281,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveBlock($block, $position, $zoneIdentifier);
+        $this->queryHandler->moveBlock($blockId, $status, $position, $zoneIdentifier);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -318,7 +319,7 @@ class BlockHandler implements BlockHandlerInterface
             }
         }
 
-        $this->queryHandler->deleteBlock($block);
+        $this->queryHandler->deleteBlock($blockId, $status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(

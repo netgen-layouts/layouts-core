@@ -259,7 +259,8 @@ class CollectionHandler implements CollectionHandlerInterface
         }
 
         $this->queryHandler->updateCollection(
-            $collection,
+            $collectionId,
+            $status,
             new CollectionUpdateStruct(
                 array(
                     'name' => $name,
@@ -514,7 +515,7 @@ class CollectionHandler implements CollectionHandlerInterface
             );
         }
 
-        $this->queryHandler->moveItem($item, $position);
+        $this->queryHandler->moveItem($itemId, $status, $position);
 
         return $this->loadItem($itemId, $status);
     }
@@ -530,7 +531,7 @@ class CollectionHandler implements CollectionHandlerInterface
         $item = $this->loadItem($itemId, $status);
         $collection = $this->loadCollection($item->collectionId, $status);
 
-        $this->queryHandler->deleteItem($item);
+        $this->queryHandler->deleteItem($itemId, $status);
 
         if ($collection->type === Collection::TYPE_MANUAL) {
             $this->positionHelper->removePosition(
@@ -606,16 +607,17 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function updateQuery($queryId, $status, APIQueryUpdateStruct $queryUpdateStruct)
     {
-        $originalQuery = $this->loadQuery($queryId, $status);
+        $query = $this->loadQuery($queryId, $status);
 
         $this->queryHandler->updateQuery(
-            $originalQuery,
+            $queryId,
+            $status,
             new QueryUpdateStruct(
                 array(
                     'identifier' => $queryUpdateStruct->identifier !== null ?
                         $queryUpdateStruct->identifier :
-                        $originalQuery->identifier,
-                    'parameters' => $queryUpdateStruct->getParameters() + $originalQuery->parameters,
+                        $query->identifier,
+                    'parameters' => $queryUpdateStruct->getParameters() + $query->parameters,
                 )
             )
         );
@@ -636,18 +638,18 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function moveQuery($queryId, $status, $position)
     {
-        $originalQuery = $this->loadQuery($queryId, $status);
+        $query = $this->loadQuery($queryId, $status);
 
         $position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperQueryConditions(
-                $originalQuery->collectionId,
+                $query->collectionId,
                 $status
             ),
-            $originalQuery->position,
+            $query->position,
             $position
         );
 
-        $this->queryHandler->moveQuery($originalQuery, $position);
+        $this->queryHandler->moveQuery($queryId, $status, $position);
 
         return $this->loadQuery($queryId, $status);
     }
@@ -660,16 +662,16 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function deleteQuery($queryId, $status)
     {
-        $originalQuery = $this->loadQuery($queryId, $status);
+        $query = $this->loadQuery($queryId, $status);
 
-        $this->queryHandler->deleteQuery($originalQuery);
+        $this->queryHandler->deleteQuery($queryId, $status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperQueryConditions(
-                $originalQuery->collectionId,
+                $query->collectionId,
                 $status
             ),
-            $originalQuery->position
+            $query->position
         );
     }
 

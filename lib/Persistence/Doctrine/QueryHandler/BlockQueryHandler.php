@@ -6,7 +6,6 @@ use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Doctrine\DBAL\Types\Type;
 
 class BlockQueryHandler
@@ -158,10 +157,11 @@ class BlockQueryHandler
     /**
      * Updates a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int|string $blockId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\BlockUpdateStruct $blockUpdateStruct
      */
-    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct)
     {
         $query = $this->queryHelper->getQuery();
         $query
@@ -172,12 +172,12 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $block->id, Type::INTEGER)
+            ->setParameter('id', $blockId, Type::INTEGER)
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('name', $blockUpdateStruct->name, Type::STRING)
             ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY);
 
-        $this->queryHelper->applyStatusCondition($query, $block->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -185,11 +185,12 @@ class BlockQueryHandler
     /**
      * Moves a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int|string $blockId
+     * @param int $status
      * @param int $position
      * @param string $zoneIdentifier
      */
-    public function moveBlock(Block $block, $position, $zoneIdentifier = null)
+    public function moveBlock($blockId, $status, $position, $zoneIdentifier = null)
     {
         $query = $this->queryHelper->getQuery();
 
@@ -199,7 +200,7 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $block->id, Type::INTEGER)
+            ->setParameter('id', $blockId, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
         if ($zoneIdentifier !== null) {
@@ -208,7 +209,7 @@ class BlockQueryHandler
                 ->setParameter('zone_identifier', $zoneIdentifier, Type::STRING);
         }
 
-        $this->queryHelper->applyStatusCondition($query, $block->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -216,9 +217,10 @@ class BlockQueryHandler
     /**
      * Deletes a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int|string $blockId
+     * @param int $status
      */
-    public function deleteBlock(Block $block)
+    public function deleteBlock($blockId, $status)
     {
         // Delete all connections between blocks and collections
 
@@ -228,9 +230,9 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
             )
-            ->setParameter('block_id', $block->id, Type::INTEGER);
+            ->setParameter('block_id', $blockId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $block->status, 'block_status');
+        $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
 
         $query->execute();
 
@@ -242,9 +244,9 @@ class BlockQueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $block->id, Type::INTEGER);
+            ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $block->status);
+        $this->queryHelper->applyStatusCondition($query, $status);
 
         $query->execute();
     }
