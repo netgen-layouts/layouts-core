@@ -204,7 +204,7 @@ class LayoutResolverQueryHandler
      *
      * @return bool
      */
-    public function ruleExists($ruleId, $status)
+    public function ruleExists($ruleId, $status = null)
     {
         $query = $this->queryHelper->getQuery();
         $query->select('count(*) AS count')
@@ -214,7 +214,9 @@ class LayoutResolverQueryHandler
             )
             ->setParameter('id', $ruleId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status);
+        }
 
         $data = $query->execute()->fetchAll();
 
@@ -386,6 +388,17 @@ class LayoutResolverQueryHandler
         }
 
         $query->execute();
+
+        if (!$this->ruleExists($ruleId)) {
+            $query = $this->queryHelper->getQuery();
+            $query->delete('ngbm_rule_data')
+                ->where(
+                    $query->expr()->eq('rule_id', ':rule_id')
+                )
+                ->setParameter('rule_id', $ruleId, Type::INTEGER);
+
+            $query->execute();
+        }
     }
 
     /**
