@@ -114,7 +114,7 @@ trait DatabaseTrait
     protected function executeMigrations()
     {
         $configuration = new YamlConfiguration($this->databaseConnection);
-        $configuration->load(__DIR__ . '/../../migrations/doctrine.yml');
+        $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');
 
         $migration = new Migration($configuration);
         $migration->migrate(0);
