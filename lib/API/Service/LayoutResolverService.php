@@ -165,7 +165,7 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      */
-    public function removeTarget(Target $target);
+    public function deleteTarget(Target $target);
 
     /**
      * Adds a condition to rule.
@@ -192,7 +192,7 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      */
-    public function removeCondition(Condition $condition);
+    public function deleteCondition(Condition $condition);
 
     /**
      * Creates a new rule create struct.

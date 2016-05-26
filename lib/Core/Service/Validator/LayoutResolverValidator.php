@@ -18,40 +18,51 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct)
     {
-        $this->validate(
-            $ruleCreateStruct->layoutId,
-            array(
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'layoutId'
-        );
+        if ($ruleCreateStruct->layoutId !== null) {
+            $this->validate(
+                $ruleCreateStruct->layoutId,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'scalar')),
+                ),
+                'layoutId'
+            );
+        }
 
-        $this->validate(
-            $ruleCreateStruct->priority,
-            array(
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'priority'
-        );
+        if ($ruleCreateStruct->priority !== null) {
+            $this->validate(
+                $ruleCreateStruct->priority,
+                array(
+                    new Constraints\Type(array('type' => 'int')),
+                ),
+                'priority'
+            );
+        }
 
-        $this->validate(
-            $ruleCreateStruct->enabled,
-            array(
-                new Constraints\Type(array('type' => 'bool')),
-            ),
-            'enabled'
-        );
+        if ($ruleCreateStruct->enabled !== null) {
+            $this->validate(
+                $ruleCreateStruct->enabled,
+                array(
+                    new Constraints\Type(array('type' => 'bool')),
+                ),
+                'enabled'
+            );
+        }
 
-        $this->validate(
-            $ruleCreateStruct->comment,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'comment'
-        );
+        if ($ruleCreateStruct->comment !== null) {
+            $this->validate(
+                $ruleCreateStruct->comment,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'comment'
+            );
+        }
 
         $this->validate(
             $ruleCreateStruct->status,
@@ -61,6 +72,8 @@ class LayoutResolverValidator extends Validator
             ),
             'status'
         );
+
+        return true;
     }
 
     /**
@@ -69,32 +82,43 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct)
     {
-        $this->validate(
-            $ruleUpdateStruct->layoutId,
-            array(
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'layoutId'
-        );
+        if ($ruleUpdateStruct->layoutId !== null) {
+            $this->validate(
+                $ruleUpdateStruct->layoutId,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'scalar')),
+                ),
+                'layoutId'
+            );
+        }
 
-        $this->validate(
-            $ruleUpdateStruct->priority,
-            array(
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'priority'
-        );
+        if ($ruleUpdateStruct->priority !== null) {
+            $this->validate(
+                $ruleUpdateStruct->priority,
+                array(
+                    new Constraints\Type(array('type' => 'int')),
+                ),
+                'priority'
+            );
+        }
 
-        $this->validate(
-            $ruleUpdateStruct->comment,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'comment'
-        );
+        if ($ruleUpdateStruct->comment !== null) {
+            $this->validate(
+                $ruleUpdateStruct->comment,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'comment'
+            );
+        }
+
+        return true;
     }
 
     /**
@@ -103,6 +127,8 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateTargetCreateStruct(TargetCreateStruct $targetCreateStruct)
     {
@@ -122,6 +148,8 @@ class LayoutResolverValidator extends Validator
             ),
             'value'
         );
+
+        return true;
     }
 
     /**
@@ -130,6 +158,8 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateConditionCreateStruct(ConditionCreateStruct $conditionCreateStruct)
     {
@@ -149,6 +179,8 @@ class LayoutResolverValidator extends Validator
             ),
             'value'
         );
+
+        return true;
     }
 
     /**
@@ -157,6 +189,8 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateConditionUpdateStruct(ConditionUpdateStruct $conditionUpdateStruct)
     {
@@ -167,5 +201,7 @@ class LayoutResolverValidator extends Validator
             ),
             'value'
         );
+
+        return true;
     }
 }

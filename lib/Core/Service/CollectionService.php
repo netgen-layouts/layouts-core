@@ -347,8 +347,10 @@ class CollectionService implements APICollectionService
         try {
             $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_ARCHIVED);
 
-            $this->collectionHandler->createCollectionStatus($persistenceCollection->id, Collection::STATUS_PUBLISHED, Collection::STATUS_ARCHIVED);
-            $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_PUBLISHED);
+            if ($this->collectionHandler->collectionExists($persistenceCollection->id, Collection::STATUS_PUBLISHED)) {
+                $this->collectionHandler->createCollectionStatus($persistenceCollection->id, Collection::STATUS_PUBLISHED, Collection::STATUS_ARCHIVED);
+                $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_PUBLISHED);
+            }
 
             $publishedCollection = $this->collectionHandler->createCollectionStatus($persistenceCollection->id, Collection::STATUS_DRAFT, Collection::STATUS_PUBLISHED);
             $this->collectionHandler->deleteCollection($persistenceCollection->id, Collection::STATUS_DRAFT);

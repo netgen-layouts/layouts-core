@@ -267,8 +267,10 @@ class LayoutService implements LayoutServiceInterface
         try {
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_ARCHIVED);
 
-            $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
-            $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_PUBLISHED);
+            if ($this->layoutHandler->layoutExists($persistenceLayout->id, Layout::STATUS_PUBLISHED)) {
+                $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
+                $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_PUBLISHED);
+            }
 
             $publishedLayout = $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_DRAFT);

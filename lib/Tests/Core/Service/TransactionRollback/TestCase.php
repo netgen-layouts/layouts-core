@@ -4,9 +4,12 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
+use Netgen\BlockManager\Core\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
@@ -84,6 +87,22 @@ trait TestCase
     }
 
     /**
+     * Creates a layout resolver service under test.
+     *
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
+     *
+     * @return \Netgen\BlockManager\API\Service\LayoutResolverService
+     */
+    protected function createLayoutResolverService(LayoutResolverValidator $validator)
+    {
+        return new LayoutResolverService(
+            $validator,
+            $this->createLayoutResolverMapper(),
+            $this->persistenceHandler
+        );
+    }
+
+    /**
      * Creates the block mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
@@ -115,6 +134,18 @@ trait TestCase
     protected function createCollectionMapper()
     {
         return $this->getMockBuilder(CollectionMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * Creates the layout resolver mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
+     */
+    protected function createLayoutResolverMapper()
+    {
+        return $this->getMockBuilder(LayoutResolverMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
     }

@@ -105,11 +105,6 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testLoadBlock()
     {
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateId')
-            ->with($this->equalTo(1), $this->equalTo('blockId'));
-
         $block = $this->blockService->loadBlock(1);
 
         self::assertInstanceOf(APIBlock::class, $block);
@@ -151,21 +146,6 @@ abstract class BlockServiceTest extends ServiceTest
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateIdentifier')
-            ->with($this->equalTo('top_right'), $this->equalTo('zoneIdentifier'));
-
-        $this->blockValidatorMock
-            ->expects($this->at(1))
-            ->method('validatePosition')
-            ->with($this->equalTo(1), $this->equalTo('position'));
-
-        $this->blockValidatorMock
-            ->expects($this->at(2))
-            ->method('validateBlockCreateStruct')
-            ->with($this->equalTo($blockCreateStruct));
-
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
             $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
@@ -200,21 +180,6 @@ abstract class BlockServiceTest extends ServiceTest
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateIdentifier')
-            ->with($this->equalTo('top_right'), $this->equalTo('zoneIdentifier'));
-
-        $this->blockValidatorMock
-            ->expects($this->at(1))
-            ->method('validatePosition')
-            ->with($this->equalTo(null), $this->equalTo('position'));
-
-        $this->blockValidatorMock
-            ->expects($this->at(2))
-            ->method('validateBlockCreateStruct')
-            ->with($this->equalTo($blockCreateStruct));
-
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
             $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT),
@@ -234,21 +199,6 @@ abstract class BlockServiceTest extends ServiceTest
         $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
-
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateIdentifier')
-            ->with($this->equalTo('top_right'), $this->equalTo('zoneIdentifier'));
-
-        $this->blockValidatorMock
-            ->expects($this->at(1))
-            ->method('validatePosition')
-            ->with($this->equalTo(2), $this->equalTo('position'));
-
-        $this->blockValidatorMock
-            ->expects($this->at(2))
-            ->method('validateBlockCreateStruct')
-            ->with($this->equalTo($blockCreateStruct));
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
@@ -335,11 +285,6 @@ abstract class BlockServiceTest extends ServiceTest
         $blockUpdateStruct->setParameter('test_param', 'test_value');
         $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
 
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateBlockUpdateStruct')
-            ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
-
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertInstanceOf(APIBlock::class, $block);
@@ -394,11 +339,6 @@ abstract class BlockServiceTest extends ServiceTest
         $blockUpdateStruct->setParameter('test_param', 'test_value');
         $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
 
-        $this->blockValidatorMock
-            ->expects($this->at(0))
-            ->method('validateBlockUpdateStruct')
-            ->with($this->equalTo($block), $this->equalTo($blockUpdateStruct));
-
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertInstanceOf(APIBlock::class, $block);
@@ -437,11 +377,6 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCopyBlockToDifferentZone()
     {
-        $this->blockValidatorMock
-            ->expects($this->once())
-            ->method('validateIdentifier')
-            ->with($this->equalTo('top_left'), $this->equalTo('zoneIdentifier'));
-
         $copiedBlock = $this->blockService->copyBlock(
             $this->blockService->loadBlock(1),
             'top_left'
@@ -487,11 +422,6 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testMoveBlock()
     {
-        $this->blockValidatorMock
-            ->expects($this->once())
-            ->method('validatePosition')
-            ->with($this->equalTo(1), $this->equalTo('position'));
-
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlock(1, Layout::STATUS_DRAFT),
             1
@@ -511,16 +441,6 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testMoveBlockToDifferentZone()
     {
-        $this->blockValidatorMock
-            ->expects($this->once())
-            ->method('validatePosition')
-            ->with($this->equalTo(0), $this->equalTo('position'));
-
-        $this->blockValidatorMock
-            ->expects($this->once())
-            ->method('validateIdentifier')
-            ->with($this->equalTo('bottom'), $this->equalTo('zoneIdentifier'));
-
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlock(2),
             0,

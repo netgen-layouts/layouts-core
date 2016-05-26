@@ -257,18 +257,20 @@ class LayoutResolverQueryHandler
 
         $createdRuleId = (int)$this->connectionHelper->lastInsertId('ngbm_rule');
 
-        $query = $this->queryHelper->getQuery()
-            ->insert('ngbm_rule_data')
-            ->values(
-                array(
-                    'rule_id' => ':rule_id',
-                    'enabled' => ':enabled',
+        if ($ruleId === null) {
+            $query = $this->queryHelper->getQuery()
+                ->insert('ngbm_rule_data')
+                ->values(
+                    array(
+                        'rule_id' => ':rule_id',
+                        'enabled' => ':enabled',
+                    )
                 )
-            )
-            ->setParameter('rule_id', $createdRuleId, Type::INTEGER)
-            ->setParameter('enabled', $ruleCreateStruct->enabled, Type::BOOLEAN);
+                ->setParameter('rule_id', $createdRuleId, Type::INTEGER)
+                ->setParameter('enabled', $ruleCreateStruct->enabled, Type::BOOLEAN);
 
-        $query->execute();
+            $query->execute();
+        }
 
         return $createdRuleId;
     }
@@ -485,7 +487,7 @@ class LayoutResolverQueryHandler
             ->setParameter('status', $conditionCreateStruct->status, Type::INTEGER)
             ->setParameter('rule_id', $conditionCreateStruct->ruleId, Type::INTEGER)
             ->setParameter('identifier', $conditionCreateStruct->identifier, Type::STRING)
-            ->setParameter('value', $conditionCreateStruct->value, is_array($conditionCreateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('value', json_encode($conditionCreateStruct->value), Type::STRING);
 
         $query->execute();
 
@@ -509,7 +511,7 @@ class LayoutResolverQueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $conditionId, Type::INTEGER)
-            ->setParameter('value', $conditionUpdateStruct->value, is_array($conditionUpdateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('value', json_encode($conditionUpdateStruct->value), Type::STRING);
 
         $this->queryHelper->applyStatusCondition($query, $status);
 

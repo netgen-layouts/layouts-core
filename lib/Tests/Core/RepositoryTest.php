@@ -69,6 +69,14 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Repository::getLayoutResolverService
+     */
+    public function testGetLayoutResolverService()
+    {
+        self::assertInstanceOf(LayoutResolverService::class, $this->repository->getLayoutResolverService());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Repository::beginTransaction
      */
     public function testBeginTransaction()

@@ -17,7 +17,6 @@ use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithRequiredParameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
-use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Validation;
 
 class CollectionValidatorTest extends \PHPUnit_Framework_TestCase

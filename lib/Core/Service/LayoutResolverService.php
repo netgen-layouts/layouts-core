@@ -322,8 +322,10 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_ARCHIVED);
 
-            $this->handler->createRuleStatus($persistenceRule->id, Rule::STATUS_PUBLISHED, Rule::STATUS_ARCHIVED);
-            $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_PUBLISHED);
+            if ($this->handler->ruleExists($persistenceRule->id, Rule::STATUS_PUBLISHED)) {
+                $this->handler->createRuleStatus($persistenceRule->id, Rule::STATUS_PUBLISHED, Rule::STATUS_ARCHIVED);
+                $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_PUBLISHED);
+            }
 
             $publishedRule = $this->handler->createRuleStatus($persistenceRule->id, Rule::STATUS_DRAFT, Rule::STATUS_PUBLISHED);
             $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_DRAFT);
@@ -445,6 +447,17 @@ class LayoutResolverService implements APILayoutResolverService
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
+        $ruleTargets = $this->handler->loadRuleTargets($rule->getId(), $rule->getStatus());
+
+        if (!empty($ruleTargets) && $ruleTargets[0]->identifier !== $targetCreateStruct->identifier) {
+            throw new BadStateException(
+                'identifier',
+                sprintf(
+                    'Rule only accepts targets with "%s" identifier',
+                    $ruleTargets[0]->identifier
+                )
+            );
+        }
 
         $this->validator->validateTargetCreateStruct($targetCreateStruct);
 
@@ -471,7 +484,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      */
-    public function removeTarget(Target $target)
+    public function deleteTarget(Target $target)
     {
         $persistenceTarget = $this->handler->loadTarget($target->getId(), $target->getStatus());
 
@@ -559,7 +572,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      */
-    public function removeCondition(Condition $condition)
+    public function deleteCondition(Condition $condition)
     {
         $persistenceCondition = $this->handler->loadCondition($condition->getId(), $condition->getStatus());
 

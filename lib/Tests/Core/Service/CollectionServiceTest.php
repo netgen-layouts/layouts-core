@@ -43,11 +43,6 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testLoadCollection()
     {
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateId')
-            ->with($this->equalTo(3), $this->equalTo('collectionId'));
-
         $collection = $this->collectionService->loadCollection(3);
 
         self::assertInstanceOf(Collection::class, $collection);
@@ -82,11 +77,6 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testLoadItem()
     {
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateId')
-            ->with($this->equalTo(7), $this->equalTo('itemId'));
-
         $item = $this->collectionService->loadItem(7);
 
         self::assertInstanceOf(Item::class, $item);
@@ -106,11 +96,6 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testLoadQuery()
     {
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateId')
-            ->with($this->equalTo(1), $this->equalTo('queryId'));
-
         $query = $this->collectionService->loadQuery(1);
 
         self::assertInstanceOf(Query::class, $query);
@@ -135,11 +120,6 @@ abstract class CollectionServiceTest extends ServiceTest
             'New name'
         );
 
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateCollectionCreateStruct')
-            ->with($this->equalTo($collectionCreateStruct));
-
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
         self::assertInstanceOf(Collection::class, $createdCollection);
@@ -155,11 +135,6 @@ abstract class CollectionServiceTest extends ServiceTest
             Collection::TYPE_NAMED,
             'New name'
         );
-
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateCollectionCreateStruct')
-            ->with($this->equalTo($collectionCreateStruct));
 
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
@@ -178,11 +153,6 @@ abstract class CollectionServiceTest extends ServiceTest
             'My collection'
         );
 
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateCollectionCreateStruct')
-            ->with($this->equalTo($collectionCreateStruct));
-
         $this->collectionService->createCollection($collectionCreateStruct);
     }
 
@@ -195,11 +165,6 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
         $collectionUpdateStruct->name = 'Super cool collection';
-
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateCollectionUpdateStruct')
-            ->with($this->equalTo($collectionUpdateStruct));
 
         $updatedCollection = $this->collectionService->updateNamedCollection($collection, $collectionUpdateStruct);
 
@@ -403,16 +368,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
         $collection = $this->collectionService->loadCollection(1, Collection::STATUS_DRAFT);
 
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validatePosition')
-            ->with($this->equalTo(1), $this->equalTo('position'));
-
-        $this->collectionValidatorMock
-            ->expects($this->at(1))
-            ->method('validateItemCreateStruct')
-            ->with($this->equalTo($itemCreateStruct));
-
         $createdItem = $this->collectionService->addItem(
             $collection,
             $itemCreateStruct,
@@ -463,11 +418,6 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testMoveItem()
     {
-        $this->collectionValidatorMock
-            ->expects($this->once())
-            ->method('validatePosition')
-            ->with($this->equalTo(1), $this->equalTo('position'));
-
         $movedItem = $this->collectionService->moveItem(
             $this->collectionService->loadItem(1, Collection::STATUS_DRAFT),
             1
@@ -535,16 +485,6 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
 
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validatePosition')
-            ->with($this->equalTo(1), $this->equalTo('position'));
-
-        $this->collectionValidatorMock
-            ->expects($this->at(1))
-            ->method('validateQueryCreateStruct')
-            ->with($this->equalTo($queryCreateStruct));
-
         $createdQuery = $this->collectionService->addQuery(
             $collection,
             $queryCreateStruct,
@@ -605,11 +545,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $queryUpdateStruct->setParameter('param', 'value2');
         $queryUpdateStruct->setParameter('param3', 'value3');
 
-        $this->collectionValidatorMock
-            ->expects($this->at(0))
-            ->method('validateQueryUpdateStruct')
-            ->with($this->equalTo($query), $this->equalTo($queryUpdateStruct));
-
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertInstanceOf(Query::class, $updatedQuery);
@@ -637,11 +572,6 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testMoveQuery()
     {
-        $this->collectionValidatorMock
-            ->expects($this->once())
-            ->method('validatePosition')
-            ->with($this->equalTo(1), $this->equalTo('position'));
-
         $movedQuery = $this->collectionService->moveQuery(
             $this->collectionService->loadQuery(2, Collection::STATUS_DRAFT),
             1

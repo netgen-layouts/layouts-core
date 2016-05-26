@@ -259,6 +259,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     array(
                         'layoutId' => $ruleDataRow['layout_id'],
                         'priority' => $ruleDataRow['priority'],
+                        'enabled' => $ruleDataRow['enabled'],
                         'comment' => $ruleDataRow['comment'],
                         'status' => $ruleDataRow['status'],
                     )
@@ -338,6 +339,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 array(
                     'layoutId' => $ruleData[0]['layout_id'],
                     'priority' => $ruleData[0]['priority'],
+                    'enabled' => $ruleData[0]['enabled'],
                     'comment' => $ruleData[0]['comment'],
                     'status' => $newStatus,
                 )

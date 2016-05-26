@@ -63,11 +63,6 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadLayout()
     {
-        $this->layoutValidatorMock
-            ->expects($this->at(0))
-            ->method('validateId')
-            ->with($this->equalTo(1), $this->equalTo('layoutId'));
-
         $layout = $this->layoutService->loadLayout(1);
 
         self::assertInstanceOf(Layout::class, $layout);
@@ -87,16 +82,6 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZone()
     {
-        $this->layoutValidatorMock
-            ->expects($this->at(0))
-            ->method('validateId')
-            ->with($this->equalTo(1), $this->equalTo('layoutId'));
-
-        $this->layoutValidatorMock
-            ->expects($this->at(1))
-            ->method('validateIdentifier')
-            ->with($this->equalTo('top_left'), $this->equalTo('identifier'));
-
         $zone = $this->layoutService->loadZone(1, 'top_left');
 
         self::assertInstanceOf(Zone::class, $zone);
@@ -130,11 +115,6 @@ abstract class LayoutServiceTest extends ServiceTest
             'My layout'
         );
 
-        $this->layoutValidatorMock
-            ->expects($this->at(0))
-            ->method('validateLayoutCreateStruct')
-            ->with($this->equalTo($layoutCreateStruct));
-
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         self::assertInstanceOf(Layout::class, $createdLayout);
@@ -150,11 +130,6 @@ abstract class LayoutServiceTest extends ServiceTest
             'non_existing',
             'My layout'
         );
-
-        $this->layoutValidatorMock
-            ->expects($this->at(0))
-            ->method('validateLayoutCreateStruct')
-            ->with($this->equalTo($layoutCreateStruct));
 
         $this->layoutService->createLayout($layoutCreateStruct);
     }

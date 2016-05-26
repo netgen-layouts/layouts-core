@@ -3,8 +3,6 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
-use Netgen\BlockManager\Core\Values\Collection\Collection as APICollection;
-use Netgen\BlockManager\Core\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -24,20 +22,20 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
      */
-    public function testMapLayouts()
+    public function testMapCollections()
     {
         $data = array(
             array(
                 'id' => 42,
-                'type' => APICollection::TYPE_NAMED,
+                'type' => Collection::TYPE_NAMED,
                 'name' => 'My collection',
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Collection::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
-                'type' => APICollection::TYPE_MANUAL,
+                'type' => Collection::TYPE_MANUAL,
                 'name' => null,
-                'status' => APICollection::STATUS_DRAFT,
+                'status' => Collection::STATUS_DRAFT,
             ),
         );
 
@@ -45,17 +43,17 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
             new Collection(
                 array(
                     'id' => 42,
-                    'type' => APICollection::TYPE_NAMED,
+                    'type' => Collection::TYPE_NAMED,
                     'name' => 'My collection',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
             new Collection(
                 array(
                     'id' => 43,
-                    'type' => APICollection::TYPE_MANUAL,
+                    'type' => Collection::TYPE_MANUAL,
                     'name' => null,
-                    'status' => APICollection::STATUS_DRAFT,
+                    'status' => Collection::STATUS_DRAFT,
                 )
             ),
         );
@@ -73,19 +71,19 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                 'id' => 42,
                 'collection_id' => 1,
                 'position' => 2,
-                'type' => APIItem::TYPE_MANUAL,
+                'type' => Item::TYPE_MANUAL,
                 'value_id' => '32',
                 'value_type' => 'ezcontent',
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Collection::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'collection_id' => 2,
                 'position' => 5,
-                'type' => APIItem::TYPE_OVERRIDE,
+                'type' => Item::TYPE_OVERRIDE,
                 'value_id' => '42',
                 'value_type' => 'ezcontent',
-                'status' => APICollection::STATUS_DRAFT,
+                'status' => Collection::STATUS_DRAFT,
             ),
         );
 
@@ -95,10 +93,10 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                     'id' => 42,
                     'collectionId' => 1,
                     'position' => 2,
-                    'type' => APIItem::TYPE_MANUAL,
+                    'type' => Item::TYPE_MANUAL,
                     'valueId' => '32',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
             new Item(
@@ -106,10 +104,10 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                     'id' => 43,
                     'collectionId' => 2,
                     'position' => 5,
-                    'type' => APIItem::TYPE_OVERRIDE,
+                    'type' => Item::TYPE_OVERRIDE,
                     'valueId' => '42',
                     'valueType' => 'ezcontent',
-                    'status' => APICollection::STATUS_DRAFT,
+                    'status' => Collection::STATUS_DRAFT,
                 )
             ),
         );
@@ -130,7 +128,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                 'identifier' => 'default',
                 'type' => 'ezcontent_search',
                 'parameters' => '{"param":"value"}',
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Collection::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
@@ -139,7 +137,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                 'identifier' => 'featured',
                 'type' => 'ezcontent_search',
                 'parameters' => '{"param2":"value2"}',
-                'status' => APICollection::STATUS_DRAFT,
+                'status' => Collection::STATUS_DRAFT,
             ),
         );
 
@@ -154,7 +152,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                     'parameters' => array(
                         'param' => 'value',
                     ),
-                    'status' => APICollection::STATUS_PUBLISHED,
+                    'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
             new Query(
@@ -167,7 +165,7 @@ class CollectionMapperTest extends \PHPUnit_Framework_TestCase
                     'parameters' => array(
                         'param2' => 'value2',
                     ),
-                    'status' => APICollection::STATUS_DRAFT,
+                    'status' => Collection::STATUS_DRAFT,
                 )
             ),
         );

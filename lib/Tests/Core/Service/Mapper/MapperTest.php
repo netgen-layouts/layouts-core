@@ -24,4 +24,11 @@ abstract class MapperTest extends \PHPUnit_Framework_TestCase
      * @return \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
     abstract protected function createCollectionMapper();
+
+    /**
+     * Creates a layout resolver mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
+     */
+    abstract protected function createLayoutResolverMapper();
 }

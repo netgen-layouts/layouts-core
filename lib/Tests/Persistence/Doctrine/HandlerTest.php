@@ -7,6 +7,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Doctrine\DBAL\Connection;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,6 +66,19 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(
             CollectionHandler::class,
             $handler->getCollectionHandler()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler::getLayoutResolverHandler
+     */
+    public function testGetLayoutResolverHandler()
+    {
+        $handler = $this->createPersistenceHandler();
+
+        self::assertInstanceOf(
+            LayoutResolverHandler::class,
+            $handler->getLayoutResolverHandler()
         );
     }
 
