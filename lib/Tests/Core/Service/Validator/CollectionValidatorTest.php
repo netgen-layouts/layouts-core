@@ -14,12 +14,11 @@ use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithRequiredParameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validation;
 
 class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,12 +35,12 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $validatorMock;
+    protected $queryTypeRegistryMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $queryTypeRegistryMock;
+    protected $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
@@ -53,7 +52,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(ValidatorInterface::class);
         $this->queryTypeRegistryMock = $this->getMock(QueryTypeRegistryInterface::class);
 
         $this->queryTypeHandlerMock = $this->getMock(QueryTypeHandlerInterface::class);
@@ -61,123 +59,78 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->validator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->getValidator();
+
         $this->collectionValidator = new CollectionValidator($this->queryTypeRegistryMock);
-        $this->collectionValidator->setValidator($this->validatorMock);
+        $this->collectionValidator->setValidator($this->validator);
     }
 
     /**
+     * @param array $params
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @dataProvider validateCollectionCreateStructProvider
      */
-    public function testValidateCollectionCreateStruct()
+    public function testValidateCollectionCreateStruct(array $params, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo('My collection'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $collectionCreateStruct = new CollectionCreateStruct(
-            array(
-                'type' => Collection::TYPE_NAMED,
-                'name' => 'My collection',
-            )
+        self::assertTrue(
+            $this->collectionValidator->validateCollectionCreateStruct(new CollectionCreateStruct($params))
         );
-
-        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
     }
 
     /**
+     * @param array $params
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
+     * @dataProvider validateCollectionUpdateStructProvider
      */
-    public function testValidateCollectionUpdateStruct()
+    public function testValidateCollectionUpdateStruct(array $params, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo('Updated collection'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $collectionUpdateStruct = new CollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'Updated collection';
-
-        $this->collectionValidator->validateCollectionUpdateStruct($collectionUpdateStruct);
+        self::assertTrue(
+            $this->collectionValidator->validateCollectionUpdateStruct(new CollectionUpdateStruct($params))
+        );
     }
 
     /**
+     * @param array $params
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
+     * @dataProvider validateItemCreateStructProvider
      */
-    public function testValidateItemCreateStruct()
+    public function testValidateItemCreateStruct(array $params, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo(Item::TYPE_OVERRIDE),
-                array(
-                    new Constraints\Choice(
-                        array(
-                            'choices' => array(
-                                Item::TYPE_MANUAL,
-                                Item::TYPE_OVERRIDE,
-                            ),
-                            'strict' => true,
-                        )
-                    ),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $this->validatorMock
-            ->expects($this->at(1))
-            ->method('validate')
-            ->with(
-                $this->equalTo('42'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'scalar')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validatorMock
-            ->expects($this->at(2))
-            ->method('validate')
-            ->with(
-                $this->equalTo('value'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                    new ValueType(),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_OVERRIDE;
-        $itemCreateStruct->valueId = '42';
-        $itemCreateStruct->valueType = 'value';
-
-        $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
+        self::assertTrue(
+            $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params))
+        );
     }
 
     /**
+     * @param array $params
+     * @param array $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
+     * @dataProvider validateQueryCreateStructProvider
      */
-    public function testValidateQueryCreateStruct()
+    public function testValidateQueryCreateStruct(array $params, $isValid)
     {
         $queryType = new QueryTypeWithRequiredParameter(
             'query_type',
@@ -185,66 +138,29 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             $this->queryTypeConfigMock
         );
 
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo('my_query'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validatorMock
-            ->expects($this->at(1))
-            ->method('validate')
-            ->with(
-                $this->equalTo('query_type'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validatorMock
-            ->expects($this->at(2))
-            ->method('validate')
-            ->with(
-                $this->equalTo(array('param' => 'value')),
-                array(
-                    new Constraints\Collection(
-                        array(
-                            'fields' => array(
-                                'param' => new Constraints\Required(array(new Constraints\NotBlank())),
-                            ),
-                        )
-                    ),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
         $this->queryTypeRegistryMock
             ->expects($this->any())
             ->method('getQueryType')
-            ->with($this->equalTo('query_type'))
             ->will($this->returnValue($queryType));
 
-        $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'my_query';
-        $queryCreateStruct->type = 'query_type';
-        $queryCreateStruct->setParameters(array('param' => 'value'));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
+        self::assertTrue(
+            $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params))
+        );
     }
 
     /**
+     * @param array $params
+     * @param array $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
+     * @dataProvider validateQueryUpdateStructProvider
      */
-    public function testValidateQueryUpdateStruct()
+    public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
         $queryType = new QueryTypeStub(
             'query_type',
@@ -252,50 +168,234 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
             $this->queryTypeConfigMock
         );
 
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo('updated_query'),
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validatorMock
-            ->expects($this->at(1))
-            ->method('validate')
-            ->with(
-                $this->equalTo(array('param' => 'value')),
-                array(
-                    new Constraints\Collection(
-                        array(
-                            'fields' => array(
-                                'param' => new Constraints\Optional(array()),
-                            ),
-                        )
-                    ),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
         $this->queryTypeRegistryMock
             ->expects($this->any())
             ->method('getQueryType')
-            ->with($this->equalTo('query_type'))
             ->will($this->returnValue($queryType));
 
-        $queryUpdateStruct = new QueryUpdateStruct();
-        $queryUpdateStruct->identifier = 'updated_query';
-        $queryUpdateStruct->setParameters(array('param' => 'value'));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $query = new Query(
-            array(
-                'type' => 'query_type',
+        self::assertTrue(
+            $this->collectionValidator->validateQueryUpdateStruct(
+                new Query(array('type' => 'query_type')),
+                new QueryUpdateStruct($params)
             )
         );
+    }
 
-        $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
+    public function validateCollectionCreateStructProvider()
+    {
+        return array(
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'status' => Collection::STATUS_DRAFT), true),
+            array(array('name' => 'Collection', 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), true),
+            array(array('name' => 23, 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), false),
+            array(array('name' => null, 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), false),
+            array(array('name' => '', 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), false),
+            array(array('name' => null, 'type' => 23, 'status' => Collection::STATUS_DRAFT), false),
+            array(array('name' => null, 'type' => null, 'status' => Collection::STATUS_DRAFT), false),
+            array(array('name' => null, 'type' => 'type', 'status' => Collection::STATUS_DRAFT), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'status' => null), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'status' => 'draft'), false),
+        );
+    }
+
+    public function validateCollectionUpdateStructProvider()
+    {
+        return array(
+            array(array('name' => 'Collection'), true),
+            array(array('name' => 23), false),
+            array(array('name' => null), false),
+            array(array('name' => ''), false),
+        );
+    }
+
+    public function validateItemCreateStructProvider()
+    {
+        return array(
+            array(array('valueId' => 42, 'valueType' => 'value', 'type' => Item::TYPE_MANUAL), true),
+            array(array('valueId' => '42', 'valueType' => 'value', 'type' => Item::TYPE_MANUAL), true),
+            array(array('valueId' => null, 'valueType' => 'value', 'type' => Item::TYPE_MANUAL), false),
+            array(array('valueId' => '', 'valueType' => 'value', 'type' => Item::TYPE_MANUAL), false),
+            array(array('valueId' => 42, 'valueType' => 'nonexistent', 'type' => Item::TYPE_MANUAL), false),
+            array(array('valueId' => 42, 'valueType' => '', 'type' => Item::TYPE_MANUAL), false),
+            array(array('valueId' => 42, 'valueType' => null, 'type' => Item::TYPE_MANUAL), false),
+            array(array('valueId' => 42, 'valueType' => 42, 'type' => Item::TYPE_MANUAL), false),
+            array(array('valueId' => 42, 'valueType' => 'value', 'type' => 23), false),
+            array(array('valueId' => 42, 'valueType' => 'value', 'type' => 'type'), false),
+            array(array('valueId' => 42, 'valueType' => 'value', 'type' => null), false),
+        );
+    }
+
+    public function validateQueryCreateStructProvider()
+    {
+        return array(
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => 'query_type',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'identifier' => null,
+                    'type' => 'query_type',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => '',
+                    'type' => 'query_type',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 42,
+                    'type' => 'query_type',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => null,
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => '',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => 42,
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => 'query_type',
+                    'parameters' => array(
+                        'param' => '',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => 'query_type',
+                    'parameters' => array(
+                        'param' => null,
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'type' => 'query_type',
+                    'parameters' => array(),
+                ),
+                false,
+            ),
+        );
+    }
+
+    public function validateQueryUpdateStructProvider()
+    {
+        return array(
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'identifier' => null,
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'identifier' => '',
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 42,
+                    'parameters' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'parameters' => array(
+                        'param' => '',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'parameters' => array(
+                        'param' => null,
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'identifier' => 'my_query',
+                    'parameters' => array(),
+                ),
+                true,
+            ),
+        );
     }
 }

@@ -32,6 +32,8 @@ class BlockValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
@@ -58,13 +60,15 @@ class BlockValidator extends Validator
             'viewType'
         );
 
-        $this->validate(
-            $blockCreateStruct->name,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'name'
-        );
+        if ($blockCreateStruct->name !== null) {
+            $this->validate(
+                $blockCreateStruct->name,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'name'
+            );
+        }
 
         $fields = $this->buildParameterValidationFields($blockDefinition->getParameters());
 
@@ -75,6 +79,8 @@ class BlockValidator extends Validator
             ),
             'parameters'
         );
+
+        return true;
     }
 
     /**
@@ -84,27 +90,33 @@ class BlockValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
 
-        $this->validate(
-            $blockUpdateStruct->viewType,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definition' => $blockDefinition)),
-            ),
-            'viewType'
-        );
+        if ($blockUpdateStruct->viewType !== null) {
+            $this->validate(
+                $blockUpdateStruct->viewType,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                    new BlockViewType(array('definition' => $blockDefinition)),
+                ),
+                'viewType'
+            );
+        }
 
-        $this->validate(
-            $blockUpdateStruct->name,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'name'
-        );
+        if ($blockUpdateStruct->name !== null) {
+            $this->validate(
+                $blockUpdateStruct->name,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'name'
+            );
+        }
 
         $fields = $this->buildParameterValidationFields($blockDefinition->getParameters(), false);
 
@@ -115,5 +127,7 @@ class BlockValidator extends Validator
             ),
             'parameters'
         );
+
+        return true;
     }
 }

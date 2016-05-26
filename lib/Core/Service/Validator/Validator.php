@@ -16,6 +16,8 @@ abstract class Validator
      * @param string $propertyPath
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateId($id, $propertyPath = null)
     {
@@ -27,6 +29,8 @@ abstract class Validator
             ),
             $propertyPath
         );
+
+        return true;
     }
 
     /**
@@ -37,18 +41,23 @@ abstract class Validator
      * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateIdentifier($identifier, $propertyPath = null, $isRequired = false)
     {
+        if (!$isRequired && $identifier === null) {
+            return true;
+        }
+
         $constraints = array(
+            new Constraints\NotBlank(),
             new Constraints\Type(array('type' => 'string')),
         );
 
-        if ($isRequired) {
-            $constraints[] = new Constraints\NotBlank();
-        }
-
         $this->validate($identifier, $constraints, $propertyPath);
+
+        return true;
     }
 
     /**
@@ -59,19 +68,24 @@ abstract class Validator
      * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validatePosition($position, $propertyPath = null, $isRequired = false)
     {
+        if (!$isRequired && $position === null) {
+            return true;
+        }
+
         $constraints = array(
+            new Constraints\NotBlank(),
             new Constraints\GreaterThanOrEqual(0),
             new Constraints\Type(array('type' => 'int')),
         );
 
-        if ($isRequired) {
-            $constraints[] = new Constraints\NotBlank();
-        }
-
         $this->validate($position, $constraints, $propertyPath);
+
+        return true;
     }
 
     /**

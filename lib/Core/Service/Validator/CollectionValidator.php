@@ -37,12 +37,15 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
         $this->validate(
             $collectionCreateStruct->type,
             array(
+                new Constraints\NotBlank(),
                 new Constraints\Choice(
                     array(
                         'choices' => array(
@@ -76,6 +79,8 @@ class CollectionValidator extends Validator
                 'name'
             );
         }
+
+        return true;
     }
 
     /**
@@ -84,6 +89,8 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
     {
@@ -95,6 +102,8 @@ class CollectionValidator extends Validator
             ),
             'name'
         );
+
+        return true;
     }
 
     /**
@@ -103,12 +112,15 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
     {
         $this->validate(
             $itemCreateStruct->type,
             array(
+                new Constraints\NotBlank(),
                 new Constraints\Choice(
                     array(
                         'choices' => array(
@@ -140,6 +152,8 @@ class CollectionValidator extends Validator
             ),
             'valueType'
         );
+
+        return true;
     }
 
     /**
@@ -148,6 +162,8 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct)
     {
@@ -179,6 +195,8 @@ class CollectionValidator extends Validator
             ),
             'parameters'
         );
+
+        return true;
     }
 
     /**
@@ -188,16 +206,21 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
      */
     public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
-        $this->validate(
-            $queryUpdateStruct->identifier,
-            array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'identifier'
-        );
+        if ($queryUpdateStruct->identifier !== null) {
+            $this->validate(
+                $queryUpdateStruct->identifier,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'identifier'
+            );
+        }
 
         $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
         $fields = $this->buildParameterValidationFields($queryType->getParameters(), false);
@@ -209,5 +232,7 @@ class CollectionValidator extends Validator
             ),
             'parameters'
         );
+
+        return true;
     }
 }

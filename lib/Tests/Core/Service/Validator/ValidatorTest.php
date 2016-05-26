@@ -2,20 +2,19 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\Tests\Core\Service\Stubs\Validator;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Netgen\BlockManager\Core\Service\Validator\Validator;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Validation;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validatorMock;
+    protected $baseValidator;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Core\Service\Stubs\Validator
+     * @var \Netgen\BlockManager\Core\Service\Validator\Validator
      */
     protected $validator;
 
@@ -24,118 +23,99 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(ValidatorInterface::class);
-        $this->validator = new Validator();
-        $this->validator->setValidator($this->validatorMock);
+        $this->baseValidator = Validation::createValidator();
+        $this->validator = $this->getMockForAbstractClass(Validator::class);
+        $this->validator->setValidator($this->baseValidator);
     }
 
     /**
+     * @param int|string $id
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateId
+     * @dataProvider validateIdDataProvider
      */
-    public function testValidateId()
+    public function testValidateId($id, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo(42),
-                $this->equalTo(
-                    array(
-                        new Constraints\NotBlank(),
-                        new Constraints\Type(array('type' => 'scalar')),
-                    )
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $this->validator->validateId(42);
+        self::assertTrue($this->validator->validateId($id));
     }
 
     /**
+     * @param string $identifier
+     * @param bool $isRequired
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
+     * @dataProvider validateIdentifierDataProvider
      */
-    public function testValidateIdentifier()
+    public function testValidateIdentifier($identifier, $isRequired, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo('identifier'),
-                $this->equalTo(
-                    array(
-                        new Constraints\Type(array('type' => 'string')),
-                    )
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $this->validator->validateIdentifier('identifier');
+        self::assertTrue($this->validator->validateIdentifier($identifier, null, $isRequired));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
-     */
-    public function testValidateRequiredIdentifier()
-    {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo('identifier'),
-                $this->equalTo(
-                    array(
-                        new Constraints\Type(array('type' => 'string')),
-                        new Constraints\NotBlank(),
-                    )
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
-
-        $this->validator->validateIdentifier('identifier', null, true);
-    }
-
-    /**
+     * @param int $position
+     * @param bool $isRequired
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
+     * @dataProvider validatePositionDataProvider
      */
-    public function testValidatePosition()
+    public function testValidatePosition($position, $isRequired, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo(
-                    array(
-                        new Constraints\GreaterThanOrEqual(0),
-                        new Constraints\Type(array('type' => 'int')),
-                    )
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $this->validator->validatePosition(3);
+        self::assertTrue($this->validator->validatePosition($position, null, $isRequired));
     }
 
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
-     */
-    public function testValidateRequiredPosition()
+    public function validateIdDataProvider()
     {
-        $this->validatorMock
-            ->expects($this->once())
-            ->method('validate')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo(
-                    array(
-                        new Constraints\GreaterThanOrEqual(0),
-                        new Constraints\Type(array('type' => 'int')),
-                        new Constraints\NotBlank(),
-                    )
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        return array(
+            array(24, true),
+            array('24', true),
+            array('', false),
+            array(array(), false),
+            array(null, false),
+        );
+    }
 
-        $this->validator->validatePosition(3, null, true);
+    public function validateIdentifierDataProvider()
+    {
+        return array(
+            array(24, false, false),
+            array(24, true, false),
+            array(null, false, true),
+            array(null, true, false),
+            array('identifier', false, true),
+            array('identifier', true, true),
+            array('', false, false),
+            array('', true, false),
+        );
+    }
+
+    public function validatePositionDataProvider()
+    {
+        return array(
+            array(-5, false, false),
+            array(-5, true, false),
+            array(0, false, true),
+            array(0, true, true),
+            array(24, false, true),
+            array(24, true, true),
+            array(null, false, true),
+            array(null, true, false),
+            array('identifier', false, false),
+            array('identifier', true, false),
+        );
     }
 }

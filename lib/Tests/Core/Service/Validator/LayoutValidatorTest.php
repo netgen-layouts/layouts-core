@@ -3,17 +3,17 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Symfony\Component\Validator\Validation;
 
 class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validatorMock;
+    protected $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
@@ -25,44 +25,41 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(ValidatorInterface::class);
+        $this->validator = Validation::createValidator();
         $this->layoutValidator = new LayoutValidator();
-        $this->layoutValidator->setValidator($this->validatorMock);
+        $this->layoutValidator->setValidator($this->validator);
     }
 
     /**
+     * @param array $params
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCreateStruct
+     * @dataProvider validateLayoutCreateStructDataProvider
      */
-    public function testValidateLayoutCreateStruct()
+    public function testValidateLayoutCreateStruct(array $params, $isValid)
     {
-        $this->validatorMock
-            ->expects($this->at(0))
-            ->method('validate')
-            ->with(
-                $this->equalTo('My layout'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
 
-        $this->validatorMock
-            ->expects($this->at(1))
-            ->method('validate')
-            ->with(
-                $this->equalTo('3_zones_a'),
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            )
-            ->will($this->returnValue(new ConstraintViolationList()));
+        self::assertTrue(
+            $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params))
+        );
+    }
 
-        $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->name = 'My layout';
-        $layoutCreateStruct->type = '3_zones_a';
-
-        $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
+    public function validateLayoutCreateStructDataProvider()
+    {
+        return array(
+            array(array('type' => 'type', 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), true),
+            array(array('type' => null, 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), false),
+            array(array('type' => '', 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), false),
+            array(array('type' => 42, 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), false),
+            array(array('type' => 'type', 'name' => null, 'status' => Layout::STATUS_DRAFT), false),
+            array(array('type' => 'type', 'name' => '', 'status' => Layout::STATUS_DRAFT), false),
+            array(array('type' => 'type', 'name' => 42, 'status' => Layout::STATUS_DRAFT), false),
+            array(array('type' => 'type', 'name' => 'Name', 'status' => null), false),
+            array(array('type' => 'type', 'name' => 'Name', 'status' => 'draft'), false),
+        );
     }
 }
