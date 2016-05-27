@@ -305,7 +305,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                         'ruleId' => $insertedRuleId,
                         'status' => $conditionDataRow['status'],
                         'identifier' => $conditionDataRow['identifier'],
-                        'value' => $conditionDataRow['value'],
+                        'value' => json_decode($conditionDataRow['value'], true),
                     )
                 ),
                 isset($conditionIdMapping[$conditionDataRow['id']]) ?
@@ -370,7 +370,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                         'ruleId' => $conditionDataRow['rule_id'],
                         'status' => $newStatus,
                         'identifier' => $conditionDataRow['identifier'],
-                        'value' => $conditionDataRow['value'],
+                        'value' => json_decode($conditionDataRow['value'], true),
                     )
                 ),
                 $conditionDataRow['id']
