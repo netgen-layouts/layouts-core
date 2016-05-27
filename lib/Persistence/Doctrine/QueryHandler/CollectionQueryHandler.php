@@ -643,7 +643,7 @@ class CollectionQueryHandler
     protected function getCollectionSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'type', 'name')
+        $query->select('DISTINCT id', 'status', 'type', 'name')
             ->from('ngbm_collection');
 
         return $query;
@@ -657,7 +657,7 @@ class CollectionQueryHandler
     protected function getItemSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'collection_id', 'position', 'type', 'value_id', 'value_type')
+        $query->select('DISTINCT id', 'status', 'collection_id', 'position', 'type', 'value_id', 'value_type')
             ->from('ngbm_collection_item');
 
         return $query;
@@ -671,7 +671,7 @@ class CollectionQueryHandler
     protected function getQuerySelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'collection_id', 'position', 'identifier', 'type', 'parameters')
+        $query->select('DISTINCT id', 'status', 'collection_id', 'position', 'identifier', 'type', 'parameters')
             ->from('ngbm_collection_query');
 
         return $query;

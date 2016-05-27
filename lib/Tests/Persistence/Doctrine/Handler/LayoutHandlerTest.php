@@ -53,7 +53,9 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      */
     public function testLoadLayout()
     {
@@ -86,6 +88,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getZoneSelectQuery
      */
     public function testLoadZone()
     {

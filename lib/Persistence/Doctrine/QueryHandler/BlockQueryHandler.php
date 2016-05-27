@@ -355,7 +355,7 @@ class BlockQueryHandler
     protected function getBlockSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'name', 'parameters')
+        $query->select('DISTINCT id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'name', 'parameters')
             ->from('ngbm_block');
 
         return $query;

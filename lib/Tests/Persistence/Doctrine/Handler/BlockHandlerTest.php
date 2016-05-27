@@ -49,6 +49,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockSelectQuery
      */
     public function testLoadBlock()
     {

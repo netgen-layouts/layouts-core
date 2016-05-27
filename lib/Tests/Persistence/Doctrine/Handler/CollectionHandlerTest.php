@@ -43,7 +43,9 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionSelectQuery
      */
     public function testLoadCollection()
     {
@@ -100,6 +102,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
      */
     public function testLoadItem()
     {
@@ -158,6 +161,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getQuerySelectQuery
      */
     public function testLoadQuery()
     {

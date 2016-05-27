@@ -323,7 +323,7 @@ class LayoutQueryHandler
     protected function getLayoutSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'parent_id', 'type', 'name', 'created', 'modified')
+        $query->select('DISTINCT id', 'status', 'parent_id', 'type', 'name', 'created', 'modified')
             ->from('ngbm_layout');
 
         return $query;
@@ -337,7 +337,7 @@ class LayoutQueryHandler
     protected function getZoneSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('identifier', 'layout_id', 'status')
+        $query->select('DISTINCT identifier', 'layout_id', 'status')
             ->from('ngbm_zone');
 
         return $query;
