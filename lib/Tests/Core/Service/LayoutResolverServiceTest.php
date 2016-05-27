@@ -72,6 +72,20 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::matchRules
+     */
+    public function testMatchRules()
+    {
+        $rules = $this->layoutResolverService->matchRules('route', 'my_cool_route');
+
+        self::assertNotEmpty($rules);
+
+        foreach ($rules as $rule) {
+            self::assertInstanceOf(Rule::class, $rule);
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTarget
      */
     public function testLoadTarget()

@@ -98,6 +98,26 @@ class LayoutResolverService implements APILayoutResolverService
     }
 
     /**
+     * Returns all rules that match specified target identifier and value.
+     *
+     * @param string $targetIdentifier
+     * @param mixed $targetValue
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
+     */
+    public function matchRules($targetIdentifier, $targetValue)
+    {
+        $persistenceRules = $this->handler->matchRules($targetIdentifier, $targetValue);
+
+        $rules = array();
+        foreach ($persistenceRules as $persistenceRule) {
+            $rules[] = $this->mapper->mapRule($persistenceRule);
+        }
+
+        return $rules;
+    }
+
+    /**
      * Loads a target by its' ID.
      *
      * @param int|string $targetId

@@ -35,6 +35,16 @@ interface LayoutResolverService
     public function loadRules($status = Rule::STATUS_PUBLISHED);
 
     /**
+     * Returns all rules that match specified target identifier and value.
+     *
+     * @param string $targetIdentifier
+     * @param mixed $targetValue
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
+     */
+    public function matchRules($targetIdentifier, $targetValue);
+
+    /**
      * Loads a target by its' ID.
      *
      * @param int|string $targetId

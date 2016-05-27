@@ -17,6 +17,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 
 trait TestCase
@@ -126,7 +127,15 @@ trait TestCase
         return new LayoutResolverHandler(
             new LayoutResolverQueryHandler(
                 $connectionHelper,
-                new QueryHelper($this->databaseConnection)
+                new QueryHelper($this->databaseConnection),
+                array(
+                    'route' => new TargetHandler\Route(),
+                    'route_prefix' => new TargetHandler\RoutePrefix(),
+                    'path_info' => new TargetHandler\PathInfo(),
+                    'path_info_prefix' => new TargetHandler\PathInfoPrefix(),
+                    'request_uri' => new TargetHandler\RequestUri(),
+                    'request_uri_prefix' => new TargetHandler\RequestUriPrefix(),
+                )
             ),
             new LayoutResolverMapper()
         );
