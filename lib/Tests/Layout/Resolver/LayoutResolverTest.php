@@ -46,7 +46,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
         $rule1 = new Rule(
             array(
                 'layoutId' => 12,
-                'priority' => 3,
+                'priority' => 2,
                 'enabled' => true,
             )
         );
@@ -54,7 +54,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
         $rule2 = new Rule(
             array(
                 'layoutId' => 13,
-                'priority' => 4,
+                'priority' => 3,
                 'enabled' => true,
             )
         );
