@@ -61,7 +61,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.param_converter.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.layout.resolver');
         $this->assertContainerBuilderHasService('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.route');
-        $this->assertContainerBuilderHasService('netgen_block_manager.layout.resolver.target_builder.route');
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout.resolver.target_value_provider.route');
         $this->assertContainerBuilderHasService('netgen_block_manager.layout.resolver.condition_matcher.route_parameter');
         $this->assertContainerBuilderHasService('netgen_block_manager.view.builder');
         $this->assertContainerBuilderHasService('netgen_block_manager.templating.twig.extension');

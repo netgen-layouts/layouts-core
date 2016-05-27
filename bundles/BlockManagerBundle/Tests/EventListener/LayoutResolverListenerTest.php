@@ -6,8 +6,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
-use Netgen\BlockManager\Layout\Resolver\Rule;
-use Netgen\BlockManager\Layout\Resolver\Target;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
@@ -94,17 +93,8 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveLayout')
-            ->will(
-                $this->returnValue(
-                    new Rule(
-                        array(
-                            'layoutId' => 42,
-                            'target' => new Target(array('identifier' => 'target', 'values' => array('value'))),
-                        )
-                    )
-                )
-            );
+            ->method('resolveRules')
+            ->will($this->returnValue(array(new Rule(array('layoutId' => 42)))));
 
         $this->layoutServiceMock
             ->expects($this->once())
@@ -130,12 +120,12 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoLayoutMatched()
+    public function testOnKernelRequestWithNoRulesResolved()
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveLayout')
-            ->will($this->returnValue(false));
+            ->method('resolveRules')
+            ->will($this->returnValue(array()));
 
         $this->layoutServiceMock
             ->expects($this->never())
@@ -161,21 +151,13 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveLayout')
-            ->will(
-                $this->returnValue(
-                    new Rule(
-                        array(
-                            'layoutId' => 42,
-                            'target' => new Target(array('identifier' => 'target', 'values' => array('value'))),
-                        )
-                    )
-                )
-            );
+            ->method('resolveRules')
+            ->will($this->returnValue(array(new Rule(array('layoutId' => 42)))));
 
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
+            ->with($this->equalTo(42))
             ->will(
                 $this->throwException(
                     new NotFoundException('layout', 42)
@@ -202,7 +184,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->layoutResolverMock
             ->expects($this->never())
-            ->method('resolveLayout');
+            ->method('resolveRules');
 
         $this->layoutServiceMock
             ->expects($this->never())
@@ -228,7 +210,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->layoutResolverMock
             ->expects($this->never())
-            ->method('resolveLayout');
+            ->method('resolveRules');
 
         $this->layoutServiceMock
             ->expects($this->never())

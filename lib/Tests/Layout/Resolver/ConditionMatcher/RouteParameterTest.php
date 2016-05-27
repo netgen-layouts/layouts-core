@@ -48,14 +48,14 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::matches
      *
-     * @param array $parameters
+     * @param mixed $value
      * @param bool $matches
      *
      * @dataProvider matchesProvider
      */
-    public function testMatches(array $parameters, $matches)
+    public function testMatches($value, $matches)
     {
-        self::assertEquals($matches, $this->conditionMatcher->matches($parameters));
+        self::assertEquals($matches, $this->conditionMatcher->matches($value));
     }
 
     /**
@@ -66,6 +66,10 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     public function matchesProvider()
     {
         return array(
+            array('not_array', false),
+            array(array(), false),
+            array(array('parameter_name' => array()), false),
+            array(array('parameter_values' => array()), false),
             array(array('parameter_name' => null, 'parameter_values' => array()), false),
             array(array('parameter_name' => null, 'parameter_values' => array(42)), false),
             array(array('parameter_name' => null, 'parameter_values' => array(24)), false),

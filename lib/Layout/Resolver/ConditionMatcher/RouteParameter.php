@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\ConditionMatcher;
 
+use Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,31 +21,35 @@ class RouteParameter implements ConditionMatcherInterface
     }
 
     /**
-     * Returns if this condition matches provided parameters.
+     * Returns if this condition matches the provided value.
      *
-     * @param array $parameters
+     * @param mixed $value
      *
      * @return bool
      */
-    public function matches(array $parameters)
+    public function matches($value)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         if (!$currentRequest instanceof Request) {
             return false;
         }
 
-        if (empty($parameters['parameter_name']) || empty($parameters['parameter_values'])) {
+        if (!is_array($value)) {
+            return false;
+        }
+
+        if (empty($value['parameter_name']) || empty($value['parameter_values'])) {
             return false;
         }
 
         $routeParameters = $currentRequest->attributes->get('_route_params', array());
-        if (!isset($routeParameters[$parameters['parameter_name']])) {
+        if (!isset($routeParameters[$value['parameter_name']])) {
             return false;
         }
 
         return in_array(
-            $routeParameters[$parameters['parameter_name']],
-            $parameters['parameter_values']
+            $routeParameters[$value['parameter_name']],
+            $value['parameter_values']
         );
     }
 }

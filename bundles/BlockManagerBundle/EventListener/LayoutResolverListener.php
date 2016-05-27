@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Layout\Resolver\Rule;
@@ -91,23 +92,26 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
-        $rule = $this->layoutResolver->resolveLayout();
-        if (!$rule instanceof Rule) {
-            return;
+        $layout = null;
+        foreach ($this->layoutResolver->resolveRules() as $rule) {
+            try {
+                $layout = $this->layoutService->loadLayout($rule->getLayoutId());
+            } catch (NotFoundException $e) {
+                // If layout was not found, we still want to display the page
+                $this->logger->notice(
+                    sprintf(
+                        'Layout resolver rule with ID %d matched a layout with ID %d, but the layout was not found',
+                        $rule->getId(),
+                        $rule->getLayoutId()
+                    ),
+                    array('ngbm')
+                );
+
+                return;
+            }
         }
 
-        try {
-            $layout = $this->layoutService->loadLayout($rule->getLayoutId());
-        } catch (NotFoundException $e) {
-            // If layout was not found, we still want to display the page
-            $this->logger->notice(
-                sprintf(
-                    'Layout resolver rule matched a layout with ID %d, but it was not found',
-                    $rule->getLayoutId()
-                ),
-                array('ngbm')
-            );
-
+        if (!$layout instanceof Layout) {
             return;
         }
 

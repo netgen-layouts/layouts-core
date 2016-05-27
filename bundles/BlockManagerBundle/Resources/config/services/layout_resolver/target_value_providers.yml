@@ -1,0 +1,29 @@
+parameters:
+    netgen_block_manager.layout.resolver.target_value_provider.route.class: Netgen\BlockManager\Layout\Resolver\TargetValueProvider\Route
+    netgen_block_manager.layout.resolver.target_value_provider.path_info.class: Netgen\BlockManager\Layout\Resolver\TargetValueProvider\PathInfo
+    netgen_block_manager.layout.resolver.target_value_provider.request_uri.class: Netgen\BlockManager\Layout\Resolver\TargetValueProvider\RequestUri
+
+services:
+    netgen_block_manager.layout.resolver.target_value_provider.route:
+        class: "%netgen_block_manager.layout.resolver.target_value_provider.route.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_value_provider, identifier: route }
+            - { name: netgen_block_manager.layout.resolver.target_value_provider, identifier: route_prefix }
+
+    netgen_block_manager.layout.resolver.target_value_provider.path_info:
+        class: "%netgen_block_manager.layout.resolver.target_value_provider.path_info.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_value_provider, identifier: path_info }
+            - { name: netgen_block_manager.layout.resolver.target_value_provider, identifier: path_info_prefix }
+
+    netgen_block_manager.layout.resolver.target_value_provider.request_uri:
+        class: "%netgen_block_manager.layout.resolver.target_value_provider.request_uri.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_value_provider, identifier: request_uri }
+            - { name: netgen_block_manager.layout.resolver.target_value_provider, identifier: request_uri_prefix }

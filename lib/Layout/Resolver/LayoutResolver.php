@@ -2,101 +2,155 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoaderInterface;
+use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use RuntimeException;
 
 class LayoutResolver implements LayoutResolverInterface
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface
+     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected $targetBuilderRegistry;
+    protected $layoutResolverService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetValueProviderInterface[]
      */
-    protected $conditionMatcherRegistry;
+    protected $targetValueProviders = array();
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoaderInterface
+     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface[]
      */
-    protected $ruleLoader;
+    protected $conditionMatchers = array();
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetBuilderRegistryInterface $targetBuilderRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionMatcherRegistryInterface $conditionMatcherRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\RuleLoader\RuleLoaderInterface $ruleLoader
+     * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
+     * @param \Netgen\BlockManager\Layout\Resolver\TargetValueProviderInterface[] $targetValueProviders
+     * @param \Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface[] $conditionMatchers
      */
     public function __construct(
-        TargetBuilderRegistryInterface $targetBuilderRegistry,
-        ConditionMatcherRegistryInterface $conditionMatcherRegistry,
-        RuleLoaderInterface $ruleLoader
+        LayoutResolverService $layoutResolverService,
+        array $targetValueProviders = array(),
+        array $conditionMatchers = array()
     ) {
-        $this->targetBuilderRegistry = $targetBuilderRegistry;
-        $this->conditionMatcherRegistry = $conditionMatcherRegistry;
-        $this->ruleLoader = $ruleLoader;
+        $this->layoutResolverService = $layoutResolverService;
+        $this->targetValueProviders = $targetValueProviders;
+        $this->conditionMatchers = $conditionMatchers;
     }
 
     /**
-     * Resolves the layout based on current conditions.
+     * Matches the rules based on current conditions.
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\Rule|null
+     * Rules are sorted based on their priorities, descending,
+     * meaning the rule with highest priority will be the first one in the list.
+     *
+     * Rules with same priorities will have undetermined relative positions between each other.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveLayout()
+    public function resolveRules()
     {
-        foreach ($this->targetBuilderRegistry->getTargetBuilders() as $targetBuilder) {
-            $target = $targetBuilder->buildTarget();
-            if (!$target instanceof Target) {
+        $matchedRules = array();
+
+        foreach ($this->targetValueProviders as $targetIdentifier => $targetValueProvider) {
+            if (!$targetValueProvider instanceof TargetValueProviderInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        "Target value provider for '%s' target must implement TargetValueProviderInterface.",
+                        $targetIdentifier
+                    )
+                );
+            }
+
+            $targetValue = $targetValueProvider->provideValue();
+            if ($targetValue === null) {
                 continue;
             }
 
-            $rule = $this->resolveLayoutForTarget($target);
-            if ($rule instanceof Rule) {
-                return $rule;
-            }
+            $matchedRules = array_merge(
+                $matchedRules,
+                $this->matchRules(
+                    $targetIdentifier,
+                    $targetValue
+                )
+            );
         }
 
-        return;
+        usort(
+            $matchedRules,
+            function (Rule $a, Rule $b) {
+                if ($a->getPriority() === $b->getPriority()) {
+                    return 0;
+                }
+
+                return ($a->getPriority() > $b->getPriority()) ? -1 : 1;
+            }
+        );
+
+        return $matchedRules;
     }
 
     /**
-     * Resolves the layout based on provided target.
+     * Matches the rules based on provided target identifier and value.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\Target $target
+     * @param string $targetIdentifier
+     * @param mixed $targetValue
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\Rule|null
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveLayoutForTarget(Target $target)
+    public function matchRules($targetIdentifier, $targetValue)
     {
-        $rules = $this->ruleLoader->loadRules($target);
+        $rules = $this->layoutResolverService->matchRules($targetIdentifier, $targetValue);
+
         if (empty($rules)) {
-            return;
+            return array();
         }
+
+        $matchedRules = array();
 
         foreach ($rules as $rule) {
             if ($rule->isEnabled() && $this->matchConditions($rule->getConditions())) {
-                return $rule;
+                $matchedRules[] = $rule;
             }
         }
 
-        return;
+        return $matchedRules;
     }
 
     /**
      * Returns true if all conditions match.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\Condition[] $conditions
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition[] $conditions
+     *
+     * @throws \RuntimeException If condition matcher does not exist for one of the conditions
      *
      * @return bool
      */
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
-            $conditionMatcher = $this->conditionMatcherRegistry->getConditionMatcher($condition->getIdentifier());
-            if (!$conditionMatcher->matches($condition->getParameters())) {
+            if (!isset($this->conditionMatchers[$condition->getIdentifier()])) {
+                throw new RuntimeException(
+                    sprintf(
+                        "Condition matcher for '%s' condition type does not exist.",
+                        $condition->getIdentifier()
+                    )
+                );
+            }
+
+            $conditionMatcher = $this->conditionMatchers[$condition->getIdentifier()];
+            if (!$conditionMatcher instanceof ConditionMatcherInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        "Condition matcher for '%s' condition type must implement ConditionMatcherInterface.",
+                        $condition->getIdentifier()
+                    )
+                );
+            }
+
+            if (!$conditionMatcher->matches($condition->getValue())) {
                 return false;
             }
         }

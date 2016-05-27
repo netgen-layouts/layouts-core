@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Stubs;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\ConditionMatcherInterface;
+use Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface;
 
 class ConditionMatcher implements ConditionMatcherInterface
 {
@@ -32,13 +32,13 @@ class ConditionMatcher implements ConditionMatcherInterface
     }
 
     /**
-     * Returns if this condition matches provided parameters.
+     * Returns if this condition matches the provided value.
      *
-     * @param array $parameters
+     * @param mixed $value
      *
      * @return bool
      */
-    public function matches(array $parameters)
+    public function matches($value)
     {
         return $this->matches;
     }

@@ -5,18 +5,24 @@ namespace Netgen\BlockManager\Layout\Resolver;
 interface LayoutResolverInterface
 {
     /**
-     * Resolves the layout based on current conditions.
+     * Matches the rules based on current conditions.
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\Rule|null
+     * Rules are sorted based on their priorities, descending,
+     * meaning the rule with highest priority will be the first one in the list.
+     *
+     * Rules with same priorities will have undetermined relative positions between each other.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveLayout();
+    public function resolveRules();
 
     /**
-     * Resolves the layout based on provided target.
+     * Matches the rules based on provided target identifier and value.
      *
-     * @param \Netgen\BlockManager\Layout\Resolver\Target $target
+     * @param string $targetIdentifier
+     * @param mixed $targetValue
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\Rule|null
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveLayoutForTarget(Target $target);
+    public function matchRules($targetIdentifier, $targetValue);
 }
