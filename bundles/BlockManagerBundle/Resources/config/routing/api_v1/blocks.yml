@@ -39,6 +39,13 @@ netgen_block_manager_api_v1_block_form:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.block:form"
 
+netgen_block_manager_api_v1_restore_block:
+    path: /blocks/{blockId}/restore
+    methods: [POST]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.block:restore"
+
 netgen_block_manager_api_v1_delete_block:
     path: /blocks/{blockId}
     methods: [DELETE]

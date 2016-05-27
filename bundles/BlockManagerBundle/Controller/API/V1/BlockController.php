@@ -261,6 +261,20 @@ class BlockController extends Controller
     }
 
     /**
+     * Restores the block to the published state.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function restore(Block $block)
+    {
+        $restoredBlock = $this->blockService->restoreBlock($block);
+
+        return new View($restoredBlock, Version::API_V1);
+    }
+
+    /**
      * Deletes the block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
