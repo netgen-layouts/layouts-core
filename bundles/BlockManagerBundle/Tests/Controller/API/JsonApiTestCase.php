@@ -2,14 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
+use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use Symfony\Component\HttpFoundation\Response;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Lakion\ApiTestCase\MediaTypes;
-use Netgen\BlockManager\Tests\DoctrineDatabaseTrait;
-use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
-    use DoctrineDatabaseTrait;
+    use DatabaseTrait;
 
     public function setUp()
     {
