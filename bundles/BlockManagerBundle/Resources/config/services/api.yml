@@ -41,6 +41,7 @@ parameters:
 services:
     netgen_block_manager.persistence.doctrine.handler:
         class: "%netgen_block_manager.persistence.doctrine.handler.class%"
+        public: false
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.layout.handler"
@@ -52,16 +53,19 @@ services:
 
     netgen_block_manager.persistence.doctrine.helper.connection:
         class: "%netgen_block_manager.persistence.doctrine.helper.connection.class%"
+        public: false
         arguments:
             - "@database_connection"
 
     netgen_block_manager.persistence.doctrine.helper.position:
         class: "%netgen_block_manager.persistence.doctrine.helper.position.class%"
+        public: false
         arguments:
             - "@database_connection"
 
     netgen_block_manager.persistence.doctrine.helper.query:
         class: "%netgen_block_manager.persistence.doctrine.helper.query.class%"
+        public: false
         arguments:
             - "@database_connection"
 
@@ -69,15 +73,18 @@ services:
 
     netgen_block_manager.persistence.doctrine.layout.query_handler:
         class: "%netgen_block_manager.persistence.doctrine.layout.query_handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     netgen_block_manager.persistence.doctrine.layout.mapper:
         class: "%netgen_block_manager.persistence.doctrine.layout.mapper.class%"
+        public: false
 
     netgen_block_manager.persistence.doctrine.layout.handler:
         class: "%netgen_block_manager.persistence.doctrine.layout.handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.layout.query_handler"
             - "@netgen_block_manager.persistence.doctrine.block.query_handler"
@@ -89,15 +96,18 @@ services:
 
     netgen_block_manager.persistence.doctrine.block.query_handler:
         class: "%netgen_block_manager.persistence.doctrine.block.query_handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     netgen_block_manager.persistence.doctrine.block.mapper:
         class: "%netgen_block_manager.persistence.doctrine.block.mapper.class%"
+        public: false
 
     netgen_block_manager.persistence.doctrine.block.handler:
         class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.block.query_handler"
             - "@netgen_block_manager.persistence.doctrine.collection.handler"
@@ -108,15 +118,18 @@ services:
 
     netgen_block_manager.persistence.doctrine.collection.query_handler:
         class: "%netgen_block_manager.persistence.doctrine.collection.query_handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
 
     netgen_block_manager.persistence.doctrine.collection.mapper:
         class: "%netgen_block_manager.persistence.doctrine.collection.mapper.class%"
+        public: false
 
     netgen_block_manager.persistence.doctrine.collection.handler:
         class: "%netgen_block_manager.persistence.doctrine.collection.handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.collection.query_handler"
             - "@netgen_block_manager.persistence.doctrine.collection.mapper"
@@ -126,6 +139,7 @@ services:
 
     netgen_block_manager.persistence.doctrine.layout_resolver.query_handler:
         class: "%netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
@@ -133,9 +147,11 @@ services:
 
     netgen_block_manager.persistence.doctrine.layout_resolver.mapper:
         class: "%netgen_block_manager.persistence.doctrine.layout_resolver.mapper.class%"
+        public: false
 
     netgen_block_manager.persistence.doctrine.layout_resolver.handler:
         class: "%netgen_block_manager.persistence.doctrine.layout_resolver.handler.class%"
+        public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.query_handler"
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.mapper"
