@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
@@ -350,6 +351,62 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->commitTransaction();
 
         return $this->blockMapper->mapBlock($movedBlock);
+    }
+
+    /**
+     * Restores the specified block from the published status. Zone and position are kept as is.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in published status
+     *                                                          If block does not have a published status
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function restoreBlock(Block $block)
+    {
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+
+        if ($persistenceBlock->status === Layout::STATUS_PUBLISHED) {
+            throw new BadStateException('block', 'Block cannot be restored as it is already in published status.');
+        }
+
+        try {
+            $publishedBlock = $this->blockHandler->loadBlock($persistenceBlock->id, Layout::STATUS_PUBLISHED);
+        } catch (NotFoundException $e) {
+            throw new BadStateException('block', 'Block cannot be restored as it does not have a published status.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $updatedBlock = $this->blockHandler->updateBlock(
+                $persistenceBlock->id,
+                $persistenceBlock->status,
+                new BlockUpdateStruct(
+                    array(
+                        'viewType' => $publishedBlock->viewType,
+                        'name' => $publishedBlock->name,
+                        'parameters' => $publishedBlock->parameters,
+                    )
+                )
+            );
+
+            $this->blockHandler->deleteBlockCollections($persistenceBlock->id, $persistenceBlock->status);
+
+            $this->blockHandler->createBlockCollectionsStatus(
+                $publishedBlock->id,
+                $publishedBlock->status,
+                $persistenceBlock->status
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->blockMapper->mapBlock($updatedBlock);
     }
 
     /**

@@ -86,6 +86,18 @@ interface BlockService
     public function moveBlock(Block $block, $position, $zoneIdentifier = null);
 
     /**
+     * Restores the specified block from the published status. Zone and position are kept as is.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in published status
+     *                                                          If block does not have a published status
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function restoreBlock(Block $block);
+
+    /**
      * Deletes a specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

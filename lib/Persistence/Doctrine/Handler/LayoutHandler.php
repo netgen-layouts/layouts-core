@@ -312,60 +312,7 @@ class LayoutHandler implements LayoutHandlerInterface
         foreach ($zoneIdentifiers as $zoneIdentifier) {
             $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutData[0]['id'], $zoneIdentifier, $status);
             foreach ($blockData as $blockDataRow) {
-                $this->blockQueryHandler->createBlock(
-                    new BlockCreateStruct(
-                        array(
-                            'layoutId' => $blockDataRow['layout_id'],
-                            'zoneIdentifier' => $blockDataRow['zone_identifier'],
-                            'status' => $newStatus,
-                            'position' => $blockDataRow['position'],
-                            'definitionIdentifier' => $blockDataRow['definition_identifier'],
-                            'viewType' => $blockDataRow['view_type'],
-                            'name' => $blockDataRow['name'],
-                            'parameters' => $blockDataRow['parameters'],
-                        )
-                    ),
-                    $blockDataRow['id']
-                );
-
-                $collectionsData = $this->blockQueryHandler->loadCollectionReferencesData($blockDataRow['id'], $status);
-                foreach ($collectionsData as $collectionsDataRow) {
-                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
-                        try {
-                            $this->collectionHandler->loadCollection(
-                                $collectionsDataRow['collection_id'],
-                                $newStatus
-                            );
-
-                            $this->collectionHandler->deleteCollection(
-                                $collectionsDataRow['collection_id'],
-                                $newStatus
-                            );
-                        } catch (NotFoundException $e) {
-                            // Do nothing
-                        }
-
-                        $this->collectionHandler->createCollectionStatus(
-                            $collectionsDataRow['collection_id'],
-                            $status,
-                            $newStatus
-                        );
-
-                        $newCollectionStatus = $newStatus;
-                    } else {
-                        $newCollectionStatus = $collectionsDataRow['collection_status'];
-                    }
-
-                    $this->blockHandler->addCollectionToBlock(
-                        $blockDataRow['id'],
-                        $newStatus,
-                        $collectionsDataRow['collection_id'],
-                        $newCollectionStatus,
-                        $collectionsDataRow['identifier'],
-                        $collectionsDataRow['start'],
-                        $collectionsDataRow['length']
-                    );
-                }
+                $this->blockHandler->createBlockStatus($blockDataRow['id'], $status, $newStatus);
             }
         }
 

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
@@ -493,6 +494,44 @@ abstract class BlockServiceTest extends ServiceTest
             0,
             'bottom'
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     */
+    public function testRestoreBlock()
+    {
+        // First update a block
+
+        $blockUpdateStruct = new BlockUpdateStruct(
+            array(
+                'viewType' => 'small',
+                'name' => 'New name',
+            )
+        );
+
+        $blockUpdateStruct->setParameter('some_param', 'new_value');
+
+        $block = $this->blockService->loadBlock(1, Layout::STATUS_DRAFT);
+        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
+        $movedBlock = $this->blockService->moveBlock($updatedBlock, 0, 'top_left');
+
+        // Then verify that restored block has all published status' properties
+
+        $restoredBlock = $this->blockService->restoreBlock($block);
+
+        self::assertInstanceOf(Block::class, $restoredBlock);
+        self::assertEquals('default', $restoredBlock->getViewType());
+        self::assertEquals('My block', $restoredBlock->getName());
+        self::assertEquals(array('some_param' => 'some_value'), $restoredBlock->getParameters());
+        self::assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
+        self::assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
+
+        $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
+        self::assertCount(2, $collectionReferences);
+
+        self::assertEquals(2, $collectionReferences[0]->getCollectionId());
+        self::assertEquals(3, $collectionReferences[1]->getCollectionId());
     }
 
     /**

@@ -105,12 +105,42 @@ interface BlockHandler
     public function moveBlockToZone($blockId, $status, $zoneIdentifier, $position);
 
     /**
+     * Creates a new block status.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function createBlockStatus($blockId, $status, $newStatus);
+
+    /**
+     * Creates a new status for all collections in specified block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function createBlockCollectionsStatus($blockId, $status, $newStatus);
+
+    /**
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
      * @param int $status
      */
     public function deleteBlock($blockId, $status);
+
+    /**
+     * Deletes all block collections.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     */
+    public function deleteBlockCollections($blockId, $status);
 
     /**
      * Returns if provided collection identifier already exists in the block.

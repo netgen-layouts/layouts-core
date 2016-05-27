@@ -296,6 +296,82 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Creates a new block status.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function createBlockStatus($blockId, $status, $newStatus)
+    {
+        $block = $this->loadBlock($blockId, $status);
+
+        $this->queryHandler->createBlock(
+            new BlockCreateStruct(
+                array(
+                    'layoutId' => $block->layoutId,
+                    'zoneIdentifier' => $block->zoneIdentifier,
+                    'status' => $newStatus,
+                    'position' => $block->position,
+                    'definitionIdentifier' => $block->definitionIdentifier,
+                    'viewType' => $block->viewType,
+                    'name' => $block->name,
+                    'parameters' => $block->parameters,
+                )
+            ),
+            $blockId
+        );
+
+        $this->createBlockCollectionsStatus($blockId, $status, $newStatus);
+    }
+
+    /**
+     * Creates a new status for all collections in specified block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function createBlockCollectionsStatus($blockId, $status, $newStatus)
+    {
+        $collectionsData = $this->queryHandler->loadCollectionReferencesData($blockId, $status);
+        foreach ($collectionsData as $collectionsDataRow) {
+            if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
+                if ($this->collectionHandler->collectionExists($collectionsDataRow['collection_id'], $newStatus)) {
+                    $this->collectionHandler->deleteCollection(
+                        $collectionsDataRow['collection_id'],
+                        $newStatus
+                    );
+                }
+
+                $this->collectionHandler->createCollectionStatus(
+                    $collectionsDataRow['collection_id'],
+                    $status,
+                    $newStatus
+                );
+
+                $newCollectionStatus = $newStatus;
+            } else {
+                $newCollectionStatus = $collectionsDataRow['collection_status'];
+            }
+
+            $this->addCollectionToBlock(
+                $blockId,
+                $newStatus,
+                $collectionsDataRow['collection_id'],
+                $newCollectionStatus,
+                $collectionsDataRow['identifier'],
+                $collectionsDataRow['start'],
+                $collectionsDataRow['length']
+            );
+        }
+    }
+
+    /**
      * Deletes a block with specified ID.
      *
      * @param int|string $blockId
@@ -305,6 +381,27 @@ class BlockHandler implements BlockHandlerInterface
     {
         $block = $this->loadBlock($blockId, $status);
 
+        $this->deleteBlockCollections($blockId, $status);
+        $this->queryHandler->deleteBlock($blockId, $status);
+
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperConditions(
+                $block->layoutId,
+                $block->zoneIdentifier,
+                $status
+            ),
+            $block->position
+        );
+    }
+
+    /**
+     * Deletes all block collections.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     */
+    public function deleteBlockCollections($blockId, $status)
+    {
         $collectionReferences = $this->loadCollectionReferences(
             $blockId,
             $status
@@ -317,18 +414,14 @@ class BlockHandler implements BlockHandlerInterface
                     $collectionReference->collectionStatus
                 );
             }
+
+            $this->removeCollectionFromBlock(
+                $blockId,
+                $status,
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
         }
-
-        $this->queryHandler->deleteBlock($blockId, $status);
-
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperConditions(
-                $block->layoutId,
-                $block->zoneIdentifier,
-                $status
-            ),
-            $block->position
-        );
     }
 
     /**

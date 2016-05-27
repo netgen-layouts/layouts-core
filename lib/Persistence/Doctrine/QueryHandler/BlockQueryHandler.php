@@ -222,22 +222,6 @@ class BlockQueryHandler
      */
     public function deleteBlock($blockId, $status)
     {
-        // Delete all connections between blocks and collections
-
-        $query = $this->queryHelper->getQuery();
-        $query
-            ->delete('ngbm_block_collection')
-            ->where(
-                $query->expr()->eq('block_id', ':block_id')
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status, 'block_status');
-
-        $query->execute();
-
-        // Delete the block itself
-
         $query = $this->queryHelper->getQuery();
 
         $query->delete('ngbm_block')
