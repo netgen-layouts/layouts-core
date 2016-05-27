@@ -85,6 +85,27 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     }
 
     /**
+     * Returns all rules that match specified target identifier and value.
+     *
+     * @param string $targetIdentifier
+     * @param mixed $targetValue
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
+     */
+    public function matchRules($targetIdentifier, $targetValue)
+    {
+        $data = $this->queryHandler->matchRules($targetIdentifier, $targetValue);
+
+        if (empty($data)) {
+            return array();
+        }
+
+        $data = $this->mapper->mapRules($data);
+
+        return $data;
+    }
+
+    /**
      * Loads an target with specified ID.
      *
      * @param int|string $targetId

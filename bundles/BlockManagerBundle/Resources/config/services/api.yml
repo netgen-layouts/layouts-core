@@ -129,6 +129,7 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
             - "@netgen_block_manager.persistence.doctrine.helper.query"
+            - []
 
     netgen_block_manager.persistence.doctrine.layout_resolver.mapper:
         class: "%netgen_block_manager.persistence.doctrine.layout_resolver.mapper.class%"
@@ -138,7 +139,6 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.query_handler"
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.mapper"
-            - "@netgen_block_manager.persistence.doctrine.helper.position"
 
     # Repository
 

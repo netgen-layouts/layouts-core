@@ -103,7 +103,7 @@ return array(
         array('rule_id' => 3, 'enabled' => 1),
         array('rule_id' => 4, 'enabled' => 0),
         array('rule_id' => 5, 'enabled' => 0),
-        array('rule_id' => 6, 'enabled' => 0),
+        array('rule_id' => 6, 'enabled' => 1),
         array('rule_id' => 7, 'enabled' => 1),
         array('rule_id' => 8, 'enabled' => 1),
         array('rule_id' => 9, 'enabled' => 1),
@@ -170,5 +170,7 @@ return array(
         array('id' => 1, 'status' => 1, 'rule_id' => 2, 'identifier' => 'route_parameter', 'value' => '{"some_param": [1,2]}'),
         array('id' => 2, 'status' => 1, 'rule_id' => 3, 'identifier' => 'route_parameter', 'value' => '{"some_param": [3,4]}'),
         array('id' => 3, 'status' => 1, 'rule_id' => 3, 'identifier' => 'route_parameter', 'value' => '{"some_other_param": [5,6]}'),
+        array('id' => 4, 'status' => 0, 'rule_id' => 5, 'identifier' => 'siteaccess', 'value' => '["cro"]'),
+        array('id' => 4, 'status' => 1, 'rule_id' => 5, 'identifier' => 'siteaccess', 'value' => '["cro"]'),
     ),
 );

@@ -6,10 +6,12 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
 use Doctrine\DBAL\Types\Type;
+use RuntimeException;
 
 class LayoutResolverQueryHandler
 {
@@ -24,15 +26,25 @@ class LayoutResolverQueryHandler
     protected $queryHelper;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler[]
+     */
+    protected $targetHandlers = array();
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
+     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler[] $targetHandlers
      */
-    public function __construct(ConnectionHelper $connectionHelper, QueryHelper $queryHelper)
-    {
+    public function __construct(
+        ConnectionHelper $connectionHelper,
+        QueryHelper $queryHelper,
+        array $targetHandlers = array()
+    ) {
         $this->connectionHelper = $connectionHelper;
         $this->queryHelper = $queryHelper;
+        $this->targetHandlers = $targetHandlers;
     }
 
     /**
@@ -73,6 +85,43 @@ class LayoutResolverQueryHandler
         if ($status !== null) {
             $this->queryHelper->applyStatusCondition($query, $status, 'r.status');
         }
+
+        return $query->execute()->fetchAll();
+    }
+
+    /**
+     * Returns all rule data for rules that match specified target identifier and value.
+     *
+     * @param string $targetIdentifier
+     * @param mixed $targetValue
+     *
+     * @return array
+     */
+    public function matchRules($targetIdentifier, $targetValue)
+    {
+        $query = $this->getRuleSelectQuery();
+        $query
+            ->innerJoin('r', 'ngbm_rule_target', 'rt', 'r.id = rt.rule_id')
+            ->where(
+                $query->expr()->eq('rd.enabled', ':enabled'),
+                $query->expr()->eq('rt.identifier', ':target_identifier')
+            )
+            ->setParameter('target_identifier', $targetIdentifier, Type::STRING)
+            ->setParameter('enabled', true, Type::BOOLEAN)
+            ->addOrderBy('r.priority', 'ASC');
+
+        $this->queryHelper->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'r.status');
+
+        if (!isset($this->targetHandlers[$targetIdentifier])) {
+            throw new RuntimeException(
+                sprintf(
+                    'Doctrine target handler for "%s" target identifier does not exist.',
+                    $targetIdentifier
+                )
+            );
+        }
+
+        $this->targetHandlers[$targetIdentifier]->handleQuery($query, $targetValue);
 
         return $query->execute()->fetchAll();
     }
@@ -547,9 +596,9 @@ class LayoutResolverQueryHandler
     protected function getRuleSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('r.id', 'r.status', 'r.layout_id', 'r.priority', 'r.comment', 'rd.enabled')
+        $query->select('DISTINCT r.id', 'r.status', 'r.layout_id', 'r.priority', 'r.comment', 'rd.enabled')
             ->from('ngbm_rule', 'r')
-            ->leftJoin('r', 'ngbm_rule_data', 'rd', 'rd.rule_id = r.id');
+            ->innerJoin('r', 'ngbm_rule_data', 'rd', 'rd.rule_id = r.id');
 
         return $query;
     }
@@ -562,7 +611,7 @@ class LayoutResolverQueryHandler
     protected function getTargetSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'rule_id', 'identifier', 'value')
+        $query->select('DISTINCT id', 'status', 'rule_id', 'identifier', 'value')
             ->from('ngbm_rule_target');
 
         return $query;
@@ -576,7 +625,7 @@ class LayoutResolverQueryHandler
     protected function getConditionSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('id', 'status', 'rule_id', 'identifier', 'value')
+        $query->select('DISTINCT id', 'status', 'rule_id', 'identifier', 'value')
             ->from('ngbm_rule_condition');
 
         return $query;
