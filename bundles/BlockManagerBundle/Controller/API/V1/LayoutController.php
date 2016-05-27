@@ -2,14 +2,31 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class LayoutController extends Controller
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     */
+    public function __construct(LayoutService $layoutService)
+    {
+        $this->layoutService = $layoutService;
+    }
+
     /**
      * Loads a layout.
      *
@@ -39,5 +56,19 @@ class LayoutController extends Controller
         }
 
         return new ValueArray($blocks);
+    }
+
+    /**
+     * Publishes a layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function publish(Layout $layout)
+    {
+        $this->layoutService->publishLayout($layout);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

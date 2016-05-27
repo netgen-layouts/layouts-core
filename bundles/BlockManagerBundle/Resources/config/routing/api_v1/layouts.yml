@@ -11,3 +11,10 @@ netgen_block_manager_api_v1_layout_blocks:
     defaults:
         _ngbm_value_status: 0
         _controller: "netgen_block_manager.controller.api.v1.layout:viewLayoutBlocks"
+
+netgen_block_manager_api_v1_publish_layout:
+    path: /layouts/{layoutId}/publish
+    methods: [POST]
+    defaults:
+        _ngbm_value_status: 0
+        _controller: "netgen_block_manager.controller.api.v1.layout:publish"
