@@ -117,7 +117,7 @@ class BlockController extends Controller
         }
 
         try {
-            $this->getBlockDefinition($blockType->getDefinitionIdentifier());
+            $blockDefinition = $this->getBlockDefinition($blockType->getDefinitionIdentifier());
         } catch (RuntimeException $e) {
             throw new BadStateException('block_type', 'Block definition specified in block type does not exist.', $e);
         }
@@ -136,8 +136,13 @@ class BlockController extends Controller
             $blockType->getDefaultBlockViewType()
         );
 
+        $blockParameters = array();
+        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
+            $blockParameters[$parameterName] = null;
+        }
+
         $blockCreateStruct->name = $blockType->getDefaultBlockName();
-        $blockCreateStruct->setParameters($blockType->getDefaultBlockParameters());
+        $blockCreateStruct->setParameters($blockType->getDefaultBlockParameters() + $blockParameters);
 
         $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,

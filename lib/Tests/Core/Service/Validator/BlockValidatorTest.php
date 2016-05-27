@@ -325,7 +325,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                         'css_class' => 'class',
                     ),
                 ),
-                true,
+                false,
             ),
         );
     }
