@@ -133,6 +133,7 @@ class LayoutService implements LayoutServiceInterface
         try {
             $createdLayout = $this->layoutHandler->createLayout(
                 $layoutCreateStruct,
+                Layout::STATUS_DRAFT,
                 $layoutType->getZoneIdentifiers()
             );
         } catch (Exception $e) {

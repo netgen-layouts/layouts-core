@@ -157,24 +157,25 @@ class LayoutHandler implements LayoutHandlerInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param int $status
      * @param array $zoneIdentifiers
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(APILayoutCreateStruct $layoutCreateStruct, array $zoneIdentifiers = array())
+    public function createLayout(APILayoutCreateStruct $layoutCreateStruct, $status, array $zoneIdentifiers = array())
     {
         $createdLayoutId = $this->queryHandler->createLayout(
             new LayoutCreateStruct(
                 array(
                     'type' => $layoutCreateStruct->type,
                     'name' => trim($layoutCreateStruct->name),
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => $status,
                     'zoneIdentifiers' => array_unique($zoneIdentifiers),
                 )
             )
         );
 
-        return $this->loadLayout($createdLayoutId, Layout::STATUS_DRAFT);
+        return $this->loadLayout($createdLayoutId, $status);
     }
 
     /**

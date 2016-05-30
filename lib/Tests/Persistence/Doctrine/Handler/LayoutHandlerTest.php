@@ -233,6 +233,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         $createdLayout = $this->layoutHandler->createLayout(
             $layoutCreateStruct,
+            Layout::STATUS_DRAFT,
             array('first_zone', 'second_zone')
         );
 
