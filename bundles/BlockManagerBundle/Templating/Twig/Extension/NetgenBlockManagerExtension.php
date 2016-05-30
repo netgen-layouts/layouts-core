@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -103,6 +104,13 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                     'is_safe' => array('html'),
                 )
             ),
+            new Twig_SimpleFunction(
+                'ngbm_render_item',
+                array($this, 'renderItem'),
+                array(
+                    'is_safe' => array('html'),
+                )
+            ),
         );
     }
 
@@ -160,7 +168,38 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
 
             return $this->viewRenderer->renderValueObject($block, $context, $parameters);
         } catch (Exception $e) {
-            $this->logError($block, $e);
+            $this->logBlockError($block, $e);
+
+            if ($this->debug) {
+                throw $e;
+            }
+
+            return '';
+        }
+    }
+
+    /**
+     * Renders the provided item.
+     *
+     * @param \Netgen\BlockManager\Item\Item $item
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
+     * @param string $context
+     *
+     * @throws \Exception If an error occurred
+     *
+     * @return string
+     */
+    public function renderItem(Item $item, Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    {
+        try {
+            return $this->viewRenderer->renderValueObject(
+                $item,
+                $context,
+                array('block' => $block) + $parameters
+            );
+        } catch (Exception $e) {
+            $this->logItemError($item, $block, $e);
 
             if ($this->debug) {
                 throw $e;
@@ -192,7 +231,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
             try {
                 $twigTemplate->displayBlock($block->getParameter('block_name'), $twigContext, $twigBocks);
             } catch (Exception $e) {
-                $this->logError($block, $e);
+                $this->logBlockError($block, $e);
 
                 if ($this->debug) {
                     throw $e;
@@ -221,10 +260,33 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Exception $exception
      */
-    protected function logError(Block $block, Exception $exception)
+    protected function logBlockError(Block $block, Exception $exception)
     {
         $this->logger->error(
             sprintf('Error rendering a block with ID %d: %s', $block->getId(), $exception->getMessage()),
+            array('ngbm')
+        );
+    }
+
+    /**
+     * In most cases when rendering a Twig template on frontend
+     * we do not want rendering of the block to crash the page,
+     * hence we log an error.
+     *
+     * @param \Netgen\BlockManager\Item\Item $item
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Exception $exception
+     */
+    protected function logItemError(Item $item, Block $block, Exception $exception)
+    {
+        $this->logger->error(
+            sprintf(
+                'Error rendering an item with ID %d and type %s in block ID %d: %s',
+                $item->getValueId(),
+                $item->getValueType(),
+                $block->getId(),
+                $exception->getMessage()
+            ),
             array('ngbm')
         );
     }

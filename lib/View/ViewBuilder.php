@@ -65,9 +65,10 @@ class ViewBuilder implements ViewBuilderInterface
                 continue;
             }
 
-            $view = $viewProvider->provideView($valueObject);
+            $view = $viewProvider->provideView($valueObject, $parameters);
             $view->setContext($context);
             $view->addParameters($parameters);
+            $view->addParameters(array('view_context' => $context));
 
             $event = new CollectViewParametersEvent($view);
             $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);

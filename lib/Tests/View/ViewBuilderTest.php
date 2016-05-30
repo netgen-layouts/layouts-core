@@ -78,7 +78,10 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(View::class, $builtView);
         self::assertEquals('some_template.html.twig', $builtView->getTemplate());
         self::assertEquals('context', $builtView->getContext());
-        self::assertEquals($viewParameters, $builtView->getParameters());
+        self::assertEquals(
+            array('view_context' => $builtView->getContext()) + $viewParameters,
+            $builtView->getParameters()
+        );
     }
 
     /**

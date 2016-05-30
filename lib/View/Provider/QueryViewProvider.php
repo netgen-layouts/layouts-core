@@ -11,10 +11,11 @@ class QueryViewProvider implements ViewProviderInterface
      * Provides the view.
      *
      * @param mixed $valueObject
+     * @param array $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function provideView($valueObject)
+    public function provideView($valueObject, array $parameters = array())
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Query $valueObject */
         $queryView = new QueryView($valueObject);

@@ -64,6 +64,7 @@ class Configuration implements ConfigurationInterface
     {
         return array(
             $this->getTemplateResolverNodeDefinition('block_view'),
+            $this->getTemplateResolverNodeDefinition('item_view'),
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getTemplateResolverNodeDefinition('query_view'),
             $this->getBlockDefinitionsNodeDefinition(),
