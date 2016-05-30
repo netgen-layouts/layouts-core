@@ -8,12 +8,19 @@ parameters:
     netgen_block_manager.block.block_definition.handler.paragraph.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler
     netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
 
+    netgen_block_manager.block.block_definition.handler.title.options:
+        h1: 'Heading 1'
+        h2: 'Heading 2'
+        h3: 'Heading 3'
+
 services:
     netgen_block_manager.block.registry.block_definition:
         class: "%netgen_block_manager.block.registry.block_definition.class%"
 
     netgen_block_manager.block.block_definition.handler.title:
         class: "%netgen_block_manager.block.block_definition.handler.title.class%"
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.title.options%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: 'title' }
 
