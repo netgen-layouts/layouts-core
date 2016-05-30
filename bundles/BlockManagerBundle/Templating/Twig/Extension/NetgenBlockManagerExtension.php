@@ -182,7 +182,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      * Renders the provided item.
      *
      * @param \Netgen\BlockManager\Item\Item $item
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param string $viewType
      * @param array $parameters
      * @param string $context
      *
@@ -190,16 +190,16 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
      *
      * @return string
      */
-    public function renderItem(Item $item, Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    public function renderItem(Item $item, $viewType, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
         try {
             return $this->viewRenderer->renderValueObject(
                 $item,
                 $context,
-                array('block' => $block) + $parameters
+                array('viewType' => $viewType) + $parameters
             );
         } catch (Exception $e) {
-            $this->logItemError($item, $block, $e);
+            $this->logItemError($item, $e);
 
             if ($this->debug) {
                 throw $e;
@@ -270,21 +270,19 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
 
     /**
      * In most cases when rendering a Twig template on frontend
-     * we do not want rendering of the block to crash the page,
+     * we do not want rendering of the item to crash the page,
      * hence we log an error.
      *
      * @param \Netgen\BlockManager\Item\Item $item
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Exception $exception
      */
-    protected function logItemError(Item $item, Block $block, Exception $exception)
+    protected function logItemError(Item $item, Exception $exception)
     {
         $this->logger->error(
             sprintf(
-                'Error rendering an item with ID %d and type %s in block ID %d: %s',
+                'Error rendering an item with ID %d and type %s: %s',
                 $item->getValueId(),
                 $item->getValueType(),
-                $block->getId(),
                 $exception->getMessage()
             ),
             array('ngbm')

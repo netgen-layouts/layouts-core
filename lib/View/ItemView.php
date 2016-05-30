@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\API\Values\Page\Block;
 
 class ItemView extends View implements ItemViewInterface
 {
@@ -11,13 +10,13 @@ class ItemView extends View implements ItemViewInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Item\Item $item
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param string $viewType
      */
-    public function __construct(Item $item, Block $block)
+    public function __construct(Item $item, $viewType)
     {
         $this->valueObject = $item;
         $this->internalParameters['item'] = $item;
-        $this->internalParameters['block'] = $block;
+        $this->internalParameters['viewType'] = $viewType;
     }
 
     /**
@@ -31,13 +30,13 @@ class ItemView extends View implements ItemViewInterface
     }
 
     /**
-     * Returns the block.
+     * Returns the view type.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return string
      */
-    public function getBlock()
+    public function getViewType()
     {
-        return $this->internalParameters['block'];
+        return $this->internalParameters['viewType'];
     }
 
     /**
