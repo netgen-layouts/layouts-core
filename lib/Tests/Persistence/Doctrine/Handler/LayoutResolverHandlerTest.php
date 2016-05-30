@@ -265,10 +265,10 @@ class LayoutResolverHandlerTest extends \PHPUnit_Framework_TestCase
         $ruleCreateStruct->priority = 5;
         $ruleCreateStruct->enabled = true;
         $ruleCreateStruct->comment = 'My rule';
-        $ruleCreateStruct->status = Rule::STATUS_PUBLISHED;
 
         $createdRule = $this->handler->createRule(
-            $ruleCreateStruct
+            $ruleCreateStruct,
+            Rule::STATUS_DRAFT
         );
 
         self::assertInstanceOf(Rule::class, $createdRule);
@@ -278,7 +278,7 @@ class LayoutResolverHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(5, $createdRule->priority);
         self::assertTrue($createdRule->enabled);
         self::assertEquals('My rule', $createdRule->comment);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $createdRule->status);
+        self::assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
     }
 
     /**

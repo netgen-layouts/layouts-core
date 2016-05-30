@@ -15,7 +15,6 @@ class RuleCreateStructTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(0, $ruleCreateStruct->priority);
         self::assertFalse($ruleCreateStruct->enabled);
         self::assertNull($ruleCreateStruct->comment);
-        self::assertEquals(Rule::STATUS_DRAFT, $ruleCreateStruct->status);
     }
 
     public function testSetProperties()
@@ -26,7 +25,6 @@ class RuleCreateStructTest extends \PHPUnit_Framework_TestCase
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
-                'status' => Rule::STATUS_PUBLISHED,
             )
         );
 
@@ -34,6 +32,5 @@ class RuleCreateStructTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(13, $ruleCreateStruct->priority);
         self::assertTrue($ruleCreateStruct->enabled);
         self::assertEquals('Comment', $ruleCreateStruct->comment);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $ruleCreateStruct->status);
     }
 }

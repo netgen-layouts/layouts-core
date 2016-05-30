@@ -176,7 +176,8 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $createdRule = $this->handler->createRule(
-                $ruleCreateStruct
+                $ruleCreateStruct,
+                Rule::STATUS_DRAFT
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -245,42 +246,6 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->commitTransaction();
 
         return $this->loadRule($copiedRuleId, $persistenceRule->status);
-    }
-
-    /**
-     * Creates a new rule status.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule already has the provided status
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
-    public function createRuleStatus(Rule $rule, $status)
-    {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
-
-        if ($this->handler->ruleExists($persistenceRule->id, $status)) {
-            throw new BadStateException('status', 'Rule already has the provided status.');
-        }
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdRule = $this->handler->createRuleStatus(
-                $persistenceRule->id,
-                $persistenceRule->status,
-                $status
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->mapper->mapRule($createdRule);
     }
 
     /**

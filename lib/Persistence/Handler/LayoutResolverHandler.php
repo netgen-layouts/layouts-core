@@ -109,10 +109,11 @@ interface LayoutResolverHandler
      * Creates a rule.
      *
      * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function createRule(RuleCreateStruct $ruleCreateStruct);
+    public function createRule(RuleCreateStruct $ruleCreateStruct, $status);
 
     /**
      * Updates a rule with specified ID.

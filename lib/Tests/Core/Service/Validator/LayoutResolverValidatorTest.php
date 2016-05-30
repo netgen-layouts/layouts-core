@@ -128,23 +128,20 @@ class LayoutResolverValidatorTest extends \PHPUnit_Framework_TestCase
     public function validateRuleCreateStructProvider()
     {
         return array(
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => '12', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), false),
-            array(array('layoutId' => array(), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), false),
-            array(array('layoutId' => 12, 'priority' => null, 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => 12, 'priority' => '2', 'enabled' => true, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => false, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => null, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment', 'status' => Rule::STATUS_DRAFT), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => null, 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => '', 'status' => Rule::STATUS_DRAFT), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 42, 'status' => Rule::STATUS_DRAFT), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => 23), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => null), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment', 'status' => 'draft'), false),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), true),
+            array(array('layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), true),
+            array(array('layoutId' => '12', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), true),
+            array(array('layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), false),
+            array(array('layoutId' => array(), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'), false),
+            array(array('layoutId' => 12, 'priority' => null, 'enabled' => true, 'comment' => 'Comment'), true),
+            array(array('layoutId' => 12, 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'), false),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'), true),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'), true),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'), false),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'), false),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => null), true),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => ''), true),
+            array(array('layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 42), false),
         );
     }
 

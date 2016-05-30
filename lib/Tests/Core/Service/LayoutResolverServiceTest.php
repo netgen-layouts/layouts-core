@@ -168,27 +168,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRuleStatus
-     */
-    public function testCreateRuleStatus()
-    {
-        $rule = $this->layoutResolverService->loadRule(3);
-        $copiedRule = $this->layoutResolverService->createRuleStatus($rule, Rule::STATUS_ARCHIVED);
-
-        self::assertInstanceOf(Rule::class, $copiedRule);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRuleStatus
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateRuleStatusThrowsBadStateException()
-    {
-        $rule = $this->layoutResolverService->loadRule(3);
-        $this->layoutResolverService->createRuleStatus($rule, Rule::STATUS_PUBLISHED);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      */
     public function testCreateDraft()
@@ -208,8 +187,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testCreateDraftThrowsBadStateExceptionIfRuleIsNotPublished()
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
-        $ruleCreateStruct->status = Rule::STATUS_DRAFT;
-
         $rule = $this->layoutResolverService->createRule($ruleCreateStruct);
 
         $this->layoutResolverService->createDraft($rule);

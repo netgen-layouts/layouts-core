@@ -211,10 +211,11 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Creates a rule.
      *
      * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function createRule(APIRuleCreateStruct $ruleCreateStruct)
+    public function createRule(APIRuleCreateStruct $ruleCreateStruct, $status)
     {
         $createdRuleId = $this->queryHandler->createRule(
             new RuleCreateStruct(
@@ -223,12 +224,12 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     'priority' => $ruleCreateStruct->priority !== null ? $ruleCreateStruct->priority : 0,
                     'enabled' => $ruleCreateStruct->enabled !== null ? $ruleCreateStruct->enabled : false,
                     'comment' => $ruleCreateStruct->comment,
-                    'status' => $ruleCreateStruct->status,
+                    'status' => $status,
                 )
             )
         );
 
-        return $this->loadRule($createdRuleId, $ruleCreateStruct->status);
+        return $this->loadRule($createdRuleId, $status);
     }
 
     /**

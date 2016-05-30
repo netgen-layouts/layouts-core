@@ -97,18 +97,6 @@ interface LayoutResolverService
     public function copyRule(Rule $rule);
 
     /**
-     * Creates a new rule status.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule already has the provided status
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
-    public function createRuleStatus(Rule $rule, $status);
-
-    /**
      * Creates a rule draft.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule

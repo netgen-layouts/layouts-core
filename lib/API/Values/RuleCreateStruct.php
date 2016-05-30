@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\ValueObject;
 
 class RuleCreateStruct extends ValueObject
@@ -26,9 +25,4 @@ class RuleCreateStruct extends ValueObject
      * @var string
      */
     public $comment;
-
-    /**
-     * @var int
-     */
-    public $status = Rule::STATUS_DRAFT;
 }

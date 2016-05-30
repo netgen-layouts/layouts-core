@@ -127,34 +127,6 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRuleStatus
-     * @expectedException \Exception
-     */
-    public function testCreateRuleStatus()
-    {
-        $this->layoutResolverHandlerMock
-            ->expects($this->at(0))
-            ->method('loadRule')
-            ->will($this->returnValue(new PersistenceRule()));
-
-        $this->layoutResolverHandlerMock
-            ->expects($this->at(1))
-            ->method('ruleExists')
-            ->will($this->returnValue(false));
-
-        $this->layoutResolverHandlerMock
-            ->expects($this->at(2))
-            ->method('createRuleStatus')
-            ->will($this->throwException(new Exception()));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->layoutResolverService->createRuleStatus(new Rule(), Rule::STATUS_ARCHIVED);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      * @expectedException \Exception
      */

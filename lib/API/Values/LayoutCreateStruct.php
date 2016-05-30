@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\ValueObject;
 
 class LayoutCreateStruct extends ValueObject

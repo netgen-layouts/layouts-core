@@ -64,15 +64,6 @@ class LayoutResolverValidator extends Validator
             );
         }
 
-        $this->validate(
-            $ruleCreateStruct->status,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'status'
-        );
-
         return true;
     }
 
