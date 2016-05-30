@@ -77,11 +77,10 @@ interface LayoutHandler
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param int $status
      *
      * @return int
      */
-    public function copyLayout($layoutId, $status = null);
+    public function copyLayout($layoutId);
 
     /**
      * Creates a new layout status.

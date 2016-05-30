@@ -182,17 +182,16 @@ class LayoutHandler implements LayoutHandlerInterface
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param int $status
      *
      * @return int
      */
-    public function copyLayout($layoutId, $status = null)
+    public function copyLayout($layoutId)
     {
         // First copy layout and zone data
         $insertedLayoutId = null;
         $zoneIdentifiers = null;
 
-        $layoutData = $this->queryHandler->loadLayoutData($layoutId, $status);
+        $layoutData = $this->queryHandler->loadLayoutData($layoutId);
         foreach ($layoutData as $layoutDataRow) {
             if ($zoneIdentifiers === null) {
                 $zoneIdentifiers = array_map(
@@ -220,7 +219,7 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $blockIdMapping = array();
         foreach ($zoneIdentifiers as $zoneIdentifier) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneIdentifier, $status);
+            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneIdentifier);
 
             foreach ($blockData as $blockDataRow) {
                 $createdBlockId = $this->blockQueryHandler->createBlock(
@@ -250,7 +249,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $collectionIdMapping = array();
 
         foreach ($blockIdMapping as $oldBlockId => $newBlockId) {
-            $collectionsData = $this->blockQueryHandler->loadCollectionReferencesData($oldBlockId, $status);
+            $collectionsData = $this->blockQueryHandler->loadCollectionReferencesData($oldBlockId);
             foreach ($collectionsData as $collectionsDataRow) {
                 if (!isset($collectionIdMapping[$collectionsDataRow['collection_id']])) {
                     if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
