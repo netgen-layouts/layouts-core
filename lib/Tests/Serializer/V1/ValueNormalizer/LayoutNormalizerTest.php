@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
@@ -21,6 +22,11 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     protected $layoutTypeRegistry;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutServiceMock;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer
      */
     protected $normalizer;
@@ -28,6 +34,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
+        $this->layoutServiceMock = $this->getMock(LayoutService::class);
 
         $layoutType = new LayoutType(
             '3_zones_a',
@@ -40,7 +47,11 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
-        $this->normalizer = new LayoutNormalizer($this->layoutTypeRegistry);
+
+        $this->normalizer = new LayoutNormalizer(
+            $this->layoutTypeRegistry,
+            $this->layoutServiceMock
+        );
     }
 
     /**
@@ -83,6 +94,12 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('isPublished')
+            ->with($this->equalTo($layout))
+            ->will($this->returnValue(true));
+
         self::assertEquals(
             array(
                 'id' => $layout->getId(),
@@ -103,6 +120,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
                         'allowed_block_definitions' => true,
                     ),
                 ),
+                'can_restore_blocks' => true,
             ),
             $this->normalizer->normalize(new VersionedValue($layout, 1))
         );

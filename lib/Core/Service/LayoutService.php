@@ -280,6 +280,18 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Returns if provided layout has a published status.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return bool
+     */
+    public function isPublished(Layout $layout)
+    {
+        return $this->layoutHandler->layoutExists($layout->getId(), Layout::STATUS_PUBLISHED);
+    }
+
+    /**
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
