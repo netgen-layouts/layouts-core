@@ -7,7 +7,9 @@
         </span>
     </p>
 
-    {% for result in collections.default.results %}
-        {{ ngbm_render_item(result.item, block, [], view_context) }}
-    {% endfor %}
+    {% if collections.default is defined %}
+        {% for result in collections.default.results %}
+            {{ ngbm_render_item(result.item, block, [], view_context) }}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
