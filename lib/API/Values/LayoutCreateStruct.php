@@ -16,9 +16,4 @@ class LayoutCreateStruct extends ValueObject
      * @var string
      */
     public $name;
-
-    /**
-     * @var int
-     */
-    public $status = Layout::STATUS_DRAFT;
 }

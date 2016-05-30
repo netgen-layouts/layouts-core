@@ -36,15 +36,6 @@ class LayoutValidator extends Validator
             'type'
         );
 
-        $this->validate(
-            $layoutCreateStruct->status,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'status'
-        );
-
         return true;
     }
 }

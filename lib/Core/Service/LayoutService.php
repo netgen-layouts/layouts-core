@@ -173,42 +173,6 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Creates a new layout status.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout already has the provided status
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    public function createLayoutStatus(Layout $layout, $status)
-    {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
-
-        if ($this->layoutHandler->layoutExists($persistenceLayout->id, $status)) {
-            throw new BadStateException('status', 'Layout already has the provided status.');
-        }
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdLayout = $this->layoutHandler->createLayoutStatus(
-                $persistenceLayout->id,
-                $persistenceLayout->status,
-                $status
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->layoutMapper->mapLayout($createdLayout);
-    }
-
-    /**
      * Creates a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

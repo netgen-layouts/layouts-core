@@ -168,13 +168,13 @@ class LayoutHandler implements LayoutHandlerInterface
                 array(
                     'type' => $layoutCreateStruct->type,
                     'name' => trim($layoutCreateStruct->name),
-                    'status' => $layoutCreateStruct->status,
+                    'status' => Layout::STATUS_DRAFT,
                     'zoneIdentifiers' => array_unique($zoneIdentifiers),
                 )
             )
         );
 
-        return $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
+        return $this->loadLayout($createdLayoutId, Layout::STATUS_DRAFT);
     }
 
     /**

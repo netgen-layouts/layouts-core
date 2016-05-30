@@ -53,18 +53,6 @@ interface LayoutService
     public function copyLayout(Layout $layout);
 
     /**
-     * Creates a new layout status.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout already has the provided status
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    public function createLayoutStatus(Layout $layout, $status);
-
-    /**
      * Creates a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

@@ -6,6 +6,7 @@ return array(
         array('id' => 1, 'status' => 1, 'parent_id' => null, 'type' => '3_zones_a', 'name' => 'My layout', 'created' => 1447065813, 'modified' => 1447065813),
         array('id' => 2, 'status' => 0, 'parent_id' => null, 'type' => '3_zones_b', 'name' => 'My other layout', 'created' => 1447065813, 'modified' => 1447065813),
         array('id' => 2, 'status' => 1, 'parent_id' => null, 'type' => '3_zones_b', 'name' => 'My other layout', 'created' => 1447065813, 'modified' => 1447065813),
+        array('id' => 3, 'status' => 1, 'parent_id' => null, 'type' => '3_zones_b', 'name' => 'My third layout', 'created' => 1447065813, 'modified' => 1447065813),
     ),
     'ngbm_zone' => array(
         array('identifier' => 'top_left', 'layout_id' => 1, 'status' => 0),

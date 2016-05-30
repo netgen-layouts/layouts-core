@@ -230,7 +230,6 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
-        $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
 
         $createdLayout = $this->layoutHandler->createLayout(
             $layoutCreateStruct,
@@ -239,11 +238,11 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Layout::class, $createdLayout);
 
-        self::assertEquals(3, $createdLayout->id);
+        self::assertEquals(4, $createdLayout->id);
         self::assertNull($createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
-        self::assertEquals(Layout::STATUS_PUBLISHED, $createdLayout->status);
+        self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -256,15 +255,15 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 new Zone(
                     array(
                         'identifier' => 'first_zone',
-                        'layoutId' => 3,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'layoutId' => 4,
+                        'status' => Layout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'second_zone',
-                        'layoutId' => 3,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'layoutId' => 4,
+                        'status' => Layout::STATUS_DRAFT,
                     )
                 ),
             ),
@@ -288,7 +287,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(3, $copiedLayout->id);
+        self::assertEquals(4, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
         self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);

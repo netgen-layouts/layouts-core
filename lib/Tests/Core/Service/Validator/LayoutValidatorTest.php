@@ -51,15 +51,13 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
     public function validateLayoutCreateStructDataProvider()
     {
         return array(
-            array(array('type' => 'type', 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), true),
-            array(array('type' => null, 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), false),
-            array(array('type' => '', 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), false),
-            array(array('type' => 42, 'name' => 'Name', 'status' => Layout::STATUS_DRAFT), false),
-            array(array('type' => 'type', 'name' => null, 'status' => Layout::STATUS_DRAFT), false),
-            array(array('type' => 'type', 'name' => '', 'status' => Layout::STATUS_DRAFT), false),
-            array(array('type' => 'type', 'name' => 42, 'status' => Layout::STATUS_DRAFT), false),
-            array(array('type' => 'type', 'name' => 'Name', 'status' => null), false),
-            array(array('type' => 'type', 'name' => 'Name', 'status' => 'draft'), false),
+            array(array('type' => 'type', 'name' => 'Name'), true),
+            array(array('type' => null, 'name' => 'Name'), false),
+            array(array('type' => '', 'name' => 'Name'), false),
+            array(array('type' => 42, 'name' => 'Name'), false),
+            array(array('type' => 'type', 'name' => null), false),
+            array(array('type' => 'type', 'name' => ''), false),
+            array(array('type' => 'type', 'name' => 42), false),
         );
     }
 }

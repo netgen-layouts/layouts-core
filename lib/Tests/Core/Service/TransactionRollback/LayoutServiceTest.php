@@ -118,34 +118,6 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayoutStatus
-     * @expectedException \Exception
-     */
-    public function testCreateLayoutStatus()
-    {
-        $this->layoutHandlerMock
-            ->expects($this->at(0))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
-
-        $this->layoutHandlerMock
-            ->expects($this->at(1))
-            ->method('loadLayout')
-            ->will($this->returnValue(false));
-
-        $this->layoutHandlerMock
-            ->expects($this->at(2))
-            ->method('createLayoutStatus')
-            ->will($this->throwException(new Exception()));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->layoutService->createLayoutStatus(new Layout(), Layout::STATUS_ARCHIVED);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Exception
      */

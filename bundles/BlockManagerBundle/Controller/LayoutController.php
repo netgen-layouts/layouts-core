@@ -39,8 +39,6 @@ class LayoutController extends Controller
             $name
         );
 
-        $layoutCreateStruct->status = Layout::STATUS_DRAFT;
-
         $layout = $this->layoutService->createLayout($layoutCreateStruct);
 
         return $this->buildView($layout);

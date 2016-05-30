@@ -144,31 +144,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(3, $copiedLayout->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayoutStatus
-     */
-    public function testCreateLayoutStatus()
-    {
-        $layout = $this->layoutService->loadLayout(1);
-        $copiedLayout = $this->layoutService->createLayoutStatus($layout, Layout::STATUS_ARCHIVED);
-
-        self::assertInstanceOf(Layout::class, $copiedLayout);
-
-        self::assertEquals(1, $copiedLayout->getId());
-        self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->getStatus());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayoutStatus
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateLayoutStatusThrowsBadStateException()
-    {
-        $layout = $this->layoutService->loadLayout(1);
-        $this->layoutService->createLayoutStatus($layout, Layout::STATUS_DRAFT);
+        self::assertEquals(4, $copiedLayout->getId());
     }
 
     /**
@@ -176,14 +152,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateDraft()
     {
-        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            '3_zones_a',
-            'My layout'
-        );
-        $layoutCreateStruct->status = Layout::STATUS_PUBLISHED;
-
-        $layout = $this->layoutService->createLayout($layoutCreateStruct);
-
+        $layout = $this->layoutService->loadLayout(3);
         $draftLayout = $this->layoutService->createDraft($layout);
 
         self::assertInstanceOf(Layout::class, $draftLayout);
