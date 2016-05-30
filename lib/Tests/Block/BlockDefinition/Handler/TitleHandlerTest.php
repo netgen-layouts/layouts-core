@@ -23,7 +23,7 @@ class TitleHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->handler = new TitleHandler();
+        $this->handler = new TitleHandler(array_flip($this->options));
     }
 
     /**

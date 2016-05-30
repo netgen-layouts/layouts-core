@@ -11,11 +11,17 @@ class TitleHandler extends BlockDefinitionHandler implements BlockDefinitionHand
     /**
      * @var array
      */
-    protected $options = array(
-        'Heading 1' => 'h1',
-        'Heading 2' => 'h2',
-        'Heading 3' => 'h3',
-    );
+    protected $options = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $options
+     */
+    public function __construct(array $options = array())
+    {
+        $this->options = array_flip($options);
+    }
 
     /**
      * Returns the array specifying block parameters.
