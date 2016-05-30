@@ -59,7 +59,7 @@ class ResultItemBuilder implements ResultItemBuilderInterface
                 'collectionItem' => $item,
                 'type' => $item->getType() === Item::TYPE_MANUAL ?
                     ResultItem::TYPE_MANUAL :
-                    ResultItem::TYPE_DYNAMIC,
+                    ResultItem::TYPE_OVERRIDE,
                 'position' => $position,
             )
         );
