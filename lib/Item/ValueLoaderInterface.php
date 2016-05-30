@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Value;
+namespace Netgen\BlockManager\Item;
 
 interface ValueLoaderInterface
 {

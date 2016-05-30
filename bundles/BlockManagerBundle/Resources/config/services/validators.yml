@@ -11,6 +11,6 @@ services:
     netgen_block_manager.validator.value_type:
         class: "%netgen_block_manager.validator.value_type.class%"
         arguments:
-            - "@netgen_block_manager.value.registry.value_loader"
+            - "@netgen_block_manager.item.registry.value_loader"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_value_type }

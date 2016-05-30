@@ -14,7 +14,7 @@ class Result extends ValueObject
     /**
      * @var \Netgen\BlockManager\Collection\ResultItem[]
      */
-    protected $items;
+    protected $results;
 
     /**
      * @var int
@@ -46,9 +46,9 @@ class Result extends ValueObject
      *
      * @return \Netgen\BlockManager\Collection\ResultItem[]
      */
-    public function getItems()
+    public function getResults()
     {
-        return $this->items;
+        return $this->results;
     }
 
     /**

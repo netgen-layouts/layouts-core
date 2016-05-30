@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Value\Registry;
+namespace Netgen\BlockManager\Item\Registry;
 
-use Netgen\BlockManager\Value\ValueLoaderInterface;
+use Netgen\BlockManager\Item\ValueLoaderInterface;
 
 interface ValueLoaderRegistryInterface
 {
@@ -13,21 +13,21 @@ interface ValueLoaderRegistryInterface
      *
      * @throws \InvalidArgumentException If value loader does not exist
      *
-     * @return \Netgen\BlockManager\Value\ValueLoaderInterface
+     * @return \Netgen\BlockManager\Item\ValueLoaderInterface
      */
     public function getValueLoader($valueType);
 
     /**
      * Adds a value loader to registry.
      *
-     * @param \Netgen\BlockManager\Value\ValueLoaderInterface $valueLoader
+     * @param \Netgen\BlockManager\Item\ValueLoaderInterface $valueLoader
      */
     public function addValueLoader(ValueLoaderInterface $valueLoader);
 
     /**
      * Returns all value loaders.
      *
-     * @return \Netgen\BlockManager\Value\ValueLoaderInterface[]
+     * @return \Netgen\BlockManager\Item\ValueLoaderInterface[]
      */
     public function getValueLoaders();
 

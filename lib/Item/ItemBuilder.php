@@ -1,27 +1,27 @@
 <?php
 
-namespace Netgen\BlockManager\Value;
+namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use RuntimeException;
 
-class ValueBuilder implements ValueBuilderInterface
+class ItemBuilder implements ItemBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface
+     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
      */
     protected $valueLoaderRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Value\ValueConverterInterface[]
+     * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
      */
     protected $valueConverters = array();
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     * @param \Netgen\BlockManager\Value\ValueConverterInterface[] $valueConverters
+     * @param \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
+     * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters
      */
     public function __construct(
         ValueLoaderRegistryInterface $valueLoaderRegistry,
@@ -38,7 +38,7 @@ class ValueBuilder implements ValueBuilderInterface
      *
      * @throws \RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Value\Value
+     * @return \Netgen\BlockManager\Item\Item
      */
     public function buildFromObject($object)
     {
@@ -56,7 +56,7 @@ class ValueBuilder implements ValueBuilderInterface
                 continue;
             }
 
-            $value = new Value(
+            $value = new Item(
                 array(
                     'valueId' => $valueConverter->getId($object),
                     'valueType' => $valueConverter->getValueType($object),
@@ -78,14 +78,14 @@ class ValueBuilder implements ValueBuilderInterface
     }
 
     /**
-     * Builds the value from provided ID.
+     * Builds the value from provided value ID and value type.
      *
      * @param int|string $valueId
      * @param string $valueType
      *
      * @throws \RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Value\Value
+     * @return \Netgen\BlockManager\Item\Item
      */
     public function build($valueId, $valueType)
     {

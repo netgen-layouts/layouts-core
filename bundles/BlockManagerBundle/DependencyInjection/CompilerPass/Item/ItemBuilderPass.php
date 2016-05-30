@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Value;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ValueBuilderPass implements CompilerPassInterface
+class ItemBuilderPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.value.value_builder';
-    const TAG_NAME = 'netgen_block_manager.value.value_converter';
+    const SERVICE_NAME = 'netgen_block_manager.item.item_builder';
+    const TAG_NAME = 'netgen_block_manager.item.value_converter';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -22,7 +22,7 @@ class ValueBuilderPass implements CompilerPassInterface
             return;
         }
 
-        $valueBuilder = $container->findDefinition(self::SERVICE_NAME);
+        $itemBuilder = $container->findDefinition(self::SERVICE_NAME);
         $valueConverterServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
 
         $valueConverters = array();
@@ -30,6 +30,6 @@ class ValueBuilderPass implements CompilerPassInterface
             $valueConverters[] = new Reference($serviceName);
         }
 
-        $valueBuilder->replaceArgument(1, $valueConverters);
+        $itemBuilder->replaceArgument(1, $valueConverters);
     }
 }

@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Collection\ResultItem;
-use Netgen\BlockManager\Value\Value;
-use Netgen\BlockManager\Core\Values\Collection\Item;
+use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
@@ -26,14 +26,14 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalize()
     {
-        $item = new Item(
+        $collectionItem = new CollectionItem(
             array(
                 'id' => 42,
                 'collectionId' => 24,
             )
         );
 
-        $value = new Value(
+        $item = new Item(
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
@@ -42,8 +42,8 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $resultItem = new ResultItem(
             array(
-                'value' => $value,
-                'collectionItem' => $item,
+                'item' => $item,
+                'collectionItem' => $collectionItem,
                 'type' => ResultItem::TYPE_MANUAL,
                 'position' => 3,
             )
@@ -51,14 +51,14 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(
             array(
-                'id' => $item->getId(),
-                'collection_id' => $item->getCollectionId(),
+                'id' => $collectionItem->getId(),
+                'collection_id' => $collectionItem->getCollectionId(),
                 'position' => $resultItem->getPosition(),
                 'type' => $resultItem->getType(),
-                'value_id' => $value->getValueId(),
-                'value_type' => $value->getValueType(),
-                'name' => $value->getName(),
-                'visible' => $value->isVisible(),
+                'value_id' => $item->getValueId(),
+                'value_type' => $item->getValueType(),
+                'name' => $item->getName(),
+                'visible' => $item->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($resultItem, 1))
         );
@@ -69,7 +69,7 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalizeWithoutCollectionItem()
     {
-        $value = new Value(
+        $item = new Item(
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
@@ -78,7 +78,7 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
         $resultItem = new ResultItem(
             array(
-                'value' => $value,
+                'item' => $item,
                 'collectionItem' => null,
                 'type' => ResultItem::TYPE_DYNAMIC,
                 'position' => 3,
@@ -91,10 +91,10 @@ class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
                 'collection_id' => null,
                 'position' => $resultItem->getPosition(),
                 'type' => $resultItem->getType(),
-                'value_id' => $value->getValueId(),
-                'value_type' => $value->getValueType(),
-                'name' => $value->getName(),
-                'visible' => $value->isVisible(),
+                'value_id' => $item->getValueId(),
+                'value_type' => $item->getValueType(),
+                'name' => $item->getName(),
+                'visible' => $item->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($resultItem, 1))
         );

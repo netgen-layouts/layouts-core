@@ -74,7 +74,7 @@ services:
     netgen_block_manager.normalizer.v1.collection_item:
         class: "%netgen_block_manager.normalizer.v1.collection_item.class%"
         arguments:
-            - "@netgen_block_manager.value.value_builder"
+            - "@netgen_block_manager.item.item_builder"
         tags:
             - { name: serializer.normalizer }
 

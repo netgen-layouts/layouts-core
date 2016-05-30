@@ -54,7 +54,7 @@ class ResultGenerator implements ResultGeneratorInterface
         $result = new Result(
             array(
                 'collection' => $collection,
-                'items' => $this->filterInvisibleItems($resultItems),
+                'results' => $this->filterInvisibleItems($resultItems),
                 'totalCount' => $this->getResultCount($collection),
                 'offset' => $offset,
                 'limit' => $limit,
@@ -235,7 +235,7 @@ class ResultGenerator implements ResultGeneratorInterface
     {
         $visibleItems = array();
         foreach ($items as $item) {
-            if ($item->getValue()->isVisible()) {
+            if ($item->getItem()->isVisible()) {
                 $visibleItems[] = $item;
             }
         }

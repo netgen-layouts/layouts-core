@@ -1,22 +1,22 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Value;
+namespace Netgen\BlockManager\Tests\Item;
 
-use Netgen\BlockManager\Value\Value;
+use Netgen\BlockManager\Item\Item;
 use stdClass;
 
 class ValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Value\Value::getValueId
-     * @covers \Netgen\BlockManager\Value\Value::getValueType
-     * @covers \Netgen\BlockManager\Value\Value::getName
-     * @covers \Netgen\BlockManager\Value\Value::isVisible
-     * @covers \Netgen\BlockManager\Value\Value::getObject
+     * @covers \Netgen\BlockManager\Item\Value::getValueId
+     * @covers \Netgen\BlockManager\Item\Value::getValueType
+     * @covers \Netgen\BlockManager\Item\Value::getName
+     * @covers \Netgen\BlockManager\Item\Value::isVisible
+     * @covers \Netgen\BlockManager\Item\Value::getObject
      */
     public function testObject()
     {
-        $value = new Value(
+        $value = new Item(
             array(
                 'valueId' => 42,
                 'valueType' => 'type',

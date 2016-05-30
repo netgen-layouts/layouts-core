@@ -25,13 +25,13 @@ class CollectionResultNormalizer extends SerializerAwareNormalizer implements No
         /** @var \Netgen\BlockManager\Collection\Result $result */
         $result = $object->getValue();
 
-        $items = array();
-        foreach ($result->getItems() as $item) {
-            $items[] = new VersionedValue($item, $object->getVersion());
+        $resultItems = array();
+        foreach ($result->getResults() as $resultItem) {
+            $resultItems[] = new VersionedValue($resultItem, $object->getVersion());
         }
 
         return array(
-            'items' => $this->serializer->normalize(new ValueArray($items)),
+            'items' => $this->serializer->normalize(new ValueArray($resultItems)),
             'item_count' => $result->getTotalCount(),
         );
     }

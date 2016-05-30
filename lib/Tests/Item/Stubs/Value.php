@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Value\Stubs;
+namespace Netgen\BlockManager\Tests\Item\Stubs;
 
-class ExternalValue
+class Value
 {
     /**
      * @var int|string

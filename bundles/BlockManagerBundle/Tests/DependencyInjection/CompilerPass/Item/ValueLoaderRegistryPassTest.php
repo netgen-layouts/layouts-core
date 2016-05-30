@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Value;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Item;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Value\ValueLoaderRegistryPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -21,23 +21,23 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Value\ValueLoaderRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
      */
     public function testProcess()
     {
-        $this->setDefinition('netgen_block_manager.value.registry.value_loader', new Definition());
+        $this->setDefinition('netgen_block_manager.item.registry.value_loader', new Definition());
 
         $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_block_manager.value.value_loader');
-        $this->setDefinition('netgen_block_manager.value.value_loader.test', $valueLoader);
+        $valueLoader->addTag('netgen_block_manager.item.value_loader');
+        $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.value.registry.value_loader',
+            'netgen_block_manager.item.registry.value_loader',
             'addValueLoader',
             array(
-                new Reference('netgen_block_manager.value.value_loader.test'),
+                new Reference('netgen_block_manager.item.value_loader.test'),
             )
         );
     }

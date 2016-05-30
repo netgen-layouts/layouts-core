@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\Tests\Value\Stubs\ValueLoader;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
-use Netgen\BlockManager\Value\Registry\ValueLoaderRegistry;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 

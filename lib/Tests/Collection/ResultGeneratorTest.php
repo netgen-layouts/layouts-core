@@ -3,18 +3,18 @@
 namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
-use Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Collection\ResultGenerator;
-use Netgen\BlockManager\Value\ValueBuilder;
+use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilder;
 use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Value\Stubs\ExternalValue;
-use Netgen\BlockManager\Tests\Value\Stubs\ValueConverter;
-use Netgen\BlockManager\Tests\Value\Stubs\ValueLoader;
+use Netgen\BlockManager\Tests\Item\Stubs\Value;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 
 class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,9 +29,9 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
     protected $resultItemBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Value\ValueBuilderInterface
+     * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
-    protected $valueBuilder;
+    protected $itemBuilder;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -54,13 +54,13 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('getValueLoader')
             ->will($this->returnValue(new ValueLoader()));
 
-        $this->valueBuilder = new ValueBuilder(
+        $this->itemBuilder = new ItemBuilder(
             $this->valueLoaderRegistryMock,
             array(new ValueConverter())
         );
 
         $this->resultItemBuilder = new ResultItemBuilder(
-            $this->valueBuilder
+            $this->itemBuilder
         );
 
         $this->generator = new ResultGenerator(
@@ -70,7 +70,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $items
+     * @param array $collectionItems
      * @param array $values
      * @param int $totalCount
      * @param int $offset
@@ -83,9 +83,9 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Collection\ResultGenerator::filterInvisibleItems
      * @dataProvider generateResultForManualCollectionProvider
      */
-    public function testGenerateResultForManualCollection(array $items, array $values, $totalCount, $offset = 0, $limit = null)
+    public function testGenerateResultForManualCollection(array $collectionItems, array $values, $totalCount, $offset = 0, $limit = null)
     {
-        $collection = $this->generateManualCollection($items);
+        $collection = $this->generateManualCollection($collectionItems);
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
         self::assertInstanceOf(Result::class, $result);
@@ -94,14 +94,14 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($offset, $result->getOffset());
         self::assertEquals($limit, $result->getLimit());
 
-        $resultValues = array();
-        foreach ($result->getItems() as $resultItem) {
-            $resultValues[] = $resultItem->getValue();
+        $items = array();
+        foreach ($result->getResults() as $resultItem) {
+            $items[] = $resultItem->getItem();
             self::assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
             // Test items and positions?
         }
 
-        self::assertEquals($this->buildExpectedValues($values), $resultValues);
+        self::assertEquals($this->buildExpectedValues($values), $items);
     }
 
     /**
@@ -170,13 +170,13 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($offset, $result->getOffset());
         self::assertEquals($limit, $result->getLimit());
 
-        $resultValues = array();
-        foreach ($result->getItems() as $resultItem) {
-            $resultValues[] = $resultItem->getValue();
+        $items = array();
+        foreach ($result->getResults() as $resultItem) {
+            $items[] = $resultItem->getItem();
             // Test type, items and positions?
         }
 
-        self::assertEquals($this->buildExpectedValues($values), $resultValues);
+        self::assertEquals($this->buildExpectedValues($values), $items);
     }
 
     /**
@@ -346,30 +346,30 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $ids
      *
-     * @return \Netgen\BlockManager\Tests\Value\Stubs\ExternalValue[]
+     * @return \Netgen\BlockManager\Tests\Item\Stubs\Value[]
      */
     protected function buildQueryValues(array $ids = array())
     {
         return array_map(
             function ($id) {
-                return new ExternalValue($id);
+                return new Value($id);
             },
             $ids
         );
     }
 
     /**
-     * Builds the list of Value objects from provided IDs.
+     * Builds the list of Item objects from provided IDs.
      *
      * @param array $ids
      *
-     * @return \Netgen\BlockManager\Value\Value[]
+     * @return \Netgen\BlockManager\Item\Item[]
      */
     protected function buildExpectedValues(array $ids = array())
     {
         return array_map(
             function ($id) {
-                return $this->valueBuilder->buildFromObject(new ExternalValue($id));
+                return $this->itemBuilder->buildFromObject(new Value($id));
             },
             $ids
         );

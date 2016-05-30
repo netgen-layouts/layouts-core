@@ -20,20 +20,20 @@ class CollectionResultItemNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Collection\ResultItem $item */
-        $item = $object->getValue();
-        $itemValue = $item->getValue();
-        $collectionItem = $item->getCollectionItem();
+        /** @var \Netgen\BlockManager\Collection\ResultItem $resultItem */
+        $resultItem = $object->getValue();
+        $item = $resultItem->getItem();
+        $collectionItem = $resultItem->getCollectionItem();
 
         return array(
             'id' => $collectionItem !== null ? $collectionItem->getId() : null,
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
-            'position' => $item->getPosition(),
-            'type' => $item->getType(),
-            'value_id' => $itemValue->getValueId(),
-            'value_type' => $itemValue->getValueType(),
-            'name' => $itemValue->getName(),
-            'visible' => $itemValue->isVisible(),
+            'position' => $resultItem->getPosition(),
+            'type' => $resultItem->getType(),
+            'value_id' => $item->getValueId(),
+            'value_type' => $item->getValueType(),
+            'name' => $item->getName(),
+            'visible' => $item->isVisible(),
         );
     }
 

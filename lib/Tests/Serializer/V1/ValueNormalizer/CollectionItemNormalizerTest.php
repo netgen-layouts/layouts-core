@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Value\ValueBuilderInterface;
-use Netgen\BlockManager\Value\Value;
-use Netgen\BlockManager\Core\Values\Collection\Item;
+use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
@@ -15,7 +15,7 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $valueBuilderMock;
+    protected $itemBuilderMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer
@@ -24,10 +24,10 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->valueBuilderMock = $this->getMock(ValueBuilderInterface::class);
+        $this->itemBuilderMock = $this->getMock(ItemBuilderInterface::class);
 
         $this->normalizer = new CollectionItemNormalizer(
-            $this->valueBuilderMock
+            $this->itemBuilderMock
         );
     }
 
@@ -37,25 +37,25 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalize()
     {
-        $item = new Item(
+        $item = new CollectionItem(
             array(
                 'id' => 42,
                 'collectionId' => 24,
                 'position' => 3,
-                'type' => Item::TYPE_OVERRIDE,
+                'type' => CollectionItem::TYPE_OVERRIDE,
                 'valueId' => 12,
                 'valueType' => 'ezcontent',
             )
         );
 
-        $value = new Value(
+        $value = new Item(
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
             )
         );
 
-        $this->valueBuilderMock
+        $this->itemBuilderMock
             ->expects($this->any())
             ->method('build')
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
@@ -82,18 +82,18 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalizeWithNoValue()
     {
-        $item = new Item(
+        $item = new CollectionItem(
             array(
                 'id' => 42,
                 'collectionId' => 24,
                 'position' => 3,
-                'type' => Item::TYPE_OVERRIDE,
+                'type' => CollectionItem::TYPE_OVERRIDE,
                 'valueId' => 12,
                 'valueType' => 'ezcontent',
             )
         );
 
-        $this->valueBuilderMock
+        $this->itemBuilderMock
             ->expects($this->any())
             ->method('build')
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
@@ -142,10 +142,10 @@ class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
             array(42, false),
             array(42.12, false),
             array(new APIValue(), false),
-            array(new Item(), false),
+            array(new CollectionItem(), false),
             array(new VersionedValue(new APIValue(), 1), false),
-            array(new VersionedValue(new Item(), 2), false),
-            array(new VersionedValue(new Item(), 1), true),
+            array(new VersionedValue(new CollectionItem(), 2), false),
+            array(new VersionedValue(new CollectionItem(), 1), true),
         );
     }
 }

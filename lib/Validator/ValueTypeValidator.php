@@ -2,21 +2,21 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
 class ValueTypeValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface
+     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
      */
     protected $valueLoaderRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Value\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
+     * @param \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
      */
     public function __construct(ValueLoaderRegistryInterface $valueLoaderRegistry)
     {

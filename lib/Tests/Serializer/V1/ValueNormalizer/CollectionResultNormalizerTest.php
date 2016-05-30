@@ -37,7 +37,7 @@ class CollectionResultNormalizerTest extends \PHPUnit_Framework_TestCase
     {
         $result = new Result(
             array(
-                'items' => array(
+                'results' => array(
                     new ResultItem(),
                     new ResultItem(),
                 ),

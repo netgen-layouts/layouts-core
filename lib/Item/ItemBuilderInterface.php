@@ -1,29 +1,29 @@
 <?php
 
-namespace Netgen\BlockManager\Value;
+namespace Netgen\BlockManager\Item;
 
-interface ValueBuilderInterface
+interface ItemBuilderInterface
 {
     /**
-     * Builds the value from provided object.
+     * Builds the item from provided object.
      *
      * @param mixed $object
      *
      * @throws \RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Value\Value
+     * @return \Netgen\BlockManager\Item\Item
      */
     public function buildFromObject($object);
 
     /**
-     * Builds the value from provided item.
+     * Builds the item from provided value ID and value type.
      *
      * @param int|string $valueId
      * @param string $valueType
      *
      * @throws \RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Value\Value
+     * @return \Netgen\BlockManager\Item\Item
      */
     public function build($valueId, $valueType);
 }
