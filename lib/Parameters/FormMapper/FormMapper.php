@@ -14,14 +14,13 @@ class FormMapper implements FormMapperInterface
     protected $parameterHandlers = array();
 
     /**
-     * Adds the parameter handler for specific parameter type.
+     * Constructor.
      *
-     * @param string $parameterType
-     * @param \Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface $parameterHandler
+     * @param \Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface[] $parameterHandlers
      */
-    public function addParameterHandler($parameterType, ParameterHandlerInterface $parameterHandler)
+    public function __construct(array $parameterHandlers = array())
     {
-        $this->parameterHandlers[$parameterType] = $parameterHandler;
+        $this->parameterHandlers = $parameterHandlers;
     }
 
     /**

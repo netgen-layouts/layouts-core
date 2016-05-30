@@ -40,9 +40,7 @@ class FullEditTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->parameterFormMapper = new FormMapper();
-        $this->parameterFormMapper->addParameterHandler('text', new Text());
-
+        $this->parameterFormMapper = new FormMapper(array('text' => new Text()));
         $this->formType = new FullEditType($this->parameterFormMapper);
 
         $validator = $this->getMock(ValidatorInterface::class);

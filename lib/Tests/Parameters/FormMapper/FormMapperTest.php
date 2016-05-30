@@ -31,18 +31,16 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             )
             ->getFormFactory()
             ->createBuilder('form');
-
-        $this->formMapper = new FormMapper();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::addParameterHandler
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::__construct
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
      */
     public function testMapParameter()
     {
-        $this->formMapper->addParameterHandler('text', new TextHandler());
+        $this->formMapper = new FormMapper(array('text' => new TextHandler()));
 
         $this->formMapper->mapParameter(
             $this->formBuilder,
@@ -66,17 +64,17 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testMapParameterThrowsRuntimeException()
     {
+        $this->formMapper = new FormMapper();
         $this->formMapper->mapParameter($this->formBuilder, new Text(), 'param_name', 'label_prefix');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::addParameterHandler
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapHiddenParameter
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
      */
     public function testMapHiddenParameter()
     {
-        $this->formMapper->addParameterHandler('text', new TextHandler());
+        $this->formMapper = new FormMapper(array('text' => new TextHandler()));
 
         $this->formMapper->mapHiddenParameter(
             $this->formBuilder,

@@ -25,7 +25,10 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $this->setDefinition('netgen_block_manager.parameters.form_mapper', new Definition());
+        $formMapper = new Definition();
+        $formMapper->addArgument(array());
+
+        $this->setDefinition('netgen_block_manager.parameters.form_mapper', $formMapper);
 
         $parameterHandler = new Definition();
         $parameterHandler->addTag(
@@ -36,12 +39,11 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.parameters.form_mapper',
-            'addParameterHandler',
+            0,
             array(
-                'test',
-                new Reference('netgen_block_manager.parameters.parameter_handler.test'),
+                'test' => new Reference('netgen_block_manager.parameters.parameter_handler.test')
             )
         );
     }
@@ -52,7 +54,10 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {
-        $this->setDefinition('netgen_block_manager.parameters.form_mapper', new Definition());
+        $formMapper = new Definition();
+        $formMapper->addArgument(array());
+
+        $this->setDefinition('netgen_block_manager.parameters.form_mapper', $formMapper);
 
         $parameterHandler = new Definition();
         $parameterHandler->addTag('netgen_block_manager.parameters.parameter_handler');

@@ -24,19 +24,21 @@ class FormMapperPass implements CompilerPassInterface
         }
 
         $formMapper = $container->findDefinition(self::SERVICE_NAME);
-        $parameterHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $parameterHandlers = array();
 
-        foreach ($parameterHandlers as $parameterHandler => $tag) {
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $parameterHandler => $tag) {
             if (!isset($tag[0]['type'])) {
                 throw new RuntimeException(
                     "Parameter handler service definition must have a 'type' attribute in its' tag."
                 );
             }
 
-            $formMapper->addMethodCall(
-                'addParameterHandler',
-                array($tag[0]['type'], new Reference($parameterHandler))
-            );
+            $parameterHandlers[$tag[0]['type']] = new Reference($parameterHandler);
         }
+
+        $formMapper->replaceArgument(
+            0,
+            $parameterHandlers
+        );
     }
 }
