@@ -30,8 +30,8 @@ class CollectionResultItemNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'position' => $item->getPosition(),
             'type' => $item->getType(),
-            'value_id' => $itemValue->getId(),
-            'value_type' => $itemValue->getType(),
+            'value_id' => $itemValue->getValueId(),
+            'value_type' => $itemValue->getValueType(),
             'name' => $itemValue->getName(),
             'visible' => $itemValue->isVisible(),
         );

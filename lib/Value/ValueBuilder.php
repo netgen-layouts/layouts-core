@@ -58,8 +58,8 @@ class ValueBuilder implements ValueBuilderInterface
 
             $value = new Value(
                 array(
-                    'id' => $valueConverter->getId($object),
-                    'type' => $valueConverter->getValueType($object),
+                    'valueId' => $valueConverter->getId($object),
+                    'valueType' => $valueConverter->getValueType($object),
                     'name' => $valueConverter->getName($object),
                     'isVisible' => $valueConverter->getIsVisible($object),
                     'object' => $object,

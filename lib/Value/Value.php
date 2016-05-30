@@ -9,12 +9,12 @@ class Value extends ValueObject
     /**
      * @var int|string
      */
-    protected $id;
+    protected $valueId;
 
     /**
      * @var string
      */
-    protected $type;
+    protected $valueType;
 
     /**
      * @var string
@@ -36,9 +36,9 @@ class Value extends ValueObject
      *
      * @return int|string
      */
-    public function getId()
+    public function getValueId()
     {
-        return $this->id;
+        return $this->valueId;
     }
 
     /**
@@ -46,9 +46,9 @@ class Value extends ValueObject
      *
      * @return string
      */
-    public function getType()
+    public function getValueType()
     {
-        return $this->type;
+        return $this->valueType;
     }
 
     /**

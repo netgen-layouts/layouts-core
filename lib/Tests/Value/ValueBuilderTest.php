@@ -33,9 +33,9 @@ class ValueBuilderTest extends \PHPUnit_Framework_TestCase
 
         $value = new Value(
             array(
-                'id' => 42,
+                'valueId' => 42,
                 'name' => 'Some value',
-                'type' => 'value',
+                'valueType' => 'value',
                 'isVisible' => true,
                 'object' => $externalValue,
             )
@@ -65,9 +65,9 @@ class ValueBuilderTest extends \PHPUnit_Framework_TestCase
 
         $value = new Value(
             array(
-                'id' => 42,
+                'valueId' => 42,
                 'name' => 'Some value',
-                'type' => 'value',
+                'valueType' => 'value',
                 'isVisible' => true,
                 'object' => new ExternalValue(42),
             )
