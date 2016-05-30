@@ -120,12 +120,20 @@ interface LayoutResolverService
     public function publishRule(Rule $rule);
 
     /**
+     * Discards a rule draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     */
+    public function discardDraft(Rule $rule);
+
+    /**
      * Deletes a rule.
      *
-     * @param bool $deleteAllStatuses
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      */
-    public function deleteRule(Rule $rule, $deleteAllStatuses = false);
+    public function deleteRule(Rule $rule);
 
     /**
      * Enables a rule.

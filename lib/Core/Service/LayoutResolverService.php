@@ -286,6 +286,36 @@ class LayoutResolverService implements APILayoutResolverService
     }
 
     /**
+     * Discards a rule draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     */
+    public function discardDraft(Rule $rule)
+    {
+        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
+
+        if ($persistenceRule->status !== Rule::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Only rule drafts can be discarded.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->handler->deleteRule(
+                $persistenceRule->id,
+                Rule::STATUS_DRAFT
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+    }
+
+    /**
      * Publishes a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
@@ -327,10 +357,9 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Deletes a rule.
      *
-     * @param bool $deleteAllStatuses
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      */
-    public function deleteRule(Rule $rule, $deleteAllStatuses = false)
+    public function deleteRule(Rule $rule)
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
@@ -338,8 +367,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $this->handler->deleteRule(
-                $persistenceRule->id,
-                $deleteAllStatuses ? null : $persistenceRule->status
+                $persistenceRule->id
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

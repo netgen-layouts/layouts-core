@@ -211,6 +211,36 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Discards a layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     */
+    public function discardDraft(Layout $layout)
+    {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+
+        if ($persistenceLayout->status !== Layout::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Only layout drafts can be discarded.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->layoutHandler->deleteLayout(
+                $persistenceLayout->id,
+                Layout::STATUS_DRAFT
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+    }
+
+    /**
      * Publishes a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
@@ -252,12 +282,9 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Deletes a specified layout.
      *
-     * If $deleteAllStatuses is set to true, layout is completely deleted.
-     *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param bool $deleteAllStatuses
      */
-    public function deleteLayout(Layout $layout, $deleteAllStatuses = false)
+    public function deleteLayout(Layout $layout)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
@@ -265,8 +292,7 @@ class LayoutService implements LayoutServiceInterface
 
         try {
             $this->layoutHandler->deleteLayout(
-                $persistenceLayout->id,
-                $deleteAllStatuses ? null : $persistenceLayout->status
+                $persistenceLayout->id
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

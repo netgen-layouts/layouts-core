@@ -104,6 +104,15 @@ interface CollectionService
     public function createDraft(Collection $collection);
 
     /**
+     * Discards a collection draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     */
+    public function discardDraft(Collection $collection);
+
+    /**
      * Publishes a collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
@@ -117,12 +126,9 @@ interface CollectionService
     /**
      * Deletes a specified collection.
      *
-     * If $deleteAllStatuses is set to true, collection is completely deleted.
-     *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param bool $deleteAllStatuses
      */
-    public function deleteCollection(Collection $collection, $deleteAllStatuses = false);
+    public function deleteCollection(Collection $collection);
 
     /**
      * Adds an item to collection.

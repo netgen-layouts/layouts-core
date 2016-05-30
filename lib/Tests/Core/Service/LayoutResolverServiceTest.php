@@ -205,6 +205,28 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testDiscardDraft()
+    {
+        $rule = $this->layoutResolverService->loadRule(5, Rule::STATUS_DRAFT);
+        $this->layoutResolverService->discardDraft($rule);
+
+        $this->layoutResolverService->loadRule($rule->getId(), Rule::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDiscardDraftThrowsBadStateException()
+    {
+        $rule = $this->layoutResolverService->loadRule(5);
+        $this->layoutResolverService->discardDraft($rule);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
      */
     public function testPublishRule()
@@ -238,32 +260,13 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteRule()
     {
-        $rule = $this->layoutResolverService->loadRule(5, Rule::STATUS_DRAFT);
-        $this->layoutResolverService->deleteRule($rule);
-
-        try {
-            $this->layoutResolverService->loadRule($rule->getId(), Rule::STATUS_DRAFT);
-            self::fail('Draft rule still exists after deleting it');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $publishedRule = $this->layoutResolverService->loadRule($rule->getId());
-        self::assertInstanceOf(Rule::class, $publishedRule);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     */
-    public function testDeleteCompleteRule()
-    {
         $rule = $this->layoutResolverService->loadRule(5);
 
-        $this->layoutResolverService->deleteRule($rule, true);
+        $this->layoutResolverService->deleteRule($rule);
 
         $this->layoutResolverService->loadRule($rule->getId());
     }

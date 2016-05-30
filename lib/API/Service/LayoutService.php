@@ -65,6 +65,15 @@ interface LayoutService
     public function createDraft(Layout $layout);
 
     /**
+     * Discards a layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     */
+    public function discardDraft(Layout $layout);
+
+    /**
      * Publishes a layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
@@ -78,12 +87,9 @@ interface LayoutService
     /**
      * Deletes a specified layout.
      *
-     * If $deleteAllStatuses is set to true, layout is completely deleted.
-     *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param bool $deleteAllStatuses
      */
-    public function deleteLayout(Layout $layout, $deleteAllStatuses = false);
+    public function deleteLayout(Layout $layout);
 
     /**
      * Creates a new layout create struct.

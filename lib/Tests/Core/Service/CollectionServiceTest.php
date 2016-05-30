@@ -270,6 +270,28 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testDiscardDraft()
+    {
+        $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
+        $this->collectionService->discardDraft($collection);
+
+        $this->collectionService->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDiscardDraftThrowsBadStateException()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+        $this->collectionService->discardDraft($collection);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      */
     public function testPublishCollection()
@@ -303,33 +325,13 @@ abstract class CollectionServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteCollection()
     {
-        $collection = $this->collectionService->loadCollection(3, Collection::STATUS_DRAFT);
-
-        $this->collectionService->deleteCollection($collection);
-
-        try {
-            $this->collectionService->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
-            self::fail('Draft collection still exists after deleting it');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $publishedCollection = $this->collectionService->loadCollection($collection->getId());
-        self::assertInstanceOf(Collection::class, $publishedCollection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     */
-    public function testDeleteCompleteCollection()
-    {
         $collection = $this->collectionService->loadCollection(3);
 
-        $this->collectionService->deleteCollection($collection, true);
+        $this->collectionService->deleteCollection($collection);
 
         $this->collectionService->loadCollection($collection->getId());
     }

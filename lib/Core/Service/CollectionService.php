@@ -291,6 +291,36 @@ class CollectionService implements APICollectionService
     }
 
     /**
+     * Discards a collection draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     */
+    public function discardDraft(Collection $collection)
+    {
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
+
+        if ($persistenceCollection->status !== Collection::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Only collection drafts can be discarded.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->collectionHandler->deleteCollection(
+                $persistenceCollection->id,
+                Collection::STATUS_DRAFT
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+    }
+
+    /**
      * Publishes a collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
@@ -332,12 +362,9 @@ class CollectionService implements APICollectionService
     /**
      * Deletes a specified collection.
      *
-     * If $deleteAllStatuses is set to true, collection is completely deleted.
-     *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param bool $deleteAllStatuses
      */
-    public function deleteCollection(Collection $collection, $deleteAllStatuses = false)
+    public function deleteCollection(Collection $collection)
     {
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
 
@@ -345,8 +372,7 @@ class CollectionService implements APICollectionService
 
         try {
             $this->collectionHandler->deleteCollection(
-                $persistenceCollection->id,
-                $deleteAllStatuses ? null : $persistenceCollection->status
+                $persistenceCollection->id
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

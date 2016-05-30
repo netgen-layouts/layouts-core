@@ -180,6 +180,28 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testDiscardDraft()
+    {
+        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
+        $this->layoutService->discardDraft($layout);
+
+        $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDiscardDraftThrowsBadStateException()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+        $this->layoutService->discardDraft($layout);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayout()
@@ -213,33 +235,12 @@ abstract class LayoutServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteLayout()
     {
-        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
-
-        $this->layoutService->deleteLayout($layout);
-
-        try {
-            $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
-            self::fail('Draft layout still exists after deleting it');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $publishedLayout = $this->layoutService->loadLayout($layout->getId());
-        self::assertInstanceOf(Layout::class, $publishedLayout);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     */
-    public function testDeleteCompleteLayout()
-    {
         $layout = $this->layoutService->loadLayout(1);
-
-        $this->layoutService->deleteLayout($layout, true);
+        $this->layoutService->deleteLayout($layout);
 
         $this->layoutService->loadLayout($layout->getId());
     }
