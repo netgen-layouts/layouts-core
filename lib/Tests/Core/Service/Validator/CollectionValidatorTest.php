@@ -187,16 +187,14 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
     public function validateCollectionCreateStructProvider()
     {
         return array(
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'status' => Collection::STATUS_DRAFT), true),
-            array(array('name' => 'Collection', 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), true),
-            array(array('name' => 23, 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), false),
-            array(array('name' => null, 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), false),
-            array(array('name' => '', 'type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT), false),
-            array(array('name' => null, 'type' => 23, 'status' => Collection::STATUS_DRAFT), false),
-            array(array('name' => null, 'type' => null, 'status' => Collection::STATUS_DRAFT), false),
-            array(array('name' => null, 'type' => 'type', 'status' => Collection::STATUS_DRAFT), false),
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'status' => null), false),
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'status' => 'draft'), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL), true),
+            array(array('name' => 'Collection', 'type' => Collection::TYPE_NAMED), true),
+            array(array('name' => 23, 'type' => Collection::TYPE_NAMED), false),
+            array(array('name' => null, 'type' => Collection::TYPE_NAMED), false),
+            array(array('name' => '', 'type' => Collection::TYPE_NAMED), false),
+            array(array('name' => null, 'type' => 23), false),
+            array(array('name' => null, 'type' => null), false),
+            array(array('name' => null, 'type' => 'type'), false),
         );
     }
 

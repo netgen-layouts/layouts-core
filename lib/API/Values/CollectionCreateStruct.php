@@ -16,9 +16,4 @@ class CollectionCreateStruct extends ValueObject
      * @var int
      */
     public $type = Collection::TYPE_MANUAL;
-
-    /**
-     * @var int
-     */
-    public $status = Collection::STATUS_DRAFT;
 }

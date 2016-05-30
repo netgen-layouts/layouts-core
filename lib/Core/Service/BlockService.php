@@ -167,10 +167,10 @@ class BlockService implements BlockServiceInterface
 
             $collectionCreateStruct = new CollectionCreateStruct();
             $collectionCreateStruct->type = Collection::TYPE_MANUAL;
-            $collectionCreateStruct->status = $persistenceLayout->status;
 
             $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct
+                $collectionCreateStruct,
+                $persistenceLayout->status
             );
 
             $this->blockHandler->addCollectionToBlock(

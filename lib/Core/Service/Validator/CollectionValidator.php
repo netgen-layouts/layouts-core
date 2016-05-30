@@ -60,15 +60,6 @@ class CollectionValidator extends Validator
             'type'
         );
 
-        $this->validate(
-            $collectionCreateStruct->status,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'int')),
-            ),
-            'status'
-        );
-
         if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
             $this->validate(
                 $collectionCreateStruct->name,

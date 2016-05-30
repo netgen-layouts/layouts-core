@@ -92,18 +92,6 @@ interface CollectionService
     public function copyCollection(Collection $collection);
 
     /**
-     * Creates a new collection status.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has the provided status
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function createCollectionStatus(Collection $collection, $status);
-
-    /**
      * Creates a collection draft.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection

@@ -233,37 +233,11 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollectionStatus
-     */
-    public function testCreateCollectionStatus()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $copiedCollection = $this->collectionService->createCollectionStatus($collection, Collection::STATUS_ARCHIVED);
-
-        self::assertInstanceOf(Collection::class, $copiedCollection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollectionStatus
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateCollectionStatusThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $this->collectionService->createCollectionStatus($collection, Collection::STATUS_DRAFT);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      */
     public function testCreateDraft()
     {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            Collection::TYPE_MANUAL
-        );
-        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
-        $collection = $this->collectionService->createCollection($collectionCreateStruct);
-
+        $collection = $this->collectionService->loadCollection(2);
         $draftCollection = $this->collectionService->createDraft($collection);
 
         self::assertInstanceOf(Collection::class, $draftCollection);
@@ -279,7 +253,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
             Collection::TYPE_MANUAL
         );
-        $collectionCreateStruct->status = Collection::STATUS_DRAFT;
+
         $collection = $this->collectionService->createCollection($collectionCreateStruct);
 
         $this->collectionService->createDraft($collection);
@@ -633,7 +607,6 @@ abstract class CollectionServiceTest extends ServiceTest
                 array(
                     'type' => Collection::TYPE_NAMED,
                     'name' => 'New collection',
-                    'status' => Collection::STATUS_DRAFT,
                 )
             ),
             $this->collectionService->newCollectionCreateStruct(

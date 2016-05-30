@@ -300,10 +300,10 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->type = Collection::TYPE_NAMED;
         $collectionCreateStruct->name = 'New collection';
-        $collectionCreateStruct->status = Collection::STATUS_PUBLISHED;
 
         $createdCollection = $this->collectionHandler->createCollection(
-            $collectionCreateStruct
+            $collectionCreateStruct,
+            Collection::STATUS_DRAFT
         );
 
         self::assertInstanceOf(Collection::class, $createdCollection);
@@ -311,7 +311,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(4, $createdCollection->id);
         self::assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
         self::assertEquals('New collection', $createdCollection->name);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $createdCollection->status);
+        self::assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
     }
 
     /**

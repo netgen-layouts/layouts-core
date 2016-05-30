@@ -12,7 +12,6 @@ class CollectionCreateStructTest extends \PHPUnit_Framework_TestCase
         $collectionCreateStruct = new CollectionCreateStruct();
 
         self::assertNull($collectionCreateStruct->name);
-        self::assertEquals(Collection::STATUS_DRAFT, $collectionCreateStruct->status);
     }
 
     public function testSetProperties()
@@ -20,11 +19,9 @@ class CollectionCreateStructTest extends \PHPUnit_Framework_TestCase
         $collectionCreateStruct = new CollectionCreateStruct(
             array(
                 'name' => 'My collection',
-                'status' => Collection::STATUS_PUBLISHED,
             )
         );
 
         self::assertEquals('My collection', $collectionCreateStruct->name);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $collectionCreateStruct->status);
     }
 }

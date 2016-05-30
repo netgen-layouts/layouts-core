@@ -139,38 +139,6 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollectionStatus
-     * @expectedException \Exception
-     */
-    public function testCreateCollectionStatus()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection()
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('collectionExists')
-            ->will($this->returnValue(false));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
-            ->method('createCollectionStatus')
-            ->will($this->throwException(new Exception()));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->createCollectionStatus(new Collection(), Collection::STATUS_ARCHIVED);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      * @expectedException \Exception
      */

@@ -217,10 +217,11 @@ class CollectionHandler implements CollectionHandlerInterface
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param int $status
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(APICollectionCreateStruct $collectionCreateStruct)
+    public function createCollection(APICollectionCreateStruct $collectionCreateStruct, $status)
     {
         $name = null;
         if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
@@ -230,14 +231,14 @@ class CollectionHandler implements CollectionHandlerInterface
         $createdCollectionId = $this->queryHandler->createCollection(
             new CollectionCreateStruct(
                 array(
-                    'status' => $collectionCreateStruct->status,
+                    'status' => $status,
                     'type' => $collectionCreateStruct->type,
                     'name' => $name,
                 )
             )
         );
 
-        return $this->loadCollection($createdCollectionId, $collectionCreateStruct->status);
+        return $this->loadCollection($createdCollectionId, $status);
     }
 
     /**

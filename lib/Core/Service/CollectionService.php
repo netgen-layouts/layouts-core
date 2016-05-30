@@ -168,7 +168,8 @@ class CollectionService implements APICollectionService
 
         try {
             $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct
+                $collectionCreateStruct,
+                Collection::STATUS_DRAFT
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -250,42 +251,6 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->commitTransaction();
 
         return $this->loadCollection($copiedCollectionId, $persistenceCollection->status);
-    }
-
-    /**
-     * Creates a new collection status.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has the provided status
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function createCollectionStatus(Collection $collection, $status)
-    {
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
-
-        if ($this->collectionHandler->collectionExists($persistenceCollection->id, $status)) {
-            throw new BadStateException('status', 'Collection already has the provided status.');
-        }
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdCollection = $this->collectionHandler->createCollectionStatus(
-                $persistenceCollection->id,
-                $persistenceCollection->status,
-                $status
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->collectionMapper->mapCollection($createdCollection);
     }
 
     /**
