@@ -76,10 +76,11 @@ interface LayoutHandler
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return int
      */
-    public function copyLayout($layoutId);
+    public function copyLayout($layoutId, $status = null);
 
     /**
      * Creates a new layout status.

@@ -159,7 +159,7 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->layoutHandler->copyLayout(
+            $copiedLayoutId = $this->layoutHandler->copyLayout(
                 $persistenceLayout->id
             );
         } catch (Exception $e) {
@@ -169,7 +169,7 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout($copiedLayout);
+        return $this->loadLayout($copiedLayoutId, $persistenceLayout->status);
     }
 
     /**

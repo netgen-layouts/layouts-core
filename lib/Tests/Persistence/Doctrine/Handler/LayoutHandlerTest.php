@@ -283,7 +283,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCopyLayout()
     {
-        $copiedLayout = $this->layoutHandler->copyLayout(1);
+        $copiedLayoutId = $this->layoutHandler->copyLayout(1);
+        $copiedLayout = $this->layoutHandler->loadLayout($copiedLayoutId, Layout::STATUS_PUBLISHED);
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 

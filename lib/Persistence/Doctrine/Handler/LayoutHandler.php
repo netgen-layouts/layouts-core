@@ -181,16 +181,17 @@ class LayoutHandler implements LayoutHandlerInterface
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId
+     * @param int $status
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return int
      */
-    public function copyLayout($layoutId)
+    public function copyLayout($layoutId, $status = null)
     {
         // First copy layout and zone data
         $insertedLayoutId = null;
         $zoneIdentifiers = null;
 
-        $layoutData = $this->queryHandler->loadLayoutData($layoutId);
+        $layoutData = $this->queryHandler->loadLayoutData($layoutId, $status);
         foreach ($layoutData as $layoutDataRow) {
             if ($zoneIdentifiers === null) {
                 $zoneIdentifiers = array_map(
@@ -218,7 +219,7 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $blockIdMapping = array();
         foreach ($zoneIdentifiers as $zoneIdentifier) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneIdentifier);
+            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneIdentifier, $status);
 
             foreach ($blockData as $blockDataRow) {
                 $createdBlockId = $this->blockQueryHandler->createBlock(
@@ -248,7 +249,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $collectionIdMapping = array();
 
         foreach ($blockIdMapping as $oldBlockId => $newBlockId) {
-            $collectionsData = $this->blockQueryHandler->loadCollectionReferencesData($oldBlockId);
+            $collectionsData = $this->blockQueryHandler->loadCollectionReferencesData($oldBlockId, $status);
             foreach ($collectionsData as $collectionsDataRow) {
                 if (!isset($collectionIdMapping[$collectionsDataRow['collection_id']])) {
                     if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
@@ -274,7 +275,7 @@ class LayoutHandler implements LayoutHandlerInterface
             }
         }
 
-        return $this->loadLayout($insertedLayoutId, Layout::STATUS_PUBLISHED);
+        return $insertedLayoutId;
     }
 
     /**
