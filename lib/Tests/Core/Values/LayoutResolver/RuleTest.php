@@ -27,7 +27,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         self::assertNull($rule->getStatus());
         self::assertNull($rule->getLayoutId());
         self::assertNull($rule->getPriority());
-        self::assertFalse($rule->isEnabled());
+        self::assertNull($rule->isEnabled());
         self::assertNull($rule->getComment());
         self::assertEquals(array(), $rule->getTargets());
         self::assertEquals(array(), $rule->getConditions());

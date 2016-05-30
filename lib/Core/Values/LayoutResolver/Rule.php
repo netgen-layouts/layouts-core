@@ -25,7 +25,7 @@ class Rule extends ValueObject implements APIRule
     /**
      * @var bool
      */
-    protected $enabled = false;
+    protected $enabled;
 
     /**
      * @var int
@@ -43,7 +43,7 @@ class Rule extends ValueObject implements APIRule
     protected $targets = array();
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Condition[]
+     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
      */
     protected $conditions = array();
 
@@ -120,7 +120,7 @@ class Rule extends ValueObject implements APIRule
     /**
      * Returns rule conditions.
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\Condition[]
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
      */
     public function getConditions()
     {
