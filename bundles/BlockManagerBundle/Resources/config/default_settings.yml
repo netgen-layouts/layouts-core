@@ -1,4 +1,4 @@
 parameters:
     netgen_block_manager.route_prefix: /bm
-    netgen_block_manager.block_view.dynamic_parameters_contexts: ['view']
-    netgen_block_manager.block_view.collection_results_contexts: ['view']
+    netgen_block_manager.block_view.dynamic_parameters_contexts: ['view', 'api_view']
+    netgen_block_manager.block_view.collection_results_contexts: ['view', 'api_view']
