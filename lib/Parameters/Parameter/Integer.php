@@ -20,15 +20,17 @@ class Integer extends Parameter
     /**
      * Returns constraints that are specific to parameter.
      *
+     * @param array $groups
+     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getParameterConstraints()
+    protected function getParameterConstraints(array $groups = null)
     {
         return array(
             new Constraints\Type(
                 array(
                     'type' => 'int',
-                )
+                ) + $this->getBaseConstraintOptions($groups)
             ),
         );
     }

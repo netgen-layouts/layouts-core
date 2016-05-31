@@ -11,6 +11,8 @@ use Symfony\Component\Form\AbstractType;
 
 abstract class EditType extends AbstractType
 {
+    const TRANSLATION_DOMAIN = 'ngbm_block_forms';
+
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
      */
@@ -36,7 +38,7 @@ abstract class EditType extends AbstractType
         $resolver->setRequired('blockDefinition');
         $resolver->setAllowedTypes('blockDefinition', BlockDefinitionInterface::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
+        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options)
@@ -53,7 +55,7 @@ abstract class EditType extends AbstractType
             'view_type',
             'choice',
             array(
-                'label' => 'block.edit.view_type',
+                'label' => 'block.view_type',
                 'choices' => $choices,
                 'choices_as_values' => true,
                 'property_path' => 'viewType',
@@ -74,7 +76,7 @@ abstract class EditType extends AbstractType
             'name',
             'text',
             array(
-                'label' => 'block.edit.name',
+                'label' => 'block.name',
                 'property_path' => 'name',
                 // null and empty string have different meanings for name
                 // so we set the default value to a single space (instead of
@@ -100,7 +102,7 @@ abstract class EditType extends AbstractType
             'parameters',
             'form',
             array(
-                'label' => 'block.edit.parameters',
+                'label' => 'block.parameters',
                 'inherit_data' => true,
             )
         );
@@ -110,7 +112,10 @@ abstract class EditType extends AbstractType
                 $parameterBuilder,
                 $blockDefinitionParameters[$parameterName],
                 $parameterName,
-                'block.' . $blockDefinition->getIdentifier()
+                array(
+                    'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
+                    'property_path_prefix' => 'parameters',
+                )
             );
         }
 

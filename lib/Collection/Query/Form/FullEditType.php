@@ -11,6 +11,8 @@ use Symfony\Component\Form\AbstractType;
 
 class FullEditType extends AbstractType
 {
+    const TRANSLATION_DOMAIN = 'ngbm_query_forms';
+
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
      */
@@ -36,7 +38,7 @@ class FullEditType extends AbstractType
         $resolver->setRequired('queryType');
         $resolver->setAllowedTypes('queryType', QueryTypeInterface::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
+        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
     /**
@@ -55,7 +57,7 @@ class FullEditType extends AbstractType
             'parameters',
             'form',
             array(
-                'label' => 'query.edit.parameters',
+                'label' => 'query.parameters',
                 'inherit_data' => true,
             )
         );
@@ -65,7 +67,10 @@ class FullEditType extends AbstractType
                 $parameterBuilder,
                 $parameter,
                 $parameterName,
-                'query.' . $queryType->getType()
+                array(
+                    'label_prefix' => 'query.' . $queryType->getType(),
+                    'property_path_prefix' => 'parameters',
+                )
             );
         }
 

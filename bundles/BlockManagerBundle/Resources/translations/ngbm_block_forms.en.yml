@@ -1,0 +1,20 @@
+block.view_type: 'View type'
+block.name: 'Name'
+block.parameters: 'Parameters'
+
+block.title.tag: 'Tag'
+block.title.title: 'Title'
+block.title.css_id: 'CSS ID'
+block.title.css_class: 'CSS class'
+
+block.paragraph.content: 'Content'
+block.paragraph.css_id: 'CSS ID'
+block.paragraph.css_class: 'CSS class'
+block.paragraph.test1: 'Test 1'
+block.paragraph.test2: 'Test 2'
+block.paragraph.test3: 'Test 3'
+block.paragraph.test4: 'Test 4'
+block.paragraph.test5: 'Test 5'
+block.paragraph.test6: 'Test 6'
+
+block.twig_block.block_name: 'Twig block name'

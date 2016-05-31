@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
 abstract class Parameter implements ParameterInterface
@@ -52,13 +53,15 @@ abstract class Parameter implements ParameterInterface
     /**
      * Returns the parameter constraints.
      *
+     * @param array $groups
+     *
      * @return array
      */
-    public function getConstraints()
+    public function getConstraints(array $groups = null)
     {
         return array_merge(
-            $this->getBaseConstraints(),
-            $this->getParameterConstraints()
+            $this->getBaseConstraints($groups),
+            $this->getParameterConstraints($groups)
         );
     }
 
@@ -84,23 +87,48 @@ abstract class Parameter implements ParameterInterface
     /**
      * Returns constraints that are common to all parameters.
      *
+     * @param array $groups
+     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getBaseConstraints()
+    protected function getBaseConstraints(array $groups = null)
     {
         if ($this->isRequired()) {
-            return array(new Constraints\NotBlank());
+            return array(
+                new Constraints\NotBlank(
+                    $this->getBaseConstraintOptions($groups)
+                )
+            );
         }
 
         return array();
     }
 
     /**
-     * Returns constraints that are specific to parameter.
+     * Returns constraint options common to all constraints.
+     *
+     * @param array $groups
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getParameterConstraints()
+    protected function getBaseConstraintOptions(array $groups = null)
+    {
+        $options = array();
+        if ($groups !== null) {
+            $options['groups'] = $groups;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns constraints that are specific to parameter.
+     *
+     * @param array $groups
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    protected function getParameterConstraints(array $groups = null)
     {
         return array();
     }

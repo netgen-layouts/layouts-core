@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use RuntimeException;
 
@@ -29,74 +30,47 @@ class FormMapper implements FormMapperInterface
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param string $parameterName
-     * @param string $labelPrefix
-     * @param string $propertyPathPrefix
+     * @param array $options
      */
     public function mapParameter(
         FormBuilderInterface $formBuilder,
         ParameterInterface $parameter,
         $parameterName,
-        $labelPrefix,
-        $propertyPathPrefix = 'parameters'
+        array $options = array()
     ) {
+        $optionsResolver = new OptionsResolver();
+        $this->configureOptions($optionsResolver);
+        $options = $optionsResolver->resolve($options);
+
         $parameterType = $parameter->getType();
 
         if (!isset($this->parameterHandlers[$parameterType])) {
             throw new RuntimeException("No parameter handler found for '{$parameterType}' parameter type.");
         }
 
-        $formBuilder->add(
+        $this->parameterHandlers[$parameterType]->mapForm(
+            $formBuilder,
+            $parameter,
             $parameterName,
-            $this->parameterHandlers[$parameterType]->getFormType(),
-            array(
-                'required' => $parameter->isRequired(),
-                'label' => $labelPrefix . '.' . $parameterName,
-                'translation_domain' => 'ngbm_parameters',
-                'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $parameter->getConstraints(),
-            ) + $this->parameterHandlers[$parameterType]->convertOptions($parameter)
+            $options
         );
     }
 
     /**
-     * Maps the parameter to hidden form type in provided builder.
+     * Configures the form mapper options.
      *
-     * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param string $parameterName
-     * @param string $propertyPathPrefix
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
-    public function mapHiddenParameter(
-        FormBuilderInterface $formBuilder,
-        ParameterInterface $parameter,
-        $parameterName,
-        $propertyPathPrefix = 'parameters'
-    ) {
-        $formBuilder->add(
-            $parameterName,
-            'hidden',
-            array(
-                'required' => $parameter->isRequired(),
-                'property_path' => $this->getPropertyPath($parameterName, $propertyPathPrefix),
-                'constraints' => $parameter->getConstraints(),
-            )
-        );
-    }
-
-    /**
-     * Returns the property path based on parameter name and prefix.
-     *
-     * @param string $parameterName
-     * @param string $propertyPathPrefix
-     *
-     * @return string
-     */
-    protected function getPropertyPath($parameterName, $propertyPathPrefix)
+    protected function configureOptions(OptionsResolver $optionsResolver)
     {
-        if (empty($propertyPathPrefix)) {
-            return $parameterName;
-        }
+        $optionsResolver->setDefault('label_prefix', false);
+        $optionsResolver->setDefault('property_path_prefix', 'parameters');
+        $optionsResolver->setDefault('validation_groups', null);
 
-        return $propertyPathPrefix . '[' . $parameterName . ']';
+        $optionsResolver->setRequired(array('label_prefix', 'property_path_prefix', 'validation_groups'));
+
+        $optionsResolver->setAllowedTypes('label_prefix', 'string');
+        $optionsResolver->setAllowedTypes('property_path_prefix', 'string');
+        $optionsResolver->setAllowedTypes('validation_groups', array('null', 'array'));
     }
 }

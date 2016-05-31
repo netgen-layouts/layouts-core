@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Parameters\Parameter;
+namespace Netgen\BlockManager\Parameters\Parameter\Compound;
 
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\CompoundParameter;
 use Symfony\Component\Validator\Constraints;
 
-class Boolean extends Parameter
+class Boolean extends CompoundParameter
 {
     /**
      * Returns the parameter type.
@@ -14,7 +14,7 @@ class Boolean extends Parameter
      */
     public function getType()
     {
-        return 'boolean';
+        return 'compound_boolean';
     }
 
     /**

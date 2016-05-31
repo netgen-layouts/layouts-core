@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
@@ -104,6 +105,13 @@ abstract class Validator
                 $fields[$parameterName] = new Constraints\Required($parameter->getConstraints());
             } else {
                 $fields[$parameterName] = new Constraints\Optional($parameter->getConstraints());
+            }
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                $fields = array_merge(
+                    $fields,
+                    $this->buildParameterValidationFields($parameter->getParameters(), $isRequired)
+                );
             }
         }
 

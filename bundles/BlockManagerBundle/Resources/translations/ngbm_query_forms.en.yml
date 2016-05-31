@@ -1,0 +1,4 @@
+query.parameters: 'Parameters'
+
+query.ezcontent_search.parent_location_id: 'Parent location'
+query.ezcontent_search.content_types: 'Content types'

@@ -2,17 +2,17 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 
-class Select implements ParameterHandlerInterface
+class Select extends ParameterHandler
 {
     /**
      * Returns the form type for the parameter.
      *
      * @return string
      */
-    public function getFormType()
+    protected function getFormType()
     {
         return 'choice';
     }
@@ -24,7 +24,7 @@ class Select implements ParameterHandlerInterface
      *
      * @return array
      */
-    public function convertOptions(ParameterInterface $parameter)
+    protected function convertOptions(ParameterInterface $parameter)
     {
         $parameterOptions = $parameter->getOptions();
 

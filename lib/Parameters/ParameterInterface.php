@@ -21,9 +21,11 @@ interface ParameterInterface
     /**
      * Returns the parameter constraints.
      *
+     * @param array $groups
+     *
      * @return array
      */
-    public function getConstraints();
+    public function getConstraints(array $groups = null);
 
     /**
      * Returns if the parameter is required.
