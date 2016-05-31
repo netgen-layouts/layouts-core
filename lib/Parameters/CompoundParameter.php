@@ -29,10 +29,6 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
             if ($parameter instanceof CompoundParameterInterface) {
                 throw new LogicException('Compound parameters cannot be added to a compound parameter.');
             }
-
-            if ($parameter->isRequired()) {
-                throw new LogicException('Parameters added to a compound parameter cannot be required.');
-            }
         }
 
         $this->parameters = $parameters;

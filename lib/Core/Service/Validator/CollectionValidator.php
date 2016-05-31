@@ -177,7 +177,10 @@ class CollectionValidator extends Validator
         );
 
         $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
-        $fields = $this->buildParameterValidationFields($queryType->getParameters());
+        $fields = $this->buildParameterValidationFields(
+            $queryType->getParameters(),
+            $queryCreateStruct->getParameters()
+        );
 
         $this->validate(
             $queryCreateStruct->getParameters(),
@@ -214,7 +217,12 @@ class CollectionValidator extends Validator
         }
 
         $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
-        $fields = $this->buildParameterValidationFields($queryType->getParameters(), false);
+
+        $fields = $this->buildParameterValidationFields(
+            $queryType->getParameters(),
+            $queryUpdateStruct->getParameters(),
+            false
+        );
 
         $this->validate(
             $queryUpdateStruct->getParameters(),

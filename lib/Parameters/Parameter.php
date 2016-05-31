@@ -91,7 +91,7 @@ abstract class Parameter implements ParameterInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getBaseConstraints(array $groups = null)
+    public function getBaseConstraints(array $groups = null)
     {
         if ($this->isRequired()) {
             return array(
@@ -101,6 +101,18 @@ abstract class Parameter implements ParameterInterface
             );
         }
 
+        return array();
+    }
+
+    /**
+     * Returns constraints that are specific to parameter.
+     *
+     * @param array $groups
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getParameterConstraints(array $groups = null)
+    {
         return array();
     }
 
@@ -119,17 +131,5 @@ abstract class Parameter implements ParameterInterface
         }
 
         return $options;
-    }
-
-    /**
-     * Returns constraints that are specific to parameter.
-     *
-     * @param array $groups
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    protected function getParameterConstraints(array $groups = null)
-    {
-        return array();
     }
 }

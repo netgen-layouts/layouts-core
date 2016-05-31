@@ -49,7 +49,7 @@ class Select extends Parameter
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getParameterConstraints(array $groups = null)
+    public function getParameterConstraints(array $groups = null)
     {
         return array(
             new Constraints\Choice(
