@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters;
 
 use Symfony\Component\Validator\Constraints;
+use LogicException;
 
 abstract class CompoundParameter extends Parameter implements CompoundParameterInterface
 {
@@ -20,6 +21,20 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
      */
     public function __construct(array $parameters = array(), array $options = array(), $isRequired = false)
     {
+        foreach ($parameters as $parameter) {
+            if (!$parameter instanceof ParameterInterface) {
+                throw new LogicException('Only parameters can be added to compound parameter.');
+            }
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                throw new LogicException('Compound parameters cannot be added to a compound parameter.');
+            }
+
+            if ($parameter->isRequired()) {
+                throw new LogicException('Parameters added to a compound parameter cannot be required.');
+            }
+        }
+
         $this->parameters = $parameters;
 
         parent::__construct($options, $isRequired);
