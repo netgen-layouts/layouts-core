@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Version;
@@ -30,23 +30,23 @@ class LayoutController extends Controller
     /**
      * Loads a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function view(Layout $layout)
+    public function view(LayoutDraft $layout)
     {
         return new View($layout, Version::API_V1);
     }
 
     /**
-     * Loads all layout blocks.
+     * Loads all layout draft blocks.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function viewLayoutBlocks(Layout $layout)
+    public function viewLayoutBlocks(LayoutDraft $layout)
     {
         $blocks = array();
         foreach ($layout->getZones() as $zone) {
@@ -59,13 +59,13 @@ class LayoutController extends Controller
     }
 
     /**
-     * Publishes a layout.
+     * Publishes a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function publish(Layout $layout)
+    public function publish(LayoutDraft $layout)
     {
         $this->layoutService->publishLayout($layout);
 

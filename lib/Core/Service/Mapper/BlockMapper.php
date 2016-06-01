@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
@@ -18,19 +20,21 @@ class BlockMapper extends Mapper
      */
     public function mapBlock(PersistenceBlock $block)
     {
-        return new Block(
-            array(
-                'id' => $block->id,
-                'layoutId' => $block->layoutId,
-                'zoneIdentifier' => $block->zoneIdentifier,
-                'position' => $block->position,
-                'definitionIdentifier' => $block->definitionIdentifier,
-                'parameters' => $block->parameters,
-                'viewType' => $block->viewType,
-                'name' => $block->name,
-                'status' => $block->status,
-            )
+        $blockData = array(
+            'id' => $block->id,
+            'layoutId' => $block->layoutId,
+            'zoneIdentifier' => $block->zoneIdentifier,
+            'position' => $block->position,
+            'definitionIdentifier' => $block->definitionIdentifier,
+            'parameters' => $block->parameters,
+            'viewType' => $block->viewType,
+            'name' => $block->name,
+            'status' => $block->status,
         );
+
+        return $block->status === PersistenceLayout::STATUS_PUBLISHED ?
+            new Block($blockData) :
+            new BlockDraft($blockData);
     }
 
     /**

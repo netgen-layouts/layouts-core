@@ -9,6 +9,7 @@ use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Zone;
 
 abstract class LayoutServiceTest extends ServiceTest
@@ -117,7 +118,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
-        self::assertInstanceOf(Layout::class, $createdLayout);
+        self::assertInstanceOf(LayoutDraft::class, $createdLayout);
     }
 
     /**
@@ -155,18 +156,7 @@ abstract class LayoutServiceTest extends ServiceTest
         $layout = $this->layoutService->loadLayout(3);
         $draftLayout = $this->layoutService->createDraft($layout);
 
-        self::assertInstanceOf(Layout::class, $draftLayout);
-        self::assertEquals(Layout::STATUS_DRAFT, $draftLayout->getStatus());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateDraftThrowsBadStateExceptionIfLayoutIsNotPublished()
-    {
-        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
-        $this->layoutService->createDraft($layout);
+        self::assertInstanceOf(LayoutDraft::class, $draftLayout);
     }
 
     /**
@@ -175,7 +165,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
-        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_PUBLISHED);
+        $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->createDraft($layout);
     }
 
@@ -185,20 +175,10 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testDiscardDraft()
     {
-        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
+        $layout = $this->layoutService->loadLayoutDraft(1);
         $this->layoutService->discardDraft($layout);
 
-        $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testDiscardDraftThrowsBadStateException()
-    {
-        $layout = $this->layoutService->loadLayout(1);
-        $this->layoutService->discardDraft($layout);
+        $this->layoutService->loadLayoutDraft($layout->getId());
     }
 
     /**
@@ -206,31 +186,18 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testPublishLayout()
     {
-        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_DRAFT);
+        $layout = $this->layoutService->loadLayoutDraft(1);
         $publishedLayout = $this->layoutService->publishLayout($layout);
 
         self::assertInstanceOf(Layout::class, $publishedLayout);
         self::assertEquals(Layout::STATUS_PUBLISHED, $publishedLayout->getStatus());
 
-        $archivedLayout = $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_ARCHIVED);
-        self::assertInstanceOf(Layout::class, $archivedLayout);
-
         try {
-            $this->layoutService->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+            $this->layoutService->loadLayoutDraft($layout->getId());
             self::fail('Draft layout still exists after publishing.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testPublishLayoutThrowsBadStateException()
-    {
-        $layout = $this->layoutService->loadLayout(1, Layout::STATUS_PUBLISHED);
-        $this->layoutService->publishLayout($layout);
     }
 
     /**

@@ -6,10 +6,10 @@ use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
@@ -107,7 +107,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->blockService->createBlock(
             new BlockCreateStruct(),
-            new Layout(array('status' => Layout::STATUS_DRAFT)),
+            new LayoutDraft(),
             'zone'
         );
     }
@@ -133,7 +133,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->updateBlock(
-            new Block(array('status' => Layout::STATUS_DRAFT)),
+            new BlockDraft(),
             new BlockUpdateStruct()
         );
     }
@@ -158,7 +158,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->copyBlock(new Block(array('status' => Layout::STATUS_DRAFT)));
+        $this->blockService->copyBlock(new BlockDraft());
     }
 
     /**
@@ -181,7 +181,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->moveBlock(new Block(array('status' => Layout::STATUS_DRAFT)), 0);
+        $this->blockService->moveBlock(new BlockDraft(), 0);
     }
 
     /**
@@ -204,6 +204,6 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->deleteBlock(new Block(array('status' => Layout::STATUS_DRAFT)));
+        $this->blockService->deleteBlock(new BlockDraft());
     }
 }

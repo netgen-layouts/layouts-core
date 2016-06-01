@@ -15,7 +15,9 @@ use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Exception;
 
@@ -84,20 +86,40 @@ class BlockService implements BlockServiceInterface
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
-     * @param int $status
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function loadBlock($blockId, $status = Layout::STATUS_PUBLISHED)
+    public function loadBlock($blockId)
     {
         $this->blockValidator->validateId($blockId, 'blockId');
 
         return $this->blockMapper->mapBlock(
             $this->blockHandler->loadBlock(
                 $blockId,
-                $status
+                Layout::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    /**
+     * Loads a block draft with specified ID.
+     *
+     * @param int|string $blockId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
+     */
+    public function loadBlockDraft($blockId)
+    {
+        $this->blockValidator->validateId($blockId, 'blockId');
+
+        return $this->blockMapper->mapBlock(
+            $this->blockHandler->loadBlock(
+                $blockId,
+                Layout::STATUS_DRAFT
             )
         );
     }
@@ -128,19 +150,19 @@ class BlockService implements BlockServiceInterface
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      * @param string $zoneIdentifier
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If provided position is out of range
-     *                                                              If block cannot be placed in specified zone
+     *                                                          If provided position is out of range
+     *                                                          If block cannot be placed in specified zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDRaft
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, LayoutDraft $layout, $zoneIdentifier, $position = null)
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
         $this->blockValidator->validatePosition($position, 'position');
@@ -193,14 +215,14 @@ class BlockService implements BlockServiceInterface
     /**
      * Updates a specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
-    public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(BlockDraft $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
 
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
@@ -226,18 +248,18 @@ class BlockService implements BlockServiceInterface
      * Copies a specified block. If zone is specified, copied block will be
      * placed in it, otherwise, it will be placed in the same zone where source block is.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If block cannot be placed in specified zone
+     *                                                          If block cannot be placed in specified zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
-    public function copyBlock(Block $block, $zoneIdentifier = null)
+    public function copyBlock(BlockDraft $block, $zoneIdentifier = null)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
-        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), $block->getStatus());
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Layout::STATUS_DRAFT);
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
@@ -298,20 +320,20 @@ class BlockService implements BlockServiceInterface
     /**
      * Moves a block to specified position inside the zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      * @param int $position
      * @param string $zoneIdentifier
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone does not exist in the layout
-     *                                                              If provided position is out of range
-     *                                                              If block cannot be placed in specified zone
+     *                                                          If provided position is out of range
+     *                                                          If block cannot be placed in specified zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
-    public function moveBlock(Block $block, $position, $zoneIdentifier = null)
+    public function moveBlock(BlockDraft $block, $position, $zoneIdentifier = null)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
-        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), $block->getStatus());
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Layout::STATUS_DRAFT);
 
         $this->blockValidator->validatePosition($position, 'position', true);
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
@@ -356,20 +378,15 @@ class BlockService implements BlockServiceInterface
     /**
      * Restores the specified block from the published status. Zone and position are kept as is.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in published status
-     *                                                          If block does not have a published status
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block does not have a published status
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
-    public function restoreBlock(Block $block)
+    public function restoreBlock(BlockDraft $block)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
-
-        if ($persistenceBlock->status === Layout::STATUS_PUBLISHED) {
-            throw new BadStateException('block', 'Block cannot be restored as it is already in published status.');
-        }
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
 
         try {
             $publishedBlock = $this->blockHandler->loadBlock($persistenceBlock->id, Layout::STATUS_PUBLISHED);
@@ -412,11 +429,11 @@ class BlockService implements BlockServiceInterface
     /**
      * Deletes a specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      */
-    public function deleteBlock(Block $block)
+    public function deleteBlock(BlockDraft $block)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 

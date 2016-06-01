@@ -62,6 +62,6 @@ class BlockParamConverter extends ParamConverter
      */
     public function loadValueObject($valueId, $status)
     {
-        return $this->blockService->loadBlock($valueId, $status);
+        return $this->blockService->loadBlock($valueId);
     }
 }

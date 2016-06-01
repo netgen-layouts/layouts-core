@@ -1,6 +1,8 @@
 parameters:
     netgen_block_manager.param_converter.block.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter
+    netgen_block_manager.param_converter.block_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockDraftParamConverter
     netgen_block_manager.param_converter.layout.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter
+    netgen_block_manager.param_converter.layout_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutDraftParamConverter
     netgen_block_manager.param_converter.collection.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter
     netgen_block_manager.param_converter.collection_item.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter
     netgen_block_manager.param_converter.collection_query.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionQueryParamConverter
@@ -13,8 +15,22 @@ services:
         tags:
             - { name: request.param_converter }
 
+    netgen_block_manager.param_converter.block_draft:
+        class: "%netgen_block_manager.param_converter.block_draft.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+        tags:
+            - { name: request.param_converter }
+
     netgen_block_manager.param_converter.layout:
         class: "%netgen_block_manager.param_converter.layout.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+        tags:
+            - { name: request.param_converter }
+
+    netgen_block_manager.param_converter.layout_draft:
+        class: "%netgen_block_manager.param_converter.layout_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:

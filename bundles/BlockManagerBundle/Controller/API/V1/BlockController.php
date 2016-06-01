@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -18,7 +17,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use RuntimeException;
@@ -66,25 +65,25 @@ class BlockController extends Controller
     }
 
     /**
-     * Loads a block.
+     * Loads a block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function view(Block $block)
+    public function view(BlockDraft $block)
     {
         return new View($block, Version::API_V1);
     }
 
     /**
-     * Loads all block collections.
+     * Loads all block draft collections.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
      */
-    public function loadCollections(Block $block)
+    public function loadCollections(BlockDraft $block)
     {
         $collections = array_map(
             function (CollectionReference $collection) {
@@ -102,7 +101,7 @@ class BlockController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type or block definition does not exist
-     *                                                              If layout with specified ID does not exist
+     *                                                          If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -123,12 +122,9 @@ class BlockController extends Controller
         }
 
         try {
-            $layout = $this->layoutService->loadLayout(
-                $request->request->get('layout_id'),
-                Layout::STATUS_DRAFT
-            );
+            $layout = $this->layoutService->loadLayoutDraft($request->request->get('layout_id'));
         } catch (NotFoundException $e) {
-            throw new BadStateException('layout_id', 'Layout does not exist.', $e);
+            throw new BadStateException('layout_id', 'Layout draft does not exist.', $e);
         }
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -155,13 +151,13 @@ class BlockController extends Controller
     }
 
     /**
-     * Displays block edit interface.
+     * Displays block draft edit interface.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\EditView
      */
-    public function edit(Block $block)
+    public function edit(BlockDraft $block)
     {
         $defaultCollection = null;
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
@@ -187,14 +183,14 @@ class BlockController extends Controller
     }
 
     /**
-     * Moves the block.
+     * Moves the block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function move(Block $block, Request $request)
+    public function move(BlockDraft $block, Request $request)
     {
         $this->blockService->moveBlock(
             $block,
@@ -206,9 +202,9 @@ class BlockController extends Controller
     }
 
     /**
-     * Displays and processes block edit form.
+     * Displays and processes block draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -216,7 +212,7 @@ class BlockController extends Controller
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function form(Block $block, $formName, Request $request)
+    public function form(BlockDraft $block, $formName, Request $request)
     {
         $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 
@@ -261,13 +257,13 @@ class BlockController extends Controller
     }
 
     /**
-     * Restores the block to the published state.
+     * Restores the block draft to the published state.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function restore(Block $block)
+    public function restore(BlockDraft $block)
     {
         $restoredBlock = $this->blockService->restoreBlock($block);
 
@@ -275,13 +271,13 @@ class BlockController extends Controller
     }
 
     /**
-     * Deletes the block.
+     * Deletes the block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function delete(Block $block)
+    public function delete(BlockDraft $block)
     {
         $this->blockService->deleteBlock($block);
 

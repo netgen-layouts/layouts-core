@@ -5,7 +5,9 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Core\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Handler;
 
 class LayoutMapper extends Mapper
@@ -48,14 +50,16 @@ class LayoutMapper extends Mapper
             $blocks[] = $this->blockMapper->mapBlock($persistenceBlock);
         }
 
-        return new Zone(
-            array(
-                'identifier' => $zone->identifier,
-                'layoutId' => $zone->layoutId,
-                'status' => $zone->status,
-                'blocks' => $blocks,
-            )
+        $zoneData = array(
+            'identifier' => $zone->identifier,
+            'layoutId' => $zone->layoutId,
+            'status' => $zone->status,
+            'blocks' => $blocks,
         );
+
+        return $zone->status === PersistenceLayout::STATUS_PUBLISHED ?
+            new Zone($zoneData) :
+            new ZoneDraft($zoneData);
     }
 
     /**
@@ -77,17 +81,19 @@ class LayoutMapper extends Mapper
             $zones[$persistenceZone->identifier] = $this->mapZone($persistenceZone);
         }
 
-        return new Layout(
-            array(
-                'id' => $layout->id,
-                'parentId' => $layout->parentId,
-                'type' => $layout->type,
-                'name' => $layout->name,
-                'created' => $this->createDateTime($layout->created),
-                'modified' => $this->createDateTime($layout->modified),
-                'status' => $layout->status,
-                'zones' => $zones,
-            )
+        $layoutData = array(
+            'id' => $layout->id,
+            'parentId' => $layout->parentId,
+            'type' => $layout->type,
+            'name' => $layout->name,
+            'created' => $this->createDateTime($layout->created),
+            'modified' => $this->createDateTime($layout->modified),
+            'status' => $layout->status,
+            'zones' => $zones,
         );
+
+        return $layout->status === PersistenceLayout::STATUS_PUBLISHED ?
+            new Layout($layoutData) :
+            new LayoutDraft($layoutData);
     }
 }

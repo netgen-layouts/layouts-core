@@ -62,6 +62,6 @@ class LayoutParamConverter extends ParamConverter
      */
     public function loadValueObject($valueId, $status)
     {
-        return $this->layoutService->loadLayout($valueId, $status);
+        return $this->layoutService->loadLayout($valueId);
     }
 }

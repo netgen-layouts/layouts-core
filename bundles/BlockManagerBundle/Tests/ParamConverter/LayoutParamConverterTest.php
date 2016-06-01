@@ -61,7 +61,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('loadLayout')
-            ->with($this->equalTo(42), $this->equalTo(APILayout::STATUS_DRAFT))
+            ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
         self::assertEquals($layout, $this->paramConverter->loadValueObject(42, APILayout::STATUS_DRAFT));

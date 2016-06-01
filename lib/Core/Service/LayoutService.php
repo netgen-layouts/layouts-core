@@ -10,6 +10,7 @@ use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Exception;
 
@@ -66,20 +67,38 @@ class LayoutService implements LayoutServiceInterface
      * Loads a layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param int $status
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function loadLayout($layoutId, $status = Layout::STATUS_PUBLISHED)
+    public function loadLayout($layoutId)
     {
         $this->layoutValidator->validateId($layoutId, 'layoutId');
 
         return $this->layoutMapper->mapLayout(
             $this->layoutHandler->loadLayout(
                 $layoutId,
-                $status
+                Layout::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    /**
+     * Loads a layout draft with specified ID.
+     *
+     * @param int|string $layoutId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     */
+    public function loadLayoutDraft($layoutId)
+    {
+        return $this->layoutMapper->mapLayout(
+            $this->layoutHandler->loadLayout(
+                $layoutId,
+                Layout::STATUS_DRAFT
             )
         );
     }
@@ -89,13 +108,12 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param int|string $layoutId
      * @param string $identifier
-     * @param int $status
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function loadZone($layoutId, $identifier, $status = Layout::STATUS_PUBLISHED)
+    public function loadZone($layoutId, $identifier)
     {
         $this->layoutValidator->validateId($layoutId, 'layoutId');
         $this->layoutValidator->validateIdentifier($identifier, 'identifier');
@@ -104,7 +122,31 @@ class LayoutService implements LayoutServiceInterface
             $this->layoutHandler->loadZone(
                 $layoutId,
                 $identifier,
-                $status
+                Layout::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    /**
+     * Loads a zone draft with specified identifier.
+     *
+     * @param int|string $layoutId
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     */
+    public function loadZoneDraft($layoutId, $identifier)
+    {
+        $this->layoutValidator->validateId($layoutId, 'layoutId');
+        $this->layoutValidator->validateIdentifier($identifier, 'identifier');
+
+        return $this->layoutMapper->mapZone(
+            $this->layoutHandler->loadZone(
+                $layoutId,
+                $identifier,
+                Layout::STATUS_DRAFT
             )
         );
     }
@@ -116,7 +158,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
@@ -170,7 +212,9 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->loadLayout($copiedLayoutId, $persistenceLayout->status);
+        return $this->layoutMapper->mapLayout(
+            $this->layoutHandler->loadLayout($copiedLayoutId, $persistenceLayout->status)
+        );
     }
 
     /**
@@ -178,18 +222,13 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
-     *                                                              If draft already exists for layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If draft already exists for layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
      */
     public function createDraft(Layout $layout)
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
-
-        if ($persistenceLayout->status !== Layout::STATUS_PUBLISHED) {
-            throw new BadStateException('layout', 'Drafts can be created only from published layouts.');
-        }
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_PUBLISHED);
 
         if ($this->layoutHandler->layoutExists($persistenceLayout->id, Layout::STATUS_DRAFT)) {
             throw new BadStateException('layout', 'The provided layout already has a draft.');
@@ -213,17 +252,11 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Discards a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      */
-    public function discardDraft(Layout $layout)
+    public function discardDraft(LayoutDraft $layout)
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
-
-        if ($persistenceLayout->status !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('rule', 'Only layout drafts can be discarded.');
-        }
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
@@ -243,19 +276,13 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Publishes a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function publishLayout(Layout $layout)
+    public function publishLayout(LayoutDraft $layout)
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
-
-        if ($persistenceLayout->status !== Layout::STATUS_DRAFT) {
-            throw new BadStateException('layout', 'Only layouts in draft status can be published.');
-        }
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 

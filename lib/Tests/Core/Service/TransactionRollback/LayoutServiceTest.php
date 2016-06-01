@@ -8,6 +8,7 @@ use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
@@ -126,7 +127,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('status' => Layout::STATUS_PUBLISHED))));
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -154,7 +155,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('status' => Layout::STATUS_DRAFT))));
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -165,7 +166,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(new Layout());
+        $this->layoutService->publishLayout(new LayoutDraft());
     }
 
     /**

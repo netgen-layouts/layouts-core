@@ -64,7 +64,7 @@ class BlockController extends Controller
     public function viewBlockById($blockId, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
         try {
-            $block = $this->blockService->loadBlock($blockId, Layout::STATUS_PUBLISHED);
+            $block = $this->blockService->loadBlock($blockId);
 
             return $this->buildView($block, $context, $parameters);
         } catch (Exception $e) {
