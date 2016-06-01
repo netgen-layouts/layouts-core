@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionQueryParamConverter;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;

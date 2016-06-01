@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 
 class RuleCreateStructTest extends \PHPUnit_Framework_TestCase
 {

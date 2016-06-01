@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;

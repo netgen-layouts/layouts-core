@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;

@@ -97,7 +97,7 @@ abstract class Parameter implements ParameterInterface
             return array(
                 new Constraints\NotBlank(
                     $this->getBaseConstraintOptions($groups)
-                )
+                ),
             );
         }
 

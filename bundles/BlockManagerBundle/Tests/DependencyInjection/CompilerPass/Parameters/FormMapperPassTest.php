@@ -43,7 +43,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.parameters.form_mapper',
             0,
             array(
-                'test' => new Reference('netgen_block_manager.parameters.parameter_handler.test')
+                'test' => new Reference('netgen_block_manager.parameters.parameter_handler.test'),
             )
         );
     }

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Symfony\Component\Validator\Constraints;
 use LogicException;
 
 abstract class CompoundParameter extends Parameter implements CompoundParameterInterface

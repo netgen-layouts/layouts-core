@@ -48,7 +48,7 @@ class CompoundBooleanType extends AbstractType
                 'checkbox_required',
                 'checkbox_label',
                 'checkbox_constraints',
-                'checkbox_property_path'
+                'checkbox_property_path',
             )
         );
 
@@ -69,7 +69,7 @@ class CompoundBooleanType extends AbstractType
 
         $resolver->setDefault(
             'validation_groups',
-            function(FormInterface $form) {
+            function (FormInterface $form) {
                 $formName = $form->getName();
                 $parameters = $form->getData()->getParameters();
 
@@ -125,8 +125,8 @@ class CompoundBooleanType extends AbstractType
                 $subParameterName,
                 array(
                     'validation_groups' => array(
-                        self::COMPOUND_GROUP
-                    )
+                        self::COMPOUND_GROUP,
+                    ),
                 ) + $options['form_mapper_options']
             );
         }
@@ -144,7 +144,7 @@ class CompoundBooleanType extends AbstractType
         parent::buildView($view, $form, $options);
 
         $view->vars = array(
-            'checkbox_name' => $options['checkbox_name']
+            'checkbox_name' => $options['checkbox_name'],
         ) + $view->vars;
     }
 

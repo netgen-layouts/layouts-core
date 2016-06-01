@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;

@@ -34,7 +34,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
                     new FormMapper(
                         array(
                             'compound_boolean' => $this->handler,
-                            'text' => new Text()
+                            'text' => new Text(),
                         )
                     )
                 )
