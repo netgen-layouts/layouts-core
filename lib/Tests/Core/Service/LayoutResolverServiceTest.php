@@ -5,8 +5,11 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
@@ -132,7 +135,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
         $createdRule = $this->layoutResolverService->createRule($ruleCreateStruct);
 
-        self::assertInstanceOf(Rule::class, $createdRule);
+        self::assertInstanceOf(RuleDraft::class, $createdRule);
     }
 
     /**
@@ -140,7 +143,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testUpdateRule()
     {
-        $rule = $this->layoutResolverService->loadRule(3);
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 50;
@@ -149,7 +152,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
+        self::assertInstanceOf(RuleDraft::class, $updatedRule);
         self::assertEquals(50, $updatedRule->getLayoutId());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
@@ -176,20 +179,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
         $draftRule = $this->layoutResolverService->createDraft($rule);
 
-        self::assertInstanceOf(Rule::class, $draftRule);
-        self::assertEquals(Rule::STATUS_DRAFT, $draftRule->getStatus());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateDraftThrowsBadStateExceptionIfRuleIsNotPublished()
-    {
-        $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
-        $rule = $this->layoutResolverService->createRule($ruleCreateStruct);
-
-        $this->layoutResolverService->createDraft($rule);
+        self::assertInstanceOf(RuleDraft::class, $draftRule);
     }
 
     /**
@@ -210,20 +200,10 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testDiscardDraft()
     {
-        $rule = $this->layoutResolverService->loadRule(5, Rule::STATUS_DRAFT);
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
         $this->layoutResolverService->discardDraft($rule);
 
-        $this->layoutResolverService->loadRule($rule->getId(), Rule::STATUS_DRAFT);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testDiscardDraftThrowsBadStateException()
-    {
-        $rule = $this->layoutResolverService->loadRule(5);
-        $this->layoutResolverService->discardDraft($rule);
+        $this->layoutResolverService->loadRuleDraft($rule->getId());
     }
 
     /**
@@ -231,31 +211,18 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testPublishRule()
     {
-        $rule = $this->layoutResolverService->loadRule(5, Rule::STATUS_DRAFT);
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         self::assertInstanceOf(Rule::class, $publishedRule);
         self::assertEquals(Rule::STATUS_PUBLISHED, $publishedRule->getStatus());
 
-        $archivedRule = $this->layoutResolverService->loadRule($rule->getId(), Rule::STATUS_ARCHIVED);
-        self::assertInstanceOf(Rule::class, $archivedRule);
-
         try {
-            $this->layoutResolverService->loadRule($rule->getId(), Rule::STATUS_DRAFT);
+            $this->layoutResolverService->loadRuleDraft($rule->getId());
             self::fail('Draft rule still exists after publishing.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testPublishRuleThrowsBadStateException()
-    {
-        $rule = $this->layoutResolverService->loadRule(3);
-        $this->layoutResolverService->publishRule($rule);
     }
 
     /**
@@ -282,17 +249,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
         $enabledRule = $this->layoutResolverService->loadRule($rule->getId());
         self::assertTrue($enabledRule->isEnabled());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testEnableRuleThrowsBadStateExceptionIfRuleIsNotPublished()
-    {
-        $rule = $this->layoutResolverService->loadRule(5, Rule::STATUS_DRAFT);
-
-        $this->layoutResolverService->enableRule($rule);
     }
 
     /**
@@ -345,17 +301,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testDisableRuleThrowsBadStateExceptionIfRuleIsNotPublished()
-    {
-        $rule = $this->layoutResolverService->loadRule(7, Rule::STATUS_DRAFT);
-
-        $this->layoutResolverService->disableRule($rule);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled()
     {
         $rule = $this->layoutResolverService->loadRule(5);
@@ -369,18 +314,18 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testAddTarget()
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route',
-            'some_route'
+            'route_prefix',
+            'some_route_'
         );
 
-        $rule = $this->layoutResolverService->loadRule(1);
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $createdTarget = $this->layoutResolverService->addTarget(
             $rule,
             $targetCreateStruct
         );
 
-        self::assertInstanceOf(Target::class, $createdTarget);
+        self::assertInstanceOf(TargetDraft::class, $createdTarget);
     }
 
     /**
@@ -390,11 +335,11 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testAddTargetOfDifferentKindThrowsBadStateException()
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route_prefix',
-            'some_route_'
+            'route',
+            'some_route'
         );
 
-        $rule = $this->layoutResolverService->loadRule(1);
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $this->layoutResolverService->addTarget(
             $rule,
@@ -408,10 +353,10 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testDeleteTarget()
     {
-        $target = $this->layoutResolverService->loadTarget(1);
+        $target = $this->layoutResolverService->loadTargetDraft(9);
         $this->layoutResolverService->deleteTarget($target);
 
-        $this->layoutResolverService->loadTarget($target->getId());
+        $this->layoutResolverService->loadTargetDraft($target->getId());
     }
 
     /**
@@ -424,14 +369,14 @@ abstract class LayoutResolverServiceTest extends ServiceTest
             'cro'
         );
 
-        $rule = $this->layoutResolverService->loadRule(3);
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $createdCondition = $this->layoutResolverService->addCondition(
             $rule,
             $conditionCreateStruct
         );
 
-        self::assertInstanceOf(Condition::class, $createdCondition);
+        self::assertInstanceOf(ConditionDraft::class, $createdCondition);
     }
 
     /**
@@ -439,12 +384,12 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testUpdateCondition()
     {
-        $condition = $this->layoutResolverService->loadCondition(1);
+        $condition = $this->layoutResolverService->loadConditionDraft(4);
 
         $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct('new_value');
         $updatedCondition = $this->layoutResolverService->updateCondition($condition, $conditionUpdateStruct);
 
-        self::assertInstanceOf(Condition::class, $updatedCondition);
+        self::assertInstanceOf(ConditionDraft::class, $updatedCondition);
 
         self::assertEquals('new_value', $updatedCondition->getValue());
     }
@@ -455,10 +400,10 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testDeleteCondition()
     {
-        $condition = $this->layoutResolverService->loadCondition(2);
+        $condition = $this->layoutResolverService->loadConditionDraft(4);
         $this->layoutResolverService->deleteCondition($condition);
 
-        $this->layoutResolverService->loadCondition($condition->getId());
+        $this->layoutResolverService->loadConditionDraft($condition->getId());
     }
 
     /**

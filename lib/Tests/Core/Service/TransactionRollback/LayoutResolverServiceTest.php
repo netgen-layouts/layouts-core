@@ -3,10 +3,11 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
+use Netgen\BlockManager\Core\Values\LayoutResolver\ConditionDraft;
+use Netgen\BlockManager\Core\Values\LayoutResolver\RuleDraft;
+use Netgen\BlockManager\Core\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
@@ -98,7 +99,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRule(
-            new Rule(),
+            new RuleDraft(),
             new RuleUpdateStruct()
         );
     }
@@ -135,13 +136,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
             ->method('loadRule')
-            ->will(
-                $this->returnValue(
-                    new PersistenceRule(
-                        array('status' => Rule::STATUS_PUBLISHED)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceRule()));
 
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
@@ -169,13 +164,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
             ->method('loadRule')
-            ->will(
-                $this->returnValue(
-                    new PersistenceRule(
-                        array('status' => Rule::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceRule()));
 
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
@@ -186,7 +175,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->publishRule(new Rule());
+        $this->layoutResolverService->publishRule(new RuleDraft());
     }
 
     /**
@@ -227,7 +216,6 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
                         array(
                             'layoutId' => 42,
                             'enabled' => false,
-                            'status' => Rule::STATUS_PUBLISHED,
                         )
                     )
                 )
@@ -264,7 +252,6 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
                     new PersistenceRule(
                         array(
                             'enabled' => true,
-                            'status' => Rule::STATUS_PUBLISHED,
                         )
                     )
                 )
@@ -308,7 +295,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->addTarget(
-            new Rule(),
+            new RuleDraft(),
             new TargetCreateStruct()
         );
     }
@@ -333,7 +320,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteTarget(new Target());
+        $this->layoutResolverService->deleteTarget(new TargetDraft());
     }
 
     /**
@@ -357,7 +344,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->addCondition(
-            new Rule(),
+            new RuleDraft(),
             new ConditionCreateStruct()
         );
     }
@@ -383,7 +370,7 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateCondition(
-            new Condition(),
+            new ConditionDraft(),
             new ConditionUpdateStruct()
         );
     }
@@ -408,6 +395,6 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteCondition(new Condition());
+        $this->layoutResolverService->deleteCondition(new ConditionDraft());
     }
 }

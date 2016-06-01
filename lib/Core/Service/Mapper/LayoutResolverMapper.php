@@ -6,8 +6,11 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRul
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Core\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\Core\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Core\Values\LayoutResolver\ConditionDraft;
 
 class LayoutResolverMapper extends Mapper
 {
@@ -42,18 +45,20 @@ class LayoutResolverMapper extends Mapper
             $conditions[] = $this->mapCondition($persistenceCondition);
         }
 
-        return new Rule(
-            array(
-                'id' => $rule->id,
-                'status' => $rule->status,
-                'layoutId' => $rule->layoutId,
-                'enabled' => $rule->enabled,
-                'priority' => $rule->priority,
-                'comment' => $rule->comment,
-                'targets' => $targets,
-                'conditions' => $conditions,
-            )
+        $ruleData = array(
+            'id' => $rule->id,
+            'status' => $rule->status,
+            'layoutId' => $rule->layoutId,
+            'enabled' => $rule->enabled,
+            'priority' => $rule->priority,
+            'comment' => $rule->comment,
+            'targets' => $targets,
+            'conditions' => $conditions,
         );
+
+        return $rule->status === PersistenceRule::STATUS_PUBLISHED ?
+            new Rule($ruleData) :
+            new RuleDraft($ruleData);
     }
 
     /**
@@ -65,15 +70,17 @@ class LayoutResolverMapper extends Mapper
      */
     public function mapTarget(PersistenceTarget $target)
     {
-        return new Target(
-            array(
-                'id' => $target->id,
-                'status' => $target->status,
-                'ruleId' => $target->ruleId,
-                'identifier' => $target->identifier,
-                'value' => $target->value,
-            )
+        $targetData = array(
+            'id' => $target->id,
+            'status' => $target->status,
+            'ruleId' => $target->ruleId,
+            'identifier' => $target->identifier,
+            'value' => $target->value,
         );
+
+        return $target->status === PersistenceRule::STATUS_PUBLISHED ?
+            new Target($targetData) :
+            new TargetDraft($targetData);
     }
 
     /**
@@ -85,14 +92,16 @@ class LayoutResolverMapper extends Mapper
      */
     public function mapCondition(PersistenceCondition $condition)
     {
-        return new Condition(
-            array(
-                'id' => $condition->id,
-                'status' => $condition->status,
-                'ruleId' => $condition->ruleId,
-                'identifier' => $condition->identifier,
-                'value' => $condition->value,
-            )
+        $conditionData = array(
+            'id' => $condition->id,
+            'status' => $condition->status,
+            'ruleId' => $condition->ruleId,
+            'identifier' => $condition->identifier,
+            'value' => $condition->value,
         );
+
+        return $condition->status === PersistenceRule::STATUS_PUBLISHED ?
+            new Condition($conditionData) :
+            new ConditionDraft($conditionData);
     }
 }
