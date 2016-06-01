@@ -16,67 +16,67 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.block_draft:
         class: "%netgen_block_manager.param_converter.block_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.layout:
         class: "%netgen_block_manager.param_converter.layout.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.layout_draft:
         class: "%netgen_block_manager.param_converter.layout_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.collection:
         class: "%netgen_block_manager.param_converter.collection.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.collection_draft:
         class: "%netgen_block_manager.param_converter.collection_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.collection_item:
         class: "%netgen_block_manager.param_converter.collection_item.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.collection_item_draft:
         class: "%netgen_block_manager.param_converter.collection_item_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.collection_query:
         class: "%netgen_block_manager.param_converter.collection_query.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.collection_query_draft:
         class: "%netgen_block_manager.param_converter.collection_query_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
-            - { name: request.param_converter }
+            - { name: request.param_converter, priority: 10 }
