@@ -60,7 +60,7 @@ class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
         $this->collectionServiceMock
             ->expects($this->once())
             ->method('loadCollection')
-            ->with($this->equalTo(24), $this->equalTo(Collection::STATUS_PUBLISHED))
+            ->with($this->equalTo(24))
             ->will($this->returnValue($collection));
 
         self::assertEquals(

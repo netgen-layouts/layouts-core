@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
@@ -163,10 +164,15 @@ class BlockController extends Controller
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         foreach ($collectionReferences as $collectionReference) {
             if ($collectionReference->getIdentifier() === 'default') {
-                $defaultCollection = $this->collectionService->loadCollection(
-                    $collectionReference->getCollectionId(),
-                    $collectionReference->getCollectionStatus()
-                );
+                if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
+                    $defaultCollection = $this->collectionService->loadCollection(
+                        $collectionReference->getCollectionId()
+                    );
+                } else {
+                    $defaultCollection = $this->collectionService->loadCollectionDraft(
+                        $collectionReference->getCollectionId()
+                    );
+                }
             }
         }
 
