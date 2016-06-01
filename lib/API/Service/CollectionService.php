@@ -109,7 +109,7 @@ interface CollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
-    public function updateNamedCollection(CollectionDraft $collection, CollectionUpdateStruct $collectionUpdateStruct);
+    public function updateCollection(CollectionDraft $collection, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
      * Copies a specified collection.

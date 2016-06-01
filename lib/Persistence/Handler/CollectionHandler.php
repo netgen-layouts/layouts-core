@@ -124,7 +124,7 @@ interface CollectionHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function updateNamedCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct);
+    public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
      * Copies a collection with specified ID.

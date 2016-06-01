@@ -315,15 +315,15 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateNamedCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
-    public function testUpdateNamedCollection()
+    public function testUpdateCollection()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
         $collectionUpdateStruct->name = 'Updated collection';
 
-        $updatedCollection = $this->collectionHandler->updateNamedCollection(
+        $updatedCollection = $this->collectionHandler->updateCollection(
             3,
             Collection::STATUS_PUBLISHED,
             $collectionUpdateStruct

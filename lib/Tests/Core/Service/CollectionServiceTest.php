@@ -160,40 +160,40 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      */
-    public function testUpdateNamedCollection()
+    public function testUpdateCollection()
     {
         $collection = $this->collectionService->loadCollectionDraft(3);
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
         $collectionUpdateStruct->name = 'Super cool collection';
 
-        $updatedCollection = $this->collectionService->updateNamedCollection($collection, $collectionUpdateStruct);
+        $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
         self::assertInstanceOf(CollectionDraft::class, $updatedCollection);
         self::assertEquals('Super cool collection', $updatedCollection->getName());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testUpdateNamedCollectionWithExistingNameThrowsBadStateException()
+    public function testUpdateCollectionWithExistingNameThrowsBadStateException()
     {
         $collection = $this->collectionService->loadCollectionDraft(3);
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
         $collectionUpdateStruct->name = 'My collection';
 
-        $this->collectionService->updateNamedCollection(
+        $this->collectionService->updateCollection(
             $collection,
             $collectionUpdateStruct
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testUpdateNonNamedCollectionThrowsBadStateException()
@@ -203,7 +203,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
         $collectionUpdateStruct->name = 'My collection';
 
-        $this->collectionService->updateNamedCollection(
+        $this->collectionService->updateCollection(
             $collection,
             $collectionUpdateStruct
         );

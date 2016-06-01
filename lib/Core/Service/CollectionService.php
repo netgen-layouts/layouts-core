@@ -252,7 +252,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
-    public function updateNamedCollection(CollectionDraft $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(CollectionDraft $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
 
@@ -271,7 +271,7 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedCollection = $this->collectionHandler->updateNamedCollection(
+            $updatedCollection = $this->collectionHandler->updateCollection(
                 $persistenceCollection->id,
                 $persistenceCollection->status,
                 $collectionUpdateStruct

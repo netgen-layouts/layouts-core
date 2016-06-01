@@ -250,7 +250,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function updateNamedCollection($collectionId, $status, APICollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection($collectionId, $status, APICollectionUpdateStruct $collectionUpdateStruct)
     {
         $collection = $this->loadCollection($collectionId, $status);
 

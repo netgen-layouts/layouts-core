@@ -80,10 +80,10 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateNamedCollection
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Exception
      */
-    public function testUpdateNamedCollection()
+    public function testUpdateCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
@@ -98,14 +98,14 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('updateNamedCollection')
+            ->method('updateCollection')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->updateNamedCollection(
+        $this->collectionService->updateCollection(
             new CollectionDraft(),
             new CollectionUpdateStruct()
         );
