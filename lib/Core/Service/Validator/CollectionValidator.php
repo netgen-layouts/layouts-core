@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
 
@@ -177,15 +178,16 @@ class CollectionValidator extends Validator
         );
 
         $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
-        $fields = $this->buildParameterValidationFields(
-            $queryType->getParameters(),
-            $queryCreateStruct->getParameters()
-        );
 
         $this->validate(
             $queryCreateStruct->getParameters(),
             array(
-                new Constraints\Collection(array('fields' => $fields)),
+                new Parameters(
+                    array(
+                        'parameters' => $queryType->getParameters(),
+                        'required' => true,
+                    )
+                ),
             ),
             'parameters'
         );
@@ -218,16 +220,15 @@ class CollectionValidator extends Validator
 
         $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
 
-        $fields = $this->buildParameterValidationFields(
-            $queryType->getParameters(),
-            $queryUpdateStruct->getParameters(),
-            false
-        );
-
         $this->validate(
             $queryUpdateStruct->getParameters(),
             array(
-                new Constraints\Collection(array('fields' => $fields)),
+                new Parameters(
+                    array(
+                        'parameters' => $queryType->getParameters(),
+                        'required' => false,
+                    )
+                ),
             ),
             'parameters'
         );

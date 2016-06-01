@@ -126,7 +126,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
      * @param array $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
      * @dataProvider validateQueryCreateStructProvider
      */
     public function testValidateQueryCreateStruct(array $params, $isValid)
@@ -156,7 +155,6 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
      * @param array $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
      * @dataProvider validateQueryUpdateStructProvider
      */
     public function testValidateQueryUpdateStruct(array $params, $isValid)

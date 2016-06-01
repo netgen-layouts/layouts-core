@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
@@ -87,43 +86,5 @@ abstract class Validator
         $this->validate($position, $constraints, $propertyPath);
 
         return true;
-    }
-
-    /**
-     * Builds the "fields" array from provided parameters, used for validating set of parameters.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
-     * @param array $parameterValues
-     * @param bool $isRequired
-     *
-     * @return array
-     */
-    protected function buildParameterValidationFields(array $parameters, array $parameterValues, $isRequired = true)
-    {
-        $fields = array();
-        foreach ($parameters as $parameterName => $parameter) {
-            if ($isRequired) {
-                $fields[$parameterName] = new Constraints\Required($parameter->getConstraints());
-            } else {
-                $fields[$parameterName] = new Constraints\Optional($parameter->getConstraints());
-            }
-
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                    $parameterConstraints = $subParameter->getParameterConstraints();
-                    if ($subParameter->isRequired() && isset($parameterValues[$parameterName]) && $parameterValues[$parameterName]) {
-                        $parameterConstraints = array_merge($parameterConstraints, $subParameter->getBaseConstraints());
-                    }
-
-                    if ($isRequired) {
-                        $fields[$subParameterName] = new Constraints\Required($parameterConstraints);
-                    } else {
-                        $fields[$subParameterName] = new Constraints\Optional($parameterConstraints);
-                    }
-                }
-            }
-        }
-
-        return $fields;
     }
 }

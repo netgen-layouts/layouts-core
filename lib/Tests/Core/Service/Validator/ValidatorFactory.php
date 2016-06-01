@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
+use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Symfony\Component\Validator\Constraint;
@@ -25,6 +26,8 @@ class ValidatorFactory extends ConstraintValidatorFactory
             $valueLoaderRegistry->addValueLoader(new ValueLoader());
 
             return new ValueTypeValidator($valueLoaderRegistry);
+        } elseif ($name === 'ngbm_parameters') {
+            return new ParametersValidator();
         } else {
             return parent::getInstance($constraint);
         }

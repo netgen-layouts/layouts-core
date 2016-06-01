@@ -64,7 +64,6 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
      * @dataProvider validateBlockCreateStructDataProvider
      */
     public function testValidateBlockCreateStruct(array $params, $isValid)
@@ -94,7 +93,6 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockUpdateStruct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::buildParameterValidationFields
      * @dataProvider validateBlockUpdateStructDataProvider
      */
     public function testValidateBlockUpdateStruct(array $params, $isValid)

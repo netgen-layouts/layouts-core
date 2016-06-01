@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
+use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Validator\Constraints;
 
 class BlockValidator extends Validator
@@ -70,15 +71,15 @@ class BlockValidator extends Validator
             );
         }
 
-        $fields = $this->buildParameterValidationFields(
-            $blockDefinition->getParameters(),
-            $blockCreateStruct->getParameters()
-        );
-
         $this->validate(
             $blockCreateStruct->getParameters(),
             array(
-                new Constraints\Collection(array('fields' => $fields)),
+                new Parameters(
+                    array(
+                        'parameters' => $blockDefinition->getParameters(),
+                        'required' => true,
+                    )
+                ),
             ),
             'parameters'
         );
@@ -121,16 +122,15 @@ class BlockValidator extends Validator
             );
         }
 
-        $fields = $this->buildParameterValidationFields(
-            $blockDefinition->getParameters(),
-            $blockUpdateStruct->getParameters(),
-            false
-        );
-
         $this->validate(
             $blockUpdateStruct->getParameters(),
             array(
-                new Constraints\Collection(array('fields' => $fields)),
+                new Parameters(
+                    array(
+                        'parameters' => $blockDefinition->getParameters(),
+                        'required' => false,
+                    )
+                ),
             ),
             'parameters'
         );
