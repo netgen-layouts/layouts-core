@@ -61,6 +61,26 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::__construct
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleDraft
+     */
+    public function testLoadRuleDraft()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(7);
+
+        self::assertInstanceOf(RuleDraft::class, $rule);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadRuleDraftThrowsNotFoundException()
+    {
+        $this->layoutResolverService->loadRuleDraft(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
      */
     public function testLoadRules()
@@ -108,6 +128,25 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTargetDraft
+     */
+    public function testLoadTargetDraft()
+    {
+        $target = $this->layoutResolverService->loadTargetDraft(9);
+
+        self::assertInstanceOf(TargetDraft::class, $target);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTargetDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadTargetDraftThrowsNotFoundException()
+    {
+        $this->layoutResolverService->loadTargetDraft(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadCondition
      */
     public function testLoadCondition()
@@ -124,6 +163,25 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testLoadConditionThrowsNotFoundException()
     {
         $this->layoutResolverService->loadCondition(999999);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadConditionDraft
+     */
+    public function testLoadConditionDraft()
+    {
+        $condition = $this->layoutResolverService->loadConditionDraft(4);
+
+        self::assertInstanceOf(ConditionDraft::class, $condition);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadConditionDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadConditionDraftThrowsNotFoundException()
+    {
+        $this->layoutResolverService->loadConditionDraft(999999);
     }
 
     /**

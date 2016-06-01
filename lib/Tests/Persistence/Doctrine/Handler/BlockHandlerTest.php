@@ -6,6 +6,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
@@ -212,7 +213,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 6,
+                    'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
                     'position' => 1,
@@ -248,7 +249,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 6,
+                    'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
                     'position' => 3,
@@ -340,7 +341,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 6,
+                    'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
                     'position' => 3,
@@ -367,7 +368,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 6,
+                    'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'bottom',
                     'position' => 0,
@@ -512,6 +513,90 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
+     */
+    public function testCreateBlockStatus()
+    {
+        $this->blockHandler->deleteBlock(1, Layout::STATUS_DRAFT);
+
+        $this->blockHandler->createBlockStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+
+        self::assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'top_right',
+                    'definitionIdentifier' => 'paragraph',
+                    'parameters' => array(
+                        'some_param' => 'some_value',
+                    ),
+                    'viewType' => 'default',
+                    'name' => 'My block',
+                    'status' => Layout::STATUS_DRAFT,
+                )
+            ),
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
+
+        $collectionReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
+
+        self::assertCount(2, $collectionReferences);
+
+        $collectionIds = array(
+            $collectionReferences[0]->collectionId,
+            $collectionReferences[1]->collectionId,
+        );
+
+        self::assertContains(2, $collectionIds);
+        self::assertContains(3, $collectionIds);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
+     */
+    public function testCreateBlockCollectionsStatus()
+    {
+        $this->blockHandler->createBlockCollectionsStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+
+        $collectionReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
+
+        self::assertCount(3, $collectionReferences);
+
+        $collectionIds = array(
+            $collectionReferences[0]->collectionId,
+            $collectionReferences[1]->collectionId,
+            $collectionReferences[2]->collectionId,
+        );
+
+        self::assertContains(1, $collectionIds);
+        self::assertContains(2, $collectionIds);
+        self::assertContains(3, $collectionIds);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
+     */
+    public function testCreateBlockCollectionsStatusWithExistingStatus()
+    {
+        // First create a collection in draft status separately and delete an item from it
+        $this->collectionHandler->createCollectionStatus(
+            2,
+            Collection::STATUS_PUBLISHED,
+            Collection::STATUS_DRAFT
+        );
+
+        $this->collectionHandler->deleteItem(4, Collection::STATUS_DRAFT);
+
+        // Then verify that archived status is recreated after creating a layout in archived status
+        $this->blockHandler->createBlockCollectionsStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+
+        $item = $this->collectionHandler->loadItem(4, Collection::STATUS_DRAFT);
+        self::assertInstanceOf(Item::class, $item);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
@@ -542,6 +627,20 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testDeleteBlockCollections()
+    {
+        $this->blockHandler->deleteBlockCollections(1, Layout::STATUS_DRAFT);
+
+        // Verify that named collection still exists
+        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
+
+        $this->collectionHandler->loadCollection(1, Layout::STATUS_DRAFT);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionIdentifierExists
      */
@@ -557,6 +656,24 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCollectionIdentifierNotExists()
     {
         self::assertFalse($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'something_else'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionExists
+     */
+    public function testCollectionExists()
+    {
+        self::assertTrue($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 1, Collection::STATUS_DRAFT));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionExists
+     */
+    public function testCollectionNotExists()
+    {
+        self::assertFalse($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 2, Collection::STATUS_DRAFT));
     }
 
     /**

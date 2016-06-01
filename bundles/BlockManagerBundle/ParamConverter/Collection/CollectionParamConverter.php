@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection;
 
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 

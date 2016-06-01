@@ -301,8 +301,6 @@ class BlockHandler implements BlockHandlerInterface
      * @param int|string $blockId
      * @param int $status
      * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createBlockStatus($blockId, $status, $newStatus)
     {
@@ -333,8 +331,6 @@ class BlockHandler implements BlockHandlerInterface
      * @param int|string $blockId
      * @param int $status
      * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createBlockCollectionsStatus($blockId, $status, $newStatus)
     {
@@ -359,15 +355,17 @@ class BlockHandler implements BlockHandlerInterface
                 $newCollectionStatus = $collectionsDataRow['collection_status'];
             }
 
-            $this->addCollectionToBlock(
-                $blockId,
-                $newStatus,
-                $collectionsDataRow['collection_id'],
-                $newCollectionStatus,
-                $collectionsDataRow['identifier'],
-                $collectionsDataRow['start'],
-                $collectionsDataRow['length']
-            );
+            if (!$this->queryHandler->collectionExists($blockId, $newStatus, $collectionsDataRow['collection_id'], $newCollectionStatus)) {
+                $this->addCollectionToBlock(
+                    $blockId,
+                    $newStatus,
+                    $collectionsDataRow['collection_id'],
+                    $newCollectionStatus,
+                    $collectionsDataRow['identifier'],
+                    $collectionsDataRow['start'],
+                    $collectionsDataRow['length']
+                );
+            }
         }
     }
 
@@ -436,6 +434,21 @@ class BlockHandler implements BlockHandlerInterface
     public function collectionIdentifierExists($blockId, $status, $identifier)
     {
         return $this->queryHandler->collectionIdentifierExists($blockId, $status, $identifier);
+    }
+
+    /**
+     * Returns if provided collection already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     *
+     * @return bool
+     */
+    public function collectionExists($blockId, $status, $collectionId, $collectionStatus)
+    {
+        return $this->queryHandler->collectionExists($blockId, $status, $collectionId, $collectionStatus);
     }
 
     /**

@@ -147,6 +147,29 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @expectedException \Exception
+     */
+    public function testDiscardDraft()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('deleteLayout')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->discardDraft(new LayoutDraft());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      * @expectedException \Exception
      */

@@ -96,4 +96,25 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionRegistryPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsExceptionWithNoHandler()
+    {
+        $blockDefinitions = array('block_definition' => array('config'));
+        $this->setParameter('netgen_block_manager.block_definitions', $blockDefinitions);
+        $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
+
+        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+
+        $blockDefinitionHandler = new Definition();
+        $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler', array('identifier' => 'other'));
+        $this->setDefinition('netgen_block_manager.block.block_definition.handler.test', $blockDefinitionHandler);
+
+        $this->compile();
+    }
 }

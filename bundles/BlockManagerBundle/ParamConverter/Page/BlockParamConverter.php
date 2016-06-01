@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
 
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
 

@@ -5,14 +5,14 @@ namespace Netgen\BlockManager\Tests\Item;
 use Netgen\BlockManager\Item\Item;
 use stdClass;
 
-class ValueTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\Value::getValueId
-     * @covers \Netgen\BlockManager\Item\Value::getValueType
-     * @covers \Netgen\BlockManager\Item\Value::getName
-     * @covers \Netgen\BlockManager\Item\Value::isVisible
-     * @covers \Netgen\BlockManager\Item\Value::getObject
+     * @covers \Netgen\BlockManager\Item\Item::getValueId
+     * @covers \Netgen\BlockManager\Item\Item::getValueType
+     * @covers \Netgen\BlockManager\Item\Item::getName
+     * @covers \Netgen\BlockManager\Item\Item::isVisible
+     * @covers \Netgen\BlockManager\Item\Item::getObject
      */
     public function testObject()
     {

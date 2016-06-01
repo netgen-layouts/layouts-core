@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Service\CollectionService;
@@ -15,7 +15,7 @@ class CollectionParamConverterTest extends \PHPUnit_Framework_TestCase
     protected $collectionServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter
      */
     protected $paramConverter;
 
@@ -27,7 +27,7 @@ class CollectionParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter::getSourceAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::getSourceAttributeName
      */
     public function testGetSourceAttributeName()
     {
@@ -35,7 +35,7 @@ class CollectionParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -43,7 +43,7 @@ class CollectionParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -51,8 +51,8 @@ class CollectionParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {

@@ -185,6 +185,34 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     * @expectedException \Exception
+     */
+    public function testRestoreBlock()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
+            ->method('updateBlock')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->restoreBlock(new BlockDraft());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
      * @expectedException \Exception
      */

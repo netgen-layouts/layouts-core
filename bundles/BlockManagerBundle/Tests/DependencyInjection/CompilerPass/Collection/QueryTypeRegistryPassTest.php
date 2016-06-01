@@ -96,4 +96,25 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypeRegistryPass::process
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsExceptionWithNoHandler()
+    {
+        $queryTypes = array('query_type' => array('config'));
+        $this->setParameter('netgen_block_manager.query_types', $queryTypes);
+        $this->setParameter('netgen_block_manager.collection.query_type.configuration.factory.class', 'factory_class');
+        $this->setParameter('netgen_block_manager.collection.query_type.configuration.class', 'config_class');
+        $this->setParameter('netgen_block_manager.collection.query_type.class', 'definition_class');
+
+        $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
+
+        $queryTypeHandler = new Definition();
+        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', array('type' => 'other'));
+        $this->setDefinition('netgen_block_manager.collection.query_type.handler.test', $queryTypeHandler);
+
+        $this->compile();
+    }
 }

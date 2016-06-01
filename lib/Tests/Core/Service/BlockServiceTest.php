@@ -121,6 +121,26 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
+     */
+    public function testLoadBlockDraft()
+    {
+        $block = $this->blockService->loadBlockDraft(1);
+
+        self::assertInstanceOf(APIBlockDraft::class, $block);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadBlockDraftThrowsNotFoundException()
+    {
+        $this->blockService->loadBlockDraft(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReferences
      */
     public function testLoadCollectionReferences()
@@ -168,6 +188,23 @@ abstract class BlockServiceTest extends ServiceTest
 
         $collection = $this->collectionService->loadCollectionDraft(4);
         self::assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
+     */
+    public function testCreateBlockWithNonExistentLayoutType()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+
+        $block = $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->layoutService->loadLayoutDraft(2),
+            'top'
+        );
+
+        self::assertInstanceOf(APIBlockDraft::class, $block);
     }
 
     /**
@@ -366,7 +403,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $copiedBlock);
-        self::assertEquals(6, $copiedBlock->getId());
+        self::assertEquals(7, $copiedBlock->getId());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         self::assertInstanceOf(Collection::class, $copiedCollection);
@@ -384,7 +421,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $copiedBlock);
-        self::assertEquals(6, $copiedBlock->getId());
+        self::assertEquals(7, $copiedBlock->getId());
         self::assertEquals('top_left', $copiedBlock->getZoneIdentifier());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
@@ -532,6 +569,17 @@ abstract class BlockServiceTest extends ServiceTest
 
         self::assertEquals(2, $collectionReferences[0]->getCollectionId());
         self::assertEquals(3, $collectionReferences[1]->getCollectionId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testRestoreBlockThrowsBadStateException()
+    {
+        $block = $this->blockService->loadBlockDraft(6);
+
+        $this->blockService->restoreBlock($block);
     }
 
     /**

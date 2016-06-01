@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Service\CollectionService;
 
-class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
+class ItemParamConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -15,7 +15,7 @@ class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
     protected $collectionServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter
      */
     protected $paramConverter;
 
@@ -23,11 +23,11 @@ class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $this->collectionServiceMock = $this->getMock(CollectionService::class);
 
-        $this->paramConverter = new CollectionItemParamConverter($this->collectionServiceMock);
+        $this->paramConverter = new ItemParamConverter($this->collectionServiceMock);
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter::getSourceAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::getSourceAttributeName
      */
     public function testGetSourceAttributeName()
     {
@@ -35,7 +35,7 @@ class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -43,7 +43,7 @@ class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -51,8 +51,8 @@ class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {

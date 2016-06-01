@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection;
 
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Collection\Item;
 
-class CollectionQueryParamConverter extends ParamConverter
+class ItemParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
@@ -29,7 +30,7 @@ class CollectionQueryParamConverter extends ParamConverter
      */
     public function getSourceAttributeName()
     {
-        return 'queryId';
+        return 'itemId';
     }
 
     /**
@@ -39,7 +40,7 @@ class CollectionQueryParamConverter extends ParamConverter
      */
     public function getDestinationAttributeName()
     {
-        return 'query';
+        return 'item';
     }
 
     /**
@@ -49,7 +50,7 @@ class CollectionQueryParamConverter extends ParamConverter
      */
     public function getSupportedClass()
     {
-        return Query::class;
+        return Item::class;
     }
 
     /**
@@ -61,6 +62,6 @@ class CollectionQueryParamConverter extends ParamConverter
      */
     public function loadValueObject($valueId)
     {
-        return $this->collectionService->loadQuery($valueId);
+        return $this->collectionService->loadItem($valueId);
     }
 }

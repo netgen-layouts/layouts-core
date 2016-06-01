@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
 abstract class LayoutServiceTest extends ServiceTest
 {
@@ -79,6 +80,26 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutDraft
+     */
+    public function testLoadLayoutDraft()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        self::assertInstanceOf(LayoutDraft::class, $layout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadLayoutDraftThrowsNotFoundException()
+    {
+        $this->layoutService->loadLayoutDraft(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
      */
     public function testLoadZone()
@@ -104,6 +125,34 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
     {
         $this->layoutService->loadZone(1, 'not_existing');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
+     */
+    public function testLoadZoneDraft()
+    {
+        $zone = $this->layoutService->loadZoneDraft(1, 'top_left');
+
+        self::assertInstanceOf(ZoneDraft::class, $zone);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingLayout()
+    {
+        $this->layoutService->loadZoneDraft(999999, 'bottom');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingZoneDraft()
+    {
+        $this->layoutService->loadZoneDraft(1, 'not_existing');
     }
 
     /**
@@ -145,7 +194,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(4, $copiedLayout->getId());
+        self::assertEquals(5, $copiedLayout->getId());
     }
 
     /**
@@ -198,6 +247,26 @@ abstract class LayoutServiceTest extends ServiceTest
         } catch (NotFoundException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
+     */
+    public function testIsPublished()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+
+        self::assertTrue($this->layoutService->isPublished($layout));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
+     */
+    public function testIsPublishedReturnsFalse()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(4);
+
+        self::assertFalse($this->layoutService->isPublished($layout));
     }
 
     /**

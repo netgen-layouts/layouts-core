@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Select;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validation;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
@@ -163,54 +162,31 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param mixed $value
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
+     * @dataProvider validationProvider
      */
-    public function testGetParameterConstraints()
+    public function testValidation($value, $isValid)
     {
-        $parameter = $this->getParameter(array('options' => array('One' => 1)));
+        $parameter = $this->getParameter(array('options' => array('One' => 1, 'Two' => 2)));
+        $validator = Validation::createValidator();
 
-        self::assertEquals(
-            array(
-                new Constraints\Choice(
-                    array(
-                        'choices' => array(1),
-                        'multiple' => false,
-                    )
-                ),
-            ),
-            $parameter->getConstraints()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
-     */
-    public function testGetParameterConstraintsWithClosure()
-    {
-        $parameter = $this->getParameter(array('options' => function () {return array('One' => 1);}));
-
-        self::assertEquals(
-            array(
-                new Constraints\Choice(
-                    array(
-                        'choices' => array(1),
-                        'multiple' => false,
-                    )
-                ),
-            ),
-            $parameter->getConstraints()
-        );
+        $errors = $validator->validate($value, $parameter->getConstraints());
+        self::assertEquals($isValid, $errors->count() == 0);
     }
 
     /**
      * @param mixed $value
      * @param bool $isValid
      *
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidationWithClosure($value, $isValid)
     {
-        $parameter = $this->getParameter(array('options' => array('One' => 1, 'Two' => 2)));
+        $parameter = $this->getParameter(array('options' => function () {return array('One' => 1, 'Two' => 2);}));
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());

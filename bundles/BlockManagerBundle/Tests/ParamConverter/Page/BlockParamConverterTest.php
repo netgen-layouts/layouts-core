@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Service\BlockService;
@@ -15,7 +15,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
     protected $blockServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
      */
     protected $paramConverter;
 
@@ -27,7 +27,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::getSourceAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getSourceAttributeName
      */
     public function testGetSourceAttributeName()
     {
@@ -35,7 +35,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -43,7 +43,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -51,8 +51,8 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\BlockParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {

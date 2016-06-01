@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -15,7 +15,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     protected $layoutServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
      */
     protected $paramConverter;
 
@@ -27,7 +27,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::getSourceAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getSourceAttributeName
      */
     public function testGetSourceAttributeName()
     {
@@ -35,7 +35,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -43,7 +43,7 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -51,8 +51,8 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {

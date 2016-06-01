@@ -1,25 +1,26 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
+use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\Layout;
 
-class CollectionItemParamConverter extends ParamConverter
+class LayoutParamConverter extends ParamConverter
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $collectionService;
+    protected $layoutService;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      */
-    public function __construct(CollectionService $collectionService)
+    public function __construct(LayoutService $layoutService)
     {
-        $this->collectionService = $collectionService;
+        $this->layoutService = $layoutService;
     }
 
     /**
@@ -29,7 +30,7 @@ class CollectionItemParamConverter extends ParamConverter
      */
     public function getSourceAttributeName()
     {
-        return 'itemId';
+        return 'layoutId';
     }
 
     /**
@@ -39,7 +40,7 @@ class CollectionItemParamConverter extends ParamConverter
      */
     public function getDestinationAttributeName()
     {
-        return 'item';
+        return 'layout';
     }
 
     /**
@@ -49,7 +50,7 @@ class CollectionItemParamConverter extends ParamConverter
      */
     public function getSupportedClass()
     {
-        return Item::class;
+        return Layout::class;
     }
 
     /**
@@ -61,6 +62,6 @@ class CollectionItemParamConverter extends ParamConverter
      */
     public function loadValueObject($valueId)
     {
-        return $this->collectionService->loadItem($valueId);
+        return $this->layoutService->loadLayout($valueId);
     }
 }

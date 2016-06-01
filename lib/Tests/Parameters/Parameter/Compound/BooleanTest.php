@@ -1,24 +1,24 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\Parameter;
+namespace Netgen\BlockManager\Tests\Parameters\Parameter\Compound;
 
-use Netgen\BlockManager\Parameters\Parameter\Identifier;
+use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean;
 use Symfony\Component\Validator\Validation;
 
-class IdentifierTest extends \PHPUnit_Framework_TestCase
+class BooleanTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::getType
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::getType
      */
     public function testGetType()
     {
         $parameter = $this->getParameter();
-        self::assertEquals('identifier', $parameter->getType());
+        self::assertEquals('compound_boolean', $parameter->getType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -31,8 +31,8 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
@@ -48,11 +48,11 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Identifier
+     * @return \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean
      */
     public function getParameter(array $options = array())
     {
-        return new Identifier($options);
+        return new Boolean(array(), $options);
     }
 
     /**
@@ -90,7 +90,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::getParameterConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)
@@ -110,11 +110,12 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     public function validationProvider()
     {
         return array(
-            array('123abcASD', true),
-            array('123abc_ASD', true),
-            array('123abc ASD', false),
-            array('123a-bcASD', false),
-            array('123abc.ASD', false),
+            array('12', false),
+            array(12.3, false),
+            array(true, true),
+            array(false, true),
+            array(array(), false),
+            array(12, false),
         );
     }
 }

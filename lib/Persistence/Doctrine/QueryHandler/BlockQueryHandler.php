@@ -266,6 +266,38 @@ class BlockQueryHandler
     }
 
     /**
+     * Returns if provided collection already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     *
+     * @return bool
+     */
+    public function collectionExists($blockId, $status, $collectionId, $collectionStatus)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query->select('count(*) AS count')
+            ->from('ngbm_block_collection')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('collection_id', ':collection_id')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::STRING);
+
+        $this->queryHelper->applyStatusCondition($query, $status, 'block_status', 'block_status');
+        $this->queryHelper->applyStatusCondition($query, $collectionStatus, 'collection_status', 'collection_status');
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Adds the collection to the block.
      *
      * @param int|string $blockId

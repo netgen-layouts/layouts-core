@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
-use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\NonAPIException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -18,7 +17,8 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\BadStateException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\Exception;
+use Netgen\BlockManager\Exception\Exception;
+use RuntimeException;
 
 class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -73,13 +73,13 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
      */
-    public function testOnExceptionNotConvertsNonAPIException()
+    public function testOnExceptionNotConvertsOtherExceptions()
     {
         $eventListener = new ExceptionConversionListener();
 
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $exception = new NonAPIException('Some error');
+        $exception = new RuntimeException('Some error');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -91,7 +91,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         $eventListener->onException($event);
 
         self::assertInstanceOf(
-            NonAPIException::class,
+            RuntimeException::class,
             $event->getException()
         );
     }
@@ -105,7 +105,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $exception = new Exception('Some error');
+        $exception = new NotFoundException('param', 'Some error');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -138,14 +138,14 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
                 Response::HTTP_UNPROCESSABLE_ENTITY,
             ),
             array(
+                $this->getMockForAbstractClass(Exception::class),
+                InternalServerErrorHttpException::class,
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+            ),
+            array(
                 new AccessDeniedException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
-            ),
-            array(
-                new Exception('Some error'),
-                InternalServerErrorHttpException::class,
-                Response::HTTP_INTERNAL_SERVER_ERROR,
             ),
         );
     }

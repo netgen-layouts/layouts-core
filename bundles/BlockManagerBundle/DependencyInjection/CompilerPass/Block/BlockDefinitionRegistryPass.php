@@ -44,6 +44,7 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
 
             $container->setDefinition($configServiceName, $configService);
 
+            $foundHandler = null;
             foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tag) {
                 if (!isset($tag[0]['identifier'])) {
                     throw new RuntimeException(
@@ -51,25 +52,35 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
                     );
                 }
 
-                if ($tag[0]['identifier'] !== $identifier) {
-                    continue;
+                if ($tag[0]['identifier'] === $identifier) {
+                    $foundHandler = $blockDefinitionHandler;
+                    break;
                 }
+            }
 
-                $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
-                $blockDefinitionService = new Definition(
-                    $container->getParameter('netgen_block_manager.block.block_definition.class')
-                );
-
-                $blockDefinitionService->addArgument($identifier);
-                $blockDefinitionService->addArgument(new Reference($blockDefinitionHandler));
-                $blockDefinitionService->addArgument(new Reference($configServiceName));
-                $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
-
-                $blockDefinitionRegistry->addMethodCall(
-                    'addBlockDefinition',
-                    array(new Reference($blockDefinitionServiceName))
+            if ($foundHandler === null) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Block definition handler for "%s" block definition does not exist.',
+                        $identifier
+                    )
                 );
             }
+
+            $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
+            $blockDefinitionService = new Definition(
+                $container->getParameter('netgen_block_manager.block.block_definition.class')
+            );
+
+            $blockDefinitionService->addArgument($identifier);
+            $blockDefinitionService->addArgument(new Reference($foundHandler));
+            $blockDefinitionService->addArgument(new Reference($configServiceName));
+            $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
+
+            $blockDefinitionRegistry->addMethodCall(
+                'addBlockDefinition',
+                array(new Reference($blockDefinitionServiceName))
+            );
         }
     }
 }

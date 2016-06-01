@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
@@ -239,7 +238,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Layout::class, $createdLayout);
 
-        self::assertEquals(4, $createdLayout->id);
+        self::assertEquals(5, $createdLayout->id);
         self::assertNull($createdLayout->parentId);
         self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
@@ -256,14 +255,14 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 new Zone(
                     array(
                         'identifier' => 'first_zone',
-                        'layoutId' => 4,
+                        'layoutId' => $createdLayout->id,
                         'status' => Layout::STATUS_DRAFT,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'second_zone',
-                        'layoutId' => 4,
+                        'layoutId' => $createdLayout->id,
                         'status' => Layout::STATUS_DRAFT,
                     )
                 ),
@@ -288,7 +287,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(4, $copiedLayout->id);
+        self::assertEquals(5, $copiedLayout->id);
         self::assertNull($copiedLayout->parentId);
         self::assertEquals('3_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
@@ -328,7 +327,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Block(
                     array(
-                        'id' => 6,
+                        'id' => 7,
                         'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'top_right',
                         'position' => 0,
@@ -343,7 +342,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Block(
                     array(
-                        'id' => 7,
+                        'id' => 8,
                         'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'top_right',
                         'position' => 1,
@@ -358,7 +357,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Block(
                     array(
-                        'id' => 8,
+                        'id' => 9,
                         'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'top_right',
                         'position' => 2,
@@ -380,22 +379,22 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadCollectionReferences(6, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_DRAFT);
         self::assertCount(2, $draftReferences);
         self::assertContains($draftReferences[0]->collectionId, array(3, 4));
         self::assertContains($draftReferences[1]->collectionId, array(3, 4));
 
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(6, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $draftReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(3, 5));
         self::assertContains($publishedReferences[1]->collectionId, array(3, 5));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(8, Layout::STATUS_DRAFT);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $draftReferences[0]->collectionId);
 
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(8, Layout::STATUS_PUBLISHED);
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
@@ -515,37 +514,6 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
         $archivedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_ARCHIVED);
         self::assertCount(1, $archivedReferences);
         self::assertEquals(3, $archivedReferences[0]->collectionId);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
-     */
-    public function testCreateLayoutStatusWithExistingCollectionStatus()
-    {
-        // First create a collection in archived status separately and delete an item from it
-        $this->collectionHandler->createCollectionStatus(
-            2,
-            Collection::STATUS_PUBLISHED,
-            Collection::STATUS_ARCHIVED
-        );
-
-        $this->collectionHandler->deleteItem(4, Collection::STATUS_ARCHIVED);
-
-        // Then verify that archived status is recreated after creating a layout in archived status
-        $this->layoutHandler->createLayoutStatus(
-            1,
-            Layout::STATUS_PUBLISHED,
-            Layout::STATUS_ARCHIVED
-        );
-
-        $item = $this->collectionHandler->loadItem(4, Collection::STATUS_ARCHIVED);
-        self::assertInstanceOf(Item::class, $item);
     }
 
     /**

@@ -44,6 +44,7 @@ class QueryTypeRegistryPass implements CompilerPassInterface
 
             $container->setDefinition($configServiceName, $configService);
 
+            $foundHandler = null;
             foreach ($queryTypeHandlers as $queryTypeHandler => $tag) {
                 if (!isset($tag[0]['type'])) {
                     throw new RuntimeException(
@@ -51,25 +52,35 @@ class QueryTypeRegistryPass implements CompilerPassInterface
                     );
                 }
 
-                if ($tag[0]['type'] !== $type) {
-                    continue;
+                if ($tag[0]['type'] === $type) {
+                    $foundHandler = $queryTypeHandler;
+                    break;
                 }
+            }
 
-                $queryTypeServiceName = sprintf('netgen_block_manager.collection.query_type.%s', $type);
-                $queryTypeService = new Definition(
-                    $container->getParameter('netgen_block_manager.collection.query_type.class')
-                );
-
-                $queryTypeService->addArgument($type);
-                $queryTypeService->addArgument(new Reference($queryTypeHandler));
-                $queryTypeService->addArgument(new Reference($configServiceName));
-                $container->setDefinition($queryTypeServiceName, $queryTypeService);
-
-                $queryTypeRegistry->addMethodCall(
-                    'addQueryType',
-                    array(new Reference($queryTypeServiceName))
+            if ($foundHandler === null) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Query type handler for "%s" query type does not exist.',
+                        $type
+                    )
                 );
             }
+
+            $queryTypeServiceName = sprintf('netgen_block_manager.collection.query_type.%s', $type);
+            $queryTypeService = new Definition(
+                $container->getParameter('netgen_block_manager.collection.query_type.class')
+            );
+
+            $queryTypeService->addArgument($type);
+            $queryTypeService->addArgument(new Reference($foundHandler));
+            $queryTypeService->addArgument(new Reference($configServiceName));
+            $container->setDefinition($queryTypeServiceName, $queryTypeService);
+
+            $queryTypeRegistry->addMethodCall(
+                'addQueryType',
+                array(new Reference($queryTypeServiceName))
+            );
         }
     }
 }

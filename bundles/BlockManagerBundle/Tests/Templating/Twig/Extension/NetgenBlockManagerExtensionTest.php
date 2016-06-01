@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
@@ -122,6 +123,32 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
             'rendered block',
             $this->extension->renderBlock(
                 new Block(),
+                array('param' => 'value'),
+                ViewInterface::CONTEXT_VIEW
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::renderItem
+     */
+    public function testRenderItem()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Item()),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW),
+                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value'))
+            )
+            ->will($this->returnValue('rendered item'));
+
+        self::assertEquals(
+            'rendered item',
+            $this->extension->renderItem(
+                new Item(),
+                'viewType',
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_VIEW
             )

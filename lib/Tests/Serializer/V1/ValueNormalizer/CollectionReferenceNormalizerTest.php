@@ -77,6 +77,50 @@ class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer::normalize
+     */
+    public function testNormalizeDraft()
+    {
+        $collectionReference = new CollectionReference(
+            array(
+                'blockId' => 42,
+                'collectionId' => 24,
+                'collectionStatus' => Collection::STATUS_DRAFT,
+                'identifier' => 'default',
+                'offset' => 10,
+                'limit' => 5,
+            )
+        );
+
+        $collection = new Collection(
+            array(
+                'id' => 24,
+                'type' => Collection::TYPE_MANUAL,
+                'name' => null,
+            )
+        );
+
+        $this->collectionServiceMock
+            ->expects($this->once())
+            ->method('loadCollectionDraft')
+            ->with($this->equalTo(24))
+            ->will($this->returnValue($collection));
+
+        self::assertEquals(
+            array(
+                'id' => $collection->getId(),
+                'type' => $collection->getType(),
+                'name' => $collection->getName(),
+                'identifier' => $collectionReference->getIdentifier(),
+                'offset' => $collectionReference->getOffset(),
+                'limit' => $collectionReference->getLimit(),
+            ),
+            $this->normalizer->normalize(new VersionedValue($collectionReference, 1))
+        );
+    }
+
+    /**
      * @param mixed $data
      * @param bool $expected
      *

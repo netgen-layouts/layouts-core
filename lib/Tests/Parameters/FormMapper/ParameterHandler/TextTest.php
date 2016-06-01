@@ -39,7 +39,6 @@ class TextTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::convertOptions
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getPropertyPath
      */
     public function testMapForm()
     {

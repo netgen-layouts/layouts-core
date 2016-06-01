@@ -110,8 +110,6 @@ interface BlockHandler
      * @param int|string $blockId
      * @param int $status
      * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createBlockStatus($blockId, $status, $newStatus);
 
@@ -121,8 +119,6 @@ interface BlockHandler
      * @param int|string $blockId
      * @param int $status
      * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createBlockCollectionsStatus($blockId, $status, $newStatus);
 
@@ -152,6 +148,18 @@ interface BlockHandler
      * @return bool
      */
     public function collectionIdentifierExists($blockId, $status, $identifier);
+
+    /**
+     * Returns if provided collection already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     *
+     * @return bool
+     */
+    public function collectionExists($blockId, $status, $collectionId, $collectionStatus);
 
     /**
      * Adds the collection to the block.

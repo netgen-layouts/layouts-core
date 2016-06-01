@@ -20,7 +20,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
     protected $formBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Boolean
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean
      */
     protected $handler;
 
@@ -49,11 +49,10 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Boolean::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean::getDefaultOptions
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean::convertOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::convertOptions
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getPropertyPath
      */
     public function testMapForm()
     {

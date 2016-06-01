@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
 
-use Netgen\BlockManager\API\Values\Collection\QueryDraft;
+use Netgen\BlockManager\API\Values\Page\BlockDraft;
 
-class CollectionQueryDraftParamConverter extends CollectionQueryParamConverter
+class BlockDraftParamConverter extends BlockParamConverter
 {
     /**
      * Returns the supported class.
@@ -13,7 +13,7 @@ class CollectionQueryDraftParamConverter extends CollectionQueryParamConverter
      */
     public function getSupportedClass()
     {
-        return QueryDraft::class;
+        return BlockDraft::class;
     }
 
     /**
@@ -25,6 +25,6 @@ class CollectionQueryDraftParamConverter extends CollectionQueryParamConverter
      */
     public function loadValueObject($valueId)
     {
-        return $this->collectionService->loadQueryDraft($valueId);
+        return $this->blockService->loadBlockDraft($valueId);
     }
 }

@@ -65,25 +65,8 @@ abstract class ParameterHandler implements ParameterHandlerInterface
         return array(
             'required' => $parameter->isRequired(),
             'label' => $options['label_prefix'] . '.' . $parameterName,
-            'property_path' => $this->getPropertyPath($options['property_path_prefix'], $parameterName),
+            'property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
             'constraints' => $parameter->getConstraints($options['validation_groups']),
         );
-    }
-
-    /**
-     * Returns the property path based on parameter name and prefix.
-     *
-     * @param string $propertyPathPrefix
-     * @param string $parameterName
-     *
-     * @return string
-     */
-    protected function getPropertyPath($propertyPathPrefix, $parameterName)
-    {
-        if (empty($propertyPathPrefix)) {
-            return $parameterName;
-        }
-
-        return $propertyPathPrefix . '[' . $parameterName . ']';
     }
 }

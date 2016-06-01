@@ -27,6 +27,7 @@ class TitleHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::getParameters
      */
     public function testGetParameters()

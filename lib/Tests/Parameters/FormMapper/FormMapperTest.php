@@ -36,7 +36,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::__construct
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::configureOptions
      */
     public function testMapParameter()
     {
@@ -63,6 +63,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::configureOptions
      * @expectedException \RuntimeException
      */
     public function testMapParameterThrowsRuntimeException()

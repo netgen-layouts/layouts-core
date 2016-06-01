@@ -41,7 +41,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAutoIncrementValue()
     {
-        self::assertEquals(6, $this->helper->getAutoIncrementValue('ngbm_block'));
+        self::assertEquals(7, $this->helper->getAutoIncrementValue('ngbm_block'));
     }
 
     /**
@@ -50,6 +50,6 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
      */
     public function testLastInsertId()
     {
-        self::assertEquals(5, $this->helper->lastInsertId('ngbm_block'));
+        self::assertEquals(6, $this->helper->lastInsertId('ngbm_block'));
     }
 }

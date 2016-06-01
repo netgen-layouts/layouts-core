@@ -169,6 +169,29 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
+     * @expectedException \Exception
+     */
+    public function testDiscardDraft()
+    {
+        $this->collectionHandlerMock
+            ->expects($this->at(0))
+            ->method('loadCollection')
+            ->will($this->returnValue(new PersistenceCollection()));
+
+        $this->collectionHandlerMock
+            ->expects($this->at(1))
+            ->method('deleteCollection')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->discardDraft(new CollectionDraft());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      * @expectedException \Exception
      */

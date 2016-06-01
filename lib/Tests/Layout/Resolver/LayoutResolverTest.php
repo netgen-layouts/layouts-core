@@ -54,7 +54,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
         $rule2 = new Rule(
             array(
                 'layoutId' => 13,
-                'priority' => 3,
+                'priority' => 4,
                 'enabled' => true,
             )
         );
@@ -87,7 +87,14 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('target2'), $this->equalTo(84))
             ->will($this->returnValue(array($rule3, $rule4)));
 
-        self::assertEquals(array($rule3, $rule4, $rule2, $rule1), $this->layoutResolver->resolveRules());
+        $resolvedRules = $this->layoutResolver->resolveRules();
+
+        self::assertCount(4, $resolvedRules);
+
+        // We can't be sure in what order two rules with same priority will be returned,
+        // so just assert the first one and the last one
+        self::assertEquals($rule3, $resolvedRules[0]);
+        self::assertEquals($rule1, $resolvedRules[3]);
     }
 
     /**

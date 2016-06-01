@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
 
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 

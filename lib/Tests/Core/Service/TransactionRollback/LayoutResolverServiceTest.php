@@ -156,6 +156,29 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @expectedException \Exception
+     */
+    public function testDiscardDraft()
+    {
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(0))
+            ->method('loadRule')
+            ->will($this->returnValue(new PersistenceRule()));
+
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(1))
+            ->method('deleteRule')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutResolverService->discardDraft(new RuleDraft());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
      * @expectedException \Exception
      */

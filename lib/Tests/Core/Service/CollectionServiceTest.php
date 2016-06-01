@@ -61,6 +61,26 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::__construct
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollectionDraft
+     */
+    public function testLoadCollectionDraft()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+
+        self::assertInstanceOf(CollectionDraft::class, $collection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollectionDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadCollectionDraftThrowsNotFoundException()
+    {
+        $this->collectionService->loadCollectionDraft(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadNamedCollections
      */
     public function testLoadNamedCollections()
@@ -95,11 +115,30 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItemDraft
+     */
+    public function testLoadItemDraft()
+    {
+        $item = $this->collectionService->loadItemDraft(7);
+
+        self::assertInstanceOf(ItemDraft::class, $item);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItemDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadItemDraftThrowsNotFoundException()
+    {
+        $this->collectionService->loadItem(999999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQuery
      */
     public function testLoadQuery()
     {
-        $query = $this->collectionService->loadQuery(1);
+        $query = $this->collectionService->loadQuery(2);
 
         self::assertInstanceOf(Query::class, $query);
     }
@@ -111,6 +150,25 @@ abstract class CollectionServiceTest extends ServiceTest
     public function testLoadQueryThrowsNotFoundException()
     {
         $this->collectionService->loadQuery(999999);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQueryDraft
+     */
+    public function testLoadQueryDraft()
+    {
+        $query = $this->collectionService->loadQueryDraft(2);
+
+        self::assertInstanceOf(QueryDraft::class, $query);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQueryDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadQueryDraftThrowsNotFoundException()
+    {
+        $this->collectionService->loadQueryDraft(999999);
     }
 
     /**
