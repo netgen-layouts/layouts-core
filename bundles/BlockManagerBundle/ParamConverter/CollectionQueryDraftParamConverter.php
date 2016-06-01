@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Page\LayoutDraft;
+use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 
-class LayoutDraftParamConverter extends LayoutParamConverter
+class CollectionQueryDraftParamConverter extends CollectionQueryParamConverter
 {
     /**
      * Returns the supported class.
@@ -13,7 +13,7 @@ class LayoutDraftParamConverter extends LayoutParamConverter
      */
     public function getSupportedClass()
     {
-        return LayoutDraft::class;
+        return QueryDraft::class;
     }
 
     /**
@@ -25,6 +25,6 @@ class LayoutDraftParamConverter extends LayoutParamConverter
      */
     public function loadValueObject($valueId)
     {
-        return $this->layoutService->loadLayoutDraft($valueId);
+        return $this->collectionService->loadQueryDraft($valueId);
     }
 }

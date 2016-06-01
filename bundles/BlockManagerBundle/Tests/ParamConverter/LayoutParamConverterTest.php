@@ -64,6 +64,6 @@ class LayoutParamConverterTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        self::assertEquals($layout, $this->paramConverter->loadValueObject(42, APILayout::STATUS_DRAFT));
+        self::assertEquals($layout, $this->paramConverter->loadValueObject(42));
     }
 }

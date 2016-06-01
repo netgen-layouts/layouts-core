@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,14 +38,9 @@ abstract class ParamConverter implements ParamConverterInterface
             );
         }
 
-        $status = Layout::STATUS_PUBLISHED;
-        if ($request->attributes->has('_ngbm_value_status')) {
-            $status = $request->attributes->get('_ngbm_value_status');
-        }
-
         $request->attributes->set(
             $this->getDestinationAttributeName(),
-            $this->loadValueObject($valueId, $status)
+            $this->loadValueObject($valueId)
         );
 
         return true;
@@ -89,9 +83,8 @@ abstract class ParamConverter implements ParamConverterInterface
      * Returns the value object.
      *
      * @param int|string $valueId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    abstract public function loadValueObject($valueId, $status);
+    abstract public function loadValueObject($valueId);
 }

@@ -4,8 +4,11 @@ parameters:
     netgen_block_manager.param_converter.layout.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutParamConverter
     netgen_block_manager.param_converter.layout_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutDraftParamConverter
     netgen_block_manager.param_converter.collection.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionParamConverter
+    netgen_block_manager.param_converter.collection_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionDraftParamConverter
     netgen_block_manager.param_converter.collection_item.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemParamConverter
+    netgen_block_manager.param_converter.collection_item_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionItemDraftParamConverter
     netgen_block_manager.param_converter.collection_query.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionQueryParamConverter
+    netgen_block_manager.param_converter.collection_query_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\CollectionQueryDraftParamConverter
 
 services:
     netgen_block_manager.param_converter.block:
@@ -43,6 +46,13 @@ services:
         tags:
             - { name: request.param_converter }
 
+    netgen_block_manager.param_converter.collection_draft:
+        class: "%netgen_block_manager.param_converter.collection_draft.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
+        tags:
+            - { name: request.param_converter }
+
     netgen_block_manager.param_converter.collection_item:
         class: "%netgen_block_manager.param_converter.collection_item.class%"
         arguments:
@@ -50,8 +60,22 @@ services:
         tags:
             - { name: request.param_converter }
 
+    netgen_block_manager.param_converter.collection_item_draft:
+        class: "%netgen_block_manager.param_converter.collection_item_draft.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
+        tags:
+            - { name: request.param_converter }
+
     netgen_block_manager.param_converter.collection_query:
         class: "%netgen_block_manager.param_converter.collection_query.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
+        tags:
+            - { name: request.param_converter }
+
+    netgen_block_manager.param_converter.collection_query_draft:
+        class: "%netgen_block_manager.param_converter.collection_query_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:

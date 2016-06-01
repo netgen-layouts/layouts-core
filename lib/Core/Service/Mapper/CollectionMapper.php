@@ -6,8 +6,11 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceC
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Core\Values\Collection\Item;
+use Netgen\BlockManager\Core\Values\Collection\ItemDraft;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 
 class CollectionMapper extends Mapper
 {
@@ -40,16 +43,18 @@ class CollectionMapper extends Mapper
             $queries[] = $this->mapQuery($persistenceQuery);
         }
 
-        return new Collection(
-            array(
-                'id' => $collection->id,
-                'status' => $collection->status,
-                'type' => $collection->type,
-                'name' => $collection->name,
-                'items' => $items,
-                'queries' => $queries,
-            )
+        $collectionData = array(
+            'id' => $collection->id,
+            'status' => $collection->status,
+            'type' => $collection->type,
+            'name' => $collection->name,
+            'items' => $items,
+            'queries' => $queries,
         );
+
+        return $collection->status === PersistenceCollection::STATUS_PUBLISHED ?
+            new Collection($collectionData) :
+            new CollectionDraft($collectionData);
     }
 
     /**
@@ -61,17 +66,19 @@ class CollectionMapper extends Mapper
      */
     public function mapItem(PersistenceItem $item)
     {
-        return new Item(
-            array(
-                'id' => $item->id,
-                'status' => $item->status,
-                'collectionId' => $item->collectionId,
-                'position' => $item->position,
-                'type' => $item->type,
-                'valueId' => $item->valueId,
-                'valueType' => $item->valueType,
-            )
+        $itemData = array(
+            'id' => $item->id,
+            'status' => $item->status,
+            'collectionId' => $item->collectionId,
+            'position' => $item->position,
+            'type' => $item->type,
+            'valueId' => $item->valueId,
+            'valueType' => $item->valueType,
         );
+
+        return $item->status === PersistenceCollection::STATUS_PUBLISHED ?
+            new Item($itemData) :
+            new ItemDraft($itemData);
     }
 
     /**
@@ -83,16 +90,18 @@ class CollectionMapper extends Mapper
      */
     public function mapQuery(PersistenceQuery $query)
     {
-        return new Query(
-            array(
-                'id' => $query->id,
-                'status' => $query->status,
-                'collectionId' => $query->collectionId,
-                'position' => $query->position,
-                'identifier' => $query->identifier,
-                'type' => $query->type,
-                'parameters' => $query->parameters,
-            )
+        $queryData = array(
+            'id' => $query->id,
+            'status' => $query->status,
+            'collectionId' => $query->collectionId,
+            'position' => $query->position,
+            'identifier' => $query->identifier,
+            'type' => $query->type,
+            'parameters' => $query->parameters,
         );
+
+        return $query->status === PersistenceCollection::STATUS_PUBLISHED ?
+            new Query($queryData) :
+            new QueryDraft($queryData);
     }
 }

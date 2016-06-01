@@ -62,9 +62,9 @@ class CollectionItemParamConverterTest extends \PHPUnit_Framework_TestCase
         $this->collectionServiceMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42), $this->equalTo(Collection::STATUS_DRAFT))
+            ->with($this->equalTo(42))
             ->will($this->returnValue($item));
 
-        self::assertEquals($item, $this->paramConverter->loadValueObject(42, Collection::STATUS_DRAFT));
+        self::assertEquals($item, $this->paramConverter->loadValueObject(42));
     }
 }

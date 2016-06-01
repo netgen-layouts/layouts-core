@@ -167,7 +167,7 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertEquals(0, $collectionReferences[0]->getOffset());
         self::assertNull($collectionReferences[0]->getLimit());
 
-        $collection = $this->collectionService->loadCollection(4, Layout::STATUS_DRAFT);
+        $collection = $this->collectionService->loadCollectionDraft(4);
         self::assertEquals(Collection::TYPE_MANUAL, $collection->getType());
     }
 
@@ -369,7 +369,7 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertInstanceOf(APIBlockDraft::class, $copiedBlock);
         self::assertEquals(6, $copiedBlock->getId());
 
-        $copiedCollection = $this->collectionService->loadCollection(4, Collection::STATUS_DRAFT);
+        $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 
@@ -388,7 +388,7 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertEquals(6, $copiedBlock->getId());
         self::assertEquals('top_left', $copiedBlock->getZoneIdentifier());
 
-        $copiedCollection = $this->collectionService->loadCollection(4, Collection::STATUS_DRAFT);
+        $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         self::assertInstanceOf(Collection::class, $copiedCollection);
     }
 

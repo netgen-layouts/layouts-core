@@ -56,11 +56,10 @@ class LayoutParamConverter extends ParamConverter
      * Returns the value object.
      *
      * @param int|string $valueId
-     * @param int $status
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId, $status)
+    public function loadValueObject($valueId)
     {
         return $this->layoutService->loadLayout($valueId);
     }

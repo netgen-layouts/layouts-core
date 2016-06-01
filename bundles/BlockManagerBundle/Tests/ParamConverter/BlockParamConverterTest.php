@@ -65,6 +65,6 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($block));
 
-        self::assertEquals($block, $this->paramConverter->loadValueObject(42, Layout::STATUS_DRAFT));
+        self::assertEquals($block, $this->paramConverter->loadValueObject(42));
     }
 }

@@ -24,7 +24,7 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($paramConverter->apply($request, $configuration));
         self::assertTrue($request->attributes->has('value'));
         self::assertEquals(
-            new Value(array('status' => Layout::STATUS_PUBLISHED)),
+            new Value(),
             $request->attributes->get('value')
         );
     }
@@ -36,7 +36,6 @@ class ParamConverterTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
-        $request->attributes->set('_ngbm_value_status', Layout::STATUS_DRAFT);
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 

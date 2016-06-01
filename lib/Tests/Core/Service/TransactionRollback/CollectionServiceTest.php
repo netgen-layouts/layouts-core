@@ -7,8 +7,10 @@ use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Core\Values\Collection\ItemDraft;
+use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
@@ -89,7 +91,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->will(
                 $this->returnValue(
                     new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED, 'status' => Collection::STATUS_DRAFT)
+                        array('type' => Collection::TYPE_NAMED)
                     )
                 )
             );
@@ -104,7 +106,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateNamedCollection(
-            new Collection(),
+            new CollectionDraft(),
             new CollectionUpdateStruct()
         );
     }
@@ -147,13 +149,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection(
-                        array('id' => 42, 'status' => Collection::STATUS_PUBLISHED)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceCollection()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -181,13 +177,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceCollection()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -198,7 +188,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->publishCollection(new Collection());
+        $this->collectionService->publishCollection(new CollectionDraft());
     }
 
     /**
@@ -242,7 +232,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->will(
                 $this->returnValue(
                     new PersistenceCollection(
-                        array('type' => Collection::TYPE_MANUAL, 'status' => Collection::STATUS_DRAFT)
+                        array('type' => Collection::TYPE_MANUAL)
                     )
                 )
             );
@@ -257,7 +247,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->addItem(
-            new Collection(),
+            new CollectionDraft(),
             new ItemCreateStruct(array('type' => Item::TYPE_MANUAL))
         );
     }
@@ -271,13 +261,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadItem')
-            ->will(
-                $this->returnValue(
-                    new PersistenceItem(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceItem()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -298,7 +282,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(new Item(), 0);
+        $this->collectionService->moveItem(new ItemDraft(), 0);
     }
 
     /**
@@ -310,13 +294,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadItem')
-            ->will(
-                $this->returnValue(
-                    new PersistenceItem(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceItem()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -327,7 +305,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(new Item());
+        $this->collectionService->deleteItem(new ItemDraft());
     }
 
     /**
@@ -339,13 +317,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceCollection()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -362,7 +334,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->addQuery(
-            new Collection(array('status' => Collection::STATUS_DRAFT)),
+            new CollectionDraft(),
             new QueryCreateStruct()
         );
     }
@@ -376,13 +348,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadQuery')
-            ->will(
-                $this->returnValue(
-                    new PersistenceQuery(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceQuery()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -394,7 +360,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateQuery(
-            new Query(),
+            new QueryDraft(),
             new QueryUpdateStruct()
         );
     }
@@ -408,13 +374,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadQuery')
-            ->will(
-                $this->returnValue(
-                    new PersistenceQuery(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceQuery()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -425,7 +385,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveQuery(new Query(), 0);
+        $this->collectionService->moveQuery(new QueryDraft(), 0);
     }
 
     /**
@@ -437,13 +397,7 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadQuery')
-            ->will(
-                $this->returnValue(
-                    new PersistenceQuery(
-                        array('status' => Collection::STATUS_DRAFT)
-                    )
-                )
-            );
+            ->will($this->returnValue(new PersistenceQuery()));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -454,6 +408,6 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteQuery(new Query());
+        $this->collectionService->deleteQuery(new QueryDraft());
     }
 }
