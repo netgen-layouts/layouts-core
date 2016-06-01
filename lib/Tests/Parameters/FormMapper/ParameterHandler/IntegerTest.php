@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier;
-use Netgen\BlockManager\Parameters\Parameter\Identifier as IdentifierParameter;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer;
+use Netgen\BlockManager\Parameters\Parameter\Integer as IntegerParameter;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
 
-class IdentifierTest extends \PHPUnit_Framework_TestCase
+class IntegerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface
@@ -16,7 +16,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     protected $formBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer
      */
     protected $handler;
 
@@ -31,11 +31,11 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
             ->getFormFactory()
             ->createBuilder('form');
 
-        $this->handler = new Identifier();
+        $this->handler = new Integer();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer::getFormType
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::convertOptions
@@ -45,7 +45,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
     {
         $this->handler->mapForm(
             $this->formBuilder,
-            new IdentifierParameter(array(), true),
+            new IntegerParameter(array(), true),
             'param_name',
             array(
                 'label_prefix' => 'label',
@@ -62,6 +62,6 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('label.param_name', $form->getOption('label'));
         self::assertNotEmpty($form->getOption('constraints'));
         self::assertTrue($form->getRequired());
-        self::assertEquals('text', $form->getType()->getName());
+        self::assertEquals('integer', $form->getType()->getName());
     }
 }

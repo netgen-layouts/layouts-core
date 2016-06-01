@@ -4,78 +4,65 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select;
 use Netgen\BlockManager\Parameters\Parameter\Select as SelectParameter;
+use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Form\Forms;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
+     * @var \Symfony\Component\Form\FormBuilderInterface
+     */
+    protected $formBuilder;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select
      */
     protected $handler;
 
     public function setUp()
     {
+        $this->formBuilder = Forms::createFormFactoryBuilder()
+            ->addTypeExtension(
+                new FormTypeValidatorExtension(
+                    $this->getMock(ValidatorInterface::class)
+                )
+            )
+            ->getFormFactory()
+            ->createBuilder('form');
+
         $this->handler = new Select();
     }
 
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::getFormType
-     */
-    public function testGetFormType()
-    {
-        self::assertEquals('choice', $this->handler->getFormType());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::convertOptions
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getPropertyPath
      */
-    public function testConvertOptions()
+    public function testMapForm()
     {
-        $parameter = new SelectParameter(
+        $this->handler->mapForm(
+            $this->formBuilder,
+            new SelectParameter(array('options' => array('Heading 1' => 'h1')), true),
+            'param_name',
             array(
-                'options' => array(
-                    'Heading 1' => 'h1',
-                ),
-                'multiple' => false,
+                'label_prefix' => 'label',
+                'property_path_prefix' => 'parameters',
+                'validation_groups' => null,
             )
         );
 
-        self::assertEquals(
-            array(
-                'choices' => array(
-                    'Heading 1' => 'h1',
-                ),
-                'multiple' => false,
-                'choices_as_values' => true,
-            ),
-            $this->handler->convertOptions($parameter)
-        );
-    }
+        self::assertCount(1, $this->formBuilder->all());
 
-    /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::convertOptions
-     */
-    public function testConvertOptionsWithClosure()
-    {
-        $parameter = new SelectParameter(
-            array(
-                'options' => function () {
-                    return array(
-                        'Heading 1' => 'h1',
-                    );
-                },
-                'multiple' => false,
-            )
-        );
+        $form = $this->formBuilder->get('param_name');
 
-        self::assertEquals(
-            array(
-                'choices' => array(
-                    'Heading 1' => 'h1',
-                ),
-                'multiple' => false,
-                'choices_as_values' => true,
-            ),
-            $this->handler->convertOptions($parameter)
-        );
+        self::assertEquals('parameters[param_name]', $form->getPropertyPath());
+        self::assertEquals('label.param_name', $form->getOption('label'));
+        self::assertNotEmpty($form->getOption('constraints'));
+        self::assertEquals(array('Heading 1' => 'h1'), $form->getOption('choices'));
+        self::assertTrue($form->getRequired());
+        self::assertEquals('choice', $form->getType()->getName());
     }
 }

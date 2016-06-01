@@ -46,7 +46,10 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             $this->formBuilder,
             new Text(),
             'param_name',
-            'label_prefix'
+            array(
+                'label_prefix' => 'label_prefix',
+                'property_path_prefix' => 'parameters',
+            )
         );
 
         self::assertCount(1, $this->formBuilder->all());
@@ -65,27 +68,14 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
     public function testMapParameterThrowsRuntimeException()
     {
         $this->formMapper = new FormMapper();
-        $this->formMapper->mapParameter($this->formBuilder, new Text(), 'param_name', 'label_prefix');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapHiddenParameter
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::getPropertyPath
-     */
-    public function testMapHiddenParameter()
-    {
-        $this->formMapper = new FormMapper(array('text' => new TextHandler()));
-
-        $this->formMapper->mapHiddenParameter(
+        $this->formMapper->mapParameter(
             $this->formBuilder,
             new Text(),
             'param_name',
-            null
+            array(
+                'label_prefix' => 'label_prefix',
+                'property_path_prefix' => 'parameters',
+            )
         );
-
-        self::assertCount(1, $this->formBuilder->all());
-
-        self::assertEquals('hidden', $this->formBuilder->get('param_name')->getType()->getName());
-        self::assertEquals('param_name', $this->formBuilder->get('param_name')->getPropertyPath());
     }
 }
