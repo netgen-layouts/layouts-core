@@ -38,14 +38,6 @@ class RouteParameterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::getConditionIdentifier
-     */
-    public function testGetConditionIdentifier()
-    {
-        self::assertEquals('route_parameter', $this->conditionMatcher->getConditionIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::matches
      *
      * @param mixed $value

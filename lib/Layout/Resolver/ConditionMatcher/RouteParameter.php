@@ -11,16 +11,6 @@ class RouteParameter implements ConditionMatcherInterface
     use RequestStackAwareTrait;
 
     /**
-     * Returns the unique identifier of the condition this matcher matches.
-     *
-     * @return string
-     */
-    public function getConditionIdentifier()
-    {
-        return 'route_parameter';
-    }
-
-    /**
      * Returns if this condition matches the provided value.
      *
      * @param mixed $value

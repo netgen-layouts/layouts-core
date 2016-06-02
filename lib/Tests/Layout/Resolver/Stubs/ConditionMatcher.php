@@ -22,16 +22,6 @@ class ConditionMatcher implements ConditionMatcherInterface
     }
 
     /**
-     * Returns the unique identifier of the condition this matcher matches.
-     *
-     * @return string
-     */
-    public function getConditionIdentifier()
-    {
-        return 'condition';
-    }
-
-    /**
      * Returns if this condition matches the provided value.
      *
      * @param mixed $value
