@@ -14,7 +14,7 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
     /**
      * Constructor.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
      * @param array $options
      * @param bool $isRequired
      */
