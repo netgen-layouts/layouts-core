@@ -32,7 +32,7 @@ class ItemBuilder implements ItemBuilderInterface
     }
 
     /**
-     * Builds the value from provided object.
+     * Builds the item from provided object.
      *
      * @param mixed $object
      *
@@ -78,7 +78,7 @@ class ItemBuilder implements ItemBuilderInterface
     }
 
     /**
-     * Builds the value from provided value ID and value type.
+     * Builds the item from provided value ID and value type.
      *
      * @param int|string $valueId
      * @param string $valueType
