@@ -10,12 +10,12 @@ class LayoutTypeFactory
     /**
      * Builds the layout type.
      *
-     * @param array $config
      * @param string $identifier
+     * @param array $config
      *
      * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
      */
-    public static function buildLayoutType(array $config, $identifier)
+    public static function buildLayoutType($identifier, array $config)
     {
         $zones = array();
 

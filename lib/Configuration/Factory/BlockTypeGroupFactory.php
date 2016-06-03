@@ -9,12 +9,12 @@ class BlockTypeGroupFactory
     /**
      * Builds the block type group.
      *
-     * @param array $config
      * @param string $identifier
+     * @param array $config
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
      */
-    public static function buildBlockTypeGroup(array $config, $identifier)
+    public static function buildBlockTypeGroup($identifier, array $config)
     {
         return new BlockTypeGroup(
             $identifier,

@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Configuration\Source;
 
+use InvalidArgumentException;
+
 class Source
 {
     /**
@@ -97,10 +99,22 @@ class Source
      *
      * @param $queryIdentifier
      *
+     * @throws \InvalidArgumentException If query does not exist
+     *
      * @return \Netgen\BlockManager\Configuration\Source\Query
      */
     public function getQuery($queryIdentifier)
     {
+        if (!$this->hasQuery($queryIdentifier)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Query "%s" does not exist in "%s" source.',
+                    $queryIdentifier,
+                    $this->identifier
+                )
+            );
+        }
+
         return $this->queries[$queryIdentifier];
     }
 }

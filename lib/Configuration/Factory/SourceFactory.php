@@ -10,12 +10,12 @@ class SourceFactory
     /**
      * Builds the source.
      *
-     * @param array $config
      * @param string $identifier
+     * @param array $config
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source
      */
-    public static function buildSource(array $config, $identifier)
+    public static function buildSource($identifier, array $config)
     {
         $queries = array();
 

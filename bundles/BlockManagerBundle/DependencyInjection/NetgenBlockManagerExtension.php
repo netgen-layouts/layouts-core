@@ -185,7 +185,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                     $serviceIdentifier,
                     new DefinitionDecorator(sprintf('netgen_block_manager.configuration.%s', $configName))
                 )
-                ->setArguments(array($config, $identifier))
+                ->setArguments(array($identifier, $config))
                 ->addTag(sprintf('netgen_block_manager.configuration.%s', $configName))
                 ->setAbstract(false);
         }
