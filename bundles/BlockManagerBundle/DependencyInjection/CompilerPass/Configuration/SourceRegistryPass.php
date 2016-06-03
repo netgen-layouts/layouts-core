@@ -27,15 +27,9 @@ class SourceRegistryPass implements CompilerPassInterface
         $sources = $container->findTaggedServiceIds(self::TAG_NAME);
 
         foreach ($sources as $source => $tag) {
-            if (!isset($tag[0]['identifier'])) {
-                throw new RuntimeException(
-                    "Source service definition must have an 'identifier' attribute in its' tag."
-                );
-            }
-
             $registry->addMethodCall(
                 'addSource',
-                array($tag[0]['identifier'], new Reference($source))
+                array(new Reference($source))
             );
         }
     }

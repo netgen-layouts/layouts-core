@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\Source\Source;
-use RuntimeException;
+use InvalidArgumentException;
 
 class SourceRegistry implements SourceRegistryInterface
 {
@@ -13,18 +13,17 @@ class SourceRegistry implements SourceRegistryInterface
     protected $sources = array();
 
     /**
-     * Adds a source.
+     * Adds a source to registry.
      *
-     * @param string $identifier
      * @param \Netgen\BlockManager\Configuration\Source\Source $source
      */
-    public function addSource($identifier, Source $source)
+    public function addSource(Source $source)
     {
-        $this->sources[$identifier] = $source;
+        $this->sources[$source->getIdentifier()] = $source;
     }
 
     /**
-     * Returns if source exists in the registry.
+     * Returns if registry has a source.
      *
      * @param string $identifier
      *
@@ -36,18 +35,18 @@ class SourceRegistry implements SourceRegistryInterface
     }
 
     /**
-     * Returns the source.
+     * RReturns the source with provided identifier.
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If source with provided identifier does not exist.
+     * @throws \InvalidArgumentException If source with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source
      */
     public function getSource($identifier)
     {
         if (!$this->hasSource($identifier)) {
-            throw new RuntimeException(sprintf('Source "%s" does not exist.', $identifier));
+            throw new InvalidArgumentException(sprintf('Source "%s" does not exist.', $identifier));
         }
 
         return $this->sources[$identifier];
@@ -58,7 +57,7 @@ class SourceRegistry implements SourceRegistryInterface
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source[]
      */
-    public function all()
+    public function getSources()
     {
         return $this->sources;
     }

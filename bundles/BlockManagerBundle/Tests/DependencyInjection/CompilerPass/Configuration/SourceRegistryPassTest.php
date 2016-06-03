@@ -28,7 +28,7 @@ class SourceRegistryPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
 
         $source = new Definition();
-        $source->addTag('netgen_block_manager.configuration.source', array('identifier' => 'source'));
+        $source->addTag('netgen_block_manager.configuration.source');
         $this->setDefinition('netgen_block_manager.configuration.source.test', $source);
 
         $this->compile();
@@ -37,24 +37,8 @@ class SourceRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.configuration.registry.source',
             'addSource',
             array(
-                'source',
                 new Reference('netgen_block_manager.configuration.source.test'),
             )
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourceRegistryPass::process
-     * @expectedException \RuntimeException
-     */
-    public function testProcessThrowsExceptionWithNoTagIdentifier()
-    {
-        $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
-
-        $source = new Definition();
-        $source->addTag('netgen_block_manager.configuration.source');
-        $this->setDefinition('netgen_block_manager.configuration.source.test', $source);
-
-        $this->compile();
     }
 }

@@ -47,14 +47,14 @@ class ConfigController extends Controller
             function (BlockTypeGroup $blockTypeGroup) {
                 return new VersionedValue($blockTypeGroup, Version::API_V1);
             },
-            array_values($this->blockTypeRegistry->allBlockTypeGroups())
+            array_values($this->blockTypeRegistry->getBlockTypeGroups())
         );
 
         $blockTypes = array_map(
             function (BlockType $blockType) {
                 return new VersionedValue($blockType, Version::API_V1);
             },
-            array_values($this->blockTypeRegistry->allBlockTypes())
+            array_values($this->blockTypeRegistry->getBlockTypes())
         );
 
         return new ValueArray(
@@ -76,7 +76,7 @@ class ConfigController extends Controller
             function (Source $source) {
                 return new VersionedValue($source, Version::API_V1);
             },
-            array_values($this->sourceRegistry->all())
+            array_values($this->sourceRegistry->getSources())
         );
 
         return new ValueArray($sources);

@@ -8,15 +8,14 @@ use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 interface BlockTypeRegistryInterface
 {
     /**
-     * Adds a block type.
+     * Adds a block type to registry.
      *
-     * @param string $identifier
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      */
-    public function addBlockType($identifier, BlockType $blockType);
+    public function addBlockType(BlockType $blockType);
 
     /**
-     * Returns if block type exists in the registry.
+     * Returns if registry has a block type.
      *
      * @param string $identifier
      *
@@ -25,11 +24,11 @@ interface BlockTypeRegistryInterface
     public function hasBlockType($identifier);
 
     /**
-     * Returns the block type.
+     * Returns the block type with provided identifier.
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If block type with provided identifier does not exist.
+     * @throws \InvalidArgumentException If block type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
      */
@@ -40,18 +39,17 @@ interface BlockTypeRegistryInterface
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockType[]
      */
-    public function allBlockTypes();
+    public function getBlockTypes();
 
     /**
-     * Adds a block type group.
+     * Adds a block type group to registry.
      *
-     * @param string $identifier
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup $blockTypeGroup
      */
-    public function addBlockTypeGroup($identifier, BlockTypeGroup $blockTypeGroup);
+    public function addBlockTypeGroup(BlockTypeGroup $blockTypeGroup);
 
     /**
-     * Returns if block type group exists in the registry.
+     * Returns if registry has a block type group.
      *
      * @param string $identifier
      *
@@ -60,11 +58,11 @@ interface BlockTypeRegistryInterface
     public function hasBlockTypeGroup($identifier);
 
     /**
-     * Returns the block type group.
+     * Returns the block type group with provided identifier.
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If block type group with provided identifier does not exist.
+     * @throws \InvalidArgumentException If block type group with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
      */
@@ -75,5 +73,5 @@ interface BlockTypeRegistryInterface
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup[]
      */
-    public function allBlockTypeGroups();
+    public function getBlockTypeGroups();
 }

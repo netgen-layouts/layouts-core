@@ -13,6 +13,28 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     protected $valueLoaders = array();
 
     /**
+     * Adds a value loader to registry.
+     *
+     * @param \Netgen\BlockManager\Item\ValueLoaderInterface $valueLoader
+     */
+    public function addValueLoader(ValueLoaderInterface $valueLoader)
+    {
+        $this->valueLoaders[$valueLoader->getValueType()] = $valueLoader;
+    }
+
+    /**
+     * Returns if registry has a value loader.
+     *
+     * @param string $valueType
+     *
+     * @return bool
+     */
+    public function hasValueLoader($valueType)
+    {
+        return isset($this->valueLoaders[$valueType]);
+    }
+
+    /**
      * Returns a value loader for provided value type.
      *
      * @param string $valueType
@@ -33,16 +55,6 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     }
 
     /**
-     * Adds a value loader to registry.
-     *
-     * @param \Netgen\BlockManager\Item\ValueLoaderInterface $valueLoader
-     */
-    public function addValueLoader(ValueLoaderInterface $valueLoader)
-    {
-        $this->valueLoaders[$valueLoader->getValueType()] = $valueLoader;
-    }
-
-    /**
      * Returns all value loaders.
      *
      * @return \Netgen\BlockManager\Item\ValueLoaderInterface[]
@@ -50,17 +62,5 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     public function getValueLoaders()
     {
         return $this->valueLoaders;
-    }
-
-    /**
-     * Returns if registry has a value loader.
-     *
-     * @param string $valueType
-     *
-     * @return bool
-     */
-    public function hasValueLoader($valueType)
-    {
-        return isset($this->valueLoaders[$valueType]);
     }
 }

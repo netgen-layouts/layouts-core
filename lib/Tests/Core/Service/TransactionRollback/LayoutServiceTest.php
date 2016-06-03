@@ -69,7 +69,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
+        $this->layoutTypeRegistry->addLayoutType($layoutType);
 
         $this->layoutService = $this->createLayoutService(
             $this->layoutValidatorMock,

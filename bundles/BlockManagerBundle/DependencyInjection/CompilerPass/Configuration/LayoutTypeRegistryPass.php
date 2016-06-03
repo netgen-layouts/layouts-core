@@ -27,15 +27,9 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
         $layoutTypes = $container->findTaggedServiceIds(self::TAG_NAME);
 
         foreach ($layoutTypes as $layoutType => $tag) {
-            if (!isset($tag[0]['identifier'])) {
-                throw new RuntimeException(
-                    "Layout type service definition must have an 'identifier' attribute in its' tag."
-                );
-            }
-
             $registry->addMethodCall(
                 'addLayoutType',
-                array($tag[0]['identifier'], new Reference($layoutType))
+                array(new Reference($layoutType))
             );
         }
     }

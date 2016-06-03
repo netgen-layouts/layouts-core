@@ -13,7 +13,29 @@ class QueryTypeRegistry implements QueryTypeRegistryInterface
     protected $queryTypes = array();
 
     /**
-     * Returns a query type.
+     * Adds a query type to registry.
+     *
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     */
+    public function addQueryType(QueryTypeInterface $queryType)
+    {
+        $this->queryTypes[$queryType->getType()] = $queryType;
+    }
+
+    /**
+     * Returns if registry has a query type.
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function hasQueryType($type)
+    {
+        return isset($this->queryTypes[$type]);
+    }
+
+    /**
+     * Returns a query type with provided identifier.
      *
      * @param string $type
      *
@@ -33,16 +55,6 @@ class QueryTypeRegistry implements QueryTypeRegistryInterface
     }
 
     /**
-     * Adds a query type to registry.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     */
-    public function addQueryType(QueryTypeInterface $queryType)
-    {
-        $this->queryTypes[$queryType->getType()] = $queryType;
-    }
-
-    /**
      * Returns all query types.
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface[]
@@ -50,17 +62,5 @@ class QueryTypeRegistry implements QueryTypeRegistryInterface
     public function getQueryTypes()
     {
         return $this->queryTypes;
-    }
-
-    /**
-     * Returns if registry has a query type.
-     *
-     * @param string $type
-     *
-     * @return bool
-     */
-    public function hasQueryType($type)
-    {
-        return isset($this->queryTypes[$type]);
     }
 }

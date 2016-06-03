@@ -83,7 +83,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
+        $this->layoutTypeRegistry->addLayoutType($layoutType);
 
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,

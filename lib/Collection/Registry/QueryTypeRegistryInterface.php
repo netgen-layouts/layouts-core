@@ -7,7 +7,23 @@ use Netgen\BlockManager\Collection\QueryTypeInterface;
 interface QueryTypeRegistryInterface
 {
     /**
-     * Returns a query type.
+     * Adds a query type to registry.
+     *
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
+     */
+    public function addQueryType(QueryTypeInterface $queryType);
+
+    /**
+     * Returns if registry has a query type.
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function hasQueryType($type);
+
+    /**
+     * Returns a query type with provided identifier.
      *
      * @param string $type
      *
@@ -18,25 +34,9 @@ interface QueryTypeRegistryInterface
     public function getQueryType($type);
 
     /**
-     * Adds a query type to registry.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     */
-    public function addQueryType(QueryTypeInterface $queryType);
-
-    /**
      * Returns all query types.
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface[]
      */
     public function getQueryTypes();
-
-    /**
-     * Returns if registry has a query type.
-     *
-     * @param string $type
-     *
-     * @return bool
-     */
-    public function hasQueryType($type);
 }

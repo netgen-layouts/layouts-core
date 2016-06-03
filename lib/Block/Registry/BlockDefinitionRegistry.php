@@ -23,6 +23,18 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     }
 
     /**
+     * Returns if registry has a block definition.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasBlockDefinition($identifier)
+    {
+        return isset($this->blockDefinitions[$identifier]);
+    }
+
+    /**
      * Returns a block definition with provided identifier.
      *
      * @param string $identifier
@@ -50,17 +62,5 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     public function getBlockDefinitions()
     {
         return $this->blockDefinitions;
-    }
-
-    /**
-     * Returns if registry has a block definition.
-     *
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function hasBlockDefinition($identifier)
-    {
-        return isset($this->blockDefinitions[$identifier]);
     }
 }

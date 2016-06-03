@@ -46,7 +46,7 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->layoutTypeRegistry->addLayoutType('3_zones_a', $layoutType);
+        $this->layoutTypeRegistry->addLayoutType($layoutType);
 
         $this->normalizer = new LayoutNormalizer(
             $this->layoutTypeRegistry,

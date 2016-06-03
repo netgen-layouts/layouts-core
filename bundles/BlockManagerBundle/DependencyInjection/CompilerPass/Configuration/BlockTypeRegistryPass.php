@@ -29,28 +29,16 @@ class BlockTypeRegistryPass implements CompilerPassInterface
         $blockTypeGroups = $container->findTaggedServiceIds(self::GROUP_TAG_NAME);
 
         foreach ($blockTypes as $blockType => $tag) {
-            if (!isset($tag[0]['identifier'])) {
-                throw new RuntimeException(
-                    "Block type service definition must have an 'identifier' attribute in its' tag."
-                );
-            }
-
             $registry->addMethodCall(
                 'addBlockType',
-                array($tag[0]['identifier'], new Reference($blockType))
+                array(new Reference($blockType))
             );
         }
 
         foreach ($blockTypeGroups as $blockTypeGroup => $tag) {
-            if (!isset($tag[0]['identifier'])) {
-                throw new RuntimeException(
-                    "Block type group service definition must have an 'identifier' attribute in its' tag."
-                );
-            }
-
             $registry->addMethodCall(
                 'addBlockTypeGroup',
-                array($tag[0]['identifier'], new Reference($blockTypeGroup))
+                array(new Reference($blockTypeGroup))
             );
         }
     }

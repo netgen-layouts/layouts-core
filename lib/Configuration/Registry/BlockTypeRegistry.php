@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use RuntimeException;
+use InvalidArgumentException;
 
 class BlockTypeRegistry implements BlockTypeRegistryInterface
 {
@@ -19,18 +19,17 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     protected $blockTypeGroups = array();
 
     /**
-     * Adds a block type.
+     * Adds a block type to registry.
      *
-     * @param string $identifier
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      */
-    public function addBlockType($identifier, BlockType $blockType)
+    public function addBlockType(BlockType $blockType)
     {
-        $this->blockTypes[$identifier] = $blockType;
+        $this->blockTypes[$blockType->getIdentifier()] = $blockType;
     }
 
     /**
-     * Returns if block type exists in the registry.
+     * Returns if registry has a block type.
      *
      * @param string $identifier
      *
@@ -42,18 +41,18 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     }
 
     /**
-     * Returns the block type.
+     * Returns the block type with provided identifier.
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If block type with provided identifier does not exist.
+     * @throws \InvalidArgumentException If block type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
      */
     public function getBlockType($identifier)
     {
         if (!$this->hasBlockType($identifier)) {
-            throw new RuntimeException(sprintf('Block type "%s" does not exist.', $identifier));
+            throw new InvalidArgumentException(sprintf('Block type "%s" does not exist.', $identifier));
         }
 
         return $this->blockTypes[$identifier];
@@ -64,24 +63,23 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockType[]
      */
-    public function allBlockTypes()
+    public function getBlockTypes()
     {
         return $this->blockTypes;
     }
 
     /**
-     * Adds a block type group.
+     * Adds a block type group to registry.
      *
-     * @param string $identifier
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup $blockTypeGroup
      */
-    public function addBlockTypeGroup($identifier, BlockTypeGroup $blockTypeGroup)
+    public function addBlockTypeGroup(BlockTypeGroup $blockTypeGroup)
     {
-        $this->blockTypeGroups[$identifier] = $blockTypeGroup;
+        $this->blockTypeGroups[$blockTypeGroup->getIdentifier()] = $blockTypeGroup;
     }
 
     /**
-     * Returns if block type group exists in the registry.
+     * Returns if registry has a block type group.
      *
      * @param string $identifier
      *
@@ -93,18 +91,18 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     }
 
     /**
-     * Returns the block type group.
+     * Returns the block type group with provided identifier.
      *
      * @param string $identifier
      *
-     * @throws \RuntimeException If block type group with provided identifier does not exist.
+     * @throws \InvalidArgumentException If block type group with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
      */
     public function getBlockTypeGroup($identifier)
     {
         if (!$this->hasBlockTypeGroup($identifier)) {
-            throw new RuntimeException(sprintf('Block type group "%s" does not exist.', $identifier));
+            throw new InvalidArgumentException(sprintf('Block type group "%s" does not exist.', $identifier));
         }
 
         return $this->blockTypeGroups[$identifier];
@@ -115,7 +113,7 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup[]
      */
-    public function allBlockTypeGroups()
+    public function getBlockTypeGroups()
     {
         return $this->blockTypeGroups;
     }
