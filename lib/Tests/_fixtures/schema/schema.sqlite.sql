@@ -15,7 +15,9 @@ CREATE TABLE `ngbm_zone` (
   `identifier` text(255) NOT NULL,
   `layout_id` integer NOT NULL,
   `status` integer NOT NULL,
-  PRIMARY KEY (`identifier`, `layout_id`, `status`)
+  PRIMARY KEY (`identifier`, `layout_id`, `status`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES `ngbm_layout` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_block`;
@@ -29,7 +31,9 @@ CREATE TABLE `ngbm_block` (
   `view_type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES `ngbm_layout` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_collection`;
@@ -50,7 +54,9 @@ CREATE TABLE `ngbm_collection_item` (
   `type` integer NOT NULL,
   `value_id` text(255) NOT NULL,
   `value_type` text(255) NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_collection_query`;
@@ -62,7 +68,9 @@ CREATE TABLE `ngbm_collection_query` (
   `identifier` text(255) NOT NULL,
   `type` text(255) NOT NULL,
   `parameters` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_block_collection`;
@@ -74,7 +82,11 @@ CREATE TABLE `ngbm_block_collection` (
   `identifier` text(255) NOT NULL,
   `start` integer NOT NULL,
   `length` integer DEFAULT NULL,
-  PRIMARY KEY (`block_id`, `block_status`, `collection_id`, `collection_status`)
+  PRIMARY KEY (`block_id`, `block_status`, `collection_id`, `collection_status`),
+  FOREIGN KEY (`block_id`, `block_status`)
+    REFERENCES `ngbm_block` (`id`, `status`),
+  FOREIGN KEY (`collection_id`, `collection_status`)
+    REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_rule_data`;
@@ -91,7 +103,9 @@ CREATE TABLE `ngbm_rule_target` (
   `rule_id` integer NOT NULL,
   `identifier` text(255) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`rule_id`, `status`)
+    REFERENCES `ngbm_rule` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
@@ -101,7 +115,9 @@ CREATE TABLE `ngbm_rule_condition` (
   `rule_id` integer NOT NULL,
   `identifier` text(255) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`rule_id`, `status`)
+    REFERENCES `ngbm_rule` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_rule`;
