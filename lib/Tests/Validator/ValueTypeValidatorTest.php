@@ -2,70 +2,71 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 
 class ValueTypeValidatorTest extends ValidatorTest
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
      */
-    protected $valueLoaderRegistryMock;
+    protected $valueLoaderRegistry;
 
     /**
      * @var \Netgen\BlockManager\Validator\ValueTypeValidator
      */
     protected $validator;
 
+    /**
+     * @var \Netgen\BlockManager\Validator\Constraint\ValueType
+     */
+    protected $constraint;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->valueLoaderRegistryMock = $this->getMock(
-            ValueLoaderRegistryInterface::class
-        );
+        $this->valueLoaderRegistry = new ValueLoaderRegistry();
+        $this->valueLoaderRegistry->addValueLoader(new ValueLoader());
 
-        $this->validator = new ValueTypeValidator($this->valueLoaderRegistryMock);
+        $this->validator = new ValueTypeValidator($this->valueLoaderRegistry);
         $this->validator->initialize($this->executionContextMock);
+
+        $this->constraint = new ValueType();
     }
 
     /**
+     * @param string $valueType
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::__construct
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
+     * @dataProvider validateDataProvider
      */
-    public function testValidate()
+    public function testValidate($valueType, $isValid)
     {
-        $this->valueLoaderRegistryMock
-            ->expects($this->any())
-            ->method('hasValueLoader')
-            ->with($this->equalTo('value'))
-            ->will($this->returnValue(true));
+        if ($isValid) {
+            $this->executionContextMock
+                ->expects($this->never())
+                ->method('buildViolation');
+        } else {
+            $this->executionContextMock
+                ->expects($this->once())
+                ->method('buildViolation')
+                ->will($this->returnValue($this->violationBuilderMock));
+        }
 
-        $this->executionContextMock
-            ->expects($this->never())
-            ->method('buildViolation');
-
-        $this->validator->validate('value', new ValueType());
+        $this->validator->validate($valueType, $this->constraint);
     }
 
-    /**
-     * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
-     */
-    public function testValidateFailed()
+    public function validateDataProvider()
     {
-        $this->valueLoaderRegistryMock
-            ->expects($this->any())
-            ->method('hasValueLoader')
-            ->with($this->equalTo('value'))
-            ->will($this->returnValue(false));
-
-        $this->executionContextMock
-            ->expects($this->once())
-            ->method('buildViolation')
-            ->will($this->returnValue($this->violationBuilderMock));
-
-        $this->validator->validate('value', new ValueType());
+        return array(
+            array('value', true),
+            array('other', false),
+            array('', false),
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
@@ -23,6 +24,19 @@ abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->executionContextMock = $this->getMock(ExecutionContextInterface::class);
+
+        $this->executionContextMock
+            ->expects($this->any())
+            ->method('getValidator')
+            ->will(
+                $this->returnCallback(
+                    function () {
+                        return Validation::createValidatorBuilder()
+                            ->setConstraintValidatorFactory(new ValidatorFactory())
+                            ->getValidator();
+                    }
+                )
+            );
 
         $this->violationBuilderMock = $this
             ->getMockBuilder(ConstraintViolationBuilderInterface::class)

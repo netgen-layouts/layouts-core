@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Core\Service\Validator\Validator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
@@ -23,7 +24,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->baseValidator = Validation::createValidator();
+        $this->baseValidator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->getValidator();
+
         $this->validator = $this->getMockForAbstractClass(Validator::class);
         $this->validator->setValidator($this->baseValidator);
     }

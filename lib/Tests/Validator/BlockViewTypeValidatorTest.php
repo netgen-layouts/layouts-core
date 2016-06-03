@@ -21,6 +21,11 @@ class BlockViewTypeValidatorTest extends ValidatorTest
      */
     protected $validator;
 
+    /**
+     * @var \Netgen\BlockManager\Validator\Constraint\BlockViewType
+     */
+    protected $constraint;
+
     public function setUp()
     {
         parent::setUp();
@@ -41,30 +46,39 @@ class BlockViewTypeValidatorTest extends ValidatorTest
 
         $this->validator = new BlockViewTypeValidator();
         $this->validator->initialize($this->executionContextMock);
+
+        $this->constraint = new BlockViewType(array('definition' => $this->blockDefinition));
     }
 
     /**
+     * @param string $viewType
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
+     * @dataProvider validateDataProvider
      */
-    public function testValidate()
+    public function testValidate($viewType, $isValid)
     {
-        $this->executionContextMock
-            ->expects($this->never())
-            ->method('buildViolation');
+        if ($isValid) {
+            $this->executionContextMock
+                ->expects($this->never())
+                ->method('buildViolation');
+        } else {
+            $this->executionContextMock
+                ->expects($this->once())
+                ->method('buildViolation')
+                ->will($this->returnValue($this->violationBuilderMock));
+        }
 
-        $this->validator->validate('large', new BlockViewType(array('definition' => $this->blockDefinition)));
+        $this->validator->validate($viewType, $this->constraint);
     }
 
-    /**
-     * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
-     */
-    public function testValidateFailedWithNoViewType()
+    public function validateDataProvider()
     {
-        $this->executionContextMock
-            ->expects($this->once())
-            ->method('buildViolation')
-            ->will($this->returnValue($this->violationBuilderMock));
-
-        $this->validator->validate('small', new BlockViewType(array('definition' => $this->blockDefinition)));
+        return array(
+            array('large', true),
+            array('small', false),
+            array('', false),
+        );
     }
 }

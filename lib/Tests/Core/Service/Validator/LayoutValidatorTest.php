@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 
 class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
@@ -24,7 +25,10 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->validator = Validation::createValidator();
+        $this->validator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->getValidator();
+
         $this->layoutValidator = new LayoutValidator();
         $this->layoutValidator->setValidator($this->validator);
     }

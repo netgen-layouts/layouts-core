@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Validator;
+namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
