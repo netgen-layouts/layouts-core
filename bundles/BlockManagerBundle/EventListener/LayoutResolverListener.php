@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Layout\Resolver\Rule;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
