@@ -32,19 +32,19 @@ abstract class CollectionMapperTest extends MapperTest
     {
         $persistenceCollection = new Collection(
             array(
-                'id' => 3,
+                'id' => 2,
                 'status' => APICollection::STATUS_PUBLISHED,
-                'type' => APICollection::TYPE_NAMED,
-                'name' => 'My collection',
+                'type' => APICollection::TYPE_DYNAMIC,
+                'name' => null,
             )
         );
 
         $collection = $this->collectionMapper->mapCollection($persistenceCollection);
 
         self::assertInstanceOf(APICollection::class, $collection);
-        self::assertEquals(3, $collection->getId());
-        self::assertEquals(APICollection::TYPE_NAMED, $collection->getType());
-        self::assertEquals('My collection', $collection->getName());
+        self::assertEquals(2, $collection->getId());
+        self::assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
+        self::assertNull(null, $collection->getName());
         self::assertEquals(APICollection::STATUS_PUBLISHED, $collection->getStatus());
 
         self::assertNotEmpty($collection->getItems());

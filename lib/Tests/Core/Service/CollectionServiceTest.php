@@ -276,7 +276,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-        self::assertEquals(4, $copiedCollection->getId());
+        self::assertEquals(5, $copiedCollection->getId());
         self::assertNull($copiedCollection->getName());
     }
 
@@ -289,7 +289,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-        self::assertEquals(4, $copiedCollection->getId());
+        self::assertEquals(5, $copiedCollection->getId());
         self::assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->getName());
     }
 
@@ -396,7 +396,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '66', 'ezcontent');
         $collection = $this->collectionService->loadCollectionDraft(3);
 
-        $this->collectionService->addItem($collection, $itemCreateStruct, 7);
+        $this->collectionService->addItem($collection, $itemCreateStruct, 5);
     }
 
     /**
@@ -449,8 +449,8 @@ abstract class CollectionServiceTest extends ServiceTest
     public function testMoveItemInDynamicOrNamedCollectionWithExistingPositionThrowsBadStateException()
     {
         $this->collectionService->moveItem(
-            $this->collectionService->loadItemDraft(7),
-            8
+            $this->collectionService->loadItemDraft(2),
+            5
         );
     }
 

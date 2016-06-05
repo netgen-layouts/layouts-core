@@ -186,7 +186,7 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertEquals(0, $collectionReferences[0]->getOffset());
         self::assertNull($collectionReferences[0]->getLimit());
 
-        $collection = $this->collectionService->loadCollectionDraft(4);
+        $collection = $this->collectionService->loadCollectionDraft(5);
         self::assertEquals(Collection::TYPE_MANUAL, $collection->getType());
     }
 

@@ -376,18 +376,18 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
 
         // Verify that non named collections were copied
         $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
-        $this->collectionHandler->loadCollection(5, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(6, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
         $draftReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_DRAFT);
         self::assertCount(2, $draftReferences);
-        self::assertContains($draftReferences[0]->collectionId, array(3, 4));
-        self::assertContains($draftReferences[1]->collectionId, array(3, 4));
+        self::assertContains($draftReferences[0]->collectionId, array(3, 5));
+        self::assertContains($draftReferences[1]->collectionId, array(3, 5));
 
         $publishedReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $draftReferences);
-        self::assertContains($publishedReferences[0]->collectionId, array(3, 5));
-        self::assertContains($publishedReferences[1]->collectionId, array(3, 5));
+        self::assertContains($publishedReferences[0]->collectionId, array(3, 6));
+        self::assertContains($publishedReferences[1]->collectionId, array(3, 6));
 
         // Second block
         $draftReferences = $this->blockHandler->loadCollectionReferences(8, Layout::STATUS_DRAFT);

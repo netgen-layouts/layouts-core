@@ -308,7 +308,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(Collection::class, $createdCollection);
 
-        self::assertEquals(4, $createdCollection->id);
+        self::assertEquals(5, $createdCollection->id);
         self::assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
         self::assertEquals('New collection', $createdCollection->name);
         self::assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
@@ -350,7 +350,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $copiedCollectionId = $this->collectionHandler->copyCollection(3);
 
-        self::assertEquals(4, $copiedCollectionId);
+        self::assertEquals(5, $copiedCollectionId);
 
         $copiedCollection = $this->collectionHandler->loadCollection($copiedCollectionId, Collection::STATUS_PUBLISHED);
 
@@ -363,8 +363,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
             array(
                 new Item(
                     array(
-                        'id' => 12,
-                        'collectionId' => 4,
+                        'id' => 13,
+                        'collectionId' => $copiedCollectionId,
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '70',
@@ -374,8 +374,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Item(
                     array(
-                        'id' => 13,
-                        'collectionId' => 4,
+                        'id' => 14,
+                        'collectionId' => $copiedCollectionId,
                         'position' => 3,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '71',
@@ -385,8 +385,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Item(
                     array(
-                        'id' => 14,
-                        'collectionId' => 4,
+                        'id' => 15,
+                        'collectionId' => $copiedCollectionId,
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '72',
@@ -394,38 +394,16 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'status' => Collection::STATUS_PUBLISHED,
                     )
                 ),
-                new Item(
-                    array(
-                        'id' => 15,
-                        'collectionId' => 4,
-                        'position' => 7,
-                        'type' => Item::TYPE_OVERRIDE,
-                        'valueId' => '154',
-                        'valueType' => 'ezcontent',
-                        'status' => Collection::STATUS_PUBLISHED,
-                    )
-                ),
-                new Item(
-                    array(
-                        'id' => 16,
-                        'collectionId' => 4,
-                        'position' => 8,
-                        'type' => Item::TYPE_OVERRIDE,
-                        'valueId' => '155',
-                        'valueType' => 'ezcontent',
-                        'status' => Collection::STATUS_PUBLISHED,
-                    )
-                ),
             ),
-            $this->collectionHandler->loadCollectionItems(4, Collection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollectionItems($copiedCollectionId, Collection::STATUS_PUBLISHED)
         );
 
         self::assertEquals(
             array(
                 new Query(
                     array(
-                        'id' => 4,
-                        'collectionId' => 4,
+                        'id' => 5,
+                        'collectionId' => $copiedCollectionId,
                         'position' => 0,
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
@@ -437,8 +415,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Query(
                     array(
-                        'id' => 5,
-                        'collectionId' => 4,
+                        'id' => 6,
+                        'collectionId' => $copiedCollectionId,
                         'position' => 1,
                         'identifier' => 'featured',
                         'type' => 'ezcontent_search',
@@ -449,7 +427,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionQueries(4, Collection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollectionQueries($copiedCollectionId, Collection::STATUS_PUBLISHED)
         );
     }
 
@@ -504,28 +482,6 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '72',
-                        'valueType' => 'ezcontent',
-                        'status' => Collection::STATUS_ARCHIVED,
-                    )
-                ),
-                new Item(
-                    array(
-                        'id' => 10,
-                        'collectionId' => 3,
-                        'position' => 7,
-                        'type' => Item::TYPE_OVERRIDE,
-                        'valueId' => '154',
-                        'valueType' => 'ezcontent',
-                        'status' => Collection::STATUS_ARCHIVED,
-                    )
-                ),
-                new Item(
-                    array(
-                        'id' => 11,
-                        'collectionId' => 3,
-                        'position' => 8,
-                        'type' => Item::TYPE_OVERRIDE,
-                        'valueId' => '155',
                         'valueType' => 'ezcontent',
                         'status' => Collection::STATUS_ARCHIVED,
                     )
@@ -643,7 +599,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Item(
                 array(
-                    'id' => 12,
+                    'id' => 13,
                     'collectionId' => 1,
                     'position' => 1,
                     'type' => Item::TYPE_MANUAL,
@@ -673,7 +629,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Item(
                 array(
-                    'id' => 12,
+                    'id' => 13,
                     'collectionId' => 1,
                     'position' => 3,
                     'type' => Item::TYPE_MANUAL,
@@ -700,7 +656,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Item(
                 array(
-                    'id' => 12,
+                    'id' => 13,
                     'collectionId' => 2,
                     'position' => 50,
                     'type' => Item::TYPE_MANUAL,
@@ -920,7 +876,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Query(
                 array(
-                    'id' => 4,
+                    'id' => 5,
                     'collectionId' => 3,
                     'position' => 1,
                     'identifier' => 'new_query',
@@ -950,7 +906,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             new Query(
                 array(
-                    'id' => 4,
+                    'id' => 5,
                     'collectionId' => 3,
                     'position' => 2,
                     'identifier' => 'new_query',
