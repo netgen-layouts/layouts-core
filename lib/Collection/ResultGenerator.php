@@ -10,11 +10,6 @@ use RuntimeException;
 class ResultGenerator implements ResultGeneratorInterface
 {
     /**
-     * @const int
-     */
-    const DEFAULT_LIMIT = 20;
-
-    /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface
      */
     protected $queryRunner;
