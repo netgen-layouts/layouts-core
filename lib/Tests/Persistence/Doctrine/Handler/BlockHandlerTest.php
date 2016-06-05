@@ -60,9 +60,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'some_param' => 'some_value',
+                        'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -99,7 +100,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 0,
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
-                            'some_param' => 'some_value',
+                            'content' => 'Paragraph',
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
@@ -114,7 +115,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 1,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
-                            'other_param' => 'other_value',
+                            'tag' => 'h1',
+                            'title' => 'Title',
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
@@ -129,7 +131,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 2,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
-                            'the_answer' => 42,
+                            'tag' => 'h3',
+                            'title' => 'Title',
                         ),
                         'viewType' => 'small',
                         'name' => 'My fourth block',
@@ -307,8 +310,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
-        $blockUpdateStruct->setParameter('a_param', 'A value');
-        $blockUpdateStruct->setParameter('some_param', 'Some other value');
+        $blockUpdateStruct->setParameter('content', 'new_value');
+        $blockUpdateStruct->setParameter('some_param', 'Some value');
 
         self::assertEquals(
             new Block(
@@ -319,8 +322,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'a_param' => 'A value',
-                        'some_param' => 'Some other value',
+                        'content' => 'new_value',
+                        'some_param' => 'Some value',
                     ),
                     'viewType' => 'large',
                     'name' => 'My block',
@@ -347,7 +350,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 3,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'some_param' => 'some_value',
+                        'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -374,7 +377,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'some_param' => 'some_value',
+                        'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -401,7 +404,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 1,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'some_param' => 'some_value',
+                        'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -431,7 +434,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'title',
                     'parameters' => array(
-                        'other_param' => 'other_value',
+                        'tag' => 'h1',
+                        'title' => 'Title',
                     ),
                     'viewType' => 'small',
                     'name' => 'My other block',
@@ -481,7 +485,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'some_param' => 'some_value',
+                        'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',
@@ -528,9 +532,10 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                     'id' => 1,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'top_right',
+                    'position' => 0,
                     'definitionIdentifier' => 'paragraph',
                     'parameters' => array(
-                        'some_param' => 'some_value',
+                        'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
                     'name' => 'My block',

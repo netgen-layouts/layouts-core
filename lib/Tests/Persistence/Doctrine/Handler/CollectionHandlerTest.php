@@ -174,7 +174,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'default',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
-                        'param' => 'value',
+                        'parent_location_id' => 2,
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )
@@ -408,7 +408,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
                         'parameters' => array(
-                            'param' => 'value',
+                            'parent_location_id' => 2,
                         ),
                         'status' => Collection::STATUS_PUBLISHED,
                     )
@@ -421,7 +421,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'identifier' => 'featured',
                         'type' => 'ezcontent_search',
                         'parameters' => array(
-                            'param' => 'value',
+                            'parent_location_id' => 2,
                         ),
                         'status' => Collection::STATUS_PUBLISHED,
                     )
@@ -500,7 +500,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
                         'parameters' => array(
-                            'param' => 'value',
+                            'parent_location_id' => 2,
                         ),
                         'status' => Collection::STATUS_ARCHIVED,
                     )
@@ -513,7 +513,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                         'identifier' => 'featured',
                         'type' => 'ezcontent_search',
                         'parameters' => array(
-                            'param' => 'value',
+                            'parent_location_id' => 2,
                         ),
                         'status' => Collection::STATUS_ARCHIVED,
                     )
@@ -957,8 +957,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
+        $queryUpdateStruct->setParameter('parent_location_id', 3);
         $queryUpdateStruct->setParameter('some_param', 'Some value');
-        $queryUpdateStruct->setParameter('some_other_param', 'Some other value');
 
         self::assertEquals(
             new Query(
@@ -969,9 +969,8 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'new_identifier',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
-                        'param' => 'value',
+                        'parent_location_id' => 3,
                         'some_param' => 'Some value',
-                        'some_other_param' => 'Some other value',
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )
@@ -996,7 +995,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'default',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
-                        'param' => 'value',
+                        'parent_location_id' => 2,
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )
@@ -1024,7 +1023,7 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                     'identifier' => 'featured',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
-                        'param' => 'value',
+                        'parent_location_id' => 2,
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )

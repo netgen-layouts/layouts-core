@@ -333,7 +333,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 0,
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
-                            'some_param' => 'some_value',
+                            'content' => 'Paragraph',
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
@@ -348,7 +348,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 1,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
-                            'other_param' => 'other_value',
+                            'tag' => 'h1',
+                            'title' => 'Title',
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
@@ -363,7 +364,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 2,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
-                            'the_answer' => 42,
+                            'tag' => 'h3',
+                            'title' => 'Title',
                         ),
                         'viewType' => 'small',
                         'name' => 'My fourth block',
@@ -460,7 +462,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 0,
                         'definitionIdentifier' => 'paragraph',
                         'parameters' => array(
-                            'some_param' => 'some_value',
+                            'content' => 'Paragraph',
                         ),
                         'viewType' => 'default',
                         'name' => 'My block',
@@ -475,7 +477,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 1,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
-                            'other_param' => 'other_value',
+                            'tag' => 'h1',
+                            'title' => 'Title',
                         ),
                         'viewType' => 'small',
                         'name' => 'My other block',
@@ -490,7 +493,8 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                         'position' => 2,
                         'definitionIdentifier' => 'title',
                         'parameters' => array(
-                            'the_answer' => 42,
+                            'tag' => 'h3',
+                            'title' => 'Title',
                         ),
                         'viewType' => 'small',
                         'name' => 'My fourth block',

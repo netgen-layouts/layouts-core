@@ -332,7 +332,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'some_param' => 'some_value',
+                'content' => 'Paragraph',
             ),
             $block->getParameters()
         );
@@ -359,7 +359,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'some_param' => 'some_value',
+                'content' => 'Paragraph',
             ),
             $block->getParameters()
         );
@@ -386,7 +386,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'some_param' => 'some_value',
+                'content' => 'Paragraph',
             ),
             $block->getParameters()
         );
@@ -547,7 +547,7 @@ abstract class BlockServiceTest extends ServiceTest
             )
         );
 
-        $blockUpdateStruct->setParameter('some_param', 'new_value');
+        $blockUpdateStruct->setParameter('content', 'new_value');
 
         $block = $this->blockService->loadBlockDraft(1);
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
@@ -560,7 +560,7 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertInstanceOf(APIBlockDraft::class, $restoredBlock);
         self::assertEquals('default', $restoredBlock->getViewType());
         self::assertEquals('My block', $restoredBlock->getName());
-        self::assertEquals(array('some_param' => 'some_value'), $restoredBlock->getParameters());
+        self::assertEquals(array('content' => 'Paragraph'), $restoredBlock->getParameters());
         self::assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
         self::assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 

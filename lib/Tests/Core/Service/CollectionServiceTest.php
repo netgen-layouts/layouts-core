@@ -540,15 +540,15 @@ abstract class CollectionServiceTest extends ServiceTest
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
-        $queryUpdateStruct->setParameter('param', 'value2');
-        $queryUpdateStruct->setParameter('param3', 'value3');
+        $queryUpdateStruct->setParameter('parent_location_id', 3);
+        $queryUpdateStruct->setParameter('param', 'value');
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertInstanceOf(QueryDraft::class, $updatedQuery);
 
         self::assertEquals('new_identifier', $updatedQuery->getIdentifier());
-        self::assertEquals(array('param' => 'value2', 'param3' => 'value3'), $updatedQuery->getParameters());
+        self::assertEquals(array('parent_location_id' => 3, 'param' => 'value'), $updatedQuery->getParameters());
     }
 
     /**

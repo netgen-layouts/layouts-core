@@ -21,16 +21,17 @@
 
 LOCK TABLES `ngbm_block` WRITE;
 /*!40000 ALTER TABLE `ngbm_block` DISABLE KEYS */;
-INSERT INTO `ngbm_block` VALUES (1,0,1,'top_right',0,'paragraph','default','My block','{"content": "Paragraph"}');
-INSERT INTO `ngbm_block` VALUES (1,1,1,'top_right',0,'paragraph','default','My block','{"content": "Paragraph"}');
-INSERT INTO `ngbm_block` VALUES (2,0,1,'top_right',1,'title','small','My other block','{"tag": "h1", "title": "Title"}');
-INSERT INTO `ngbm_block` VALUES (2,1,1,'top_right',1,'title','small','My other block','{"tag": "h1", "title": "Title"}');
-INSERT INTO `ngbm_block` VALUES (3,0,2,'bottom_right',0,'paragraph','large','My third block','{"content": "Paragraph"}');
-INSERT INTO `ngbm_block` VALUES (3,1,2,'bottom_right',0,'paragraph','large','My third block','{"content": "Paragraph"}');
-INSERT INTO `ngbm_block` VALUES (4,0,2,'bottom_right',1,'title','small','My fourth block','{"tag": "h3", "title": "Title"}');
-INSERT INTO `ngbm_block` VALUES (4,1,2,'bottom_right',1,'title','small','My fourth block','{"tag": "h3", "title": "Title"}');
-INSERT INTO `ngbm_block` VALUES (5,0,1,'top_right',2,'title','small','My fourth block','{"tag": "h3", "title": "Title"}');
-INSERT INTO `ngbm_block` VALUES (5,1,1,'top_right',2,'title','small','My fourth block','{"tag": "h3", "title": "Title"}');
+INSERT INTO `ngbm_block` VALUES (1,0,1,'top_right',0,'paragraph','default','My block','{\"content\": \"Paragraph\"}');
+INSERT INTO `ngbm_block` VALUES (1,1,1,'top_right',0,'paragraph','default','My block','{\"content\": \"Paragraph\"}');
+INSERT INTO `ngbm_block` VALUES (2,0,1,'top_right',1,'title','small','My other block','{\"tag\": \"h1\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (2,1,1,'top_right',1,'title','small','My other block','{\"tag\": \"h1\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (3,0,2,'bottom_right',0,'paragraph','large','My third block','{\"content\": \"Paragraph\"}');
+INSERT INTO `ngbm_block` VALUES (3,1,2,'bottom_right',0,'paragraph','large','My third block','{\"content\": \"Paragraph\"}');
+INSERT INTO `ngbm_block` VALUES (4,0,2,'bottom_right',1,'title','small','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (4,1,2,'bottom_right',1,'title','small','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (5,0,1,'top_right',2,'title','small','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (5,1,1,'top_right',2,'title','small','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (6,0,2,'bottom_right',2,'title','small','My sixth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
 /*!40000 ALTER TABLE `ngbm_block` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -46,6 +47,8 @@ INSERT INTO `ngbm_block_collection` VALUES (1,1,2,1,'default',0,NULL);
 INSERT INTO `ngbm_block_collection` VALUES (1,1,3,1,'featured',0,NULL);
 INSERT INTO `ngbm_block_collection` VALUES (2,0,3,1,'default',0,NULL);
 INSERT INTO `ngbm_block_collection` VALUES (2,1,3,1,'default',0,NULL);
+INSERT INTO `ngbm_block_collection` VALUES (5,0,4,0,'default',0,NULL);
+INSERT INTO `ngbm_block_collection` VALUES (5,1,4,1,'default',0,NULL);
 /*!40000 ALTER TABLE `ngbm_block_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,6 +62,8 @@ INSERT INTO `ngbm_collection` VALUES (1,0,0,NULL);
 INSERT INTO `ngbm_collection` VALUES (2,1,1,NULL);
 INSERT INTO `ngbm_collection` VALUES (3,0,2,'My collection');
 INSERT INTO `ngbm_collection` VALUES (3,1,2,'My collection');
+INSERT INTO `ngbm_collection` VALUES (4,0,1,NULL);
+INSERT INTO `ngbm_collection` VALUES (4,1,1,NULL);
 /*!40000 ALTER TABLE `ngbm_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,10 +85,12 @@ INSERT INTO `ngbm_collection_item` VALUES (8,0,3,3,0,'71','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (8,1,3,3,0,'71','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (9,0,3,5,0,'72','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (9,1,3,5,0,'72','ezcontent');
-INSERT INTO `ngbm_collection_item` VALUES (10,0,3,7,1,'154','ezcontent');
-INSERT INTO `ngbm_collection_item` VALUES (10,1,3,7,1,'154','ezcontent');
-INSERT INTO `ngbm_collection_item` VALUES (11,0,3,8,1,'155','ezcontent');
-INSERT INTO `ngbm_collection_item` VALUES (11,1,3,8,1,'155','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (10,0,4,2,0,'70','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (10,1,4,2,0,'70','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (11,0,4,3,0,'71','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (11,1,4,3,0,'71','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (12,0,4,5,0,'72','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (12,1,4,5,0,'72','ezcontent');
 /*!40000 ALTER TABLE `ngbm_collection_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,11 +100,13 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection_query` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection_query` DISABLE KEYS */;
-INSERT INTO `ngbm_collection_query` VALUES (1,1,2,0,'default','ezcontent_search','{"parent_location_id": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (2,0,3,0,'default','ezcontent_search','{"parent_location_id": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (2,1,3,0,'default','ezcontent_search','{"parent_location_id": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (3,0,3,1,'featured','ezcontent_search','{"parent_location_id": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (3,1,3,1,'featured','ezcontent_search','{"parent_location_id": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (1,1,2,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (2,0,3,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (2,1,3,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (3,0,3,1,'featured','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (3,1,3,1,'featured','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (4,0,4,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (4,1,4,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
 /*!40000 ALTER TABLE `ngbm_collection_query` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,6 +120,8 @@ INSERT INTO `ngbm_layout` VALUES (1,0,NULL,'3_zones_a','My layout',1447065813,14
 INSERT INTO `ngbm_layout` VALUES (1,1,NULL,'3_zones_a','My layout',1447065813,1447065813);
 INSERT INTO `ngbm_layout` VALUES (2,0,NULL,'3_zones_b','My other layout',1447065813,1447065813);
 INSERT INTO `ngbm_layout` VALUES (2,1,NULL,'3_zones_b','My other layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (3,1,NULL,'3_zones_b','My third layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (4,0,NULL,'3_zones_b','My fourth layout',1447065813,1447065813);
 /*!40000 ALTER TABLE `ngbm_layout` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,6 +166,8 @@ LOCK TABLES `ngbm_rule_condition` WRITE;
 INSERT INTO `ngbm_rule_condition` VALUES (1,1,2,'route_parameter','{\"some_param\": [1,2]}');
 INSERT INTO `ngbm_rule_condition` VALUES (2,1,3,'route_parameter','{\"some_param\": [3,4]}');
 INSERT INTO `ngbm_rule_condition` VALUES (3,1,3,'route_parameter','{\"some_other_param\": [5,6]}');
+INSERT INTO `ngbm_rule_condition` VALUES (4,0,5,'siteaccess','[\"cro\"]');
+INSERT INTO `ngbm_rule_condition` VALUES (4,1,5,'siteaccess','[\"cro\"]');
 /*!40000 ALTER TABLE `ngbm_rule_condition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +182,7 @@ INSERT INTO `ngbm_rule_data` VALUES (2,1);
 INSERT INTO `ngbm_rule_data` VALUES (3,1);
 INSERT INTO `ngbm_rule_data` VALUES (4,0);
 INSERT INTO `ngbm_rule_data` VALUES (5,0);
-INSERT INTO `ngbm_rule_data` VALUES (6,0);
+INSERT INTO `ngbm_rule_data` VALUES (6,1);
 INSERT INTO `ngbm_rule_data` VALUES (7,1);
 INSERT INTO `ngbm_rule_data` VALUES (8,1);
 INSERT INTO `ngbm_rule_data` VALUES (9,1);
@@ -271,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-27  0:14:41
+-- Dump completed on 2016-06-05 14:25:06
