@@ -6,7 +6,8 @@
     "position": 0,
     "layout_id": 1,
     "parameters": {
-        "some_param": "some_value"
+        "content": "Paragraph"
     },
-    "view_type": "default"
+    "view_type": "default",
+    "item_view_type": "standard"
 }

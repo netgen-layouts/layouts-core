@@ -1,5 +1,5 @@
 {
-    "id": 6,
+    "id": 7,
     "definition_identifier": "title",
     "name": "",
     "zone_identifier": "bottom",
@@ -7,7 +7,10 @@
     "layout_id": 1,
     "parameters": {
         "tag": "h1",
-        "title": "My cool title"
+        "title": "My cool title",
+        "css_class": null,
+        "css_id": null
     },
-    "view_type": "default"
+    "view_type": "default",
+    "item_view_type": "standard"
 }
