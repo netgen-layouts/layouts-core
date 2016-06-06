@@ -1,8 +1,10 @@
-<div class="block-header">
-    <div class="handle" title="Move"><i class="fa fa-ellipsis-h"></i><i class="fa fa-ellipsis-h"></i></div>
-    <div class="action-destroy" title="Delete"><i class="fa fa-times"></i></div>
-    <div class="template_name">{{ block.viewType }}</div>
-</div>
+{% block controls %}
+    <div class="block-header">
+        <div class="handle" title="Move"><i class="fa fa-ellipsis-h"></i><i class="fa fa-ellipsis-h"></i></div>
+        <div class="action-destroy" title="Delete"><i class="fa fa-times"></i></div>
+        <div class="template_name">{{ block.viewType }}</div>
+    </div>
+{% endblock %}
 
 {% block inline_data %}{% endblock %}
 
