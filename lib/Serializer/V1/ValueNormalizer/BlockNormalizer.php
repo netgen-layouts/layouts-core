@@ -49,7 +49,7 @@ class BlockNormalizer implements NormalizerInterface
             'parameters' => $block->getParameters(),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
-            'is_published' => $this->blockService->isPublished($block),
+            'has_published_state' => $this->blockService->isPublished($block),
         );
     }
 

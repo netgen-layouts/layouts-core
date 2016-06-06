@@ -66,7 +66,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
                 'item_view_type' => $block->getItemViewType(),
-                'is_published' => true,
+                'has_published_state' => true,
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );
