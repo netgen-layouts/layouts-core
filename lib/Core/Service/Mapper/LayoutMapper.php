@@ -83,7 +83,6 @@ class LayoutMapper extends Mapper
 
         $layoutData = array(
             'id' => $layout->id,
-            'parentId' => $layout->parentId,
             'type' => $layout->type,
             'name' => $layout->name,
             'created' => $this->createDateTime($layout->created),

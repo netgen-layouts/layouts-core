@@ -53,7 +53,6 @@ class LayoutNormalizer implements NormalizerInterface
 
         return array(
             'id' => $layout->getId(),
-            'parent_id' => $layout->getParentId(),
             'type' => $layout->getType(),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),

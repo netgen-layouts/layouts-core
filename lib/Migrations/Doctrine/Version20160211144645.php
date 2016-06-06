@@ -18,7 +18,6 @@ class Version20160211144645 extends AbstractMigration
 
         $layoutTable->addColumn('id', 'integer', array('autoincrement' => true));
         $layoutTable->addColumn('status', 'integer');
-        $layoutTable->addColumn('parent_id', 'integer', array('notnull' => false));
         $layoutTable->addColumn('type', 'string', array('length' => 255));
         $layoutTable->addColumn('name', 'string', array('length' => 255));
         $layoutTable->addColumn('created', 'integer');

@@ -116,12 +116,12 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_layout` WRITE;
 /*!40000 ALTER TABLE `ngbm_layout` DISABLE KEYS */;
-INSERT INTO `ngbm_layout` VALUES (1,0,NULL,'3_zones_a','My layout',1447065813,1447065813);
-INSERT INTO `ngbm_layout` VALUES (1,1,NULL,'3_zones_a','My layout',1447065813,1447065813);
-INSERT INTO `ngbm_layout` VALUES (2,0,NULL,'3_zones_b','My other layout',1447065813,1447065813);
-INSERT INTO `ngbm_layout` VALUES (2,1,NULL,'3_zones_b','My other layout',1447065813,1447065813);
-INSERT INTO `ngbm_layout` VALUES (3,1,NULL,'3_zones_b','My third layout',1447065813,1447065813);
-INSERT INTO `ngbm_layout` VALUES (4,0,NULL,'3_zones_b','My fourth layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (1,0,'3_zones_a','My layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (1,1,'3_zones_a','My layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (2,0,'3_zones_b','My other layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (2,1,'3_zones_b','My other layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (3,1,'3_zones_b','My third layout',1447065813,1447065813);
+INSERT INTO `ngbm_layout` VALUES (4,0,'3_zones_b','My fourth layout',1447065813,1447065813);
 /*!40000 ALTER TABLE `ngbm_layout` ENABLE KEYS */;
 UNLOCK TABLES;
 

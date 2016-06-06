@@ -208,7 +208,6 @@ class LayoutQueryHandler
                 array(
                     'id' => ':id',
                     'status' => ':status',
-                    'parent_id' => ':parent_id',
                     'type' => ':type',
                     'name' => ':name',
                     'created' => ':created',
@@ -220,7 +219,6 @@ class LayoutQueryHandler
                 $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
             )
             ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
-            ->setParameter('parent_id', null, Type::INTEGER)
             ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
             ->setParameter('name', trim($layoutCreateStruct->name), Type::STRING)
             ->setParameter('created', $currentTimeStamp, Type::INTEGER)
@@ -323,7 +321,7 @@ class LayoutQueryHandler
     protected function getLayoutSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('DISTINCT id', 'status', 'parent_id', 'type', 'name', 'created', 'modified')
+        $query->select('DISTINCT id', 'status', 'type', 'name', 'created', 'modified')
             ->from('ngbm_layout');
 
         return $query;

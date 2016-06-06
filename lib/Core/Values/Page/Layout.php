@@ -13,11 +13,6 @@ class Layout extends ValueObject implements APILayout
     protected $id;
 
     /**
-     * @var int|string
-     */
-    protected $parentId;
-
-    /**
      * @var string
      */
     protected $type;
@@ -55,16 +50,6 @@ class Layout extends ValueObject implements APILayout
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Returns the parent layout ID.
-     *
-     * @return int|string
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
     }
 
     /**

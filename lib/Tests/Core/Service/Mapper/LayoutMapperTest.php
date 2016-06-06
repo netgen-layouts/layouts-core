@@ -64,7 +64,6 @@ abstract class LayoutMapperTest extends MapperTest
         $persistenceLayout = new Layout(
             array(
                 'id' => 1,
-                'parentId' => null,
                 'type' => '3_zones_a',
                 'name' => 'My layout',
                 'created' => 1447065813,
@@ -77,7 +76,6 @@ abstract class LayoutMapperTest extends MapperTest
 
         self::assertInstanceOf(APILayout::class, $layout);
         self::assertEquals(1, $layout->getId());
-        self::assertNull($layout->getParentId());
         self::assertEquals('3_zones_a', $layout->getType());
         self::assertEquals('My layout', $layout->getName());
         self::assertInstanceOf(DateTime::class, $layout->getCreated());

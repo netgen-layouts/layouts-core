@@ -29,13 +29,6 @@ interface Layout extends Value
     public function getId();
 
     /**
-     * Returns the parent layout ID.
-     *
-     * @return int|string
-     */
-    public function getParentId();
-
-    /**
      * Returns the layout type.
      *
      * @return string

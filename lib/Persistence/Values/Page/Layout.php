@@ -29,13 +29,6 @@ class Layout extends ValueObject
     public $id;
 
     /**
-     * Layout parent ID.
-     *
-     * @var int|string
-     */
-    public $parentId;
-
-    /**
      * Layout type.
      *
      * @var string

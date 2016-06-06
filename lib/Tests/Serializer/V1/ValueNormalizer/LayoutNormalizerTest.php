@@ -73,7 +73,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
         $layout = new Layout(
             array(
                 'id' => 42,
-                'parentId' => null,
                 'type' => '3_zones_a',
                 'created' => $currentDate,
                 'modified' => $currentDate,
@@ -103,7 +102,6 @@ class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'id' => $layout->getId(),
-                'parent_id' => $layout->getParentId(),
                 'type' => $layout->getType(),
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),

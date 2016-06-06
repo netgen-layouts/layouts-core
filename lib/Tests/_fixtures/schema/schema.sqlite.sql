@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS `ngbm_layout`;
 CREATE TABLE `ngbm_layout` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
-  `parent_id` integer DEFAULT NULL,
   `type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
   `created` integer NOT NULL,

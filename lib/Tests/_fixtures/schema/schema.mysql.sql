@@ -13,7 +13,6 @@ DROP TABLE IF EXISTS `ngbm_rule`;
 CREATE TABLE `ngbm_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
   `type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `created` int(11) NOT NULL,
