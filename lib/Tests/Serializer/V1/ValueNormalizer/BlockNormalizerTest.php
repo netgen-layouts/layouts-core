@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -10,13 +11,20 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockServiceMock;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer
      */
     protected $normalizer;
 
     public function setUp()
     {
-        $this->normalizer = new BlockNormalizer();
+        $this->blockServiceMock = $this->getMock(BlockService::class);
+
+        $this->normalizer = new BlockNormalizer($this->blockServiceMock);
     }
 
     /**
@@ -41,6 +49,12 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
+        $this->blockServiceMock
+            ->expects($this->once())
+            ->method('isPublished')
+            ->with($this->equalTo($block))
+            ->will($this->returnValue(true));
+
         self::assertEquals(
             array(
                 'id' => $block->getId(),
@@ -52,6 +66,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
                 'item_view_type' => $block->getItemViewType(),
+                'is_published' => true,
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -9,6 +10,21 @@ use Netgen\BlockManager\Serializer\Version;
 
 class BlockNormalizer implements NormalizerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
+     */
+    public function __construct(BlockService $blockService)
+    {
+        $this->blockService = $blockService;
+    }
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
@@ -33,6 +49,7 @@ class BlockNormalizer implements NormalizerInterface
             'parameters' => $block->getParameters(),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
+            'is_published' => $this->blockService->isPublished($block),
         );
     }
 

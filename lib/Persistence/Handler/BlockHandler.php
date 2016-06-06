@@ -41,6 +41,16 @@ interface BlockHandler
     public function loadCollectionReferences($blockId, $status);
 
     /**
+     * Returns if block with specified ID exists.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function blockExists($blockId, $status);
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct

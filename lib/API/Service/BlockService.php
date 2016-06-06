@@ -33,6 +33,15 @@ interface BlockService
     public function loadBlockDraft($blockId);
 
     /**
+     * Returns if provided block has a published status.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return bool
+     */
+    public function isPublished(Block $block);
+
+    /**
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

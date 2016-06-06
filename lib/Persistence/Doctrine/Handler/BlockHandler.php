@@ -118,6 +118,19 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Returns if block with specified ID exists.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function blockExists($blockId, $status)
+    {
+        return $this->queryHandler->blockExists($blockId, $status);
+    }
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct

@@ -250,26 +250,6 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
-     */
-    public function testIsPublished()
-    {
-        $layout = $this->layoutService->loadLayout(1);
-
-        self::assertTrue($this->layoutService->isPublished($layout));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
-     */
-    public function testIsPublishedReturnsFalse()
-    {
-        $layout = $this->layoutService->loadLayoutDraft(4);
-
-        self::assertFalse($this->layoutService->isPublished($layout));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */

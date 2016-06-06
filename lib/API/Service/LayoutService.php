@@ -102,15 +102,6 @@ interface LayoutService
     public function publishLayout(LayoutDraft $layout);
 
     /**
-     * Returns if provided layout has a published status.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     *
-     * @return bool
-     */
-    public function isPublished(Layout $layout);
-
-    /**
      * Deletes a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

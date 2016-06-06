@@ -125,6 +125,18 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Returns if provided block has a published status.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return bool
+     */
+    public function isPublished(Block $block)
+    {
+        return $this->blockHandler->blockExists($block->getId(), Layout::STATUS_PUBLISHED);
+    }
+
+    /**
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

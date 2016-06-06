@@ -140,6 +140,26 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::isPublished
+     */
+    public function testIsPublished()
+    {
+        $block = $this->blockService->loadBlock(1);
+
+        self::assertTrue($this->blockService->isPublished($block));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::isPublished
+     */
+    public function testIsPublishedReturnsFalse()
+    {
+        $block = $this->blockService->loadBlockDraft(6);
+
+        self::assertFalse($this->blockService->isPublished($block));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReferences
      */
     public function testLoadCollectionReferences()

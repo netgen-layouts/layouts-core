@@ -112,6 +112,31 @@ class BlockQueryHandler
     }
 
     /**
+     * Returns if block exists.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function blockExists($blockId, $status)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query->select('count(*) AS count')
+            ->from('ngbm_block')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $blockId, Type::INTEGER);
+
+        $this->queryHelper->applyStatusCondition($query, $status);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Creates a block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
