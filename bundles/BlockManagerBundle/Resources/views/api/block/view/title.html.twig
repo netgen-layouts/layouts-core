@@ -4,7 +4,9 @@
     <{{ block.parameter('tag')|default('h1') }} data-inline>
        <span contenteditable="true" data-attr="title" data-hint="click to write" data-inline-child>{{ block.parameter('title') }}</span>
     </{{ block.parameter('tag')|default('h1') }}>
+{% endblock %}
 
+{% block content %}
     {% if collections.default is defined %}
         {% for result in collections.default.results %}
             {{ ngbm_render_item(result.item, 'default', [], view_context) }}
