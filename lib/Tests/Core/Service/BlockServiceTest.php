@@ -542,6 +542,7 @@ abstract class BlockServiceTest extends ServiceTest
         $blockUpdateStruct = new BlockUpdateStruct(
             array(
                 'viewType' => 'small',
+                'itemViewType' => 'new',
                 'name' => 'New name',
             )
         );
@@ -558,6 +559,7 @@ abstract class BlockServiceTest extends ServiceTest
 
         self::assertInstanceOf(APIBlockDraft::class, $restoredBlock);
         self::assertEquals('default', $restoredBlock->getViewType());
+        self::assertEquals('standard', $restoredBlock->getItemViewType());
         self::assertEquals('My block', $restoredBlock->getName());
         self::assertEquals(array('content' => 'Paragraph'), $restoredBlock->getParameters());
         self::assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());

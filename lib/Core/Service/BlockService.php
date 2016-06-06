@@ -402,8 +402,9 @@ class BlockService implements BlockServiceInterface
                 $persistenceBlock->status,
                 new BlockUpdateStruct(
                     array(
-                        'viewType' => $publishedBlock->viewType,
                         'name' => $publishedBlock->name,
+                        'viewType' => $publishedBlock->viewType,
+                        'itemViewType' => $publishedBlock->itemViewType,
                         'parameters' => $publishedBlock->parameters,
                     )
                 )
