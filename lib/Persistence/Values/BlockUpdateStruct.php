@@ -14,6 +14,11 @@ class BlockUpdateStruct extends ValueObject
     /**
      * @var string
      */
+    public $itemViewType;
+
+    /**
+     * @var string
+     */
     public $name;
 
     /**

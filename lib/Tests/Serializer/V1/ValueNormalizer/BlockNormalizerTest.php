@@ -36,6 +36,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                     'some_other_param' => 'some_other_value',
                 ),
                 'viewType' => 'default',
+                'itemViewType' => 'standard',
                 'name' => 'My block',
             )
         );
@@ -50,6 +51,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
                 'layout_id' => $block->getLayoutId(),
                 'parameters' => $block->getParameters(),
                 'view_type' => $block->getViewType(),
+                'item_view_type' => $block->getItemViewType(),
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

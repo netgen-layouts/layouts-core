@@ -28,6 +28,7 @@ CREATE TABLE `ngbm_block` (
   `position` integer NOT NULL,
   `definition_identifier` text(255) NOT NULL,
   `view_type` text(255) NOT NULL,
+  `item_view_type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`id`, `status`),

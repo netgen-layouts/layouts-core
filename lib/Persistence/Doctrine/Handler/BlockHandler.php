@@ -150,6 +150,7 @@ class BlockHandler implements BlockHandlerInterface
                     'position' => $position,
                     'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
                     'viewType' => $blockCreateStruct->viewType,
+                    'itemViewType' => $blockCreateStruct->itemViewType,
                     'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
                     'parameters' => $blockCreateStruct->getParameters(),
                 )
@@ -178,6 +179,7 @@ class BlockHandler implements BlockHandlerInterface
             new BlockUpdateStruct(
                 array(
                     'viewType' => $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType,
+                    'itemViewType' => $blockUpdateStruct->itemViewType !== null ? $blockUpdateStruct->itemViewType : $block->itemViewType,
                     'name' => $blockUpdateStruct->name !== null ? trim($blockUpdateStruct->name) : $block->name,
                     'parameters' => $blockUpdateStruct->getParameters() + $block->parameters,
                 )
@@ -217,6 +219,7 @@ class BlockHandler implements BlockHandlerInterface
                     'position' => $position,
                     'definitionIdentifier' => $block->definitionIdentifier,
                     'viewType' => $block->viewType,
+                    'itemViewType' => $block->itemViewType,
                     'name' => $block->name,
                     'parameters' => $block->parameters,
                 )
@@ -315,6 +318,7 @@ class BlockHandler implements BlockHandlerInterface
                     'position' => $block->position,
                     'definitionIdentifier' => $block->definitionIdentifier,
                     'viewType' => $block->viewType,
+                    'itemViewType' => $block->itemViewType,
                     'name' => $block->name,
                     'parameters' => $block->parameters,
                 )

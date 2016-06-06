@@ -455,15 +455,17 @@ class BlockService implements BlockServiceInterface
      *
      * @param string $definitionIdentifier
      * @param string $viewType
+     * @param string $itemViewType
      *
      * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
      */
-    public function newBlockCreateStruct($definitionIdentifier, $viewType)
+    public function newBlockCreateStruct($definitionIdentifier, $viewType, $itemViewType)
     {
         return new BlockCreateStruct(
             array(
                 'definitionIdentifier' => $definitionIdentifier,
                 'viewType' => $viewType,
+                'itemViewType' => $itemViewType,
             )
         );
     }

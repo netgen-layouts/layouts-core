@@ -271,7 +271,7 @@ class CollectionController extends Controller
             }
         }
 
-        return new FormView($form, $query, Version::API_V1, $responseCode);
+        return new FormView($form, $formName, $query, Version::API_V1, $responseCode);
     }
 
     /**

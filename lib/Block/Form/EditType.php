@@ -5,6 +5,9 @@ namespace Netgen\BlockManager\Block\Form;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -41,6 +44,12 @@ abstract class EditType extends AbstractType
         $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
+    /**
+     * Adds view type and item view type form children to form.
+     *
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     */
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
@@ -68,8 +77,69 @@ abstract class EditType extends AbstractType
                 },
             )
         );
+
+        $itemViewTypeBuilder = function (FormInterface $form, BlockDefinitionInterface $blockDefinition, $viewType) {
+            $choices = array();
+            if ($blockDefinition->getConfig()->hasViewType($viewType)) {
+                $viewType = $blockDefinition->getConfig()->getViewType($viewType);
+
+                foreach ($viewType->getItemViewTypes() as $itemViewType) {
+                    $choices[$itemViewType->getName()] = $itemViewType->getIdentifier();
+                }
+            }
+
+            $form->add(
+                'item_view_type',
+                'choice',
+                array(
+                    'label' => 'block.item_view_type',
+                    'choices' => $choices,
+                    'choices_as_values' => true,
+                    'property_path' => 'itemViewType',
+                    // 'choice_value' is needed here since in Symfony 2.7
+                    // using the form with NON DEPRECATED 'choices_as_values'
+                    // is broken.
+                    // See: https://github.com/symfony/symfony/issues/14377
+                    'choice_value' => function ($choice) {
+                        return $choice;
+                    },
+                )
+            );
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($itemViewTypeBuilder) {
+                $form = $event->getForm();
+
+                $itemViewTypeBuilder(
+                    $form,
+                    $form->getConfig()->getOption('blockDefinition'),
+                    $event->getData()->viewType
+                );
+            }
+        );
+
+        $builder->get('view_type')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($itemViewTypeBuilder) {
+                $form = $event->getForm()->getParent();
+
+                $itemViewTypeBuilder(
+                    $form,
+                    $form->getConfig()->getOption('blockDefinition'),
+                    $event->getData()
+                );
+            }
+        );
     }
 
+    /**
+     * Adds a name form child to form.
+     *
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     */
     protected function addBlockNameForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -87,6 +157,13 @@ abstract class EditType extends AbstractType
         );
     }
 
+    /**
+     * Adds parameters form child to form.
+     *
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     * @param array $parameterNames
+     */
     protected function addParametersForm(FormBuilderInterface $builder, array $options, array $parameterNames = array())
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
@@ -102,7 +179,7 @@ abstract class EditType extends AbstractType
             'parameters',
             'form',
             array(
-                'label' => 'block.parameters',
+                'label' => false,
                 'inherit_data' => true,
             )
         );

@@ -56,6 +56,13 @@ class Block extends ValueObject
     public $viewType;
 
     /**
+     * Item view type which will be used to render block items.
+     *
+     * @var string
+     */
+    public $itemViewType;
+
+    /**
      * Human readable name of this block.
      *
      * @var string

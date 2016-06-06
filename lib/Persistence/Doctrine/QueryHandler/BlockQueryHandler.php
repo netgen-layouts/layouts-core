@@ -132,6 +132,7 @@ class BlockQueryHandler
                     'position' => ':position',
                     'definition_identifier' => ':definition_identifier',
                     'view_type' => ':view_type',
+                    'item_view_type' => ':item_view_type',
                     'name' => ':name',
                     'parameters' => ':parameters',
                 )
@@ -146,6 +147,7 @@ class BlockQueryHandler
             ->setParameter('position', $blockCreateStruct->position, Type::INTEGER)
             ->setParameter('definition_identifier', $blockCreateStruct->definitionIdentifier, Type::STRING)
             ->setParameter('view_type', $blockCreateStruct->viewType, Type::STRING)
+            ->setParameter('item_view_type', $blockCreateStruct->itemViewType, Type::STRING)
             ->setParameter('name', trim($blockCreateStruct->name), Type::STRING)
             ->setParameter('parameters', $blockCreateStruct->parameters, is_array($blockCreateStruct->parameters) ? Type::JSON_ARRAY : Type::STRING);
 
@@ -167,6 +169,7 @@ class BlockQueryHandler
         $query
             ->update('ngbm_block')
             ->set('view_type', ':view_type')
+            ->set('item_view_type', ':item_view_type')
             ->set('name', ':name')
             ->set('parameters', ':parameters')
             ->where(
@@ -174,6 +177,7 @@ class BlockQueryHandler
             )
             ->setParameter('id', $blockId, Type::INTEGER)
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
+            ->setParameter('item_view_type', $blockUpdateStruct->itemViewType, Type::STRING)
             ->setParameter('name', $blockUpdateStruct->name, Type::STRING)
             ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY);
 
@@ -371,7 +375,7 @@ class BlockQueryHandler
     protected function getBlockSelectQuery()
     {
         $query = $this->queryHelper->getQuery();
-        $query->select('DISTINCT id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'name', 'parameters')
+        $query->select('DISTINCT id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'item_view_type', 'name', 'parameters')
             ->from('ngbm_block');
 
         return $query;

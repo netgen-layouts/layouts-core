@@ -19,6 +19,11 @@ abstract class BlockCreateStruct extends ValueObject
     /**
      * @var string
      */
+    public $itemViewType;
+
+    /**
+     * @var string
+     */
     public $name;
 
     /**

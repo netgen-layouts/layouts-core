@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
@@ -34,9 +35,19 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'view_types' => array(
                 'large' => array(
                     'name' => 'Large',
+                    'item_view_types' => array(
+                        'standard' => array(
+                            'name' => 'Standard',
+                        ),
+                    ),
                 ),
                 'small' => array(
                     'name' => 'Small',
+                    'item_view_types' => array(
+                        'standard' => array(
+                            'name' => 'Standard',
+                        ),
+                    ),
                 ),
             ),
         );
@@ -53,8 +64,26 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                     'content' => new Form('content', 'form_type', array('param1', 'param2')),
                 ),
                 array(
-                    'large' => new ViewType('large', 'Large'),
-                    'small' => new ViewType('small', 'Small'),
+                    'large' => new ViewType(
+                        'large',
+                        'Large',
+                        array(
+                            'standard' => new ItemViewType(
+                                'standard',
+                                'Standard'
+                            ),
+                        )
+                    ),
+                    'small' => new ViewType(
+                        'small',
+                        'Small',
+                        array(
+                            'standard' => new ItemViewType(
+                                'standard',
+                                'Standard'
+                            ),
+                        )
+                    ),
                 )
             ),
             $blockDefinition

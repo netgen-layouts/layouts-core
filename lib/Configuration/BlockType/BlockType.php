@@ -118,6 +118,16 @@ class BlockType
     }
 
     /**
+     * Returns the default block item view type.
+     *
+     * @return string
+     */
+    public function getDefaultBlockItemViewType()
+    {
+        return isset($this->defaults['item_view_type']) ? $this->defaults['item_view_type'] : '';
+    }
+
+    /**
      * Returns the default block parameters.
      *
      * @return array

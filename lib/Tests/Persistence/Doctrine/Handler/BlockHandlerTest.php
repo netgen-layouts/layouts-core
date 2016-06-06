@@ -66,6 +66,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_PUBLISHED,
                 )
@@ -103,6 +104,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                             'content' => 'Paragraph',
                         ),
                         'viewType' => 'default',
+                        'itemViewType' => 'standard',
                         'name' => 'My block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -119,6 +121,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                             'title' => 'Title',
                         ),
                         'viewType' => 'small',
+                        'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -135,6 +138,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                             'title' => 'Title',
                         ),
                         'viewType' => 'small',
+                        'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -210,6 +214,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
@@ -225,6 +230,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'a_param' => 'A value',
                     ),
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -246,6 +252,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
@@ -261,6 +268,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'a_param' => 'A value',
                     ),
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -279,6 +287,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
@@ -295,6 +304,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
@@ -310,6 +320,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $blockUpdateStruct = new BlockUpdateStruct();
         $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
+        $blockUpdateStruct->itemViewType = 'new';
         $blockUpdateStruct->setParameter('content', 'new_value');
         $blockUpdateStruct->setParameter('some_param', 'Some value');
 
@@ -326,6 +337,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'some_param' => 'Some value',
                     ),
                     'viewType' => 'large',
+                    'itemViewType' => 'new',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -353,6 +365,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -380,6 +393,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -407,6 +421,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -438,6 +453,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'title' => 'Title',
                     ),
                     'viewType' => 'small',
+                    'itemViewType' => 'standard',
                     'name' => 'My other block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -488,6 +504,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )
@@ -538,6 +555,7 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
                         'content' => 'Paragraph',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_DRAFT,
                 )

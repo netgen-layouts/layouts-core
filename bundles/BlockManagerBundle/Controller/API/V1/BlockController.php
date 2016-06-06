@@ -129,7 +129,8 @@ class BlockController extends Controller
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $blockType->getDefinitionIdentifier(),
-            $blockType->getDefaultBlockViewType()
+            $blockType->getDefaultBlockViewType(),
+            $blockType->getDefaultBlockItemViewType()
         );
 
         $blockParameters = array();
@@ -228,6 +229,7 @@ class BlockController extends Controller
         $updateStruct = $this->blockService->newBlockUpdateStruct();
         $updateStruct->setParameters($block->getParameters());
         $updateStruct->viewType = $block->getViewType();
+        $updateStruct->itemViewType = $block->getItemViewType();
         $updateStruct->name = $block->getName();
 
         $form = $this->createForm(
@@ -258,7 +260,7 @@ class BlockController extends Controller
             }
         }
 
-        return new FormView($form, $block, Version::API_V1, $responseCode);
+        return new FormView($form, $formName, $block, Version::API_V1, $responseCode);
     }
 
     /**

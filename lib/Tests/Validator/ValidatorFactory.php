@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
+use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
@@ -21,6 +22,8 @@ class ValidatorFactory extends ConstraintValidatorFactory
 
         if ($name === 'ngbm_block_view_type') {
             return new BlockViewTypeValidator();
+        } elseif ($name === 'ngbm_block_item_view_type') {
+            return new BlockItemViewTypeValidator();
         } elseif ($name === 'ngbm_value_type') {
             $valueLoaderRegistry = new ValueLoaderRegistry();
             $valueLoaderRegistry->addValueLoader(new ValueLoader());

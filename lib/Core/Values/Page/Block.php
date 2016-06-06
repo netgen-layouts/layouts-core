@@ -40,6 +40,11 @@ class Block extends ValueObject implements APIBlock
     /**
      * @var string
      */
+    protected $itemViewType;
+
+    /**
+     * @var string
+     */
     protected $name;
 
     /**
@@ -144,6 +149,16 @@ class Block extends ValueObject implements APIBlock
     public function getViewType()
     {
         return $this->viewType;
+    }
+
+    /**
+     * Returns item view type which will be used to render block items.
+     *
+     * @return string
+     */
+    public function getItemViewType()
+    {
+        return $this->itemViewType;
     }
 
     /**

@@ -44,7 +44,18 @@ block_view:
             match:
                 api_version: 1
     api_form:
-        block:
-            template: "NetgenBlockManagerBundle:api/block:form.html.twig"
+        block_full_edit:
+            template: "NetgenBlockManagerBundle:api/block/form:full.html.twig"
             match:
                 api_version: 1
+                form_name: full
+        block_content_edit:
+            template: "NetgenBlockManagerBundle:api/block/form:content.html.twig"
+            match:
+                api_version: 1
+                form_name: content
+        block_design_edit:
+            template: "NetgenBlockManagerBundle:api/block/form:design.html.twig"
+            match:
+                api_version: 1
+                form_name: design

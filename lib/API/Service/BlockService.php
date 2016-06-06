@@ -119,10 +119,11 @@ interface BlockService
      *
      * @param string $definitionIdentifier
      * @param string $viewType
+     * @param string $itemViewType
      *
      * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
      */
-    public function newBlockCreateStruct($definitionIdentifier, $viewType);
+    public function newBlockCreateStruct($definitionIdentifier, $viewType, $itemViewType);
 
     /**
      * Creates a new block update struct.

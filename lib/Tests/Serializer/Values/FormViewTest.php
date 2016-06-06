@@ -19,6 +19,7 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
     {
         $this->value = new FormView(
             $this->getMock(FormInterface::class),
+            'full',
             new Value(),
             42,
             Response::HTTP_ACCEPTED
@@ -32,6 +33,15 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
     public function testGetForm()
     {
         self::assertInstanceOf(FormInterface::class, $this->value->getForm());
+    }
+
+    /**
+     * @covers Netgen\BlockManager\Serializer\Values\FormView::__construct
+     * @covers Netgen\BlockManager\Serializer\Values\FormView::getFormName
+     */
+    public function testGetFormName()
+    {
+        self::assertEquals('full', $this->value->getFormName());
     }
 
     /**

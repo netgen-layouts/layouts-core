@@ -18,6 +18,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
      */
@@ -34,6 +35,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertNull($block->getParameter('test'));
         self::assertFalse($block->hasParameter('test'));
         self::assertNull($block->getViewType());
+        self::assertNull($block->getItemViewType());
         self::assertNull($block->getName());
         self::assertNull($block->getStatus());
     }
@@ -49,6 +51,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
      */
@@ -66,6 +69,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
                     'some_other_param' => 'some_other_value',
                 ),
                 'viewType' => 'default',
+                'itemViewType' => 'standard',
                 'name' => 'My block',
                 'status' => Layout::STATUS_PUBLISHED,
             )
@@ -88,6 +92,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertFalse($block->hasParameter('test'));
         self::assertTrue($block->hasParameter('some_param'));
         self::assertEquals('default', $block->getViewType());
+        self::assertEquals('standard', $block->getItemViewType());
         self::assertEquals('My block', $block->getName());
         self::assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());
     }

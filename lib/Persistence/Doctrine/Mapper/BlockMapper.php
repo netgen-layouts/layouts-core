@@ -32,6 +32,7 @@ class BlockMapper
                     'definitionIdentifier' => $dataItem['definition_identifier'],
                     'parameters' => is_array($parameters) ? $parameters : array(),
                     'viewType' => $dataItem['view_type'],
+                    'itemViewType' => $dataItem['item_view_type'],
                     'name' => $dataItem['name'],
                     'status' => (int)$dataItem['status'],
                 )

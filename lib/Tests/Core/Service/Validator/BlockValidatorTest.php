@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -49,7 +51,19 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
         $this->blockDefinitionHandlerMock = $this->getMock(BlockDefinitionHandlerInterface::class);
-        $this->blockDefinitionConfig = new Configuration('def', array(), array('large' => array('name' => 'Large')));
+        $this->blockDefinitionConfig = new Configuration(
+            'def',
+            array(),
+            array(
+                'large' => new ViewType(
+                    'large',
+                    'Large',
+                    array(
+                        'standard' => new ItemViewType('standard', 'Standard')
+                    )
+                )
+            )
+        );
 
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory())
@@ -115,7 +129,12 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
 
         self::assertTrue(
             $this->blockValidator->validateBlockUpdateStruct(
-                new Block(array('definitionIdentifier' => 'block_definition')),
+                new Block(
+                    array(
+                        'viewType' => 'large',
+                        'definitionIdentifier' => 'block_definition'
+                    )
+                ),
                 new BlockUpdateStruct($params)
             )
         );
@@ -128,6 +147,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -140,6 +160,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => null,
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -152,6 +173,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => '',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -164,6 +186,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 42,
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -176,6 +199,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'nonexistent',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -188,6 +212,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => null,
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -200,6 +225,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => '',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -212,6 +238,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 42,
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -224,6 +251,59 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'nonexistent',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'definitionIdentifier' => 'block_definition',
+                    'viewType' => 'large',
+                    'itemViewType' => null,
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'definitionIdentifier' => 'block_definition',
+                    'viewType' => 'large',
+                    'itemViewType' => '',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'definitionIdentifier' => 'block_definition',
+                    'viewType' => 'large',
+                    'itemViewType' => 42,
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'definitionIdentifier' => 'block_definition',
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => null,
                     'parameters' => array(
                         'css_class' => 'class',
@@ -236,6 +316,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => '',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -248,6 +329,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 42,
                     'parameters' => array(
                         'css_class' => 'class',
@@ -260,6 +342,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => '',
@@ -272,6 +355,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => null,
@@ -284,6 +368,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_id' => 'id',
@@ -295,6 +380,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -307,6 +393,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -319,6 +406,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -335,6 +423,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -346,6 +435,19 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => null,
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'viewType' => null,
+                    'itemViewType' => null,
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -357,6 +459,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => '',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -368,6 +471,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 42,
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -379,6 +483,43 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => '',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'viewType' => 'large',
+                    'itemViewType' => 42,
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'viewType' => 'large',
+                    'itemViewType' => 'nonexistent',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => null,
                     'parameters' => array(
                         'css_class' => 'class',
@@ -390,6 +531,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => '',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -401,6 +543,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 42,
                     'parameters' => array(
                         'css_class' => 'class',
@@ -412,6 +555,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => '',
@@ -423,6 +567,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => null,
@@ -434,6 +579,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_id' => 'id',
@@ -444,6 +590,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -455,6 +602,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -466,6 +614,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'viewType' => 'large',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',

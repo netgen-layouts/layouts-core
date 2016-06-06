@@ -21,6 +21,7 @@ class BlockTypeTest extends \PHPUnit_Framework_TestCase
             array(
                 'name' => 'Name',
                 'view_type' => 'default',
+                'item_view_type' => 'standard',
                 'parameters' => array('tag' => 'h3'),
             )
         );
@@ -68,6 +69,7 @@ class BlockTypeTest extends \PHPUnit_Framework_TestCase
             array(
                 'name' => 'Name',
                 'view_type' => 'default',
+                'item_view_type' => 'standard',
                 'parameters' => array('tag' => 'h3'),
             ),
             $this->blockType->getDefaults()
@@ -88,6 +90,14 @@ class BlockTypeTest extends \PHPUnit_Framework_TestCase
     public function testGetDefaultBlockViewType()
     {
         self::assertEquals('default', $this->blockType->getDefaultBlockViewType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockItemViewType
+     */
+    public function testGetDefaultBlockItemViewType()
+    {
+        self::assertEquals('standard', $this->blockType->getDefaultBlockItemViewType());
     }
 
     /**

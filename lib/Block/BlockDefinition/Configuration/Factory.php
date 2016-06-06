@@ -26,9 +26,18 @@ class Factory
         }
 
         foreach ($config['view_types'] as $viewTypeIdentifier => $viewTypeConfig) {
+            $itemViewTypes = array();
+            foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
+                $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(
+                    $itemViewTypeIdentifier,
+                    $itemViewTypeConfig['name']
+                );
+            }
+
             $viewTypes[$viewTypeIdentifier] = new ViewType(
                 $viewTypeIdentifier,
-                $viewTypeConfig['name']
+                $viewTypeConfig['name'],
+                $itemViewTypes
             );
         }
 

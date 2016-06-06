@@ -17,6 +17,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         self::assertNull($block->definitionIdentifier);
         self::assertNull($block->parameters);
         self::assertNull($block->viewType);
+        self::assertNull($block->itemViewType);
         self::assertNull($block->name);
     }
 
@@ -34,6 +35,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
                     'some_other_param' => 'some_other_value',
                 ),
                 'viewType' => 'default',
+                'itemViewType' => 'standard',
                 'name' => 'My block',
             )
         );
@@ -51,6 +53,7 @@ class BlockTest extends \PHPUnit_Framework_TestCase
             $block->parameters
         );
         self::assertEquals('default', $block->viewType);
+        self::assertEquals('standard', $block->itemViewType);
         self::assertEquals('My block', $block->name);
     }
 }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
@@ -60,8 +61,20 @@ class FullEditTypeTest extends TypeTestCase
             'block_definition',
             array(),
             array(
-                'large' => new ViewType('large', 'Large'),
-                'small' => new ViewType('small', 'Small'),
+                'large' => new ViewType(
+                    'large',
+                    'Large',
+                    array(
+                        'standard' => new ItemViewType('standard', 'Standard'),
+                    )
+                ),
+                'small' => new ViewType(
+                    'small',
+                    'Small',
+                    array(
+                        'standard' => new ItemViewType('standard', 'Standard'),
+                    )
+                ),
             )
         );
 
@@ -87,11 +100,13 @@ class FullEditTypeTest extends TypeTestCase
                 'css_class' => 'Some CSS class',
             ),
             'view_type' => 'large',
+            'item_view_type' => 'standard',
             'name' => 'My block',
         );
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->viewType = 'large';
+        $updatedStruct->itemViewType = 'standard';
         $updatedStruct->name = 'My block';
         $updatedStruct->setParameter('css_id', 'Some CSS ID');
         $updatedStruct->setParameter('css_class', 'Some CSS class');

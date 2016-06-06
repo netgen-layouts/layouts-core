@@ -13,18 +13,25 @@ abstract class AbstractFormView extends AbstractView
     protected $form;
 
     /**
+     * @var string
+     */
+    protected $formName;
+
+    /**
      * Constructor.
      *
      * @param \Symfony\Component\Form\FormInterface $form
+     * @param string $formName
      * @param mixed $value
      * @param int $version
      * @param int $statusCode
      */
-    public function __construct(FormInterface $form, $value, $version, $statusCode = Response::HTTP_OK)
+    public function __construct(FormInterface $form, $formName, $value, $version, $statusCode = Response::HTTP_OK)
     {
         parent::__construct($value, $version, $statusCode);
 
         $this->form = $form;
+        $this->formName = $formName;
     }
 
     /**
@@ -35,5 +42,15 @@ abstract class AbstractFormView extends AbstractView
     public function getForm()
     {
         return $this->form;
+    }
+
+    /**
+     * Returns the form name.
+     *
+     * @return string
+     */
+    public function getFormName()
+    {
+        return $this->formName;
     }
 }

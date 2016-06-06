@@ -49,6 +49,7 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
             $object->getContext(),
             array(
                 'form' => $object->getForm()->createView(),
+                'form_name' => $object->getFormName(),
                 'api_version' => $object->getVersion(),
             ) + $object->getViewParameters()
         );

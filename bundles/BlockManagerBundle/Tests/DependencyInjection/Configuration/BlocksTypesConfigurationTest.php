@@ -40,6 +40,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'defaults' => array(
                             'name' => 'Name',
                             'view_type' => 'large',
+                            'item_view_type' => 'standard',
                             'parameters' => array(
                                 'param1' => 'value1',
                                 'param2' => 'value2',
@@ -59,10 +60,11 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'defaults' => array(
                         'name' => 'Name',
                         'view_type' => 'large',
-                            'parameters' => array(
-                                'param1' => 'value1',
-                                'param2' => 'value2',
-                            ),
+                        'item_view_type' => 'standard',
+                        'parameters' => array(
+                            'param1' => 'value1',
+                            'param2' => 'value2',
+                        ),
                     ),
                 ),
             ),
@@ -91,6 +93,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'definition_identifier' => 'title',
                         'defaults' => array(
                             'view_type' => 'large',
+                            'item_view_type' => 'standard',
                             'parameters' => array(
                                 'param1' => 'value1',
                                 'param2' => 'value2',
@@ -110,6 +113,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'defaults' => array(
                         'name' => '',
                         'view_type' => 'large',
+                        'item_view_type' => 'standard',
                         'parameters' => array(
                             'param1' => 'value1',
                             'param2' => 'value2',
@@ -143,6 +147,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'defaults' => array(
                             'name' => 'Name',
                             'view_type' => 'large',
+                            'item_view_type' => 'standard',
                         ),
                     ),
                 ),
@@ -158,6 +163,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'defaults' => array(
                         'name' => 'Name',
                         'view_type' => 'large',
+                        'item_view_type' => 'standard',
                         'parameters' => array(),
                     ),
                 ),
@@ -188,6 +194,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'defaults' => array(
                             'name' => 'Name',
                             'view_type' => 'large',
+                            'item_view_type' => 'standard',
                             'parameters' => array(
                                 'param1' => 'value1',
                             ),
@@ -203,6 +210,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                         'defaults' => array(
                             'name' => 'Name',
                             'view_type' => 'large',
+                            'item_view_type' => 'standard',
                             'parameters' => array(
                                 'param2' => 'value2',
                             ),
@@ -221,6 +229,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'defaults' => array(
                         'name' => 'Name',
                         'view_type' => 'large',
+                        'item_view_type' => 'standard',
                         'parameters' => array(
                             'param2' => 'value2',
                         ),
@@ -276,6 +285,7 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                     'name' => 'Block type',
                     'defaults' => array(
                         'view_type' => 'large',
+                        'item_view_type' => 'standard',
                     ),
                 ),
             ),
@@ -312,6 +322,26 @@ class BlocksTypesConfigurationTest extends \PHPUnit_Framework_TestCase
                 'block_type' => array(
                     'name' => 'Block type',
                     'defaults' => array(),
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
+     */
+    public function testBlockTypeSettingsWithNoDefaultItemViewType()
+    {
+        $config = array(
+            'block_types' => array(
+                'block_type' => array(
+                    'name' => 'Block type',
+                    'defaults' => array(
+                        'view_type' => 'large',
+                    ),
                 ),
             ),
         );

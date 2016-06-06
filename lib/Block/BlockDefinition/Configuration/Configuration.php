@@ -58,7 +58,7 @@ class Configuration
     /**
      * Returns if the block definition has a form with provided identifier.
      *
-     * @param $formIdentifier
+     * @param string $formIdentifier
      *
      * @return bool
      */
@@ -70,7 +70,7 @@ class Configuration
     /**
      * Returns the form for provided form identifier.
      *
-     * @param $formIdentifier
+     * @param string $formIdentifier
      *
      * @throws \RuntimeException If form does not exist
      *
@@ -100,7 +100,7 @@ class Configuration
     /**
      * Returns if the block definition has a view type with provided identifier.
      *
-     * @param $viewTypeIdentifier
+     * @param string $viewTypeIdentifier
      *
      * @return bool
      */
@@ -112,7 +112,7 @@ class Configuration
     /**
      * Returns the view type with provided identifier.
      *
-     * @param $viewTypeIdentifier
+     * @param string $viewTypeIdentifier
      *
      * @throws \RuntimeException If view type does not exist
      *
@@ -122,7 +122,11 @@ class Configuration
     {
         if (!$this->hasViewType($viewTypeIdentifier)) {
             throw new RuntimeException(
-                "View type '{$viewTypeIdentifier}' does not exist in '{$this->identifier}' block definition."
+                sprintf(
+                    "View type '%s' does not exist in '%s' block definition.",
+                    $viewTypeIdentifier,
+                    $this->identifier
+                )
             );
         }
 

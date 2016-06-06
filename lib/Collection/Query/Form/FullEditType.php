@@ -57,7 +57,7 @@ class FullEditType extends AbstractType
             'parameters',
             'form',
             array(
-                'label' => 'query.parameters',
+                'label' => false,
                 'inherit_data' => true,
             )
         );

@@ -41,6 +41,7 @@ abstract class BlockMapperTest extends MapperTest
                     'some_param' => 'some_value',
                 ),
                 'viewType' => 'default',
+                'itemViewType' => 'standard',
                 'name' => 'My block',
                 'status' => APILayout::STATUS_PUBLISHED,
             )
@@ -56,6 +57,7 @@ abstract class BlockMapperTest extends MapperTest
         self::assertEquals('paragraph', $block->getDefinitionIdentifier());
         self::assertEquals(array('some_param' => 'some_value'), $block->getParameters());
         self::assertEquals('default', $block->getViewType());
+        self::assertEquals('standard', $block->getItemViewType());
         self::assertEquals('My block', $block->getName());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $block->getStatus());
     }

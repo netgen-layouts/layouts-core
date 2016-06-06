@@ -28,6 +28,7 @@ class BlockMapper extends Mapper
             'definitionIdentifier' => $block->definitionIdentifier,
             'parameters' => $block->parameters,
             'viewType' => $block->viewType,
+            'itemViewType' => $block->itemViewType,
             'name' => $block->name,
             'status' => $block->status,
         );

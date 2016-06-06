@@ -47,6 +47,7 @@ class Version20160211144645 extends AbstractMigration
         $blockTable->addColumn('position', 'integer');
         $blockTable->addColumn('definition_identifier', 'string', array('length' => 255));
         $blockTable->addColumn('view_type', 'string', array('length' => 255));
+        $blockTable->addColumn('item_view_type', 'string', array('length' => 255));
         $blockTable->addColumn('name', 'string', array('length' => 255));
         $blockTable->addColumn('parameters', 'text', array('length' => 65535));
 

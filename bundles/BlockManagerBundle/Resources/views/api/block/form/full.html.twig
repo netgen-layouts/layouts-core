@@ -1,0 +1,8 @@
+{% extends 'NetgenBlockManagerBundle:api/block:form.html.twig' %}
+
+{% block children %}
+    {{ form_row(form.children.name) }}
+    {{ form_row(form.children.view_type) }}
+    {{ form_row(form.children.item_view_type) }}
+    {{ form_row(form.children.parameters) }}
+{% endblock %}

@@ -449,7 +449,7 @@ abstract class CollectionServiceTest extends ServiceTest
     public function testMoveItemInDynamicOrNamedCollectionWithExistingPositionThrowsBadStateException()
     {
         $this->collectionService->moveItem(
-            $this->collectionService->loadItemDraft(2),
+            $this->collectionService->loadItemDraft(10),
             5
         );
     }

@@ -1,5 +1,6 @@
 parameters:
     netgen_block_manager.validator.block_view_type.class: Netgen\BlockManager\Validator\BlockViewTypeValidator
+    netgen_block_manager.validator.block_item_view_type.class: Netgen\BlockManager\Validator\BlockItemViewTypeValidator
     netgen_block_manager.validator.value_type.class: Netgen\BlockManager\Validator\ValueTypeValidator
     netgen_block_manager.validator.parameters.class: Netgen\BlockManager\Validator\ParametersValidator
 
@@ -8,6 +9,11 @@ services:
         class: "%netgen_block_manager.validator.block_view_type.class%"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_view_type }
+
+    netgen_block_manager.validator.block_item_view_type:
+        class: "%netgen_block_manager.validator.block_item_view_type.class%"
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_block_item_view_type }
 
     netgen_block_manager.validator.value_type:
         class: "%netgen_block_manager.validator.value_type.class%"

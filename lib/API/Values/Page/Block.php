@@ -74,6 +74,13 @@ interface Block extends Value
     public function getViewType();
 
     /**
+     * Returns item view type which will be used to render block items.
+     *
+     * @return string
+     */
+    public function getItemViewType();
+
+    /**
      * Returns the human readable name of the block.
      *
      * @return string

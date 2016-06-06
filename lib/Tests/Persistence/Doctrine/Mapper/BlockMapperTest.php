@@ -34,6 +34,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => 'paragraph',
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
+                'item_view_type' => 'standard',
                 'name' => 'My block',
                 'status' => Layout::STATUS_PUBLISHED,
             ),
@@ -45,6 +46,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                 'definition_identifier' => 'title',
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
+                'item_view_type' => 'standard',
                 'name' => 'My other block',
                 'status' => Layout::STATUS_PUBLISHED,
             ),
@@ -62,6 +64,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                         'param1' => 'param2',
                     ),
                     'viewType' => 'default',
+                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Layout::STATUS_PUBLISHED,
                 )
@@ -77,6 +80,7 @@ class BlockMapperTest extends \PHPUnit_Framework_TestCase
                         'param1' => 42,
                     ),
                     'viewType' => 'small',
+                    'itemViewType' => 'standard',
                     'name' => 'My other block',
                     'status' => Layout::STATUS_PUBLISHED,
                 )

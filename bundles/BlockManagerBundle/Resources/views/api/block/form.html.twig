@@ -1,7 +1,9 @@
 <h1>Editing "{{ block.name }}" block</h1>
 
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+
+    {% block children %}{% endblock %}
 
     <input type="submit" />
 {{ form_end(form) }}

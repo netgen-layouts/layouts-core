@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
@@ -162,7 +161,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlock()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
@@ -196,7 +195,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithNonExistentLayoutType()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
@@ -213,7 +212,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithNoPosition()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
@@ -234,7 +233,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithBlankName()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
         $blockCreateStruct->setParameter('some_param', 'some_value');
         $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
 
@@ -256,7 +255,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
         $blockCreateStruct->name = 'My block';
 
         $blockCreateStruct->setParameter('some_param', 'some_value');
@@ -277,7 +276,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithNonExistingZoneThrowsBadStateException()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
         $blockCreateStruct->name = 'My block';
 
         $blockCreateStruct->setParameter('some_param', 'some_value');
@@ -297,7 +296,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithWithDisallowedIdentifierThrowsBadStateException()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('not_allowed', 'default');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct('not_allowed', 'default', 'standard');
         $blockCreateStruct->name = 'My block';
 
         $blockCreateStruct->setParameter('some_param', 'some_value');
@@ -611,9 +610,10 @@ abstract class BlockServiceTest extends ServiceTest
                 array(
                     'definitionIdentifier' => 'title',
                     'viewType' => 'small',
+                    'itemViewType' => 'standard',
                 )
             ),
-            $this->blockService->newBlockCreateStruct('title', 'small')
+            $this->blockService->newBlockCreateStruct('title', 'small', 'standard')
         );
     }
 

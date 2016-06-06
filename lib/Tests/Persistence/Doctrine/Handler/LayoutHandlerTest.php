@@ -333,6 +333,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                             'content' => 'Paragraph',
                         ),
                         'viewType' => 'default',
+                        'itemViewType' => 'standard',
                         'name' => 'My block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -349,6 +350,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                             'title' => 'Title',
                         ),
                         'viewType' => 'small',
+                        'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -365,6 +367,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                             'title' => 'Title',
                         ),
                         'viewType' => 'small',
+                        'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -461,6 +464,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                             'content' => 'Paragraph',
                         ),
                         'viewType' => 'default',
+                        'itemViewType' => 'standard',
                         'name' => 'My block',
                         'status' => Layout::STATUS_ARCHIVED,
                     )
@@ -477,6 +481,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                             'title' => 'Title',
                         ),
                         'viewType' => 'small',
+                        'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Layout::STATUS_ARCHIVED,
                     )
@@ -493,6 +498,7 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
                             'title' => 'Title',
                         ),
                         'viewType' => 'small',
+                        'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Layout::STATUS_ARCHIVED,
                     )

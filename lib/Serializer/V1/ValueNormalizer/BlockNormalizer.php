@@ -32,6 +32,7 @@ class BlockNormalizer implements NormalizerInterface
             'layout_id' => $block->getLayoutId(),
             'parameters' => $block->getParameters(),
             'view_type' => $block->getViewType(),
+            'item_view_type' => $block->getItemViewType(),
         );
     }
 

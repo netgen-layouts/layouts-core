@@ -42,6 +42,7 @@ CREATE TABLE "ngbm_block" (
   "position" integer NOT NULL,
   "definition_identifier" character varying(255) NOT NULL,
   "view_type" character varying(255) NOT NULL,
+  "item_view_type" character varying(255) NOT NULL,
   "name" character varying(255) NOT NULL,
   "parameters" text NOT NULL
 );

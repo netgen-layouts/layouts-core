@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
@@ -231,6 +230,7 @@ class LayoutHandler implements LayoutHandlerInterface
                             'position' => $blockDataRow['position'],
                             'definitionIdentifier' => $blockDataRow['definition_identifier'],
                             'viewType' => $blockDataRow['view_type'],
+                            'itemViewType' => $blockDataRow['item_view_type'],
                             'name' => $blockDataRow['name'],
                             'parameters' => $blockDataRow['parameters'],
                         )

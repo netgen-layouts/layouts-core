@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Validator\Constraints;
@@ -61,6 +62,21 @@ class BlockValidator extends Validator
             'viewType'
         );
 
+        $this->validate(
+            $blockCreateStruct->itemViewType,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+                new BlockItemViewType(
+                    array(
+                        'viewType' => $blockCreateStruct->viewType,
+                        'definition' => $blockDefinition
+                    )
+                ),
+            ),
+            'itemViewType'
+        );
+
         if ($blockCreateStruct->name !== null) {
             $this->validate(
                 $blockCreateStruct->name,
@@ -109,6 +125,24 @@ class BlockValidator extends Validator
                     new BlockViewType(array('definition' => $blockDefinition)),
                 ),
                 'viewType'
+            );
+        }
+
+        if ($blockUpdateStruct->itemViewType !== null) {
+            $this->validate(
+                $blockUpdateStruct->itemViewType,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                    new BlockItemViewType(
+                        array(
+                            'viewType' => $blockUpdateStruct->viewType !== null ?
+                                $blockUpdateStruct->viewType :
+                                $block->getViewType(),
+                            'definition' => $blockDefinition
+                        )
+                    ),
+                ),
+                'itemViewType'
             );
         }
 
