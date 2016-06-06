@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\Source\Source;
-use InvalidArgumentException;
+use Netgen\BlockManager\Exception\NotFoundException;
 
 class SourceRegistry implements SourceRegistryInterface
 {
@@ -39,14 +39,14 @@ class SourceRegistry implements SourceRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \InvalidArgumentException If source with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If source with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source
      */
     public function getSource($identifier)
     {
         if (!$this->hasSource($identifier)) {
-            throw new InvalidArgumentException(sprintf('Source "%s" does not exist.', $identifier));
+            throw new NotFoundException('source', $identifier);
         }
 
         return $this->sources[$identifier];

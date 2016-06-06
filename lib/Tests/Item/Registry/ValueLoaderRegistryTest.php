@@ -44,9 +44,9 @@ class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueLoaderRegistry::getValueLoader
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetValueLoaderThrowsInvalidArgumentException()
+    public function testGetValueLoaderThrowsNotFoundException()
     {
         $this->registry->getValueLoader('other_value');
     }

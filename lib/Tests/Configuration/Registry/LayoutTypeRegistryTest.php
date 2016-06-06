@@ -66,9 +66,9 @@ class LayoutTypeRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::getLayoutType
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetLayoutTypeThrowsInvalidArgumentException()
+    public function testGetLayoutTypeThrowsNotFoundException()
     {
         $this->registry->getLayoutType('other_layout_type');
     }

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use InvalidArgumentException;
+use Netgen\BlockManager\Exception\NotFoundException;
 
 class BlockTypeRegistry implements BlockTypeRegistryInterface
 {
@@ -45,14 +45,14 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \InvalidArgumentException If block type with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If block type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
      */
     public function getBlockType($identifier)
     {
         if (!$this->hasBlockType($identifier)) {
-            throw new InvalidArgumentException(sprintf('Block type "%s" does not exist.', $identifier));
+            throw new NotFoundException('block type', $identifier);
         }
 
         return $this->blockTypes[$identifier];
@@ -95,14 +95,14 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \InvalidArgumentException If block type group with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If block type group with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
      */
     public function getBlockTypeGroup($identifier)
     {
         if (!$this->hasBlockTypeGroup($identifier)) {
-            throw new InvalidArgumentException(sprintf('Block type group "%s" does not exist.', $identifier));
+            throw new NotFoundException('block type group', $identifier);
         }
 
         return $this->blockTypeGroups[$identifier];

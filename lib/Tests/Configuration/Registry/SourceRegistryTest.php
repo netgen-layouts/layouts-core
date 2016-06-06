@@ -66,9 +66,9 @@ class SourceRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::getSource
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetSourceThrowsInvalidArgumentException()
+    public function testGetSourceThrowsNotFoundException()
     {
         $this->registry->getSource('other_source');
     }

@@ -55,9 +55,9 @@ class QueryTypeRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetQueryTypeThrowsInvalidArgumentException()
+    public function testGetQueryTypeThrowsNotFoundException()
     {
         $this->registry->getQueryType('other_query_type');
     }

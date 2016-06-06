@@ -27,7 +27,7 @@ interface SourceRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \InvalidArgumentException If source with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If source with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source
      */

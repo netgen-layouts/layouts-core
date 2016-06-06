@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use RuntimeException;
 
 class BlockController extends Controller
 {
@@ -112,13 +111,13 @@ class BlockController extends Controller
 
         try {
             $blockType = $this->getBlockType($request->request->get('block_type'));
-        } catch (RuntimeException $e) {
+        } catch (NotFoundException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
         try {
             $blockDefinition = $this->getBlockDefinition($blockType->getDefinitionIdentifier());
-        } catch (RuntimeException $e) {
+        } catch (NotFoundException $e) {
             throw new BadStateException('block_type', 'Block definition specified in block type does not exist.', $e);
         }
 

@@ -55,9 +55,9 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetBlockDefinitionThrowsInvalidArgumentException()
+    public function testGetBlockDefinitionThrowsNotFoundException()
     {
         $this->registry->getBlockDefinition('title');
     }

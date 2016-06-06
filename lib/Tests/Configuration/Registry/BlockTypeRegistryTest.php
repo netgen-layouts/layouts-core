@@ -81,9 +81,9 @@ class BlockTypeRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockType
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetBlockTypeThrowsInvalidArgumentException()
+    public function testGetBlockTypeThrowsNotFoundException()
     {
         $this->registry->getBlockType('other_block_type');
     }
@@ -123,9 +123,9 @@ class BlockTypeRegistryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypeGroup
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testGetBlockTypeGroupThrowsInvalidArgumentException()
+    public function testGetBlockTypeGroupThrowsNotFoundException()
     {
         $this->registry->getBlockTypeGroup('other_block_type_group');
     }
