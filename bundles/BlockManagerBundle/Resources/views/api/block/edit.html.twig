@@ -1,11 +1,10 @@
-{% set collection_class = '\\Netgen\\BlockManager\\API\\Values\\Collection\\Collection' %}
-{% set type_manual = constant(collection_class ~ '::TYPE_MANUAL') %}
-{% set type_dynamic = constant(collection_class ~ '::TYPE_DYNAMIC') %}
-{% set type_named = constant(collection_class ~ '::TYPE_NAMED') %}
-
 <section>
     {% if block_definition.config.hasForm('full') %}
+        {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collections.html.twig' %}
+
         <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
+
+        {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collection_queries.html.twig' %}
     {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
@@ -14,40 +13,11 @@
             </ul>
 
             <div class="tab-pane" id="content-tab">
-                {% if collection is not empty %}
-                    <div>
-                        <label for="collection-type">Collection</label>
-                        <select id="collection-type">
-                            <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">Manual collection</option>
-                            <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">Dynamic collection</option>
-
-                            {% if named_collections is not empty %}
-                                <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">Named collection</option>
-                            {% endif %}
-                        </select>
-                    </div>
-
-                    {% if collection.type == type_named and named_collections is not empty %}
-                        <div>
-                            <label for="named-collections">Named collections</label>
-                            <select id="named-collections">
-                                {% for named_collection in named_collections %}
-                                    <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }} ">{{ named_collection.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% endif %}
-                {% endif %}
+                {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collections.html.twig' %}
 
                 <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
-                {% if collection is not empty and collection.type == type_dynamic %}
-                    {% if collection.queries is not empty %}
-                        {% for query in collection.queries %}
-                            <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
-                        {% endfor %}
-                    {% endif %}
-                {% endif %}
+                {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collection_queries.html.twig' %}
             </div>
 
             <div class="tab-pane" id="design-tab">
