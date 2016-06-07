@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use RuntimeException;
 
 class QueryRunner implements QueryRunnerInterface
 {

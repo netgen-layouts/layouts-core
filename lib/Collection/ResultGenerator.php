@@ -5,12 +5,10 @@ namespace Netgen\BlockManager\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface;
-use RuntimeException;
+use Exception;
 
 class ResultGenerator implements ResultGeneratorInterface
 {
-    const INCLUDE_INVISIBLE_ITEMS = 1;
-
     /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface
      */
@@ -81,19 +79,22 @@ class ResultGenerator implements ResultGeneratorInterface
     {
         $manualItems = $collection->getManualItems();
         $overrideItems = $collection->getOverrideItems();
+        $queryValues = array();
 
         $numberOfItemsBeforeOffset = $this->getNumberOfItemsBeforeOffset($manualItems, $offset);
         $numberOfItemsAtOffset = $this->getNumberOfItemsAtOffset($manualItems, $offset, $limit);
 
-        $queryValues = array();
-        $collectionQueries = $collection->getQueries();
-        if (empty(!$collectionQueries)) {
+        try {
             $queryValues = $this->queryRunner->runQueries(
-                $collectionQueries,
+                $collection->getQueries(),
                 $offset - $numberOfItemsBeforeOffset,
                 $limit !== null ? $limit - $numberOfItemsAtOffset : null,
                 (bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)
             );
+        } catch (Exception $e) {
+            if (!($flags & self::IGNORE_EXCEPTIONS)) {
+                throw $e;
+            }
         }
 
         $resultItems = array();
@@ -128,7 +129,11 @@ class ResultGenerator implements ResultGeneratorInterface
                 }
 
                 $resultItems[] = $resultItem;
-            } catch (RuntimeException $e) {
+            } catch (Exception $e) {
+                if (!($flags & self::IGNORE_EXCEPTIONS)) {
+                    throw $e;
+                }
+
                 continue;
             }
         }
@@ -148,14 +153,17 @@ class ResultGenerator implements ResultGeneratorInterface
     {
         $manualItems = $collection->getManualItems();
         $overrideItems = $collection->getOverrideItems();
-
         $queryCount = 0;
-        $collectionQueries = $collection->getQueries();
-        if (!empty($collectionQueries)) {
+
+        try {
             $queryCount = $this->queryRunner->getTotalCount(
-                $collectionQueries,
+                $collection->getQueries(),
                 (bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)
             );
+        } catch (Exception $e) {
+            if (!($flags & self::IGNORE_EXCEPTIONS)) {
+                throw $e;
+            }
         }
 
         $totalCount = 0;

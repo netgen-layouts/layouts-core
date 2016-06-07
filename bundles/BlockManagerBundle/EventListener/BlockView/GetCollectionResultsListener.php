@@ -96,7 +96,8 @@ class GetCollectionResultsListener implements EventSubscriberInterface
             $results[$collectionReference->getIdentifier()] = $this->resultGenerator->generateResult(
                 $collection,
                 $collectionReference->getOffset(),
-                $collectionReference->getLimit()
+                $collectionReference->getLimit(),
+                ResultGeneratorInterface::IGNORE_EXCEPTIONS
             );
         }
 
