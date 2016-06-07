@@ -12,8 +12,9 @@ interface ResultGeneratorInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $offset
      * @param int $limit
+     * @param int $flags
      *
      * @return \Netgen\BlockManager\Collection\Result
      */
-    public function generateResult(Collection $collection, $offset = 0, $limit = null);
+    public function generateResult(Collection $collection, $offset = 0, $limit = null, $flags = 0);
 }

@@ -30,10 +30,11 @@ class QueryRunner implements QueryRunnerInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Query[] $queries
      * @param int $offset
      * @param int $limit
+     * @param bool $includeInvisible
      *
      * @return mixed
      */
-    public function runQueries(array $queries, $offset = 0, $limit = null)
+    public function runQueries(array $queries, $offset = 0, $limit = null, $includeInvisible = false)
     {
         if (empty($queries)) {
             throw new RuntimeException('There are no queries to run.');
@@ -77,10 +78,11 @@ class QueryRunner implements QueryRunnerInterface
      * Returns the total count of all queries.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query[] $queries
+     * @param bool $includeInvisible
      *
      * @return int
      */
-    public function getTotalCount(array $queries)
+    public function getTotalCount(array $queries, $includeInvisible = false)
     {
         $totalCount = 0;
         foreach ($queries as $query) {

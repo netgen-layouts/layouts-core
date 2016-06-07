@@ -9,6 +9,8 @@ use RuntimeException;
 
 class ResultGenerator implements ResultGeneratorInterface
 {
+    const INCLUDE_INVISIBLE_ITEMS = 1;
+
     /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface
      */
@@ -39,18 +41,23 @@ class ResultGenerator implements ResultGeneratorInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $offset
      * @param int $limit
+     * @param int $flags
      *
      * @return \Netgen\BlockManager\Collection\Result
      */
-    public function generateResult(Collection $collection, $offset = 0, $limit = null)
+    public function generateResult(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
-        $resultItems = $this->generateItems($collection, $offset, $limit);
+        $resultItems = $this->generateItems($collection, $offset, $limit, $flags);
+
+        if (!($flags & self::INCLUDE_INVISIBLE_ITEMS)) {
+            $resultItems = $this->filterInvisibleItems($resultItems);
+        }
 
         $result = new Result(
             array(
                 'collection' => $collection,
-                'results' => $this->filterInvisibleItems($resultItems),
-                'totalCount' => $this->getResultCount($collection),
+                'results' => $resultItems,
+                'totalCount' => $this->getResultCount($collection, $flags),
                 'offset' => $offset,
                 'limit' => $limit,
             )
@@ -66,10 +73,11 @@ class ResultGenerator implements ResultGeneratorInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $offset
      * @param int $limit
+     * @param int $flags
      *
      * @return \Netgen\BlockManager\Collection\ResultItem[]
      */
-    protected function generateItems(Collection $collection, $offset = 0, $limit = null)
+    protected function generateItems(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
         $manualItems = $collection->getManualItems();
         $overrideItems = $collection->getOverrideItems();
@@ -83,7 +91,8 @@ class ResultGenerator implements ResultGeneratorInterface
             $queryValues = $this->queryRunner->runQueries(
                 $collectionQueries,
                 $offset - $numberOfItemsBeforeOffset,
-                $limit !== null ? $limit - $numberOfItemsAtOffset : null
+                $limit !== null ? $limit - $numberOfItemsAtOffset : null,
+                (bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)
             );
         }
 
@@ -131,10 +140,11 @@ class ResultGenerator implements ResultGeneratorInterface
      * Returns the total count of items in the result.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $flags
      *
      * @return int
      */
-    protected function getResultCount(Collection $collection)
+    protected function getResultCount(Collection $collection, $flags = 0)
     {
         $manualItems = $collection->getManualItems();
         $overrideItems = $collection->getOverrideItems();
@@ -142,7 +152,10 @@ class ResultGenerator implements ResultGeneratorInterface
         $queryCount = 0;
         $collectionQueries = $collection->getQueries();
         if (empty(!$collectionQueries)) {
-            $queryCount = $this->queryRunner->getTotalCount($collectionQueries);
+            $queryCount = $this->queryRunner->getTotalCount(
+                $collectionQueries,
+                (bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)
+            );
         }
 
         $totalCount = 0;
