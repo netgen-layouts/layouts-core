@@ -70,7 +70,7 @@ class BlockValidator extends Validator
                 new BlockItemViewType(
                     array(
                         'viewType' => $blockCreateStruct->viewType,
-                        'definition' => $blockDefinition
+                        'definition' => $blockDefinition,
                     )
                 ),
             ),
@@ -138,7 +138,7 @@ class BlockValidator extends Validator
                             'viewType' => $blockUpdateStruct->viewType !== null ?
                                 $blockUpdateStruct->viewType :
                                 $block->getViewType(),
-                            'definition' => $blockDefinition
+                            'definition' => $blockDefinition,
                         )
                     ),
                 ),

@@ -151,6 +151,7 @@ class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If some of the required parameters in request body are empty, missing or have an invalid format
      * @throws \Netgen\BlockManager\Exception\BadStateException If items could not be created
      *
      * @return \Symfony\Component\HttpFoundation\Response

@@ -46,7 +46,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                             'large' => array(
@@ -54,7 +54,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                         ),
@@ -77,7 +77,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                         'large' => array(
@@ -85,7 +85,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -128,7 +128,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                             'large' => array(
@@ -136,7 +136,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                         ),
@@ -164,7 +164,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                         'large' => array(
@@ -172,7 +172,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -210,7 +210,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                             'large' => array(
@@ -218,7 +218,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                         ),
@@ -239,7 +239,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                             'image' => array(
@@ -247,7 +247,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
-                                    )
+                                    ),
                                 ),
                             ),
                         ),
@@ -270,7 +270,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                         'image' => array(
@@ -278,7 +278,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -322,7 +322,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -354,7 +354,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -386,7 +386,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -421,7 +421,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -456,7 +456,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),
@@ -495,7 +495,7 @@ class BlockDefinitionsConfigurationTest extends \PHPUnit_Framework_TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
-                                )
+                                ),
                             ),
                         ),
                     ),

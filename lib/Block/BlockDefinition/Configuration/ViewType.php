@@ -1,6 +1,7 @@
 <?php
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
+
 use RuntimeException;
 
 class ViewType

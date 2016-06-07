@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;

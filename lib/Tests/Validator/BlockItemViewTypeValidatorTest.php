@@ -39,7 +39,7 @@ class BlockItemViewTypeValidatorTest extends ValidatorTest
                     'large',
                     'Large',
                     array(
-                        'standard' => new ItemViewType('standard', 'Standard')
+                        'standard' => new ItemViewType('standard', 'Standard'),
                     )
                 ),
             )

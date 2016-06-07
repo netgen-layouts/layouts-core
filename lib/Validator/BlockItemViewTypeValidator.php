@@ -16,7 +16,6 @@ class BlockItemViewTypeValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\BlockItemViewType $constraint */
-
         if (!$constraint->definition->getConfig()->hasViewType($constraint->viewType)) {
             $this->context->buildViolation($constraint->noViewTypeMessage)
                 ->setParameter('%viewType%', $constraint->viewType)

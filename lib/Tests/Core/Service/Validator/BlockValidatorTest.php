@@ -59,9 +59,9 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                     'large',
                     'Large',
                     array(
-                        'standard' => new ItemViewType('standard', 'Standard')
+                        'standard' => new ItemViewType('standard', 'Standard'),
                     )
-                )
+                ),
             )
         );
 
@@ -132,7 +132,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
                 new Block(
                     array(
                         'viewType' => 'large',
-                        'definitionIdentifier' => 'block_definition'
+                        'definitionIdentifier' => 'block_definition',
                     )
                 ),
                 new BlockUpdateStruct($params)

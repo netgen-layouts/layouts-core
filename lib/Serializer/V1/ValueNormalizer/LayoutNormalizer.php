@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
