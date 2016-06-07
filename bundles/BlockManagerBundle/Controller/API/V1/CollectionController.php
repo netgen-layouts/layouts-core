@@ -179,6 +179,10 @@ class CollectionController extends Controller
             }
 
             $this->repository->commitTransaction();
+        } catch (InvalidArgumentException $e) {
+            $this->repository->rollbackTransaction();
+
+            throw $e;
         } catch (Exception $e) {
             $this->repository->rollbackTransaction();
 
