@@ -434,20 +434,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Returns if item exists on specified position.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param int $position
-     *
-     * @return bool
-     */
-    public function itemPositionExists($collectionId, $status, $position)
-    {
-        return $this->queryHandler->itemPositionExists($collectionId, $status, $position);
-    }
-
-    /**
      * Adds an item to collection.
      *
      * @param int|string $collectionId
@@ -463,15 +449,14 @@ class CollectionHandler implements CollectionHandlerInterface
     {
         $collection = $this->loadCollection($collectionId, $status);
 
-        if ($collection->type === Collection::TYPE_MANUAL) {
-            $position = $this->positionHelper->createPosition(
-                $this->getPositionHelperItemConditions(
-                    $collectionId,
-                    $status
-                ),
-                $position
-            );
-        }
+        $position = $this->positionHelper->createPosition(
+            $this->getPositionHelperItemConditions(
+                $collectionId,
+                $status
+            ),
+            $position,
+            $collection->type !== Collection::TYPE_MANUAL
+        );
 
         $createdItemId = $this->queryHandler->addItem(
             new ItemCreateStruct(
@@ -505,16 +490,15 @@ class CollectionHandler implements CollectionHandlerInterface
         $item = $this->loadItem($itemId, $status);
         $collection = $this->loadCollection($item->collectionId, $status);
 
-        if ($collection->type === Collection::TYPE_MANUAL) {
-            $position = $this->positionHelper->moveToPosition(
-                $this->getPositionHelperItemConditions(
-                    $item->collectionId,
-                    $status
-                ),
-                $item->position,
-                $position
-            );
-        }
+        $position = $this->positionHelper->moveToPosition(
+            $this->getPositionHelperItemConditions(
+                $item->collectionId,
+                $status
+            ),
+            $item->position,
+            $position,
+            $collection->type !== Collection::TYPE_MANUAL
+        );
 
         $this->queryHandler->moveItem($itemId, $status, $position);
 
@@ -530,19 +514,16 @@ class CollectionHandler implements CollectionHandlerInterface
     public function deleteItem($itemId, $status)
     {
         $item = $this->loadItem($itemId, $status);
-        $collection = $this->loadCollection($item->collectionId, $status);
 
         $this->queryHandler->deleteItem($itemId, $status);
 
-        if ($collection->type === Collection::TYPE_MANUAL) {
-            $this->positionHelper->removePosition(
-                $this->getPositionHelperItemConditions(
-                    $item->collectionId,
-                    $status
-                ),
-                $item->position
-            );
-        }
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperItemConditions(
+                $item->collectionId,
+                $status
+            ),
+            $item->position
+        );
     }
 
     /**

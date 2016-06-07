@@ -293,11 +293,6 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(2))
-            ->method('itemPositionExists')
-            ->will($this->returnValue(false));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(3))
             ->method('moveItem')
             ->will($this->throwException(new Exception()));
 

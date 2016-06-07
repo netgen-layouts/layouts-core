@@ -334,36 +334,6 @@ class CollectionQueryHandler
     }
 
     /**
-     * Returns if an item exists at specified position.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param int $position
-     *
-     * @return bool
-     */
-    public function itemPositionExists($collectionId, $status, $position)
-    {
-        $query = $this->queryHelper->getQuery();
-        $query->select('count(*) AS count')
-            ->from('ngbm_collection_item')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('collection_id', ':collection_id'),
-                    $query->expr()->eq('position', ':position')
-                )
-            )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('position', $position, Type::INTEGER);
-
-        $this->queryHelper->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
      * Adds an item.
      *
      * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct

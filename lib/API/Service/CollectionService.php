@@ -162,7 +162,6 @@ interface CollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If override item is added to manual collection
-     *                                                          If item already exists in provided position (only for non manual collections)
      *                                                          If position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemDraft
@@ -175,8 +174,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If item already exists in provided position (only for non manual collections)
-     *                                                          If position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range (for manual collections)
      */
     public function moveItem(ItemDraft $item, $position);
 

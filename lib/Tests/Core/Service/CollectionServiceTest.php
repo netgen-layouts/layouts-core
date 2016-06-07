@@ -391,18 +391,6 @@ abstract class CollectionServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testAddItemToDynamicOrNamedCollectionWithExistingPositionThrowsBadStateException()
-    {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '66', 'ezcontent');
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $this->collectionService->addItem($collection, $itemCreateStruct, 5);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
@@ -439,18 +427,6 @@ abstract class CollectionServiceTest extends ServiceTest
         $this->collectionService->moveItem(
             $this->collectionService->loadItemDraft(1),
             9999
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testMoveItemInDynamicOrNamedCollectionWithExistingPositionThrowsBadStateException()
-    {
-        $this->collectionService->moveItem(
-            $this->collectionService->loadItemDraft(10),
-            5
         );
     }
 

@@ -30,12 +30,13 @@ class PositionHelper
      *
      * @param array $conditions
      * @param int $position
+     * @param bool $allowOutOfRange
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      *
      * @return int
      */
-    public function createPosition(array $conditions, $position = null)
+    public function createPosition(array $conditions, $position = null, $allowOutOfRange = false)
     {
         $nextPosition = $this->getNextPosition($conditions);
 
@@ -43,7 +44,11 @@ class PositionHelper
             return $nextPosition;
         }
 
-        if ($position > $nextPosition || $position < 0) {
+        if ($position < 0) {
+            throw new BadStateException('position', 'Position cannot be negative.');
+        }
+
+        if (!$allowOutOfRange && $position > $nextPosition) {
             throw new BadStateException('position', 'Position is out of range.');
         }
 
@@ -62,16 +67,21 @@ class PositionHelper
      * @param array $conditions
      * @param int $originalPosition
      * @param int $position
+     * @param bool $allowOutOfRange
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      *
      * @return int
      */
-    public function moveToPosition(array $conditions, $originalPosition, $position)
+    public function moveToPosition(array $conditions, $originalPosition, $position, $allowOutOfRange = false)
     {
         $nextPosition = $this->getNextPosition($conditions);
 
-        if ($position >= $nextPosition || $position < 0) {
+        if ($position < 0) {
+            throw new BadStateException('position', 'Position cannot be negative.');
+        }
+
+        if (!$allowOutOfRange && $position >= $nextPosition) {
             throw new BadStateException('position', 'Position is out of range.');
         }
 

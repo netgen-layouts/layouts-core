@@ -559,33 +559,6 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemPositionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::itemPositionExists
-     */
-    public function testItemPositionExists()
-    {
-        self::assertTrue($this->collectionHandler->itemPositionExists(2, Collection::STATUS_PUBLISHED, 1));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemPositionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::itemPositionExists
-     */
-    public function testItemPositionNotExists()
-    {
-        self::assertFalse($this->collectionHandler->itemPositionExists(2, Collection::STATUS_PUBLISHED, 50));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::itemPositionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::itemPositionExists
-     */
-    public function testItemPositionNotExistsInStatus()
-    {
-        self::assertFalse($this->collectionHandler->itemPositionExists(2, Collection::STATUS_ARCHIVED, 1));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
@@ -639,33 +612,6 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
                 )
             ),
             $this->collectionHandler->addItem(1, Collection::STATUS_DRAFT, $itemCreateStruct)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
-    public function testAddItemInNonManualCollection()
-    {
-        $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
-        $itemCreateStruct->valueId = '42';
-        $itemCreateStruct->valueType = 'ezcontent';
-
-        self::assertEquals(
-            new Item(
-                array(
-                    'id' => 13,
-                    'collectionId' => 2,
-                    'position' => 50,
-                    'type' => Item::TYPE_MANUAL,
-                    'valueId' => '42',
-                    'valueType' => 'ezcontent',
-                    'status' => Collection::STATUS_PUBLISHED,
-                )
-            ),
-            $this->collectionHandler->addItem(2, Collection::STATUS_PUBLISHED, $itemCreateStruct, 50)
         );
     }
 
@@ -755,29 +701,6 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     */
-    public function testMoveItemInNonManualCollection()
-    {
-        self::assertEquals(
-            new Item(
-                array(
-                    'id' => 4,
-                    'collectionId' => 2,
-                    'position' => 50,
-                    'type' => Item::TYPE_MANUAL,
-                    'valueId' => '70',
-                    'valueType' => 'ezcontent',
-                    'status' => Collection::STATUS_PUBLISHED,
-                )
-            ),
-            $this->collectionHandler->moveItem(4, Collection::STATUS_PUBLISHED, 50)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition()
@@ -810,25 +733,6 @@ class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
 
         try {
             $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT);
-            self::fail('Item still exists after deleting');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
-     */
-    public function testDeleteItemInNonManualCollection()
-    {
-        $this->collectionHandler->deleteItem(5, Collection::STATUS_PUBLISHED);
-
-        $secondItem = $this->collectionHandler->loadItem(6, Collection::STATUS_PUBLISHED);
-        self::assertEquals(5, $secondItem->position);
-
-        try {
-            $this->collectionHandler->loadItem(5, Collection::STATUS_PUBLISHED);
             self::fail('Item still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
