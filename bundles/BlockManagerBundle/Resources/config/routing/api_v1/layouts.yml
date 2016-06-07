@@ -1,3 +1,9 @@
+netgen_block_manager_api_v1_create_layout:
+    path: /layouts
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.layout:create"
+
 netgen_block_manager_api_v1_load_layout:
     path: /layouts/{layoutId}
     methods: [GET]
