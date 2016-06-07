@@ -151,7 +151,7 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $queryCount = 0;
         $collectionQueries = $collection->getQueries();
-        if (empty(!$collectionQueries)) {
+        if (!empty($collectionQueries)) {
             $queryCount = $this->queryRunner->getTotalCount(
                 $collectionQueries,
                 (bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)
