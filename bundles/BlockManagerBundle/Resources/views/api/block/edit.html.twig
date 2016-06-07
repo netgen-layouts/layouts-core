@@ -3,23 +3,16 @@
 {% set type_dynamic = constant(collection_class ~ '::TYPE_DYNAMIC') %}
 {% set type_named = constant(collection_class ~ '::TYPE_NAMED') %}
 
-{% set query = null %}
-
-{% if block_definition.config.hasForm('full') %}
-    <section>
+<section>
+    {% if block_definition.config.hasForm('full') %}
         <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
-
-        {% if query is not empty %}
-            <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
-        {% endif %}
-    </section>
-{% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
-    <section>
+    {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
                 <li><a id="content">Content</a></li>
                 <li><a id="design">Design</a></li>
             </ul>
+
             <div class="tab-pane" id="content-tab">
                 {% if collection is not empty %}
                     <div>
@@ -34,35 +27,36 @@
                         </select>
                     </div>
 
-                    {% if named_collections is not empty %}
+                    {% if collection.type == type_named and named_collections is not empty %}
                         <div>
                             <label for="named-collections">Named collections</label>
                             <select id="named-collections">
                                 {% for named_collection in named_collections %}
-                                    <option value="{{ named_collection.id }}">{{ named_collection.name }}</option>
+                                    <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }} ">{{ named_collection.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     {% endif %}
-
-                    {% if collection.type == constant('TYPE_DYNAMIC', collection) %}
-                        {% if collection.queries is not empty %}
-                            {% set query = collection.queries.0 %}
-                        {% endif %}
-                    {% endif %}
                 {% endif %}
+
                 <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
-                {% if query is not empty %}
-                    <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
+                {% if collection is not empty and collection.type == type_dynamic %}
+                    {% if collection.queries is not empty %}
+                        {% for query in collection.queries %}
+                            <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
+                        {% endfor %}
+                    {% endif %}
                 {% endif %}
             </div>
+
             <div class="tab-pane" id="design-tab">
                 <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'design'}) }}"></div>
             </div>
         </div>
-    </section>
-{% endif %}
+    {% endif %}
+</section>
+
 <section>
     <div data-browser-config-name="ezcontent" class="collection-items"></div>
 </section>
