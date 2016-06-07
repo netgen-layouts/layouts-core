@@ -48,6 +48,8 @@ services:
 
     netgen_block_manager.normalizer.v1.block:
         class: "%netgen_block_manager.normalizer.v1.block.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.block"
         tags:
             - { name: serializer.normalizer }
 
@@ -62,7 +64,6 @@ services:
         class: "%netgen_block_manager.normalizer.v1.layout.class%"
         arguments:
             - "@netgen_block_manager.configuration.registry.layout_type"
-            - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: serializer.normalizer }
 
