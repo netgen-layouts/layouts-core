@@ -2,10 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Collection\ResultGeneratorInterface;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -16,9 +17,15 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Exception;
 
 class CollectionController extends Controller
 {
+    /**
+     * @var \Netgen\BlockManager\API\Repository
+     */
+    protected $repository;
+
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
@@ -37,18 +44,20 @@ class CollectionController extends Controller
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     * @param \Netgen\BlockManager\API\Repository $repository
      * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
      */
     public function __construct(
-        CollectionService $collectionService,
+        Repository $repository,
         ResultGeneratorInterface $resultGenerator,
         CollectionValidator $validator
     ) {
-        $this->collectionService = $collectionService;
+        $this->repository = $repository;
         $this->resultGenerator = $resultGenerator;
         $this->validator = $validator;
+
+        $this->collectionService = $repository->getCollectionService();
     }
 
     /**
@@ -142,23 +151,41 @@ class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\Serializer\Values\View If some of the required request parameters are empty, missing or have an invalid format
+     * @throws \Netgen\BlockManager\Exception\BadStateException If items could not be created
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addItem(CollectionDraft $collection, Request $request)
+    public function addItems(CollectionDraft $collection, Request $request)
     {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            $request->request->get('type'),
-            $request->request->get('value_id'),
-            $request->request->get('value_type')
-        );
+        $this->validator->validateAddItems($request);
 
-        $createdItem = $this->collectionService->addItem(
-            $collection,
-            $itemCreateStruct,
-            $request->request->get('position')
-        );
+        $items = $request->request->get('items');
 
-        return new VersionedValue($createdItem, Version::API_V1, Response::HTTP_CREATED);
+        $this->repository->beginTransaction();
+
+        try {
+            foreach ($items as $item) {
+                $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+                    $item['type'],
+                    $item['value_id'],
+                    $item['value_type']
+                );
+
+                $this->collectionService->addItem(
+                    $collection,
+                    $itemCreateStruct,
+                    isset($item['position']) ? $item['position'] : null
+                );
+            }
+
+            $this->repository->commitTransaction();
+        } catch (Exception $e) {
+            $this->repository->rollbackTransaction();
+
+            throw new BadStateException('items', $e->getMessage());
+        }
+
+        return new Response(null, Response::HTTP_CREATED);
     }
 
     /**
@@ -167,7 +194,7 @@ class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response If some of the required request parameters are empty, missing or have an invalid format
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function moveItem(ItemDraft $item, Request $request)
     {
@@ -211,7 +238,7 @@ class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response If some of the required request parameters are empty, missing or have an invalid format
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function moveQuery(QueryDraft $query, Request $request)
     {

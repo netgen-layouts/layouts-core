@@ -28,11 +28,11 @@ netgen_block_manager_api_v1_load_collection_item:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadItem"
 
-netgen_block_manager_api_v1_add_collection_item:
+netgen_block_manager_api_v1_add_collection_items:
     path: /collections/{collectionId}/items
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:addItem"
+        _controller: "netgen_block_manager.controller.api.v1.collection:addItems"
 
 netgen_block_manager_api_v1_move_collection_item:
     path: /collections/items/{itemId}/move
