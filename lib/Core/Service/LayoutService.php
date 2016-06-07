@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
@@ -189,6 +190,38 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Updates a specified layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     */
+    public function updateLayout(LayoutDraft $layout, LayoutUpdateStruct $layoutUpdateStruct)
+    {
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+
+        $this->layoutValidator->validateLayoutUpdateStruct($layoutUpdateStruct);
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $updatedLayout = $this->layoutHandler->updateLayout(
+                $persistenceLayout->id,
+                $persistenceLayout->status,
+                $layoutUpdateStruct
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->layoutMapper->mapLayout($updatedLayout);
+    }
+
+    /**
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
@@ -345,5 +378,15 @@ class LayoutService implements LayoutServiceInterface
                 'name' => $name,
             )
         );
+    }
+
+    /**
+     * Creates a new layout update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutUpdateStruct
+     */
+    public function newLayoutUpdateStruct()
+    {
+        return new LayoutUpdateStruct();
     }
 }

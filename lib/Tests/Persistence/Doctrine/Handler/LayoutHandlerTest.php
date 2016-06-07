@@ -6,6 +6,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
@@ -267,6 +268,24 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
             ),
             $this->layoutHandler->loadLayoutZones($createdLayout->id, $createdLayout->status)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
+     */
+    public function testUpdateLayout()
+    {
+        $layoutUpdateStruct = new LayoutUpdateStruct();
+        $layoutUpdateStruct->name = 'New name';
+
+        $originalLayout = $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
+        $updatedLayout = $this->layoutHandler->updateLayout(1, Layout::STATUS_DRAFT, $layoutUpdateStruct);
+
+        self::assertInstanceOf(Layout::class, $updatedLayout);
+        self::assertEquals('New name', $updatedLayout->name);
+        self::assertEquals($originalLayout->created, $updatedLayout->created);
+        self::assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
     }
 
     /**

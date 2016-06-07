@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 
 class LayoutQueryHandler
 {
@@ -249,6 +250,32 @@ class LayoutQueryHandler
         }
 
         return $createdLayoutId;
+    }
+
+    /**
+     * Updates a layout.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct $layoutUpdateStruct
+     */
+    public function updateLayout($layoutId, $status, LayoutUpdateStruct $layoutUpdateStruct)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query
+            ->update('ngbm_layout')
+            ->set('name', ':name')
+            ->set('modified', ':modified')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $layoutId, Type::INTEGER)
+            ->setParameter('name', $layoutUpdateStruct->name, Type::STRING)
+            ->setParameter('modified', time(), Type::INTEGER);
+
+        $this->queryHelper->applyStatusCondition($query, $status);
+
+        $query->execute();
     }
 
     /**

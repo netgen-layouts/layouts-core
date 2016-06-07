@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 
 interface LayoutHandler
 {
@@ -72,6 +73,17 @@ interface LayoutHandler
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, $status, array $zoneIdentifiers = array());
+
+    /**
+     * Updates a layout with specified ID.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function updateLayout($layoutId, $status, LayoutUpdateStruct $layoutUpdateStruct);
 
     /**
      * Copies a layout with specified ID.

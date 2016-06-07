@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 
@@ -66,6 +67,16 @@ interface LayoutService
     public function createLayout(LayoutCreateStruct $layoutCreateStruct);
 
     /**
+     * Updates a specified layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     */
+    public function updateLayout(LayoutDraft $layout, LayoutUpdateStruct $layoutUpdateStruct);
+
+    /**
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
@@ -117,4 +128,11 @@ interface LayoutService
      * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
      */
     public function newLayoutCreateStruct($type, $name);
+
+    /**
+     * Creates a new layout update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutUpdateStruct
+     */
+    public function newLayoutUpdateStruct();
 }

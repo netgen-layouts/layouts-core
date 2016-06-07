@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
@@ -93,6 +94,32 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->createLayout(new LayoutCreateStruct(array('type' => '3_zones_a')));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @expectedException \Exception
+     */
+    public function testUpdateLayout()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('updateLayout')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->updateLayout(
+            new LayoutDraft(),
+            new LayoutUpdateStruct()
+        );
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
@@ -51,6 +52,26 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @param array $params
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutUpdateStruct
+     * @dataProvider validateLayoutUpdateStructDataProvider
+     */
+    public function testValidateLayoutUpdateStruct(array $params, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        self::assertTrue(
+            $this->layoutValidator->validateLayoutUpdateStruct(
+                new LayoutUpdateStruct($params)
+            )
+        );
+    }
+
     public function validateLayoutCreateStructDataProvider()
     {
         return array(
@@ -61,6 +82,16 @@ class LayoutValidatorTest extends \PHPUnit_Framework_TestCase
             array(array('type' => 'type', 'name' => null), false),
             array(array('type' => 'type', 'name' => ''), false),
             array(array('type' => 'type', 'name' => 42), false),
+        );
+    }
+
+    public function validateLayoutUpdateStructDataProvider()
+    {
+        return array(
+            array(array('name' => 'New name'), true),
+            array(array('name' => 23), false),
+            array(array('name' => null), false),
+            array(array('name' => ''), false),
         );
     }
 }

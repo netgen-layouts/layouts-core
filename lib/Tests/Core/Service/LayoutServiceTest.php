@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
@@ -185,6 +186,22 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     */
+    public function testUpdateLayout()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
+        $layoutUpdateStruct->name = 'New name';
+
+        $layout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
+
+        self::assertInstanceOf(LayoutDraft::class, $layout);
+        self::assertEquals('New name', $layout->getName());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout()
@@ -274,6 +291,17 @@ abstract class LayoutServiceTest extends ServiceTest
                 )
             ),
             $this->layoutService->newLayoutCreateStruct('3_zones_a', 'New layout')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutUpdateStruct
+     */
+    public function testNewLayoutUpdateStruct()
+    {
+        self::assertEquals(
+            new LayoutUpdateStruct(),
+            $this->layoutService->newLayoutUpdateStruct()
         );
     }
 }

@@ -10,7 +10,9 @@ use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionH
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
 
 class LayoutHandler implements LayoutHandlerInterface
@@ -175,6 +177,32 @@ class LayoutHandler implements LayoutHandlerInterface
         );
 
         return $this->loadLayout($createdLayoutId, $status);
+    }
+
+    /**
+     * Updates a layout with specified ID.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function updateLayout($layoutId, $status, APILayoutUpdateStruct $layoutUpdateStruct)
+    {
+        $layout = $this->loadLayout($layoutId, $status);
+
+        $this->queryHandler->updateLayout(
+            $layoutId,
+            $status,
+            new LayoutUpdateStruct(
+                array(
+                    'name' => $layoutUpdateStruct->name !== null ? trim($layoutUpdateStruct->name) : $layout->name,
+                )
+            )
+        );
+
+        return $this->loadLayout($layoutId, $status);
     }
 
     /**

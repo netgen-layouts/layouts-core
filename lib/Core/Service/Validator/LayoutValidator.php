@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Symfony\Component\Validator\Constraints;
 
 class LayoutValidator extends Validator
@@ -34,6 +35,29 @@ class LayoutValidator extends Validator
                 new Constraints\Type(array('type' => 'string')),
             ),
             'type'
+        );
+
+        return true;
+    }
+
+    /**
+     * Validates layout update struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
+     */
+    public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct)
+    {
+        $this->validate(
+            $layoutUpdateStruct->name,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+            ),
+            'name'
         );
 
         return true;
