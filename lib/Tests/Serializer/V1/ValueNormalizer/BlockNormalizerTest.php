@@ -28,6 +28,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer::normalize
      */
     public function testNormalize()
