@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
+use Netgen\BlockManager\Collection\ResultGenerator;
 use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\FormView;
@@ -89,7 +90,8 @@ class CollectionController extends Controller
             $this->resultGenerator->generateResult(
                 $collection,
                 (int)$offset,
-                !empty($limit) ? (int)$limit : null
+                !empty($limit) ? (int)$limit : null,
+                ResultGenerator::INCLUDE_INVISIBLE_ITEMS
             ),
             Version::API_V1
         );
