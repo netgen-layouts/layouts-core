@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
+use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use RuntimeException;
 
@@ -28,6 +29,22 @@ class ItemBuilder implements ItemBuilderInterface
         array $valueConverters = array()
     ) {
         $this->valueLoaderRegistry = $valueLoaderRegistry;
+
+        if (empty($valueConverters)) {
+            throw new RuntimeException('At least one value converter needs to be defined.');
+        }
+
+        foreach ($valueConverters as $valueConverter) {
+            if (!$valueConverter instanceof ValueConverterInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Value converter "%s" needs to implement ValueConverterInterface.',
+                        get_class($valueConverter)
+                    )
+                );
+            }
+        }
+
         $this->valueConverters = $valueConverters;
     }
 
@@ -43,15 +60,6 @@ class ItemBuilder implements ItemBuilderInterface
     public function buildFromObject($object)
     {
         foreach ($this->valueConverters as $valueConverter) {
-            if (!$valueConverter instanceof ValueConverterInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Value converter for "%s" object needs to implement ValueConverterInterface.',
-                        get_class($object)
-                    )
-                );
-            }
-
             if (!$valueConverter->supports($object)) {
                 continue;
             }
@@ -71,8 +79,8 @@ class ItemBuilder implements ItemBuilderInterface
 
         throw new RuntimeException(
             sprintf(
-                'Value converter for object of type "%s" does not exist.',
-                get_class($object)
+                'Value converter for "%s" type does not exist.',
+                is_object($object) ? get_class($object) : gettype($object)
             )
         );
     }
@@ -89,10 +97,12 @@ class ItemBuilder implements ItemBuilderInterface
      */
     public function build($valueId, $valueType)
     {
-        $valueLoader = $this->valueLoaderRegistry
-            ->getValueLoader($valueType);
-
-        $loadedValue = $valueLoader->load($valueId);
+        try {
+            $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
+            $loadedValue = $valueLoader->load($valueId);
+        } catch (InvalidItemException $e) {
+            $loadedValue = null;
+        }
 
         return $this->buildFromObject($loadedValue);
     }

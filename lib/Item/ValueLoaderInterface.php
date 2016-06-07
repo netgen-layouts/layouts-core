@@ -16,7 +16,7 @@ interface ValueLoaderInterface
      *
      * @param int|string $id
      *
-     * @throws \RuntimeException If value cannot be loaded
+     * @throws \Netgen\BlockManager\Exception\InvalidItemException If value cannot be loaded
      *
      * @return mixed
      */

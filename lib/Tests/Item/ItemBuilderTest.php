@@ -16,11 +16,32 @@ class ItemBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemLoaderRegistryMock;
+    protected $valueLoaderRegistryMock;
 
     public function setUp()
     {
         $this->valueLoaderRegistryMock = $this->getMock(ValueLoaderRegistryInterface::class);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
+     * @expectedException \RuntimeException
+     */
+    public function testConstructorThrowsRuntimeExceptionWithNoValueConverters()
+    {
+        $builder = new ItemBuilder($this->valueLoaderRegistryMock);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
+     * @expectedException \RuntimeException
+     */
+    public function testConstructorThrowsRuntimeExceptionWithWrongInterface()
+    {
+        $builder = new ItemBuilder(
+            $this->valueLoaderRegistryMock,
+            array(new stdClass())
+        );
     }
 
     /**
@@ -53,7 +74,6 @@ class ItemBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build
      */
     public function testBuild()
@@ -112,31 +132,6 @@ class ItemBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new ItemBuilder(
             $this->valueLoaderRegistryMock,
             array(new UnsupportedValueConverter())
-        );
-
-        $builder->buildFromObject(new Value(42));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Item\ItemBuilder::buildFromObject
-     * @expectedException \RuntimeException
-     */
-    public function testBuildFromObjectThrowsRuntimeExceptionWithNoValueConverters()
-    {
-        $builder = new ItemBuilder($this->valueLoaderRegistryMock);
-
-        $builder->buildFromObject(new Value(42));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Item\ItemBuilder::buildFromObject
-     * @expectedException \RuntimeException
-     */
-    public function testBuildFromObjectThrowsRuntimeExceptionWithWrongInterface()
-    {
-        $builder = new ItemBuilder(
-            $this->valueLoaderRegistryMock,
-            array(new stdClass())
         );
 
         $builder->buildFromObject(new Value(42));

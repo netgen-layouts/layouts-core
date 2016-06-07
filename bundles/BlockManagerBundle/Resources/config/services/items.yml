@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.item.item_builder.class: Netgen\BlockManager\Item\ItemBuilder
     netgen_block_manager.item.registry.value_loader.class: Netgen\BlockManager\Item\Registry\ValueLoaderRegistry
+    netgen_block_manager.item.value_converter.null.class: Netgen\BlockManager\Item\ValueConverter\NullValueConverter
 
 services:
     netgen_block_manager.item.item_builder:
@@ -11,3 +12,8 @@ services:
 
     netgen_block_manager.item.registry.value_loader:
         class: "%netgen_block_manager.item.registry.value_loader.class%"
+
+    netgen_block_manager.item.value_converter.null:
+        class: "%netgen_block_manager.item.value_converter.null.class%"
+        tags:
+            - { name: netgen_block_manager.item.value_converter }

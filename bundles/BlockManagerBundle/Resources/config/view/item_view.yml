@@ -8,6 +8,11 @@ item_view:
             template: "NetgenBlockManagerBundle:item/view:ezlocation.html.twig"
             match:
                 item_value_type: ezlocation
+        # Do not remove, fallback template for items which do not exist or are invalid
+        null:
+            template: "NetgenBlockManagerBundle:item/view:null.html.twig"
+            match:
+                item_value_type: "null"
     api_view:
         ezcontent:
             template: "NetgenBlockManagerBundle:api/item/view:ezcontent.html.twig"
@@ -17,3 +22,8 @@ item_view:
             template: "NetgenBlockManagerBundle:api/item/view:ezlocation.html.twig"
             match:
                 item_value_type: ezlocation
+        # Do not remove, fallback template for items which do not exist or are invalid
+        null:
+            template: "NetgenBlockManagerBundle:api/item/view:null.html.twig"
+            match:
+                item_value_type: "null"

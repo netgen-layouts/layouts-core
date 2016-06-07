@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Item\Stubs;
 
+use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ValueLoaderInterface;
-use RuntimeException;
 
 class ValueLoader implements ValueLoaderInterface
 {
@@ -34,14 +34,14 @@ class ValueLoader implements ValueLoaderInterface
      *
      * @param int|string $id
      *
-     * @throws \RuntimeException If value cannot be loaded
+     * @throws \Netgen\BlockManager\Exception\InvalidItemException If value cannot be loaded
      *
      * @return mixed
      */
     public function load($id)
     {
         if ($this->throwException) {
-            throw new RuntimeException();
+            throw new InvalidItemException();
         }
 
         return new Value($id);
