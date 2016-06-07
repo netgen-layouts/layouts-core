@@ -94,11 +94,12 @@ class QueryRunnerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
-     * @expectedException \RuntimeException
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
      */
-    public function testRunQueriesThrowsRuntimeException()
+    public function testRunEmptyQueries()
     {
-        $this->queryRunner->runQueries(array());
+        self::assertEquals(array(), $this->queryRunner->runQueries(array()));
+        self::assertEquals(0, $this->queryRunner->getTotalCount(array()));
     }
 
     public function runSingleQueryProvider()

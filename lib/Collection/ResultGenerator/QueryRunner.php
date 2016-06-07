@@ -37,7 +37,7 @@ class QueryRunner implements QueryRunnerInterface
     public function runQueries(array $queries, $offset = 0, $limit = null, $includeInvisible = false)
     {
         if (empty($queries)) {
-            throw new RuntimeException('There are no queries to run.');
+            return array();
         }
 
         $previousCount = 0;
@@ -84,6 +84,10 @@ class QueryRunner implements QueryRunnerInterface
      */
     public function getTotalCount(array $queries, $includeInvisible = false)
     {
+        if (empty($queries)) {
+            return 0;
+        }
+
         $totalCount = 0;
         foreach ($queries as $query) {
             $totalCount += $this->queryTypeRegistry->getQueryType($query->getType())->getCount(
