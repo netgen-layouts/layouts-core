@@ -1,0 +1,4 @@
+netgen_block_manager_app_app_index:
+    path: /
+    defaults:
+        _controller: "netgen_block_manager.controller.app.app:index"

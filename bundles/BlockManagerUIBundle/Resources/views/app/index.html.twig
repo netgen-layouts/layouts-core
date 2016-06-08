@@ -1,0 +1,45 @@
+{% trans_default_domain 'ngbm_app' %}
+
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|replace('_', '-') }}" class="no-js" data-manifest="manifest.appcache">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title>{{ 'pagelayout.title'|trans }}</title>
+
+    <link rel="stylesheet" href="/bmdev/app/styles/main.css">
+</head>
+
+<body>
+    <div id="app">
+        <header class="app-header"></header>
+
+        <aside class="left-toolbar blocks"></aside>
+
+        <div class="main-content">
+            <div class="zones"></div>
+        </div>
+
+        <aside id="sidebar">
+            <div class="right-sidebar"></div>
+            <div id="trash">
+                <div data-trash></div>
+                <i class="fa fa-trash-o"></i><p>{{ 'pagelayout.trash'|trans }}</p>
+            </div>
+        </aside>
+
+        <footer class="app-footer"></footer>
+    </div>
+
+    <!--
+      <span class="the_pencil glyphicon glyphicon-pencil"></span>
+     -->
+
+    <div class="blackout"></div>
+
+    <script src="/bmdev/app/scripts/vendor.js"></script>
+    <script src="/bmdev/app/scripts/main.js"></script>
+</body>
+</html>

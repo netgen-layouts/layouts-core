@@ -30,6 +30,7 @@
         "psr-4": {
             "Netgen\\BlockManager\\": "lib/",
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
+            "Netgen\\Bundle\\BlockManagerUIBundle\\": "bundles/BlockManagerUIBundle/",
             "Netgen\\Bundle\\EzPublishBlockManagerBundle\\": "bundles/EzPublishBlockManagerBundle/"
         },
         "exclude-from-classmap": [
