@@ -64,6 +64,16 @@ interface LayoutHandler
     public function loadLayoutZones($layoutId, $status);
 
     /**
+     * Returns if layout with provided name exists.
+     *
+     * @param int|string $name
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function layoutNameExists($name, $status = null);
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct

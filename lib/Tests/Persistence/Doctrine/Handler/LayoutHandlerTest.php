@@ -178,6 +178,33 @@ class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     */
+    public function testLayoutNameExists()
+    {
+        self::assertTrue($this->layoutHandler->layoutNameExists('My layout', Layout::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     */
+    public function testLayoutNameNotExists()
+    {
+        self::assertFalse($this->layoutHandler->layoutNameExists('Non existent', Layout::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     */
+    public function testLayoutNameNotExistsInStatus()
+    {
+        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', Layout::STATUS_ARCHIVED));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
      */

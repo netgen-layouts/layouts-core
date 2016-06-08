@@ -158,6 +158,7 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type does not exist
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
      */
@@ -167,6 +168,10 @@ class LayoutService implements LayoutServiceInterface
 
         if (!$this->layoutTypeRegistry->hasLayoutType($layoutCreateStruct->type)) {
             throw new InvalidArgumentException('layoutCreateStruct', 'Provided layout type does not exist.');
+        }
+
+        if ($this->layoutHandler->layoutNameExists($layoutCreateStruct->name)) {
+            throw new BadStateException('name', 'Layout with provided name already exists.');
         }
 
         $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutCreateStruct->type);
@@ -195,6 +200,8 @@ class LayoutService implements LayoutServiceInterface
      * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
+     *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
      */
     public function updateLayout(LayoutDraft $layout, LayoutUpdateStruct $layoutUpdateStruct)
@@ -202,6 +209,12 @@ class LayoutService implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
 
         $this->layoutValidator->validateLayoutUpdateStruct($layoutUpdateStruct);
+
+        if ($layoutUpdateStruct->name !== null) {
+            if ($this->layoutHandler->layoutNameExists($layoutUpdateStruct->name)) {
+                throw new BadStateException('name', 'Layout with provided name already exists.');
+            }
+        }
 
         $this->persistenceHandler->beginTransaction();
 

@@ -192,6 +192,35 @@ class LayoutQueryHandler
     }
 
     /**
+     * Returns if the layout with provided name exists.
+     *
+     * @param string $name
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function layoutNameExists($name, $status = null)
+    {
+        $query = $this->queryHelper->getQuery();
+        $query->select('count(*) AS count')
+            ->from('ngbm_layout')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('name', ':name')
+                )
+            )
+            ->setParameter('name', trim($name), Type::STRING);
+
+        if ($status !== null) {
+            $this->queryHelper->applyStatusCondition($query, $status);
+        }
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct

@@ -163,7 +163,7 @@ abstract class LayoutServiceTest extends ServiceTest
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             '3_zones_a',
-            'My layout'
+            'My new layout'
         );
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
@@ -186,6 +186,20 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCreateLayoutThrowsBadStateException()
+    {
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+            '3_zones_a',
+            'My layout'
+        );
+
+        $this->layoutService->createLayout($layoutCreateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
      */
     public function testUpdateLayout()
@@ -199,6 +213,23 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertInstanceOf(LayoutDraft::class, $layout);
         self::assertEquals('New name', $layout->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateLayoutThrowsBadStateException()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(2);
+
+        $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
+        $layoutUpdateStruct->name = 'My layout';
+
+        $this->layoutService->updateLayout(
+            $layout,
+            $layoutUpdateStruct
+        );
     }
 
     /**

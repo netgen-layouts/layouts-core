@@ -86,6 +86,11 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
+            ->method('layoutNameExists')
+            ->will($this->returnValue(false));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('createLayout')
             ->will($this->throwException(new Exception()));
 
@@ -109,6 +114,11 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
+            ->method('layoutNameExists')
+            ->will($this->returnValue(false));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(2))
             ->method('updateLayout')
             ->will($this->throwException(new Exception()));
 
@@ -118,7 +128,7 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->layoutService->updateLayout(
             new LayoutDraft(),
-            new LayoutUpdateStruct()
+            new LayoutUpdateStruct(array('name' => 'New name'))
         );
     }
 

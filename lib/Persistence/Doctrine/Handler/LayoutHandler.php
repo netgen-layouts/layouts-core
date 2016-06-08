@@ -155,6 +155,19 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Returns if layout with provided name exists.
+     *
+     * @param int|string $name
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function layoutNameExists($name, $status = null)
+    {
+        return $this->queryHandler->layoutNameExists($name, $status);
+    }
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
