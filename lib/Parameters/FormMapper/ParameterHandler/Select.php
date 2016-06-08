@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class Select extends ParameterHandler
 {
@@ -14,7 +15,7 @@ class Select extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden;
 use Netgen\BlockManager\Parameters\Parameter\Hidden as HiddenParameter;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
@@ -29,7 +30,7 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->getFormFactory()
-            ->createBuilder('form');
+            ->createBuilder();
 
         $this->handler = new Hidden();
     }
@@ -61,6 +62,6 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('label.param_name', $form->getOption('label'));
         self::assertNotEmpty($form->getOption('constraints'));
         self::assertTrue($form->getRequired());
-        self::assertEquals('hidden', $form->getType()->getName());
+        self::assertInstanceOf(HiddenType::class, $form->getType()->getInnerType());
     }
 }

@@ -127,7 +127,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
-            'block_full_edit',
+            FullEditType::class,
             new BlockUpdateStruct(),
             array('blockDefinition' => $this->blockDefinition)
         );
@@ -219,14 +219,6 @@ class FullEditTypeTest extends FormIntegrationTestCase
                 'data' => '',
             )
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::getName
-     */
-    public function testGetName()
-    {
-        self::assertEquals('block_full_edit', $this->formType->getName());
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
+use Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 
 class Boolean extends ParameterHandler
@@ -14,7 +15,7 @@ class Boolean extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'ngbm_compound_boolean';
+        return CompoundBooleanType::class;
     }
 
     /**

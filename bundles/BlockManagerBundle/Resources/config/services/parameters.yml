@@ -63,4 +63,4 @@ services:
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:
-            - { name: form.type, alias: ngbm_compound_boolean }
+            - { name: form.type }

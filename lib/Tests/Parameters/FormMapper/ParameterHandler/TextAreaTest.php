@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea;
 use Netgen\BlockManager\Parameters\Parameter\TextArea as TextAreaParameter;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
@@ -29,7 +30,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->getFormFactory()
-            ->createBuilder('form');
+            ->createBuilder();
 
         $this->handler = new TextArea();
     }
@@ -61,6 +62,6 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('label.param_name', $form->getOption('label'));
         self::assertNotEmpty($form->getOption('constraints'));
         self::assertTrue($form->getRequired());
-        self::assertEquals('textarea', $form->getType()->getName());
+        self::assertInstanceOf(TextareaType::class, $form->getType()->getInnerType());
     }
 }

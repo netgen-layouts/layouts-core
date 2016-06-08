@@ -98,7 +98,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
         $updatedStruct->setParameter('param', 'Param value');
 
         $form = $this->factory->create(
-            'query_full_edit',
+            FullEditType::class,
             new QueryUpdateStruct(),
             array('queryType' => $this->queryType)
         );
@@ -190,14 +190,6 @@ class FullEditTypeTest extends FormIntegrationTestCase
                 'data' => '',
             )
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::getName
-     */
-    public function testGetName()
-    {
-        self::assertEquals('query_full_edit', $this->formType->getName());
     }
 
     /**

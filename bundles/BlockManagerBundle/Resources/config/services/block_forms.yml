@@ -15,16 +15,16 @@ services:
         class: "%netgen_block_manager.block.form.full_edit.class%"
         parent: netgen_block_manager.block.form.edit
         tags:
-            - { name: form.type, alias: block_full_edit }
+            - { name: form.type }
 
     netgen_block_manager.block.form.design_edit:
         class: "%netgen_block_manager.block.form.design_edit.class%"
         parent: netgen_block_manager.block.form.edit
         tags:
-            - { name: form.type, alias: block_design_edit }
+            - { name: form.type }
 
     netgen_block_manager.block.form.content_edit:
         class: "%netgen_block_manager.block.form.content_edit.class%"
         parent: netgen_block_manager.block.form.edit
         tags:
-            - { name: form.type, alias: block_content_edit }
+            - { name: form.type }

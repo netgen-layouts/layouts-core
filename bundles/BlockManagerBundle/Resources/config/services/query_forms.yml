@@ -7,4 +7,4 @@ services:
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:
-            - { name: form.type, alias: query_full_edit }
+            - { name: form.type }

@@ -5,6 +5,9 @@ namespace Netgen\BlockManager\Block\Form;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
@@ -62,19 +65,12 @@ abstract class EditType extends AbstractType
 
         $builder->add(
             'view_type',
-            'choice',
+            ChoiceType::class,
             array(
                 'label' => 'block.view_type',
                 'choices' => $choices,
                 'choices_as_values' => true,
                 'property_path' => 'viewType',
-                // 'choice_value' is needed here since in Symfony 2.7
-                // using the form with NON DEPRECATED 'choices_as_values'
-                // is broken.
-                // See: https://github.com/symfony/symfony/issues/14377
-                'choice_value' => function ($choice) {
-                    return $choice;
-                },
             )
         );
 
@@ -90,19 +86,12 @@ abstract class EditType extends AbstractType
 
             $form->add(
                 'item_view_type',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'block.item_view_type',
                     'choices' => $choices,
                     'choices_as_values' => true,
                     'property_path' => 'itemViewType',
-                    // 'choice_value' is needed here since in Symfony 2.7
-                    // using the form with NON DEPRECATED 'choices_as_values'
-                    // is broken.
-                    // See: https://github.com/symfony/symfony/issues/14377
-                    'choice_value' => function ($choice) {
-                        return $choice;
-                    },
                 )
             );
         };
@@ -144,7 +133,7 @@ abstract class EditType extends AbstractType
     {
         $builder->add(
             'name',
-            'text',
+            TextType::class,
             array(
                 'label' => 'block.name',
                 'property_path' => 'name',
@@ -177,7 +166,7 @@ abstract class EditType extends AbstractType
         // We're grouping block parameters so they don't conflict with forms from block itself
         $parameterBuilder = $builder->create(
             'parameters',
-            'form',
+            FormType::class,
             array(
                 'label' => false,
                 'inherit_data' => true,
@@ -197,18 +186,5 @@ abstract class EditType extends AbstractType
         }
 
         $builder->add($parameterBuilder);
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     *
-     * @deprecated Deprecated since Symfony 2.8, to be removed in Symfony 3.0.
-     *             Implemented in order not to trigger deprecation notices in Symfony <= 2.7
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }

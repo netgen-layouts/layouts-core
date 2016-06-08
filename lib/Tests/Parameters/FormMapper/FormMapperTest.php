@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper;
 use Netgen\BlockManager\Parameters\Parameter\Text;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text as TextHandler;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
@@ -31,7 +32,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->getFormFactory()
-            ->createBuilder('form');
+            ->createBuilder();
     }
 
     /**
@@ -70,7 +71,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals('parameters[param_name]', $form->getPropertyPath());
         self::assertEquals('label_prefix.param_name', $form->getOption('label'));
-        self::assertEquals('text', $form->getType()->getName());
+        self::assertInstanceOf(TextType::class, $form->getType()->getInnerType());
     }
 
     /**

@@ -8,6 +8,8 @@ use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean as BooleanParameter;
 use Netgen\BlockManager\Parameters\Parameter\Text as TextParameter;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
@@ -45,7 +47,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->getFormFactory()
-            ->createBuilder('form');
+            ->createBuilder();
     }
 
     /**
@@ -79,7 +81,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('label.param_name', $form->getOption('label'));
         self::assertNotEmpty($form->getOption('constraints'));
         self::assertTrue($form->getRequired());
-        self::assertEquals('checkbox', $form->getType()->getName());
+        self::assertInstanceOf(CheckboxType::class, $form->getType()->getInnerType());
 
         $form = $mainForm->get('sub_param');
 
@@ -87,6 +89,6 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('label.sub_param', $form->getOption('label'));
         self::assertNotEmpty($form->getOption('constraints'));
         self::assertTrue($form->getRequired());
-        self::assertEquals('text', $form->getType()->getName());
+        self::assertInstanceOf(TextType::class, $form->getType()->getInnerType());
     }
 }

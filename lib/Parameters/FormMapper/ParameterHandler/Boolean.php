@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class Boolean extends ParameterHandler
 {
@@ -13,6 +14,6 @@ class Boolean extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'checkbox';
+        return CheckboxType::class;
     }
 }

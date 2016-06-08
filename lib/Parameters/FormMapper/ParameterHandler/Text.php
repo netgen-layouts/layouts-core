@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class Text extends ParameterHandler
 {
@@ -13,6 +14,6 @@ class Text extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'text';
+        return TextType::class;
     }
 }

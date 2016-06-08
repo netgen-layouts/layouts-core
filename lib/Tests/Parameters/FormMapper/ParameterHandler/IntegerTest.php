@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer;
 use Netgen\BlockManager\Parameters\Parameter\Integer as IntegerParameter;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
@@ -29,7 +30,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->getFormFactory()
-            ->createBuilder('form');
+            ->createBuilder();
 
         $this->handler = new Integer();
     }
@@ -61,6 +62,6 @@ class IntegerTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('label.param_name', $form->getOption('label'));
         self::assertNotEmpty($form->getOption('constraints'));
         self::assertTrue($form->getRequired());
-        self::assertEquals('integer', $form->getType()->getName());
+        self::assertInstanceOf(IntegerType::class, $form->getType()->getInnerType());
     }
 }

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class Integer extends ParameterHandler
 {
@@ -13,6 +14,6 @@ class Integer extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'integer';
+        return IntegerType::class;
     }
 }

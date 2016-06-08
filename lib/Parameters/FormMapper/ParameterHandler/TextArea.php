@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TextArea extends ParameterHandler
 {
@@ -13,6 +14,6 @@ class TextArea extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'textarea';
+        return TextareaType::class;
     }
 }

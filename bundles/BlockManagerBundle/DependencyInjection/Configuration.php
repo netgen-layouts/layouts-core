@@ -2,6 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Netgen\BlockManager\Block\Form\ContentEditType;
+use Netgen\BlockManager\Block\Form\DesignEditType;
+use Netgen\BlockManager\Block\Form\FullEditType;
+use Netgen\BlockManager\Collection\Query\Form\FullEditType as QueryFullEditType;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -160,7 +164,7 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('type')
                                         ->isRequired()
-                                        ->treatNullLike('block_full_edit')
+                                        ->treatNullLike(FullEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                 ->end()
@@ -169,7 +173,7 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('type')
                                         ->isRequired()
-                                        ->treatNullLike('block_design_edit')
+                                        ->treatNullLike(DesignEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                     ->arrayNode('parameters')
@@ -190,7 +194,7 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('type')
                                         ->isRequired()
-                                        ->treatNullLike('block_content_edit')
+                                        ->treatNullLike(ContentEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                     ->arrayNode('parameters')
@@ -266,7 +270,7 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('type')
                                         ->isRequired()
-                                        ->treatNullLike('query_full_edit')
+                                        ->treatNullLike(QueryFullEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                 ->end()

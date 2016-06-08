@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class Hidden extends ParameterHandler
 {
@@ -13,6 +14,6 @@ class Hidden extends ParameterHandler
      */
     protected function getFormType()
     {
-        return 'hidden';
+        return HiddenType::class;
     }
 }

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\Type;
 
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
@@ -109,7 +110,7 @@ class CompoundBooleanType extends AbstractType
 
         $builder->add(
             $options['checkbox_name'],
-            'checkbox',
+            CheckboxType::class,
             array(
                 'label' => $options['checkbox_label'],
                 'required' => $options['checkbox_required'],
@@ -159,18 +160,5 @@ class CompoundBooleanType extends AbstractType
     public function getBlockPrefix()
     {
         return 'ngbm_compound_boolean';
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     *
-     * @deprecated Deprecated since Symfony 2.8, to be removed in Symfony 3.0.
-     *             Implemented in order not to trigger deprecation notices in Symfony <= 2.7
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 }

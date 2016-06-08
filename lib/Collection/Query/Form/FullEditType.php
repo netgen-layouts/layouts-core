@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Collection\Query\Form;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -55,7 +56,7 @@ class FullEditType extends AbstractType
         // We're grouping query parameters so they don't conflict with forms from query itself
         $parameterBuilder = $builder->create(
             'parameters',
-            'form',
+            FormType::class,
             array(
                 'label' => false,
                 'inherit_data' => true,
@@ -75,19 +76,6 @@ class FullEditType extends AbstractType
         }
 
         $builder->add($parameterBuilder);
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     *
-     * @deprecated Deprecated since Symfony 2.8, to be removed in Symfony 3.0.
-     *             Implemented in order not to trigger deprecation notices in Symfony <= 2.7
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 
     /**
