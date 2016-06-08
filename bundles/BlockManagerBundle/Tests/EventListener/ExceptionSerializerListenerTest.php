@@ -19,7 +19,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new ExceptionSerializerListener($serializerMock);
 
         self::assertEquals(
@@ -36,7 +36,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $exception = new Exception();
 
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $serializerMock
             ->expects($this->once())
             ->method('serialize')
@@ -50,7 +50,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new ExceptionSerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -79,10 +79,10 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnExceptionWithNoApiRequest()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new ExceptionSerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForExceptionEvent(
@@ -102,10 +102,10 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnExceptionInSubRequest()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new ExceptionSerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForExceptionEvent(

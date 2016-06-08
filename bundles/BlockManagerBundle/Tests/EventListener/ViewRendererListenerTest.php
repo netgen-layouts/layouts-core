@@ -19,7 +19,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $viewRendererMock = $this->getMock(RendererInterface::class);
+        $viewRendererMock = $this->createMock(RendererInterface::class);
         $eventListener = new ViewRendererListener($viewRendererMock);
 
         self::assertEquals(
@@ -36,7 +36,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
     {
         $value = new View(new Value());
 
-        $viewRendererMock = $this->getMock(RendererInterface::class);
+        $viewRendererMock = $this->createMock(RendererInterface::class);
         $viewRendererMock
             ->expects($this->once())
             ->method('renderView')
@@ -45,7 +45,7 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new ViewRendererListener($viewRendererMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForControllerResultEvent(
@@ -73,10 +73,10 @@ class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewWithoutSupportedValue()
     {
-        $viewRendererMock = $this->getMock(RendererInterface::class);
+        $viewRendererMock = $this->createMock(RendererInterface::class);
         $eventListener = new ViewRendererListener($viewRendererMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForControllerResultEvent(

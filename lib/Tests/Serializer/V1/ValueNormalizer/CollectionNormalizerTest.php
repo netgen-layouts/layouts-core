@@ -25,7 +25,7 @@ class CollectionNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->serializerMock = $this->getMock(Serializer::class);
+        $this->serializerMock = $this->createMock(Serializer::class);
 
         $this->normalizer = new CollectionNormalizer();
         $this->normalizer->setSerializer($this->serializerMock);

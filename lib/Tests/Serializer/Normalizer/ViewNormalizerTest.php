@@ -30,8 +30,8 @@ class ViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->viewRendererMock = $this->getMock(RendererInterface::class);
-        $this->serializerMock = $this->getMock(Serializer::class);
+        $this->viewRendererMock = $this->createMock(RendererInterface::class);
+        $this->serializerMock = $this->createMock(Serializer::class);
 
         $this->normalizer = new ViewNormalizer($this->viewRendererMock);
         $this->normalizer->setSerializer($this->serializerMock);

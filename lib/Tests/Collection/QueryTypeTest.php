@@ -25,11 +25,9 @@ class QueryTypeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->handlerMock = $this->getMock(QueryTypeHandlerInterface::class);
+        $this->handlerMock = $this->createMock(QueryTypeHandlerInterface::class);
 
-        $this->configMock = $this->getMockBuilder(Configuration::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->configMock = $this->createMock(Configuration::class);
 
         $this->queryType = new QueryType(
             'query_type',

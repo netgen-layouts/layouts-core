@@ -29,9 +29,7 @@ trait TestCase
      */
     public function preparePersistence()
     {
-        $this->persistenceHandler = $this->getMockBuilder(Handler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->persistenceHandler = $this->createMock(Handler::class);
     }
 
     /**
@@ -109,9 +107,7 @@ trait TestCase
      */
     protected function createBlockMapper()
     {
-        return $this->getMockBuilder(BlockMapper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->createMock(BlockMapper::class);
     }
 
     /**
@@ -121,9 +117,7 @@ trait TestCase
      */
     protected function createLayoutMapper()
     {
-        return $this->getMockBuilder(LayoutMapper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->createMock(LayoutMapper::class);
     }
 
     /**
@@ -133,9 +127,7 @@ trait TestCase
      */
     protected function createCollectionMapper()
     {
-        return $this->getMockBuilder(CollectionMapper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->createMock(CollectionMapper::class);
     }
 
     /**
@@ -145,8 +137,6 @@ trait TestCase
      */
     protected function createLayoutResolverMapper()
     {
-        return $this->getMockBuilder(LayoutResolverMapper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        return $this->createMock(LayoutResolverMapper::class);
     }
 }

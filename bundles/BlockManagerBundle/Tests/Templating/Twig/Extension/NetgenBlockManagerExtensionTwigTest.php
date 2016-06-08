@@ -32,17 +32,11 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 
     public function setUp()
     {
-        $this->globalHelperMock = $this->getMockBuilder(GlobalHelper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->globalHelperMock = $this->createMock(GlobalHelper::class);
 
-        $this->viewRendererMock = $this->getMockBuilder(RendererInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->viewRendererMock = $this->createMock(RendererInterface::class);
 
-        $this->fragmentHandlerMock = $this->getMockBuilder(FragmentHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
         $this->viewRendererMock
             ->expects($this->any())

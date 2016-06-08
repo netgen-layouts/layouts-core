@@ -45,9 +45,9 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->queryRunnerMock = $this->getMock(QueryRunnerInterface::class);
+        $this->queryRunnerMock = $this->createMock(QueryRunnerInterface::class);
 
-        $this->valueLoaderRegistryMock = $this->getMock(ValueLoaderRegistryInterface::class);
+        $this->valueLoaderRegistryMock = $this->createMock(ValueLoaderRegistryInterface::class);
 
         $this->valueLoaderRegistryMock
             ->expects($this->any())

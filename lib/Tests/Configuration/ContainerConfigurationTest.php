@@ -19,7 +19,7 @@ class ContainerConfigurationTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->containerMock = $this->getMock(ContainerInterface::class);
+        $this->containerMock = $this->createMock(ContainerInterface::class);
         $this->configuration = new ContainerConfiguration();
         $this->configuration->setContainer($this->containerMock);
     }

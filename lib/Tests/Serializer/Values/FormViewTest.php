@@ -18,7 +18,7 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->value = new FormView(
-            $this->getMock(FormInterface::class),
+            $this->createMock(FormInterface::class),
             'full',
             new Value(),
             42,

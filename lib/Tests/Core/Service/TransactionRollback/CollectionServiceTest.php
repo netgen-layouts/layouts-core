@@ -45,18 +45,14 @@ class CollectionServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->preparePersistence();
 
-        $this->collectionHandlerMock = $this->getMockBuilder(CollectionHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->collectionHandlerMock = $this->createMock(CollectionHandler::class);
 
         $this->persistenceHandler
             ->expects($this->any())
             ->method('getCollectionHandler')
             ->will($this->returnValue($this->collectionHandlerMock));
 
-        $this->collectionValidatorMock = $this->getMockBuilder(CollectionValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
         $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }

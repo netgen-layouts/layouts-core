@@ -58,17 +58,11 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->blockValidatorMock = $this->getMockBuilder(BlockValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->blockValidatorMock = $this->createMock(BlockValidator::class);
 
-        $this->layoutValidatorMock = $this->getMockBuilder(LayoutValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
-        $this->collectionValidatorMock = $this->getMockBuilder(CollectionValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
         $layoutType = new LayoutType(
             '3_zones_a',

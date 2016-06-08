@@ -32,8 +32,8 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->viewRendererMock = $this->getMock(RendererInterface::class);
-        $this->serializerMock = $this->getMock(Serializer::class);
+        $this->viewRendererMock = $this->createMock(RendererInterface::class);
+        $this->serializerMock = $this->createMock(Serializer::class);
 
         $this->normalizer = new FormViewNormalizer($this->viewRendererMock);
         $this->normalizer->setSerializer($this->serializerMock);
@@ -45,7 +45,7 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testNormalize()
     {
-        $form = $this->getMock(FormInterface::class);
+        $form = $this->createMock(FormInterface::class);
         $form->expects($this->once())
             ->method('createView')
             ->will($this->returnValue(new SymfonyFormView()));
@@ -107,7 +107,7 @@ class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
             array(new Value(), false),
             array(new Block(), false),
             array(new VersionedValue(new Block(), 1), false),
-            array(new FormView($this->getMock(FormInterface::class), 'full', new Block(), 1), true),
+            array(new FormView($this->createMock(FormInterface::class), 'full', new Block(), 1), true),
         );
     }
 }

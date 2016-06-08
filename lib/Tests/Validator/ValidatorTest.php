@@ -23,7 +23,7 @@ abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->executionContextMock = $this->getMock(ExecutionContextInterface::class);
+        $this->executionContextMock = $this->createMock(ExecutionContextInterface::class);
 
         $this->executionContextMock
             ->expects($this->any())
@@ -39,9 +39,7 @@ abstract class ValidatorTest extends \PHPUnit_Framework_TestCase
             );
 
         $this->violationBuilderMock = $this
-            ->getMockBuilder(ConstraintViolationBuilderInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->createMock(ConstraintViolationBuilderInterface::class);
 
         $this->violationBuilderMock
             ->expects($this->any())

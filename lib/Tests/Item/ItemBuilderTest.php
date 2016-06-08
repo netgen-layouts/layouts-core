@@ -20,7 +20,7 @@ class ItemBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->valueLoaderRegistryMock = $this->getMock(ValueLoaderRegistryInterface::class);
+        $this->valueLoaderRegistryMock = $this->createMock(ValueLoaderRegistryInterface::class);
     }
 
     /**

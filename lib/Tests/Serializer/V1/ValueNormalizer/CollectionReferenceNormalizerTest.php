@@ -23,9 +23,7 @@ class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->collectionServiceMock = $this->getMockBuilder(CollectionService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->collectionServiceMock = $this->createMock(CollectionService::class);
 
         $this->normalizer = new CollectionReferenceNormalizer(
             $this->collectionServiceMock

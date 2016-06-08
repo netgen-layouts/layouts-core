@@ -47,7 +47,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForExceptionEvent(
@@ -77,7 +77,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new RuntimeException('Some error');
 
@@ -103,7 +103,7 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new ExceptionConversionListener();
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new NotFoundException('param', 'Some error');
 

@@ -20,7 +20,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
         self::assertEquals(
@@ -37,7 +37,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $value = new VersionedValue(new Value(), 42);
 
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $serializerMock
             ->expects($this->once())
             ->method('serialize')
@@ -51,7 +51,7 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -80,10 +80,10 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewWithNoApiRequest()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForControllerResultEvent(
@@ -103,10 +103,10 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewInSubRequest()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseForControllerResultEvent(
@@ -126,10 +126,10 @@ class SerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnViewWithoutSupportedValue()
     {
-        $serializerMock = $this->getMock(SerializerInterface::class);
+        $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

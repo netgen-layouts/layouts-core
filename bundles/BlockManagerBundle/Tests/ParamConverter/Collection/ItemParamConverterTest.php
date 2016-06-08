@@ -21,7 +21,7 @@ class ItemParamConverterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->collectionServiceMock = $this->getMock(CollectionService::class);
+        $this->collectionServiceMock = $this->createMock(CollectionService::class);
 
         $this->paramConverter = new ItemParamConverter($this->collectionServiceMock);
     }

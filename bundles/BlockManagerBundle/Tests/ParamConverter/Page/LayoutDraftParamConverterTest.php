@@ -21,7 +21,7 @@ class LayoutDraftParamConverterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->layoutServiceMock = $this->getMock(LayoutService::class);
+        $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
         $this->paramConverter = new LayoutDraftParamConverter($this->layoutServiceMock);
     }

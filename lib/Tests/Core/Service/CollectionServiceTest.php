@@ -33,9 +33,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->collectionValidatorMock = $this->getMockBuilder(CollectionValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
         $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }

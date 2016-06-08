@@ -33,7 +33,7 @@ class PageLayoutListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->pageLayoutResolverMock = $this->getMock(
+        $this->pageLayoutResolverMock = $this->createMock(
             PageLayoutResolverInterface::class
         );
 
@@ -67,7 +67,7 @@ class PageLayoutListenerTest extends \PHPUnit_Framework_TestCase
             ->method('resolvePageLayout')
             ->will($this->returnValue('pagelayout.html.twig'));
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -85,7 +85,7 @@ class PageLayoutListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('resolvePageLayout');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
@@ -103,7 +103,7 @@ class PageLayoutListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('resolvePageLayout');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

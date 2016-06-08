@@ -23,7 +23,7 @@ class ResultItemBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->itemBuilderMock = $this->getMock(ItemBuilderInterface::class);
+        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
 
         $this->builder = new ResultItemBuilder($this->itemBuilderMock);
     }

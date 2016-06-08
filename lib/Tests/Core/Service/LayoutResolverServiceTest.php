@@ -33,9 +33,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->layoutResolverValidatorMock = $this->getMockBuilder(LayoutResolverValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutResolverValidatorMock = $this->createMock(LayoutResolverValidator::class);
 
         $this->layoutResolverService = $this->createLayoutResolverService($this->layoutResolverValidatorMock);
     }

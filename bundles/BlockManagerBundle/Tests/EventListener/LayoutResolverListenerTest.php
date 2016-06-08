@@ -49,15 +49,15 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->layoutResolverMock = $this->getMock(
+        $this->layoutResolverMock = $this->createMock(
             LayoutResolverInterface::class
         );
 
-        $this->layoutServiceMock = $this->getMock(
+        $this->layoutServiceMock = $this->createMock(
             LayoutService::class
         );
 
-        $this->viewBuilderMock = $this->getMock(
+        $this->viewBuilderMock = $this->createMock(
             ViewBuilderInterface::class
         );
 
@@ -108,7 +108,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($layout))
             ->will($this->returnValue($layoutView));
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -135,7 +135,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -168,7 +168,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -194,7 +194,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
@@ -220,7 +220,7 @@ class LayoutResolverListenerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('buildView');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

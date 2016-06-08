@@ -25,7 +25,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->layoutResolverServiceMock = $this->getMock(LayoutResolverService::class);
+        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
     }
 
     /**

@@ -36,9 +36,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function setUp()
     {
-        $this->layoutValidatorMock = $this->getMockBuilder(LayoutValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
         $layoutType = new LayoutType(
             '3_zones_a',

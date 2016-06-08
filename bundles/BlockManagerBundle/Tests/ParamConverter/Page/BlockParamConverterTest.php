@@ -21,7 +21,7 @@ class BlockParamConverterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->blockServiceMock = $this->getMock(BlockService::class);
+        $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->paramConverter = new BlockParamConverter($this->blockServiceMock);
     }

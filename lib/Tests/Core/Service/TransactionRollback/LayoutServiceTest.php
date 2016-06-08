@@ -45,18 +45,14 @@ class LayoutServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->preparePersistence();
 
-        $this->layoutHandlerMock = $this->getMockBuilder(LayoutHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutHandlerMock = $this->createMock(LayoutHandler::class);
 
         $this->persistenceHandler
             ->expects($this->any())
             ->method('getLayoutHandler')
             ->will($this->returnValue($this->layoutHandlerMock));
 
-        $this->layoutValidatorMock = $this->getMockBuilder(LayoutValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
         $layoutType = new LayoutType(
             '3_zones_a',

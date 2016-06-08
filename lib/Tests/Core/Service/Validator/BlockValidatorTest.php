@@ -49,8 +49,8 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->blockDefinitionRegistryMock = $this->getMock(BlockDefinitionRegistryInterface::class);
-        $this->blockDefinitionHandlerMock = $this->getMock(BlockDefinitionHandlerInterface::class);
+        $this->blockDefinitionRegistryMock = $this->createMock(BlockDefinitionRegistryInterface::class);
+        $this->blockDefinitionHandlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
         $this->blockDefinitionConfig = new Configuration(
             'def',
             array(),

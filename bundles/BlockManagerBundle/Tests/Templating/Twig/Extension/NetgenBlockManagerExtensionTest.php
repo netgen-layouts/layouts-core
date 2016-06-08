@@ -39,17 +39,11 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->globalHelperMock = $this->getMockBuilder(GlobalHelper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->globalHelperMock = $this->createMock(GlobalHelper::class);
 
-        $this->viewRendererMock = $this->getMockBuilder(RendererInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->viewRendererMock = $this->createMock(RendererInterface::class);
 
-        $this->fragmentHandlerMock = $this->getMockBuilder(FragmentHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
         $this->extension = new NetgenBlockManagerExtension(
             $this->globalHelperMock,
@@ -162,9 +156,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisplayZoneThrowsException()
     {
-        $twigTemplateMock = $this->getMockBuilder(Twig_Template::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $twigTemplateMock = $this->createMock(Twig_Template::class);
 
         $twigTemplateMock
             ->expects($this->at(0))
@@ -198,9 +190,7 @@ class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisplayZoneThrowsExceptionInDebugMode()
     {
-        $twigTemplateMock = $this->getMockBuilder(Twig_Template::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $twigTemplateMock = $this->createMock(Twig_Template::class);
 
         $twigTemplateMock
             ->expects($this->at(0))

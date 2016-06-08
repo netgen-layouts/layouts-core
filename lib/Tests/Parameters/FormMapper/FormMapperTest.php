@@ -27,7 +27,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
         $this->formBuilder = Forms::createFormFactoryBuilder()
             ->addTypeExtension(
                 new FormTypeValidatorExtension(
-                    $this->getMock(ValidatorInterface::class)
+                    $this->createMock(ValidatorInterface::class)
                 )
             )
             ->getFormFactory()
@@ -41,7 +41,7 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
     public function testConstructorThrowsRuntimeExceptionWithNoParameterHandlerInterface()
     {
         $formMapper = new FormMapper(
-            array($this->getMock(DateTime::class))
+            array($this->createMock(DateTime::class))
         );
     }
 

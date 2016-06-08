@@ -27,12 +27,12 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $layoutServiceMock = $this->getMock(LayoutService::class);
-        $blockServiceMock = $this->getMock(BlockService::class);
-        $collectionServiceMock = $this->getMock(CollectionService::class);
-        $layoutResolverServiceMock = $this->getMock(LayoutResolverService::class);
+        $layoutServiceMock = $this->createMock(LayoutService::class);
+        $blockServiceMock = $this->createMock(BlockService::class);
+        $collectionServiceMock = $this->createMock(CollectionService::class);
+        $layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
-        $this->persistenceHandlerMock = $this->getMock(Handler::class);
+        $this->persistenceHandlerMock = $this->createMock(Handler::class);
 
         $this->repository = new Repository(
             $layoutServiceMock,

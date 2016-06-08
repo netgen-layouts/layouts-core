@@ -29,9 +29,9 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->viewProviderMock = $this->getMock(ViewProviderInterface::class);
-        $this->templateResolverMock = $this->getMock(TemplateResolverInterface::class);
-        $this->eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
+        $this->viewProviderMock = $this->createMock(ViewProviderInterface::class);
+        $this->templateResolverMock = $this->createMock(TemplateResolverInterface::class);
+        $this->eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
     }
 
     /**
@@ -43,7 +43,7 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            array($this->getMock(DateTime::class))
+            array($this->createMock(DateTime::class))
         );
     }
 

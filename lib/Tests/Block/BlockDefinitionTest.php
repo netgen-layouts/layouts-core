@@ -26,11 +26,9 @@ class BlockDefinitionTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->handlerMock = $this->getMock(BlockDefinitionHandlerInterface::class);
+        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 
-        $this->configMock = $this->getMockBuilder(Configuration::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->configMock = $this->createMock(Configuration::class);
 
         $this->blockDefinition = new BlockDefinition(
             'block_definition',

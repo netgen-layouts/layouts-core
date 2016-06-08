@@ -29,14 +29,10 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->viewBuilderMock = $this
-            ->getMockBuilder(ViewBuilderInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->createMock(ViewBuilderInterface::class);
 
         $this->twigEnvironmentMock = $this
-            ->getMockBuilder(Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->createMock(Twig_Environment::class);
 
         $this->viewRenderer = new Renderer($this->viewBuilderMock, $this->twigEnvironmentMock);
     }

@@ -22,7 +22,7 @@ class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->blockServiceMock = $this->getMock(BlockService::class);
+        $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new BlockNormalizer($this->blockServiceMock);
     }

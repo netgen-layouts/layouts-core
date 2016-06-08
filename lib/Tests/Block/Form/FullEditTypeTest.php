@@ -11,15 +11,27 @@ use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Test\FormIntegrationTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Form\Forms;
 
-class FullEditTypeTest extends TypeTestCase
+class FullEditTypeTest extends FormIntegrationTestCase
 {
+    /**
+     * @var \Symfony\Component\Form\FormBuilder
+     */
+    protected $builder;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $dispatcher;
+
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
      */
@@ -42,10 +54,13 @@ class FullEditTypeTest extends TypeTestCase
     {
         parent::setUp();
 
+        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
+
         $this->parameterFormMapper = new FormMapper(array('text' => new Text()));
         $this->formType = new FullEditType($this->parameterFormMapper);
 
-        $validator = $this->getMock(ValidatorInterface::class);
+        $validator = $this->createMock(ValidatorInterface::class);
         $validator
             ->expects($this->any())
             ->method('validate')
@@ -80,7 +95,7 @@ class FullEditTypeTest extends TypeTestCase
 
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            $this->getMock(BlockDefinitionHandlerInterface::class),
+            $this->createMock(BlockDefinitionHandlerInterface::class),
             $config
         );
     }

@@ -18,7 +18,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $eventListener = new RequestBodyListener($decoderMock);
 
         self::assertEquals(
@@ -33,7 +33,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequest()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock
             ->expects($this->once())
             ->method('decode')
@@ -42,7 +42,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -61,11 +61,11 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithNonApiRoute()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock->expects($this->never())->method('decode');
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
 
@@ -83,11 +83,11 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestInSubRequest()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock->expects($this->never())->method('decode');
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->headers->set('Content-Type', 'application/json');
@@ -107,11 +107,11 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithInvalidMethod()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock->expects($this->never())->method('decode');
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -130,11 +130,11 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithInvalidContentType()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock->expects($this->never())->method('decode');
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
         $request->headers->set('Content-Type', 'some/type');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -154,7 +154,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithInvalidJson()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock
             ->expects($this->once())
             ->method('decode')
@@ -163,7 +163,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{]');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -178,7 +178,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithNonArrayJson()
     {
-        $decoderMock = $this->getMock(DecoderInterface::class);
+        $decoderMock = $this->createMock(DecoderInterface::class);
         $decoderMock
             ->expects($this->once())
             ->method('decode')
@@ -187,7 +187,7 @@ class RequestBodyListenerTest extends \PHPUnit_Framework_TestCase
 
         $eventListener = new RequestBodyListener($decoderMock);
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '42');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);

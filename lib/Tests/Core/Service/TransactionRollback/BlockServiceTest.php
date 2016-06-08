@@ -50,13 +50,9 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->preparePersistence();
 
-        $this->blockHandlerMock = $this->getMockBuilder(BlockHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->blockHandlerMock = $this->createMock(BlockHandler::class);
 
-        $this->layoutHandlerMock = $this->getMockBuilder(LayoutHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutHandlerMock = $this->createMock(LayoutHandler::class);
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
 
@@ -70,9 +66,7 @@ class BlockServiceTest extends \PHPUnit_Framework_TestCase
             ->method('getLayoutHandler')
             ->will($this->returnValue($this->layoutHandlerMock));
 
-        $this->blockValidatorMock = $this->getMockBuilder(BlockValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->blockValidatorMock = $this->createMock(BlockValidator::class);
 
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,

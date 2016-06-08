@@ -30,7 +30,7 @@ class SetIsApiRequestListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new SetIsApiRequestListener();
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'netgen_block_manager_api_v1_load_block');
 
@@ -50,7 +50,7 @@ class SetIsApiRequestListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new SetIsApiRequestListener();
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'some_route');
 
@@ -70,7 +70,7 @@ class SetIsApiRequestListenerTest extends \PHPUnit_Framework_TestCase
     {
         $eventListener = new SetIsApiRequestListener();
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);

@@ -23,7 +23,7 @@ class ValueArrayNormalizerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->serializerMock = $this->getMock(Serializer::class);
+        $this->serializerMock = $this->createMock(Serializer::class);
 
         $this->normalizer = new ValueArrayNormalizer();
         $this->normalizer->setSerializer($this->serializerMock);

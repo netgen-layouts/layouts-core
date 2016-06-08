@@ -88,9 +88,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testBeginTransaction()
     {
         $databaseConnection = $this
-            ->getMockBuilder(Connection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->createMock(Connection::class);
 
         $databaseConnection
             ->expects($this->once())
@@ -113,9 +111,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testCommitTransaction()
     {
         $databaseConnection = $this
-            ->getMockBuilder(Connection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->createMock(Connection::class);
 
         $databaseConnection
             ->expects($this->once())
@@ -138,9 +134,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testRollbackTransaction()
     {
         $databaseConnection = $this
-            ->getMockBuilder(Connection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->createMock(Connection::class);
 
         $databaseConnection
             ->expects($this->once())

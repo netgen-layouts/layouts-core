@@ -28,11 +28,9 @@ class ConnectionHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->databasePlatformMock = $this->getMock(AbstractPlatform::class);
+        $this->databasePlatformMock = $this->createMock(AbstractPlatform::class);
 
-        $this->databaseConnectionMock = $this->getMockBuilder(Connection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->databaseConnectionMock = $this->createMock(Connection::class);
 
         $this->databaseConnectionMock
             ->expects($this->any())

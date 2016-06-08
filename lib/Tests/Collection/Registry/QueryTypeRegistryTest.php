@@ -23,13 +23,11 @@ class QueryTypeRegistryTest extends \PHPUnit_Framework_TestCase
     {
         $this->registry = new QueryTypeRegistry();
 
-        $configMock = $this->getMockBuilder(Configuration::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $configMock = $this->createMock(Configuration::class);
 
         $this->queryType = new QueryType(
             'query_type',
-            $this->getMock(QueryTypeHandlerInterface::class),
+            $this->createMock(QueryTypeHandlerInterface::class),
             $configMock
         );
 

@@ -29,7 +29,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     {
         $templateResolver = new TemplateResolver(
             array(
-                'definition_identifier' => $this->getMock(DateTime::class),
+                'definition_identifier' => $this->createMock(DateTime::class),
             )
         );
     }
@@ -41,7 +41,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplate()
     {
-        $matcherMock = $this->getMock(MatcherInterface::class);
+        $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
             ->expects($this->once())
             ->method('match')
@@ -156,7 +156,7 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatch()
     {
-        $matcherMock = $this->getMock(MatcherInterface::class);
+        $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
             ->expects($this->once())
             ->method('match')

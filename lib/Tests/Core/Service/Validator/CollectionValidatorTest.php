@@ -52,12 +52,10 @@ class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->queryTypeRegistryMock = $this->getMock(QueryTypeRegistryInterface::class);
+        $this->queryTypeRegistryMock = $this->createMock(QueryTypeRegistryInterface::class);
 
-        $this->queryTypeHandlerMock = $this->getMock(QueryTypeHandlerInterface::class);
-        $this->queryTypeConfigMock = $this->getMockBuilder(Configuration::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->queryTypeHandlerMock = $this->createMock(QueryTypeHandlerInterface::class);
+        $this->queryTypeConfigMock = $this->createMock(Configuration::class);
 
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory())

@@ -25,7 +25,7 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->validatorMock = $this->getMock(ValidatorInterface::class);
+        $this->validatorMock = $this->createMock(ValidatorInterface::class);
         $this->validator = new ValidatorValue();
         $this->validator->setValidator($this->validatorMock);
     }
@@ -64,7 +64,7 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
                 $this->returnValue(
                     new ConstraintViolationList(
                         array(
-                            $this->getMock(
+                            $this->createMock(
                                 ConstraintViolationInterface::class
                             ),
                         )

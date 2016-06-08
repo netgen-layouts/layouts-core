@@ -40,7 +40,7 @@ class BlockViewTypeValidatorTest extends ValidatorTest
 
         $this->blockDefinition = new BlockDefinition(
             'block',
-            $this->getMock(BlockDefinitionHandlerInterface::class),
+            $this->createMock(BlockDefinitionHandlerInterface::class),
             $config
         );
 

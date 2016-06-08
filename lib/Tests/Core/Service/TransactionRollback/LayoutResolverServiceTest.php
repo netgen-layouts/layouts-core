@@ -44,18 +44,14 @@ class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->preparePersistence();
 
-        $this->layoutResolverHandlerMock = $this->getMockBuilder(LayoutResolverHandler::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutResolverHandlerMock = $this->createMock(LayoutResolverHandler::class);
 
         $this->persistenceHandler
             ->expects($this->any())
             ->method('getLayoutResolverHandler')
             ->will($this->returnValue($this->layoutResolverHandlerMock));
 
-        $this->layoutResolverValidatorMock = $this->getMockBuilder(LayoutResolverValidator::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->layoutResolverValidatorMock = $this->createMock(LayoutResolverValidator::class);
 
         $this->layoutResolverService = $this->createLayoutResolverService($this->layoutResolverValidatorMock);
     }

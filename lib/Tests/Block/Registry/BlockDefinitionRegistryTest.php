@@ -23,13 +23,11 @@ class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
     {
         $this->registry = new BlockDefinitionRegistry();
 
-        $configMock = $this->getMockBuilder(Configuration::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $configMock = $this->createMock(Configuration::class);
 
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            $this->getMock(BlockDefinitionHandlerInterface::class),
+            $this->createMock(BlockDefinitionHandlerInterface::class),
             $configMock
         );
 
