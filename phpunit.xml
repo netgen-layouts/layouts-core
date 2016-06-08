@@ -30,7 +30,8 @@
     <filter>
         <whitelist>
             <directory suffix=".php">lib</directory>
-            <directory suffix=".php">bundles/*Bundle</directory>
+            <directory suffix=".php">bundles/BlockManagerBundle</directory>
+            <directory suffix=".php">bundles/EzPublishBlockManagerBundle</directory>
             <exclude>
                 <directory>lib/Tests</directory>
                 <directory>lib/Migrations</directory>
