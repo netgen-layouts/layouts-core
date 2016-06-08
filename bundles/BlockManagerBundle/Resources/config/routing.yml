@@ -1,11 +1,3 @@
 netgen_block_manager_api_v1:
     resource: "routing/api_v1.yml"
     prefix: /api/v1
-
-netgen_block_manager_layouts:
-    resource: "routing/layouts.yml"
-    prefix: /layouts
-
-netgen_block_manager_bm:
-    resource: "routing/bm.yml"
-    prefix: /app

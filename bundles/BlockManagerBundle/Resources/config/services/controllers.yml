@@ -2,7 +2,6 @@ parameters:
     netgen_block_manager.controller.base.class: Netgen\Bundle\BlockManagerBundle\Controller\Controller
 
     netgen_block_manager.controller.block.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
-    netgen_block_manager.controller.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\LayoutController
 
     netgen_block_manager.controller.api.v1.config.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController
     netgen_block_manager.controller.api.v1.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController
@@ -12,8 +11,6 @@ parameters:
     netgen_block_manager.controller.api.v1.block.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
     netgen_block_manager.controller.api.v1.layout.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator
     netgen_block_manager.controller.api.v1.collection.validator.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator
-
-    netgen_block_manager.controller.block_manager.index.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockManager\IndexController
 
 services:
     netgen_block_manager.controller.base:
@@ -80,9 +77,3 @@ services:
         class: "%netgen_block_manager.controller.api.v1.collection.validator.class%"
         calls:
             - [setValidator, ["@validator"]]
-
-    # Block Manager app controllers
-
-    netgen_block_manager.controller.block_manager.index:
-        class: "%netgen_block_manager.controller.block_manager.index.class%"
-        parent: netgen_block_manager.controller.base
