@@ -24,7 +24,7 @@ class ParagraphHandlerTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             array(
-                'content' => new Parameter\Text(array(), true),
+                'content' => new Parameter\TextArea(array(), true),
                 'css_id' => new Parameter\Text(),
                 'css_class' => new Parameter\Text(),
             ),

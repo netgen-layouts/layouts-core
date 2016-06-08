@@ -16,7 +16,7 @@ class ParagraphHandler extends BlockDefinitionHandler implements BlockDefinition
     public function getParameters()
     {
         return array(
-            'content' => new Parameter\Text(array(), true),
+            'content' => new Parameter\TextArea(array(), true),
         ) + parent::getParameters();
     }
 }
