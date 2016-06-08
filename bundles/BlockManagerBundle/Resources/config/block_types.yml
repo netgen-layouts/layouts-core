@@ -1,9 +1,4 @@
 block_types:
-#    container:
-#        name: 'Container'
-#        defaults:
-#            view_type: default
-#            definition_identifier: container
     title:
         name: 'Title'
         definition_identifier: title
@@ -12,37 +7,23 @@ block_types:
             item_view_type: standard
             parameters:
                 tag: h1
-                title: 'My cool title'
-    title_with_h3:
-        name: 'Title with h3'
-        definition_identifier: title
-        defaults:
-            view_type: large
-            item_view_type: standard
-#            sub_blocks:
-#                left:
-#                    type: container
-#                right:
-#                    type: container
-#                top:
-#                    type: container
-#                bottom:
-#                    type: title
-#                    defaults:
-#                        view_type: default
-#                        parameters:
-#                            title: 'Sub title 1'
-            parameters:
-                title: 'Title with h3'
-                tag: h3
-    paragraph:
-       name: 'Paragraph'
+                title: 'Title'
+
+    text:
+       name: 'Text'
        definition_identifier: paragraph
        defaults:
            view_type: default
            item_view_type: standard
            parameters:
-               content: 'My cool paragraph'
+               content: 'Text'
+
+    html_snippet:
+       name: 'HTML snippet'
+       definition_identifier: html_snippet
+       defaults:
+           view_type: default
+           item_view_type: standard
 
     content_block:
        name: 'Content block'

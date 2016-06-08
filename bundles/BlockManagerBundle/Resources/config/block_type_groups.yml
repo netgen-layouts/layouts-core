@@ -1,4 +1,7 @@
 block_type_groups:
-    simple_blocks:
-        name: 'Simple blocks'
-        block_types: [title, title_with_h3, paragraph, content_block]
+    typography:
+        name: 'Typography'
+        block_types: [title, text, html_snippet]
+    content_blocks:
+        name: 'Content blocks'
+        block_types: [content_block]
