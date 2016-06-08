@@ -1,7 +1,0 @@
-netgen_block_manager_app:
-    resource: "routing/app.yml"
-    prefix: /app
-
-netgen_block_manager_admin:
-    resource: "routing/admin.yml"
-    prefix: /admin

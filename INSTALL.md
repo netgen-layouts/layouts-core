@@ -59,10 +59,6 @@ _netgen_block_manager:
     resource: "@NetgenBlockManagerBundle/Resources/config/routing.yml"
     prefix: "%netgen_block_manager.route_prefix%"
 
-_netgen_block_manager_admin:
-    resource: "@NetgenBlockManagerAdminUIBundle/Resources/config/routing.yml"
-    prefix: "%netgen_block_manager.route_prefix%"
-
 _netgen_content_browser:
     resource: "@NetgenContentBrowserBundle/Resources/config/routing.yml"
     prefix: "%netgen_content_browser.route_prefix%"
