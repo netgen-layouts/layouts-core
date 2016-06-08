@@ -11,11 +11,6 @@ use RuntimeException;
 class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
-     */
-    protected $viewProviders = array();
-
-    /**
      * @var \Netgen\BlockManager\View\TemplateResolverInterface
      */
     protected $templateResolver;
@@ -26,17 +21,33 @@ class ViewBuilder implements ViewBuilderInterface
     protected $eventDispatcher;
 
     /**
+     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
+     */
+    protected $viewProviders = array();
+
+    /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
      * @param \Netgen\BlockManager\View\TemplateResolverInterface $templateResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
      */
-    public function __construct(array $viewProviders = array(), TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher)
+    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders = array())
     {
-        $this->viewProviders = $viewProviders;
+        foreach ($viewProviders as $viewProvider) {
+            if (!$viewProvider instanceof ViewProviderInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        'View provider "%s" needs to implement ViewProviderInterface.',
+                        get_class($viewProvider)
+                    )
+                );
+            }
+        }
+
         $this->templateResolver = $templateResolver;
         $this->eventDispatcher = $eventDispatcher;
+        $this->viewProviders = $viewProviders;
     }
 
     /**
@@ -51,15 +62,6 @@ class ViewBuilder implements ViewBuilderInterface
     public function buildView($valueObject, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
     {
         foreach ($this->viewProviders as $viewProvider) {
-            if (!$viewProvider instanceof ViewProviderInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'View provider for "%s" value object needs to implement ViewProviderInterface.',
-                        get_class($valueObject)
-                    )
-                );
-            }
-
             if (!$viewProvider->supports($valueObject)) {
                 continue;
             }

@@ -25,6 +25,17 @@ class TemplateResolver implements TemplateResolverInterface
      */
     public function __construct(array $matchers = array(), array $configurations = array())
     {
+        foreach ($matchers as $matcher) {
+            if (!$matcher instanceof MatcherInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Template matcher "%s" needs to implement MatcherInterface.',
+                        get_class($matcher)
+                    )
+                );
+            }
+        }
+
         $this->matchers = $matchers;
         $this->configurations = $configurations;
     }
@@ -91,15 +102,6 @@ class TemplateResolver implements TemplateResolverInterface
                 throw new RuntimeException(
                     sprintf(
                         'No template matcher could be found with identifier "%s".',
-                        $matcher
-                    )
-                );
-            }
-
-            if (!$this->matchers[$matcher] instanceof MatcherInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Template matcher "%s" needs to implement MatcherInterface.',
                         $matcher
                     )
                 );

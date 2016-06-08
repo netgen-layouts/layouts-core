@@ -23,6 +23,19 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
+     * @expectedException \RuntimeException
+     */
+    public function testConstructorThrowsRuntimeExceptionIfNoMatcherInterface()
+    {
+        $templateResolver = new TemplateResolver(
+            array(
+                'definition_identifier' => $this->getMock(DateTime::class),
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
@@ -59,7 +72,6 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
@@ -85,7 +97,6 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      */
@@ -195,37 +206,6 @@ class TemplateResolverTest extends \PHPUnit_Framework_TestCase
 
         $templateResolver = new TemplateResolver(
             array(),
-            $viewConfiguration
-        );
-
-        $templateResolver->resolveTemplate($this->view);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @expectedException \RuntimeException
-     */
-    public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcherInterface()
-    {
-        $matcherMock = $this->getMock(DateTime::class);
-
-        $viewConfiguration = array(
-            'view' => array(
-                'context' => array(
-                    'title' => array(
-                        'match' => array(
-                            'definition_identifier' => 'title',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $templateResolver = new TemplateResolver(
-            array(
-                'definition_identifier' => $matcherMock,
-            ),
             $viewConfiguration
         );
 

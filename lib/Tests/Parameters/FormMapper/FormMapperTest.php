@@ -8,6 +8,7 @@ use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
+use DateTime;
 
 class FormMapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,6 +32,17 @@ class FormMapperTest extends \PHPUnit_Framework_TestCase
             )
             ->getFormFactory()
             ->createBuilder('form');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::__construct
+     * @expectedException \RuntimeException
+     */
+    public function testConstructorThrowsRuntimeExceptionWithNoParameterHandlerInterface()
+    {
+        $formMapper = new FormMapper(
+            array($this->getMock(DateTime::class))
+        );
     }
 
     /**

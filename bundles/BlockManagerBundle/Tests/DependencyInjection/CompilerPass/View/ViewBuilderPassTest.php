@@ -27,6 +27,8 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
     {
         $viewBuilder = new Definition();
         $viewBuilder->addArgument(array());
+        $viewBuilder->addArgument(array());
+        $viewBuilder->addArgument(array());
         $this->setDefinition('netgen_block_manager.view.builder', $viewBuilder);
 
         $viewProvider = new Definition();
@@ -41,7 +43,7 @@ class ViewBuilderPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.view.builder',
-            0,
+            2,
             array(
                 new Reference('netgen_block_manager.view.provider.test'),
                 new Reference('netgen_block_manager.view.provider.test2'),

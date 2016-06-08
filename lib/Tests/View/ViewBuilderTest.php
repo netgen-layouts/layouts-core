@@ -8,6 +8,7 @@ use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\View\ViewBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\View\TemplateResolverInterface;
+use DateTime;
 
 class ViewBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,10 +30,21 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->viewProviderMock = $this->getMock(ViewProviderInterface::class);
-
         $this->templateResolverMock = $this->getMock(TemplateResolverInterface::class);
-
         $this->eventDispatcherMock = $this->getMock(EventDispatcherInterface::class);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
+     * @expectedException \RuntimeException
+     */
+    public function testConstructorThrowsRuntimeExceptionWithNoViewProviderInterface()
+    {
+        $viewBuilder = new ViewBuilder(
+            $this->templateResolverMock,
+            $this->eventDispatcherMock,
+            array($this->getMock(DateTime::class))
+        );
     }
 
     /**
@@ -67,9 +79,9 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('dispatch');
 
         $viewBuilder = new ViewBuilder(
-            array($this->viewProviderMock),
             $this->templateResolverMock,
-            $this->eventDispatcherMock
+            $this->eventDispatcherMock,
+            array($this->viewProviderMock)
         );
 
         $viewParameters = array('some_param' => 'some_value');
@@ -93,7 +105,6 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
         $value = new Value();
 
         $viewBuilder = new ViewBuilder(
-            array(),
             $this->templateResolverMock,
             $this->eventDispatcherMock
         );
@@ -120,30 +131,11 @@ class ViewBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('provideView');
 
         $viewBuilder = new ViewBuilder(
-            array($this->viewProviderMock),
             $this->templateResolverMock,
-            $this->eventDispatcherMock
+            $this->eventDispatcherMock,
+            array($this->viewProviderMock)
         );
 
         $viewBuilder->buildView($value, 'context');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
-     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @expectedException \RuntimeException
-     */
-    public function testBuildViewThrowsRuntimeExceptionWithNoViewProviderInterface()
-    {
-        $value = new Value();
-        $view = new View($value);
-
-        $viewBuilder = new ViewBuilder(
-            array($this->getMock(DateTime::class)),
-            $this->templateResolverMock,
-            $this->eventDispatcherMock
-        );
-
-        self::assertEquals($view, $viewBuilder->buildView($value, 'context'));
     }
 }

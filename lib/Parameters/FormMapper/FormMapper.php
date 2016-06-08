@@ -21,6 +21,17 @@ class FormMapper implements FormMapperInterface
      */
     public function __construct(array $parameterHandlers = array())
     {
+        foreach ($parameterHandlers as $parameterHandler) {
+            if (!$parameterHandler instanceof ParameterHandlerInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Parameter handler "%s" needs to implement ParameterHandlerInterface.',
+                        get_class($parameterHandler)
+                    )
+                );
+            }
+        }
+
         $this->parameterHandlers = $parameterHandlers;
     }
 

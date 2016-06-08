@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
@@ -42,6 +43,17 @@ class LayoutResolverQueryHandler
         QueryHelper $queryHelper,
         array $targetHandlers = array()
     ) {
+        foreach ($targetHandlers as $targetHandler) {
+            if (!$targetHandler instanceof TargetHandler) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Target handler "%s" needs to implement TargetHandler interface.',
+                        get_class($targetHandler)
+                    )
+                );
+            }
+        }
+
         $this->connectionHelper = $connectionHelper;
         $this->queryHelper = $queryHelper;
         $this->targetHandlers = $targetHandlers;

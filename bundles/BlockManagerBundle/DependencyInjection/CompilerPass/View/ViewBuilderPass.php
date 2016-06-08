@@ -30,6 +30,6 @@ class ViewBuilderPass implements CompilerPassInterface
             $viewProviders[] = new Reference($serviceName);
         }
 
-        $viewBuilder->replaceArgument(0, $viewProviders);
+        $viewBuilder->replaceArgument(2, $viewProviders);
     }
 }

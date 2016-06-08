@@ -35,6 +35,28 @@ class LayoutResolver implements LayoutResolverInterface
         array $targetValueProviders = array(),
         array $conditionMatchers = array()
     ) {
+        foreach ($targetValueProviders as $targetValueProvider) {
+            if (!$targetValueProvider instanceof TargetValueProviderInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        "Target value provider '%s' needs to implement TargetValueProviderInterface.",
+                        get_class($targetValueProvider)
+                    )
+                );
+            }
+        }
+
+        foreach ($conditionMatchers as $conditionMatcher) {
+            if (!$conditionMatcher instanceof ConditionMatcherInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        "Condition matcher '%s' needs to implement ConditionMatcherInterface.",
+                        get_class($conditionMatcher)
+                    )
+                );
+            }
+        }
+
         $this->layoutResolverService = $layoutResolverService;
         $this->targetValueProviders = $targetValueProviders;
         $this->conditionMatchers = $conditionMatchers;
@@ -55,15 +77,6 @@ class LayoutResolver implements LayoutResolverInterface
         $matchedRules = array();
 
         foreach ($this->targetValueProviders as $targetIdentifier => $targetValueProvider) {
-            if (!$targetValueProvider instanceof TargetValueProviderInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        "Target value provider for '%s' target must implement TargetValueProviderInterface.",
-                        $targetIdentifier
-                    )
-                );
-            }
-
             $targetValue = $targetValueProvider->provideValue();
             if ($targetValue === null) {
                 continue;
@@ -141,15 +154,6 @@ class LayoutResolver implements LayoutResolverInterface
             }
 
             $conditionMatcher = $this->conditionMatchers[$condition->getIdentifier()];
-            if (!$conditionMatcher instanceof ConditionMatcherInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        "Condition matcher for '%s' condition type must implement ConditionMatcherInterface.",
-                        $condition->getIdentifier()
-                    )
-                );
-            }
-
             if (!$conditionMatcher->matches($condition->getValue())) {
                 return false;
             }
