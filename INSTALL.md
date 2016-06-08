@@ -21,7 +21,7 @@ Activate the Block Manager in your kernel class:
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
-$bundles[] = new Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle();
+$bundles[] = new Netgen\Bundle\BlockManagerAdminUIBundle\NetgenBlockManagerAdminUIBundle();
 
 return $bundles;
 ```
@@ -34,7 +34,7 @@ If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBund
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
-$bundles[] = new Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle();
+$bundles[] = new Netgen\Bundle\BlockManagerAdminUIBundle\NetgenBlockManagerAdminUIBundle();
 $bundles[] = new Netgen\Bundle\EzPublishBlockManagerBundle\NetgenEzPublishBlockManagerBundle();
 
 return $bundles;
@@ -60,7 +60,7 @@ _netgen_block_manager:
     prefix: "%netgen_block_manager.route_prefix%"
 
 _netgen_block_manager_admin:
-    resource: "@NetgenBlockManagerUIBundle/Resources/config/routing.yml"
+    resource: "@NetgenBlockManagerAdminUIBundle/Resources/config/routing.yml"
     prefix: "%netgen_block_manager.route_prefix%"
 
 _netgen_content_browser:

@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerUIBundle\DependencyInjection;
+namespace Netgen\Bundle\BlockManagerAdminUIBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-class NetgenBlockManagerUIExtension extends Extension
+class NetgenBlockManagerAdminUIExtension extends Extension
 {
     /**
      * Loads a specific configuration.

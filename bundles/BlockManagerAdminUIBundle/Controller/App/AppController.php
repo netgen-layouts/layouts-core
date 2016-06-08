@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerUIBundle\Controller\App;
+namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App;
 
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
@@ -9,7 +9,7 @@ class AppController extends Controller
     public function index()
     {
         return $this->render(
-            'NetgenBlockManagerUIBundle:app:index.html.twig'
+            'NetgenBlockManagerAdminUIBundle:app:index.html.twig'
         );
     }
 }
