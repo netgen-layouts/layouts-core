@@ -9,12 +9,12 @@ Netgen Block Manager
 
 Running tests requires that you have complete vendors installed, so run `composer install` before running the tests.
 
-You can run unit tests by simply calling `vendor/bin/phpunit` from the repo root. This will use an in memory SQLite database.
+You can run unit tests by simply calling `phpunit` from the repo root. This will use an in memory SQLite database.
 
 You can also run unit tests on a real database. After you create the database, run the tests with:
 
 ```
-$ DATABASE=mysql://root@localhost/ngbm vendor/bin/phpunit
+$ DATABASE=mysql://root@localhost/ngbm phpunit
 ```
 
 where `mysql://root@localhost/ngbm` is a DSN to your MySQL database.
@@ -22,5 +22,5 @@ where `mysql://root@localhost/ngbm` is a DSN to your MySQL database.
 If you use PostgreSQL, you can use the following command:
 
 ```
-$ DATABASE=pgsql://user:pass@localhost/ngbm vendor/bin/phpunit
+$ DATABASE=pgsql://user:pass@localhost/ngbm phpunit
 ```
