@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
+use PHPUnit\Framework\TestCase;
 
-class ZoneTest extends \PHPUnit\Framework\TestCase
+class ZoneTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct

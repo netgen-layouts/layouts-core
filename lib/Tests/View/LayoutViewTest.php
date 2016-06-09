@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
+use PHPUnit\Framework\TestCase;
 
-class LayoutViewTest extends \PHPUnit\Framework\TestCase
+class LayoutViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Page\Layout

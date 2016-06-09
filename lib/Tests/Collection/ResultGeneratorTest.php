@@ -15,8 +15,9 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
+use PHPUnit\Framework\TestCase;
 
-class ResultGeneratorTest extends \PHPUnit\Framework\TestCase
+class ResultGeneratorTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

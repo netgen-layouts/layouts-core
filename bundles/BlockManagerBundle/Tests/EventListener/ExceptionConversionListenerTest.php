@@ -19,8 +19,9 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Netgen\BlockManager\Exception\Exception;
 use RuntimeException;
+use PHPUnit\Framework\TestCase;
 
-class ExceptionConversionListenerTest extends \PHPUnit\Framework\TestCase
+class ExceptionConversionListenerTest extends TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::getSubscribedEvents

@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends \PHPUnit\Framework\TestCase
+class LayoutTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct

@@ -6,8 +6,9 @@ use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemDraftParamCon
 use Netgen\BlockManager\Core\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft as APIItemDraft;
 use Netgen\BlockManager\API\Service\CollectionService;
+use PHPUnit\Framework\TestCase;
 
-class ItemDraftParamConverterTest extends \PHPUnit\Framework\TestCase
+class ItemDraftParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

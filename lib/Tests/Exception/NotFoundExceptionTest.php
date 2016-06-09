@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Exception;
 
 use Netgen\BlockManager\Exception\NotFoundException;
+use PHPUnit\Framework\TestCase;
 
-class NotFoundExceptionTest extends \PHPUnit\Framework\TestCase
+class NotFoundExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\NotFoundException::__construct

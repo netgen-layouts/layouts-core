@@ -6,8 +6,9 @@ use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverte
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Service\CollectionService;
+use PHPUnit\Framework\TestCase;
 
-class ItemParamConverterTest extends \PHPUnit\Framework\TestCase
+class ItemParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

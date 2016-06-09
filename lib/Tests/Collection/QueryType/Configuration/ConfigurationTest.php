@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Collection\QueryType\Configuration;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
+use PHPUnit\Framework\TestCase;
 
-class ConfigurationTest extends \PHPUnit\Framework\TestCase
+class ConfigurationTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration

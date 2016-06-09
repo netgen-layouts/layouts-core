@@ -6,8 +6,9 @@ use Netgen\BlockManager\Layout\Resolver\TargetValueProvider\Route;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class RouteTest extends \PHPUnit\Framework\TestCase
+class RouteTest extends TestCase
 {
     use RequestStackAwareTrait;
 

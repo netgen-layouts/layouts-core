@@ -6,8 +6,9 @@ use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionRegistryTest extends \PHPUnit\Framework\TestCase
+class BlockDefinitionRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface

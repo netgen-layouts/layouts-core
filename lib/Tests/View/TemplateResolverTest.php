@@ -7,8 +7,9 @@ use Netgen\BlockManager\View\TemplateResolver;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class TemplateResolverTest extends \PHPUnit\Framework\TestCase
+class TemplateResolverTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\ViewInterface

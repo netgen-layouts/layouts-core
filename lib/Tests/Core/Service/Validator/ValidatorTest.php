@@ -6,8 +6,9 @@ use Netgen\BlockManager\Core\Service\Validator\Validator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use PHPUnit\Framework\TestCase;
 
-class ValidatorTest extends \PHPUnit\Framework\TestCase
+class ValidatorTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

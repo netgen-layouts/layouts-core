@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use PHPUnit\Framework\TestCase;
 
-class ViewTest extends \PHPUnit\Framework\TestCase
+class ViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\ViewInterface

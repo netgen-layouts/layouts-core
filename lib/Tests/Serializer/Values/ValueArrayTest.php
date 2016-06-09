@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
 use Symfony\Component\HttpFoundation\Response;
+use PHPUnit\Framework\TestCase;
 
-class ValueArrayTest extends \PHPUnit\Framework\TestCase
+class ValueArrayTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\ValueArray

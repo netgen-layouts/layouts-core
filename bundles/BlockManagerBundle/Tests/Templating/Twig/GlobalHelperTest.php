@@ -5,8 +5,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use PHPUnit\Framework\TestCase;
 
-class GlobalHelperTest extends \PHPUnit\Framework\TestCase
+class GlobalHelperTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper

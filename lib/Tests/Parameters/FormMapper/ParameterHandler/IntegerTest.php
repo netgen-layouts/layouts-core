@@ -8,8 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
+use PHPUnit\Framework\TestCase;
 
-class IntegerTest extends \PHPUnit\Framework\TestCase
+class IntegerTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface

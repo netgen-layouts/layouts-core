@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Parameters;
 use Netgen\BlockManager\Parameters\Parameter\Text;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class CompoundParameterTest extends \PHPUnit\Framework\TestCase
+class CompoundParameterTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameter::__construct

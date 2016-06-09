@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Configuration\Source;
 
 use Netgen\BlockManager\Configuration\Source\Query;
+use PHPUnit\Framework\TestCase;
 
-class QueryTest extends \PHPUnit\Framework\TestCase
+class QueryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\Source\Query

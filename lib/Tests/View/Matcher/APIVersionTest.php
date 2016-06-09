@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\View\Matcher;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Matcher\APIVersion;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use PHPUnit\Framework\TestCase;
 
-class APIVersionTest extends \PHPUnit\Framework\TestCase
+class APIVersionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

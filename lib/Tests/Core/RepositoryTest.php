@@ -9,8 +9,9 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Repository;
 use Netgen\BlockManager\Persistence\Handler;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
-class RepositoryTest extends \PHPUnit\Framework\TestCase
+class RepositoryTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

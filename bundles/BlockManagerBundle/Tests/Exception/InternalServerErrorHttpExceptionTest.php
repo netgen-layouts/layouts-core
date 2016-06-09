@@ -4,8 +4,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Exception;
 
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Symfony\Component\HttpFoundation\Response;
+use PHPUnit\Framework\TestCase;
 
-class InternalServerErrorHttpExceptionTest extends \PHPUnit\Framework\TestCase
+class InternalServerErrorHttpExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException::__construct

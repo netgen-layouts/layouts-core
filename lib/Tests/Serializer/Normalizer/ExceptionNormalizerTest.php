@@ -7,8 +7,9 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
-class ExceptionNormalizerTest extends \PHPUnit\Framework\TestCase
+class ExceptionNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer

@@ -8,8 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
+use PHPUnit\Framework\TestCase;
 
-class TextAreaTest extends \PHPUnit\Framework\TestCase
+class TextAreaTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface

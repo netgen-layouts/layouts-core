@@ -10,8 +10,9 @@ use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionMatcher;
 use Netgen\BlockManager\Layout\Resolver\Target;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetValueProvider;
 use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class LayoutResolverTest extends \PHPUnit\Framework\TestCase
+class LayoutResolverTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

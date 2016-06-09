@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
+namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
@@ -11,14 +11,16 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait as PersistenceTestCaseTrait;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\LayoutService;
 use Netgen\BlockManager\Core\Service\BlockService;
-use Netgen\BlockManager\Persistence\Handler;
 
-trait TestCase
+trait TestCaseTrait
 {
+    use PersistenceTestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
@@ -29,7 +31,9 @@ trait TestCase
      */
     public function preparePersistence()
     {
-        $this->persistenceHandler = $this->createMock(Handler::class);
+        $this->prepareHandlers();
+
+        $this->persistenceHandler = $this->createPersistenceHandler();
     }
 
     /**
@@ -107,7 +111,9 @@ trait TestCase
      */
     protected function createBlockMapper()
     {
-        return $this->createMock(BlockMapper::class);
+        return new BlockMapper(
+            $this->persistenceHandler
+        );
     }
 
     /**
@@ -117,7 +123,10 @@ trait TestCase
      */
     protected function createLayoutMapper()
     {
-        return $this->createMock(LayoutMapper::class);
+        return new LayoutMapper(
+            $this->createBlockMapper(),
+            $this->persistenceHandler
+        );
     }
 
     /**
@@ -127,16 +136,20 @@ trait TestCase
      */
     protected function createCollectionMapper()
     {
-        return $this->createMock(CollectionMapper::class);
+        return new CollectionMapper(
+            $this->persistenceHandler
+        );
     }
 
     /**
-     * Creates the layout resolver mapper under test.
+     * Creates the collection mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
      */
     protected function createLayoutResolverMapper()
     {
-        return $this->createMock(LayoutResolverMapper::class);
+        return new LayoutResolverMapper(
+            $this->persistenceHandler
+        );
     }
 }

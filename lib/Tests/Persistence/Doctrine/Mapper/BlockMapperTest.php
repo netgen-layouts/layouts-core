@@ -7,8 +7,9 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use PHPUnit\Framework\TestCase;
 
-class BlockMapperTest extends \PHPUnit\Framework\TestCase
+class BlockMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper

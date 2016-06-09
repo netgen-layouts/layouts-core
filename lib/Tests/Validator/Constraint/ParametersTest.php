@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Validator\Constraint;
 
 use Netgen\BlockManager\Validator\Constraint\Parameters;
+use PHPUnit\Framework\TestCase;
 
-class ParametersTest extends \PHPUnit\Framework\TestCase
+class ParametersTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Parameters::validatedBy

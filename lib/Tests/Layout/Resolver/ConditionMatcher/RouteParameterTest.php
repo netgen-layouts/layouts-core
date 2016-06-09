@@ -6,8 +6,9 @@ use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class RouteParameterTest extends \PHPUnit\Framework\TestCase
+class RouteParameterTest extends TestCase
 {
     use RequestStackAwareTrait;
 

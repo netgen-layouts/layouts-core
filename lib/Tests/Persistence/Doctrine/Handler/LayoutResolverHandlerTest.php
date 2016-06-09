@@ -7,15 +7,16 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Exception\NotFoundException;
+use PHPUnit\Framework\TestCase;
 
-class LayoutResolverHandlerTest extends \PHPUnit\Framework\TestCase
+class LayoutResolverHandlerTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler

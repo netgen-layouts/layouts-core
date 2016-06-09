@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends \PHPUnit\Framework\TestCase
+class LayoutTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

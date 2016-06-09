@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use PHPUnit\Framework\TestCase;
 
-class ItemViewTypeTest extends \PHPUnit\Framework\TestCase
+class ItemViewTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType

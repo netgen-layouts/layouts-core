@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Validator;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
+use PHPUnit\Framework\TestCase;
 
-abstract class ValidatorTest extends \PHPUnit\Framework\TestCase
+abstract class ValidatorTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

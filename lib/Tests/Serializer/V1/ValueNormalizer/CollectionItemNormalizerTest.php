@@ -9,8 +9,9 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use RuntimeException;
+use PHPUnit\Framework\TestCase;
 
-class CollectionItemNormalizerTest extends \PHPUnit\Framework\TestCase
+class CollectionItemNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

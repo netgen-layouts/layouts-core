@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Item;
 
 use Netgen\BlockManager\Item\Item;
 use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class ItemTest extends \PHPUnit\Framework\TestCase
+class ItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\Item::getValueId

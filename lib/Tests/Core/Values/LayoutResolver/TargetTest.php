@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use PHPUnit\Framework\TestCase;
 
-class TargetTest extends \PHPUnit\Framework\TestCase
+class TargetTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::__construct

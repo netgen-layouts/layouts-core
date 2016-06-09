@@ -6,8 +6,9 @@ use Netgen\BlockManager\Layout\Resolver\TargetValueProvider\RequestUri;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class RequestUriTest extends \PHPUnit\Framework\TestCase
+class RequestUriTest extends TestCase
 {
     use RequestStackAwareTrait;
 

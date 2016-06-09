@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Configuration\Registry;
 
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTypeRegistryTest extends \PHPUnit\Framework\TestCase
+class LayoutTypeRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\LayoutType\LayoutType

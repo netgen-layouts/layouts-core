@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Validator\Constraint;
 
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
+use PHPUnit\Framework\TestCase;
 
-class BlockItemViewTypeTest extends \PHPUnit\Framework\TestCase
+class BlockItemViewTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\BlockItemViewType::validatedBy

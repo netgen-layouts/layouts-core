@@ -6,7 +6,7 @@ use Netgen\BlockManager\Tests\Core\Service\LayoutResolverServiceTest as BaseLayo
 
 class LayoutResolverServiceTest extends BaseLayoutResolverServiceTest
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * Sets up the tests.

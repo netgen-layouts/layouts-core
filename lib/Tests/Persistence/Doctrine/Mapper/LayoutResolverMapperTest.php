@@ -6,8 +6,9 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
+use PHPUnit\Framework\TestCase;
 
-class LayoutResolverMapperTest extends \PHPUnit\Framework\TestCase
+class LayoutResolverMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper

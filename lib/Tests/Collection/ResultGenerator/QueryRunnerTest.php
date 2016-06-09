@@ -6,8 +6,9 @@ use Netgen\BlockManager\Collection\ResultGenerator\QueryRunner;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryRunner\QueryType;
+use PHPUnit\Framework\TestCase;
 
-class QueryRunnerTest extends \PHPUnit\Framework\TestCase
+class QueryRunnerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface

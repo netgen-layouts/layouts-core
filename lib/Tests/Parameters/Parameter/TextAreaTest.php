@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\TextArea;
+use PHPUnit\Framework\TestCase;
 
-class TextAreaTest extends \PHPUnit\Framework\TestCase
+class TextAreaTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getType

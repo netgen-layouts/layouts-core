@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use PHPUnit\Framework\TestCase;
 
-class CollectionCreateStructTest extends \PHPUnit\Framework\TestCase
+class CollectionCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

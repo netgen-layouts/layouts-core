@@ -8,13 +8,14 @@ use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use PHPUnit\Framework\TestCase;
 
-class BlockHandlerTest extends \PHPUnit\Framework\TestCase
+class BlockHandlerTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler

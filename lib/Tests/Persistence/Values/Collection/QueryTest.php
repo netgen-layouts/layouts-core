@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use PHPUnit\Framework\TestCase;
 
-class QueryTest extends \PHPUnit\Framework\TestCase
+class QueryTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

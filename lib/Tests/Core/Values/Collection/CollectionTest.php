@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use PHPUnit\Framework\TestCase;
 
-class CollectionTest extends \PHPUnit\Framework\TestCase
+class CollectionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::__construct

@@ -7,8 +7,9 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\ViewType;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use PHPUnit\Framework\TestCase;
 
-class ViewTypeTest extends \PHPUnit\Framework\TestCase
+class ViewTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

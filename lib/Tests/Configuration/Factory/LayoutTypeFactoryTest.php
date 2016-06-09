@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Configuration\Factory;
 use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use PHPUnit\Framework\TestCase;
 
-class LayoutTypeFactoryTest extends \PHPUnit\Framework\TestCase
+class LayoutTypeFactoryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory::buildLayoutType

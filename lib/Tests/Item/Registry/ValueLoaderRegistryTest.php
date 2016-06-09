@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Item\Registry;
 
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
+use PHPUnit\Framework\TestCase;
 
-class ValueLoaderRegistryTest extends \PHPUnit\Framework\TestCase
+class ValueLoaderRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueLoaderInterface

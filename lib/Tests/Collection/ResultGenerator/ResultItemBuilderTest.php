@@ -8,8 +8,9 @@ use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
+use PHPUnit\Framework\TestCase;
 
-class ResultItemBuilderTest extends \PHPUnit\Framework\TestCase
+class ResultItemBuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

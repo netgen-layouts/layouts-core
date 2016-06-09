@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
+use PHPUnit\Framework\TestCase;
 
-class RuleCreateStructTest extends \PHPUnit\Framework\TestCase
+class RuleCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

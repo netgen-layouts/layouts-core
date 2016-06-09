@@ -5,11 +5,12 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use PHPUnit\Framework\TestCase;
 
-class PositionHelperTest extends \PHPUnit\Framework\TestCase
+class PositionHelperTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper

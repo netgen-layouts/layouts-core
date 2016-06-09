@@ -6,8 +6,9 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use PHPUnit\Framework\TestCase;
 
-class CollectionMapperTest extends \PHPUnit\Framework\TestCase
+class CollectionMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper

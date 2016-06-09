@@ -16,8 +16,9 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use PHPUnit\Framework\TestCase;
 
-class BlockValidatorTest extends \PHPUnit\Framework\TestCase
+class BlockValidatorTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

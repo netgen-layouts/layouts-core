@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Collection\QueryType\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
+use PHPUnit\Framework\TestCase;
 
-class FactoryTest extends \PHPUnit\Framework\TestCase
+class FactoryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Factory

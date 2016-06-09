@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\Rule;
 
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
+use PHPUnit\Framework\TestCase;
 
-class ConditionTest extends \PHPUnit\Framework\TestCase
+class ConditionTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

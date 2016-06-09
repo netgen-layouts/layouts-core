@@ -6,8 +6,9 @@ use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormali
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use PHPUnit\Framework\TestCase;
 
-class SourceQueryNormalizerTest extends \PHPUnit\Framework\TestCase
+class SourceQueryNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer

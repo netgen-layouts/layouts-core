@@ -9,8 +9,9 @@ use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
+use PHPUnit\Framework\TestCase;
 
-class CollectionResultNormalizerTest extends \PHPUnit\Framework\TestCase
+class CollectionResultNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

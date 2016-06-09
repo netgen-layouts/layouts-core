@@ -6,8 +6,9 @@ use Netgen\BlockManager\Layout\Resolver\TargetValueProvider\PathInfo;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class PathInfoTest extends \PHPUnit\Framework\TestCase
+class PathInfoTest extends TestCase
 {
     use RequestStackAwareTrait;
 

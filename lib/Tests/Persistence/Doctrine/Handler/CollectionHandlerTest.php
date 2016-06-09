@@ -7,15 +7,16 @@ use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Exception\NotFoundException;
+use PHPUnit\Framework\TestCase;
 
-class CollectionHandlerTest extends \PHPUnit\Framework\TestCase
+class CollectionHandlerTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler

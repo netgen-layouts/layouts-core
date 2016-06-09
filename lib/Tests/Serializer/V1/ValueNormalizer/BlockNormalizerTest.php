@@ -7,8 +7,9 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use PHPUnit\Framework\TestCase;
 
-class BlockNormalizerTest extends \PHPUnit\Framework\TestCase
+class BlockNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

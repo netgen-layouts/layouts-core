@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use PHPUnit\Framework\TestCase;
 
-class ConditionTest extends \PHPUnit\Framework\TestCase
+class ConditionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::__construct

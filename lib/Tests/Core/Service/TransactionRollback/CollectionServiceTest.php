@@ -17,11 +17,12 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
+use PHPUnit\Framework\TestCase;
 use Exception;
 
-class CollectionServiceTest extends \PHPUnit\Framework\TestCase
+class CollectionServiceTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

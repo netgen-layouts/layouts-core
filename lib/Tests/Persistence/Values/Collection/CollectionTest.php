@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use PHPUnit\Framework\TestCase;
 
-class CollectionTest extends \PHPUnit\Framework\TestCase
+class CollectionTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

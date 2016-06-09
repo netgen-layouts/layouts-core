@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler;
 use Netgen\BlockManager\Parameters\Parameter;
+use PHPUnit\Framework\TestCase;
 
-class ParagraphHandlerTest extends \PHPUnit\Framework\TestCase
+class ParagraphHandlerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler

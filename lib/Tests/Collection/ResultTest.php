@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use PHPUnit\Framework\TestCase;
 
-class ResultTest extends \PHPUnit\Framework\TestCase
+class ResultTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result::getCollection

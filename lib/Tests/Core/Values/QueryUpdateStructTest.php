@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use PHPUnit\Framework\TestCase;
 
-class QueryUpdateStructTest extends \PHPUnit\Framework\TestCase
+class QueryUpdateStructTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::__construct

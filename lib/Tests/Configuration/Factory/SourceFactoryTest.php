@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Configuration\Factory;
 use Netgen\BlockManager\Configuration\Factory\SourceFactory;
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Configuration\Source\Source;
+use PHPUnit\Framework\TestCase;
 
-class SourceFactoryTest extends \PHPUnit\Framework\TestCase
+class SourceFactoryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Factory\SourceFactory::buildSource

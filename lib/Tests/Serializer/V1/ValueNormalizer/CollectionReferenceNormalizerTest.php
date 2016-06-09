@@ -8,8 +8,9 @@ use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use PHPUnit\Framework\TestCase;
 
-class CollectionReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
+class CollectionReferenceNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

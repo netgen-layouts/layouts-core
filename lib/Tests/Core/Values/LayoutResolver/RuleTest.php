@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use PHPUnit\Framework\TestCase;
 
-class RuleTest extends \PHPUnit\Framework\TestCase
+class RuleTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct

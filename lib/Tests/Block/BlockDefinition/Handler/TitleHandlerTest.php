@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Parameters\Parameter;
+use PHPUnit\Framework\TestCase;
 
-class TitleHandlerTest extends \PHPUnit\Framework\TestCase
+class TitleHandlerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler

@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use PHPUnit\Framework\TestCase;
 
-class BlockTest extends \PHPUnit\Framework\TestCase
+class BlockTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

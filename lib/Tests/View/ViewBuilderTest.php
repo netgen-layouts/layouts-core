@@ -9,8 +9,9 @@ use Netgen\BlockManager\View\ViewBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\View\TemplateResolverInterface;
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class ViewBuilderTest extends \PHPUnit\Framework\TestCase
+class ViewBuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

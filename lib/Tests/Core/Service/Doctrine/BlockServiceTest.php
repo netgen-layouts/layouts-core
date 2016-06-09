@@ -6,7 +6,7 @@ use Netgen\BlockManager\Tests\Core\Service\BlockServiceTest as BaseBlockServiceT
 
 class BlockServiceTest extends BaseBlockServiceTest
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * Sets up the tests.

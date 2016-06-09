@@ -20,7 +20,7 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 
-trait TestCase
+trait TestCaseTrait
 {
     use DatabaseTrait;
 

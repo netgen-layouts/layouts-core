@@ -7,11 +7,12 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTargetHandlerTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractTargetHandlerTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler

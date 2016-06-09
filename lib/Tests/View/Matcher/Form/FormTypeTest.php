@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\View\Matcher;
 
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\FormView;
 use Netgen\BlockManager\View\Matcher\Form\FormType;
+use PHPUnit\Framework\TestCase;
 
-class FormNameTest extends \PHPUnit\Framework\TestCase
+class FormNameTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

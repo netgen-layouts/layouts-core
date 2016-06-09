@@ -6,7 +6,7 @@ use Netgen\BlockManager\Tests\Core\Service\LayoutServiceTest as BaseLayoutServic
 
 class LayoutServiceTest extends BaseLayoutServiceTest
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * Sets up the tests.

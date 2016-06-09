@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Configuration\BlockType;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use PHPUnit\Framework\TestCase;
 
-class BlockTypeGroupTest extends \PHPUnit\Framework\TestCase
+class BlockTypeGroupTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup

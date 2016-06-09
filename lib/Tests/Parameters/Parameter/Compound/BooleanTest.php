@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter\Compound;
 
 use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean;
 use Symfony\Component\Validator\Validation;
+use PHPUnit\Framework\TestCase;
 
-class BooleanTest extends \PHPUnit\Framework\TestCase
+class BooleanTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Compound\Boolean::getType

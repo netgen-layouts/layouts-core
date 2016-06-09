@@ -6,8 +6,9 @@ use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionDraftPa
 use Netgen\BlockManager\Core\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft as APICollectionDraft;
 use Netgen\BlockManager\API\Service\CollectionService;
+use PHPUnit\Framework\TestCase;
 
-class CollectionDraftParamConverterTest extends \PHPUnit\Framework\TestCase
+class CollectionDraftParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

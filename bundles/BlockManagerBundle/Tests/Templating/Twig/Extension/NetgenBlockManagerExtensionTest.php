@@ -14,8 +14,9 @@ use Twig_SimpleFunction;
 use Twig_TokenParser;
 use Twig_Template;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
-class NetgenBlockManagerExtensionTest extends \PHPUnit\Framework\TestCase
+class NetgenBlockManagerExtensionTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

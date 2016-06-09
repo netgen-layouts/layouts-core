@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 use Netgen\BlockManager\Parameters\Parameter;
+use PHPUnit\Framework\TestCase;
 
-class TwigBlockHandlerTest extends \PHPUnit\Framework\TestCase
+class TwigBlockHandlerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler

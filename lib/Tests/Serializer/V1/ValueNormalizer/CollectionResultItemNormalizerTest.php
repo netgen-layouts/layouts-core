@@ -8,8 +8,9 @@ use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
+use PHPUnit\Framework\TestCase;
 
-class CollectionResultItemNormalizerTest extends \PHPUnit\Framework\TestCase
+class CollectionResultItemNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormalizer

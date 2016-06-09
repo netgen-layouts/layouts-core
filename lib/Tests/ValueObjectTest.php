@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests;
 
 use Netgen\BlockManager\Tests\Stubs\ValueObject;
+use PHPUnit\Framework\TestCase;
 
-class ValueObjectTest extends \PHPUnit\Framework\TestCase
+class ValueObjectTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\ValueObject::__construct

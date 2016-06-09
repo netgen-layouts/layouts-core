@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
+use PHPUnit\Framework\TestCase;
 
-class QueryCreateStructTest extends \PHPUnit\Framework\TestCase
+class QueryCreateStructTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::__construct

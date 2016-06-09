@@ -19,8 +19,9 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithRequiredParameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use PHPUnit\Framework\TestCase;
 
-class CollectionValidatorTest extends \PHPUnit\Framework\TestCase
+class CollectionValidatorTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

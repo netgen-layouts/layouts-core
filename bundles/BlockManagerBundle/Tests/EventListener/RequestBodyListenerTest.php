@@ -10,8 +10,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
+use PHPUnit\Framework\TestCase;
 
-class RequestBodyListenerTest extends \PHPUnit\Framework\TestCase
+class RequestBodyListenerTest extends TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::getSubscribedEvents

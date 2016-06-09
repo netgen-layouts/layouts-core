@@ -6,8 +6,9 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 
-class TemplateResolverConfigurationTest extends \PHPUnit\Framework\TestCase
+class TemplateResolverConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

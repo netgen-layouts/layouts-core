@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\ItemView;
+use PHPUnit\Framework\TestCase;
 
-class ItemViewTest extends \PHPUnit\Framework\TestCase
+class ItemViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\Item

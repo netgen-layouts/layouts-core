@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
+use PHPUnit\Framework\TestCase;
 
-class CollectionReferenceTest extends \PHPUnit\Framework\TestCase
+class CollectionReferenceTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::__construct

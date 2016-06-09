@@ -10,8 +10,9 @@ use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class ItemBuilderTest extends \PHPUnit\Framework\TestCase
+class ItemBuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

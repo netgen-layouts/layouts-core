@@ -7,8 +7,9 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ItemViewInterface;
+use PHPUnit\Framework\TestCase;
 
-class ItemViewProviderTest extends \PHPUnit\Framework\TestCase
+class ItemViewProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

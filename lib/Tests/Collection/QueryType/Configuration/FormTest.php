@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Collection\QueryType\Configuration;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
+use PHPUnit\Framework\TestCase;
 
-class FormTest extends \PHPUnit\Framework\TestCase
+class FormTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Form

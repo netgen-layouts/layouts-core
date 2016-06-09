@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\Rule;
 
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
+use PHPUnit\Framework\TestCase;
 
-class TargetTest extends \PHPUnit\Framework\TestCase
+class TargetTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

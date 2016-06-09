@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Collection;
 use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
+use PHPUnit\Framework\TestCase;
 
-class ResultItemTest extends \PHPUnit\Framework\TestCase
+class ResultItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\ResultItem::getItem

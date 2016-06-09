@@ -10,8 +10,9 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Form\FormInterface;
+use PHPUnit\Framework\TestCase;
 
-class FormViewNormalizerTest extends \PHPUnit\Framework\TestCase
+class FormViewNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

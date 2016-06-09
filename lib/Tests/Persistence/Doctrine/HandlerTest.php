@@ -8,10 +8,11 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
+use PHPUnit\Framework\TestCase;
 
-class HandlerTest extends \PHPUnit\Framework\TestCase
+class HandlerTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * Sets up the tests.

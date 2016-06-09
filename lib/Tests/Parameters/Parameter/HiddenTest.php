@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Hidden;
+use PHPUnit\Framework\TestCase;
 
-class HiddenTest extends \PHPUnit\Framework\TestCase
+class HiddenTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getType

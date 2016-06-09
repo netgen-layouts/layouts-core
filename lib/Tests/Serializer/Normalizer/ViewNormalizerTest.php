@@ -10,8 +10,9 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Serializer;
+use PHPUnit\Framework\TestCase;
 
-class ViewNormalizerTest extends \PHPUnit\Framework\TestCase
+class ViewNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

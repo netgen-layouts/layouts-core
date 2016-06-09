@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-abstract class MapperTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class MapperTest extends TestCase
 {
     /**
      * Creates a layout mapper under test.

@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Item\ValueConverter;
 
 use Netgen\BlockManager\Item\ValueConverter\NullValueConverter;
 use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class NullValueConverterTest extends \PHPUnit\Framework\TestCase
+class NullValueConverterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueConverter\NullValueConverter

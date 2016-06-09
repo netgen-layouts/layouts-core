@@ -11,8 +11,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
-class ExceptionSerializerListenerTest extends \PHPUnit\Framework\TestCase
+class ExceptionSerializerListenerTest extends TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents

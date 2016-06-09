@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Symfony\Component\Validator\Constraints;
+use PHPUnit\Framework\TestCase;
 
-class ParameterTest extends \PHPUnit\Framework\TestCase
+class ParameterTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct

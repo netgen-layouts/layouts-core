@@ -6,8 +6,9 @@ use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryDraftParamCo
 use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft as APIQueryDraft;
 use Netgen\BlockManager\API\Service\CollectionService;
+use PHPUnit\Framework\TestCase;
 
-class QueryDraftParamConverterTest extends \PHPUnit\Framework\TestCase
+class QueryDraftParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

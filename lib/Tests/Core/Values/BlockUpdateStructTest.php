@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use PHPUnit\Framework\TestCase;
 
-class BlockUpdateStructTest extends \PHPUnit\Framework\TestCase
+class BlockUpdateStructTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct

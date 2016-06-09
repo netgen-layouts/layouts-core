@@ -6,7 +6,7 @@ use Netgen\BlockManager\Tests\Core\Service\CollectionServiceTest as BaseCollecti
 
 class CollectionServiceTest extends BaseCollectionServiceTest
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * Sets up the tests.

@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Configuration;
 
 use Netgen\BlockManager\Configuration\ContainerConfiguration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 
-class ContainerConfigurationTest extends \PHPUnit\Framework\TestCase
+class ContainerConfigurationTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

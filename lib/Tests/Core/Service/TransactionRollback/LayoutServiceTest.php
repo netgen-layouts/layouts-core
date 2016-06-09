@@ -12,11 +12,12 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
+use PHPUnit\Framework\TestCase;
 use Exception;
 
-class LayoutServiceTest extends \PHPUnit\Framework\TestCase
+class LayoutServiceTest extends TestCase
 {
-    use TestCase;
+    use TestCaseTrait;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

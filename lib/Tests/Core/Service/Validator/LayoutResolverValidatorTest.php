@@ -11,8 +11,9 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
+use PHPUnit\Framework\TestCase;
 
-class LayoutResolverValidatorTest extends \PHPUnit\Framework\TestCase
+class LayoutResolverValidatorTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

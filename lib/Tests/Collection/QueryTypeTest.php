@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Collection;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType;
+use PHPUnit\Framework\TestCase;
 
-class QueryTypeTest extends \PHPUnit\Framework\TestCase
+class QueryTypeTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

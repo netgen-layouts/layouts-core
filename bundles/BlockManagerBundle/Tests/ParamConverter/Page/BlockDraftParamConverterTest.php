@@ -6,8 +6,9 @@ use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockDraftParamConverte
 use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
 use Netgen\BlockManager\API\Service\BlockService;
+use PHPUnit\Framework\TestCase;
 
-class BlockDraftParamConverterTest extends \PHPUnit\Framework\TestCase
+class BlockDraftParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

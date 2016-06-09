@@ -6,8 +6,9 @@ use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutDraftParamConvert
 use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft as APILayoutDraft;
 use Netgen\BlockManager\API\Service\LayoutService;
+use PHPUnit\Framework\TestCase;
 
-class LayoutDraftParamConverterTest extends \PHPUnit\Framework\TestCase
+class LayoutDraftParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

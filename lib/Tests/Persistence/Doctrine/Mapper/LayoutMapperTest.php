@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use PHPUnit\Framework\TestCase;
 
-class LayoutMapperTest extends \PHPUnit\Framework\TestCase
+class LayoutMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper

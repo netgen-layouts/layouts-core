@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Configuration\Factory;
 
 use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use PHPUnit\Framework\TestCase;
 
-class BlockTypeGroupFactoryTest extends \PHPUnit\Framework\TestCase
+class BlockTypeGroupFactoryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory::buildBlockTypeGroup

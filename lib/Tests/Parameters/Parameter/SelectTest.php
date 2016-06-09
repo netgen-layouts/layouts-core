@@ -4,8 +4,9 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Select;
 use Symfony\Component\Validator\Validation;
+use PHPUnit\Framework\TestCase;
 
-class SelectTest extends \PHPUnit\Framework\TestCase
+class SelectTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getType

@@ -12,8 +12,9 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use DateTime;
+use PHPUnit\Framework\TestCase;
 
-class LayoutNormalizerTest extends \PHPUnit\Framework\TestCase
+class LayoutNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface

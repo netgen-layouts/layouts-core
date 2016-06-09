@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Configuration\LayoutType;
 
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
+use PHPUnit\Framework\TestCase;
 
-class ZoneTest extends \PHPUnit\Framework\TestCase
+class ZoneTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\LayoutType\Zone
