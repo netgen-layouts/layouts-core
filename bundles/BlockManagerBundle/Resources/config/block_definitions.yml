@@ -89,3 +89,46 @@ block_definitions:
                 item_view_types:
                     standard:
                         name: 'Standard'
+
+    gallery:
+        forms:
+            content:
+                type: ~
+                parameters: [number_of_thumbnails]
+            design:
+                type: ~
+                parameters:
+                    - next_and_previous
+                    - show_pagination
+                    - pagination_type
+                    - infinite_loop
+                    - transition
+                    - autoplay
+                    - autoplay_time
+                    - aspect_ratio
+                    - show_details
+                    - show_details_on_hover
+                    - enable_lightbox
+                    - css_class
+                    - css_id
+        view_types:
+            slider:
+                name: 'Slider'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+            thumb_gallery:
+                name: 'Thumb gallery'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+            grid_gallery:
+                name: 'Grid gallery'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+            sushi_bar:
+                name: 'Sushi bar'
+                item_view_types:
+                    standard:
+                        name: 'Standard'

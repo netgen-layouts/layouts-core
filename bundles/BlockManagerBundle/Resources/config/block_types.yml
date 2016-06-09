@@ -64,3 +64,47 @@ block_types:
             item_view_type: standard
             parameters:
                 number_of_columns: 3
+
+    slider:
+        name: 'Slider'
+        definition_identifier: gallery
+        defaults:
+            view_type: slider
+            item_view_type: standard
+            parameters:
+                transition: first
+                aspect_ratio: 16_9
+                number_of_thumbnails: 1
+
+    thumb_gallery:
+        name: 'Thumb gallery'
+        definition_identifier: gallery
+        defaults:
+            view_type: thumb_gallery
+            item_view_type: standard
+            parameters:
+                transition: first
+                aspect_ratio: 16_9
+                number_of_thumbnails: 1
+
+    grid_gallery:
+        name: 'Grid gallery'
+        definition_identifier: gallery
+        defaults:
+            view_type: grid_gallery
+            item_view_type: standard
+            parameters:
+                transition: first
+                aspect_ratio: 16_9
+                number_of_thumbnails: 1
+
+    sushi_bar:
+        name: 'Sushi bar'
+        definition_identifier: gallery
+        defaults:
+            view_type: sushi_bar
+            item_view_type: standard
+            parameters:
+                transition: first
+                aspect_ratio: 16_9
+                number_of_thumbnails: 1

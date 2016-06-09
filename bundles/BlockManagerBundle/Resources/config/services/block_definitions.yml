@@ -10,6 +10,7 @@ parameters:
     netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
     netgen_block_manager.block.block_definition.handler.map.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler
     netgen_block_manager.block.block_definition.handler.list.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler
+    netgen_block_manager.block.block_definition.handler.gallery.class: Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler
 
     netgen_block_manager.block.block_definition.handler.title.options:
         h1: 'Heading 1'
@@ -30,6 +31,18 @@ parameters:
         3: 'Three columns'
         4: 'Four columns'
         6: 'Six columns'
+
+    netgen_block_manager.block.block_definition.handler.gallery.pagination_types:
+        first: 'First'
+        second: 'Second'
+
+    netgen_block_manager.block.block_definition.handler.gallery.transitions:
+        first: 'First'
+        second: 'Second'
+
+    netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios:
+        16_9: '16:9'
+        4_3: '4:3'
 
 services:
     netgen_block_manager.block.registry.block_definition:
@@ -72,3 +85,12 @@ services:
             - "%netgen_block_manager.block.block_definition.handler.list.columns%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: 'list' }
+
+    netgen_block_manager.block.block_definition.handler.gallery:
+        class: "%netgen_block_manager.block.block_definition.handler.gallery.class%"
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.gallery.pagination_types%"
+            - "%netgen_block_manager.block.block_definition.handler.gallery.transitions%"
+            - "%netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'gallery' }
