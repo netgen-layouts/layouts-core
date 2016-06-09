@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Form\FormType;
 use PHPUnit\Framework\TestCase;
 
-class FormNameTest extends TestCase
+class FormTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

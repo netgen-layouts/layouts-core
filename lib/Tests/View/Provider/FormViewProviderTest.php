@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\View\Provider\FormViewProvider;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\FormViewInterface;

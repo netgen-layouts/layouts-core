@@ -1,12 +1,12 @@
 block_definitions:
     title:
         forms:
-            design:
-                type: ~
-                parameters: [tag]
             content:
                 type: ~
                 parameters: [title]
+            design:
+                type: ~
+                parameters: [tag, css_class, css_id]
         view_types:
             default:
                 name: 'Default'
@@ -57,8 +57,12 @@ block_definitions:
 
     map:
         forms:
-            full:
+            content:
                 type: ~
+                parameters: [latitude, longitude, zoom, map_type, show_marker]
+            design:
+                type: ~
+                parameters: [css_class, css_id]
         view_types:
             default:
                 name: 'Default'
