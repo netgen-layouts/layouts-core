@@ -26,3 +26,7 @@ block.map.map_type: 'Map type'
 block.map.show_marker: 'Show marker'
 block.map.css_id: 'CSS ID'
 block.map.css_class: 'CSS class'
+
+block.list.number_of_columns: 'Number of columns'
+block.list.css_id: 'CSS ID'
+block.list.css_class: 'CSS class'

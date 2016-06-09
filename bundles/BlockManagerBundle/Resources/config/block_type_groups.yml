@@ -5,6 +5,9 @@ block_type_groups:
     basic:
         name: 'Basic'
         block_types: [map]
+    listing:
+        name: 'Listing'
+        block_types: [list, grid]
     content_blocks:
         name: 'Content blocks'
         block_types: [content_block]

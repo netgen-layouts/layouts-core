@@ -46,3 +46,21 @@ block_types:
                zoom: 5
                map_type: roadmap
                show_marker: true
+
+    list:
+       name: 'List'
+       definition_identifier: list
+       defaults:
+           view_type: list
+           item_view_type: standard
+           parameters:
+               number_of_columns: 1
+
+    grid:
+       name: 'Grid'
+       definition_identifier: list
+       defaults:
+           view_type: grid
+           item_view_type: standard
+           parameters:
+               number_of_columns: 3

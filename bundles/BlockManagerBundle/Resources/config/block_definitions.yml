@@ -69,3 +69,23 @@ block_definitions:
                 item_view_types:
                     standard:
                         name: 'Standard'
+
+    list:
+        forms:
+            content:
+                type: ~
+                parameters: [number_of_columns]
+            design:
+                type: ~
+                parameters: [css_class, css_id]
+        view_types:
+            list:
+                name: 'List'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+            grid:
+                name: 'Grid'
+                item_view_types:
+                    standard:
+                        name: 'Standard'

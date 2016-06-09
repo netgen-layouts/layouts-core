@@ -9,6 +9,7 @@ parameters:
     netgen_block_manager.block.block_definition.handler.html_snippet.class: Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler
     netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
     netgen_block_manager.block.block_definition.handler.map.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler
+    netgen_block_manager.block.block_definition.handler.list.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler
 
     netgen_block_manager.block.block_definition.handler.title.options:
         h1: 'Heading 1'
@@ -22,6 +23,13 @@ parameters:
         satellite: 'Satellite'
         hybrid: 'Hybrid'
         terrain: 'Terrain'
+
+    netgen_block_manager.block.block_definition.handler.list.columns:
+        1: 'One column'
+        2: 'Two columns'
+        3: 'Three columns'
+        4: 'Four columns'
+        6: 'Six columns'
 
 services:
     netgen_block_manager.block.registry.block_definition:
@@ -57,3 +65,10 @@ services:
             - "%netgen_block_manager.block.block_definition.handler.map.map_types%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: 'map' }
+
+    netgen_block_manager.block.block_definition.handler.list:
+        class: "%netgen_block_manager.block.block_definition.handler.list.class%"
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.list.columns%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'list' }
