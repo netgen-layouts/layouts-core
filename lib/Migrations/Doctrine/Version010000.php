@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Migrations\Doctrine;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class Version20160211144645 extends AbstractMigration
+class Version010000 extends AbstractMigration
 {
     /**
      * @param \Doctrine\DBAL\Schema\Schema $schema
@@ -100,6 +100,63 @@ class Version20160211144645 extends AbstractMigration
 
         $ruleConditionTable->setPrimaryKey(array('id', 'status'));
         $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
+
+        // ngbm_collection table
+
+        $collectionTable = $schema->createTable('ngbm_collection');
+
+        $collectionTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $collectionTable->addColumn('status', 'integer');
+        $collectionTable->addColumn('type', 'integer');
+        $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
+
+        $collectionTable->setPrimaryKey(array('id', 'status'));
+
+        // ngbm_collection_item table
+
+        $collectionItemTable = $schema->createTable('ngbm_collection_item');
+
+        $collectionItemTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $collectionItemTable->addColumn('status', 'integer');
+        $collectionItemTable->addColumn('collection_id', 'integer');
+        $collectionItemTable->addColumn('position', 'integer');
+        $collectionItemTable->addColumn('type', 'integer');
+        $collectionItemTable->addColumn('value_id', 'string', array('length' => 255));
+        $collectionItemTable->addColumn('value_type', 'string', array('length' => 255));
+
+        $collectionItemTable->setPrimaryKey(array('id', 'status'));
+        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
+
+        // ngbm_collection_query table
+
+        $collectionQueryTable = $schema->createTable('ngbm_collection_query');
+
+        $collectionQueryTable->addColumn('id', 'integer', array('autoincrement' => true));
+        $collectionQueryTable->addColumn('status', 'integer');
+        $collectionQueryTable->addColumn('collection_id', 'integer');
+        $collectionQueryTable->addColumn('position', 'integer');
+        $collectionQueryTable->addColumn('identifier', 'string', array('length' => 255));
+        $collectionQueryTable->addColumn('type', 'string', array('length' => 255));
+        $collectionQueryTable->addColumn('parameters', 'text', array('length' => 65535));
+
+        $collectionQueryTable->setPrimaryKey(array('id', 'status'));
+        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
+
+        // ngbm_block_collection table
+
+        $blockCollectionTable = $schema->createTable('ngbm_block_collection');
+
+        $blockCollectionTable->addColumn('block_id', 'integer');
+        $blockCollectionTable->addColumn('block_status', 'integer');
+        $blockCollectionTable->addColumn('collection_id', 'integer');
+        $blockCollectionTable->addColumn('collection_status', 'integer');
+        $blockCollectionTable->addColumn('identifier', 'string', array('length' => 255));
+        $blockCollectionTable->addColumn('start', 'integer');
+        $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
+
+        $blockCollectionTable->setPrimaryKey(array('block_id', 'block_status', 'collection_id', 'collection_status'));
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', array('block_id', 'block_status'), array('id', 'status'));
+        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'collection_status'), array('id', 'status'));
     }
 
     /**
@@ -107,6 +164,11 @@ class Version20160211144645 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
+        $schema->dropTable('ngbm_block_collection');
+        $schema->dropTable('ngbm_collection_item');
+        $schema->dropTable('ngbm_collection_query');
+        $schema->dropTable('ngbm_collection');
+
         $schema->dropTable('ngbm_block');
         $schema->dropTable('ngbm_zone');
         $schema->dropTable('ngbm_layout');
