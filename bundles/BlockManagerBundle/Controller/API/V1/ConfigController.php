@@ -20,6 +20,11 @@ class ConfigController extends Controller
     protected $blockTypeRegistry;
 
     /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
+     */
+    protected $layoutTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface
      */
     protected $sourceRegistry;
@@ -63,6 +68,23 @@ class ConfigController extends Controller
                 'block_types' => $blockTypes,
             )
         );
+    }
+
+    /**
+     * Serializes the layout types.
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function getLayoutTypes()
+    {
+        $layoutTypes = array();
+        foreach ($this->layoutTypeRegistry->getLayoutTypes() as $layoutType) {
+            if ($layoutType->isEnabled()) {
+                $layoutTypes[] = new VersionedValue($layoutType, Version::API_V1);
+            }
+        }
+
+        return new ValueArray($layoutTypes);
     }
 
     /**
