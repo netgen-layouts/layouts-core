@@ -229,18 +229,17 @@ class BlockController extends Controller
 
         $form->handleRequest($request);
 
-        $responseCode = Response::HTTP_OK;
-        if ($request->getMethod() === Request::METHOD_POST) {
-            if ($form->isValid()) {
-                $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
-
-                return new View($updatedBlock, Version::API_V1);
-            } else {
-                $responseCode = Response::HTTP_UNPROCESSABLE_ENTITY;
-            }
+        if ($request->getMethod() !== Request::METHOD_POST) {
+            return new FormView($form, Version::API_V1);
         }
 
-        return new FormView($form, Version::API_V1, $responseCode);
+        if ($form->isValid()) {
+            $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
+
+            return new View($updatedBlock, Version::API_V1);
+        }
+
+        return new FormView($form, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
