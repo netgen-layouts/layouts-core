@@ -1,10 +1,10 @@
 block_type_groups:
     typography:
         name: 'Typography'
-        block_types: [title, text, html_snippet]
+        block_types: [title, text]
     basic:
         name: 'Basic'
-        block_types: [map]
+        block_types: [map, html_snippet]
     listing:
         name: 'Listing'
         block_types: [list, grid]
