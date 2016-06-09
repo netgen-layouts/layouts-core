@@ -1,13 +1,35 @@
-{% use 'form_div_layout.html.twig' with form_row as base_form_row %}
+{%- use 'form_div_layout.html.twig' with form_row as base_form_row -%}
 
 {%- block form_row -%}
-    {% if 'checkbox' in block_prefixes or 'radio' in block_prefixes %}
+    {%- if 'checkbox' in block_prefixes or 'radio' in block_prefixes -%}
         <div>
             {{- form_errors(form) -}}
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
         </div>
-    {% else %}
-        {{ block('base_form_row') }}
-    {% endif %}
+    {%- else -%}
+        {{- block('base_form_row') -}}
+    {%- endif -%}
 {%- endblock form_row -%}
+
+{%- block ngbm_compound_boolean_widget -%}
+    <div data-compound-checkbox="true" {{ block('widget_container_attributes') }}>
+        {%- if form.parent is empty -%}
+            {{- form_errors(form) -}}
+        {%- endif -%}
+
+        <div class="checkbox">
+            {{- form_row(form.children[form.vars.checkbox_name]) -}}
+        </div>
+
+        <div class="children">
+            {%- for name, child in form.children -%}
+                {%- if name != form.vars.checkbox_name -%}
+                    {{- form_row(child) -}}
+                {%- endif -%}
+            {%- endfor -%}
+        </div>
+
+        {{- form_rest(form) -}}
+    </div>
+{%- endblock ngbm_compound_boolean_widget -%}

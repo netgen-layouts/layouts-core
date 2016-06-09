@@ -1,2 +1,0 @@
-form_themes:
-    - 'NetgenBlockManagerBundle:form:form_div_layout.html.twig'
