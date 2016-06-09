@@ -497,12 +497,16 @@ class BlockService implements BlockServiceInterface
         );
 
         $blockParameters = array();
-        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
-            $blockParameters[$parameterName] = null;
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                    $blockParameters[$subParameterName] = null;
+        $definitionParameters = $blockDefinition->getParameters();
+        if (is_array($definitionParameters)) {
+            foreach ($definitionParameters as $parameterName => $parameter) {
+                $blockParameters[$parameterName] = null;
+
+                if ($parameter instanceof CompoundParameterInterface) {
+                    foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+                        $blockParameters[$subParameterName] = null;
+                    }
                 }
             }
         }
