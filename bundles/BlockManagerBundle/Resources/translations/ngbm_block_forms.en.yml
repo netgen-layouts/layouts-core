@@ -17,8 +17,6 @@ block.paragraph.test4: 'Test 4'
 block.paragraph.test5: 'Test 5'
 block.paragraph.test6: 'Test 6'
 
-block.twig_block.block_name: 'Twig block name'
-
 block.map.latitude: 'Latitude'
 block.map.longitude: 'Longitude'
 block.map.zoom: 'Zoom'
@@ -26,6 +24,10 @@ block.map.map_type: 'Map type'
 block.map.show_marker: 'Show marker'
 block.map.css_id: 'CSS ID'
 block.map.css_class: 'CSS class'
+
+block.html_snippet.content: 'Content'
+block.html_snippet.css_class: 'CSS class'
+block.html_snippet.css_id: 'CSS ID'
 
 block.list.number_of_columns: 'Number of columns'
 block.list.css_id: 'CSS ID'
@@ -45,3 +47,5 @@ block.gallery.number_of_thumbnails: 'Thumbnails per row/slide'
 block.gallery.enable_lightbox: 'Enable lightbox'
 block.gallery.css_class: 'CSS class'
 block.gallery.css_id: 'CSS ID'
+
+block.twig_block.block_name: 'Twig block name'

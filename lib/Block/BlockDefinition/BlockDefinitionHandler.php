@@ -17,8 +17,8 @@ abstract class BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'css_id' => new Parameter\Text(),
             'css_class' => new Parameter\Text(),
+            'css_id' => new Parameter\Text(),
         );
     }
 
