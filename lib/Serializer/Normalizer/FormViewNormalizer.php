@@ -37,10 +37,10 @@ class FormViewNormalizer implements NormalizerInterface
         return array(
             'form' => $this->viewRenderer->renderValueObject(
                 $object->getValue(),
-                $object->getContext(),
                 array(
                     'api_version' => $object->getVersion(),
-                ) + $object->getViewParameters()
+                ) + $object->getViewParameters(),
+                $object->getContext()
             ),
         );
     }

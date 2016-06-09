@@ -158,15 +158,15 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                         self::BLOCK_CONTROLLER,
                         array(
                             'blockId' => $block->getId(),
-                            'context' => $context,
                             'parameters' => $parameters,
+                            'context' => $context,
                         )
                     ),
                     'esi'
                 );
             }
 
-            return $this->viewRenderer->renderValueObject($block, $context, $parameters);
+            return $this->viewRenderer->renderValueObject($block, $parameters, $context);
         } catch (Exception $e) {
             $this->logBlockError($block, $e);
 
@@ -195,8 +195,8 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
         try {
             return $this->viewRenderer->renderValueObject(
                 $item,
-                $context,
-                array('viewType' => $viewType) + $parameters
+                array('viewType' => $viewType) + $parameters,
+                $context
             );
         } catch (Exception $e) {
             $this->logItemError($item, $e);

@@ -8,12 +8,12 @@ interface RendererInterface
      * Renders the value object.
      *
      * @param mixed $valueObject
-     * @param string $context
      * @param array $parameters
+     * @param string $context
      *
      * @return string
      */
-    public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array());
+    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW);
 
     /**
      * Renders the view.

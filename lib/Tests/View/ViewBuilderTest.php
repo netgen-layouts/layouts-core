@@ -86,7 +86,7 @@ class ViewBuilderTest extends TestCase
         );
 
         $viewParameters = array('some_param' => 'some_value');
-        $builtView = $viewBuilder->buildView($value, 'context', $viewParameters);
+        $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
 
         self::assertInstanceOf(View::class, $builtView);
         self::assertEquals('some_template.html.twig', $builtView->getTemplate());
@@ -110,7 +110,7 @@ class ViewBuilderTest extends TestCase
             $this->eventDispatcherMock
         );
 
-        $viewBuilder->buildView($value, 'context');
+        $viewBuilder->buildView($value);
     }
 
     /**
@@ -137,6 +137,6 @@ class ViewBuilderTest extends TestCase
             array($this->viewProviderMock)
         );
 
-        $viewBuilder->buildView($value, 'context');
+        $viewBuilder->buildView($value);
     }
 }

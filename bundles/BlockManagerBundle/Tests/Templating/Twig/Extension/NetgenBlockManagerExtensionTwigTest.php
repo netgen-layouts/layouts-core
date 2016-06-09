@@ -43,7 +43,7 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             ->method('renderValueObject')
             ->will(
                 $this->returnCallback(
-                    function ($block, $context) {
+                    function ($block, $parameters, $context) {
                         if ($context === ViewInterface::CONTEXT_VIEW) {
                             return 'rendered block';
                         } elseif ($context === 'json') {

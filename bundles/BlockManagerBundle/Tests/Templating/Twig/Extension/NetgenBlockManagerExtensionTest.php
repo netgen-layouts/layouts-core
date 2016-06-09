@@ -109,8 +109,8 @@ class NetgenBlockManagerExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW),
-                $this->equalTo(array('param' => 'value'))
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
             )
             ->will($this->returnValue('rendered block'));
 
@@ -134,8 +134,8 @@ class NetgenBlockManagerExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW),
-                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value'))
+                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
             )
             ->will($this->returnValue('rendered item'));
 

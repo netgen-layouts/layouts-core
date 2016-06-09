@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\API\Values\Value;
 use Twig_Environment;
 
 class Renderer implements RendererInterface
@@ -33,15 +32,15 @@ class Renderer implements RendererInterface
      * Renders the value object.
      *
      * @param mixed $valueObject
-     * @param string $context
      * @param array $parameters
+     * @param string $context
      *
      * @return string
      */
-    public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_VIEW, array $parameters = array())
+    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
         return $this->renderView(
-            $this->viewBuilder->buildView($valueObject, $context, $parameters)
+            $this->viewBuilder->buildView($valueObject, $parameters, $context)
         );
     }
 
