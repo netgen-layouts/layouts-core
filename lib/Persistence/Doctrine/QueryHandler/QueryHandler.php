@@ -1,12 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Helper;
+namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 
-class QueryHelper
+abstract class QueryHandler
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -14,23 +15,20 @@ class QueryHelper
     protected $connection;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
+     */
+    protected $connectionHelper;
+
+    /**
      * Constructor.
      *
      * @param \Doctrine\DBAL\Connection $connection
+     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      */
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, ConnectionHelper $connectionHelper)
     {
         $this->connection = $connection;
-    }
-
-    /**
-     * Returns the instance of Doctrine query builder.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
-    public function getQuery()
-    {
-        return $this->connection->createQueryBuilder();
+        $this->connectionHelper = $connectionHelper;
     }
 
     /**

@@ -3,35 +3,11 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
-use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
+use Doctrine\DBAL\Types\Type;
 
-class LayoutQueryHandler
+class LayoutQueryHandler extends QueryHandler
 {
-    /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
-     */
-    protected $connectionHelper;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper
-     */
-    protected $queryHelper;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
-     */
-    public function __construct(ConnectionHelper $connectionHelper, QueryHelper $queryHelper)
-    {
-        $this->connectionHelper = $connectionHelper;
-        $this->queryHelper = $queryHelper;
-    }
-
     /**
      * Loads all data for layout with specified ID.
      *
@@ -49,7 +25,7 @@ class LayoutQueryHandler
         ->setParameter('id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
             $query->addOrderBy('status', 'ASC');
         }
 
@@ -78,7 +54,7 @@ class LayoutQueryHandler
         ->setParameter('identifier', $identifier, Type::STRING);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         return $query->execute()->fetchAll();
@@ -101,7 +77,7 @@ class LayoutQueryHandler
         ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
             $query->addOrderBy('status', 'ASC');
         }
 
@@ -120,7 +96,7 @@ class LayoutQueryHandler
      */
     public function loadLayoutCollectionsData($layoutId, $status = null)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('bc.block_id', 'bc.block_status', 'bc.collection_id', 'bc.collection_status')
             ->from('ngbm_block_collection', 'bc')
             ->innerJoin('bc', 'ngbm_block', 'b', 'bc.block_id = b.id and bc.block_status = b.status')
@@ -130,7 +106,7 @@ class LayoutQueryHandler
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status, 'bc.block_status');
+            $this->applyStatusCondition($query, $status, 'bc.block_status');
         }
 
         return $query->execute()->fetchAll();
@@ -146,7 +122,7 @@ class LayoutQueryHandler
      */
     public function layoutExists($layoutId, $status)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_layout')
             ->where(
@@ -154,7 +130,7 @@ class LayoutQueryHandler
             )
             ->setParameter('id', $layoutId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -172,7 +148,7 @@ class LayoutQueryHandler
      */
     public function zoneExists($layoutId, $identifier, $status)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_zone')
             ->where(
@@ -184,7 +160,7 @@ class LayoutQueryHandler
             ->setParameter('identifier', $identifier, Type::STRING)
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -201,7 +177,7 @@ class LayoutQueryHandler
      */
     public function layoutNameExists($name, $status = null)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_layout')
             ->where(
@@ -212,7 +188,7 @@ class LayoutQueryHandler
             ->setParameter('name', trim($name), Type::STRING);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $data = $query->execute()->fetchAll();
@@ -232,7 +208,7 @@ class LayoutQueryHandler
     {
         $currentTimeStamp = time();
 
-        $query = $this->queryHelper->getQuery()
+        $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_layout')
             ->values(
                 array(
@@ -262,7 +238,7 @@ class LayoutQueryHandler
         }
 
         foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
-            $query = $this->queryHelper->getQuery()
+            $query = $this->connection->createQueryBuilder()
                 ->insert('ngbm_zone')
                 ->values(
                     array(
@@ -290,7 +266,7 @@ class LayoutQueryHandler
      */
     public function updateLayout($layoutId, $status, LayoutUpdateStruct $layoutUpdateStruct)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_layout')
             ->set('name', ':name')
@@ -302,7 +278,7 @@ class LayoutQueryHandler
             ->setParameter('name', $layoutUpdateStruct->name, Type::STRING)
             ->setParameter('modified', time(), Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -315,7 +291,7 @@ class LayoutQueryHandler
      */
     public function deleteLayoutBlocks($layoutId, $status = null)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query
             ->delete('ngbm_block')
             ->where(
@@ -324,7 +300,7 @@ class LayoutQueryHandler
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -340,7 +316,7 @@ class LayoutQueryHandler
     {
         // Delete all zones
 
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_zone')
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
@@ -348,14 +324,14 @@ class LayoutQueryHandler
             ->setParameter('layout_id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
 
         // Then delete the layout itself
 
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_layout')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -363,7 +339,7 @@ class LayoutQueryHandler
             ->setParameter('id', $layoutId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -376,7 +352,7 @@ class LayoutQueryHandler
      */
     protected function getLayoutSelectQuery()
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id', 'status', 'type', 'name', 'created', 'modified')
             ->from('ngbm_layout');
 
@@ -390,7 +366,7 @@ class LayoutQueryHandler
      */
     protected function getZoneSelectQuery()
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT identifier', 'layout_id', 'status')
             ->from('ngbm_zone');
 

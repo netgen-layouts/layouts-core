@@ -59,16 +59,15 @@ trait TestCaseTrait
     protected function createLayoutHandler()
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
-        $queryHelper = new QueryHelper($this->databaseConnection);
 
         return new LayoutHandler(
             new LayoutQueryHandler(
-                $connectionHelper,
-                $queryHelper
+                $this->databaseConnection,
+                $connectionHelper
             ),
             new BlockQueryHandler(
-                $connectionHelper,
-                $queryHelper
+                $this->databaseConnection,
+                $connectionHelper
             ),
             $this->createBlockHandler(),
             $this->createCollectionHandler(),
@@ -83,12 +82,10 @@ trait TestCaseTrait
      */
     protected function createBlockHandler()
     {
-        $connectionHelper = new ConnectionHelper($this->databaseConnection);
-
         return new BlockHandler(
             new BlockQueryHandler(
-                $connectionHelper,
-                new QueryHelper($this->databaseConnection)
+                $this->databaseConnection,
+                new ConnectionHelper($this->databaseConnection)
             ),
             $this->createCollectionHandler(),
             new BlockMapper(),
@@ -103,12 +100,10 @@ trait TestCaseTrait
      */
     protected function createCollectionHandler()
     {
-        $connectionHelper = new ConnectionHelper($this->databaseConnection);
-
         return new CollectionHandler(
             new CollectionQueryHandler(
-                $connectionHelper,
-                new QueryHelper($this->databaseConnection)
+                $this->databaseConnection,
+                new ConnectionHelper($this->databaseConnection)
             ),
             new CollectionMapper(),
             new PositionHelper($this->databaseConnection)
@@ -122,12 +117,10 @@ trait TestCaseTrait
      */
     protected function createLayoutResolverHandler()
     {
-        $connectionHelper = new ConnectionHelper($this->databaseConnection);
-
         return new LayoutResolverHandler(
             new LayoutResolverQueryHandler(
-                $connectionHelper,
-                new QueryHelper($this->databaseConnection),
+                $this->databaseConnection,
+                new ConnectionHelper($this->databaseConnection),
                 array(
                     'route' => new TargetHandler\Route(),
                     'route_prefix' => new TargetHandler\RoutePrefix(),

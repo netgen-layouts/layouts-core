@@ -7,35 +7,11 @@ use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Doctrine\DBAL\Types\Type;
 
-class CollectionQueryHandler
+class CollectionQueryHandler extends QueryHandler
 {
-    /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
-     */
-    protected $connectionHelper;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper
-     */
-    protected $queryHelper;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper $queryHelper
-     */
-    public function __construct(ConnectionHelper $connectionHelper, QueryHelper $queryHelper)
-    {
-        $this->connectionHelper = $connectionHelper;
-        $this->queryHelper = $queryHelper;
-    }
-
     /**
      * Loads all collection data for collection with specified ID.
      *
@@ -53,7 +29,7 @@ class CollectionQueryHandler
         ->setParameter('id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
             $query->addOrderBy('status', 'ASC');
         }
 
@@ -76,7 +52,7 @@ class CollectionQueryHandler
         ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         return $query->execute()->fetchAll();
@@ -99,7 +75,7 @@ class CollectionQueryHandler
         ->setParameter('id', $itemId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         return $query->execute()->fetchAll();
@@ -122,7 +98,7 @@ class CollectionQueryHandler
         ->setParameter('id', $queryId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         return $query->execute()->fetchAll();
@@ -145,7 +121,7 @@ class CollectionQueryHandler
         ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
             $query->addOrderBy('status', 'ASC');
         }
 
@@ -171,7 +147,7 @@ class CollectionQueryHandler
         ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
             $query->addOrderBy('status', 'ASC');
         }
 
@@ -190,7 +166,7 @@ class CollectionQueryHandler
      */
     public function collectionExists($collectionId, $status)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_collection')
             ->where(
@@ -198,7 +174,7 @@ class CollectionQueryHandler
             )
             ->setParameter('id', $collectionId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -215,7 +191,7 @@ class CollectionQueryHandler
      */
     public function namedCollectionExists($name, $status = null)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_collection')
             ->where(
@@ -228,7 +204,7 @@ class CollectionQueryHandler
             ->setParameter('name', trim($name), Type::STRING);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $data = $query->execute()->fetchAll();
@@ -246,7 +222,7 @@ class CollectionQueryHandler
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct, $collectionId = null)
     {
-        $query = $this->queryHelper->getQuery()
+        $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection')
             ->values(
                 array(
@@ -278,7 +254,7 @@ class CollectionQueryHandler
      */
     public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_collection')
             ->set('name', ':name')
@@ -288,7 +264,7 @@ class CollectionQueryHandler
             ->setParameter('id', $collectionId, Type::INTEGER)
             ->setParameter('name', $collectionUpdateStruct->name, Type::STRING);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -303,7 +279,7 @@ class CollectionQueryHandler
     {
         // Delete all connections between blocks and collections
 
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query
             ->delete('ngbm_block_collection')
             ->where(
@@ -312,14 +288,14 @@ class CollectionQueryHandler
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status, 'collection_status');
+            $this->applyStatusCondition($query, $status, 'collection_status');
         }
 
         $query->execute();
 
         // Then delete the collection itself
 
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_collection')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -327,7 +303,7 @@ class CollectionQueryHandler
             ->setParameter('id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -343,7 +319,7 @@ class CollectionQueryHandler
      */
     public function addItem(ItemCreateStruct $itemCreateStruct, $itemId = null)
     {
-        $query = $this->queryHelper->getQuery()
+        $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_item')
             ->values(
                 array(
@@ -381,7 +357,7 @@ class CollectionQueryHandler
      */
     public function moveItem($itemId, $status, $position)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
 
         $query
             ->update('ngbm_collection_item')
@@ -392,7 +368,7 @@ class CollectionQueryHandler
             ->setParameter('id', $itemId, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -405,7 +381,7 @@ class CollectionQueryHandler
      */
     public function deleteItem($itemId, $status)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_collection_item')
             ->where(
@@ -413,7 +389,7 @@ class CollectionQueryHandler
             )
             ->setParameter('id', $itemId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -426,7 +402,7 @@ class CollectionQueryHandler
      */
     public function deleteCollectionItems($collectionId, $status = null)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query
             ->delete('ngbm_collection_item')
             ->where(
@@ -435,7 +411,7 @@ class CollectionQueryHandler
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -452,7 +428,7 @@ class CollectionQueryHandler
      */
     public function queryIdentifierExists($collectionId, $status, $identifier)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_collection_query')
             ->where(
@@ -464,7 +440,7 @@ class CollectionQueryHandler
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
             ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll();
 
@@ -481,7 +457,7 @@ class CollectionQueryHandler
      */
     public function addQuery(QueryCreateStruct $queryCreateStruct, $queryId = null)
     {
-        $query = $this->queryHelper->getQuery()
+        $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query')
             ->values(
                 array(
@@ -519,7 +495,7 @@ class CollectionQueryHandler
      */
     public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_collection_query')
             ->set('identifier', ':identifier')
@@ -531,7 +507,7 @@ class CollectionQueryHandler
             ->setParameter('identifier', $queryUpdateStruct->identifier, Type::STRING)
             ->setParameter('parameters', $queryUpdateStruct->parameters, Type::JSON_ARRAY);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -545,7 +521,7 @@ class CollectionQueryHandler
      */
     public function moveQuery($queryId, $status, $position)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
 
         $query
             ->update('ngbm_collection_query')
@@ -556,7 +532,7 @@ class CollectionQueryHandler
             ->setParameter('id', $queryId, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -569,7 +545,7 @@ class CollectionQueryHandler
      */
     public function deleteQuery($queryId, $status)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_collection_query')
             ->where(
@@ -577,7 +553,7 @@ class CollectionQueryHandler
             )
             ->setParameter('id', $queryId, Type::INTEGER);
 
-        $this->queryHelper->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status);
 
         $query->execute();
     }
@@ -590,7 +566,7 @@ class CollectionQueryHandler
      */
     public function deleteCollectionQueries($collectionId, $status = null)
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_collection_query')
             ->where(
@@ -599,7 +575,7 @@ class CollectionQueryHandler
             ->setParameter('collection_id', $collectionId, Type::INTEGER);
 
         if ($status !== null) {
-            $this->queryHelper->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $status);
         }
 
         $query->execute();
@@ -612,7 +588,7 @@ class CollectionQueryHandler
      */
     protected function getCollectionSelectQuery()
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id', 'status', 'type', 'name')
             ->from('ngbm_collection');
 
@@ -626,7 +602,7 @@ class CollectionQueryHandler
      */
     protected function getItemSelectQuery()
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id', 'status', 'collection_id', 'position', 'type', 'value_id', 'value_type')
             ->from('ngbm_collection_item');
 
@@ -640,7 +616,7 @@ class CollectionQueryHandler
      */
     protected function getQuerySelectQuery()
     {
-        $query = $this->queryHelper->getQuery();
+        $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id', 'status', 'collection_id', 'position', 'identifier', 'type', 'parameters')
             ->from('ngbm_collection_query');
 
