@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Traits;
 use Netgen\BlockManager\Tests\Traits\Stubs\RequestStackAwareValue;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class RequestStackAwareTraitTest extends \PHPUnit_Framework_TestCase
+class RequestStackAwareTraitTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultRequestStackValue()
     {

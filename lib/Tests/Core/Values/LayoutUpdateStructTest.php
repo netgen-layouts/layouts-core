@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 
-class LayoutUpdateStructTest extends \PHPUnit_Framework_TestCase
+class LayoutUpdateStructTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultProperties()
     {

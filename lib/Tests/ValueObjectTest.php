@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests;
 
 use Netgen\BlockManager\Tests\Stubs\ValueObject;
 
-class ValueObjectTest extends \PHPUnit_Framework_TestCase
+class ValueObjectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\ValueObject::__construct

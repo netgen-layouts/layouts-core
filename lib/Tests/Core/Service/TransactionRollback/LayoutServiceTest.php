@@ -14,17 +14,17 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
 
-class LayoutServiceTest extends \PHPUnit_Framework_TestCase
+class LayoutServiceTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutHandlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutValidatorMock;
 

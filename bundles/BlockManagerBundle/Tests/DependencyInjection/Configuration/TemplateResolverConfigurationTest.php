@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 
-class TemplateResolverConfigurationTest extends \PHPUnit_Framework_TestCase
+class TemplateResolverConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     use ConfigurationTestCaseTrait;
 

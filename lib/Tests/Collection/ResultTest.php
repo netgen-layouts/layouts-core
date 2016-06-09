@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 
-class ResultTest extends \PHPUnit_Framework_TestCase
+class ResultTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result::getCollection

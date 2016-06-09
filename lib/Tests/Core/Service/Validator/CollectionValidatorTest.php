@@ -20,20 +20,20 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 
-class CollectionValidatorTest extends \PHPUnit_Framework_TestCase
+class CollectionValidatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryTypeHandlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryTypeConfigMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryTypeRegistryMock;
 

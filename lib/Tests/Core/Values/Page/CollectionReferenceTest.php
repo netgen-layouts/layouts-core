@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 
-class CollectionReferenceTest extends \PHPUnit_Framework_TestCase
+class CollectionReferenceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::__construct

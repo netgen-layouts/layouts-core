@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Item;
 use Netgen\BlockManager\Item\Item;
 use stdClass;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\Item::getValueId

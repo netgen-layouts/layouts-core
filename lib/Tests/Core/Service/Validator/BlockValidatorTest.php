@@ -17,10 +17,10 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 
-class BlockValidatorTest extends \PHPUnit_Framework_TestCase
+class BlockValidatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $blockDefinitionHandlerMock;
 
@@ -30,7 +30,7 @@ class BlockValidatorTest extends \PHPUnit_Framework_TestCase
     protected $blockDefinitionConfig;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $blockDefinitionRegistryMock;
 

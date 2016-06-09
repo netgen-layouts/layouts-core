@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class EditViewTest extends \PHPUnit_Framework_TestCase
+class EditViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\EditView

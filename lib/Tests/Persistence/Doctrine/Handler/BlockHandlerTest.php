@@ -12,7 +12,7 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
-class BlockHandlerTest extends \PHPUnit_Framework_TestCase
+class BlockHandlerTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

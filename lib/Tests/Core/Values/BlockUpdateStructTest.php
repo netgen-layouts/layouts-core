@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 
-class BlockUpdateStructTest extends \PHPUnit_Framework_TestCase
+class BlockUpdateStructTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct

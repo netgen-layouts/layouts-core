@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Factory

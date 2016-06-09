@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
-class LayoutCreateStructTest extends \PHPUnit_Framework_TestCase
+class LayoutCreateStructTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultProperties()
     {

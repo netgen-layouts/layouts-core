@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 
-abstract class AbstractTargetHandlerTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractTargetHandlerTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

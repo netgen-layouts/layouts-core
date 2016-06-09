@@ -9,10 +9,10 @@ use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
 
-class ValueArrayNormalizerTest extends \PHPUnit_Framework_TestCase
+class ValueArrayNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $serializerMock;
 

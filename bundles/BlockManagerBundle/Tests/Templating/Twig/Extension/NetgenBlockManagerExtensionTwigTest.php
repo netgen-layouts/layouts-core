@@ -11,17 +11,17 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $globalHelperMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $viewRendererMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $fragmentHandlerMock;
 

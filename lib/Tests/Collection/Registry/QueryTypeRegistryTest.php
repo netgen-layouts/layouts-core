@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 
-class QueryTypeRegistryTest extends \PHPUnit_Framework_TestCase
+class QueryTypeRegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface

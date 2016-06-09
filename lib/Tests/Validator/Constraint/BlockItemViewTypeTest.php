@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint;
 
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 
-class BlockItemViewTypeTest extends \PHPUnit_Framework_TestCase
+class BlockItemViewTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\BlockItemViewType::validatedBy

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
-class LayoutMapperTest extends \PHPUnit_Framework_TestCase
+class LayoutMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper

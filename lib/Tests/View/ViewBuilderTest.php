@@ -10,20 +10,20 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\View\TemplateResolverInterface;
 use DateTime;
 
-class ViewBuilderTest extends \PHPUnit_Framework_TestCase
+class ViewBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $viewProviderMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $templateResolverMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $eventDispatcherMock;
 

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 
-class LayoutViewTest extends \PHPUnit_Framework_TestCase
+class LayoutViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Page\Layout

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 
-class ConditionTest extends \PHPUnit_Framework_TestCase
+class ConditionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::__construct

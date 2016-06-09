@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\ViewType;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 
-class ViewTypeTest extends \PHPUnit_Framework_TestCase
+class ViewTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 
-class QueryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Exception;
 
 use Netgen\BlockManager\Exception\BadStateException;
 
-class BadStateExceptionTest extends \PHPUnit_Framework_TestCase
+class BadStateExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\BadStateException::__construct

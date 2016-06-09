@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 
-class ViewTypeTest extends \PHPUnit_Framework_TestCase
+class ViewTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType

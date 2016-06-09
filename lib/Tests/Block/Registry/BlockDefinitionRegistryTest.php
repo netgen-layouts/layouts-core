@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 
-class BlockDefinitionRegistryTest extends \PHPUnit_Framework_TestCase
+class BlockDefinitionRegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
 use DateTime;
 
-class FormMapperTest extends \PHPUnit_Framework_TestCase
+class FormMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface

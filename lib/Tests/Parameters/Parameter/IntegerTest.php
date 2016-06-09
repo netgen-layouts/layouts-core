@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\Parameter\Integer;
 use Symfony\Component\Validator\Validation;
 
-class IntegerTest extends \PHPUnit_Framework_TestCase
+class IntegerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getType

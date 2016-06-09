@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Configuration\Factory;
 use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 
-class BlockTypeGroupFactoryTest extends \PHPUnit_Framework_TestCase
+class BlockTypeGroupFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory::buildBlockTypeGroup

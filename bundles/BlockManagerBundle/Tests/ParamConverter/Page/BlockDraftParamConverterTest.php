@@ -7,10 +7,10 @@ use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
 use Netgen\BlockManager\API\Service\BlockService;
 
-class BlockDraftParamConverterTest extends \PHPUnit_Framework_TestCase
+class BlockDraftParamConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $blockServiceMock;
 

@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 
-class SetIsApiRequestListenerTest extends \PHPUnit_Framework_TestCase
+class SetIsApiRequestListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents

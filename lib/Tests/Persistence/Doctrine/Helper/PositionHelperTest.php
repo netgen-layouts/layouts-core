@@ -7,7 +7,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCase;
 
-class PositionHelperTest extends \PHPUnit_Framework_TestCase
+class PositionHelperTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

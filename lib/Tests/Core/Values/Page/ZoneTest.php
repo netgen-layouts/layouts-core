@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 
-class ZoneTest extends \PHPUnit_Framework_TestCase
+class ZoneTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct

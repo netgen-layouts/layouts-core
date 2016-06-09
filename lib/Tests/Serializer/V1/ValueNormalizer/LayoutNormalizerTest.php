@@ -13,7 +13,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use DateTime;
 
-class LayoutNormalizerTest extends \PHPUnit_Framework_TestCase
+class LayoutNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface

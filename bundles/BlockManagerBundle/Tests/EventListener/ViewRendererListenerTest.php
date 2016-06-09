@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 
-class ViewRendererListenerTest extends \PHPUnit_Framework_TestCase
+class ViewRendererListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::getSubscribedEvents

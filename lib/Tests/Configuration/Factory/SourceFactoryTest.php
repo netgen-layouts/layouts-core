@@ -6,7 +6,7 @@ use Netgen\BlockManager\Configuration\Factory\SourceFactory;
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Configuration\Source\Source;
 
-class SourceFactoryTest extends \PHPUnit_Framework_TestCase
+class SourceFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Factory\SourceFactory::buildSource

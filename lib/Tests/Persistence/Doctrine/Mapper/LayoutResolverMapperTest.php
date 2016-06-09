@@ -7,7 +7,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 
-class LayoutResolverMapperTest extends \PHPUnit_Framework_TestCase
+class LayoutResolverMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper

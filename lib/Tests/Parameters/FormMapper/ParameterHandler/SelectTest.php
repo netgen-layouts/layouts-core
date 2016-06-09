@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
 
-class SelectTest extends \PHPUnit_Framework_TestCase
+class SelectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface

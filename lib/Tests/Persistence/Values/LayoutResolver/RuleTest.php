@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 
-class RuleTest extends \PHPUnit_Framework_TestCase
+class RuleTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetDefaultProperties()
     {

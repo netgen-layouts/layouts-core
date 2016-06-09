@@ -6,7 +6,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Matcher\APIVersion;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 
-class APIVersionTest extends \PHPUnit_Framework_TestCase
+class APIVersionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

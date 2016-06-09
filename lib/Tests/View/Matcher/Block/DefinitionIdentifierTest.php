@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 
-class DefinitionIdentifierTest extends \PHPUnit_Framework_TestCase
+class DefinitionIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

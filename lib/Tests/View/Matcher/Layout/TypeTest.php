@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\LayoutView;
 use Netgen\BlockManager\View\Matcher\Layout\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 
-class TypeTest extends \PHPUnit_Framework_TestCase
+class TypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

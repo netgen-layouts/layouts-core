@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Exception\NotFoundException;
 
-class CollectionHandlerTest extends \PHPUnit_Framework_TestCase
+class CollectionHandlerTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

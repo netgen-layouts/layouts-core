@@ -19,17 +19,17 @@ use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
 use Exception;
 
-class CollectionServiceTest extends \PHPUnit_Framework_TestCase
+class CollectionServiceTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $collectionHandlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $collectionValidatorMock;
 

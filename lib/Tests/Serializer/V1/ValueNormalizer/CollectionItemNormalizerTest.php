@@ -10,10 +10,10 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use RuntimeException;
 
-class CollectionItemNormalizerTest extends \PHPUnit_Framework_TestCase
+class CollectionItemNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $itemBuilderMock;
 

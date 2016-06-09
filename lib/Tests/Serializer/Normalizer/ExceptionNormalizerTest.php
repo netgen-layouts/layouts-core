@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Exception;
 
-class ExceptionNormalizerTest extends \PHPUnit_Framework_TestCase
+class ExceptionNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer

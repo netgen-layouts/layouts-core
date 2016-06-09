@@ -14,22 +14,22 @@ use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
 
-class BlockServiceTest extends \PHPUnit_Framework_TestCase
+class BlockServiceTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $blockHandlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutHandlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $blockValidatorMock;
 

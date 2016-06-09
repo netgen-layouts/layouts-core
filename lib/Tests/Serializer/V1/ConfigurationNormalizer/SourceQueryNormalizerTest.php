@@ -7,7 +7,7 @@ use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
-class SourceQueryNormalizerTest extends \PHPUnit_Framework_TestCase
+class SourceQueryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer

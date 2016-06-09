@@ -8,10 +8,10 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
+class ValidatorTraitTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $validatorMock;
 

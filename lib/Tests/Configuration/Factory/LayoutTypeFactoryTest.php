@@ -6,7 +6,7 @@ use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 
-class LayoutTypeFactoryTest extends \PHPUnit_Framework_TestCase
+class LayoutTypeFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory::buildLayoutType

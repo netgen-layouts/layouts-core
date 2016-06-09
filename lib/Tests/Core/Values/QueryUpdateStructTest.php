@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 
-class QueryUpdateStructTest extends \PHPUnit_Framework_TestCase
+class QueryUpdateStructTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::__construct

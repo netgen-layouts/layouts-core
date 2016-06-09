@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 
-class TargetCreateStructTest extends \PHPUnit_Framework_TestCase
+class TargetCreateStructTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultProperties()
     {

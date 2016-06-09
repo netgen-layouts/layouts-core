@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Hidden;
 
-class HiddenTest extends \PHPUnit_Framework_TestCase
+class HiddenTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Hidden::getType

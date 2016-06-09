@@ -7,10 +7,10 @@ use Netgen\BlockManager\Core\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft as APICollectionDraft;
 use Netgen\BlockManager\API\Service\CollectionService;
 
-class CollectionDraftParamConverterTest extends \PHPUnit_Framework_TestCase
+class CollectionDraftParamConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $collectionServiceMock;
 

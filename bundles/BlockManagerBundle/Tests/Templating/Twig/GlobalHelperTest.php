@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 
-class GlobalHelperTest extends \PHPUnit_Framework_TestCase
+class GlobalHelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper

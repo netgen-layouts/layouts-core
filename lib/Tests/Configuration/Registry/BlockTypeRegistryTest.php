@@ -6,7 +6,7 @@ use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
 
-class BlockTypeRegistryTest extends \PHPUnit_Framework_TestCase
+class BlockTypeRegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\BlockType\BlockType

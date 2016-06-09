@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\Text;
 
-class TextTest extends \PHPUnit_Framework_TestCase
+class TextTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Text::getType

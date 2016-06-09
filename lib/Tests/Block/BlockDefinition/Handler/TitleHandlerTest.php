@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TitleHandlerTest extends \PHPUnit_Framework_TestCase
+class TitleHandlerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler

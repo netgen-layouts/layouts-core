@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 
-class QueryCreateStructTest extends \PHPUnit_Framework_TestCase
+class QueryCreateStructTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::__construct

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 
-class TargetTest extends \PHPUnit_Framework_TestCase
+class TargetTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::__construct

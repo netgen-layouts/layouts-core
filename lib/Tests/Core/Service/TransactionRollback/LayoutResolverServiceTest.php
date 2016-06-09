@@ -18,17 +18,17 @@ use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Exception;
 
-class LayoutResolverServiceTest extends \PHPUnit_Framework_TestCase
+class LayoutResolverServiceTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutResolverHandlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutResolverValidatorMock;
 

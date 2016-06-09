@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter\TextArea;
 
-class TextAreaTest extends \PHPUnit_Framework_TestCase
+class TextAreaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getType

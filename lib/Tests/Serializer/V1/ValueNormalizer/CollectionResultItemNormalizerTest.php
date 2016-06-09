@@ -9,7 +9,7 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormal
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 
-class CollectionResultItemNormalizerTest extends \PHPUnit_Framework_TestCase
+class CollectionResultItemNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormalizer

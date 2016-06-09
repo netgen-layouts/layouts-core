@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper\ConnectionHelper
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 
-class SqliteTest extends \PHPUnit_Framework_TestCase
+class SqliteTest extends \PHPUnit\Framework\TestCase
 {
     use DatabaseTrait;
 

@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\HttpFoundation\Request;
 
-class ParamConverterTest extends \PHPUnit_Framework_TestCase
+class ParamConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply

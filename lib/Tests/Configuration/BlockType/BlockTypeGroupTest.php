@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Configuration\BlockType;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 
-class BlockTypeGroupTest extends \PHPUnit_Framework_TestCase
+class BlockTypeGroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\View\BlockView;
 
-class BlockViewTest extends \PHPUnit_Framework_TestCase
+class BlockViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Page\Block

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class ViewTest extends \PHPUnit_Framework_TestCase
+class ViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\View

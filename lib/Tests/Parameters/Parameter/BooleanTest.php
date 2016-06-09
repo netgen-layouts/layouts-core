@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\Parameter\Boolean;
 use Symfony\Component\Validator\Validation;
 
-class BooleanTest extends \PHPUnit_Framework_TestCase
+class BooleanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Boolean::getType

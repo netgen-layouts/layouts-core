@@ -15,20 +15,20 @@ use Twig_TokenParser;
 use Twig_Template;
 use Exception;
 
-class NetgenBlockManagerExtensionTest extends \PHPUnit_Framework_TestCase
+class NetgenBlockManagerExtensionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $globalHelperMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $viewRendererMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $fragmentHandlerMock;
 

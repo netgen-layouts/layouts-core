@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint;
 
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 
-class ParametersTest extends \PHPUnit_Framework_TestCase
+class ParametersTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Parameters::validatedBy

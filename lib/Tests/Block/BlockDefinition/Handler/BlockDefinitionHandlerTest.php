@@ -6,7 +6,7 @@ use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class BlockDefinitionHandlerTest extends \PHPUnit_Framework_TestCase
+class BlockDefinitionHandlerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler

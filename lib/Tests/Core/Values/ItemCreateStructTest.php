@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 
-class ItemCreateStructTest extends \PHPUnit_Framework_TestCase
+class ItemCreateStructTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultProperties()
     {

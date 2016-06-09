@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 
-class HandlerTest extends \PHPUnit_Framework_TestCase
+class HandlerTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

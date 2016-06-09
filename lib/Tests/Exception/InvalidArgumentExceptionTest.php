@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Exception;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
-class InvalidArgumentExceptionTest extends \PHPUnit_Framework_TestCase
+class InvalidArgumentExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\InvalidArgumentException::__construct

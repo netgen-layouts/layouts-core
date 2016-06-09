@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Configuration\Registry;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Configuration\Registry\SourceRegistry;
 
-class SourceRegistryTest extends \PHPUnit_Framework_TestCase
+class SourceRegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\Source\Source

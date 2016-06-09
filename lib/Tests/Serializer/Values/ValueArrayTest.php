@@ -6,7 +6,7 @@ use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
 use Symfony\Component\HttpFoundation\Response;
 
-class ValueArrayTest extends \PHPUnit_Framework_TestCase
+class ValueArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\ValueArray

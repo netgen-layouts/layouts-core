@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Exception;
 
 use Netgen\BlockManager\Exception\NotFoundException;
 
-class NotFoundExceptionTest extends \PHPUnit_Framework_TestCase
+class NotFoundExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\NotFoundException::__construct

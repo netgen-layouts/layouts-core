@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\LayoutViewInterface;
 
-class LayoutViewProviderTest extends \PHPUnit_Framework_TestCase
+class LayoutViewProviderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

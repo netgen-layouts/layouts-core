@@ -9,10 +9,10 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormali
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
-class CollectionReferenceNormalizerTest extends \PHPUnit_Framework_TestCase
+class CollectionReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $collectionServiceMock;
 

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Parameter\Text;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use stdClass;
 
-class CompoundParameterTest extends \PHPUnit_Framework_TestCase
+class CompoundParameterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameter::__construct

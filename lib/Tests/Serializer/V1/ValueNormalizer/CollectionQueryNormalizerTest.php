@@ -7,7 +7,7 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
-class CollectionQueryNormalizerTest extends \PHPUnit_Framework_TestCase
+class CollectionQueryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer

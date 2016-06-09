@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver;
 
-class PageLayoutResolverTest extends \PHPUnit_Framework_TestCase
+class PageLayoutResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver

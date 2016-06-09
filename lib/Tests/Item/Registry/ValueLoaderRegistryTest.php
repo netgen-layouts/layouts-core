@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Item\Registry;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 
-class ValueLoaderRegistryTest extends \PHPUnit_Framework_TestCase
+class ValueLoaderRegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueLoaderInterface

@@ -11,10 +11,10 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use stdClass;
 
-class ItemBuilderTest extends \PHPUnit_Framework_TestCase
+class ItemBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $valueLoaderRegistryMock;
 

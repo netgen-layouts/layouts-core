@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 
-class QueryTypesConfigurationTest extends \PHPUnit_Framework_TestCase
+class QueryTypesConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     use ConfigurationTestCaseTrait;
 

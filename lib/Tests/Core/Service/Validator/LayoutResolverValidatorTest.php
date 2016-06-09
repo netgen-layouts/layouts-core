@@ -12,7 +12,7 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 
-class LayoutResolverValidatorTest extends \PHPUnit_Framework_TestCase
+class LayoutResolverValidatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Netgen\BlockManager\Exception\Exception;
 use RuntimeException;
 
-class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
+class ExceptionConversionListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::getSubscribedEvents

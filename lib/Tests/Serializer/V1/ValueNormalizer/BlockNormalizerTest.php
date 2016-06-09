@@ -8,10 +8,10 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
-class BlockNormalizerTest extends \PHPUnit_Framework_TestCase
+class BlockNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $blockServiceMock;
 

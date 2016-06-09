@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class ParagraphHandlerTest extends \PHPUnit_Framework_TestCase
+class ParagraphHandlerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler

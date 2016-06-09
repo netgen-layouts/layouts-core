@@ -6,15 +6,15 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
-class ConnectionHelperTest extends \PHPUnit_Framework_TestCase
+class ConnectionHelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $databasePlatformMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $databaseConnectionMock;
 

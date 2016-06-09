@@ -7,7 +7,7 @@ use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 
-class RequestUriTest extends \PHPUnit_Framework_TestCase
+class RequestUriTest extends \PHPUnit\Framework\TestCase
 {
     use RequestStackAwareTrait;
 

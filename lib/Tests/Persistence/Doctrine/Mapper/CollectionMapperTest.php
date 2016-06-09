@@ -7,7 +7,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 
-class CollectionMapperTest extends \PHPUnit_Framework_TestCase
+class CollectionMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper

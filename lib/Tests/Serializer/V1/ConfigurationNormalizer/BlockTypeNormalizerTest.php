@@ -7,7 +7,7 @@ use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeNormalize
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 
-class BlockTypeNormalizerTest extends \PHPUnit_Framework_TestCase
+class BlockTypeNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeNormalizer

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 
-class ResultItemTest extends \PHPUnit_Framework_TestCase
+class ResultItemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\ResultItem::getItem

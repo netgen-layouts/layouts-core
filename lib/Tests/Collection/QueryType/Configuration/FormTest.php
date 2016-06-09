@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Collection\QueryType\Configuration;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 
-class FormTest extends \PHPUnit_Framework_TestCase
+class FormTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Form

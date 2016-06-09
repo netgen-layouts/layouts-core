@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Values;
 
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
-class ZoneTest extends \PHPUnit_Framework_TestCase
+class ZoneTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetDefaultProperties()
     {

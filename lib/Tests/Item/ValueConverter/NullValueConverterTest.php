@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Item\ValueConverter;
 use Netgen\BlockManager\Item\ValueConverter\NullValueConverter;
 use stdClass;
 
-class NullValueConverterTest extends \PHPUnit_Framework_TestCase
+class NullValueConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueConverter\NullValueConverter

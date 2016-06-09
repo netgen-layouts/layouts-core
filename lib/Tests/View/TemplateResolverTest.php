@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use DateTime;
 
-class TemplateResolverTest extends \PHPUnit_Framework_TestCase
+class TemplateResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\ViewInterface

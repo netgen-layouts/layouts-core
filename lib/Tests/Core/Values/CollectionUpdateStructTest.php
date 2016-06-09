@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 
-class CollectionUpdateStructTest extends \PHPUnit_Framework_TestCase
+class CollectionUpdateStructTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultProperties()
     {

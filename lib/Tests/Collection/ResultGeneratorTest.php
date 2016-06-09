@@ -16,10 +16,10 @@ use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 
-class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
+class ResultGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $queryRunnerMock;
 
@@ -34,7 +34,7 @@ class ResultGeneratorTest extends \PHPUnit_Framework_TestCase
     protected $itemBuilder;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $valueLoaderRegistryMock;
 

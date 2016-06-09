@@ -11,10 +11,10 @@ use Netgen\BlockManager\Layout\Resolver\Target;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetValueProvider;
 use stdClass;
 
-class LayoutResolverTest extends \PHPUnit_Framework_TestCase
+class LayoutResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutResolverServiceMock;
 

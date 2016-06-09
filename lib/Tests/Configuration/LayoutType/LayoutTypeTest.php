@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Configuration\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 
-class LayoutTypeTest extends \PHPUnit_Framework_TestCase
+class LayoutTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Configuration\LayoutType\LayoutType

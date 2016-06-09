@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class CollectViewParametersEventTest extends \PHPUnit_Framework_TestCase
+class CollectViewParametersEventTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Event\View\CollectViewParametersEvent

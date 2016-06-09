@@ -11,10 +11,10 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Form\FormInterface;
 
-class FormViewNormalizerTest extends \PHPUnit_Framework_TestCase
+class FormViewNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $viewRendererMock;
 

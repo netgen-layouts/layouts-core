@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetDefaultProperties()
     {

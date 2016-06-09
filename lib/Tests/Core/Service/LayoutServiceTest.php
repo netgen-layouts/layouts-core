@@ -17,7 +17,7 @@ use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 abstract class LayoutServiceTest extends ServiceTest
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutValidatorMock;
 

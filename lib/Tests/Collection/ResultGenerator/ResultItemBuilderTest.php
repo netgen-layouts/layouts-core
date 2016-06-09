@@ -9,10 +9,10 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 
-class ResultItemBuilderTest extends \PHPUnit_Framework_TestCase
+class ResultItemBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $itemBuilderMock;
 

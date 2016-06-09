@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetDefaultProperties()
     {

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Values\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 
-class ConditionTest extends \PHPUnit_Framework_TestCase
+class ConditionTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetDefaultProperties()
     {

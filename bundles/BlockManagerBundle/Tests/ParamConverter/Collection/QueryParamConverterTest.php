@@ -7,10 +7,10 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Service\CollectionService;
 
-class QueryParamConverterTest extends \PHPUnit_Framework_TestCase
+class QueryParamConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $collectionServiceMock;
 

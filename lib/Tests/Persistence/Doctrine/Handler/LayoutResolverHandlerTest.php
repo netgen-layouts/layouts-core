@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Exception\NotFoundException;
 
-class LayoutResolverHandlerTest extends \PHPUnit_Framework_TestCase
+class LayoutResolverHandlerTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

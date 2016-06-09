@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\ItemView;
 
-class ItemViewTest extends \PHPUnit_Framework_TestCase
+class ItemViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\Item

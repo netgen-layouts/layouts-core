@@ -11,7 +11,7 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 
-class LayoutHandlerTest extends \PHPUnit_Framework_TestCase
+class LayoutHandlerTest extends \PHPUnit\Framework\TestCase
 {
     use TestCase;
 

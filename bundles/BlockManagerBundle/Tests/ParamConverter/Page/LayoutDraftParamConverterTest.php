@@ -7,10 +7,10 @@ use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft as APILayoutDraft;
 use Netgen\BlockManager\API\Service\LayoutService;
 
-class LayoutDraftParamConverterTest extends \PHPUnit_Framework_TestCase
+class LayoutDraftParamConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $layoutServiceMock;
 

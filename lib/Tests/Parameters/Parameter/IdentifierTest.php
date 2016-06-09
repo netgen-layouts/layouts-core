@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\Parameter\Identifier;
 use Symfony\Component\Validator\Validation;
 
-class IdentifierTest extends \PHPUnit_Framework_TestCase
+class IdentifierTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::getType
