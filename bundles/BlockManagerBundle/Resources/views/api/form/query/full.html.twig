@@ -1,5 +1,5 @@
-{% form_theme form 'NetgenBlockManagerBundle:form:ngbm_app.html.twig' %}
+{% extends 'NetgenBlockManagerBundle:api/form:form.html.twig' %}
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
+{% block children %}
+    {{ form_row(form.children.parameters) }}
+{% endblock %}
