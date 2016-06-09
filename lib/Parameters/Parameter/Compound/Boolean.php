@@ -18,6 +18,28 @@ class Boolean extends CompoundParameter
     }
 
     /**
+     * Returns constraints that are common to all parameters.
+     *
+     * Overriden because base NotBlank constraint checks for `false` too.
+     *
+     * @param array $groups
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getBaseConstraints(array $groups = null)
+    {
+        if ($this->isRequired()) {
+            return array(
+                new Constraints\NotNull(
+                    $this->getBaseConstraintOptions($groups)
+                ),
+            );
+        }
+
+        return array();
+    }
+
+    /**
      * Returns constraints that are specific to parameter.
      *
      * @param array $groups
