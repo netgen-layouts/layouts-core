@@ -630,7 +630,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'css-class',
-                    )
+                    ),
                 )
             ),
             $this->blockService->newBlockCreateStruct(

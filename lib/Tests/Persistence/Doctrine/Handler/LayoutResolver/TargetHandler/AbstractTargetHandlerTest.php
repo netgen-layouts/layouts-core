@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler\LayoutResolver\
 
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;

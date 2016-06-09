@@ -168,6 +168,7 @@ class TemplateResolverTest extends TestCase
             'view' => array(
                 'context' => array(
                     'title' => array(
+                        'template' => 'some_template.html.twig',
                         'match' => array(
                             'definition_identifier' => 'title',
                         ),
@@ -197,6 +198,7 @@ class TemplateResolverTest extends TestCase
             'view' => array(
                 'context' => array(
                     'title' => array(
+                        'template' => 'some_template.html.twig',
                         'match' => array(
                             'definition_identifier' => 'title',
                         ),

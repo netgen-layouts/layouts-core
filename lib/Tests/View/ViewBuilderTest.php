@@ -51,6 +51,7 @@ class ViewBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      */
     public function testBuildView()
     {
@@ -99,6 +100,7 @@ class ViewBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      * @expectedException \RuntimeException
      */
     public function testBuildViewWithNoViewProviders()
@@ -115,6 +117,7 @@ class ViewBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
+     * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      * @expectedException \RuntimeException
      */
     public function testBuildViewWithNoViewProvidersThatSupportValue()

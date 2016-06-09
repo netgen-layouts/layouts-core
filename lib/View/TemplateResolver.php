@@ -51,40 +51,34 @@ class TemplateResolver implements TemplateResolverInterface
      */
     public function resolveTemplate(ViewInterface $view)
     {
-        $matchedConfig = false;
         $context = $view->getContext();
+        $viewAlias = $view->getAlias();
 
-        if (!isset($this->configurations[$view->getAlias()][$context])) {
+        if (!isset($this->configurations[$viewAlias][$context])) {
             throw new RuntimeException(
                 sprintf(
-                    'No template could be found for context "%s" and view object "%s".',
-                    $context,
-                    get_class($view)
+                    'No view config could be found for view object "%s" and context "%s".',
+                    get_class($view),
+                    $context
                 )
             );
         }
 
-        foreach ($this->configurations[$view->getAlias()][$context] as $config) {
-            $matchConfig = $config['match'];
-            if (!$this->matches($view, $matchConfig)) {
+        foreach ($this->configurations[$viewAlias][$context] as $config) {
+            if (!$this->matches($view, $config['match'])) {
                 continue;
             }
 
-            $matchedConfig = $config;
-            break;
+            return $config['template'];
         }
 
-        if (!is_array($matchedConfig) || !isset($matchedConfig['template'])) {
-            throw new RuntimeException(
-                sprintf(
-                    'No template could be found for context "%s" view object "%s".',
-                    $context,
-                    get_class($view)
-                )
-            );
-        }
-
-        return $matchedConfig['template'];
+        throw new RuntimeException(
+            sprintf(
+                'No template match could be found for view object "%s" and context "%s".',
+                get_class($view),
+                $context
+            )
+        );
     }
 
     /**

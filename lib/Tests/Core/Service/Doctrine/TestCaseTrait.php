@@ -68,8 +68,7 @@ trait TestCaseTrait
         BlockValidator $validator,
         LayoutTypeRegistryInterface $layoutTypeRegistry,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
-    )
-    {
+    ) {
         return new BlockService(
             $validator,
             $this->createBlockMapper(),

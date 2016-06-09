@@ -7,7 +7,6 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\QueryHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;

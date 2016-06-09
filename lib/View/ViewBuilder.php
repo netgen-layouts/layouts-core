@@ -61,36 +61,44 @@ class ViewBuilder implements ViewBuilderInterface
      */
     public function buildView($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
-        foreach ($this->viewProviders as $viewProvider) {
-            if (!$viewProvider->supports($valueObject)) {
-                continue;
-            }
+        $viewProvider = $this->getViewProvider($valueObject);
 
-            $view = $viewProvider->provideView($valueObject, $parameters);
-            $view->setContext($context);
-            $view->addParameters($parameters);
-            $view->addParameters(array('view_context' => $context));
+        $view = $viewProvider->provideView($valueObject, $parameters);
+        $view->setContext($context);
+        $view->addParameters($parameters);
+        $view->addParameters(array('view_context' => $context));
 
-            $event = new CollectViewParametersEvent($view);
-            $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);
-            $view->addParameters($event->getViewParameters());
-
-            break;
-        }
-
-        if (!isset($view)) {
-            throw new RuntimeException(
-                sprintf(
-                    'No view providers found for "%s" value object.',
-                    get_class($valueObject)
-                )
-            );
-        }
+        $event = new CollectViewParametersEvent($view);
+        $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);
+        $view->addParameters($event->getViewParameters());
 
         $view->setTemplate(
             $this->templateResolver->resolveTemplate($view)
         );
 
         return $view;
+    }
+
+    /**
+     * Returns the view provider that supports the given value object.
+     *
+     * @param mixed $valueObject
+     *
+     * @return \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     */
+    protected function getViewProvider($valueObject)
+    {
+        foreach ($this->viewProviders as $viewProvider) {
+            if ($viewProvider->supports($valueObject)) {
+                return $viewProvider;
+            }
+        }
+
+        throw new RuntimeException(
+            sprintf(
+                'No view providers found for "%s" value object.',
+                get_class($valueObject)
+            )
+        );
     }
 }
