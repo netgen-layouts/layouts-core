@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
@@ -55,16 +56,21 @@ trait TestCaseTrait
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\BlockService
      */
-    protected function createBlockService(BlockValidator $validator, LayoutTypeRegistryInterface $layoutTypeRegistry)
-    {
+    protected function createBlockService(
+        BlockValidator $validator,
+        LayoutTypeRegistryInterface $layoutTypeRegistry,
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry
+    ) {
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
             $this->persistenceHandler,
-            $layoutTypeRegistry
+            $layoutTypeRegistry,
+            $blockDefinitionRegistry
         );
     }
 

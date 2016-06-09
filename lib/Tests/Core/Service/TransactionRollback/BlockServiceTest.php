@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -55,8 +56,6 @@ class BlockServiceTest extends TestCase
 
         $this->layoutHandlerMock = $this->createMock(LayoutHandler::class);
 
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-
         $this->persistenceHandler
             ->expects($this->any())
             ->method('getBlockHandler')
@@ -71,7 +70,8 @@ class BlockServiceTest extends TestCase
 
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,
-            $this->layoutTypeRegistry
+            new LayoutTypeRegistry(),
+            new BlockDefinitionRegistry()
         );
     }
 

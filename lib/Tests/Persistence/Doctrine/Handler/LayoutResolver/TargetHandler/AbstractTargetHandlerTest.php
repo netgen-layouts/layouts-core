@@ -28,8 +28,8 @@ abstract class AbstractTargetHandlerTest extends TestCase
 
         $this->handler = new LayoutResolverHandler(
             new LayoutResolverQueryHandler(
+                $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),
-                new QueryHelper($this->databaseConnection),
                 array($this->getTargetIdentifier() => $this->getTargetHandler())
             ),
             new LayoutResolverMapper()

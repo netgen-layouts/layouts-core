@@ -2,6 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
@@ -37,6 +42,11 @@ abstract class BlockServiceTest extends ServiceTest
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     */
+    protected $blockDefinitionRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -78,9 +88,26 @@ abstract class BlockServiceTest extends ServiceTest
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
         $this->layoutTypeRegistry->addLayoutType($layoutType);
 
+        $blockDefinition1 = new BlockDefinition(
+            'title',
+            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new Configuration('title', array(), array())
+        );
+
+        $blockDefinition2 = new BlockDefinition(
+            'gallery',
+            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new Configuration('gallery', array(), array())
+        );
+
+        $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
+        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition1);
+        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition2);
+
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,
-            $this->layoutTypeRegistry
+            $this->layoutTypeRegistry,
+            $this->blockDefinitionRegistry
         );
 
         $this->layoutService = $this->createLayoutService(
@@ -175,10 +202,9 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlock()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            new BlockType('title', true, 'Title', 'title')
+        );
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
@@ -209,7 +235,9 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithNonExistentLayoutType()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            new BlockType('title', true, 'Title', 'title')
+        );
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
@@ -226,10 +254,9 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithNoPosition()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
-        $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            new BlockType('title', true, 'Title', 'title')
+        );
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
@@ -244,36 +271,13 @@ abstract class BlockServiceTest extends ServiceTest
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     */
-    public function testCreateBlockWithBlankName()
-    {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
-
-        $block = $this->blockService->createBlock(
-            $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'top_right',
-            2
-        );
-
-        self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals('', $block->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
-        $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            new BlockType('title', true, 'Title', 'title')
+        );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
@@ -290,11 +294,9 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithNonExistingZoneThrowsBadStateException()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('title', 'default', 'standard');
-        $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            new BlockType('title', true, 'Title', 'title')
+        );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
@@ -310,11 +312,9 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testCreateBlockWithWithDisallowedIdentifierThrowsBadStateException()
     {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct('not_allowed', 'default', 'standard');
-        $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->setParameter('some_param', 'some_value');
-        $blockCreateStruct->setParameter('some_other_param', 'some_other_value');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            new BlockType('gallery', true, 'Gallery', 'gallery')
+        );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
@@ -627,9 +627,28 @@ abstract class BlockServiceTest extends ServiceTest
                     'definitionIdentifier' => 'title',
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'css-class',
+                    )
                 )
             ),
-            $this->blockService->newBlockCreateStruct('title', 'small', 'standard')
+            $this->blockService->newBlockCreateStruct(
+                new BlockType(
+                    'title',
+                    true,
+                    'Title',
+                    'title',
+                    array(
+                        'view_type' => 'small',
+                        'item_view_type' => 'standard',
+                        'name' => 'My block',
+                        'parameters' => array(
+                            'css_class' => 'css-class',
+                        ),
+                    )
+                )
+            )
         );
     }
 
