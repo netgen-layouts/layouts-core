@@ -43,19 +43,19 @@ class ConfigController extends Controller
      */
     public function getBlockTypes()
     {
-        $blockTypeGroups = array_map(
-            function (BlockTypeGroup $blockTypeGroup) {
-                return new VersionedValue($blockTypeGroup, Version::API_V1);
-            },
-            array_values($this->blockTypeRegistry->getBlockTypeGroups())
-        );
+        $blockTypeGroups = array();
+        foreach ($this->blockTypeRegistry->getBlockTypeGroups() as $blockTypeGroup) {
+            if ($blockTypeGroup->isEnabled()) {
+                $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
+            }
+        }
 
-        $blockTypes = array_map(
-            function (BlockType $blockType) {
-                return new VersionedValue($blockType, Version::API_V1);
-            },
-            array_values($this->blockTypeRegistry->getBlockTypes())
-        );
+        $blockTypes = array();
+        foreach ($this->blockTypeRegistry->getBlockTypes() as $blockType) {
+            if ($blockType->isEnabled()) {
+                $blockTypes[] = new VersionedValue($blockType, Version::API_V1);
+            }
+        }
 
         return new ValueArray(
             array(
@@ -72,12 +72,12 @@ class ConfigController extends Controller
      */
     public function getSources()
     {
-        $sources = array_map(
-            function (Source $source) {
-                return new VersionedValue($source, Version::API_V1);
-            },
-            array_values($this->sourceRegistry->getSources())
-        );
+        $sources = array();
+        foreach ($this->sourceRegistry->getSources() as $source) {
+            if ($source->isEnabled()) {
+                $sources[] = new VersionedValue($source, Version::API_V1);
+            }
+        }
 
         return new ValueArray($sources);
     }

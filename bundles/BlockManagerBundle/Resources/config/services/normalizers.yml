@@ -101,6 +101,8 @@ services:
 
     netgen_block_manager.normalizer.v1.block_type_group:
         class: "%netgen_block_manager.normalizer.v1.block_type_group.class%"
+        arguments:
+            - "@netgen_block_manager.configuration.registry.block_type"
         tags:
             - { name: serializer.normalizer }
 
