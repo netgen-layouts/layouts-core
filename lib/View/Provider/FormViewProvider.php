@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\View\QueryView;
+use Symfony\Component\Form\FormInterface;
+use Netgen\BlockManager\View\FormView;
 
-class QueryViewProvider implements ViewProviderInterface
+class FormViewProvider implements ViewProviderInterface
 {
     /**
      * Provides the view.
@@ -17,10 +17,8 @@ class QueryViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Collection\Query $valueObject */
-        $queryView = new QueryView($valueObject);
-
-        return $queryView;
+        /** @var \Symfony\Component\Form\FormInterface $valueObject */
+        return new FormView($valueObject);
     }
 
     /**
@@ -32,6 +30,6 @@ class QueryViewProvider implements ViewProviderInterface
      */
     public function supports($valueObject)
     {
-        return $valueObject instanceof Query;
+        return $valueObject instanceof FormInterface;
     }
 }

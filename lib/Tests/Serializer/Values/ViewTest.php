@@ -30,7 +30,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\View::getContext
+     * @covers Netgen\BlockManager\Serializer\Values\AbstractView::getContext
      */
     public function testGetContext()
     {

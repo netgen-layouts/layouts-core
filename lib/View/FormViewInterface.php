@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\Values;
+namespace Netgen\BlockManager\View;
 
 interface FormViewInterface extends ViewInterface
 {
@@ -12,9 +12,16 @@ interface FormViewInterface extends ViewInterface
     public function getForm();
 
     /**
-     * Returns the form name.
+     * Returns the form type.
      *
      * @return string
      */
-    public function getFormName();
+    public function getFormType();
+
+    /**
+     * Returns the form view.
+     *
+     * @return \Symfony\Component\Form\FormView
+     */
+    public function getFormView();
 }

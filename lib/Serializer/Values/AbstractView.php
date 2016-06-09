@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
+use Netgen\BlockManager\View\ViewInterface;
+
 abstract class AbstractView extends AbstractVersionedValue
 {
     /**
@@ -27,5 +29,15 @@ abstract class AbstractView extends AbstractVersionedValue
     public function getViewParameters()
     {
         return $this->viewParameters;
+    }
+
+    /**
+     * Returns the context that will be used to render this view.
+     *
+     * @return string
+     */
+    public function getContext()
+    {
+        return ViewInterface::CONTEXT_API_VIEW;
     }
 }

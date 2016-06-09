@@ -27,4 +27,4 @@ services:
                 layout_view: "@=service('netgen_block_manager.configuration').getParameter('layout_view')"
                 block_view: "@=service('netgen_block_manager.configuration').getParameter('block_view')"
                 item_view: "@=service('netgen_block_manager.configuration').getParameter('item_view')"
-                query_view: "@=service('netgen_block_manager.configuration').getParameter('query_view')"
+                form_view: "@=service('netgen_block_manager.configuration').getParameter('form_view')"

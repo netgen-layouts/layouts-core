@@ -1,10 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\View\Matcher;
+namespace Netgen\BlockManager\View\Matcher\Form;
 
+use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use Netgen\BlockManager\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-class FormName implements MatcherInterface
+class FormType implements MatcherInterface
 {
     /**
      * Returns if the view matches the config.
@@ -16,10 +18,10 @@ class FormName implements MatcherInterface
      */
     public function match(ViewInterface $view, array $config)
     {
-        if (!$view->hasParameter('form_name')) {
+        if (!$view instanceof FormViewInterface) {
             return false;
         }
 
-        return in_array($view->getParameter('form_name'), $config);
+        return in_array($view->getFormType(), $config);
     }
 }

@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class FormViewTest extends \PHPUnit_Framework_TestCase
@@ -17,38 +16,24 @@ class FormViewTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->value = new FormView(
-            $this->createMock(FormInterface::class),
-            'full',
-            new Value(),
-            42,
-            Response::HTTP_ACCEPTED
-        );
+        $this->value = new FormView(new Value(), 42, Response::HTTP_ACCEPTED);
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::getForm
+     * @covers Netgen\BlockManager\Serializer\Values\View::setViewParameters
+     * @covers Netgen\BlockManager\Serializer\Values\View::getViewParameters
      */
-    public function testGetForm()
+    public function testViewParameters()
     {
-        self::assertInstanceOf(FormInterface::class, $this->value->getForm());
+        $this->value->setViewParameters(array('param' => 'value'));
+        self::assertEquals(array('param' => 'value'), $this->value->getViewParameters());
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::getFormName
-     */
-    public function testGetFormName()
-    {
-        self::assertEquals('full', $this->value->getFormName());
-    }
-
-    /**
-     * @covers Netgen\BlockManager\Serializer\Values\FormView::getContext
+     * @covers Netgen\BlockManager\Serializer\Values\AbstractView::getContext
      */
     public function testGetContext()
     {
-        self::assertEquals(ViewInterface::CONTEXT_API_FORM, $this->value->getContext());
+        self::assertEquals(ViewInterface::CONTEXT_API_VIEW, $this->value->getContext());
     }
 }

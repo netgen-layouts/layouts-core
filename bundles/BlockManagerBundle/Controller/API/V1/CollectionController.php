@@ -299,13 +299,13 @@ class CollectionController extends Controller
         $responseCode = Response::HTTP_OK;
         if ($request->getMethod() === Request::METHOD_POST) {
             if ($form->isValid()) {
-                $query = $this->collectionService->updateQuery($query, $form->getData());
+                $this->collectionService->updateQuery($query, $form->getData());
             } else {
                 $responseCode = Response::HTTP_UNPROCESSABLE_ENTITY;
             }
         }
 
-        return new FormView($form, $formName, $query, Version::API_V1, $responseCode);
+        return new FormView($form, Version::API_V1, $responseCode);
     }
 
     /**

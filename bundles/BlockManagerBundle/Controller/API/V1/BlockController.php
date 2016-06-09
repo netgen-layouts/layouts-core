@@ -260,7 +260,7 @@ class BlockController extends Controller
             }
         }
 
-        return new FormView($form, $formName, $block, Version::API_V1, $responseCode);
+        return new FormView($form, Version::API_V1, $responseCode);
     }
 
     /**

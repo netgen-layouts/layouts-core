@@ -1,0 +1,22 @@
+form_view:
+    api_view:
+        block_full_edit:
+            template: "NetgenBlockManagerBundle:api/block/form:full.html.twig"
+            match:
+                form_type: Netgen\BlockManager\Block\Form\FullEditType
+                api_version: 1
+        block_content_edit:
+            template: "NetgenBlockManagerBundle:api/block/form:content.html.twig"
+            match:
+                form_type: Netgen\BlockManager\Block\Form\ContentEditType
+                api_version: 1
+        block_design_edit:
+            template: "NetgenBlockManagerBundle:api/block/form:design.html.twig"
+            match:
+                form_type: Netgen\BlockManager\Block\Form\DesignEditType
+                api_version: 1
+        query_full_edit:
+            template: "NetgenBlockManagerBundle:api/query:form.html.twig"
+            match:
+                form_type: Netgen\BlockManager\Collection\Query\Form\FullEditType
+                api_version: 1

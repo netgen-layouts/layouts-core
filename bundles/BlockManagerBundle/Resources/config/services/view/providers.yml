@@ -2,7 +2,7 @@ parameters:
     netgen_block_manager.view.provider.block.class: Netgen\BlockManager\View\Provider\BlockViewProvider
     netgen_block_manager.view.provider.item.class: Netgen\BlockManager\View\Provider\ItemViewProvider
     netgen_block_manager.view.provider.layout.class: Netgen\BlockManager\View\Provider\LayoutViewProvider
-    netgen_block_manager.view.provider.query.class: Netgen\BlockManager\View\Provider\QueryViewProvider
+    netgen_block_manager.view.provider.form.class: Netgen\BlockManager\View\Provider\FormViewProvider
 
 services:
     netgen_block_manager.view.provider.block:
@@ -20,7 +20,7 @@ services:
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
-    netgen_block_manager.view.provider.query:
-        class: "%netgen_block_manager.view.provider.query.class%"
+    netgen_block_manager.view.provider.form:
+        class: "%netgen_block_manager.view.provider.form.class%"
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }

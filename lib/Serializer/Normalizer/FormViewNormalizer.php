@@ -3,12 +3,10 @@
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\FormView;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
-class FormViewNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
+class FormViewNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
@@ -36,25 +34,15 @@ class FormViewNormalizer extends SerializerAwareNormalizer implements Normalizer
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        $normalizedData = $this->serializer->normalize(
-            new VersionedValue(
+        return array(
+            'form' => $this->viewRenderer->renderValueObject(
                 $object->getValue(),
-                $object->getVersion(),
-                $object->getStatusCode()
-            )
+                $object->getContext(),
+                array(
+                    'api_version' => $object->getVersion(),
+                ) + $object->getViewParameters()
+            ),
         );
-
-        $normalizedData['form'] = $this->viewRenderer->renderValueObject(
-            $object->getValue(),
-            $object->getContext(),
-            array(
-                'form' => $object->getForm()->createView(),
-                'form_name' => $object->getFormName(),
-                'api_version' => $object->getVersion(),
-            ) + $object->getViewParameters()
-        );
-
-        return $normalizedData;
     }
 
     /**

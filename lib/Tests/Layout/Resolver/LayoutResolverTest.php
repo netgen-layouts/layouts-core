@@ -29,7 +29,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver:::__construct
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::__construct
      * @expectedException \RuntimeException
      */
     public function testConstructorThrowsRuntimeExceptionOnWrongValueProviderInterface()
@@ -44,7 +44,7 @@ class LayoutResolverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::__constructor
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::__construct
      * @expectedException \RuntimeException
      */
     public function testConstructorThrowsRuntimeExceptionOnWrongMatcherInterface()

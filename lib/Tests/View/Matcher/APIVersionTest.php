@@ -42,10 +42,10 @@ class APIVersionTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(array(), false),
-            array(array(42), true),
             array(array(24), false),
+            array(array(42), true),
+            array(array(43, 24), false),
             array(array(24, 42), true),
-            array(array(42, 24), true),
         );
     }
 
