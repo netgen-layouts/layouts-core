@@ -100,14 +100,11 @@ block_definitions:
                 parameters:
                     - next_and_previous
                     - show_pagination
-                    - pagination_type
                     - infinite_loop
                     - transition
                     - autoplay
-                    - autoplay_time
                     - aspect_ratio
                     - show_details
-                    - show_details_on_hover
                     - enable_lightbox
                     - css_class
                     - css_id

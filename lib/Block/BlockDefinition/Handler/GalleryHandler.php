@@ -51,7 +51,7 @@ class GalleryHandler extends BlockDefinitionHandler implements BlockDefinitionHa
             'transition' => new Parameter\Select(array('options' => $this->transitions), true),
             'autoplay' => new Parameter\Compound\Boolean(
                 array(
-                    'autoplay_time' => new Parameter\Text(array(), true),
+                    'autoplay_time' => new Parameter\Text(),
                 )
             ),
             'aspect_ratio' => new Parameter\Select(array('options' => $this->aspectRatios), true),

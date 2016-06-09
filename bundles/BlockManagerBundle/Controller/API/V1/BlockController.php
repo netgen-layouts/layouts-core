@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -136,6 +137,12 @@ class BlockController extends Controller
         $blockParameters = array();
         foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
             $blockParameters[$parameterName] = null;
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+                    $blockParameters[$subParameterName] = null;
+                }
+            }
         }
 
         $blockCreateStruct->name = $blockType->getDefaultBlockName();

@@ -96,6 +96,10 @@ class CompoundBooleanType extends AbstractType
             function (FormEvent $event) use ($options) {
                 $data = $event->getData();
 
+                if (empty($data)) {
+                    return;
+                }
+
                 if (!isset($data[$options['checkbox_name']]) || !$data[$options['checkbox_name']]) {
                     foreach ($data as $key => $value) {
                         if ($key !== $options['checkbox_name']) {
