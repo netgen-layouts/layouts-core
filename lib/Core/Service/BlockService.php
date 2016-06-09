@@ -4,9 +4,12 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
@@ -44,6 +47,11 @@ class BlockService implements BlockServiceInterface
     protected $layoutTypeRegistry;
 
     /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     */
+    protected $blockDefinitionRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     protected $blockHandler;
@@ -65,17 +73,20 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
     public function __construct(
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
         Handler $persistenceHandler,
-        LayoutTypeRegistryInterface $layoutTypeRegistry
+        LayoutTypeRegistryInterface $layoutTypeRegistry,
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry
     ) {
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->persistenceHandler = $persistenceHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
@@ -466,21 +477,39 @@ class BlockService implements BlockServiceInterface
     /**
      * Creates a new block create struct.
      *
-     * @param string $definitionIdentifier
-     * @param string $viewType
-     * @param string $itemViewType
+     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      *
      * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
      */
-    public function newBlockCreateStruct($definitionIdentifier, $viewType, $itemViewType)
+    public function newBlockCreateStruct(BlockType $blockType)
     {
-        return new BlockCreateStruct(
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $blockType->getDefinitionIdentifier()
+        );
+
+        $blockCreateStruct = new BlockCreateStruct(
             array(
-                'definitionIdentifier' => $definitionIdentifier,
-                'viewType' => $viewType,
-                'itemViewType' => $itemViewType,
+                'definitionIdentifier' => $blockType->getDefinitionIdentifier(),
+                'name' => $blockType->getDefaultBlockName(),
+                'viewType' => $blockType->getDefaultBlockViewType(),
+                'itemViewType' => $blockType->getDefaultBlockItemViewType(),
             )
         );
+
+        $blockParameters = array();
+        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
+            $blockParameters[$parameterName] = null;
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+                    $blockParameters[$subParameterName] = null;
+                }
+            }
+        }
+
+        $blockCreateStruct->setParameters($blockType->getDefaultBlockParameters() + $blockParameters);
+
+        return $blockCreateStruct;
     }
 
     /**

@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 
 interface BlockService
 {
@@ -126,13 +127,11 @@ interface BlockService
     /**
      * Creates a new block create struct.
      *
-     * @param string $definitionIdentifier
-     * @param string $viewType
-     * @param string $itemViewType
+     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      *
      * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
      */
-    public function newBlockCreateStruct($definitionIdentifier, $viewType, $itemViewType);
+    public function newBlockCreateStruct(BlockType $blockType);
 
     /**
      * Creates a new block update struct.

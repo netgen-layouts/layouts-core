@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -117,39 +116,13 @@ class BlockController extends Controller
         }
 
         try {
-            $blockDefinition = $this->getBlockDefinition($blockType->getDefinitionIdentifier());
-        } catch (NotFoundException $e) {
-            throw new BadStateException('block_type', 'Block definition specified in block type does not exist.', $e);
-        }
-
-        try {
             $layout = $this->layoutService->loadLayoutDraft($request->request->get('layout_id'));
         } catch (NotFoundException $e) {
             throw new BadStateException('layout_id', 'Layout draft does not exist.', $e);
         }
 
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $blockType->getDefinitionIdentifier(),
-            $blockType->getDefaultBlockViewType(),
-            $blockType->getDefaultBlockItemViewType()
-        );
-
-        $blockParameters = array();
-        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
-            $blockParameters[$parameterName] = null;
-
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                    $blockParameters[$subParameterName] = null;
-                }
-            }
-        }
-
-        $blockCreateStruct->name = $blockType->getDefaultBlockName();
-        $blockCreateStruct->setParameters($blockType->getDefaultBlockParameters() + $blockParameters);
-
         $createdBlock = $this->blockService->createBlock(
-            $blockCreateStruct,
+            $this->blockService->newBlockCreateStruct($blockType),
             $layout,
             $request->request->get('zone_identifier'),
             $request->request->get('position')
