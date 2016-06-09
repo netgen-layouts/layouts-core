@@ -10,57 +10,57 @@ block_types:
                 title: 'Title'
 
     text:
-       name: 'Text'
-       definition_identifier: paragraph
-       defaults:
-           view_type: default
-           item_view_type: standard
-           parameters:
-               content: 'Text'
+        name: 'Text'
+        definition_identifier: paragraph
+        defaults:
+            view_type: default
+            item_view_type: standard
+            parameters:
+                content: 'Text'
 
     html_snippet:
-       name: 'HTML snippet'
-       definition_identifier: html_snippet
-       defaults:
-           view_type: default
-           item_view_type: standard
+        name: 'HTML snippet'
+        definition_identifier: html_snippet
+        defaults:
+            view_type: default
+            item_view_type: standard
 
-    content_block:
-       name: 'Content block'
-       definition_identifier: twig_block
-       defaults:
-           view_type: default
-           item_view_type: standard
-           parameters:
-               block_name: content
+    content:
+        name: 'Content'
+        definition_identifier: twig_block
+        defaults:
+            view_type: default
+            item_view_type: standard
+            parameters:
+                block_name: content
 
     map:
-       name: 'Map'
-       definition_identifier: map
-       defaults:
-           view_type: default
-           item_view_type: standard
-           parameters:
-               latitude: 0
-               longitude: 0
-               zoom: 5
-               map_type: roadmap
-               show_marker: true
+        name: 'Map'
+        definition_identifier: map
+        defaults:
+            view_type: default
+            item_view_type: standard
+            parameters:
+                latitude: 0
+                longitude: 0
+                zoom: 5
+                map_type: roadmap
+                show_marker: true
 
     list:
-       name: 'List'
-       definition_identifier: list
-       defaults:
-           view_type: list
-           item_view_type: standard
-           parameters:
-               number_of_columns: 1
+        name: 'List'
+        definition_identifier: list
+        defaults:
+            view_type: list
+            item_view_type: standard
+            parameters:
+                number_of_columns: 1
 
     grid:
-       name: 'Grid'
-       definition_identifier: list
-       defaults:
-           view_type: grid
-           item_view_type: standard
-           parameters:
-               number_of_columns: 3
+        name: 'Grid'
+        definition_identifier: list
+        defaults:
+            view_type: grid
+            item_view_type: standard
+            parameters:
+                number_of_columns: 3
