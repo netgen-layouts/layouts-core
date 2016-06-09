@@ -19,7 +19,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 abstract class LayoutResolverServiceTest extends ServiceTest
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $layoutResolverValidatorMock;
 

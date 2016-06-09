@@ -12,7 +12,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 class CollectionReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $collectionServiceMock;
 

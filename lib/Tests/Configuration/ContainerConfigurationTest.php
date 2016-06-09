@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ContainerConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $containerMock;
 

@@ -19,7 +19,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 class ResultGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $queryRunnerMock;
 
@@ -34,7 +34,7 @@ class ResultGeneratorTest extends \PHPUnit\Framework\TestCase
     protected $itemBuilder;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $valueLoaderRegistryMock;
 

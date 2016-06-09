@@ -9,12 +9,12 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 class ConnectionHelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $databasePlatformMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $databaseConnectionMock;
 

@@ -19,17 +19,17 @@ use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
 abstract class BlockServiceTest extends ServiceTest
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $blockValidatorMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $layoutValidatorMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $collectionValidatorMock;
 

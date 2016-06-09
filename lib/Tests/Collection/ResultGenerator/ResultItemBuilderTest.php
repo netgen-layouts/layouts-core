@@ -12,7 +12,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\Value;
 class ResultItemBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $itemBuilderMock;
 

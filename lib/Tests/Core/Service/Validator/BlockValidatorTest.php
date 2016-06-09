@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Validation;
 class BlockValidatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $blockDefinitionHandlerMock;
 
@@ -30,7 +30,7 @@ class BlockValidatorTest extends \PHPUnit\Framework\TestCase
     protected $blockDefinitionConfig;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $blockDefinitionRegistryMock;
 

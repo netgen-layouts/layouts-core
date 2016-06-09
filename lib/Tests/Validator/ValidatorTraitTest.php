@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ValidatorTraitTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $validatorMock;
 

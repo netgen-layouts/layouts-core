@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PageLayoutListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $pageLayoutResolverMock;
 

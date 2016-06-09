@@ -19,7 +19,7 @@ use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 abstract class CollectionServiceTest extends ServiceTest
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $collectionValidatorMock;
 

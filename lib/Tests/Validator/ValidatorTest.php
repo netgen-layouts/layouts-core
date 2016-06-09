@@ -9,12 +9,12 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 abstract class ValidatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $executionContextMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $violationBuilderMock;
 

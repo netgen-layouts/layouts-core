@@ -24,12 +24,12 @@ class CollectionServiceTest extends \PHPUnit\Framework\TestCase
     use TestCase;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $collectionHandlerMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $collectionValidatorMock;
 

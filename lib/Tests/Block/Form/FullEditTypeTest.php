@@ -28,7 +28,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
     protected $builder;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $dispatcher;
 
