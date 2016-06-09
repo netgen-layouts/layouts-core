@@ -2,6 +2,9 @@ block_type_groups:
     typography:
         name: 'Typography'
         block_types: [title, text, html_snippet]
+    basic:
+        name: 'Basic'
+        block_types: [map]
     content_blocks:
         name: 'Content blocks'
         block_types: [content_block]

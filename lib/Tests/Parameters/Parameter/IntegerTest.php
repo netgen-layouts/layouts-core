@@ -65,8 +65,58 @@ class IntegerTest extends TestCase
     {
         return array(
             array(
-                array(),
-                array(),
+                array(
+                ),
+                array(
+                    'max' => null,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'max' => 5,
+                ),
+                array(
+                    'max' => 5,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'max' => null,
+                ),
+                array(
+                    'max' => null,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'min' => 5,
+                ),
+                array(
+                    'min' => 5,
+                    'max' => null,
+                ),
+            ),
+            array(
+                array(
+                    'min' => null,
+                ),
+                array(
+                    'max' => null,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'max' => 5,
+                    'min' => 10,
+                ),
+                array(
+                    'max' => 5,
+                    'min' => 10,
+                ),
             ),
         );
     }
@@ -80,6 +130,24 @@ class IntegerTest extends TestCase
     {
         return array(
             array(
+                array(
+                    'max' => array(),
+                ),
+                array(
+                    'max' => 5.5,
+                ),
+                array(
+                    'max' => '5',
+                ),
+                array(
+                    'min' => array(),
+                ),
+                array(
+                    'min' => 5.5,
+                ),
+                array(
+                    'min' => '5',
+                ),
                 array(
                     'undefined_value' => 'Value',
                 ),

@@ -13,8 +13,6 @@ block_definitions:
                 item_view_types:
                     standard:
                         name: 'Standard'
-                    standard_with_intro:
-                        name: 'Standard with intro'
             small:
                 name: 'Small'
                 item_view_types:
@@ -47,6 +45,17 @@ block_definitions:
                         name: 'Standard'
 
     twig_block:
+        forms:
+            full:
+                type: ~
+        view_types:
+            default:
+                name: 'Default'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+
+    map:
         forms:
             full:
                 type: ~

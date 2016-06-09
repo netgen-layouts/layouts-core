@@ -18,3 +18,11 @@ block.paragraph.test5: 'Test 5'
 block.paragraph.test6: 'Test 6'
 
 block.twig_block.block_name: 'Twig block name'
+
+block.map.latitude: 'Latitude'
+block.map.longitude: 'Longitude'
+block.map.zoom: 'Zoom'
+block.map.map_type: 'Map type'
+block.map.show_marker: 'Show marker'
+block.map.css_id: 'CSS ID'
+block.map.css_class: 'CSS class'

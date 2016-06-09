@@ -32,4 +32,17 @@ block_types:
            view_type: default
            item_view_type: standard
            parameters:
-               block_name: 'content'
+               block_name: content
+
+    map:
+       name: 'Map'
+       definition_identifier: map
+       defaults:
+           view_type: default
+           item_view_type: standard
+           parameters:
+               latitude: 0
+               longitude: 0
+               zoom: 5
+               map_type: roadmap
+               show_marker: true
