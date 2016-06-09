@@ -25,6 +25,10 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
+        $this->setParameter('netgen_block_manager.block_types', array());
+        $this->setParameter('netgen_block_manager.block_type_groups', array());
+        $this->setParameter('netgen_block_manager.block_definitions', array());
+
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
         $blockType = new Definition();
@@ -47,6 +51,10 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessGroup()
     {
+        $this->setParameter('netgen_block_manager.block_types', array());
+        $this->setParameter('netgen_block_manager.block_type_groups', array());
+        $this->setParameter('netgen_block_manager.block_definitions', array());
+
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
         $blockTypeGroup = new Definition();

@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Conf
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class LayoutTypeRegistryPass implements CompilerPassInterface
 {
@@ -18,18 +19,56 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasParameter('netgen_block_manager.layout_types')) {
+            return;
+        }
+
+        $layoutTypes = $container->getParameter('netgen_block_manager.layout_types');
+        $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
+
+        $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
+
         if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
-        $layoutTypes = $container->findTaggedServiceIds(self::TAG_NAME);
+        $layoutTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($layoutTypes as $layoutType => $tag) {
+        foreach ($layoutTypeServices as $layoutTypeService => $tag) {
             $registry->addMethodCall(
                 'addLayoutType',
-                array(new Reference($layoutType))
+                array(new Reference($layoutTypeService))
             );
+        }
+    }
+
+    /**
+     * Validates layout type config.
+     *
+     * @param array $layoutTypes
+     * @param array $blockDefinitions
+     *
+     * @throws \RuntimeException If validation failed
+     */
+    protected function validateLayoutTypes(array $layoutTypes, array $blockDefinitions)
+    {
+        foreach ($layoutTypes as $layoutType => $layoutTypeConfig) {
+            foreach ($layoutTypeConfig['zones'] as $zoneConfig) {
+                foreach ($zoneConfig['allowed_block_definitions'] as $blockDefinition) {
+                    if (isset($blockDefinitions[$blockDefinition])) {
+                        continue;
+                    }
+
+                    throw new RuntimeException(
+                        sprintf(
+                            'Block definition "%s" used in "%s" layout type does not exist.',
+                            $blockDefinition,
+                            $layoutType
+                        )
+                    );
+                }
+            }
         }
     }
 }

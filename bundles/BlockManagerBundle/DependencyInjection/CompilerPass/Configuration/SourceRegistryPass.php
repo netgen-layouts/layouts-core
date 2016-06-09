@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Conf
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class SourceRegistryPass implements CompilerPassInterface
 {
@@ -18,18 +19,54 @@ class SourceRegistryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasParameter('netgen_block_manager.sources')) {
+            return;
+        }
+
+        $sources = $container->getParameter('netgen_block_manager.sources');
+        $queryTypes = $container->getParameter('netgen_block_manager.query_types');
+
+        $this->validateSources($sources, $queryTypes);
+
         if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
-        $sources = $container->findTaggedServiceIds(self::TAG_NAME);
+        $sourceServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($sources as $source => $tag) {
+        foreach ($sourceServices as $sourceService => $tag) {
             $registry->addMethodCall(
                 'addSource',
-                array(new Reference($source))
+                array(new Reference($sourceService))
             );
+        }
+    }
+
+    /**
+     * Validates source config.
+     *
+     * @param array $sources
+     * @param array $queryTypes
+     *
+     * @throws \RuntimeException If validation failed
+     */
+    protected function validateSources(array $sources, array $queryTypes)
+    {
+        foreach ($sources as $source => $sourceConfig) {
+            foreach ($sourceConfig['queries'] as $queryConfig) {
+                if (isset($queryTypes[$queryConfig['query_type']])) {
+                    continue;
+                }
+
+                throw new RuntimeException(
+                    sprintf(
+                        'Query type "%s" used in "%s" source does not exist.',
+                        $queryConfig['query_type'],
+                        $source
+                    )
+                );
+            }
         }
     }
 }

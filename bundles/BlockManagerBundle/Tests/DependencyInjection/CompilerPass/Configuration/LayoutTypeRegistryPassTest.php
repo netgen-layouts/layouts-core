@@ -25,6 +25,9 @@ class LayoutTypeRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
+        $this->setParameter('netgen_block_manager.layout_types', array());
+        $this->setParameter('netgen_block_manager.block_definitions', array());
+
         $this->setDefinition('netgen_block_manager.configuration.registry.layout_type', new Definition());
 
         $layoutType = new Definition();

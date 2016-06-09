@@ -25,6 +25,9 @@ class SourceRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
+        $this->setParameter('netgen_block_manager.sources', array());
+        $this->setParameter('netgen_block_manager.query_types', array());
+
         $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
 
         $source = new Definition();
