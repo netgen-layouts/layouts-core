@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\BlockView;
@@ -36,7 +37,10 @@ class DefinitionIdentifierTest extends TestCase
             )
         );
 
-        $view = new BlockView($block);
+        $view = new BlockView(
+            $block,
+            $this->createMock(BlockDefinitionInterface::class)
+        );
 
         self::assertEquals($expected, $this->matcher->match($view, $config));
     }

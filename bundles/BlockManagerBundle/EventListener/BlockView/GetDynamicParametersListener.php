@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
