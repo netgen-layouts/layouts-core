@@ -68,8 +68,7 @@ class BlockController extends Controller
             return $this->buildView($block, $parameters, $context);
         } catch (Exception $e) {
             $this->logger->error(
-                sprintf('Error rendering a block with ID %d: %s', $blockId, $e->getMessage()),
-                array('ngbm')
+                sprintf('Error rendering a block with ID %d: %s', $blockId, $e->getMessage())
             );
 
             if ($this->debug) {

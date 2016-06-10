@@ -13,11 +13,12 @@ services:
             - "@netgen_block_manager.templating.global_helper"
             - "@netgen_block_manager.view.renderer"
             - "@fragment.handler"
-            - "@logger"
+            - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]
         tags:
             - { name: twig.extension }
+            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.pagelayout_resolver.default:
         class: "%netgen_block_manager.templating.pagelayout_resolver.default.class%"

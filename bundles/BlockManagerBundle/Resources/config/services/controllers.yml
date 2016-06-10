@@ -24,8 +24,11 @@ services:
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
+            - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]
+        tags:
+            - { name: monolog.logger, channel: ngbm }
 
     ngbm_block:
         alias: netgen_block_manager.controller.block

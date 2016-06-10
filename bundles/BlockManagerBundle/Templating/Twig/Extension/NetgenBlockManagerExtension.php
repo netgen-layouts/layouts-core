@@ -263,8 +263,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     protected function logBlockError(Block $block, Exception $exception)
     {
         $this->logger->error(
-            sprintf('Error rendering a block with ID %d: %s', $block->getId(), $exception->getMessage()),
-            array('ngbm')
+            sprintf('Error rendering a block with ID %d: %s', $block->getId(), $exception->getMessage())
         );
     }
 
@@ -284,8 +283,7 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                 $item->getValueId(),
                 $item->getValueType(),
                 $exception->getMessage()
-            ),
-            array('ngbm')
+            )
         );
     }
 }

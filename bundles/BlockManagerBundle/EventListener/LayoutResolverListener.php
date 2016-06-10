@@ -102,8 +102,7 @@ class LayoutResolverListener implements EventSubscriberInterface
                         'Layout resolver rule with ID %d matched a layout with ID %d, but the layout was not found',
                         $rule->getId(),
                         $rule->getLayoutId()
-                    ),
-                    array('ngbm')
+                    )
                 );
 
                 return;
