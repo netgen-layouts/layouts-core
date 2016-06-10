@@ -29,6 +29,8 @@
     {% endif %}
 </section>
 
-<section>
-    <div data-browser-config-name="ezcontent" class="collection-items"></div>
-</section>
+{% if collection is not empty %}
+    <section>
+        <div data-browser-config-name="ezcontent" class="collection-items"></div>
+    </section>
+{% endif %}
