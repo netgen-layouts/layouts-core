@@ -72,7 +72,7 @@ block_types:
             view_type: slider
             item_view_type: standard
             parameters:
-                transition: first
+                transition: default
                 aspect_ratio: 16_9
                 autoplay_time: 1
                 number_of_thumbnails: 1
@@ -84,7 +84,7 @@ block_types:
             view_type: thumb_gallery
             item_view_type: standard
             parameters:
-                transition: first
+                transition: default
                 aspect_ratio: 16_9
                 autoplay_time: 1
                 number_of_thumbnails: 1
@@ -96,7 +96,7 @@ block_types:
             view_type: grid_gallery
             item_view_type: standard
             parameters:
-                transition: first
+                transition: default
                 aspect_ratio: 16_9
                 autoplay_time: 1
                 number_of_thumbnails: 1
@@ -108,7 +108,7 @@ block_types:
             view_type: sushi_bar
             item_view_type: standard
             parameters:
-                transition: first
+                transition: default
                 aspect_ratio: 16_9
                 autoplay_time: 1
                 number_of_thumbnails: 1
