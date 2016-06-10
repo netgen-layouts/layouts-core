@@ -72,6 +72,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
 
         $config = new Configuration(
             'query_type',
+            'Query type',
             array()
         );
 

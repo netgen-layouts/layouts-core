@@ -36,6 +36,7 @@ class QueryTypesConfigurationTest extends TestCase
             array(
                 'query_types' => array(
                     'type' => array(
+                        'name' => 'Type',
                         'forms' => array(
                             'full' => array(
                                 'type' => 'full_edit',
@@ -49,6 +50,7 @@ class QueryTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'query_types' => array(
                 'type' => array(
+                    'name' => 'Type',
                     'forms' => array(
                         'full' => array(
                             'type' => 'full_edit',
@@ -73,6 +75,49 @@ class QueryTypesConfigurationTest extends TestCase
     {
         $config = array(
             'query_types' => array(),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
+     */
+    public function testQueryTypeSettingsWithNoName()
+    {
+        $config = array(
+            'query_types' => array(
+                'type' => array(
+                    'forms' => array(
+                        'full' => array(
+                            'type' => 'full_edit',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
+     */
+    public function testQueryTypeSettingsWithEmptyName()
+    {
+        $config = array(
+            'query_types' => array(
+                'type' => array(
+                    'name' => '',
+                    'forms' => array(
+                        'full' => array(
+                            'type' => 'full_edit',
+                        ),
+                    ),
+                ),
+            ),
         );
 
         $this->assertConfigurationIsInvalid(array($config));

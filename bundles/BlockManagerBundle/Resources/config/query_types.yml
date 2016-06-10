@@ -1,5 +1,6 @@
 query_types:
     ezcontent_search:
+        name: 'eZ Publish'
         forms:
             full:
                 type: ~

@@ -1,2 +1,11 @@
 pagelayout.title: 'Netgen Block Manager'
 pagelayout.trash: 'Trash'
+
+block.edit.tabs.content: 'Content'
+block.edit.tabs.design: 'Design'
+block.edit.collection_type: 'Collection type'
+block.edit.collection_type.manual_collection: 'Manual collection'
+block.edit.collection_type.dynamic_collection: 'Dynamic collection'
+block.edit.collection_type.named_collection: 'Named collection'
+block.edit.query_type: 'Query type'
+block.edit.named_collection: 'Named collection'

@@ -1,0 +1,5 @@
+{% if collection is not empty and collection.type == constant('TYPE_DYNAMIC', collection) %}
+    {% if collection.queries is not empty %}
+        <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': collection.queries[0].id, 'formName': 'full'}) }}"></div>
+    {% endif %}
+{% endif %}

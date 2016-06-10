@@ -1,7 +1,0 @@
-{% if collection is not empty and collection.type == constant('TYPE_DYNAMIC', collection) %}
-    {% if collection.queries is not empty %}
-        {% for query in collection.queries %}
-            <div data-form="{{ path('netgen_block_manager_api_v1_query_form', {'queryId': query.id, 'formName': 'full'}) }}"></div>
-        {% endfor %}
-    {% endif %}
-{% endif %}

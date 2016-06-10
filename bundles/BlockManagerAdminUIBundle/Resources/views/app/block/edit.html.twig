@@ -1,23 +1,25 @@
+{% trans_default_domain 'ngbm_app' %}
+
 <section>
     {% if block_definition.config.hasForm('full') %}
-        {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collections.html.twig' %}
+        {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collections.html.twig' %}
 
         <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
 
-        {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collection_queries.html.twig' %}
+        {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
     {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
-                <li><a id="content">Content</a></li>
-                <li><a id="design">Design</a></li>
+                <li><a id="content">{{ 'block.edit.tabs.content'|trans }}</a></li>
+                <li><a id="design">{{ 'block.edit.tabs.design'|trans }}</a></li>
             </ul>
 
             <div class="tab-pane" id="content-tab">
-                {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collections.html.twig' %}
+                {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collections.html.twig' %}
 
                 <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
-                {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collection_queries.html.twig' %}
+                {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
             </div>
 
             <div class="tab-pane" id="design-tab">

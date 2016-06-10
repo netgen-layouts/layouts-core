@@ -25,6 +25,7 @@ class FactoryTest extends TestCase
     public function testBuildQueryTypeConfig()
     {
         $config = array(
+            'name' => 'Query type',
             'forms' => array(
                 'full' => array(
                     'type' => 'form_type',
@@ -41,6 +42,7 @@ class FactoryTest extends TestCase
         self::assertEquals(
             new Configuration(
                 'query_type',
+                'Query type',
                 array(
                     'full' => new Form('full', 'form_type', array('param1', 'param2')),
                 )

@@ -12,6 +12,11 @@ class Configuration
     protected $type;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var array
      */
     protected $forms = array();
@@ -20,11 +25,13 @@ class Configuration
      * Constructor.
      *
      * @param string $type
+     * @param string $name
      * @param array $forms
      */
-    public function __construct($type, array $forms)
+    public function __construct($type, $name, array $forms)
     {
         $this->type = $type;
+        $this->name = $name;
         $this->forms = $forms;
     }
 
@@ -36,6 +43,16 @@ class Configuration
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Returns the query type name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
