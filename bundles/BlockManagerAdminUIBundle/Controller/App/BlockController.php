@@ -32,6 +32,13 @@ class BlockController extends Controller
         $this->collectionService = $collectionService;
     }
 
+    /**
+     * Displays block edit interface.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function edit(BlockDraft $block)
     {
         $defaultCollection = null;

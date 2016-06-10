@@ -1,7 +1,7 @@
-netgen_block_manager_app_app_index:
+netgen_block_manager_app_index_index:
     path: /
     defaults:
-        _controller: "netgen_block_manager.controller.app.app:index"
+        _controller: "netgen_block_manager.controller.app.index:index"
 
 netgen_block_manager_app_block_edit:
     path: /blocks/{blockId}/edit
