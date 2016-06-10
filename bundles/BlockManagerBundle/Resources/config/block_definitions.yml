@@ -1,20 +1,11 @@
 block_definitions:
     title:
         forms:
-            content:
+            full:
                 type: ~
-                parameters: [title]
-            design:
-                type: ~
-                parameters: [tag, css_class, css_id]
         view_types:
-            default:
-                name: 'Default'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
-            small:
-                name: 'Small'
+            title:
+                name: 'Title'
                 item_view_types:
                     standard:
                         name: 'Standard'
@@ -23,13 +14,8 @@ block_definitions:
             full:
                 type: ~
         view_types:
-            default:
-                name: 'Default'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
-            large:
-                name: 'Large'
+            text:
+                name: 'Text'
                 item_view_types:
                     standard:
                         name: 'Standard'
@@ -38,8 +24,8 @@ block_definitions:
             full:
                 type: ~
         view_types:
-            default:
-                name: 'Default'
+            html_snippet:
+                name: 'HTML snippet'
                 item_view_types:
                     standard:
                         name: 'Standard'
@@ -49,8 +35,8 @@ block_definitions:
             full:
                 type: ~
         view_types:
-            default:
-                name: 'Default'
+            twig_block:
+                name: 'Twig block'
                 item_view_types:
                     standard:
                         name: 'Standard'
@@ -64,8 +50,8 @@ block_definitions:
                 type: ~
                 parameters: [css_class, css_id]
         view_types:
-            default:
-                name: 'Default'
+            map:
+                name: 'Map'
                 item_view_types:
                     standard:
                         name: 'Standard'
