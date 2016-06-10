@@ -48,7 +48,7 @@ class MapHandler extends BlockDefinitionHandler implements BlockDefinitionHandle
                 true
             ),
             'map_type' => new Parameter\Select(array('options' => $this->mapTypes), true),
-            'show_marker' => new Parameter\Boolean(array(), true),
+            'show_marker' => new Parameter\Boolean(),
         ) + parent::getParameters();
     }
 }
