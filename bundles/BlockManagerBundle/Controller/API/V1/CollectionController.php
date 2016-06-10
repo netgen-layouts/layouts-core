@@ -16,6 +16,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValid
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Exception;
 
@@ -192,7 +193,7 @@ class CollectionController extends Controller
             throw new BadStateException('items', $e->getMessage());
         }
 
-        return new Response(null, Response::HTTP_CREATED);
+        return new JsonResponse(null, Response::HTTP_CREATED);
     }
 
     /**
