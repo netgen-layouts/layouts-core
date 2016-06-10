@@ -9,6 +9,7 @@ block_definitions:
                 item_view_types:
                     standard:
                         name: 'Standard'
+
     paragraph:
         forms:
             full:
@@ -19,6 +20,7 @@ block_definitions:
                 item_view_types:
                     standard:
                         name: 'Standard'
+
     html_snippet:
         forms:
             full:
@@ -37,6 +39,17 @@ block_definitions:
         view_types:
             twig_block:
                 name: 'Twig block'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+
+    external_video:
+        forms:
+            full:
+                type: ~
+        view_types:
+            external_video:
+                name: 'External video'
                 item_view_types:
                     standard:
                         name: 'Standard'

@@ -6,6 +6,7 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.title.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
     netgen_block_manager.block.block_definition.handler.paragraph.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler
+    netgen_block_manager.block.block_definition.handler.external_video.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler
     netgen_block_manager.block.block_definition.handler.html_snippet.class: Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler
     netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
     netgen_block_manager.block.block_definition.handler.map.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler
@@ -16,6 +17,10 @@ parameters:
         h1: 'Heading 1'
         h2: 'Heading 2'
         h3: 'Heading 3'
+
+    netgen_block_manager.block.block_definition.handler.external_video.services:
+        youtube: 'YouTube'
+        vimeo: 'Vimeo'
 
     netgen_block_manager.block.block_definition.handler.map.min_zoom: 0
     netgen_block_manager.block.block_definition.handler.map.max_zoom: 20
@@ -65,6 +70,13 @@ services:
         class: "%netgen_block_manager.block.block_definition.handler.paragraph.class%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: 'paragraph' }
+
+    netgen_block_manager.block.block_definition.handler.external_video:
+        class: "%netgen_block_manager.block.block_definition.handler.external_video.class%"
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.external_video.services%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'external_video' }
 
     netgen_block_manager.block.block_definition.handler.html_snippet:
         class: "%netgen_block_manager.block.block_definition.handler.html_snippet.class%"

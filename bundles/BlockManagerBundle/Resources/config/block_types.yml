@@ -3,7 +3,7 @@ block_types:
         name: 'Title'
         definition_identifier: title
         defaults:
-            view_type: default
+            view_type: title
             item_view_type: standard
             parameters:
                 tag: h1
@@ -13,32 +13,26 @@ block_types:
         name: 'Text'
         definition_identifier: paragraph
         defaults:
-            view_type: default
+            view_type: text
             item_view_type: standard
             parameters:
                 content: 'Text'
 
-    html_snippet:
-        name: 'HTML snippet'
-        definition_identifier: html_snippet
+    external_video:
+        name: 'External video'
+        definition_identifier: external_video
         defaults:
-            view_type: default
-            item_view_type: standard
-
-    content:
-        name: 'Content'
-        definition_identifier: twig_block
-        defaults:
-            view_type: default
+            view_type: external_video
             item_view_type: standard
             parameters:
-                block_name: content
+                service: youtube
+                video_id: ' '
 
     map:
         name: 'Map'
         definition_identifier: map
         defaults:
-            view_type: default
+            view_type: map
             item_view_type: standard
             parameters:
                 latitude: 0
@@ -46,6 +40,22 @@ block_types:
                 zoom: 5
                 map_type: roadmap
                 show_marker: true
+
+    html_snippet:
+        name: 'HTML snippet'
+        definition_identifier: html_snippet
+        defaults:
+            view_type: html_snippet
+            item_view_type: standard
+
+    content:
+        name: 'Content'
+        definition_identifier: twig_block
+        defaults:
+            view_type: twig_block
+            item_view_type: standard
+            parameters:
+                block_name: content
 
     list:
         name: 'List'
