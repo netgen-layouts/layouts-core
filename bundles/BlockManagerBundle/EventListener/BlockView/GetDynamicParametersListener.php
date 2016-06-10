@@ -11,11 +11,6 @@ use Netgen\BlockManager\Event\View\ViewEvents;
 class GetDynamicParametersListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
      * @var array
      */
     protected $enabledContexts;
@@ -23,14 +18,10 @@ class GetDynamicParametersListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param array $enabledContexts
      */
-    public function __construct(
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
-        array $enabledContexts = array()
-    ) {
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
+    public function __construct(array $enabledContexts = array())
+    {
         $this->enabledContexts = $enabledContexts;
     }
 
@@ -60,12 +51,8 @@ class GetDynamicParametersListener implements EventSubscriberInterface
             return;
         }
 
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $view->getBlock()->getDefinitionIdentifier()
-        );
-
         $event->getParameterBag()->add(
-            $blockDefinition->getDynamicParameters($view->getBlock(), $view->getParameters())
+            $view->getBlockDefinition()->getDynamicParameters($view->getBlock())
         );
     }
 }

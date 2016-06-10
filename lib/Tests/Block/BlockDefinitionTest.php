@@ -68,12 +68,12 @@ class BlockDefinitionTest extends TestCase
         $this->handlerMock
             ->expects($this->once())
             ->method('getDynamicParameters')
-            ->with($this->equalTo(new Block()), $this->equalTo(array('params')))
+            ->with($this->equalTo(new Block()))
             ->will($this->returnValue(array('dynamic')));
 
         self::assertEquals(
             array('dynamic'),
-            $this->blockDefinition->getDynamicParameters(new Block(), array('params'))
+            $this->blockDefinition->getDynamicParameters(new Block())
         );
     }
 

@@ -1,8 +1,14 @@
+{% set view_type_name = block.viewType %}
+
+{% if block_definition.config.hasViewType(view_type_name) %}
+    {% set view_type_name = block_definition.config.viewType(view_type_name).name %}
+{% endif %}
+
 {% block controls %}
     <div class="block-header">
         <div class="handle" title="Move"><i class="fa fa-ellipsis-h"></i><i class="fa fa-ellipsis-h"></i></div>
         <div class="action-destroy" title="Delete"><i class="fa fa-times"></i></div>
-        <div class="template_name">{{ block.viewType }}</div>
+        <div class="template_name">{{ view_type_name }}</div>
     </div>
 {% endblock %}
 
