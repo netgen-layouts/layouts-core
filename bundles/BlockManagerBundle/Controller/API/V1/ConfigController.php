@@ -9,6 +9,7 @@ use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class ConfigController extends Controller
 {
@@ -28,20 +29,36 @@ class ConfigController extends Controller
     protected $sourceRegistry;
 
     /**
+     * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
+     */
+    protected $csrfTokenManager;
+
+    /**
+     * @var string
+     */
+    protected $csrfTokenId;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface $blockTypeRegistry
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      * @param \Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface $sourceRegistry
+     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
+     * @param string $csrfTokenId
      */
     public function __construct(
         BlockTypeRegistryInterface $blockTypeRegistry,
         LayoutTypeRegistryInterface $layoutTypeRegistry,
-        SourceRegistryInterface $sourceRegistry
+        SourceRegistryInterface $sourceRegistry,
+        CsrfTokenManagerInterface $csrfTokenManager = null,
+        $csrfTokenId = null
     ) {
         $this->blockTypeRegistry = $blockTypeRegistry;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->sourceRegistry = $sourceRegistry;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->csrfTokenId = $csrfTokenId;
     }
 
     /**
@@ -105,5 +122,25 @@ class ConfigController extends Controller
         }
 
         return new ValueArray($sources);
+    }
+
+    /**
+     * Returns the CSRF token.
+     *
+     * @return string
+     */
+    public function getCsrfToken()
+    {
+        $csrfToken = null;
+
+        if ($this->csrfTokenManager instanceof CsrfTokenManagerInterface && $this->csrfTokenId !== null) {
+            $csrfToken = $this->csrfTokenManager->refreshToken($this->csrfTokenId)->getValue();
+        }
+
+        return new ValueArray(
+            array(
+                'csrf_token' => $csrfToken,
+            )
+        );
     }
 }

@@ -7,6 +7,7 @@ parameters:
     netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
     netgen_block_manager.event_listener.pagelayout.class: Netgen\Bundle\BlockManagerBundle\EventListener\PageLayoutListener
     netgen_block_manager.event_listener.layout_resolver.class: Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
+    netgen_block_manager.event_listener.api_csrf_validation_listener.class: Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener
 
     netgen_block_manager.event_listener.block_view.get_collection_results.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
     netgen_block_manager.event_listener.block_view.get_dynamic_parameters.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener
@@ -69,6 +70,14 @@ services:
         tags:
             - { name: kernel.event_subscriber }
             - { name: monolog.logger, channel: ngbm }
+
+    netgen_block_manager.event_listener.api_csrf_validation_listener:
+        class: "%netgen_block_manager.event_listener.api_csrf_validation_listener.class%"
+        arguments:
+            - "@security.csrf.token_manager"
+            - "%netgen_block_manager.api.csrf_token_id%"
+#        tags:
+#            - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.block_view.get_collection_results:
         class: "%netgen_block_manager.event_listener.block_view.get_collection_results.class%"
