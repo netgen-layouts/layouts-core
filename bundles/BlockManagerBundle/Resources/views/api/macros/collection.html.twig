@@ -1,0 +1,7 @@
+{% macro collection(collections, identifier, item_view_type, view_context) %}
+    {% if collections[identifier] is defined %}
+        {% for result in collections[identifier].results %}
+            {{ ngbm_render_item(result.item, item_view_type, [], view_context) }}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
