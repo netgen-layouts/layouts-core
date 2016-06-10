@@ -46,6 +46,7 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios:
         16_9: '16:9'
+        3_2: '3:2'
         4_3: '4:3'
         1_1: '1:1'
 
