@@ -61,7 +61,7 @@ class BlockViewProviderTest extends TestCase
         self::assertEquals(
             array(
                 'block' => $block,
-                'block_definition' => $this->blockDefinition
+                'block_definition' => $this->blockDefinition,
             ),
             $view->getParameters()
         );

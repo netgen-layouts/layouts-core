@@ -75,7 +75,7 @@ class BlockController extends Controller
                 'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),
                 'collection' => $defaultCollection,
                 'named_collections' => $this->collectionService->loadNamedCollections(),
-                'query_types' => $this->queryTypeRegistry->getQueryTypes()
+                'query_types' => $this->queryTypeRegistry->getQueryTypes(),
             )
         );
     }
