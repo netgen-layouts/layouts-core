@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class Number extends Parameter
@@ -18,6 +19,22 @@ class Number extends Parameter
     }
 
     /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    protected function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefault('min', null);
+        $optionsResolver->setDefault('max', null);
+
+        $optionsResolver->setRequired(array('min', 'max'));
+
+        $optionsResolver->setAllowedTypes('min', array('numeric', 'null'));
+        $optionsResolver->setAllowedTypes('max', array('numeric', 'null'));
+    }
+
+    /**
      * Returns constraints that are specific to parameter.
      *
      * @param array $groups
@@ -26,12 +43,28 @@ class Number extends Parameter
      */
     public function getParameterConstraints(array $groups = null)
     {
-        return array(
+        $groupOptions = $this->getBaseConstraintOptions($groups);
+
+        $constraints = array(
             new Constraints\Type(
                 array(
                     'type' => 'numeric',
-                ) + $this->getBaseConstraintOptions($groups)
+                ) + $groupOptions
             ),
         );
+
+        if ($this->options['min'] !== null) {
+            $constraints[] = new Constraints\GreaterThanOrEqual(
+                array('value' => $this->options['min']) + $groupOptions
+            );
+        }
+
+        if ($this->options['max'] !== null) {
+            $constraints[] = new Constraints\LessThanOrEqual(
+                array('value' => $this->options['max']) + $groupOptions
+            );
+        }
+
+        return $constraints;
     }
 }

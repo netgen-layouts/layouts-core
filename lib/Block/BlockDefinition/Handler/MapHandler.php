@@ -38,8 +38,20 @@ class MapHandler extends BlockDefinitionHandler implements BlockDefinitionHandle
     public function getParameters()
     {
         return array(
-            'latitude' => new Parameter\Number(array(), true),
-            'longitude' => new Parameter\Number(array(), true),
+            'latitude' => new Parameter\Number(
+                array(
+                    'min' => -90,
+                    'max' => 90,
+                ),
+                true
+            ),
+            'longitude' => new Parameter\Number(
+                array(
+                    'min' => -180,
+                    'max' => 180,
+                ),
+                true
+            ),
             'zoom' => new Parameter\Range(
                 array(
                     'min' => $this->minZoom,
