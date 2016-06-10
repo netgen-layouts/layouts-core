@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -11,13 +13,27 @@ use PHPUnit\Framework\TestCase;
 class BlockTypeGroupNormalizerTest extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
+     */
+    protected $blockTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer
      */
     protected $normalizer;
 
     public function setUp()
     {
-        $this->normalizer = new BlockTypeGroupNormalizer();
+        $this->blockTypeRegistry = new BlockTypeRegistry();
+        $this->blockTypeRegistry->addBlockType(
+            new BlockType('type1', true, 'Type 1', 'title')
+        );
+
+        $this->blockTypeRegistry->addBlockType(
+            new BlockType('type2', false, 'Type 2', 'title')
+        );
+
+        $this->normalizer = new BlockTypeGroupNormalizer($this->blockTypeRegistry);
     }
 
     /**
@@ -31,7 +47,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
             array(
                 'identifier' => $blockTypeGroup->getIdentifier(),
                 'name' => $blockTypeGroup->getName(),
-                'block_types' => $blockTypeGroup->getBlockTypes(),
+                'block_types' => array('type1'),
             ),
             $this->normalizer->normalize(new VersionedValue($blockTypeGroup, 1))
         );
