@@ -54,6 +54,7 @@ class CollectionReferenceNormalizer implements NormalizerInterface
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'name' => $collection->getName(),
+            'block_id' => $collectionReference->getBlockId(),
             'identifier' => $collectionReference->getIdentifier(),
             'offset' => $collectionReference->getOffset(),
             'limit' => $collectionReference->getLimit(),
