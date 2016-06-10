@@ -26,7 +26,6 @@ block_types:
             item_view_type: standard
             parameters:
                 service: youtube
-                video_id: ' '
 
     map:
         name: 'Map'

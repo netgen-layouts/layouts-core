@@ -32,7 +32,8 @@ class ExternalVideoHandler extends BlockDefinitionHandler implements BlockDefini
     {
         return array(
             'service' => new Parameter\Select(array('options' => $this->services), true),
-            'video_id' => new Parameter\Text(array(), true),
+            'video_id' => new Parameter\Text(),
+            'caption' => new Parameter\Text(),
         ) + parent::getParameters();
     }
 }

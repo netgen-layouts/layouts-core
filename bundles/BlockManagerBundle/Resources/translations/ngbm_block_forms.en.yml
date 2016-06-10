@@ -21,6 +21,7 @@ block.map.css_id: 'CSS ID'
 
 block.external_video.service: 'Video service'
 block.external_video.video_id: 'Video ID'
+block.external_video.caption: 'Caption'
 block.external_video.css_class: 'CSS class'
 block.external_video.css_id: 'CSS ID'
 
