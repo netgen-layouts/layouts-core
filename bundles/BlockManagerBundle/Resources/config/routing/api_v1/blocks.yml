@@ -16,12 +16,6 @@ netgen_block_manager_api_v1_create_block:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:create"
 
-netgen_block_manager_api_v1_edit_block:
-    path: /blocks/{blockId}/edit
-    methods: [GET]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block:edit"
-
 netgen_block_manager_api_v1_move_block:
     path: /blocks/{blockId}/move
     methods: [PATCH]

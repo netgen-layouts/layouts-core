@@ -2,17 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Values\EditView;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -35,11 +32,6 @@ class BlockController extends Controller
     protected $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
      */
     protected $validator;
@@ -49,18 +41,15 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator $validator
      */
     public function __construct(
         BlockService $blockService,
         LayoutService $layoutService,
-        CollectionService $collectionService,
         BlockValidator $validator
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;
-        $this->collectionService = $collectionService;
         $this->validator = $validator;
     }
 
@@ -129,43 +118,6 @@ class BlockController extends Controller
         );
 
         return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
-    }
-
-    /**
-     * Displays block draft edit interface.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\EditView
-     */
-    public function edit(BlockDraft $block)
-    {
-        $defaultCollection = null;
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
-        foreach ($collectionReferences as $collectionReference) {
-            if ($collectionReference->getIdentifier() === 'default') {
-                if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
-                    $defaultCollection = $this->collectionService->loadCollection(
-                        $collectionReference->getCollectionId()
-                    );
-                } else {
-                    $defaultCollection = $this->collectionService->loadCollectionDraft(
-                        $collectionReference->getCollectionId()
-                    );
-                }
-            }
-        }
-
-        $editView = new EditView($block, Version::API_V1);
-        $editView->setViewParameters(
-            array(
-                'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),
-                'collection' => $defaultCollection,
-                'named_collections' => $this->collectionService->loadNamedCollections(),
-            )
-        );
-
-        return $editView;
     }
 
     /**

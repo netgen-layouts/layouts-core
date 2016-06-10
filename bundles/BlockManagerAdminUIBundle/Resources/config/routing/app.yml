@@ -2,3 +2,9 @@ netgen_block_manager_app_app_index:
     path: /
     defaults:
         _controller: "netgen_block_manager.controller.app.app:index"
+
+netgen_block_manager_app_block_edit:
+    path: /blocks/{blockId}/edit
+    methods: [GET]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.block:edit"

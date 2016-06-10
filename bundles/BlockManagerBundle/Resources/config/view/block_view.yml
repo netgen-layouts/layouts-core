@@ -38,8 +38,3 @@ block_view:
             template: "NetgenBlockManagerBundle:api/block:view.html.twig"
             match:
                 api_version: 1
-    api_edit:
-        block:
-            template: "NetgenBlockManagerBundle:api/block:edit.html.twig"
-            match:
-                api_version: 1

@@ -1,10 +1,10 @@
 <section>
     {% if block_definition.config.hasForm('full') %}
-        {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collections.html.twig' %}
+        {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collections.html.twig' %}
 
         <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
 
-        {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collection_queries.html.twig' %}
+        {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collection_queries.html.twig' %}
     {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
@@ -13,11 +13,11 @@
             </ul>
 
             <div class="tab-pane" id="content-tab">
-                {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collections.html.twig' %}
+                {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collections.html.twig' %}
 
                 <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
-                {% include 'NetgenBlockManagerBundle:api/block/parts/edit:collection_queries.html.twig' %}
+                {% include 'NetgenBlockManagerAdminUIBundle:app/block/parts/edit:collection_queries.html.twig' %}
             </div>
 
             <div class="tab-pane" id="design-tab">

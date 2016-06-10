@@ -8,8 +8,6 @@ interface ViewInterface
 
     const CONTEXT_API_VIEW = 'api_view';
 
-    const CONTEXT_API_EDIT = 'api_edit';
-
     /**
      * Returns the view alias.
      *
