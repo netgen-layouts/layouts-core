@@ -26,23 +26,28 @@ parameters:
         terrain: 'Terrain'
 
     netgen_block_manager.block.block_definition.handler.list.columns:
-        1: 'One column'
-        2: 'Two columns'
-        3: 'Three columns'
-        4: 'Four columns'
-        6: 'Six columns'
+        1: '1 column'
+        2: '2 columns'
+        3: '3 columns'
+        4: '4 columns'
+        6: '6 columns'
 
     netgen_block_manager.block.block_definition.handler.gallery.pagination_types:
-        first: 'First'
-        second: 'Second'
+        horizontal: 'Horizontal'
+        vertical: 'Vertical'
+        fraction: 'Fraction'
+
+    netgen_block_manager.block.block_definition.handler.gallery.min_autoplay_time: 1
+    netgen_block_manager.block.block_definition.handler.gallery.max_autoplay_time: 12
 
     netgen_block_manager.block.block_definition.handler.gallery.transitions:
-        first: 'First'
-        second: 'Second'
+        default: 'Default'
+        fade: 'Fade'
 
     netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios:
         16_9: '16:9'
         4_3: '4:3'
+        1_1: '1:1'
 
 services:
     netgen_block_manager.block.registry.block_definition:
@@ -89,6 +94,8 @@ services:
     netgen_block_manager.block.block_definition.handler.gallery:
         class: "%netgen_block_manager.block.block_definition.handler.gallery.class%"
         arguments:
+            - "%netgen_block_manager.block.block_definition.handler.gallery.min_autoplay_time%"
+            - "%netgen_block_manager.block.block_definition.handler.gallery.max_autoplay_time%"
             - "%netgen_block_manager.block.block_definition.handler.gallery.pagination_types%"
             - "%netgen_block_manager.block.block_definition.handler.gallery.transitions%"
             - "%netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios%"

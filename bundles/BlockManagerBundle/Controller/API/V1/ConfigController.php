@@ -2,12 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
-use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface;
-use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;

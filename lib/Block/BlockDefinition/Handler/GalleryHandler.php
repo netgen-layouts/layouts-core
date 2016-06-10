@@ -9,6 +9,16 @@ use Netgen\BlockManager\Parameters\Parameter;
 class GalleryHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
     /**
+     * @var int
+     */
+    protected $minAutoplayTime;
+
+    /**
+     * @var int
+     */
+    protected $maxAutoplayTime;
+
+    /**
      * @var array
      */
     protected $paginationTypes = array();
@@ -23,11 +33,24 @@ class GalleryHandler extends BlockDefinitionHandler implements BlockDefinitionHa
      */
     protected $aspectRatios = array();
 
+    /**
+     * Constructor.
+     *
+     * @param int $minAutoplayTime
+     * @param int $maxAutoplayTime
+     * @param array $paginationTypes
+     * @param array $transitions
+     * @param array $aspectRatios
+     */
     public function __construct(
+        $minAutoplayTime,
+        $maxAutoplayTime,
         array $paginationTypes = array(),
         array $transitions = array(),
         array $aspectRatios = array()
     ) {
+        $this->minAutoplayTime = $minAutoplayTime;
+        $this->maxAutoplayTime = $maxAutoplayTime;
         $this->paginationTypes = array_flip($paginationTypes);
         $this->transitions = array_flip($transitions);
         $this->aspectRatios = array_flip($aspectRatios);
@@ -51,7 +74,10 @@ class GalleryHandler extends BlockDefinitionHandler implements BlockDefinitionHa
             'transition' => new Parameter\Select(array('options' => $this->transitions), true),
             'autoplay' => new Parameter\Compound\Boolean(
                 array(
-                    'autoplay_time' => new Parameter\Text(),
+                    'autoplay_time' => new Parameter\Range(
+                        array('min' => $this->minAutoplayTime, 'max' => $this->maxAutoplayTime),
+                        true
+                    ),
                 )
             ),
             'aspect_ratio' => new Parameter\Select(array('options' => $this->aspectRatios), true),

@@ -3,6 +3,7 @@ parameters:
     netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
     netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier
     netgen_block_manager.parameters.parameter_handler.integer.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer
+    netgen_block_manager.parameters.parameter_handler.range.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Range
     netgen_block_manager.parameters.parameter_handler.number.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Number
     netgen_block_manager.parameters.parameter_handler.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Boolean
     netgen_block_manager.parameters.parameter_handler.textarea.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea
@@ -33,6 +34,11 @@ services:
         class: "%netgen_block_manager.parameters.parameter_handler.integer.class%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_handler, type: integer }
+
+    netgen_block_manager.parameters.parameter_handler.range:
+        class: "%netgen_block_manager.parameters.parameter_handler.range.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_handler, type: range }
 
     netgen_block_manager.parameters.parameter_handler.number:
         class: "%netgen_block_manager.parameters.parameter_handler.number.class%"

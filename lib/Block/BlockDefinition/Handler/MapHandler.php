@@ -23,7 +23,7 @@ class MapHandler extends BlockDefinitionHandler implements BlockDefinitionHandle
      */
     protected $mapTypes = array();
 
-    public function __construct($minZoom = null, $maxZoom = null, array $mapTypes = array())
+    public function __construct($minZoom, $maxZoom, array $mapTypes = array())
     {
         $this->minZoom = $minZoom;
         $this->maxZoom = $maxZoom;
@@ -40,7 +40,13 @@ class MapHandler extends BlockDefinitionHandler implements BlockDefinitionHandle
         return array(
             'latitude' => new Parameter\Number(array(), true),
             'longitude' => new Parameter\Number(array(), true),
-            'zoom' => new Parameter\Integer(array(), true),
+            'zoom' => new Parameter\Range(
+                array(
+                    'min' => $this->minZoom,
+                    'max' => $this->maxZoom,
+                ),
+                true
+            ),
             'map_type' => new Parameter\Select(array('options' => $this->mapTypes), true),
             'show_marker' => new Parameter\Boolean(array(), true),
         ) + parent::getParameters();

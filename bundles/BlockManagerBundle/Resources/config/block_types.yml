@@ -74,6 +74,7 @@ block_types:
             parameters:
                 transition: first
                 aspect_ratio: 16_9
+                autoplay_time: 1
                 number_of_thumbnails: 1
 
     thumb_gallery:
@@ -85,6 +86,7 @@ block_types:
             parameters:
                 transition: first
                 aspect_ratio: 16_9
+                autoplay_time: 1
                 number_of_thumbnails: 1
 
     grid_gallery:
@@ -96,6 +98,7 @@ block_types:
             parameters:
                 transition: first
                 aspect_ratio: 16_9
+                autoplay_time: 1
                 number_of_thumbnails: 1
 
     sushi_bar:
@@ -107,4 +110,5 @@ block_types:
             parameters:
                 transition: first
                 aspect_ratio: 16_9
+                autoplay_time: 1
                 number_of_thumbnails: 1
