@@ -211,12 +211,23 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
+     *                                                          If adding an override item to manual collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
+
+        if ($collectionCreateStruct->type === Collection::TYPE_MANUAL) {
+            if ($collectionCreateStruct->itemCreateStructs !== null) {
+                foreach ($collectionCreateStruct->itemCreateStructs as $itemCreateStruct) {
+                    if ($itemCreateStruct->type === Item::TYPE_OVERRIDE) {
+                        throw new BadStateException('type', 'Override item cannot be added to manual collection.');
+                    }
+                }
+            }
+        }
 
         if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
             if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
@@ -490,11 +501,6 @@ class CollectionService implements APICollectionService
 
         $this->collectionValidator->validatePosition($position, 'position', true);
 
-        $collection = $this->collectionHandler->loadCollection(
-            $persistenceItem->collectionId,
-            Collection::STATUS_DRAFT
-        );
-
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -544,7 +550,7 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is added to manual collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
      *                                                          If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *
@@ -554,8 +560,8 @@ class CollectionService implements APICollectionService
     {
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
 
-        if ($persistenceCollection->type === Collection::TYPE_MANUAL) {
-            throw new BadStateException('queryCreateStruct', 'Query cannot be added to manual collection.');
+        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
+            throw new BadStateException('queryCreateStruct', 'Query can only be added to a named collection.');
         }
 
         $this->collectionValidator->validatePosition($position, 'position');
@@ -631,11 +637,19 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      * @param int $position
      *
+     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
+     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      */
     public function moveQuery(QueryDraft $query, $position)
     {
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Collection::STATUS_DRAFT);
+
+        $persistenceCollection = $this->collectionHandler->loadCollection($query->getCollectionId(), Collection::STATUS_DRAFT);
+
+        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
+            throw new BadStateException('queryCreateStruct', 'Query can only be moved inside a named collection.');
+        }
 
         $this->collectionValidator->validatePosition($position, 'position', true);
 
@@ -660,11 +674,19 @@ class CollectionService implements APICollectionService
     /**
      * Removes a query.
      *
+     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
+     *
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      */
     public function deleteQuery(QueryDraft $query)
     {
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Collection::STATUS_DRAFT);
+
+        $persistenceCollection = $this->collectionHandler->loadCollection($query->getCollectionId(), Collection::STATUS_DRAFT);
+
+        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
+            throw new BadStateException('queryCreateStruct', 'Query can only be deleted from a named collection.');
+        }
 
         $this->persistenceHandler->beginTransaction();
 

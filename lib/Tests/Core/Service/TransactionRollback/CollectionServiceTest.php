@@ -285,11 +285,6 @@ class CollectionServiceTest extends TestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
             ->method('moveItem')
             ->will($this->throwException(new Exception()));
 
@@ -332,7 +327,13 @@ class CollectionServiceTest extends TestCase
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
+            ->will(
+                $this->returnValue(
+                    new PersistenceCollection(
+                        array('type' => Collection::TYPE_NAMED)
+                    )
+                )
+            );
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
@@ -393,6 +394,17 @@ class CollectionServiceTest extends TestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
+            ->method('loadCollection')
+            ->will(
+                $this->returnValue(
+                    new PersistenceCollection(
+                        array('type' => Collection::TYPE_NAMED)
+                    )
+                )
+            );
+
+        $this->collectionHandlerMock
+            ->expects($this->at(2))
             ->method('moveQuery')
             ->will($this->throwException(new Exception()));
 
@@ -416,6 +428,17 @@ class CollectionServiceTest extends TestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
+            ->method('loadCollection')
+            ->will(
+                $this->returnValue(
+                    new PersistenceCollection(
+                        array('type' => Collection::TYPE_NAMED)
+                    )
+                )
+            );
+
+        $this->collectionHandlerMock
+            ->expects($this->at(2))
             ->method('deleteQuery')
             ->will($this->throwException(new Exception()));
 

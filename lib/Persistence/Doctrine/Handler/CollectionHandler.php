@@ -238,6 +238,36 @@ class CollectionHandler implements CollectionHandlerInterface
             )
         );
 
+        foreach ($collectionCreateStruct->itemCreateStructs as $position => $itemCreateStruct) {
+            $this->queryHandler->addItem(
+                new ItemCreateStruct(
+                    array(
+                        'collectionId' => $createdCollectionId,
+                        'position' => $position,
+                        'status' => $status,
+                        'valueId' => $itemCreateStruct->valueId,
+                        'valueType' => $itemCreateStruct->valueType,
+                        'type' => $itemCreateStruct->type,
+                    )
+                )
+            );
+        }
+
+        foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
+            $this->queryHandler->addQuery(
+                new QueryCreateStruct(
+                    array(
+                        'collectionId' => $createdCollectionId,
+                        'position' => $position,
+                        'status' => $status,
+                        'identifier' => $queryCreateStruct->identifier,
+                        'type' => $queryCreateStruct->type,
+                        'parameters' => $queryCreateStruct->getParameters(),
+                    )
+                )
+            );
+        }
+
         return $this->loadCollection($createdCollectionId, $status);
     }
 

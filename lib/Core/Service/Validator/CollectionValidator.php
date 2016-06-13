@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
@@ -43,6 +44,62 @@ class CollectionValidator extends Validator
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
+        if ($collectionCreateStruct->itemCreateStructs !== null) {
+            $this->validate(
+                $collectionCreateStruct->itemCreateStructs,
+                array(
+                    new Constraints\Type(array('type' => 'array')),
+                    new Constraints\All(
+                        array(
+                            'constraints' => array(
+                                new Constraints\Type(array('type' => ItemCreateStruct::class))
+                            ),
+                        )
+                    ),
+                ),
+                'itemCreateStructs'
+            );
+
+            foreach ($collectionCreateStruct->itemCreateStructs as $itemCreateStruct) {
+                $this->validateItemCreateStruct($itemCreateStruct);
+            }
+        }
+
+        if ($collectionCreateStruct->queryCreateStructs !== null) {
+            $this->validate(
+                $collectionCreateStruct->queryCreateStructs,
+                array(
+                    new Constraints\Type(array('type' => 'array')),
+                    new Constraints\All(
+                        array(
+                            'constraints' => array(
+                                new Constraints\Type(array('type' => QueryCreateStruct::class))
+                            ),
+                        )
+                    ),
+                ),
+                'queryCreateStructs'
+            );
+
+            foreach ($collectionCreateStruct->queryCreateStructs as $queryCreateStruct) {
+                $this->validateQueryCreateStruct($queryCreateStruct);
+            }
+
+            $allQueryIdentifiers = array_map(
+                function (QueryCreateStruct $queryCreateStruct) {
+                    return $queryCreateStruct->identifier;
+                },
+                $collectionCreateStruct->queryCreateStructs
+            );
+
+            if (count($allQueryIdentifiers) !== count(array_unique($allQueryIdentifiers))) {
+                throw new InvalidArgumentException(
+                    'queryCreateStructs',
+                    'All query create structs must have a unique identifier'
+                );
+            }
+        }
+
         $this->validate(
             $collectionCreateStruct->type,
             array(
@@ -61,7 +118,27 @@ class CollectionValidator extends Validator
             'type'
         );
 
-        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
+        if ($collectionCreateStruct->type === Collection::TYPE_MANUAL) {
+            if (
+                is_array($collectionCreateStruct->queryCreateStructs) &&
+                !empty($collectionCreateStruct->queryCreateStructs)
+            ) {
+                throw new InvalidArgumentException(
+                    'queryCreateStructs',
+                    'Manual collection cannot have any queries'
+                );
+            }
+        } elseif ($collectionCreateStruct->type === Collection::TYPE_DYNAMIC) {
+            if (
+                !is_array($collectionCreateStruct->queryCreateStructs) ||
+                count($collectionCreateStruct->queryCreateStructs) !== 1
+            ) {
+                throw new InvalidArgumentException(
+                    'queryCreateStructs',
+                    'Dynamic collection can only have one query'
+                );
+            }
+        } elseif ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
             $this->validate(
                 $collectionCreateStruct->name,
                 array(

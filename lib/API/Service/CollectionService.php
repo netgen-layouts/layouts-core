@@ -192,7 +192,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is added to manual collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
      *                                                          If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *
@@ -218,12 +218,16 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      * @param int $position
      *
+     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
+     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      */
     public function moveQuery(QueryDraft $query, $position);
 
     /**
      * Removes a query.
+     *
+     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
      *
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      */
