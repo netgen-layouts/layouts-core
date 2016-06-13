@@ -4,8 +4,10 @@ namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 
@@ -43,6 +45,16 @@ interface BlockService
     public function isPublished(Block $block);
 
     /**
+     * Loads the collection reference with specified identifier.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
+     */
+    public function loadCollectionReference(Block $block, $identifier);
+
+    /**
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -76,6 +88,14 @@ interface BlockService
      * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
     public function updateBlock(BlockDraft $block, BlockUpdateStruct $blockUpdateStruct);
+
+    /**
+     * Updates a specified collection reference.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     */
+    public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection);
 
     /**
      * Copies a specified block. If zone is specified, copied block will be

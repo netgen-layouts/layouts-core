@@ -98,49 +98,64 @@ class BlockController extends Controller
     /**
      * Changes the collection type within the block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid
+     *                                                                 If query type does not exist
+     *                                                                 If specified named collection is not named
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function changeCollectionType(BlockDraft $block, CollectionDraft $collection, Request $request)
+    public function changeCollectionType(CollectionReference $collectionReference, Request $request)
     {
         $newType = $request->request->get('new_type');
 
-        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC, Collection::TYPE_NAMED))) {
-            throw new InvalidArgumentException(
-                'new_type',
-                'Specified type is not valid.'
-            );
-        }
-
-        if ($collection->getType() === $newType) {
-            throw new BadStateException('new_type', 'New collection type cannot be equal to old collection type.');
-        }
-
-        // @TODO Validate that collection belongs to block
-
-        if ($collection->getType() === Collection::TYPE_NAMED) {
-            return new Response(null, Response::HTTP_NO_CONTENT);
+        if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
+            $collection = $this->collectionService->loadCollection($collectionReference->getCollectionId());
+        } else {
+            $collection = $this->collectionService->loadCollectionDraft($collectionReference->getCollectionId());
         }
 
         if ($newType === Collection::TYPE_MANUAL) {
-            $this->collectionService->changeCollectionType($collection, $newType);
+            if ($collection->getType() === Collection::TYPE_MANUAL) {
+                // Noop
+                return new Response(null, Response::HTTP_NO_CONTENT);
+            }
+
+            if ($collection->getType() === Collection::TYPE_NAMED) {
+                $newCollection = $this->collectionService->createCollection(
+                    $this->collectionService->newCollectionCreateStruct($newType)
+                );
+            } else {
+                $newCollection = $this->collectionService->changeCollectionType($collection, $newType);
+            }
         } elseif ($newType === Collection::TYPE_DYNAMIC) {
             $queryType = $this->getQueryType($request->request->get('query_type'));
+            $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType, 'default');
 
-            $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-                'default',
-                $queryType->getType()
-            );
-
-            $queryCreateStruct->setParameters($queryType->getConfig()->getDefaultQueryParameters());
-
-            $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
+            if ($collection->getType() === Collection::TYPE_NAMED) {
+                $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct($newType);
+                $collectionCreateStruct->queryCreateStructs = array($queryCreateStruct);
+                $newCollection = $this->collectionService->createCollection($collectionCreateStruct);
+            } else {
+                $newCollection = $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
+            }
         } elseif ($newType === Collection::TYPE_NAMED) {
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            $newCollection = $this->collectionService->loadCollection($request->request->get('named_collection_id'));
+            if ($newCollection->getType() !== Collection::TYPE_NAMED) {
+                throw new InvalidArgumentException('named_collection_id', 'Specified collection is not named');
+            }
+
+            if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
+                // @TODO This deletes the reference, but we still need to keep it
+                // $this->collectionService->discardDraft($collection);
+            }
+        } else {
+            throw new InvalidArgumentException('new_type', 'Specified collection type is not valid');
         }
+
+        $this->blockService->updateCollectionReference($collectionReference, $newCollection);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

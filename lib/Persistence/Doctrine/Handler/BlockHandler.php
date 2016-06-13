@@ -99,6 +99,30 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Loads a collection reference.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection reference with specified identifier does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     */
+    public function loadCollectionReference($blockId, $status, $identifier)
+    {
+        $data = $this->queryHandler->loadCollectionReferencesData($blockId, $status, $identifier);
+
+        if (empty($data)) {
+            throw new NotFoundException('collection', $identifier);
+        }
+
+        $data = $this->blockMapper->mapCollectionReferences($data);
+
+        return reset($data);
+    }
+
+    /**
      * Loads all collection references belonging to the provided block.
      *
      * @param int|string $blockId
@@ -200,6 +224,30 @@ class BlockHandler implements BlockHandlerInterface
         );
 
         return $this->loadBlock($blockId, $status);
+    }
+
+    /**
+     * Updates a collection reference with specified identifier.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     */
+    public function updateCollectionReference($blockId, $status, $identifier, $collectionId, $collectionStatus)
+    {
+        $this->queryHandler->updateCollectionReference(
+            $blockId,
+            $status,
+            $identifier,
+            $collectionId,
+            $collectionStatus
+        );
+
+        return $this->loadCollectionReference($blockId, $status, $identifier);
     }
 
     /**

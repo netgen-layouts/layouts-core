@@ -36,10 +36,11 @@ class BlockQueryHandler extends QueryHandler
      *
      * @param int|string $blockId
      * @param int $status
+     * @param string $identifier
      *
      * @return array
      */
-    public function loadCollectionReferencesData($blockId, $status = null)
+    public function loadCollectionReferencesData($blockId, $status = null, $identifier = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier', 'start', 'length')
@@ -52,6 +53,11 @@ class BlockQueryHandler extends QueryHandler
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'block_status');
             $query->addOrderBy('block_status', 'ASC');
+        }
+
+        if ($identifier !== null) {
+            $query->andWhere($query->expr()->eq('identifier', ':identifier'))
+                ->setParameter('identifier', $identifier, Type::STRING);
         }
 
         return $query->execute()->fetchAll();
@@ -183,6 +189,39 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY);
 
         $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
+     * Updates a collection reference with specified identifier.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     */
+    public function updateCollectionReference($blockId, $status, $identifier, $collectionId, $collectionStatus)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_block_collection')
+            ->set('collection_id', ':collection_id')
+            ->set('collection_status', ':collection_status')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('block_status', ':block_status'),
+                    $query->expr()->eq('identifier', ':identifier')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER)
+            ->setParameter('collection_status', $collectionStatus, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::STRING);
+
+        $this->applyStatusCondition($query, $status, 'block_status', 'block_status');
 
         $query->execute();
     }

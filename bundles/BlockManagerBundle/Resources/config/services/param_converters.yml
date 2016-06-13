@@ -3,6 +3,7 @@ parameters:
     netgen_block_manager.param_converter.page.block_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockDraftParamConverter
     netgen_block_manager.param_converter.page.layout.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
     netgen_block_manager.param_converter.page.layout_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutDraftParamConverter
+    netgen_block_manager.param_converter.page.collection_reference.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter
     netgen_block_manager.param_converter.collection.collection.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter
     netgen_block_manager.param_converter.collection.collection_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionDraftParamConverter
     netgen_block_manager.param_converter.collection.item.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter
@@ -38,6 +39,13 @@ services:
             - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: request.param_converter, priority: 10 }
+
+    netgen_block_manager.param_converter.page.collection_reference:
+        class: "%netgen_block_manager.param_converter.page.collection_reference.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+        tags:
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.collection.collection:
         class: "%netgen_block_manager.param_converter.collection.collection.class%"

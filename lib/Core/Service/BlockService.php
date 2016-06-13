@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
@@ -148,6 +149,25 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Loads the collection reference with specified identifier.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
+     */
+    public function loadCollectionReference(Block $block, $identifier)
+    {
+        return $this->blockMapper->mapCollectionReference(
+            $this->blockHandler->loadCollectionReference(
+                $block->getId(),
+                $block->getStatus(),
+                $identifier
+            )
+        );
+    }
+
+    /**
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -265,6 +285,40 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->commitTransaction();
 
         return $this->blockMapper->mapBlock($updatedBlock);
+    }
+
+    /**
+     * Updates a specified collection reference.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     */
+    public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection)
+    {
+        $persistenceCollection = $this->blockHandler->loadCollectionReference(
+            $collectionReference->getBlockId(),
+            $collectionReference->getBlockStatus(),
+            $collectionReference->getIdentifier()
+        );
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $this->blockHandler->updateCollectionReference(
+                $persistenceCollection->blockId,
+                $persistenceCollection->blockStatus,
+                $persistenceCollection->identifier,
+                $collection->getId(),
+                $collection->getType() === Collection::TYPE_NAMED ?
+                    Collection::STATUS_PUBLISHED :
+                    Collection::STATUS_DRAFT
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
     }
 
     /**

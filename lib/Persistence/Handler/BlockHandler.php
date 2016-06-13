@@ -31,6 +31,19 @@ interface BlockHandler
     public function loadZoneBlocks($layoutId, $zoneIdentifier, $status);
 
     /**
+     * Loads a collection reference.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection reference with specified identifier does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     */
+    public function loadCollectionReference($blockId, $status, $identifier);
+
+    /**
      * Loads all collection references belonging to the provided block.
      *
      * @param int|string $blockId
@@ -75,6 +88,19 @@ interface BlockHandler
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct);
+
+    /**
+     * Updates a collection reference with specified identifier.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     */
+    public function updateCollectionReference($blockId, $status, $identifier, $collectionId, $collectionStatus);
 
     /**
      * Copies a block with specified ID to a zone with specified identifier.
