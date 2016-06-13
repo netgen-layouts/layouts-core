@@ -298,6 +298,54 @@ class CollectionService implements APICollectionService
     }
 
     /**
+     * Changes the type of specified collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param int $newType
+     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection type cannot be changed
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     */
+    public function changeCollectionType(CollectionDraft $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
+    {
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
+
+        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
+            throw new BadStateException('collectionType', 'New collection type must be manual or dynamic.');
+        }
+
+        if ($persistenceCollection->type === Collection::TYPE_NAMED) {
+            throw new BadStateException('collection', 'Only manual or dynamic collections can be converted.');
+        }
+
+        if ($persistenceCollection->type === $newType) {
+            throw new BadStateException('collectionType', 'New collection type cannot be equal to old collection type.');
+        }
+
+        if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
+            throw new BadStateException('queryCreateStruct', 'Query create struct must be defined when converting to dynamic collection.');
+        }
+
+        try {
+            $newCollection = $this->collectionHandler->changeCollectionType(
+                $persistenceCollection->id,
+                $persistenceCollection->status,
+                $newType,
+                $queryCreateStruct
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->collectionMapper->mapCollection($newCollection);
+    }
+
+    /**
      * Copies a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection

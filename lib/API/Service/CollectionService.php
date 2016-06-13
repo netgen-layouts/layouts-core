@@ -112,6 +112,19 @@ interface CollectionService
     public function updateCollection(CollectionDraft $collection, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
+     * Changes the type of specified collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param int $newType
+     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection type cannot be changed
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     */
+    public function changeCollectionType(CollectionDraft $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
+
+    /**
      * Copies a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection

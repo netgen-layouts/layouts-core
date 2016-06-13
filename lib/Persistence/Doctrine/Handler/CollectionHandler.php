@@ -294,7 +294,48 @@ class CollectionHandler implements CollectionHandlerInterface
             $status,
             new CollectionUpdateStruct(
                 array(
+                    'type' => $collection->type,
                     'name' => $name,
+                )
+            )
+        );
+
+        return $this->loadCollection($collectionId, $status);
+    }
+
+    /**
+     * Changes the type of specified collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int $newType
+     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function changeCollectionType($collectionId, $status, $newType, APIQueryCreateStruct $queryCreateStruct = null)
+    {
+        $collection = $this->loadCollection($collectionId, $status);
+
+        if ($newType === Collection::TYPE_MANUAL) {
+            foreach ($this->loadCollectionQueries($collectionId, $status) as $query) {
+                $this->deleteQuery($query->id, $query->status);
+            }
+
+            foreach ($this->loadCollectionItems($collectionId, $status) as $index => $item) {
+                $this->moveItem($item->id, $item->status, $index);
+            }
+        } elseif ($newType === Collection::TYPE_DYNAMIC) {
+            $this->addQuery($collectionId, $status, $queryCreateStruct);
+        }
+
+        $this->queryHandler->updateCollection(
+            $collectionId,
+            $status,
+            new CollectionUpdateStruct(
+                array(
+                    'type' => $newType,
+                    'name' => $collection->name,
                 )
             )
         );

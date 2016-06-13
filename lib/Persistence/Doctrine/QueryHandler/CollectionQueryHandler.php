@@ -257,11 +257,13 @@ class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_collection')
+            ->set('type', ':type')
             ->set('name', ':name')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $collectionId, Type::INTEGER)
+            ->setParameter('type', $collectionUpdateStruct->type, Type::INTEGER)
             ->setParameter('name', $collectionUpdateStruct->name, Type::STRING);
 
         $this->applyStatusCondition($query, $status);

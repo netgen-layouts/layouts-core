@@ -127,6 +127,18 @@ interface CollectionHandler
     public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
+     * Changes the type of specified collection.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int $newType
+     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function changeCollectionType($collectionId, $status, $newType, QueryCreateStruct $queryCreateStruct = null);
+
+    /**
      * Copies a collection with specified ID.
      *
      * @param int|string $collectionId
