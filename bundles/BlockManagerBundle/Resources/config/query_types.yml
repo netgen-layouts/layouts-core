@@ -4,3 +4,7 @@ query_types:
         forms:
             full:
                 type: ~
+        defaults:
+            parameters:
+                parent_location_id: 2
+                content_types: [ng_news, ng_article]

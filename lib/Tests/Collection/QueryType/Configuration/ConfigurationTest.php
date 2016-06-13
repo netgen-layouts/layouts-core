@@ -20,7 +20,8 @@ class ConfigurationTest extends TestCase
             'Query type',
             array(
                 'full' => new Form('full', 'form_type', array('param1', 'param2')),
-            )
+            ),
+            array()
         );
     }
 

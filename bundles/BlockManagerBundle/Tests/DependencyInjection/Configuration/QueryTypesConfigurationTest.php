@@ -42,6 +42,11 @@ class QueryTypesConfigurationTest extends TestCase
                                 'type' => 'full_edit',
                             ),
                         ),
+                        'defaults' => array(
+                            'parameters' => array(
+                                'param' => 'value',
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -54,6 +59,128 @@ class QueryTypesConfigurationTest extends TestCase
                     'forms' => array(
                         'full' => array(
                             'type' => 'full_edit',
+                        ),
+                    ),
+                    'defaults' => array(
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'query_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testQueryTypeSettingsWithNoDefaultParameters()
+    {
+        $config = array(
+            array(
+                'query_types' => array(
+                    'type' => array(
+                        'name' => 'Type',
+                        'forms' => array(
+                            'full' => array(
+                                'type' => 'full_edit',
+                            ),
+                        ),
+                        'defaults' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'query_types' => array(
+                'type' => array(
+                    'name' => 'Type',
+                    'forms' => array(
+                        'full' => array(
+                            'type' => 'full_edit',
+                        ),
+                    ),
+                    'defaults' => array(
+                        'parameters' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'query_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testQueryTypeSettingsWithNoParametersMerge()
+    {
+        $config = array(
+            array(
+                'query_types' => array(
+                    'type' => array(
+                        'name' => 'Type',
+                        'forms' => array(
+                            'full' => array(
+                                'type' => 'full_edit',
+                            ),
+                        ),
+                        'defaults' => array(
+                            'parameters' => array(
+                                'param1' => 'value1',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'query_types' => array(
+                    'type' => array(
+                        'name' => 'Type',
+                        'forms' => array(
+                            'full' => array(
+                                'type' => 'full_edit',
+                            ),
+                        ),
+                        'defaults' => array(
+                            'parameters' => array(
+                                'param2' => 'value2',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'query_types' => array(
+                'type' => array(
+                    'name' => 'Type',
+                    'forms' => array(
+                        'full' => array(
+                            'type' => 'full_edit',
+                        ),
+                    ),
+                    'defaults' => array(
+                        'parameters' => array(
+                            'param2' => 'value2',
                         ),
                     ),
                 ),
@@ -94,6 +221,7 @@ class QueryTypesConfigurationTest extends TestCase
                             'type' => 'full_edit',
                         ),
                     ),
+                    'defaults' => array(),
                 ),
             ),
         );
@@ -116,6 +244,7 @@ class QueryTypesConfigurationTest extends TestCase
                             'type' => 'full_edit',
                         ),
                     ),
+                    'defaults' => array(),
                 ),
             ),
         );
@@ -133,6 +262,29 @@ class QueryTypesConfigurationTest extends TestCase
             'query_types' => array(
                 'type' => array(
                     'forms' => array(),
+                    'defaults' => array(),
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
+     */
+    public function testQueryTypeSettingsWithNoDefaults()
+    {
+        $config = array(
+            'query_types' => array(
+                'type' => array(
+                    'name' => 'Type',
+                    'forms' => array(
+                        'full' => array(
+                            'type' => 'full_edit',
+                        ),
+                    ),
                 ),
             ),
         );

@@ -24,6 +24,6 @@ class Factory
             );
         }
 
-        return new Configuration($identifier, $config['name'], $forms);
+        return new Configuration($identifier, $config['name'], $forms, $config['defaults']);
     }
 }

@@ -22,17 +22,24 @@ class Configuration
     protected $forms = array();
 
     /**
+     * @var array
+     */
+    protected $defaults = array();
+
+    /**
      * Constructor.
      *
      * @param string $type
      * @param string $name
      * @param array $forms
+     * @param array $defaults
      */
-    public function __construct($type, $name, array $forms)
+    public function __construct($type, $name, array $forms, array $defaults)
     {
         $this->type = $type;
         $this->name = $name;
         $this->forms = $forms;
+        $this->defaults = $defaults;
     }
 
     /**
@@ -95,5 +102,25 @@ class Configuration
         }
 
         return $this->forms[$formIdentifier];
+    }
+
+    /**
+     * Returns the default query values.
+     *
+     * @return array
+     */
+    public function getDefaults()
+    {
+        return $this->defaults;
+    }
+
+    /**
+     * Returns the default query parameters.
+     *
+     * @return array
+     */
+    public function getDefaultQueryParameters()
+    {
+        return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : array();
     }
 }
