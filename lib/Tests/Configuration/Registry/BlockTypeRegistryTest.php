@@ -82,9 +82,9 @@ class BlockTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockType
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetBlockTypeThrowsNotFoundException()
+    public function testGetBlockTypeThrowsInvalidArgumentException()
     {
         $this->registry->getBlockType('other_block_type');
     }
@@ -124,9 +124,9 @@ class BlockTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypeGroup
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetBlockTypeGroupThrowsNotFoundException()
+    public function testGetBlockTypeGroupThrowsInvalidArgumentException()
     {
         $this->registry->getBlockTypeGroup('other_block_type_group');
     }

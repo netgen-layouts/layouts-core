@@ -159,11 +159,7 @@ class BlockController extends Controller
     {
         $this->validator->validateCreateBlock($request);
 
-        try {
-            $blockType = $this->getBlockType($request->request->get('block_type'));
-        } catch (NotFoundException $e) {
-            throw new BadStateException('block_type', 'Block type does not exist.', $e);
-        }
+        $blockType = $this->getBlockType($request->request->get('block_type'));
 
         try {
             $layout = $this->layoutService->loadLayoutDraft($request->request->get('layout_id'));

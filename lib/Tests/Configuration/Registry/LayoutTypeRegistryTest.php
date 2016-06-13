@@ -67,9 +67,9 @@ class LayoutTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::getLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetLayoutTypeThrowsNotFoundException()
+    public function testGetLayoutTypeThrowsInvalidArgumentException()
     {
         $this->registry->getLayoutType('other_layout_type');
     }

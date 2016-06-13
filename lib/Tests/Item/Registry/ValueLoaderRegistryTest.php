@@ -45,9 +45,9 @@ class ValueLoaderRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueLoaderRegistry::getValueLoader
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetValueLoaderThrowsNotFoundException()
+    public function testGetValueLoaderThrowsInvalidArgumentException()
     {
         $this->registry->getValueLoader('other_value');
     }

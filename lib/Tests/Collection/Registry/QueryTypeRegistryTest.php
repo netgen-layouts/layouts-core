@@ -54,9 +54,9 @@ class QueryTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetQueryTypeThrowsNotFoundException()
+    public function testGetQueryTypeThrowsInvalidArgumentException()
     {
         $this->registry->getQueryType('other_query_type');
     }

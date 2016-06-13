@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\Registry;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
 {
@@ -39,14 +39,14 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If block definition does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block definition does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     public function getBlockDefinition($identifier)
     {
         if (!$this->hasBlockDefinition($identifier)) {
-            throw new NotFoundException('block definition', $identifier);
+            throw new InvalidArgumentException('block definition', $identifier);
         }
 
         return $this->blockDefinitions[$identifier];

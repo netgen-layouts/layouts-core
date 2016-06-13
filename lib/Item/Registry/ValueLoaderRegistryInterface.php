@@ -27,7 +27,7 @@ interface ValueLoaderRegistryInterface
      *
      * @param string $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If value loader does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If value loader does not exist
      *
      * @return \Netgen\BlockManager\Item\ValueLoaderInterface
      */

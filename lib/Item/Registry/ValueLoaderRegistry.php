@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Item\Registry;
 
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Item\ValueLoaderInterface;
 
 class ValueLoaderRegistry implements ValueLoaderRegistryInterface
@@ -39,14 +39,14 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
      *
      * @param string $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If value loader does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If value loader does not exist
      *
      * @return \Netgen\BlockManager\Item\ValueLoaderInterface
      */
     public function getValueLoader($valueType)
     {
         if (!$this->hasValueLoader($valueType)) {
-            throw new NotFoundException('value loader', $valueType);
+            throw new InvalidArgumentException('value loader', $valueType);
         }
 
         return $this->valueLoaders[$valueType];

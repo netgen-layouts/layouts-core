@@ -82,11 +82,7 @@ class LayoutController extends Controller
     {
         $this->validator->validateCreateLayout($request);
 
-        try {
-            $layoutType = $this->getLayoutType($request->request->get('layout_type'));
-        } catch (NotFoundException $e) {
-            throw new BadStateException('layout_type', 'Layout type does not exist.', $e);
-        }
+        $layoutType = $this->getLayoutType($request->request->get('layout_type'));
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType->getIdentifier(),

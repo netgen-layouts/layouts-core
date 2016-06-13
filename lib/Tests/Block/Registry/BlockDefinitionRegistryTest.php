@@ -54,9 +54,9 @@ class BlockDefinitionRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetBlockDefinitionThrowsNotFoundException()
+    public function testGetBlockDefinitionThrowsInvalidArgumentException()
     {
         $this->registry->getBlockDefinition('title');
     }

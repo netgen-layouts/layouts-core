@@ -67,9 +67,9 @@ class SourceRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::getSource
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetSourceThrowsNotFoundException()
+    public function testGetSourceThrowsInvalidArgumentException()
     {
         $this->registry->getSource('other_source');
     }
