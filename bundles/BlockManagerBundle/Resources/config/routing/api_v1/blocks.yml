@@ -12,7 +12,7 @@ netgen_block_manager_api_v1_load_block_collections:
 
 netgen_block_manager_api_v1_change_block_collection_type:
     path: /blocks/{blockId}/collections/{collectionId}/change_type
-    methods: [GET]
+    methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:changeCollectionType"
 
