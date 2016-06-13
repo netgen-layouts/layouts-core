@@ -25,20 +25,14 @@ class LayoutResolverMapper extends Mapper
     {
         $handler = $this->persistenceHandler->getLayoutResolverHandler();
 
-        $persistenceTargets = $handler->loadRuleTargets(
-            $rule->id,
-            $rule->status
-        );
+        $persistenceTargets = $handler->loadRuleTargets($rule);
 
         $targets = array();
         foreach ($persistenceTargets as $persistenceTarget) {
             $targets[] = $this->mapTarget($persistenceTarget);
         }
 
-        $persistenceConditions = $handler->loadRuleConditions(
-            $rule->id,
-            $rule->status
-        );
+        $persistenceConditions = $handler->loadRuleConditions($rule);
 
         $conditions = array();
         foreach ($persistenceConditions as $persistenceCondition) {

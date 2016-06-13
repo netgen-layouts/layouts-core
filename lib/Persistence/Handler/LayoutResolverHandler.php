@@ -7,6 +7,9 @@ use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 
 interface LayoutResolverHandler
 {
@@ -56,22 +59,20 @@ interface LayoutResolverHandler
     /**
      * Loads all targets that belong to rule with specified ID.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target[]
      */
-    public function loadRuleTargets($ruleId, $status);
+    public function loadRuleTargets(Rule $rule);
 
     /**
      * Loads the count of targets within the rule with specified ID.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
      * @return int
      */
-    public function getTargetCount($ruleId, $status);
+    public function getTargetCount(Rule $rule);
 
     /**
      * Loads a condition with specified ID.
@@ -88,12 +89,11 @@ interface LayoutResolverHandler
     /**
      * Loads all conditions that belong to rule with specified ID.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition[]
      */
-    public function loadRuleConditions($ruleId, $status);
+    public function loadRuleConditions(Rule $rule);
 
     /**
      * Returns if rule with specified ID exists.
@@ -118,13 +118,12 @@ interface LayoutResolverHandler
     /**
      * Updates a rule with specified ID.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function updateRule($ruleId, $status, RuleUpdateStruct $ruleUpdateStruct);
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct);
 
     /**
      * Copies a rule with specified ID.
@@ -138,13 +137,12 @@ interface LayoutResolverHandler
     /**
      * Creates a new rule status.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function createRuleStatus($ruleId, $status, $newStatus);
+    public function createRuleStatus(Rule $rule, $newStatus);
 
     /**
      * Deletes a rule with specified ID.
@@ -157,63 +155,58 @@ interface LayoutResolverHandler
     /**
      * Enables a rule.
      *
-     * @param int|string $ruleId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      */
-    public function enableRule($ruleId);
+    public function enableRule(Rule $rule);
 
     /**
      * Disables a rule.
      *
-     * @param int|string $ruleId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      */
-    public function disableRule($ruleId);
+    public function disableRule(Rule $rule);
 
     /**
      * Adds a target to rule.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
-    public function addTarget($ruleId, $status, TargetCreateStruct $targetCreateStruct);
+    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct);
 
     /**
      * Removes a target.
      *
-     * @param int|string $targetId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      */
-    public function deleteTarget($targetId, $status);
+    public function deleteTarget(Target $target);
 
     /**
      * Adds a condition to rule.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
-    public function addCondition($ruleId, $status, ConditionCreateStruct $conditionCreateStruct);
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct);
 
     /**
      * Updates a condition with specified ID.
      *
-     * @param int|string $conditionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
-    public function updateCondition($conditionId, $status, ConditionUpdateStruct $conditionUpdateStruct);
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct);
 
     /**
      * Removes a condition.
      *
-     * @param int|string $conditionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      */
-    public function deleteCondition($conditionId, $status);
+    public function deleteCondition(Condition $condition);
 }

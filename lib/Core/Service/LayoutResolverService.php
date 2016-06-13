@@ -266,8 +266,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $updatedRule = $this->handler->updateRule(
-                $persistenceRule->id,
-                $persistenceRule->status,
+                $persistenceRule,
                 $ruleUpdateStruct
             );
         } catch (Exception $e) {
@@ -330,7 +329,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_DRAFT);
-            $ruleDraft = $this->handler->createRuleStatus($persistenceRule->id, Rule::STATUS_PUBLISHED, Rule::STATUS_DRAFT);
+            $ruleDraft = $this->handler->createRuleStatus($persistenceRule, Rule::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -382,11 +381,18 @@ class LayoutResolverService implements APILayoutResolverService
             $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_ARCHIVED);
 
             if ($this->handler->ruleExists($persistenceRule->id, Rule::STATUS_PUBLISHED)) {
-                $this->handler->createRuleStatus($persistenceRule->id, Rule::STATUS_PUBLISHED, Rule::STATUS_ARCHIVED);
+                $this->handler->createRuleStatus(
+                    $this->handler->loadRule(
+                        $persistenceRule->id,
+                        Rule::STATUS_PUBLISHED
+                    ),
+                    Rule::STATUS_ARCHIVED
+                );
+
                 $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_PUBLISHED);
             }
 
-            $publishedRule = $this->handler->createRuleStatus($persistenceRule->id, Rule::STATUS_DRAFT, Rule::STATUS_PUBLISHED);
+            $publishedRule = $this->handler->createRuleStatus($persistenceRule, Rule::STATUS_PUBLISHED);
             $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -440,14 +446,14 @@ class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Rule is missing a layout and cannot be enabled.');
         }
 
-        if ($this->handler->getTargetCount($persistenceRule->id, $persistenceRule->status) === 0) {
+        if ($this->handler->getTargetCount($persistenceRule) === 0) {
             throw new BadStateException('rule', 'Rule is missing targets and cannot be enabled.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->handler->enableRule($persistenceRule->id);
+            $this->handler->enableRule($persistenceRule);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -474,7 +480,7 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->handler->disableRule($persistenceRule->id);
+            $this->handler->disableRule($persistenceRule);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -496,7 +502,7 @@ class LayoutResolverService implements APILayoutResolverService
     public function addTarget(RuleDraft $rule, TargetCreateStruct $targetCreateStruct)
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_DRAFT);
-        $ruleTargets = $this->handler->loadRuleTargets($rule->getId(), Rule::STATUS_DRAFT);
+        $ruleTargets = $this->handler->loadRuleTargets($persistenceRule);
 
         if (!empty($ruleTargets) && $ruleTargets[0]->identifier !== $targetCreateStruct->identifier) {
             throw new BadStateException(
@@ -514,8 +520,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $createdTarget = $this->handler->addTarget(
-                $persistenceRule->id,
-                $persistenceRule->status,
+                $persistenceRule,
                 $targetCreateStruct
             );
         } catch (Exception $e) {
@@ -540,10 +545,7 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->handler->deleteTarget(
-                $persistenceTarget->id,
-                $persistenceTarget->status
-            );
+            $this->handler->deleteTarget($persistenceTarget);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -570,8 +572,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $createdCondition = $this->handler->addCondition(
-                $persistenceRule->id,
-                $persistenceRule->status,
+                $persistenceRule,
                 $conditionCreateStruct
             );
         } catch (Exception $e) {
@@ -602,8 +603,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $updatedCondition = $this->handler->updateCondition(
-                $persistenceCondition->id,
-                $persistenceCondition->status,
+                $persistenceCondition,
                 $conditionUpdateStruct
             );
         } catch (Exception $e) {
@@ -628,10 +628,7 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->handler->deleteCondition(
-                $persistenceCondition->id,
-                $persistenceCondition->status
-            );
+            $this->handler->deleteCondition($persistenceCondition);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
