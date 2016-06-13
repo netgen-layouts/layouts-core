@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -164,14 +165,14 @@ interface BlockHandler
     public function deleteBlockCollections(Block $block);
 
     /**
-     * Returns if provided collection identifier already exists in the block.
+     * Returns if provided collection reference already exists in the block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $identifier
      *
      * @return bool
      */
-    public function collectionIdentifierExists(Block $block, $identifier);
+    public function collectionReferenceExists(Block $block, $identifier);
 
     /**
      * Returns if provided collection already exists in the block.
@@ -184,7 +185,7 @@ interface BlockHandler
     public function collectionExists(Block $block, Collection $collection);
 
     /**
-     * Adds the collection to the block.
+     * Creates the collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -192,13 +193,12 @@ interface BlockHandler
      * @param int $offset
      * @param int $limit
      */
-    public function addCollectionToBlock(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
+    public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
 
     /**
-     * Removes the collection from the block.
+     * Deletes the collection reference.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
      */
-    public function removeCollectionFromBlock(Block $block, Collection $collection);
+    public function deleteCollectionReference(CollectionReference $collectionReference);
 }

@@ -280,7 +280,7 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if provided collection identifier already exists in the block.
+     * Returns if provided collection reference already exists in the block.
      *
      * @param int|string $blockId
      * @param int $status
@@ -288,7 +288,7 @@ class BlockQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function collectionIdentifierExists($blockId, $status, $identifier)
+    public function collectionReferenceExists($blockId, $status, $identifier)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -342,7 +342,7 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Adds the collection to the block.
+     * Creates the collection reference
      *
      * @param int|string $blockId
      * @param int $blockStatus
@@ -352,7 +352,7 @@ class BlockQueryHandler extends QueryHandler
      * @param int $offset
      * @param int $limit
      */
-    public function addCollectionToBlock($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
+    public function createCollectionReference($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -380,14 +380,13 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Removes the collection from the block.
+     * Deletes the collection reference.
      *
      * @param int|string $blockId
      * @param int $blockStatus
-     * @param int|string $collectionId
-     * @param int $collectionStatus
+     * @param string $identifier
      */
-    public function removeCollectionFromBlock($blockId, $blockStatus, $collectionId, $collectionStatus)
+    public function deleteCollectionReference($blockId, $blockStatus, $identifier)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -395,14 +394,13 @@ class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('collection_id', ':collection_id')
+                    $query->expr()->eq('identifier', ':identifier')
                 )
             )
             ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('identifier', $identifier, Type::STRING);
 
         $this->applyStatusCondition($query, $blockStatus, 'block_status', 'block_status');
-        $this->applyStatusCondition($query, $collectionStatus, 'collection_status', 'collection_status');
 
         $query->execute();
     }

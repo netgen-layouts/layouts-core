@@ -302,7 +302,7 @@ class LayoutHandler implements LayoutHandlerInterface
                     }
                 }
 
-                $this->blockQueryHandler->addCollectionToBlock(
+                $this->blockQueryHandler->createCollectionReference(
                     $newBlockId,
                     $collectionsDataRow['block_status'],
                     $collectionIdMapping[$collectionsDataRow['collection_id']],
@@ -373,11 +373,10 @@ class LayoutHandler implements LayoutHandlerInterface
         $collectionData = $this->queryHandler->loadLayoutCollectionsData($layoutId, $status);
 
         foreach ($collectionData as $collectionDataRow) {
-            $this->blockQueryHandler->removeCollectionFromBlock(
+            $this->blockQueryHandler->deleteCollectionReference(
                 $collectionDataRow['block_id'],
                 $collectionDataRow['block_status'],
-                $collectionDataRow['collection_id'],
-                $collectionDataRow['collection_status']
+                $collectionDataRow['identifier']
             );
 
             if (!$this->collectionHandler->isNamedCollection($collectionDataRow['collection_id'], $collectionDataRow['collection_status'])) {

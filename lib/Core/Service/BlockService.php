@@ -241,7 +241,7 @@ class BlockService implements BlockServiceInterface
                 $persistenceLayout->status
             );
 
-            $this->blockHandler->addCollectionToBlock(
+            $this->blockHandler->createCollectionReference(
                 $createdBlock,
                 $createdCollection,
                 'default'
@@ -375,7 +375,7 @@ class BlockService implements BlockServiceInterface
                     );
                 }
 
-                $this->blockHandler->addCollectionToBlock(
+                $this->blockHandler->createCollectionReference(
                     $copiedBlock,
                     $this->collectionHandler->loadCollection(
                         $newCollectionId,

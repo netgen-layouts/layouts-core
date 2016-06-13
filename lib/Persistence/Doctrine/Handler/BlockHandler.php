@@ -14,6 +14,7 @@ use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandl
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -404,7 +405,7 @@ class BlockHandler implements BlockHandlerInterface
             }
 
             if (!$this->queryHandler->collectionExists($block->id, $newStatus, $collectionsDataRow['collection_id'], $newCollectionStatus)) {
-                $this->queryHandler->addCollectionToBlock(
+                $this->queryHandler->createCollectionReference(
                     $block->id,
                     $newStatus,
                     $collectionsDataRow['collection_id'],
@@ -454,26 +455,25 @@ class BlockHandler implements BlockHandlerInterface
                 );
             }
 
-            $this->queryHandler->removeCollectionFromBlock(
+            $this->queryHandler->deleteCollectionReference(
                 $block->id,
                 $block->status,
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
+                $collectionReference->identifier
             );
         }
     }
 
     /**
-     * Returns if provided collection identifier already exists in the block.
+     * Returns if provided collection reference already exists in the block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $identifier
      *
      * @return bool
      */
-    public function collectionIdentifierExists(Block $block, $identifier)
+    public function collectionReferenceExists(Block $block, $identifier)
     {
-        return $this->queryHandler->collectionIdentifierExists($block->id, $block->status, $identifier);
+        return $this->queryHandler->collectionReferenceExists($block->id, $block->status, $identifier);
     }
 
     /**
@@ -490,7 +490,7 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Adds the collection to the block.
+     * Creates the collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -498,20 +498,23 @@ class BlockHandler implements BlockHandlerInterface
      * @param int $offset
      * @param int $limit
      */
-    public function addCollectionToBlock(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
+    public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
     {
-        $this->queryHandler->addCollectionToBlock($block->id, $block->status, $collection->id, $collection->status, $identifier, $offset, $limit);
+        $this->queryHandler->createCollectionReference($block->id, $block->status, $collection->id, $collection->status, $identifier, $offset, $limit);
     }
 
     /**
-     * Removes the collection from the block.
+     * Deletes the collection reference.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
      */
-    public function removeCollectionFromBlock(Block $block, Collection $collection)
+    public function deleteCollectionReference(CollectionReference $collectionReference)
     {
-        $this->queryHandler->removeCollectionFromBlock($block->id, $block->status, $collection->id, $collection->status);
+        $this->queryHandler->deleteCollectionReference(
+            $collectionReference->blockId,
+            $collectionReference->blockStatus,
+            $collectionReference->identifier
+        );
     }
 
     /**

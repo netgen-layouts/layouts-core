@@ -97,7 +97,7 @@ class LayoutQueryHandler extends QueryHandler
     public function loadLayoutCollectionsData($layoutId, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('bc.block_id', 'bc.block_status', 'bc.collection_id', 'bc.collection_status')
+        $query->select('bc.block_id', 'bc.block_status', 'bc.identifier', 'bc.collection_id', 'bc.collection_status')
             ->from('ngbm_block_collection', 'bc')
             ->innerJoin('bc', 'ngbm_block', 'b', 'bc.block_id = b.id and bc.block_status = b.status')
             ->where(

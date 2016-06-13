@@ -756,13 +756,13 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionIdentifierExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionReferenceExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionReferenceExists
      */
-    public function testCollectionIdentifierExists()
+    public function testCollectionReferenceExists()
     {
         self::assertTrue(
-            $this->blockHandler->collectionIdentifierExists(
+            $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'default'
             )
@@ -770,13 +770,13 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionIdentifierExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionIdentifierExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionReferenceExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionReferenceExists
      */
-    public function testCollectionIdentifierNotExists()
+    public function testCollectionReferenceNotExists()
     {
         self::assertFalse(
-            $this->blockHandler->collectionIdentifierExists(
+            $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'something_else'
             )
@@ -812,19 +812,19 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::addCollectionToBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::addCollectionToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createCollectionReference
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createCollectionReference
      */
-    public function testAddCollectionToBlock()
+    public function testCreateCollectionReference()
     {
-        $this->blockHandler->addCollectionToBlock(
+        $this->blockHandler->createCollectionReference(
             $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
             $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
             'new'
         );
 
         self::assertTrue(
-            $this->blockHandler->collectionIdentifierExists(
+            $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'new'
             )
@@ -832,19 +832,23 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::removeCollectionFromBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::removeCollectionFromBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteCollectionReference
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReference
      */
-    public function testRemoveCollectionFromBlock()
+    public function testDeleteCollectionReference()
     {
-        $this->blockHandler->removeCollectionFromBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT)
+        $block = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
+
+        $this->blockHandler->deleteCollectionReference(
+            $this->blockHandler->loadCollectionReference(
+                $block,
+                'default'
+            )
         );
 
         self::assertFalse(
-            $this->blockHandler->collectionIdentifierExists(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->collectionReferenceExists(
+                $block,
                 'default'
             )
         );
