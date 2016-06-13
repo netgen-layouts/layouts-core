@@ -160,8 +160,10 @@ class BlockService implements BlockServiceInterface
     {
         return $this->blockMapper->mapCollectionReference(
             $this->blockHandler->loadCollectionReference(
-                $block->getId(),
-                $block->getStatus(),
+                $this->blockHandler->loadBlock(
+                    $block->getId(),
+                    $block->getStatus()
+                ),
                 $identifier
             )
         );
@@ -177,8 +179,10 @@ class BlockService implements BlockServiceInterface
     public function loadCollectionReferences(Block $block)
     {
         $persistenceCollections = $this->blockHandler->loadCollectionReferences(
-            $block->getId(),
-            $block->getStatus()
+            $this->blockHandler->loadBlock(
+                $block->getId(),
+                $block->getStatus()
+            )
         );
 
         $collections = array();
@@ -201,7 +205,7 @@ class BlockService implements BlockServiceInterface
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\BlockDRaft
+     * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, LayoutDraft $layout, $zoneIdentifier, $position = null)
     {
@@ -224,9 +228,8 @@ class BlockService implements BlockServiceInterface
         try {
             $createdBlock = $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $persistenceLayout->id,
+                $persistenceLayout,
                 $zoneIdentifier,
-                $persistenceLayout->status,
                 $position
             );
 
@@ -239,10 +242,8 @@ class BlockService implements BlockServiceInterface
             );
 
             $this->blockHandler->addCollectionToBlock(
-                $createdBlock->id,
-                $createdBlock->status,
-                $createdCollection->id,
-                $createdCollection->status,
+                $createdBlock,
+                $createdCollection,
                 'default'
             );
         } catch (Exception $e) {
@@ -273,8 +274,7 @@ class BlockService implements BlockServiceInterface
 
         try {
             $updatedBlock = $this->blockHandler->updateBlock(
-                $persistenceBlock->id,
-                $persistenceBlock->status,
+                $persistenceBlock,
                 $blockUpdateStruct
             );
         } catch (Exception $e) {
@@ -295,9 +295,18 @@ class BlockService implements BlockServiceInterface
      */
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection)
     {
-        $persistenceCollection = $this->blockHandler->loadCollectionReference(
+        $persistenceBlock = $this->blockHandler->loadBlock(
             $collectionReference->getBlockId(),
-            $collectionReference->getBlockStatus(),
+            $collectionReference->getBlockStatus()
+        );
+
+        $persistenceCollection = $this->collectionHandler->loadCollection(
+            $collection->getId(),
+            $collection->getStatus()
+        );
+
+        $persistenceCollectionReference = $this->blockHandler->loadCollectionReference(
+            $persistenceBlock,
             $collectionReference->getIdentifier()
         );
 
@@ -305,13 +314,9 @@ class BlockService implements BlockServiceInterface
 
         try {
             $this->blockHandler->updateCollectionReference(
-                $persistenceCollection->blockId,
-                $persistenceCollection->blockStatus,
-                $persistenceCollection->identifier,
-                $collection->getId(),
-                $collection->getType() === Collection::TYPE_NAMED ?
-                    Collection::STATUS_PUBLISHED :
-                    Collection::STATUS_DRAFT
+                $persistenceBlock,
+                $persistenceCollectionReference->identifier,
+                $persistenceCollection
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -354,15 +359,11 @@ class BlockService implements BlockServiceInterface
 
         try {
             $copiedBlock = $this->blockHandler->copyBlock(
-                $persistenceBlock->id,
-                $persistenceBlock->status,
+                $persistenceBlock,
                 $zoneIdentifier !== null ? $zoneIdentifier : $persistenceBlock->zoneIdentifier
             );
 
-            $collectionReferences = $this->blockHandler->loadCollectionReferences(
-                $persistenceBlock->id,
-                $persistenceBlock->status
-            );
+            $collectionReferences = $this->blockHandler->loadCollectionReferences($persistenceBlock);
 
             foreach ($collectionReferences as $collectionReference) {
                 $newCollectionId = $collectionReference->collectionId;
@@ -375,10 +376,11 @@ class BlockService implements BlockServiceInterface
                 }
 
                 $this->blockHandler->addCollectionToBlock(
-                    $copiedBlock->id,
-                    $collectionReference->blockStatus,
-                    $newCollectionId,
-                    $collectionReference->collectionStatus,
+                    $copiedBlock,
+                    $this->collectionHandler->loadCollection(
+                        $newCollectionId,
+                        $collectionReference->collectionStatus
+                    ),
                     $collectionReference->identifier,
                     $collectionReference->offset,
                     $collectionReference->limit
@@ -430,14 +432,12 @@ class BlockService implements BlockServiceInterface
         try {
             if ($zoneIdentifier === null || $zoneIdentifier === $persistenceBlock->zoneIdentifier) {
                 $movedBlock = $this->blockHandler->moveBlock(
-                    $persistenceBlock->id,
-                    $persistenceBlock->status,
+                    $persistenceBlock,
                     $position
                 );
             } else {
                 $movedBlock = $this->blockHandler->moveBlockToZone(
-                    $persistenceBlock->id,
-                    $persistenceBlock->status,
+                    $persistenceBlock,
                     $zoneIdentifier,
                     $position
                 );
@@ -475,8 +475,7 @@ class BlockService implements BlockServiceInterface
 
         try {
             $updatedBlock = $this->blockHandler->updateBlock(
-                $persistenceBlock->id,
-                $persistenceBlock->status,
+                $persistenceBlock,
                 new BlockUpdateStruct(
                     array(
                         'name' => $publishedBlock->name,
@@ -487,11 +486,10 @@ class BlockService implements BlockServiceInterface
                 )
             );
 
-            $this->blockHandler->deleteBlockCollections($persistenceBlock->id, $persistenceBlock->status);
+            $this->blockHandler->deleteBlockCollections($persistenceBlock);
 
             $this->blockHandler->createBlockCollectionsStatus(
-                $publishedBlock->id,
-                $publishedBlock->status,
+                $publishedBlock,
                 $persistenceBlock->status
             );
         } catch (Exception $e) {
@@ -516,10 +514,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->blockHandler->deleteBlock(
-                $persistenceBlock->id,
-                $persistenceBlock->status
-            );
+            $this->blockHandler->deleteBlock($persistenceBlock);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

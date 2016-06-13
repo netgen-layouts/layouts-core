@@ -420,7 +420,11 @@ class LayoutHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks($copiedLayout->id, 'top_right', Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadZoneBlocks(
+                $this->layoutHandler->loadZone(
+                    $copiedLayout->id, 'top_right', Layout::STATUS_PUBLISHED
+                )
+            )
         );
 
         // Verify that non named collections were copied
@@ -428,22 +432,30 @@ class LayoutHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(6, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(7, Layout::STATUS_DRAFT)
+        );
         self::assertCount(2, $draftReferences);
         self::assertContains($draftReferences[0]->collectionId, array(3, 5));
         self::assertContains($draftReferences[1]->collectionId, array(3, 5));
 
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(7, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
+        );
         self::assertCount(2, $draftReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(3, 6));
         self::assertContains($publishedReferences[1]->collectionId, array(3, 6));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadCollectionReferences(8, Layout::STATUS_DRAFT);
+        $draftReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(8, Layout::STATUS_DRAFT)
+        );
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $draftReferences[0]->collectionId);
 
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(8, Layout::STATUS_PUBLISHED);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(8, Layout::STATUS_PUBLISHED)
+        );
         self::assertCount(1, $draftReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
@@ -551,20 +563,26 @@ class LayoutHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(1, 'top_right', Layout::STATUS_ARCHIVED)
+            $this->blockHandler->loadZoneBlocks(
+                $this->layoutHandler->loadZone(1, 'top_right', Layout::STATUS_ARCHIVED)
+            )
         );
 
         // Verify that non named collection status was copied
         $this->collectionHandler->loadCollection(2, Collection::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
-        $archivedReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_ARCHIVED);
+        $archivedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_ARCHIVED)
+        );
         self::assertCount(2, $archivedReferences);
         self::assertContains($archivedReferences[0]->collectionId, array(2, 3));
         self::assertContains($archivedReferences[1]->collectionId, array(2, 3));
 
         // Second block
-        $archivedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_ARCHIVED);
+        $archivedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(2, Layout::STATUS_ARCHIVED)
+        );
         self::assertCount(1, $archivedReferences);
         self::assertEquals(3, $archivedReferences[0]->collectionId);
     }
@@ -574,18 +592,11 @@ class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutCollectionsData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteLayout()
     {
         $this->layoutHandler->deleteLayout(1);
-
-        // Verify that we don't have the layout any more
-        try {
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED);
-            self::fail('Layout not removed after deleting it.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
 
         // Verify that we don't have the collections that were related to the layout
         try {
@@ -596,22 +607,11 @@ class LayoutHandlerTest extends TestCase
             // Do nothing
         }
 
-        // Verify that NOT all collections are deleted, especially the named one (ID == 3)
+        // Verify that named collection is not deleted (ID == 3)
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
-        // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
-        self::assertEmpty($draftReferences);
-
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_PUBLISHED);
-        self::assertEmpty($publishedReferences);
-
-        // Second block
-        $draftReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_DRAFT);
-        self::assertEmpty($draftReferences);
-
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_PUBLISHED);
-        self::assertEmpty($publishedReferences);
+        // Verify that we don't have the layout any more
+        $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED);
     }
 
     /**
@@ -648,19 +648,19 @@ class LayoutHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $draftReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
-        self::assertEmpty($draftReferences);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED)
+        );
 
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_PUBLISHED);
         self::assertCount(2, $publishedReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(2, 3));
         self::assertContains($publishedReferences[1]->collectionId, array(2, 3));
 
         // Second block
-        $draftReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_DRAFT);
-        self::assertEmpty($draftReferences);
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(2, Layout::STATUS_PUBLISHED)
+        );
 
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(2, Layout::STATUS_PUBLISHED);
         self::assertCount(1, $publishedReferences);
         self::assertEquals(3, $publishedReferences[0]->collectionId);
     }

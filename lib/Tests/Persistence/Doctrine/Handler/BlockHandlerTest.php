@@ -23,6 +23,11 @@ class BlockHandlerTest extends TestCase
     protected $blockHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
+     */
+    protected $layoutHandler;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
      */
     protected $collectionHandler;
@@ -35,6 +40,7 @@ class BlockHandlerTest extends TestCase
         $this->prepareHandlers();
 
         $this->blockHandler = $this->createBlockHandler();
+        $this->layoutHandler = $this->createLayoutHandler();
         $this->collectionHandler = $this->createCollectionHandler();
     }
 
@@ -84,6 +90,33 @@ class BlockHandlerTest extends TestCase
     public function testLoadBlockThrowsNotFoundException()
     {
         $this->blockHandler->loadBlock(999999, Layout::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
+     */
+    public function testBlockExists()
+    {
+        self::assertTrue($this->blockHandler->blockExists(1, Layout::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
+     */
+    public function testBlockNotExists()
+    {
+        self::assertFalse($this->blockHandler->blockExists(999999, Layout::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
+     */
+    public function testBlockNotExistsInStatus()
+    {
+        self::assertFalse($this->blockHandler->blockExists(6, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -145,17 +178,10 @@ class BlockHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(1, 'top_right', Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadZoneBlocks(
+                $this->layoutHandler->loadZone(1, 'top_right', Layout::STATUS_PUBLISHED)
+            )
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
-     */
-    public function testLoadZoneBlocksForNonExistingZone()
-    {
-        self::assertEquals(array(), $this->blockHandler->loadZoneBlocks(1, 'non_existing', Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -189,47 +215,10 @@ class BlockHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT)
+            $this->blockHandler->loadCollectionReferences(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+            )
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
-     */
-    public function testLoadCollectionReferencesForNonExistingBlock()
-    {
-        self::assertEquals(
-            array(),
-            $this->blockHandler->loadCollectionReferences(9999, Layout::STATUS_DRAFT)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
-     */
-    public function testBlockExists()
-    {
-        self::assertTrue($this->blockHandler->blockExists(1, Layout::STATUS_PUBLISHED));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
-     */
-    public function testBlockNotExists()
-    {
-        self::assertFalse($this->blockHandler->blockExists(999999, Layout::STATUS_PUBLISHED));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
-     */
-    public function testBlockNotExistsInStatus()
-    {
-        self::assertFalse($this->blockHandler->blockExists(6, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -263,7 +252,12 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT, 1)
+            $this->blockHandler->createBlock(
+                $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+                'top_right',
+                1
+            )
         );
 
         $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
@@ -301,7 +295,11 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT)
+            $this->blockHandler->createBlock(
+                $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+                'top_right'
+            )
         );
     }
 
@@ -319,7 +317,12 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
-        $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT, -5);
+        $this->blockHandler->createBlock(
+            $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            'top_right',
+            -5
+        );
     }
 
     /**
@@ -336,7 +339,12 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
-        $this->blockHandler->createBlock($blockCreateStruct, 1, 'top_right', Layout::STATUS_DRAFT, 9999);
+        $this->blockHandler->createBlock(
+            $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            'top_right',
+            9999
+        );
     }
 
     /**
@@ -370,7 +378,10 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->updateBlock(1, Layout::STATUS_DRAFT, $blockUpdateStruct)
+            $this->blockHandler->updateBlock(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $blockUpdateStruct
+            )
         );
     }
 
@@ -398,7 +409,10 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'top_right')
+            $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'top_right'
+            )
         );
     }
 
@@ -426,7 +440,10 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->copyBlock(1, Layout::STATUS_DRAFT, 'bottom')
+            $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'bottom'
+            )
         );
     }
 
@@ -454,7 +471,10 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->moveBlock(1, Layout::STATUS_DRAFT, 1)
+            $this->blockHandler->moveBlock(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                1
+            )
         );
 
         $firstBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
@@ -486,7 +506,10 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->moveBlock(2, Layout::STATUS_DRAFT, 0)
+            $this->blockHandler->moveBlock(
+                $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT),
+                0
+            )
         );
 
         $firstBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
@@ -500,7 +523,10 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->blockHandler->moveBlock(1, Layout::STATUS_DRAFT, -1);
+        $this->blockHandler->moveBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            -1
+        );
     }
 
     /**
@@ -510,7 +536,10 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->blockHandler->moveBlock(1, Layout::STATUS_DRAFT, 9999);
+        $this->blockHandler->moveBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            9999
+        );
     }
 
     /**
@@ -537,7 +566,11 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->moveBlockToZone(1, Layout::STATUS_DRAFT, 'bottom', 0)
+            $this->blockHandler->moveBlockToZone(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'bottom',
+                0
+            )
         );
     }
 
@@ -548,7 +581,11 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->blockHandler->moveBlockToZone(1, Layout::STATUS_DRAFT, 'bottom', -1);
+        $this->blockHandler->moveBlockToZone(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            'bottom',
+            -1
+        );
     }
 
     /**
@@ -558,7 +595,11 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->blockHandler->moveBlockToZone(1, Layout::STATUS_DRAFT, 'bottom', 9999);
+        $this->blockHandler->moveBlockToZone(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            'bottom',
+            9999
+        );
     }
 
     /**
@@ -567,9 +608,14 @@ class BlockHandlerTest extends TestCase
      */
     public function testCreateBlockStatus()
     {
-        $this->blockHandler->deleteBlock(1, Layout::STATUS_DRAFT);
+        $this->blockHandler->deleteBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
 
-        $this->blockHandler->createBlockStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+        $this->blockHandler->createBlockStatus(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
+            Layout::STATUS_DRAFT
+        );
 
         self::assertEquals(
             new Block(
@@ -591,7 +637,9 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
         );
 
-        $collectionReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
+        $collectionReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
 
         self::assertCount(2, $collectionReferences);
 
@@ -609,9 +657,14 @@ class BlockHandlerTest extends TestCase
      */
     public function testCreateBlockCollectionsStatus()
     {
-        $this->blockHandler->createBlockCollectionsStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+        $this->blockHandler->createBlockCollectionsStatus(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
+            Layout::STATUS_DRAFT
+        );
 
-        $collectionReferences = $this->blockHandler->loadCollectionReferences(1, Layout::STATUS_DRAFT);
+        $collectionReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
 
         self::assertCount(3, $collectionReferences);
 
@@ -641,7 +694,10 @@ class BlockHandlerTest extends TestCase
         $this->collectionHandler->deleteItem(4, Collection::STATUS_DRAFT);
 
         // Then verify that archived status is recreated after creating a layout in archived status
-        $this->blockHandler->createBlockCollectionsStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+        $this->blockHandler->createBlockCollectionsStatus(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
+            Layout::STATUS_DRAFT
+        );
 
         $item = $this->collectionHandler->loadItem(4, Collection::STATUS_DRAFT);
         self::assertInstanceOf(Item::class, $item);
@@ -654,7 +710,9 @@ class BlockHandlerTest extends TestCase
      */
     public function testDeleteBlock()
     {
-        $this->blockHandler->deleteBlock(1, Layout::STATUS_DRAFT);
+        $this->blockHandler->deleteBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
 
         $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
         self::assertEquals(0, $secondBlock->position);
@@ -683,7 +741,9 @@ class BlockHandlerTest extends TestCase
      */
     public function testDeleteBlockCollections()
     {
-        $this->blockHandler->deleteBlockCollections(1, Layout::STATUS_DRAFT);
+        $this->blockHandler->deleteBlockCollections(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
 
         // Verify that named collection still exists
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
@@ -697,7 +757,12 @@ class BlockHandlerTest extends TestCase
      */
     public function testCollectionIdentifierExists()
     {
-        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'default'));
+        self::assertTrue(
+            $this->blockHandler->collectionIdentifierExists(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'default'
+            )
+        );
     }
 
     /**
@@ -706,7 +771,12 @@ class BlockHandlerTest extends TestCase
      */
     public function testCollectionIdentifierNotExists()
     {
-        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'something_else'));
+        self::assertFalse(
+            $this->blockHandler->collectionIdentifierExists(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'something_else'
+            )
+        );
     }
 
     /**
@@ -715,7 +785,12 @@ class BlockHandlerTest extends TestCase
      */
     public function testCollectionExists()
     {
-        self::assertTrue($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 1, Collection::STATUS_DRAFT));
+        self::assertTrue(
+            $this->blockHandler->collectionExists(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT)
+            )
+        );
     }
 
     /**
@@ -724,7 +799,12 @@ class BlockHandlerTest extends TestCase
      */
     public function testCollectionNotExists()
     {
-        self::assertFalse($this->blockHandler->collectionExists(1, Layout::STATUS_DRAFT, 2, Collection::STATUS_DRAFT));
+        self::assertFalse(
+            $this->blockHandler->collectionExists(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED)
+            )
+        );
     }
 
     /**
@@ -733,8 +813,18 @@ class BlockHandlerTest extends TestCase
      */
     public function testAddCollectionToBlock()
     {
-        $this->blockHandler->addCollectionToBlock(1, Layout::STATUS_DRAFT, 2, Collection::STATUS_PUBLISHED, 'new');
-        self::assertTrue($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'new'));
+        $this->blockHandler->addCollectionToBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
+            'new'
+        );
+
+        self::assertTrue(
+            $this->blockHandler->collectionIdentifierExists(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'new'
+            )
+        );
     }
 
     /**
@@ -743,7 +833,16 @@ class BlockHandlerTest extends TestCase
      */
     public function testRemoveCollectionFromBlock()
     {
-        $this->blockHandler->removeCollectionFromBlock(1, Layout::STATUS_DRAFT, 1, Collection::STATUS_DRAFT);
-        self::assertFalse($this->blockHandler->collectionIdentifierExists(1, Layout::STATUS_DRAFT, 'default'));
+        $this->blockHandler->removeCollectionFromBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT)
+        );
+
+        self::assertFalse(
+            $this->blockHandler->collectionIdentifierExists(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'default'
+            )
+        );
     }
 }

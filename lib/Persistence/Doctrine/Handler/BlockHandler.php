@@ -12,6 +12,10 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 class BlockHandler implements BlockHandlerInterface
 {
@@ -79,69 +83,6 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Loads all blocks from zone with specified identifier.
-     *
-     * @param int|string $layoutId
-     * @param string $zoneIdentifier
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
-     */
-    public function loadZoneBlocks($layoutId, $zoneIdentifier, $status)
-    {
-        $data = $this->queryHandler->loadZoneBlocksData($layoutId, $zoneIdentifier, $status);
-
-        if (empty($data)) {
-            return array();
-        }
-
-        return $this->blockMapper->mapBlocks($data);
-    }
-
-    /**
-     * Loads a collection reference.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection reference with specified identifier does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
-     */
-    public function loadCollectionReference($blockId, $status, $identifier)
-    {
-        $data = $this->queryHandler->loadCollectionReferencesData($blockId, $status, $identifier);
-
-        if (empty($data)) {
-            throw new NotFoundException('collection', $identifier);
-        }
-
-        $data = $this->blockMapper->mapCollectionReferences($data);
-
-        return reset($data);
-    }
-
-    /**
-     * Loads all collection references belonging to the provided block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
-     */
-    public function loadCollectionReferences($blockId, $status)
-    {
-        $data = $this->queryHandler->loadCollectionReferencesData($blockId, $status);
-
-        if (empty($data)) {
-            return array();
-        }
-
-        return $this->blockMapper->mapCollectionReferences($data);
-    }
-
-    /**
      * Returns if block with specified ID exists.
      *
      * @param int|string $blockId
@@ -155,25 +96,83 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Loads all blocks from zone with specified identifier.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     */
+    public function loadZoneBlocks(Zone $zone)
+    {
+        $data = $this->queryHandler->loadZoneBlocksData($zone->layoutId, $zone->identifier, $zone->status);
+
+        if (empty($data)) {
+            return array();
+        }
+
+        return $this->blockMapper->mapBlocks($data);
+    }
+
+    /**
+     * Loads a collection reference.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection reference with specified identifier does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     */
+    public function loadCollectionReference(Block $block, $identifier)
+    {
+        $data = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status, $identifier);
+
+        if (empty($data)) {
+            throw new NotFoundException('collection', $identifier);
+        }
+
+        $data = $this->blockMapper->mapCollectionReferences($data);
+
+        return reset($data);
+    }
+
+    /**
+     * Loads all collection references belonging to the provided block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
+     */
+    public function loadCollectionReferences(Block $block)
+    {
+        $data = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status);
+
+        if (empty($data)) {
+            return array();
+        }
+
+        return $this->blockMapper->mapCollectionReferences($data);
+    }
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $zoneIdentifier
-     * @param int $status
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, $layoutId, $zoneIdentifier, $status, $position = null)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
         $position = $this->positionHelper->createPosition(
             $this->getPositionHelperConditions(
-                $layoutId,
-                $zoneIdentifier,
-                $status
+                $layout->id,
+                $layout->status,
+                $zoneIdentifier
             ),
             $position
         );
@@ -181,9 +180,9 @@ class BlockHandler implements BlockHandlerInterface
         $createdBlockId = $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
-                    'layoutId' => $layoutId,
+                    'layoutId' => $layout->id,
                     'zoneIdentifier' => $zoneIdentifier,
-                    'status' => $status,
+                    'status' => $layout->status,
                     'position' => $position,
                     'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
                     'viewType' => $blockCreateStruct->viewType,
@@ -194,25 +193,22 @@ class BlockHandler implements BlockHandlerInterface
             )
         );
 
-        return $this->loadBlock($createdBlockId, $status);
+        return $this->loadBlock($createdBlockId, $layout->status);
     }
 
     /**
      * Updates a block with specified ID.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock($blockId, $status, APIBlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
-        $block = $this->loadBlock($blockId, $status);
-
         $this->queryHandler->updateBlock(
-            $blockId,
-            $status,
+            $block->id,
+            $block->status,
             new BlockUpdateStruct(
                 array(
                     'viewType' => $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType,
@@ -223,51 +219,46 @@ class BlockHandler implements BlockHandlerInterface
             )
         );
 
-        return $this->loadBlock($blockId, $status);
+        return $this->loadBlock($block->id, $block->status);
     }
 
     /**
      * Updates a collection reference with specified identifier.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $identifier
-     * @param int|string $collectionId
-     * @param int $collectionStatus
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
      */
-    public function updateCollectionReference($blockId, $status, $identifier, $collectionId, $collectionStatus)
+    public function updateCollectionReference(Block $block, $identifier, Collection $collection)
     {
         $this->queryHandler->updateCollectionReference(
-            $blockId,
-            $status,
+            $block->id,
+            $block->status,
             $identifier,
-            $collectionId,
-            $collectionStatus
+            $collection->id,
+            $collection->status
         );
 
-        return $this->loadCollectionReference($blockId, $status, $identifier);
+        return $this->loadCollectionReference($block, $identifier);
     }
 
     /**
      * Copies a block with specified ID to a zone with specified identifier.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $zoneIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock($blockId, $status, $zoneIdentifier)
+    public function copyBlock(Block $block, $zoneIdentifier)
     {
-        $block = $this->loadBlock($blockId, $status);
-
         $position = $this->positionHelper->getNextPosition(
             $this->getPositionHelperConditions(
                 $block->layoutId,
-                $zoneIdentifier,
-                $status
+                $block->status,
+                $zoneIdentifier
             )
         );
 
@@ -293,38 +284,34 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Moves a block to specified position in the zone.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlock($blockId, $status, $position)
+    public function moveBlock(Block $block, $position)
     {
-        $block = $this->loadBlock($blockId, $status);
-
         $position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperConditions(
                 $block->layoutId,
-                $block->zoneIdentifier,
-                $status
+                $block->status,
+                $block->zoneIdentifier
             ),
             $block->position,
             $position
         );
 
-        $this->queryHandler->moveBlock($blockId, $status, $position);
+        $this->queryHandler->moveBlock($block->id, $block->status, $position);
 
-        return $this->loadBlock($blockId, $status);
+        return $this->loadBlock($block->id, $block->status);
     }
 
     /**
      * Moves a block to specified position in a specified zone.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $zoneIdentifier
      * @param int $position
      *
@@ -332,44 +319,39 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlockToZone($blockId, $status, $zoneIdentifier, $position)
+    public function moveBlockToZone(Block $block, $zoneIdentifier, $position)
     {
-        $block = $this->loadBlock($blockId, $status);
-
         $position = $this->positionHelper->createPosition(
             $this->getPositionHelperConditions(
                 $block->layoutId,
-                $zoneIdentifier,
-                $status
+                $block->status,
+                $zoneIdentifier
             ),
             $position
         );
 
-        $this->queryHandler->moveBlock($blockId, $status, $position, $zoneIdentifier);
+        $this->queryHandler->moveBlock($block->id, $block->status, $position, $zoneIdentifier);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
                 $block->layoutId,
-                $block->zoneIdentifier,
-                $status
+                $block->status,
+                $block->zoneIdentifier
             ),
             $block->position
         );
 
-        return $this->loadBlock($blockId, $status);
+        return $this->loadBlock($block->id, $block->status);
     }
 
     /**
      * Creates a new block status.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
      */
-    public function createBlockStatus($blockId, $status, $newStatus)
+    public function createBlockStatus(Block $block, $newStatus)
     {
-        $block = $this->loadBlock($blockId, $status);
-
         $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
@@ -384,22 +366,21 @@ class BlockHandler implements BlockHandlerInterface
                     'parameters' => $block->parameters,
                 )
             ),
-            $blockId
+            $block->id
         );
 
-        $this->createBlockCollectionsStatus($blockId, $status, $newStatus);
+        $this->createBlockCollectionsStatus($block, $newStatus);
     }
 
     /**
      * Creates a new status for all collections in specified block.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
      */
-    public function createBlockCollectionsStatus($blockId, $status, $newStatus)
+    public function createBlockCollectionsStatus(Block $block, $newStatus)
     {
-        $collectionsData = $this->queryHandler->loadCollectionReferencesData($blockId, $status);
+        $collectionsData = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status);
         foreach ($collectionsData as $collectionsDataRow) {
             if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
                 if ($this->collectionHandler->collectionExists($collectionsDataRow['collection_id'], $newStatus)) {
@@ -411,7 +392,7 @@ class BlockHandler implements BlockHandlerInterface
 
                 $this->collectionHandler->createCollectionStatus(
                     $collectionsDataRow['collection_id'],
-                    $status,
+                    $block->status,
                     $newStatus
                 );
 
@@ -420,9 +401,9 @@ class BlockHandler implements BlockHandlerInterface
                 $newCollectionStatus = $collectionsDataRow['collection_status'];
             }
 
-            if (!$this->queryHandler->collectionExists($blockId, $newStatus, $collectionsDataRow['collection_id'], $newCollectionStatus)) {
-                $this->addCollectionToBlock(
-                    $blockId,
+            if (!$this->queryHandler->collectionExists($block->id, $newStatus, $collectionsDataRow['collection_id'], $newCollectionStatus)) {
+                $this->queryHandler->addCollectionToBlock(
+                    $block->id,
                     $newStatus,
                     $collectionsDataRow['collection_id'],
                     $newCollectionStatus,
@@ -437,21 +418,18 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Deletes a block with specified ID.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      */
-    public function deleteBlock($blockId, $status)
+    public function deleteBlock(Block $block)
     {
-        $block = $this->loadBlock($blockId, $status);
-
-        $this->deleteBlockCollections($blockId, $status);
-        $this->queryHandler->deleteBlock($blockId, $status);
+        $this->deleteBlockCollections($block);
+        $this->queryHandler->deleteBlock($block->id, $block->status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
                 $block->layoutId,
-                $block->zoneIdentifier,
-                $status
+                $block->status,
+                $block->zoneIdentifier
             ),
             $block->position
         );
@@ -460,15 +438,11 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Deletes all block collections.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      */
-    public function deleteBlockCollections($blockId, $status)
+    public function deleteBlockCollections(Block $block)
     {
-        $collectionReferences = $this->loadCollectionReferences(
-            $blockId,
-            $status
-        );
+        $collectionReferences = $this->loadCollectionReferences($block);
 
         foreach ($collectionReferences as $collectionReference) {
             if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId, $collectionReference->collectionStatus)) {
@@ -478,9 +452,9 @@ class BlockHandler implements BlockHandlerInterface
                 );
             }
 
-            $this->removeCollectionFromBlock(
-                $blockId,
-                $status,
+            $this->queryHandler->removeCollectionFromBlock(
+                $block->id,
+                $block->status,
                 $collectionReference->collectionId,
                 $collectionReference->collectionStatus
             );
@@ -490,79 +464,72 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Returns if provided collection identifier already exists in the block.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $identifier
      *
      * @return bool
      */
-    public function collectionIdentifierExists($blockId, $status, $identifier)
+    public function collectionIdentifierExists(Block $block, $identifier)
     {
-        return $this->queryHandler->collectionIdentifierExists($blockId, $status, $identifier);
+        return $this->queryHandler->collectionIdentifierExists($block->id, $block->status, $identifier);
     }
 
     /**
      * Returns if provided collection already exists in the block.
      *
-     * @param int|string $blockId
-     * @param int $status
-     * @param int|string $collectionId
-     * @param int $collectionStatus
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
      * @return bool
      */
-    public function collectionExists($blockId, $status, $collectionId, $collectionStatus)
+    public function collectionExists(Block $block, Collection $collection)
     {
-        return $this->queryHandler->collectionExists($blockId, $status, $collectionId, $collectionStatus);
+        return $this->queryHandler->collectionExists($block->id, $block->status, $collection->id, $collection->status);
     }
 
     /**
      * Adds the collection to the block.
      *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param int|string $collectionId
-     * @param int $collectionStatus
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param string $identifier
      * @param int $offset
      * @param int $limit
      */
-    public function addCollectionToBlock($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
+    public function addCollectionToBlock(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
     {
-        $this->queryHandler->addCollectionToBlock($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset, $limit);
+        $this->queryHandler->addCollectionToBlock($block->id, $block->status, $collection->id, $collection->status, $identifier, $offset, $limit);
     }
 
     /**
      * Removes the collection from the block.
      *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param int|string $collectionId
-     * @param int $collectionStatus
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      */
-    public function removeCollectionFromBlock($blockId, $blockStatus, $collectionId, $collectionStatus)
+    public function removeCollectionFromBlock(Block $block, Collection $collection)
     {
-        $this->queryHandler->removeCollectionFromBlock($blockId, $blockStatus, $collectionId, $collectionStatus);
+        $this->queryHandler->removeCollectionFromBlock($block->id, $block->status, $collection->id, $collection->status);
     }
 
     /**
      * Builds the condition array that will be used with position helper.
      *
      * @param int|string $layoutId
-     * @param string $zoneIdentifier
      * @param int $status
+     * @param string $zoneIdentifier
      *
      * @return array
      */
-    protected function getPositionHelperConditions($layoutId, $zoneIdentifier, $status)
+    protected function getPositionHelperConditions($layoutId, $status, $zoneIdentifier)
     {
         return array(
             'table' => 'ngbm_block',
             'column' => 'position',
             'conditions' => array(
                 'layout_id' => $layoutId,
-                'zone_identifier' => $zoneIdentifier,
                 'status' => $status,
+                'zone_identifier' => $zoneIdentifier,
             ),
         );
     }
