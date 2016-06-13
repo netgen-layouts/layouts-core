@@ -67,10 +67,7 @@ class LayoutMapper extends Mapper
      */
     public function mapLayout(PersistenceLayout $layout)
     {
-        $persistenceZones = $this->persistenceHandler->getLayoutHandler()->loadLayoutZones(
-            $layout->id,
-            $layout->status
-        );
+        $persistenceZones = $this->persistenceHandler->getLayoutHandler()->loadLayoutZones($layout);
 
         $zones = array();
         foreach ($persistenceZones as $persistenceZone) {

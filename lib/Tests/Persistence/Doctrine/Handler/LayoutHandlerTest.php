@@ -100,7 +100,10 @@ class LayoutHandlerTest extends TestCase
                     'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
-            $this->layoutHandler->loadZone(1, 'top_left', Layout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadZone(
+                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+                'top_left'
+            )
         );
     }
 
@@ -109,19 +112,12 @@ class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
-    public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
+    public function testLoadZoneThrowsNotFoundException()
     {
-        $this->layoutHandler->loadZone(999999, 'bottom', Layout::STATUS_PUBLISHED);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     */
-    public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
-    {
-        $this->layoutHandler->loadZone(1, 'non_existing', Layout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadZone(
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            'non_existing'
+        );
     }
 
     /**
@@ -157,7 +153,12 @@ class LayoutHandlerTest extends TestCase
      */
     public function testZoneExists()
     {
-        self::assertTrue($this->layoutHandler->zoneExists(1, 'top_left', Layout::STATUS_PUBLISHED));
+        self::assertTrue(
+            $this->layoutHandler->zoneExists(
+                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+                'top_left'
+            )
+        );
     }
 
     /**
@@ -166,16 +167,12 @@ class LayoutHandlerTest extends TestCase
      */
     public function testZoneNotExists()
     {
-        self::assertFalse($this->layoutHandler->zoneExists(1, 'non_existing', Layout::STATUS_PUBLISHED));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
-     */
-    public function testZoneNotExistsInStatus()
-    {
-        self::assertFalse($this->layoutHandler->zoneExists(1, 'top_left', Layout::STATUS_ARCHIVED));
+        self::assertFalse(
+            $this->layoutHandler->zoneExists(
+                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+                'non_existing'
+            )
+        );
     }
 
     /**
@@ -235,17 +232,10 @@ class LayoutHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones(1, Layout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayoutZones(
+                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
+            )
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
-     */
-    public function testLoadLayoutZonesForNonExistingLayout()
-    {
-        self::assertEquals(array(), $this->layoutHandler->loadLayoutZones(999999, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -294,7 +284,7 @@ class LayoutHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones($createdLayout->id, $createdLayout->status)
+            $this->layoutHandler->loadLayoutZones($createdLayout)
         );
     }
 
@@ -308,7 +298,10 @@ class LayoutHandlerTest extends TestCase
         $layoutUpdateStruct->name = 'New name';
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
-        $updatedLayout = $this->layoutHandler->updateLayout(1, Layout::STATUS_DRAFT, $layoutUpdateStruct);
+        $updatedLayout = $this->layoutHandler->updateLayout(
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+            $layoutUpdateStruct
+        );
 
         self::assertInstanceOf(Layout::class, $updatedLayout);
         self::assertEquals('New name', $updatedLayout->name);
@@ -364,7 +357,7 @@ class LayoutHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones($copiedLayout->id, Layout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayoutZones($copiedLayout)
         );
 
         self::assertEquals(
@@ -422,7 +415,8 @@ class LayoutHandlerTest extends TestCase
             ),
             $this->blockHandler->loadZoneBlocks(
                 $this->layoutHandler->loadZone(
-                    $copiedLayout->id, 'top_right', Layout::STATUS_PUBLISHED
+                    $copiedLayout,
+                    'top_right'
                 )
             )
         );
@@ -471,7 +465,10 @@ class LayoutHandlerTest extends TestCase
      */
     public function testCreateLayoutStatus()
     {
-        $copiedLayout = $this->layoutHandler->createLayoutStatus(1, Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
+        $copiedLayout = $this->layoutHandler->createLayoutStatus(
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            Layout::STATUS_ARCHIVED
+        );
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
@@ -507,7 +504,7 @@ class LayoutHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->layoutHandler->loadLayoutZones(1, Layout::STATUS_ARCHIVED)
+            $this->layoutHandler->loadLayoutZones($copiedLayout)
         );
 
         self::assertEquals(
@@ -564,7 +561,7 @@ class LayoutHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone(1, 'top_right', Layout::STATUS_ARCHIVED)
+                $this->layoutHandler->loadZone($copiedLayout, 'top_right')
             )
         );
 

@@ -219,7 +219,7 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
         }
 
-        if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $zoneIdentifier, $persistenceLayout->status)) {
+        if (!$this->layoutHandler->zoneExists($persistenceLayout, $zoneIdentifier)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
@@ -346,7 +346,7 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
         if ($zoneIdentifier !== null) {
-            if (!$this->layoutHandler->zoneExists($persistenceBlock->layoutId, $zoneIdentifier, $persistenceBlock->status)) {
+            if (!$this->layoutHandler->zoneExists($persistenceLayout, $zoneIdentifier)) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
 
@@ -418,7 +418,7 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
         if ($zoneIdentifier !== null) {
-            if (!$this->layoutHandler->zoneExists($persistenceBlock->layoutId, $zoneIdentifier, $persistenceBlock->status)) {
+            if (!$this->layoutHandler->zoneExists($persistenceLayout, $zoneIdentifier)) {
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
 

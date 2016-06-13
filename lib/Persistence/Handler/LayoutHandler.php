@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 interface LayoutHandler
 {
@@ -22,15 +23,14 @@ interface LayoutHandler
     /**
      * Loads a zone with specified identifier.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $identifier
-     * @param int $status
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($layoutId, $identifier, $status);
+    public function loadZone(Layout $layout, $identifier);
 
     /**
      * Returns if layout with specified ID exists.
@@ -45,23 +45,21 @@ interface LayoutHandler
     /**
      * Returns if zone with specified identifier exists in the layout.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $identifier
-     * @param int $status
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $identifier, $status);
+    public function zoneExists(Layout $layout, $identifier);
 
     /**
      * Loads all zones that belong to layout with specified ID.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
      */
-    public function loadLayoutZones($layoutId, $status);
+    public function loadLayoutZones(Layout $layout);
 
     /**
      * Returns if layout with provided name exists.
@@ -87,13 +85,12 @@ interface LayoutHandler
     /**
      * Updates a layout with specified ID.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function updateLayout($layoutId, $status, LayoutUpdateStruct $layoutUpdateStruct);
+    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct);
 
     /**
      * Copies a layout with specified ID.
@@ -107,13 +104,12 @@ interface LayoutHandler
     /**
      * Creates a new layout status.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout $layout
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayoutStatus($layoutId, $status, $newStatus);
+    public function createLayoutStatus(Layout $layout, $newStatus);
 
     /**
      * Deletes a layout with specified ID.

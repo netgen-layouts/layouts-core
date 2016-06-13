@@ -14,6 +14,7 @@ use Netgen\BlockManager\API\Values\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 class LayoutHandler implements LayoutHandlerInterface
 {
@@ -91,17 +92,16 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Loads a zone with specified identifier.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $identifier
-     * @param int $status
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone($layoutId, $identifier, $status)
+    public function loadZone(Layout $layout, $identifier)
     {
-        $data = $this->queryHandler->loadZoneData($layoutId, $identifier, $status);
+        $data = $this->queryHandler->loadZoneData($layout->id, $identifier, $layout->status);
 
         if (empty($data)) {
             throw new NotFoundException('zone', $identifier);
@@ -128,29 +128,30 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Returns if zone with specified identifier exists in the layout.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $identifier
-     * @param int $status
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $identifier, $status)
+    public function zoneExists(Layout $layout, $identifier)
     {
-        return $this->queryHandler->zoneExists($layoutId, $identifier, $status);
+        return $this->queryHandler->zoneExists($layout->id, $identifier, $layout->status);
     }
 
     /**
      * Loads all zones that belong to layout with specified ID.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
      */
-    public function loadLayoutZones($layoutId, $status)
+    public function loadLayoutZones(Layout $layout)
     {
         return $this->layoutMapper->mapZones(
-            $this->queryHandler->loadLayoutZonesData($layoutId, $status)
+            $this->queryHandler->loadLayoutZonesData(
+                $layout->id,
+                $layout->status
+            )
         );
     }
 
@@ -195,19 +196,16 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Updates a layout with specified ID.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function updateLayout($layoutId, $status, APILayoutUpdateStruct $layoutUpdateStruct)
+    public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct)
     {
-        $layout = $this->loadLayout($layoutId, $status);
-
         $this->queryHandler->updateLayout(
-            $layoutId,
-            $status,
+            $layout->id,
+            $layout->status,
             new LayoutUpdateStruct(
                 array(
                     'name' => $layoutUpdateStruct->name !== null ? trim($layoutUpdateStruct->name) : $layout->name,
@@ -215,7 +213,7 @@ class LayoutHandler implements LayoutHandlerInterface
             )
         );
 
-        return $this->loadLayout($layoutId, $status);
+        return $this->loadLayout($layout->id, $layout->status);
     }
 
     /**
@@ -322,22 +320,21 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Creates a new layout status.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayoutStatus($layoutId, $status, $newStatus)
+    public function createLayoutStatus(Layout $layout, $newStatus)
     {
         $zoneIdentifiers = array_map(
             function (array $zoneDataRow) {
                 return $zoneDataRow['identifier'];
             },
-            $this->queryHandler->loadLayoutZonesData($layoutId, $status)
+            $this->queryHandler->loadLayoutZonesData($layout->id, $layout->status)
         );
 
-        $layoutData = $this->queryHandler->loadLayoutData($layoutId, $status);
+        $layoutData = $this->queryHandler->loadLayoutData($layout->id, $layout->status);
 
         $this->queryHandler->createLayout(
             new LayoutCreateStruct(
@@ -352,10 +349,10 @@ class LayoutHandler implements LayoutHandlerInterface
         );
 
         foreach ($zoneIdentifiers as $zoneIdentifier) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutData[0]['id'], $zoneIdentifier, $status);
+            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutData[0]['id'], $zoneIdentifier, $layout->status);
             foreach ($blockData as $blockDataRow) {
                 $this->blockHandler->createBlockStatus(
-                    $this->blockHandler->loadBlock($blockDataRow['id'], $status),
+                    $this->blockHandler->loadBlock($blockDataRow['id'], $layout->status),
                     $newStatus
                 );
             }

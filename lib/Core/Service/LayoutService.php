@@ -121,9 +121,11 @@ class LayoutService implements LayoutServiceInterface
 
         return $this->layoutMapper->mapZone(
             $this->layoutHandler->loadZone(
-                $layoutId,
-                $identifier,
-                Layout::STATUS_PUBLISHED
+                $this->layoutHandler->loadLayout(
+                    $layoutId,
+                    Layout::STATUS_PUBLISHED
+                ),
+                $identifier
             )
         );
     }
@@ -145,9 +147,11 @@ class LayoutService implements LayoutServiceInterface
 
         return $this->layoutMapper->mapZone(
             $this->layoutHandler->loadZone(
-                $layoutId,
-                $identifier,
-                Layout::STATUS_DRAFT
+                $this->layoutHandler->loadLayout(
+                    $layoutId,
+                    Layout::STATUS_DRAFT
+                ),
+                $identifier
             )
         );
     }
@@ -220,8 +224,7 @@ class LayoutService implements LayoutServiceInterface
 
         try {
             $updatedLayout = $this->layoutHandler->updateLayout(
-                $persistenceLayout->id,
-                $persistenceLayout->status,
+                $persistenceLayout,
                 $layoutUpdateStruct
             );
         } catch (Exception $e) {
@@ -284,7 +287,7 @@ class LayoutService implements LayoutServiceInterface
 
         try {
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_DRAFT);
-            $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_PUBLISHED, Layout::STATUS_DRAFT);
+            $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout, Layout::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -336,11 +339,15 @@ class LayoutService implements LayoutServiceInterface
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_ARCHIVED);
 
             if ($this->layoutHandler->layoutExists($persistenceLayout->id, Layout::STATUS_PUBLISHED)) {
-                $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_PUBLISHED, Layout::STATUS_ARCHIVED);
+                $this->layoutHandler->createLayoutStatus(
+                    $this->layoutHandler->loadLayout($persistenceLayout->id, Layout::STATUS_PUBLISHED),
+                    Layout::STATUS_ARCHIVED
+                );
+
                 $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_PUBLISHED);
             }
 
-            $publishedLayout = $this->layoutHandler->createLayoutStatus($persistenceLayout->id, Layout::STATUS_DRAFT, Layout::STATUS_PUBLISHED);
+            $publishedLayout = $this->layoutHandler->createLayoutStatus($persistenceLayout, Layout::STATUS_PUBLISHED);
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
