@@ -36,7 +36,7 @@
                 </select>
             </div>
 
-            <div class="js-dependable" data-linked-value="{{type_dynamic}}">
+            <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
                 <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
                 <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
                     {% for query_type in query_types %}
@@ -45,7 +45,7 @@
                 </select>
             </div>
 
-            <div class="js-dependable" data-linked-value="{{type_named}}">
+            <div class="js-dependable" data-linked-value="{{ type_named }}">
                 <label for="named-collections">{{ 'block.edit.named_collection'|trans }}</label>
                 <select id="named-collections"  name="block_collection[named_collection_id]">
                     {% for named_collection in named_collections %}
@@ -56,7 +56,6 @@
 
             <a href="#" class="btn btn-default js-cancel">{{ 'block.edit.cancel'|trans }}</a>
             <a href="#" class="btn btn-primary js-apply">{{ 'block.edit.apply'|trans }}</a>
-
         </div>
     </div>
 {% endif %}
