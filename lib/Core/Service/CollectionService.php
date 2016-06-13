@@ -328,6 +328,8 @@ class CollectionService implements APICollectionService
             throw new BadStateException('queryCreateStruct', 'Query create struct must be defined when converting to dynamic collection.');
         }
 
+        $this->persistenceHandler->beginTransaction();
+
         try {
             $newCollection = $this->collectionHandler->changeCollectionType(
                 $persistenceCollection->id,
