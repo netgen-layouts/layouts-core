@@ -28,7 +28,7 @@ class LayoutDraftParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutDraftParamConverter::getSourceAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutDraftParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
     {

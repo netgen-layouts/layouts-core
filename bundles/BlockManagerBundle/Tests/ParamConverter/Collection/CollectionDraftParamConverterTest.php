@@ -28,7 +28,7 @@ class CollectionDraftParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionDraftParamConverter::getSourceAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionDraftParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
     {
