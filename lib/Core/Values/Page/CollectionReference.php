@@ -8,24 +8,14 @@ use Netgen\BlockManager\ValueObject;
 class CollectionReference extends ValueObject implements APICollectionReference
 {
     /**
-     * @var int
+     * @var \Netgen\BlockManager\API\Values\Page\Block
      */
-    protected $blockId;
+    protected $block;
 
     /**
-     * @var int
+     * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    protected $blockStatus;
-
-    /**
-     * @var int
-     */
-    protected $collectionId;
-
-    /**
-     * @var int
-     */
-    protected $collectionStatus;
+    protected $collection;
 
     /**
      * @var string
@@ -43,43 +33,23 @@ class CollectionReference extends ValueObject implements APICollectionReference
     protected $limit;
 
     /**
-     * Returns the block ID to which the collection is attached.
+     * Returns the block to which the collection is attached.
      *
-     * @return int|string
+     * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function getBlockId()
+    public function getBlock()
     {
-        return $this->blockId;
+        return $this->block;
     }
 
     /**
-     * Returns the block status to which the collection is attached.
+     * Returns the collection.
      *
-     * @return int
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function getBlockStatus()
+    public function getCollection()
     {
-        return $this->blockStatus;
-    }
-
-    /**
-     * Returns the collection ID.
-     *
-     * @return int|string
-     */
-    public function getCollectionId()
-    {
-        return $this->collectionId;
-    }
-
-    /**
-     * Returns the collection status.
-     *
-     * @return int|string
-     */
-    public function getCollectionStatus()
-    {
-        return $this->collectionStatus;
+        return $this->collection;
     }
 
     /**

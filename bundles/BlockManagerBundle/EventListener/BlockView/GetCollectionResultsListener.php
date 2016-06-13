@@ -3,8 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,11 +22,6 @@ class GetCollectionResultsListener implements EventSubscriberInterface
     protected $blockService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
      * @var array
      */
     protected $enabledContexts;
@@ -38,18 +31,15 @@ class GetCollectionResultsListener implements EventSubscriberInterface
      *
      * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param array $enabledContexts
      */
     public function __construct(
         ResultGeneratorInterface $resultGenerator,
         BlockService $blockService,
-        CollectionService $collectionService,
         array $enabledContexts = array()
     ) {
         $this->resultGenerator = $resultGenerator;
         $this->blockService = $blockService;
-        $this->collectionService = $collectionService;
         $this->enabledContexts = $enabledContexts;
     }
 
@@ -83,18 +73,8 @@ class GetCollectionResultsListener implements EventSubscriberInterface
 
         $collectionReferences = $this->blockService->loadCollectionReferences($view->getBlock());
         foreach ($collectionReferences as $collectionReference) {
-            if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
-                $collection = $this->collectionService->loadCollection(
-                    $collectionReference->getCollectionId()
-                );
-            } else {
-                $collection = $this->collectionService->loadCollectionDraft(
-                    $collectionReference->getCollectionId()
-                );
-            }
-
             $results[$collectionReference->getIdentifier()] = $this->resultGenerator->generateResult(
-                $collection,
+                $collectionReference->getCollection(),
                 $collectionReference->getOffset(),
                 $collectionReference->getLimit(),
                 ResultGeneratorInterface::IGNORE_EXCEPTIONS

@@ -53,22 +53,13 @@ class BlockController extends Controller
     public function edit(BlockDraft $block)
     {
         $collectionReference = $this->blockService->loadCollectionReference($block, 'default');
-        if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
-            $defaultCollection = $this->collectionService->loadCollection(
-                $collectionReference->getCollectionId()
-            );
-        } else {
-            $defaultCollection = $this->collectionService->loadCollectionDraft(
-                $collectionReference->getCollectionId()
-            );
-        }
 
         return $this->render(
             'NetgenBlockManagerAdminUIBundle:app/block:edit.html.twig',
             array(
                 'block' => $block,
                 'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),
-                'collection' => $defaultCollection,
+                'collection' => $collectionReference->getCollection(),
                 'named_collections' => $this->collectionService->loadNamedCollections(),
                 'query_types' => $this->queryTypeRegistry->getQueryTypes(),
             )

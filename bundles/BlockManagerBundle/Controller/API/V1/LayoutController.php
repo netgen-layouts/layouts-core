@@ -4,8 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\ValueArray;
 use Netgen\BlockManager\Serializer\Version;

@@ -71,7 +71,7 @@ abstract class BlockMapperTest extends MapperTest
             array(
                 'blockId' => 1,
                 'blockStatus' => APILayout::STATUS_PUBLISHED,
-                'collectionId' => 42,
+                'collectionId' => 2,
                 'collectionStatus' => Collection::STATUS_PUBLISHED,
                 'identifier' => 'default',
                 'offset' => 5,
@@ -83,10 +83,10 @@ abstract class BlockMapperTest extends MapperTest
 
         self::assertInstanceOf(APICollectionReference::class, $reference);
 
-        self::assertEquals(1, $reference->getBlockId());
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $reference->getBlockStatus());
-        self::assertEquals(42, $reference->getCollectionId());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $reference->getCollectionStatus());
+        self::assertEquals(1, $reference->getBlock()->getId());
+        self::assertEquals(APILayout::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
+        self::assertEquals(2, $reference->getCollection()->getId());
+        self::assertEquals(Collection::STATUS_PUBLISHED, $reference->getCollection()->getStatus());
         self::assertEquals('default', $reference->getIdentifier());
         self::assertEquals(5, $reference->getOffset());
         self::assertEquals(10, $reference->getLimit());

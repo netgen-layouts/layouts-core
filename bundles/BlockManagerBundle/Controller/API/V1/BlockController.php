@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -111,11 +110,7 @@ class BlockController extends Controller
     {
         $newType = $request->request->get('new_type');
 
-        if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
-            $collection = $this->collectionService->loadCollection($collectionReference->getCollectionId());
-        } else {
-            $collection = $this->collectionService->loadCollectionDraft($collectionReference->getCollectionId());
-        }
+        $collection = $collectionReference->getCollection();
 
         if ($newType === Collection::TYPE_MANUAL) {
             if ($collection->getType() === Collection::TYPE_MANUAL) {

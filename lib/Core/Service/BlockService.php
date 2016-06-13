@@ -295,10 +295,8 @@ class BlockService implements BlockServiceInterface
      */
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock(
-            $collectionReference->getBlockId(),
-            $collectionReference->getBlockStatus()
-        );
+        $block = $collectionReference->getBlock();
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
 
         $persistenceCollection = $this->collectionHandler->loadCollection(
             $collection->getId(),

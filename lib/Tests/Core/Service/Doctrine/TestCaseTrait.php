@@ -118,7 +118,8 @@ trait TestCaseTrait
     protected function createBlockMapper()
     {
         return new BlockMapper(
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $this->createCollectionMapper()
         );
     }
 

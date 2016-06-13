@@ -84,7 +84,6 @@ services:
         arguments:
             - "@netgen_block_manager.collection.result_generator"
             - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.api.service.collection"
             - "%netgen_block_manager.block_view.collection_results_contexts%"
         tags:
             - { name: kernel.event_subscriber }

@@ -7,32 +7,18 @@ use Netgen\BlockManager\API\Values\Value;
 interface CollectionReference extends Value
 {
     /**
-     * Returns the block ID to which the collection is attached.
+     * Returns the block to which the collection is attached.
      *
-     * @return int|string
+     * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function getBlockId();
+    public function getBlock();
 
     /**
-     * Returns the block status to which the collection is attached.
+     * Returns the collection.
      *
-     * @return int
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function getBlockStatus();
-
-    /**
-     * Returns the collection ID.
-     *
-     * @return int|string
-     */
-    public function getCollectionId();
-
-    /**
-     * Returns the collection status.
-     *
-     * @return int|string
-     */
-    public function getCollectionStatus();
+    public function getCollection();
 
     /**
      * Returns the configuration identifier.

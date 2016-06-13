@@ -55,8 +55,6 @@ services:
 
     netgen_block_manager.normalizer.v1.collection_reference:
         class: "%netgen_block_manager.normalizer.v1.collection_reference.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: serializer.normalizer }
 

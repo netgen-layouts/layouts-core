@@ -582,8 +582,8 @@ abstract class BlockServiceTest extends ServiceTest
         $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
         self::assertCount(2, $collectionReferences);
 
-        self::assertEquals(2, $collectionReferences[0]->getCollectionId());
-        self::assertEquals(3, $collectionReferences[1]->getCollectionId());
+        self::assertEquals(2, $collectionReferences[0]->getCollection()->getId());
+        self::assertEquals(3, $collectionReferences[1]->getCollection()->getId());
     }
 
     /**

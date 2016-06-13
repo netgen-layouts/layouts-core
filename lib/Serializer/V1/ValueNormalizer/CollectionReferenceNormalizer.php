@@ -12,21 +12,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class CollectionReferenceNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     */
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
-
-    /**
      * Normalizes an object into a set of arrays/scalars.
      *
      * @param \Netgen\BlockManager\Serializer\Values\VersionedValue $object
@@ -40,21 +25,14 @@ class CollectionReferenceNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference */
         $collectionReference = $object->getValue();
 
-        if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
-            $collection = $this->collectionService->loadCollection(
-                $collectionReference->getCollectionId()
-            );
-        } else {
-            $collection = $this->collectionService->loadCollectionDraft(
-                $collectionReference->getCollectionId()
-            );
-        }
+        $block = $collectionReference->getBlock();
+        $collection = $collectionReference->getCollection();
 
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'name' => $collection->getName(),
-            'block_id' => $collectionReference->getBlockId(),
+            'block_id' => $block->getId(),
             'identifier' => $collectionReference->getIdentifier(),
             'offset' => $collectionReference->getOffset(),
             'limit' => $collectionReference->getLimit(),
