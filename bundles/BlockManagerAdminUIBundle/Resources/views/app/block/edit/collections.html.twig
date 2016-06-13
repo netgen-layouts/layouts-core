@@ -26,30 +26,30 @@
             </a>
         </div>
 
-        <div class="form">
+        <div class="form js-dependable-selects-group">
             <div>
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }}</label>
-                <select id="collection-type" class="js-skip-on-change">
+                <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master">
                     {% for collection_type, collection_name in collection_types %}
                         <option {% if collection.type == collection_type %} selected="selected" {% endif %} value="{{ collection_type }}">{{ collection_name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <div>
+            <div class="js-dependable" data-linked-value="{{type_dynamic}}">
                 <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
-                <select id="query-types" class="js-skip-on-change">
+                <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
                     {% for query_type in query_types %}
-                        <option {% if collection.queries[0] is defined and collection.queries[0].type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }} ">{{ query_type.config.name }}</option>
+                        <option {% if collection.queries[0] is defined and collection.queries[0].type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <div>
+            <div class="js-dependable" data-linked-value="{{type_named}}">
                 <label for="named-collections">{{ 'block.edit.named_collection'|trans }}</label>
-                <select id="named-collections">
+                <select id="named-collections"  name="block_collection[named_collection_id]">
                     {% for named_collection in named_collections %}
-                        <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }} ">{{ named_collection.name }}</option>
+                        <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }}">{{ named_collection.name }}</option>
                     {% endfor %}
                 </select>
             </div>
