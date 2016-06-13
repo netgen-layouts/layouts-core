@@ -322,10 +322,6 @@ class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Only manual or dynamic collections can be converted.');
         }
 
-        if ($persistenceCollection->type === $newType) {
-            throw new BadStateException('newType', 'New collection type cannot be equal to old collection type.');
-        }
-
         if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
             throw new BadStateException('queryCreateStruct', 'Query create struct must be defined when converting to dynamic collection.');
         }
