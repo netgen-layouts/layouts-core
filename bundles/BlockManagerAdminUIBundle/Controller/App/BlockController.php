@@ -52,20 +52,15 @@ class BlockController extends Controller
      */
     public function edit(BlockDraft $block)
     {
-        $defaultCollection = null;
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
-        foreach ($collectionReferences as $collectionReference) {
-            if ($collectionReference->getIdentifier() === 'default') {
-                if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
-                    $defaultCollection = $this->collectionService->loadCollection(
-                        $collectionReference->getCollectionId()
-                    );
-                } else {
-                    $defaultCollection = $this->collectionService->loadCollectionDraft(
-                        $collectionReference->getCollectionId()
-                    );
-                }
-            }
+        $collectionReference = $this->blockService->loadCollectionReference($block, 'default');
+        if ($collectionReference->getCollectionStatus() === Collection::STATUS_PUBLISHED) {
+            $defaultCollection = $this->collectionService->loadCollection(
+                $collectionReference->getCollectionId()
+            );
+        } else {
+            $defaultCollection = $this->collectionService->loadCollectionDraft(
+                $collectionReference->getCollectionId()
+            );
         }
 
         return $this->render(
