@@ -19,12 +19,12 @@ class ItemDraftParamConverter extends ItemParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->collectionService->loadItemDraft($valueId);
+        return $this->collectionService->loadItemDraft($values['itemId']);
     }
 }

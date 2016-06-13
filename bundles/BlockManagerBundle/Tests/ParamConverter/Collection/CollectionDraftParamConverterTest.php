@@ -32,7 +32,7 @@ class CollectionDraftParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('collectionId', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals(array('collectionId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -65,6 +65,6 @@ class CollectionDraftParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($collection));
 
-        self::assertEquals($collection, $this->paramConverter->loadValueObject(42));
+        self::assertEquals($collection, $this->paramConverter->loadValueObject(array('collectionId' => 42)));
     }
 }

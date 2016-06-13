@@ -32,7 +32,7 @@ class ItemParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('itemId', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals(array('itemId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -65,6 +65,6 @@ class ItemParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($item));
 
-        self::assertEquals($item, $this->paramConverter->loadValueObject(42));
+        self::assertEquals($item, $this->paramConverter->loadValueObject(array('itemId' => 42)));
     }
 }

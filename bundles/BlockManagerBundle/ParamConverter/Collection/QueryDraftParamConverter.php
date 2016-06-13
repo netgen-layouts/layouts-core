@@ -19,12 +19,12 @@ class QueryDraftParamConverter extends QueryParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->collectionService->loadQueryDraft($valueId);
+        return $this->collectionService->loadQueryDraft($values['queryId']);
     }
 }

@@ -19,28 +19,34 @@ abstract class ParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
-        $sourceAttributeName = $this->getSourceAttributeName();
-        if (!$request->attributes->has($sourceAttributeName)) {
-            return false;
-        }
-
-        $valueId = $request->attributes->get($sourceAttributeName);
-        if (empty($valueId)) {
-            if ($configuration->isOptional()) {
+        $sourceAttributeNames = $this->getSourceAttributeNames();
+        foreach ($sourceAttributeNames as $sourceAttributeName) {
+            if (!$request->attributes->has($sourceAttributeName)) {
                 return false;
             }
+        }
 
-            throw new UnexpectedValueException(
-                sprintf(
-                    'Required request attribute "%s" is empty',
-                    $sourceAttributeName
-                )
-            );
+        $values = array();
+        foreach ($sourceAttributeNames as $sourceAttributeName) {
+            $values[$sourceAttributeName] = $request->attributes->get($sourceAttributeName);
+
+            if (empty($values[$sourceAttributeName])) {
+                if ($configuration->isOptional()) {
+                    return false;
+                }
+
+                throw new UnexpectedValueException(
+                    sprintf(
+                        'Required request attribute "%s" is empty',
+                        $sourceAttributeName
+                    )
+                );
+            }
         }
 
         $request->attributes->set(
             $this->getDestinationAttributeName(),
-            $this->loadValueObject($valueId)
+            $this->loadValueObject($values)
         );
 
         return true;
@@ -61,9 +67,9 @@ abstract class ParamConverter implements ParamConverterInterface
     /**
      * Returns source attribute name.
      *
-     * @return string
+     * @return array
      */
-    abstract public function getSourceAttributeName();
+    abstract public function getSourceAttributeNames();
 
     /**
      * Returns destination attribute name.
@@ -82,9 +88,9 @@ abstract class ParamConverter implements ParamConverterInterface
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    abstract public function loadValueObject($valueId);
+    abstract public function loadValueObject(array $values);
 }

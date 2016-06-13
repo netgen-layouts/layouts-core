@@ -19,12 +19,12 @@ class BlockDraftParamConverter extends BlockParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->blockService->loadBlockDraft($valueId);
+        return $this->blockService->loadBlockDraft($values['blockId']);
     }
 }

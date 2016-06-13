@@ -26,11 +26,11 @@ class ItemParamConverter extends ParamConverter
     /**
      * Returns source attribute name.
      *
-     * @return string
+     * @return array
      */
-    public function getSourceAttributeName()
+    public function getSourceAttributeNames()
     {
-        return 'itemId';
+        return array('itemId');
     }
 
     /**
@@ -56,12 +56,12 @@ class ItemParamConverter extends ParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->collectionService->loadItem($valueId);
+        return $this->collectionService->loadItem($values['itemId']);
     }
 }

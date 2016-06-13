@@ -19,12 +19,12 @@ class LayoutDraftParamConverter extends LayoutParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->layoutService->loadLayoutDraft($valueId);
+        return $this->layoutService->loadLayoutDraft($values['layoutId']);
     }
 }

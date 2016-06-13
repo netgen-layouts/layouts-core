@@ -26,11 +26,11 @@ class QueryParamConverter extends ParamConverter
     /**
      * Returns source attribute name.
      *
-     * @return string
+     * @return array
      */
-    public function getSourceAttributeName()
+    public function getSourceAttributeNames()
     {
-        return 'queryId';
+        return array('queryId');
     }
 
     /**
@@ -56,12 +56,12 @@ class QueryParamConverter extends ParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->collectionService->loadQuery($valueId);
+        return $this->collectionService->loadQuery($values['queryId']);
     }
 }

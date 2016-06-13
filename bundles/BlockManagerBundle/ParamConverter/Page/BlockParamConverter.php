@@ -26,11 +26,11 @@ class BlockParamConverter extends ParamConverter
     /**
      * Returns source attribute name.
      *
-     * @return string
+     * @return array
      */
-    public function getSourceAttributeName()
+    public function getSourceAttributeNames()
     {
-        return 'blockId';
+        return array('blockId');
     }
 
     /**
@@ -56,12 +56,12 @@ class BlockParamConverter extends ParamConverter
     /**
      * Returns the value object.
      *
-     * @param int|string $valueId
+     * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject($valueId)
+    public function loadValueObject(array $values)
     {
-        return $this->blockService->loadBlock($valueId);
+        return $this->blockService->loadBlock($values['blockId']);
     }
 }

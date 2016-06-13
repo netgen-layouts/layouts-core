@@ -32,7 +32,7 @@ class LayoutDraftParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('layoutId', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals(array('layoutId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -65,6 +65,6 @@ class LayoutDraftParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        self::assertEquals($layout, $this->paramConverter->loadValueObject(42));
+        self::assertEquals($layout, $this->paramConverter->loadValueObject(array('layoutId' => 42)));
     }
 }

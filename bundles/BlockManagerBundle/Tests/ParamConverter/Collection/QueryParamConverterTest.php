@@ -32,7 +32,7 @@ class QueryParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals('queryId', $this->paramConverter->getSourceAttributeName());
+        self::assertEquals(array('queryId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -65,6 +65,6 @@ class QueryParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($query));
 
-        self::assertEquals($query, $this->paramConverter->loadValueObject(42));
+        self::assertEquals($query, $this->paramConverter->loadValueObject(array('queryId' => 42)));
     }
 }
