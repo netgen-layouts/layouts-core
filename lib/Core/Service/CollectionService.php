@@ -313,7 +313,7 @@ class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
 
         if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
-            throw new BadStateException('collectionType', 'New collection type must be manual or dynamic.');
+            throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
         }
 
         if ($persistenceCollection->type === Collection::TYPE_NAMED) {
@@ -321,7 +321,7 @@ class CollectionService implements APICollectionService
         }
 
         if ($persistenceCollection->type === $newType) {
-            throw new BadStateException('collectionType', 'New collection type cannot be equal to old collection type.');
+            throw new BadStateException('newType', 'New collection type cannot be equal to old collection type.');
         }
 
         if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
