@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
@@ -804,19 +806,38 @@ class CollectionService implements APICollectionService
     /**
      * Creates a new query create struct.
      *
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param string $identifier
-     * @param string $type
      *
      * @return \Netgen\BlockManager\API\Values\QueryCreateStruct
      */
-    public function newQueryCreateStruct($identifier, $type)
+    public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier)
     {
-        return new QueryCreateStruct(
+        $queryCreateStruct = new QueryCreateStruct(
             array(
                 'identifier' => $identifier,
-                'type' => $type,
+                'type' => $queryType->getType(),
             )
         );
+
+        $queryParameters = array();
+
+        $queryTypeParameters = $queryType->getParameters();
+        if (is_array($queryTypeParameters)) {
+            foreach ($queryTypeParameters as $parameterName => $parameter) {
+                $queryParameters[$parameterName] = null;
+
+                if ($parameter instanceof CompoundParameterInterface) {
+                    foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+                        $queryParameters[$subParameterName] = null;
+                    }
+                }
+            }
+        }
+
+        $queryCreateStruct->setParameters($queryType->getConfig()->getDefaultQueryParameters() + $queryParameters);
+
+        return $queryCreateStruct;
     }
 
     /**

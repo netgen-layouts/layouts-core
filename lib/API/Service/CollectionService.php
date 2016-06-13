@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 
 interface CollectionService
 {
@@ -277,12 +278,12 @@ interface CollectionService
     /**
      * Creates a new query create struct.
      *
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param string $identifier
-     * @param string $type
      *
      * @return \Netgen\BlockManager\API\Values\QueryCreateStruct
      */
-    public function newQueryCreateStruct($identifier, $type);
+    public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier);
 
     /**
      * Creates a new query update struct.
