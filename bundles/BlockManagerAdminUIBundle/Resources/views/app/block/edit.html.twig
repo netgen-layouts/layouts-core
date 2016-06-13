@@ -7,6 +7,8 @@
         <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
 
         {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
+
+        {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_items.html.twig' %}
     {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
@@ -20,6 +22,8 @@
                 <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
                 {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
+
+                {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_items.html.twig' %}
             </div>
 
             <div class="tab-pane" id="design-tab">
@@ -28,9 +32,3 @@
         </div>
     {% endif %}
 </section>
-
-{% if collection is not empty %}
-    <section>
-        <div data-browser-config-name="ezcontent" class="collection-items"></div>
-    </section>
-{% endif %}
