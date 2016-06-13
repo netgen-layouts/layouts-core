@@ -2,6 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -32,6 +35,11 @@ class BlockController extends Controller
     protected $layoutService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\CollectionService
+     */
+    protected $collectionService;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
      */
     protected $validator;
@@ -41,15 +49,18 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator $validator
      */
     public function __construct(
         BlockService $blockService,
         LayoutService $layoutService,
+        CollectionService $collectionService,
         BlockValidator $validator
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;
+        $this->collectionService = $collectionService;
         $this->validator = $validator;
     }
 
@@ -82,6 +93,56 @@ class BlockController extends Controller
         );
 
         return new ValueArray($collections);
+    }
+
+    /**
+     * Changes the collection type within the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function changeCollectionType(BlockDraft $block, CollectionDraft $collection, Request $request)
+    {
+        $newType = $request->request->get('new_type');
+
+        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC, Collection::TYPE_NAMED))) {
+            throw new InvalidArgumentException(
+                'new_type',
+                'Specified type is not valid.'
+            );
+        }
+
+        if ($collection->getType() === $newType) {
+            throw new BadStateException('new_type', 'New collection type cannot be equal to old collection type.');
+        }
+
+        // @TODO Validate that collection belongs to block
+
+        if ($collection->getType() === Collection::TYPE_NAMED) {
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        if ($newType === Collection::TYPE_MANUAL) {
+            $this->collectionService->changeCollectionType($collection, $newType);
+        } elseif ($newType === Collection::TYPE_DYNAMIC) {
+            $queryType = $this->getQueryType($request->request->get('query_type'));
+
+            $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
+                'default',
+                $queryType->getType()
+            );
+
+            $queryCreateStruct->setParameters($queryType->getConfig()->getDefaultQueryParameters());
+
+            $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
+        } elseif ($newType === Collection::TYPE_NAMED) {
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
