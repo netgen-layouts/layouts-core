@@ -391,8 +391,10 @@ class BlockHandler implements BlockHandlerInterface
                 }
 
                 $this->collectionHandler->createCollectionStatus(
-                    $collectionsDataRow['collection_id'],
-                    $block->status,
+                    $this->collectionHandler->loadCollection(
+                        $collectionsDataRow['collection_id'],
+                        $block->status
+                    ),
                     $newStatus
                 );
 

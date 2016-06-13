@@ -52,7 +52,7 @@ class CollectionValidator extends Validator
                     new Constraints\All(
                         array(
                             'constraints' => array(
-                                new Constraints\Type(array('type' => ItemCreateStruct::class))
+                                new Constraints\Type(array('type' => ItemCreateStruct::class)),
                             ),
                         )
                     ),
@@ -73,7 +73,7 @@ class CollectionValidator extends Validator
                     new Constraints\All(
                         array(
                             'constraints' => array(
-                                new Constraints\Type(array('type' => QueryCreateStruct::class))
+                                new Constraints\Type(array('type' => QueryCreateStruct::class)),
                             ),
                         )
                     ),

@@ -139,24 +139,15 @@ class CollectionHandlerTest extends TestCase
      */
     public function testLoadCollectionItems()
     {
-        $items = $this->collectionHandler->loadCollectionItems(1, Collection::STATUS_DRAFT);
+        $items = $this->collectionHandler->loadCollectionItems(
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT)
+        );
 
         self::assertNotEmpty($items);
 
         foreach ($items as $item) {
             self::assertInstanceOf(Item::class, $item);
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     */
-    public function testLoadCollectionItemsForNonExistentCollection()
-    {
-        $items = $this->collectionHandler->loadCollectionItems(999999, Collection::STATUS_PUBLISHED);
-
-        self::assertEmpty($items);
     }
 
     /**
@@ -200,24 +191,15 @@ class CollectionHandlerTest extends TestCase
      */
     public function testLoadCollectionQueries()
     {
-        $queries = $this->collectionHandler->loadCollectionQueries(2, Collection::STATUS_PUBLISHED);
+        $queries = $this->collectionHandler->loadCollectionQueries(
+            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED)
+        );
 
         self::assertNotEmpty($queries);
 
         foreach ($queries as $query) {
             self::assertInstanceOf(Query::class, $query);
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueries
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueriesData
-     */
-    public function testLoadCollectionQueriesForNonExistentCollection()
-    {
-        $queries = $this->collectionHandler->loadCollectionQueries(999999, Collection::STATUS_PUBLISHED);
-
-        self::assertEmpty($queries);
     }
 
     /**
@@ -325,8 +307,7 @@ class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct->name = 'Updated collection';
 
         $updatedCollection = $this->collectionHandler->updateCollection(
-            3,
-            Collection::STATUS_PUBLISHED,
+            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
             $collectionUpdateStruct
         );
 
@@ -396,7 +377,7 @@ class CollectionHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionItems($copiedCollectionId, Collection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
 
         self::assertEquals(
@@ -428,7 +409,7 @@ class CollectionHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionQueries($copiedCollectionId, Collection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollectionQueries($copiedCollection)
         );
     }
 
@@ -443,7 +424,10 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCreateCollectionStatus()
     {
-        $copiedCollection = $this->collectionHandler->createCollectionStatus(3, Collection::STATUS_PUBLISHED, Collection::STATUS_ARCHIVED);
+        $copiedCollection = $this->collectionHandler->createCollectionStatus(
+            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
+            Collection::STATUS_ARCHIVED
+        );
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
 
@@ -488,7 +472,7 @@ class CollectionHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionItems(3, Collection::STATUS_ARCHIVED)
+            $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
 
         self::assertEquals(
@@ -520,7 +504,7 @@ class CollectionHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->collectionHandler->loadCollectionQueries(3, Collection::STATUS_ARCHIVED)
+            $this->collectionHandler->loadCollectionQueries($copiedCollection)
         );
     }
 
@@ -582,7 +566,11 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_DRAFT,
                 )
             ),
-            $this->collectionHandler->addItem(1, Collection::STATUS_DRAFT, $itemCreateStruct, 1)
+            $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT),
+                $itemCreateStruct,
+                1
+            )
         );
 
         $secondItem = $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT);
@@ -612,7 +600,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_DRAFT,
                 )
             ),
-            $this->collectionHandler->addItem(1, Collection::STATUS_DRAFT, $itemCreateStruct)
+            $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT),
+                $itemCreateStruct
+            )
         );
     }
 
@@ -628,7 +619,11 @@ class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
-        $this->collectionHandler->addItem(1, Collection::STATUS_DRAFT, $itemCreateStruct, -1);
+        $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT),
+            $itemCreateStruct,
+            -1
+        );
     }
 
     /**
@@ -643,7 +638,11 @@ class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
-        $this->collectionHandler->addItem(1, Collection::STATUS_DRAFT, $itemCreateStruct, -9999);
+        $this->collectionHandler->addItem(
+            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT),
+            $itemCreateStruct,
+            -9999
+        );
     }
 
     /**
@@ -665,7 +664,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_DRAFT,
                 )
             ),
-            $this->collectionHandler->moveItem(1, Collection::STATUS_DRAFT, 1)
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(1, Collection::STATUS_DRAFT),
+                1
+            )
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT);
@@ -691,7 +693,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_DRAFT,
                 )
             ),
-            $this->collectionHandler->moveItem(2, Collection::STATUS_DRAFT, 0)
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT),
+                0
+            )
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Collection::STATUS_DRAFT);
@@ -706,7 +711,10 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->collectionHandler->moveItem(1, Collection::STATUS_DRAFT, -1);
+        $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(1, Collection::STATUS_DRAFT),
+            -1
+        );
     }
 
     /**
@@ -717,7 +725,10 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->collectionHandler->moveItem(1, Collection::STATUS_DRAFT, 9999);
+        $this->collectionHandler->moveItem(
+            $this->collectionHandler->loadItem(1, Collection::STATUS_DRAFT),
+            9999
+        );
     }
 
     /**
@@ -727,7 +738,9 @@ class CollectionHandlerTest extends TestCase
      */
     public function testDeleteItem()
     {
-        $this->collectionHandler->deleteItem(2, Collection::STATUS_DRAFT);
+        $this->collectionHandler->deleteItem(
+            $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT)
+        );
 
         $secondItem = $this->collectionHandler->loadItem(3, Collection::STATUS_DRAFT);
         self::assertEquals(1, $secondItem->position);
@@ -746,7 +759,12 @@ class CollectionHandlerTest extends TestCase
      */
     public function testQueryIdentifierExists()
     {
-        self::assertTrue($this->collectionHandler->queryIdentifierExists(2, Collection::STATUS_PUBLISHED, 'default'));
+        self::assertTrue(
+            $this->collectionHandler->queryIdentifierExists(
+                $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
+                'default'
+            )
+        );
     }
 
     /**
@@ -755,16 +773,12 @@ class CollectionHandlerTest extends TestCase
      */
     public function testQueryIdentifierNotExists()
     {
-        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, Collection::STATUS_PUBLISHED, 'featured'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryIdentifierExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryIdentifierExists
-     */
-    public function testQueryIdentifierNotExistsInStatus()
-    {
-        self::assertFalse($this->collectionHandler->queryIdentifierExists(2, Collection::STATUS_ARCHIVED, 'default'));
+        self::assertFalse(
+            $this->collectionHandler->queryIdentifierExists(
+                $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
+                'featured'
+            )
+        );
     }
 
     /**
@@ -790,7 +804,11 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct, 1)
+            $this->collectionHandler->addQuery(
+                $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
+                $queryCreateStruct,
+                1
+            )
         );
 
         $secondQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
@@ -820,7 +838,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct)
+            $this->collectionHandler->addQuery(
+                $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
+                $queryCreateStruct
+            )
         );
     }
 
@@ -836,7 +857,11 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->setParameter('param', 'value');
 
-        $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct, -1);
+        $this->collectionHandler->addQuery(
+            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
+            $queryCreateStruct,
+            -1
+        );
     }
 
     /**
@@ -851,7 +876,11 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->setParameter('param', 'value');
 
-        $this->collectionHandler->addQuery(3, Collection::STATUS_PUBLISHED, $queryCreateStruct, -9999);
+        $this->collectionHandler->addQuery(
+            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
+            $queryCreateStruct,
+            -9999
+        );
     }
 
     /**
@@ -880,7 +909,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->updateQuery(1, Collection::STATUS_PUBLISHED, $queryUpdateStruct)
+            $this->collectionHandler->updateQuery(
+                $this->collectionHandler->loadQuery(1, Collection::STATUS_PUBLISHED),
+                $queryUpdateStruct
+            )
         );
     }
 
@@ -905,7 +937,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveQuery(2, Collection::STATUS_PUBLISHED, 1)
+            $this->collectionHandler->moveQuery(
+                $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED),
+                1
+            )
         );
 
         $firstQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
@@ -933,7 +968,10 @@ class CollectionHandlerTest extends TestCase
                     'status' => Collection::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->moveQuery(3, Collection::STATUS_PUBLISHED, 0)
+            $this->collectionHandler->moveQuery(
+                $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED),
+                0
+            )
         );
 
         $firstQuery = $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED);
@@ -948,7 +986,10 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveQueryThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->collectionHandler->moveQuery(2, Collection::STATUS_PUBLISHED, -1);
+        $this->collectionHandler->moveQuery(
+            $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED),
+            -1
+        );
     }
 
     /**
@@ -959,7 +1000,10 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveQueryThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->collectionHandler->moveQuery(2, Collection::STATUS_PUBLISHED, 9999);
+        $this->collectionHandler->moveQuery(
+            $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED),
+            9999
+        );
     }
 
     /**
@@ -969,7 +1013,9 @@ class CollectionHandlerTest extends TestCase
      */
     public function testDeleteQuery()
     {
-        $this->collectionHandler->deleteQuery(2, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->deleteQuery(
+            $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED)
+        );
 
         $secondQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
         self::assertEquals(0, $secondQuery->position);

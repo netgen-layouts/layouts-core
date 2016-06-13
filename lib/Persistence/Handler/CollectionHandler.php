@@ -7,6 +7,9 @@ use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
+use Netgen\BlockManager\Persistence\Values\Collection\Query;
 
 interface CollectionHandler
 {
@@ -46,12 +49,11 @@ interface CollectionHandler
     /**
      * Loads all items that belong to collection with specified ID.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
      */
-    public function loadCollectionItems($collectionId, $status);
+    public function loadCollectionItems(Collection $collection);
 
     /**
      * Loads a query with specified ID.
@@ -68,12 +70,11 @@ interface CollectionHandler
     /**
      * Loads all queries that belong to collection with specified ID.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query[]
      */
-    public function loadCollectionQueries($collectionId, $status);
+    public function loadCollectionQueries(Collection $collection);
 
     /**
      * Returns if collection with specified ID exists.
@@ -118,25 +119,23 @@ interface CollectionHandler
     /**
      * Updates a collection with specified ID.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct);
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
      * Changes the type of specified collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param int $newType
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function changeCollectionType($collectionId, $status, $newType, QueryCreateStruct $queryCreateStruct = null);
+    public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
 
     /**
      * Copies a collection with specified ID.
@@ -151,13 +150,12 @@ interface CollectionHandler
     /**
      * Creates a new collection status.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param int $newStatus
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollectionStatus($collectionId, $status, $newStatus);
+    public function createCollectionStatus(Collection $collection, $newStatus);
 
     /**
      * Deletes a collection with specified ID.
@@ -170,8 +168,7 @@ interface CollectionHandler
     /**
      * Adds an item to collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
@@ -179,45 +176,41 @@ interface CollectionHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $position = null);
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null);
 
     /**
      * Moves an item to specified position in the collection.
      *
-     * @param int|string $itemId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function moveItem($itemId, $status, $position);
+    public function moveItem(Item $item, $position);
 
     /**
      * Removes an item.
      *
-     * @param int|string $itemId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      */
-    public function deleteItem($itemId, $status);
+    public function deleteItem(Item $item);
 
     /**
      * Returns if query with specified identifier exists within the collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param string $identifier
      *
      * @return bool
      */
-    public function queryIdentifierExists($collectionId, $status, $identifier);
+    public function queryIdentifierExists(Collection $collection, $identifier);
 
     /**
      * Adds a query to collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
@@ -225,37 +218,34 @@ interface CollectionHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct, $position = null);
+    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct, $position = null);
 
     /**
      * Updates a query with specified ID.
      *
-     * @param int|string $queryId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct);
+    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
 
     /**
      * Moves a query to specified position in the collection.
      *
-     * @param int|string $queryId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function moveQuery($queryId, $status, $position);
+    public function moveQuery(Query $query, $position);
 
     /**
      * Removes a query.
      *
-     * @param int|string $queryId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      */
-    public function deleteQuery($queryId, $status);
+    public function deleteQuery(Query $query);
 }

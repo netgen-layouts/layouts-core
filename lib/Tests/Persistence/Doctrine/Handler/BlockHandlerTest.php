@@ -689,12 +689,13 @@ class BlockHandlerTest extends TestCase
     {
         // First create a collection in draft status separately and delete an item from it
         $this->collectionHandler->createCollectionStatus(
-            2,
-            Collection::STATUS_PUBLISHED,
+            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
             Collection::STATUS_DRAFT
         );
 
-        $this->collectionHandler->deleteItem(4, Collection::STATUS_DRAFT);
+        $this->collectionHandler->deleteItem(
+            $this->collectionHandler->loadItem(4, Collection::STATUS_DRAFT)
+        );
 
         // Then verify that archived status is recreated after creating a layout in archived status
         $this->blockHandler->createBlockCollectionsStatus(

@@ -24,8 +24,7 @@ class CollectionMapper extends Mapper
     public function mapCollection(PersistenceCollection $collection)
     {
         $persistenceItems = $this->persistenceHandler->getCollectionHandler()->loadCollectionItems(
-            $collection->id,
-            $collection->status
+            $collection
         );
 
         $items = array();
@@ -34,8 +33,7 @@ class CollectionMapper extends Mapper
         }
 
         $persistenceQueries = $this->persistenceHandler->getCollectionHandler()->loadCollectionQueries(
-            $collection->id,
-            $collection->status
+            $collection
         );
 
         $queries = array();

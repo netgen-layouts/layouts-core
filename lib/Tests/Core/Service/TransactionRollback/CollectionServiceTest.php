@@ -368,6 +368,11 @@ class CollectionServiceTest extends TestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
+            ->method('loadCollection')
+            ->will($this->returnValue(new PersistenceCollection()));
+
+        $this->collectionHandlerMock
+            ->expects($this->at(2))
             ->method('updateQuery')
             ->will($this->throwException(new Exception()));
 
