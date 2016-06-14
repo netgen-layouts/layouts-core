@@ -361,29 +361,7 @@ class BlockService implements BlockServiceInterface
                 $zoneIdentifier !== null ? $zoneIdentifier : $persistenceBlock->zoneIdentifier
             );
 
-            $collectionReferences = $this->blockHandler->loadCollectionReferences($persistenceBlock);
-
-            foreach ($collectionReferences as $collectionReference) {
-                $newCollectionId = $collectionReference->collectionId;
-
-                if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId, $collectionReference->collectionStatus)) {
-                    $newCollectionId = $this->collectionHandler->copyCollection(
-                        $collectionReference->collectionId,
-                        $persistenceBlock->status
-                    );
-                }
-
-                $this->blockHandler->createCollectionReference(
-                    $copiedBlock,
-                    $this->collectionHandler->loadCollection(
-                        $newCollectionId,
-                        $collectionReference->collectionStatus
-                    ),
-                    $collectionReference->identifier,
-                    $collectionReference->offset,
-                    $collectionReference->limit
-                );
-            }
+            $this->blockHandler->copyBlockCollections($persistenceBlock, $copiedBlock);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

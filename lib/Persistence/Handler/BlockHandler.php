@@ -131,6 +131,16 @@ interface BlockHandler
     public function copyBlock(Block $block, $zoneIdentifier);
 
     /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function copyBlockCollections(Block $block, Block $targetBlock);
+
+    /**
      * Moves a block to specified position in the zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block

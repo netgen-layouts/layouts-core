@@ -302,6 +302,44 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function copyBlockCollections(Block $block, Block $targetBlock)
+    {
+        $collectionsData = $this->queryHandler->loadCollectionReferencesData(
+            $block->id,
+            $block->status
+        );
+
+        foreach ($collectionsData as $collectionsDataRow) {
+            $newCollectionId = $collectionsDataRow['collection_id'];
+
+            if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
+                $newCollectionId = $this->collectionHandler->copyCollection(
+                    $collectionsDataRow['collection_id'],
+                    $block->status
+                );
+            }
+
+            $this->createCollectionReference(
+                $targetBlock,
+                $this->collectionHandler->loadCollection(
+                    $newCollectionId,
+                    $collectionsDataRow['collection_status']
+                ),
+                $collectionsDataRow['identifier'],
+                $collectionsDataRow['start'],
+                $collectionsDataRow['length']
+            );
+        }
+    }
+
+    /**
      * Moves a block to specified position in the zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
