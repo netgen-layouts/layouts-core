@@ -36,7 +36,7 @@
 
 {%- block ngbm_content_browser_widget -%}
     <div data-browser-config-name="{{ form.vars.config_name }}" class="js-input-browse">
-        <div><span class="name">Parent location name</span> <a class="js-trigger" href="#">change</a></div>
+        <div><span class="js-name">Parent location name</span> <a class="js-trigger" href="#">change</a></div>
         <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
     </div>
 {%- endblock -%}
