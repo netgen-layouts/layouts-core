@@ -39,6 +39,11 @@ block_view:
             match:
                 block_definition_identifier: rich_text
                 api_version: 1
+        html_snippet:
+            template: "NetgenBlockManagerBundle:api/block/view:html_snippet.html.twig"
+            match:
+                block_definition_identifier: html_snippet
+                api_version: 1
         block:
             template: "NetgenBlockManagerBundle:api/block:view.html.twig"
             match:
