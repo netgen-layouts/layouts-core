@@ -1,0 +1,14 @@
+{% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
+
+{% block inline_data %}
+    {% set id = 'ngbm-rich-text-block-' ~ block.id %}
+
+    <p data-inline>
+        <span data-attr="content" data-inline-child>
+            <textarea id="{{ id }}">{{ block.parameter('content') }}</textarea>
+            <script type="text/javascript">
+                AlloyEditor.editable("{{ id }}");
+            </script>
+        </span>
+    </p>
+{% endblock %}

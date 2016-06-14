@@ -6,6 +6,7 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.title.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
     netgen_block_manager.block.block_definition.handler.paragraph.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler
+    netgen_block_manager.block.block_definition.handler.rich_text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler
     netgen_block_manager.block.block_definition.handler.external_video.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler
     netgen_block_manager.block.block_definition.handler.html_snippet.class: Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler
     netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
@@ -70,6 +71,11 @@ services:
         class: "%netgen_block_manager.block.block_definition.handler.paragraph.class%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: 'paragraph' }
+
+    netgen_block_manager.block.block_definition.handler.rich_text:
+        class: "%netgen_block_manager.block.block_definition.handler.rich_text.class%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'rich_text' }
 
     netgen_block_manager.block.block_definition.handler.external_video:
         class: "%netgen_block_manager.block.block_definition.handler.external_video.class%"

@@ -11,6 +11,10 @@ block.paragraph.content: 'Content'
 block.paragraph.css_class: 'CSS class'
 block.paragraph.css_id: 'CSS ID'
 
+block.rich_text.content: 'Content'
+block.rich_text.css_class: 'CSS class'
+block.rich_text.css_id: 'CSS ID'
+
 block.map.latitude: 'Latitude'
 block.map.longitude: 'Longitude'
 block.map.zoom: 'Zoom'

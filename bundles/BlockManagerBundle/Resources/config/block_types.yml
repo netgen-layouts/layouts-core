@@ -18,6 +18,13 @@ block_types:
             parameters:
                 content: 'Text'
 
+    rich_text:
+        name: 'Rich text'
+        definition_identifier: rich_text
+        defaults:
+            view_type: rich_text
+            item_view_type: standard
+
     external_video:
         name: 'External video'
         definition_identifier: external_video

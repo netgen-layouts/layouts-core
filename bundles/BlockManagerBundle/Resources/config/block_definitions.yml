@@ -21,6 +21,17 @@ block_definitions:
                     standard:
                         name: 'Standard'
 
+    rich_text:
+        forms:
+            full:
+                type: ~
+        view_types:
+            rich_text:
+                name: 'Rich text'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+
     html_snippet:
         forms:
             full:
