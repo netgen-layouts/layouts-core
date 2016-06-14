@@ -13,17 +13,17 @@
 
     <div class="xeditable" data-xeditable-name="collection_type">
         <div class="current">
-            <div>{{ 'block.edit.collection_type'|trans }}: {{ collection_types[collection.type] }}</div>
+            <label>{{ 'block.edit.collection_type'|trans }}</label>
+            <a href="#" class="js-edit"><span>{{ collection_types[collection.type] }}</span> <i class="fa fa-pencil"></i></a>
 
             {% if collection.type == type_dynamic and query_types[collection.queries[0].type] is defined %}
-                <div>{{ 'block.edit.query_type'|trans }}: {{ query_types[collection.queries[0].type].config.name }}</div>
+                <label>{{ 'block.edit.query_type'|trans }}</label>
+                <a href="#" class="js-edit"><span>{{ query_types[collection.queries[0].type].config.name }}</span> <i class="fa fa-pencil"></i></a>
             {% elseif collection.type == type_named %}
-                <div>{{ 'block.edit.named_collection'|trans }}: {{ collection.name }}</div>
+                <label>{{ 'block.edit.named_collection'|trans }}</label>
+                <a href="#" class="js-edit"><span>{{ collection.name }}</span> <i class="fa fa-pencil"></i></a>
             {% endif %}
 
-            <a href="#" class="js-edit">
-                <i class="fa fa-pencil"></i>
-            </a>
         </div>
 
         <div class="form js-dependable-selects-group">
@@ -54,8 +54,10 @@
                 </select>
             </div>
 
-            <a href="#" class="btn btn-default js-cancel">{{ 'block.edit.cancel'|trans }}</a>
-            <a href="#" class="btn btn-primary js-apply">{{ 'block.edit.apply'|trans }}</a>
+            <div class="actions">
+                <a href="#" class="btn btn-link js-cancel">{{ 'block.edit.cancel'|trans }}</a>
+                <a href="#" class="btn btn-primary js-apply">{{ 'block.edit.apply'|trans }}</a>
+            </div>
         </div>
     </div>
 {% endif %}
