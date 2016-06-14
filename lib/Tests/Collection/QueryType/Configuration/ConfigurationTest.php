@@ -21,7 +21,9 @@ class ConfigurationTest extends TestCase
             array(
                 'full' => new Form('full', 'form_type', array('param1', 'param2')),
             ),
-            array()
+            array(
+                'parameters' => array('parent_location_id' => 2),
+            )
         );
     }
 
@@ -83,5 +85,26 @@ class ConfigurationTest extends TestCase
     public function testGetFormThrowsRuntimeException()
     {
         $this->configuration->getForm('unknown');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getDefaults
+     */
+    public function testGetDefaults()
+    {
+        self::assertEquals(
+            array(
+                'parameters' => array('parent_location_id' => 2),
+            ),
+            $this->configuration->getDefaults()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getDefaultQueryParameters
+     */
+    public function testGetDefaultQueryParameters()
+    {
+        self::assertEquals(array('parent_location_id' => 2), $this->configuration->getDefaultQueryParameters());
     }
 }

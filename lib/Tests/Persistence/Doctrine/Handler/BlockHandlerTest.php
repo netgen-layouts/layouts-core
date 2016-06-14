@@ -187,6 +187,44 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
+     */
+    public function testLoadCollectionReference()
+    {
+        self::assertEquals(
+            new CollectionReference(
+                array(
+                    'blockId' => 1,
+                    'blockStatus' => Layout::STATUS_DRAFT,
+                    'collectionId' => 1,
+                    'collectionStatus' => Collection::STATUS_DRAFT,
+                    'identifier' => 'default',
+                    'offset' => 0,
+                    'limit' => null,
+                )
+            ),
+            $this->blockHandler->loadCollectionReference(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'default'
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadCollectionReferenceThrowsNotFoundException()
+    {
+        $this->blockHandler->loadCollectionReference(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            'non_existing'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
@@ -383,6 +421,32 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->updateBlock(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 $blockUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateCollectionReference
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateCollectionReference
+     */
+    public function testUpdateCollectionReference()
+    {
+        self::assertEquals(
+            new CollectionReference(
+                array(
+                    'blockId' => 1,
+                    'blockStatus' => Layout::STATUS_DRAFT,
+                    'collectionId' => 2,
+                    'collectionStatus' => Collection::STATUS_PUBLISHED,
+                    'identifier' => 'default',
+                    'offset' => 0,
+                    'limit' => null,
+                )
+            ),
+            $this->blockHandler->updateCollectionReference(
+                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                'default',
+                new Collection(array('id' => 2, 'status' => Collection::STATUS_PUBLISHED))
             )
         );
     }

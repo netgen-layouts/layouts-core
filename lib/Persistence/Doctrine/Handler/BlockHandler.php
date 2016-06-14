@@ -107,10 +107,6 @@ class BlockHandler implements BlockHandlerInterface
     {
         $data = $this->queryHandler->loadZoneBlocksData($zone->layoutId, $zone->identifier, $zone->status);
 
-        if (empty($data)) {
-            return array();
-        }
-
         return $this->blockMapper->mapBlocks($data);
     }
 
@@ -147,10 +143,6 @@ class BlockHandler implements BlockHandlerInterface
     public function loadCollectionReferences(Block $block)
     {
         $data = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status);
-
-        if (empty($data)) {
-            return array();
-        }
 
         return $this->blockMapper->mapCollectionReferences($data);
     }
@@ -411,13 +403,6 @@ class BlockHandler implements BlockHandlerInterface
         $collectionsData = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status);
         foreach ($collectionsData as $collectionsDataRow) {
             if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
-                if ($this->collectionHandler->collectionExists($collectionsDataRow['collection_id'], $newStatus)) {
-                    $this->collectionHandler->deleteCollection(
-                        $collectionsDataRow['collection_id'],
-                        $newStatus
-                    );
-                }
-
                 $this->collectionHandler->createCollectionStatus(
                     $this->collectionHandler->loadCollection(
                         $collectionsDataRow['collection_id'],

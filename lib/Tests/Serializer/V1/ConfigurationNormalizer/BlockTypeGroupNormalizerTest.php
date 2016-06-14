@@ -37,6 +37,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer::normalize
      */
     public function testNormalize()
