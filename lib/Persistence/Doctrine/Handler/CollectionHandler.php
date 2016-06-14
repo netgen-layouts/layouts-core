@@ -317,11 +317,11 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function changeCollectionType(Collection $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
     {
-        if ($newType === Collection::TYPE_MANUAL) {
-            foreach ($this->loadCollectionQueries($collection) as $query) {
-                $this->deleteQuery($query);
-            }
+        foreach ($this->loadCollectionQueries($collection) as $query) {
+            $this->deleteQuery($query);
+        }
 
+        if ($newType === Collection::TYPE_MANUAL) {
             foreach ($this->loadCollectionItems($collection) as $index => $item) {
                 $this->moveItem($item, $index);
             }
