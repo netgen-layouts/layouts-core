@@ -17,4 +17,9 @@ class BlockServiceTest extends BaseBlockServiceTest
 
         parent::setUp();
     }
+
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
 }

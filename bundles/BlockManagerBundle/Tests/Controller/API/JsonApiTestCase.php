@@ -32,6 +32,11 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
     }
 
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
+
     /**
      * Asserts that response has JSON content.
      * If filename is set, asserts that response content matches the one in given file.

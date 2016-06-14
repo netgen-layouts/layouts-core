@@ -18,4 +18,9 @@ class LayoutMapperTest extends BaseLayoutMapperTest
 
         parent::setUp();
     }
+
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
 }

@@ -17,4 +17,9 @@ class CollectionServiceTest extends BaseCollectionServiceTest
 
         parent::setUp();
     }
+
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
 }

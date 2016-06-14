@@ -17,4 +17,9 @@ class LayoutResolverServiceTest extends BaseLayoutResolverServiceTest
 
         parent::setUp();
     }
+
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
 }

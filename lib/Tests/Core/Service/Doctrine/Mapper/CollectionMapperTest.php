@@ -18,4 +18,9 @@ class CollectionMapperTest extends BaseCollectionMapperTest
 
         parent::setUp();
     }
+
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
 }

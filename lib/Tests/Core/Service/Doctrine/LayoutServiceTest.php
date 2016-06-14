@@ -17,4 +17,9 @@ class LayoutServiceTest extends BaseLayoutServiceTest
 
         parent::setUp();
     }
+
+    public function tearDown()
+    {
+        $this->closeDatabaseConnection();
+    }
 }
