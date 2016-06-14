@@ -1,13 +1,7 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
+{% import 'NetgenBlockManagerBundle:api/macros:collection.html.twig' as collection_macros %}
+
 {% block content %}
-    {% if collections['default'] is defined %}
-        <div class="list-row">
-            {% for result in collections['default'].results %}
-                <div class="list-item">
-                    {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+    {{ collection_macros.collection(collections, 'default', block.itemViewType, view_context) }}
 {% endblock %}
