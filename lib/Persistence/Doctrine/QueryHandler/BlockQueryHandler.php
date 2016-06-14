@@ -194,7 +194,7 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Creates the collection reference
+     * Creates the collection reference.
      *
      * @param int|string $blockId
      * @param int $blockStatus

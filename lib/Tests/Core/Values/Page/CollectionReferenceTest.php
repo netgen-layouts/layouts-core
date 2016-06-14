@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use PHPUnit\Framework\TestCase;
