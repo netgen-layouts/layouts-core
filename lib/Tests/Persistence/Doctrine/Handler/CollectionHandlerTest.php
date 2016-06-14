@@ -167,6 +167,10 @@ class CollectionHandlerTest extends TestCase
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )
@@ -391,6 +395,10 @@ class CollectionHandlerTest extends TestCase
                         'type' => 'ezcontent_search',
                         'parameters' => array(
                             'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
                         ),
                         'status' => Collection::STATUS_PUBLISHED,
                     )
@@ -404,6 +412,10 @@ class CollectionHandlerTest extends TestCase
                         'type' => 'ezcontent_search',
                         'parameters' => array(
                             'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
                         ),
                         'status' => Collection::STATUS_PUBLISHED,
                     )
@@ -486,6 +498,10 @@ class CollectionHandlerTest extends TestCase
                         'type' => 'ezcontent_search',
                         'parameters' => array(
                             'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
                         ),
                         'status' => Collection::STATUS_ARCHIVED,
                     )
@@ -499,6 +515,10 @@ class CollectionHandlerTest extends TestCase
                         'type' => 'ezcontent_search',
                         'parameters' => array(
                             'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
                         ),
                         'status' => Collection::STATUS_ARCHIVED,
                     )
@@ -904,6 +924,10 @@ class CollectionHandlerTest extends TestCase
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 3,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
                         'some_param' => 'Some value',
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
@@ -933,6 +957,10 @@ class CollectionHandlerTest extends TestCase
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )
@@ -964,6 +992,10 @@ class CollectionHandlerTest extends TestCase
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
                     ),
                     'status' => Collection::STATUS_PUBLISHED,
                 )

@@ -100,13 +100,13 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection_query` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection_query` DISABLE KEYS */;
-INSERT INTO `ngbm_collection_query` VALUES (1,1,2,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (2,0,3,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (2,1,3,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (3,0,3,1,'featured','ezcontent_search','{\"parent_location_id\": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (3,1,3,1,'featured','ezcontent_search','{\"parent_location_id\": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (4,0,4,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
-INSERT INTO `ngbm_collection_query` VALUES (4,1,4,0,'default','ezcontent_search','{\"parent_location_id\": 2}');
+INSERT INTO `ngbm_collection_query` VALUES (1,1,2,0,'default','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (2,0,3,0,'default','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (2,1,3,0,'default','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (3,0,3,1,'featured','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (3,1,3,1,'featured','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (4,0,4,0,'default','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (4,1,4,0,'default','ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
 /*!40000 ALTER TABLE `ngbm_collection_query` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -7,4 +7,7 @@ query_types:
         defaults:
             parameters:
                 parent_location_id: 2
-                content_types: [ng_news, ng_article]
+                sort_direction: descending
+                sort_type: date_published
+                offset: 0
+                query_type: list

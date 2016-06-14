@@ -555,7 +555,17 @@ abstract class CollectionServiceTest extends ServiceTest
         self::assertInstanceOf(QueryDraft::class, $updatedQuery);
 
         self::assertEquals('new_identifier', $updatedQuery->getIdentifier());
-        self::assertEquals(array('parent_location_id' => 3, 'param' => 'value'), $updatedQuery->getParameters());
+        self::assertEquals(
+            array(
+                'parent_location_id' => 3,
+                'sort_direction' => 'descending',
+                'sort_type' => 'date_published',
+                'offset' => 0,
+                'query_type' => 'list',
+                'param' => 'value',
+            ),
+            $updatedQuery->getParameters()
+        );
     }
 
     /**
