@@ -304,7 +304,7 @@ class CollectionController extends Controller
         if ($form->isValid()) {
             $this->collectionService->updateQuery($query, $form->getData());
 
-            return new FormView($form, Version::API_V1);
+            return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
         return new FormView($form, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);

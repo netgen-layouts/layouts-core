@@ -255,7 +255,7 @@ class BlockController extends Controller
         if ($form->isValid()) {
             $this->blockService->updateBlock($block, $form->getData());
 
-            return new FormView($form, Version::API_V1);
+            return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
         return new FormView($form, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
