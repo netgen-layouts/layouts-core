@@ -65,6 +65,16 @@ interface BlockHandler
     public function loadCollectionReferences(Block $block);
 
     /**
+     * Returns if provided collection reference already exists in the block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function collectionReferenceExists(Block $block, $identifier);
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
@@ -77,6 +87,17 @@ interface BlockHandler
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null);
+
+    /**
+     * Creates the collection reference.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $identifier
+     * @param int $offset
+     * @param int $limit
+     */
+    public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
 
     /**
      * Updates a block with specified ID.
@@ -158,47 +179,16 @@ interface BlockHandler
     public function deleteBlock(Block $block);
 
     /**
-     * Deletes all block collections.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     */
-    public function deleteBlockCollections(Block $block);
-
-    /**
-     * Returns if provided collection reference already exists in the block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function collectionReferenceExists(Block $block, $identifier);
-
-    /**
-     * Returns if provided collection already exists in the block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return bool
-     */
-    public function collectionExists(Block $block, Collection $collection);
-
-    /**
-     * Creates the collection reference.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $identifier
-     * @param int $offset
-     * @param int $limit
-     */
-    public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
-
-    /**
      * Deletes the collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
      */
     public function deleteCollectionReference(CollectionReference $collectionReference);
+
+    /**
+     * Deletes all block collections.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     */
+    public function deleteBlockCollections(Block $block);
 }

@@ -154,7 +154,7 @@ class Version010000 extends AbstractMigration
         $blockCollectionTable->addColumn('start', 'integer');
         $blockCollectionTable->addColumn('length', 'integer', array('notnull' => false));
 
-        $blockCollectionTable->setPrimaryKey(array('block_id', 'block_status', 'collection_id', 'collection_status'));
+        $blockCollectionTable->setPrimaryKey(array('block_id', 'block_status', 'identifier'));
         $blockCollectionTable->addForeignKeyConstraint('ngbm_block', array('block_id', 'block_status'), array('id', 'status'));
         $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'collection_status'), array('id', 'status'));
     }

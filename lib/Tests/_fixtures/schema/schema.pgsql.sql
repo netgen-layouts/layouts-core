@@ -144,7 +144,7 @@ ALTER TABLE ONLY ngbm_collection_query ALTER COLUMN id SET DEFAULT nextval('ngbm
 ALTER TABLE ONLY ngbm_collection_query ADD CONSTRAINT ngbm_collection_query_pkey PRIMARY KEY ("id", "status");
 ALTER TABLE ONLY ngbm_collection_query ADD FOREIGN KEY ("collection_id", "status") REFERENCES ngbm_collection ("id", "status");
 
-ALTER TABLE ONLY ngbm_block_collection ADD CONSTRAINT ngbm_block_collection_pkey PRIMARY KEY ("block_id", "block_status", "collection_id", "collection_status");
+ALTER TABLE ONLY ngbm_block_collection ADD CONSTRAINT ngbm_block_collection_pkey PRIMARY KEY ("block_id", "block_status", "identifier");
 ALTER TABLE ONLY ngbm_block_collection ADD FOREIGN KEY ("block_id", "block_status") REFERENCES ngbm_block ("id", "status");
 ALTER TABLE ONLY ngbm_block_collection ADD FOREIGN KEY ("collection_id", "collection_status") REFERENCES ngbm_collection ("id", "status");
 

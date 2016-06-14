@@ -119,6 +119,36 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns if provided collection reference already exists in the block.
+     *
+     * @param int|string $blockId
+     * @param int $status
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function collectionReferenceExists($blockId, $status, $identifier)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_block_collection')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('identifier', ':identifier')
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::STRING);
+
+        $this->applyStatusCondition($query, $status, 'block_status');
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) && $data[0]['count'] > 0;
+    }
+
+    /**
      * Creates a block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
@@ -161,6 +191,44 @@ class BlockQueryHandler extends QueryHandler
         $query->execute();
 
         return (int)$this->connectionHelper->lastInsertId('ngbm_block');
+    }
+
+    /**
+     * Creates the collection reference
+     *
+     * @param int|string $blockId
+     * @param int $blockStatus
+     * @param int|string $collectionId
+     * @param int $collectionStatus
+     * @param string $identifier
+     * @param int $offset
+     * @param int $limit
+     */
+    public function createCollectionReference($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->insert('ngbm_block_collection')
+            ->values(
+                array(
+                    'block_id' => ':block_id',
+                    'block_status' => ':block_status',
+                    'collection_id' => ':collection_id',
+                    'collection_status' => ':collection_status',
+                    'identifier' => ':identifier',
+                    'start' => ':start',
+                    'length' => ':length',
+                )
+            )
+            ->setParameter('block_id', $blockId, Type::INTEGER)
+            ->setParameter('block_status', $blockStatus, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER)
+            ->setParameter('collection_status', $collectionStatus, Type::INTEGER)
+            ->setParameter('identifier', $identifier, Type::STRING)
+            ->setParameter('start', $offset, Type::INTEGER)
+            ->setParameter('length', $limit, Type::INTEGER);
+
+        $query->execute();
     }
 
     /**
@@ -275,106 +343,6 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('id', $blockId, Type::INTEGER);
 
         $this->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
-     * Returns if provided collection reference already exists in the block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function collectionReferenceExists($blockId, $status, $identifier)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('ngbm_block_collection')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING);
-
-        $this->applyStatusCondition($query, $status, 'block_status');
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
-     * Returns if provided collection already exists in the block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     * @param int|string $collectionId
-     * @param int $collectionStatus
-     *
-     * @return bool
-     */
-    public function collectionExists($blockId, $status, $collectionId, $collectionStatus)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('ngbm_block_collection')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('collection_id', ':collection_id')
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::STRING);
-
-        $this->applyStatusCondition($query, $status, 'block_status', 'block_status');
-        $this->applyStatusCondition($query, $collectionStatus, 'collection_status', 'collection_status');
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
-     * Creates the collection reference
-     *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param int|string $collectionId
-     * @param int $collectionStatus
-     * @param string $identifier
-     * @param int $offset
-     * @param int $limit
-     */
-    public function createCollectionReference($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->insert('ngbm_block_collection')
-            ->values(
-                array(
-                    'block_id' => ':block_id',
-                    'block_status' => ':block_status',
-                    'collection_id' => ':collection_id',
-                    'collection_status' => ':collection_status',
-                    'identifier' => ':identifier',
-                    'start' => ':start',
-                    'length' => ':length',
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('block_status', $blockStatus, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('collection_status', $collectionStatus, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING)
-            ->setParameter('start', $offset, Type::INTEGER)
-            ->setParameter('length', $limit, Type::INTEGER);
 
         $query->execute();
     }

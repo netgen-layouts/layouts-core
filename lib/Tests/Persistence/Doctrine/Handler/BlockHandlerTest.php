@@ -660,6 +660,10 @@ class BlockHandlerTest extends TestCase
      */
     public function testCreateBlockCollectionsStatus()
     {
+        $this->blockHandler->deleteBlockCollections(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+        );
+
         $this->blockHandler->createBlockCollectionsStatus(
             $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
             Layout::STATUS_DRAFT
@@ -669,42 +673,15 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
         );
 
-        self::assertCount(3, $collectionReferences);
+        self::assertCount(2, $collectionReferences);
 
         $collectionIds = array(
             $collectionReferences[0]->collectionId,
             $collectionReferences[1]->collectionId,
-            $collectionReferences[2]->collectionId,
         );
 
-        self::assertContains(1, $collectionIds);
         self::assertContains(2, $collectionIds);
         self::assertContains(3, $collectionIds);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
-     */
-    public function testCreateBlockCollectionsStatusWithExistingStatus()
-    {
-        // First create a collection in draft status separately and delete an item from it
-        $this->collectionHandler->createCollectionStatus(
-            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
-            Collection::STATUS_DRAFT
-        );
-
-        $this->collectionHandler->deleteItem(
-            $this->collectionHandler->loadItem(4, Collection::STATUS_DRAFT)
-        );
-
-        // Then verify that archived status is recreated after creating a layout in archived status
-        $this->blockHandler->createBlockCollectionsStatus(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
-            Layout::STATUS_DRAFT
-        );
-
-        $item = $this->collectionHandler->loadItem(4, Collection::STATUS_DRAFT);
-        self::assertInstanceOf(Item::class, $item);
     }
 
     /**
@@ -779,34 +756,6 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'something_else'
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionExists
-     */
-    public function testCollectionExists()
-    {
-        self::assertTrue(
-            $this->blockHandler->collectionExists(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT)
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionExists
-     */
-    public function testCollectionNotExists()
-    {
-        self::assertFalse(
-            $this->blockHandler->collectionExists(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED)
             )
         );
     }

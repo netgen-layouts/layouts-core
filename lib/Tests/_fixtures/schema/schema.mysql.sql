@@ -87,7 +87,7 @@ CREATE TABLE `ngbm_block_collection` (
   `identifier` varchar(255) NOT NULL,
   `start` int(11) NOT NULL,
   `length` int(11),
-  PRIMARY KEY (`block_id`, `block_status`, `collection_id`, `collection_status`),
+  PRIMARY KEY (`block_id`, `block_status`, `identifier`),
   FOREIGN KEY (`block_id`, `block_status`)
     REFERENCES ngbm_block (`id`, `status`),
   FOREIGN KEY (`collection_id`, `collection_status`)
