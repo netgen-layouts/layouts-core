@@ -1,9 +1,3 @@
-netgen_block_manager_api_v1_create_layout:
-    path: /layouts
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.layout:create"
-
 netgen_block_manager_api_v1_load_layout:
     path: /layouts/{layoutId}
     methods: [GET]
@@ -15,6 +9,18 @@ netgen_block_manager_api_v1_layout_blocks:
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:viewLayoutBlocks"
+
+netgen_block_manager_api_v1_create_layout:
+    path: /layouts
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.layout:create"
+
+netgen_block_manager_api_v1_update_layout:
+    path: /layouts/{layoutId}
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.layout:update"
 
 netgen_block_manager_api_v1_publish_layout:
     path: /layouts/{layoutId}/publish

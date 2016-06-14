@@ -93,6 +93,24 @@ class LayoutController extends Controller
     }
 
     /**
+     * Updates the layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function update(LayoutDraft $layout, Request $request)
+    {
+        $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
+        $layoutUpdateStruct->name = $request->request->get('name');
+
+        $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Publishes a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
