@@ -10,7 +10,7 @@ block_definitions:
                     standard:
                         name: 'Standard'
 
-    paragraph:
+    text:
         forms:
             full:
                 type: ~

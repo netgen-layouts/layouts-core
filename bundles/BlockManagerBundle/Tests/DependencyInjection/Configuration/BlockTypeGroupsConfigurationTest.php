@@ -73,7 +73,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
                 'block_type_groups' => array(
                     'block_type_group' => array(
                         'name' => 'block_type_group',
-                        'block_types' => array('title', 'paragraph'),
+                        'block_types' => array('title', 'text'),
                     ),
                 ),
             ),
@@ -92,7 +92,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
                 'block_type_group' => array(
                     'name' => 'block_type_group',
                     'enabled' => true,
-                    'block_types' => array('title', 'paragraph', 'image'),
+                    'block_types' => array('title', 'text', 'image'),
                 ),
             ),
         );

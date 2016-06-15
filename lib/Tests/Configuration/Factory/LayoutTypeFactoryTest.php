@@ -22,7 +22,7 @@ class LayoutTypeFactoryTest extends TestCase
                 'zones' => array(
                     'left' => array(
                         'name' => 'Left',
-                        'allowed_block_definitions' => array('title', 'paragraph'),
+                        'allowed_block_definitions' => array('title', 'text'),
                     ),
                 ),
             )
@@ -37,7 +37,7 @@ class LayoutTypeFactoryTest extends TestCase
                     'left' => new Zone(
                         'left',
                         'Left',
-                        array('title', 'paragraph')
+                        array('title', 'text')
                     ),
                 )
             ),

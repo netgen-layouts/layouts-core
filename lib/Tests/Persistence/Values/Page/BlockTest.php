@@ -30,7 +30,7 @@ class BlockTest extends TestCase
                 'layoutId' => 84,
                 'zoneIdentifier' => 'top',
                 'position' => 4,
-                'definitionIdentifier' => 'paragraph',
+                'definitionIdentifier' => 'text',
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
@@ -45,7 +45,7 @@ class BlockTest extends TestCase
         self::assertEquals(84, $block->layoutId);
         self::assertEquals('top', $block->zoneIdentifier);
         self::assertEquals(4, $block->position);
-        self::assertEquals('paragraph', $block->definitionIdentifier);
+        self::assertEquals('text', $block->definitionIdentifier);
         self::assertEquals(
             array(
                 'some_param' => 'some_value',

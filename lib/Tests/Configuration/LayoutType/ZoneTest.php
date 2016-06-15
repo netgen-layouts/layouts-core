@@ -65,6 +65,6 @@ class ZoneTest extends TestCase
      */
     public function testIsBlockDefinitionAllowedReturnsFalse()
     {
-        self::assertFalse($this->zone->isBlockDefinitionAllowed('paragraph'));
+        self::assertFalse($this->zone->isBlockDefinitionAllowed('text'));
     }
 }

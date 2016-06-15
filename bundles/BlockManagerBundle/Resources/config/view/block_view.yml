@@ -4,10 +4,10 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view:title.html.twig"
             match:
                 block\definition: title
-        paragraph:
-            template: "NetgenBlockManagerBundle:block/view:paragraph.html.twig"
+        text:
+            template: "NetgenBlockManagerBundle:block/view:text.html.twig"
             match:
-                block\definition: paragraph
+                block\definition: text
         # Fallback for block with `twig_block` definition identifier. Do not remove!
         twig_block:
             template: "NetgenBlockManagerBundle:block/view:twig_block.html.twig"
@@ -19,10 +19,10 @@ block_view:
             match:
                 block\definition: title
                 api_version: 1
-        paragraph:
-            template: "NetgenBlockManagerBundle:api/block/view:paragraph.html.twig"
+        text:
+            template: "NetgenBlockManagerBundle:api/block/view:text.html.twig"
             match:
-                block\definition: paragraph
+                block\definition: text
                 api_version: 1
         rich_text:
             template: "NetgenBlockManagerBundle:api/block/view:rich_text.html.twig"

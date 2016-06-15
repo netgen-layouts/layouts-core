@@ -40,7 +40,7 @@ class BlockNormalizerTest extends TestCase
                 'layoutId' => 24,
                 'zoneIdentifier' => 'bottom',
                 'position' => 2,
-                'definitionIdentifier' => 'paragraph',
+                'definitionIdentifier' => 'text',
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',

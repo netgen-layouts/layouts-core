@@ -33,7 +33,7 @@ class DefinitionTest extends TestCase
     {
         $block = new Block(
             array(
-                'definitionIdentifier' => 'paragraph',
+                'definitionIdentifier' => 'text',
             )
         );
 
@@ -55,9 +55,9 @@ class DefinitionTest extends TestCase
         return array(
             array(array(), false),
             array(array('title'), false),
-            array(array('paragraph'), true),
+            array(array('text'), true),
             array(array('title', 'title_2'), false),
-            array(array('title', 'paragraph'), true),
+            array(array('title', 'text'), true),
         );
     }
 

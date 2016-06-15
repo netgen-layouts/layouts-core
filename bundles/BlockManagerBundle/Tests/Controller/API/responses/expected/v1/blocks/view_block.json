@@ -1,12 +1,12 @@
 {
     "id": 1,
-    "definition_identifier": "paragraph",
+    "definition_identifier": "text",
     "name": "My block",
     "zone_identifier": "top_right",
     "position": 0,
     "layout_id": 1,
     "parameters": {
-        "content": "Paragraph"
+        "content": "Text"
     },
     "view_type": "default",
     "item_view_type": "standard"

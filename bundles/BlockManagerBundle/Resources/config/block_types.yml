@@ -11,7 +11,7 @@ block_types:
 
     text:
         name: 'Text'
-        definition_identifier: paragraph
+        definition_identifier: text
         defaults:
             view_type: text
             item_view_type: standard

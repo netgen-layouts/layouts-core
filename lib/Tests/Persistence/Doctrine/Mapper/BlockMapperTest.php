@@ -32,7 +32,7 @@ class BlockMapperTest extends TestCase
                 'layout_id' => 24,
                 'zone_identifier' => 'bottom',
                 'position' => 4,
-                'definition_identifier' => 'paragraph',
+                'definition_identifier' => 'text',
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
                 'item_view_type' => 'standard',
@@ -60,7 +60,7 @@ class BlockMapperTest extends TestCase
                     'layoutId' => 24,
                     'zoneIdentifier' => 'bottom',
                     'position' => 4,
-                    'definitionIdentifier' => 'paragraph',
+                    'definitionIdentifier' => 'text',
                     'parameters' => array(
                         'param1' => 'param2',
                     ),

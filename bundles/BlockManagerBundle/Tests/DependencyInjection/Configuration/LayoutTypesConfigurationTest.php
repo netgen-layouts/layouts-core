@@ -152,7 +152,7 @@ class LayoutTypesConfigurationTest extends TestCase
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
-                                'allowed_block_definitions' => array('title', 'paragraph'),
+                                'allowed_block_definitions' => array('title', 'text'),
                             ),
                         ),
                     ),
@@ -168,7 +168,7 @@ class LayoutTypesConfigurationTest extends TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_block_definitions' => array('title', 'paragraph'),
+                            'allowed_block_definitions' => array('title', 'text'),
                         ),
                     ),
                 ),
@@ -198,7 +198,7 @@ class LayoutTypesConfigurationTest extends TestCase
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
-                                'allowed_block_definitions' => array('title', 'paragraph', 'title'),
+                                'allowed_block_definitions' => array('title', 'text', 'title'),
                             ),
                         ),
                     ),
@@ -214,7 +214,7 @@ class LayoutTypesConfigurationTest extends TestCase
                     'zones' => array(
                         'zone' => array(
                             'name' => 'zone',
-                            'allowed_block_definitions' => array('title', 'paragraph'),
+                            'allowed_block_definitions' => array('title', 'text'),
                         ),
                     ),
                 ),

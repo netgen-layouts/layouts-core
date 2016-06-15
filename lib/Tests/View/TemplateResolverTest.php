@@ -46,16 +46,16 @@ class TemplateResolverTest extends TestCase
         $matcherMock
             ->expects($this->once())
             ->method('match')
-            ->with($this->equalTo($this->view), $this->equalTo(array('paragraph')))
+            ->with($this->equalTo($this->view), $this->equalTo(array('text')))
             ->will($this->returnValue(true));
 
         $viewConfiguration = array(
             'view' => array(
                 'context' => array(
-                    'paragraph' => array(
+                    'text' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(
-                            'definition_identifier' => 'paragraph',
+                            'definition_identifier' => 'text',
                         ),
                     ),
                 ),
@@ -81,7 +81,7 @@ class TemplateResolverTest extends TestCase
         $viewConfiguration = array(
             'view' => array(
                 'context' => array(
-                    'paragraph' => array(
+                    'text' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(),
                     ),
@@ -106,11 +106,11 @@ class TemplateResolverTest extends TestCase
         $viewConfiguration = array(
             'view' => array(
                 'context' => array(
-                    'paragraph' => array(
+                    'text' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(),
                     ),
-                    'paragraph_other' => array(
+                    'text_other' => array(
                         'template' => 'some_other_template.html.twig',
                         'match' => array(),
                     ),

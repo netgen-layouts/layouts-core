@@ -7,9 +7,9 @@ block.title.title: 'Title'
 block.title.css_class: 'CSS class'
 block.title.css_id: 'CSS ID'
 
-block.paragraph.content: 'Content'
-block.paragraph.css_class: 'CSS class'
-block.paragraph.css_id: 'CSS ID'
+block.text.content: 'Content'
+block.text.css_class: 'CSS class'
+block.text.css_id: 'CSS ID'
 
 block.rich_text.content: 'Content'
 block.rich_text.css_class: 'CSS class'

@@ -32,7 +32,7 @@ class BlockTypeRegistryTest extends TestCase
             'block_type',
             true,
             'Block type',
-            'paragraph',
+            'text',
             array()
         );
 

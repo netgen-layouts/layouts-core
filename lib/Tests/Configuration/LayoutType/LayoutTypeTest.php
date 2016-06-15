@@ -23,7 +23,7 @@ class LayoutTypeTest extends TestCase
                 'left' => new Zone(
                     'left',
                     'Left',
-                    array('title', 'paragraph')
+                    array('title', 'text')
                 ),
             )
         );
@@ -64,7 +64,7 @@ class LayoutTypeTest extends TestCase
                 'left' => new Zone(
                     'left',
                     'Left',
-                    array('title', 'paragraph')
+                    array('title', 'text')
                 ),
             ),
             $this->layoutType->getZones()
@@ -104,7 +104,7 @@ class LayoutTypeTest extends TestCase
             new Zone(
                 'left',
                 'Left',
-                array('title', 'paragraph')
+                array('title', 'text')
             ),
             $this->layoutType->getZone('left')
         );

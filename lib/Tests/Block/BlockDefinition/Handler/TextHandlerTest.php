@@ -2,24 +2,24 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 use PHPUnit\Framework\TestCase;
 
-class ParagraphHandlerTest extends TestCase
+class TextHandlerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler
      */
     protected $handler;
 
     public function setUp()
     {
-        $this->handler = new ParagraphHandler();
+        $this->handler = new TextHandler();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ParagraphHandler::getParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler::getParameters
      */
     public function testGetParameters()
     {

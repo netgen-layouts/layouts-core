@@ -29,7 +29,7 @@ class BlockCreateStructTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct(
             array(
-                'definitionIdentifier' => 'paragraph',
+                'definitionIdentifier' => 'text',
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
@@ -40,7 +40,7 @@ class BlockCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('paragraph', $blockCreateStruct->definitionIdentifier);
+        self::assertEquals('text', $blockCreateStruct->definitionIdentifier);
         self::assertEquals('default', $blockCreateStruct->viewType);
         self::assertEquals('standard', $blockCreateStruct->itemViewType);
         self::assertEquals('My block', $blockCreateStruct->name);
