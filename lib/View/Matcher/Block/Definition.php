@@ -6,7 +6,7 @@ use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\BlockViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-class DefinitionIdentifier implements MatcherInterface
+class Definition implements MatcherInterface
 {
     /**
      * Returns if the view matches the config.

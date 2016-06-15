@@ -6,11 +6,11 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\BlockView;
-use Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier;
+use Netgen\BlockManager\View\Matcher\Block\Definition;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 
-class DefinitionIdentifierTest extends TestCase
+class DefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
@@ -19,14 +19,14 @@ class DefinitionIdentifierTest extends TestCase
 
     public function setUp()
     {
-        $this->matcher = new DefinitionIdentifier();
+        $this->matcher = new Definition();
     }
 
     /**
      * @param array $config
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier::match
+     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, $expected)
@@ -62,7 +62,7 @@ class DefinitionIdentifierTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionIdentifier::match
+     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
      */
     public function testMatchWithNoBlockView()
     {
