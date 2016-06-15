@@ -44,16 +44,22 @@ block_view:
             match:
                 block_definition_identifier: html_snippet
                 api_version: 1
-        gallery:
-            template: "NetgenBlockManagerBundle:api/block/view:gallery.html.twig"
+        list:
+            template: "NetgenBlockManagerBundle:api/block/view/list:list.html.twig"
             match:
-                block_definition_identifier: gallery
+                block_definition_identifier: list
+                block_view_type: list
                 api_version: 1
         grid:
             template: "NetgenBlockManagerBundle:api/block/view/list:grid.html.twig"
             match:
                 block_definition_identifier: list
                 block_view_type: grid
+                api_version: 1
+        gallery:
+            template: "NetgenBlockManagerBundle:api/block/view:gallery.html.twig"
+            match:
+                block_definition_identifier: gallery
                 api_version: 1
         block:
             template: "NetgenBlockManagerBundle:api/block:view.html.twig"
