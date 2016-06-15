@@ -56,6 +56,12 @@ block_view:
                 block_definition_identifier: list
                 block_view_type: grid
                 api_version: 1
+        grid_gallery:
+            template: "NetgenBlockManagerBundle:api/block/view/gallery:grid_gallery.html.twig"
+            match:
+                block_definition_identifier: gallery
+                block_view_type: grid_gallery
+                api_version: 1
         block:
             template: "NetgenBlockManagerBundle:api/block:view.html.twig"
             match:
