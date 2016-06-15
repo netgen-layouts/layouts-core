@@ -1,70 +1,70 @@
-netgen_block_manager_api_v1_load_collection:
+netgen_block_manager_api_v1_collection_load:
     path: /collections/{collectionId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollection"
 
-netgen_block_manager_api_v1_load_collection_result:
+netgen_block_manager_api_v1_collection_result:
     path: /collections/{collectionId}/result
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionResult"
 
-netgen_block_manager_api_v1_load_collection_items:
+netgen_block_manager_api_v1_collection_items:
     path: /collections/{collectionId}/items
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionItems"
 
-netgen_block_manager_api_v1_load_collection_queries:
+netgen_block_manager_api_v1_collection_queries:
     path: /collections/{collectionId}/queries
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQueries"
 
-netgen_block_manager_api_v1_load_collection_item:
+netgen_block_manager_api_v1_collection_load_item:
     path: /collections/items/{itemId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadItem"
 
-netgen_block_manager_api_v1_add_collection_items:
+netgen_block_manager_api_v1_collection_add_items:
     path: /collections/{collectionId}/items
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:addItems"
 
-netgen_block_manager_api_v1_move_collection_item:
+netgen_block_manager_api_v1_collection_move_item:
     path: /collections/items/{itemId}/move
     methods: [PATCH]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveItem"
 
-netgen_block_manager_api_v1_delete_collection_item:
+netgen_block_manager_api_v1_collection_delete_item:
     path: /collections/items/{itemId}
     methods: [DELETE]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:deleteItem"
 
-netgen_block_manager_api_v1_load_collection_query:
+netgen_block_manager_api_v1_collection_load_query:
     path: /collections/queries/{queryId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"
 
-netgen_block_manager_api_v1_move_collection_query:
+netgen_block_manager_api_v1_collection_move_query:
     path: /collections/queries/{queryId}/move
     methods: [PATCH]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveQuery"
 
-netgen_block_manager_api_v1_query_form:
+netgen_block_manager_api_v1_collection_query_form:
     path: /collections/queries/{queryId}/form/{formName}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:queryForm"
 
-netgen_block_manager_api_v1_delete_collection_query:
+netgen_block_manager_api_v1_collection_delete:
     path: /collections/queries/{queryId}
     methods: [DELETE]
     defaults:

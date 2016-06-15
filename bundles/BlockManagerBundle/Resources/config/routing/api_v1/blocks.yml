@@ -1,28 +1,28 @@
-netgen_block_manager_api_v1_load_block:
+netgen_block_manager_api_v1_block_load:
     path: /blocks/{blockId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:view"
 
-netgen_block_manager_api_v1_load_block_collections:
+netgen_block_manager_api_v1_block_collections:
     path: /blocks/{blockId}/collections
     methods: [GET]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block:loadCollections"
+        _controller: "netgen_block_manager.controller.api.v1.block:loadCollectionReferences"
 
-netgen_block_manager_api_v1_change_block_collection_type:
+netgen_block_manager_api_v1_block_change_collection_type:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/change_type
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:changeCollectionType"
 
-netgen_block_manager_api_v1_create_block:
+netgen_block_manager_api_v1_block_create:
     path: /blocks
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:create"
 
-netgen_block_manager_api_v1_move_block:
+netgen_block_manager_api_v1_block_move:
     path: /blocks/{blockId}/move
     methods: [PATCH]
     defaults:
@@ -34,13 +34,13 @@ netgen_block_manager_api_v1_block_form:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:form"
 
-netgen_block_manager_api_v1_restore_block:
+netgen_block_manager_api_v1_block_restore:
     path: /blocks/{blockId}/restore
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:restore"
 
-netgen_block_manager_api_v1_delete_block:
+netgen_block_manager_api_v1_block_delete:
     path: /blocks/{blockId}
     methods: [DELETE]
     defaults:
