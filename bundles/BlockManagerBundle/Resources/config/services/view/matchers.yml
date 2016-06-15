@@ -1,6 +1,6 @@
 parameters:
     netgen_block_manager.view.matcher.api_version.class: Netgen\BlockManager\View\Matcher\APIVersion
-    netgen_block_manager.view.matcher.form.form_type.class: Netgen\BlockManager\View\Matcher\Form\FormType
+    netgen_block_manager.view.matcher.form.type.class: Netgen\BlockManager\View\Matcher\Form\Type
     netgen_block_manager.view.matcher.layout.type.class: Netgen\BlockManager\View\Matcher\Layout\Type
     netgen_block_manager.view.matcher.block.definition.class: Netgen\BlockManager\View\Matcher\Block\Definition
     netgen_block_manager.view.matcher.block.view_type.class: Netgen\BlockManager\View\Matcher\Block\ViewType
@@ -13,32 +13,32 @@ services:
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: api_version }
 
-    netgen_block_manager.view.matcher.form.form_type:
-        class: "%netgen_block_manager.view.matcher.form.form_type.class%"
+    netgen_block_manager.view.matcher.form.type:
+        class: "%netgen_block_manager.view.matcher.form.type.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: form_type }
+            - { name: netgen_block_manager.view.template_matcher, identifier: form\type }
 
     netgen_block_manager.view.matcher.layout.type:
         class: "%netgen_block_manager.view.matcher.layout.type.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: layout_type }
+            - { name: netgen_block_manager.view.template_matcher, identifier: layout\type }
 
     netgen_block_manager.view.matcher.block.definition:
         class: "%netgen_block_manager.view.matcher.block.definition.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: block_definition }
+            - { name: netgen_block_manager.view.template_matcher, identifier: block\definition }
 
     netgen_block_manager.view.matcher.block.view_type:
         class: "%netgen_block_manager.view.matcher.block.view_type.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: block_view_type }
+            - { name: netgen_block_manager.view.template_matcher, identifier: block\view_type }
 
     netgen_block_manager.view.matcher.item.view_type:
         class: "%netgen_block_manager.view.matcher.item.view_type.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: item_view_type }
+            - { name: netgen_block_manager.view.template_matcher, identifier: item\view_type }
 
     netgen_block_manager.view.matcher.item.value_type:
         class: "%netgen_block_manager.view.matcher.item.value_type.class%"
         tags:
-            - { name: netgen_block_manager.view.template_matcher, identifier: item_value_type }
+            - { name: netgen_block_manager.view.template_matcher, identifier: item\value_type }

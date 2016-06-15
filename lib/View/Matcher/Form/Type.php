@@ -6,7 +6,7 @@ use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-class FormType implements MatcherInterface
+class Type implements MatcherInterface
 {
     /**
      * Returns if the view matches the config.

@@ -3,63 +3,63 @@ block_view:
         title_large:
             template: "NetgenBlockManagerBundle:block/view/title:large.html.twig"
             match:
-                block_definition: title
-                block_view_type: large
+                block\definition: title
+                block\view_type: large
         title:
             template: "NetgenBlockManagerBundle:block/view/title:default.html.twig"
             match:
-                block_definition: title
+                block\definition: title
         paragraph_small:
             template: "NetgenBlockManagerBundle:block/view/paragraph:small.html.twig"
             match:
-                block_definition: paragraph
-                block_view_type: small
+                block\definition: paragraph
+                block\view_type: small
         paragraph:
             template: "NetgenBlockManagerBundle:block/view/paragraph:default.html.twig"
             match:
-                block_definition: paragraph
+                block\definition: paragraph
         # Fallback for block with `twig_block` definition identifier. Do not remove!
         twig_block:
             template: "NetgenBlockManagerBundle:block/view:twig_block.html.twig"
             match:
-                block_definition: twig_block
+                block\definition: twig_block
     api_view:
         title:
             template: "NetgenBlockManagerBundle:api/block/view:title.html.twig"
             match:
-                block_definition: title
+                block\definition: title
                 api_version: 1
         paragraph:
             template: "NetgenBlockManagerBundle:api/block/view:paragraph.html.twig"
             match:
-                block_definition: paragraph
+                block\definition: paragraph
                 api_version: 1
         rich_text:
             template: "NetgenBlockManagerBundle:api/block/view:rich_text.html.twig"
             match:
-                block_definition: rich_text
+                block\definition: rich_text
                 api_version: 1
         html_snippet:
             template: "NetgenBlockManagerBundle:api/block/view:html_snippet.html.twig"
             match:
-                block_definition: html_snippet
+                block\definition: html_snippet
                 api_version: 1
         list:
             template: "NetgenBlockManagerBundle:api/block/view/list:list.html.twig"
             match:
-                block_definition: list
-                block_view_type: list
+                block\definition: list
+                block\view_type: list
                 api_version: 1
         grid:
             template: "NetgenBlockManagerBundle:api/block/view/list:grid.html.twig"
             match:
-                block_definition: list
-                block_view_type: grid
+                block\definition: list
+                block\view_type: grid
                 api_version: 1
         gallery:
             template: "NetgenBlockManagerBundle:api/block/view:gallery.html.twig"
             match:
-                block_definition: gallery
+                block\definition: gallery
                 api_version: 1
         block:
             template: "NetgenBlockManagerBundle:api/block:view.html.twig"

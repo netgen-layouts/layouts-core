@@ -3,27 +3,27 @@ item_view:
         ezcontent:
             template: "NetgenBlockManagerBundle:item/view:ezcontent.html.twig"
             match:
-                item_value_type: ezcontent
+                item\value_type: ezcontent
         ezlocation:
             template: "NetgenBlockManagerBundle:item/view:ezlocation.html.twig"
             match:
-                item_value_type: ezlocation
+                item\value_type: ezlocation
         # Do not remove, fallback template for items which do not exist or are invalid
         null:
             template: "NetgenBlockManagerBundle:item/view:null.html.twig"
             match:
-                item_value_type: "null"
+                item\value_type: "null"
     api_view:
         ezcontent:
             template: "NetgenBlockManagerBundle:api/item/view:ezcontent.html.twig"
             match:
-                item_value_type: ezcontent
+                item\value_type: ezcontent
         ezlocation:
             template: "NetgenBlockManagerBundle:api/item/view:ezlocation.html.twig"
             match:
-                item_value_type: ezlocation
+                item\value_type: ezlocation
         # Do not remove, fallback template for items which do not exist or are invalid
         null:
             template: "NetgenBlockManagerBundle:api/item/view:null.html.twig"
             match:
-                item_value_type: "null"
+                item\value_type: "null"
