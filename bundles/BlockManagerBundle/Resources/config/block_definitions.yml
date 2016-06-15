@@ -69,10 +69,10 @@ block_definitions:
         forms:
             content:
                 type: ~
-                parameters: [latitude, longitude, zoom, map_type, show_marker]
+                parameters: [latitude, longitude]
             design:
                 type: ~
-                parameters: [css_class, css_id]
+                parameters: [zoom, map_type, show_marker, css_class, css_id]
         view_types:
             map:
                 name: 'Map'
@@ -104,7 +104,7 @@ block_definitions:
         forms:
             content:
                 type: ~
-                parameters: [number_of_thumbnails]
+                parameters: ~
             design:
                 type: ~
                 parameters:
@@ -115,6 +115,7 @@ block_definitions:
                     - autoplay
                     - aspect_ratio
                     - show_details
+                    - number_of_thumbnails
                     - enable_lightbox
                     - css_class
                     - css_id
