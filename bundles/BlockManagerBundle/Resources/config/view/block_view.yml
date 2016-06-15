@@ -1,21 +1,11 @@
 block_view:
     view:
-        title_large:
-            template: "NetgenBlockManagerBundle:block/view/title:large.html.twig"
-            match:
-                block\definition: title
-                block\view_type: large
         title:
-            template: "NetgenBlockManagerBundle:block/view/title:default.html.twig"
+            template: "NetgenBlockManagerBundle:block/view:title.html.twig"
             match:
                 block\definition: title
-        paragraph_small:
-            template: "NetgenBlockManagerBundle:block/view/paragraph:small.html.twig"
-            match:
-                block\definition: paragraph
-                block\view_type: small
         paragraph:
-            template: "NetgenBlockManagerBundle:block/view/paragraph:default.html.twig"
+            template: "NetgenBlockManagerBundle:block/view:paragraph.html.twig"
             match:
                 block\definition: paragraph
         # Fallback for block with `twig_block` definition identifier. Do not remove!
@@ -44,13 +34,13 @@ block_view:
             match:
                 block\definition: html_snippet
                 api_version: 1
-        list:
+        list\list:
             template: "NetgenBlockManagerBundle:api/block/view/list:list.html.twig"
             match:
                 block\definition: list
                 block\view_type: list
                 api_version: 1
-        grid:
+        list\grid:
             template: "NetgenBlockManagerBundle:api/block/view/list:grid.html.twig"
             match:
                 block\definition: list

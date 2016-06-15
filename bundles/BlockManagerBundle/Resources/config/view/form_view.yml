@@ -1,27 +1,27 @@
 form_view:
     api_view:
-        block_full_edit:
+        block\full_edit:
             template: "NetgenBlockManagerBundle:api/form/block:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\FullEditType
                 api_version: 1
-        block_content_edit:
+        block\content_edit:
             template: "NetgenBlockManagerBundle:api/form/block:content.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\ContentEditType
                 api_version: 1
-        block_design_edit:
+        block\design_edit:
             template: "NetgenBlockManagerBundle:api/form/block:design.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\DesignEditType
                 api_version: 1
-        query_full_edit\ezcontent_search:
+        query\full_edit\ezcontent_search:
             template: "NetgenBlockManagerBundle:api/form/query/full:ezcontent_search.html.twig"
             match:
                 form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
                 form\query\type: ezcontent_search
                 api_version: 1
-        query_full_edit:
+        query\full_edit:
             template: "NetgenBlockManagerBundle:api/form/query:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
