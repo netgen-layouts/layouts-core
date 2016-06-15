@@ -20,6 +20,7 @@ use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 
 abstract class BlockServiceTest extends ServiceTest
 {
@@ -80,7 +81,7 @@ abstract class BlockServiceTest extends ServiceTest
             '3 zones A',
             array(
                 'top_left' => new LayoutTypeZone('top_left', 'Top left', array()),
-                'top_right' => new LayoutTypeZone('top_right', 'Top right', array('title')),
+                'top_right' => new LayoutTypeZone('top_right', 'Top right', array('title', 'list')),
                 'bottom' => new LayoutTypeZone('bottom', 'Bottom', array('title')),
             )
         );
@@ -90,13 +91,13 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockDefinition1 = new BlockDefinition(
             'title',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new BlockDefinitionHandler(),
             new Configuration('title', array(), array())
         );
 
         $blockDefinition2 = new BlockDefinition(
             'gallery',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new BlockDefinitionHandler(),
             new Configuration('gallery', array(), array())
         );
 
@@ -345,7 +346,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'content' => 'Paragraph',
+                'number_of_columns' => 1,
             ),
             $block->getParameters()
         );
@@ -372,7 +373,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'content' => 'Paragraph',
+                'number_of_columns' => 1,
             ),
             $block->getParameters()
         );
@@ -393,13 +394,13 @@ abstract class BlockServiceTest extends ServiceTest
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals('text', $block->getViewType());
+        self::assertEquals('list', $block->getViewType());
         self::assertEquals('Super cool block', $block->getName());
         self::assertEquals(
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'content' => 'Paragraph',
+                'number_of_columns' => 1,
             ),
             $block->getParameters()
         );
@@ -495,12 +496,12 @@ abstract class BlockServiceTest extends ServiceTest
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(2),
             0,
-            'bottom'
+            'top_left'
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $movedBlock);
         self::assertEquals(2, $movedBlock->getId());
-        self::assertEquals('bottom', $movedBlock->getZoneIdentifier());
+        self::assertEquals('top_left', $movedBlock->getZoneIdentifier());
         self::assertEquals(0, $movedBlock->getPosition());
     }
 
@@ -561,7 +562,7 @@ abstract class BlockServiceTest extends ServiceTest
             )
         );
 
-        $blockUpdateStruct->setParameter('content', 'new_value');
+        $blockUpdateStruct->setParameter('number_of_columns', 5);
 
         $block = $this->blockService->loadBlockDraft(1);
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
@@ -572,10 +573,10 @@ abstract class BlockServiceTest extends ServiceTest
         $restoredBlock = $this->blockService->restoreBlock($block);
 
         self::assertInstanceOf(APIBlockDraft::class, $restoredBlock);
-        self::assertEquals('text', $restoredBlock->getViewType());
+        self::assertEquals('list', $restoredBlock->getViewType());
         self::assertEquals('standard', $restoredBlock->getItemViewType());
         self::assertEquals('My block', $restoredBlock->getName());
-        self::assertEquals(array('content' => 'Paragraph'), $restoredBlock->getParameters());
+        self::assertEquals(array('number_of_columns' => 1), $restoredBlock->getParameters());
         self::assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
         self::assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 
@@ -630,6 +631,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'css-class',
+                        'css_id' => null,
                     ),
                 )
             ),

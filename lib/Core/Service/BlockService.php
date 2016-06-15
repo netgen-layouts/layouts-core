@@ -233,19 +233,25 @@ class BlockService implements BlockServiceInterface
                 $position
             );
 
-            $collectionCreateStruct = new CollectionCreateStruct();
-            $collectionCreateStruct->type = Collection::TYPE_MANUAL;
-
-            $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct,
-                $persistenceLayout->status
+            $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+                $blockCreateStruct->definitionIdentifier
             );
 
-            $this->blockHandler->createCollectionReference(
-                $createdBlock,
-                $createdCollection,
-                'default'
-            );
+            foreach ($blockDefinition->getCollectionIdentifiers() as $collectionIdentifier) {
+                $collectionCreateStruct = new CollectionCreateStruct();
+                $collectionCreateStruct->type = Collection::TYPE_MANUAL;
+
+                $createdCollection = $this->collectionHandler->createCollection(
+                    $collectionCreateStruct,
+                    $persistenceLayout->status
+                );
+
+                $this->blockHandler->createCollectionReference(
+                    $createdBlock,
+                    $createdCollection,
+                    $collectionIdentifier
+                );
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

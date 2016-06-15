@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Parameter;
 
-abstract class BlockDefinitionHandler
+abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
     /**
      * Returns the array specifying block parameters.
@@ -30,6 +30,16 @@ abstract class BlockDefinitionHandler
      * @return array
      */
     public function getDynamicParameters(Block $block)
+    {
+        return array();
+    }
+
+    /**
+     * Returns the identifiers of all collections that should exist in the block.
+     *
+     * @return array
+     */
+    public function getCollectionIdentifiers()
     {
         return array();
     }

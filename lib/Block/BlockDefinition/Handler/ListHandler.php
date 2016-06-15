@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class ListHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
+class ListHandler extends BlockDefinitionHandler
 {
     /**
      * @var array
@@ -28,5 +27,15 @@ class ListHandler extends BlockDefinitionHandler implements BlockDefinitionHandl
         return array(
             'number_of_columns' => new Parameter\Select(array('options' => $this->columns), true),
         ) + parent::getParameters();
+    }
+
+    /**
+     * Returns the identifiers of all collections that should exist in the block.
+     *
+     * @return array
+     */
+    public function getCollectionIdentifiers()
+    {
+        return array('default');
     }
 }

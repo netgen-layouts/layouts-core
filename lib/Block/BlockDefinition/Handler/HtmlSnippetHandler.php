@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class HtmlSnippetHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
+class HtmlSnippetHandler extends BlockDefinitionHandler
 {
     /**
      * Returns the array specifying block parameters.

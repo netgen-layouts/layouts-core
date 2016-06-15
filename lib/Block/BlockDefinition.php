@@ -73,6 +73,16 @@ class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
+     * Returns the identifiers of all collections that should exist in the block.
+     *
+     * @return array
+     */
+    public function getCollectionIdentifiers()
+    {
+        return $this->handler->getCollectionIdentifiers();
+    }
+
+    /**
      * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration

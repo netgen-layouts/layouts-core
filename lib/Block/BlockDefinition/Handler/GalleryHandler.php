@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class GalleryHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
+class GalleryHandler extends BlockDefinitionHandler
 {
     /**
      * @var int
@@ -89,5 +88,15 @@ class GalleryHandler extends BlockDefinitionHandler implements BlockDefinitionHa
             'number_of_thumbnails' => new Parameter\Integer(array('min' => 1), true),
             'enable_lightbox' => new Parameter\Boolean(),
         ) + parent::getParameters();
+    }
+
+    /**
+     * Returns the identifiers of all collections that should exist in the block.
+     *
+     * @return array
+     */
+    public function getCollectionIdentifiers()
+    {
+        return array('default');
     }
 }

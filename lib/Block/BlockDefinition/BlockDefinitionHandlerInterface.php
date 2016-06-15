@@ -21,4 +21,11 @@ interface BlockDefinitionHandlerInterface
      * @return array
      */
     public function getDynamicParameters(Block $block);
+
+    /**
+     * Returns the identifiers of all collections that should exist in the block.
+     *
+     * @return array
+     */
+    public function getCollectionIdentifiers();
 }

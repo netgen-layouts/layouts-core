@@ -1,15 +1,9 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
-{% import 'NetgenBlockManagerBundle:api/macros:collection.html.twig' as collection_macros %}
-
 {% block inline_data %}
     <p data-inline>
         <span contenteditable="true" data-attr="content" data-inline-child>
             {{ block.parameter('content')|nl2br }}
         </span>
     </p>
-{% endblock %}
-
-{% block content %}
-    {{ collection_macros.collection(collections, 'default', block.itemViewType, view_context) }}
 {% endblock %}

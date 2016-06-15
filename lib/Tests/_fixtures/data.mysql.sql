@@ -21,16 +21,16 @@
 
 LOCK TABLES `ngbm_block` WRITE;
 /*!40000 ALTER TABLE `ngbm_block` DISABLE KEYS */;
-INSERT INTO `ngbm_block` VALUES (1,0,1,'top_right',0,'paragraph','text','standard','My block','{\"content\": \"Paragraph\"}');
-INSERT INTO `ngbm_block` VALUES (1,1,1,'top_right',0,'paragraph','text','standard','My block','{\"content\": \"Paragraph\"}');
-INSERT INTO `ngbm_block` VALUES (2,0,1,'top_right',1,'title','title','standard','My other block','{\"tag\": \"h1\", \"title\": \"Title\"}');
-INSERT INTO `ngbm_block` VALUES (2,1,1,'top_right',1,'title','title','standard','My other block','{\"tag\": \"h1\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (1,0,1,'top_right',0,'list','list','standard','My block','{\"number_of_columns\": 1}');
+INSERT INTO `ngbm_block` VALUES (1,1,1,'top_right',0,'list','list','standard','My block','{\"number_of_columns\": 1}');
+INSERT INTO `ngbm_block` VALUES (2,0,1,'top_right',1,'list','grid','standard','My other block','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block` VALUES (2,1,1,'top_right',1,'list','grid','standard','My other block','{\"number_of_columns\": 3}');
 INSERT INTO `ngbm_block` VALUES (3,0,2,'bottom_right',0,'paragraph','text','standard','My third block','{\"content\": \"Paragraph\"}');
 INSERT INTO `ngbm_block` VALUES (3,1,2,'bottom_right',0,'paragraph','text','standard','My third block','{\"content\": \"Paragraph\"}');
 INSERT INTO `ngbm_block` VALUES (4,0,2,'bottom_right',1,'title','title','standard','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
 INSERT INTO `ngbm_block` VALUES (4,1,2,'bottom_right',1,'title','title','standard','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
-INSERT INTO `ngbm_block` VALUES (5,0,1,'top_right',2,'title','title','standard','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
-INSERT INTO `ngbm_block` VALUES (5,1,1,'top_right',2,'title','title','standard','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (5,0,1,'top_right',2,'list','grid','standard','My fourth block','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block` VALUES (5,1,1,'top_right',2,'list','grid','standard','My fourth block','{\"number_of_columns\": 3}');
 INSERT INTO `ngbm_block` VALUES (6,0,2,'bottom_right',2,'title','title','standard','My sixth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
 /*!40000 ALTER TABLE `ngbm_block` ENABLE KEYS */;
 UNLOCK TABLES;

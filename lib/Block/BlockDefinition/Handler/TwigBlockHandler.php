@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TwigBlockHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
+class TwigBlockHandler extends BlockDefinitionHandler
 {
     const DEFINITION_IDENTIFIER = 'twig_block';
 

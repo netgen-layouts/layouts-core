@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class ExternalVideoHandler extends BlockDefinitionHandler implements BlockDefinitionHandlerInterface
+class ExternalVideoHandler extends BlockDefinitionHandler
 {
     /**
      * @var array

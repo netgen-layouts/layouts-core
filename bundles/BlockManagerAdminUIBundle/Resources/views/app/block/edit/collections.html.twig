@@ -1,6 +1,8 @@
 {% trans_default_domain 'ngbm_app' %}
 
-{% if collection is not empty %}
+{% if collections is not empty and collections['default'] is defined %}
+    {% set collection = collections['default'] %}
+
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
     {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}
     {% set type_named = constant('TYPE_NAMED', collection) %}

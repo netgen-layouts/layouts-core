@@ -2,22 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
-use Netgen\BlockManager\Block\BlockDefinition as BaseBlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class BlockDefinition extends BaseBlockDefinition
+class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
-    /**
-     * Returns block definition identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return 'block_definition';
-    }
-
     /**
      * Returns the array specifying block parameters.
      *
@@ -40,7 +30,7 @@ class BlockDefinition extends BaseBlockDefinition
      */
     public function getCollectionIdentifiers()
     {
-        return array();
+        return array('default');
     }
 
     /**
