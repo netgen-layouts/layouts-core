@@ -15,6 +15,12 @@ form_view:
             match:
                 form\type: Netgen\BlockManager\Block\Form\DesignEditType
                 api_version: 1
+        query_full_edit\ezcontent_search:
+            template: "NetgenBlockManagerBundle:api/form/query/full:ezcontent_search.html.twig"
+            match:
+                form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
+                form\query\type: ezcontent_search
+                api_version: 1
         query_full_edit:
             template: "NetgenBlockManagerBundle:api/form/query:full.html.twig"
             match:

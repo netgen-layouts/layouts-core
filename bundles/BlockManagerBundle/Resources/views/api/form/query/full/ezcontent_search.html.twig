@@ -1,0 +1,18 @@
+{% extends 'NetgenBlockManagerBundle:api/form:form.html.twig' %}
+
+{% block children %}
+    {% set parameters = form.children.parameters.children %}
+
+    <p>BASIC PARAMS</p>
+
+    {{ form_row(parameters.parent_location_id) }}
+    {{ form_row(parameters.sort_type) }}
+    {{ form_row(parameters.sort_direction) }}
+    {{ form_row(parameters.limit) }}
+
+    <p>ADVANCED PARAMS</p>
+
+    {{ form_row(parameters.offset) }}
+    {{ form_row(parameters.query_type) }}
+    {{ form_row(parameters.filter_by_content_type) }}
+{% endblock %}
