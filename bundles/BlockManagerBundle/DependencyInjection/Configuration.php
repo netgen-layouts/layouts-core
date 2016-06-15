@@ -178,7 +178,6 @@ class Configuration implements ConfigurationInterface
                                     ->end()
                                     ->arrayNode('parameters')
                                         ->isRequired()
-                                        ->requiresAtLeastOneElement()
                                         ->validate()
                                             ->always(function ($v) {
                                                 return array_values(array_unique($v));
@@ -199,7 +198,6 @@ class Configuration implements ConfigurationInterface
                                     ->end()
                                     ->arrayNode('parameters')
                                         ->isRequired()
-                                        ->requiresAtLeastOneElement()
                                         ->validate()
                                             ->always(function ($v) {
                                                 return array_values(array_unique($v));

@@ -84,10 +84,10 @@ block_definitions:
         forms:
             content:
                 type: ~
-                parameters: [number_of_columns]
+                parameters: ~
             design:
                 type: ~
-                parameters: [css_class, css_id]
+                parameters: [number_of_columns, css_class, css_id]
         view_types:
             list:
                 name: 'List'

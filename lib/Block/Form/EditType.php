@@ -153,13 +153,13 @@ abstract class EditType extends AbstractType
      * @param array $options
      * @param array $parameterNames
      */
-    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $parameterNames = array())
+    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $parameterNames = null)
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['blockDefinition'];
         $blockDefinitionParameters = $blockDefinition->getParameters();
 
-        if (empty($parameterNames)) {
+        if ($parameterNames === null) {
             $parameterNames = array_keys($blockDefinitionParameters);
         }
 
