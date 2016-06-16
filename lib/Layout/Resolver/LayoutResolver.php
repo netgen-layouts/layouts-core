@@ -94,11 +94,7 @@ class LayoutResolver implements LayoutResolverInterface
         usort(
             $matchedRules,
             function (Rule $a, Rule $b) {
-                if ($a->getPriority() === $b->getPriority()) {
-                    return 0;
-                }
-
-                return ($a->getPriority() > $b->getPriority()) ? -1 : 1;
+                return $b->getPriority() - $a->getPriority();
             }
         );
 
