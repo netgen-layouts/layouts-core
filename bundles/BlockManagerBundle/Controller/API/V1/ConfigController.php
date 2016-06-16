@@ -62,6 +62,20 @@ class ConfigController extends Controller
     }
 
     /**
+     * Returns the general config.
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     */
+    public function getConfig()
+    {
+        return new ValueArray(
+            array(
+                'csrf_token' => $this->getCsrfToken(),
+            )
+        );
+    }
+
+    /**
      * Serializes the block types.
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueArray
@@ -129,18 +143,15 @@ class ConfigController extends Controller
      *
      * @return string
      */
-    public function getCsrfToken()
+    protected function getCsrfToken()
     {
-        $csrfToken = null;
-
-        if ($this->csrfTokenManager instanceof CsrfTokenManagerInterface && $this->csrfTokenId !== null) {
-            $csrfToken = $this->csrfTokenManager->refreshToken($this->csrfTokenId)->getValue();
+        if (
+            !$this->csrfTokenManager instanceof CsrfTokenManagerInterface ||
+            $this->csrfTokenId === null
+        ) {
+            return;
         }
 
-        return new ValueArray(
-            array(
-                'csrf_token' => $csrfToken,
-            )
-        );
+        return $this->csrfTokenManager->refreshToken($this->csrfTokenId)->getValue();
     }
 }
