@@ -39,7 +39,7 @@ abstract class EditType extends AbstractType
     {
         $this->parameterFormMapper = $parameterFormMapper;
 
-        // choices_as_values does not exist on Symfony >= 3.1,
+        // choices_as_values is deprecated on Symfony >= 3.1,
         // while on previous versions needs to be set to true
         $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
             array('choices_as_values' => true) :
