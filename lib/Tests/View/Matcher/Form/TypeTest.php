@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View\Matcher;
+namespace Netgen\BlockManager\Tests\View\Matcher\Form;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\FormView;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\FormType;
+use Netgen\BlockManager\View\Matcher\Form\Type;
 use PHPUnit\Framework\TestCase;
 
-class FormTypeTest extends TestCase
+class TypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
@@ -17,7 +17,7 @@ class FormTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->matcher = new FormType();
+        $this->matcher = new Type();
     }
 
     /**
