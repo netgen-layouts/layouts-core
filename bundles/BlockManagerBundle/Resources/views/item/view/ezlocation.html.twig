@@ -1,1 +1,9 @@
-<p>{{ item.name }}</p>
+{{ render(
+    controller(
+        'ez_content:viewAction', {
+            'contentId': item.object.contentInfo.id,
+            'locationId': item.object.id,
+            'viewType': viewType
+        }
+    )
+) }}
