@@ -244,17 +244,15 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
                         $twigContext,
                         $twigBocks
                     );
-
-                    continue;
                 } catch (Exception $e) {
                     $this->logBlockError($block, $e);
 
                     if ($this->debug) {
                         throw $e;
                     }
-
-                    continue;
                 }
+
+                continue;
             }
 
             echo $this->renderBlock($block, array(), $context);
