@@ -10,7 +10,13 @@ netgen_block_manager_api_v1_block_collections:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:loadCollectionReferences"
 
-netgen_block_manager_api_v1_block_change_collection_type:
+netgen_block_manager_api_v1_block_collection_result:
+    path: /blocks/{blockId}/collections/{collectionIdentifier}/result
+    methods: [GET]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.block:loadCollectionResult"
+
+netgen_block_manager_api_v1_block_collection_change_type:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/change_type
     methods: [POST]
     defaults:

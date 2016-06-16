@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -39,6 +40,11 @@ class BlockController extends Controller
     protected $collectionService;
 
     /**
+     * @var \Netgen\BlockManager\Collection\ResultGeneratorInterface
+     */
+    protected $resultGenerator;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
      */
     protected $validator;
@@ -49,17 +55,20 @@ class BlockController extends Controller
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator $validator
      */
     public function __construct(
         BlockService $blockService,
         LayoutService $layoutService,
         CollectionService $collectionService,
+        ResultGeneratorInterface $resultGenerator,
         BlockValidator $validator
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;
         $this->collectionService = $collectionService;
+        $this->resultGenerator = $resultGenerator;
         $this->validator = $validator;
     }
 
@@ -92,6 +101,31 @@ class BlockController extends Controller
         );
 
         return new ValueArray($collectionReferences);
+    }
+
+    /**
+     * Returns the collection result.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
+     */
+    public function loadCollectionResult(CollectionReference $collectionReference, Request $request)
+    {
+        $offset = $request->query->get('offset', 0);
+        $limit = $request->query->get('limit', null);
+
+        return new VersionedValue(
+            $this->resultGenerator->generateResult(
+                $collectionReference->getCollection(),
+                (int)$offset,
+                !empty($limit) ? (int)$limit : null,
+                ResultGeneratorInterface::INCLUDE_INVISIBLE_ITEMS |
+                ResultGeneratorInterface::IGNORE_EXCEPTIONS
+            ),
+            Version::API_V1
+        );
     }
 
     /**
