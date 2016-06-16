@@ -11,7 +11,6 @@ use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
@@ -213,23 +212,12 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
-     *                                                          If adding an override item to manual collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
-
-        if ($collectionCreateStruct->type === Collection::TYPE_MANUAL) {
-            if ($collectionCreateStruct->itemCreateStructs !== null) {
-                foreach ($collectionCreateStruct->itemCreateStructs as $itemCreateStruct) {
-                    if ($itemCreateStruct->type === Item::TYPE_OVERRIDE) {
-                        throw new BadStateException('type', 'Override item cannot be added to manual collection.');
-                    }
-                }
-            }
-        }
 
         if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
             if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
@@ -498,8 +486,7 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If override item is added to manual collection
-     *                                                          If position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemDraft
      */
@@ -514,12 +501,6 @@ class CollectionService implements APICollectionService
         );
 
         $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
-
-        if ($persistenceCollection->type === Collection::TYPE_MANUAL) {
-            if ($itemCreateStruct->type === Item::TYPE_OVERRIDE) {
-                throw new BadStateException('type', 'Override item cannot be added to manual collection.');
-            }
-        }
 
         $this->persistenceHandler->beginTransaction();
 

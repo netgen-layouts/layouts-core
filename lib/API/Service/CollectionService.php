@@ -175,8 +175,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If override item is added to manual collection
-     *                                                          If position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\API\Values\Collection\ItemDraft
      */

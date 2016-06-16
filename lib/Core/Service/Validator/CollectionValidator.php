@@ -194,7 +194,6 @@ class CollectionValidator extends Validator
                     array(
                         'choices' => array(
                             Item::TYPE_MANUAL,
-                            Item::TYPE_OVERRIDE,
                         ),
                         'strict' => true,
                     )

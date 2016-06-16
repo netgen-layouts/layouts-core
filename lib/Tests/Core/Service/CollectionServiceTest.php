@@ -380,18 +380,6 @@ abstract class CollectionServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testAddOverrideItemInManualCollectionThrowsBadStateException()
-    {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '66', 'ezcontent');
-        $collection = $this->collectionService->loadCollectionDraft(1);
-
-        $this->collectionService->addItem($collection, $itemCreateStruct, 1);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
