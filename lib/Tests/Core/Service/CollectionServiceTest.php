@@ -240,7 +240,7 @@ abstract class CollectionServiceTest extends ServiceTest
      */
     public function testUpdateCollectionWithExistingNameThrowsBadStateException()
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(5);
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
         $collectionUpdateStruct->name = 'My collection';
@@ -277,7 +277,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-        self::assertEquals(5, $copiedCollection->getId());
+        self::assertEquals(6, $copiedCollection->getId());
         self::assertNull($copiedCollection->getName());
     }
 
@@ -290,7 +290,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         self::assertInstanceOf(Collection::class, $copiedCollection);
-        self::assertEquals(5, $copiedCollection->getId());
+        self::assertEquals(6, $copiedCollection->getId());
         self::assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->getName());
     }
 

@@ -257,7 +257,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionExists()
     {
-        self::assertTrue($this->collectionHandler->namedCollectionExists('My collection', Collection::STATUS_PUBLISHED));
+        self::assertTrue($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -266,7 +266,16 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionNotExists()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('Non existent', Collection::STATUS_PUBLISHED));
+        self::assertFalse($this->collectionHandler->namedCollectionExists('Non existent', null, Collection::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::namedCollectionExists
+     */
+    public function testNamedCollectionNotExistsWithExcludedId()
+    {
+        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', 3, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -275,7 +284,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', Collection::STATUS_ARCHIVED));
+        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_ARCHIVED));
     }
 
     /**
@@ -295,7 +304,7 @@ class CollectionHandlerTest extends TestCase
 
         self::assertInstanceOf(Collection::class, $createdCollection);
 
-        self::assertEquals(5, $createdCollection->id);
+        self::assertEquals(6, $createdCollection->id);
         self::assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
         self::assertEquals('New collection', $createdCollection->name);
         self::assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
@@ -336,7 +345,7 @@ class CollectionHandlerTest extends TestCase
     {
         $copiedCollectionId = $this->collectionHandler->copyCollection(3);
 
-        self::assertEquals(5, $copiedCollectionId);
+        self::assertEquals(6, $copiedCollectionId);
 
         $copiedCollection = $this->collectionHandler->loadCollection($copiedCollectionId, Collection::STATUS_PUBLISHED);
 

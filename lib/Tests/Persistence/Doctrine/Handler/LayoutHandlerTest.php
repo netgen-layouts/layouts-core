@@ -431,22 +431,22 @@ class LayoutHandlerTest extends TestCase
 
         // Verify that non named collections were copied
         $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
-        $this->collectionHandler->loadCollection(6, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(7, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
         $draftReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(7, Layout::STATUS_DRAFT)
         );
         self::assertCount(2, $draftReferences);
-        self::assertContains($draftReferences[0]->collectionId, array(3, 5));
-        self::assertContains($draftReferences[1]->collectionId, array(3, 5));
+        self::assertContains($draftReferences[0]->collectionId, array(3, 6));
+        self::assertContains($draftReferences[1]->collectionId, array(3, 6));
 
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
         );
         self::assertCount(2, $draftReferences);
-        self::assertContains($publishedReferences[0]->collectionId, array(3, 6));
-        self::assertContains($publishedReferences[1]->collectionId, array(3, 6));
+        self::assertContains($publishedReferences[0]->collectionId, array(3, 7));
+        self::assertContains($publishedReferences[1]->collectionId, array(3, 7));
 
         // Second block
         $draftReferences = $this->blockHandler->loadCollectionReferences(

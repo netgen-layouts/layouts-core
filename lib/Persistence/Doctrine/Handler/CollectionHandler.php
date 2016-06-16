@@ -209,14 +209,15 @@ class CollectionHandler implements CollectionHandlerInterface
     /**
      * Returns if named collection exists.
      *
-     * @param int|string $name
+     * @param string $name
+     * @param int|string $excludedCollectionId
      * @param int $status
      *
      * @return bool
      */
-    public function namedCollectionExists($name, $status = null)
+    public function namedCollectionExists($name, $excludedCollectionId = null, $status = null)
     {
-        return $this->queryHandler->namedCollectionExists($name, $status);
+        return $this->queryHandler->namedCollectionExists($name, $excludedCollectionId, $status);
     }
 
     /**

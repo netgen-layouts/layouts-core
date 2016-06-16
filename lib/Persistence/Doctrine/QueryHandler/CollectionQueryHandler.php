@@ -185,11 +185,12 @@ class CollectionQueryHandler extends QueryHandler
      * Returns if the named collection exists.
      *
      * @param string $name
+     * @param int|string $excludedCollectionId
      * @param int $status
      *
      * @return bool
      */
-    public function namedCollectionExists($name, $status = null)
+    public function namedCollectionExists($name, $excludedCollectionId = null, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -202,6 +203,11 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER)
             ->setParameter('name', trim($name), Type::STRING);
+
+        if ($excludedCollectionId !== null) {
+            $query->andWhere($query->expr()->neq('id', ':collection_id'))
+                ->setParameter('collection_id', $excludedCollectionId, Type::INTEGER);
+        }
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);

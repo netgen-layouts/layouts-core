@@ -264,7 +264,7 @@ class CollectionService implements APICollectionService
         }
 
         if ($collectionUpdateStruct->name !== null) {
-            if ($this->collectionHandler->namedCollectionExists($collectionUpdateStruct->name)) {
+            if ($this->collectionHandler->namedCollectionExists($collectionUpdateStruct->name, $persistenceCollection->id)) {
                 throw new BadStateException('name', 'Named collection with provided name already exists.');
             }
         }

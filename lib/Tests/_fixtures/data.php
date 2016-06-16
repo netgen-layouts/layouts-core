@@ -43,6 +43,7 @@ return array(
         array('id' => 3, 'status' => 1, 'type' => 2, 'name' => 'My collection'),
         array('id' => 4, 'status' => 0, 'type' => 1, 'name' => null),
         array('id' => 4, 'status' => 1, 'type' => 1, 'name' => null),
+        array('id' => 5, 'status' => 0, 'type' => 2, 'name' => 'My other collection'),
     ),
     'ngbm_collection_item' => array(
         array('id' => 1, 'status' => 0, 'collection_id' => 1, 'position' => 0, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),

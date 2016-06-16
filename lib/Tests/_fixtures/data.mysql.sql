@@ -64,6 +64,7 @@ INSERT INTO `ngbm_collection` VALUES (3,0,2,'My collection');
 INSERT INTO `ngbm_collection` VALUES (3,1,2,'My collection');
 INSERT INTO `ngbm_collection` VALUES (4,0,1,NULL);
 INSERT INTO `ngbm_collection` VALUES (4,1,1,NULL);
+INSERT INTO `ngbm_collection` VALUES (5,0,2,'My other collection');
 /*!40000 ALTER TABLE `ngbm_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
