@@ -8,11 +8,15 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view:text.html.twig"
             match:
                 block\definition: text
-        # Fallback for block with `twig_block` definition identifier. Do not remove!
+        # Fallbacks for content blocks!
         twig_block:
             template: "NetgenBlockManagerBundle:block/view:twig_block.html.twig"
             match:
                 block\definition: twig_block
+        content:
+            template: "NetgenBlockManagerBundle:block/view:content.html.twig"
+            match:
+                block\definition: content
     api_view:
         title:
             template: "NetgenBlockManagerBundle:api/block/view:title.html.twig"

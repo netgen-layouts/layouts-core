@@ -1,6 +1,3 @@
-<p>ID: {{ block.id }}</p>
-<p>Layout ID: {{ block.layoutId }}</p>
-<p>Zone identifier: {{ block.zoneIdentifier }}</p>
-<p>Definition identifier: {{ block.definitionIdentifier }}</p>
-<p>View type: {{ block.viewType }}</p>
-<p>Name: {{ block.name }}</p>
+<{{ block.parameter('tag')|default('h1') }}>
+   {{ block.parameter('title') }}
+</{{ block.parameter('tag')|default('h1') }}>
