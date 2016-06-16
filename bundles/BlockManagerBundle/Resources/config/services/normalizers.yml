@@ -16,6 +16,7 @@ parameters:
 
     netgen_block_manager.normalizer.v1.block_type.class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeNormalizer
     netgen_block_manager.normalizer.v1.block_type_group.class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer
+    netgen_block_manager.normalizer.v1.layout_type.class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer
     netgen_block_manager.normalizer.v1.source.class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceNormalizer
     netgen_block_manager.normalizer.v1.source_query.class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer
 
@@ -101,6 +102,11 @@ services:
         class: "%netgen_block_manager.normalizer.v1.block_type_group.class%"
         arguments:
             - "@netgen_block_manager.configuration.registry.block_type"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_block_manager.normalizer.v1.layout_type:
+        class: "%netgen_block_manager.normalizer.v1.layout_type.class%"
         tags:
             - { name: serializer.normalizer }
 
