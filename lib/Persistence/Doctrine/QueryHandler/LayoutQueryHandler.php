@@ -171,11 +171,12 @@ class LayoutQueryHandler extends QueryHandler
      * Returns if the layout with provided name exists.
      *
      * @param string $name
+     * @param int|string $excludedLayoutId
      * @param int $status
      *
      * @return bool
      */
-    public function layoutNameExists($name, $status = null)
+    public function layoutNameExists($name, $excludedLayoutId = null, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -186,6 +187,11 @@ class LayoutQueryHandler extends QueryHandler
                 )
             )
             ->setParameter('name', trim($name), Type::STRING);
+
+        if ($excludedLayoutId !== null) {
+            $query->andWhere($query->expr()->neq('id', ':layout_id'))
+                ->setParameter('layout_id', $excludedLayoutId, Type::INTEGER);
+        }
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);

@@ -215,7 +215,7 @@ class LayoutService implements LayoutServiceInterface
         $this->layoutValidator->validateLayoutUpdateStruct($layoutUpdateStruct);
 
         if ($layoutUpdateStruct->name !== null) {
-            if ($this->layoutHandler->layoutNameExists($layoutUpdateStruct->name)) {
+            if ($this->layoutHandler->layoutNameExists($layoutUpdateStruct->name, $persistenceLayout->id)) {
                 throw new BadStateException('name', 'Layout with provided name already exists.');
             }
         }

@@ -64,12 +64,13 @@ interface LayoutHandler
     /**
      * Returns if layout with provided name exists.
      *
-     * @param int|string $name
+     * @param string $name
+     * @param int|string $excludedLayoutId
      * @param int $status
      *
      * @return bool
      */
-    public function layoutNameExists($name, $status = null);
+    public function layoutNameExists($name, $excludedLayoutId = null, $status = null);
 
     /**
      * Creates a layout.

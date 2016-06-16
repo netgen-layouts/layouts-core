@@ -181,7 +181,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameExists()
     {
-        self::assertTrue($this->layoutHandler->layoutNameExists('My layout', Layout::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -190,8 +190,18 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExists()
     {
-        self::assertFalse($this->layoutHandler->layoutNameExists('Non existent', Layout::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutHandler->layoutNameExists('Non existent', null, Layout::STATUS_PUBLISHED));
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     */
+    public function testLayoutNameNotExistsWithExcludedId()
+    {
+        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', 1, Layout::STATUS_PUBLISHED));
+    }
+
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
@@ -199,7 +209,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExistsInStatus()
     {
-        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', Layout::STATUS_ARCHIVED));
+        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_ARCHIVED));
     }
 
     /**
