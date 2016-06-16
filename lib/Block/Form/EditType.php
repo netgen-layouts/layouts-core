@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +26,11 @@ abstract class EditType extends AbstractType
     protected $parameterFormMapper;
 
     /**
+     * @var array
+     */
+    protected $choicesAsValues;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $parameterFormMapper
@@ -32,6 +38,12 @@ abstract class EditType extends AbstractType
     public function __construct(FormMapperInterface $parameterFormMapper)
     {
         $this->parameterFormMapper = $parameterFormMapper;
+
+        // choices_as_values does not exist on Symfony >= 3.1,
+        // while on previous versions needs to be set to true
+        $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
+            array('choices_as_values' => true) :
+            array();
     }
 
     /**
@@ -69,9 +81,8 @@ abstract class EditType extends AbstractType
             array(
                 'label' => 'block.view_type',
                 'choices' => $choices,
-                'choices_as_values' => true,
                 'property_path' => 'viewType',
-            )
+            ) + $this->choicesAsValues
         );
 
         $itemViewTypeBuilder = function (FormInterface $form, BlockDefinitionInterface $blockDefinition, $viewType) {
@@ -90,9 +101,8 @@ abstract class EditType extends AbstractType
                 array(
                     'label' => 'block.item_view_type',
                     'choices' => $choices,
-                    'choices_as_values' => true,
                     'property_path' => 'itemViewType',
-                )
+                ) + $this->choicesAsValues
             );
         };
 
