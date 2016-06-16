@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Collection\Registry;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;

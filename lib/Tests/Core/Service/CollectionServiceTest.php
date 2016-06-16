@@ -694,7 +694,7 @@ abstract class CollectionServiceTest extends ServiceTest
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'param' => null,
-                    )
+                    ),
                 )
             ),
             $queryCreateStruct
