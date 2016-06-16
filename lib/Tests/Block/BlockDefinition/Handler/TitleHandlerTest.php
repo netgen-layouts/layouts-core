@@ -35,7 +35,7 @@ class TitleHandlerTest extends TestCase
     {
         self::assertEquals(
             array(
-                'tag' => new Parameter\Select(
+                'tag' => new Parameter\Choice(
                     array('options' => $this->options),
                     true
                 ),

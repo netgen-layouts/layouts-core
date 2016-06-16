@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class Select extends ParameterHandler
+class Choice extends ParameterHandler
 {
     /**
      * Returns the form type for the parameter.

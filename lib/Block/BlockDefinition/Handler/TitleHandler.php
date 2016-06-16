@@ -30,7 +30,7 @@ class TitleHandler extends BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'tag' => new Parameter\Select(
+            'tag' => new Parameter\Choice(
                 array('options' => $this->options),
                 true
             ),

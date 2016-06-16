@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Parameter;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class Select extends Parameter
+class Choice extends Parameter
 {
     /**
      * Returns the parameter type.
@@ -15,7 +15,7 @@ class Select extends Parameter
      */
     public function getType()
     {
-        return 'select';
+        return 'choice';
     }
 
     /**

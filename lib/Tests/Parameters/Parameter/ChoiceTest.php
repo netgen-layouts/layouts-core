@@ -2,24 +2,24 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
-use Netgen\BlockManager\Parameters\Parameter\Select;
+use Netgen\BlockManager\Parameters\Parameter\Choice;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
-class SelectTest extends TestCase
+class ChoiceTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getType
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getType
      */
     public function testGetType()
     {
         $parameter = $this->getParameter(array('options' => array('One' => 1)));
-        self::assertEquals('select', $parameter->getType());
+        self::assertEquals('choice', $parameter->getType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -32,8 +32,8 @@ class SelectTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
@@ -49,11 +49,11 @@ class SelectTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Select
+     * @return \Netgen\BlockManager\Parameters\Parameter\Choice
      */
     public function getParameter(array $options = array())
     {
-        return new Select($options);
+        return new Choice($options);
     }
 
     /**
@@ -166,7 +166,7 @@ class SelectTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getParameterConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)
@@ -182,7 +182,7 @@ class SelectTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Select::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getParameterConstraints
      * @dataProvider validationProvider
      */
     public function testValidationWithClosure($value, $isValid)

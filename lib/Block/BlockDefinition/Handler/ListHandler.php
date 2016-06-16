@@ -25,7 +25,7 @@ class ListHandler extends BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'number_of_columns' => new Parameter\Select(array('options' => $this->columns), true),
+            'number_of_columns' => new Parameter\Choice(array('options' => $this->columns), true),
         ) + parent::getParameters();
     }
 

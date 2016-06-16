@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select;
-use Netgen\BlockManager\Parameters\Parameter\Select as SelectParameter;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice;
+use Netgen\BlockManager\Parameters\Parameter\Choice as ChoiceParameter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
 use PHPUnit\Framework\TestCase;
 
-class SelectTest extends TestCase
+class ChoiceTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface
@@ -18,7 +18,7 @@ class SelectTest extends TestCase
     protected $formBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice
      */
     protected $handler;
 
@@ -33,12 +33,12 @@ class SelectTest extends TestCase
             ->getFormFactory()
             ->createBuilder();
 
-        $this->handler = new Select();
+        $this->handler = new Choice();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::getFormType
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::convertOptions
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice::convertOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
      */
@@ -46,7 +46,7 @@ class SelectTest extends TestCase
     {
         $this->handler->mapForm(
             $this->formBuilder,
-            new SelectParameter(array('options' => array('Heading 1' => 'h1')), true),
+            new ChoiceParameter(array('options' => array('Heading 1' => 'h1')), true),
             'param_name',
             array(
                 'label_prefix' => 'label',
@@ -68,8 +68,8 @@ class SelectTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::getFormType
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Select::convertOptions
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice::convertOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
      */
@@ -77,7 +77,7 @@ class SelectTest extends TestCase
     {
         $this->handler->mapForm(
             $this->formBuilder,
-            new SelectParameter(array('options' => function () {return array('Heading 1' => 'h1');}), true),
+            new ChoiceParameter(array('options' => function () {return array('Heading 1' => 'h1');}), true),
             'param_name',
             array(
                 'label_prefix' => 'label',

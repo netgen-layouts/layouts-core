@@ -66,11 +66,11 @@ class GalleryHandler extends BlockDefinitionHandler
             'next_and_previous' => new Parameter\Boolean(),
             'show_pagination' => new Parameter\Compound\Boolean(
                 array(
-                    'pagination_type' => new Parameter\Select(array('options' => $this->paginationTypes), true),
+                    'pagination_type' => new Parameter\Choice(array('options' => $this->paginationTypes), true),
                 )
             ),
             'infinite_loop' => new Parameter\Boolean(),
-            'transition' => new Parameter\Select(array('options' => $this->transitions), true),
+            'transition' => new Parameter\Choice(array('options' => $this->transitions), true),
             'autoplay' => new Parameter\Compound\Boolean(
                 array(
                     'autoplay_time' => new Parameter\Range(
@@ -79,7 +79,7 @@ class GalleryHandler extends BlockDefinitionHandler
                     ),
                 )
             ),
-            'aspect_ratio' => new Parameter\Select(array('options' => $this->aspectRatios), true),
+            'aspect_ratio' => new Parameter\Choice(array('options' => $this->aspectRatios), true),
             'show_details' => new Parameter\Compound\Boolean(
                 array(
                     'show_details_on_hover' => new Parameter\Boolean(),
