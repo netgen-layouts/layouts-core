@@ -238,24 +238,51 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
 
             $blockDefinitionHandler = $blockDefinition->getHandler();
             if ($blockDefinitionHandler instanceof TwigBlockDefinitionHandlerInterface) {
-                try {
-                    $twigTemplate->displayBlock(
-                        $blockDefinitionHandler->getTwigBlockName($block),
-                        $twigContext,
-                        $twigBocks
-                    );
-                } catch (Exception $e) {
-                    $this->logBlockError($block, $e);
-
-                    if ($this->debug) {
-                        throw $e;
-                    }
-                }
+                $this->displayTwigBlock(
+                    $blockDefinitionHandler,
+                    $block,
+                    $twigTemplate,
+                    $twigContext,
+                    $twigBocks
+                );
 
                 continue;
             }
 
             echo $this->renderBlock($block, array(), $context);
+        }
+    }
+
+    /**
+     * Displays the provided twig block.
+     *
+     * @param \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $blockDefinitionHandler
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Twig_Template $twigTemplate
+     * @param array $twigContext
+     * @param array $twigBocks
+     *
+     * @throws \Exception If an error occurred
+     */
+    protected function displayTwigBlock(
+        TwigBlockDefinitionHandlerInterface $blockDefinitionHandler,
+        Block $block,
+        Twig_Template $twigTemplate,
+        $twigContext,
+        array $twigBocks = array()
+    ) {
+        try {
+            $twigTemplate->displayBlock(
+                $blockDefinitionHandler->getTwigBlockName($block),
+                $twigContext,
+                $twigBocks
+            );
+        } catch (Exception $e) {
+            $this->logBlockError($block, $e);
+
+            if ($this->debug) {
+                throw $e;
+            }
         }
     }
 
