@@ -104,7 +104,7 @@ return array(
         array('id' => 15, 'status' => 1, 'layout_id' => null, 'priority' => 14, 'comment' => null),
         array('id' => 16, 'status' => 1, 'layout_id' => 16, 'priority' => 15, 'comment' => null),
         array('id' => 17, 'status' => 1, 'layout_id' => 17, 'priority' => 16, 'comment' => null),
-        array('id' => 18, 'status' => 1, 'layout_id' => 18, 'priority' => 17, 'comment' => null),
+        array('id' => 18, 'status' => 1, 'layout_id' => 1, 'priority' => 17, 'comment' => null),
         array('id' => 19, 'status' => 1, 'layout_id' => 19, 'priority' => 18, 'comment' => null),
         array('id' => 20, 'status' => 1, 'layout_id' => 20, 'priority' => 19, 'comment' => null),
         array('id' => 21, 'status' => 1, 'layout_id' => 21, 'priority' => 20, 'comment' => null),
