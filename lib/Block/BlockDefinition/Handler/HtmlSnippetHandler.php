@@ -15,7 +15,7 @@ class HtmlSnippetHandler extends BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'content' => new Parameter\TextArea(),
+            'content' => new Parameter\Text(),
         ) + parent::getParameters();
     }
 }

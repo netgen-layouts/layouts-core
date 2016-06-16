@@ -2,23 +2,23 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
-use Netgen\BlockManager\Parameters\Parameter\TextArea;
+use Netgen\BlockManager\Parameters\Parameter\Text;
 use PHPUnit\Framework\TestCase;
 
-class TextAreaTest extends TestCase
+class TextTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getType
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Text::getType
      */
     public function testGetType()
     {
         $parameter = $this->getParameter(array());
-        self::assertEquals('textarea', $parameter->getType());
+        self::assertEquals('text', $parameter->getType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Text::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Text::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -31,8 +31,8 @@ class TextAreaTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\TextArea::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Text::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Text::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
@@ -48,11 +48,11 @@ class TextAreaTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\TextArea
+     * @return \Netgen\BlockManager\Parameters\Parameter\Text
      */
     public function getParameter($options)
     {
-        return new TextArea($options);
+        return new Text($options);
     }
 
     /**

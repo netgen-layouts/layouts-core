@@ -5,7 +5,7 @@ parameters:
     netgen_block_manager.parameters.parameter_handler.range.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Range
     netgen_block_manager.parameters.parameter_handler.number.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Number
     netgen_block_manager.parameters.parameter_handler.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Boolean
-    netgen_block_manager.parameters.parameter_handler.textarea.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea
+    netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
     netgen_block_manager.parameters.parameter_handler.html.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Html
     netgen_block_manager.parameters.parameter_handler.choice.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice
     netgen_block_manager.parameters.parameter_handler.compound.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean
@@ -45,10 +45,10 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_handler, type: boolean }
 
-    netgen_block_manager.parameters.parameter_handler.textarea:
-        class: "%netgen_block_manager.parameters.parameter_handler.textarea.class%"
+    netgen_block_manager.parameters.parameter_handler.text:
+        class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: textarea }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: text }
 
     netgen_block_manager.parameters.parameter_handler.html:
         class: "%netgen_block_manager.parameters.parameter_handler.html.class%"

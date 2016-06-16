@@ -25,7 +25,7 @@ class TextHandlerTest extends TestCase
     {
         self::assertEquals(
             array(
-                'content' => new Parameter\TextArea(array(), true),
+                'content' => new Parameter\Text(array(), true),
                 'css_id' => new Parameter\TextLine(),
                 'css_class' => new Parameter\TextLine(),
             ),

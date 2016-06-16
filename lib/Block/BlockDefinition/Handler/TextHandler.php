@@ -15,7 +15,7 @@ class TextHandler extends BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'content' => new Parameter\TextArea(array(), true),
+            'content' => new Parameter\Text(array(), true),
         ) + parent::getParameters();
     }
 }

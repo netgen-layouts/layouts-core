@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea;
-use Netgen\BlockManager\Parameters\Parameter\TextArea as TextAreaParameter;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
+use Netgen\BlockManager\Parameters\Parameter\Text as TextParameter;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
 use PHPUnit\Framework\TestCase;
 
-class TextAreaTest extends TestCase
+class TextTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface
@@ -18,7 +18,7 @@ class TextAreaTest extends TestCase
     protected $formBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
      */
     protected $handler;
 
@@ -33,11 +33,11 @@ class TextAreaTest extends TestCase
             ->getFormFactory()
             ->createBuilder();
 
-        $this->handler = new TextArea();
+        $this->handler = new Text();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextArea::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text::getFormType
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::convertOptions
@@ -46,7 +46,7 @@ class TextAreaTest extends TestCase
     {
         $this->handler->mapForm(
             $this->formBuilder,
-            new TextAreaParameter(array(), true),
+            new TextParameter(array(), true),
             'param_name',
             array(
                 'label_prefix' => 'label',
