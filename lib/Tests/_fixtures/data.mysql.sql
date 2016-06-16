@@ -78,7 +78,7 @@ INSERT INTO `ngbm_collection_item` VALUES (2,0,1,1,0,'71','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (3,0,1,2,0,'72','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (4,1,2,1,0,'70','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (5,1,2,2,0,'71','ezcontent');
-INSERT INTO `ngbm_collection_item` VALUES (6,1,2,5,1,'72','ezcontent');
+INSERT INTO `ngbm_collection_item` VALUES (6,1,2,5,0,'72','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (7,0,3,2,0,'70','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (7,1,3,2,0,'70','ezcontent');
 INSERT INTO `ngbm_collection_item` VALUES (8,0,3,3,0,'71','ezcontent');

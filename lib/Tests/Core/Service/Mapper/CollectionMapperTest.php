@@ -47,19 +47,13 @@ abstract class CollectionMapperTest extends MapperTest
         self::assertNull(null, $collection->getName());
         self::assertEquals(APICollection::STATUS_PUBLISHED, $collection->getStatus());
 
-        self::assertNotEmpty($collection->getItems());
-
         foreach ($collection->getItems() as $item) {
             self::assertInstanceOf(APIItem::class, $item);
         }
 
-        self::assertNotEmpty($collection->getManualItems());
-
         foreach ($collection->getManualItems() as $item) {
             self::assertInstanceOf(APIItem::class, $item);
         }
-
-        self::assertNotEmpty($collection->getOverrideItems());
 
         foreach ($collection->getOverrideItems() as $item) {
             self::assertInstanceOf(APIItem::class, $item);
@@ -69,8 +63,6 @@ abstract class CollectionMapperTest extends MapperTest
             count($collection->getItems()),
             count($collection->getManualItems()) + count($collection->getOverrideItems())
         );
-
-        self::assertNotEmpty($collection->getQueries());
 
         foreach ($collection->getQueries() as $query) {
             self::assertInstanceOf(APIQuery::class, $query);

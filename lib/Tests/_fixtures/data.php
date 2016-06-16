@@ -50,7 +50,7 @@ return array(
         array('id' => 3, 'status' => 0, 'collection_id' => 1, 'position' => 2, 'type' => 0, 'value_id' => '72', 'value_type' => 'ezcontent'),
         array('id' => 4, 'status' => 1, 'collection_id' => 2, 'position' => 1, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),
         array('id' => 5, 'status' => 1, 'collection_id' => 2, 'position' => 2, 'type' => 0, 'value_id' => '71', 'value_type' => 'ezcontent'),
-        array('id' => 6, 'status' => 1, 'collection_id' => 2, 'position' => 5, 'type' => 1, 'value_id' => '72', 'value_type' => 'ezcontent'),
+        array('id' => 6, 'status' => 1, 'collection_id' => 2, 'position' => 5, 'type' => 0, 'value_id' => '72', 'value_type' => 'ezcontent'),
         array('id' => 7, 'status' => 0, 'collection_id' => 3, 'position' => 2, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),
         array('id' => 7, 'status' => 1, 'collection_id' => 3, 'position' => 2, 'type' => 0, 'value_id' => '70', 'value_type' => 'ezcontent'),
         array('id' => 8, 'status' => 0, 'collection_id' => 3, 'position' => 3, 'type' => 0, 'value_id' => '71', 'value_type' => 'ezcontent'),
