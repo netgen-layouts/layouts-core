@@ -8,7 +8,15 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view:text.html.twig"
             match:
                 block\definition: text
-        # Fallbacks for content blocks!
+        rich_text:
+            template: "NetgenBlockManagerBundle:block/view:rich_text.html.twig"
+            match:
+                block\definition: rich_text
+        html_snippet:
+            template: "NetgenBlockManagerBundle:block/view:html_snippet.html.twig"
+            match:
+                block\definition: html_snippet
+        # Fallbacks for content blocks! Do not remove!
         twig_block:
             template: "NetgenBlockManagerBundle:block/view:twig_block.html.twig"
             match:
@@ -17,6 +25,10 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view:content.html.twig"
             match:
                 block\definition: content
+        # Base block template
+        block:
+            template: "NetgenBlockManagerBundle:block:view.html.twig"
+            match: ~
     api_view:
         title:
             template: "NetgenBlockManagerBundle:api/block/view:title.html.twig"
@@ -55,6 +67,7 @@ block_view:
             match:
                 block\definition: gallery
                 api_version: 1
+        # Base block template
         block:
             template: "NetgenBlockManagerBundle:api/block:view.html.twig"
             match:

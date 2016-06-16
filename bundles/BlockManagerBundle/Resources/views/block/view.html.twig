@@ -1,0 +1,9 @@
+{% set css_class = block.parameter('css_class') %}
+{% set css_id = block.parameter('css_id') %}
+
+<div
+    {% if css_class is not empty %} class="{{ css_class }}" {% endif %}
+    {% if css_id is not empty %} id="{{ css_id }}" {% endif %}
+>
+    {% block content %}{% endblock %}
+</div>

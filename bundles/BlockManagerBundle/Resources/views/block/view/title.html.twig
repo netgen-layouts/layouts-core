@@ -1,3 +1,7 @@
-<{{ block.parameter('tag')|default('h1') }}>
-   {{ block.parameter('title') }}
-</{{ block.parameter('tag')|default('h1') }}>
+{% extends 'NetgenBlockManagerBundle:block:view.html.twig' %}
+
+{% block content %}
+    <{{ block.parameter('tag')|default('h1') }}>
+       {{ block.parameter('title') }}
+    </{{ block.parameter('tag')|default('h1') }}>
+{% endblock %}
