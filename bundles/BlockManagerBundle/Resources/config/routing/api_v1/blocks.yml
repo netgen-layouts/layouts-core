@@ -4,24 +4,6 @@ netgen_block_manager_api_v1_block_load:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:view"
 
-netgen_block_manager_api_v1_block_collections:
-    path: /blocks/{blockId}/collections
-    methods: [GET]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block:loadCollectionReferences"
-
-netgen_block_manager_api_v1_block_collection_result:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}/result
-    methods: [GET]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block:loadCollectionResult"
-
-netgen_block_manager_api_v1_block_collection_change_type:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}/change_type
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block:changeCollectionType"
-
 netgen_block_manager_api_v1_block_create:
     path: /blocks
     methods: [POST]
