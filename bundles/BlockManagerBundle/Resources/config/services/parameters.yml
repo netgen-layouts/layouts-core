@@ -1,5 +1,4 @@
 parameters:
-    netgen_block_manager.parameters.parameter_handler.hidden.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Hidden
     netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
     netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier
     netgen_block_manager.parameters.parameter_handler.integer.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer
@@ -16,11 +15,6 @@ parameters:
     netgen_block_manager.parameters.form_type.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType
 
 services:
-    netgen_block_manager.parameters.parameter_handler.hidden:
-        class: "%netgen_block_manager.parameters.parameter_handler.hidden.class%"
-        tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: hidden }
-
     netgen_block_manager.parameters.parameter_handler.text:
         class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
         tags:
