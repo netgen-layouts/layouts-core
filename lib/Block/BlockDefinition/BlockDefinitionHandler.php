@@ -17,8 +17,8 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     public function getParameters()
     {
         return array(
-            'css_class' => new Parameter\Text(),
-            'css_id' => new Parameter\Text(),
+            'css_class' => new Parameter\TextLine(),
+            'css_id' => new Parameter\TextLine(),
         );
     }
 

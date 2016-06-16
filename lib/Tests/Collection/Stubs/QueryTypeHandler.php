@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Parameters\Parameter\Text;
+use Netgen\BlockManager\Parameters\Parameter\TextLine;
 
 class QueryTypeHandler implements QueryTypeHandlerInterface
 {
@@ -32,7 +32,7 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     public function getParameters()
     {
         return array(
-            'param' => new Text(),
+            'param' => new TextLine(),
         );
     }
 

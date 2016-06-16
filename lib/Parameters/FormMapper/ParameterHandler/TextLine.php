@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class Text extends ParameterHandler
+class TextLine extends ParameterHandler
 {
     /**
      * Returns the form type for the parameter.

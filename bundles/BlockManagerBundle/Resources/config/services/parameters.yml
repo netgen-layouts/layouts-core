@@ -1,5 +1,5 @@
 parameters:
-    netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
+    netgen_block_manager.parameters.parameter_handler.text_line.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine
     netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier
     netgen_block_manager.parameters.parameter_handler.integer.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer
     netgen_block_manager.parameters.parameter_handler.range.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Range
@@ -15,10 +15,10 @@ parameters:
     netgen_block_manager.parameters.form_type.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType
 
 services:
-    netgen_block_manager.parameters.parameter_handler.text:
-        class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
+    netgen_block_manager.parameters.parameter_handler.text_line:
+        class: "%netgen_block_manager.parameters.parameter_handler.text_line.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: text }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: text_line }
 
     netgen_block_manager.parameters.parameter_handler.identifier:
         class: "%netgen_block_manager.parameters.parameter_handler.identifier.class%"

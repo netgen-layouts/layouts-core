@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\Parameter\Text;
+use Netgen\BlockManager\Parameters\Parameter\TextLine;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use stdClass;
 use PHPUnit\Framework\TestCase;
@@ -33,8 +33,8 @@ class CompoundParameterTest extends TestCase
      */
     public function testGetParameters()
     {
-        $parameter = new CompoundParameter(array('param' => new Text()), array(), true);
+        $parameter = new CompoundParameter(array('param' => new TextLine()), array(), true);
 
-        self::assertEquals(array('param' => new Text()), $parameter->getParameters());
+        self::assertEquals(array('param' => new TextLine()), $parameter->getParameters());
     }
 }

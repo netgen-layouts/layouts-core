@@ -4,10 +4,10 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler\Compo
 
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean as BooleanParameter;
-use Netgen\BlockManager\Parameters\Parameter\Text as TextParameter;
+use Netgen\BlockManager\Parameters\Parameter\TextLine as TextLineParameter;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
@@ -37,7 +37,7 @@ class BooleanTest extends TestCase
                     new FormMapper(
                         array(
                             'compound_boolean' => $this->handler,
-                            'text' => new Text(),
+                            'text_line' => new TextLine(),
                         )
                     )
                 )
@@ -61,7 +61,7 @@ class BooleanTest extends TestCase
     {
         $this->handler->mapForm(
             $this->formBuilder,
-            new BooleanParameter(array('sub_param' => new TextParameter(array(), true)), array(), true),
+            new BooleanParameter(array('sub_param' => new TextLineParameter(array(), true)), array(), true),
             'param_name',
             array(
                 'label_prefix' => 'label',

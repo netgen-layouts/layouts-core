@@ -28,7 +28,7 @@ class ParametersValidatorTest extends ValidatorTest
         $this->constraint = new Parameters(
             array(
                 'parameters' => array(
-                    'css_id' => new Parameter\Text(array(), true),
+                    'css_id' => new Parameter\TextLine(array(), true),
                     'checkbox' => new Parameter\Compound\Boolean(
                         array(
                             'param' => new Parameter\Identifier(array(), true),

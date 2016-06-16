@@ -6,7 +6,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
@@ -57,7 +57,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
 
-        $this->parameterFormMapper = new FormMapper(array('text' => new Text()));
+        $this->parameterFormMapper = new FormMapper(array('text_line' => new TextLine()));
         $this->formType = new FullEditType($this->parameterFormMapper);
 
         $validator = $this->createMock(ValidatorInterface::class);

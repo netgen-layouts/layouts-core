@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\Parameter\Text;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text as TextHandler;
+use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine as TextLineHandler;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
@@ -54,11 +54,11 @@ class FormMapperTest extends TestCase
      */
     public function testMapParameter()
     {
-        $this->formMapper = new FormMapper(array('text' => new TextHandler()));
+        $this->formMapper = new FormMapper(array('text_line' => new TextLineHandler()));
 
         $this->formMapper->mapParameter(
             $this->formBuilder,
-            new Text(),
+            new TextLine(),
             'param_name',
             array(
                 'label_prefix' => 'label_prefix',
@@ -85,7 +85,7 @@ class FormMapperTest extends TestCase
         $this->formMapper = new FormMapper();
         $this->formMapper->mapParameter(
             $this->formBuilder,
-            new Text(),
+            new TextLine(),
             'param_name',
             array(
                 'label_prefix' => 'label_prefix',

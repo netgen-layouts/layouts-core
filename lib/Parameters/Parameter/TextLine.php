@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;
 
-class Text extends Parameter
+class TextLine extends Parameter
 {
     /**
      * Returns the parameter type.
@@ -13,6 +13,6 @@ class Text extends Parameter
      */
     public function getType()
     {
-        return 'text';
+        return 'text_line';
     }
 }

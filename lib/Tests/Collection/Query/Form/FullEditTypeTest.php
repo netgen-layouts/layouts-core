@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
@@ -55,7 +55,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
 
-        $this->parameterFormMapper = new FormMapper(array('text' => new Text()));
+        $this->parameterFormMapper = new FormMapper(array('text_line' => new TextLine()));
         $this->formType = new FullEditType($this->parameterFormMapper);
 
         $validator = $this->createMock(ValidatorInterface::class);

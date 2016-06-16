@@ -26,8 +26,8 @@ class BlockDefinitionHandlerTest extends TestCase
     {
         self::assertEquals(
             array(
-                'css_id' => new Parameter\Text(),
-                'css_class' => new Parameter\Text(),
+                'css_id' => new Parameter\TextLine(),
+                'css_class' => new Parameter\TextLine(),
             ),
             $this->handler->getParameters()
         );

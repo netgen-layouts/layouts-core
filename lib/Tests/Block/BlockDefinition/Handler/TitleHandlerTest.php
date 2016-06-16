@@ -39,9 +39,9 @@ class TitleHandlerTest extends TestCase
                     array('options' => $this->options),
                     true
                 ),
-                'title' => new Parameter\Text(array(), true),
-                'css_id' => new Parameter\Text(),
-                'css_class' => new Parameter\Text(),
+                'title' => new Parameter\TextLine(array(), true),
+                'css_id' => new Parameter\TextLine(),
+                'css_class' => new Parameter\TextLine(),
             ),
             $this->handler->getParameters()
         );

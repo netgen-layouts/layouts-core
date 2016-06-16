@@ -34,7 +34,7 @@ class TitleHandler extends BlockDefinitionHandler
                 array('options' => $this->options),
                 true
             ),
-            'title' => new Parameter\Text(array(), true),
+            'title' => new Parameter\TextLine(array(), true),
         ) + parent::getParameters();
     }
 }

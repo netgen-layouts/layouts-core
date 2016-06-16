@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
-use Netgen\BlockManager\Parameters\Parameter\Text as TextParameter;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
+use Netgen\BlockManager\Parameters\Parameter\TextLine as TextLineParameter;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\Forms;
 use PHPUnit\Framework\TestCase;
 
-class TextTest extends TestCase
+class TextLineTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface
@@ -18,7 +18,7 @@ class TextTest extends TestCase
     protected $formBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
+     * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine
      */
     protected $handler;
 
@@ -33,11 +33,11 @@ class TextTest extends TestCase
             ->getFormFactory()
             ->createBuilder();
 
-        $this->handler = new Text();
+        $this->handler = new TextLine();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text::getFormType
+     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine::getFormType
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::mapForm
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::getDefaultOptions
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler::convertOptions
@@ -46,7 +46,7 @@ class TextTest extends TestCase
     {
         $this->handler->mapForm(
             $this->formBuilder,
-            new TextParameter(array(), true),
+            new TextLineParameter(array(), true),
             'param_name',
             array(
                 'label_prefix' => 'label',

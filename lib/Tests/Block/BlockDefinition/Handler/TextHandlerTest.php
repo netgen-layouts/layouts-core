@@ -26,8 +26,8 @@ class TextHandlerTest extends TestCase
         self::assertEquals(
             array(
                 'content' => new Parameter\TextArea(array(), true),
-                'css_id' => new Parameter\Text(),
-                'css_class' => new Parameter\Text(),
+                'css_id' => new Parameter\TextLine(),
+                'css_class' => new Parameter\TextLine(),
             ),
             $this->handler->getParameters()
         );
