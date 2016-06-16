@@ -286,7 +286,7 @@ class CollectionController extends Controller
             array(
                 'queryType' => $queryType,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_api_v1_query_form',
+                    'netgen_block_manager_api_v1_collection_query_form',
                     array(
                         'queryId' => $query->getId(),
                         'formName' => $formName,
