@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 
@@ -47,7 +47,7 @@ class BlockItemViewTypeValidatorTest extends ValidatorTest
 
         $this->blockDefinition = new BlockDefinition(
             'block',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new BlockDefinitionHandler(),
             $config
         );
 

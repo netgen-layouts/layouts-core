@@ -237,7 +237,7 @@ class BlockService implements BlockServiceInterface
                 $blockCreateStruct->definitionIdentifier
             );
 
-            foreach ($blockDefinition->getCollectionIdentifiers() as $collectionIdentifier) {
+            foreach ($blockDefinition->getHandler()->getCollectionIdentifiers() as $collectionIdentifier) {
                 $collectionCreateStruct = new CollectionCreateStruct();
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
@@ -529,7 +529,7 @@ class BlockService implements BlockServiceInterface
 
         $blockParameters = array();
 
-        $definitionParameters = $blockDefinition->getParameters();
+        $definitionParameters = $blockDefinition->getHandler()->getParameters();
         if (is_array($definitionParameters)) {
             foreach ($definitionParameters as $parameterName => $parameter) {
                 $blockParameters[$parameterName] = null;

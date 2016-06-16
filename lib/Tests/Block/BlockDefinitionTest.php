@@ -2,18 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
-    protected $handlerMock;
+    protected $handler;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -27,13 +26,13 @@ class BlockDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
+        $this->handler = new BlockDefinitionHandler();
 
         $this->configMock = $this->createMock(Configuration::class);
 
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            $this->handlerMock,
+            $this->handler,
             $this->configMock
         );
     }
@@ -48,33 +47,11 @@ class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getHandler
      */
-    public function testGetParameters()
+    public function testGetHandler()
     {
-        $this->handlerMock
-            ->expects($this->once())
-            ->method('getParameters')
-            ->will($this->returnValue(array('params')));
-
-        self::assertEquals(array('params'), $this->blockDefinition->getParameters());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
-     */
-    public function testGetDynamicParameters()
-    {
-        $this->handlerMock
-            ->expects($this->once())
-            ->method('getDynamicParameters')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array('dynamic')));
-
-        self::assertEquals(
-            array('dynamic'),
-            $this->blockDefinition->getDynamicParameters(new Block())
-        );
+        self::assertEquals($this->handler, $this->blockDefinition->getHandler());
     }
 
     /**

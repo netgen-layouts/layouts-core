@@ -2,11 +2,16 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
@@ -18,6 +23,11 @@ use PHPUnit\Framework\TestCase;
 
 class NetgenBlockManagerExtensionTest extends TestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+     */
+    protected $blockDefinitionRegistry;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -40,6 +50,24 @@ class NetgenBlockManagerExtensionTest extends TestCase
 
     public function setUp()
     {
+        $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
+
+        $this->blockDefinitionRegistry->addBlockDefinition(
+            new BlockDefinition(
+                'block_definition',
+                new BlockDefinitionHandler(),
+                new Configuration('block_definition', array(), array())
+            )
+        );
+
+        $this->blockDefinitionRegistry->addBlockDefinition(
+            new BlockDefinition(
+                'twig_block',
+                new TwigBlockHandler(),
+                new Configuration('twig_block', array(), array())
+            )
+        );
+
         $this->globalHelperMock = $this->createMock(GlobalHelper::class);
 
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
@@ -47,6 +75,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
         $this->extension = new NetgenBlockManagerExtension(
+            $this->blockDefinitionRegistry,
             $this->globalHelperMock,
             $this->viewRendererMock,
             $this->fragmentHandlerMock

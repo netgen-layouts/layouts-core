@@ -51,7 +51,7 @@ class GetDynamicParametersListener implements EventSubscriberInterface
         }
 
         $event->getParameterBag()->add(
-            $view->getBlockDefinition()->getDynamicParameters($view->getBlock())
+            $view->getBlockDefinition()->getHandler()->getDynamicParameters($view->getBlock())
         );
     }
 }

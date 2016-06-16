@@ -157,7 +157,7 @@ abstract class EditType extends AbstractType
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['blockDefinition'];
-        $blockDefinitionParameters = $blockDefinition->getParameters();
+        $blockDefinitionParameters = $blockDefinition->getHandler()->getParameters();
 
         if ($parameterNames === null) {
             $parameterNames = array_keys($blockDefinitionParameters);

@@ -56,12 +56,19 @@ block_types:
 
     content:
         name: 'Content'
+        definition_identifier: content
+        defaults:
+            view_type: content
+            item_view_type: standard
+
+    twig_block:
+        name: 'Twig block'
         definition_identifier: twig_block
         defaults:
             view_type: twig_block
             item_view_type: standard
             parameters:
-                block_name: content
+                block_name: twig_block
 
     list:
         name: 'List'

@@ -2,10 +2,8 @@
 
 namespace Netgen\BlockManager\Block;
 
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Configuration\BlockDefinition\BlockDefinition as Config;
 
 class BlockDefinition implements BlockDefinitionInterface
 {
@@ -49,37 +47,11 @@ class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
-     * Returns the array specifying block parameters.
-     *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
-    public function getParameters()
+    public function getHandler()
     {
-        return $this->handler->getParameters();
-    }
-
-    /**
-     * Returns the array of dynamic parameters provided by this block definition.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @return array
-     */
-    public function getDynamicParameters(Block $block)
-    {
-        return $this->handler->getDynamicParameters($block);
-    }
-
-    /**
-     * Returns the identifiers of all collections that should exist in the block.
-     *
-     * @return array
-     */
-    public function getCollectionIdentifiers()
-    {
-        return $this->handler->getCollectionIdentifiers();
+        return $this->handler;
     }
 
     /**

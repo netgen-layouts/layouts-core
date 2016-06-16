@@ -202,7 +202,6 @@ class LayoutHandlerTest extends TestCase
         self::assertFalse($this->layoutHandler->layoutNameExists('My layout', 1, Layout::STATUS_PUBLISHED));
     }
 
-
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists

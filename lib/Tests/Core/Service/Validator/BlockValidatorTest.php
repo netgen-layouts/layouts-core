@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -12,19 +11,15 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
 class BlockValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockDefinitionHandlerMock;
-
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
@@ -51,7 +46,6 @@ class BlockValidatorTest extends TestCase
     public function setUp()
     {
         $this->blockDefinitionRegistryMock = $this->createMock(BlockDefinitionRegistryInterface::class);
-        $this->blockDefinitionHandlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
         $this->blockDefinitionConfig = new Configuration(
             'def',
             array(),
@@ -84,9 +78,9 @@ class BlockValidatorTest extends TestCase
      */
     public function testValidateBlockCreateStruct(array $params, $isValid)
     {
-        $blockDefinition = new BlockDefinitionWithRequiredParameter(
+        $blockDefinition = new BlockDefinition(
             'block',
-            $this->blockDefinitionHandlerMock,
+            new BlockDefinitionHandlerWithRequiredParameter(),
             $this->blockDefinitionConfig
         );
 
@@ -113,9 +107,9 @@ class BlockValidatorTest extends TestCase
      */
     public function testValidateBlockUpdateStruct(array $params, $isValid)
     {
-        $blockDefinition = new BlockDefinitionStub(
+        $blockDefinition = new BlockDefinition(
             'block',
-            $this->blockDefinitionHandlerMock,
+            new BlockDefinitionHandler(),
             $this->blockDefinitionConfig
         );
 

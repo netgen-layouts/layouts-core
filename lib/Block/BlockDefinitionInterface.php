@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Block;
 
-use Netgen\BlockManager\API\Values\Page\Block;
-
 interface BlockDefinitionInterface
 {
     /**
@@ -14,29 +12,9 @@ interface BlockDefinitionInterface
     public function getIdentifier();
 
     /**
-     * Returns the array specifying block parameters.
-     *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
-    public function getParameters();
-
-    /**
-     * Returns the array of dynamic parameters provided by this block definition.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     *
-     * @return array
-     */
-    public function getDynamicParameters(Block $block);
-
-    /**
-     * Returns the identifiers of all collections that should exist in the block.
-     *
-     * @return array
-     */
-    public function getCollectionIdentifiers();
+    public function getHandler();
 
     /**
      * Returns the block definition configuration.

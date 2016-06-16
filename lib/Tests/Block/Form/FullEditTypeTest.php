@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
@@ -95,7 +95,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
 
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new BlockDefinitionHandler(),
             $config
         );
     }

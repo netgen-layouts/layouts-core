@@ -43,6 +43,17 @@ block_definitions:
                     standard:
                         name: 'Standard'
 
+    content:
+        forms:
+            full:
+                type: ~
+        view_types:
+            content:
+                name: 'Content'
+                item_view_types:
+                    standard:
+                        name: 'Standard'
+
     twig_block:
         forms:
             full:

@@ -2,7 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
+use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
@@ -23,6 +24,11 @@ use Exception;
 class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
     const BLOCK_CONTROLLER = 'ngbm_block:viewBlockById';
+
+    /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     */
+    protected $blockDefinitionRegistry;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
@@ -52,17 +58,20 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
         GlobalHelper $globalHelper,
         RendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
         LoggerInterface $logger = null
     ) {
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->globalHelper = $globalHelper;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
@@ -223,20 +232,32 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBocks = array())
     {
         foreach ($zone->getBlocks() as $block) {
-            if ($block->getDefinitionIdentifier() !== TwigBlockHandler::DEFINITION_IDENTIFIER) {
-                echo $this->renderBlock($block, array(), $context);
-                continue;
-            }
+            $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+                $block->getDefinitionIdentifier()
+            );
 
-            try {
-                $twigTemplate->displayBlock($block->getParameter('block_name'), $twigContext, $twigBocks);
-            } catch (Exception $e) {
-                $this->logBlockError($block, $e);
+            $blockDefinitionHandler = $blockDefinition->getHandler();
+            if ($blockDefinitionHandler instanceof TwigBlockDefinitionHandlerInterface) {
+                try {
+                    $twigTemplate->displayBlock(
+                        $blockDefinitionHandler->getTwigBlockName($block),
+                        $twigContext,
+                        $twigBocks
+                    );
 
-                if ($this->debug) {
-                    throw $e;
+                    continue;
+                } catch (Exception $e) {
+                    $this->logBlockError($block, $e);
+
+                    if ($this->debug) {
+                        throw $e;
+                    }
+
+                    continue;
                 }
             }
+
+            echo $this->renderBlock($block, array(), $context);
         }
     }
 
@@ -263,7 +284,11 @@ class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extensi
     protected function logBlockError(Block $block, Exception $exception)
     {
         $this->logger->error(
-            sprintf('Error rendering a block with ID %d: %s', $block->getId(), $exception->getMessage())
+            sprintf(
+                'Error rendering a block with ID %d: %s',
+                $block->getId(),
+                $exception->getMessage()
+            )
         );
     }
 

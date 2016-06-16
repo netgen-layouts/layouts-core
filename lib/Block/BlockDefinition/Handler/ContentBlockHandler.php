@@ -2,11 +2,12 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TwigBlockHandler extends TwigBlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
+class ContentBlockHandler extends TwigBlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
     /**
      * Returns the array specifying block parameters.
@@ -15,9 +16,19 @@ class TwigBlockHandler extends TwigBlockDefinitionHandler implements TwigBlockDe
      */
     public function getParameters()
     {
-        return array(
-            'block_name' => new Parameter\Identifier(array(), true),
-        );
+        return array();
+    }
+
+    /**
+     * Returns the name of the Twig block to use.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return string
+     */
+    public function getTwigBlockName(Block $block)
+    {
+        return 'content';
     }
 
     /**
@@ -27,6 +38,5 @@ class TwigBlockHandler extends TwigBlockDefinitionHandler implements TwigBlockDe
      */
     public function getTwigBlockParameter()
     {
-        return 'block_name';
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionRegistryTest extends TestCase
@@ -28,7 +28,7 @@ class BlockDefinitionRegistryTest extends TestCase
 
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new BlockDefinitionHandler(),
             $configMock
         );
 

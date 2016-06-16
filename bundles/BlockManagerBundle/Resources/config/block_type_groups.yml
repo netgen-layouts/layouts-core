@@ -13,4 +13,4 @@ block_type_groups:
         block_types: [slider, thumb_gallery, grid_gallery, sushi_bar]
     content:
         name: 'Content'
-        block_types: [content]
+        block_types: [content, twig_block]

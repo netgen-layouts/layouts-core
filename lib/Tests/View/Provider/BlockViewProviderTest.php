@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -34,7 +34,7 @@ class BlockViewProviderTest extends TestCase
     {
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            new BlockDefinitionHandler(),
             new Configuration('block_definition', array(), array())
         );
 
