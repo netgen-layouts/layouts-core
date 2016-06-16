@@ -15,7 +15,7 @@ class QueryType implements QueryTypeInterface
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
-    protected $queryTypeHandler;
+    protected $handler;
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
@@ -26,13 +26,13 @@ class QueryType implements QueryTypeInterface
      * Constructor.
      *
      * @param string $type
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface $queryTypeHandler
+     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface $handler
      * @param \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration $config
      */
-    public function __construct($type, QueryTypeHandlerInterface $queryTypeHandler, Configuration $config)
+    public function __construct($type, QueryTypeHandlerInterface $handler, Configuration $config)
     {
         $this->type = $type;
-        $this->queryTypeHandler = $queryTypeHandler;
+        $this->handler = $handler;
         $this->config = $config;
     }
 
@@ -47,41 +47,11 @@ class QueryType implements QueryTypeInterface
     }
 
     /**
-     * Returns the array specifying query parameters.
-     *
-     * The keys are parameter types.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
-    public function getParameters()
+    public function getHandler()
     {
-        return $this->queryTypeHandler->getParameters();
-    }
-
-    /**
-     * Returns the values from the query.
-     *
-     * @param array $parameters
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return mixed[]
-     */
-    public function getValues(array $parameters, $offset = 0, $limit = null)
-    {
-        return $this->queryTypeHandler->getValues($parameters, $offset, $limit);
-    }
-
-    /**
-     * Returns the value count from the query.
-     *
-     * @param array $parameters
-     *
-     * @return int
-     */
-    public function getCount(array $parameters)
-    {
-        return $this->queryTypeHandler->getCount($parameters);
+        return $this->handler;
     }
 
     /**

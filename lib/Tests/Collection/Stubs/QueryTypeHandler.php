@@ -2,19 +2,24 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
-use Netgen\BlockManager\Collection\QueryType as BaseQueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\Parameter\Text;
 
-class QueryTypeWithRequiredParameter extends BaseQueryType
+class QueryTypeHandler implements QueryTypeHandlerInterface
 {
     /**
-     * Returns the query type.
-     *
-     * @return string
+     * @var array
      */
-    public function getType()
+    protected $values = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $values
+     */
+    public function __construct(array $values = array())
     {
-        return 'query_type';
+        $this->values = $values;
     }
 
     /**
@@ -27,7 +32,7 @@ class QueryTypeWithRequiredParameter extends BaseQueryType
     public function getParameters()
     {
         return array(
-            'param' => new Text(array(), true),
+            'param' => new Text(),
         );
     }
 
@@ -42,6 +47,7 @@ class QueryTypeWithRequiredParameter extends BaseQueryType
      */
     public function getValues(array $parameters, $offset = 0, $limit = null)
     {
+        return array_slice($this->values, $offset, $limit);
     }
 
     /**
@@ -53,5 +59,6 @@ class QueryTypeWithRequiredParameter extends BaseQueryType
      */
     public function getCount(array $parameters)
     {
+        return count($this->values);
     }
 }

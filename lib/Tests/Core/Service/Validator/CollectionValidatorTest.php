@@ -15,19 +15,15 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithRequiredParameter;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
+use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
 class CollectionValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $queryTypeHandlerMock;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -55,7 +51,6 @@ class CollectionValidatorTest extends TestCase
     {
         $this->queryTypeRegistryMock = $this->createMock(QueryTypeRegistryInterface::class);
 
-        $this->queryTypeHandlerMock = $this->createMock(QueryTypeHandlerInterface::class);
         $this->queryTypeConfigMock = $this->createMock(Configuration::class);
 
         $this->validator = Validation::createValidatorBuilder()
@@ -130,9 +125,9 @@ class CollectionValidatorTest extends TestCase
      */
     public function testValidateQueryCreateStruct(array $params, $isValid)
     {
-        $queryType = new QueryTypeWithRequiredParameter(
+        $queryType = new QueryType(
             'query_type',
-            $this->queryTypeHandlerMock,
+            new QueryTypeHandlerWithRequiredParameter(),
             $this->queryTypeConfigMock
         );
 
@@ -159,9 +154,9 @@ class CollectionValidatorTest extends TestCase
      */
     public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
-        $queryType = new QueryTypeStub(
+        $queryType = new QueryType(
             'query_type',
-            $this->queryTypeHandlerMock,
+            new QueryTypeHandler(),
             $this->queryTypeConfigMock
         );
 

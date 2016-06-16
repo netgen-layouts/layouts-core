@@ -1,13 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\Stubs\QueryRunner;
+namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
-use Netgen\BlockManager\Collection\QueryType as BaseQueryType;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
+use Netgen\BlockManager\Parameters\Parameter\Text;
 
-class QueryType extends BaseQueryType
+class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
 {
-    protected $queryType;
-
     /**
      * @var array
      */
@@ -16,23 +15,11 @@ class QueryType extends BaseQueryType
     /**
      * Constructor.
      *
-     * @param string $queryType
      * @param array $values
      */
-    public function __construct($queryType, array $values = array())
+    public function __construct(array $values = array())
     {
-        $this->queryType = $queryType;
         $this->values = $values;
-    }
-
-    /**
-     * Returns the query type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->queryType;
     }
 
     /**
@@ -44,6 +31,9 @@ class QueryType extends BaseQueryType
      */
     public function getParameters()
     {
+        return array(
+            'param' => new Text(array(), true),
+        );
     }
 
     /**

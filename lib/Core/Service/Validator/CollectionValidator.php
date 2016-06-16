@@ -260,7 +260,7 @@ class CollectionValidator extends Validator
             array(
                 new Parameters(
                     array(
-                        'parameters' => $queryType->getParameters(),
+                        'parameters' => $queryType->getHandler()->getParameters(),
                         'required' => true,
                     )
                 ),
@@ -301,7 +301,7 @@ class CollectionValidator extends Validator
             array(
                 new Parameters(
                     array(
-                        'parameters' => $queryType->getParameters(),
+                        'parameters' => $queryType->getHandler()->getParameters(),
                         'required' => false,
                     )
                 ),

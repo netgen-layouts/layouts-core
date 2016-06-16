@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
@@ -18,6 +17,7 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\QueryCreateStruct;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 
 abstract class CollectionServiceTest extends ServiceTest
 {
@@ -446,7 +446,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
             new QueryType(
                 'ezcontent_search',
-                $this->createMock(QueryTypeHandlerInterface::class),
+                new QueryTypeHandler(),
                 new Configuration('ezcontent_search', '', array(), array())
             ),
             'new_query'
@@ -475,7 +475,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
             new QueryType(
                 'ezcontent_search',
-                $this->createMock(QueryTypeHandlerInterface::class),
+                new QueryTypeHandler(),
                 new Configuration('ezcontent_search', '', array(), array())
             ),
             'new_query'
@@ -495,7 +495,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
             new QueryType(
                 'ezcontent_search',
-                $this->createMock(QueryTypeHandlerInterface::class),
+                new QueryTypeHandler(),
                 new Configuration('ezcontent_search', '', array(), array())
             ),
             'default'
@@ -515,7 +515,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
             new QueryType(
                 'ezcontent_search',
-                $this->createMock(QueryTypeHandlerInterface::class),
+                new QueryTypeHandler(),
                 new Configuration('ezcontent_search', '', array(), array())
             ),
             'new_query'
@@ -681,7 +681,7 @@ abstract class CollectionServiceTest extends ServiceTest
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
             new QueryType(
                 'ezcontent_search',
-                $this->createMock(QueryTypeHandlerInterface::class),
+                new QueryTypeHandler(),
                 new Configuration('ezcontent_search', '', array(), array())
             ),
             'new_query'
@@ -692,6 +692,9 @@ abstract class CollectionServiceTest extends ServiceTest
                 array(
                     'identifier' => 'new_query',
                     'type' => 'ezcontent_search',
+                    'parameters' => array(
+                        'param' => null,
+                    )
                 )
             ),
             $queryCreateStruct

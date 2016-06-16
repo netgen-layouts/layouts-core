@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
@@ -79,7 +79,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
 
         $this->queryType = new QueryType(
             'query_type',
-            $this->createMock(QueryTypeHandlerInterface::class),
+            new QueryTypeHandler(),
             $config
         );
     }

@@ -794,7 +794,7 @@ class CollectionService implements APICollectionService
 
         $queryParameters = array();
 
-        $queryTypeParameters = $queryType->getParameters();
+        $queryTypeParameters = $queryType->getHandler()->getParameters();
         if (is_array($queryTypeParameters)) {
             foreach ($queryTypeParameters as $parameterName => $parameter) {
                 $queryParameters[$parameterName] = null;

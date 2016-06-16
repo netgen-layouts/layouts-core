@@ -2,17 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 
 class QueryTypeTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
-    protected $handlerMock;
+    protected $handler;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -26,13 +26,13 @@ class QueryTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->handlerMock = $this->createMock(QueryTypeHandlerInterface::class);
+        $this->handler = new QueryTypeHandler();
 
         $this->configMock = $this->createMock(Configuration::class);
 
         $this->queryType = new QueryType(
             'query_type',
-            $this->handlerMock,
+            $this->handler,
             $this->configMock
         );
     }
@@ -47,47 +47,11 @@ class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getParameters
+     * @covers \Netgen\BlockManager\Collection\QueryType::getHandler
      */
-    public function testGetParameters()
+    public function testGetHandler()
     {
-        $this->handlerMock
-            ->expects($this->once())
-            ->method('getParameters')
-            ->will($this->returnValue(array('params')));
-
-        self::assertEquals(array('params'), $this->queryType->getParameters());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getValues
-     */
-    public function testGetValues()
-    {
-        $this->handlerMock
-            ->expects($this->once())
-            ->method('getValues')
-            ->with($this->equalTo(array('params')), $this->equalTo(5), $this->equalTo(10))
-            ->will($this->returnValue(array('values')));
-
-        self::assertEquals(
-            array('values'),
-            $this->queryType->getValues(array('params'), 5, 10)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getCount
-     */
-    public function testGetCount()
-    {
-        $this->handlerMock
-            ->expects($this->once())
-            ->method('getCount')
-            ->with($this->equalTo(array('params')))
-            ->will($this->returnValue(6));
-
-        self::assertEquals(6, $this->queryType->getCount(array('params')));
+        self::assertEquals($this->handler, $this->queryType->getHandler());
     }
 
     /**

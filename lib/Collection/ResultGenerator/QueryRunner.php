@@ -48,6 +48,7 @@ class QueryRunner implements QueryRunnerInterface
 
             $queryCount = $this->queryTypeRegistry
                 ->getQueryType($queryType)
+                ->getHandler()
                 ->getCount($queryParameters);
 
             $totalCount = $previousCount + $queryCount;
@@ -56,7 +57,8 @@ class QueryRunner implements QueryRunnerInterface
                 continue;
             }
 
-            $queryValues = $this->queryTypeRegistry->getQueryType($queryType)->getValues(
+            $queryTypeHandler = $this->queryTypeRegistry->getQueryType($queryType)->getHandler();
+            $queryValues = $queryTypeHandler->getValues(
                 $queryParameters,
                 empty($values) && $offset > 0 ? $offset - $previousCount : 0
             );
@@ -89,9 +91,10 @@ class QueryRunner implements QueryRunnerInterface
 
         $totalCount = 0;
         foreach ($queries as $query) {
-            $totalCount += $this->queryTypeRegistry->getQueryType($query->getType())->getCount(
-                $query->getParameters()
-            );
+            $totalCount += $this->queryTypeRegistry
+                ->getQueryType($query->getType())
+                ->getHandler()
+                ->getCount($query->getParameters());
         }
 
         return $totalCount;

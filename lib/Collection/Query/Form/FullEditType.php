@@ -63,7 +63,8 @@ class FullEditType extends AbstractType
             )
         );
 
-        foreach ($queryType->getParameters() as $parameterName => $parameter) {
+        $queryTypeHandler = $queryType->getHandler();
+        foreach ($queryTypeHandler->getParameters() as $parameterName => $parameter) {
             $this->parameterFormMapper->mapParameter(
                 $parameterBuilder,
                 $parameter,
