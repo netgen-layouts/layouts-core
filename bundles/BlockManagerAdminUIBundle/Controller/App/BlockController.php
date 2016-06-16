@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
