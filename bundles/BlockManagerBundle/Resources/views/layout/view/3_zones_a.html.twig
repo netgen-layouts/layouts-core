@@ -1,23 +1,44 @@
 {% extends ngbm.pageLayout %}
 
 {% block layout %}
-<div class="split">
-    <div class="l">
-        <div data-zone="top_left">
-            {% ngbm_render_zone layout.zone('top_left') %}
-        </div>
-    </div>
+    <div class="zone-layout-3zonesa">
 
-    <div class="r">
-        <div data-zone="top_right">
-            {% ngbm_render_zone layout.zone('top_right') %}
-        </div>
-    </div>
+        {% if layout.zone('top_left').blocks is not empty or layout.zone('top_right').blocks is not empty %}
+            <div class="main-content-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {% if layout.zone('top_left').blocks is not empty %}
+                                <p>top left</p>
 
-    <div class="r">
-        <div data-zone="bottom">
-            {% ngbm_render_zone layout.zone('bottom') %}
-        </div>
+                                <section class="zone zone-left">
+                                    {% ngbm_render_zone layout.zone('top_left') %}
+                                </section>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-8">
+                            {% if layout.zone('top_right').blocks is not empty %}
+                                <p>top right</p>
+
+                                <section class="zone zone-right">
+                                    {% ngbm_render_zone layout.zone('top_right') %}
+                                </section>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if layout.zone('bottom').blocks is not empty %}
+            <p>bottom</p>
+
+            <div class="bottom-content-block">
+                <section class="zone zone-bottom">
+                    {% ngbm_render_zone layout.zone('bottom') %}
+                </section>
+            </div>
+        {% endif %}
+
     </div>
-</div>
 {% endblock %}
