@@ -19,17 +19,15 @@
         {%- endif -%}
 
         <div class="checkbox">
-            {{- form_row(form.children[form.vars.checkbox_name]) -}}
-        </div>
+            {% set checkbox = form.children[form.vars.checkbox_name] %}
 
-        <div class="children">
-            {%- for name, child in form.children -%}
-                {%- if name != form.vars.checkbox_name -%}
-                    {{- form_row(child) -}}
-                {%- endif -%}
-            {%- endfor -%}
-        </div>
+            {{- form_errors(checkbox) -}}
+            {{- form_widget(checkbox) -}}
+            {{- form_label(checkbox) -}}
 
-        {{- form_rest(form) -}}
+            <div class="children">
+                {{- form_rest(form) -}}
+            </div>
+        </div>
     </div>
 {%- endblock ngbm_compound_boolean_widget -%}
