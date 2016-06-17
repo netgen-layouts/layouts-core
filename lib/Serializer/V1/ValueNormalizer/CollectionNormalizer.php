@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -39,8 +39,8 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
             'id' => $collection->getId(),
             'type' => $collection->getType(),
             'name' => $collection->getName(),
-            'items' => $this->serializer->normalize(new ValueArray($items)),
-            'queries' => $this->serializer->normalize(new ValueArray($queries)),
+            'items' => $this->serializer->normalize(new ValueList($items)),
+            'queries' => $this->serializer->normalize(new ValueList($queries)),
         );
     }
 

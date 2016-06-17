@@ -3,14 +3,14 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\ValueListNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
 
-class ValueArrayNormalizerTest extends TestCase
+class ValueListNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -18,7 +18,7 @@ class ValueArrayNormalizerTest extends TestCase
     protected $serializerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\ValueListNormalizer
      */
     protected $normalizer;
 
@@ -26,12 +26,12 @@ class ValueArrayNormalizerTest extends TestCase
     {
         $this->serializerMock = $this->createMock(Serializer::class);
 
-        $this->normalizer = new ValueArrayNormalizer();
+        $this->normalizer = new ValueListNormalizer();
         $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueListNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -44,10 +44,10 @@ class ValueArrayNormalizerTest extends TestCase
         $this->serializerMock
             ->expects($this->at(1))
             ->method('normalize')
-            ->with($this->equalTo(new ValueArray(array('param' => 'value'))))
+            ->with($this->equalTo(new ValueList(array('param' => 'value'))))
             ->will($this->returnValue(array('param' => 'value')));
 
-        $valueArray = new ValueArray(
+        $valueList = new ValueList(
             array(
                 'value' => new VersionedValue(new Value(), 1),
                 'array' => array('param' => 'value'),
@@ -55,7 +55,7 @@ class ValueArrayNormalizerTest extends TestCase
             )
         );
 
-        $data = $this->normalizer->normalize($valueArray);
+        $data = $this->normalizer->normalize($valueList);
 
         self::assertEquals(
             array(
@@ -71,7 +71,7 @@ class ValueArrayNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueListNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
@@ -97,8 +97,7 @@ class ValueArrayNormalizerTest extends TestCase
             array(new Value(), false),
             array(new Block(), false),
             array(new VersionedValue(new Block(), 1), false),
-            array(new ValueArray(new Block(), 1), false),
-            array(new ValueArray(array(new Block()), 1), true),
+            array(new ValueList(array(new Block()), 1), true),
         );
     }
 }

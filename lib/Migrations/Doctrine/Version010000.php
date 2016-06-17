@@ -25,6 +25,8 @@ class Version010000 extends AbstractMigration
 
         $layoutTable->setPrimaryKey(array('id', 'status'));
 
+        $layoutTable->addIndex(array('name'));
+
         // ngbm_zone table
 
         $zoneTable = $schema->createTable('ngbm_zone');
@@ -54,6 +56,8 @@ class Version010000 extends AbstractMigration
         $blockTable->setPrimaryKey(array('id', 'status'));
         $blockTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
 
+        $blockTable->addIndex(array('layout_id', 'zone_identifier', 'status'));
+
         // ngbm_rule table
 
         $ruleTable = $schema->createTable('ngbm_rule');
@@ -65,6 +69,8 @@ class Version010000 extends AbstractMigration
         $ruleTable->addColumn('comment', 'string', array('length' => 255, 'notnull' => false));
 
         $ruleTable->setPrimaryKey(array('id', 'status'));
+
+        $ruleTable->addIndex(array('layout_id'));
 
         // ngbm_rule_data table
 
@@ -88,6 +94,9 @@ class Version010000 extends AbstractMigration
         $ruleTargetTable->setPrimaryKey(array('id', 'status'));
         $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
 
+        $ruleTargetTable->addIndex(array('rule_id', 'status'));
+        $ruleTargetTable->addIndex(array('identifier'));
+
         // ngbm_rule_condition table
 
         $ruleConditionTable = $schema->createTable('ngbm_rule_condition');
@@ -101,6 +110,8 @@ class Version010000 extends AbstractMigration
         $ruleConditionTable->setPrimaryKey(array('id', 'status'));
         $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
 
+        $ruleConditionTable->addIndex(array('rule_id', 'status'));
+
         // ngbm_collection table
 
         $collectionTable = $schema->createTable('ngbm_collection');
@@ -111,6 +122,8 @@ class Version010000 extends AbstractMigration
         $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
 
         $collectionTable->setPrimaryKey(array('id', 'status'));
+
+        $collectionTable->addIndex(array('name'));
 
         // ngbm_collection_item table
 
@@ -127,6 +140,8 @@ class Version010000 extends AbstractMigration
         $collectionItemTable->setPrimaryKey(array('id', 'status'));
         $collectionItemTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
 
+        $collectionItemTable->addIndex(array('collection_id', 'status'));
+
         // ngbm_collection_query table
 
         $collectionQueryTable = $schema->createTable('ngbm_collection_query');
@@ -141,6 +156,9 @@ class Version010000 extends AbstractMigration
 
         $collectionQueryTable->setPrimaryKey(array('id', 'status'));
         $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', array('collection_id', 'status'), array('id', 'status'));
+
+        $collectionQueryTable->addIndex(array('collection_id', 'status'));
+        $collectionQueryTable->addIndex(array('collection_id', 'status', 'identifier'));
 
         // ngbm_block_collection table
 

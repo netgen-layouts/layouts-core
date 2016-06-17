@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionNormalizer;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
@@ -57,7 +57,7 @@ class CollectionNormalizerTest extends TestCase
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    new ValueArray(
+                    new ValueList(
                         array(
                             new VersionedValue(new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)), 1),
                             new VersionedValue(new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)), 1),
@@ -72,7 +72,7 @@ class CollectionNormalizerTest extends TestCase
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    new ValueArray(
+                    new ValueList(
                         array(
                             new VersionedValue(new Query(array('position' => 0)), 1),
                         )

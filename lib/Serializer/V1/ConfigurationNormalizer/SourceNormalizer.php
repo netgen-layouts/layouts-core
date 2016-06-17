@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Configuration\Source\Source;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -36,7 +36,7 @@ class SourceNormalizer extends SerializerAwareNormalizer implements NormalizerIn
         return array(
             'identifier' => $source->getIdentifier(),
             'name' => $source->getName(),
-            'queries' => $this->serializer->normalize(new ValueArray($queries)),
+            'queries' => $this->serializer->normalize(new ValueList($queries)),
         );
     }
 

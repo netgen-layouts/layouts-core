@@ -2,26 +2,26 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Values;
 
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
 use Symfony\Component\HttpFoundation\Response;
 use PHPUnit\Framework\TestCase;
 
-class ValueArrayTest extends TestCase
+class ValueListTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Values\ValueArray
+     * @var \Netgen\BlockManager\Serializer\Values\ValueList
      */
     protected $value;
 
     public function setUp()
     {
-        $this->value = new ValueArray(array(new StubValue()), Response::HTTP_ACCEPTED);
+        $this->value = new ValueList(array(new StubValue()), Response::HTTP_ACCEPTED);
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\ValueArray::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\ValueArray::getValue
+     * @covers Netgen\BlockManager\Serializer\Values\ValueList::__construct
+     * @covers Netgen\BlockManager\Serializer\Values\ValueList::getValue
      */
     public function testGetValue()
     {
@@ -29,8 +29,8 @@ class ValueArrayTest extends TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\ValueArray::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\ValueArray::getStatusCode
+     * @covers Netgen\BlockManager\Serializer\Values\ValueList::__construct
+     * @covers Netgen\BlockManager\Serializer\Values\ValueList::getStatusCode
      */
     public function testGetStatusCode()
     {

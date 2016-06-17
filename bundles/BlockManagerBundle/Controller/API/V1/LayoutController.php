@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -53,7 +53,7 @@ class LayoutController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     * @return \Netgen\BlockManager\Serializer\Values\ValueList
      */
     public function viewLayoutBlocks(LayoutDraft $layout)
     {
@@ -64,7 +64,7 @@ class LayoutController extends Controller
             }
         }
 
-        return new ValueArray($blocks);
+        return new ValueList($blocks);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceNormalizer;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
@@ -51,7 +51,7 @@ class SourceNormalizerTest extends TestCase
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    new ValueArray(
+                    new ValueList(
                         array(
                             new VersionedValue(new Query('identifier', 'ezcontent', array('param' => 'value')), 1),
                             new VersionedValue(new Query('identifier2', 'ezcontent', array('param2' => 'value2')), 1),

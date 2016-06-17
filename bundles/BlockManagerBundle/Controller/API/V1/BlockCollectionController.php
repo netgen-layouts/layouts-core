@@ -8,7 +8,7 @@ use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -55,7 +55,7 @@ class BlockCollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     * @return \Netgen\BlockManager\Serializer\Values\ValueList
      */
     public function loadCollectionReferences(BlockDraft $block)
     {
@@ -66,7 +66,7 @@ class BlockCollectionController extends Controller
             $this->blockService->loadCollectionReferences($block)
         );
 
-        return new ValueArray($collectionReferences);
+        return new ValueList($collectionReferences);
     }
 
     /**

@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\FormView;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Serializer\Version;
@@ -103,7 +103,7 @@ class CollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     * @return \Netgen\BlockManager\Serializer\Values\ValueList
      */
     public function loadCollectionItems(CollectionDraft $collection)
     {
@@ -114,7 +114,7 @@ class CollectionController extends Controller
             $collection->getItems()
         );
 
-        return new ValueArray($items);
+        return new ValueList($items);
     }
 
     /**
@@ -122,7 +122,7 @@ class CollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueArray
+     * @return \Netgen\BlockManager\Serializer\Values\ValueList
      */
     public function loadCollectionQueries(CollectionDraft $collection)
     {
@@ -133,7 +133,7 @@ class CollectionController extends Controller
             $collection->getQueries()
         );
 
-        return new ValueArray($queries);
+        return new ValueList($queries);
     }
 
     /**

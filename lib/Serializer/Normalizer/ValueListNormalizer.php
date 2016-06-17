@@ -3,16 +3,16 @@
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\ValueInterface;
-use Netgen\BlockManager\Serializer\Values\ValueArray;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
-class ValueArrayNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
+class ValueListNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param \Netgen\BlockManager\Serializer\Values\ValueArray $object
+     * @param \Netgen\BlockManager\Serializer\Values\ValueList $object
      * @param string $format
      * @param array $context
      *
@@ -28,7 +28,7 @@ class ValueArrayNormalizer extends SerializerAwareNormalizer implements Normaliz
             if ($value instanceof ValueInterface) {
                 $dataItem = $this->serializer->normalize($value);
             } elseif (is_array($value)) {
-                $dataItem = $this->serializer->normalize(new ValueArray($value));
+                $dataItem = $this->serializer->normalize(new ValueList($value));
             }
 
             $data[$key] = $dataItem;
@@ -47,6 +47,6 @@ class ValueArrayNormalizer extends SerializerAwareNormalizer implements Normaliz
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof ValueArray && is_array($data->getValue());
+        return $data instanceof ValueList;
     }
 }

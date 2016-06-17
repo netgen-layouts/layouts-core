@@ -1,5 +1,5 @@
 parameters:
-    netgen_block_manager.normalizer.value_array.class: Netgen\BlockManager\Serializer\Normalizer\ValueArrayNormalizer
+    netgen_block_manager.normalizer.value_list.class: Netgen\BlockManager\Serializer\Normalizer\ValueListNormalizer
     netgen_block_manager.normalizer.view.class: Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer
     netgen_block_manager.normalizer.form_view.class: Netgen\BlockManager\Serializer\Normalizer\FormViewNormalizer
     netgen_block_manager.normalizer.exception.class: Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
@@ -21,8 +21,8 @@ parameters:
     netgen_block_manager.normalizer.v1.source_query.class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer
 
 services:
-    netgen_block_manager.normalizer.value_array:
-        class: "%netgen_block_manager.normalizer.value_array.class%"
+    netgen_block_manager.normalizer.value_list:
+        class: "%netgen_block_manager.normalizer.value_list.class%"
         tags:
             - { name: serializer.normalizer }
 
