@@ -1,8 +1,6 @@
 {% extends 'NetgenBlockManagerBundle:block:view.html.twig' %}
 
 {% block content %}
-    {{ block.id }}
-
     {% if collections['default'] is defined %}
         <div class="grid-row">
             {% for result in collections['default'].results %}
@@ -12,5 +10,4 @@
             {% endfor %}
         </div>
     {% endif %}
-
 {% endblock %}

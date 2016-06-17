@@ -3,7 +3,5 @@
 {% import 'NetgenBlockManagerBundle:macros:collection.html.twig' as collection_macros %}
 
 {% block content %}
-    {{ block.id }}
-
     {{ collection_macros.collection(collections, 'default', block.itemViewType, view_context) }}
 {% endblock %}
