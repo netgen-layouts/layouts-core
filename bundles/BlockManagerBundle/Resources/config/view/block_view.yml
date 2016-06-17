@@ -16,6 +16,20 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view:html_snippet.html.twig"
             match:
                 block\definition: html_snippet
+        list\list:
+            template: "NetgenBlockManagerBundle:block/view/list:list.html.twig"
+            match:
+                block\definition: list
+                block\view_type: list
+        list\grid:
+            template: "NetgenBlockManagerBundle:block/view/list:grid.html.twig"
+            match:
+                block\definition: list
+                block\view_type: grid
+        gallery:
+            template: "NetgenBlockManagerBundle:block/view:gallery.html.twig"
+            match:
+                block\definition: gallery
         # Fallbacks for content blocks! Do not remove!
         twig_block:
             template: "NetgenBlockManagerBundle:block/view:twig_block.html.twig"
