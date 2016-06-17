@@ -66,39 +66,39 @@ services:
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.title.options%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'title' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: title }
 
     netgen_block_manager.block.block_definition.handler.text:
         class: "%netgen_block_manager.block.block_definition.handler.text.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'text' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: text }
 
     netgen_block_manager.block.block_definition.handler.rich_text:
         class: "%netgen_block_manager.block.block_definition.handler.rich_text.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'rich_text' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: rich_text }
 
     netgen_block_manager.block.block_definition.handler.external_video:
         class: "%netgen_block_manager.block.block_definition.handler.external_video.class%"
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.external_video.services%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'external_video' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: external_video }
 
     netgen_block_manager.block.block_definition.handler.html_snippet:
         class: "%netgen_block_manager.block.block_definition.handler.html_snippet.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'html_snippet' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: html_snippet }
 
     netgen_block_manager.block.block_definition.handler.content:
         class: "%netgen_block_manager.block.block_definition.handler.content.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'content' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: content }
 
     netgen_block_manager.block.block_definition.handler.twig_block:
         class: "%netgen_block_manager.block.block_definition.handler.twig_block.class%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'twig_block' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: twig_block }
 
     netgen_block_manager.block.block_definition.handler.map:
         class: "%netgen_block_manager.block.block_definition.handler.map.class%"
@@ -107,14 +107,14 @@ services:
             - "%netgen_block_manager.block.block_definition.handler.map.max_zoom%"
             - "%netgen_block_manager.block.block_definition.handler.map.map_types%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'map' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: map }
 
     netgen_block_manager.block.block_definition.handler.list:
         class: "%netgen_block_manager.block.block_definition.handler.list.class%"
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.list.columns%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'list' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: list }
 
     netgen_block_manager.block.block_definition.handler.gallery:
         class: "%netgen_block_manager.block.block_definition.handler.gallery.class%"
@@ -125,4 +125,4 @@ services:
             - "%netgen_block_manager.block.block_definition.handler.gallery.transitions%"
             - "%netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: 'gallery' }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: gallery }
