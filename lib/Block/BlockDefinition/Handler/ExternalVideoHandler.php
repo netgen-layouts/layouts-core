@@ -33,6 +33,6 @@ class ExternalVideoHandler extends BlockDefinitionHandler
             'service' => new Parameter\Choice(array('options' => $this->services), true),
             'video_id' => new Parameter\TextLine(),
             'caption' => new Parameter\TextLine(),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 }

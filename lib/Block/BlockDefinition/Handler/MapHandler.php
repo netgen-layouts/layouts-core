@@ -60,6 +60,6 @@ class MapHandler extends BlockDefinitionHandler
             ),
             'map_type' => new Parameter\Choice(array('options' => $this->mapTypes), true),
             'show_marker' => new Parameter\Boolean(),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 }

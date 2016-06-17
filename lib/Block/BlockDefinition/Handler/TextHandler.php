@@ -16,6 +16,6 @@ class TextHandler extends BlockDefinitionHandler
     {
         return array(
             'content' => new Parameter\Text(array(), true),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 }

@@ -16,6 +16,6 @@ class RichTextHandler extends BlockDefinitionHandler
     {
         return array(
             'content' => new Parameter\Html(),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 }

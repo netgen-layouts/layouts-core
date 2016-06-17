@@ -16,6 +16,6 @@ class HtmlSnippetHandler extends BlockDefinitionHandler
     {
         return array(
             'content' => new Parameter\Text(),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 }

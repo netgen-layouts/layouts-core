@@ -87,7 +87,7 @@ class GalleryHandler extends BlockDefinitionHandler
             ),
             'number_of_thumbnails' => new Parameter\Integer(array('min' => 1), true),
             'enable_lightbox' => new Parameter\Boolean(),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 
     /**

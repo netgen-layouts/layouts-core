@@ -16,10 +16,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      */
     public function getParameters()
     {
-        return array(
-            'css_class' => new Parameter\TextLine(),
-            'css_id' => new Parameter\TextLine(),
-        );
+        return array();
     }
 
     /**
@@ -42,5 +39,20 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     public function getCollectionIdentifiers()
     {
         return array();
+    }
+
+    /**
+     * Returns the array specifying the parameters most block will use.
+     *
+     * The keys are parameter identifiers.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    protected function getCommonParameters()
+    {
+        return array(
+            'css_class' => new Parameter\TextLine(),
+            'css_id' => new Parameter\TextLine(),
+        );
     }
 }

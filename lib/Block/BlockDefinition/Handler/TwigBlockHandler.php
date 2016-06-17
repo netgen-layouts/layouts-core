@@ -3,10 +3,9 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandler;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TwigBlockHandler extends TwigBlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
+class TwigBlockHandler extends TwigBlockDefinitionHandler
 {
     /**
      * Returns the array specifying block parameters.

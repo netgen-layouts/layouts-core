@@ -35,6 +35,6 @@ class TitleHandler extends BlockDefinitionHandler
                 true
             ),
             'title' => new Parameter\TextLine(array(), true),
-        ) + parent::getParameters();
+        ) + $this->getCommonParameters();
     }
 }
