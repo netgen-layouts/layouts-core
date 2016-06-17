@@ -378,6 +378,7 @@ class Configuration implements ConfigurationInterface
                                 return array_values(array_unique($v));
                             })
                         ->end()
+                        ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()
                         ->prototype('scalar')
                             ->cannotBeEmpty()
