@@ -1,3 +1,5 @@
+query.ezcontent_search.advanced_options: 'Advanced options'
+
 query.ezcontent_search.parent_location_id: 'Parent location'
 query.ezcontent_search.sort_direction: 'Sort direction'
 query.ezcontent_search.sort_type: 'Sort type'

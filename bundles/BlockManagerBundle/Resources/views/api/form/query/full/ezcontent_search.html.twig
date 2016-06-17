@@ -1,5 +1,7 @@
 {% extends 'NetgenBlockManagerBundle:api/form:form.html.twig' %}
 
+{% trans_default_domain 'ngbm_query_forms' %}
+
 {% block children %}
     {% set parameters = form.children.parameters %}
 
@@ -8,7 +10,10 @@
     {{ form_row(parameters.children.sort_direction) }}
     {{ form_row(parameters.children.limit) }}
 
-    <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">Advanced options</a>
+    <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
+        {{ 'query.ezcontent_search.advanced_options'|trans }}
+    </a>
+
     <div class="collapse" id="collapseAdvanced">
         {{ form_rest(parameters) }}
     </div>
