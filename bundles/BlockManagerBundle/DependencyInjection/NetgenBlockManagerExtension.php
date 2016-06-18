@@ -110,7 +110,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'block_types.yml' => 'netgen_block_manager',
             'layout_types.yml' => 'netgen_block_manager',
             'sources.yml' => 'netgen_block_manager',
-            'query_types.yml' => 'netgen_block_manager',
             'view/block_view.yml' => 'netgen_block_manager',
             'view/item_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
