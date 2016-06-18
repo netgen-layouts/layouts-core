@@ -18,6 +18,7 @@ Activate the Block Manager in your kernel class:
 ```
 ...
 
+$bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
@@ -31,6 +32,7 @@ If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBund
 ```
 ...
 
+$bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
@@ -62,6 +64,16 @@ netgen_block_manager:
 netgen_content_browser:
     resource: "@NetgenContentBrowserBundle/Resources/config/routing.yml"
     prefix: "%netgen_content_browser.route_prefix%"
+```
+
+Disable short alias in JMS Serializer
+-------------------------------------
+
+If using JMS Serializer, you will need to disable aliasing its' serializer service to Symfony's `@serializer` service.
+
+```
+jms_serializer:
+    enable_short_alias: false
 ```
 
 Adjusting your full views
