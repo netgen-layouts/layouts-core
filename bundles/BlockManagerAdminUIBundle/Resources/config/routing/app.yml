@@ -9,6 +9,12 @@ netgen_block_manager_app_block_edit:
     defaults:
         _controller: "netgen_block_manager.controller.app.block:edit"
 
+netgen_block_manager_app_layout_form_create:
+    path: /layouts/form/create
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.layout:layoutCreateForm"
+
 netgen_block_manager_app_block_form_edit:
     path: /blocks/{blockId}/form/edit/{formName}
     methods: [GET, POST]

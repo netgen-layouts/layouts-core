@@ -1,3 +1,4 @@
+netgen_block_manager.layout_name.layout_exists: 'Layout with provided name already exists.'
 netgen_block_manager.block_view_type.no_view_type: 'View type "%viewType%" does not exist.'
 netgen_block_manager.block_item_view_type.no_view_type: 'View type "%viewType%" does not exist.'
 netgen_block_manager.block_item_view_type.no_item_view_type: 'Block item view type "%itemViewType%" does not exist for "%viewType%" view type.'

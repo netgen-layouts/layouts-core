@@ -157,6 +157,18 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Returns if layout with provided name exists.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function layoutNameExists($name)
+    {
+        return $this->layoutHandler->layoutNameExists($name);
+    }
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct

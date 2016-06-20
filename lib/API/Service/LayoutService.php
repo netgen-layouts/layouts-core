@@ -56,6 +56,15 @@ interface LayoutService
     public function loadZoneDraft($layoutId, $identifier);
 
     /**
+     * Returns if layout with provided name exists.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function layoutNameExists($name);
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct

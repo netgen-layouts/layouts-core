@@ -1,23 +1,27 @@
 form_view:
     view:
+        layout\create:
+            template: "NetgenBlockManagerAdminUIBundle:app/form/layout:create.html.twig"
+            match:
+                form\type: Netgen\BlockManager\Layout\Form\CreateType
         block\full_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/block:full.html.twig"
+            template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\FullEditType
         block\content_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/block:content.html.twig"
+            template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:content.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\ContentEditType
         block\design_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/block:design.html.twig"
+            template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:design.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\DesignEditType
         query\full_edit\ezcontent_search:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/query/full:ezcontent_search.html.twig"
+            template: "NetgenBlockManagerAdminUIBundle:app/form/query/edit/full:ezcontent_search.html.twig"
             match:
                 form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
                 form\query\type: ezcontent_search
         query\full_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/query:full.html.twig"
+            template: "NetgenBlockManagerAdminUIBundle:app/form/query/edit:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
