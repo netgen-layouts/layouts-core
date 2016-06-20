@@ -111,6 +111,20 @@ class LayoutController extends Controller
     }
 
     /**
+     * Discards a layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function discard(LayoutDraft $layout)
+    {
+        $this->layoutService->discardDraft($layout);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Publishes a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout

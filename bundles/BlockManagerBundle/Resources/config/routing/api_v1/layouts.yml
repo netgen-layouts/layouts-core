@@ -22,6 +22,12 @@ netgen_block_manager_api_v1_layout_update:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:update"
 
+netgen_block_manager_api_v1_layout_discard:
+    path: /layouts/{layoutId}/discard
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.layout:discard"
+
 netgen_block_manager_api_v1_layout_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
