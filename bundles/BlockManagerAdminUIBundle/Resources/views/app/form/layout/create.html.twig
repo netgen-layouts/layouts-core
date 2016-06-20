@@ -2,5 +2,5 @@
 
 {% block children %}
     {{ form_row(form.children.name) }}
-    {{ form_row(form.children.type) }}
+    {{ form_row(form.children.type, {attr: {class: 'layout-type'}}) }}
 {% endblock %}
