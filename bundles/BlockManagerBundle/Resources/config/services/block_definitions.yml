@@ -33,7 +33,6 @@ parameters:
         terrain: 'Terrain'
 
     netgen_block_manager.block.block_definition.handler.list.columns:
-        1: '1 column'
         2: '2 columns'
         3: '3 columns'
         4: '4 columns'
