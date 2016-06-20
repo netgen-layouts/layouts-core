@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -59,9 +60,14 @@ class LayoutController extends Controller
         }
 
         if ($form->isValid()) {
-            $this->layoutService->createLayout($createStruct);
+            $createdLayout = $this->layoutService->createLayout($createStruct);
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            return new JsonResponse(
+                array(
+                    'id' => $createdLayout->getId()
+                ),
+                Response::HTTP_CREATED
+            );
         }
 
         $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
