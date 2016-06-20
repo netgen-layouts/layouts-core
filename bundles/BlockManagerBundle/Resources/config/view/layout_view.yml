@@ -4,9 +4,18 @@ layout_view:
             template: "NetgenBlockManagerBundle:layout/view:3_zones_a.html.twig"
             match:
                 layout\type: 3_zones_a
+        3_zones_b:
+            template: "NetgenBlockManagerBundle:layout/view:3_zones_b.html.twig"
+            match:
+                layout\type: 3_zones_b
     api_view:
         3_zones_a:
             template: "NetgenBlockManagerBundle:api/layout/view:3_zones_a.html.twig"
             match:
                 layout\type: 3_zones_a
+                api_version: 1
+        3_zones_b:
+            template: "NetgenBlockManagerBundle:api/layout/view:3_zones_b.html.twig"
+            match:
+                layout\type: 3_zones_b
                 api_version: 1

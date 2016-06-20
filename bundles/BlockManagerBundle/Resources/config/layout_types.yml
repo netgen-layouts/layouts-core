@@ -8,3 +8,13 @@ layout_types:
                 name: 'Top right'
             bottom:
                 name: 'Bottom'
+
+    3_zones_b:
+        name: '3 zones B'
+        zones:
+            top_left:
+                name: 'Top left'
+            top_right:
+                name: 'Top right'
+            bottom:
+                name: 'Bottom'
