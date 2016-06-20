@@ -2,10 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
@@ -111,61 +109,6 @@ class BlockController extends Controller
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Displays and processes block draft edit form.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
-     * @param string $formName
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block does not support the specified form
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
-     */
-    public function form(BlockDraft $block, $formName, Request $request)
-    {
-        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
-
-        if (!$blockDefinition->getConfig()->hasForm($formName)) {
-            throw new InvalidArgumentException('form', 'Block does not support specified form.');
-        }
-
-        $updateStruct = $this->blockService->newBlockUpdateStruct();
-        $updateStruct->setParameters($block->getParameters());
-        $updateStruct->viewType = $block->getViewType();
-        $updateStruct->itemViewType = $block->getItemViewType();
-        $updateStruct->name = $block->getName();
-
-        $form = $this->createForm(
-            $blockDefinition->getConfig()->getForm($formName)->getType(),
-            $updateStruct,
-            array(
-                'blockDefinition' => $blockDefinition,
-                'action' => $this->generateUrl(
-                    'netgen_block_manager_api_v1_block_form',
-                    array(
-                        'blockId' => $block->getId(),
-                        'formName' => $formName,
-                    )
-                ),
-            )
-        );
-
-        $form->handleRequest($request);
-
-        if ($request->getMethod() !== Request::METHOD_POST) {
-            return new FormView($form, Version::API_V1);
-        }
-
-        if ($form->isValid()) {
-            $this->blockService->updateBlock($block, $form->getData());
-
-            return new Response(null, Response::HTTP_NO_CONTENT);
-        }
-
-        return new FormView($form, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

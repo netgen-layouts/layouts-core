@@ -11,13 +11,13 @@ abstract class Controller extends BaseController
     /**
      * Builds the view from provided value object.
      *
-     * @param \Netgen\BlockManager\API\Values\Value $value
+     * @param mixed $value
      * @param array $parameters
      * @param string $context
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    protected function buildView(Value $value, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    protected function buildView($value, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
     {
         $viewBuilder = $this->get('netgen_block_manager.view.builder');
 

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionHandlerTest extends TestCase

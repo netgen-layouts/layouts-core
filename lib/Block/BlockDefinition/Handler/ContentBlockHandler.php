@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Parameters\Parameter;
 
 class ContentBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {

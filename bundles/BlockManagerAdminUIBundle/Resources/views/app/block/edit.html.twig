@@ -4,7 +4,7 @@
     {% if block_definition.config.hasForm('full') %}
         {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collections.html.twig' %}
 
-        <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'full'}) }}"></div>
+        <div data-form="{{ path('netgen_block_manager_app_block_form_edit', {'blockId': block.id, 'formName': 'full'}) }}"></div>
 
         {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
 
@@ -19,7 +19,7 @@
             <div class="tab-pane" id="content-tab">
                 {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collections.html.twig' %}
 
-                <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'content'}) }}"></div>
+                <div data-form="{{ path('netgen_block_manager_app_block_form_edit', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
                 {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
 
@@ -27,7 +27,7 @@
             </div>
 
             <div class="tab-pane" id="design-tab">
-                <div data-form="{{ path('netgen_block_manager_api_v1_block_form', {'blockId': block.id, 'formName': 'design'}) }}"></div>
+                <div data-form="{{ path('netgen_block_manager_app_block_form_edit', {'blockId': block.id, 'formName': 'design'}) }}"></div>
             </div>
         </div>
     {% endif %}

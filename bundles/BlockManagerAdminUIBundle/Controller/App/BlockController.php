@@ -6,7 +6,11 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BlockController extends Controller
 {
@@ -67,6 +71,69 @@ class BlockController extends Controller
                 'named_collections' => $this->collectionService->loadNamedCollections(),
                 'query_types' => $this->queryTypeRegistry->getQueryTypes(),
             )
+        );
+    }
+
+    /**
+     * Displays and processes block draft edit form.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param string $formName
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block does not support the specified form
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function editForm(BlockDraft $block, $formName, Request $request)
+    {
+        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
+
+        if (!$blockDefinition->getConfig()->hasForm($formName)) {
+            throw new InvalidArgumentException('form', 'Block does not support specified form.');
+        }
+
+        $updateStruct = $this->blockService->newBlockUpdateStruct();
+        $updateStruct->setParameters($block->getParameters());
+        $updateStruct->viewType = $block->getViewType();
+        $updateStruct->itemViewType = $block->getItemViewType();
+        $updateStruct->name = $block->getName();
+
+        $form = $this->createForm(
+            $blockDefinition->getConfig()->getForm($formName)->getType(),
+            $updateStruct,
+            array(
+                'blockDefinition' => $blockDefinition,
+                'action' => $this->generateUrl(
+                    'netgen_block_manager_app_block_form_edit',
+                    array(
+                        'blockId' => $block->getId(),
+                        'formName' => $formName,
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() !== Request::METHOD_POST) {
+            $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
+
+            return $this->render($formView->getTemplate(), $formView->getParameters());
+        }
+
+        if ($form->isValid()) {
+            $this->blockService->updateBlock($block, $form->getData());
+
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
+
+        return $this->render(
+            $formView->getTemplate(),
+            $formView->getParameters(),
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
 }

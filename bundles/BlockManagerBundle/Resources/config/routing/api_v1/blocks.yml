@@ -16,12 +16,6 @@ netgen_block_manager_api_v1_block_move:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:move"
 
-netgen_block_manager_api_v1_block_form:
-    path: /blocks/{blockId}/form/{formName}
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block:form"
-
 netgen_block_manager_api_v1_block_restore:
     path: /blocks/{blockId}/restore
     methods: [POST]

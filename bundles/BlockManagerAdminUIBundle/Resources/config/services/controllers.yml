@@ -2,6 +2,7 @@ parameters:
     netgen_block_manager.controller.admin.layout_resolver.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\Admin\LayoutResolverController
     netgen_block_manager.controller.app.index.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\IndexController
     netgen_block_manager.controller.app.block.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\BlockController
+    netgen_block_manager.controller.app.collection.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\CollectionController
 
 services:
     netgen_block_manager.controller.admin.layout_resolver:
@@ -19,3 +20,9 @@ services:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.collection.registry.query_type"
+
+    netgen_block_manager.controller.app.collection:
+        class: "%netgen_block_manager.controller.app.collection.class%"
+        parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.api.service.collection"

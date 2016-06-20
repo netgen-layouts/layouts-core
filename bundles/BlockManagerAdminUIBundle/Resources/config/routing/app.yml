@@ -8,3 +8,15 @@ netgen_block_manager_app_block_edit:
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:edit"
+
+netgen_block_manager_app_block_form_edit:
+    path: /blocks/{blockId}/form/edit/{formName}
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.block:editForm"
+
+netgen_block_manager_app_collection_query_form_edit:
+    path: /collections/queries/{queryId}/form/edit/{formName}
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.collection:queryEditForm"

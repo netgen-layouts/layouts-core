@@ -58,12 +58,6 @@ netgen_block_manager_api_v1_collection_move_query:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveQuery"
 
-netgen_block_manager_api_v1_collection_query_form:
-    path: /collections/queries/{queryId}/form/{formName}
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:queryForm"
-
 netgen_block_manager_api_v1_collection_delete:
     path: /collections/queries/{queryId}
     methods: [DELETE]

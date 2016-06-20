@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
@@ -256,58 +255,6 @@ class CollectionController extends Controller
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Displays and processes query form.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
-     * @param string $formName
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query does not support the specified form
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
-     */
-    public function queryForm(QueryDraft $query, $formName, Request $request)
-    {
-        $queryType = $this->getQueryType($query->getType());
-
-        if (!$queryType->getConfig()->hasForm($formName)) {
-            throw new InvalidArgumentException('form', 'Query does not support specified form.');
-        }
-
-        $updateStruct = $this->collectionService->newQueryUpdateStruct();
-        $updateStruct->setParameters($query->getParameters());
-
-        $form = $this->createForm(
-            $queryType->getConfig()->getForm($formName)->getType(),
-            $updateStruct,
-            array(
-                'queryType' => $queryType,
-                'action' => $this->generateUrl(
-                    'netgen_block_manager_api_v1_collection_query_form',
-                    array(
-                        'queryId' => $query->getId(),
-                        'formName' => $formName,
-                    )
-                ),
-            )
-        );
-
-        $form->handleRequest($request);
-
-        if ($request->getMethod() !== Request::METHOD_POST) {
-            return new FormView($form, Version::API_V1);
-        }
-
-        if ($form->isValid()) {
-            $this->collectionService->updateQuery($query, $form->getData());
-
-            return new Response(null, Response::HTTP_NO_CONTENT);
-        }
-
-        return new FormView($form, Version::API_V1, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
