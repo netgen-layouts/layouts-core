@@ -1,6 +1,10 @@
 {% extends 'NetgenBlockManagerAdminUIBundle:app/form:form.html.twig' %}
 
+{% trans_default_domain 'ngbm_layout_forms' %}
+
 {% block children %}
     {{ form_row(form.children.name) }}
     {{ form_row(form.children.type, {attr: {class: 'layout-type'}}) }}
+
+    <input type="submit" value="{{ 'layout.button.create'|trans }}" />
 {% endblock %}

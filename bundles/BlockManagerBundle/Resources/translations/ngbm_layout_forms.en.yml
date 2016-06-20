@@ -1,2 +1,3 @@
 layout.type: 'Layout type'
 layout.name: 'Name'
+layout.button.create: 'Create layout'
