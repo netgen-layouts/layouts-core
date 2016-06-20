@@ -73,6 +73,7 @@ class CreateType extends AbstractType
             array(
                 'label' => 'layout.type',
                 'choices' => $choices,
+                'expanded' => true,
                 'property_path' => 'type',
             ) + $this->choicesAsValues
         );
