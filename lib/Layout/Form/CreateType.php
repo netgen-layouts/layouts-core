@@ -74,6 +74,9 @@ class CreateType extends AbstractType
                 'label' => 'layout.type',
                 'choices' => $choices,
                 'expanded' => true,
+                'constraints' => array(
+                    new Constraints\NotBlank(),
+                ),
                 'property_path' => 'type',
             ) + $this->choicesAsValues
         );
