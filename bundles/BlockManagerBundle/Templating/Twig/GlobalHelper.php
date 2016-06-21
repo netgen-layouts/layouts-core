@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\LayoutViewInterface;
 
 class GlobalHelper
@@ -15,6 +16,21 @@ class GlobalHelper
      * @var string
      */
     protected $pageLayout;
+
+    /**
+     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    protected $configuration;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     */
+    public function __construct(ConfigurationInterface $configuration)
+    {
+        $this->configuration = $configuration;
+    }
 
     /**
      * Returns the layout view object.
@@ -54,5 +70,15 @@ class GlobalHelper
     public function getPageLayout()
     {
         return $this->pageLayout;
+    }
+
+    /**
+     * Returns the configuration object.
+     *
+     * @return \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    public function getConfig()
+    {
+        return $this->configuration;
     }
 }
