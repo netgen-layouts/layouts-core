@@ -20,7 +20,7 @@ class LayoutValidator extends Validator
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
     {
         $this->validate(
-            trim($layoutCreateStruct->name),
+            $layoutCreateStruct->name,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
@@ -52,7 +52,7 @@ class LayoutValidator extends Validator
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct)
     {
         $this->validate(
-            trim($layoutUpdateStruct->name),
+            $layoutUpdateStruct->name,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),

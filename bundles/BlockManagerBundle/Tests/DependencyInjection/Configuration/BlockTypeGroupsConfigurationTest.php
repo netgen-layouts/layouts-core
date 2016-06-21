@@ -66,7 +66,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
      */
-    public function testBlockTypeGroupsSettingsWithBlockTypesMerge()
+    public function testBlockTypeGroupsSettingsWithNoBlockTypesMerge()
     {
         $config = array(
             array(
@@ -92,7 +92,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
                 'block_type_group' => array(
                     'name' => 'block_type_group',
                     'enabled' => true,
-                    'block_types' => array('title', 'text', 'image'),
+                    'block_types' => array('image'),
                 ),
             ),
         );

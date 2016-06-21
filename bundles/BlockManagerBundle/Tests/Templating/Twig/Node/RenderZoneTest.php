@@ -37,7 +37,7 @@ class RenderZoneTest extends \Twig_Test_NodeTestCase
 // line 1
 \$ngbmZone = (isset(\$context["zone"]) ? \$context["zone"] : \$this->getContext(\$context, "zone"));
 if (\$ngbmZone instanceof \Netgen\BlockManager\API\Values\Page\Zone) {
-    \$this->env->getExtension("netgen_block_manager")->displayZone(\$ngbmZone, "view", \$this, \$context, \$blocks);
+    \$this->env->getExtension("ngbm_render")->displayZone(\$ngbmZone, "view", \$this, \$context, \$blocks);
 }
 EOF
                 ,

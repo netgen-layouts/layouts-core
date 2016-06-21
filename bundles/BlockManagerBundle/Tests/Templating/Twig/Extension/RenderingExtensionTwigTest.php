@@ -7,13 +7,13 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 
-class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
+class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
@@ -36,7 +36,7 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     protected $fragmentHandlerMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
     protected $extension;
 
@@ -83,7 +83,7 @@ class NetgenBlockManagerExtensionTwigTest extends \Twig_Test_IntegrationTestCase
                 )
             );
 
-        $this->extension = new NetgenBlockManagerExtension(
+        $this->extension = new RenderingExtension(
             $this->blockDefinitionRegistry,
             $this->globalHelperMock,
             $this->viewRendererMock,

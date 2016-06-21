@@ -1,5 +1,5 @@
 --TEST--
-"ngbm_render_block" function
+"ngbm_render" function
 --TEMPLATE--
 {{ ngbm_render_block(block) }}
 --DATA--

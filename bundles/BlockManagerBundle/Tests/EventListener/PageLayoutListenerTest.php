@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\PageLayoutListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
@@ -38,7 +39,9 @@ class PageLayoutListenerTest extends TestCase
             PageLayoutResolverInterface::class
         );
 
-        $this->globalHelper = new GlobalHelper();
+        $this->globalHelper = new GlobalHelper(
+            $this->createMock(ConfigurationInterface::class)
+        );
 
         $this->listener = new PageLayoutListener(
             $this->pageLayoutResolverMock,

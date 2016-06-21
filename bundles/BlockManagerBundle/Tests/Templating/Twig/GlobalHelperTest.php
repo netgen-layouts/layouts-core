@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
@@ -16,7 +17,9 @@ class GlobalHelperTest extends TestCase
 
     public function setUp()
     {
-        $this->globalHelper = new GlobalHelper();
+        $this->globalHelper = new GlobalHelper(
+            $this->createMock(ConfigurationInterface::class)
+        );
     }
 
     /**

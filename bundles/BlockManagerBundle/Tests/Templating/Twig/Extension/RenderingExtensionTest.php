@@ -12,7 +12,7 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_SimpleFunction;
@@ -21,7 +21,7 @@ use Twig_Template;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
-class NetgenBlockManagerExtensionTest extends TestCase
+class RenderingExtensionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
@@ -44,7 +44,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
     protected $fragmentHandlerMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
     protected $extension;
 
@@ -74,7 +74,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
 
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
-        $this->extension = new NetgenBlockManagerExtension(
+        $this->extension = new RenderingExtension(
             $this->blockDefinitionRegistry,
             $this->globalHelperMock,
             $this->viewRendererMock,
@@ -83,16 +83,16 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::getName
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getName
      */
     public function testGetName()
     {
-        self::assertEquals('netgen_block_manager', $this->extension->getName());
+        self::assertEquals('ngbm_render', $this->extension->getName());
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::getGlobals
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getGlobals
      */
     public function testGetGlobals()
     {
@@ -105,7 +105,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::getFunctions
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getFunctions
      */
     public function testGetFunctions()
     {
@@ -117,7 +117,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::getTokenParsers
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTokenParsers
      */
     public function testGetTokenParsers()
     {
@@ -129,7 +129,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
      */
     public function testRenderBlock()
     {
@@ -154,7 +154,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::renderItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderItem
      */
     public function testRenderItem()
     {
@@ -180,8 +180,8 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::displayZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::setDebug
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @expectedException \Exception
      */
     public function testDisplayZoneThrowsException()
@@ -216,7 +216,7 @@ class NetgenBlockManagerExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\NetgenBlockManagerExtension::displayZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
      */
     public function testDisplayZoneThrowsExceptionInDebugMode()
     {
