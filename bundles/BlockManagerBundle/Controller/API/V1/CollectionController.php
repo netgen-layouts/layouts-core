@@ -91,6 +91,7 @@ class CollectionController extends Controller
                 (int)$offset,
                 !empty($limit) ? (int)$limit : null,
                 ResultGeneratorInterface::INCLUDE_INVISIBLE_ITEMS |
+                ResultGeneratorInterface::INCLUDE_INVALID_ITEMS |
                 ResultGeneratorInterface::IGNORE_EXCEPTIONS
             ),
             Version::API_V1

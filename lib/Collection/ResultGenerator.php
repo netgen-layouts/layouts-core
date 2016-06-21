@@ -128,6 +128,10 @@ class ResultGenerator implements ResultGeneratorInterface
                     break;
                 }
 
+                if (!$this->isItemIncluded($resultItem, $flags)) {
+                    continue;
+                }
+
                 $resultItems[] = $resultItem;
             } catch (Exception $e) {
                 if (!($flags & self::IGNORE_EXCEPTIONS)) {
@@ -257,5 +261,22 @@ class ResultGenerator implements ResultGeneratorInterface
         }
 
         return $visibleItems;
+    }
+
+    /**
+     * Returns if current item will be included in result set.
+     *
+     * @param \Netgen\BlockManager\Collection\ResultItem $resultItem
+     * @param $flags
+     *
+     * @return bool
+     */
+    protected function isItemIncluded(ResultItem $resultItem, $flags)
+    {
+        if ($resultItem->getItem()->getValueType() !== 'null') {
+            return true;
+        }
+
+        return (bool)($flags & self::INCLUDE_INVALID_ITEMS);
     }
 }

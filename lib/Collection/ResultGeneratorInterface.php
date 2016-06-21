@@ -8,7 +8,9 @@ interface ResultGeneratorInterface
 {
     const INCLUDE_INVISIBLE_ITEMS = 1;
 
-    const IGNORE_EXCEPTIONS = 2;
+    const INCLUDE_INVALID_ITEMS = 2;
+
+    const IGNORE_EXCEPTIONS = 4;
 
     /**
      * Generates the collection result from provided collection.
