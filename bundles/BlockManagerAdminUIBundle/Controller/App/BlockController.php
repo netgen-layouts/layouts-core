@@ -93,8 +93,13 @@ class BlockController extends Controller
             throw new InvalidArgumentException('form', 'Block does not support specified form.');
         }
 
+        $blockForm = $blockDefinition->getConfig()->getForm($formName);
+
         $updateStruct = $this->blockService->newBlockUpdateStruct();
-        $updateStruct->setParameters($block->getParameters());
+        foreach ($blockForm->getParameters() as $parameter) {
+            $updateStruct->setParameter($parameter, $block->getParameter($parameter));
+        }
+
         $updateStruct->viewType = $block->getViewType();
         $updateStruct->itemViewType = $block->getItemViewType();
         $updateStruct->name = $block->getName();

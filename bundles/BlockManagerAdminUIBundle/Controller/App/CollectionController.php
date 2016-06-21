@@ -46,11 +46,15 @@ class CollectionController extends Controller
             throw new InvalidArgumentException('form', 'Query does not support specified form.');
         }
 
+        $queryForm = $queryType->getConfig()->getForm($formName);
+
         $updateStruct = $this->collectionService->newQueryUpdateStruct();
-        $updateStruct->setParameters($query->getParameters());
+        foreach ($queryForm->getParameters() as $parameter) {
+            $updateStruct->setParameter($parameter, $query->getParameter($parameter));
+        }
 
         $form = $this->createForm(
-            $queryType->getConfig()->getForm($formName)->getType(),
+            $queryForm->getType(),
             $updateStruct,
             array(
                 'queryType' => $queryType,
