@@ -6,9 +6,6 @@ block_definitions:
         view_types:
             title:
                 name: 'Title'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     text:
         forms:
@@ -17,9 +14,6 @@ block_definitions:
         view_types:
             text:
                 name: 'Text'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     rich_text:
         forms:
@@ -28,9 +22,6 @@ block_definitions:
         view_types:
             rich_text:
                 name: 'Rich text'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     html_snippet:
         forms:
@@ -39,9 +30,6 @@ block_definitions:
         view_types:
             html_snippet:
                 name: 'HTML snippet'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     content:
         forms:
@@ -50,9 +38,6 @@ block_definitions:
         view_types:
             content:
                 name: 'Content'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     twig_block:
         forms:
@@ -61,9 +46,6 @@ block_definitions:
         view_types:
             twig_block:
                 name: 'Twig block'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     external_video:
         forms:
@@ -72,9 +54,6 @@ block_definitions:
         view_types:
             external_video:
                 name: 'External video'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     map:
         forms:
@@ -87,9 +66,6 @@ block_definitions:
         view_types:
             map:
                 name: 'Map'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     list:
         forms:
@@ -101,14 +77,8 @@ block_definitions:
         view_types:
             list:
                 name: 'List'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
             grid:
                 name: 'Grid'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
 
     gallery:
         forms:
@@ -131,21 +101,9 @@ block_definitions:
         view_types:
             slider:
                 name: 'Slider'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
             thumb_gallery:
                 name: 'Thumb gallery'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
             grid_gallery:
                 name: 'Grid gallery'
-                item_view_types:
-                    standard:
-                        name: 'Standard'
             sushi_bar:
                 name: 'Sushi bar'
-                item_view_types:
-                    standard:
-                        name: 'Standard'

@@ -223,7 +223,7 @@ class Configuration implements ConfigurationInterface
                                     ->cannotBeEmpty()
                                 ->end()
                                 ->arrayNode('item_view_types')
-                                    ->isRequired()
+                                    ->defaultValue(array('standard' => array('name' => 'Standard')))
                                     ->performNoDeepMerging()
                                     ->requiresAtLeastOneElement()
                                     ->useAttributeAsKey('item_view_type')
