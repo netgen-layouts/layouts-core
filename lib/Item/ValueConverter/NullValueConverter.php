@@ -33,7 +33,7 @@ class NullValueConverter implements ValueConverterInterface
     /**
      * Returns the object ID.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $object
+     * @param mixed $object
      *
      * @return int|string
      */
@@ -45,7 +45,7 @@ class NullValueConverter implements ValueConverterInterface
     /**
      * Returns the object name.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $object
+     * @param mixed $object
      *
      * @return string
      */
@@ -57,7 +57,7 @@ class NullValueConverter implements ValueConverterInterface
     /**
      * Returns if the object is visible.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $object
+     * @param mixed $object
      *
      * @return bool
      */
