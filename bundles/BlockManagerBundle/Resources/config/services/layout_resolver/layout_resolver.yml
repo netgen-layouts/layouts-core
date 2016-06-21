@@ -1,10 +1,19 @@
 parameters:
+    netgen_block_manager.layout.resolver.registry.target_type.class: Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry
+    netgen_block_manager.layout.resolver.registry.condition_type.class: Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry
+
     netgen_block_manager.layout.resolver.class: Netgen\BlockManager\Layout\Resolver\LayoutResolver
 
 services:
+    netgen_block_manager.layout.resolver.registry.target_type:
+        class: "%netgen_block_manager.layout.resolver.registry.target_type.class%"
+
+    netgen_block_manager.layout.resolver.registry.condition_type:
+        class: "%netgen_block_manager.layout.resolver.registry.condition_type.class%"
+
     netgen_block_manager.layout.resolver:
         class: "%netgen_block_manager.layout.resolver.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
-            - []
-            - []
+            - "@netgen_block_manager.layout.resolver.registry.target_type"
+            - "@netgen_block_manager.layout.resolver.registry.condition_type"

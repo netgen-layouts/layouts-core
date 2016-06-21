@@ -18,7 +18,8 @@ class NetgenBlockManagerBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new CompilerPass\Block\BlockDefinitionRegistryPass());
-        $container->addCompilerPass(new CompilerPass\LayoutResolver\LayoutResolverPass());
+        $container->addCompilerPass(new CompilerPass\LayoutResolver\TargetTypeRegistryPass());
+        $container->addCompilerPass(new CompilerPass\LayoutResolver\ConditionTypeRegistryPass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\DoctrineTargetHandlerPass());
         $container->addCompilerPass(new CompilerPass\View\TemplateResolverPass());
         $container->addCompilerPass(new CompilerPass\View\ViewBuilderPass());

@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Layout\Resolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use RuntimeException;
 
 class LayoutResolver implements LayoutResolverInterface
@@ -14,52 +16,30 @@ class LayoutResolver implements LayoutResolverInterface
     protected $layoutResolverService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetValueProviderInterface[]
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetValueProviders = array();
+    protected $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface[]
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
-    protected $conditionMatchers = array();
+    protected $conditionTypeRegistry;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
-     * @param \Netgen\BlockManager\Layout\Resolver\TargetValueProviderInterface[] $targetValueProviders
-     * @param \Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface[] $conditionMatchers
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
      */
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        array $targetValueProviders = array(),
-        array $conditionMatchers = array()
+        TargetTypeRegistryInterface $targetTypeRegistry,
+        ConditionTypeRegistryInterface $conditionTypeRegistry
     ) {
-        foreach ($targetValueProviders as $targetValueProvider) {
-            if (!$targetValueProvider instanceof TargetValueProviderInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        "Target value provider '%s' needs to implement TargetValueProviderInterface.",
-                        get_class($targetValueProvider)
-                    )
-                );
-            }
-        }
-
-        foreach ($conditionMatchers as $conditionMatcher) {
-            if (!$conditionMatcher instanceof ConditionMatcherInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        "Condition matcher '%s' needs to implement ConditionMatcherInterface.",
-                        get_class($conditionMatcher)
-                    )
-                );
-            }
-        }
-
         $this->layoutResolverService = $layoutResolverService;
-        $this->targetValueProviders = $targetValueProviders;
-        $this->conditionMatchers = $conditionMatchers;
+        $this->targetTypeRegistry = $targetTypeRegistry;
+        $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
 
     /**
@@ -76,8 +56,8 @@ class LayoutResolver implements LayoutResolverInterface
     {
         $matchedRules = array();
 
-        foreach ($this->targetValueProviders as $targetIdentifier => $targetValueProvider) {
-            $targetValue = $targetValueProvider->provideValue();
+        foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
+            $targetValue = $targetType->provideValue();
             if ($targetValue === null) {
                 continue;
             }
@@ -85,7 +65,7 @@ class LayoutResolver implements LayoutResolverInterface
             $matchedRules = array_merge(
                 $matchedRules,
                 $this->matchRules(
-                    $targetIdentifier,
+                    $targetType->getIdentifier(),
                     $targetValue
                 )
             );
@@ -133,24 +113,15 @@ class LayoutResolver implements LayoutResolverInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition[] $conditions
      *
-     * @throws \RuntimeException If condition matcher does not exist for one of the conditions
+     * @throws \RuntimeException If condition type does not exist for one of the conditions
      *
      * @return bool
      */
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
-            if (!isset($this->conditionMatchers[$condition->getIdentifier()])) {
-                throw new RuntimeException(
-                    sprintf(
-                        "Condition matcher for '%s' condition type does not exist.",
-                        $condition->getIdentifier()
-                    )
-                );
-            }
-
-            $conditionMatcher = $this->conditionMatchers[$condition->getIdentifier()];
-            if (!$conditionMatcher->matches($condition->getValue())) {
+            $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getIdentifier());
+            if (!$conditionType->matches($condition->getValue())) {
                 return false;
             }
         }

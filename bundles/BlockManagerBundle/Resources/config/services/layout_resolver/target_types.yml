@@ -1,0 +1,50 @@
+parameters:
+    netgen_block_manager.layout.resolver.target_type.route.class: Netgen\BlockManager\Layout\Resolver\TargetType\Route
+    netgen_block_manager.layout.resolver.target_type.route_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix
+    netgen_block_manager.layout.resolver.target_type.path_info.class: Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo
+    netgen_block_manager.layout.resolver.target_type.path_info_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetType\PathInfoPrefix
+    netgen_block_manager.layout.resolver.target_type.request_uri.class: Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri
+    netgen_block_manager.layout.resolver.target_type.request_uri_prefix.class: Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix
+
+services:
+    netgen_block_manager.layout.resolver.target_type.route:
+        class: "%netgen_block_manager.layout.resolver.target_type.route.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_type }
+
+    netgen_block_manager.layout.resolver.target_type.route_prefix:
+        class: "%netgen_block_manager.layout.resolver.target_type.route_prefix.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_type }
+
+    netgen_block_manager.layout.resolver.target_type.path_info:
+        class: "%netgen_block_manager.layout.resolver.target_type.path_info.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_type }
+
+    netgen_block_manager.layout.resolver.target_type.path_info_prefix:
+        class: "%netgen_block_manager.layout.resolver.target_type.path_info_prefix.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_type }
+
+    netgen_block_manager.layout.resolver.target_type.request_uri:
+        class: "%netgen_block_manager.layout.resolver.target_type.request_uri.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_type }
+
+    netgen_block_manager.layout.resolver.target_type.request_uri_prefix:
+        class: "%netgen_block_manager.layout.resolver.target_type.request_uri_prefix.class%"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
+        tags:
+            - { name: netgen_block_manager.layout.resolver.target_type }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionMatcher;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter;
+use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +13,9 @@ class RouteParameterTest extends TestCase
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter
+     * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
      */
-    protected $conditionMatcher;
+    protected $conditionType;
 
     /**
      * Sets up the route target tests.
@@ -34,12 +34,12 @@ class RouteParameterTest extends TestCase
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
 
-        $this->conditionMatcher = new RouteParameter();
-        $this->conditionMatcher->setRequestStack($this->requestStack);
+        $this->conditionType = new RouteParameter();
+        $this->conditionType->setRequestStack($this->requestStack);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
      *
      * @param mixed $value
      * @param bool $matches
@@ -48,7 +48,7 @@ class RouteParameterTest extends TestCase
      */
     public function testMatches($value, $matches)
     {
-        self::assertEquals($matches, $this->conditionMatcher->matches($value));
+        self::assertEquals($matches, $this->conditionType->matches($value));
     }
 
     /**
@@ -85,13 +85,13 @@ class RouteParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionMatcher\RouteParameter::matches
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
      */
     public function testMatchesWithNoRequest()
     {
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertFalse($this->conditionMatcher->matches(array()));
+        self::assertFalse($this->conditionType->matches(array()));
     }
 }

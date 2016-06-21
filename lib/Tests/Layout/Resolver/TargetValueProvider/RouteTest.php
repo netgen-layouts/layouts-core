@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetValueProvider;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\TargetValueProvider\Route;
+use Netgen\BlockManager\Layout\Resolver\TargetType\Route;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +13,9 @@ class RouteTest extends TestCase
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetValueProvider\Route
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetType\Route
      */
-    protected $targetValueProvider;
+    protected $targetType;
 
     public function setUp()
     {
@@ -26,29 +26,29 @@ class RouteTest extends TestCase
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
 
-        $this->targetValueProvider = new Route();
-        $this->targetValueProvider->setRequestStack($this->requestStack);
+        $this->targetType = new Route();
+        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetValueProvider\Route::provideValue
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\Route::provideValue
      */
     public function testProvideValue()
     {
         self::assertEquals(
             'my_cool_route',
-            $this->targetValueProvider->provideValue()
+            $this->targetType->provideValue()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetValueProvider\Route::provideValue
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\Route::provideValue
      */
     public function testProvideValueWithNoRequest()
     {
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertNull($this->targetValueProvider->provideValue());
+        self::assertNull($this->targetType->provideValue());
     }
 }

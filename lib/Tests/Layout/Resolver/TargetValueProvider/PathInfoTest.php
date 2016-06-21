@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetValueProvider;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\TargetValueProvider\PathInfo;
+use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +13,9 @@ class PathInfoTest extends TestCase
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetValueProvider\PathInfo
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo
      */
-    protected $targetValueProvider;
+    protected $targetType;
 
     public function setUp()
     {
@@ -25,29 +25,29 @@ class PathInfoTest extends TestCase
         $requestStack->push($request);
         $this->setRequestStack($requestStack);
 
-        $this->targetValueProvider = new PathInfo();
-        $this->targetValueProvider->setRequestStack($this->requestStack);
+        $this->targetType = new PathInfo();
+        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetValueProvider\PathInfo::provideValue
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::provideValue
      */
     public function testProvideValue()
     {
         self::assertEquals(
             '/the/answer',
-            $this->targetValueProvider->provideValue()
+            $this->targetType->provideValue()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetValueProvider\PathInfo::provideValue
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::provideValue
      */
     public function testProvideValueWithNoRequest()
     {
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertNull($this->targetValueProvider->provideValue());
+        self::assertNull($this->targetType->provideValue());
     }
 }

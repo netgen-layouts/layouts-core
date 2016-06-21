@@ -2,8 +2,15 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
-interface ConditionMatcherInterface
+interface ConditionTypeInterface
 {
+    /**
+     * Returns the condition type identifier.
+     *
+     * @return string
+     */
+    public function getIdentifier();
+
     /**
      * Returns if this condition matches the provided value.
      *

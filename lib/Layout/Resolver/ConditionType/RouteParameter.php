@@ -1,14 +1,24 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\ConditionMatcher;
+namespace Netgen\BlockManager\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionMatcherInterface;
+use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
-class RouteParameter implements ConditionMatcherInterface
+class RouteParameter implements ConditionTypeInterface
 {
     use RequestStackAwareTrait;
+
+    /**
+     * Returns the condition type identifier.
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return 'route_parameter';
+    }
 
     /**
      * Returns if this condition matches the provided value.

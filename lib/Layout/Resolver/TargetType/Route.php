@@ -1,14 +1,24 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetValueProvider;
+namespace Netgen\BlockManager\Layout\Resolver\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\TargetValueProviderInterface;
+use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
-class PathInfo implements TargetValueProviderInterface
+class Route implements TargetTypeInterface
 {
     use RequestStackAwareTrait;
+
+    /**
+     * Returns the target type identifier.
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return 'route';
+    }
 
     /**
      * Provides the value for the target to be used in matching process.
@@ -22,6 +32,6 @@ class PathInfo implements TargetValueProviderInterface
             return;
         }
 
-        return $currentRequest->getPathInfo();
+        return $currentRequest->attributes->get('_route');
     }
 }
