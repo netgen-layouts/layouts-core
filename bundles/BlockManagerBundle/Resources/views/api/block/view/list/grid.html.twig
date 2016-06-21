@@ -3,13 +3,17 @@
 {% block content %}
 
     {% if collections['default'] is defined %}
-        <div class="grid-row">
-            {% for result in collections['default'].results %}
-                <div class="grid-item cols-{{ block.parameter('number_of_columns')|default(1) }}">
-                    {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
-                </div>
-            {% endfor %}
-        </div>
+        {% if collections['default'].results|length == 0 %}
+            {% include 'NetgenBlockManagerBundle:api/block/parts:empty_collection.html.twig' %}
+        {% else %}
+            <div class="grid-row">
+                {% for result in collections['default'].results %}
+                    <div class="grid-item cols-{{ block.parameter('number_of_columns')|default(3) }}">
+                        {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

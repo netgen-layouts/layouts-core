@@ -1,11 +1,15 @@
 {% macro collection(collections, identifier, item_view_type, view_context) %}
     {% if collections[identifier] is defined %}
-        <div class="list-row">
-            {% for result in collections[identifier].results %}
-                <div class="list-item">
-                    {{ ngbm_render_item(result.item, item_view_type, [], view_context) }}
-                </div>
-            {% endfor %}
-        </div>
+        {% if collections[identifier].results|length == 0 %}
+            {% include 'NetgenBlockManagerBundle:api/block/parts:empty_collection.html.twig' %}
+        {% else %}
+            <div class="list-row">
+                {% for result in collections[identifier].results %}
+                    <div class="list-item">
+                        {{ ngbm_render_item(result.item, item_view_type, [], view_context) }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endif %}
 {% endmacro %}
