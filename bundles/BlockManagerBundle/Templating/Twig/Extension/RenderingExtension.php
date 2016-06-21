@@ -21,7 +21,7 @@ use Twig_Extension;
 use Twig_Template;
 use Exception;
 
-class NetgenBlockManagerExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
+class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
     const BLOCK_CONTROLLER = 'ngbm_block:viewBlockById';
 
