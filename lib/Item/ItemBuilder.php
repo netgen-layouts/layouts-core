@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use RuntimeException;
@@ -100,8 +101,10 @@ class ItemBuilder implements ItemBuilderInterface
         try {
             $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
             $loadedValue = $valueLoader->load($valueId);
+        } catch (InvalidArgumentException $e) {
+            $loadedValue = new NullValue($valueId, $valueType);
         } catch (InvalidItemException $e) {
-            $loadedValue = null;
+            $loadedValue = new NullValue($valueId, $valueType);
         }
 
         return $this->buildFromObject($loadedValue);

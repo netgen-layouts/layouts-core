@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Item\ValueConverter;
 
+use Netgen\BlockManager\Item\NullValue;
 use Netgen\BlockManager\Item\ValueConverterInterface;
 
 class NullValueConverter implements ValueConverterInterface
@@ -9,19 +10,19 @@ class NullValueConverter implements ValueConverterInterface
     /**
      * Returns if the converter supports the object.
      *
-     * @param mixed $object
+     * @param \Netgen\BlockManager\Item\NullValue $object
      *
      * @return bool
      */
     public function supports($object)
     {
-        return $object === null;
+        return $object instanceof NullValue;
     }
 
     /**
      * Returns the value type for this object.
      *
-     * @param mixed $object
+     * @param \Netgen\BlockManager\Item\NullValue $object
      *
      * @return string
      */
@@ -33,19 +34,19 @@ class NullValueConverter implements ValueConverterInterface
     /**
      * Returns the object ID.
      *
-     * @param mixed $object
+     * @param \Netgen\BlockManager\Item\NullValue $object
      *
      * @return int|string
      */
     public function getId($object)
     {
-        return 0;
+        return $object->getId();
     }
 
     /**
      * Returns the object name.
      *
-     * @param mixed $object
+     * @param \Netgen\BlockManager\Item\NullValue $object
      *
      * @return string
      */
@@ -57,7 +58,7 @@ class NullValueConverter implements ValueConverterInterface
     /**
      * Returns if the object is visible.
      *
-     * @param mixed $object
+     * @param \Netgen\BlockManager\Item\NullValue $object
      *
      * @return bool
      */
