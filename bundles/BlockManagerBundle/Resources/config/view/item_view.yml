@@ -13,6 +13,9 @@ item_view:
             template: "NetgenBlockManagerBundle:item/view:null.html.twig"
             match:
                 item\value_type: "null"
+        item:
+            template: "NetgenBlockManagerBundle:item/view:null.html.twig"
+            match: ~
     api_view:
         ezcontent:
             template: "NetgenBlockManagerBundle:api/item/view:ezcontent.html.twig"
@@ -27,3 +30,6 @@ item_view:
             template: "NetgenBlockManagerBundle:api/item/view:null.html.twig"
             match:
                 item\value_type: "null"
+        item:
+            template: "NetgenBlockManagerBundle:api/item/view:null.html.twig"
+            match: ~
