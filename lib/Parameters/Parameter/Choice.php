@@ -60,6 +60,7 @@ class Choice extends Parameter
                             $this->options['options']
                         ),
                     'multiple' => $this->options['multiple'],
+                    'strict' => true,
                 ) + $this->getBaseConstraintOptions($groups)
             ),
         );

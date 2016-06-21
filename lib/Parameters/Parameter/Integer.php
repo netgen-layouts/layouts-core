@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
@@ -32,6 +33,21 @@ class Integer extends Parameter
 
         $optionsResolver->setAllowedTypes('min', array('int', 'null'));
         $optionsResolver->setAllowedTypes('max', array('int', 'null'));
+
+        $optionsResolver->setNormalizer(
+            'max',
+            function (Options $options, $value) {
+                if ($value === null || $options['min'] === null) {
+                    return $value;
+                }
+
+                if ($value < $options['min']) {
+                    return $options['min'];
+                }
+
+                return $value;
+            }
+        );
     }
 
     /**
