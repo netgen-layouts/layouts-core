@@ -95,7 +95,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function getName()
     {
-        return 'netgen_block_manager';
+        return 'ngbm_render';
     }
 
     /**
