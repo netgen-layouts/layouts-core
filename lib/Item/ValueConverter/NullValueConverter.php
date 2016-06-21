@@ -28,7 +28,7 @@ class NullValueConverter implements ValueConverterInterface
      */
     public function getValueType($object)
     {
-        return 'null';
+        return $object->getValueType();
     }
 
     /**

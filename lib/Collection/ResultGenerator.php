@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface;
 use Exception;
+use Netgen\BlockManager\Item\NullValue;
 
 class ResultGenerator implements ResultGeneratorInterface
 {
@@ -273,7 +274,7 @@ class ResultGenerator implements ResultGeneratorInterface
      */
     protected function isItemIncluded(ResultItem $resultItem, $flags)
     {
-        if ($resultItem->getItem()->getValueType() !== 'null') {
+        if (!$resultItem->getItem()->getObject() instanceof NullValue) {
             return true;
         }
 
