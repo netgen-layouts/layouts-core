@@ -70,6 +70,7 @@ class BlockController extends Controller
                 'collections' => $collections,
                 'named_collections' => $this->collectionService->loadNamedCollections(),
                 'query_types' => $this->queryTypeRegistry->getQueryTypes(),
+                'default_browser_config' => $this->getParameter('netgen_block_manager.app.block_edit.default_browser_config')
             )
         );
     }

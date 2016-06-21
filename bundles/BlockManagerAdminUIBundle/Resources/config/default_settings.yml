@@ -1,1 +1,2 @@
 parameters:
+    netgen_block_manager.app.block_edit.default_browser_config: ezcontent

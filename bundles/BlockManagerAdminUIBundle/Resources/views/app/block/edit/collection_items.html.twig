@@ -1,5 +1,5 @@
 {% if collections is not empty and collections['default'] is defined %}
     <section>
-        <div data-browser-config-name="ezcontent" class="collection-items"></div>
+        <div data-browser-config-name="{{ default_browser_config }}" class="collection-items"></div>
     </section>
 {% endif %}
