@@ -18,10 +18,12 @@
             <label>{{ 'block.edit.collection_type'|trans }}</label>
             <a href="#" class="js-edit"><span>{{ collection_types[collection.type] }}</span> <i class="fa fa-pencil"></i></a>
 
-            {% if collection.type == type_dynamic and query_types[collection.queries[0].type] is defined %}
-                <label>{{ 'block.edit.query_type'|trans }}</label>
-                <a href="#" class="js-edit"><span>{{ query_types[collection.queries[0].type].config.name }}</span> <i class="fa fa-pencil"></i></a>
-            {% elseif collection.type == type_named %}
+            {% if collection.type == type_dynamic and query_types|length > 1 %}
+                {% if query_types[collection.queries[0].type] is defined %}
+                    <label>{{ 'block.edit.query_type'|trans }}</label>
+                    <a href="#" class="js-edit"><span>{{ query_types[collection.queries[0].type].config.name }}</span> <i class="fa fa-pencil"></i></a>
+                {% endif %}
+            {% elseif collection.type == type_named and named_collections|length > 1 %}
                 <label>{{ 'block.edit.named_collection'|trans }}</label>
                 <a href="#" class="js-edit"><span>{{ collection.name }}</span> <i class="fa fa-pencil"></i></a>
             {% endif %}
