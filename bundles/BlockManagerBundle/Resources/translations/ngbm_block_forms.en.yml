@@ -2,7 +2,7 @@ block.view_type: 'View type'
 block.item_view_type: 'Item view type'
 block.name: 'Block label'
 
-block.title.tag: 'Tag'
+block.title.tag: 'Heading level'
 block.title.title: 'Title'
 block.title.css_class: 'CSS class'
 block.title.css_id: 'CSS ID'
