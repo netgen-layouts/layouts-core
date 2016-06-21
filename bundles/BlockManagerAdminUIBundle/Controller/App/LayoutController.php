@@ -64,7 +64,7 @@ class LayoutController extends Controller
 
             return new JsonResponse(
                 array(
-                    'id' => $createdLayout->getId()
+                    'id' => $createdLayout->getId(),
                 ),
                 Response::HTTP_CREATED
             );

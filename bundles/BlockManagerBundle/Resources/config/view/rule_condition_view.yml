@@ -1,0 +1,6 @@
+rule_condition_view:
+    admin_view:
+        siteaccess:
+            template: "NetgenBlockManagerAdminUIBundle:admin/rule_condition/view:siteaccess.html.twig"
+            match:
+                condition\type: siteaccess

@@ -71,6 +71,8 @@ class Configuration implements ConfigurationInterface
             $this->getTemplateResolverNodeDefinition('item_view'),
             $this->getTemplateResolverNodeDefinition('layout_view'),
             $this->getTemplateResolverNodeDefinition('form_view'),
+            $this->getTemplateResolverNodeDefinition('rule_target_view'),
+            $this->getTemplateResolverNodeDefinition('rule_condition_view'),
             $this->getBlockDefinitionsNodeDefinition(),
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),

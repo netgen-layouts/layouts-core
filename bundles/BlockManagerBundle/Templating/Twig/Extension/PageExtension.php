@@ -63,7 +63,7 @@ class PageExtension extends Twig_Extension
 
             return $layout->getName();
         } catch (NotFoundException $e) {
-            return null;
+            return;
         }
     }
 }

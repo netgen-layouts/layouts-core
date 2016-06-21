@@ -28,3 +28,5 @@ services:
                 block_view: "@=service('netgen_block_manager.configuration').getParameter('block_view')"
                 item_view: "@=service('netgen_block_manager.configuration').getParameter('item_view')"
                 form_view: "@=service('netgen_block_manager.configuration').getParameter('form_view')"
+                rule_target_view: "@=service('netgen_block_manager.configuration').getParameter('rule_target_view')"
+                rule_condition_view: "@=service('netgen_block_manager.configuration').getParameter('rule_condition_view')"
