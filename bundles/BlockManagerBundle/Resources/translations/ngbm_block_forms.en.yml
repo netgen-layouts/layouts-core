@@ -1,6 +1,6 @@
 block.view_type: 'View type'
 block.item_view_type: 'Item view type'
-block.name: 'Name'
+block.name: 'Block label'
 
 block.title.tag: 'Tag'
 block.title.title: 'Title'
