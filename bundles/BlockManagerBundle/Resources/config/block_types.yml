@@ -76,8 +76,6 @@ block_types:
         defaults:
             view_type: list
             item_view_type: standard
-            parameters:
-                number_of_columns: 1
 
     grid:
         name: 'Grid'
