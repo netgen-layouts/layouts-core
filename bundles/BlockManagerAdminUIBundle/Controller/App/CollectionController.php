@@ -47,9 +47,14 @@ class CollectionController extends Controller
         }
 
         $queryForm = $queryType->getConfig()->getForm($formName);
+        $queryFormParameters = $queryForm->getParameters();
+
+        if (!is_array($queryFormParameters)) {
+            $queryFormParameters = array_keys($queryType->getHandler()->getParameters());
+        }
 
         $updateStruct = $this->collectionService->newQueryUpdateStruct();
-        foreach ($queryForm->getParameters() as $parameter) {
+        foreach ($queryFormParameters as $parameter) {
             $updateStruct->setParameter($parameter, $query->getParameter($parameter));
         }
 

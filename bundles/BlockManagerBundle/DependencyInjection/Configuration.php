@@ -179,7 +179,6 @@ class Configuration implements ConfigurationInterface
                                         ->cannotBeEmpty()
                                     ->end()
                                     ->arrayNode('parameters')
-                                        ->isRequired()
                                         ->validate()
                                             ->always(function ($v) {
                                                 return array_values(array_unique($v));
@@ -199,7 +198,6 @@ class Configuration implements ConfigurationInterface
                                         ->cannotBeEmpty()
                                     ->end()
                                     ->arrayNode('parameters')
-                                        ->isRequired()
                                         ->validate()
                                             ->always(function ($v) {
                                                 return array_values(array_unique($v));

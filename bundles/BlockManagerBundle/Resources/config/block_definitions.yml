@@ -95,7 +95,6 @@ block_definitions:
         forms:
             content:
                 type: ~
-                parameters: ~
             design:
                 type: ~
                 parameters: [number_of_columns, css_class, css_id]
@@ -115,7 +114,6 @@ block_definitions:
         forms:
             content:
                 type: ~
-                parameters: ~
             design:
                 type: ~
                 parameters:

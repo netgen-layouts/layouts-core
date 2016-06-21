@@ -94,9 +94,14 @@ class BlockController extends Controller
         }
 
         $blockForm = $blockDefinition->getConfig()->getForm($formName);
+        $blockFormParameters = $blockForm->getParameters();
+
+        if (!is_array($blockFormParameters)) {
+            $blockFormParameters = array_keys($blockDefinition->getHandler()->getParameters());
+        }
 
         $updateStruct = $this->blockService->newBlockUpdateStruct();
-        foreach ($blockForm->getParameters() as $parameter) {
+        foreach ($blockFormParameters as $parameter) {
             $updateStruct->setParameter($parameter, $block->getParameter($parameter));
         }
 

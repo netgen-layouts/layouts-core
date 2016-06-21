@@ -21,7 +21,7 @@ class Factory
             $forms[$formIdentifier] = new Form(
                 $formIdentifier,
                 $formConfig['type'],
-                isset($formConfig['parameters']) ? $formConfig['parameters'] : array()
+                isset($formConfig['parameters']) ? $formConfig['parameters'] : null
             );
         }
 

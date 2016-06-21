@@ -17,7 +17,7 @@ class Form
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters;
 
     /**
      * Constructor.
@@ -26,7 +26,7 @@ class Form
      * @param string $type
      * @param array $parameters
      */
-    public function __construct($identifier, $type, array $parameters = array())
+    public function __construct($identifier, $type, array $parameters = null)
     {
         $this->identifier = $identifier;
         $this->type = $type;
