@@ -1,5 +1,6 @@
 parameters:
     netgen_block_manager.templating.global_helper.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+    netgen_block_manager.templating.twig.extension.page.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\PageExtension
     netgen_block_manager.templating.twig.extension.rendering.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
     netgen_block_manager.templating.pagelayout_resolver.default.class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
 
@@ -8,6 +9,13 @@ services:
         class: "%netgen_block_manager.templating.global_helper.class%"
         arguments:
             - "@netgen_block_manager.configuration"
+
+    netgen_block_manager.templating.twig.extension.page:
+        class: "%netgen_block_manager.templating.twig.extension.page.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+        tags:
+            - { name: twig.extension }
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: "%netgen_block_manager.templating.twig.extension.rendering.class%"
