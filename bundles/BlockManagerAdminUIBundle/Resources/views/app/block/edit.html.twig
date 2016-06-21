@@ -17,9 +17,9 @@
             </ul>
 
             <div class="tab-pane" id="content-tab">
-                {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collections.html.twig' %}
-
                 <div data-form="{{ path('netgen_block_manager_app_block_form_edit', {'blockId': block.id, 'formName': 'content'}) }}"></div>
+
+                {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collections.html.twig' %}
 
                 {% include 'NetgenBlockManagerAdminUIBundle:app/block/edit:collection_query.html.twig' %}
 
