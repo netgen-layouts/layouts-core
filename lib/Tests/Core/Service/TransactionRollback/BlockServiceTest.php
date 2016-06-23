@@ -13,13 +13,10 @@ use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
-use PHPUnit\Framework\TestCase;
 use Exception;
 
-class BlockServiceTest extends TestCase
+class BlockServiceTest extends TransactionRollbackTest
 {
-    use TestCaseTrait;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */

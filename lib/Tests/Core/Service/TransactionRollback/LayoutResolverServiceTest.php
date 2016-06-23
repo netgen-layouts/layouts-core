@@ -16,13 +16,10 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use PHPUnit\Framework\TestCase;
 use Exception;
 
-class LayoutResolverServiceTest extends TestCase
+class LayoutResolverServiceTest extends TransactionRollbackTest
 {
-    use TestCaseTrait;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */

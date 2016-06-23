@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
@@ -41,10 +42,14 @@ abstract class ServiceTest extends TestCase
      * Creates a collection service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      *
      * @return \Netgen\BlockManager\API\Service\CollectionService
      */
-    abstract protected function createCollectionService(CollectionValidator $validator);
+    abstract protected function createCollectionService(
+        CollectionValidator $validator,
+        QueryTypeRegistryInterface $queryTypeRegistry
+    );
 
     /**
      * Creates a layout resolver service under test.

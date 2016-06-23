@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\CollectionDraft;
@@ -17,13 +18,10 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
-use PHPUnit\Framework\TestCase;
 use Exception;
 
-class CollectionServiceTest extends TestCase
+class CollectionServiceTest extends TransactionRollbackTest
 {
-    use TestCaseTrait;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -55,7 +53,10 @@ class CollectionServiceTest extends TestCase
 
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
-        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
+        $this->collectionService = $this->createCollectionService(
+            $this->collectionValidatorMock,
+            new QueryTypeRegistry()
+        );
     }
 
     /**

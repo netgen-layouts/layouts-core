@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
@@ -47,6 +48,11 @@ abstract class BlockServiceTest extends ServiceTest
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     */
+    protected $queryTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -104,6 +110,8 @@ abstract class BlockServiceTest extends ServiceTest
         $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition1);
         $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition2);
 
+        $this->queryTypeRegistry = new QueryTypeRegistry();
+
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,
             $this->layoutTypeRegistry,
@@ -116,7 +124,8 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         $this->collectionService = $this->createCollectionService(
-            $this->collectionValidatorMock
+            $this->collectionValidatorMock,
+            $this->queryTypeRegistry
         );
     }
 

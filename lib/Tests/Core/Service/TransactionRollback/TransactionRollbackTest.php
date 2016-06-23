@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
@@ -17,9 +18,13 @@ use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\LayoutService;
 use Netgen\BlockManager\Core\Service\BlockService;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Tests\Core\Service\Doctrine\TestCaseTrait;
+use PHPUnit\Framework\TestCase;
 
-trait TestCaseTrait
+abstract class TransactionRollbackTest extends TestCase
 {
+    use TestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
@@ -78,12 +83,14 @@ trait TestCaseTrait
      * Creates a collection service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\CollectionService
      */
-    protected function createCollectionService(CollectionValidator $validator)
+    protected function createCollectionService(CollectionValidator $validator, QueryTypeRegistryInterface $queryTypeRegistry)
     {
         return new CollectionService(
+            $queryTypeRegistry,
             $validator,
             $this->createCollectionMapper(),
             $this->persistenceHandler
