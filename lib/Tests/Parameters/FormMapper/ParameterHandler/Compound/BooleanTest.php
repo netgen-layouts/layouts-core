@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler\Compound;
 
-use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
@@ -34,10 +33,7 @@ class BooleanTest extends TestCase
 
         $this->formBuilder = Forms::createFormFactoryBuilder()
             ->addType(
-                new CompoundBooleanType()
-            )
-            ->addType(
-                new ParametersType(
+                new CompoundBooleanType(
                     new FormMapper(
                         array(
                             'compound_boolean' => $this->handler,
@@ -88,7 +84,7 @@ class BooleanTest extends TestCase
         self::assertTrue($form->getRequired());
         self::assertInstanceOf(CheckboxType::class, $form->getType()->getInnerType());
 
-        $form = $mainForm->get('parameters')->get('sub_param');
+        $form = $mainForm->get('sub_param');
 
         self::assertEquals('parameters[sub_param]', $form->getPropertyPath());
         self::assertEquals('label.sub_param', $form->getOption('label'));

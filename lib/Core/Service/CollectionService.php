@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
@@ -16,10 +15,8 @@ use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
-use Netgen\BlockManager\Core\Values\QueryCreateStruct;
-use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Exception;
 
 class CollectionService implements APICollectionService
@@ -297,7 +294,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
-    public function changeCollectionType(CollectionDraft $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
+    public function changeCollectionType(CollectionDraft $collection, $newType, QueryCreateStruct $queryCreateStruct = null)
     {
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
 
@@ -585,7 +582,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
      */
-    public function addQuery(CollectionDraft $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
+    public function addQuery(CollectionDraft $collection, QueryCreateStruct $queryCreateStruct, $position = null)
     {
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
 
@@ -629,7 +626,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
      */
-    public function updateQuery(QueryDraft $query, APIQueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(QueryDraft $query, QueryUpdateStruct $queryUpdateStruct)
     {
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Collection::STATUS_DRAFT);
         $persistenceCollection = $this->collectionHandler->loadCollection($persistenceQuery->collectionId, Collection::STATUS_DRAFT);
@@ -792,22 +789,12 @@ class CollectionService implements APICollectionService
             )
         );
 
-        $queryParameters = array();
-
-        $queryTypeParameters = $queryType->getHandler()->getParameters();
-        if (is_array($queryTypeParameters)) {
-            foreach ($queryTypeParameters as $parameterName => $parameter) {
-                $queryParameters[$parameterName] = $parameter->getDefaultValue();
-
-                if ($parameter instanceof CompoundParameterInterface) {
-                    foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                        $queryParameters[$subParameterName] = $parameter->getDefaultValue();
-                    }
-                }
-            }
-        }
-
-        $queryCreateStruct->setParameters($queryType->getConfig()->getDefaultQueryParameters() + $queryParameters);
+        $queryCreateStruct->setParameters(
+            $queryType->getConfig()->getDefaultQueryParameters() +
+            $queryCreateStruct->getDefaultValues(
+                $queryType->getHandler()->getParameters()
+            )
+        );
 
         return $queryCreateStruct;
     }

@@ -88,7 +88,7 @@ class BlockValidator extends Validator
         }
 
         $this->validate(
-            $blockCreateStruct->getParameters(),
+            $blockCreateStruct,
             array(
                 new Parameters(
                     array(
@@ -157,7 +157,7 @@ class BlockValidator extends Validator
         }
 
         $this->validate(
-            $blockUpdateStruct->getParameters(),
+            $blockUpdateStruct,
             array(
                 new Parameters(
                     array(

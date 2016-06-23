@@ -15,8 +15,8 @@ use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Values\QueryCreateStruct;
-use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 
 abstract class CollectionServiceTest extends ServiceTest

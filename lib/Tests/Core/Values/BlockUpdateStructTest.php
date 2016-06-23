@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values;
 
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class BlockUpdateStructTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::__construct
      */
     public function testDefaultProperties()
     {
@@ -21,8 +21,8 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::__construct
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameters
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::getParameters
      */
     public function testSetProperties()
     {
@@ -51,7 +51,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::setParameters
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::setParameters
      */
     public function testSetParameters()
     {
@@ -73,7 +73,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::setParameter
      */
     public function testSetParameter()
     {
@@ -91,7 +91,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::setParameter
      */
     public function testOverwriteParameters()
     {
@@ -103,7 +103,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::getParameter
      */
     public function testGetParameter()
     {
@@ -114,7 +114,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
@@ -126,7 +126,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::hasParameter
      */
     public function testHasParameter()
     {
@@ -137,7 +137,7 @@ class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockUpdateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockUpdateStruct::hasParameter
      */
     public function testHasParameterWithNoParameter()
     {

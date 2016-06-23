@@ -256,7 +256,7 @@ class CollectionValidator extends Validator
         $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
 
         $this->validate(
-            $queryCreateStruct->getParameters(),
+            $queryCreateStruct,
             array(
                 new Parameters(
                     array(
@@ -297,7 +297,7 @@ class CollectionValidator extends Validator
         $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
 
         $this->validate(
-            $queryUpdateStruct->getParameters(),
+            $queryUpdateStruct,
             array(
                 new Parameters(
                     array(

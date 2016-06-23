@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values;
 
-use Netgen\BlockManager\Core\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class BlockCreateStructTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::__construct
      */
     public function testDefaultProperties()
     {
@@ -22,8 +22,8 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::__construct
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::getParameters
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::getParameters
      */
     public function testSetProperties()
     {
@@ -54,7 +54,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::setParameters
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::setParameters
      */
     public function testSetParameters()
     {
@@ -76,7 +76,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::setParameter
      */
     public function testSetParameter()
     {
@@ -94,7 +94,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::setParameter
      */
     public function testOverwriteParameters()
     {
@@ -106,7 +106,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::getParameter
      */
     public function testGetParameter()
     {
@@ -117,7 +117,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
@@ -129,7 +129,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::hasParameter
      */
     public function testHasParameter()
     {
@@ -140,7 +140,7 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\BlockCreateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\BlockCreateStruct::hasParameter
      */
     public function testHasParameterWithNoParameter()
     {

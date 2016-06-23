@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values;
 
-use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class QueryUpdateStructTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::__construct
      */
     public function testDefaultProperties()
     {
@@ -19,8 +19,8 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::__construct
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::getParameters
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::getParameters
      */
     public function testSetProperties()
     {
@@ -45,7 +45,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::setParameters
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::setParameters
      */
     public function testSetParameters()
     {
@@ -67,7 +67,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::setParameter
      */
     public function testSetParameter()
     {
@@ -85,7 +85,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::setParameter
      */
     public function testOverwriteParameters()
     {
@@ -97,7 +97,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::getParameter
      */
     public function testGetParameter()
     {
@@ -108,7 +108,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
@@ -120,7 +120,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::hasParameter
      */
     public function testHasParameter()
     {
@@ -131,7 +131,7 @@ class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryUpdateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryUpdateStruct::hasParameter
      */
     public function testHasParameterWithNoParameter()
     {

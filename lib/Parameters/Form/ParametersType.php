@@ -38,7 +38,7 @@ class ParametersType extends AbstractType
                 'parameters',
                 'label_prefix',
                 'property_path_prefix',
-                'parameter_validation_groups'
+                'parameter_validation_groups',
             )
         );
 

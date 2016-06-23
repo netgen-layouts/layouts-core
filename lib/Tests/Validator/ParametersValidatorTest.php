@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Core\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\Constraint\Parameters;

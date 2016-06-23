@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
@@ -18,17 +19,18 @@ class ParametersValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\Parameters $constraint */
+        /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $value */
 
         /** @var \Symfony\Component\Validator\Validator\ValidatorInterface $validator */
         $validator = $this->context->getValidator();
 
         $violations = $validator->validate(
-            $value,
+            $value->getParameters(),
             new Constraints\Collection(
                 array(
-                    'fields' => $this->buildFields(
-                        $constraint->parameters,
+                    'fields' => $this->buildConstraintFields(
                         $value,
+                        $constraint->parameters,
                         $constraint->required
                     ),
                 )
@@ -48,13 +50,13 @@ class ParametersValidator extends ConstraintValidator
     /**
      * Builds the "fields" array from provided parameters and parameter values.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
-     * @param array $parameterValues
      * @param bool $isRequired
      *
      * @return array
      */
-    protected function buildFields(array $parameters, array $parameterValues, $isRequired = true)
+    protected function buildConstraintFields(ParameterCollectionInterface $parameterCollection, array $parameters, $isRequired = true)
     {
         $fields = array();
         foreach ($parameters as $parameterName => $parameter) {
@@ -65,8 +67,16 @@ class ParametersValidator extends ConstraintValidator
             if ($parameter instanceof CompoundParameterInterface) {
                 foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
                     $parameterConstraints = $subParameter->getParameterConstraints();
-                    if ($subParameter->isRequired() && isset($parameterValues[$parameterName]) && $parameterValues[$parameterName]) {
-                        $parameterConstraints = array_merge($parameterConstraints, $subParameter->getBaseConstraints());
+
+                    if (
+                        $subParameter->isRequired() &&
+                        $parameterCollection->hasParameter($parameterName) &&
+                        $parameterCollection->getParameter($parameterName)
+                    ) {
+                        $parameterConstraints = array_merge(
+                            $parameterConstraints,
+                            $subParameter->getBaseConstraints()
+                        );
                     }
 
                     $fields[$subParameterName] = $isRequired ?

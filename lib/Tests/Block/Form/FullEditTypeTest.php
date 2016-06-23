@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Core\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values;
 
-use Netgen\BlockManager\Core\Values\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class QueryCreateStructTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::__construct
      */
     public function testDefaultProperties()
     {
@@ -20,8 +20,8 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::__construct
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::getParameters
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::__construct
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::getParameters
      */
     public function testSetProperties()
     {
@@ -48,7 +48,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::setParameters
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::setParameters
      */
     public function testSetParameters()
     {
@@ -70,7 +70,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::setParameter
      */
     public function testSetParameter()
     {
@@ -88,7 +88,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::setParameter
      */
     public function testOverwriteParameters()
     {
@@ -100,7 +100,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::getParameter
      */
     public function testGetParameter()
     {
@@ -111,7 +111,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsInvalidArgumentException()
@@ -123,7 +123,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::hasParameter
      */
     public function testHasParameter()
     {
@@ -134,7 +134,7 @@ class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\QueryCreateStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\QueryCreateStruct::hasParameter
      */
     public function testHasParameterWithNoParameter()
     {

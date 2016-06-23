@@ -10,13 +10,10 @@ use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
-use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
-use Netgen\BlockManager\Core\Values\BlockCreateStruct;
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
@@ -207,7 +204,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, LayoutDraft $layout, $zoneIdentifier, $position = null)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, LayoutDraft $layout, $zoneIdentifier, $position = null)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
 
@@ -270,7 +267,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\BlockDraft
      */
-    public function updateBlock(BlockDraft $block, APIBlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(BlockDraft $block, BlockUpdateStruct $blockUpdateStruct)
     {
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
 
@@ -527,22 +524,12 @@ class BlockService implements BlockServiceInterface
             )
         );
 
-        $blockParameters = array();
-
-        $definitionParameters = $blockDefinition->getHandler()->getParameters();
-        if (is_array($definitionParameters)) {
-            foreach ($definitionParameters as $parameterName => $parameter) {
-                $blockParameters[$parameterName] = $parameter->getDefaultValue();
-
-                if ($parameter instanceof CompoundParameterInterface) {
-                    foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                        $blockParameters[$subParameterName] = $parameter->getDefaultValue();
-                    }
-                }
-            }
-        }
-
-        $blockCreateStruct->setParameters($blockType->getDefaultBlockParameters() + $blockParameters);
+        $blockCreateStruct->setParameters(
+            $blockType->getDefaultBlockParameters() +
+            $blockCreateStruct->getDefaultValues(
+                $blockDefinition->getHandler()->getParameters()
+            )
+        );
 
         return $blockCreateStruct;
     }

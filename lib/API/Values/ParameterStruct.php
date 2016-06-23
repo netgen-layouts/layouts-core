@@ -1,11 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values;
+namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\ValueObject;
 
-class QueryUpdateStruct extends APIQueryUpdateStruct
+abstract class ParameterStruct extends ValueObject implements ParameterCollectionInterface
 {
     /**
      * @var array
@@ -74,5 +76,29 @@ class QueryUpdateStruct extends APIQueryUpdateStruct
     public function hasParameter($parameterName)
     {
         return isset($this->parameters[$parameterName]);
+    }
+
+    /**
+     * Returns the default parameter values based on provided list of parameters.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     *
+     * @return array
+     */
+    public function getDefaultValues(array $parameters)
+    {
+        $defaultValues = array();
+
+        foreach ($parameters as $parameterName => $parameter) {
+            $defaultValues[$parameterName] = $parameter->getDefaultValue();
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+                    $defaultValues[$subParameterName] = $parameter->getDefaultValue();
+                }
+            }
+        }
+
+        return $defaultValues;
     }
 }

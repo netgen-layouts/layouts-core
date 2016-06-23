@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
-use Netgen\BlockManager\Core\Values\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
