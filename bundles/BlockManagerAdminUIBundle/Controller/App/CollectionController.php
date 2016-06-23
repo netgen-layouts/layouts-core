@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,23 +47,8 @@ class CollectionController extends Controller
         }
 
         $queryForm = $queryType->getConfig()->getForm($formName);
-        $queryFormParameters = $queryForm->getParameters();
-        $queryTypeParameters = $queryType->getHandler()->getParameters();
 
-        if (!is_array($queryFormParameters)) {
-            $queryFormParameters = array_keys($queryTypeParameters);
-        }
-
-        $updateStruct = $this->collectionService->newQueryUpdateStruct();
-        foreach ($queryFormParameters as $parameter) {
-            $updateStruct->setParameter($parameter, $query->getParameter($parameter));
-
-            if ($queryTypeParameters[$parameter] instanceof CompoundParameterInterface) {
-                foreach ($queryTypeParameters[$parameter]->getParameters() as $subParameterName => $subParameter) {
-                    $updateStruct->setParameter($subParameterName, $query->getParameter($subParameterName));
-                }
-            }
-        }
+        $updateStruct = $this->collectionService->newQueryUpdateStruct($query);
 
         $form = $this->createForm(
             $queryForm->getType(),

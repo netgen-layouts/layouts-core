@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Parameters;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
 abstract class Parameter implements ParameterInterface

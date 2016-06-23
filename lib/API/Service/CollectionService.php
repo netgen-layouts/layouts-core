@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
@@ -287,7 +288,9 @@ interface CollectionService
     /**
      * Creates a new query update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
      * @return \Netgen\BlockManager\API\Values\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct();
+    public function newQueryUpdateStruct(Query $query = null);
 }

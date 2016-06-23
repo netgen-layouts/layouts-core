@@ -156,7 +156,9 @@ interface BlockService
     /**
      * Creates a new block update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
      * @return \Netgen\BlockManager\API\Values\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct();
+    public function newBlockUpdateStruct(Block $block = null);
 }

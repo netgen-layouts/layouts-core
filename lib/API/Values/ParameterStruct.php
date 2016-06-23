@@ -79,22 +79,34 @@ abstract class ParameterStruct extends ValueObject implements ParameterCollectio
     }
 
     /**
-     * Returns the default parameter values based on provided list of parameters.
+     * Fills the struct values based on provided list of parameters.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param $initialValues
+     * @param $useDefaultValues
      *
      * @return array
      */
-    public function getDefaultValues(array $parameters)
+    public function fillValues(array $parameters, $initialValues = array(), $useDefaultValues = true)
     {
         $defaultValues = array();
 
         foreach ($parameters as $parameterName => $parameter) {
-            $defaultValues[$parameterName] = $parameter->getDefaultValue();
+            $this->setParameter(
+                $parameterName,
+                isset($initialValues[$parameterName]) ?
+                    $initialValues[$parameterName] :
+                    ($useDefaultValues ? $parameter->getDefaultValue() : null)
+            );
 
             if ($parameter instanceof CompoundParameterInterface) {
                 foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                    $defaultValues[$subParameterName] = $parameter->getDefaultValue();
+                    $this->setParameter(
+                        $subParameterName,
+                        isset($initialValues[$subParameterName]) ?
+                            $initialValues[$subParameterName] :
+                            ($useDefaultValues ? $subParameter->getDefaultValue() : null)
+                    );
                 }
             }
         }

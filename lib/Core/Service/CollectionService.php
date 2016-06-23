@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
@@ -21,6 +23,11 @@ use Exception;
 
 class CollectionService implements APICollectionService
 {
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     */
+    protected $queryTypeRegistry;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
      */
@@ -44,15 +51,18 @@ class CollectionService implements APICollectionService
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
+        QueryTypeRegistryInterface $queryTypeRegistry,
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
         Handler $persistenceHandler
     ) {
+        $this->queryTypeRegistry = $queryTypeRegistry;
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
         $this->persistenceHandler = $persistenceHandler;
@@ -789,11 +799,9 @@ class CollectionService implements APICollectionService
             )
         );
 
-        $queryCreateStruct->setParameters(
-            $queryType->getConfig()->getDefaultQueryParameters() +
-            $queryCreateStruct->getDefaultValues(
-                $queryType->getHandler()->getParameters()
-            )
+        $queryCreateStruct->fillValues(
+            $queryType->getHandler()->getParameters(),
+            $queryType->getConfig()->getDefaultQueryParameters()
         );
 
         return $queryCreateStruct;
@@ -802,10 +810,28 @@ class CollectionService implements APICollectionService
     /**
      * Creates a new query update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
      * @return \Netgen\BlockManager\API\Values\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct()
+    public function newQueryUpdateStruct(Query $query = null)
     {
-        return new QueryUpdateStruct();
+        $queryUpdateStruct = new QueryUpdateStruct();
+
+        if (!$query instanceof Query) {
+            return $queryUpdateStruct;
+        }
+
+        $queryType = $this->queryTypeRegistry->getQueryType(
+            $query->getType()
+        );
+
+        $queryUpdateStruct->fillValues(
+            $queryType->getHandler()->getParameters(),
+            $query->getParameters(),
+            false
+        );
+
+        return $queryUpdateStruct;
     }
 }

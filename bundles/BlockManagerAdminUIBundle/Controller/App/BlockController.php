@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,30 +94,11 @@ class BlockController extends Controller
         }
 
         $blockForm = $blockDefinition->getConfig()->getForm($formName);
-        $blockFormParameters = $blockForm->getParameters();
-        $blockDefinitionParameters = $blockDefinition->getHandler()->getParameters();
 
-        if (!is_array($blockFormParameters)) {
-            $blockFormParameters = array_keys($blockDefinitionParameters);
-        }
-
-        $updateStruct = $this->blockService->newBlockUpdateStruct();
-        foreach ($blockFormParameters as $parameter) {
-            $updateStruct->setParameter($parameter, $block->getParameter($parameter));
-
-            if ($blockDefinitionParameters[$parameter] instanceof CompoundParameterInterface) {
-                foreach ($blockDefinitionParameters[$parameter]->getParameters() as $subParameterName => $subParameter) {
-                    $updateStruct->setParameter($subParameterName, $block->getParameter($subParameterName));
-                }
-            }
-        }
-
-        $updateStruct->viewType = $block->getViewType();
-        $updateStruct->itemViewType = $block->getItemViewType();
-        $updateStruct->name = $block->getName();
+        $updateStruct = $this->blockService->newBlockUpdateStruct($block);
 
         $form = $this->createForm(
-            $blockDefinition->getConfig()->getForm($formName)->getType(),
+            $blockForm->getType(),
             $updateStruct,
             array(
                 'blockDefinition' => $blockDefinition,

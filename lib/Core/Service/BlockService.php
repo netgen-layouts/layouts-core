@@ -524,11 +524,9 @@ class BlockService implements BlockServiceInterface
             )
         );
 
-        $blockCreateStruct->setParameters(
-            $blockType->getDefaultBlockParameters() +
-            $blockCreateStruct->getDefaultValues(
-                $blockDefinition->getHandler()->getParameters()
-            )
+        $blockCreateStruct->fillValues(
+            $blockDefinition->getHandler()->getParameters(),
+            $blockType->getDefaultBlockParameters()
         );
 
         return $blockCreateStruct;
@@ -537,11 +535,33 @@ class BlockService implements BlockServiceInterface
     /**
      * Creates a new block update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
      * @return \Netgen\BlockManager\API\Values\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct()
+    public function newBlockUpdateStruct(Block $block = null)
     {
-        return new BlockUpdateStruct();
+        $blockUpdateStruct = new BlockUpdateStruct();
+
+        if (!$block instanceof Block) {
+            return $blockUpdateStruct;
+        }
+
+        $blockUpdateStruct->viewType = $block->getViewType();
+        $blockUpdateStruct->itemViewType = $block->getItemViewType();
+        $blockUpdateStruct->name = $block->getName();
+
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $block->getDefinitionIdentifier()
+        );
+
+        $blockUpdateStruct->fillValues(
+            $blockDefinition->getHandler()->getParameters(),
+            $block->getParameters(),
+            false
+        );
+
+        return $blockUpdateStruct;
     }
 
     /**

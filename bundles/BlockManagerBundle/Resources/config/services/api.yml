@@ -222,6 +222,7 @@ services:
     netgen_block_manager.core.service.collection:
         class: "%netgen_block_manager.core.service.collection.class%"
         arguments:
+            - "@netgen_block_manager.collection.registry.query_type"
             - "@netgen_block_manager.core.service.collection.validator"
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.persistence.handler"
