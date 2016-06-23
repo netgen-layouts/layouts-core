@@ -111,6 +111,10 @@ class BlockCollectionController extends Controller
     {
         $newType = $request->request->get('new_type');
 
+        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC, Collection::TYPE_NAMED), true)) {
+            throw new InvalidArgumentException('new_type', 'Specified collection type is not valid');
+        }
+
         $collection = $collectionReference->getCollection();
 
         if ($newType === Collection::TYPE_MANUAL) {
@@ -126,6 +130,8 @@ class BlockCollectionController extends Controller
             } else {
                 $newCollection = $this->collectionService->changeCollectionType($collection, $newType);
             }
+
+            $this->blockService->updateCollectionReference($collectionReference, $newCollection);
         } elseif ($newType === Collection::TYPE_DYNAMIC) {
             $queryType = $this->getQueryType($request->request->get('query_type'));
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType, 'default');
@@ -137,6 +143,8 @@ class BlockCollectionController extends Controller
             } else {
                 $newCollection = $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
             }
+
+            $this->blockService->updateCollectionReference($collectionReference, $newCollection);
         } elseif ($newType === Collection::TYPE_NAMED) {
             $newCollection = $this->collectionService->loadCollection($request->request->get('named_collection_id'));
             if ($newCollection->getType() !== Collection::TYPE_NAMED) {
@@ -144,14 +152,12 @@ class BlockCollectionController extends Controller
             }
 
             if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
-                // @TODO This deletes the reference, but we still need to keep it
-                // $this->collectionService->discardDraft($collection);
+                // Updating the reference must come before discarding the draft, since discarding the draft
+                // would delete the reference itself
+                $this->blockService->updateCollectionReference($collectionReference, $newCollection);
+                $this->collectionService->discardDraft($collection);
             }
-        } else {
-            throw new InvalidArgumentException('new_type', 'Specified collection type is not valid');
         }
-
-        $this->blockService->updateCollectionReference($collectionReference, $newCollection);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
