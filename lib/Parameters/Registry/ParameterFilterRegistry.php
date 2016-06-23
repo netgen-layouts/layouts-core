@@ -29,7 +29,7 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter filter does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterFilterInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterFilterInterface[]
      */
     public function getParameterFilters($parameterType)
     {

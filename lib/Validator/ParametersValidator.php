@@ -4,12 +4,28 @@ namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 class ParametersValidator extends ConstraintValidator
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
+     */
+    protected $parameterFilterRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface $parameterFilterRegistry
+     */
+    public function __construct(ParameterFilterRegistryInterface $parameterFilterRegistry)
+    {
+        $this->parameterFilterRegistry = $parameterFilterRegistry;
+    }
+
     /**
      * Checks if the passed value is valid.
      *
@@ -20,6 +36,8 @@ class ParametersValidator extends ConstraintValidator
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\Parameters $constraint */
         /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $value */
+
+        $this->filterParameters($value, $constraint->parameters);
 
         /** @var \Symfony\Component\Validator\Validator\ValidatorInterface $validator */
         $validator = $this->context->getValidator();
@@ -44,6 +62,28 @@ class ParametersValidator extends ConstraintValidator
                 ->setParameter('%parameterName%', $violation->getPropertyPath())
                 ->setParameter('%message%', $violation->getMessage())
                 ->addViolation();
+        }
+    }
+
+    /**
+     * Filters the parameter values
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     */
+    protected function filterParameters(ParameterCollectionInterface $parameterCollection, array $parameters)
+    {
+        foreach ($parameterCollection->getParameters() as $parameterName => $parameterValue) {
+            if (!isset($parameters[$parameterName])) {
+                continue;
+            }
+
+            $filters = $this->parameterFilterRegistry->getParameterFilters($parameters[$parameterName]->getType());
+            foreach ($filters as $filter) {
+                $parameterValue = $filter->filter($parameterValue);
+            }
+
+            $parameterCollection->setParameter($parameterName, $parameterValue);
         }
     }
 
