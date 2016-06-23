@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
-use Symfony\Component\Form\FormBuilderInterface;
 
 interface ParameterHandlerInterface
 {

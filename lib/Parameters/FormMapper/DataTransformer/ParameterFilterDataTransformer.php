@@ -52,7 +52,7 @@ class ParameterFilterDataTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if ($value === '') {
-            return null;
+            return;
         }
 
         foreach ($this->parameterFilters as $parameterFilter) {

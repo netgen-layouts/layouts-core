@@ -12,29 +12,29 @@ services:
         arguments:
             - "@netgen_block_manager.block.registry.block_definition"
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.item:
         class: "%netgen_block_manager.view.provider.item.class%"
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.layout:
         class: "%netgen_block_manager.view.provider.layout.class%"
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.form:
         class: "%netgen_block_manager.view.provider.form.class%"
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.rule_target:
         class: "%netgen_block_manager.view.provider.rule_target.class%"
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.rule_condition:
         class: "%netgen_block_manager.view.provider.rule_condition.class%"
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_block_manager.view.provider }
