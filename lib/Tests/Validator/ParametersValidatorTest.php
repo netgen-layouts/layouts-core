@@ -46,7 +46,7 @@ class ParametersValidatorTest extends ValidatorTest
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\ParametersValidator::validate
-     * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildFields
+     * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildConstraintFields
      * @dataProvider validateDataProvider
      */
     public function testValidate($parameters, $required, $isValid)

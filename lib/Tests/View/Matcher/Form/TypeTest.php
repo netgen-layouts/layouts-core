@@ -24,7 +24,7 @@ class TypeTest extends TestCase
      * @param array $config
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\View\Matcher\Form\FormType::match
+     * @covers \Netgen\BlockManager\View\Matcher\Form\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, $expected)
@@ -51,7 +51,7 @@ class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\FormType::match
+     * @covers \Netgen\BlockManager\View\Matcher\Form\Type::match
      */
     public function testMatchWithNoFormView()
     {
