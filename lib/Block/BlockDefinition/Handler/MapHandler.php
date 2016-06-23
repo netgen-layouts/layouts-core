@@ -42,14 +42,16 @@ class MapHandler extends BlockDefinitionHandler
                     'min' => -90,
                     'max' => 90,
                 ),
-                true
+                true,
+                0
             ),
             'longitude' => new Parameter\Number(
                 array(
                     'min' => -180,
                     'max' => 180,
                 ),
-                true
+                true,
+                0
             ),
             'zoom' => new Parameter\Range(
                 array(
