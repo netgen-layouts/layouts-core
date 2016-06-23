@@ -12,7 +12,7 @@ class TextLine extends ParameterHandler
      *
      * @return string
      */
-    protected function getFormType()
+    public function getFormType()
     {
         return TextType::class;
     }

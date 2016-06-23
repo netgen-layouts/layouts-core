@@ -13,7 +13,7 @@ class Range extends ParameterHandler
      *
      * @return string
      */
-    protected function getFormType()
+    public function getFormType()
     {
         return RangeType::class;
     }
@@ -25,7 +25,7 @@ class Range extends ParameterHandler
      *
      * @return array
      */
-    protected function convertOptions(ParameterInterface $parameter)
+    public function convertOptions(ParameterInterface $parameter)
     {
         $parameterOptions = $parameter->getOptions();
 

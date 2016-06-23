@@ -13,7 +13,7 @@ class Boolean extends CompoundParameterHandler
      *
      * @return string
      */
-    protected function getFormType()
+    public function getFormType()
     {
         return CompoundBooleanType::class;
     }

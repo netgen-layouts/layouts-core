@@ -8,19 +8,29 @@ use Symfony\Component\Form\FormBuilderInterface;
 interface ParameterHandlerInterface
 {
     /**
-     * Maps the parameter to Symfony form type.
+     * Returns the form type for the parameter.
      *
-     * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
+     * @return string
+     */
+    public function getFormType();
+
+    /**
+     * Converts parameter options to Symfony form options.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     *
+     * @return array
+     */
+    public function convertOptions(ParameterInterface $parameter);
+
+    /**
+     * Returns default parameter options for Symfony form.
+     *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param string $parameterName
      * @param array $options
      *
      * @return array
      */
-    public function mapForm(
-        FormBuilderInterface $formBuilder,
-        ParameterInterface $parameter,
-        $parameterName,
-        array $options = array()
-    );
+    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options);
 }

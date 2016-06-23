@@ -12,7 +12,7 @@ class Boolean extends ParameterHandler
      *
      * @return string
      */
-    protected function getFormType()
+    public function getFormType()
     {
         return CheckboxType::class;
     }

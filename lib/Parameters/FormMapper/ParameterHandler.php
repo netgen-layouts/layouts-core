@@ -3,42 +3,9 @@
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
-use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class ParameterHandler implements ParameterHandlerInterface
 {
-    /**
-     * Returns the form type for the parameter.
-     *
-     * @return string
-     */
-    abstract protected function getFormType();
-
-    /**
-     * Maps the parameter to Symfony form type.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param string $parameterName
-     * @param array $options
-     *
-     * @return array
-     */
-    public function mapForm(
-        FormBuilderInterface $formBuilder,
-        ParameterInterface $parameter,
-        $parameterName,
-        array $options = array()
-    ) {
-        $formBuilder->add(
-            $parameterName,
-            $this->getFormType(),
-            $this->convertOptions($parameter) + $this->getDefaultOptions(
-                $parameter, $parameterName, $options
-            )
-        );
-    }
-
     /**
      * Converts parameter options to Symfony form options.
      *
@@ -46,7 +13,7 @@ abstract class ParameterHandler implements ParameterHandlerInterface
      *
      * @return array
      */
-    protected function convertOptions(ParameterInterface $parameter)
+    public function convertOptions(ParameterInterface $parameter)
     {
         return array();
     }
@@ -60,7 +27,7 @@ abstract class ParameterHandler implements ParameterHandlerInterface
      *
      * @return array
      */
-    protected function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
+    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
     {
         $constraints = $parameter->getConstraints();
         if ($options['parameter_validation_groups'] !== null) {

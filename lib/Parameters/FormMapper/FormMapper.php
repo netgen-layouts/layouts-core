@@ -59,11 +59,14 @@ class FormMapper implements FormMapperInterface
             throw new RuntimeException("No parameter handler found for '{$parameterType}' parameter type.");
         }
 
-        $this->parameterHandlers[$parameterType]->mapForm(
-            $formBuilder,
-            $parameter,
+        $parameterHandler = $this->parameterHandlers[$parameterType];
+
+        $formBuilder->add(
             $parameterName,
-            $options
+            $parameterHandler->getFormType(),
+            $parameterHandler->convertOptions($parameter) + $parameterHandler->getDefaultOptions(
+                $parameter, $parameterName, $options
+            )
         );
     }
 

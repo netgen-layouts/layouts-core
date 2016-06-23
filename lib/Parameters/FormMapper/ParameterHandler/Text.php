@@ -12,7 +12,7 @@ class Text extends ParameterHandler
      *
      * @return string
      */
-    protected function getFormType()
+    public function getFormType()
     {
         return TextareaType::class;
     }
