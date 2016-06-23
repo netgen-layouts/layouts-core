@@ -45,11 +45,12 @@ class Boolean extends ParameterHandler
     {
         return array(
             'label' => false,
+            'label_prefix' => $options['label_prefix'],
+            'property_path_prefix' => $options['property_path_prefix'],
             'checkbox_required' => $parameter->isRequired(),
             'checkbox_label' => $options['label_prefix'] . '.' . $parameterName,
             'checkbox_constraints' => $parameter->getConstraints($options['parameter_validation_groups']),
             'checkbox_property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
-            'form_mapper_options' => $options,
         );
     }
 }

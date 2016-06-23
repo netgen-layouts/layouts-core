@@ -28,7 +28,8 @@ class CompoundBooleanType extends AbstractType
         $resolver->setRequired(
             array(
                 'parameters',
-                'form_mapper_options',
+                'label_prefix',
+                'property_path_prefix',
                 'checkbox_name',
                 'checkbox_required',
                 'checkbox_label',
@@ -38,7 +39,8 @@ class CompoundBooleanType extends AbstractType
         );
 
         $resolver->setAllowedTypes('parameters', 'array');
-        $resolver->setAllowedTypes('form_mapper_options', 'array');
+        $resolver->setAllowedTypes('label_prefix', 'string');
+        $resolver->setAllowedTypes('property_path_prefix', 'string');
         $resolver->setAllowedTypes('checkbox_name', 'string');
         $resolver->setAllowedTypes('checkbox_required', 'bool');
         $resolver->setAllowedTypes('checkbox_label', 'string');
@@ -47,7 +49,6 @@ class CompoundBooleanType extends AbstractType
 
         $resolver->setDefault('inherit_data', true);
         $resolver->setDefault('parameters', array());
-        $resolver->setDefault('form_mapper_options', array());
         $resolver->setDefault('checkbox_name', '_self');
         $resolver->setDefault('checkbox_required', false);
         $resolver->setDefault('checkbox_constraints', array());
@@ -110,10 +111,12 @@ class CompoundBooleanType extends AbstractType
             'parameters',
             ParametersType::class,
             array(
-                'label' => false,
+                'label' => $options['label'],
                 'parameters' => $options['parameters'],
+                'label_prefix' => $options['label_prefix'],
+                'property_path_prefix' => $options['property_path_prefix'],
                 'parameter_validation_groups' => array(self::COMPOUND_GROUP),
-            ) + $options['form_mapper_options']
+            )
         );
     }
 
