@@ -19,9 +19,12 @@
             <a href="#" class="js-edit"><span>{{ collection_types[collection.type] }}</span> <i class="fa fa-pencil"></i></a>
 
             {% if collection.type == type_dynamic and query_types|length > 1 %}
+                <label>{{ 'block.edit.query_type'|trans }}</label>
+
                 {% if query_types[collection.queries[0].type] is defined %}
-                    <label>{{ 'block.edit.query_type'|trans }}</label>
                     <a href="#" class="js-edit"><span>{{ query_types[collection.queries[0].type].config.name }}</span> <i class="fa fa-pencil"></i></a>
+                {% else %}
+                    <a href="#" class="js-edit"><span>{{ collection.queries[0].type }}</span> <i class="fa fa-pencil"></i></a>
                 {% endif %}
             {% elseif collection.type == type_named and named_collections|length > 1 %}
                 <label>{{ 'block.edit.named_collection'|trans }}</label>
@@ -34,29 +37,39 @@
             <div>
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }}</label>
                 <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master">
-                    {% for collection_type, collection_name in collection_types %}
-                        <option {% if collection.type == collection_type %} selected="selected" {% endif %} value="{{ collection_type }}">{{ collection_name }}</option>
-                    {% endfor %}
+                    <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
+
+                    {% if query_types|length > 0 %}
+                        <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">{{ collection_types[type_dynamic] }}</option>
+                    {% endif %}
+
+                    {% if named_collections|length > 0 %}
+                        <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">{{ collection_types[type_named] }}</option>
+                    {% endif %}
                 </select>
             </div>
 
-            <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
-                <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
-                <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
-                    {% for query_type in query_types %}
-                        <option {% if collection.queries[0] is defined and collection.queries[0].type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            {% if query_types|length > 0 %}
+                <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
+                    <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
+                    <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
+                        {% for query_type in query_types %}
+                            <option {% if collection.queries[0] is defined and collection.queries[0].type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
 
-            <div class="js-dependable" data-linked-value="{{ type_named }}">
-                <label for="named-collections">{{ 'block.edit.named_collection'|trans }}</label>
-                <select id="named-collections"  name="block_collection[named_collection_id]">
-                    {% for named_collection in named_collections %}
-                        <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }}">{{ named_collection.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            {% if named_collections|length > 0 %}
+                <div class="js-dependable" data-linked-value="{{ type_named }}">
+                    <label for="named-collections">{{ 'block.edit.named_collection'|trans }}</label>
+                    <select id="named-collections"  name="block_collection[named_collection_id]">
+                        {% for named_collection in named_collections %}
+                            <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }}">{{ named_collection.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
 
             <div class="actions">
                 <a href="#" class="btn btn-link js-cancel">{{ 'block.edit.cancel'|trans }}</a>
