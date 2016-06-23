@@ -66,7 +66,7 @@ abstract class ParameterHandler implements ParameterHandlerInterface
             'required' => $parameter->isRequired(),
             'label' => $options['label_prefix'] . '.' . $parameterName,
             'property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
-            'constraints' => $parameter->getConstraints($options['validation_groups']),
+            'constraints' => $parameter->getConstraints($options['parameter_validation_groups']),
         );
     }
 }

@@ -76,12 +76,12 @@ class FormMapper implements FormMapperInterface
     {
         $optionsResolver->setDefault('label_prefix', false);
         $optionsResolver->setDefault('property_path_prefix', 'parameters');
-        $optionsResolver->setDefault('validation_groups', null);
+        $optionsResolver->setDefault('parameter_validation_groups', null);
 
-        $optionsResolver->setRequired(array('label_prefix', 'property_path_prefix', 'validation_groups'));
+        $optionsResolver->setRequired(array('label_prefix', 'property_path_prefix', 'parameter_validation_groups'));
 
         $optionsResolver->setAllowedTypes('label_prefix', 'string');
         $optionsResolver->setAllowedTypes('property_path_prefix', 'string');
-        $optionsResolver->setAllowedTypes('validation_groups', array('null', 'array'));
+        $optionsResolver->setAllowedTypes('parameter_validation_groups', array('null', 'array'));
     }
 }

@@ -170,7 +170,7 @@ abstract class EditType extends AbstractType
                 'label' => false,
                 'parameters' => $parameters,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
-                'property_path' => 'parameters',
+                'property_path_prefix' => 'parameters',
             )
         );
     }

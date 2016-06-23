@@ -51,7 +51,7 @@ class TextLineTest extends TestCase
             array(
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'validation_groups' => null,
+                'parameter_validation_groups' => null,
             )
         );
 

@@ -47,7 +47,7 @@ class Boolean extends ParameterHandler
             'label' => false,
             'checkbox_required' => $parameter->isRequired(),
             'checkbox_label' => $options['label_prefix'] . '.' . $parameterName,
-            'checkbox_constraints' => $parameter->getConstraints($options['validation_groups']),
+            'checkbox_constraints' => $parameter->getConstraints($options['parameter_validation_groups']),
             'checkbox_property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
             'form_mapper_options' => $options,
         );

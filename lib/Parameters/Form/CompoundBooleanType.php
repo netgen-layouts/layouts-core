@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -16,21 +15,6 @@ use Symfony\Component\Validator\Constraint;
 class CompoundBooleanType extends AbstractType
 {
     const COMPOUND_GROUP = 'Compound';
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
-     */
-    protected $formMapper;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $formMapper
-     */
-    public function __construct(FormMapperInterface $formMapper)
-    {
-        $this->formMapper = $formMapper;
-    }
 
     /**
      * Configures the options for this type.
@@ -95,16 +79,15 @@ class CompoundBooleanType extends AbstractType
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) use ($options) {
                 $data = $event->getData();
+                $checkbox = $options['checkbox_name'];
 
-                if (empty($data)) {
+                if (empty($data) || empty($data['parameters'])) {
                     return;
                 }
 
-                if (!isset($data[$options['checkbox_name']]) || !$data[$options['checkbox_name']]) {
-                    foreach ($data as $key => $value) {
-                        if ($key !== $options['checkbox_name']) {
-                            $data[$key] = null;
-                        }
+                if (!isset($data[$checkbox]) || !$data[$checkbox]) {
+                    foreach ($data['parameters'] as $key => $value) {
+                        $data['parameters'][$key] = null;
                     }
                 }
 
@@ -123,18 +106,15 @@ class CompoundBooleanType extends AbstractType
             )
         );
 
-        foreach ($options['parameters'] as $subParameterName => $subParameter) {
-            $this->formMapper->mapParameter(
-                $builder,
-                $subParameter,
-                $subParameterName,
-                array(
-                    'validation_groups' => array(
-                        self::COMPOUND_GROUP,
-                    ),
-                ) + $options['form_mapper_options']
-            );
-        }
+        $builder->add(
+            'parameters',
+            ParametersType::class,
+            array(
+                'label' => false,
+                'parameters' => $options['parameters'],
+                'parameter_validation_groups' => array(self::COMPOUND_GROUP),
+            ) + $options['form_mapper_options']
+        );
     }
 
     /**

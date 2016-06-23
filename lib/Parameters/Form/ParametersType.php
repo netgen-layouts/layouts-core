@@ -33,11 +33,22 @@ class ParametersType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('parameters', 'label_prefix'));
+        $resolver->setRequired(
+            array(
+                'parameters',
+                'label_prefix',
+                'property_path_prefix',
+                'parameter_validation_groups'
+            )
+        );
+
         $resolver->setAllowedTypes('parameters', 'array');
         $resolver->setAllowedTypes('label_prefix', 'string');
+        $resolver->setAllowedTypes('property_path_prefix', 'string');
+        $resolver->setAllowedTypes('parameter_validation_groups', array('null', 'array'));
 
         $resolver->setDefault('inherit_data', true);
+        $resolver->setDefault('parameter_validation_groups', null);
     }
 
     /**
@@ -55,7 +66,8 @@ class ParametersType extends AbstractType
                 $parameterName,
                 array(
                     'label_prefix' => $options['label_prefix'],
-                    'property_path_prefix' => $options['property_path'],
+                    'property_path_prefix' => $options['property_path_prefix'],
+                    'parameter_validation_groups' => $options['parameter_validation_groups'],
                 )
             );
         }
