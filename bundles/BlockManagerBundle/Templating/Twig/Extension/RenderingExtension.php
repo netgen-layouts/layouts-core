@@ -120,6 +120,20 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                     'is_safe' => array('html'),
                 )
             ),
+            new Twig_SimpleFunction(
+                'ngbm_render_rule_target',
+                array($this, 'renderValueObject'),
+                array(
+                    'is_safe' => array('html'),
+                )
+            ),
+            new Twig_SimpleFunction(
+                'ngbm_render_rule_condition',
+                array($this, 'renderValueObject'),
+                array(
+                    'is_safe' => array('html'),
+                )
+            ),
         );
     }
 
@@ -209,6 +223,36 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             );
         } catch (Exception $e) {
             $this->logItemError($item, $e);
+
+            if ($this->debug) {
+                throw $e;
+            }
+
+            return '';
+        }
+    }
+
+    /**
+     * Renders the provided value object.
+     *
+     * @param mixed $valueObject
+     * @param array $parameters
+     * @param string $context
+     *
+     * @throws \Exception If an error occurred
+     *
+     * @return string
+     */
+    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    {
+        try {
+            return $this->viewRenderer->renderValueObject(
+                $valueObject,
+                $parameters,
+                $context
+            );
+        } catch (Exception $e) {
+            $this->logValueObjectError($valueObject, $e);
 
             if ($this->debug) {
                 throw $e;
@@ -332,6 +376,27 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'Error rendering an item with ID %d and type %s: %s',
                 $item->getValueId(),
                 $item->getValueType(),
+                $exception->getMessage()
+            )
+        );
+    }
+
+    /**
+     * In most cases when rendering a Twig template on frontend
+     * we do not want rendering of the value object to crash the page,
+     * hence we log an error.
+     *
+     * @param mixed $valueObject
+     * @param \Exception $exception
+     */
+    protected function logValueObjectError($valueObject, Exception $exception)
+    {
+        $this->logger->error(
+            sprintf(
+                'Error rendering a value object of type %s: %s',
+                is_object($valueObject) ?
+                    get_class($valueObject) :
+                    gettype($valueObject),
                 $exception->getMessage()
             )
         );
