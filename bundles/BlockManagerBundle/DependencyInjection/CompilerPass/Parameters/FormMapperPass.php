@@ -37,7 +37,7 @@ class FormMapperPass implements CompilerPassInterface
         }
 
         $formMapper->replaceArgument(
-            0,
+            1,
             $parameterHandlers
         );
     }

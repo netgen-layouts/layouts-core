@@ -3,12 +3,13 @@
 {% block inline_data %}
     {% set id = 'ngbm-rich-text-block-' ~ block.id %}
 
-    <p data-inline>
-        <span data-attr="content" data-inline-child>
-            <textarea id="{{ id }}">{{ block.parameter('content') }}</textarea>
-            <script type="text/javascript">
-                AlloyEditor.editable("{{ id }}");
-            </script>
-        </span>
-    </p>
+    <div id="{{ id }}" contenteditable="true" data-attr="content">
+        {{ block.parameter('content')|nl2br }}
+    </div>
+
+    <script type="text/javascript">
+        (function() {
+            AlloyEditor.editable("{{ id }}");
+        }());
+    </script>
 {% endblock %}

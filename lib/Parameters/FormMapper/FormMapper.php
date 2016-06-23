@@ -2,13 +2,20 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
+use Netgen\BlockManager\Parameters\FormMapper\DataTransformer\ParameterFilterDataTransformer;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use RuntimeException;
 
 class FormMapper implements FormMapperInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
+     */
+    protected $parameterFilterRegistry;
+
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface[]
      */
@@ -17,10 +24,15 @@ class FormMapper implements FormMapperInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface $parameterFilterRegistry
      * @param \Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface[] $parameterHandlers
      */
-    public function __construct(array $parameterHandlers = array())
-    {
+    public function __construct(
+        ParameterFilterRegistryInterface $parameterFilterRegistry,
+        array $parameterHandlers = array()
+    ) {
+        $this->parameterFilterRegistry = $parameterFilterRegistry;
+
         foreach ($parameterHandlers as $parameterHandler) {
             if (!$parameterHandler instanceof ParameterHandlerInterface) {
                 throw new RuntimeException(
@@ -56,18 +68,32 @@ class FormMapper implements FormMapperInterface
         $parameterType = $parameter->getType();
 
         if (!isset($this->parameterHandlers[$parameterType])) {
-            throw new RuntimeException("No parameter handler found for '{$parameterType}' parameter type.");
+            throw new RuntimeException(
+                'No parameter handler found for "%s" parameter type.',
+                $parameterType
+            );
         }
 
         $parameterHandler = $this->parameterHandlers[$parameterType];
 
-        $formBuilder->add(
+        $parameterForm = $formBuilder->create(
             $parameterName,
             $parameterHandler->getFormType(),
             $parameterHandler->convertOptions($parameter) + $parameterHandler->getDefaultOptions(
                 $parameter, $parameterName, $options
             )
         );
+
+        $parameterFilters = $this->parameterFilterRegistry->getParameterFilters($parameterType);
+        if (!empty($parameterFilters)) {
+            $parameterForm->addModelTransformer(
+                new ParameterFilterDataTransformer(
+                    $parameterFilters
+                )
+            );
+        }
+
+        $formBuilder->add($parameterForm);
     }
 
     /**
