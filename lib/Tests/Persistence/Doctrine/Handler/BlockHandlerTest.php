@@ -144,26 +144,10 @@ class BlockHandlerTest extends TestCase
                 ),
                 new Block(
                     array(
-                        'id' => 2,
-                        'layoutId' => 1,
-                        'zoneIdentifier' => 'right',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My other block',
-                        'status' => Layout::STATUS_PUBLISHED,
-                    )
-                ),
-                new Block(
-                    array(
                         'id' => 5,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'right',
-                        'position' => 2,
+                        'position' => 1,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
                             'number_of_columns' => 3,
@@ -279,7 +263,7 @@ class BlockHandlerTest extends TestCase
                     'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'right',
-                    'position' => 1,
+                    'position' => 0,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -294,12 +278,12 @@ class BlockHandlerTest extends TestCase
                 $blockCreateStruct,
                 $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
                 'right',
-                1
+                0
             )
         );
 
-        $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
-        self::assertEquals(2, $secondBlock->position);
+        $secondBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
+        self::assertEquals(1, $secondBlock->position);
     }
 
     /**
@@ -322,7 +306,7 @@ class BlockHandlerTest extends TestCase
                     'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'right',
-                    'position' => 3,
+                    'position' => 2,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
                         'a_param' => 'A value',
@@ -462,7 +446,7 @@ class BlockHandlerTest extends TestCase
                     'id' => 7,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'right',
-                    'position' => 3,
+                    'position' => 2,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
                         'number_of_columns' => 1,
@@ -555,7 +539,7 @@ class BlockHandlerTest extends TestCase
         self::assertEquals(
             new Block(
                 array(
-                    'id' => 2,
+                    'id' => 5,
                     'layoutId' => 1,
                     'zoneIdentifier' => 'right',
                     'position' => 0,
@@ -565,12 +549,12 @@ class BlockHandlerTest extends TestCase
                     ),
                     'viewType' => 'grid',
                     'itemViewType' => 'standard',
-                    'name' => 'My other block',
+                    'name' => 'My fourth block',
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->moveBlock(
-                $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(5, Layout::STATUS_DRAFT),
                 0
             )
         );

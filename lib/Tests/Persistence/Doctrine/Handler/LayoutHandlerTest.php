@@ -389,6 +389,33 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 7,
                         'layoutId' => $copiedLayout->id,
+                        'zoneIdentifier' => 'left',
+                        'position' => 0,
+                        'definitionIdentifier' => 'list',
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'viewType' => 'grid',
+                        'itemViewType' => 'standard',
+                        'name' => 'My other block',
+                        'status' => Layout::STATUS_PUBLISHED,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadZoneBlocks(
+                $this->layoutHandler->loadZone(
+                    $copiedLayout,
+                    'left'
+                )
+            )
+        );
+
+        self::assertEquals(
+            array(
+                new Block(
+                    array(
+                        'id' => 8,
+                        'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'right',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
@@ -403,26 +430,10 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Block(
                     array(
-                        'id' => 8,
-                        'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'right',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My other block',
-                        'status' => Layout::STATUS_PUBLISHED,
-                    )
-                ),
-                new Block(
-                    array(
                         'id' => 9,
                         'layoutId' => $copiedLayout->id,
                         'zoneIdentifier' => 'right',
-                        'position' => 2,
+                        'position' => 1,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
                             'number_of_columns' => 3,
@@ -447,32 +458,39 @@ class LayoutHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(7, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
+
+        // First block
         $draftReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(7, Layout::STATUS_DRAFT)
         );
+
+        self::assertCount(1, $draftReferences);
+        self::assertEquals(3, $draftReferences[0]->collectionId);
+
+        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
+        );
+
+        self::assertCount(1, $draftReferences);
+        self::assertEquals(3, $publishedReferences[0]->collectionId);
+
+        // Second block
+
+        $draftReferences = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(8, Layout::STATUS_DRAFT)
+        );
+
         self::assertCount(2, $draftReferences);
         self::assertContains($draftReferences[0]->collectionId, array(3, 6));
         self::assertContains($draftReferences[1]->collectionId, array(3, 6));
 
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(8, Layout::STATUS_PUBLISHED)
         );
+
         self::assertCount(2, $draftReferences);
         self::assertContains($publishedReferences[0]->collectionId, array(3, 7));
         self::assertContains($publishedReferences[1]->collectionId, array(3, 7));
-
-        // Second block
-        $draftReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(8, Layout::STATUS_DRAFT)
-        );
-        self::assertCount(1, $draftReferences);
-        self::assertEquals(3, $draftReferences[0]->collectionId);
-
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(8, Layout::STATUS_PUBLISHED)
-        );
-        self::assertCount(1, $draftReferences);
-        self::assertEquals(3, $publishedReferences[0]->collectionId);
     }
 
     /**
@@ -539,6 +557,30 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Block(
                     array(
+                        'id' => 2,
+                        'layoutId' => 1,
+                        'zoneIdentifier' => 'left',
+                        'position' => 0,
+                        'definitionIdentifier' => 'list',
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'viewType' => 'grid',
+                        'itemViewType' => 'standard',
+                        'name' => 'My other block',
+                        'status' => Layout::STATUS_ARCHIVED,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadZoneBlocks(
+                $this->layoutHandler->loadZone($copiedLayout, 'left')
+            )
+        );
+
+        self::assertEquals(
+            array(
+                new Block(
+                    array(
                         'id' => 1,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'right',
@@ -555,26 +597,10 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Block(
                     array(
-                        'id' => 2,
-                        'layoutId' => 1,
-                        'zoneIdentifier' => 'right',
-                        'position' => 1,
-                        'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
-                        'viewType' => 'grid',
-                        'itemViewType' => 'standard',
-                        'name' => 'My other block',
-                        'status' => Layout::STATUS_ARCHIVED,
-                    )
-                ),
-                new Block(
-                    array(
                         'id' => 5,
                         'layoutId' => 1,
                         'zoneIdentifier' => 'right',
-                        'position' => 2,
+                        'position' => 1,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
                             'number_of_columns' => 3,

@@ -210,13 +210,13 @@ abstract class BlockServiceTest extends ServiceTest
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(1),
             'right',
-            1
+            0
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $block);
 
-        $secondBlock = $this->blockService->loadBlockDraft(2);
-        self::assertEquals(2, $secondBlock->getPosition());
+        $secondBlock = $this->blockService->loadBlockDraft(1);
+        self::assertEquals(1, $secondBlock->getPosition());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         self::assertCount(1, $collectionReferences);
@@ -265,7 +265,7 @@ abstract class BlockServiceTest extends ServiceTest
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals(3, $block->getPosition());
+        self::assertEquals(2, $block->getPosition());
     }
 
     /**
