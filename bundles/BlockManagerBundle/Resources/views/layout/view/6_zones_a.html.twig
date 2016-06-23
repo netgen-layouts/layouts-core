@@ -1,0 +1,71 @@
+{% extends ngbm.pageLayout %}
+
+{% block layout %}
+<div class="zone-layout-6zonesa">
+
+    {% if layout.zone('top1').blocks is not empty %}
+        <div class="top-content-block">
+            <section class="zone zone-top1">
+                {% ngbm_render_zone layout.zone('top1') %}
+            </section>
+        </div>
+    {% endif %}
+
+    {% if layout.zone('left').blocks is not empty or layout.zone('center').blocks is not empty or layout.zone('right').blocks is not empty %}
+        <div class="main-content-block">
+            <div class="container">
+                <div class="custom-grid">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            {% if layout.zone('top2').blocks is not empty %}
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <section class="zone zone-top2">
+                                            {% ngbm_render_zone layout.zone('top2') %}
+                                        </section>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    {% if layout.zone('left').blocks is not empty %}
+                                        <section class="zone zone-left">
+                                            {% ngbm_render_zone layout.zone('left') %}
+                                        </section>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-lg-4">
+                                    {% if layout.zone('center').blocks is not empty %}
+                                        <section class="zone zone-center">
+                                            {% ngbm_render_zone layout.zone('center') %}
+                                        </section>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            {% if layout.zone('right').blocks is not empty %}
+                                <section class="zone zone-right">
+                                    {% ngbm_render_zone layout.zone('right') %}
+                                </section>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if layout.zone('bottom').blocks is not empty %}
+        <div class="bottom-content-block">
+            <section class="zone zone-bottom">
+                {% ngbm_render_zone layout.zone('bottom') %}
+            </section>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -23,7 +23,7 @@ class LayoutTest extends TestCase
         $layout = new Layout(
             array(
                 'id' => 42,
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
                 'name' => 'My layout',
                 'created' => 123,
                 'modified' => 456,
@@ -31,7 +31,7 @@ class LayoutTest extends TestCase
         );
 
         self::assertEquals(42, $layout->id);
-        self::assertEquals('3_zones_a', $layout->type);
+        self::assertEquals('4_zones_a', $layout->type);
         self::assertEquals('My layout', $layout->name);
         self::assertEquals(123, $layout->created);
         self::assertEquals(456, $layout->modified);

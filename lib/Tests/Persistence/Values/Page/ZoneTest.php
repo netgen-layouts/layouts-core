@@ -19,12 +19,12 @@ class ZoneTest extends TestCase
     {
         $zone = new Zone(
             array(
-                'identifier' => 'top_left',
+                'identifier' => 'left',
                 'layoutId' => 84,
             )
         );
 
-        self::assertEquals('top_left', $zone->identifier);
+        self::assertEquals('left', $zone->identifier);
         self::assertEquals(84, $zone->layoutId);
     }
 }

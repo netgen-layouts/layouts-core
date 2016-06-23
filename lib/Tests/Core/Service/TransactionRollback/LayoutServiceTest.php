@@ -56,9 +56,9 @@ class LayoutServiceTest extends TestCase
         $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
         $layoutType = new LayoutType(
-            '3_zones_a',
+            '4_zones_a',
             true,
-            '3 zones A',
+            '4 zones A',
             array(
                 new LayoutTypeZone('left', 'Left', array()),
                 new LayoutTypeZone('right', 'Right', array()),
@@ -95,7 +95,7 @@ class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createLayout(new LayoutCreateStruct(array('type' => '3_zones_a')));
+        $this->layoutService->createLayout(new LayoutCreateStruct(array('type' => '4_zones_a')));
     }
 
     /**

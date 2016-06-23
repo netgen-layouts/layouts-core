@@ -39,9 +39,9 @@ abstract class LayoutServiceTest extends ServiceTest
         $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
         $layoutType = new LayoutType(
-            '3_zones_a',
+            '4_zones_a',
             true,
-            '3 zones A',
+            '4 zones A',
             array(
                 new LayoutTypeZone('left', 'Left', array()),
                 new LayoutTypeZone('right', 'Right', array()),
@@ -103,7 +103,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZone()
     {
-        $zone = $this->layoutService->loadZone(1, 'top_left');
+        $zone = $this->layoutService->loadZone(1, 'left');
 
         self::assertInstanceOf(Zone::class, $zone);
     }
@@ -131,7 +131,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLoadZoneDraft()
     {
-        $zone = $this->layoutService->loadZoneDraft(1, 'top_left');
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
         self::assertInstanceOf(ZoneDraft::class, $zone);
     }
@@ -160,7 +160,7 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testCreateLayout()
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            '3_zones_a',
+            '4_zones_a',
             'My new layout'
         );
 
@@ -190,7 +190,7 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testCreateLayoutThrowsBadStateException()
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            '3_zones_a',
+            '4_zones_a',
             'My layout'
         );
 
@@ -315,11 +315,11 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertEquals(
             new LayoutCreateStruct(
                 array(
-                    'type' => '3_zones_a',
+                    'type' => '4_zones_a',
                     'name' => 'New layout',
                 )
             ),
-            $this->layoutService->newLayoutCreateStruct('3_zones_a', 'New layout')
+            $this->layoutService->newLayoutCreateStruct('4_zones_a', 'New layout')
         );
     }
 

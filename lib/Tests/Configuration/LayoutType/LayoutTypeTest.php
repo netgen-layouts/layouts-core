@@ -16,9 +16,9 @@ class LayoutTypeTest extends TestCase
     public function setUp()
     {
         $this->layoutType = new LayoutType(
-            '3_zones_a',
+            '4_zones_a',
             true,
-            '3 zones A',
+            '4 zones A',
             array(
                 'left' => new Zone(
                     'left',
@@ -35,7 +35,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('3_zones_a', $this->layoutType->getIdentifier());
+        self::assertEquals('4_zones_a', $this->layoutType->getIdentifier());
     }
 
     /**
@@ -51,7 +51,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('3 zones A', $this->layoutType->getName());
+        self::assertEquals('4 zones A', $this->layoutType->getName());
     }
 
     /**

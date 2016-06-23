@@ -59,28 +59,28 @@ class LayoutTest extends TestCase
         $layout = new Layout(
             array(
                 'id' => 42,
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
                 'name' => 'My layout',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
                 'status' => Layout::STATUS_PUBLISHED,
-                'zones' => array('top_left' => new Zone(), 'top_right' => new Zone()),
+                'zones' => array('left' => new Zone(), 'right' => new Zone()),
             )
         );
 
         self::assertEquals(42, $layout->getId());
-        self::assertEquals('3_zones_a', $layout->getType());
+        self::assertEquals('4_zones_a', $layout->getType());
         self::assertEquals('My layout', $layout->getName());
         self::assertEquals($createdDate, $layout->getCreated());
         self::assertEquals($modifiedDate, $layout->getModified());
         self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         self::assertEquals(
-            array('top_left' => new Zone(), 'top_right' => new Zone()),
+            array('left' => new Zone(), 'right' => new Zone()),
             $layout->getZones()
         );
         self::assertNull($layout->getZone('test'));
         self::assertFalse($layout->hasZone('test'));
-        self::assertInstanceOf(Zone::class, $layout->getZone('top_left'));
-        self::assertTrue($layout->hasZone('top_left'));
+        self::assertInstanceOf(Zone::class, $layout->getZone('left'));
+        self::assertTrue($layout->hasZone('left'));
     }
 }

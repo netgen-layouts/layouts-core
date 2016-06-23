@@ -32,7 +32,7 @@ class TypeTest extends TestCase
     {
         $layout = new Layout(
             array(
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
             )
         );
 
@@ -51,9 +51,9 @@ class TypeTest extends TestCase
         return array(
             array(array(), false),
             array(array('some_type'), false),
-            array(array('3_zones_a'), true),
+            array(array('4_zones_a'), true),
             array(array('some_type', 'some_type_2'), false),
-            array(array('some_type', '3_zones_a'), true),
+            array(array('some_type', '4_zones_a'), true),
         );
     }
 

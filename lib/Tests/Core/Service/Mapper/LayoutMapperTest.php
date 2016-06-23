@@ -32,7 +32,7 @@ abstract class LayoutMapperTest extends MapperTest
     {
         $persistenceZone = new Zone(
             array(
-                'identifier' => 'top_right',
+                'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => APILayout::STATUS_PUBLISHED,
             )
@@ -41,7 +41,7 @@ abstract class LayoutMapperTest extends MapperTest
         $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         self::assertInstanceOf(APIZone::class, $zone);
-        self::assertEquals('top_right', $zone->getIdentifier());
+        self::assertEquals('right', $zone->getIdentifier());
         self::assertEquals(1, $zone->getLayoutId());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
 
@@ -64,7 +64,7 @@ abstract class LayoutMapperTest extends MapperTest
         $persistenceLayout = new Layout(
             array(
                 'id' => 1,
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
                 'name' => 'My layout',
                 'created' => 1447065813,
                 'modified' => 1447065813,
@@ -76,7 +76,7 @@ abstract class LayoutMapperTest extends MapperTest
 
         self::assertInstanceOf(APILayout::class, $layout);
         self::assertEquals(1, $layout->getId());
-        self::assertEquals('3_zones_a', $layout->getType());
+        self::assertEquals('4_zones_a', $layout->getType());
         self::assertEquals('My layout', $layout->getName());
         self::assertInstanceOf(DateTime::class, $layout->getCreated());
         self::assertEquals(1447065813, $layout->getCreated()->getTimestamp());

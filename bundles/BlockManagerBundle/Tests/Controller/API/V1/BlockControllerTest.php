@@ -78,7 +78,7 @@ class BlockControllerTest extends JsonApiTestCase
             array(
                 'block_type' => 'title',
                 'layout_id' => 1,
-                'zone_identifier' => 'top_right',
+                'zone_identifier' => 'right',
             )
         );
 

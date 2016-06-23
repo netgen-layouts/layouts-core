@@ -27,7 +27,7 @@ class LayoutMapperTest extends TestCase
         $data = array(
             array(
                 'id' => 42,
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
                 'name' => 'My layout',
                 'created' => 123,
                 'modified' => 456,
@@ -35,7 +35,7 @@ class LayoutMapperTest extends TestCase
             ),
             array(
                 'id' => 84,
-                'type' => '3_zones_b',
+                'type' => '4_zones_b',
                 'name' => 'My other layout',
                 'created' => 789,
                 'modified' => 111,
@@ -47,7 +47,7 @@ class LayoutMapperTest extends TestCase
             new Layout(
                 array(
                     'id' => 42,
-                    'type' => '3_zones_a',
+                    'type' => '4_zones_a',
                     'name' => 'My layout',
                     'created' => 123,
                     'modified' => 456,
@@ -57,7 +57,7 @@ class LayoutMapperTest extends TestCase
             new Layout(
                 array(
                     'id' => 84,
-                    'type' => '3_zones_b',
+                    'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'created' => 789,
                     'modified' => 111,
@@ -76,12 +76,12 @@ class LayoutMapperTest extends TestCase
     {
         $data = array(
             array(
-                'identifier' => 'top_left',
+                'identifier' => 'left',
                 'layout_id' => 1,
                 'status' => Layout::STATUS_PUBLISHED,
             ),
             array(
-                'identifier' => 'top_right',
+                'identifier' => 'right',
                 'layout_id' => 1,
                 'status' => Layout::STATUS_PUBLISHED,
             ),
@@ -90,14 +90,14 @@ class LayoutMapperTest extends TestCase
         $expectedData = array(
             new Zone(
                 array(
-                    'identifier' => 'top_left',
+                    'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
             new Zone(
                 array(
-                    'identifier' => 'top_right',
+                    'identifier' => 'right',
                     'layoutId' => 1,
                     'status' => Layout::STATUS_PUBLISHED,
                 )

@@ -34,7 +34,7 @@ abstract class BlockMapperTest extends MapperTest
             array(
                 'id' => 1,
                 'layoutId' => 1,
-                'zoneIdentifier' => 'top_right',
+                'zoneIdentifier' => 'right',
                 'position' => 3,
                 'definitionIdentifier' => 'text',
                 'parameters' => array(
@@ -52,7 +52,7 @@ abstract class BlockMapperTest extends MapperTest
         self::assertInstanceOf(APIBlock::class, $block);
         self::assertEquals(1, $block->getId());
         self::assertEquals(1, $block->getLayoutId());
-        self::assertEquals('top_right', $block->getZoneIdentifier());
+        self::assertEquals('right', $block->getZoneIdentifier());
         self::assertEquals(3, $block->getPosition());
         self::assertEquals('text', $block->getDefinitionIdentifier());
         self::assertEquals(array('some_param' => 'some_value'), $block->getParameters());

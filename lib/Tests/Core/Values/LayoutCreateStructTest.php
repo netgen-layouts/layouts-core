@@ -20,12 +20,12 @@ class LayoutCreateStructTest extends TestCase
     {
         $layoutCreateStruct = new LayoutCreateStruct(
             array(
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
                 'name' => 'My layout',
             )
         );
 
-        self::assertEquals('3_zones_a', $layoutCreateStruct->type);
+        self::assertEquals('4_zones_a', $layoutCreateStruct->type);
         self::assertEquals('My layout', $layoutCreateStruct->name);
     }
 }

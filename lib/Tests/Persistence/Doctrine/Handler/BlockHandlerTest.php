@@ -65,7 +65,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
@@ -130,7 +130,7 @@ class BlockHandlerTest extends TestCase
                     array(
                         'id' => 1,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -146,7 +146,7 @@ class BlockHandlerTest extends TestCase
                     array(
                         'id' => 2,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 1,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -162,7 +162,7 @@ class BlockHandlerTest extends TestCase
                     array(
                         'id' => 5,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 2,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -178,7 +178,7 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->loadZoneBlocks(
                 $this->layoutHandler->loadZone(
                     $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                    'top_right'
+                    'right'
                 )
             )
         );
@@ -278,7 +278,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 7,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 1,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
@@ -293,7 +293,7 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
                 $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_right',
+                'right',
                 1
             )
         );
@@ -321,7 +321,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 7,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 3,
                     'definitionIdentifier' => 'new_block',
                     'parameters' => array(
@@ -336,7 +336,7 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
                 $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
-                'top_right'
+                'right'
             )
         );
     }
@@ -358,7 +358,7 @@ class BlockHandlerTest extends TestCase
         $this->blockHandler->createBlock(
             $blockCreateStruct,
             $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-            'top_right',
+            'right',
             -5
         );
     }
@@ -380,7 +380,7 @@ class BlockHandlerTest extends TestCase
         $this->blockHandler->createBlock(
             $blockCreateStruct,
             $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-            'top_right',
+            'right',
             9999
         );
     }
@@ -403,7 +403,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
@@ -461,7 +461,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 7,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 3,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
@@ -475,7 +475,7 @@ class BlockHandlerTest extends TestCase
             ),
             $this->blockHandler->copyBlock(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                'top_right'
+                'right'
             )
         );
     }
@@ -523,7 +523,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 1,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
@@ -557,7 +557,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 2,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
@@ -685,7 +685,7 @@ class BlockHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'layoutId' => 1,
-                    'zoneIdentifier' => 'top_right',
+                    'zoneIdentifier' => 'right',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(

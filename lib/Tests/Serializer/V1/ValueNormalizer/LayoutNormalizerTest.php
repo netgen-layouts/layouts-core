@@ -31,9 +31,9 @@ class LayoutNormalizerTest extends TestCase
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
 
         $layoutType = new LayoutType(
-            '3_zones_a',
+            '4_zones_a',
             true,
-            '3 zones A',
+            '4 zones A',
             array(
                 'left' => new LayoutTypeZone('left', 'Left', array('title')),
                 'right' => new LayoutTypeZone('right', 'Right', array()),
@@ -64,7 +64,7 @@ class LayoutNormalizerTest extends TestCase
         $layout = new Layout(
             array(
                 'id' => 42,
-                'type' => '3_zones_a',
+                'type' => '4_zones_a',
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'zones' => array(

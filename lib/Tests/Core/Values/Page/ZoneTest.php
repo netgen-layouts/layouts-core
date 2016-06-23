@@ -37,7 +37,7 @@ class ZoneTest extends TestCase
     {
         $zone = new Zone(
             array(
-                'identifier' => 'top_left',
+                'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Layout::STATUS_PUBLISHED,
                 'blocks' => array(
@@ -46,7 +46,7 @@ class ZoneTest extends TestCase
             )
         );
 
-        self::assertEquals('top_left', $zone->getIdentifier());
+        self::assertEquals('left', $zone->getIdentifier());
         self::assertEquals(84, $zone->getLayoutId());
         self::assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
         self::assertEquals(array(new Block()), $zone->getBlocks());

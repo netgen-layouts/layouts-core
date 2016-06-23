@@ -15,9 +15,9 @@ class LayoutTypeFactoryTest extends TestCase
     public function testBuildLayoutType()
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
-            '3_zones_a',
+            '4_zones_a',
             array(
-                'name' => '3 zones A',
+                'name' => '4 zones A',
                 'enabled' => true,
                 'zones' => array(
                     'left' => array(
@@ -30,9 +30,9 @@ class LayoutTypeFactoryTest extends TestCase
 
         self::assertEquals(
             new LayoutType(
-                '3_zones_a',
+                '4_zones_a',
                 true,
-                '3 zones A',
+                '4 zones A',
                 array(
                     'left' => new Zone(
                         'left',

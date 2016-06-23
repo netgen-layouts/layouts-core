@@ -2,7 +2,7 @@
     "id": 7,
     "definition_identifier": "title",
     "name": "",
-    "zone_identifier": "top_right",
+    "zone_identifier": "right",
     "position": 3,
     "layout_id": 1,
     "parameters": {

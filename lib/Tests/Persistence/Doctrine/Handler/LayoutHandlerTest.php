@@ -64,7 +64,7 @@ class LayoutHandlerTest extends TestCase
             new Layout(
                 array(
                     'id' => 1,
-                    'type' => '3_zones_a',
+                    'type' => '4_zones_a',
                     'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
@@ -95,14 +95,14 @@ class LayoutHandlerTest extends TestCase
         self::assertEquals(
             new Zone(
                 array(
-                    'identifier' => 'top_left',
+                    'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
             $this->layoutHandler->loadZone(
                 $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                'top_left'
+                'left'
             )
         );
     }
@@ -156,7 +156,7 @@ class LayoutHandlerTest extends TestCase
         self::assertTrue(
             $this->layoutHandler->zoneExists(
                 $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                'top_left'
+                'left'
             )
         );
     }
@@ -228,14 +228,21 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Zone(
                     array(
-                        'identifier' => 'top_left',
+                        'identifier' => 'left',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
-                        'identifier' => 'top_right',
+                        'identifier' => 'right',
+                        'layoutId' => 1,
+                        'status' => Layout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -335,7 +342,7 @@ class LayoutHandlerTest extends TestCase
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(5, $copiedLayout->id);
-        self::assertEquals('3_zones_a', $copiedLayout->type);
+        self::assertEquals('4_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
         self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
 
@@ -353,14 +360,21 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Zone(
                     array(
-                        'identifier' => 'top_left',
+                        'identifier' => 'left',
                         'layoutId' => $copiedLayout->id,
                         'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
                 new Zone(
                     array(
-                        'identifier' => 'top_right',
+                        'identifier' => 'right',
+                        'layoutId' => $copiedLayout->id,
+                        'status' => Layout::STATUS_PUBLISHED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top',
                         'layoutId' => $copiedLayout->id,
                         'status' => Layout::STATUS_PUBLISHED,
                     )
@@ -375,7 +389,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 7,
                         'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -391,7 +405,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 8,
                         'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 1,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -407,7 +421,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 9,
                         'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 2,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -423,7 +437,7 @@ class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadZoneBlocks(
                 $this->layoutHandler->loadZone(
                     $copiedLayout,
-                    'top_right'
+                    'right'
                 )
             )
         );
@@ -480,7 +494,7 @@ class LayoutHandlerTest extends TestCase
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
         self::assertEquals(1, $copiedLayout->id);
-        self::assertEquals('3_zones_a', $copiedLayout->type);
+        self::assertEquals('4_zones_a', $copiedLayout->type);
         self::assertEquals('My layout', $copiedLayout->name);
         self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->status);
 
@@ -498,14 +512,21 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Zone(
                     array(
-                        'identifier' => 'top_left',
+                        'identifier' => 'left',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_ARCHIVED,
                     )
                 ),
                 new Zone(
                     array(
-                        'identifier' => 'top_right',
+                        'identifier' => 'right',
+                        'layoutId' => 1,
+                        'status' => Layout::STATUS_ARCHIVED,
+                    )
+                ),
+                new Zone(
+                    array(
+                        'identifier' => 'top',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_ARCHIVED,
                     )
@@ -520,7 +541,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 1,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -536,7 +557,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 2,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 1,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -552,7 +573,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'id' => 5,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'top_right',
+                        'zoneIdentifier' => 'right',
                         'position' => 2,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
@@ -566,7 +587,7 @@ class LayoutHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone($copiedLayout, 'top_right')
+                $this->layoutHandler->loadZone($copiedLayout, 'right')
             )
         );
 

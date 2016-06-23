@@ -75,12 +75,12 @@ abstract class BlockServiceTest extends ServiceTest
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
         $layoutType = new LayoutType(
-            '3_zones_a',
+            '4_zones_a',
             true,
-            '3 zones A',
+            '4 zones A',
             array(
-                'top_left' => new LayoutTypeZone('top_left', 'Top left', array()),
-                'top_right' => new LayoutTypeZone('top_right', 'Top right', array('title', 'list')),
+                'left' => new LayoutTypeZone('left', 'Left', array()),
+                'right' => new LayoutTypeZone('right', 'Right', array('title', 'list')),
                 'bottom' => new LayoutTypeZone('bottom', 'Bottom', array('title')),
             )
         );
@@ -209,7 +209,7 @@ abstract class BlockServiceTest extends ServiceTest
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(1),
-            'top_right',
+            'right',
             1
         );
 
@@ -261,7 +261,7 @@ abstract class BlockServiceTest extends ServiceTest
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(1),
-            'top_right'
+            'right'
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $block);
@@ -282,7 +282,7 @@ abstract class BlockServiceTest extends ServiceTest
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(1),
-            'top_right',
+            'right',
             9999
         );
     }
@@ -319,7 +319,7 @@ abstract class BlockServiceTest extends ServiceTest
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(1),
-            'top_right'
+            'right'
         );
     }
 
@@ -430,12 +430,12 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $copiedBlock = $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(1),
-            'top_left'
+            'left'
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $copiedBlock);
         self::assertEquals(7, $copiedBlock->getId());
-        self::assertEquals('top_left', $copiedBlock->getZoneIdentifier());
+        self::assertEquals('left', $copiedBlock->getZoneIdentifier());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         self::assertInstanceOf(Collection::class, $copiedCollection);
@@ -495,12 +495,12 @@ abstract class BlockServiceTest extends ServiceTest
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(2),
             0,
-            'top_left'
+            'left'
         );
 
         self::assertInstanceOf(APIBlockDraft::class, $movedBlock);
         self::assertEquals(2, $movedBlock->getId());
-        self::assertEquals('top_left', $movedBlock->getZoneIdentifier());
+        self::assertEquals('left', $movedBlock->getZoneIdentifier());
         self::assertEquals(0, $movedBlock->getPosition());
     }
 
@@ -565,7 +565,7 @@ abstract class BlockServiceTest extends ServiceTest
 
         $block = $this->blockService->loadBlockDraft(1);
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
-        $movedBlock = $this->blockService->moveBlock($updatedBlock, 0, 'top_left');
+        $movedBlock = $this->blockService->moveBlock($updatedBlock, 0, 'left');
 
         // Then verify that restored block has all published status' properties
 

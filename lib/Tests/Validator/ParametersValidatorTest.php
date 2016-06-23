@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\Core\Values\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
@@ -40,7 +41,7 @@ class ParametersValidatorTest extends ValidatorTest
     }
 
     /**
-     * @param string $viewType
+     * @param string $parameters
      * @param bool $required
      * @param bool $isValid
      *
@@ -48,7 +49,7 @@ class ParametersValidatorTest extends ValidatorTest
      * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildFields
      * @dataProvider validateDataProvider
      */
-    public function testValidate($viewType, $required, $isValid)
+    public function testValidate($parameters, $required, $isValid)
     {
         $this->constraint->required = $required;
 
@@ -63,7 +64,10 @@ class ParametersValidatorTest extends ValidatorTest
                 ->will($this->returnValue($this->violationBuilderMock));
         }
 
-        $this->validator->validate($viewType, $this->constraint);
+        $this->validator->validate(
+            new BlockCreateStruct(array('parameters' => $parameters)),
+        $this->constraint
+    );
     }
 
     public function validateDataProvider()
