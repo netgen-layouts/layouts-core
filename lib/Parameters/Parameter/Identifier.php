@@ -20,17 +20,15 @@ class Identifier extends Parameter
     /**
      * Returns constraints that are specific to parameter.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints(array $groups = null)
+    public function getParameterConstraints()
     {
         return array(
             new Constraints\Regex(
                 array(
                     'pattern' => '/^[A-Za-z0-9_]+$/',
-                ) + $this->getBaseConstraintOptions($groups)
+                )
             ),
         );
     }

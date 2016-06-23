@@ -32,7 +32,7 @@ class Boolean extends CompoundParameterHandler
         return array(
             'checkbox_required' => $parameter->isRequired(),
             'checkbox_label' => $options['label_prefix'] . '.' . $parameterName,
-            'checkbox_constraints' => $parameter->getConstraints($options['parameter_validation_groups']),
+            'checkbox_constraints' => $parameter->getConstraints(),
             'checkbox_property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
         ) + parent::getDefaultOptions($parameter, $parameterName, $options);
     }

@@ -62,11 +62,18 @@ abstract class ParameterHandler implements ParameterHandlerInterface
      */
     protected function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
     {
+        $constraints = $parameter->getConstraints();
+        if ($options['parameter_validation_groups'] !== null) {
+            foreach ($constraints as $constraint) {
+                $constraint->groups = $options['parameter_validation_groups'];
+            }
+        }
+
         return array(
             'required' => $parameter->isRequired(),
             'label' => $options['label_prefix'] . '.' . $parameterName,
             'property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
-            'constraints' => $parameter->getConstraints($options['parameter_validation_groups']),
+            'constraints' => $constraints,
         );
     }
 }

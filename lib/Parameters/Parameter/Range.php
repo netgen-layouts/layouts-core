@@ -60,25 +60,21 @@ class Range extends Parameter
     /**
      * Returns constraints that are specific to parameter.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints(array $groups = null)
+    public function getParameterConstraints()
     {
-        $groupOptions = $this->getBaseConstraintOptions($groups);
-
         return array(
             new Constraints\Type(
                 array(
                     'type' => 'numeric',
-                ) + $groupOptions
+                )
             ),
             new Constraints\Range(
                 array(
                     'min' => $this->options['min'],
                     'max' => $this->options['max'],
-                ) + $groupOptions
+                )
             ),
         );
     }

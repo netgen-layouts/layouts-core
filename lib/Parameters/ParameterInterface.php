@@ -21,29 +21,23 @@ interface ParameterInterface
     /**
      * Returns the parameter constraints.
      *
-     * @param array $groups
-     *
-     * @return array
+     * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints(array $groups = null);
+    public function getConstraints();
 
     /**
      * Returns constraints that are common to all parameters.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getBaseConstraints(array $groups = null);
+    public function getBaseConstraints();
 
     /**
      * Returns constraints that are specific to parameter.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints(array $groups = null);
+    public function getParameterConstraints();
 
     /**
      * Returns if the parameter is required.

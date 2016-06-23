@@ -67,31 +67,27 @@ class Number extends Parameter
     /**
      * Returns constraints that are specific to parameter.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints(array $groups = null)
+    public function getParameterConstraints()
     {
-        $groupOptions = $this->getBaseConstraintOptions($groups);
-
         $constraints = array(
             new Constraints\Type(
                 array(
                     'type' => 'numeric',
-                ) + $groupOptions
+                )
             ),
         );
 
         if ($this->options['min'] !== null) {
             $constraints[] = new Constraints\GreaterThanOrEqual(
-                array('value' => $this->options['min']) + $groupOptions
+                array('value' => $this->options['min'])
             );
         }
 
         if ($this->options['max'] !== null) {
             $constraints[] = new Constraints\LessThanOrEqual(
-                array('value' => $this->options['max']) + $groupOptions
+                array('value' => $this->options['max'])
             );
         }
 

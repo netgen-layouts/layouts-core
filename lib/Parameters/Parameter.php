@@ -60,15 +60,13 @@ abstract class Parameter implements ParameterInterface
     /**
      * Returns the parameter constraints.
      *
-     * @param array $groups
-     *
-     * @return array
+     * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints(array $groups = null)
+    public function getConstraints()
     {
         return array_merge(
-            $this->getBaseConstraints($groups),
-            $this->getParameterConstraints($groups)
+            $this->getBaseConstraints(),
+            $this->getParameterConstraints()
         );
     }
 
@@ -104,17 +102,13 @@ abstract class Parameter implements ParameterInterface
     /**
      * Returns constraints that are common to all parameters.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getBaseConstraints(array $groups = null)
+    public function getBaseConstraints()
     {
         if ($this->isRequired()) {
             return array(
-                new Constraints\NotBlank(
-                    $this->getBaseConstraintOptions($groups)
-                ),
+                new Constraints\NotBlank(),
             );
         }
 
@@ -124,29 +118,10 @@ abstract class Parameter implements ParameterInterface
     /**
      * Returns constraints that are specific to parameter.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints(array $groups = null)
+    public function getParameterConstraints()
     {
         return array();
-    }
-
-    /**
-     * Returns constraint options common to all constraints.
-     *
-     * @param array $groups
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    protected function getBaseConstraintOptions(array $groups = null)
-    {
-        $options = array();
-        if ($groups !== null) {
-            $options['groups'] = $groups;
-        }
-
-        return $options;
     }
 }

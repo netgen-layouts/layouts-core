@@ -61,11 +61,9 @@ class Choice extends Parameter
     /**
      * Returns constraints that are specific to parameter.
      *
-     * @param array $groups
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints(array $groups = null)
+    public function getParameterConstraints()
     {
         return array(
             new Constraints\Choice(
@@ -77,7 +75,7 @@ class Choice extends Parameter
                         ),
                     'multiple' => $this->options['multiple'],
                     'strict' => true,
-                ) + $this->getBaseConstraintOptions($groups)
+                )
             ),
         );
     }

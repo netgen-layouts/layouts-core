@@ -35,7 +35,6 @@ class ParameterTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraintOptions
      */
     public function testGetConstraints()
     {
@@ -49,15 +48,14 @@ class ParameterTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraintOptions
      */
     public function testGetConstraintsForRequiredParameter()
     {
         $parameter = new Parameter(array(), true);
 
         self::assertEquals(
-            array(new Constraints\NotBlank(array('groups' => array('group')))),
-            $parameter->getConstraints(array('group'))
+            array(new Constraints\NotBlank()),
+            $parameter->getConstraints()
         );
     }
 }
