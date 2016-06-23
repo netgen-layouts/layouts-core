@@ -18,6 +18,20 @@ class Boolean extends Parameter
     }
 
     /**
+     * Returns the default parameter value.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        if ($this->isRequired && $this->defaultValue === null) {
+            return false;
+        }
+
+        return parent::getDefaultValue();
+    }
+
+    /**
      * Returns constraints that are common to all parameters.
      *
      * Overriden because base NotBlank constraint checks for `false` too.

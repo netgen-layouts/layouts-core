@@ -20,6 +20,20 @@ class Integer extends Parameter
     }
 
     /**
+     * Returns the default parameter value.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        if ($this->isRequired && $this->defaultValue === null) {
+            return $this->options['min'];
+        }
+
+        return parent::getDefaultValue();
+    }
+
+    /**
      * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver

@@ -25,12 +25,10 @@ class Choice extends Parameter
      */
     public function getDefaultValue()
     {
-        if ($this->defaultValue !== null) {
-            return $this->defaultValue;
-        }
-
-        if ($this->isRequired && !is_callable($this->options['options']) && !empty($this->options['options'])) {
-            return array_values($this->options['options'])[0];
+        if ($this->isRequired && $this->defaultValue === null) {
+            if (!is_callable($this->options['options']) && !empty($this->options['options'])) {
+                return array_values($this->options['options'])[0];
+            }
         }
 
         return parent::getDefaultValue();
