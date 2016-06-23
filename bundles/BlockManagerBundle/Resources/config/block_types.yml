@@ -6,7 +6,6 @@ block_types:
             view_type: title
             item_view_type: standard
             parameters:
-                tag: h1
                 title: 'Title'
 
     text:
@@ -31,8 +30,6 @@ block_types:
         defaults:
             view_type: external_video
             item_view_type: standard
-            parameters:
-                service: youtube
 
     map:
         name: 'Map'
@@ -41,10 +38,7 @@ block_types:
             view_type: map
             item_view_type: standard
             parameters:
-                latitude: 0
-                longitude: 0
                 zoom: 5
-                map_type: roadmap
                 show_marker: true
 
     html_snippet:
@@ -92,11 +86,6 @@ block_types:
         defaults:
             view_type: slider
             item_view_type: standard
-            parameters:
-                transition: default
-                aspect_ratio: 16_9
-                autoplay_time: 1
-                number_of_thumbnails: 1
 
     thumb_gallery:
         name: 'Thumb gallery'
@@ -104,11 +93,6 @@ block_types:
         defaults:
             view_type: thumb_gallery
             item_view_type: standard
-            parameters:
-                transition: default
-                aspect_ratio: 16_9
-                autoplay_time: 1
-                number_of_thumbnails: 1
 
     grid_gallery:
         name: 'Grid gallery'
@@ -116,11 +100,6 @@ block_types:
         defaults:
             view_type: grid_gallery
             item_view_type: standard
-            parameters:
-                transition: default
-                aspect_ratio: 16_9
-                autoplay_time: 1
-                number_of_thumbnails: 1
 
     sushi_bar:
         name: 'Sushi bar'
@@ -128,8 +107,3 @@ block_types:
         defaults:
             view_type: sushi_bar
             item_view_type: standard
-            parameters:
-                transition: default
-                aspect_ratio: 16_9
-                autoplay_time: 1
-                number_of_thumbnails: 1

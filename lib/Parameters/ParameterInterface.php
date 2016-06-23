@@ -51,4 +51,11 @@ interface ParameterInterface
      * @return bool
      */
     public function isRequired();
+
+    /**
+     * Returns the default parameter value.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue();
 }

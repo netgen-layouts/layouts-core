@@ -19,18 +19,25 @@ abstract class Parameter implements ParameterInterface
     protected $isRequired;
 
     /**
+     * @var mixed
+     */
+    protected $defaultValue;
+
+    /**
      * Constructor.
      *
      * @param array $options
      * @param bool $isRequired
+     * @param mixed $defaultValue
      */
-    public function __construct(array $options = array(), $isRequired = false)
+    public function __construct(array $options = array(), $isRequired = false, $defaultValue = null)
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
         $this->options = $optionsResolver->resolve($options);
 
         $this->isRequired = (bool)$isRequired;
+        $this->defaultValue = $defaultValue;
     }
 
     /**
@@ -73,6 +80,16 @@ abstract class Parameter implements ParameterInterface
     public function isRequired()
     {
         return $this->isRequired;
+    }
+
+    /**
+     * Returns the default parameter value.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
     }
 
     /**

@@ -19,6 +19,24 @@ class Choice extends Parameter
     }
 
     /**
+     * Returns the default parameter value.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        if ($this->defaultValue !== null) {
+            return $this->defaultValue;
+        }
+
+        if ($this->isRequired && !is_callable($this->options['options']) && !empty($this->options['options'])) {
+            return array_values($this->options['options'])[0];
+        }
+
+        return parent::getDefaultValue();
+    }
+
+    /**
      * Configures the options for this parameter.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver

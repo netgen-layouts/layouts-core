@@ -17,8 +17,9 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
      * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
      * @param array $options
      * @param bool $isRequired
+     * @param mixed $defaultValue
      */
-    public function __construct(array $parameters = array(), array $options = array(), $isRequired = false)
+    public function __construct(array $parameters = array(), array $options = array(), $isRequired = false, $defaultValue = null)
     {
         foreach ($parameters as $parameter) {
             if (!$parameter instanceof ParameterInterface) {
@@ -32,7 +33,7 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
 
         $this->parameters = $parameters;
 
-        parent::__construct($options, $isRequired);
+        parent::__construct($options, $isRequired, $defaultValue);
     }
 
     /**
