@@ -9,10 +9,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Validator\Constraint;
 
-class CompoundBooleanType extends AbstractType
+class CompoundBooleanType extends ParametersType
 {
     const COMPOUND_GROUP = 'Compound';
 
@@ -27,9 +26,6 @@ class CompoundBooleanType extends AbstractType
 
         $resolver->setRequired(
             array(
-                'parameters',
-                'label_prefix',
-                'property_path_prefix',
                 'checkbox_name',
                 'checkbox_required',
                 'checkbox_label',
@@ -38,17 +34,12 @@ class CompoundBooleanType extends AbstractType
             )
         );
 
-        $resolver->setAllowedTypes('parameters', 'array');
-        $resolver->setAllowedTypes('label_prefix', 'string');
-        $resolver->setAllowedTypes('property_path_prefix', 'string');
         $resolver->setAllowedTypes('checkbox_name', 'string');
         $resolver->setAllowedTypes('checkbox_required', 'bool');
         $resolver->setAllowedTypes('checkbox_label', 'string');
         $resolver->setAllowedTypes('checkbox_constraints', 'array');
         $resolver->setAllowedTypes('checkbox_property_path', 'string');
 
-        $resolver->setDefault('inherit_data', true);
-        $resolver->setDefault('parameters', array());
         $resolver->setDefault('checkbox_name', '_self');
         $resolver->setDefault('checkbox_required', false);
         $resolver->setDefault('checkbox_constraints', array());
@@ -80,15 +71,16 @@ class CompoundBooleanType extends AbstractType
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) use ($options) {
                 $data = $event->getData();
-                $checkbox = $options['checkbox_name'];
 
-                if (empty($data) || empty($data['parameters'])) {
+                if (empty($data)) {
                     return;
                 }
 
-                if (!isset($data[$checkbox]) || !$data[$checkbox]) {
-                    foreach ($data['parameters'] as $key => $value) {
-                        $data['parameters'][$key] = null;
+                if (!isset($data[$options['checkbox_name']]) || !$data[$options['checkbox_name']]) {
+                    foreach ($data as $key => $value) {
+                        if ($key !== $options['checkbox_name']) {
+                            $data[$key] = null;
+                        }
                     }
                 }
 
@@ -107,16 +99,11 @@ class CompoundBooleanType extends AbstractType
             )
         );
 
-        $builder->add(
-            'parameters',
-            ParametersType::class,
+        parent::buildForm(
+            $builder,
             array(
-                'label' => $options['label'],
-                'parameters' => $options['parameters'],
-                'label_prefix' => $options['label_prefix'],
-                'property_path_prefix' => $options['property_path_prefix'],
                 'parameter_validation_groups' => array(self::COMPOUND_GROUP),
-            )
+            ) + $options
         );
     }
 
