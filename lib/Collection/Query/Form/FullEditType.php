@@ -4,8 +4,7 @@ namespace Netgen\BlockManager\Collection\Query\Form;
 
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -13,21 +12,6 @@ use Symfony\Component\Form\AbstractType;
 class FullEditType extends AbstractType
 {
     const TRANSLATION_DOMAIN = 'ngbm_query_forms';
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
-     */
-    protected $parameterFormMapper;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $parameterFormMapper
-     */
-    public function __construct(FormMapperInterface $parameterFormMapper)
-    {
-        $this->parameterFormMapper = $parameterFormMapper;
-    }
 
     /**
      * Configures the options for this type.
@@ -52,31 +36,18 @@ class FullEditType extends AbstractType
     {
         /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
         $queryType = $options['queryType'];
+        $parameters = $queryType->getHandler()->getParameters();
 
-        // We're grouping query parameters so they don't conflict with forms from query itself
-        $parameterBuilder = $builder->create(
+        $builder->add(
             'parameters',
-            FormType::class,
+            ParametersType::class,
             array(
                 'label' => false,
-                'inherit_data' => true,
+                'parameters' => $parameters,
+                'label_prefix' => 'query.' . $queryType->getType(),
+                'property_path' => 'parameters',
             )
         );
-
-        $queryTypeHandler = $queryType->getHandler();
-        foreach ($queryTypeHandler->getParameters() as $parameterName => $parameter) {
-            $this->parameterFormMapper->mapParameter(
-                $parameterBuilder,
-                $parameter,
-                $parameterName,
-                array(
-                    'label_prefix' => 'query.' . $queryType->getType(),
-                    'property_path_prefix' => 'parameters',
-                )
-            );
-        }
-
-        $builder->add($parameterBuilder);
     }
 
     /**

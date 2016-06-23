@@ -12,7 +12,8 @@ parameters:
 
     netgen_block_manager.parameters.form_mapper.class: Netgen\BlockManager\Parameters\FormMapper\FormMapper
 
-    netgen_block_manager.parameters.form_type.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType
+    netgen_block_manager.parameters.form.parameters.class: Netgen\BlockManager\Parameters\Form\ParametersType
+    netgen_block_manager.parameters.form.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\Form\CompoundBooleanType
 
 services:
     netgen_block_manager.parameters.parameter_handler.text_line:
@@ -70,8 +71,16 @@ services:
         arguments:
             - []
 
-    netgen_block_manager.parameters.form_type.ngbm_compound_boolean:
-        class: "%netgen_block_manager.parameters.form_type.ngbm_compound_boolean.class%"
+    netgen_block_manager.parameters.form.parameters:
+        class: "%netgen_block_manager.parameters.form.parameters.class%"
+        arguments:
+            - "@netgen_block_manager.parameters.form_mapper"
+        tags:
+            - { name: form.type }
+
+
+    netgen_block_manager.parameters.form.ngbm_compound_boolean:
+        class: "%netgen_block_manager.parameters.form.ngbm_compound_boolean.class%"
         arguments:
             - "@netgen_block_manager.parameters.form_mapper"
         tags:

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Item\ValueConverter;
 
+use Netgen\BlockManager\Item\NullValue;
 use Netgen\BlockManager\Item\ValueConverter\NullValueConverter;
 use stdClass;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +24,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testSupports()
     {
-        self::assertTrue($this->valueConverter->supports(null));
+        self::assertTrue($this->valueConverter->supports(new NullValue(42, 'value')));
         self::assertFalse($this->valueConverter->supports(new stdClass()));
     }
 
@@ -32,7 +33,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetValueType()
     {
-        self::assertEquals('null', $this->valueConverter->getValueType(null));
+        self::assertEquals('value', $this->valueConverter->getValueType(new NullValue(42, 'value')));
     }
 
     /**
@@ -40,7 +41,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetId()
     {
-        self::assertEquals(0, $this->valueConverter->getId(null));
+        self::assertEquals(42, $this->valueConverter->getId(new NullValue(42, 'value')));
     }
 
     /**
@@ -48,7 +49,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('(INVALID ITEM)', $this->valueConverter->getName(null));
+        self::assertEquals('(INVALID ITEM)', $this->valueConverter->getName(new NullValue(42, 'value')));
     }
 
     /**
@@ -56,6 +57,6 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetIsVisible()
     {
-        self::assertTrue($this->valueConverter->getIsVisible(null));
+        self::assertTrue($this->valueConverter->getIsVisible(new NullValue(42, 'value')));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Parameters\FormMapper\Type;
+namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

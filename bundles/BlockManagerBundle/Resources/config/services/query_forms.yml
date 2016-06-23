@@ -4,7 +4,5 @@ parameters:
 services:
     netgen_block_manager.collection.query.form.full_edit:
         class: "%netgen_block_manager.collection.query.form.full_edit.class%"
-        arguments:
-            - "@netgen_block_manager.parameters.form_mapper"
         tags:
             - { name: form.type }

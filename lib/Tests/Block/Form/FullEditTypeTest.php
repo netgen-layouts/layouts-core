@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Block\BlockDefinition;
@@ -33,11 +34,6 @@ class FullEditTypeTest extends FormIntegrationTestCase
     protected $dispatcher;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
-     */
-    protected $parameterFormMapper;
-
-    /**
      * @var \Netgen\BlockManager\Block\Form\FullEditType
      */
     protected $formType;
@@ -57,8 +53,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
 
-        $this->parameterFormMapper = new FormMapper(array('text_line' => new TextLine()));
-        $this->formType = new FullEditType($this->parameterFormMapper);
+        $this->formType = new FullEditType();
 
         $validator = $this->createMock(ValidatorInterface::class);
         $validator
@@ -68,6 +63,7 @@ class FullEditTypeTest extends FormIntegrationTestCase
 
         $this->factory = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
+            ->addType(new ParametersType(new FormMapper(array('text_line' => new TextLine()))))
             ->addExtensions($this->getExtensions())
             ->addTypeExtension(new FormTypeValidatorExtension($validator))
             ->getFormFactory();

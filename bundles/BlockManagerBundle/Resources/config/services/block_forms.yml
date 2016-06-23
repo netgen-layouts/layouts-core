@@ -8,8 +8,6 @@ services:
     netgen_block_manager.block.form.edit:
         class: "%netgen_block_manager.block.form.edit.class%"
         abstract: true
-        arguments:
-            - "@netgen_block_manager.parameters.form_mapper"
 
     netgen_block_manager.block.form.full_edit:
         class: "%netgen_block_manager.block.form.full_edit.class%"

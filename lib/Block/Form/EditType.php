@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\Block\Form;
 
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
+use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -21,24 +20,15 @@ abstract class EditType extends AbstractType
     const TRANSLATION_DOMAIN = 'ngbm_block_forms';
 
     /**
-     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
-     */
-    protected $parameterFormMapper;
-
-    /**
      * @var array
      */
     protected $choicesAsValues;
 
     /**
      * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface $parameterFormMapper
      */
-    public function __construct(FormMapperInterface $parameterFormMapper)
+    public function __construct()
     {
-        $this->parameterFormMapper = $parameterFormMapper;
-
         // choices_as_values is deprecated on Symfony >= 3.1,
         // while on previous versions needs to be set to true
         $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
@@ -167,34 +157,21 @@ abstract class EditType extends AbstractType
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['blockDefinition'];
-        $blockDefinitionParameters = $blockDefinition->getHandler()->getParameters();
+        $parameters = $blockDefinition->getHandler()->getParameters();
 
-        if ($parameterNames === null) {
-            $parameterNames = array_keys($blockDefinitionParameters);
+        if ($parameterNames !== null) {
+            $parameters = array_intersect_key($parameters, array_flip($parameterNames));
         }
 
-        // We're grouping block parameters so they don't conflict with forms from block itself
-        $parameterBuilder = $builder->create(
+        $builder->add(
             'parameters',
-            FormType::class,
+            ParametersType::class,
             array(
                 'label' => false,
-                'inherit_data' => true,
+                'parameters' => $parameters,
+                'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
+                'property_path' => 'parameters',
             )
         );
-
-        foreach ($parameterNames as $parameterName) {
-            $this->parameterFormMapper->mapParameter(
-                $parameterBuilder,
-                $blockDefinitionParameters[$parameterName],
-                $parameterName,
-                array(
-                    'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
-                    'property_path_prefix' => 'parameters',
-                )
-            );
-        }
-
-        $builder->add($parameterBuilder);
     }
 }

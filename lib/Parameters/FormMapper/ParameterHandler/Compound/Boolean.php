@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
-use Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType;
+use Netgen\BlockManager\Parameters\Form\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 
 class Boolean extends ParameterHandler

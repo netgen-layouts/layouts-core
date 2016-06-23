@@ -110,12 +110,22 @@ class IntegerTest extends TestCase
             ),
             array(
                 array(
-                    'max' => 5,
-                    'min' => 10,
+                    'min' => 5,
+                    'max' => 10,
                 ),
                 array(
+                    'min' => 5,
+                    'max' => 10,
+                ),
+            ),
+            array(
+                array(
+                    'min' => 5,
+                    'max' => 3,
+                ),
+                array(
+                    'min' => 5,
                     'max' => 5,
-                    'min' => 10,
                 ),
             ),
         );

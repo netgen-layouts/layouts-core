@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler\Compo
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Parameters\FormMapper\Type\CompoundBooleanType;
+use Netgen\BlockManager\Parameters\Form\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean as BooleanParameter;
 use Netgen\BlockManager\Parameters\Parameter\TextLine as TextLineParameter;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
