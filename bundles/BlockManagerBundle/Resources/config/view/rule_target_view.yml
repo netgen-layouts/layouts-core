@@ -1,5 +1,5 @@
 rule_target_view:
-    admin_view:
+    view:
         route:
             template: "NetgenBlockManagerAdminUIBundle:admin/rule_target/view:route.html.twig"
             match:
