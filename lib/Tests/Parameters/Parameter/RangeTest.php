@@ -2,23 +2,23 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
-use Netgen\BlockManager\Parameters\Parameter\Integer;
+use Netgen\BlockManager\Parameters\Parameter\Range;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
-class IntegerTest extends TestCase
+class RangeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getType
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getType
      */
     public function testGetType()
     {
-        $parameter = $this->getParameter();
-        self::assertEquals('integer', $parameter->getType());
+        $parameter = $this->getParameter(array('min' => 5, 'max' => 10));
+        self::assertEquals('range', $parameter->getType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getDefaultValue
      *
      * @param array $options
      * @param bool $required
@@ -34,8 +34,8 @@ class IntegerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -48,8 +48,8 @@ class IntegerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
@@ -67,11 +67,11 @@ class IntegerTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Integer
+     * @return \Netgen\BlockManager\Parameters\Parameter\Range
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Integer($options, $required, $defaultValue);
+        return new Range($options, $required, $defaultValue);
     }
 
     /**
@@ -82,14 +82,10 @@ class IntegerTest extends TestCase
     public function defaultValueProvider()
     {
         return array(
-            array(array(), true, null, null),
-            array(array('min' => 3), true, null, 3),
-            array(array(), false, null, null),
-            array(array('min' => 3), false, null, null),
-            array(array(), true, 4, 4),
-            array(array('min' => 3), true, 4, 4),
-            array(array(), false, 4, 4),
-            array(array('min' => 3), false, 4, 4),
+            array(array('min' => 3, 'max' => 5), true, null, 3),
+            array(array('min' => 3, 'max' => 5), false, null, null),
+            array(array('min' => 3, 'max' => 5), true, 4, 4),
+            array(array('min' => 3, 'max' => 5), false, 4, 4),
         );
     }
 
@@ -101,50 +97,6 @@ class IntegerTest extends TestCase
     public function validOptionsProvider()
     {
         return array(
-            array(
-                array(
-                ),
-                array(
-                    'max' => null,
-                    'min' => null,
-                ),
-            ),
-            array(
-                array(
-                    'max' => 5,
-                ),
-                array(
-                    'max' => 5,
-                    'min' => null,
-                ),
-            ),
-            array(
-                array(
-                    'max' => null,
-                ),
-                array(
-                    'max' => null,
-                    'min' => null,
-                ),
-            ),
-            array(
-                array(
-                    'min' => 5,
-                ),
-                array(
-                    'min' => 5,
-                    'max' => null,
-                ),
-            ),
-            array(
-                array(
-                    'min' => null,
-                ),
-                array(
-                    'max' => null,
-                    'min' => null,
-                ),
-            ),
             array(
                 array(
                     'min' => 5,
@@ -198,6 +150,28 @@ class IntegerTest extends TestCase
                 array(
                     'undefined_value' => 'Value',
                 ),
+                array(
+                ),
+                array(
+                    'max' => 5,
+                ),
+                array(
+                    'max' => null,
+                ),
+                array(
+                    'min' => 5,
+                ),
+                array(
+                    'min' => null,
+                ),
+                array(
+                    'min' => null,
+                    'max' => 5,
+                ),
+                array(
+                    'min' => 5,
+                    'max' => null,
+                ),
             ),
         );
     }
@@ -207,7 +181,7 @@ class IntegerTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getParameterConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $required, $isValid)
@@ -228,18 +202,20 @@ class IntegerTest extends TestCase
     {
         return array(
             array('12', false, false),
-            array(12.3, false, false),
             array(true, false, false),
             array(array(), false, false),
             array(12, false, false),
+            array(12.3, false, false),
             array(0, false, false),
             array(-12, false, false),
             array(5, false, true),
             array(7, false, true),
+            array(7.5, false, true),
             array(10, false, true),
             array(null, false, true),
             array(5, true, true),
             array(7, true, true),
+            array(7.5, true, true),
             array(10, true, true),
             array(null, true, false),
         );

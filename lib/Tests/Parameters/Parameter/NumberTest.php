@@ -2,23 +2,23 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Parameter;
 
-use Netgen\BlockManager\Parameters\Parameter\Integer;
+use Netgen\BlockManager\Parameters\Parameter\Number;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
-class IntegerTest extends TestCase
+class NumberTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getType
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::getType
      */
     public function testGetType()
     {
         $parameter = $this->getParameter();
-        self::assertEquals('integer', $parameter->getType());
+        self::assertEquals('number', $parameter->getType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::getDefaultValue
      *
      * @param array $options
      * @param bool $required
@@ -34,8 +34,8 @@ class IntegerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -48,8 +48,8 @@ class IntegerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getOptions
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::getOptions
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
@@ -67,11 +67,11 @@ class IntegerTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Integer
+     * @return \Netgen\BlockManager\Parameters\Parameter\Number
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Integer($options, $required, $defaultValue);
+        return new Number($options, $required, $defaultValue);
     }
 
     /**
@@ -207,7 +207,7 @@ class IntegerTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Number::getParameterConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $required, $isValid)
@@ -228,18 +228,20 @@ class IntegerTest extends TestCase
     {
         return array(
             array('12', false, false),
-            array(12.3, false, false),
             array(true, false, false),
             array(array(), false, false),
             array(12, false, false),
+            array(12.3, false, false),
             array(0, false, false),
             array(-12, false, false),
             array(5, false, true),
             array(7, false, true),
+            array(7.5, false, true),
             array(10, false, true),
             array(null, false, true),
             array(5, true, true),
             array(7, true, true),
+            array(7.5, true, true),
             array(10, true, true),
             array(null, true, false),
         );

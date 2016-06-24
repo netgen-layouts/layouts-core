@@ -18,6 +18,22 @@ class BooleanTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Boolean::getDefaultValue
+     *
+     * @param array $options
+     * @param bool $required
+     * @param mixed $defaultValue
+     * @param mixed $expected
+     *
+     * @dataProvider defaultValueProvider
+     */
+    public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
+    {
+        $parameter = $this->getParameter($options, $required, $defaultValue);
+        self::assertEquals($expected, $parameter->getDefaultValue());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Boolean::getOptions
      * @covers \Netgen\BlockManager\Parameters\Parameter\Boolean::configureOptions
      * @dataProvider validOptionsProvider
@@ -48,12 +64,31 @@ class BooleanTest extends TestCase
      * Returns the parameter under test.
      *
      * @param array $options
+     * @param bool $required
+     * @param mixed $defaultValue
      *
      * @return \Netgen\BlockManager\Parameters\Parameter\Boolean
      */
-    public function getParameter(array $options = array())
+    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Boolean($options);
+        return new Boolean($options, $required, $defaultValue);
+    }
+
+    /**
+     * Provider for testing default parameter values.
+     *
+     * @return array
+     */
+    public function defaultValueProvider()
+    {
+        return array(
+            array(array(), true, null, false),
+            array(array(), false, null, null),
+            array(array(), true, false, false),
+            array(array(), false, false, false),
+            array(array(), true, true, true),
+            array(array(), false, true, true),
+        );
     }
 
     /**
@@ -89,14 +124,16 @@ class BooleanTest extends TestCase
 
     /**
      * @param mixed $value
+     * @param bool $required
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Parameters\Parameter\Boolean::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Boolean::getBaseConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, $required, $isValid)
     {
-        $parameter = $this->getParameter();
+        $parameter = $this->getParameter(array(), $required);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());
@@ -111,12 +148,16 @@ class BooleanTest extends TestCase
     public function validationProvider()
     {
         return array(
-            array('12', false),
-            array(12.3, false),
-            array(true, true),
-            array(false, true),
-            array(array(), false),
-            array(12, false),
+            array('12', false, false),
+            array(12.3, false, false),
+            array(true, false, true),
+            array(false, false, true),
+            array(null, false, true),
+            array(true, true, true),
+            array(false, true, true),
+            array(null, true, false),
+            array(array(), false, false),
+            array(12, false, false),
         );
     }
 }

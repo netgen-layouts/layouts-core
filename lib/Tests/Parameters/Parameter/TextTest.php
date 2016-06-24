@@ -12,7 +12,7 @@ class TextTest extends TestCase
      */
     public function testGetType()
     {
-        $parameter = $this->getParameter(array());
+        $parameter = $this->getParameter();
         self::assertEquals('text', $parameter->getType());
     }
 
@@ -50,7 +50,7 @@ class TextTest extends TestCase
      *
      * @return \Netgen\BlockManager\Parameters\Parameter\Text
      */
-    public function getParameter($options)
+    public function getParameter($options = array())
     {
         return new Text($options);
     }

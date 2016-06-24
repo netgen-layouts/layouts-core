@@ -48,12 +48,13 @@ class IdentifierTest extends TestCase
      * Returns the parameter under test.
      *
      * @param array $options
+     * @param bool $required
      *
      * @return \Netgen\BlockManager\Parameters\Parameter\Identifier
      */
-    public function getParameter(array $options = array())
+    public function getParameter(array $options = array(), $required = false)
     {
-        return new Identifier($options);
+        return new Identifier($options, $required);
     }
 
     /**
@@ -89,14 +90,15 @@ class IdentifierTest extends TestCase
 
     /**
      * @param mixed $value
+     * @param bool $required
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Parameters\Parameter\Identifier::getParameterConstraints
      * @dataProvider validationProvider
      */
-    public function testValidation($value, $isValid)
+    public function testValidation($value, $required, $isValid)
     {
-        $parameter = $this->getParameter();
+        $parameter = $this->getParameter(array(), $required);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());
@@ -111,11 +113,15 @@ class IdentifierTest extends TestCase
     public function validationProvider()
     {
         return array(
-            array('123abcASD', true),
-            array('123abc_ASD', true),
-            array('123abc ASD', false),
-            array('123a-bcASD', false),
-            array('123abc.ASD', false),
+            array('123abcASD', true, true),
+            array('123abc_ASD', true, true),
+            array(null, true, false),
+            array('123abcASD', false, true),
+            array('123abc_ASD', false, true),
+            array(null, false, true),
+            array('123abc ASD', false, false),
+            array('123a-bcASD', false, false),
+            array('123abc.ASD', false, false),
         );
     }
 }

@@ -18,6 +18,22 @@ class ChoiceTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getDefaultValue
+     *
+     * @param array $options
+     * @param bool $required
+     * @param mixed $defaultValue
+     * @param mixed $expected
+     *
+     * @dataProvider defaultValueProvider
+     */
+    public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
+    {
+        $parameter = $this->getParameter($options, $required, $defaultValue);
+        self::assertEquals($expected, $parameter->getDefaultValue());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getOptions
      * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::configureOptions
      * @dataProvider validOptionsProvider
@@ -48,12 +64,33 @@ class ChoiceTest extends TestCase
      * Returns the parameter under test.
      *
      * @param array $options
+     * @param bool $required
+     * @param mixed $defaultValue
      *
      * @return \Netgen\BlockManager\Parameters\Parameter\Choice
      */
-    public function getParameter(array $options = array())
+    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Choice($options);
+        return new Choice($options, $required, $defaultValue);
+    }
+
+    /**
+     * Provider for testing default parameter values.
+     *
+     * @return array
+     */
+    public function defaultValueProvider()
+    {
+        return array(
+            array(array('options' => array('Option' => 'option')), true, null, 'option'),
+            array(array('options' => array('Option' => 'option')), false, null, null),
+            array(array('options' => array('Option' => 'option')), true, 'value', 'value'),
+            array(array('options' => array('Option' => 'option')), false, 'value', 'value'),
+            array(array('options' => function () {return array('Option' => 'option');}), true, null, null),
+            array(array('options' => function () {return array('Option' => 'option');}), false, null, null),
+            array(array('options' => function () {return array('Option' => 'option');}), true, 'value', 'value'),
+            array(array('options' => function () {return array('Option' => 'option');}), false, 'value', 'value'),
+        );
     }
 
     /**
