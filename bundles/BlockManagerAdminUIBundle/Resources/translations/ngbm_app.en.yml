@@ -1,5 +1,6 @@
 pagelayout.title: 'Netgen Block Manager'
 pagelayout.trash: 'Trash'
+pagelayout.loading: 'Loading...'
 
 block.edit.tabs.content: 'Content'
 block.edit.tabs.design: 'Design'
