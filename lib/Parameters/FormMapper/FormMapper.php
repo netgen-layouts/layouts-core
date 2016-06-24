@@ -69,8 +69,10 @@ class FormMapper implements FormMapperInterface
 
         if (!isset($this->parameterHandlers[$parameterType])) {
             throw new RuntimeException(
-                'No parameter handler found for "%s" parameter type.',
-                $parameterType
+                sprintf(
+                    'No parameter handler found for "%s" parameter type.',
+                    $parameterType
+                )
             );
         }
 

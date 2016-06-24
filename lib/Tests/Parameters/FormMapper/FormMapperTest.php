@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper;
 use Netgen\BlockManager\Parameters\Parameter\TextLine;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine as TextLineHandler;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
+use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -14,6 +15,11 @@ use PHPUnit\Framework\TestCase;
 
 class FormMapperTest extends TestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
+     */
+    protected $parameterFilterRegistry;
+
     /**
      * @var \Symfony\Component\Form\FormBuilderInterface
      */
@@ -26,6 +32,8 @@ class FormMapperTest extends TestCase
 
     public function setUp()
     {
+        $this->parameterFilterRegistry = new ParameterFilterRegistry();
+
         $this->formBuilder = Forms::createFormFactoryBuilder()
             ->addTypeExtension(
                 new FormTypeValidatorExtension(
@@ -43,6 +51,7 @@ class FormMapperTest extends TestCase
     public function testConstructorThrowsRuntimeExceptionWithNoParameterHandlerInterface()
     {
         $formMapper = new FormMapper(
+            $this->parameterFilterRegistry,
             array($this->createMock(DateTime::class))
         );
     }
@@ -54,7 +63,10 @@ class FormMapperTest extends TestCase
      */
     public function testMapParameter()
     {
-        $this->formMapper = new FormMapper(array('text_line' => new TextLineHandler()));
+        $this->formMapper = new FormMapper(
+            $this->parameterFilterRegistry,
+            array('text_line' => new TextLineHandler())
+        );
 
         $this->formMapper->mapParameter(
             $this->formBuilder,
@@ -82,7 +94,10 @@ class FormMapperTest extends TestCase
      */
     public function testMapParameterThrowsRuntimeException()
     {
-        $this->formMapper = new FormMapper();
+        $this->formMapper = new FormMapper(
+            $this->parameterFilterRegistry
+        );
+
         $this->formMapper->mapParameter(
             $this->formBuilder,
             new TextLine(),

@@ -9,6 +9,7 @@ use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
+use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
@@ -37,6 +38,16 @@ class FullEditTypeTest extends FormIntegrationTestCase
     protected $formType;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $validatorMock;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface
+     */
+    protected $formMapper;
+
+    /**
      * @var \Netgen\BlockManager\Collection\QueryType
      */
     protected $queryType;
@@ -53,17 +64,22 @@ class FullEditTypeTest extends FormIntegrationTestCase
 
         $this->formType = new FullEditType();
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $this->validatorMock = $this->createMock(ValidatorInterface::class);
+        $this->validatorMock
             ->expects($this->any())
             ->method('validate')
             ->will($this->returnValue(new ConstraintViolationList()));
 
+        $this->formMapper = new FormMapper(
+            new ParameterFilterRegistry(),
+            array('text_line' => new TextLine())
+        );
+
         $this->factory = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
-            ->addType(new ParametersType(new FormMapper(array('text_line' => new TextLine()))))
+            ->addType(new ParametersType($this->formMapper))
             ->addExtensions($this->getExtensions())
-            ->addTypeExtension(new FormTypeValidatorExtension($validator))
+            ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock))
             ->getFormFactory();
 
         $config = new Configuration(

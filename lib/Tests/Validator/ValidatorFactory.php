@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
@@ -30,7 +31,9 @@ class ValidatorFactory extends ConstraintValidatorFactory
 
             return new ValueTypeValidator($valueLoaderRegistry);
         } elseif ($name === 'ngbm_parameters') {
-            return new ParametersValidator();
+            return new ParametersValidator(
+                new ParameterFilterRegistry()
+            );
         } else {
             return parent::getInstance($constraint);
         }

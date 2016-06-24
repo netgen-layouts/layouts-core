@@ -4,11 +4,17 @@ namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 
 class ParametersValidatorTest extends ValidatorTest
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
+     */
+    protected $parameterFilterRegistry;
+
     /**
      * @var \Netgen\BlockManager\Validator\ParametersValidator
      */
@@ -23,7 +29,9 @@ class ParametersValidatorTest extends ValidatorTest
     {
         parent::setUp();
 
-        $this->validator = new ParametersValidator();
+        $this->parameterFilterRegistry = new ParameterFilterRegistry();
+
+        $this->validator = new ParametersValidator($this->parameterFilterRegistry);
         $this->validator->initialize($this->executionContextMock);
 
         $this->constraint = new Parameters(
