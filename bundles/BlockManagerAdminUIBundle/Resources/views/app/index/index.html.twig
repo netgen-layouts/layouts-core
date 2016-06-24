@@ -11,7 +11,10 @@
 
     <link rel="stylesheet" href="{{ asset('bundles/netgenblockmanageradminui/alloy-editor/assets/alloy-editor-ocean-min.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/bmdev/app/styles/main.css">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/bmdev/app/styles/main.css">
+    {% endblock %}
 </head>
 
 <body>
@@ -44,7 +47,10 @@
 
     <script src="{{ asset('bundles/netgenblockmanageradminui/alloy-editor/alloy-editor-all-min.js') }}"></script>
     <script src="{{ asset('bundles/netgenblockmanageradminui/ace-editor/ace.js') }}"></script>
-    <script src="/bmdev/app/scripts/vendor.js"></script>
-    <script src="/bmdev/app/scripts/main.js"></script>
+
+    {% block javascripts %}
+        <script src="/bmdev/app/scripts/vendor.js"></script>
+        <script src="/bmdev/app/scripts/main.js"></script>
+    {% endblock %}
 </body>
 </html>
