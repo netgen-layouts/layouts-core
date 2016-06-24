@@ -7,25 +7,16 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 
-class BlockItemViewTypeValidatorTest extends ValidatorTest
+class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected $blockDefinition;
-
-    /**
-     * @var \Netgen\BlockManager\Validator\BlockItemViewTypeValidator
-     */
-    protected $validator;
-
-    /**
-     * @var \Netgen\BlockManager\Validator\Constraint\BlockItemViewType
-     */
-    protected $constraint;
 
     public function setUp()
     {
@@ -51,10 +42,15 @@ class BlockItemViewTypeValidatorTest extends ValidatorTest
             $config
         );
 
-        $this->validator = new BlockItemViewTypeValidator();
-        $this->validator->initialize($this->executionContextMock);
-
         $this->constraint = new BlockItemViewType(array('definition' => $this->blockDefinition));
+    }
+
+    /**
+     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    public function getValidator()
+    {
+        return new BlockItemViewTypeValidator();
     }
 
     /**

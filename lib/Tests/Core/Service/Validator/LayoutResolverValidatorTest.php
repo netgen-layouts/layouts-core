@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
+use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\BlockManager\Tests\TestCase;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
-abstract class ValidatorTest extends TestCase
+abstract class ValidatorTestCase extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -18,6 +18,16 @@ abstract class ValidatorTest extends TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $violationBuilderMock;
+
+    /**
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    protected $validator;
+
+    /**
+     * @var \Symfony\Component\Validator\Constraint
+     */
+    protected $constraint;
 
     /**
      * Sets up the test.
@@ -39,6 +49,9 @@ abstract class ValidatorTest extends TestCase
                 )
             );
 
+        $this->validator = $this->getValidator();
+        $this->validator->initialize($this->executionContextMock);
+
         $this->violationBuilderMock = $this
             ->createMock(ConstraintViolationBuilderInterface::class);
 
@@ -57,4 +70,9 @@ abstract class ValidatorTest extends TestCase
             ->method('atPath')
             ->will($this->returnValue($this->violationBuilderMock));
     }
+
+    /**
+     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    abstract public function getValidator();
 }

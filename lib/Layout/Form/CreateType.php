@@ -7,7 +7,6 @@ use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -23,11 +22,6 @@ class CreateType extends AbstractType
     protected $layoutTypeRegistry;
 
     /**
-     * @var array
-     */
-    protected $choicesAsValues;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
@@ -35,12 +29,6 @@ class CreateType extends AbstractType
     public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
-
-        // choices_as_values is deprecated on Symfony >= 3.1,
-        // while on previous versions needs to be set to true
-        $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
-            array('choices_as_values' => true) :
-            array();
     }
 
     /**
@@ -73,12 +61,13 @@ class CreateType extends AbstractType
             array(
                 'label' => 'layout.type',
                 'choices' => $choices,
+                'choices_as_values' => true,
                 'expanded' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                 ),
                 'property_path' => 'type',
-            ) + $this->choicesAsValues
+            )
         );
 
         $builder->add(

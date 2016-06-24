@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -18,23 +17,6 @@ use Symfony\Component\Form\AbstractType;
 abstract class EditType extends AbstractType
 {
     const TRANSLATION_DOMAIN = 'ngbm_block_forms';
-
-    /**
-     * @var array
-     */
-    protected $choicesAsValues;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        // choices_as_values is deprecated on Symfony >= 3.1,
-        // while on previous versions needs to be set to true
-        $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
-            array('choices_as_values' => true) :
-            array();
-    }
 
     /**
      * Configures the options for this type.
@@ -71,8 +53,9 @@ abstract class EditType extends AbstractType
             array(
                 'label' => 'block.view_type',
                 'choices' => $choices,
+                'choices_as_values' => true,
                 'property_path' => 'viewType',
-            ) + $this->choicesAsValues
+            )
         );
 
         $itemViewTypeBuilder = function (FormInterface $form, BlockDefinitionInterface $blockDefinition, $viewType) {
@@ -91,8 +74,9 @@ abstract class EditType extends AbstractType
                 array(
                     'label' => 'block.item_view_type',
                     'choices' => $choices,
+                    'choices_as_values' => true,
                     'property_path' => 'itemViewType',
-                ) + $this->choicesAsValues
+                )
             );
         };
 

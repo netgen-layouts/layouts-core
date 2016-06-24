@@ -17,7 +17,7 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
+use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 

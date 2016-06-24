@@ -4,37 +4,28 @@ namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
+use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 
-class ValueTypeValidatorTest extends ValidatorTest
+class ValueTypeValidatorTest extends ValidatorTestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
-     */
-    protected $valueLoaderRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Validator\ValueTypeValidator
-     */
-    protected $validator;
-
-    /**
-     * @var \Netgen\BlockManager\Validator\Constraint\ValueType
-     */
-    protected $constraint;
-
     public function setUp()
     {
         parent::setUp();
 
-        $this->valueLoaderRegistry = new ValueLoaderRegistry();
-        $this->valueLoaderRegistry->addValueLoader(new ValueLoader());
-
-        $this->validator = new ValueTypeValidator($this->valueLoaderRegistry);
-        $this->validator->initialize($this->executionContextMock);
-
         $this->constraint = new ValueType();
+    }
+
+    /**
+     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    public function getValidator()
+    {
+        $valueLoaderRegistry = new ValueLoaderRegistry();
+        $valueLoaderRegistry->addValueLoader(new ValueLoader());
+
+        return new ValueTypeValidator($valueLoaderRegistry);
     }
 
     /**

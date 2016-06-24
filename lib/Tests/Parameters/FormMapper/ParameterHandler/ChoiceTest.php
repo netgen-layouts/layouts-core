@@ -7,15 +7,9 @@ use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpKernel\Kernel;
 
 class ChoiceTest extends TestCase
 {
-    /**
-     * @var array
-     */
-    protected $choicesAsValues;
-
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice
      */
@@ -23,17 +17,10 @@ class ChoiceTest extends TestCase
 
     public function setUp()
     {
-        // choices_as_values is deprecated on Symfony >= 3.1,
-        // while on previous versions needs to be set to true
-        $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
-            array('choices_as_values' => true) :
-            array();
-
         $this->parameterHandler = new Choice();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice::__construct
      * @covers \Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice::getFormType
      */
     public function testGetFormType()
@@ -63,7 +50,8 @@ class ChoiceTest extends TestCase
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
                 ),
-            ) + $this->choicesAsValues,
+                'choices_as_values' => true,
+            ),
             $this->parameterHandler->convertOptions($parameter)
         );
     }
@@ -92,7 +80,8 @@ class ChoiceTest extends TestCase
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
                 ),
-            ) + $this->choicesAsValues,
+                'choices_as_values' => true,
+            ),
             $this->parameterHandler->convertOptions($parameter)
         );
     }

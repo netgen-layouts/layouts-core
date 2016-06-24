@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
@@ -10,13 +11,13 @@ use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Block\Form\FullEditType;
+use Netgen\BlockManager\Block\Form\DesignEditType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FullEditTypeTest extends FormTestCase
+class DesignEditTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition
@@ -32,7 +33,9 @@ class FullEditTypeTest extends FormTestCase
 
         $config = new Configuration(
             'block_definition',
-            array(),
+            array(
+                'design' => new Form('design', DesignEditType::class, array('css_class')),
+            ),
             array(
                 'large' => new ViewType(
                     'large',
@@ -63,7 +66,7 @@ class FullEditTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new FullEditType();
+        return new DesignEditType();
     }
 
     /**
@@ -80,32 +83,27 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
      */
     public function testSubmitValidData()
     {
         $submittedData = array(
             'parameters' => array(
-                'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
             ),
             'view_type' => 'large',
             'item_view_type' => 'standard',
-            'name' => 'My block',
         );
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->viewType = 'large';
         $updatedStruct->itemViewType = 'standard';
-        $updatedStruct->name = 'My block';
-        $updatedStruct->setParameter('css_id', 'Some CSS ID');
         $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
-            FullEditType::class,
+            DesignEditType::class,
             new BlockUpdateStruct(),
             array('blockDefinition' => $this->blockDefinition)
         );
@@ -128,7 +126,7 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -149,7 +147,7 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingBlockDefinition()
@@ -163,7 +161,7 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidBlockDefinition()
@@ -181,7 +179,7 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -200,10 +198,10 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('block_full_edit', $this->formType->getBlockPrefix());
+        self::assertEquals('block_design_edit', $this->formType->getBlockPrefix());
     }
 }

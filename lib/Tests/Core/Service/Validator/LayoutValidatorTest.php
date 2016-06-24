@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Tests\Validator\ValidatorFactory;
+use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 

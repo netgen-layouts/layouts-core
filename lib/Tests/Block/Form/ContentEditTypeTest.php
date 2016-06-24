@@ -1,26 +1,28 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\Query\Form;
+namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Query\Form\FullEditType;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Block\Form\ContentEditType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FullEditTypeTest extends FormTestCase
+class ContentEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType
+     * @var \Netgen\BlockManager\Block\BlockDefinition
      */
-    protected $queryType;
+    protected $blockDefinition;
 
     /**
      * Sets up the test.
@@ -30,15 +32,31 @@ class FullEditTypeTest extends FormTestCase
         parent::setUp();
 
         $config = new Configuration(
-            'query_type',
-            'Query type',
-            array(),
-            array()
+            'block_definition',
+            array(
+                'content' => new Form('content', ContentEditType::class, array('css_class')),
+            ),
+            array(
+                'large' => new ViewType(
+                    'large',
+                    'Large',
+                    array(
+                        'standard' => new ItemViewType('standard', 'Standard'),
+                    )
+                ),
+                'small' => new ViewType(
+                    'small',
+                    'Small',
+                    array(
+                        'standard' => new ItemViewType('standard', 'Standard'),
+                    )
+                ),
+            )
         );
 
-        $this->queryType = new QueryType(
-            'query_type',
-            new QueryTypeHandler(),
+        $this->blockDefinition = new BlockDefinition(
+            'block_definition',
+            new BlockDefinitionHandler(),
             $config
         );
     }
@@ -48,7 +66,7 @@ class FullEditTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new FullEditType();
+        return new ContentEditType();
     }
 
     /**
@@ -58,33 +76,34 @@ class FullEditTypeTest extends FormTestCase
     {
         $formMapper = new FormMapper(
             new ParameterFilterRegistry(),
-            array(
-                'text_line' => new TextLine(),
-                'integer' => new Integer(),
-            )
+            array('text_line' => new TextLine())
         );
 
         return array(new ParametersType($formMapper));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
      */
     public function testSubmitValidData()
     {
         $submittedData = array(
             'parameters' => array(
-                'param' => 'Param value',
+                'css_class' => 'Some CSS class',
             ),
+            'name' => 'My block',
         );
 
-        $updatedStruct = new QueryUpdateStruct();
-        $updatedStruct->setParameter('param', 'Param value');
+        $updatedStruct = new BlockUpdateStruct();
+        $updatedStruct->name = 'My block';
+        $updatedStruct->setParameter('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
-            FullEditType::class,
-            new QueryUpdateStruct(),
-            array('queryType' => $this->queryType)
+            ContentEditType::class,
+            new BlockUpdateStruct(),
+            array('blockDefinition' => $this->blockDefinition)
         );
 
         $form->submit($submittedData);
@@ -105,7 +124,7 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -116,20 +135,20 @@ class FullEditTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'queryType' => $this->queryType,
-                'data' => new QueryUpdateStruct(),
+                'blockDefinition' => $this->blockDefinition,
+                'data' => new BlockUpdateStruct(),
             )
         );
 
-        self::assertEquals($options['queryType'], $this->queryType);
-        self::assertEquals($options['data'], new QueryUpdateStruct());
+        self::assertEquals($options['blockDefinition'], $this->blockDefinition);
+        self::assertEquals($options['data'], new BlockUpdateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
-    public function testConfigureOptionsWithMissingQueryType()
+    public function testConfigureOptionsWithMissingBlockDefinition()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -140,10 +159,10 @@ class FullEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testConfigureOptionsWithInvalidQueryType()
+    public function testConfigureOptionsWithInvalidBlockDefinition()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -152,13 +171,13 @@ class FullEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'queryType' => '',
+                'blockDefinition' => '',
             )
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
+     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidData()
@@ -170,17 +189,17 @@ class FullEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'queryType' => $this->queryType,
+                'blockDefinition' => $this->blockDefinition,
                 'data' => '',
             )
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('query_full_edit', $this->formType->getBlockPrefix());
+        self::assertEquals('block_content_edit', $this->formType->getBlockPrefix());
     }
 }

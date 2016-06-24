@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\BlockManager\Tests\TestCase;
 
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;

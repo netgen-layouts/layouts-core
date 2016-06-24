@@ -5,24 +5,9 @@ namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\HttpKernel\Kernel;
 
 class Choice extends ParameterHandler
 {
-    /**
-     * @var array
-     */
-    protected $choicesAsValues;
-
-    public function __construct()
-    {
-        // choices_as_values is deprecated on Symfony >= 3.1,
-        // while on previous versions needs to be set to true
-        $this->choicesAsValues = Kernel::VERSION_ID < 30100 ?
-            array('choices_as_values' => true) :
-            array();
-    }
-
     /**
      * Returns the form type for the parameter.
      *
@@ -49,6 +34,7 @@ class Choice extends ParameterHandler
             'choices' => is_callable($parameterOptions['options']) ?
                 $parameterOptions['options']() :
                 $parameterOptions['options'],
-        ) + $this->choicesAsValues;
+            'choices_as_values' => true,
+        );
     }
 }
