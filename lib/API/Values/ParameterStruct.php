@@ -79,38 +79,23 @@ abstract class ParameterStruct extends ValueObject implements ParameterCollectio
     }
 
     /**
-     * Fills the struct values based on provided list of parameters.
+     * Fills the struct values based on provided list of parameters and values.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
-     * @param $initialValues
-     * @param $useDefaultValues
-     *
-     * @return array
+     * @param array $values
+     * @param bool $useDefaults
      */
-    public function fillValues(array $parameters, $initialValues = array(), $useDefaultValues = true)
+    public function fillValues(array $parameters, $values = array(), $useDefaults = true)
     {
-        $defaultValues = array();
-
         foreach ($parameters as $parameterName => $parameter) {
-            $this->setParameter(
-                $parameterName,
-                isset($initialValues[$parameterName]) ?
-                    $initialValues[$parameterName] :
-                    ($useDefaultValues ? $parameter->getDefaultValue() : null)
-            );
+            $defaultValue = $useDefaults ? $parameter->getDefaultValue() : null;
+            $value = isset($values[$parameterName]) ? $values[$parameterName] : $defaultValue;
+
+            $this->setParameter($parameterName, $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                    $this->setParameter(
-                        $subParameterName,
-                        isset($initialValues[$subParameterName]) ?
-                            $initialValues[$subParameterName] :
-                            ($useDefaultValues ? $subParameter->getDefaultValue() : null)
-                    );
-                }
+                $this->fillValues($parameter->getParameters(), $values, $useDefaults);
             }
         }
-
-        return $defaultValues;
     }
 }

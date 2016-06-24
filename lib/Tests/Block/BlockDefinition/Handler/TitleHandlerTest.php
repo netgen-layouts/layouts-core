@@ -30,6 +30,7 @@ class TitleHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::getParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getCommonParameters
      */
     public function testGetParameters()
     {

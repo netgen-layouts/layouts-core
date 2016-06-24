@@ -155,6 +155,22 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::layoutNameExists
+     */
+    public function testLayoutNameExists()
+    {
+        self::assertTrue($this->layoutService->layoutNameExists('My layout'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::layoutNameExists
+     */
+    public function testLayoutNameNotExists()
+    {
+        self::assertFalse($this->layoutService->layoutNameExists('Non existing'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
      */
     public function testCreateLayout()

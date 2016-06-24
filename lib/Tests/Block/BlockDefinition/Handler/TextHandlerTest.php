@@ -20,6 +20,7 @@ class TextHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler::getParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getCommonParameters
      */
     public function testGetParameters()
     {

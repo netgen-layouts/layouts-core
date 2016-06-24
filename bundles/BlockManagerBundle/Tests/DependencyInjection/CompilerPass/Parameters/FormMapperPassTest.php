@@ -26,7 +26,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $formMapper = new Definition();
-        $formMapper->addArgument(array());
+        $formMapper->setArguments(array(null, null));
 
         $this->setDefinition('netgen_block_manager.parameters.form_mapper', $formMapper);
 
@@ -55,7 +55,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {
         $formMapper = new Definition();
-        $formMapper->addArgument(array());
+        $formMapper->setArguments(array(null, null));
 
         $this->setDefinition('netgen_block_manager.parameters.form_mapper', $formMapper);
 

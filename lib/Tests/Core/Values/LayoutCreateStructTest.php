@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
 class LayoutCreateStructTest extends TestCase

@@ -30,7 +30,7 @@ class ValueLoaderRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Item\Registry\ValueLoaderRegistry::addValueLoader
      * @covers \Netgen\BlockManager\Item\Registry\ValueLoaderRegistry::getValueLoaders
      */
-    public function testAddValueLoader()
+    public function testGetValueLoaders()
     {
         self::assertEquals(array('value' => $this->valueLoader), $this->registry->getValueLoaders());
     }

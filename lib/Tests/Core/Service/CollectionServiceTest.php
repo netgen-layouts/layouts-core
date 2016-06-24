@@ -45,6 +45,13 @@ abstract class CollectionServiceTest extends ServiceTest
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
+        $this->queryTypeRegistry->addQueryType(
+            new QueryType(
+                'ezcontent_search',
+                new QueryTypeHandler(),
+                new Configuration('query_type', 'Query type', array(), array())
+            )
+        );
 
         $this->collectionService = $this->createCollectionService(
             $this->collectionValidatorMock,
@@ -276,6 +283,93 @@ abstract class CollectionServiceTest extends ServiceTest
         $this->collectionService->updateCollection(
             $collection,
             $collectionUpdateStruct
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     */
+    public function testChangeCollectionTypeFromManualToDynamic()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(1);
+
+        $updatedCollection = $this->collectionService->changeCollectionType(
+            $collection,
+            Collection::TYPE_DYNAMIC,
+            $this->collectionService->newQueryCreateStruct(
+                $this->queryTypeRegistry->getQueryType('ezcontent_search'),
+                'default'
+            )
+        );
+
+        self::assertInstanceOf(CollectionDraft::class, $updatedCollection);
+        self::assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->getType());
+        self::assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
+        self::assertCount(1, $updatedCollection->getQueries());
+        self::assertEquals('ezcontent_search', $updatedCollection->getQueries()[0]->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     */
+    public function testChangeCollectionTypeFromDynamicToManual()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(4);
+
+        $updatedCollection = $this->collectionService->changeCollectionType(
+            $collection,
+            Collection::TYPE_MANUAL
+        );
+
+        self::assertInstanceOf(CollectionDraft::class, $updatedCollection);
+        self::assertEquals(Collection::TYPE_MANUAL, $updatedCollection->getType());
+        self::assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
+        self::assertCount(0, $updatedCollection->getQueries());
+
+        foreach ($updatedCollection->getItems() as $index => $item) {
+            self::assertEquals($index, $item->getPosition());
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingFromNamedCollection()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+
+        $this->collectionService->changeCollectionType(
+            $collection,
+            Collection::TYPE_MANUAL
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToNamedCollection()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(4);
+
+        $this->collectionService->changeCollectionType(
+            $collection,
+            Collection::TYPE_NAMED
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(1);
+
+        $this->collectionService->changeCollectionType(
+            $collection,
+            Collection::TYPE_DYNAMIC
         );
     }
 
@@ -613,6 +707,18 @@ abstract class CollectionServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveQueryThrowsBadStateExceptionOnNonNamedCollection()
+    {
+        $this->collectionService->moveQuery(
+            $this->collectionService->loadQueryDraft(4),
+            0
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
      */
     public function testDeleteQuery()
@@ -635,6 +741,16 @@ abstract class CollectionServiceTest extends ServiceTest
         self::assertEquals(0, $secondQuery->getPosition());
 
         self::assertEquals(count($collection->getQueries()) - 1, count($collectionAfterDelete->getQueries()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDeleteQueryThrowsBadStateExceptionOnNonNamedCollection()
+    {
+        $query = $this->collectionService->loadQueryDraft(4);
+        $this->collectionService->deleteQuery($query);
     }
 
     /**
@@ -704,6 +820,7 @@ abstract class CollectionServiceTest extends ServiceTest
                     'identifier' => 'new_query',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
+                        'offset' => null,
                         'param' => null,
                     ),
                 )
@@ -720,6 +837,27 @@ abstract class CollectionServiceTest extends ServiceTest
         self::assertEquals(
             new QueryUpdateStruct(),
             $this->collectionService->newQueryUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newQueryUpdateStruct
+     */
+    public function testNewQueryUpdateStructFromQuery()
+    {
+        $query = $this->collectionService->loadQueryDraft(4);
+
+        self::assertEquals(
+            new QueryUpdateStruct(
+                array(
+                    'identifier' => $query->getIdentifier(),
+                    'parameters' => array(
+                        'offset' => 0,
+                        'param' => null,
+                    ),
+                )
+            ),
+            $this->collectionService->newQueryUpdateStruct($query)
         );
     }
 }

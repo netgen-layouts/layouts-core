@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
@@ -72,7 +73,10 @@ class FullEditTypeTest extends FormIntegrationTestCase
 
         $this->formMapper = new FormMapper(
             new ParameterFilterRegistry(),
-            array('text_line' => new TextLine())
+            array(
+                'text_line' => new TextLine(),
+                'integer' => new Integer(),
+            )
         );
 
         $this->factory = Forms::createFormFactoryBuilder()

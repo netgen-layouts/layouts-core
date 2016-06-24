@@ -38,7 +38,7 @@ return array(
         array('id' => 4, 'status' => 1, 'layout_id' => 2, 'zone_identifier' => 'left', 'position' => 0, 'definition_identifier' => 'title', 'view_type' => 'title', 'item_view_type' => 'standard', 'name' => 'My fourth block', 'parameters' => '{"tag": "h3", "title": "Title"}'),
         array('id' => 5, 'status' => 0, 'layout_id' => 1, 'zone_identifier' => 'right', 'position' => 1, 'definition_identifier' => 'list', 'view_type' => 'grid', 'item_view_type' => 'standard', 'name' => 'My fourth block', 'parameters' => '{"number_of_columns": 3}'),
         array('id' => 5, 'status' => 1, 'layout_id' => 1, 'zone_identifier' => 'right', 'position' => 1, 'definition_identifier' => 'list', 'view_type' => 'grid', 'item_view_type' => 'standard', 'name' => 'My fourth block', 'parameters' => '{"number_of_columns": 3}'),
-        array('id' => 6, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'title', 'item_view_type' => 'standard', 'name' => 'My sixth block', 'parameters' => '{"tag": "h3", "title": "Title"}'),
+        array('id' => 6, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'right', 'position' => 1, 'definition_identifier' => 'title', 'view_type' => 'title', 'item_view_type' => 'standard', 'name' => 'My sixth block', 'parameters' => '{"tag": "h3", "title": "Title", "css_class": "CSS class"}'),
     ),
     'ngbm_collection' => array(
         array('id' => 1, 'status' => 0, 'type' => 0, 'name' => null),

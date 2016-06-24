@@ -100,9 +100,14 @@ class ItemBuilder implements ItemBuilderInterface
     {
         try {
             $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
-            $loadedValue = $valueLoader->load($valueId);
         } catch (InvalidArgumentException $e) {
-            $loadedValue = new NullValue($valueId, $valueType);
+            return $this->buildFromObject(
+                new NullValue($valueId, $valueType)
+            );
+        }
+
+        try {
+            $loadedValue = $valueLoader->load($valueId);
         } catch (InvalidItemException $e) {
             $loadedValue = new NullValue($valueId, $valueType);
         }

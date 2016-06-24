@@ -822,6 +822,8 @@ class CollectionService implements APICollectionService
             return $queryUpdateStruct;
         }
 
+        $queryUpdateStruct->identifier = $query->getIdentifier();
+
         $queryType = $this->queryTypeRegistry->getQueryType(
             $query->getType()
         );

@@ -3,11 +3,13 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
 class CollectionCreateStructTest extends TestCase
 {
+    /**
+     * @covers \Netgen\BlockManager\API\Values\CollectionCreateStruct::__construct
+     */
     public function testDefaultProperties()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
@@ -15,6 +17,9 @@ class CollectionCreateStructTest extends TestCase
         self::assertNull($collectionCreateStruct->name);
     }
 
+    /**
+     * @covers \Netgen\BlockManager\API\Values\CollectionCreateStruct::__construct
+     */
     public function testSetProperties()
     {
         $collectionCreateStruct = new CollectionCreateStruct(

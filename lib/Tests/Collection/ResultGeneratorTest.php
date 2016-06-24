@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
+use Netgen\BlockManager\Collection\ResultGeneratorInterface;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Collection\ResultGenerator;
@@ -16,6 +17,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
+use Exception;
 
 class ResultGeneratorTest extends TestCase
 {
@@ -178,6 +180,78 @@ class ResultGeneratorTest extends TestCase
         }
 
         self::assertEquals($this->buildExpectedValues($values), $items);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateItems
+     * @expectedException \Exception
+     */
+    public function testGenerateResultThrowsException()
+    {
+        $this->queryRunnerMock
+            ->expects($this->any())
+            ->method('runQueries')
+            ->will($this->throwException(new Exception()));
+
+        $this->generator->generateResult(
+            $this->generateDynamicCollection()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::getResultCount
+     * @expectedException \Exception
+     */
+    public function testGenerateResultCountThrowsException()
+    {
+        $this->queryRunnerMock
+            ->expects($this->any())
+            ->method('getTotalCount')
+            ->will($this->throwException(new Exception()));
+
+        $this->generator->generateResult(
+            $this->generateDynamicCollection()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateItems
+     */
+    public function testGenerateResultThrowsIgnoresException()
+    {
+        $this->queryRunnerMock
+            ->expects($this->any())
+            ->method('runQueries')
+            ->will($this->throwException(new Exception()));
+
+        $result = $this->generator->generateResult(
+            $this->generateDynamicCollection(),
+            0, null, ResultGeneratorInterface::IGNORE_EXCEPTIONS
+        );
+
+        self::assertInstanceOf(Result::class, $result);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::generateResult
+     * @covers \Netgen\BlockManager\Collection\ResultGenerator::getResultCount
+     */
+    public function testGenerateResultCountIgnoresException()
+    {
+        $this->queryRunnerMock
+            ->expects($this->any())
+            ->method('getTotalCount')
+            ->will($this->throwException(new Exception()));
+
+        $result = $this->generator->generateResult(
+            $this->generateDynamicCollection(),
+            0, null, ResultGeneratorInterface::IGNORE_EXCEPTIONS
+        );
+
+        self::assertInstanceOf(Result::class, $result);
     }
 
     /**

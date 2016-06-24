@@ -94,6 +94,8 @@ interface BlockService
      *
      * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
      */
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection);
 

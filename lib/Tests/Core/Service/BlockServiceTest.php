@@ -190,6 +190,33 @@ abstract class BlockServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReference
+     */
+    public function testLoadCollectionReference()
+    {
+        $collection = $this->blockService->loadCollectionReference(
+            $this->blockService->loadBlock(1),
+            'default'
+        );
+
+        self::assertInstanceOf(CollectionReference::class, $collection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReference
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadCollectionReferenceThrowsNotFoundException()
+    {
+        $collection = $this->blockService->loadCollectionReference(
+            $this->blockService->loadBlock(1),
+            'non_existing'
+        );
+
+        self::assertInstanceOf(CollectionReference::class, $collection);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReferences
      */
     public function testLoadCollectionReferences()
@@ -358,6 +385,28 @@ abstract class BlockServiceTest extends ServiceTest
             ),
             $block->getParameters()
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateCollectionReference
+     */
+    public function testUpdateCollectionReference()
+    {
+        $collectionReference = $this->blockService->loadCollectionReference(
+            $this->blockService->loadBlockDraft(1),
+            'default'
+        );
+
+        $newCollection = $this->collectionService->loadCollectionDraft(4);
+
+        $updatedReference = $this->blockService->updateCollectionReference(
+            $collectionReference,
+            $newCollection
+        );
+
+        self::assertInstanceOf(CollectionReference::class, $updatedReference);
+        self::assertEquals($newCollection->getId(), $updatedReference->getCollection()->getId());
+        self::assertEquals($newCollection->getStatus(), $updatedReference->getCollection()->getStatus());
     }
 
     /**
@@ -670,6 +719,29 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertEquals(
             new BlockUpdateStruct(),
             $this->blockService->newBlockUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockUpdateStruct
+     */
+    public function testNewBlockUpdateStructFromBlock()
+    {
+        $block = $this->blockService->loadBlockDraft(6);
+
+        self::assertEquals(
+            new BlockUpdateStruct(
+                array(
+                    'viewType' => $block->getViewType(),
+                    'itemViewType' => $block->getItemViewType(),
+                    'name' => $block->getName(),
+                    'parameters' => array(
+                        'css_class' => 'CSS class',
+                        'css_id' => null,
+                    ),
+                )
+            ),
+            $this->blockService->newBlockUpdateStruct($block)
         );
     }
 }

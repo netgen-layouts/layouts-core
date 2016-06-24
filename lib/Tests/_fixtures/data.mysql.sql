@@ -31,7 +31,7 @@ INSERT INTO `ngbm_block` VALUES (4,0,2,'left',0,'title','title','standard','My f
 INSERT INTO `ngbm_block` VALUES (4,1,2,'left',0,'title','title','standard','My fourth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
 INSERT INTO `ngbm_block` VALUES (5,0,1,'right',1,'list','grid','standard','My fourth block','{\"number_of_columns\": 3}');
 INSERT INTO `ngbm_block` VALUES (5,1,1,'right',1,'list','grid','standard','My fourth block','{\"number_of_columns\": 3}');
-INSERT INTO `ngbm_block` VALUES (6,0,2,'right',1,'title','title','standard','My sixth block','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block` VALUES (6,0,2,'right',1,'title','title','standard','My sixth block','{\"tag\": \"h3\", \"title\": \"Title\", \"css_class\": \"CSS class\"}');
 /*!40000 ALTER TABLE `ngbm_block` ENABLE KEYS */;
 UNLOCK TABLES;
 

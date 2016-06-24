@@ -36,7 +36,6 @@ class ParametersValidator extends ConstraintValidator
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\Parameters $constraint */
         /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $value */
-
         $this->filterParameters($value, $constraint->parameters);
 
         /** @var \Symfony\Component\Validator\Validator\ValidatorInterface $validator */
@@ -66,7 +65,7 @@ class ParametersValidator extends ConstraintValidator
     }
 
     /**
-     * Filters the parameter values
+     * Filters the parameter values.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters

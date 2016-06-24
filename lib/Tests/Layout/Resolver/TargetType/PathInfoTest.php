@@ -3,14 +3,16 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 
 use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo;
-use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 
 class PathInfoTest extends TestCase
 {
-    use RequestStackAwareTrait;
+    /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo
@@ -21,12 +23,19 @@ class PathInfoTest extends TestCase
     {
         $request = Request::create('/the/answer');
 
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-        $this->setRequestStack($requestStack);
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push($request);
 
         $this->targetType = new PathInfo();
         $this->targetType->setRequestStack($this->requestStack);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::getIdentifier
+     */
+    public function testGetIdentifier()
+    {
+        self::assertEquals('path_info', $this->targetType->getIdentifier());
     }
 
     /**

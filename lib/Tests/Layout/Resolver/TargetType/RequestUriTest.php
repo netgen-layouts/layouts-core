@@ -3,14 +3,16 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 
 use Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri;
-use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 
 class RequestUriTest extends TestCase
 {
-    use RequestStackAwareTrait;
+    /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri
@@ -21,12 +23,19 @@ class RequestUriTest extends TestCase
     {
         $request = Request::create('/the/answer', 'GET', array('a' => 42));
 
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-        $this->setRequestStack($requestStack);
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push($request);
 
         $this->targetType = new RequestUri();
         $this->targetType->setRequestStack($this->requestStack);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::getIdentifier
+     */
+    public function testGetIdentifier()
+    {
+        self::assertEquals('request_uri', $this->targetType->getIdentifier());
     }
 
     /**

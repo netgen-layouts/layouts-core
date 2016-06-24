@@ -32,6 +32,17 @@ class ParameterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getDefaultValue
+     */
+    public function testGetDefaultValue()
+    {
+        $parameter = new Parameter();
+
+        self::assertEquals(null, $parameter->getDefaultValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
      * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints

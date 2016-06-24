@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Item;
 
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Item\NullValue;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilder;
+use Netgen\BlockManager\Item\ValueConverter\NullValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
@@ -107,9 +110,8 @@ class ItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build
-     * @expectedException \RuntimeException
      */
-    public function testBuildThrowsRuntimeException()
+    public function testBuildInvalidItem()
     {
         $this->valueLoaderRegistryMock
             ->expects($this->any())
@@ -118,10 +120,32 @@ class ItemBuilderTest extends TestCase
 
         $builder = new ItemBuilder(
             $this->valueLoaderRegistryMock,
-            array(new ValueConverter())
+            array(new ValueConverter(), new NullValueConverter())
         );
 
-        $builder->build(42, 'value');
+        $item = $builder->build(42, 'value');
+        self::assertInstanceOf(NullValue::class, $item->getObject());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\ItemBuilder::build
+     */
+    public function testBuildInvalidItemWithNoValueLoader()
+    {
+        $this->valueLoaderRegistryMock
+            ->expects($this->any())
+            ->method('getValueLoader')
+            ->will($this->throwException(
+                new InvalidArgumentException('item', 'not found'))
+            );
+
+        $builder = new ItemBuilder(
+            $this->valueLoaderRegistryMock,
+            array(new ValueConverter(), new NullValueConverter())
+        );
+
+        $item = $builder->build(42, 'value');
+        self::assertInstanceOf(NullValue::class, $item->getObject());
     }
 
     /**

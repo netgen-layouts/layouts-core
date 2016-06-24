@@ -3,14 +3,16 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
-use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 
 class RouteParameterTest extends TestCase
 {
-    use RequestStackAwareTrait;
+    /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
@@ -30,12 +32,19 @@ class RouteParameterTest extends TestCase
             )
         );
 
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-        $this->setRequestStack($requestStack);
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push($request);
 
         $this->conditionType = new RouteParameter();
         $this->conditionType->setRequestStack($this->requestStack);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getIdentifier
+     */
+    public function testGetIdentifier()
+    {
+        self::assertEquals('route_parameter', $this->conditionType->getIdentifier());
     }
 
     /**

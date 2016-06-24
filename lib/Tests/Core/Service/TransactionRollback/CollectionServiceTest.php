@@ -110,6 +110,38 @@ class CollectionServiceTest extends TransactionRollbackTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @expectedException \Exception
+     */
+    public function testChangeCollectionType()
+    {
+        $this->collectionHandlerMock
+            ->expects($this->at(0))
+            ->method('loadCollection')
+            ->will(
+                $this->returnValue(
+                    new PersistenceCollection(
+                        array('type' => Collection::TYPE_DYNAMIC)
+                    )
+                )
+            );
+
+        $this->collectionHandlerMock
+            ->expects($this->at(1))
+            ->method('changeCollectionType')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->changeCollectionType(
+            new CollectionDraft(),
+            Collection::TYPE_MANUAL
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
      * @expectedException \Exception
      */

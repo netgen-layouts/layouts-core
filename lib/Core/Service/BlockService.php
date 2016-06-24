@@ -295,6 +295,8 @@ class BlockService implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * 
+     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
      */
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection)
     {
@@ -314,7 +316,7 @@ class BlockService implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->blockHandler->updateCollectionReference(
+            $updatedReference = $this->blockHandler->updateCollectionReference(
                 $persistenceBlock,
                 $persistenceCollectionReference->identifier,
                 $persistenceCollection
@@ -325,6 +327,8 @@ class BlockService implements BlockServiceInterface
         }
 
         $this->persistenceHandler->commitTransaction();
+
+        return $this->blockMapper->mapCollectionReference($updatedReference);
     }
 
     /**

@@ -33,4 +33,12 @@ class BlockDefinitionHandlerTest extends TestCase
     {
         self::assertEquals(array(), $this->handler->getDynamicParameters(new Block()));
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getCollectionIdentifiers
+     */
+    public function testGetCollectionIdentifiers()
+    {
+        self::assertEquals(array(), $this->handler->getCollectionIdentifiers());
+    }
 }
