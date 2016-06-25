@@ -17,14 +17,16 @@
         {{ block.parameter('content') }}
     </div>
 
-    <script>
-        var editor = ace.edit("{{ id }}");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/javascript");
-        editor.getSession().setTabSize(4);
-        editor.getSession().setUseSoftTabs(true);
-        editor.setHighlightActiveLine(true);
+    <script type="text/javascript">
+        (function() {
+            var editor = ace.edit("{{ id }}");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+            editor.getSession().setTabSize(4);
+            editor.getSession().setUseSoftTabs(true);
+            editor.setHighlightActiveLine(true);
 
-        document.getElementById('{{ id }}').style.fontSize = '16px';
+            document.getElementById('{{ id }}').style.fontSize = '16px';
+        }());
     </script>
 {% endblock %}

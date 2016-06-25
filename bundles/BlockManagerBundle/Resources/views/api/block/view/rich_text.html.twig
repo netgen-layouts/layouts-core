@@ -4,7 +4,7 @@
     {% set id = 'ngbm-rich-text-block-' ~ block.id %}
 
     <div id="{{ id }}" contenteditable="true" data-attr="content">
-        {{ block.parameter('content')|nl2br }}
+        {{ block.parameter('content')|raw }}
     </div>
 
     <script type="text/javascript">
