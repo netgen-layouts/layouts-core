@@ -71,6 +71,32 @@ abstract class ValidatorTestCase extends TestCase
             ->will($this->returnValue($this->violationBuilderMock));
     }
 
+    protected function expectValidate()
+    {
+        $this->executionContextMock
+            ->expects($this->never())
+            ->method('buildViolation');
+    }
+
+    protected function expectNoValidate()
+    {
+        $this->executionContextMock
+            ->expects($this->once())
+            ->method('buildViolation')
+            ->will($this->returnValue($this->violationBuilderMock));
+    }
+
+    /**
+     * @param bool $isValid
+     * @param mixed $value
+     */
+    public function assertValid($isValid, $value)
+    {
+        $isValid ? $this->expectValidate() : $this->expectNoValidate();
+
+        $this->validator->validate($value, $this->constraint);
+    }
+
     /**
      * @return \Symfony\Component\Validator\Validator\ValidatorInterface
      */

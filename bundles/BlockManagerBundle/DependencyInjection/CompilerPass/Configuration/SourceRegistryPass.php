@@ -19,7 +19,7 @@ class SourceRegistryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasParameter('netgen_block_manager.sources')) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
@@ -27,10 +27,6 @@ class SourceRegistryPass implements CompilerPassInterface
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
 
         $this->validateSources($sources, $queryTypes);
-
-        if (!$container->has(self::SERVICE_NAME)) {
-            return;
-        }
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $sourceServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -55,17 +51,15 @@ class SourceRegistryPass implements CompilerPassInterface
     {
         foreach ($sources as $source => $sourceConfig) {
             foreach ($sourceConfig['queries'] as $queryConfig) {
-                if (isset($queryTypes[$queryConfig['query_type']])) {
-                    continue;
+                if (!isset($queryTypes[$queryConfig['query_type']])) {
+                    throw new RuntimeException(
+                        sprintf(
+                            'Query type "%s" used in "%s" source does not exist.',
+                            $queryConfig['query_type'],
+                            $source
+                        )
+                    );
                 }
-
-                throw new RuntimeException(
-                    sprintf(
-                        'Query type "%s" used in "%s" source does not exist.',
-                        $queryConfig['query_type'],
-                        $source
-                    )
-                );
             }
         }
     }

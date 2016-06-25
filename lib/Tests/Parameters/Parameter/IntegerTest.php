@@ -207,7 +207,7 @@ class IntegerTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Integer::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $required, $isValid)

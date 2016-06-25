@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Parameters\ParameterFilterInterface;
-
 class ParameterFilterRegistry implements ParameterFilterRegistryInterface
 {
     /**
@@ -15,11 +13,11 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
      * Adds a parameter filter to registry.
      *
      * @param $parameterType
-     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
+     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface[] $parameterFilters
      */
-    public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter)
+    public function addParameterFilters($parameterType, array $parameterFilters)
     {
-        $this->parameterFilters[$parameterType][] = $parameterFilter;
+        $this->parameterFilters[$parameterType] = $parameterFilters;
     }
 
     /**

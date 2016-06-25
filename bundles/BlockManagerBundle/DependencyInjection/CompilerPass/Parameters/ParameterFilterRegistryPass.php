@@ -36,6 +36,7 @@ class ParameterFilterRegistryPass implements CompilerPassInterface
             }
         );
 
+        $parameterFiltersPerType = array();
         foreach ($parameterFilters as $serviceName => $tag) {
             if (!isset($tag[0]['parameter_type'])) {
                 throw new RuntimeException(
@@ -43,9 +44,13 @@ class ParameterFilterRegistryPass implements CompilerPassInterface
                 );
             }
 
+            $parameterFiltersPerType[$tag[0]['parameter_type']][] = new Reference($serviceName);
+        }
+
+        foreach ($parameterFiltersPerType as $type => $filters) {
             $parameterFilterRegistry->addMethodCall(
-                'addParameterFilter',
-                array($tag[0]['parameter_type'], new Reference($serviceName))
+                'addParameterFilters',
+                array($type, $filters)
             );
         }
     }

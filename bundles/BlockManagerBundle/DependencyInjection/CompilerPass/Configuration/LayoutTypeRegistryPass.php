@@ -19,7 +19,7 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasParameter('netgen_block_manager.layout_types')) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
@@ -27,10 +27,6 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
 
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
-
-        if (!$container->has(self::SERVICE_NAME)) {
-            return;
-        }
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $layoutTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -56,17 +52,15 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
         foreach ($layoutTypes as $layoutType => $layoutTypeConfig) {
             foreach ($layoutTypeConfig['zones'] as $zoneConfig) {
                 foreach ($zoneConfig['allowed_block_definitions'] as $blockDefinition) {
-                    if (isset($blockDefinitions[$blockDefinition])) {
-                        continue;
+                    if (!isset($blockDefinitions[$blockDefinition])) {
+                        throw new RuntimeException(
+                            sprintf(
+                                'Block definition "%s" used in "%s" layout type does not exist.',
+                                $blockDefinition,
+                                $layoutType
+                            )
+                        );
                     }
-
-                    throw new RuntimeException(
-                        sprintf(
-                            'Block definition "%s" used in "%s" layout type does not exist.',
-                            $blockDefinition,
-                            $layoutType
-                        )
-                    );
                 }
             }
         }

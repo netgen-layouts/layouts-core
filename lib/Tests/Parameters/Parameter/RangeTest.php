@@ -181,7 +181,7 @@ class RangeTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Range::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $required, $isValid)

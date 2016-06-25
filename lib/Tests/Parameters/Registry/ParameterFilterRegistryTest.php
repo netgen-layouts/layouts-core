@@ -23,11 +23,11 @@ class ParameterFilterRegistryTest extends TestCase
         $this->registry = new ParameterFilterRegistry();
 
         $this->filter = $this->createMock(ParameterFilterInterface::class);
-        $this->registry->addParameterFilter('html', $this->filter);
+        $this->registry->addParameterFilters('html', array($this->filter));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilter
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilters
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::getParameterFilters
      */
     public function testGetParameterFilters()

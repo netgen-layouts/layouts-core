@@ -293,9 +293,20 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCreateCollection()
     {
+        $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->valueId = 42;
+        $itemCreateStruct->valueType = 'value';
+
+        $queryCreateStruct = new QueryCreateStruct();
+        $queryCreateStruct->identifier = 'default';
+        $queryCreateStruct->type = 'type';
+
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->type = Collection::TYPE_NAMED;
         $collectionCreateStruct->name = 'New collection';
+        $collectionCreateStruct->itemCreateStructs = array($itemCreateStruct);
+        $collectionCreateStruct->queryCreateStructs = array($queryCreateStruct);
 
         $createdCollection = $this->collectionHandler->createCollection(
             $collectionCreateStruct,
@@ -308,6 +319,36 @@ class CollectionHandlerTest extends TestCase
         self::assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
         self::assertEquals('New collection', $createdCollection->name);
         self::assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
+
+        self::assertEquals(
+            new Item(
+                array(
+                    'id' => 13,
+                    'collectionId' => 6,
+                    'position' => 0,
+                    'type' => Item::TYPE_MANUAL,
+                    'valueId' => '42',
+                    'valueType' => 'value',
+                    'status' => Collection::STATUS_DRAFT,
+                )
+            ),
+            $this->collectionHandler->loadItem(13, Collection::STATUS_DRAFT)
+        );
+
+        self::assertEquals(
+            new Query(
+                array(
+                    'id' => 5,
+                    'collectionId' => 6,
+                    'position' => 0,
+                    'type' => 'type',
+                    'identifier' => 'default',
+                    'parameters' => array(),
+                    'status' => Collection::STATUS_DRAFT,
+                )
+            ),
+            $this->collectionHandler->loadQuery(5, Collection::STATUS_DRAFT)
+        );
     }
 
     /**
@@ -330,6 +371,64 @@ class CollectionHandlerTest extends TestCase
         self::assertEquals(Collection::TYPE_NAMED, $updatedCollection->type);
         self::assertEquals('Updated collection', $updatedCollection->name);
         self::assertEquals(Collection::STATUS_PUBLISHED, $updatedCollection->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::changeCollectionType
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testChangeCollectionTypeFromManualToDynamic()
+    {
+        $collection = $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT);
+
+        $queryCreateStruct = new QueryCreateStruct();
+        $queryCreateStruct->identifier = 'default';
+        $queryCreateStruct->type = 'type';
+
+        $updatedCollection = $this->collectionHandler->changeCollectionType(
+            $collection,
+            Collection::TYPE_DYNAMIC,
+            $queryCreateStruct
+        );
+
+        self::assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
+
+        self::assertEquals(
+            new Query(
+                array(
+                    'id' => 5,
+                    'collectionId' => 1,
+                    'position' => 0,
+                    'type' => 'type',
+                    'identifier' => 'default',
+                    'parameters' => array(),
+                    'status' => Collection::STATUS_DRAFT,
+                )
+            ),
+            $this->collectionHandler->loadQuery(5, Collection::STATUS_DRAFT)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::changeCollectionType
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testChangeCollectionTypeFromDynamicToManual()
+    {
+        $collection = $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
+
+        $updatedCollection = $this->collectionHandler->changeCollectionType(
+            $collection,
+            Collection::TYPE_MANUAL
+        );
+
+        self::assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
+        self::assertEmpty($this->collectionHandler->loadCollectionQueries($collection));
+
+        $items = $this->collectionHandler->loadCollectionItems($collection);
+        foreach ($items as $index => $item) {
+            self::assertEquals($index, $item->position);
+        }
     }
 
     /**

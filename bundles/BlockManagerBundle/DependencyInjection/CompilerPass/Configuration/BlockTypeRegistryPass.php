@@ -20,7 +20,7 @@ class BlockTypeRegistryPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasParameter('netgen_block_manager.block_types')) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
@@ -30,10 +30,6 @@ class BlockTypeRegistryPass implements CompilerPassInterface
 
         $this->validateBlockTypeGroups($blockTypeGroups, $blockTypes);
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
-
-        if (!$container->has(self::SERVICE_NAME)) {
-            return;
-        }
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $blockTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -66,17 +62,15 @@ class BlockTypeRegistryPass implements CompilerPassInterface
     {
         foreach ($blockTypeGroups as $blockTypeGroup => $blockTypeGroupConfig) {
             foreach ($blockTypeGroupConfig['block_types'] as $blockType) {
-                if (isset($blockTypes[$blockType])) {
-                    continue;
+                if (!isset($blockTypes[$blockType])) {
+                    throw new RuntimeException(
+                        sprintf(
+                            'Block type "%s" used in "%s" block type group does not exist.',
+                            $blockType,
+                            $blockTypeGroup
+                        )
+                    );
                 }
-
-                throw new RuntimeException(
-                    sprintf(
-                        'Block type "%s" used in "%s" block type group does not exist.',
-                        $blockType,
-                        $blockTypeGroup
-                    )
-                );
             }
         }
     }
@@ -92,17 +86,15 @@ class BlockTypeRegistryPass implements CompilerPassInterface
     protected function validateBlockTypes(array $blockTypes, array $blockDefinitions)
     {
         foreach ($blockTypes as $blockType => $blockTypeConfig) {
-            if (isset($blockDefinitions[$blockTypeConfig['definition_identifier']])) {
-                continue;
+            if (!isset($blockDefinitions[$blockTypeConfig['definition_identifier']])) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Block definition "%s" used in "%s" block type does not exist.',
+                        $blockTypeConfig['definition_identifier'],
+                        $blockType
+                    )
+                );
             }
-
-            throw new RuntimeException(
-                sprintf(
-                    'Block definition "%s" used in "%s" block type does not exist.',
-                    $blockTypeConfig['definition_identifier'],
-                    $blockType
-                )
-            );
         }
     }
 }

@@ -18,11 +18,11 @@ class Identifier extends Parameter
     }
 
     /**
-     * Returns constraints that are specific to parameter.
+     * Returns constraints that will be used to validate the parameter value.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints()
+    public function getValueConstraints()
     {
         return array(
             new Constraints\Regex(

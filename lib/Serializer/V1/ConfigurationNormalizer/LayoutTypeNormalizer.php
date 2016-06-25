@@ -41,9 +41,10 @@ class LayoutTypeNormalizer implements NormalizerInterface
     {
         $zones = array();
 
-        foreach ($layoutType->getZones() as $zoneIdentifier => $zone) {
+        foreach ($layoutType->getZones() as $zone) {
             $zones[] = array(
-                'identifier' => $zoneIdentifier,
+                'identifier' => $zone->getIdentifier(),
+                'name' => $zone->getName(),
                 'allowed_block_definitions' => !empty($zone->getAllowedBlockDefinitions()) ?
                     $zone->getAllowedBlockDefinitions() :
                     true,

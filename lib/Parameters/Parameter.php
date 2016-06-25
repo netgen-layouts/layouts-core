@@ -64,8 +64,8 @@ abstract class Parameter implements ParameterInterface
     public function getConstraints()
     {
         return array_merge(
-            $this->getBaseConstraints(),
-            $this->getParameterConstraints()
+            $this->getRequiredConstraints(),
+            $this->getValueConstraints()
         );
     }
 
@@ -99,11 +99,11 @@ abstract class Parameter implements ParameterInterface
     }
 
     /**
-     * Returns constraints that are common to all parameters.
+     * Returns constraints that will be used when parameter is required.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getBaseConstraints()
+    public function getRequiredConstraints()
     {
         if ($this->isRequired()) {
             return array(
@@ -115,11 +115,11 @@ abstract class Parameter implements ParameterInterface
     }
 
     /**
-     * Returns constraints that are specific to parameter.
+     * Returns constraints that will be used to validate the parameter value.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints()
+    public function getValueConstraints()
     {
         return array();
     }

@@ -55,18 +55,7 @@ class BlockViewTypeValidatorTest extends ValidatorTestCase
      */
     public function testValidate($viewType, $isValid)
     {
-        if ($isValid) {
-            $this->executionContextMock
-                ->expects($this->never())
-                ->method('buildViolation');
-        } else {
-            $this->executionContextMock
-                ->expects($this->once())
-                ->method('buildViolation')
-                ->will($this->returnValue($this->violationBuilderMock));
-        }
-
-        $this->validator->validate($viewType, $this->constraint);
+        $this->assertValid($isValid, $viewType);
     }
 
     public function validateDataProvider()

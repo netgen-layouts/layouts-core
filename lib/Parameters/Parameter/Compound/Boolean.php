@@ -32,13 +32,13 @@ class Boolean extends CompoundParameter
     }
 
     /**
-     * Returns constraints that are common to all parameters.
+     * Returns constraints that will be used when parameter is required.
      *
      * Overriden because base NotBlank constraint checks for `false` too.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getBaseConstraints()
+    public function getRequiredConstraints()
     {
         if ($this->isRequired()) {
             return array(
@@ -50,11 +50,11 @@ class Boolean extends CompoundParameter
     }
 
     /**
-     * Returns constraints that are specific to parameter.
+     * Returns constraints that will be used to validate the parameter value.
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getParameterConstraints()
+    public function getValueConstraints()
     {
         return array(
             new Constraints\Type(

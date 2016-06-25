@@ -496,6 +496,46 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     */
+    public function testCopyBlockCollections()
+    {
+        $targetBlock = $this->blockHandler->loadBlock(6, Layout::STATUS_DRAFT);
+        $this->blockHandler->copyBlockCollections(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $targetBlock
+        );
+
+        self::assertEquals(
+            array(
+                new CollectionReference(
+                    array(
+                        'blockId' => 6,
+                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'collectionId' => 6,
+                        'collectionStatus' => Collection::STATUS_DRAFT,
+                        'identifier' => 'default',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+                new CollectionReference(
+                    array(
+                        'blockId' => 6,
+                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'collectionId' => 3,
+                        'collectionStatus' => Collection::STATUS_PUBLISHED,
+                        'identifier' => 'featured',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadCollectionReferences($targetBlock)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions

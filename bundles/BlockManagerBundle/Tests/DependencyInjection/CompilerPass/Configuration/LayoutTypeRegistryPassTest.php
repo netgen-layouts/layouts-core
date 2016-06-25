@@ -22,6 +22,7 @@ class LayoutTypeRegistryPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypeRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypeRegistryPass::validateLayoutTypes
      */
     public function testProcess()
     {
@@ -43,5 +44,36 @@ class LayoutTypeRegistryPassTest extends AbstractCompilerPassTestCase
                 new Reference('netgen_block_manager.configuration.layout_type.test'),
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypeRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypeRegistryPass::validateLayoutTypes
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
+    {
+        $this->setParameter(
+            'netgen_block_manager.layout_types',
+            array(
+                'type' => array(
+                    'zones' => array(
+                        'zone' => array(
+                            'allowed_block_definitions' => array('title'),
+                        ),
+                    ),
+                ),
+            )
+        );
+
+        $this->setParameter('netgen_block_manager.block_definitions', array());
+
+        $this->setDefinition('netgen_block_manager.configuration.registry.layout_type', new Definition());
+
+        $layoutType = new Definition();
+        $layoutType->addTag('netgen_block_manager.configuration.layout_type');
+        $this->setDefinition('netgen_block_manager.configuration.layout_type.test', $layoutType);
+
+        $this->compile();
     }
 }

@@ -44,8 +44,8 @@ class ParameterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
      * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getValueConstraints
      */
     public function testGetConstraints()
     {
@@ -57,8 +57,8 @@ class ParameterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
      * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getBaseConstraints
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getRequiredConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getValueConstraints
      */
     public function testGetConstraintsForRequiredParameter()
     {

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
@@ -34,7 +35,10 @@ class ParametersValidatorTest extends ValidatorTestCase
      */
     public function getValidator()
     {
-        return new ParametersValidator(new ParameterFilterRegistry());
+        $parameterFilterRegistry = new ParameterFilterRegistry();
+        $parameterFilterRegistry->addParameterFilters('text_line', array(new ParameterFilter()));
+
+        return new ParametersValidator($parameterFilterRegistry);
     }
 
     /**
@@ -42,29 +46,21 @@ class ParametersValidatorTest extends ValidatorTestCase
      * @param bool $required
      * @param bool $isValid
      *
+     * @covers \Netgen\BlockManager\Validator\ParametersValidator::__construct
      * @covers \Netgen\BlockManager\Validator\ParametersValidator::validate
+     * @covers \Netgen\BlockManager\Validator\ParametersValidator::filterParameters
      * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildConstraintFields
+     * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildFieldConstraint
      * @dataProvider validateDataProvider
      */
     public function testValidate($parameters, $required, $isValid)
     {
         $this->constraint->required = $required;
 
-        if ($isValid) {
-            $this->executionContextMock
-                ->expects($this->never())
-                ->method('buildViolation');
-        } else {
-            $this->executionContextMock
-                ->expects($this->once())
-                ->method('buildViolation')
-                ->will($this->returnValue($this->violationBuilderMock));
-        }
-
-        $this->validator->validate(
-            new BlockCreateStruct(array('parameters' => $parameters)),
-        $this->constraint
-    );
+        $this->assertValid(
+            $isValid,
+            new BlockCreateStruct(array('parameters' => $parameters))
+        );
     }
 
     public function validateDataProvider()

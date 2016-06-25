@@ -22,6 +22,7 @@ class SourceRegistryPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourceRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourceRegistryPass::validateSources
      */
     public function testProcess()
     {
@@ -43,5 +44,36 @@ class SourceRegistryPassTest extends AbstractCompilerPassTestCase
                 new Reference('netgen_block_manager.configuration.source.test'),
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourceRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourceRegistryPass::validateSources
+     * @expectedException \RuntimeException
+     */
+    public function testProcessThrowsRuntimeExceptionWithNoQueryType()
+    {
+        $this->setParameter(
+            'netgen_block_manager.sources',
+            array(
+                'test' => array(
+                    'queries' => array(
+                        'query' => array(
+                            'query_type' => 'type',
+                        ),
+                    ),
+                ),
+            )
+        );
+
+        $this->setParameter('netgen_block_manager.query_types', array());
+
+        $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
+
+        $source = new Definition();
+        $source->addTag('netgen_block_manager.configuration.source');
+        $this->setDefinition('netgen_block_manager.configuration.source.test', $source);
+
+        $this->compile();
     }
 }

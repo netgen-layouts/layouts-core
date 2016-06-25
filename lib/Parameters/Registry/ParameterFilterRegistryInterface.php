@@ -2,17 +2,15 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Parameters\ParameterFilterInterface;
-
 interface ParameterFilterRegistryInterface
 {
     /**
      * Adds a parameter filter to registry.
      *
      * @param $parameterType
-     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
+     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface[] $parameterFilters
      */
-    public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter);
+    public function addParameterFilters($parameterType, array $parameterFilters);
 
     /**
      * Returns all parameter filters for provided parameter type.

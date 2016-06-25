@@ -96,9 +96,9 @@ class FormMapperTest extends TestCase
      */
     public function testMapParameterWithFilterTransformer()
     {
-        $this->parameterFilterRegistry->addParameterFilter(
+        $this->parameterFilterRegistry->addParameterFilters(
             'text_line',
-            new ParameterFilter()
+            array(new ParameterFilter())
         );
 
         $this->formMapper = new FormMapper(

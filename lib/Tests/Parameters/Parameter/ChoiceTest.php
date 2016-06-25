@@ -203,7 +203,7 @@ class ChoiceTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, $isValid)
@@ -219,7 +219,7 @@ class ChoiceTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getParameterConstraints
+     * @covers \Netgen\BlockManager\Parameters\Parameter\Choice::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidationWithClosure($value, $isValid)
