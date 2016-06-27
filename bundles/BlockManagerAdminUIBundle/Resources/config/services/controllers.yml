@@ -10,6 +10,10 @@ services:
     netgen_block_manager.controller.admin.layout_resolver:
         class: "%netgen_block_manager.controller.admin.layout_resolver.class%"
         parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_block_manager.layout.resolver.registry.target_type"
+            - "@netgen_block_manager.layout.resolver.registry.condition_type"
 
     netgen_block_manager.controller.app.index:
         class: "%netgen_block_manager.controller.app.index.class%"

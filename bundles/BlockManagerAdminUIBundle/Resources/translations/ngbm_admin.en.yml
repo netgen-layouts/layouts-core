@@ -1,1 +1,10 @@
 pagelayout.title: 'Netgen Block Manager'
+
+layout_resolver.rule_target.path_info: 'Path info'
+layout_resolver.rule_target.path_info_prefix: 'Path info prefix'
+layout_resolver.rule_target.request_uri: 'Request URI'
+layout_resolver.rule_target.request_uri_prefix: 'Request URI prefix'
+layout_resolver.rule_target.route: 'Route'
+layout_resolver.rule_target.route_prefix: 'Route prefix'
+
+layout_resolver.rule_condition.route_parameter: 'Route parameter'
