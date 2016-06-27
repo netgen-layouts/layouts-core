@@ -231,6 +231,9 @@ services:
 
     netgen_block_manager.core.service.layout_resolver.validator:
         class: "%netgen_block_manager.core.service.layout_resolver.validator.class%"
+        arguments:
+            - "@netgen_block_manager.layout.resolver.registry.target_type"
+            - "@netgen_block_manager.layout.resolver.registry.condition_type"
         calls:
             - [setValidator, ["@validator"]]
 

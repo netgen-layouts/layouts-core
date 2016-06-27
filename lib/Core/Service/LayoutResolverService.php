@@ -597,7 +597,7 @@ class LayoutResolverService implements APILayoutResolverService
     {
         $persistenceCondition = $this->handler->loadCondition($condition->getId(), Rule::STATUS_DRAFT);
 
-        $this->validator->validateConditionUpdateStruct($conditionUpdateStruct);
+        $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
         $this->persistenceHandler->beginTransaction();
 

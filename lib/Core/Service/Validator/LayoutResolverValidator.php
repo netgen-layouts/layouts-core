@@ -8,10 +8,36 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\Validator\Constraints;
 
 class LayoutResolverValidator extends Validator
 {
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     */
+    protected $targetTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     */
+    protected $conditionTypeRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
+     */
+    public function __construct(
+        TargetTypeRegistryInterface $targetTypeRegistry,
+        ConditionTypeRegistryInterface $conditionTypeRegistry
+    ) {
+        $this->targetTypeRegistry = $targetTypeRegistry;
+        $this->conditionTypeRegistry = $conditionTypeRegistry;
+    }
+
     /**
      * Validates rule create struct.
      *
@@ -132,11 +158,11 @@ class LayoutResolverValidator extends Validator
             'identifier'
         );
 
+        $targetType = $this->targetTypeRegistry->getTargetType($targetCreateStruct->identifier);
+
         $this->validate(
             $targetCreateStruct->value,
-            array(
-                new Constraints\NotBlank(),
-            ),
+            $targetType->getConstraints(),
             'value'
         );
 
@@ -163,11 +189,11 @@ class LayoutResolverValidator extends Validator
             'identifier'
         );
 
+        $conditionType = $this->conditionTypeRegistry->getConditionType($conditionCreateStruct->identifier);
+
         $this->validate(
             $conditionCreateStruct->value,
-            array(
-                new Constraints\NotBlank(),
-            ),
+            $conditionType->getConstraints(),
             'value'
         );
 
@@ -177,19 +203,20 @@ class LayoutResolverValidator extends Validator
     /**
      * Validates condition update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @return bool If the validation failed
      *
-     * @return bool
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
-    public function validateConditionUpdateStruct(ConditionUpdateStruct $conditionUpdateStruct)
+    public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
+        $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getIdentifier());
+
         $this->validate(
             $conditionUpdateStruct->value,
-            array(
-                new Constraints\NotBlank(),
-            ),
+            $conditionType->getConstraints(),
             'value'
         );
 

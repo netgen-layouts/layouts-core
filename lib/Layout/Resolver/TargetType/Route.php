@@ -21,6 +21,16 @@ class Route implements TargetTypeInterface
     }
 
     /**
+     * Returns the constraints that will be used to validate the target value.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getConstraints()
+    {
+        return array();
+    }
+
+    /**
      * Provides the value for the target to be used in matching process.
      *
      * @return mixed

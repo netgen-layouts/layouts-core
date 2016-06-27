@@ -8,7 +8,12 @@ use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +24,16 @@ class LayoutResolverValidatorTest extends TestCase
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
     protected $validator;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     */
+    protected $targetTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     */
+    protected $conditionTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
@@ -34,7 +49,17 @@ class LayoutResolverValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory())
             ->getValidator();
 
-        $this->layoutResolverValidator = new LayoutResolverValidator();
+        $this->targetTypeRegistry = new TargetTypeRegistry();
+        $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
+
+        $this->conditionTypeRegistry = new ConditionTypeRegistry();
+        $this->conditionTypeRegistry->addConditionType(new ConditionType('condition'));
+
+        $this->layoutResolverValidator = new LayoutResolverValidator(
+            $this->targetTypeRegistry,
+            $this->conditionTypeRegistry
+        );
+
         $this->layoutResolverValidator->setValidator($this->validator);
     }
 
@@ -124,7 +149,10 @@ class LayoutResolverValidatorTest extends TestCase
         }
 
         self::assertTrue(
-            $this->layoutResolverValidator->validateConditionUpdateStruct(new ConditionUpdateStruct($params))
+            $this->layoutResolverValidator->validateConditionUpdateStruct(
+                new Condition(array('identifier' => 'condition')),
+                new ConditionUpdateStruct($params)
+            )
         );
     }
 
@@ -182,15 +210,15 @@ class LayoutResolverValidatorTest extends TestCase
     public function validateConditionCreateStructProvider()
     {
         return array(
-            array(array('identifier' => 'target', 'value' => 42), true),
-            array(array('identifier' => 'target', 'value' => '42'), true),
-            array(array('identifier' => 'target', 'value' => array(42)), true),
+            array(array('identifier' => 'condition', 'value' => 42), true),
+            array(array('identifier' => 'condition', 'value' => '42'), true),
+            array(array('identifier' => 'condition', 'value' => array(42)), true),
             array(array('identifier' => '', 'value' => 42), false),
             array(array('identifier' => null, 'value' => 42), false),
             array(array('identifier' => 42, 'value' => 42), false),
-            array(array('identifier' => 'target', 'value' => null), false),
-            array(array('identifier' => 'target', 'value' => ''), false),
-            array(array('identifier' => 'target', 'value' => array()), false),
+            array(array('identifier' => 'condition', 'value' => null), false),
+            array(array('identifier' => 'condition', 'value' => ''), false),
+            array(array('identifier' => 'condition', 'value' => array()), false),
         );
     }
 

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Stubs;
 
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
+use Symfony\Component\Validator\Constraints;
 
 class TargetType implements TargetTypeInterface
 {
@@ -36,6 +37,18 @@ class TargetType implements TargetTypeInterface
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns the constraints that will be used to validate the target value.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getConstraints()
+    {
+        return array(
+            new Constraints\NotBlank(),
+        );
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Stubs;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Symfony\Component\Validator\Constraints;
 
 class ConditionType implements ConditionTypeInterface
 {
@@ -45,7 +46,9 @@ class ConditionType implements ConditionTypeInterface
      */
     public function getConstraints()
     {
-        return array();
+        return array(
+            new Constraints\NotBlank(),
+        );
     }
 
     /**
