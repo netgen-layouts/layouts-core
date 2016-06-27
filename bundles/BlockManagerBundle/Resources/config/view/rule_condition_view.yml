@@ -1,6 +1,9 @@
 rule_condition_view:
     view:
-        ezsiteaccess:
-            template: "NetgenBlockManagerAdminUIBundle:admin/rule_condition/view:ezsiteaccess.html.twig"
+        route_parameter:
+            template: "NetgenBlockManagerAdminUIBundle:admin/rule_condition/view:route_parameter.html.twig"
             match:
-                condition\type: ezsiteaccess
+                rule_condition\type: route_parameter
+        rule_condition:
+            template: "NetgenBlockManagerAdminUIBundle:admin/rule_condition:view.html.twig"
+            match: ~

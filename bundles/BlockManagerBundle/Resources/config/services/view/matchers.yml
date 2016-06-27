@@ -7,6 +7,8 @@ parameters:
     netgen_block_manager.view.matcher.block.view_type.class: Netgen\BlockManager\View\Matcher\Block\ViewType
     netgen_block_manager.view.matcher.item.view_type.class: Netgen\BlockManager\View\Matcher\Item\ViewType
     netgen_block_manager.view.matcher.item.value_type.class: Netgen\BlockManager\View\Matcher\Item\ValueType
+    netgen_block_manager.view.matcher.rule_target.type.class: Netgen\BlockManager\View\Matcher\RuleTarget\Type
+    netgen_block_manager.view.matcher.rule_condition.type.class: Netgen\BlockManager\View\Matcher\RuleCondition\Type
 
 services:
     netgen_block_manager.view.matcher.api_version:
@@ -48,3 +50,13 @@ services:
         class: "%netgen_block_manager.view.matcher.item.value_type.class%"
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: item\value_type }
+
+    netgen_block_manager.view.matcher.rule_target.type:
+        class: "%netgen_block_manager.view.matcher.rule_target.type.class%"
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: rule_target\type }
+
+    netgen_block_manager.view.matcher.rule_condition.type:
+        class: "%netgen_block_manager.view.matcher.rule_condition.type.class%"
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: rule_condition\type }

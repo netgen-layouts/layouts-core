@@ -1,0 +1,7 @@
+{{ condition.identifier }}:
+
+{% if condition.value is iterable %}
+    {% for key, value in condition.value %}
+        {{ key }}: {{ value|join(', ') }}
+    {% endfor %}
+{% endif %}
