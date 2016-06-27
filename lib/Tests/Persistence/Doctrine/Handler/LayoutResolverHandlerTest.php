@@ -292,6 +292,55 @@ class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     */
+    public function testUpdateRuleWithNoLayout()
+    {
+        $ruleUpdateStruct = new RuleUpdateStruct();
+        $ruleUpdateStruct->priority = 5;
+        $ruleUpdateStruct->comment = 'New comment';
+
+        $updatedRule = $this->handler->updateRule(
+            $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
+            $ruleUpdateStruct
+        );
+
+        self::assertInstanceOf(Rule::class, $updatedRule);
+
+        self::assertEquals(3, $updatedRule->id);
+        self::assertEquals(3, $updatedRule->layoutId);
+        self::assertEquals(5, $updatedRule->priority);
+        self::assertEquals('New comment', $updatedRule->comment);
+        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     */
+    public function testUpdateRuleWithEmptyLayout()
+    {
+        $ruleUpdateStruct = new RuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = 0;
+        $ruleUpdateStruct->priority = 5;
+        $ruleUpdateStruct->comment = 'New comment';
+
+        $updatedRule = $this->handler->updateRule(
+            $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
+            $ruleUpdateStruct
+        );
+
+        self::assertInstanceOf(Rule::class, $updatedRule);
+
+        self::assertEquals(3, $updatedRule->id);
+        self::assertNull($updatedRule->layoutId);
+        self::assertEquals(5, $updatedRule->priority);
+        self::assertEquals('New comment', $updatedRule->comment);
+        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData

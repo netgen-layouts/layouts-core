@@ -352,7 +352,7 @@ class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $ruleId, Type::INTEGER)
-            ->setParameter('layout_id', $ruleUpdateStruct->layoutId, Type::INTEGER)
+            ->setParameter('layout_id', $ruleUpdateStruct->layoutId !== 0 ? $ruleUpdateStruct->layoutId : null, Type::INTEGER)
             ->setParameter('priority', $ruleUpdateStruct->priority, Type::INTEGER)
             ->setParameter('comment', $ruleUpdateStruct->comment, Type::STRING);
 

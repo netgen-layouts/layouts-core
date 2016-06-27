@@ -215,6 +215,45 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     */
+    public function testUpdateRuleWithNoLayout()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
+
+        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->priority = 6;
+        $ruleUpdateStruct->comment = 'Updated comment';
+
+        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+
+        self::assertInstanceOf(RuleDraft::class, $updatedRule);
+        self::assertEquals(2, $updatedRule->getLayoutId());
+        self::assertEquals(6, $updatedRule->getPriority());
+        self::assertEquals('Updated comment', $updatedRule->getComment());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     */
+    public function testUpdateRuleWithEmptyLayout()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(5);
+
+        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = 0;
+        $ruleUpdateStruct->priority = 6;
+        $ruleUpdateStruct->comment = 'Updated comment';
+
+        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+
+        self::assertInstanceOf(RuleDraft::class, $updatedRule);
+        self::assertNull($updatedRule->getLayoutId());
+        self::assertEquals(6, $updatedRule->getPriority());
+        self::assertEquals('Updated comment', $updatedRule->getComment());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::copyRule
      */
     public function testCopyRule()
