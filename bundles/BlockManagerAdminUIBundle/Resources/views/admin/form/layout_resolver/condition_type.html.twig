@@ -1,0 +1,9 @@
+{% extends 'NetgenBlockManagerAdminUIBundle:admin/form:form.html.twig' %}
+
+{% trans_default_domain 'ngbm_layout_resolver_forms' %}
+
+{% block children %}
+    {{ form_row(form.children.value) }}
+
+    <input type="submit" value="{{ 'condition_type.button.save'|trans }}" />
+{% endblock %}

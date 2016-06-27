@@ -102,7 +102,7 @@ CREATE TABLE "ngbm_rule_target" (
     "status" integer NOT NULL,
     "rule_id" integer NOT NULL,
     "identifier" character varying(255) NOT NULL,
-    "value" text NOT NULL
+    "value" text
 );
 
 CREATE TABLE "ngbm_rule_condition" (
@@ -110,7 +110,7 @@ CREATE TABLE "ngbm_rule_condition" (
     "status" integer NOT NULL,
     "rule_id" integer NOT NULL,
     "identifier" character varying(255) NOT NULL,
-    "value" text NOT NULL
+    "value" text
 );
 
 CREATE SEQUENCE ngbm_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

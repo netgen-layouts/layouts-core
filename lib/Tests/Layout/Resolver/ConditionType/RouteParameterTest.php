@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
 class RouteParameterTest extends TestCase
@@ -48,6 +49,21 @@ class RouteParameterTest extends TestCase
     }
 
     /**
+     * @param mixed $value
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getConstraints
+     * @dataProvider validationProvider
+     */
+    public function testValidation($value, $isValid)
+    {
+        $validator = Validation::createValidator();
+
+        $errors = $validator->validate($value, $this->conditionType->getConstraints());
+        self::assertEquals($isValid, $errors->count() == 0);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
      *
      * @param mixed $value
@@ -58,6 +74,47 @@ class RouteParameterTest extends TestCase
     public function testMatches($value, $matches)
     {
         self::assertEquals($matches, $this->conditionType->matches($value));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
+     */
+    public function testMatchesWithNoRequest()
+    {
+        // Make sure we have no request
+        $this->requestStack->pop();
+
+        self::assertFalse($this->conditionType->matches(array()));
+    }
+
+    /**
+     * Provider for testing condition type validation.
+     *
+     * @return array
+     */
+    public function validationProvider()
+    {
+        return array(
+            array(array('parameter_name' => 'name', 'parameter_value' => array('one', 'two')), true),
+            array(array('parameter_name' => 'name', 'parameter_value' => array('one')), true),
+            array(array('parameter_name' => 'name', 'parameter_value' => array('')), false),
+            array(array('parameter_name' => 'name', 'parameter_value' => array(array('one'))), false),
+            array(array('parameter_name' => 'name', 'parameter_value' => array()), false),
+            array(array('parameter_name' => 'name'), false),
+            array(array('parameter_name' => 42, 'parameter_value' => array('one', 'two')), false),
+            array(array('parameter_name' => 42, 'parameter_value' => array('one')), false),
+            array(array('parameter_name' => 42, 'parameter_value' => array('')), false),
+            array(array('parameter_name' => 42, 'parameter_value' => array(array('one'))), false),
+            array(array('parameter_name' => 42, 'parameter_value' => array()), false),
+            array(array('parameter_name' => 42), false),
+            array(array('parameter_value' => array('one', 'two')), false),
+            array(array('parameter_value' => array('one')), false),
+            array(array('parameter_value' => array('')), false),
+            array(array('parameter_value' => array(array('one'))), false),
+            array(array('parameter_value' => array()), false),
+            array(array(), false),
+            array(null, false),
+        );
     }
 
     /**
@@ -91,16 +148,5 @@ class RouteParameterTest extends TestCase
             array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 42)), false),
             array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 25)), false),
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
-     */
-    public function testMatchesWithNoRequest()
-    {
-        // Make sure we have no request
-        $this->requestStack->pop();
-
-        self::assertFalse($this->conditionType->matches(array()));
     }
 }

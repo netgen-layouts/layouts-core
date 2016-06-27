@@ -668,7 +668,7 @@ class LayoutResolverService implements APILayoutResolverService
     {
         return new TargetCreateStruct(
             array(
-                'identifier' => $identifier
+                'identifier' => $identifier,
             )
         );
     }
@@ -684,7 +684,7 @@ class LayoutResolverService implements APILayoutResolverService
     {
         return new ConditionCreateStruct(
             array(
-                'identifier' => $identifier
+                'identifier' => $identifier,
             )
         );
     }

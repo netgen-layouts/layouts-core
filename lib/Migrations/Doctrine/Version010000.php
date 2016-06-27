@@ -89,7 +89,7 @@ class Version010000 extends AbstractMigration
         $ruleTargetTable->addColumn('status', 'integer');
         $ruleTargetTable->addColumn('rule_id', 'integer');
         $ruleTargetTable->addColumn('identifier', 'string', array('length' => 255));
-        $ruleTargetTable->addColumn('value', 'text', array('length' => 65535));
+        $ruleTargetTable->addColumn('value', 'text', array('length' => 65535, 'notnull' => false));
 
         $ruleTargetTable->setPrimaryKey(array('id', 'status'));
         $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
@@ -105,7 +105,7 @@ class Version010000 extends AbstractMigration
         $ruleConditionTable->addColumn('status', 'integer');
         $ruleConditionTable->addColumn('rule_id', 'integer');
         $ruleConditionTable->addColumn('identifier', 'string', array('length' => 255));
-        $ruleConditionTable->addColumn('value', 'text', array('length' => 65535));
+        $ruleConditionTable->addColumn('value', 'text', array('length' => 65535, 'notnull' => false));
 
         $ruleConditionTable->setPrimaryKey(array('id', 'status'));
         $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));

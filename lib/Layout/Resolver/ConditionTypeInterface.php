@@ -12,6 +12,13 @@ interface ConditionTypeInterface
     public function getIdentifier();
 
     /**
+     * Returns the constraints that will be used to validate the condition value.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getConstraints();
+
+    /**
      * Returns if this condition matches the provided value.
      *
      * @param mixed $value

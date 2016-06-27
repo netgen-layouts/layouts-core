@@ -54,9 +54,7 @@ class LayoutController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
-
-            return $this->render($formView->getTemplate(), $formView->getParameters());
+            return $this->buildView($form);
         }
 
         if ($form->isValid()) {
@@ -70,11 +68,10 @@ class LayoutController extends Controller
             );
         }
 
-        $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
-
-        return $this->render(
-            $formView->getTemplate(),
-            $formView->getParameters(),
+        return $this->buildView(
+            $form,
+            array(),
+            ViewInterface::CONTEXT_VIEW,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

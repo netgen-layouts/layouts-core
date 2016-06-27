@@ -102,7 +102,7 @@ CREATE TABLE `ngbm_rule_target` (
   `status` integer NOT NULL,
   `rule_id` integer NOT NULL,
   `identifier` text(255) NOT NULL,
-  `value` text NOT NULL,
+  `value` text,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `ngbm_rule` (`id`, `status`)
@@ -114,7 +114,7 @@ CREATE TABLE `ngbm_rule_condition` (
   `status` integer NOT NULL,
   `rule_id` integer NOT NULL,
   `identifier` text(255) NOT NULL,
-  `value` text NOT NULL,
+  `value` text,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `ngbm_rule` (`id`, `status`)

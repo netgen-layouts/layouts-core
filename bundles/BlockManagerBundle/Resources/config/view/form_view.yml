@@ -25,3 +25,7 @@ form_view:
             template: "NetgenBlockManagerAdminUIBundle:app/form/query/edit:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
+        condition\type:
+            template: "NetgenBlockManagerAdminUIBundle:admin/form/layout_resolver:condition_type.html.twig"
+            match:
+                form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType

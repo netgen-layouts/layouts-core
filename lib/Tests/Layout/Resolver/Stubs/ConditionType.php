@@ -39,6 +39,16 @@ class ConditionType implements ConditionTypeInterface
     }
 
     /**
+     * Returns the constraints that will be used to validate the condition value.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    public function getConstraints()
+    {
+        return array();
+    }
+
+    /**
      * Returns if this condition matches the provided value.
      *
      * @param mixed $value

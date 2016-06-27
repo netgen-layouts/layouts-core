@@ -68,9 +68,7 @@ class CollectionController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
-
-            return $this->render($formView->getTemplate(), $formView->getParameters());
+            return $this->buildView($form);
         }
 
         if ($form->isValid()) {
@@ -79,11 +77,10 @@ class CollectionController extends Controller
             return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
-        $formView = $this->buildView($form, array(), ViewInterface::CONTEXT_VIEW);
-
-        return $this->render(
-            $formView->getTemplate(),
-            $formView->getParameters(),
+        return $this->buildView(
+            $form,
+            array(),
+            ViewInterface::CONTEXT_VIEW,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

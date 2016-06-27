@@ -2,12 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\ValueObject;
-
-class ConditionUpdateStruct extends ValueObject
+class ConditionUpdateStruct extends ConditionStruct
 {
-    /**
-     * @var mixed
-     */
-    public $value;
 }
