@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View;
 
+use Symfony\Component\HttpFoundation\Response;
 use OutOfBoundsException;
 
 abstract class View implements ViewInterface
@@ -20,6 +21,11 @@ abstract class View implements ViewInterface
      * @var string
      */
     protected $template;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\Response
+     */
+    protected $response;
 
     /**
      * @var array
@@ -79,6 +85,30 @@ abstract class View implements ViewInterface
     public function setTemplate($template)
     {
         $this->template = $template;
+    }
+
+    /**
+     * Returns the response which will be used to render the view.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getResponse()
+    {
+        if ($this->response === null) {
+            $this->response = new Response();
+        }
+
+        return $this->response;
+    }
+
+    /**
+     * Sets the response which will be used to render the view.
+     *
+     * @param \Symfony\Component\HttpFoundation\Response
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
     }
 
     /**

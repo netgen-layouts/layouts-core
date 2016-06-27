@@ -48,7 +48,7 @@ class ViewRendererListener implements EventSubscriberInterface
             return;
         }
 
-        $response = new Response();
+        $response = $controllerResult->getResponse();
         $response->setContent(
             $this->viewRenderer->renderView($controllerResult)
         );

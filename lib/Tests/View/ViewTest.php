@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ViewTest extends TestCase
 {
@@ -46,6 +47,27 @@ class ViewTest extends TestCase
         $this->view->setTemplate('template.html.twig');
 
         self::assertEquals('template.html.twig', $this->view->getTemplate());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::getResponse
+     */
+    public function testGetDefaultResponse()
+    {
+        self::assertEquals(new Response(), $this->view->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::setResponse
+     * @covers \Netgen\BlockManager\View\View::getResponse
+     */
+    public function testSetResponse()
+    {
+        $response = new Response('response');
+
+        $this->view->setResponse($response);
+
+        self::assertEquals($response, $this->view->getResponse());
     }
 
     /**

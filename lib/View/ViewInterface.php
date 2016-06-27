@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\View;
 
+use Symfony\Component\HttpFoundation\Response;
+
 interface ViewInterface
 {
     const CONTEXT_VIEW = 'view';
@@ -49,6 +51,20 @@ interface ViewInterface
      * @param string $template
      */
     public function setTemplate($template);
+
+    /**
+     * Returns the response which will be used to render the view.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getResponse();
+
+    /**
+     * Sets the response which will be used to render the view.
+     *
+     * @param \Symfony\Component\HttpFoundation\Response
+     */
+    public function setResponse(Response $response);
 
     /**
      * Returns if the view has a parameter.
