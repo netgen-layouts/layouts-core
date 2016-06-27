@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
+use Netgen\BlockManager\Parameters\ParameterFilterInterface;
+use RuntimeException;
+
 class ParameterFilterRegistry implements ParameterFilterRegistryInterface
 {
     /**
@@ -17,6 +20,17 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
      */
     public function addParameterFilters($parameterType, array $parameterFilters)
     {
+        foreach ($parameterFilters as $parameterFilter) {
+            if (!$parameterFilter instanceof ParameterFilterInterface) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Parameter filter "%s" needs to implement ParameterFilterInterface',
+                        get_class($parameterFilter)
+                    )
+                );
+            }
+        }
+
         $this->parameterFilters[$parameterType] = $parameterFilters;
     }
 

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Registry;
 use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ParameterFilterRegistryTest extends TestCase
 {
@@ -33,5 +34,14 @@ class ParameterFilterRegistryTest extends TestCase
     public function testGetParameterFilters()
     {
         self::assertEquals(array($this->filter), $this->registry->getParameterFilters('html'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilters
+     * @expectedException \RuntimeException
+     */
+    public function testAddParameterFiltersThrowRuntimeException()
+    {
+        $this->registry->addParameterFilters('type', array(new stdClass()));
     }
 }
