@@ -206,9 +206,9 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
-     * @return bool If the validation failed
-     *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool If the validation failed
      */
     public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
