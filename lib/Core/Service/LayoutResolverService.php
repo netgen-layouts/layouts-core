@@ -661,16 +661,14 @@ class LayoutResolverService implements APILayoutResolverService
      * Creates a new target create struct.
      *
      * @param string $identifier
-     * @param mixed $value
      *
      * @return \Netgen\BlockManager\API\Values\TargetCreateStruct
      */
-    public function newTargetCreateStruct($identifier, $value)
+    public function newTargetCreateStruct($identifier)
     {
         return new TargetCreateStruct(
             array(
-                'identifier' => $identifier,
-                'value' => $value,
+                'identifier' => $identifier
             )
         );
     }
@@ -679,16 +677,14 @@ class LayoutResolverService implements APILayoutResolverService
      * Creates a new condition create struct.
      *
      * @param string $identifier
-     * @param mixed $value
      *
      * @return \Netgen\BlockManager\API\Values\ConditionCreateStruct
      */
-    public function newConditionCreateStruct($identifier, $value)
+    public function newConditionCreateStruct($identifier)
     {
         return new ConditionCreateStruct(
             array(
-                'identifier' => $identifier,
-                'value' => $value,
+                'identifier' => $identifier
             )
         );
     }
@@ -696,16 +692,10 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new condition update struct.
      *
-     * @param mixed $value
-     *
      * @return \Netgen\BlockManager\API\Values\ConditionUpdateStruct
      */
-    public function newConditionUpdateStruct($value)
+    public function newConditionUpdateStruct()
     {
-        return new ConditionUpdateStruct(
-            array(
-                'value' => $value,
-            )
-        );
+        return new ConditionUpdateStruct();
     }
 }

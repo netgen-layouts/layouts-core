@@ -409,9 +409,10 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testAddTarget()
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route_prefix',
-            'some_route_'
+            'route_prefix'
         );
+
+        $targetCreateStruct->value = 'some_route_';
 
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
@@ -430,9 +431,10 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testAddTargetOfDifferentKindThrowsBadStateException()
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route',
-            'some_route'
+            'route'
         );
+
+        $targetCreateStruct->value = 'some_route';
 
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
@@ -460,9 +462,10 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testAddCondition()
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'ezsiteaccess',
-            'cro'
+            'ezsiteaccess'
         );
+
+        $conditionCreateStruct->value = 'cro';
 
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
@@ -481,7 +484,9 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     {
         $condition = $this->layoutResolverService->loadConditionDraft(4);
 
-        $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct('new_value');
+        $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
+        $conditionUpdateStruct->value = 'new_value';
+
         $updatedCondition = $this->layoutResolverService->updateCondition($condition, $conditionUpdateStruct);
 
         self::assertInstanceOf(ConditionDraft::class, $updatedCondition);
@@ -528,6 +533,9 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testNewTargetCreateStruct()
     {
+        $createStruct = $this->layoutResolverService->newTargetCreateStruct('target');
+        $createStruct->value = '42';
+
         self::assertEquals(
             new TargetCreateStruct(
                 array(
@@ -535,7 +543,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
                     'value' => '42',
                 )
             ),
-            $this->layoutResolverService->newTargetCreateStruct('target', '42')
+            $createStruct
         );
     }
 
@@ -544,6 +552,9 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testNewConditionCreateStruct()
     {
+        $createStruct = $this->layoutResolverService->newConditionCreateStruct('condition');
+        $createStruct->value = 42;
+
         self::assertEquals(
             new ConditionCreateStruct(
                 array(
@@ -551,7 +562,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
                     'value' => '42',
                 )
             ),
-            $this->layoutResolverService->newConditionCreateStruct('condition', '42')
+            $createStruct
         );
     }
 
@@ -560,13 +571,16 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testNewConditionUpdateStruct()
     {
+        $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();
+        $updateStruct->value = '42';
+
         self::assertEquals(
             new ConditionUpdateStruct(
                 array(
                     'value' => '42',
                 )
             ),
-            $this->layoutResolverService->newConditionUpdateStruct('42')
+            $updateStruct
         );
     }
 }

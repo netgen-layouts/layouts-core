@@ -242,28 +242,24 @@ interface LayoutResolverService
      * Creates a new target create struct.
      *
      * @param string $identifier
-     * @param mixed $value
      *
      * @return \Netgen\BlockManager\API\Values\TargetCreateStruct
      */
-    public function newTargetCreateStruct($identifier, $value);
+    public function newTargetCreateStruct($identifier);
 
     /**
      * Creates a new condition create struct.
      *
      * @param string $identifier
-     * @param mixed $value
      *
      * @return \Netgen\BlockManager\API\Values\ConditionCreateStruct
      */
-    public function newConditionCreateStruct($identifier, $value);
+    public function newConditionCreateStruct($identifier);
 
     /**
      * Creates a new condition update struct.
      *
-     * @param mixed $value
-     *
      * @return \Netgen\BlockManager\API\Values\ConditionUpdateStruct
      */
-    public function newConditionUpdateStruct($value);
+    public function newConditionUpdateStruct();
 }
