@@ -1,7 +1,9 @@
-{% form_theme form 'NetgenBlockManagerAdminUIBundle:app/form/theme:ngbm_app.html.twig' %}
+{% form_theme form 'NetgenBlockManagerBundle:form/theme:ngbm.html.twig' %}
 
+<body>
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
     {% block children %}{% endblock %}
 {{ form_end(form) }}
+</body>

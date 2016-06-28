@@ -16,11 +16,6 @@ form_view:
             template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:design.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\DesignEditType
-        query\full_edit\ezcontent_search:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/query/edit/full:ezcontent_search.html.twig"
-            match:
-                form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
-                form\query\type: ezcontent_search
         query\full_edit:
             template: "NetgenBlockManagerAdminUIBundle:app/form/query/edit:full.html.twig"
             match:
