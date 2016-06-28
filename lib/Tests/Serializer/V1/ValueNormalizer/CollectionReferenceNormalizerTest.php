@@ -48,11 +48,11 @@ class CollectionReferenceNormalizerTest extends TestCase
 
         self::assertEquals(
             array(
-                'id' => $collection->getId(),
-                'type' => $collection->getType(),
-                'name' => $collection->getName(),
-                'block_id' => $collectionReference->getBlock()->getId(),
                 'identifier' => $collectionReference->getIdentifier(),
+                'block_id' => $collectionReference->getBlock()->getId(),
+                'collection_id' => $collection->getId(),
+                'collection_type' => $collection->getType(),
+                'collection_name' => $collection->getName(),
                 'offset' => $collectionReference->getOffset(),
                 'limit' => $collectionReference->getLimit(),
             ),
@@ -86,11 +86,11 @@ class CollectionReferenceNormalizerTest extends TestCase
 
         self::assertEquals(
             array(
-                'id' => $collection->getId(),
-                'type' => $collection->getType(),
-                'name' => $collection->getName(),
-                'block_id' => $collectionReference->getBlock()->getId(),
                 'identifier' => $collectionReference->getIdentifier(),
+                'block_id' => $collectionReference->getBlock()->getId(),
+                'collection_id' => $collection->getId(),
+                'collection_type' => $collection->getType(),
+                'collection_name' => $collection->getName(),
                 'offset' => $collectionReference->getOffset(),
                 'limit' => $collectionReference->getLimit(),
             ),

@@ -27,11 +27,11 @@ class CollectionReferenceNormalizer implements NormalizerInterface
         $collection = $collectionReference->getCollection();
 
         return array(
-            'id' => $collection->getId(),
-            'type' => $collection->getType(),
-            'name' => $collection->getName(),
-            'block_id' => $block->getId(),
             'identifier' => $collectionReference->getIdentifier(),
+            'block_id' => $block->getId(),
+            'collection_id' => $collection->getId(),
+            'collection_type' => $collection->getType(),
+            'collection_name' => $collection->getName(),
             'offset' => $collectionReference->getOffset(),
             'limit' => $collectionReference->getLimit(),
         );
