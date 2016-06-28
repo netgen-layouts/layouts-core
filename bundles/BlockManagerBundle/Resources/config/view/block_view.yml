@@ -68,6 +68,10 @@ block_view:
             match:
                 block\definition: html_snippet
                 api_version: 1
+        external_video:
+            template: "NetgenBlockManagerBundle:api/block/view:external_video.html.twig"
+            match:
+                block\definition: external_video
         list\list:
             template: "NetgenBlockManagerBundle:api/block/view/list:list.html.twig"
             match:

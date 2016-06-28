@@ -9,5 +9,9 @@
         {% include 'NetgenBlockManagerBundle:api/block/parts:notice.html.twig' with {
             notice: 'block.external_video.notice'|trans
         } %}
+    {% else %}
+        <div class="external-video-block js-external-video" data-video-id="{{ block.parameter('video_id') }}" data-service="{{ block.parameter('service') }}">
+            <img src="" class="js-video-thumb" />
+        </div>
     {% endif %}
 {% endblock %}
