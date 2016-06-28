@@ -1,26 +1,10 @@
 item_view:
     view:
-        ezcontent:
-            template: "NetgenBlockManagerBundle:item/view:ezcontent.html.twig"
-            match:
-                item\value_type: ezcontent
-        ezlocation:
-            template: "NetgenBlockManagerBundle:item/view:ezlocation.html.twig"
-            match:
-                item\value_type: ezlocation
         # Do not remove, fallback template for items which do not exist or are invalid
         item:
             template: "NetgenBlockManagerBundle:item/view:item.html.twig"
             match: ~
     api_view:
-        ezcontent:
-            template: "NetgenBlockManagerBundle:api/item/view:ezcontent.html.twig"
-            match:
-                item\value_type: ezcontent
-        ezlocation:
-            template: "NetgenBlockManagerBundle:api/item/view:ezlocation.html.twig"
-            match:
-                item\value_type: ezlocation
         # Do not remove, fallback template for items which do not exist or are invalid
         item:
             template: "NetgenBlockManagerBundle:api/item/view:item.html.twig"
