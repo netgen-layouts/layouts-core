@@ -1,0 +1,13 @@
+{% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
+
+{% trans_default_domain 'ngbm_api' %}
+
+{% import 'NetgenBlockManagerBundle:api/macros:collection.html.twig' as collection_macros %}
+
+{% block content %}
+    {% if block.parameter('video_code') is empty %}
+        {% include 'NetgenBlockManagerBundle:api/block/parts:notice.html.twig' with {
+            notice: 'block.external_video.notice'|trans
+        } %}
+    {% endif %}
+{% endblock %}
