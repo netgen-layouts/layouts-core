@@ -60,7 +60,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.controller.base');
         $this->assertContainerBuilderHasService('netgen_block_manager.event_listener.exception_conversion');
         $this->assertContainerBuilderHasService('netgen_block_manager.layout.form.create');
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.form.full_edit');
         $this->assertContainerBuilderHasService('netgen_block_manager.normalizer.v1.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.param_converter.page.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.layout.resolver');
@@ -74,7 +73,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.view.provider.block');
         $this->assertContainerBuilderHasService('netgen_block_manager.parameters.form_mapper');
         $this->assertContainerBuilderHasService('netgen_block_manager.collection.result_generator');
-        $this->assertContainerBuilderHasService('netgen_block_manager.collection.query.form.full_edit');
         $this->assertContainerBuilderHasService('netgen_block_manager.item.item_builder');
 
         $this->assertContainerBuilderHasService('netgen_block_manager.core.service.block');

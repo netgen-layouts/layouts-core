@@ -1,8 +1,0 @@
-parameters:
-    netgen_block_manager.collection.query.form.full_edit.class: Netgen\BlockManager\Collection\Query\Form\FullEditType
-
-services:
-    netgen_block_manager.collection.query.form.full_edit:
-        class: "%netgen_block_manager.collection.query.form.full_edit.class%"
-        tags:
-            - { name: form.type }
