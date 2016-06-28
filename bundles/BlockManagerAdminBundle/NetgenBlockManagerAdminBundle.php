@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminUIBundle;
+namespace Netgen\Bundle\BlockManagerAdminBundle;
 
-use Netgen\Bundle\BlockManagerAdminUIBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\Configuration;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class NetgenBlockManagerAdminUIBundle extends Bundle
+class NetgenBlockManagerAdminBundle extends Bundle
 {
     /**
      * Builds the bundle.

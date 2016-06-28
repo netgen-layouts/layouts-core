@@ -1,10 +1,10 @@
 parameters:
-    netgen_block_manager.controller.admin.layout_resolver.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\Admin\LayoutResolverController
+    netgen_block_manager.controller.admin.layout_resolver.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
 
-    netgen_block_manager.controller.app.index.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\IndexController
-    netgen_block_manager.controller.app.layout.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\LayoutController
-    netgen_block_manager.controller.app.block.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\BlockController
-    netgen_block_manager.controller.app.collection.class: Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App\CollectionController
+    netgen_block_manager.controller.app.index.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\IndexController
+    netgen_block_manager.controller.app.layout.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\LayoutController
+    netgen_block_manager.controller.app.block.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\BlockController
+    netgen_block_manager.controller.app.collection.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\CollectionController
 
 services:
     netgen_block_manager.controller.admin.layout_resolver:

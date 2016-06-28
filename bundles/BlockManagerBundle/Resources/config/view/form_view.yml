@@ -1,26 +1,26 @@
 form_view:
     view:
         layout\create:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/layout:create.html.twig"
+            template: "NetgenBlockManagerAdminBundle:app/form/layout:create.html.twig"
             match:
                 form\type: Netgen\BlockManager\Layout\Form\CreateType
         block\full_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:full.html.twig"
+            template: "NetgenBlockManagerAdminBundle:app/form/block/edit:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\FullEditType
         block\content_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:content.html.twig"
+            template: "NetgenBlockManagerAdminBundle:app/form/block/edit:content.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\ContentEditType
         block\design_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/block/edit:design.html.twig"
+            template: "NetgenBlockManagerAdminBundle:app/form/block/edit:design.html.twig"
             match:
                 form\type: Netgen\BlockManager\Block\Form\DesignEditType
         query\full_edit:
-            template: "NetgenBlockManagerAdminUIBundle:app/form/query/edit:full.html.twig"
+            template: "NetgenBlockManagerAdminBundle:app/form/query/edit:full.html.twig"
             match:
                 form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
         condition\type:
-            template: "NetgenBlockManagerAdminUIBundle:admin/form/layout_resolver:condition_type.html.twig"
+            template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
             match:
                 form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType

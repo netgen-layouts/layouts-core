@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;

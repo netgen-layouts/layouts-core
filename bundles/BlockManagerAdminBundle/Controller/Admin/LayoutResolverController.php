@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\Admin;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
@@ -55,7 +55,7 @@ class LayoutResolverController extends Controller
     public function index()
     {
         return $this->render(
-            'NetgenBlockManagerAdminUIBundle:admin/layout_resolver:index.html.twig',
+            'NetgenBlockManagerAdminBundle:admin/layout_resolver:index.html.twig',
             array(
                 'rules' => $this->layoutResolverService->loadRules(),
                 'target_types' => $this->targetTypeRegistry->getTargetTypes(),

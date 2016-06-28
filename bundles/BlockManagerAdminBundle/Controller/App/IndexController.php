@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +21,10 @@ class IndexController extends Controller
         return $this->render(
             !empty($appEnvironment) ?
                 sprintf(
-                    'NetgenBlockManagerAdminUIBundle:app/index:index_%s.html.twig',
+                    'NetgenBlockManagerAdminBundle:app/index:index_%s.html.twig',
                     $appEnvironment
                 ) :
-            'NetgenBlockManagerAdminUIBundle:app/index:index.html.twig'
+            'NetgenBlockManagerAdminBundle:app/index:index.html.twig'
         );
     }
 }

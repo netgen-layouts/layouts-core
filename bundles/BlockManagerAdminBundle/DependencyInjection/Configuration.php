@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminUIBundle\DependencyInjection;
+namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration as BlockManagerConfiguration;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;

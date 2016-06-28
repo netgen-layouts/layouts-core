@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminUIBundle\Controller\App;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
@@ -63,7 +63,7 @@ class BlockController extends Controller
         }
 
         return $this->render(
-            'NetgenBlockManagerAdminUIBundle:app/block:edit.html.twig',
+            'NetgenBlockManagerAdminBundle:app/block:edit.html.twig',
             array(
                 'block' => $block,
                 'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),

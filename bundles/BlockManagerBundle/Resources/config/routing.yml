@@ -3,9 +3,9 @@ netgen_block_manager_api_v1:
     prefix: /api/v1
 
 _netgen_block_manager_admin:
-    resource: "@NetgenBlockManagerAdminUIBundle/Resources/config/routing/admin.yml"
+    resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/admin.yml"
     prefix: /admin
 
 netgen_block_manager_app:
-    resource: "@NetgenBlockManagerAdminUIBundle/Resources/config/routing/app.yml"
+    resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/app.yml"
     prefix: /app
