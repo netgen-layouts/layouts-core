@@ -1,14 +1,12 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
+{% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
+
 {% trans_default_domain 'ngbm_api' %}
 
-{% import 'NetgenBlockManagerBundle:api/macros:collection.html.twig' as collection_macros %}
-
 {% block content %}
-    {% if block.parameter('video_id') is empty %}
-        {% include 'NetgenBlockManagerBundle:api/block/parts:notice.html.twig' with {
-            notice: 'block.external_video.notice'|trans
-        } %}
+    {% if block.parameter('video_id') is empty or block.parameter('service') is empty %}
+        {{ macros.notice('block.external_video.notice'|trans) }}
     {% else %}
         <div class="external-video-block js-external-video" data-video-id="{{ block.parameter('video_id') }}" data-service="{{ block.parameter('service') }}">
             <img src="" class="js-video-thumb" />
