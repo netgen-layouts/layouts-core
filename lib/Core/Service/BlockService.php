@@ -234,7 +234,10 @@ class BlockService implements BlockServiceInterface
                 $blockCreateStruct->definitionIdentifier
             );
 
-            foreach ($blockDefinition->getHandler()->getCollectionIdentifiers() as $collectionIdentifier) {
+            $collectionIdentifiers = $blockDefinition->getHandler()->getCollectionIdentifiers();
+            $collectionIdentifiers = array_unique($collectionIdentifiers);
+
+            foreach ($collectionIdentifiers as $collectionIdentifier) {
                 $collectionCreateStruct = new CollectionCreateStruct();
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
@@ -295,7 +298,7 @@ class BlockService implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * 
+     *
      * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
      */
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection)

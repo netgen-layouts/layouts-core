@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
@@ -210,9 +211,18 @@ class BlockHandler implements BlockHandlerInterface
      * @param string $identifier
      * @param int $offset
      * @param int $limit
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided identifier already exists within the block.
      */
     public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
     {
+        if ($this->collectionReferenceExists($block, $identifier)) {
+            throw new BadStateException(
+                'identifier',
+                'Collection with provided identifier already exists in the block'
+            );
+        }
+
         $this->queryHandler->createCollectionReference($block->id, $block->status, $collection->id, $collection->status, $identifier, $offset, $limit);
     }
 
