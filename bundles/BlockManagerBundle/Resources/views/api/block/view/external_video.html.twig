@@ -5,7 +5,7 @@
 {% import 'NetgenBlockManagerBundle:api/macros:collection.html.twig' as collection_macros %}
 
 {% block content %}
-    {% if block.parameter('video_code') is empty %}
+    {% if block.parameter('video_id') is empty %}
         {% include 'NetgenBlockManagerBundle:api/block/parts:notice.html.twig' with {
             notice: 'block.external_video.notice'|trans
         } %}
