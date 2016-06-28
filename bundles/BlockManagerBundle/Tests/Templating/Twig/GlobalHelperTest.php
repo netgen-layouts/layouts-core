@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class GlobalHelperTest extends TestCase
 {
+    protected $configMock;
+
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
      */
@@ -17,9 +19,9 @@ class GlobalHelperTest extends TestCase
 
     public function setUp()
     {
-        $this->globalHelper = new GlobalHelper(
-            $this->createMock(ConfigurationInterface::class)
-        );
+        $this->configMock = $this->createMock(ConfigurationInterface::class);
+
+        $this->globalHelper = new GlobalHelper($this->configMock);
     }
 
     /**
@@ -59,5 +61,13 @@ class GlobalHelperTest extends TestCase
         $this->globalHelper->setPageLayout('defaultPagelayout');
 
         self::assertEquals('defaultPagelayout', $this->globalHelper->getPageLayout());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getConfig
+     */
+    public function testGetConfig()
+    {
+        self::assertEquals($this->configMock, $this->globalHelper->getConfig());
     }
 }

@@ -16,7 +16,7 @@ class BlockDraftParamConverterTest extends TestCase
     protected $blockServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockDraftParamConverter
      */
     protected $paramConverter;
 
