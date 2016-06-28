@@ -20,6 +20,18 @@ use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 class ExceptionConversionListener implements EventSubscriberInterface
 {
     /**
+     * @var array
+     */
+    protected $exceptionMap = array(
+        NotFoundException::class => NotFoundHttpException::class,
+        InvalidArgumentException::class => BadRequestHttpException::class,
+        BadStateException::class => UnprocessableEntityHttpException::class,
+        Exception::class => InternalServerErrorHttpException::class,
+        // Various other useful exceptions
+        AccessDeniedException::class => AccessDeniedHttpException::class,
+    );
+
+    /**
      * Returns an array of event names this subscriber wants to listen to.
      *
      * @return array
@@ -41,17 +53,12 @@ class ExceptionConversionListener implements EventSubscriberInterface
         }
 
         $exception = $event->getException();
-        if ($exception instanceof NotFoundException) {
-            $exceptionClass = NotFoundHttpException::class;
-        } elseif ($exception instanceof InvalidArgumentException) {
-            $exceptionClass = BadRequestHttpException::class;
-        } elseif ($exception instanceof BadStateException) {
-            $exceptionClass = UnprocessableEntityHttpException::class;
-        } elseif ($exception instanceof Exception) {
-            $exceptionClass = InternalServerErrorHttpException::class;
-        // Various other useful exceptions
-        } elseif ($exception instanceof AccessDeniedException) {
-            $exceptionClass = AccessDeniedHttpException::class;
+
+        foreach ($this->exceptionMap as $sourceException => $targetException) {
+            if (is_a($exception, $sourceException, true)) {
+                $exceptionClass = $targetException;
+                break;
+            }
         }
 
         if (isset($exceptionClass)) {

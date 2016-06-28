@@ -64,6 +64,7 @@ class GlobalHelperTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getConfig
      */
     public function testGetConfig()

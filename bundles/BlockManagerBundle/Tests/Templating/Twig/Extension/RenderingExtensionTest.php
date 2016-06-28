@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Item\Item;
@@ -154,6 +155,58 @@ class RenderingExtensionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logBlockError
+     */
+    public function testRenderBlockReturnsEmptyStringOnException()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Block()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->throwException(new Exception()));
+
+        self::assertEquals(
+            '',
+            $this->extension->renderBlock(
+                new Block(),
+                array('param' => 'value'),
+                ViewInterface::CONTEXT_VIEW
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logBlockError
+     * @expectedException \Exception
+     */
+    public function testRenderBlockThrowsExceptionInDebug()
+    {
+        $this->extension->setDebug(true);
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Block()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->throwException(new Exception()));
+
+        $this->extension->renderBlock(
+            new Block(),
+            array('param' => 'value'),
+            ViewInterface::CONTEXT_VIEW
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderItem
      */
     public function testRenderItem()
@@ -176,6 +229,137 @@ class RenderingExtensionTest extends TestCase
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_VIEW
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logItemError
+     */
+    public function testRenderItemReturnsEmptyStringOnException()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Item()),
+                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->throwException(new Exception()));
+
+        self::assertEquals(
+            '',
+            $this->extension->renderItem(
+                new Item(),
+                'viewType',
+                array('param' => 'value'),
+                ViewInterface::CONTEXT_VIEW
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logItemError
+     * @expectedException \Exception
+     */
+    public function testRenderItemThrowsExceptionInDebug()
+    {
+        $this->extension->setDebug(true);
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Item()),
+                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->throwException(new Exception()));
+
+        $this->extension->renderItem(
+            new Item(),
+            'viewType',
+            array('param' => 'value'),
+            ViewInterface::CONTEXT_VIEW
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     */
+    public function testRenderValueObject()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Condition()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->returnValue('rendered value'));
+
+        self::assertEquals(
+            'rendered value',
+            $this->extension->renderValueObject(
+                new Condition(),
+                array('param' => 'value'),
+                ViewInterface::CONTEXT_VIEW
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logValueObjectError
+     */
+    public function testRenderValueObjectReturnsEmptyStringOnException()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Condition()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->throwException(new Exception()));
+
+        self::assertEquals(
+            '',
+            $this->extension->renderValueObject(
+                new Condition(),
+                array('param' => 'value'),
+                ViewInterface::CONTEXT_VIEW
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logValueObjectError
+     * @expectedException \Exception
+     */
+    public function testRenderValueObjectThrowsExceptionInDebug()
+    {
+        $this->extension->setDebug(true);
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Condition()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+            )
+            ->will($this->throwException(new Exception()));
+
+        $this->extension->renderValueObject(
+            new Condition(),
+            array('param' => 'value'),
+            ViewInterface::CONTEXT_VIEW
         );
     }
 
