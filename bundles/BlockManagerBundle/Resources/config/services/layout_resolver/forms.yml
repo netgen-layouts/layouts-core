@@ -1,10 +1,21 @@
 parameters:
     netgen_block_manager.layout.resolver.form.condition_type.class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
 
+    netgen_block_manager.layout.resolver.form.condition_type.mapper.route_parameter.class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter
+
 services:
+    # Forms
+
     netgen_block_manager.layout.resolver.form.condition_type:
         class: "%netgen_block_manager.layout.resolver.form.condition_type.class%"
         arguments:
             - []
         tags:
             - { name: form.type }
+
+    # Mappers
+
+    netgen_block_manager.layout.resolver.form.condition_type.mapper.route_parameter:
+        class: "%netgen_block_manager.layout.resolver.form.condition_type.mapper.route_parameter.class%"
+        tags:
+            - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, identifier: route_parameter }

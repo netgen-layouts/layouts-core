@@ -1,1 +1,4 @@
+condition_type.route_parameter.parameter_name.label: 'Parameter name'
+condition_type.route_parameter.parameter_value.label: 'Parameter value'
+
 condition_type.button.save: 'Save condition'

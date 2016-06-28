@@ -80,14 +80,25 @@ class ConditionType extends AbstractType
             'value',
             $mapper->getFormType(),
             array(
-                'required' => true,
-                'constraints' => $conditionType->getConstraints(),
                 'property_path' => 'value',
-            ) + $mapper->getOptions()
+            ) + $mapper->getOptions($conditionType)
         );
 
         $mapper->handleForm($valueForm);
 
         $builder->add($valueForm);
+    }
+
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * The block prefixes default to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+     *
+     * @return string The prefix of the template block name
+     */
+    public function getBlockPrefix()
+    {
+        return 'ngbm_condition_type';
     }
 }

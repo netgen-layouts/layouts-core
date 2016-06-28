@@ -5,15 +5,8 @@ namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
-interface MapperInterface
+abstract class Mapper implements MapperInterface
 {
-    /**
-     * Returns the form type that will be used to edit the value of this condition type.
-     *
-     * @return string
-     */
-    public function getFormType();
-
     /**
      * Returns the form type options.
      *
@@ -21,7 +14,14 @@ interface MapperInterface
      *
      * @return array
      */
-    public function getOptions(ConditionTypeInterface $conditionType);
+    public function getOptions(ConditionTypeInterface $conditionType)
+    {
+        return array(
+            'required' => true,
+            'constraints' => $conditionType->getConstraints(),
+            'label' => sprintf('condition_type.%s.label', $conditionType->getIdentifier()),
+        );
+    }
 
     /**
      * Handles the form for this condition type.
@@ -32,5 +32,7 @@ interface MapperInterface
      *
      * @return array
      */
-    public function handleForm(FormBuilderInterface $builder);
+    public function handleForm(FormBuilderInterface $builder)
+    {
+    }
 }

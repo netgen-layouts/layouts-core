@@ -1,0 +1,39 @@
+{%- block ngbm_key_values_widget -%}
+    {% macro prototype(form) %}
+        <div class="multientry-item">
+            {{ form_widget(form) }}
+            <span class="icon-close">x</span>
+        </div>
+    {% endmacro %}
+
+    <script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous">
+    </script>
+
+    <script src="https://bb.githack.com/effectiva/jquery_multientry/raw/3c491247c7a426928cfd02e6e1e33b06cd07c6a9/multientry.js"></script>
+
+    {% set key_form = form.children[key_name] %}
+    {% set values_form = form.children[values_name] %}
+
+    {{- form_row(key_form) -}}
+
+    <div class="multientry" data-prototype="{{ _self.prototype(values_form.vars.prototype)|e }}">
+        {{- form_label(values_form) -}}
+        {{- form_errors(values_form) -}}
+
+        <div class="multientry-items">
+            {% for value_form in values_form %}
+                {{- form_errors(value_form) -}}
+                {{ _self.prototype(value_form) }}
+            {% endfor %}
+        </div>
+
+        <a href="#" class="multientry_add">Add value</a>
+    </div>
+
+    <script>
+        $('.multientry').multientry();
+    </script>
+{%- endblock ngbm_key_values_widget -%}

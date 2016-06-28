@@ -27,12 +27,12 @@ trait ValidatorTrait
      * Validates the value against a set of provided constraints.
      *
      * @param mixed $value
-     * @param \Symfony\Component\Validator\Constraint[] $constraints
+     * @param \Symfony\Component\Validator\Constraint|\Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPath
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
      */
-    public function validate($value, array $constraints, $propertyPath = null)
+    public function validate($value, $constraints, $propertyPath = null)
     {
         $violations = $this->validator->validate($value, $constraints);
 
