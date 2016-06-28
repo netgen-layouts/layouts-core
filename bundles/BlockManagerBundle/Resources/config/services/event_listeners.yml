@@ -76,8 +76,8 @@ services:
         arguments:
             - "@security.csrf.token_manager"
             - "%netgen_block_manager.api.csrf_token_id%"
-#        tags:
-#            - { name: kernel.event_subscriber }
+        tags:
+            - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.block_view.get_collection_results:
         class: "%netgen_block_manager.event_listener.block_view.get_collection_results.class%"
