@@ -22,12 +22,13 @@ $bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle()
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
+$bundles[] = new Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBundle();
 
 return $bundles;
 ```
 
-If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`. Make sure it is activated after the main bundle:
+If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`. Make sure it is activated after the main bundles:
 
 ```
 ...
@@ -36,6 +37,7 @@ $bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle()
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
+$bundles[] = new Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle();
 $bundles[] = new Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBundle();
 $bundles[] = new Netgen\Bundle\EzPublishBlockManagerBundle\NetgenEzPublishBlockManagerBundle();
 
@@ -70,6 +72,8 @@ Disable short alias in JMS Serializer
 -------------------------------------
 
 If using JMS Serializer, you will need to disable aliasing its' serializer service to Symfony's `@serializer` service.
+
+Place the following config in your `app/config/config.yml` file to disable the alias:
 
 ```
 jms_serializer:
