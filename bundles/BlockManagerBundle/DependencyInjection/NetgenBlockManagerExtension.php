@@ -30,6 +30,11 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected $postProcessors = array();
 
     /**
+     * @var array
+     */
+    protected $appendConfigs = array();
+
+    /**
      * Adds the config tree builder closure.
      *
      * @param \Closure $configTreeBuilder
@@ -57,6 +62,16 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     public function addPostProcessor(Closure $postProcessor)
     {
         $this->postProcessors[] = $postProcessor;
+    }
+
+    /**
+     * Adds the config files that should be appended to config files of this bundle.
+     *
+     * @param array $configs
+     */
+    public function addAppendConfigs(array $configs)
+    {
+        $this->appendConfigs += $configs;
     }
 
     /**
@@ -112,10 +127,13 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'view/block_view.yml' => 'netgen_block_manager',
             'view/item_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
-        );
+        ) + $this->appendConfigs;
 
-        foreach ($prependConfigs as $configFile => $prependConfig) {
-            $configFile = __DIR__ . '/../Resources/config/' . $configFile;
+        foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
+            if ($configFile[0] !== '/') {
+                $configFile = __DIR__ . '/../Resources/config/' . $configFile;
+            }
+
             $config = Yaml::parse(file_get_contents($configFile));
             $container->prependExtensionConfig($prependConfig, $config);
             $container->addResource(new FileResource($configFile));
