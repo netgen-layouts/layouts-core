@@ -14,11 +14,13 @@ use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct as APITargetCreateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct as APITargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler as LayoutResolverHandlerInterface;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
 
 class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
@@ -453,6 +455,29 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
 
         return $this->loadTarget($createdTargetId, $rule->status);
+    }
+
+    /**
+     * Updates a target with specified ID.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
+     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
+     */
+    public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct)
+    {
+        $this->queryHandler->updateTarget(
+            $target->id,
+            $target->status,
+            new TargetUpdateStruct(
+                array(
+                    'value' => $targetUpdateStruct->value,
+                )
+            )
+        );
+
+        return $this->loadTarget($target->id, $target->status);
     }
 
     /**

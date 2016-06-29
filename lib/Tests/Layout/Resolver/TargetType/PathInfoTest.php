@@ -6,6 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class PathInfoTest extends TestCase
 {
@@ -39,6 +40,21 @@ class PathInfoTest extends TestCase
     }
 
     /**
+     * @param mixed $value
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::getConstraints
+     * @dataProvider validationProvider
+     */
+    public function testValidation($value, $isValid)
+    {
+        $validator = Validation::createValidator();
+
+        $errors = $validator->validate($value, $this->targetType->getConstraints());
+        self::assertEquals($isValid, $errors->count() == 0);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::provideValue
      */
     public function testProvideValue()
@@ -58,5 +74,20 @@ class PathInfoTest extends TestCase
         $this->requestStack->pop();
 
         self::assertNull($this->targetType->provideValue());
+    }
+
+    /**
+     * Provider for testing target type validation.
+     *
+     * @return array
+     */
+    public function validationProvider()
+    {
+        return array(
+            array('/some/route', true),
+            array('/', true),
+            array('', false),
+            array(null, false),
+        );
     }
 }

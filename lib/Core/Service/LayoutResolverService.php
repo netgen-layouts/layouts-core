@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
@@ -534,6 +535,37 @@ class LayoutResolverService implements APILayoutResolverService
     }
 
     /**
+     * Updates a target.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     */
+    public function updateTarget(TargetDraft $target, TargetUpdateStruct $targetUpdateStruct)
+    {
+        $persistenceTarget = $this->handler->loadTarget($target->getId(), Rule::STATUS_DRAFT);
+
+        $this->validator->validateTargetUpdateStruct($target, $targetUpdateStruct);
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $updatedTarget = $this->handler->updateTarget(
+                $persistenceTarget,
+                $targetUpdateStruct
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->mapper->mapTarget($updatedTarget);
+    }
+
+    /**
      * Removes a target.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
@@ -671,6 +703,16 @@ class LayoutResolverService implements APILayoutResolverService
                 'identifier' => $identifier,
             )
         );
+    }
+
+    /**
+     * Creates a new target update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\TargetUpdateStruct
+     */
+    public function newTargetUpdateStruct()
+    {
+        return new TargetUpdateStruct();
     }
 
     /**

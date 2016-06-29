@@ -2,17 +2,10 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\ValueObject;
-
-class TargetCreateStruct extends ValueObject
+class TargetCreateStruct extends TargetStruct
 {
     /**
      * @var string
      */
     public $identifier;
-
-    /**
-     * @var mixed
-     */
-    public $value;
 }

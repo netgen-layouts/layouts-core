@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Layout\Resolver\TargetType;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints;
 
 class Route implements TargetTypeInterface
 {
@@ -27,7 +28,10 @@ class Route implements TargetTypeInterface
      */
     public function getConstraints()
     {
-        return array();
+        return array(
+            new Constraints\NotBlank(),
+            new Constraints\Type(array('type' => 'string')),
+        );
     }
 
     /**

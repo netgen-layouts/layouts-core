@@ -14,3 +14,15 @@ netgen_block_manager_admin_layout_resolver_condition_form_edit:
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:conditionEditForm"
+
+netgen_block_manager_admin_layout_resolver_target_form_create:
+    path: /layout_resolver/rules/{ruleId}/target/new/{identifier}
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:targetCreateForm"
+
+netgen_block_manager_admin_layout_resolver_target_form_edit:
+    path: /layout_resolver/targets/{targetId}/edit
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:targetEditForm"

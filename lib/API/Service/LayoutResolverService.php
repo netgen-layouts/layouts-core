@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 
 interface LayoutResolverService
 {
@@ -141,7 +142,7 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
      */
-    public function discardDraft(RuleDRaft $rule);
+    public function discardDraft(RuleDraft $rule);
 
     /**
      * Publishes a rule.
@@ -189,6 +190,16 @@ interface LayoutResolverService
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
      */
     public function addTarget(RuleDraft $rule, TargetCreateStruct $targetCreateStruct);
+
+    /**
+     * Updates a target.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     */
+    public function updateTarget(TargetDraft $target, TargetUpdateStruct $targetUpdateStruct);
 
     /**
      * Removes a target.
@@ -246,6 +257,13 @@ interface LayoutResolverService
      * @return \Netgen\BlockManager\API\Values\TargetCreateStruct
      */
     public function newTargetCreateStruct($identifier);
+
+    /**
+     * Creates a new target update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\TargetUpdateStruct
+     */
+    public function newTargetUpdateStruct();
 
     /**
      * Creates a new condition create struct.

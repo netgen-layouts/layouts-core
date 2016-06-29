@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
@@ -175,6 +176,16 @@ interface LayoutResolverHandler
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct);
+
+    /**
+     * Updates a target with specified ID.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
+     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
+     */
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct);
 
     /**
      * Removes a target.

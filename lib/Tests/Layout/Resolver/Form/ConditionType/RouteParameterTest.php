@@ -8,7 +8,6 @@ use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RouteParameterTest extends FormTestCase
 {

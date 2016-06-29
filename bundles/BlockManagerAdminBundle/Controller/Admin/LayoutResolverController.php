@@ -5,7 +5,9 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
+use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -154,6 +156,108 @@ class LayoutResolverController extends Controller
 
         if ($form->isValid()) {
             $this->layoutResolverService->updateCondition($condition, $updateStruct);
+
+            return $this->buildView($form);
+        }
+
+        return $this->buildView(
+            $form,
+            array(),
+            ViewInterface::CONTEXT_VIEW,
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
+    }
+
+    /**
+     * Displays the target create form.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param string $identifier
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function targetCreateForm(RuleDraft $rule, $identifier, Request $request)
+    {
+        $targetType = $this->targetTypeRegistry->getTargetType($identifier);
+        $createStruct = $this->layoutResolverService->newTargetCreateStruct($identifier);
+
+        $form = $this->createForm(
+            TargetType::class,
+            $createStruct,
+            array(
+                'targetType' => $targetType,
+                'action' => $this->generateUrl(
+                    'netgen_block_manager_admin_layout_resolver_target_form_create',
+                    array(
+                        'ruleId' => $rule->getId(),
+                        'identifier' => $identifier,
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() !== Request::METHOD_POST) {
+            return $this->buildView($form);
+        }
+
+        if ($form->isValid()) {
+            $this->layoutResolverService->addTarget($rule, $createStruct);
+
+            return new Response(null, Response::HTTP_CREATED);
+        }
+
+        return $this->buildView(
+            $form,
+            array(),
+            ViewInterface::CONTEXT_VIEW,
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
+    }
+
+    /**
+     * Displays the target edit form.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function targetEditForm(TargetDraft $target, Request $request)
+    {
+        $targetType = $this->targetTypeRegistry->getTargetType(
+            $target->getIdentifier()
+        );
+
+        $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
+        $updateStruct->value = $target->getValue();
+
+        $form = $this->createForm(
+            TargetType::class,
+            $updateStruct,
+            array(
+                'targetType' => $targetType,
+                'action' => $this->generateUrl(
+                    'netgen_block_manager_admin_layout_resolver_target_form_edit',
+                    array(
+                        'targetId' => $target->getId(),
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() !== Request::METHOD_POST) {
+            return $this->buildView($form);
+        }
+
+        if ($form->isValid()) {
+            $this->layoutResolverService->updateTarget($target, $updateStruct);
 
             return $this->buildView($form);
         }

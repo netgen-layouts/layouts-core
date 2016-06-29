@@ -24,3 +24,7 @@ form_view:
             template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
             match:
                 form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
+        target\type:
+            template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:target_type.html.twig"
+            match:
+                form\type: Netgen\BlockManager\Layout\Resolver\Form\TargetType

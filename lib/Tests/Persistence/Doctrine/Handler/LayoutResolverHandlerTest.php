@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
@@ -566,6 +567,32 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->addTarget(
                 $this->handler->loadRule(1, Rule::STATUS_PUBLISHED),
                 $targetCreateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateTarget
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateTarget
+     */
+    public function testUpdateTarget()
+    {
+        $targetUpdateStruct = new TargetUpdateStruct();
+        $targetUpdateStruct->value = 'my_new_route';
+
+        self::assertEquals(
+            new Target(
+                array(
+                    'id' => 1,
+                    'ruleId' => 1,
+                    'identifier' => 'route',
+                    'value' => 'my_new_route',
+                    'status' => Rule::STATUS_PUBLISHED,
+                )
+            ),
+            $this->handler->updateTarget(
+                $this->handler->loadTarget(1, Rule::STATUS_PUBLISHED),
+                $targetUpdateStruct
             )
         );
     }

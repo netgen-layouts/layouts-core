@@ -3,11 +3,13 @@
 namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\Validator\Constraints;
@@ -162,6 +164,29 @@ class LayoutResolverValidator extends Validator
 
         $this->validate(
             $targetCreateStruct->value,
+            $targetType->getConstraints(),
+            'value'
+        );
+
+        return true;
+    }
+
+    /**
+     * Validates target update struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
+     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool If the validation failed
+     */
+    public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct)
+    {
+        $targetType = $this->targetTypeRegistry->getTargetType($target->getIdentifier());
+
+        $this->validate(
+            $targetUpdateStruct->value,
             $targetType->getConstraints(),
             'value'
         );

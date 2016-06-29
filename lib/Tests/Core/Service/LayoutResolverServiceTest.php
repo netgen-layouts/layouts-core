@@ -13,6 +13,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 
@@ -445,6 +446,23 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
+     */
+    public function testUpdateTarget()
+    {
+        $target = $this->layoutResolverService->loadTargetDraft(9);
+
+        $targetUpdateStruct = $this->layoutResolverService->newTargetUpdateStruct();
+        $targetUpdateStruct->value = 'new_value';
+
+        $updatedTarget = $this->layoutResolverService->updateTarget($target, $targetUpdateStruct);
+
+        self::assertInstanceOf(TargetDraft::class, $updatedTarget);
+
+        self::assertEquals('new_value', $updatedTarget->getValue());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
@@ -544,6 +562,24 @@ abstract class LayoutResolverServiceTest extends ServiceTest
                 )
             ),
             $createStruct
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newTargetUpdateStruct
+     */
+    public function testNewTargetUpdateStruct()
+    {
+        $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
+        $updateStruct->value = '42';
+
+        self::assertEquals(
+            new TargetUpdateStruct(
+                array(
+                    'value' => '42',
+                )
+            ),
+            $updateStruct
         );
     }
 

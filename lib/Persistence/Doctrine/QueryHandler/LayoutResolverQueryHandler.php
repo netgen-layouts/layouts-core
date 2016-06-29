@@ -12,6 +12,7 @@ use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
 use RuntimeException;
 
 class LayoutResolverQueryHandler extends QueryHandler
@@ -494,6 +495,30 @@ class LayoutResolverQueryHandler extends QueryHandler
         $query->execute();
 
         return (int)$this->connectionHelper->lastInsertId('ngbm_rule_target');
+    }
+
+    /**
+     * Updates a target.
+     *
+     * @param int|string $targetId
+     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\TargetUpdateStruct $targetUpdateStruct
+     */
+    public function updateTarget($targetId, $status, TargetUpdateStruct $targetUpdateStruct)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_rule_target')
+            ->set('value', ':value')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $targetId, Type::INTEGER)
+            ->setParameter('value', $targetUpdateStruct->value, is_array($targetUpdateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
     }
 
     /**
