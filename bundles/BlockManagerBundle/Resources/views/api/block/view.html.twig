@@ -8,7 +8,8 @@
     <div class="block-header">
         <div class="handle" title="Move"><i class="fa fa-ellipsis-h"></i><i class="fa fa-ellipsis-h"></i></div>
         <div class="name">{{ block.name }}</div>
-        <div class="action-destroy" title="Delete"><i class="fa fa-times"></i></div>
+        <div class="block-action js-destroy" title="Delete block"><i class="fa fa-times"></i></div>
+        <div class="block-action js-revert" title="Revert block to published state"><i class="fa fa-undo"></i></div>
         <div class="template_name">{{ view_type_name }}</div>
     </div>
 {% endblock %}
