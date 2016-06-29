@@ -2,6 +2,10 @@ pagelayout.title: 'Netgen Block Manager'
 pagelayout.trash: 'Trash'
 pagelayout.loading: 'Loading...'
 
+layout.block.move: 'Move block'
+layout.block.delete: 'Delete block'
+layout.block.revert: 'Revert block to published state'
+
 block.edit.tabs.content: 'Content'
 block.edit.tabs.design: 'Design'
 block.edit.collection_type: 'Collection type'

@@ -1,3 +1,5 @@
+{% trans_default_domain 'ngbm_app' %}
+
 {% set view_type_name = block.viewType %}
 
 {% if block_definition.config.hasViewType(view_type_name) %}
@@ -6,10 +8,10 @@
 
 {% block controls %}
     <div class="block-header">
-        <div class="handle" title="Move"><i class="fa fa-ellipsis-h"></i><i class="fa fa-ellipsis-h"></i></div>
+        <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="fa fa-ellipsis-h"></i><i class="fa fa-ellipsis-h"></i></div>
         <div class="name">{{ block.name }}</div>
-        <div class="block-action js-destroy" title="Delete block"><i class="fa fa-times"></i></div>
-        <div class="block-action js-revert" title="Revert block to published state"><i class="fa fa-undo"></i></div>
+        <div class="block-action js-destroy" title="{{ 'layout.block.delete'|trans }}"><i class="fa fa-times"></i></div>
+        <div class="block-action js-revert" title="{{ 'layout.block.revert'|trans }}"><i class="fa fa-undo"></i></div>
         <div class="template_name">{{ view_type_name }}</div>
     </div>
 {% endblock %}
