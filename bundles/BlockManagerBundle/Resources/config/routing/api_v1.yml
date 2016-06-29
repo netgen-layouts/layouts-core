@@ -12,3 +12,6 @@ netgen_block_manager_api_v1_collections:
 
 netgen_block_manager_api_v1_layouts:
     resource: "api_v1/layouts.yml"
+
+netgen_block_manager_api_v1_layout_resolver:
+    resource: "api_v1/layout_resolver.yml"
