@@ -1,0 +1,134 @@
+{% trans_default_domain 'ngbm_admin' %}
+
+<div class="card card-content card-style clearfix">
+
+    <div layout="" horizontal="" center="" class="card-heading clearfix">
+
+        <div class="iconImage">
+            <i class="material-icons" role="presentation">select_all</i>
+        </div>
+
+        {% if rule.layoutId > 0 %}
+            <span class="layout-name" class="" title="Expand Less">
+                <a href="{{ path('ngbm_app') }}#layout/{{ rule.layoutId }}">{{ ngbm_layout_name(rule.layoutId) }}</a>
+            </span>
+        {% else %}
+            <span class="layout-name" class="" title="Expand Less">
+                <a href="#">No linked layout</a>
+            </span>
+
+            <div class="separator"></div>
+
+            <div id="link-q1SxtGK3GU" class="heading-action">
+                <i class="material-icons" role="presentation">link</i> Link
+            </div>
+        {% endif %}
+
+        <div class="section-spacer"></div>
+
+        <!-- Right aligned menu below button -->
+        <button id="demo-menu-lower-right-iAqejiRr0O" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right-iAqejiRr0O">
+            <li disabled class="mdl-menu__item">Unlink layout</li>
+            <li class="mdl-menu__item">Link other layout</li>
+            <li class="mdl-menu__item">Deactivate mapping</li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <div id="tt3-iAqejiRr0O" class="meta_info">
+            <i class="material-icons" role="presentation">settings_system_daydream</i>
+            <span class="target-counter">{{ rule.targets|length }}</span>
+        </div>
+
+        <div class="mdl-tooltip" for="tt3-iAqejiRr0O">
+            Number of targets defined in this mapping
+        </div>
+
+        <div id="tt4-iAqejiRr0O" class="meta_info">
+            <i class="material-icons" role="presentation">done_all</i>
+            <span class="condition-counter">{{ rule.conditions|length }}</span>
+        </div>
+
+        <div class="mdl-tooltip" for="tt4-iAqejiRr0O">
+            Number of conditions applied in this mapping
+        </div>
+
+        <div class="panel-control">
+            <i class="material-icons panel-expand" role="presentation">expand_more</i>
+        </div>
+
+    </div>
+
+    <div class="details clearfix">
+
+        <div class="pull-left half-block">
+            Targets:
+
+            <ul class="card-list target-list">
+                {% for target in rule.targets %}
+                    <li>
+                        {{ ngbm_render_rule_target(target) }}
+                        <span class="pull-right">
+                            <a href="#" class="remove-setting"><i class="fa fa-remove"></i></a>
+                        </span>
+                    </li>
+                {% else %}
+                    There are no targets
+                {% endfor %}
+            </ul>
+
+            {% if target_types|length > 0 %}
+                {% if rule.targets|length == 0 %}
+                    <select>
+                        {% for target_type in target_types %}
+                            <option value="{{ target_type.identifier }}">{{ ('layout_resolver.target.' ~ target_type.identifier)|trans }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+
+                <a href="#" class="mdl-button">Add target</a>
+            {% endif %}
+        </div>
+
+        <div class="pull-right half-block">
+            Conditions:
+
+            <ul class="card-list condition-list">
+                {% for condition in rule.conditions %}
+                    <li>
+                        {{ ngbm_render_rule_condition(condition) }}
+                        <span class="pull-right">
+                            <a href="#" class="card-button">edit</a>
+                            <a href="#" class="remove-setting"><i class="fa fa-remove"></i></a>
+                        </span>
+                    </li>
+                {% else %}
+                    There are no applied conditions
+                {% endfor %}
+            </ul>
+
+            {% if condition_types|length > 0 %}
+                <select>
+                    {% for condition_type in condition_types %}
+                        <option value="{{ condition_type.identifier }}">{{ ('layout_resolver.condition.' ~ condition_type.identifier)|trans }}</option>
+                    {% endfor %}
+                </select>
+
+                <a href="#" class="mdl-button">Add new condition</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="actions-container">
+        <div class="actions">
+            <a href="#" class="mdl-button">Cancel</a>
+            <a href="#" class="mdl-button mdl-button--primary">Save changes</a>
+        </div>
+    </div>
+
+</div>
