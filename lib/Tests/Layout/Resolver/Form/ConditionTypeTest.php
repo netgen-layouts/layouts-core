@@ -41,6 +41,19 @@ class ConditionTypeTest extends FormTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
+     * @expectedException \RuntimeException
+     */
+    public function testBuildFormThrowsRuntimeException()
+    {
+        $this->factory->create(
+            ConditionTypeForm::class,
+            new ConditionCreateStruct(),
+            array('conditionType' => $this->conditionType)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
      */
     public function testConfigureOptions()
@@ -110,5 +123,13 @@ class ConditionTypeTest extends FormTestCase
                 'data' => '',
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::getBlockPrefix
+     */
+    public function testGetBlockPrefix()
+    {
+        self::assertEquals('ngbm_condition_type', $this->formType->getBlockPrefix());
     }
 }
