@@ -2,8 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration as BlockManagerConfiguration;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
@@ -15,16 +13,5 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-    }
-
-    /**
-     * Returns the config tree builder closure.
-     *
-     * @return \Closure
-     */
-    public function getConfigTreeBuilderClosure()
-    {
-        return function (ArrayNodeDefinition $rootNode, BlockManagerConfiguration $configuration) {
-        };
     }
 }
