@@ -381,7 +381,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'number_of_columns' => 1,
+                'number_of_columns' => 2,
             ),
             $block->getParameters()
         );
@@ -430,7 +430,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'number_of_columns' => 1,
+                'number_of_columns' => 2,
             ),
             $block->getParameters()
         );
@@ -457,7 +457,7 @@ abstract class BlockServiceTest extends ServiceTest
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
-                'number_of_columns' => 1,
+                'number_of_columns' => 2,
             ),
             $block->getParameters()
         );
@@ -633,7 +633,7 @@ abstract class BlockServiceTest extends ServiceTest
         self::assertEquals('list', $restoredBlock->getViewType());
         self::assertEquals('standard', $restoredBlock->getItemViewType());
         self::assertEquals('My block', $restoredBlock->getName());
-        self::assertEquals(array('number_of_columns' => 1), $restoredBlock->getParameters());
+        self::assertEquals(array('number_of_columns' => 2), $restoredBlock->getParameters());
         self::assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
         self::assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 

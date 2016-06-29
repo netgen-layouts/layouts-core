@@ -69,7 +69,7 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 1,
+                        'number_of_columns' => 2,
                     ),
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
@@ -134,7 +134,7 @@ class BlockHandlerTest extends TestCase
                         'position' => 0,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
-                            'number_of_columns' => 1,
+                            'number_of_columns' => 2,
                         ),
                         'viewType' => 'list',
                         'itemViewType' => 'standard',
@@ -449,7 +449,7 @@ class BlockHandlerTest extends TestCase
                     'position' => 2,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 1,
+                        'number_of_columns' => 2,
                     ),
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
@@ -480,7 +480,7 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 1,
+                        'number_of_columns' => 2,
                     ),
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
@@ -551,7 +551,7 @@ class BlockHandlerTest extends TestCase
                     'position' => 1,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 1,
+                        'number_of_columns' => 2,
                     ),
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
@@ -645,7 +645,7 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 1,
+                        'number_of_columns' => 2,
                     ),
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
@@ -713,7 +713,7 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 1,
+                        'number_of_columns' => 2,
                     ),
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
