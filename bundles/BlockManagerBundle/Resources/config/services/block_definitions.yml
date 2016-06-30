@@ -24,6 +24,8 @@ parameters:
         youtube: 'YouTube'
         vimeo: 'Vimeo'
 
+    netgen_block_manager.block.block_definition.handler.content.twig_block_name: content
+
     netgen_block_manager.block.block_definition.handler.map.min_zoom: 0
     netgen_block_manager.block.block_definition.handler.map.max_zoom: 20
     netgen_block_manager.block.block_definition.handler.map.map_types:
@@ -91,6 +93,8 @@ services:
 
     netgen_block_manager.block.block_definition.handler.content:
         class: "%netgen_block_manager.block.block_definition.handler.content.class%"
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.content.twig_block_name%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: content }
 

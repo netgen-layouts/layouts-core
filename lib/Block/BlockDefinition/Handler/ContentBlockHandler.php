@@ -9,6 +9,21 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 class ContentBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
     /**
+     * @var string
+     */
+    protected $twigBlockName;
+
+    /**
+     * Constructor.
+     *
+     * @param string $twigBlockName
+     */
+    public function __construct($twigBlockName)
+    {
+        $this->twigBlockName = $twigBlockName;
+    }
+
+    /**
      * Returns the name of the Twig block to use.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -17,6 +32,6 @@ class ContentBlockHandler extends BlockDefinitionHandler implements TwigBlockDef
      */
     public function getTwigBlockName(Block $block)
     {
-        return 'content';
+        return $this->twigBlockName;
     }
 }
