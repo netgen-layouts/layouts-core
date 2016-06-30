@@ -84,16 +84,32 @@ jms_serializer:
 Adjusting your full views
 -------------------------
 
-All of your full views need to extend `NetgenBlockManagerBundle::layout_resolver.html.twig` template. This template will
-be used for loading a resolved layout template. In case there is no resolved layout, it will fallback to your base
-pagelayout template (the one your full views previously extended).
+All of your full views need to extend `ngbm.layoutTemplate` variable. If layout was resolved,
+this variable will hold the name of the template belonging to the resolved layout. In case when
+layout was not resolved, it will hold the name of your main pagelayout template (the one your
+full views previously extended: see below for configuring the main pagelayout template). This
+makes it possible for your full view templates to be fully generic.
+
+Configuring your main pagelayout template
+-----------------------------------------
+
+To configure which template is your main pagelayout, use the following semantic configuration
+somewhere in your application:
+
+```
+netgen_block_manager:
+    pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
+```
+
+If using eZ Platform, there's no need setting the main pagelayout, since it will be picked up
+from default eZ Platform config.
 
 Adjusting your base pagelayout template
 ---------------------------------------
 
-To actually display the layout template in your page, you need to modify your base pagelayout template and wrap your
-main Twig block in another block named `layout`. For example, if your main Twig block is named `content`, your pagelayout
-needs to look like this:
+To actually display the resolved layout template in your page, you need to modify your main pagelayout
+template and wrap your main Twig block in another block named `layout`. For example, if your main Twig
+block is named `content`, your pagelayout needs to look like this:
 
 ```
 {% block layout %}
@@ -108,16 +124,3 @@ There are two goals to wrapping your main block like this:
 * If layout is resolved, it will use the `layout` block, in which case `content` block will not be used. You
   will of course need to make sure that in this case, all your layouts have a block in one of the zones
   which will display your main Twig block from full view templates
-
-Configuring your base pagelayout template
------------------------------------------
-
-To configure which template is your base template, use the following semantic configuration somewhere in your
-application:
-
-```
-netgen_block_manager:
-    pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
-```
-
-If using eZ Platform, there's no need setting the main pagelayout, since it will be picked up from default eZ Platform config.

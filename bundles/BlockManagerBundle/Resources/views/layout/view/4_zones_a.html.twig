@@ -3,29 +3,29 @@
 {% block layout %}
 <div class="zone-layout-4zonesa">
 
-    {% if layout.zone('top').blocks is not empty %}
+    {% if ngbm.layout.zone('top').blocks is not empty %}
         <div class="top-content-block">
             <section class="zone zone-top">
-                {% ngbm_render_zone layout.zone('top') %}
+                {% ngbm_render_zone ngbm.layout.zone('top') %}
             </section>
         </div>
     {% endif %}
 
-    {% if layout.zone('left').blocks is not empty or layout.zone('right').blocks is not empty %}
+    {% if ngbm.layout.zone('left').blocks is not empty or ngbm.layout.zone('right').blocks is not empty %}
         <div class="main-content-block">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
-                        {% if layout.zone('left').blocks is not empty %}
+                        {% if ngbm.layout.zone('left').blocks is not empty %}
                             <section class="zone zone-left">
-                                {% ngbm_render_zone layout.zone('left') %}
+                                {% ngbm_render_zone ngbm.layout.zone('left') %}
                             </section>
                         {% endif %}
                     </div>
                     <div class="col-lg-8">
-                        {% if layout.zone('right').blocks is not empty %}
+                        {% if ngbm.layout.zone('right').blocks is not empty %}
                             <section class="zone zone-right">
-                                {% ngbm_render_zone layout.zone('right') %}
+                                {% ngbm_render_zone ngbm.layout.zone('right') %}
                             </section>
                         {% endif %}
                     </div>
@@ -34,10 +34,10 @@
         </div>
     {% endif %}
 
-    {% if layout.zone('bottom').blocks is not empty %}
+    {% if ngbm.layout.zone('bottom').blocks is not empty %}
         <div class="bottom-content-block">
             <section class="zone zone-bottom">
-                {% ngbm_render_zone layout.zone('bottom') %}
+                {% ngbm_render_zone ngbm.layout.zone('bottom') %}
             </section>
         </div>
     {% endif %}

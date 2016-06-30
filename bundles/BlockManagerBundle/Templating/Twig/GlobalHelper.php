@@ -53,6 +53,16 @@ class GlobalHelper
     }
 
     /**
+     * Returns the pagelayout template.
+     *
+     * @return string
+     */
+    public function getPageLayout()
+    {
+        return $this->pageLayout;
+    }
+
+    /**
      * Sets the pagelayout template.
      *
      * @param string
@@ -63,12 +73,31 @@ class GlobalHelper
     }
 
     /**
-     * Returns the pagelayout template.
+     * Returns the currently resolved layout.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function getLayout()
+    {
+        if ($this->layoutView instanceof LayoutViewInterface) {
+            return $this->layoutView->getLayout();
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the currently valid layout template, or base pagelayout if
+     * no layout was resolved.
      *
      * @return string
      */
-    public function getPageLayout()
+    public function getLayoutTemplate()
     {
+        if ($this->layoutView instanceof LayoutViewInterface) {
+            return $this->layoutView->getTemplate();
+        }
+
         return $this->pageLayout;
     }
 
