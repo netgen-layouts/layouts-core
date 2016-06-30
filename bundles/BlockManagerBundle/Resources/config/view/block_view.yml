@@ -16,6 +16,10 @@ block_view:
             template: "NetgenBlockManagerBundle:block/view:html_snippet.html.twig"
             match:
                 block\definition: html_snippet
+        external_video:
+            template: "NetgenBlockManagerBundle:block/view:external_video.html.twig"
+            match:
+                block\definition: external_video
         list\list:
             template: "NetgenBlockManagerBundle:block/view/list:list.html.twig"
             match:

@@ -1,0 +1,21 @@
+{% extends 'NetgenBlockManagerBundle:block:view.html.twig' %}
+
+{% set video_services = {
+    'youtube': '//www.youtube.com/embed/%video_id%',
+    'vimeo': '//player.vimeo.com/video/%video_id%'
+} %}
+
+{% block content %}
+    {% if video_services[block.parameter('service')] is defined and block.parameter('video_id') is not empty %}
+        <div class="video-{{ block.parameter('service') }} embed-responsive embed-responsive-16by9">
+            <iframe
+                src="{{ video_services[block.parameter('service')]|replace({ '%video_id%': block.parameter('video_id') }) }}"
+                class="embed-responsive-item"
+                width="770"
+                height="433"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+    {% endif %}
+{% endblock %}
