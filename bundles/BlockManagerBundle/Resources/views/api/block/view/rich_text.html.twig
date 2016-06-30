@@ -1,15 +1,7 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
 {% block inline_data %}
-    {% set id = 'ngbm-rich-text-block-' ~ block.id %}
-
-    <div id="{{ id }}" contenteditable="true" data-attr="content">
+    <div class="alloy-editor" contenteditable="true" data-attr="content">
         {{ block.parameter('content')|raw }}
     </div>
-
-    <script type="text/javascript">
-        (function() {
-            AlloyEditor.editable("{{ id }}");
-        }());
-    </script>
 {% endblock %}
