@@ -152,6 +152,11 @@ class ConfigController extends Controller
             return;
         }
 
-        return $this->csrfTokenManager->refreshToken($this->csrfTokenId)->getValue();
+        $token = $this->csrfTokenManager->getToken($this->csrfTokenId);
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
+            $token = $this->csrfTokenManager->refreshToken($this->csrfTokenId);
+        }
+
+        return $token->getValue();
     }
 }
