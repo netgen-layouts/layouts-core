@@ -1,7 +1,7 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
 {% block inline_data %}
-    <div class="alloy-editor" contenteditable="true" data-attr="content">
+    <div class="alloy-editor" contenteditable="true" data-attr="content" data-placeholder="Write here!">
         {{ block.parameter('content')|raw }}
     </div>
 {% endblock %}
