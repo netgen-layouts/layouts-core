@@ -64,6 +64,49 @@ class GlobalHelperTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getLayout
+     */
+    public function testGetLayout()
+    {
+        $layoutView = new LayoutView(new Layout());
+        $this->globalHelper->setLayoutView($layoutView);
+
+        self::assertEquals(new Layout(), $this->globalHelper->getLayout());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getLayout
+     */
+    public function testGetLayoutWithNoLayoutView()
+    {
+        self::assertNull($this->globalHelper->getLayout());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getLayoutTemplate
+     */
+    public function testGetLayoutTemplate()
+    {
+        $this->globalHelper->setPageLayout('pagelayout.html.twig');
+
+        $layoutView = new LayoutView(new Layout());
+        $layoutView->setTemplate('layout.html.twig');
+        $this->globalHelper->setLayoutView($layoutView);
+
+        self::assertEquals('layout.html.twig', $this->globalHelper->getLayoutTemplate());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getLayoutTemplate
+     */
+    public function testGetLayoutTemplateWithNoLayoutView()
+    {
+        $this->globalHelper->setPageLayout('pagelayout.html.twig');
+
+        self::assertEquals('pagelayout.html.twig', $this->globalHelper->getLayoutTemplate());
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getConfig
      */

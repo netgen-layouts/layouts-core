@@ -79,11 +79,11 @@ class GlobalHelper
      */
     public function getLayout()
     {
-        if ($this->layoutView instanceof LayoutViewInterface) {
-            return $this->layoutView->getLayout();
+        if (!$this->layoutView instanceof LayoutViewInterface) {
+            return;
         }
 
-        return null;
+        return $this->layoutView->getLayout();
     }
 
     /**
