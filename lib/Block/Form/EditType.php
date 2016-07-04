@@ -19,6 +19,16 @@ abstract class EditType extends AbstractType
     const TRANSLATION_DOMAIN = 'ngbm_block_forms';
 
     /**
+     * @var array
+     */
+    protected $viewTypes = array();
+
+    /**
+     * @var array
+     */
+    protected $itemViewTypes = array();
+
+    /**
      * Configures the options for this type.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options.
@@ -42,38 +52,28 @@ abstract class EditType extends AbstractType
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['blockDefinition'];
 
-        $choices = array();
-        foreach ($blockDefinition->getConfig()->getViewTypes() as $viewType) {
-            $choices[$viewType->getName()] = $viewType->getIdentifier();
-        }
+        $this->buildViewTypes($blockDefinition);
 
         $builder->add(
             'view_type',
             ChoiceType::class,
             array(
                 'label' => 'block.view_type',
-                'choices' => $choices,
+                'choices' => array_flip($this->viewTypes),
                 'choices_as_values' => true,
                 'property_path' => 'viewType',
             )
         );
 
-        $itemViewTypeBuilder = function (FormInterface $form, BlockDefinitionInterface $blockDefinition, $viewType) {
-            $choices = array();
-            if ($blockDefinition->getConfig()->hasViewType($viewType)) {
-                $viewType = $blockDefinition->getConfig()->getViewType($viewType);
-
-                foreach ($viewType->getItemViewTypes() as $itemViewType) {
-                    $choices[$itemViewType->getName()] = $itemViewType->getIdentifier();
-                }
-            }
-
+        $itemViewTypeBuilder = function (FormInterface $form, $viewType) {
             $form->add(
                 'item_view_type',
                 ChoiceType::class,
                 array(
                     'label' => 'block.item_view_type',
-                    'choices' => $choices,
+                    'choices' => isset($this->itemViewTypes[$viewType]) ?
+                        array_flip($this->itemViewTypes[$viewType]) :
+                        array(),
                     'choices_as_values' => true,
                     'property_path' => 'itemViewType',
                 )
@@ -83,26 +83,14 @@ abstract class EditType extends AbstractType
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($itemViewTypeBuilder) {
-                $form = $event->getForm();
-
-                $itemViewTypeBuilder(
-                    $form,
-                    $form->getConfig()->getOption('blockDefinition'),
-                    $event->getData()->viewType
-                );
+                $itemViewTypeBuilder($event->getForm(), $event->getData()->viewType);
             }
         );
 
         $builder->get('view_type')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($itemViewTypeBuilder) {
-                $form = $event->getForm()->getParent();
-
-                $itemViewTypeBuilder(
-                    $form,
-                    $form->getConfig()->getOption('blockDefinition'),
-                    $event->getData()
-                );
+                $itemViewTypeBuilder($event->getForm()->getParent(), $event->getData());
             }
         );
     }
@@ -157,5 +145,21 @@ abstract class EditType extends AbstractType
                 'property_path_prefix' => 'parameters',
             )
         );
+    }
+
+    /**
+     * Builds the view type and item view type arrays used by the form.
+     *
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
+     */
+    protected function buildViewTypes(BlockDefinitionInterface $blockDefinition)
+    {
+        foreach ($blockDefinition->getConfig()->getViewTypes() as $viewType) {
+            $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();
+
+            foreach ($viewType->getItemViewTypes() as $itemViewType) {
+                $this->itemViewTypes[$viewType->getIdentifier()][$itemViewType->getIdentifier()] = $itemViewType->getName();
+            }
+        }
     }
 }
