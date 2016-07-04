@@ -167,8 +167,8 @@ LOCK TABLES `ngbm_rule_condition` WRITE;
 INSERT INTO `ngbm_rule_condition` VALUES (1,1,2,'route_parameter','{\"some_param\": [1,2]}');
 INSERT INTO `ngbm_rule_condition` VALUES (2,1,3,'route_parameter','{\"some_param\": [3,4]}');
 INSERT INTO `ngbm_rule_condition` VALUES (3,1,3,'route_parameter','{\"some_other_param\": [5,6]}');
-INSERT INTO `ngbm_rule_condition` VALUES (4,0,5,'ezsiteaccess','[\"cro\"]');
-INSERT INTO `ngbm_rule_condition` VALUES (4,1,5,'ezsiteaccess','[\"cro\"]');
+INSERT INTO `ngbm_rule_condition` VALUES (4,0,5,'ez_site_access','[\"cro\"]');
+INSERT INTO `ngbm_rule_condition` VALUES (4,1,5,'ez_site_access','[\"cro\"]');
 /*!40000 ALTER TABLE `ngbm_rule_condition` ENABLE KEYS */;
 UNLOCK TABLES;
 

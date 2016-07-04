@@ -513,7 +513,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     public function testAddCondition()
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'ezsiteaccess'
+            'ez_site_access'
         );
 
         $conditionCreateStruct->value = 'cro';

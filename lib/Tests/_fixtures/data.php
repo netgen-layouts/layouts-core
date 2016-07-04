@@ -186,7 +186,7 @@ return array(
         array('id' => 1, 'status' => 1, 'rule_id' => 2, 'type' => 'route_parameter', 'value' => '{"some_param": [1,2]}'),
         array('id' => 2, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"some_param": [3,4]}'),
         array('id' => 3, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"some_other_param": [5,6]}'),
-        array('id' => 4, 'status' => 0, 'rule_id' => 5, 'type' => 'ezsiteaccess', 'value' => '["cro"]'),
-        array('id' => 4, 'status' => 1, 'rule_id' => 5, 'type' => 'ezsiteaccess', 'value' => '["cro"]'),
+        array('id' => 4, 'status' => 0, 'rule_id' => 5, 'type' => 'ez_site_access', 'value' => '["cro"]'),
+        array('id' => 4, 'status' => 1, 'rule_id' => 5, 'type' => 'ez_site_access', 'value' => '["cro"]'),
     ),
 );

@@ -398,7 +398,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 5,
                         'ruleId' => $copiedRuleId,
-                        'type' => 'ezsiteaccess',
+                        'type' => 'ez_site_access',
                         'value' => array('cro'),
                         'status' => Rule::STATUS_PUBLISHED,
                     )
