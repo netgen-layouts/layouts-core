@@ -1,32 +1,5 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
 {% block inline_data %}
-    {% set id = 'ngbm-html-snippet-block-' ~ block.id %}
-
-    <style type="text/css" media="screen">
-        #{{ id }} {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-    </style>
-
-    <div id="{{ id }}" data-attr="content" data-inline-child>
-        {{ block.parameter('content') }}
-    </div>
-
-    <script type="text/javascript">
-        (function() {
-            var editor = ace.edit("{{ id }}");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/javascript");
-            editor.getSession().setTabSize(4);
-            editor.getSession().setUseSoftTabs(true);
-            editor.setHighlightActiveLine(true);
-
-            document.getElementById('{{ id }}').style.fontSize = '16px';
-        }());
-    </script>
+    <div data-attr="content" class="ace-editor">{{ block.parameter('content') }}</div>
 {% endblock %}
