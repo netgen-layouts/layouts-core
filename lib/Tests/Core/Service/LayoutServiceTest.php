@@ -99,7 +99,7 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\LayoutManager\Core\Service\LayoutService::isPublished
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
      */
     public function testIsPublished()
     {
@@ -109,7 +109,7 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\LayoutManager\Core\Service\LayoutService::isPublished
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
      */
     public function testIsPublishedReturnsFalse()
     {

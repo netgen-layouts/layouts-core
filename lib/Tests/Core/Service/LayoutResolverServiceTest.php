@@ -213,6 +213,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertEquals(50, $updatedRule->getLayoutId());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
+        self::assertTrue($rule->isEnabled());
     }
 
     /**
@@ -232,6 +233,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertEquals(2, $updatedRule->getLayoutId());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
+        self::assertTrue($rule->isEnabled());
     }
 
     /**
@@ -252,6 +254,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertNull($updatedRule->getLayoutId());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
+        self::assertFalse($updatedRule->isEnabled());
     }
 
     /**
@@ -339,7 +342,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testEnableRule()
     {
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(4);
 
         $this->layoutResolverService->enableRule($rule);
 
@@ -399,7 +402,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
      */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled()
     {
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(4);
 
         $this->layoutResolverService->disableRule($rule);
     }
@@ -464,14 +467,44 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteTarget()
     {
         $target = $this->layoutResolverService->loadTargetDraft(9);
+
         $this->layoutResolverService->deleteTarget($target);
 
-        $this->layoutResolverService->loadTargetDraft($target->getId());
+        try {
+            $this->layoutResolverService->loadTargetDraft($target->getId());
+
+            self::fail('Target still exists after deleting it.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $rule = $this->layoutResolverService->loadRuleDraft($target->getRuleId());
+        self::assertTrue($rule->isEnabled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
+     */
+    public function testDeleteLastTarget()
+    {
+        $target = $this->layoutResolverService->loadTargetDraft(23);
+
+        $this->layoutResolverService->deleteTarget($target);
+
+        try {
+            $this->layoutResolverService->loadTargetDraft($target->getId());
+
+            self::fail('Target still exists after deleting it.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $rule = $this->layoutResolverService->loadRuleDraft($target->getRuleId());
+        self::assertFalse($rule->isEnabled());
     }
 
     /**
