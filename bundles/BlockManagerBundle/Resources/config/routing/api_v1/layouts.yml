@@ -1,40 +1,40 @@
-netgen_block_manager_api_v1_layout_load:
+ngbm_api_v1_layout_load:
     path: /layouts/{layoutId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:view"
 
-netgen_block_manager_api_v1_layout_blocks:
+ngbm_api_v1_layout_blocks:
     path: /layouts/{layoutId}/blocks
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:viewLayoutBlocks"
 
-netgen_block_manager_api_v1_layout_create:
+ngbm_api_v1_layout_create:
     path: /layouts
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:create"
 
-netgen_block_manager_api_v1_layout_update:
+ngbm_api_v1_layout_update:
     path: /layouts/{layoutId}
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:update"
 
-netgen_block_manager_api_v1_layout_create_draft:
+ngbm_api_v1_layout_create_draft:
     path: /layouts/{layoutId}/draft
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:createDraft"
 
-netgen_block_manager_api_v1_layout_discard:
+ngbm_api_v1_layout_discard:
     path: /layouts/{layoutId}/discard
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:discard"
 
-netgen_block_manager_api_v1_layout_publish:
+ngbm_api_v1_layout_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
     defaults:

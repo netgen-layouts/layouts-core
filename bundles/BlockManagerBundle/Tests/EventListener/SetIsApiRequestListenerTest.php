@@ -33,7 +33,7 @@ class SetIsApiRequestListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_block_manager_api_v1_load_block');
+        $request->attributes->set('_route', 'ngbm_api_v1_load_block');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $eventListener->onKernelRequest($event);

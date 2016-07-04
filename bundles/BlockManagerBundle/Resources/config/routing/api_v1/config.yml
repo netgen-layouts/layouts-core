@@ -1,22 +1,22 @@
-netgen_block_manager_api_v1_config_config:
+ngbm_api_v1_config_config:
     path: /config
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.config:getConfig"
 
-netgen_block_manager_api_v1_config_block_types:
+ngbm_api_v1_config_block_types:
     path: /config/block_types
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.config:getBlockTypes"
 
-netgen_block_manager_api_v1_config_layout_types:
+ngbm_api_v1_config_layout_types:
     path: /config/layout_types
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.config:getLayoutTypes"
 
-netgen_block_manager_api_v1_config_sources:
+ngbm_api_v1_config_sources:
     path: /config/sources
     methods: [GET]
     defaults:

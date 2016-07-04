@@ -1,17 +1,17 @@
-netgen_block_manager_api_v1_config:
+_ngbm_api_v1_config:
     resource: "api_v1/config.yml"
 
-netgen_block_manager_api_v1_blocks:
+_ngbm_api_v1_blocks:
     resource: "api_v1/blocks.yml"
 
-netgen_block_manager_api_v1_block_collections:
+_ngbm_api_v1_block_collections:
     resource: "api_v1/block_collections.yml"
 
-netgen_block_manager_api_v1_collections:
+_ngbm_api_v1_collections:
     resource: "api_v1/collections.yml"
 
-netgen_block_manager_api_v1_layouts:
+_ngbm_api_v1_layouts:
     resource: "api_v1/layouts.yml"
 
-netgen_block_manager_api_v1_layout_resolver:
+_ngbm_api_v1_layout_resolver:
     resource: "api_v1/layout_resolver.yml"
