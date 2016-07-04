@@ -7,4 +7,4 @@ services:
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.condition_type }
+            - { name: netgen_block_manager.layout.resolver.condition_type, priority: 0 }

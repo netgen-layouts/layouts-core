@@ -23,12 +23,19 @@ class TargetTypeRegistryPass implements CompilerPassInterface
         }
 
         $targetTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $targetTypes = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+
+        $targetTypes = array();
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetType => $tag) {
+            $priority = isset($tag[0]['priority']) ? (int)$tag[0]['priority'] : 0;
+            $targetTypes[$priority] = new Reference($targetType);
+        }
+
+        krsort($targetTypes);
 
         foreach ($targetTypes as $targetType) {
             $targetTypeRegistry->addMethodCall(
                 'addTargetType',
-                array(new Reference($targetType))
+                array($targetType)
             );
         }
     }

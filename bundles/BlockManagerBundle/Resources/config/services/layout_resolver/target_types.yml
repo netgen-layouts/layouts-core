@@ -12,39 +12,39 @@ services:
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 1 }
 
     netgen_block_manager.layout.resolver.target_type.route_prefix:
         class: "%netgen_block_manager.layout.resolver.target_type.route_prefix.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 0 }
 
     netgen_block_manager.layout.resolver.target_type.path_info:
         class: "%netgen_block_manager.layout.resolver.target_type.path_info.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 3 }
 
     netgen_block_manager.layout.resolver.target_type.path_info_prefix:
         class: "%netgen_block_manager.layout.resolver.target_type.path_info_prefix.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 2 }
 
     netgen_block_manager.layout.resolver.target_type.request_uri:
         class: "%netgen_block_manager.layout.resolver.target_type.request_uri.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 5 }
 
     netgen_block_manager.layout.resolver.target_type.request_uri_prefix:
         class: "%netgen_block_manager.layout.resolver.target_type.request_uri_prefix.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 4 }
