@@ -7,8 +7,10 @@ use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
@@ -121,6 +123,27 @@ class LayoutResolverValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetUpdateStruct
+     * @dataProvider validateTargetUpdateStructProvider
+     */
+    public function testValidateTargetUpdateStruct(array $params, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        self::assertTrue(
+            $this->layoutResolverValidator->validateTargetUpdateStruct(
+                new Target(array('type' => 'target')),
+                new TargetUpdateStruct($params)
+            )
+        );
+    }
+
+    /**
+     * @param array $params
+     * @param bool $isValid
+     *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionCreateStruct
      * @dataProvider validateConditionCreateStructProvider
      */
@@ -204,6 +227,18 @@ class LayoutResolverValidatorTest extends TestCase
             array(array('type' => 'target', 'value' => null), false),
             array(array('type' => 'target', 'value' => ''), false),
             array(array('type' => 'target', 'value' => array()), false),
+        );
+    }
+
+    public function validateTargetUpdateStructProvider()
+    {
+        return array(
+            array(array('value' => 42), true),
+            array(array('value' => '42'), true),
+            array(array('value' => array(42)), true),
+            array(array('value' => null), false),
+            array(array('value' => ''), false),
+            array(array('value' => array()), false),
         );
     }
 
