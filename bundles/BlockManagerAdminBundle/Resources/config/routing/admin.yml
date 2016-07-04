@@ -3,12 +3,6 @@ ngbm_admin_layout_resolver_index:
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:index"
 
-ngbm_admin_layout_resolver_condition_form_create:
-    path: /layout_resolver/rules/{ruleId}/condition/new/{identifier}
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.admin.layout_resolver:conditionCreateForm"
-
 ngbm_admin_layout_resolver_condition_form_edit:
     path: /layout_resolver/conditions/{conditionId}/edit
     methods: [GET, POST]
