@@ -242,25 +242,6 @@ class LayoutResolverController extends Controller
     }
 
     /**
-     * Creates a new condition.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function createCondition(RuleDraft $rule, Request $request)
-    {
-        $createStruct = $this->layoutResolverService->newConditionCreateStruct(
-            $request->request->get('type')
-        );
-
-        $condition = $this->layoutResolverService->addCondition($rule, $createStruct);
-
-        return new View($condition, Version::API_V1);
-    }
-
-    /**
      * Deletes a rule condition.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition

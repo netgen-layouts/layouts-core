@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
@@ -62,6 +63,55 @@ class LayoutResolverController extends Controller
                 'target_types' => $this->targetTypeRegistry->getTargetTypes(),
                 'condition_types' => $this->conditionTypeRegistry->getConditionTypes(),
             )
+        );
+    }
+
+    /**
+     * Displays the condition create form.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param string $type
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function conditionCreateForm(RuleDraft $rule, $type, Request $request)
+    {
+        $conditionType = $this->conditionTypeRegistry->getConditionType($type);
+        $createStruct = $this->layoutResolverService->newConditionCreateStruct($type);
+
+        $form = $this->createForm(
+            ConditionType::class,
+            $createStruct,
+            array(
+                'conditionType' => $conditionType,
+                'action' => $this->generateUrl(
+                    'ngbm_admin_layout_resolver_condition_form_create',
+                    array(
+                        'ruleId' => $rule->getId(),
+                        'type' => $type,
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($request->getMethod() !== Request::METHOD_POST) {
+            return $this->buildView($form);
+        }
+
+        if ($form->isValid()) {
+            $this->layoutResolverService->addCondition($rule, $createStruct);
+
+            return new Response(null, Response::HTTP_CREATED);
+        }
+
+        return $this->buildView(
+            $form,
+            array(),
+            ViewInterface::CONTEXT_VIEW,
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
 
