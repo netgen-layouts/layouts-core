@@ -28,11 +28,11 @@ interface Target extends Value
     public function getRuleId();
 
     /**
-     * Returns the target identifier.
+     * Returns the target type.
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getType();
 
     /**
      * Returns the target value.

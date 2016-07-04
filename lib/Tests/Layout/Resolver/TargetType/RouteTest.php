@@ -33,11 +33,11 @@ class RouteTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\Route::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\Route::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('route', $this->targetType->getIdentifier());
+        self::assertEquals('route', $this->targetType->getType());
     }
 
     /**

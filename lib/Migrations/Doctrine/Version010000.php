@@ -88,14 +88,14 @@ class Version010000 extends AbstractMigration
         $ruleTargetTable->addColumn('id', 'integer', array('autoincrement' => true));
         $ruleTargetTable->addColumn('status', 'integer');
         $ruleTargetTable->addColumn('rule_id', 'integer');
-        $ruleTargetTable->addColumn('identifier', 'string', array('length' => 255));
+        $ruleTargetTable->addColumn('type', 'string', array('length' => 255));
         $ruleTargetTable->addColumn('value', 'text', array('length' => 65535, 'notnull' => false));
 
         $ruleTargetTable->setPrimaryKey(array('id', 'status'));
         $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', array('rule_id', 'status'), array('id', 'status'));
 
         $ruleTargetTable->addIndex(array('rule_id', 'status'));
-        $ruleTargetTable->addIndex(array('identifier'));
+        $ruleTargetTable->addIndex(array('type'));
 
         // ngbm_rule_condition table
 
@@ -104,7 +104,7 @@ class Version010000 extends AbstractMigration
         $ruleConditionTable->addColumn('id', 'integer', array('autoincrement' => true));
         $ruleConditionTable->addColumn('status', 'integer');
         $ruleConditionTable->addColumn('rule_id', 'integer');
-        $ruleConditionTable->addColumn('identifier', 'string', array('length' => 255));
+        $ruleConditionTable->addColumn('type', 'string', array('length' => 255));
         $ruleConditionTable->addColumn('value', 'text', array('length' => 65535, 'notnull' => false));
 
         $ruleConditionTable->setPrimaryKey(array('id', 'status'));

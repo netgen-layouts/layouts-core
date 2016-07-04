@@ -32,7 +32,7 @@ class TypeTest extends TestCase
     {
         $target = new Target(
             array(
-                'identifier' => 'route',
+                'type' => 'route',
             )
         );
 

@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\Layout\Resolver;
 interface ConditionTypeInterface
 {
     /**
-     * Returns the condition type identifier.
+     * Returns the condition type.
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getType();
 
     /**
      * Returns the constraints that will be used to validate the condition value.

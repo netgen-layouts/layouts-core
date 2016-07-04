@@ -29,11 +29,11 @@ class TargetTypePass implements CompilerPassInterface
         $mappers = array();
         foreach ($mapperServices as $mapperService => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['identifier'])) {
-                    throw new RuntimeException('Target type form mapper service tags should have an "identifier" attribute.');
+                if (!isset($tag['target_type'])) {
+                    throw new RuntimeException('Target type form mapper service tags should have an "target_type" attribute.');
                 }
 
-                $mappers[$tag['identifier']] = new Reference($mapperService);
+                $mappers[$tag['target_type']] = new Reference($mapperService);
             }
         }
 

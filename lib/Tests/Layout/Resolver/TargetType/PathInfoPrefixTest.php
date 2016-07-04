@@ -15,10 +15,10 @@ class PathInfoPrefixTest extends PathInfoTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfoPrefix::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfoPrefix::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('path_info_prefix', $this->targetType->getIdentifier());
+        self::assertEquals('path_info_prefix', $this->targetType->getType());
     }
 }

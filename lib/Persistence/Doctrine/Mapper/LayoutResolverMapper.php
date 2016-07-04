@@ -52,7 +52,7 @@ class LayoutResolverMapper
                     'id' => (int)$dataItem['id'],
                     'status' => (int)$dataItem['status'],
                     'ruleId' => (int)$dataItem['rule_id'],
-                    'identifier' => $dataItem['identifier'],
+                    'type' => $dataItem['type'],
                     'value' => $dataItem['value'],
                 )
             );
@@ -78,7 +78,7 @@ class LayoutResolverMapper
                     'id' => (int)$dataItem['id'],
                     'status' => (int)$dataItem['status'],
                     'ruleId' => (int)$dataItem['rule_id'],
-                    'identifier' => $dataItem['identifier'],
+                    'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
                 )
             );

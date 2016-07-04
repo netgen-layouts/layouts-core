@@ -24,7 +24,7 @@ class Target extends ValueObject
     /**
      * @var string
      */
-    public $identifier;
+    public $type;
 
     /**
      * @var mixed

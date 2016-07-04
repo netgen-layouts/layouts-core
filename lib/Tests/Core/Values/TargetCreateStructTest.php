@@ -11,7 +11,7 @@ class TargetCreateStructTest extends TestCase
     {
         $targetCreateStruct = new TargetCreateStruct();
 
-        self::assertNull($targetCreateStruct->identifier);
+        self::assertNull($targetCreateStruct->type);
         self::assertNull($targetCreateStruct->value);
     }
 
@@ -19,12 +19,12 @@ class TargetCreateStructTest extends TestCase
     {
         $targetCreateStruct = new TargetCreateStruct(
             array(
-                'identifier' => 'target',
+                'type' => 'target',
                 'value' => 42,
             )
         );
 
-        self::assertEquals('target', $targetCreateStruct->identifier);
+        self::assertEquals('target', $targetCreateStruct->type);
         self::assertEquals(42, $targetCreateStruct->value);
     }
 }

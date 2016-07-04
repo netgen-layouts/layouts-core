@@ -118,16 +118,16 @@ class LayoutResolverService implements APILayoutResolverService
     }
 
     /**
-     * Returns all rules that match specified target identifier and value.
+     * Returns all rules that match specified target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetIdentifier, $targetValue)
+    public function matchRules($targetType, $targetValue)
     {
-        $persistenceRules = $this->handler->matchRules($targetIdentifier, $targetValue);
+        $persistenceRules = $this->handler->matchRules($targetType, $targetValue);
 
         $rules = array();
         foreach ($persistenceRules as $persistenceRule) {
@@ -505,12 +505,12 @@ class LayoutResolverService implements APILayoutResolverService
         $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_DRAFT);
         $ruleTargets = $this->handler->loadRuleTargets($persistenceRule);
 
-        if (!empty($ruleTargets) && $ruleTargets[0]->identifier !== $targetCreateStruct->identifier) {
+        if (!empty($ruleTargets) && $ruleTargets[0]->type !== $targetCreateStruct->type) {
             throw new BadStateException(
-                'identifier',
+                'type',
                 sprintf(
-                    'Rule only accepts targets with "%s" identifier',
-                    $ruleTargets[0]->identifier
+                    'Rule only accepts targets with "%s" target type',
+                    $ruleTargets[0]->type
                 )
             );
         }
@@ -692,15 +692,15 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new target create struct.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return \Netgen\BlockManager\API\Values\TargetCreateStruct
      */
-    public function newTargetCreateStruct($identifier)
+    public function newTargetCreateStruct($type)
     {
         return new TargetCreateStruct(
             array(
-                'identifier' => $identifier,
+                'type' => $type,
             )
         );
     }
@@ -718,15 +718,15 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new condition create struct.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return \Netgen\BlockManager\API\Values\ConditionCreateStruct
      */
-    public function newConditionCreateStruct($identifier)
+    public function newConditionCreateStruct($type)
     {
         return new ConditionCreateStruct(
             array(
-                'identifier' => $identifier,
+                'type' => $type,
             )
         );
     }

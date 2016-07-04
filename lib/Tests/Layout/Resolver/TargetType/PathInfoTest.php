@@ -32,11 +32,11 @@ class PathInfoTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('path_info', $this->targetType->getIdentifier());
+        self::assertEquals('path_info', $this->targetType->getType());
     }
 
     /**

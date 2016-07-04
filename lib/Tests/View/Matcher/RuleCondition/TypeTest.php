@@ -32,7 +32,7 @@ class TypeTest extends TestCase
     {
         $condition = new Condition(
             array(
-                'identifier' => 'route_parameter',
+                'type' => 'route_parameter',
             )
         );
 

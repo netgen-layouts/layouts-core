@@ -26,12 +26,12 @@ class TargetType extends AbstractType
      */
     public function __construct(array $mappers = array())
     {
-        foreach ($mappers as $identifier => $mapper) {
+        foreach ($mappers as $targetType => $mapper) {
             if (!$mapper instanceof MapperInterface) {
                 throw new RuntimeException(
                     sprintf(
                         '"%s" target type form mapper must implement FormMapperInterface interface',
-                        $identifier
+                        $targetType
                     )
                 );
             }
@@ -64,16 +64,16 @@ class TargetType extends AbstractType
         /** @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType */
         $targetType = $options['targetType'];
 
-        if (!isset($this->mappers[$targetType->getIdentifier()])) {
+        if (!isset($this->mappers[$targetType->getType()])) {
             throw new RuntimeException(
                 sprintf(
                     'Form mapper for "%s" target type does not exist',
-                    $targetType->getIdentifier()
+                    $targetType->getType()
                 )
             );
         }
 
-        $mapper = $this->mappers[$targetType->getIdentifier()];
+        $mapper = $this->mappers[$targetType->getType()];
 
         $valueForm = $builder->create(
             'value',

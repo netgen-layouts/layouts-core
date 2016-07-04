@@ -113,7 +113,7 @@ CREATE TABLE `ngbm_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
-  `identifier` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
@@ -124,7 +124,7 @@ CREATE TABLE `ngbm_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
-  `identifier` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)

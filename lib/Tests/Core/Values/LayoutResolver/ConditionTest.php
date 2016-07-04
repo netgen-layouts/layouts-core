@@ -13,7 +13,7 @@ class ConditionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
      */
     public function testSetDefaultProperties()
@@ -23,7 +23,7 @@ class ConditionTest extends TestCase
         self::assertNull($condition->getId());
         self::assertNull($condition->getStatus());
         self::assertNull($condition->getRuleId());
-        self::assertNull($condition->getIdentifier());
+        self::assertNull($condition->getType());
         self::assertNull($condition->getValue());
     }
 
@@ -32,7 +32,7 @@ class ConditionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
      */
     public function testSetProperties()
@@ -42,7 +42,7 @@ class ConditionTest extends TestCase
                 'id' => 42,
                 'status' => Rule::STATUS_PUBLISHED,
                 'ruleId' => 30,
-                'identifier' => 'condition',
+                'type' => 'condition',
                 'value' => 32,
             )
         );
@@ -50,7 +50,7 @@ class ConditionTest extends TestCase
         self::assertEquals(42, $condition->getId());
         self::assertEquals(Rule::STATUS_PUBLISHED, $condition->getStatus());
         self::assertEquals(30, $condition->getRuleId());
-        self::assertEquals('condition', $condition->getIdentifier());
+        self::assertEquals('condition', $condition->getType());
         self::assertEquals(32, $condition->getValue());
     }
 }

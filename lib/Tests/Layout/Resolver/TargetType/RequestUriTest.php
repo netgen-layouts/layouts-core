@@ -32,11 +32,11 @@ class RequestUriTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('request_uri', $this->targetType->getIdentifier());
+        self::assertEquals('request_uri', $this->targetType->getType());
     }
 
     /**

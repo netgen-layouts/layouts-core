@@ -28,11 +28,11 @@ interface Condition extends Value
     public function getRuleId();
 
     /**
-     * Returns the identifier.
+     * Returns the type.
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getType();
 
     /**
      * Returns the condition value.

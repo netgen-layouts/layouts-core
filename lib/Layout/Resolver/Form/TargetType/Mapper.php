@@ -19,7 +19,7 @@ abstract class Mapper implements MapperInterface
         return array(
             'required' => true,
             'constraints' => $targetType->getConstraints(),
-            'label' => sprintf('target_type.%s.label', $targetType->getIdentifier()),
+            'label' => sprintf('target_type.%s.label', $targetType->getType()),
         );
     }
 

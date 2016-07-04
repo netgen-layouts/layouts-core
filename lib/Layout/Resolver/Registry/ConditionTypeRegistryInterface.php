@@ -16,22 +16,22 @@ interface ConditionTypeRegistryInterface
     /**
      * Returns if registry has a condition type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return bool
      */
-    public function hasConditionType($identifier);
+    public function hasConditionType($type);
 
     /**
-     * Returns a condition type with provided identifier.
+     * Returns a condition type with provided type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    public function getConditionType($identifier);
+    public function getConditionType($type);
 
     /**
      * Returns all condition types.

@@ -100,38 +100,38 @@ class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns all rule data for rules that match specified target identifier and value.
+     * Returns all rule data for rules that match specified target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return array
      */
-    public function matchRules($targetIdentifier, $targetValue)
+    public function matchRules($targetType, $targetValue)
     {
         $query = $this->getRuleSelectQuery();
         $query
             ->innerJoin('r', 'ngbm_rule_target', 'rt', 'r.id = rt.rule_id')
             ->where(
                 $query->expr()->eq('rd.enabled', ':enabled'),
-                $query->expr()->eq('rt.identifier', ':target_identifier')
+                $query->expr()->eq('rt.type', ':target_type')
             )
-            ->setParameter('target_identifier', $targetIdentifier, Type::STRING)
+            ->setParameter('target_type', $targetType, Type::STRING)
             ->setParameter('enabled', true, Type::BOOLEAN)
             ->addOrderBy('r.priority', 'ASC');
 
         $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'r.status');
 
-        if (!isset($this->targetHandlers[$targetIdentifier])) {
+        if (!isset($this->targetHandlers[$targetType])) {
             throw new RuntimeException(
                 sprintf(
-                    'Doctrine target handler for "%s" target identifier does not exist.',
-                    $targetIdentifier
+                    'Doctrine target handler for "%s" target type does not exist.',
+                    $targetType
                 )
             );
         }
 
-        $this->targetHandlers[$targetIdentifier]->handleQuery($query, $targetValue);
+        $this->targetHandlers[$targetType]->handleQuery($query, $targetValue);
 
         return $query->execute()->fetchAll();
     }
@@ -479,7 +479,7 @@ class LayoutResolverQueryHandler extends QueryHandler
                     'id' => ':id',
                     'status' => ':status',
                     'rule_id' => ':rule_id',
-                    'identifier' => ':identifier',
+                    'type' => ':type',
                     'value' => ':value',
                 )
             )
@@ -489,7 +489,7 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('status', $targetCreateStruct->status, Type::INTEGER)
             ->setParameter('rule_id', $targetCreateStruct->ruleId, Type::INTEGER)
-            ->setParameter('identifier', $targetCreateStruct->identifier, Type::STRING)
+            ->setParameter('type', $targetCreateStruct->type, Type::STRING)
             ->setParameter('value', $targetCreateStruct->value, is_array($targetCreateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
 
         $query->execute();
@@ -559,7 +559,7 @@ class LayoutResolverQueryHandler extends QueryHandler
                     'id' => ':id',
                     'status' => ':status',
                     'rule_id' => ':rule_id',
-                    'identifier' => ':identifier',
+                    'type' => ':type',
                     'value' => ':value',
                 )
             )
@@ -569,7 +569,7 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('status', $conditionCreateStruct->status, Type::INTEGER)
             ->setParameter('rule_id', $conditionCreateStruct->ruleId, Type::INTEGER)
-            ->setParameter('identifier', $conditionCreateStruct->identifier, Type::STRING)
+            ->setParameter('type', $conditionCreateStruct->type, Type::STRING)
             ->setParameter('value', json_encode($conditionCreateStruct->value), Type::STRING);
 
         $query->execute();
@@ -645,7 +645,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     protected function getTargetSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'rule_id', 'identifier', 'value')
+        $query->select('DISTINCT id', 'status', 'rule_id', 'type', 'value')
             ->from('ngbm_rule_target');
 
         return $query;
@@ -659,7 +659,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     protected function getConditionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'rule_id', 'identifier', 'value')
+        $query->select('DISTINCT id', 'status', 'rule_id', 'type', 'value')
             ->from('ngbm_rule_condition');
 
         return $query;

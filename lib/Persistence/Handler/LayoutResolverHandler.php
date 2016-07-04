@@ -36,14 +36,14 @@ interface LayoutResolverHandler
     public function loadRules($status);
 
     /**
-     * Returns all rules that match specified target identifier and value.
+     * Returns all rules that match specified target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetIdentifier, $targetValue);
+    public function matchRules($targetType, $targetValue);
 
     /**
      * Loads an target with specified ID.

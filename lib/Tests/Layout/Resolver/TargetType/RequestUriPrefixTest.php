@@ -15,10 +15,10 @@ class RequestUriPrefixTest extends RequestUriTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('request_uri_prefix', $this->targetType->getIdentifier());
+        self::assertEquals('request_uri_prefix', $this->targetType->getType());
     }
 }

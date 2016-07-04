@@ -29,11 +29,11 @@ class ConditionTypePass implements CompilerPassInterface
         $mappers = array();
         foreach ($mapperServices as $mapperService => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['identifier'])) {
-                    throw new RuntimeException('Condition type form mapper service tags should have an "identifier" attribute.');
+                if (!isset($tag['condition_type'])) {
+                    throw new RuntimeException('Condition type form mapper service tags should have an "condition_type" attribute.');
                 }
 
-                $mappers[$tag['identifier']] = new Reference($mapperService);
+                $mappers[$tag['condition_type']] = new Reference($mapperService);
             }
         }
 

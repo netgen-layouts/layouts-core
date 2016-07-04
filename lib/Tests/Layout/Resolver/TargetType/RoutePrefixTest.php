@@ -15,10 +15,10 @@ class RoutePrefixTest extends RouteTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('route_prefix', $this->targetType->getIdentifier());
+        self::assertEquals('route_prefix', $this->targetType->getType());
     }
 }

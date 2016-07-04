@@ -7,5 +7,5 @@ class ConditionCreateStruct extends ConditionStruct
     /**
      * @var string
      */
-    public $identifier;
+    public $type;
 }

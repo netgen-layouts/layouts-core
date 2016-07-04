@@ -14,7 +14,7 @@ class ConditionTest extends TestCase
 
         self::assertNull($condition->id);
         self::assertNull($condition->ruleId);
-        self::assertNull($condition->identifier);
+        self::assertNull($condition->type);
         self::assertNull($condition->value);
         self::assertNull($condition->status);
     }
@@ -25,7 +25,7 @@ class ConditionTest extends TestCase
             array(
                 'id' => 42,
                 'ruleId' => 30,
-                'identifier' => 'condition',
+                'type' => 'condition',
                 'value' => 32,
                 'status' => Rule::STATUS_PUBLISHED,
             )
@@ -33,7 +33,7 @@ class ConditionTest extends TestCase
 
         self::assertEquals(42, $condition->id);
         self::assertEquals(30, $condition->ruleId);
-        self::assertEquals('condition', $condition->identifier);
+        self::assertEquals('condition', $condition->type);
         self::assertEquals(32, $condition->value);
         self::assertEquals(Rule::STATUS_PUBLISHED, $condition->status);
     }

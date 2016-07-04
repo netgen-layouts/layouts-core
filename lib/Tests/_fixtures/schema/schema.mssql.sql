@@ -113,7 +113,7 @@ CREATE TABLE ngbm_rule_target (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   rule_id int NOT NULL,
-  identifier nvarchar(255) NOT NULL,
+  type nvarchar(255) NOT NULL,
   value nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (rule_id, status)
@@ -124,7 +124,7 @@ CREATE TABLE ngbm_rule_condition (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   rule_id int NOT NULL,
-  identifier nvarchar(255) NOT NULL,
+  type nvarchar(255) NOT NULL,
   value nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (rule_id, status)

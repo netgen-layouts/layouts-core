@@ -114,7 +114,7 @@ class LayoutResolverHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'ruleId' => 1,
-                    'identifier' => 'route',
+                    'type' => 'route',
                     'value' => 'my_cool_route',
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -175,7 +175,7 @@ class LayoutResolverHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'ruleId' => 2,
-                    'identifier' => 'route_parameter',
+                    'type' => 'route_parameter',
                     'value' => array(
                         'some_param' => array(1, 2),
                     ),
@@ -374,7 +374,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 43,
                         'ruleId' => $copiedRuleId,
-                        'identifier' => 'route_prefix',
+                        'type' => 'route_prefix',
                         'value' => 'my_second_cool_',
                         'status' => Rule::STATUS_PUBLISHED,
                     )
@@ -383,7 +383,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 44,
                         'ruleId' => $copiedRuleId,
-                        'identifier' => 'route_prefix',
+                        'type' => 'route_prefix',
                         'value' => 'my_third_cool_',
                         'status' => Rule::STATUS_PUBLISHED,
                     )
@@ -398,7 +398,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 5,
                         'ruleId' => $copiedRuleId,
-                        'identifier' => 'ezsiteaccess',
+                        'type' => 'ezsiteaccess',
                         'value' => array('cro'),
                         'status' => Rule::STATUS_PUBLISHED,
                     )
@@ -439,7 +439,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 5,
                         'ruleId' => 3,
-                        'identifier' => 'route',
+                        'type' => 'route',
                         'value' => 'my_fourth_cool_route',
                         'status' => Rule::STATUS_ARCHIVED,
                     )
@@ -448,7 +448,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 6,
                         'ruleId' => 3,
-                        'identifier' => 'route',
+                        'type' => 'route',
                         'value' => 'my_fifth_cool_route',
                         'status' => Rule::STATUS_ARCHIVED,
                     )
@@ -463,7 +463,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 2,
                         'ruleId' => 3,
-                        'identifier' => 'route_parameter',
+                        'type' => 'route_parameter',
                         'value' => array(
                             'some_param' => array(3, 4),
                         ),
@@ -474,7 +474,7 @@ class LayoutResolverHandlerTest extends TestCase
                     array(
                         'id' => 3,
                         'ruleId' => 3,
-                        'identifier' => 'route_parameter',
+                        'type' => 'route_parameter',
                         'value' => array(
                             'some_other_param' => array(5, 6),
                         ),
@@ -554,7 +554,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testAddTarget()
     {
         $targetCreateStruct = new TargetCreateStruct();
-        $targetCreateStruct->identifier = 'target';
+        $targetCreateStruct->type = 'target';
         $targetCreateStruct->value = '42';
 
         self::assertEquals(
@@ -562,7 +562,7 @@ class LayoutResolverHandlerTest extends TestCase
                 array(
                     'id' => 43,
                     'ruleId' => 1,
-                    'identifier' => 'target',
+                    'type' => 'target',
                     'value' => '42',
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -588,7 +588,7 @@ class LayoutResolverHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'ruleId' => 1,
-                    'identifier' => 'route',
+                    'type' => 'route',
                     'value' => 'my_new_route',
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -651,7 +651,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testAddCondition()
     {
         $conditionCreateStruct = new ConditionCreateStruct();
-        $conditionCreateStruct->identifier = 'condition';
+        $conditionCreateStruct->type = 'condition';
         $conditionCreateStruct->value = array('param' => 'value');
 
         self::assertEquals(
@@ -659,7 +659,7 @@ class LayoutResolverHandlerTest extends TestCase
                 array(
                     'id' => 5,
                     'ruleId' => 3,
-                    'identifier' => 'condition',
+                    'type' => 'condition',
                     'value' => array('param' => 'value'),
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -685,7 +685,7 @@ class LayoutResolverHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'ruleId' => 2,
-                    'identifier' => 'route_parameter',
+                    'type' => 'route_parameter',
                     'value' => array('new_param' => 'new_value'),
                     'status' => Rule::STATUS_PUBLISHED,
                 )

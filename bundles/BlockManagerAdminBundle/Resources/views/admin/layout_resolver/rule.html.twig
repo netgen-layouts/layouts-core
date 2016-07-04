@@ -85,7 +85,7 @@
                 {% if rule.targets|length == 0 %}
                     <select>
                         {% for target_type in target_types %}
-                            <option value="{{ target_type.identifier }}">{{ ('layout_resolver.target.' ~ target_type.identifier)|trans }}</option>
+                            <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
                         {% endfor %}
                     </select>
                 {% endif %}
@@ -114,7 +114,7 @@
             {% if condition_types|length > 0 %}
                 <select>
                     {% for condition_type in condition_types %}
-                        <option value="{{ condition_type.identifier }}">{{ ('layout_resolver.condition.' ~ condition_type.identifier)|trans }}</option>
+                        <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
                     {% endfor %}
                 </select>
 

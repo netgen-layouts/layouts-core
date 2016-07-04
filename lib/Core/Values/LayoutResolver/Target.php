@@ -25,7 +25,7 @@ class Target extends ValueObject implements APITarget
     /**
      * @var string
      */
-    protected $identifier;
+    protected $type;
 
     /**
      * @var mixed
@@ -63,13 +63,13 @@ class Target extends ValueObject implements APITarget
     }
 
     /**
-     * Returns the unique identifier of the target.
+     * Returns the target type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
-        return $this->identifier;
+        return $this->type;
     }
 
     /**

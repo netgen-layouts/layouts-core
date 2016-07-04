@@ -45,14 +45,14 @@ interface LayoutResolverService
     public function loadRules();
 
     /**
-     * Returns all rules that match specified target identifier and value.
+     * Returns all rules that match specified target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetIdentifier, $targetValue);
+    public function matchRules($targetType, $targetValue);
 
     /**
      * Loads a target by its' ID.
@@ -252,11 +252,11 @@ interface LayoutResolverService
     /**
      * Creates a new target create struct.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return \Netgen\BlockManager\API\Values\TargetCreateStruct
      */
-    public function newTargetCreateStruct($identifier);
+    public function newTargetCreateStruct($type);
 
     /**
      * Creates a new target update struct.
@@ -268,11 +268,11 @@ interface LayoutResolverService
     /**
      * Creates a new condition create struct.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return \Netgen\BlockManager\API\Values\ConditionCreateStruct
      */
-    public function newConditionCreateStruct($identifier);
+    public function newConditionCreateStruct($type);
 
     /**
      * Creates a new condition update struct.

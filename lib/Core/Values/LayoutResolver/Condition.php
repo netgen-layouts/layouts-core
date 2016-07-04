@@ -25,7 +25,7 @@ class Condition extends ValueObject implements APICondition
     /**
      * @var string
      */
-    protected $identifier;
+    protected $type;
 
     /**
      * @var mixed
@@ -63,13 +63,13 @@ class Condition extends ValueObject implements APICondition
     }
 
     /**
-     * Returns the identifier.
+     * Returns the type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
-        return $this->identifier;
+        return $this->type;
     }
 
     /**

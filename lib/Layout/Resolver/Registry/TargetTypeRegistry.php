@@ -19,37 +19,37 @@ class TargetTypeRegistry implements TargetTypeRegistryInterface
      */
     public function addTargetType(TargetTypeInterface $targetType)
     {
-        $this->targetTypes[$targetType->getIdentifier()] = $targetType;
+        $this->targetTypes[$targetType->getType()] = $targetType;
     }
 
     /**
      * Returns if registry has a target type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return bool
      */
-    public function hasTargetType($identifier)
+    public function hasTargetType($type)
     {
-        return isset($this->targetTypes[$identifier]);
+        return isset($this->targetTypes[$type]);
     }
 
     /**
-     * Returns a target type with provided identifier.
+     * Returns a target type with provided type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    public function getTargetType($identifier)
+    public function getTargetType($type)
     {
-        if (!$this->hasTargetType($identifier)) {
-            throw new InvalidArgumentException('target type', $identifier);
+        if (!$this->hasTargetType($type)) {
+            throw new InvalidArgumentException('target type', $type);
         }
 
-        return $this->targetTypes[$identifier];
+        return $this->targetTypes[$type];
     }
 
     /**

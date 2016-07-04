@@ -152,15 +152,15 @@ class LayoutResolverValidator extends Validator
     public function validateTargetCreateStruct(TargetCreateStruct $targetCreateStruct)
     {
         $this->validate(
-            $targetCreateStruct->identifier,
+            $targetCreateStruct->type,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
             ),
-            'identifier'
+            'type'
         );
 
-        $targetType = $this->targetTypeRegistry->getTargetType($targetCreateStruct->identifier);
+        $targetType = $this->targetTypeRegistry->getTargetType($targetCreateStruct->type);
 
         $this->validate(
             $targetCreateStruct->value,
@@ -183,7 +183,7 @@ class LayoutResolverValidator extends Validator
      */
     public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
-        $targetType = $this->targetTypeRegistry->getTargetType($target->getIdentifier());
+        $targetType = $this->targetTypeRegistry->getTargetType($target->getType());
 
         $this->validate(
             $targetUpdateStruct->value,
@@ -206,15 +206,15 @@ class LayoutResolverValidator extends Validator
     public function validateConditionCreateStruct(ConditionCreateStruct $conditionCreateStruct)
     {
         $this->validate(
-            $conditionCreateStruct->identifier,
+            $conditionCreateStruct->type,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
             ),
-            'identifier'
+            'type'
         );
 
-        $conditionType = $this->conditionTypeRegistry->getConditionType($conditionCreateStruct->identifier);
+        $conditionType = $this->conditionTypeRegistry->getConditionType($conditionCreateStruct->type);
 
         $this->validate(
             $conditionCreateStruct->value,
@@ -237,7 +237,7 @@ class LayoutResolverValidator extends Validator
      */
     public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
-        $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getIdentifier());
+        $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getType());
 
         $this->validate(
             $conditionUpdateStruct->value,

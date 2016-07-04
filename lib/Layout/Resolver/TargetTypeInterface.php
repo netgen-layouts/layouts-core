@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\Layout\Resolver;
 interface TargetTypeInterface
 {
     /**
-     * Returns the target type identifier.
+     * Returns the target type.
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getType();
 
     /**
      * Returns the constraints that will be used to validate the target value.

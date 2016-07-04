@@ -79,14 +79,14 @@ class LayoutResolverMapperTest extends TestCase
             array(
                 'id' => 42,
                 'rule_id' => 1,
-                'identifier' => 'target',
+                'type' => 'target',
                 'value' => '32',
                 'status' => Rule::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'rule_id' => 2,
-                'identifier' => 'target2',
+                'type' => 'target2',
                 'value' => '42',
                 'status' => Rule::STATUS_DRAFT,
             ),
@@ -97,7 +97,7 @@ class LayoutResolverMapperTest extends TestCase
                 array(
                     'id' => 42,
                     'ruleId' => 1,
-                    'identifier' => 'target',
+                    'type' => 'target',
                     'value' => '32',
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -106,7 +106,7 @@ class LayoutResolverMapperTest extends TestCase
                 array(
                     'id' => 43,
                     'ruleId' => 2,
-                    'identifier' => 'target2',
+                    'type' => 'target2',
                     'value' => '42',
                     'status' => Rule::STATUS_DRAFT,
                 )
@@ -125,14 +125,14 @@ class LayoutResolverMapperTest extends TestCase
             array(
                 'id' => 42,
                 'rule_id' => 1,
-                'identifier' => 'condition',
+                'type' => 'condition',
                 'value' => '24',
                 'status' => Rule::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'rule_id' => 2,
-                'identifier' => 'condition2',
+                'type' => 'condition2',
                 'value' => '{"param":"value"}',
                 'status' => Rule::STATUS_DRAFT,
             ),
@@ -143,7 +143,7 @@ class LayoutResolverMapperTest extends TestCase
                 array(
                     'id' => 42,
                     'ruleId' => 1,
-                    'identifier' => 'condition',
+                    'type' => 'condition',
                     'value' => '24',
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -152,7 +152,7 @@ class LayoutResolverMapperTest extends TestCase
                 array(
                     'id' => 43,
                     'ruleId' => 2,
-                    'identifier' => 'condition2',
+                    'type' => 'condition2',
                     'value' => array(
                         'param' => 'value',
                     ),

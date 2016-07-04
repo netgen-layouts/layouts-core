@@ -14,7 +14,7 @@ class TargetTest extends TestCase
 
         self::assertNull($target->id);
         self::assertNull($target->ruleId);
-        self::assertNull($target->identifier);
+        self::assertNull($target->type);
         self::assertNull($target->value);
         self::assertNull($target->status);
     }
@@ -25,7 +25,7 @@ class TargetTest extends TestCase
             array(
                 'id' => 42,
                 'ruleId' => 30,
-                'identifier' => 'target',
+                'type' => 'target',
                 'value' => 32,
                 'status' => Rule::STATUS_PUBLISHED,
             )
@@ -33,7 +33,7 @@ class TargetTest extends TestCase
 
         self::assertEquals(42, $target->id);
         self::assertEquals(30, $target->ruleId);
-        self::assertEquals('target', $target->identifier);
+        self::assertEquals('target', $target->type);
         self::assertEquals(32, $target->value);
         self::assertEquals(Rule::STATUS_PUBLISHED, $target->status);
     }

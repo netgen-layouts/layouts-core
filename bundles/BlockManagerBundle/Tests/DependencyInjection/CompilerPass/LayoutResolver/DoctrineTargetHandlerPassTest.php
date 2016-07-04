@@ -36,7 +36,7 @@ class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
         $targetHandler->addTag(
             'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler',
             array(
-                'identifier' => 'test',
+                'target_type' => 'test',
             )
         );
         $this->setDefinition('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.test', $targetHandler);

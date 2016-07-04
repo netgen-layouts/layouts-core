@@ -74,7 +74,7 @@ abstract class LayoutResolverMapperTest extends MapperTest
                 'id' => 1,
                 'status' => APIRule::STATUS_PUBLISHED,
                 'ruleId' => 42,
-                'identifier' => 'target',
+                'type' => 'target',
                 'value' => 42,
             )
         );
@@ -85,7 +85,7 @@ abstract class LayoutResolverMapperTest extends MapperTest
         self::assertEquals(1, $target->getId());
         self::assertEquals(APIRule::STATUS_PUBLISHED, $target->getStatus());
         self::assertEquals(42, $target->getRuleId());
-        self::assertEquals('target', $target->getIdentifier());
+        self::assertEquals('target', $target->getType());
         self::assertEquals(42, $target->getValue());
     }
 
@@ -99,7 +99,7 @@ abstract class LayoutResolverMapperTest extends MapperTest
                 'id' => 1,
                 'status' => APIRule::STATUS_PUBLISHED,
                 'ruleId' => 42,
-                'identifier' => 'condition',
+                'type' => 'condition',
                 'value' => 42,
             )
         );
@@ -110,7 +110,7 @@ abstract class LayoutResolverMapperTest extends MapperTest
         self::assertEquals(1, $condition->getId());
         self::assertEquals(APIRule::STATUS_PUBLISHED, $condition->getStatus());
         self::assertEquals(42, $condition->getRuleId());
-        self::assertEquals('condition', $condition->getIdentifier());
+        self::assertEquals('condition', $condition->getType());
         self::assertEquals(42, $condition->getValue());
     }
 }

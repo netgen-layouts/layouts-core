@@ -19,37 +19,37 @@ class ConditionTypeRegistry implements ConditionTypeRegistryInterface
      */
     public function addConditionType(ConditionTypeInterface $conditionType)
     {
-        $this->conditionTypes[$conditionType->getIdentifier()] = $conditionType;
+        $this->conditionTypes[$conditionType->getType()] = $conditionType;
     }
 
     /**
      * Returns if registry has a condition type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return bool
      */
-    public function hasConditionType($identifier)
+    public function hasConditionType($type)
     {
-        return isset($this->conditionTypes[$identifier]);
+        return isset($this->conditionTypes[$type]);
     }
 
     /**
-     * Returns a condition type with provided identifier.
+     * Returns a condition type with provided type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    public function getConditionType($identifier)
+    public function getConditionType($type)
     {
-        if (!$this->hasConditionType($identifier)) {
-            throw new InvalidArgumentException('condition type', $identifier);
+        if (!$this->hasConditionType($type)) {
+            throw new InvalidArgumentException('condition type', $type);
         }
 
-        return $this->conditionTypes[$identifier];
+        return $this->conditionTypes[$type];
     }
 
     /**

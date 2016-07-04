@@ -10,7 +10,7 @@ class ConditionType implements ConditionTypeInterface
     /**
      * @var string
      */
-    protected $identifier;
+    protected $type;
 
     /**
      * @var bool
@@ -20,23 +20,23 @@ class ConditionType implements ConditionTypeInterface
     /**
      * Constructor.
      *
-     * @param string $identifier
+     * @param string $type
      * @param bool $matches
      */
-    public function __construct($identifier, $matches = true)
+    public function __construct($type, $matches = true)
     {
-        $this->identifier = $identifier;
+        $this->type = $type;
         $this->matches = $matches;
     }
 
     /**
-     * Returns the condition type identifier.
+     * Returns the condition type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
-        return $this->identifier;
+        return $this->type;
     }
 
     /**

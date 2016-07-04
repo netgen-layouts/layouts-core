@@ -215,9 +215,9 @@ class LayoutResolverTest extends TestCase
     public function testMatchRulesWithConditions(array $matches, $layoutId)
     {
         $conditions = array();
-        foreach ($matches as $conditionIdentifier => $match) {
-            $this->conditionTypeRegistry->addConditionType(new ConditionType($conditionIdentifier, $match));
-            $conditions[] = new Condition(array('identifier' => $conditionIdentifier));
+        foreach ($matches as $conditionType => $match) {
+            $this->conditionTypeRegistry->addConditionType(new ConditionType($conditionType, $match));
+            $conditions[] = new Condition(array('type' => $conditionType));
         }
 
         $rule = new Rule(

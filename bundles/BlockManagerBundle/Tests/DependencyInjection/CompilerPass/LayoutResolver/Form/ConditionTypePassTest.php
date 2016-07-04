@@ -30,7 +30,7 @@ class ConditionTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type', $formType);
 
         $mapper = new Definition();
-        $mapper->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper', array('identifier' => 'condition'));
+        $mapper->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper', array('condition_type' => 'condition'));
         $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type.mapper.test', $mapper);
 
         $this->compile();

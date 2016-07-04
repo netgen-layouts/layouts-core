@@ -11,7 +11,7 @@ class ConditionCreateStructTest extends TestCase
     {
         $conditionCreateStruct = new ConditionCreateStruct();
 
-        self::assertNull($conditionCreateStruct->identifier);
+        self::assertNull($conditionCreateStruct->type);
         self::assertNull($conditionCreateStruct->value);
     }
 
@@ -19,12 +19,12 @@ class ConditionCreateStructTest extends TestCase
     {
         $conditionCreateStruct = new ConditionCreateStruct(
             array(
-                'identifier' => 'condition',
+                'type' => 'condition',
                 'value' => 42,
             )
         );
 
-        self::assertEquals('condition', $conditionCreateStruct->identifier);
+        self::assertEquals('condition', $conditionCreateStruct->type);
         self::assertEquals(42, $conditionCreateStruct->value);
     }
 }

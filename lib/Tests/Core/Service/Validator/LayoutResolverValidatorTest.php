@@ -150,7 +150,7 @@ class LayoutResolverValidatorTest extends TestCase
 
         self::assertTrue(
             $this->layoutResolverValidator->validateConditionUpdateStruct(
-                new Condition(array('identifier' => 'condition')),
+                new Condition(array('type' => 'condition')),
                 new ConditionUpdateStruct($params)
             )
         );
@@ -195,30 +195,30 @@ class LayoutResolverValidatorTest extends TestCase
     public function validateTargetCreateStructProvider()
     {
         return array(
-            array(array('identifier' => 'target', 'value' => 42), true),
-            array(array('identifier' => 'target', 'value' => '42'), true),
-            array(array('identifier' => 'target', 'value' => array(42)), true),
-            array(array('identifier' => '', 'value' => 42), false),
-            array(array('identifier' => null, 'value' => 42), false),
-            array(array('identifier' => 42, 'value' => 42), false),
-            array(array('identifier' => 'target', 'value' => null), false),
-            array(array('identifier' => 'target', 'value' => ''), false),
-            array(array('identifier' => 'target', 'value' => array()), false),
+            array(array('type' => 'target', 'value' => 42), true),
+            array(array('type' => 'target', 'value' => '42'), true),
+            array(array('type' => 'target', 'value' => array(42)), true),
+            array(array('type' => '', 'value' => 42), false),
+            array(array('type' => null, 'value' => 42), false),
+            array(array('type' => 42, 'value' => 42), false),
+            array(array('type' => 'target', 'value' => null), false),
+            array(array('type' => 'target', 'value' => ''), false),
+            array(array('type' => 'target', 'value' => array()), false),
         );
     }
 
     public function validateConditionCreateStructProvider()
     {
         return array(
-            array(array('identifier' => 'condition', 'value' => 42), true),
-            array(array('identifier' => 'condition', 'value' => '42'), true),
-            array(array('identifier' => 'condition', 'value' => array(42)), true),
-            array(array('identifier' => '', 'value' => 42), false),
-            array(array('identifier' => null, 'value' => 42), false),
-            array(array('identifier' => 42, 'value' => 42), false),
-            array(array('identifier' => 'condition', 'value' => null), false),
-            array(array('identifier' => 'condition', 'value' => ''), false),
-            array(array('identifier' => 'condition', 'value' => array()), false),
+            array(array('type' => 'condition', 'value' => 42), true),
+            array(array('type' => 'condition', 'value' => '42'), true),
+            array(array('type' => 'condition', 'value' => array(42)), true),
+            array(array('type' => '', 'value' => 42), false),
+            array(array('type' => null, 'value' => 42), false),
+            array(array('type' => 42, 'value' => 42), false),
+            array(array('type' => 'condition', 'value' => null), false),
+            array(array('type' => 'condition', 'value' => ''), false),
+            array(array('type' => 'condition', 'value' => array()), false),
         );
     }
 

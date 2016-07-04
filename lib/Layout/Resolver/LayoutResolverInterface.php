@@ -17,12 +17,12 @@ interface LayoutResolverInterface
     public function resolveRules();
 
     /**
-     * Matches the rules based on provided target identifier and value.
+     * Matches the rules based on provided target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetIdentifier, $targetValue);
+    public function matchRules($targetType, $targetValue);
 }

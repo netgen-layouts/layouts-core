@@ -590,7 +590,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertEquals(
             new TargetCreateStruct(
                 array(
-                    'identifier' => 'target',
+                    'type' => 'target',
                     'value' => '42',
                 )
             ),
@@ -627,7 +627,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertEquals(
             new ConditionCreateStruct(
                 array(
-                    'identifier' => 'condition',
+                    'type' => 'condition',
                     'value' => '42',
                 )
             ),

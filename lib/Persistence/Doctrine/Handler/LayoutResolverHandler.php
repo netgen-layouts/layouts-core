@@ -90,16 +90,16 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     }
 
     /**
-     * Returns all rules that match specified target identifier and value.
+     * Returns all rules that match specified target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetIdentifier, $targetValue)
+    public function matchRules($targetType, $targetValue)
     {
-        $data = $this->queryHandler->matchRules($targetIdentifier, $targetValue);
+        $data = $this->queryHandler->matchRules($targetType, $targetValue);
 
         if (empty($data)) {
             return array();
@@ -304,7 +304,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     array(
                         'ruleId' => $insertedRuleId,
                         'status' => $targetDataRow['status'],
-                        'identifier' => $targetDataRow['identifier'],
+                        'type' => $targetDataRow['type'],
                         'value' => $targetDataRow['value'],
                     )
                 ),
@@ -329,7 +329,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     array(
                         'ruleId' => $insertedRuleId,
                         'status' => $conditionDataRow['status'],
-                        'identifier' => $conditionDataRow['identifier'],
+                        'type' => $conditionDataRow['type'],
                         'value' => json_decode($conditionDataRow['value'], true),
                     )
                 ),
@@ -378,7 +378,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     array(
                         'ruleId' => $targetDataRow['rule_id'],
                         'status' => $newStatus,
-                        'identifier' => $targetDataRow['identifier'],
+                        'type' => $targetDataRow['type'],
                         'value' => $targetDataRow['value'],
                     )
                 ),
@@ -393,7 +393,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     array(
                         'ruleId' => $conditionDataRow['rule_id'],
                         'status' => $newStatus,
-                        'identifier' => $conditionDataRow['identifier'],
+                        'type' => $conditionDataRow['type'],
                         'value' => json_decode($conditionDataRow['value'], true),
                     )
                 ),
@@ -452,7 +452,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 array(
                     'ruleId' => $rule->id,
                     'status' => $rule->status,
-                    'identifier' => $targetCreateStruct->identifier,
+                    'type' => $targetCreateStruct->type,
                     'value' => $targetCreateStruct->value,
                 )
             )
@@ -515,7 +515,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 array(
                     'ruleId' => $rule->id,
                     'status' => $rule->status,
-                    'identifier' => $conditionCreateStruct->identifier,
+                    'type' => $conditionCreateStruct->type,
                     'value' => $conditionCreateStruct->value,
                 )
             )

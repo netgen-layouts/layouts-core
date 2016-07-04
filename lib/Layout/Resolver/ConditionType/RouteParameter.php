@@ -12,11 +12,11 @@ class RouteParameter implements ConditionTypeInterface
     use RequestStackAwareTrait;
 
     /**
-     * Returns the condition type identifier.
+     * Returns the condition type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
         return 'route_parameter';
     }

@@ -13,7 +13,7 @@ class TargetTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
      */
     public function testSetDefaultProperties()
@@ -23,7 +23,7 @@ class TargetTest extends TestCase
         self::assertNull($target->getId());
         self::assertNull($target->getStatus());
         self::assertNull($target->getRuleId());
-        self::assertNull($target->getIdentifier());
+        self::assertNull($target->getType());
         self::assertNull($target->getValue());
     }
 
@@ -32,7 +32,7 @@ class TargetTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getStatus
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
      */
     public function testSetProperties()
@@ -42,7 +42,7 @@ class TargetTest extends TestCase
                 'id' => 42,
                 'status' => Rule::STATUS_PUBLISHED,
                 'ruleId' => 30,
-                'identifier' => 'target',
+                'type' => 'target',
                 'value' => 32,
             )
         );
@@ -50,7 +50,7 @@ class TargetTest extends TestCase
         self::assertEquals(42, $target->getId());
         self::assertEquals(Rule::STATUS_PUBLISHED, $target->getStatus());
         self::assertEquals(30, $target->getRuleId());
-        self::assertEquals('target', $target->getIdentifier());
+        self::assertEquals('target', $target->getType());
         self::assertEquals(32, $target->getValue());
     }
 }

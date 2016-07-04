@@ -64,7 +64,7 @@ class LayoutResolver implements LayoutResolverInterface
             $matchedRules = array_merge(
                 $matchedRules,
                 $this->matchRules(
-                    $targetType->getIdentifier(),
+                    $targetType->getType(),
                     $targetValue
                 )
             );
@@ -81,16 +81,16 @@ class LayoutResolver implements LayoutResolverInterface
     }
 
     /**
-     * Matches the rules based on provided target identifier and value.
+     * Matches the rules based on provided target type and value.
      *
-     * @param string $targetIdentifier
+     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function matchRules($targetIdentifier, $targetValue)
+    public function matchRules($targetType, $targetValue)
     {
-        $rules = $this->layoutResolverService->matchRules($targetIdentifier, $targetValue);
+        $rules = $this->layoutResolverService->matchRules($targetType, $targetValue);
 
         if (empty($rules)) {
             return array();
@@ -119,7 +119,7 @@ class LayoutResolver implements LayoutResolverInterface
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
-            $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getIdentifier());
+            $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getType());
             if (!$conditionType->matches($condition->getValue())) {
                 return false;
             }

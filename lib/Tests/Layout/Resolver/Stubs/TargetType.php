@@ -10,7 +10,7 @@ class TargetType implements TargetTypeInterface
     /**
      * @var string
      */
-    protected $identifier;
+    protected $type;
 
     /**
      * @var mixed
@@ -20,23 +20,23 @@ class TargetType implements TargetTypeInterface
     /**
      * Constructor.
      *
-     * @param string $identifier
+     * @param string $type
      * @param mixed $value
      */
-    public function __construct($identifier, $value)
+    public function __construct($type, $value)
     {
-        $this->identifier = $identifier;
+        $this->type = $type;
         $this->value = $value;
     }
 
     /**
-     * Returns the target type identifier.
+     * Returns the target type.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getType()
     {
-        return $this->identifier;
+        return $this->type;
     }
 
     /**

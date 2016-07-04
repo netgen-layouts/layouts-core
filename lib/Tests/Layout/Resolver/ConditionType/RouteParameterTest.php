@@ -41,11 +41,11 @@ class RouteParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getType
      */
-    public function testGetIdentifier()
+    public function testGetType()
     {
-        self::assertEquals('route_parameter', $this->conditionType->getIdentifier());
+        self::assertEquals('route_parameter', $this->conditionType->getType());
     }
 
     /**

@@ -26,12 +26,12 @@ class ConditionType extends AbstractType
      */
     public function __construct(array $mappers = array())
     {
-        foreach ($mappers as $identifier => $mapper) {
+        foreach ($mappers as $conditionType => $mapper) {
             if (!$mapper instanceof MapperInterface) {
                 throw new RuntimeException(
                     sprintf(
                         '"%s" condition type form mapper must implement FormMapperInterface interface',
-                        $identifier
+                        $conditionType
                     )
                 );
             }
@@ -64,16 +64,16 @@ class ConditionType extends AbstractType
         /** @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType */
         $conditionType = $options['conditionType'];
 
-        if (!isset($this->mappers[$conditionType->getIdentifier()])) {
+        if (!isset($this->mappers[$conditionType->getType()])) {
             throw new RuntimeException(
                 sprintf(
                     'Form mapper for "%s" condition type does not exist',
-                    $conditionType->getIdentifier()
+                    $conditionType->getType()
                 )
             );
         }
 
-        $mapper = $this->mappers[$conditionType->getIdentifier()];
+        $mapper = $this->mappers[$conditionType->getType()];
 
         $valueForm = $builder->create(
             'value',

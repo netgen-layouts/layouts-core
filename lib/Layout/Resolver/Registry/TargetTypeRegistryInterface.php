@@ -16,22 +16,22 @@ interface TargetTypeRegistryInterface
     /**
      * Returns if registry has a target type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @return bool
      */
-    public function hasTargetType($identifier);
+    public function hasTargetType($type);
 
     /**
-     * Returns a target type with provided identifier.
+     * Returns a target type with provided type.
      *
-     * @param string $identifier
+     * @param string $type
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    public function getTargetType($identifier);
+    public function getTargetType($type);
 
     /**
      * Returns all target types.

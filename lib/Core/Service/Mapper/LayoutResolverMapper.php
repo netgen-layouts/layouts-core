@@ -68,7 +68,7 @@ class LayoutResolverMapper extends Mapper
             'id' => $target->id,
             'status' => $target->status,
             'ruleId' => $target->ruleId,
-            'identifier' => $target->identifier,
+            'type' => $target->type,
             'value' => $target->value,
         );
 
@@ -90,7 +90,7 @@ class LayoutResolverMapper extends Mapper
             'id' => $condition->id,
             'status' => $condition->status,
             'ruleId' => $condition->ruleId,
-            'identifier' => $condition->identifier,
+            'type' => $condition->type,
             'value' => $condition->value,
         );
 
