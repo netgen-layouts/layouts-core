@@ -1,6 +1,4 @@
 pagelayout.title: 'Netgen Block Manager'
-pagelayout.trash: 'Trash'
-pagelayout.loading: 'Loading...'
 
 layout.block.move: 'Move block'
 layout.block.delete: 'Delete block'

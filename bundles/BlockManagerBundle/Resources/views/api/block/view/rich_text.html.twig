@@ -1,7 +1,9 @@
 {% extends 'NetgenBlockManagerBundle:api/block:view.html.twig' %}
 
+{% trans_default_domain 'ngbm_api' %}
+
 {% block inline_data %}
-    <div class="alloy-editor" contenteditable="true" data-attr="content" data-placeholder="Write here!">
+    <div class="alloy-editor" contenteditable="true" data-attr="content" data-placeholder="{{ 'block.rich_text.placeholder'|trans }}">
         {{ block.parameter('content')|raw }}
     </div>
 {% endblock %}
