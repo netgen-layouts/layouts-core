@@ -219,7 +219,7 @@ class LayoutResolverController extends Controller
     public function createTarget(RuleDraft $rule, Request $request)
     {
         $createStruct = $this->layoutResolverService->newTargetCreateStruct(
-            $request->request->get('target_type')
+            $request->request->get('type')
         );
 
         $target = $this->layoutResolverService->addTarget($rule, $createStruct);
@@ -252,7 +252,7 @@ class LayoutResolverController extends Controller
     public function createCondition(RuleDraft $rule, Request $request)
     {
         $createStruct = $this->layoutResolverService->newConditionCreateStruct(
-            $request->request->get('condition_type')
+            $request->request->get('type')
         );
 
         $condition = $this->layoutResolverService->addCondition($rule, $createStruct);
