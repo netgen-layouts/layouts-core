@@ -46,12 +46,6 @@ ngbm_api_v1_layout_resolver_rule_delete:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout_resolver:deleteRule"
 
-ngbm_api_v1_layout_resolver_target_create:
-    path: /layout_resolver/rules/{ruleId}/targets
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.layout_resolver:createTarget"
-
 ngbm_api_v1_layout_resolver_target_delete:
     path: /layout_resolver/targets/{targetId}
     methods: [DELETE]
