@@ -437,7 +437,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function enableRule(Rule $rule)
     {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_PUBLISHED);
+        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
         if ($persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already enabled.');
@@ -472,7 +472,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function disableRule(Rule $rule)
     {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_PUBLISHED);
+        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
         if (!$persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already disabled.');
