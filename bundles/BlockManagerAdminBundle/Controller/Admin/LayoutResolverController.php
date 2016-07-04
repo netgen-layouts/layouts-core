@@ -86,7 +86,7 @@ class LayoutResolverController extends Controller
             array(
                 'conditionType' => $conditionType,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_admin_layout_resolver_condition_form_create',
+                    'ngbm_admin_layout_resolver_condition_form_create',
                     array(
                         'ruleId' => $rule->getId(),
                         'identifier' => $identifier,
@@ -140,7 +140,7 @@ class LayoutResolverController extends Controller
             array(
                 'conditionType' => $conditionType,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_admin_layout_resolver_condition_form_edit',
+                    'ngbm_admin_layout_resolver_condition_form_edit',
                     array(
                         'conditionId' => $condition->getId(),
                     )
@@ -188,7 +188,7 @@ class LayoutResolverController extends Controller
             array(
                 'targetType' => $targetType,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_admin_layout_resolver_target_form_create',
+                    'ngbm_admin_layout_resolver_target_form_create',
                     array(
                         'ruleId' => $rule->getId(),
                         'identifier' => $identifier,
@@ -242,7 +242,7 @@ class LayoutResolverController extends Controller
             array(
                 'targetType' => $targetType,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_admin_layout_resolver_target_form_edit',
+                    'ngbm_admin_layout_resolver_target_form_edit',
                     array(
                         'targetId' => $target->getId(),
                     )

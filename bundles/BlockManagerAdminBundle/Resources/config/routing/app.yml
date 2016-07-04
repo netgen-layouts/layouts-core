@@ -3,25 +3,25 @@ ngbm_app:
     defaults:
         _controller: "netgen_block_manager.controller.app.index:index"
 
-netgen_block_manager_app_block_edit:
+ngbm_app_block_edit:
     path: /blocks/{blockId}/edit
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:edit"
 
-netgen_block_manager_app_layout_form_create:
+ngbm_app_layout_form_create:
     path: /layouts/form/create
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.layout:layoutCreateForm"
 
-netgen_block_manager_app_block_form_edit:
+ngbm_app_block_form_edit:
     path: /blocks/{blockId}/form/edit/{formName}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:editForm"
 
-netgen_block_manager_app_collection_query_form_edit:
+ngbm_app_collection_query_form_edit:
     path: /collections/queries/{queryId}/form/edit/{formName}
     methods: [GET, POST]
     defaults:

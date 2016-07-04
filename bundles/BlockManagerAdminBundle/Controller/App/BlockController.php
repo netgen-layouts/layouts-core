@@ -103,7 +103,7 @@ class BlockController extends Controller
             array(
                 'blockDefinition' => $blockDefinition,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_app_block_form_edit',
+                    'ngbm_app_block_form_edit',
                     array(
                         'blockId' => $block->getId(),
                         'formName' => $formName,

@@ -46,7 +46,7 @@ class LayoutController extends Controller
             $createStruct,
             array(
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_app_layout_form_create'
+                    'ngbm_app_layout_form_create'
                 ),
             )
         );

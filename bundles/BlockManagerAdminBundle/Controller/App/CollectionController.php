@@ -56,7 +56,7 @@ class CollectionController extends Controller
             array(
                 'queryType' => $queryType,
                 'action' => $this->generateUrl(
-                    'netgen_block_manager_app_collection_query_form_edit',
+                    'ngbm_app_collection_query_form_edit',
                     array(
                         'queryId' => $query->getId(),
                         'formName' => $formName,
