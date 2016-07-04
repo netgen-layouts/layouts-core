@@ -7,4 +7,11 @@ layout_resolver.target.request_uri_prefix: 'Request URI prefix'
 layout_resolver.target.route: 'Route'
 layout_resolver.target.route_prefix: 'Route prefix'
 
+layout_resolver.target.path_info.header: 'Applied to path info:'
+layout_resolver.target.path_info_prefix.header: 'Applied to path info prefix:'
+layout_resolver.target.request_uri.header: 'Applied to request URI:'
+layout_resolver.target.request_uri_prefix.header: 'Applied to request URI prefix:'
+layout_resolver.target.route.header: 'Applied to route:'
+layout_resolver.target.route_prefix.header: 'Applied to route prefix:'
+
 layout_resolver.condition.route_parameter: 'Route parameter'

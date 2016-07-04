@@ -1,7 +1,14 @@
-{{ condition.type }}:
+{% trans_default_domain 'ngbm_admin' %}
+
+{{ ('layout_resolver.condition.' ~ condition.type)|trans }}:
 
 {% if condition.value is iterable %}
     {% for key, value in condition.value %}
         {{ key }}: {{ value|join(', ') }}
     {% endfor %}
 {% endif %}
+
+<span class="pull-right">
+    <a href="#" class="card-button">edit</a>
+    <a href="#" class="remove-setting"><i class="fa fa-remove"></i></a>
+</span>

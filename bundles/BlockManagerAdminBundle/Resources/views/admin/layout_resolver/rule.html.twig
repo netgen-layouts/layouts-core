@@ -66,15 +66,14 @@
     <div class="details clearfix">
 
         <div class="pull-left half-block">
-            Targets:
+            {% if rule.targets|length > 0 %}
+                <p>{{ ('layout_resolver.target.' ~ rule.targets[0].type ~ '.header')|trans }}</p>
+            {% endif %}
 
             <ul class="card-list target-list">
                 {% for target in rule.targets %}
                     <li>
                         {{ ngbm_render_rule_target(target) }}
-                        <span class="pull-right">
-                            <a href="#" class="remove-setting"><i class="fa fa-remove"></i></a>
-                        </span>
                     </li>
                 {% else %}
                     There are no targets
@@ -95,16 +94,12 @@
         </div>
 
         <div class="pull-right half-block">
-            Conditions:
+            <p>Conditions:</p>
 
             <ul class="card-list condition-list">
                 {% for condition in rule.conditions %}
                     <li>
                         {{ ngbm_render_rule_condition(condition) }}
-                        <span class="pull-right">
-                            <a href="#" class="card-button">edit</a>
-                            <a href="#" class="remove-setting"><i class="fa fa-remove"></i></a>
-                        </span>
                     </li>
                 {% else %}
                     There are no applied conditions
