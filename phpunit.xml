@@ -18,6 +18,9 @@
         <testsuite name="Netgen\BlockManager">
             <directory>lib/Tests</directory>
         </testsuite>
+        <testsuite name="Netgen\BlockManager\Ez">
+            <directory>ezlib/Tests</directory>
+        </testsuite>
         <testsuite name="Netgen\Bundle\BlockManagerBundle">
             <directory>bundles/BlockManagerBundle/Tests</directory>
             <exclude>bundles/BlockManagerBundle/Tests/Controller</exclude>
@@ -30,11 +33,13 @@
     <filter>
         <whitelist>
             <directory suffix=".php">lib</directory>
+            <directory suffix=".php">ezlib</directory>
             <directory suffix=".php">bundles/BlockManagerBundle</directory>
             <directory suffix=".php">bundles/EzPublishBlockManagerBundle</directory>
             <exclude>
                 <directory>lib/Tests</directory>
                 <directory>lib/Migrations</directory>
+                <directory>ezlib/Tests</directory>
                 <directory>bundles/*Bundle/Controller</directory>
                 <directory>bundles/*Bundle/Tests</directory>
                 <directory>bundles/*Bundle/Resources</directory>

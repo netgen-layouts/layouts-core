@@ -30,6 +30,7 @@
     "autoload": {
         "psr-4": {
             "Netgen\\BlockManager\\": "lib/",
+            "Netgen\\BlockManager\\Ez\\": "ezlib/",
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
             "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/",
             "Netgen\\Bundle\\EzPublishBlockManagerBundle\\": "bundles/EzPublishBlockManagerBundle/"
