@@ -49,14 +49,30 @@ class LayoutController extends Controller
     }
 
     /**
-     * Loads a layout.
+     * Loads either the draft status or published status of specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param int $layoutId
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function view(LayoutDraft $layout)
+    public function load($layoutId)
     {
+        $layout = null;
+
+        try {
+            $layout = $this->layoutService->loadLayoutDraft(
+                $layoutId
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        if (!$layout instanceof Layout) {
+            $layout = $this->layoutService->loadLayout(
+                $layoutId
+            );
+        }
+
         return new View($layout, Version::API_V1);
     }
 

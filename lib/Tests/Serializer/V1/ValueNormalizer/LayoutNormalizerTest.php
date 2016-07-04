@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
@@ -20,6 +21,11 @@ class LayoutNormalizerTest extends TestCase
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutServiceMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer
@@ -42,7 +48,12 @@ class LayoutNormalizerTest extends TestCase
 
         $this->layoutTypeRegistry->addLayoutType($layoutType);
 
-        $this->normalizer = new LayoutNormalizer($this->layoutTypeRegistry);
+        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+
+        $this->normalizer = new LayoutNormalizer(
+            $this->layoutTypeRegistry,
+            $this->layoutServiceMock
+        );
     }
 
     /**
@@ -65,6 +76,7 @@ class LayoutNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'type' => '4_zones_a',
+                'status' => Layout::STATUS_DRAFT,
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'zones' => array(
@@ -84,10 +96,18 @@ class LayoutNormalizerTest extends TestCase
             )
         );
 
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('isPublished')
+            ->with($this->equalTo($layout))
+            ->will($this->returnValue(true));
+
         self::assertEquals(
             array(
                 'id' => $layout->getId(),
                 'type' => $layout->getType(),
+                'published' => false,
+                'has_published_state' => true,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
                 'name' => $layout->getName(),

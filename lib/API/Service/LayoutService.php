@@ -32,6 +32,15 @@ interface LayoutService
     public function loadLayoutDraft($layoutId);
 
     /**
+     * Returns if provided layout has a published status.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return bool
+     */
+    public function isPublished(Layout $layout);
+
+    /**
      * Loads a zone with specified identifier.
      *
      * @param int|string $layoutId

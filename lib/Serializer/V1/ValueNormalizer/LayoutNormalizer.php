@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
@@ -18,13 +19,20 @@ class LayoutNormalizer implements NormalizerInterface
     protected $layoutTypeRegistry;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      */
-    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry, LayoutService $layoutService)
     {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
+        $this->layoutService = $layoutService;
     }
 
     /**
@@ -44,6 +52,10 @@ class LayoutNormalizer implements NormalizerInterface
         return array(
             'id' => $layout->getId(),
             'type' => $layout->getType(),
+            'published' => $layout->getStatus() === Layout::STATUS_PUBLISHED ?
+                true :
+                false,
+            'has_published_state' => $this->layoutService->isPublished($layout),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'name' => $layout->getName(),
