@@ -169,55 +169,6 @@ class LayoutResolverController extends Controller
     }
 
     /**
-     * Displays the target create form.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
-     * @param string $identifier
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function targetCreateForm(RuleDraft $rule, $identifier, Request $request)
-    {
-        $targetType = $this->targetTypeRegistry->getTargetType($identifier);
-        $createStruct = $this->layoutResolverService->newTargetCreateStruct($identifier);
-
-        $form = $this->createForm(
-            TargetType::class,
-            $createStruct,
-            array(
-                'targetType' => $targetType,
-                'action' => $this->generateUrl(
-                    'ngbm_admin_layout_resolver_target_form_create',
-                    array(
-                        'ruleId' => $rule->getId(),
-                        'identifier' => $identifier,
-                    )
-                ),
-            )
-        );
-
-        $form->handleRequest($request);
-
-        if ($request->getMethod() !== Request::METHOD_POST) {
-            return $this->buildView($form);
-        }
-
-        if ($form->isValid()) {
-            $this->layoutResolverService->addTarget($rule, $createStruct);
-
-            return new Response(null, Response::HTTP_CREATED);
-        }
-
-        return $this->buildView(
-            $form,
-            array(),
-            ViewInterface::CONTEXT_VIEW,
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
-        );
-    }
-
-    /**
      * Displays the target edit form.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target

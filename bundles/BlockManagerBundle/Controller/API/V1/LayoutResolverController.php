@@ -209,6 +209,25 @@ class LayoutResolverController extends Controller
     }
 
     /**
+     * Creates a new target.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function createTarget(RuleDraft $rule, Request $request)
+    {
+        $createStruct = $this->layoutResolverService->newTargetCreateStruct(
+            $request->request->get('target_type')
+        );
+
+        $target = $this->layoutResolverService->addTarget($rule, $createStruct);
+
+        return new View($target, Version::API_V1);
+    }
+
+    /**
      * Deletes a rule target.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
