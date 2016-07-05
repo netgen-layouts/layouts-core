@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Validator\Constraints;
 
 abstract class EditType extends AbstractType
 {
@@ -27,6 +28,11 @@ abstract class EditType extends AbstractType
      * @var array
      */
     protected $itemViewTypes = array();
+
+    /**
+     * @var array
+     */
+    protected $viewTypesByItemViewType = array();
 
     /**
      * Configures the options for this type.
@@ -71,10 +77,25 @@ abstract class EditType extends AbstractType
                 ChoiceType::class,
                 array(
                     'label' => 'block.item_view_type',
-                    'choices' => isset($this->itemViewTypes[$viewType]) ?
-                        array_flip($this->itemViewTypes[$viewType]) :
-                        array(),
+                    'choices' => array_flip(call_user_func_array('array_merge', $this->itemViewTypes)),
+                    'choice_attr' => function ($value, $key, $index) {
+                        return array(
+                            'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
+                        );
+                    },
                     'choices_as_values' => true,
+                    'constraints' => array(
+                        new Constraints\NotBlank(),
+                        new Constraints\Choice(
+                            array(
+                                'choices' => isset($this->itemViewTypes[$viewType]) ?
+                                    array_flip($this->itemViewTypes[$viewType]) :
+                                    array(),
+                                'multiple' => false,
+                                'strict' => true,
+                            )
+                        )
+                    ),
                     'property_path' => 'itemViewType',
                 )
             );
@@ -82,7 +103,7 @@ abstract class EditType extends AbstractType
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($itemViewTypeBuilder) {
+            function (FormEvent $event) use ($builder, $itemViewTypeBuilder) {
                 $itemViewTypeBuilder($event->getForm(), $event->getData()->viewType);
             }
         );
@@ -159,6 +180,7 @@ abstract class EditType extends AbstractType
 
             foreach ($viewType->getItemViewTypes() as $itemViewType) {
                 $this->itemViewTypes[$viewType->getIdentifier()][$itemViewType->getIdentifier()] = $itemViewType->getName();
+                $this->viewTypesByItemViewType[$itemViewType->getIdentifier()][] = $viewType->getIdentifier();
             }
         }
     }

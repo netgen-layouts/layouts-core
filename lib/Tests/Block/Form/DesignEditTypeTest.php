@@ -128,49 +128,6 @@ class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::buildViewTypes
-     */
-    public function testBuildView()
-    {
-        $form = $this->factory->create(
-            DesignEditType::class,
-            new BlockUpdateStruct(),
-            array('blockDefinition' => $this->blockDefinition)
-        );
-
-        $form->submit(array());
-
-        $this->assertTrue($form->isSynchronized());
-
-        $view = $form->createView();
-
-        self::assertArrayHasKey('view_types', $view->vars);
-        self::assertArrayHasKey('item_view_types', $view->vars);
-
-        self::assertEquals(
-            array(
-                'large' => 'Large',
-                'small' => 'Small',
-            ),
-            $view->vars['view_types']
-        );
-
-        self::assertEquals(
-            array(
-                'large' => array(
-                    'standard' => 'Standard',
-                    'other' => 'Other',
-                ),
-                'small' => array(
-                    'standard' => 'Standard',
-                ),
-            ),
-            $view->vars['item_view_types']
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      */
     public function testConfigureOptions()

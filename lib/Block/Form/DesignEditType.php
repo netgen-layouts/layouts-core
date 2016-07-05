@@ -28,23 +28,6 @@ class DesignEditType extends EditType
     }
 
     /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        parent::buildView($view, $form, $options);
-
-        $view->vars = array(
-            'view_types' => $this->viewTypes,
-            'item_view_types' => $this->itemViewTypes,
-        ) + $view->vars;
-    }
-
-    /**
      * Returns the prefix of the template block name for this type.
      *
      * The block prefixes default to the underscored short class name with
