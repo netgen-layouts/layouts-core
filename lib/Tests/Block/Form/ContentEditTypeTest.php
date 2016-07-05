@@ -194,12 +194,4 @@ class ContentEditTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Form\ContentEditType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('block_content_edit', $this->formType->getBlockPrefix());
-    }
 }

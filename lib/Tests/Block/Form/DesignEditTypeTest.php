@@ -198,12 +198,4 @@ class DesignEditTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('block_design_edit', $this->formType->getBlockPrefix());
-    }
 }

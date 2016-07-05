@@ -83,17 +83,4 @@ class CreateType extends AbstractType
             )
         );
     }
-
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefixes default to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
-    public function getBlockPrefix()
-    {
-        return 'layout_create';
-    }
 }

@@ -124,12 +124,4 @@ class ConditionTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('ngbm_condition_type', $this->formType->getBlockPrefix());
-    }
 }

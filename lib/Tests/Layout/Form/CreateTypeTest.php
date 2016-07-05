@@ -91,12 +91,4 @@ class CreateTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('layout_create', $this->formType->getBlockPrefix());
-    }
 }

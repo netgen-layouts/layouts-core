@@ -199,12 +199,4 @@ class FullEditTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Form\FullEditType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('block_full_edit', $this->formType->getBlockPrefix());
-    }
 }

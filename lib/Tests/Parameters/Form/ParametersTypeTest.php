@@ -158,12 +158,4 @@ class ParametersTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('ngbm_parameters', $this->formType->getBlockPrefix());
-    }
 }

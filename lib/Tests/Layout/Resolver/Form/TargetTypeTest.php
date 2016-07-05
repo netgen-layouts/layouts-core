@@ -124,12 +124,4 @@ class TargetTypeTest extends FormTestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::getBlockPrefix
-     */
-    public function testGetBlockPrefix()
-    {
-        self::assertEquals('ngbm_target_type', $this->formType->getBlockPrefix());
-    }
 }
