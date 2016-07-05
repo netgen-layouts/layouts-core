@@ -256,10 +256,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
             )
         );
 
-        if ($ruleUpdateStruct->layoutId === 0) {
-            $this->queryHandler->updateRuleData($rule->id, false);
-        }
-
         return $this->loadRule($rule->id, $rule->status);
     }
 
@@ -492,12 +488,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function deleteTarget(Target $target)
     {
         $this->queryHandler->deleteTarget($target->id, $target->status);
-
-        $rule = $this->loadRule($target->ruleId, $target->status);
-
-        if ($this->getTargetCount($rule) === 0) {
-            $this->queryHandler->updateRuleData($rule->id, false);
-        }
     }
 
     /**

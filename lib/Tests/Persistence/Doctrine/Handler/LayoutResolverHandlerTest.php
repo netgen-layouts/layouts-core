@@ -290,7 +290,6 @@ class LayoutResolverHandlerTest extends TestCase
         self::assertEquals(5, $updatedRule->priority);
         self::assertEquals('New comment', $updatedRule->comment);
         self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
-        self::assertTrue($updatedRule->enabled);
     }
 
     /**
@@ -315,7 +314,6 @@ class LayoutResolverHandlerTest extends TestCase
         self::assertEquals(5, $updatedRule->priority);
         self::assertEquals('New comment', $updatedRule->comment);
         self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
-        self::assertTrue($updatedRule->enabled);
     }
 
     /**
@@ -341,7 +339,6 @@ class LayoutResolverHandlerTest extends TestCase
         self::assertEquals(5, $updatedRule->priority);
         self::assertEquals('New comment', $updatedRule->comment);
         self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
-        self::assertFalse($updatedRule->enabled);
     }
 
     /**
@@ -603,6 +600,7 @@ class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteTarget()
     {
@@ -610,38 +608,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         $this->handler->deleteTarget($target);
 
-        try {
-            $this->handler->loadTarget(2, Rule::STATUS_PUBLISHED);
-
-            self::fail('Target still exists after deleting.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $rule = $this->handler->loadRule($target->ruleId, $target->status);
-        self::assertTrue($rule->enabled);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
-     */
-    public function testDeleteLastTarget()
-    {
-        $target = $this->handler->loadTarget(23, Rule::STATUS_DRAFT);
-
-        $this->handler->deleteTarget($target);
-
-        try {
-            $this->handler->loadTarget(23, Rule::STATUS_DRAFT);
-
-            self::fail('Target still exists after deleting.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $rule = $this->handler->loadRule($target->ruleId, $target->status);
-        self::assertFalse($rule->enabled);
+        $this->handler->loadTarget(2, Rule::STATUS_PUBLISHED);
     }
 
     /**

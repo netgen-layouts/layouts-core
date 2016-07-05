@@ -395,6 +395,10 @@ class LayoutResolverService implements APILayoutResolverService
 
             $publishedRule = $this->handler->createRuleStatus($persistenceRule, Rule::STATUS_PUBLISHED);
             $this->handler->deleteRule($persistenceRule->id, Rule::STATUS_DRAFT);
+
+            if ($publishedRule->layoutId === null || $this->handler->getTargetCount($publishedRule) === 0) {
+                $this->handler->disableRule($publishedRule);
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -402,7 +406,9 @@ class LayoutResolverService implements APILayoutResolverService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapRule($publishedRule);
+        return $this->mapper->mapRule(
+            $this->handler->loadRule($rule->getId(), Rule::STATUS_PUBLISHED)
+        );
     }
 
     /**
@@ -437,7 +443,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function enableRule(Rule $rule)
     {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
+        $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_PUBLISHED);
 
         if ($persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already enabled.');
@@ -472,7 +478,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function disableRule(Rule $rule)
     {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
+        $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_PUBLISHED);
 
         if (!$persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already disabled.');
