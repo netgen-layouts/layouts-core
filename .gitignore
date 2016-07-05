@@ -1,7 +1,7 @@
 .idea/
 coverage/
-vendor/
 node_modules/
+/vendor/
 composer.phar
 composer.lock
 phpunit.phar
