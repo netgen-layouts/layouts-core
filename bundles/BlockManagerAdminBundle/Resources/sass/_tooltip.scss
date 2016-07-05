@@ -1,0 +1,97 @@
+.lr-tooltip {
+    display:none;
+    position:fixed;
+    width:300px;
+    z-index:1010;
+    .lr-tooltip-inner {
+        background:hsla(0, 0, 20, 0.9);
+        color:#fff;
+        text-align:center;
+        font-size:0.625rem;
+        padding:0.5em 1em;
+        font-weight:200;
+        position:absolute;
+        border-radius:2px;
+        &::before {
+            content:"";
+            width:0;
+            height:0;
+            position:absolute;
+            display:block;
+        }
+    }
+    &.lr-tooltip-top,
+    &.lr-tooltip-bottom {
+        .lr-tooltip-inner {
+            left:0;
+            transform:translateX(-50%);
+            &::before {
+                left:50%;
+                transform:translateX(-50%);
+                border-left:4px solid transparent;
+                border-right:4px solid transparent;
+            }
+        }
+    }
+    &.lr-tooltip-top {
+        .lr-tooltip-inner {
+            bottom:10px;
+            &::before {
+                top:100%;
+                border-top:6px solid hsla(0, 0, 20, 0.9);
+            }
+        }
+    }
+    &.lr-tooltip-bottom {
+        .lr-tooltip-inner {
+            top:10px;
+            &::before {
+                bottom:100%;
+                border-bottom:6px solid hsla(0, 0, 20, 0.9);
+            }
+        }
+    }
+    &.lr-tooltip-left,
+    &.lr-tooltip-right {
+        .lr-tooltip-inner {
+            top:0;
+            transform:translateY(-50%);
+            &::before {
+                top:50%;
+                transform:translateY(-50%);
+                border-top:4px solid transparent;
+                border-bottom:4px solid transparent;
+            }
+        }
+    }
+    &.lr-tooltip-left {
+        .lr-tooltip-inner {
+            right:10px;
+            &::before {
+                left:100%;
+                border-left:6px solid hsla(0, 0, 20, 0.9);
+            }
+        }
+    }
+    &.lr-tooltip-right {
+        .lr-tooltip-inner {
+            left:10px;
+            &::before {
+                right:100%;
+                border-right:6px solid hsla(0, 0, 20, 0.9);
+            }
+        }
+    }
+    &.lr-tooltip-active {
+        display:block;
+        animation:showTT 200ms ease-out;
+    }
+}
+@keyframes showTT {
+    from {
+        opacity:0;
+    }
+    top {
+        opacity:1;
+    }
+}

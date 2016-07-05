@@ -1,0 +1,31 @@
+html,
+body {
+    font-family:$baseFont;
+    font-size:100%;
+    line-height:1.5;
+    color:$textColor;
+}
+
+body {
+    padding:0.625em 0 4em;
+    background-color:$bgColor;
+}
+
+* {
+    box-sizing:border-box;
+}
+
+.container {
+    margin:0 auto;
+    max-width:820px;
+    width:98%;
+}
+
+a {
+    color:$linkColor;
+}
+
+h1 {
+    font-size:1.625em;
+    margin:1em 0 3em;
+}

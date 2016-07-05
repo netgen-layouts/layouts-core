@@ -1,4 +1,5 @@
 .idea/
+.tmp/
 coverage/
 node_modules/
 /vendor/

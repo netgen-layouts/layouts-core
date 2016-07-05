@@ -1,0 +1,56 @@
+//colors
+$textColor: hsl(0, 0, 13);
+$bgColor: hsl(240, 20, 98);
+$panelBg: hsl(0, 0, 100);
+$panelLightColor: hsl(218, 19, 75);
+$linkColor: hsl(199, 98, 48);
+
+//values
+$gutter: 15px;
+$panelFontSize: 0.8125rem;
+$btnHeight: 36px;
+
+$baseFont: 'Roboto', Helvetica, Arial, sans-serif;
+
+%clearfix {
+    &::after {
+        display:table;
+        clear:both;
+        content:"";
+    }
+}
+
+%material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+//responsive breakpoints
+$break-lg:1200px;
+$break-md:992px;
+$break-sm:768px;
+$break-xs:480px;
+
+
+%fadeIn {
+    animation:fadeIn 350ms ease-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    top {
+        opacity:1;
+    }
+}

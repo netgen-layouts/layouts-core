@@ -8,8 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
     <title>{{ 'pagelayout.title'|trans }}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/netgencontentbrowserui/css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/netgencontentbrowserui/css/vendor.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/netgenblockmanageradmin/css/style.css') }}">
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('bundles/netgenblockmanageradmin/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('bundles/netgencontentbrowserui/js/main.js') }}"></script>
+        <script src="{{ asset('bundles/netgenblockmanageradmin/js/app.js') }}"></script>
+    {% endblock %}
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>

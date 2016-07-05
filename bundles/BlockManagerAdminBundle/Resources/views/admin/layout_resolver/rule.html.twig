@@ -1,129 +1,131 @@
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="card card-content card-style clearfix">
+<div class="lr-panel">
 
-    <div layout="" horizontal="" center="" class="card-heading clearfix">
+    <div class="lr-panel-head">
 
-        <div class="iconImage">
-            <i class="material-icons" role="presentation">select_all</i>
-        </div>
-
-        {% if rule.layoutId > 0 %}
-            <span class="layout-name" class="" title="Expand Less">
-                <a href="{{ path('ngbm_app') }}#layout/{{ rule.layoutId }}">{{ ngbm_layout_name(rule.layoutId) }}</a>
-            </span>
-        {% else %}
-            <span class="layout-name" class="" title="Expand Less">
-                <a href="#">No linked layout</a>
-            </span>
-
-            <div class="separator"></div>
-
-            <div id="link-q1SxtGK3GU" class="heading-action">
-                <i class="material-icons" role="presentation">link</i> Link
+        <div class="panel-head-title">
+            <div class="panel-icon">
+                <i class="material-icons" role="presentation">select_all</i>
             </div>
-        {% endif %}
 
-        <div class="section-spacer"></div>
+            {% set layout_name = null %}
 
-        <!-- Right aligned menu below button -->
-        <button id="demo-menu-lower-right-iAqejiRr0O" class="mdl-button mdl-js-button mdl-button--icon">
-            <i class="material-icons">more_vert</i>
-        </button>
+            {% if rule.layoutId > 0 %}
+                {% set layout_name = ngbm_layout_name(rule.layoutId) %}
+            {% endif %}
 
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right-iAqejiRr0O">
-            <li disabled class="mdl-menu__item">Unlink layout</li>
-            <li class="mdl-menu__item">Link other layout</li>
-            <li class="mdl-menu__item">Deactivate mapping</li>
-        </ul>
+            {% if layout_name != null %}
+                <div class="panel-name" title="{{ layout_name }}">
+                    <a target="_blank" href="{{ path('ngbm_app') }}#layout/{{ rule.layoutId }}">{{ layout_name }}</a>
+                </div>
+            {% else %}
+                <div class="panel-name" title="{{ 'layout_resolver.rules.no_linked_layout'|trans }}">
+                    <span>{{ 'layout_resolver.rules.no_linked_layout'|trans }}</span>
+                    <div class="panel-link-action">
+                        <i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rules.no_linked_layout.link'|trans }}
+                    </div>
+                </div>
+            {% endif %}
 
-        <div class="separator"></div>
+            <!-- Right aligned menu below button -->
+            <div class="lr-dropdown" data-position="right">
+                <button class="lr-btn lr-btn-icon lr-dropdown-toggle">
+                    <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="lr-dropdown-menu">
+                    <li><a href="#" {% if layout_name == null %} disabled {% endif %}>{{ 'layout_resolver.rules.unlink_layout'|trans }}</a></li>
 
-        <div id="tt3-iAqejiRr0O" class="meta_info">
-            <i class="material-icons" role="presentation">settings_system_daydream</i>
-            <span class="target-counter">{{ rule.targets|length }}</span>
+                    {% if layout_name != null %}
+                        <li><a href="#">{{ 'layout_resolver.rules.link_other_layout'|trans }}</a></li>
+                    {% else %}
+                        <li><a href="#">{{ 'layout_resolver.rules.link_layout'|trans }}</a></li>
+                    {% endif %}
+
+                    {% if rule.enabled %}
+                        <li><a href="#">{{ 'layout_resolver.rules.disable_rule'|trans }}</a></li>
+                    {% else %}
+                        <li><a href="#">{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
         </div>
 
-        <div class="mdl-tooltip" for="tt3-iAqejiRr0O">
-            Number of targets defined in this mapping
-        </div>
+        <div class="panel-head-info">
 
-        <div id="tt4-iAqejiRr0O" class="meta_info">
-            <i class="material-icons" role="presentation">done_all</i>
-            <span class="condition-counter">{{ rule.conditions|length }}</span>
-        </div>
+            <div class="meta-info lr-tt" title="{{ 'layout_resolver.rules.number_of_targets'|trans }}">
+                <i class="material-icons" role="presentation">settings_system_daydream</i> <span class="meta-badge js-target-counter">{{ rule.targets|length }}</span>
+            </div>
 
-        <div class="mdl-tooltip" for="tt4-iAqejiRr0O">
-            Number of conditions applied in this mapping
-        </div>
+            <div class="meta-info lr-tt" title="{{ 'layout_resolver.rules.number_of_conditions'|trans }}">
+                <i class="material-icons" role="presentation">done_all</i> <span class="meta-badge js-condition-counter">{{ rule.conditions|length }}</span>
+            </div>
 
-        <div class="panel-control">
-            <i class="material-icons panel-expand" role="presentation">expand_more</i>
+            <a class="panel-toggle js-panel-toggle"></a>
         </div>
 
     </div>
 
-    <div class="details clearfix">
+    <div class="lr-panel-body">
 
-        <div class="pull-left half-block">
-            {% if rule.targets|length > 0 %}
-                <p>{{ ('layout_resolver.target.' ~ rule.targets[0].type ~ '.header')|trans }}</p>
-            {% endif %}
+        <div class="lr-grid">
+            <div class="col-xs6">
+                {% if rule.targets|length > 0 %}
+                    <p>{{ ('layout_resolver.rules.target_header.' ~ rule.targets[0].type)|trans }}:</p>
 
-            <ul class="card-list target-list">
-                {% for target in rule.targets %}
-                    <li>
-                        {{ ngbm_render_rule_target(target) }}
-                    </li>
-                {% else %}
-                    There are no targets
-                {% endfor %}
-            </ul>
-
-            {% if target_types|length > 0 %}
-                {% if rule.targets|length == 0 %}
-                    <select>
-                        {% for target_type in target_types %}
-                            <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
+                    <ul class="settings-list target-list">
+                        {% for target in rule.targets %}
+                            <li>{{ ngbm_render_rule_target(target) }}</li>
                         {% endfor %}
-                    </select>
+                    </ul>
+                {% else %}
+                    <p>{{ 'layout_resolver.rules.no_targets'|trans }}</p>
                 {% endif %}
 
-                <a href="#" class="mdl-button">Add target</a>
-            {% endif %}
-        </div>
+                {% if target_types|length > 0 %}
+                    {% if rule.targets|length == 0 %}
+                        <select class="lr-select">
+                            {% for target_type in target_types %}
+                                <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
 
-        <div class="pull-right half-block">
-            <p>Conditions:</p>
+                    <a href="#" class="lr-btn lr-btn-link"><i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}</a>
+                {% endif %}
+            </div>
 
-            <ul class="card-list condition-list">
-                {% for condition in rule.conditions %}
-                    <li>
-                        {{ ngbm_render_rule_condition(condition) }}
-                    </li>
+            <div class="col-xs6">
+                {% if rule.conditions|length > 0 %}
+                    <p>{{ 'layout_resolver.rules.conditions'|trans }}:</p>
+
+                    <ul class="settings-list condition-list">
+                        {% for condition in rule.conditions %}
+                            <li>{{ ngbm_render_rule_condition(condition) }}</li>
+                        {% endfor %}
+                    </ul>
                 {% else %}
-                    There are no applied conditions
-                {% endfor %}
-            </ul>
+                    <p>{{ 'layout_resolver.rules.no_conditions'|trans }}</p>
+                {% endif %}
 
-            {% if condition_types|length > 0 %}
-                <select>
-                    {% for condition_type in condition_types %}
-                        <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
-                    {% endfor %}
-                </select>
+                {% if condition_types|length > 0 %}
+                    <select class="lr-select">
+                        {% for condition_type in condition_types %}
+                            <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
+                        {% endfor %}
+                    </select>
 
-                <a href="#" class="mdl-button">Add new condition</a>
-            {% endif %}
+                    <a href="#" class="lr-btn lr-btn-link">{{ 'layout_resolver.rules.add_condition'|trans }}</a>
+                {% endif %}
+            </div>
         </div>
 
     </div>
 
-    <div class="actions-container">
-        <div class="actions">
-            <a href="#" class="mdl-button">Cancel</a>
-            <a href="#" class="mdl-button mdl-button--primary">Save changes</a>
-        </div>
+    <div class="lr-panel-actions">
+        <a href="#" class="lr-btn">{{ 'layout_resolver.rules.cancel'|trans }}</a>
+        <a href="#" class="lr-btn lr-btn-primary">{{ 'layout_resolver.rules.save_changes'|trans }}</a>
     </div>
 
 </div>

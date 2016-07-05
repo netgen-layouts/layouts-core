@@ -6,8 +6,10 @@
     {% for rule in rules %}
         {% include 'NetgenBlockManagerAdminBundle:admin/layout_resolver:rule.html.twig' %}
     {% else %}
-        There are no rules defined
+        <p>{{ 'layout_resolver.rules.no_rules'|trans }}</p>
     {% endfor %}
 
-    <a href="#" id="add-new-button" class="mdl-button mdl-button--primary">Add new mapping</a>
+    <a href="#" id="add-new-button" class="lr-btn lr-btn-primary">
+        <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_new_rule'|trans }}
+    </a>
 {% endblock %}
