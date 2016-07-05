@@ -312,6 +312,7 @@ class LayoutService implements LayoutServiceInterface
         try {
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Layout::STATUS_DRAFT);
             $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout, Layout::STATUS_DRAFT);
+            $layoutDraft = $this->layoutHandler->updateModified($layoutDraft, time());
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

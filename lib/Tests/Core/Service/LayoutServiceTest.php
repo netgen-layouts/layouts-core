@@ -243,10 +243,10 @@ abstract class LayoutServiceTest extends ServiceTest
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
 
-        $layout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
+        $updatedLayout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
 
-        self::assertInstanceOf(LayoutDraft::class, $layout);
-        self::assertEquals('New name', $layout->getName());
+        self::assertInstanceOf(LayoutDraft::class, $updatedLayout);
+        self::assertEquals('New name', $updatedLayout->getName());
     }
 
     /**
@@ -288,6 +288,7 @@ abstract class LayoutServiceTest extends ServiceTest
         $draftLayout = $this->layoutService->createDraft($layout);
 
         self::assertInstanceOf(LayoutDraft::class, $draftLayout);
+        self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
     }
 
     /**

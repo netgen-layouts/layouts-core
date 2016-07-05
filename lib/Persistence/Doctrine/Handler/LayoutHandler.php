@@ -218,6 +218,21 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Updates layout modified timestamp.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param int $timestamp
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     */
+    public function updateModified(Layout $layout, $timestamp)
+    {
+        $this->queryHandler->updateModified($layout->id, $layout->status, $timestamp);
+
+        return $this->loadLayout($layout->id, $layout->status);
+    }
+
+    /**
      * Copies a layout with specified ID.
      *
      * @param int|string $layoutId

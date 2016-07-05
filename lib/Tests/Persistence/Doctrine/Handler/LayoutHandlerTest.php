@@ -315,14 +315,31 @@ class LayoutHandlerTest extends TestCase
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateLayout(
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+            $originalLayout,
             $layoutUpdateStruct
         );
 
         self::assertInstanceOf(Layout::class, $updatedLayout);
         self::assertEquals('New name', $updatedLayout->name);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateModified
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateModified
+     */
+    public function testUpdateModified()
+    {
+        $time = time();
+
+        $originalLayout = $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
+        $updatedLayout = $this->layoutHandler->updateModified(
+            $originalLayout,
+            $time
+        );
+
+        self::assertInstanceOf(Layout::class, $updatedLayout);
         self::assertEquals($originalLayout->created, $updatedLayout->created);
-        self::assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
+        self::assertEquals($time, $updatedLayout->modified);
     }
 
     /**
