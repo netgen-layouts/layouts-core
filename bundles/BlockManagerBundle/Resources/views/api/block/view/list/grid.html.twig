@@ -2,12 +2,12 @@
 
 {% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
 
-{% trans_default_domain 'ngbm_api' %}
+{% trans_default_domain 'ngbm_app' %}
 
 {% block content %}
     {% if collections['default'] is defined %}
         {% if collections['default'].results|length == 0 %}
-            {{ macros.notice('block.empty_collection.notice'|trans) }}
+            {{ macros.notice('block.notice.empty_collection'|trans) }}
         {% else %}
             <div class="grid-row">
                 {% for result in collections['default'].results %}

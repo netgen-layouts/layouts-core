@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints;
 
 abstract class EditType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_block_forms';
+    const TRANSLATION_DOMAIN = 'ngbm_forms';
 
     /**
      * @var array

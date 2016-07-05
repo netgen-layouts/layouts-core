@@ -12,7 +12,7 @@ use RuntimeException;
 
 class ConditionType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_layout_resolver_forms';
+    const TRANSLATION_DOMAIN = 'ngbm_forms';
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[]

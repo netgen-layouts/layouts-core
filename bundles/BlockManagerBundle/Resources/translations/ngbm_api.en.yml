@@ -1,3 +1,0 @@
-block.empty_collection.notice: 'This block is empty. Please pick some items manually or use a dynamic collection.'
-block.external_video.notice: 'No video selected. Please pick the video to display.'
-block.rich_text.placeholder: 'Click here to write'

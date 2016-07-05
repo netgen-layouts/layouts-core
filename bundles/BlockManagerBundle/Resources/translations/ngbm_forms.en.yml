@@ -1,3 +1,6 @@
+layout.type: 'Layout type'
+layout.name: 'Name'
+
 block.view_type: 'View type'
 block.item_view_type: 'Item view type'
 block.name: 'Block label'
@@ -53,3 +56,16 @@ block.gallery.css_class: 'CSS class'
 block.gallery.css_id: 'CSS ID'
 
 block.twig_block.block_name: 'Twig block name'
+
+target_type.route.label: 'Route'
+target_type.route_prefix.label: 'Route prefix'
+target_type.path_info.label: 'Path info'
+target_type.path_info_prefix.label: 'Path info prefix'
+target_type.request_uri.label: 'Request URI'
+target_type.request_uri_prefix.label: 'Request URI'
+
+condition_type.route_parameter.parameter_name.label: 'Parameter name'
+condition_type.route_parameter.parameter_value.label: 'Parameter value'
+
+target_type.button.save: 'Save target'
+condition_type.button.save: 'Save condition'

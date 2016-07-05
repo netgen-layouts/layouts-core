@@ -11,7 +11,7 @@ use Symfony\Component\Form\AbstractType;
 
 class FullEditType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_query_forms';
+    const TRANSLATION_DOMAIN = 'ngbm_forms';
 
     /**
      * Configures the options for this type.

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints;
 
 class CreateType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_layout_forms';
+    const TRANSLATION_DOMAIN = 'ngbm_forms';
 
     /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
