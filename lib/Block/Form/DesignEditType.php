@@ -3,8 +3,6 @@
 namespace Netgen\BlockManager\Block\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormVIew;
 
 class DesignEditType extends EditType
 {

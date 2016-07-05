@@ -94,7 +94,7 @@ abstract class EditType extends AbstractType
                                 'multiple' => false,
                                 'strict' => true,
                             )
-                        )
+                        ),
                     ),
                     'property_path' => 'itemViewType',
                 )
