@@ -15,6 +15,8 @@ use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
 
 class LayoutHandler implements LayoutHandlerInterface
 {
@@ -172,6 +174,49 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $linkedZone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function linkZone(Zone $zone, Zone $linkedZone)
+    {
+        $this->queryHandler->linkZone(
+            $zone->layoutId,
+            $zone->identifier,
+            $zone->status,
+            $linkedZone->layoutId,
+            $linkedZone->identifier
+        );
+
+        return $this->loadZone(
+            $zone->layoutId,
+            $zone->status,
+            $zone->identifier
+        );
+    }
+
+    /**
+     * Removes the link in the zone.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function removeZoneLink(Zone $zone)
+    {
+        $this->queryHandler->removeZoneLink($zone->layoutId, $zone->identifier, $zone->status);
+
+        return $this->loadZone(
+            $zone->layoutId,
+            $zone->status,
+            $zone->identifier
+        );
+    }
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
@@ -182,13 +227,25 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function createLayout(APILayoutCreateStruct $layoutCreateStruct, $status, array $zoneIdentifiers = array())
     {
+        $zoneCreateStructs = array();
+        foreach (array_unique($zoneIdentifiers) as $zoneIdentifier) {
+            $zoneCreateStructs[] = new ZoneCreateStruct(
+                array(
+                    'identifier' => $zoneIdentifier,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                )
+            );
+        }
+
         $createdLayoutId = $this->queryHandler->createLayout(
             new LayoutCreateStruct(
                 array(
                     'type' => $layoutCreateStruct->type,
                     'name' => trim($layoutCreateStruct->name),
                     'status' => $status,
-                    'zoneIdentifiers' => array_unique($zoneIdentifiers),
+                    'shared' => $layoutCreateStruct->shared !== null ? $layoutCreateStruct->shared : false,
+                    'zoneCreateStructs' => $zoneCreateStructs,
                 )
             )
         );
@@ -245,18 +302,24 @@ class LayoutHandler implements LayoutHandlerInterface
     {
         // First copy layout and zone data
         $insertedLayoutId = null;
-        $zoneIdentifiers = null;
+
+        /** @var \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct[] $zoneCreateStructs */
+        $zoneCreateStructs = array();
 
         $layoutData = $this->queryHandler->loadLayoutData($layoutId);
         foreach ($layoutData as $layoutDataRow) {
-            if ($zoneIdentifiers === null) {
-                $zoneIdentifiers = array_map(
-                    function (array $zoneDataRow) {
-                        return $zoneDataRow['identifier'];
-                    },
-                    $this->queryHandler->loadLayoutZonesData($layoutId, $layoutDataRow['status'])
-                );
-            }
+            $zoneCreateStructs = array_map(
+                function (array $zoneDataRow) {
+                    return new ZoneCreateStruct(
+                        array(
+                            'identifier' => $zoneDataRow['identifier'],
+                            'linkedLayoutId' => $zoneDataRow['linked_layout_id'],
+                            'linkedZoneIdentifier' => $zoneDataRow['linked_zone_identifier'],
+                        )
+                    );
+                },
+                $this->queryHandler->loadLayoutZonesData($layoutId, $layoutDataRow['status'])
+            );
 
             $insertedLayoutId = $this->queryHandler->createLayout(
                 new LayoutCreateStruct(
@@ -264,7 +327,8 @@ class LayoutHandler implements LayoutHandlerInterface
                         'type' => $layoutDataRow['type'],
                         'name' => $layoutDataRow['name'] . ' (copy) ' . crc32(microtime()),
                         'status' => $layoutDataRow['status'],
-                        'zoneIdentifiers' => $zoneIdentifiers,
+                        'shared' => $layoutDataRow['shared'],
+                        'zoneCreateStructs' => $zoneCreateStructs,
                     )
                 ),
                 $insertedLayoutId
@@ -274,8 +338,8 @@ class LayoutHandler implements LayoutHandlerInterface
         // Then copy block data
 
         $blockIdMapping = array();
-        foreach ($zoneIdentifiers as $zoneIdentifier) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneIdentifier);
+        foreach ($zoneCreateStructs as $zoneCreateStruct) {
+            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneCreateStruct->identifier);
 
             foreach ($blockData as $blockDataRow) {
                 $createdBlockId = $this->blockQueryHandler->createBlock(
@@ -345,9 +409,16 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
-        $zoneIdentifiers = array_map(
+        /** @var \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct[] $zoneCreateStructs */
+        $zoneCreateStructs = array_map(
             function (array $zoneDataRow) {
-                return $zoneDataRow['identifier'];
+                return new ZoneCreateStruct(
+                    array(
+                        'identifier' => $zoneDataRow['identifier'],
+                        'linkedLayoutId' => $zoneDataRow['linked_layout_id'],
+                        'linkedZoneIdentifier' => $zoneDataRow['linked_zone_identifier'],
+                    )
+                );
             },
             $this->queryHandler->loadLayoutZonesData($layout->id, $layout->status)
         );
@@ -360,14 +431,20 @@ class LayoutHandler implements LayoutHandlerInterface
                     'type' => $layoutData[0]['type'],
                     'name' => $layoutData[0]['name'],
                     'status' => $newStatus,
-                    'zoneIdentifiers' => $zoneIdentifiers,
+                    'shared' => $layoutData[0]['shared'],
+                    'zoneCreateStructs' => $zoneCreateStructs,
                 )
             ),
             $layoutData[0]['id']
         );
 
-        foreach ($zoneIdentifiers as $zoneIdentifier) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutData[0]['id'], $zoneIdentifier, $layout->status);
+        foreach ($zoneCreateStructs as $zoneCreateStruct) {
+            $blockData = $this->blockQueryHandler->loadZoneBlocksData(
+                $layoutData[0]['id'],
+                $zoneCreateStruct->identifier,
+                $layout->status
+            );
+
             foreach ($blockData as $blockDataRow) {
                 $this->blockHandler->createBlockStatus(
                     $this->blockHandler->loadBlock($blockDataRow['id'], $layout->status),

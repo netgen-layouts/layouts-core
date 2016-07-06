@@ -3,6 +3,10 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Page\ZoneDraft;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
@@ -174,6 +178,140 @@ class LayoutService implements LayoutServiceInterface
     public function layoutNameExists($name)
     {
         return $this->layoutHandler->layoutNameExists($name);
+    }
+
+    /**
+     * Finds the final linked zone for specified zone by following the entire chain of links (or rather
+     * maximum number of links in the chain, hardcoded to 25).
+     *
+     * If zone does not have a linked zone, if chain limit is reached or if circular links are
+     * detected, the method returns null.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     */
+    public function findLinkedZone(Zone $zone)
+    {
+        $persistenceZone = $this->layoutHandler->loadZone(
+            $zone->getLayoutId(),
+            $zone->getStatus(),
+            $zone->getIdentifier()
+        );
+
+        $linkedZone = null;
+
+        $linkedLayoutId = $persistenceZone->linkedLayoutId;
+        $linkedZoneIdentifier = $persistenceZone->linkedZoneIdentifier;
+
+        $count = 0;
+        $seenZones = array();
+
+        while ($linkedLayoutId !== null && $linkedZoneIdentifier !== null) {
+            if ($count > 25) {
+                // Chain link limit is reached, we will not use linked zones.
+                return;
+            }
+
+            try {
+                $linkedZone = $this->layoutHandler->loadZone(
+                    $linkedLayoutId,
+                    Layout::STATUS_PUBLISHED,
+                    $linkedZoneIdentifier
+                );
+            } catch (NotFoundException $e) {
+                // If any linked zone in the chain does not exist, we will not use linked zones.
+                return;
+            }
+
+            if (
+                isset($seenZones[$linkedZone->layoutId]) &&
+                in_array($linkedZone->identifier, $seenZones[$linkedZone->layoutId])
+            ) {
+                // Circular references are detected, we will not use linked zones.
+                return;
+            }
+
+            $seenZones[$linkedZone->layoutId][] = $linkedZone->identifier;
+
+            ++$count;
+            $linkedLayoutId = $linkedZone->linkedLayoutId;
+            $linkedZoneIdentifier = $linkedZone->linkedZoneIdentifier;
+        }
+
+        if (!$linkedZone instanceof PersistenceZone) {
+            return;
+        }
+
+        return $this->layoutMapper->mapZone($linkedZone);
+    }
+
+    /**
+     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $linkedZone
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     */
+    public function linkZone(ZoneDraft $zone, Zone $linkedZone)
+    {
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Layout::STATUS_DRAFT, $zone->getIdentifier());
+
+        $persistenceLinkedLayout = $this->layoutHandler->loadLayout($linkedZone->getLayoutId(), Layout::STATUS_PUBLISHED);
+        $persistenceLinkedZone = $this->layoutHandler->loadZone($linkedZone->getLayoutId(), Layout::STATUS_PUBLISHED, $linkedZone->getIdentifier());
+
+        if ($persistenceZone->layoutId == $persistenceLinkedZone->layoutId) {
+            throw new BadStateException('linkedZone', 'Linked zone needs to be in a different layout.');
+        }
+
+        if (!$persistenceLinkedLayout->shared) {
+            throw new BadStateException('linkedZone', 'Linked zone is not in the shared layout.');
+        }
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $updatedZone = $this->layoutHandler->linkZone(
+                $persistenceZone,
+                $persistenceLinkedZone
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->layoutMapper->mapZone($updatedZone);
+    }
+
+    /**
+     * Removes the link in the zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     */
+    public function removeZoneLink(ZoneDraft $zone)
+    {
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Layout::STATUS_DRAFT, $zone->getIdentifier());
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $updatedZone = $this->layoutHandler->removeZoneLink($persistenceZone);
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->layoutMapper->mapZone($updatedZone);
     }
 
     /**

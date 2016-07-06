@@ -43,9 +43,10 @@ abstract class LayoutServiceTest extends ServiceTest
             true,
             '4 zones A',
             array(
-                new LayoutTypeZone('left', 'Left', array()),
-                new LayoutTypeZone('right', 'Right', array()),
-                new LayoutTypeZone('bottom', 'Bottom', array()),
+                'top' => new LayoutTypeZone('top', 'Top', array()),
+                'left' => new LayoutTypeZone('left', 'Left', array()),
+                'right' => new LayoutTypeZone('right', 'Right', array()),
+                'bottom' => new LayoutTypeZone('bottom', 'Bottom', array()),
             )
         );
 
@@ -188,6 +189,236 @@ abstract class LayoutServiceTest extends ServiceTest
     public function testLayoutNameNotExists()
     {
         self::assertFalse($this->layoutService->layoutNameExists('Non existing'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
+     */
+    public function testFindLinkedZone()
+    {
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+
+        self::assertInstanceOf(
+            Zone::class,
+            $this->layoutService->findLinkedZone($zone)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
+     */
+    public function testFindLinkedZoneWithNoLinkedZone()
+    {
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+
+        self::assertNull($this->layoutService->findLinkedZone($zone));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
+     */
+    public function testFindLinkedZoneWithCircularReferences()
+    {
+        $previousLayout = $this->layoutService->loadLayout(3);
+
+        // Creates 10 shared layouts and links one zone in previously created layout
+        // to one zone in currently created layout, thus creating a chain of linked layouts
+
+        for ($i = 0; $i < 10; ++$i) {
+            $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+                '4_zones_a',
+                'My layout ' . $i
+            );
+
+            $layoutCreateStruct->shared = true;
+
+            $createdLayout = $this->layoutService->createLayout(
+                $layoutCreateStruct
+            );
+
+            $createdLayout = $this->layoutService->publishLayout($createdLayout);
+
+            $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
+
+            $this->layoutService->linkZone(
+                $previousLayoutDraft->getZone('top'),
+                $createdLayout->getZone('top')
+            );
+
+            $this->layoutService->publishLayout($previousLayoutDraft);
+
+            $previousLayout = $createdLayout;
+        }
+
+        // Link the zone in last created layout to zone in one of the previously
+        // created layouts, thus creating a circular reference
+
+        $createdLayoutDraft = $this->layoutService->createDraft($createdLayout);
+
+        $this->layoutService->linkZone(
+            $createdLayoutDraft->getZone('top'),
+            $this->layoutService->loadZone(8, 'top')
+        );
+
+        $this->layoutService->publishLayout($createdLayoutDraft);
+
+        // Now link the regular zone to the first zone in chain
+
+        $zone = $this->layoutService->loadZoneDraft(1, 'top');
+        $linkedZone = $this->layoutService->loadZone(3, 'top');
+
+        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
+
+        self::assertNull($this->layoutService->findLinkedZone($updatedZone));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
+     */
+    public function testFindLinkedZoneWithReachedLimit()
+    {
+        $previousLayout = $this->layoutService->loadLayout(3);
+
+        // Creates 30 shared layouts and links one zone in previously created layout
+        // to one zone in currently created layout, thus creating a chain of linked layouts
+
+        for ($i = 0; $i < 30; ++$i) {
+            $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+                '4_zones_a',
+                'My layout ' . $i
+            );
+
+            $layoutCreateStruct->shared = true;
+
+            $createdLayout = $this->layoutService->createLayout(
+                $layoutCreateStruct
+            );
+
+            $createdLayout = $this->layoutService->publishLayout($createdLayout);
+
+            $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
+
+            $this->layoutService->linkZone(
+                $previousLayoutDraft->getZone('top'),
+                $createdLayout->getZone('top')
+            );
+
+            $this->layoutService->publishLayout($previousLayoutDraft);
+
+            $previousLayout = $createdLayout;
+        }
+
+        // Now link the regular zone to the first zone in chain
+
+        $zone = $this->layoutService->loadZoneDraft(1, 'top');
+        $linkedZone = $this->layoutService->loadZone(3, 'top');
+
+        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
+
+        self::assertNull($this->layoutService->findLinkedZone($updatedZone));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
+     */
+    public function testFindLinkedZoneWithDeletedZone()
+    {
+        $previousLayout = $this->layoutService->loadLayout(3);
+
+        // Creates 10 shared layouts and links one zone in previously created layout
+        // to one zone in currently created layout, thus creating a chain of linked layouts
+
+        for ($i = 0; $i < 10; ++$i) {
+            $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+                '4_zones_a',
+                'My layout ' . $i
+            );
+
+            $layoutCreateStruct->shared = true;
+
+            $createdLayout = $this->layoutService->createLayout(
+                $layoutCreateStruct
+            );
+
+            $createdLayout = $this->layoutService->publishLayout($createdLayout);
+
+            $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
+
+            $this->layoutService->linkZone(
+                $previousLayoutDraft->getZone('top'),
+                $createdLayout->getZone('top')
+            );
+
+            $this->layoutService->publishLayout($previousLayoutDraft);
+
+            $previousLayout = $createdLayout;
+        }
+
+        // Delete one of the layouts in the chain
+
+        $this->layoutService->deleteLayout(
+            $this->layoutService->loadLayout(8)
+        );
+
+        // Now link the regular zone to the first zone in chain
+
+        $zone = $this->layoutService->loadZoneDraft(1, 'top');
+        $linkedZone = $this->layoutService->loadZone(3, 'top');
+
+        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
+
+        self::assertNull($this->layoutService->findLinkedZone($updatedZone));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     */
+    public function testLinkZone()
+    {
+        $zone = $this->layoutService->loadZoneDraft(1, 'top');
+        $linkedZone = $this->layoutService->loadZone(3, 'top');
+
+        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
+
+        self::assertEquals($linkedZone->getLayoutId(), $updatedZone->getLinkedLayoutId());
+        self::assertEquals($linkedZone->getIdentifier(), $updatedZone->getLinkedZoneIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testLinkZoneThrowsBadStateExceptionWhenNotInSharedLayout()
+    {
+        $zone = $this->layoutService->loadZoneDraft(1, 'top');
+        $linkedZone = $this->layoutService->loadZone(2, 'top');
+
+        $this->layoutService->linkZone($zone, $linkedZone);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testLinkZoneThrowsBadStateExceptionWhenInTheSameLayout()
+    {
+        $zone = $this->layoutService->loadZoneDraft(1, 'top');
+        $linkedZone = $this->layoutService->loadZone(1, 'left');
+
+        $this->layoutService->linkZone($zone, $linkedZone);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeZoneLink
+     */
+    public function testRemoveZoneLink()
+    {
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+
+        $updatedZone = $this->layoutService->removeZoneLink($zone);
+
+        self::assertNull($updatedZone->getLinkedLayoutId());
+        self::assertNull($updatedZone->getLinkedZoneIdentifier());
     }
 
     /**

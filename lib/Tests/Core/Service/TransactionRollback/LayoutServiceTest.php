@@ -10,7 +10,10 @@ use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
+use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Core\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
 
@@ -70,6 +73,62 @@ class LayoutServiceTest extends TransactionRollbackTest
             $this->layoutValidatorMock,
             $this->layoutTypeRegistry
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @expectedException \Exception
+     */
+    public function testLinkZone()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone(array('layoutId' => 1))));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('shared' => true))));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(2))
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone(array('layoutId' => 2))));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(3))
+            ->method('linkZone')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->linkZone(new ZoneDraft(), new Zone());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeZoneLink
+     * @expectedException \Exception
+     */
+    public function testRemoveZoneLink()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('removeZoneLink')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->removeZoneLink(new ZoneDraft());
     }
 
     /**

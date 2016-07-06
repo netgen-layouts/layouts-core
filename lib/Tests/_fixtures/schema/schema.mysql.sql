@@ -17,6 +17,7 @@ CREATE TABLE `ngbm_layout` (
   `name` varchar(255) NOT NULL,
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
+  `shared` tinyint NOT NULL,
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -24,6 +25,8 @@ CREATE TABLE `ngbm_zone` (
   `identifier` varchar(255) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
+  `linked_layout_id` int(11),
+  `linked_zone_identifier` varchar(255),
   PRIMARY KEY (`identifier`, `layout_id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)

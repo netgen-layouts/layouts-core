@@ -23,6 +23,16 @@ class Zone extends ValueObject implements APIZone
     protected $status;
 
     /**
+     * @var int
+     */
+    protected $linkedLayoutId;
+
+    /**
+     * @var string
+     */
+    protected $linkedZoneIdentifier;
+
+    /**
      * @var array
      */
     protected $blocks = array();
@@ -55,6 +65,26 @@ class Zone extends ValueObject implements APIZone
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Returns the linked layout ID.
+     *
+     * @return int
+     */
+    public function getLinkedLayoutId()
+    {
+        return $this->linkedLayoutId;
+    }
+
+    /**
+     * Returns the linked zone identifier.
+     *
+     * @return string
+     */
+    public function getLinkedZoneIdentifier()
+    {
+        return $this->linkedZoneIdentifier;
     }
 
     /**

@@ -26,4 +26,18 @@ class Zone extends ValueObject
      * @var int
      */
     public $status;
+
+    /**
+     * ID of layout this zone is linked to.
+     *
+     * @var int
+     */
+    public $linkedLayoutId;
+
+    /**
+     * Zone identifier this zone is linked to.
+     *
+     * @var string
+     */
+    public $linkedZoneIdentifier;
 }

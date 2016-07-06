@@ -38,6 +38,11 @@ class Layout extends ValueObject implements APILayout
     protected $status;
 
     /**
+     * @var bool
+     */
+    protected $shared;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Page\Zone[]
      */
     protected $zones = array();
@@ -100,6 +105,16 @@ class Layout extends ValueObject implements APILayout
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Returns if the layout is shared.
+     * 
+     * @return bool
+     */
+    public function isShared()
+    {
+        return $this->shared;
     }
 
     /**

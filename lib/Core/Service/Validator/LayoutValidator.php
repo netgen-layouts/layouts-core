@@ -37,6 +37,16 @@ class LayoutValidator extends Validator
             'type'
         );
 
+        if ($layoutCreateStruct->shared !== null) {
+            $this->validate(
+                $layoutCreateStruct->shared,
+                array(
+                    new Constraints\Type(array('type' => 'bool')),
+                ),
+                'shared'
+            );
+        }
+
         return true;
     }
 

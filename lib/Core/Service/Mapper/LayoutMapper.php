@@ -50,6 +50,8 @@ class LayoutMapper extends Mapper
             'identifier' => $zone->identifier,
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
+            'linkedLayoutId' => $zone->linkedLayoutId,
+            'linkedZoneIdentifier' => $zone->linkedZoneIdentifier,
             'blocks' => $blocks,
         );
 
@@ -81,6 +83,7 @@ class LayoutMapper extends Mapper
             'created' => $this->createDateTime($layout->created),
             'modified' => $this->createDateTime($layout->modified),
             'status' => $layout->status,
+            'shared' => $layout->shared,
             'zones' => $zones,
         );
 

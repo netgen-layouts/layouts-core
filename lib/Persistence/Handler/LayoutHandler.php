@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 interface LayoutHandler
 {
@@ -73,6 +74,25 @@ interface LayoutHandler
      * @return bool
      */
     public function layoutNameExists($name, $excludedLayoutId = null, $status = null);
+
+    /**
+     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $linkedZone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function linkZone(Zone $zone, Zone $linkedZone);
+
+    /**
+     * Removes the link in the zone.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function removeZoneLink(Zone $zone);
 
     /**
      * Creates a layout.

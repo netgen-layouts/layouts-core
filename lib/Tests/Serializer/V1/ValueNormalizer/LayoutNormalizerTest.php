@@ -79,16 +79,21 @@ class LayoutNormalizerTest extends TestCase
                 'status' => Layout::STATUS_DRAFT,
                 'created' => $currentDate,
                 'modified' => $currentDate,
+                'shared' => true,
                 'zones' => array(
                     'left' => new Zone(
                         array(
                             'identifier' => 'left',
+                            'linkedLayoutId' => null,
+                            'linkedZoneIdentifier' => null,
                             'blocks' => array($block),
                         )
                     ),
                     'right' => new Zone(
                         array(
                             'identifier' => 'right',
+                            'linkedLayoutId' => 24,
+                            'linkedZoneIdentifier' => 'top',
                             'blocks' => array(),
                         )
                     ),
@@ -110,17 +115,22 @@ class LayoutNormalizerTest extends TestCase
                 'has_published_state' => true,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+                'shared' => true,
                 'name' => $layout->getName(),
                 'zones' => array(
                     array(
                         'identifier' => 'left',
                         'block_ids' => array(24),
                         'allowed_block_definitions' => array('title'),
+                        'linked_layout_id' => null,
+                        'linked_zone_identifier' => null,
                     ),
                     array(
                         'identifier' => 'right',
                         'block_ids' => array(),
                         'allowed_block_definitions' => true,
+                        'linked_layout_id' => 24,
+                        'linked_zone_identifier' => 'top',
                     ),
                 ),
             ),

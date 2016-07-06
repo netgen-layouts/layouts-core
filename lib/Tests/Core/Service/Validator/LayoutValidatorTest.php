@@ -76,13 +76,17 @@ class LayoutValidatorTest extends TestCase
     public function validateLayoutCreateStructDataProvider()
     {
         return array(
-            array(array('type' => 'type', 'name' => 'Name'), true),
-            array(array('type' => null, 'name' => 'Name'), false),
-            array(array('type' => '', 'name' => 'Name'), false),
-            array(array('type' => 42, 'name' => 'Name'), false),
-            array(array('type' => 'type', 'name' => null), false),
-            array(array('type' => 'type', 'name' => ''), false),
-            array(array('type' => 'type', 'name' => 42), false),
+            array(array('type' => 'type', 'name' => 'Name', 'shared' => null), true),
+            array(array('type' => 'type', 'name' => 'Name', 'shared' => false), true),
+            array(array('type' => 'type', 'name' => 'Name', 'shared' => true), true),
+            array(array('type' => null, 'name' => 'Name', 'shared' => null), false),
+            array(array('type' => '', 'name' => 'Name', 'shared' => null), false),
+            array(array('type' => 42, 'name' => 'Name', 'shared' => null), false),
+            array(array('type' => 'type', 'name' => null, 'shared' => null), false),
+            array(array('type' => 'type', 'name' => '', 'shared' => null), false),
+            array(array('type' => 'type', 'name' => 42, 'shared' => null), false),
+            array(array('type' => 'type', 'name' => 'Name', 'shared' => ''), false),
+            array(array('type' => 'type', 'name' => 'Name', 'shared' => 42), false),
         );
     }
 

@@ -201,6 +201,68 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
+     *
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
+     * @param int $status
+     * @param int|string $linkedLayoutId
+     * @param string $linkedZoneIdentifier
+     */
+    public function linkZone($layoutId, $zoneIdentifier, $status, $linkedLayoutId, $linkedZoneIdentifier)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_zone')
+            ->set('linked_layout_id', ':linked_layout_id')
+            ->set('linked_zone_identifier', ':linked_zone_identifier')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('identifier', ':identifier'),
+                    $query->expr()->eq('layout_id', ':layout_id')
+                )
+            )
+            ->setParameter('identifier', $zoneIdentifier, Type::STRING)
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('linked_layout_id', $linkedLayoutId, Type::INTEGER)
+            ->setParameter('linked_zone_identifier', $linkedZoneIdentifier, Type::STRING);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
+     * Removes the link in the zone.
+     *
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
+     * @param int $status
+     */
+    public function removeZoneLink($layoutId, $zoneIdentifier, $status)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_zone')
+            ->set('linked_layout_id', ':linked_layout_id')
+            ->set('linked_zone_identifier', ':linked_zone_identifier')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('identifier', ':identifier'),
+                    $query->expr()->eq('layout_id', ':layout_id')
+                )
+            )
+            ->setParameter('identifier', $zoneIdentifier, Type::STRING)
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('linked_layout_id', null, Type::INTEGER)
+            ->setParameter('linked_zone_identifier', null, Type::STRING);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
@@ -222,6 +284,7 @@ class LayoutQueryHandler extends QueryHandler
                     'name' => ':name',
                     'created' => ':created',
                     'modified' => ':modified',
+                    'shared' => ':shared',
                 )
             )
             ->setValue(
@@ -232,7 +295,8 @@ class LayoutQueryHandler extends QueryHandler
             ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
             ->setParameter('name', trim($layoutCreateStruct->name), Type::STRING)
             ->setParameter('created', $currentTimeStamp, Type::INTEGER)
-            ->setParameter('modified', $currentTimeStamp, Type::INTEGER);
+            ->setParameter('modified', $currentTimeStamp, Type::INTEGER)
+            ->setParameter('shared', $layoutCreateStruct->shared, Type::BOOLEAN);
 
         $query->execute();
 
@@ -241,7 +305,7 @@ class LayoutQueryHandler extends QueryHandler
             $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
         }
 
-        foreach ($layoutCreateStruct->zoneIdentifiers as $zoneIdentifier) {
+        foreach ($layoutCreateStruct->zoneCreateStructs as $zoneCreateStruct) {
             $query = $this->connection->createQueryBuilder()
                 ->insert('ngbm_zone')
                 ->values(
@@ -249,11 +313,15 @@ class LayoutQueryHandler extends QueryHandler
                         'identifier' => ':identifier',
                         'layout_id' => ':layout_id',
                         'status' => ':status',
+                        'linked_layout_id' => ':linked_layout_id',
+                        'linked_zone_identifier' => ':linked_zone_identifier',
                     )
                 )
-                ->setParameter('identifier', $zoneIdentifier, Type::STRING)
+                ->setParameter('identifier', $zoneCreateStruct->identifier, Type::STRING)
                 ->setParameter('layout_id', $createdLayoutId, Type::INTEGER)
-                ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER);
+                ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
+                ->setParameter('linked_layout_id', $zoneCreateStruct->linkedLayoutId, Type::INTEGER)
+                ->setParameter('linked_zone_identifier', $zoneCreateStruct->linkedZoneIdentifier, Type::STRING);
 
             $query->execute();
         }
@@ -379,7 +447,7 @@ class LayoutQueryHandler extends QueryHandler
     protected function getLayoutSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'type', 'name', 'created', 'modified')
+        $query->select('DISTINCT id', 'status', 'type', 'name', 'created', 'modified', 'shared')
             ->from('ngbm_layout');
 
         return $query;
@@ -393,7 +461,7 @@ class LayoutQueryHandler extends QueryHandler
     protected function getZoneSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT identifier', 'layout_id', 'status')
+        $query->select('DISTINCT identifier', 'layout_id', 'status', 'linked_layout_id', 'linked_zone_identifier')
             ->from('ngbm_zone');
 
         return $query;

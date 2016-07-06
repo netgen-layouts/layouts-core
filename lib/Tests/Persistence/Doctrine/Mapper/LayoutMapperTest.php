@@ -32,6 +32,7 @@ class LayoutMapperTest extends TestCase
                 'created' => 123,
                 'modified' => 456,
                 'status' => Layout::STATUS_PUBLISHED,
+                'shared' => true,
             ),
             array(
                 'id' => 84,
@@ -40,6 +41,7 @@ class LayoutMapperTest extends TestCase
                 'created' => 789,
                 'modified' => 111,
                 'status' => Layout::STATUS_PUBLISHED,
+                'shared' => false,
             ),
         );
 
@@ -52,6 +54,7 @@ class LayoutMapperTest extends TestCase
                     'created' => 123,
                     'modified' => 456,
                     'status' => Layout::STATUS_PUBLISHED,
+                    'shared' => true,
                 )
             ),
             new Layout(
@@ -62,6 +65,7 @@ class LayoutMapperTest extends TestCase
                     'created' => 789,
                     'modified' => 111,
                     'status' => Layout::STATUS_PUBLISHED,
+                    'shared' => false,
                 )
             ),
         );
@@ -79,11 +83,15 @@ class LayoutMapperTest extends TestCase
                 'identifier' => 'left',
                 'layout_id' => 1,
                 'status' => Layout::STATUS_PUBLISHED,
+                'linked_layout_id' => 3,
+                'linked_zone_identifier' => 'top',
             ),
             array(
                 'identifier' => 'right',
                 'layout_id' => 1,
                 'status' => Layout::STATUS_PUBLISHED,
+                'linked_layout_id' => null,
+                'linked_zone_identifier' => null,
             ),
         );
 
@@ -93,6 +101,8 @@ class LayoutMapperTest extends TestCase
                     'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Layout::STATUS_PUBLISHED,
+                    'linkedLayoutId' => 3,
+                    'linkedZoneIdentifier' => 'top',
                 )
             ),
             new Zone(
@@ -100,6 +110,8 @@ class LayoutMapperTest extends TestCase
                     'identifier' => 'right',
                     'layoutId' => 1,
                     'status' => Layout::STATUS_PUBLISHED,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
                 )
             ),
         );

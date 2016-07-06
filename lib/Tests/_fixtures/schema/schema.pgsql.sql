@@ -25,13 +25,16 @@ CREATE TABLE "ngbm_layout" (
   "type" character varying(255) NOT NULL,
   "name" character varying(255) NOT NULL,
   "created" integer NOT NULL,
-  "modified" integer NOT NULL
+  "modified" integer NOT NULL,
+  "shared" boolean NOT NULL
 );
 
 CREATE TABLE "ngbm_zone" (
   "identifier" character varying(255) NOT NULL,
   "layout_id" integer NOT NULL,
-  "status" integer NOT NULL
+  "status" integer NOT NULL,
+  "linked_layout_id" integer,
+  "linked_zone_identifier" character varying(255)
 );
 
 CREATE TABLE "ngbm_block" (

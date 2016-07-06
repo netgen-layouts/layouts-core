@@ -17,6 +17,7 @@ CREATE TABLE ngbm_layout (
   name nvarchar(255) NOT NULL,
   created int NOT NULL,
   modified int NOT NULL,
+  shared tinyint NOT NULL,
   PRIMARY KEY (id, status)
 );
 
@@ -24,6 +25,8 @@ CREATE TABLE ngbm_zone (
   identifier nvarchar(255) NOT NULL,
   layout_id int NOT NULL,
   status int NOT NULL,
+  linked_layout_id int,
+  linked_zone_identifier nvarchar(255),
   PRIMARY KEY (identifier, layout_id, status),
   FOREIGN KEY (layout_id, status)
     REFERENCES ngbm_layout (id, status)

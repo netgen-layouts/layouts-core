@@ -58,6 +58,7 @@ class LayoutNormalizer implements NormalizerInterface
             'has_published_state' => $this->layoutService->isPublished($layout),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+            'shared' => $layout->isShared(),
             'name' => $layout->getName(),
             'zones' => $this->getZones($layout),
         );
@@ -111,6 +112,8 @@ class LayoutNormalizer implements NormalizerInterface
                     $zone->getBlocks()
                 ),
                 'allowed_block_definitions' => $allowedBlockDefinitions,
+                'linked_layout_id' => $zone->getLinkedLayoutId(),
+                'linked_zone_identifier' => $zone->getLinkedZoneIdentifier(),
             );
         }
 

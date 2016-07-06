@@ -64,6 +64,13 @@ interface Layout extends Value
     public function getStatus();
 
     /**
+     * Returns if the layout is shared.
+     *
+     * @return bool
+     */
+    public function isShared();
+
+    /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone[]

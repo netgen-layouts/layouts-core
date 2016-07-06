@@ -43,6 +43,13 @@ class Layout extends ValueObject
     public $name;
 
     /**
+     * Flag indicating if this layout is shared.
+     *
+     * @var bool
+     */
+    public $shared;
+
+    /**
      * Timestamp when the layout was created.
      *
      * @var int

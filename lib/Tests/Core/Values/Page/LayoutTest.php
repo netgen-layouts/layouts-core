@@ -17,6 +17,7 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isShared
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
@@ -31,6 +32,7 @@ class LayoutTest extends TestCase
         self::assertNull($layout->getCreated());
         self::assertNull($layout->getModified());
         self::assertNull($layout->getStatus());
+        self::assertNull($layout->isShared());
         self::assertEquals(array(), $layout->getZones());
         self::assertNull($layout->getZone('test'));
         self::assertFalse($layout->hasZone('test'));
@@ -44,6 +46,7 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isShared
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
@@ -64,6 +67,7 @@ class LayoutTest extends TestCase
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
                 'status' => Layout::STATUS_PUBLISHED,
+                'shared' => true,
                 'zones' => array('left' => new Zone(), 'right' => new Zone()),
             )
         );
@@ -74,6 +78,7 @@ class LayoutTest extends TestCase
         self::assertEquals($createdDate, $layout->getCreated());
         self::assertEquals($modifiedDate, $layout->getModified());
         self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+        self::assertTrue($layout->isShared());
         self::assertEquals(
             array('left' => new Zone(), 'right' => new Zone()),
             $layout->getZones()

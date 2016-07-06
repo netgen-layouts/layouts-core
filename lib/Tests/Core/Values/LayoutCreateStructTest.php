@@ -13,6 +13,7 @@ class LayoutCreateStructTest extends TestCase
 
         self::assertNull($layoutCreateStruct->type);
         self::assertNull($layoutCreateStruct->name);
+        self::assertNull($layoutCreateStruct->shared);
     }
 
     public function testSetProperties()
@@ -21,10 +22,12 @@ class LayoutCreateStructTest extends TestCase
             array(
                 'type' => '4_zones_a',
                 'name' => 'My layout',
+                'shared' => true,
             )
         );
 
         self::assertEquals('4_zones_a', $layoutCreateStruct->type);
         self::assertEquals('My layout', $layoutCreateStruct->name);
+        self::assertTrue($layoutCreateStruct->shared);
     }
 }

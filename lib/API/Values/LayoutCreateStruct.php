@@ -15,4 +15,9 @@ class LayoutCreateStruct extends ValueObject
      * @var string
      */
     public $name;
+
+    /**
+     * @var bool
+     */
+    public $shared;
 }

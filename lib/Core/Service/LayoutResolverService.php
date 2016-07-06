@@ -65,7 +65,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param int|string $ruleId
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule If rule with specified ID does not exist
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule If rule with speciled ID does not exist
      */
     public function loadRule($ruleId)
     {

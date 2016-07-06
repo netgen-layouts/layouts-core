@@ -6,6 +6,8 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
+use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
 interface LayoutService
 {
@@ -72,6 +74,41 @@ interface LayoutService
      * @return bool
      */
     public function layoutNameExists($name);
+
+    /**
+     * Finds the final linked zone for specified zone by following the entire chain of links (or rather
+     * maximum number of links in the chain, hardcoded to 25).
+     *
+     * If zone does not have a linked zone, if chain limit is reached or if circular links are
+     * detected, the method returns null.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     */
+    public function findLinkedZone(Zone $zone);
+
+    /**
+     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $linkedZone
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     */
+    public function linkZone(ZoneDraft $zone, Zone $linkedZone);
+
+    /**
+     * Removes the link in the zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     */
+    public function removeZoneLink(ZoneDraft $zone);
 
     /**
      * Creates a layout.

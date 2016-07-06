@@ -6,6 +6,7 @@ CREATE TABLE `ngbm_layout` (
   `name` text(255) NOT NULL,
   `created` integer NOT NULL,
   `modified` integer NOT NULL,
+  `shared` integer NOT NULL,
   PRIMARY KEY (`id`, `status`)
 );
 
@@ -14,6 +15,8 @@ CREATE TABLE `ngbm_zone` (
   `identifier` text(255) NOT NULL,
   `layout_id` integer NOT NULL,
   `status` integer NOT NULL,
+  `linked_layout_id` integer,
+  `linked_zone_identifier` text(255),
   PRIMARY KEY (`identifier`, `layout_id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `ngbm_layout` (`id`, `status`)

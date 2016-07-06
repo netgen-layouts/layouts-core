@@ -22,6 +22,7 @@ class Version010000 extends AbstractMigration
         $layoutTable->addColumn('name', 'string', array('length' => 255));
         $layoutTable->addColumn('created', 'integer');
         $layoutTable->addColumn('modified', 'integer');
+        $layoutTable->addColumn('shared', 'boolean');
 
         $layoutTable->setPrimaryKey(array('id', 'status'));
 
@@ -34,6 +35,8 @@ class Version010000 extends AbstractMigration
         $zoneTable->addColumn('identifier', 'string', array('length' => 255));
         $zoneTable->addColumn('layout_id', 'integer');
         $zoneTable->addColumn('status', 'integer');
+        $zoneTable->addColumn('linked_layout_id', 'integer', array('notnull' => false));
+        $zoneTable->addColumn('linked_zone_identifier', 'string', array('length' => 255, 'notnull' => false));
 
         $zoneTable->setPrimaryKey(array('identifier', 'layout_id', 'status'));
         $zoneTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));

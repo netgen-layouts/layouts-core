@@ -35,6 +35,8 @@ abstract class LayoutMapperTest extends MapperTest
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => APILayout::STATUS_PUBLISHED,
+                'linkedLayoutId' => 24,
+                'linkedZoneIdentifier' => 'top',
             )
         );
 
@@ -44,6 +46,8 @@ abstract class LayoutMapperTest extends MapperTest
         self::assertEquals('right', $zone->getIdentifier());
         self::assertEquals(1, $zone->getLayoutId());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
+        self::assertEquals(24, $zone->getLinkedLayoutId());
+        self::assertEquals('top', $zone->getLinkedZoneIdentifier());
 
         self::assertNotEmpty($zone->getBlocks());
 
@@ -69,6 +73,7 @@ abstract class LayoutMapperTest extends MapperTest
                 'created' => 1447065813,
                 'modified' => 1447065813,
                 'status' => APILayout::STATUS_PUBLISHED,
+                'shared' => true,
             )
         );
 
@@ -83,6 +88,7 @@ abstract class LayoutMapperTest extends MapperTest
         self::assertInstanceOf(DateTime::class, $layout->getModified());
         self::assertEquals(1447065813, $layout->getModified()->getTimestamp());
         self::assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
+        self::assertTrue($layout->isShared());
 
         self::assertNotEmpty($layout->getZones());
 

@@ -21,6 +21,7 @@ services:
         class: "%netgen_block_manager.templating.twig.extension.rendering.class%"
         arguments:
             - "@netgen_block_manager.block.registry.block_definition"
+            - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.templating.global_helper"
             - "@netgen_block_manager.view.renderer"
             - "@fragment.handler"

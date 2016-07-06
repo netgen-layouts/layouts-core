@@ -14,6 +14,8 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZoneIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
      */
     public function testSetDefaultProperties()
@@ -23,6 +25,8 @@ class ZoneTest extends TestCase
         self::assertNull($zone->getIdentifier());
         self::assertNull($zone->getLayoutId());
         self::assertNull($zone->getStatus());
+        self::assertNull($zone->getLinkedLayoutId());
+        self::assertNull($zone->getLinkedZoneIdentifier());
         self::assertEquals(array(), $zone->getBlocks());
     }
 
@@ -31,6 +35,8 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZoneIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
      */
     public function testSetProperties()
@@ -40,6 +46,8 @@ class ZoneTest extends TestCase
                 'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Layout::STATUS_PUBLISHED,
+                'linkedLayoutId' => 42,
+                'linkedZoneIdentifier' => 'top',
                 'blocks' => array(
                     new Block(),
                 ),
@@ -50,5 +58,7 @@ class ZoneTest extends TestCase
         self::assertEquals(84, $zone->getLayoutId());
         self::assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
         self::assertEquals(array(new Block()), $zone->getBlocks());
+        self::assertEquals(42, $zone->getLinkedLayoutId());
+        self::assertEquals('top', $zone->getLinkedZoneIdentifier());
     }
 }

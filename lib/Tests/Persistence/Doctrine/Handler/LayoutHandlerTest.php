@@ -69,6 +69,7 @@ class LayoutHandlerTest extends TestCase
                     'created' => 1447065813,
                     'modified' => 1447065813,
                     'status' => Layout::STATUS_PUBLISHED,
+                    'shared' => false,
                 )
             ),
             $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
@@ -98,6 +99,8 @@ class LayoutHandlerTest extends TestCase
                     'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Layout::STATUS_PUBLISHED,
+                    'linkedLayoutId' => 3,
+                    'linkedZoneIdentifier' => 'left',
                 )
             ),
             $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left')
@@ -212,6 +215,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'bottom',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -219,6 +224,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'left',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => 3,
+                        'linkedZoneIdentifier' => 'left',
                     )
                 ),
                 new Zone(
@@ -226,6 +233,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'right',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -233,12 +242,63 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'top',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
             ),
             $this->layoutHandler->loadLayoutZones(
                 $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::linkZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::linkZone
+     */
+    public function testLinkZone()
+    {
+        $zone = $this->layoutHandler->loadZone(1, Layout::STATUS_DRAFT, 'top');
+        $linkedZone = $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'top');
+
+        $updatedZone = $this->layoutHandler->linkZone($zone, $linkedZone);
+
+        self::assertEquals(
+            new Zone(
+                array(
+                    'identifier' => 'top',
+                    'layoutId' => 1,
+                    'status' => Layout::STATUS_DRAFT,
+                    'linkedLayoutId' => 3,
+                    'linkedZoneIdentifier' => 'top',
+                )
+            ),
+            $updatedZone
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::removeZoneLink
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::removeZoneLink
+     */
+    public function testRemoveZoneLink()
+    {
+        $zone = $this->layoutHandler->loadZone(1, Layout::STATUS_DRAFT, 'left');
+
+        $updatedZone = $this->layoutHandler->removeZoneLink($zone);
+
+        self::assertEquals(
+            new Zone(
+                array(
+                    'identifier' => 'left',
+                    'layoutId' => 1,
+                    'status' => Layout::STATUS_DRAFT,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                )
+            ),
+            $updatedZone
         );
     }
 
@@ -251,6 +311,7 @@ class LayoutHandlerTest extends TestCase
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct->shared = true;
 
         $createdLayout = $this->layoutHandler->createLayout(
             $layoutCreateStruct,
@@ -264,6 +325,7 @@ class LayoutHandlerTest extends TestCase
         self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
         self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
+        self::assertTrue($createdLayout->shared);
 
         self::assertInternalType('int', $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
@@ -278,6 +340,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'first_zone',
                         'layoutId' => $createdLayout->id,
                         'status' => Layout::STATUS_DRAFT,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -285,6 +349,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'second_zone',
                         'layoutId' => $createdLayout->id,
                         'status' => Layout::STATUS_DRAFT,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
             ),
@@ -350,6 +416,7 @@ class LayoutHandlerTest extends TestCase
         self::assertEquals('4_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
         self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
+        self::assertFalse($copiedLayout->shared);
 
         self::assertGreaterThan(0, $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->modified);
@@ -361,6 +428,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'bottom',
                         'layoutId' => $copiedLayout->id,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -368,6 +437,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'left',
                         'layoutId' => $copiedLayout->id,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => 3,
+                        'linkedZoneIdentifier' => 'left',
                     )
                 ),
                 new Zone(
@@ -375,6 +446,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'right',
                         'layoutId' => $copiedLayout->id,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -382,6 +455,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'top',
                         'layoutId' => $copiedLayout->id,
                         'status' => Layout::STATUS_PUBLISHED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
             ),
@@ -522,6 +597,7 @@ class LayoutHandlerTest extends TestCase
         self::assertEquals('4_zones_a', $copiedLayout->type);
         self::assertEquals('My layout', $copiedLayout->name);
         self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->status);
+        self::assertFalse($copiedLayout->shared);
 
         self::assertGreaterThan(0, $copiedLayout->created);
         self::assertGreaterThan(0, $copiedLayout->modified);
@@ -533,6 +609,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'bottom',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_ARCHIVED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -540,6 +618,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'left',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_ARCHIVED,
+                        'linkedLayoutId' => 3,
+                        'linkedZoneIdentifier' => 'left',
                     )
                 ),
                 new Zone(
@@ -547,6 +627,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'right',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_ARCHIVED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
@@ -554,6 +636,8 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'top',
                         'layoutId' => 1,
                         'status' => Layout::STATUS_ARCHIVED,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
             ),

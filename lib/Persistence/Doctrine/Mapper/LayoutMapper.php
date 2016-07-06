@@ -27,6 +27,7 @@ class LayoutMapper
                     'created' => (int)$dataItem['created'],
                     'modified' => (int)$dataItem['modified'],
                     'status' => (int)$dataItem['status'],
+                    'shared' => (bool)$dataItem['shared'],
                 )
             );
         }
@@ -51,6 +52,8 @@ class LayoutMapper
                     'identifier' => $dataItem['identifier'],
                     'layoutId' => (int)$dataItem['layout_id'],
                     'status' => (int)$dataItem['status'],
+                    'linkedLayoutId' => $dataItem['linked_layout_id'] !== null ? (int)$dataItem['linked_layout_id'] : null,
+                    'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],
                 )
             );
         }

@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Item\Item;
@@ -29,6 +30,11 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
@@ -59,6 +65,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Constructor.
      *
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
@@ -66,12 +73,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function __construct(
         BlockDefinitionRegistryInterface $blockDefinitionRegistry,
+        LayoutService $layoutService,
         GlobalHelper $globalHelper,
         RendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
         LoggerInterface $logger = null
     ) {
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
+        $this->layoutService = $layoutService;
         $this->globalHelper = $globalHelper;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
@@ -275,7 +284,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBocks = array())
     {
-        foreach ($zone->getBlocks() as $block) {
+        $blocks = $zone->getBlocks();
+
+        $linkedZone = $this->layoutService->findLinkedZone($zone);
+        if ($linkedZone instanceof Zone) {
+            $blocks = $linkedZone->getBlocks();
+        }
+
+        foreach ($blocks as $block) {
             $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
                 $block->getDefinitionIdentifier()
             );

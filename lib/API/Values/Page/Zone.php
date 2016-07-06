@@ -28,6 +28,20 @@ interface Zone extends Value
     public function getStatus();
 
     /**
+     * Returns the linked layout ID.
+     *
+     * @return int
+     */
+    public function getLinkedLayoutId();
+
+    /**
+     * Returns the linked zone identifier.
+     *
+     * @return string
+     */
+    public function getLinkedZoneIdentifier();
+
+    /**
      * Returns zone blocks.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block[]
