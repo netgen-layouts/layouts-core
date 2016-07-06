@@ -1,5 +1,6 @@
 ngbm_admin_layout_resolver_index:
     path: /layout_resolver
+    methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:index"
 

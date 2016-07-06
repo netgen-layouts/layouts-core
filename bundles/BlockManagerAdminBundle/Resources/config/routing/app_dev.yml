@@ -1,4 +1,5 @@
 ngbm_dev_app:
     path: /
+    methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.index:index"
