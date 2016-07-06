@@ -148,10 +148,7 @@ class LayoutHandlerTest extends TestCase
     public function testZoneExists()
     {
         self::assertTrue(
-            $this->layoutHandler->zoneExists(
-                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                'left'
-            )
+            $this->layoutHandler->zoneExists(1, Layout::STATUS_PUBLISHED, 'left')
         );
     }
 
@@ -162,10 +159,7 @@ class LayoutHandlerTest extends TestCase
     public function testZoneNotExists()
     {
         self::assertFalse(
-            $this->layoutHandler->zoneExists(
-                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                'non_existing'
-            )
+            $this->layoutHandler->zoneExists(1, Layout::STATUS_PUBLISHED, 'non_existing')
         );
     }
 

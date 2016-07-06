@@ -46,12 +46,13 @@ interface LayoutHandler
     /**
      * Returns if zone with specified identifier exists in the layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param int|string $layoutId
+     * @param int $status
      * @param string $identifier
      *
      * @return bool
      */
-    public function zoneExists(Layout $layout, $identifier);
+    public function zoneExists($layoutId, $status, $identifier);
 
     /**
      * Loads all zones that belong to layout with specified ID.

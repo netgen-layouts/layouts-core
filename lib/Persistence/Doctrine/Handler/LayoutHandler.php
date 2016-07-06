@@ -129,14 +129,15 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Returns if zone with specified identifier exists in the layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param int|string $layoutId
+     * @param int $status
      * @param string $identifier
      *
      * @return bool
      */
-    public function zoneExists(Layout $layout, $identifier)
+    public function zoneExists($layoutId, $status, $identifier)
     {
-        return $this->queryHandler->zoneExists($layout->id, $identifier, $layout->status);
+        return $this->queryHandler->zoneExists($layoutId, $status, $identifier);
     }
 
     /**

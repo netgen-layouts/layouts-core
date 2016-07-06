@@ -139,12 +139,12 @@ class LayoutQueryHandler extends QueryHandler
      * Returns if the zone exists.
      *
      * @param int|string $layoutId
-     * @param string $identifier
      * @param int $status
+     * @param string $identifier
      *
      * @return bool
      */
-    public function zoneExists($layoutId, $identifier, $status)
+    public function zoneExists($layoutId, $status, $identifier)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
