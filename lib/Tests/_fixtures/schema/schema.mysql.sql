@@ -1,16 +1,4 @@
-DROP TABLE IF EXISTS `ngbm_block_collection`;
-DROP TABLE IF EXISTS `ngbm_collection_item`;
-DROP TABLE IF EXISTS `ngbm_collection_query`;
-DROP TABLE IF EXISTS `ngbm_collection`;
-DROP TABLE IF EXISTS `ngbm_block`;
-DROP TABLE IF EXISTS `ngbm_zone`;
-DROP TABLE IF EXISTS `ngbm_layout`;
-DROP TABLE IF EXISTS `ngbm_rule_target`;
-DROP TABLE IF EXISTS `ngbm_rule_condition`;
-DROP TABLE IF EXISTS `ngbm_rule_data`;
-DROP TABLE IF EXISTS `ngbm_rule`;
-
-CREATE TABLE `ngbm_layout` (
+CREATE TABLE IF NOT EXISTS `ngbm_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
@@ -21,7 +9,7 @@ CREATE TABLE `ngbm_layout` (
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_zone` (
+CREATE TABLE IF NOT EXISTS `ngbm_zone` (
   `identifier` varchar(255) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
@@ -32,7 +20,7 @@ CREATE TABLE `ngbm_zone` (
     REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_block` (
+CREATE TABLE IF NOT EXISTS `ngbm_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
@@ -48,7 +36,7 @@ CREATE TABLE `ngbm_block` (
     REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_collection` (
+CREATE TABLE IF NOT EXISTS `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `type` int(11) NOT NULL,
@@ -56,7 +44,7 @@ CREATE TABLE `ngbm_collection` (
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_collection_item` (
+CREATE TABLE IF NOT EXISTS `ngbm_collection_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
@@ -69,7 +57,7 @@ CREATE TABLE `ngbm_collection_item` (
     REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_collection_query` (
+CREATE TABLE IF NOT EXISTS `ngbm_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
@@ -82,7 +70,7 @@ CREATE TABLE `ngbm_collection_query` (
     REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_block_collection` (
+CREATE TABLE IF NOT EXISTS `ngbm_block_collection` (
   `block_id` int(11) NOT NULL,
   `block_status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
@@ -97,7 +85,7 @@ CREATE TABLE `ngbm_block_collection` (
     REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_rule` (
+CREATE TABLE IF NOT EXISTS `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
@@ -106,13 +94,13 @@ CREATE TABLE `ngbm_rule` (
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_rule_data` (
+CREATE TABLE IF NOT EXISTS `ngbm_rule_data` (
   `rule_id` int(11) NOT NULL,
   `enabled` tinyint NOT NULL,
   PRIMARY KEY (`rule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_rule_target` (
+CREATE TABLE IF NOT EXISTS `ngbm_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
@@ -123,7 +111,7 @@ CREATE TABLE `ngbm_rule_target` (
     REFERENCES `ngbm_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ngbm_rule_condition` (
+CREATE TABLE IF NOT EXISTS `ngbm_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
@@ -133,3 +121,19 @@ CREATE TABLE `ngbm_rule_condition` (
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `ngbm_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE `ngbm_block_collection`;
+TRUNCATE TABLE `ngbm_collection_item`;
+TRUNCATE TABLE `ngbm_collection_query`;
+TRUNCATE TABLE `ngbm_collection`;
+TRUNCATE TABLE `ngbm_block`;
+TRUNCATE TABLE `ngbm_zone`;
+TRUNCATE TABLE `ngbm_layout`;
+TRUNCATE TABLE `ngbm_rule_target`;
+TRUNCATE TABLE `ngbm_rule_condition`;
+TRUNCATE TABLE `ngbm_rule_data`;
+TRUNCATE TABLE `ngbm_rule`;
+
+SET FOREIGN_KEY_CHECKS = 1;
