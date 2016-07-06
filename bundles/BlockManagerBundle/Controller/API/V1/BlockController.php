@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
@@ -65,7 +66,7 @@ class BlockController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block type or block definition does not exist
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
      *                                                          If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
@@ -74,7 +75,11 @@ class BlockController extends Controller
     {
         $this->validator->validateCreateBlock($request);
 
-        $blockType = $this->getBlockType($request->request->get('block_type'));
+        try {
+            $blockType = $this->getBlockType($request->request->get('block_type'));
+        } catch (InvalidArgumentException $e) {
+            throw new BadStateException('block_type', 'Block type does not exist.', $e);
+        }
 
         try {
             $layout = $this->layoutService->loadLayoutDraft($request->request->get('layout_id'));

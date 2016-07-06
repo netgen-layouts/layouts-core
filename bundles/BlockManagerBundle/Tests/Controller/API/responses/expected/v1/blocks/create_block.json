@@ -7,10 +7,11 @@
     "layout_id": 1,
     "parameters": {
         "tag": "h1",
-        "title": "My cool title",
+        "title": "Title",
         "css_class": null,
         "css_id": null
     },
-    "view_type": "default",
-    "item_view_type": "standard"
+    "view_type": "title",
+    "item_view_type": "standard",
+    "has_published_state": false
 }
