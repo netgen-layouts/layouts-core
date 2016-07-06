@@ -70,8 +70,8 @@ class ConditionTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($options['conditionType'], $this->conditionType);
-        self::assertEquals($options['data'], new ConditionCreateStruct());
+        self::assertEquals($this->conditionType, $options['conditionType']);
+        self::assertEquals(new ConditionCreateStruct(), $options['data']);
     }
 
     /**

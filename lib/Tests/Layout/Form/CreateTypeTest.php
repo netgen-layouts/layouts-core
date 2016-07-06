@@ -71,7 +71,7 @@ class CreateTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($options['data'], new LayoutCreateStruct());
+        self::assertEquals(new LayoutCreateStruct(), $options['data']);
     }
 
     /**

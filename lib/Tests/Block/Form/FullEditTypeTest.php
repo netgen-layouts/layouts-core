@@ -145,8 +145,8 @@ class FullEditTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($options['blockDefinition'], $this->blockDefinition);
-        self::assertEquals($options['data'], new BlockUpdateStruct());
+        self::assertEquals($this->blockDefinition, $options['blockDefinition']);
+        self::assertEquals(new BlockUpdateStruct(), $options['data']);
     }
 
     /**

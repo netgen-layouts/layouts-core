@@ -121,8 +121,8 @@ class FullEditTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($options['queryType'], $this->queryType);
-        self::assertEquals($options['data'], new QueryUpdateStruct());
+        self::assertEquals($this->queryType, $options['queryType']);
+        self::assertEquals(new QueryUpdateStruct(), $options['data']);
     }
 
     /**

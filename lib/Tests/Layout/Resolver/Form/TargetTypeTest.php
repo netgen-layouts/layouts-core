@@ -70,8 +70,8 @@ class TargetTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($options['targetType'], $this->targetType);
-        self::assertEquals($options['data'], new TargetCreateStruct());
+        self::assertEquals($this->targetType, $options['targetType']);
+        self::assertEquals(new TargetCreateStruct(), $options['data']);
     }
 
     /**
