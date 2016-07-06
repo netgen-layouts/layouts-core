@@ -157,7 +157,7 @@ class LayoutResolverController extends Controller
         if ($form->isValid()) {
             $this->layoutResolverService->updateCondition($condition, $updateStruct);
 
-            return $this->buildView($form);
+            return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
         return $this->buildView(
@@ -259,7 +259,7 @@ class LayoutResolverController extends Controller
         if ($form->isValid()) {
             $this->layoutResolverService->updateTarget($target, $updateStruct);
 
-            return $this->buildView($form);
+            return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
         return $this->buildView(
