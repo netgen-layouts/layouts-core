@@ -3,17 +3,47 @@ ngbm_admin_layout_resolver_index:
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:index"
 
-ngbm_admin_layout_resolver_condition_form_create:
-    path: /layout_resolver/rules/{ruleId}/condition/new/{type}
-    methods: [GET, POST]
+ngbm_admin_layout_resolver_rule_create:
+    path: /layout_resolver/rules
+    methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.layout_resolver:conditionCreateForm"
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:createRule"
 
-ngbm_admin_layout_resolver_condition_form_edit:
-    path: /layout_resolver/conditions/{conditionId}/edit
-    methods: [GET, POST]
+ngbm_admin_layout_resolver_rule_enable:
+    path: /layout_resolver/rules/{ruleId}/enable
+    methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.admin.layout_resolver:conditionEditForm"
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:enableRule"
+
+ngbm_admin_layout_resolver_rule_disable:
+    path: /layout_resolver/rules/{ruleId}/disable
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:disableRule"
+
+ngbm_admin_layout_resolver_rule_create_draft:
+    path: /layout_resolver/rules/{ruleId}/draft
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:createRuleDraft"
+
+ngbm_admin_layout_resolver_rule_discard:
+    path: /layout_resolver/rules/{ruleId}/discard
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:discardRuleDraft"
+
+ngbm_admin_layout_resolver_rule_publish:
+    path: /layout_resolver/rules/{ruleId}/publish
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:publishRuleDraft"
+
+ngbm_admin_layout_resolver_rule_delete:
+    path: /layout_resolver/rules/{ruleId}
+    methods: [DELETE]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:deleteRule"
 
 ngbm_admin_layout_resolver_target_form_create:
     path: /layout_resolver/rules/{ruleId}/target/new/{type}
@@ -26,3 +56,27 @@ ngbm_admin_layout_resolver_target_form_edit:
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:targetEditForm"
+
+ngbm_admin_layout_resolver_target_delete:
+    path: /layout_resolver/targets/{targetId}
+    methods: [DELETE]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:deleteTarget"
+
+ngbm_admin_layout_resolver_condition_form_create:
+    path: /layout_resolver/rules/{ruleId}/condition/new/{type}
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:conditionCreateForm"
+
+ngbm_admin_layout_resolver_condition_form_edit:
+    path: /layout_resolver/conditions/{conditionId}/edit
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:conditionEditForm"
+
+ngbm_admin_layout_resolver_condition_delete:
+    path: /layout_resolver/conditions/{conditionId}
+    methods: [DELETE]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:deleteCondition"

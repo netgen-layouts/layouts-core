@@ -83,7 +83,6 @@ services:
         class: "%netgen_block_manager.controller.api.v1.layout_resolver.class%"
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.api.repository"
             - "@netgen_block_manager.api.service.layout_resolver"
             - "@netgen_block_manager.api.service.layout"
 
