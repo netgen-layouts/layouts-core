@@ -249,9 +249,13 @@ class LayoutResolverController extends Controller
         }
 
         if ($form->isValid()) {
-            $createdTarget = $this->layoutResolverService->addTarget($rule, $createStruct);
+            $this->layoutResolverService->addTarget($rule, $createStruct);
 
-            return $this->buildView($createdTarget);
+            return $this->renderRule(
+                $this->layoutResolverService->loadRuleDraft(
+                    $rule->getId()
+                )
+            );
         }
 
         return $this->buildView(
@@ -302,9 +306,13 @@ class LayoutResolverController extends Controller
         }
 
         if ($form->isValid()) {
-            $updatedTarget = $this->layoutResolverService->updateTarget($target, $updateStruct);
+            $this->layoutResolverService->updateTarget($target, $updateStruct);
 
-            return $this->buildView($updatedTarget);
+            return $this->renderRule(
+                $this->layoutResolverService->loadRuleDraft(
+                    $target->getRuleId()
+                )
+            );
         }
 
         return $this->buildView(
@@ -369,9 +377,13 @@ class LayoutResolverController extends Controller
         }
 
         if ($form->isValid()) {
-            $createdCondition = $this->layoutResolverService->addCondition($rule, $createStruct);
+            $this->layoutResolverService->addCondition($rule, $createStruct);
 
-            return $this->buildView($createdCondition);
+            return $this->renderRule(
+                $this->layoutResolverService->loadRuleDraft(
+                    $rule->getId()
+                )
+            );
         }
 
         return $this->buildView(
@@ -422,9 +434,13 @@ class LayoutResolverController extends Controller
         }
 
         if ($form->isValid()) {
-            $updatedCondition = $this->layoutResolverService->updateCondition($condition, $updateStruct);
+            $this->layoutResolverService->updateCondition($condition, $updateStruct);
 
-            return $this->buildView($updatedCondition);
+            return $this->renderRule(
+                $this->layoutResolverService->loadRuleDraft(
+                    $condition->getRuleId()
+                )
+            );
         }
 
         return $this->buildView(
