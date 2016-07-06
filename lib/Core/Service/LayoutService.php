@@ -133,10 +133,8 @@ class LayoutService implements LayoutServiceInterface
 
         return $this->layoutMapper->mapZone(
             $this->layoutHandler->loadZone(
-                $this->layoutHandler->loadLayout(
-                    $layoutId,
-                    Layout::STATUS_PUBLISHED
-                ),
+                $layoutId,
+                Layout::STATUS_PUBLISHED,
                 $identifier
             )
         );
@@ -159,10 +157,8 @@ class LayoutService implements LayoutServiceInterface
 
         return $this->layoutMapper->mapZone(
             $this->layoutHandler->loadZone(
-                $this->layoutHandler->loadLayout(
-                    $layoutId,
-                    Layout::STATUS_DRAFT
-                ),
+                $layoutId,
+                Layout::STATUS_DRAFT,
                 $identifier
             )
         );

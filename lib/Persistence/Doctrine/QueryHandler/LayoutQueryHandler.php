@@ -36,12 +36,12 @@ class LayoutQueryHandler extends QueryHandler
      * Loads all zone data with provided identifier.
      *
      * @param int|string $layoutId
-     * @param string $identifier
      * @param int $status
+     * @param string $identifier
      *
      * @return array
      */
-    public function loadZoneData($layoutId, $identifier, $status = null)
+    public function loadZoneData($layoutId, $status, $identifier)
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
@@ -53,9 +53,7 @@ class LayoutQueryHandler extends QueryHandler
         ->setParameter('layout_id', $layoutId, Type::INTEGER)
         ->setParameter('identifier', $identifier, Type::STRING);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }

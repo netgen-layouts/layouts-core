@@ -160,10 +160,7 @@ class BlockHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone(
-                    $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                    'right'
-                )
+                $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'right')
             )
         );
     }

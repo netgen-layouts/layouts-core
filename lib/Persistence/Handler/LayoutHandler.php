@@ -23,14 +23,15 @@ interface LayoutHandler
     /**
      * Loads a zone with specified identifier.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param int|string $layoutId
+     * @param int $status
      * @param string $identifier
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function loadZone(Layout $layout, $identifier);
+    public function loadZone($layoutId, $status, $identifier);
 
     /**
      * Returns if layout with specified ID exists.

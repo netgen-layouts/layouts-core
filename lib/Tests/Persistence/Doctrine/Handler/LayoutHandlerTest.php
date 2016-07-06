@@ -100,10 +100,7 @@ class LayoutHandlerTest extends TestCase
                     'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
-            $this->layoutHandler->loadZone(
-                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-                'left'
-            )
+            $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left')
         );
     }
 
@@ -114,10 +111,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadZoneThrowsNotFoundException()
     {
-        $this->layoutHandler->loadZone(
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-            'non_existing'
-        );
+        $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'non_existing');
     }
 
     /**
@@ -421,7 +415,8 @@ class LayoutHandlerTest extends TestCase
             ),
             $this->blockHandler->loadZoneBlocks(
                 $this->layoutHandler->loadZone(
-                    $copiedLayout,
+                    $copiedLayout->id,
+                    $copiedLayout->status,
                     'left'
                 )
             )
@@ -464,7 +459,8 @@ class LayoutHandlerTest extends TestCase
             ),
             $this->blockHandler->loadZoneBlocks(
                 $this->layoutHandler->loadZone(
-                    $copiedLayout,
+                    $copiedLayout->id,
+                    $copiedLayout->status,
                     'right'
                 )
             )
@@ -590,7 +586,7 @@ class LayoutHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone($copiedLayout, 'left')
+                $this->layoutHandler->loadZone($copiedLayout->id, $copiedLayout->status, 'left')
             )
         );
 
@@ -630,7 +626,7 @@ class LayoutHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone($copiedLayout, 'right')
+                $this->layoutHandler->loadZone($copiedLayout->id, $copiedLayout->status, 'right')
             )
         );
 
