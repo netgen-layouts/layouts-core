@@ -40,14 +40,14 @@ ngbm_api_v1_layout_create_draft:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:createDraft"
 
-ngbm_api_v1_layout_discard:
-    path: /layouts/{layoutId}/discard
-    methods: [POST]
+ngbm_api_v1_layout_discard_draft:
+    path: /layouts/{layoutId}/draft
+    methods: [DELETE]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.layout:discard"
+        _controller: "netgen_block_manager.controller.api.v1.layout:discardDraft"
 
 ngbm_api_v1_layout_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.layout:publish"
+        _controller: "netgen_block_manager.controller.api.v1.layout:publishDraft"

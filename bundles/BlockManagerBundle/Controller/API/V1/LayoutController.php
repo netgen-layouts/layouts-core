@@ -218,7 +218,7 @@ class LayoutController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function discard(LayoutDraft $layout)
+    public function discardDraft(LayoutDraft $layout)
     {
         $this->layoutService->discardDraft($layout);
 
@@ -232,7 +232,7 @@ class LayoutController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function publish(LayoutDraft $layout)
+    public function publishDraft(LayoutDraft $layout)
     {
         $this->layoutService->publishLayout($layout);
 
