@@ -35,7 +35,7 @@ class Postgres
      */
     public function getAutoIncrementValue($table, $column = 'id')
     {
-        return "nextval('"  . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
+        return "nextval('" . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
     }
 
     /**

@@ -96,14 +96,14 @@ class LayoutHandlerTest extends TestCase
         self::assertEquals(
             new Zone(
                 array(
-                    'identifier' => 'left',
-                    'layoutId' => 1,
+                    'identifier' => 'top',
+                    'layoutId' => 2,
                     'status' => Layout::STATUS_PUBLISHED,
                     'linkedLayoutId' => 3,
-                    'linkedZoneIdentifier' => 'left',
+                    'linkedZoneIdentifier' => 'top',
                 )
             ),
-            $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left')
+            $this->layoutHandler->loadZone(2, Layout::STATUS_PUBLISHED, 'top')
         );
     }
 
@@ -213,7 +213,7 @@ class LayoutHandlerTest extends TestCase
                 new Zone(
                     array(
                         'identifier' => 'bottom',
-                        'layoutId' => 1,
+                        'layoutId' => 2,
                         'status' => Layout::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
@@ -222,16 +222,16 @@ class LayoutHandlerTest extends TestCase
                 new Zone(
                     array(
                         'identifier' => 'left',
-                        'layoutId' => 1,
+                        'layoutId' => 2,
                         'status' => Layout::STATUS_PUBLISHED,
-                        'linkedLayoutId' => 3,
-                        'linkedZoneIdentifier' => 'left',
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
                     )
                 ),
                 new Zone(
                     array(
                         'identifier' => 'right',
-                        'layoutId' => 1,
+                        'layoutId' => 2,
                         'status' => Layout::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
@@ -240,15 +240,15 @@ class LayoutHandlerTest extends TestCase
                 new Zone(
                     array(
                         'identifier' => 'top',
-                        'layoutId' => 1,
+                        'layoutId' => 2,
                         'status' => Layout::STATUS_PUBLISHED,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
+                        'linkedLayoutId' => 3,
+                        'linkedZoneIdentifier' => 'top',
                     )
                 ),
             ),
             $this->layoutHandler->loadLayoutZones(
-                $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
+                $this->layoutHandler->loadLayout(2, Layout::STATUS_PUBLISHED)
             )
         );
     }
@@ -407,6 +407,12 @@ class LayoutHandlerTest extends TestCase
      */
     public function testCopyLayout()
     {
+        // Link the zone before copying, to make sure those are copied too
+        $this->layoutHandler->linkZone(
+            $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left'),
+            $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'left')
+        );
+
         $copiedLayoutId = $this->layoutHandler->copyLayout(1);
         $copiedLayout = $this->layoutHandler->loadLayout($copiedLayoutId, Layout::STATUS_PUBLISHED);
 
@@ -586,6 +592,12 @@ class LayoutHandlerTest extends TestCase
      */
     public function testCreateLayoutStatus()
     {
+        // Link the zone before copying, to make sure those are copied too
+        $this->layoutHandler->linkZone(
+            $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left'),
+            $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'left')
+        );
+
         $copiedLayout = $this->layoutHandler->createLayoutStatus(
             $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
             Layout::STATUS_ARCHIVED

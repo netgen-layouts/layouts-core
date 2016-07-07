@@ -196,7 +196,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testFindLinkedZone()
     {
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $zone = $this->layoutService->loadZoneDraft(2, 'top');
 
         self::assertInstanceOf(
             Zone::class,
@@ -209,7 +209,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testFindLinkedZoneWithNoLinkedZone()
     {
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
         self::assertNull($this->layoutService->findLinkedZone($zone));
     }
@@ -241,8 +241,8 @@ abstract class LayoutServiceTest extends ServiceTest
             $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
 
             $this->layoutService->linkZone(
-                $previousLayoutDraft->getZone('top'),
-                $createdLayout->getZone('top')
+                $previousLayoutDraft->getZone('left'),
+                $createdLayout->getZone('left')
             );
 
             $this->layoutService->publishLayout($previousLayoutDraft);
@@ -256,16 +256,16 @@ abstract class LayoutServiceTest extends ServiceTest
         $createdLayoutDraft = $this->layoutService->createDraft($createdLayout);
 
         $this->layoutService->linkZone(
-            $createdLayoutDraft->getZone('top'),
-            $this->layoutService->loadZone(8, 'top')
+            $createdLayoutDraft->getZone('left'),
+            $this->layoutService->loadZone(8, 'left')
         );
 
         $this->layoutService->publishLayout($createdLayoutDraft);
 
         // Now link the regular zone to the first zone in chain
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'top');
-        $linkedZone = $this->layoutService->loadZone(3, 'top');
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(3, 'left');
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
@@ -299,8 +299,8 @@ abstract class LayoutServiceTest extends ServiceTest
             $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
 
             $this->layoutService->linkZone(
-                $previousLayoutDraft->getZone('top'),
-                $createdLayout->getZone('top')
+                $previousLayoutDraft->getZone('left'),
+                $createdLayout->getZone('left')
             );
 
             $this->layoutService->publishLayout($previousLayoutDraft);
@@ -310,8 +310,8 @@ abstract class LayoutServiceTest extends ServiceTest
 
         // Now link the regular zone to the first zone in chain
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'top');
-        $linkedZone = $this->layoutService->loadZone(3, 'top');
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(3, 'left');
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
@@ -345,8 +345,8 @@ abstract class LayoutServiceTest extends ServiceTest
             $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
 
             $this->layoutService->linkZone(
-                $previousLayoutDraft->getZone('top'),
-                $createdLayout->getZone('top')
+                $previousLayoutDraft->getZone('left'),
+                $createdLayout->getZone('left')
             );
 
             $this->layoutService->publishLayout($previousLayoutDraft);
@@ -362,8 +362,8 @@ abstract class LayoutServiceTest extends ServiceTest
 
         // Now link the regular zone to the first zone in chain
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'top');
-        $linkedZone = $this->layoutService->loadZone(3, 'top');
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(3, 'left');
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
@@ -375,8 +375,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLinkZone()
     {
-        $zone = $this->layoutService->loadZoneDraft(1, 'top');
-        $linkedZone = $this->layoutService->loadZone(3, 'top');
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(3, 'left');
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
@@ -390,8 +390,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLinkZoneThrowsBadStateExceptionWhenNotInSharedLayout()
     {
-        $zone = $this->layoutService->loadZoneDraft(1, 'top');
-        $linkedZone = $this->layoutService->loadZone(2, 'top');
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(1, 'left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -402,8 +402,8 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInTheSameLayout()
     {
-        $zone = $this->layoutService->loadZoneDraft(1, 'top');
-        $linkedZone = $this->layoutService->loadZone(1, 'left');
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(2, 'top');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -413,7 +413,7 @@ abstract class LayoutServiceTest extends ServiceTest
      */
     public function testRemoveZoneLink()
     {
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $zone = $this->layoutService->loadZoneDraft(2, 'top');
 
         $updatedZone = $this->layoutService->removeZoneLink($zone);
 
