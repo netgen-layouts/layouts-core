@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
@@ -33,6 +34,11 @@ class LayoutResolverController extends Controller
     protected $layoutResolverService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    protected $layoutService;
+
+    /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
     protected $targetTypeRegistry;
@@ -47,17 +53,20 @@ class LayoutResolverController extends Controller
      *
      * @param \Netgen\BlockManager\API\Repository $repository
      * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
+     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
      */
     public function __construct(
         Repository $repository,
         LayoutResolverService $layoutResolverService,
+        LayoutService $layoutService,
         TargetTypeRegistryInterface $targetTypeRegistry,
         ConditionTypeRegistryInterface $conditionTypeRegistry
     ) {
         $this->repository = $repository;
         $this->layoutResolverService = $layoutResolverService;
+        $this->layoutService = $layoutService;
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
@@ -95,6 +104,49 @@ class LayoutResolverController extends Controller
         );
 
         return $this->renderRule($createdRule);
+    }
+
+    /**
+     * Updates the rule.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout does not exist.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateRule(RuleDraft $rule, Request $request)
+    {
+        $layoutId = $request->request->get('layout_id');
+        $layoutId = $layoutId !== null ? trim($layoutId) : null;
+
+        $priority = $request->request->get('priority');
+        $priority = $priority !== null ? (int)$priority : null;
+
+        $comment = $request->request->get('comment');
+        $comment = $comment !== null ? trim($comment) : null;
+
+        // null means we don't update the layout
+        // empty ("" or "0") means we remove the layout from the rule
+        if ($layoutId !== null && !empty($layoutId)) {
+            try {
+                $this->layoutService->loadLayout($layoutId);
+            } catch (NotFoundException $e) {
+                throw new BadStateException('layout_id', 'Layout does not exist.', $e);
+            }
+        }
+
+        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = $layoutId !== null ?
+            (!empty($layoutId) ? $layoutId : 0) :
+            null;
+        $ruleUpdateStruct->comment = $comment;
+        $ruleUpdateStruct->priority = $priority;
+
+        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+
+        return $this->renderRule($updatedRule);
     }
 
     /**

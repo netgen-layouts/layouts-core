@@ -12,6 +12,3 @@ _ngbm_api_v1_collections:
 
 _ngbm_api_v1_layouts:
     resource: "api_v1/layouts.yml"
-
-_ngbm_api_v1_layout_resolver:
-    resource: "api_v1/layout_resolver.yml"

@@ -79,13 +79,6 @@ services:
             - "@netgen_block_manager.collection.result_generator"
             - "@netgen_block_manager.controller.api.v1.collection.validator"
 
-    netgen_block_manager.controller.api.v1.layout_resolver:
-        class: "%netgen_block_manager.controller.api.v1.layout_resolver.class%"
-        parent: netgen_block_manager.controller.base
-        arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-            - "@netgen_block_manager.api.service.layout"
-
     netgen_block_manager.controller.api.v1.block.validator:
         class: "%netgen_block_manager.controller.api.v1.block.validator.class%"
         calls:

@@ -1,5 +1,0 @@
-ngbm_api_v1_layout_resolver_rule_update:
-    path: /layout_resolver/rules/{ruleId}
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.layout_resolver:updateRule"
