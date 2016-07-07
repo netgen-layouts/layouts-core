@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
+use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\View;
@@ -93,6 +94,40 @@ class LayoutController extends Controller
         }
 
         return new ValueList($blocks);
+    }
+
+    /**
+     * Links the provided zone to zone from shared layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function linkZone(ZoneDraft $zone, Request $request)
+    {
+        $linkedZone = $this->layoutService->loadZone(
+            $request->request->get('linked_layout_id'),
+            $request->request->get('linked_zone_identifier')
+        );
+
+        $this->layoutService->linkZone($zone, $linkedZone);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Removes the zone link, if any exists.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function removeZoneLink(ZoneDraft $zone)
+    {
+        $this->layoutService->removeZoneLink($zone);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**

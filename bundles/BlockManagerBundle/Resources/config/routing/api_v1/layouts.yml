@@ -10,6 +10,18 @@ ngbm_api_v1_layout_blocks:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:viewLayoutBlocks"
 
+ngbm_api_v1_layout_zone_link:
+    path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.layout:linkZone"
+
+ngbm_api_v1_layout_zone_unlink:
+    path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
+    methods: [DELETE]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.layout:removeZoneLink"
+
 ngbm_api_v1_layout_create:
     path: /layouts
     methods: [POST]
