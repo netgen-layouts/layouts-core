@@ -5,7 +5,7 @@
 {% block content %}
     {% for rule in rules %}
         <div class="lr-panel lr-rule">
-            {% include 'NetgenBlockManagerAdminBundle:admin/layout_resolver:rule.html.twig' %}
+            {{ ngbm_render_rule(rule) }}
         </div>
     {% else %}
         <p>{{ 'layout_resolver.rules.no_rules'|trans }}</p>

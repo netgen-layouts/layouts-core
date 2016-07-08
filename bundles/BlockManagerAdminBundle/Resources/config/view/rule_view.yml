@@ -1,0 +1,6 @@
+view:
+    rule_view:
+        default:
+            rule:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver:rule.html.twig"
+                match: ~

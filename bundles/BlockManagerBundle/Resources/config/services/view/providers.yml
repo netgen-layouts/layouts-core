@@ -3,6 +3,7 @@ parameters:
     netgen_block_manager.view.provider.item.class: Netgen\BlockManager\View\Provider\ItemViewProvider
     netgen_block_manager.view.provider.layout.class: Netgen\BlockManager\View\Provider\LayoutViewProvider
     netgen_block_manager.view.provider.form.class: Netgen\BlockManager\View\Provider\FormViewProvider
+    netgen_block_manager.view.provider.rule.class: Netgen\BlockManager\View\Provider\RuleViewProvider
     netgen_block_manager.view.provider.rule_target.class: Netgen\BlockManager\View\Provider\RuleTargetViewProvider
     netgen_block_manager.view.provider.rule_condition.class: Netgen\BlockManager\View\Provider\RuleConditionViewProvider
 
@@ -26,6 +27,14 @@ services:
 
     netgen_block_manager.view.provider.form:
         class: "%netgen_block_manager.view.provider.form.class%"
+        tags:
+            - { name: netgen_block_manager.view.provider }
+
+    netgen_block_manager.view.provider.rule:
+        class: "%netgen_block_manager.view.provider.rule.class%"
+        arguments:
+            - "@netgen_block_manager.layout.resolver.registry.target_type"
+            - "@netgen_block_manager.layout.resolver.registry.condition_type"
         tags:
             - { name: netgen_block_manager.view.provider }
 
