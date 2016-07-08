@@ -68,20 +68,26 @@ class LayoutController extends Controller
     /**
      * Loads either the draft status or published status of specified layout.
      *
+     * If a query param "published" with value of "true" is provided, published
+     * state will be loaded directly, without first loading the draft.
+     *
      * @param int $layoutId
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function load($layoutId)
+    public function load($layoutId, Request $request)
     {
         $layout = null;
 
-        try {
-            $layout = $this->layoutService->loadLayoutDraft(
-                $layoutId
-            );
-        } catch (NotFoundException $e) {
-            // Do nothing
+        if ($request->query->get('published') !== 'true') {
+            try {
+                $layout = $this->layoutService->loadLayoutDraft(
+                    $layoutId
+                );
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
         }
 
         if (!$layout instanceof Layout) {
