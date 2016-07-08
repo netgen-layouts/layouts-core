@@ -102,7 +102,7 @@ class BlockType
      *
      * @return string
      */
-    public function getDefaultBlockName()
+    public function getDefaultName()
     {
         return isset($this->defaults['name']) ? $this->defaults['name'] : '';
     }
@@ -112,7 +112,7 @@ class BlockType
      *
      * @return string
      */
-    public function getDefaultBlockViewType()
+    public function getDefaultViewType()
     {
         return isset($this->defaults['view_type']) ? $this->defaults['view_type'] : '';
     }
@@ -122,7 +122,7 @@ class BlockType
      *
      * @return string
      */
-    public function getDefaultBlockItemViewType()
+    public function getDefaultItemViewType()
     {
         return isset($this->defaults['item_view_type']) ? $this->defaults['item_view_type'] : '';
     }
@@ -132,7 +132,7 @@ class BlockType
      *
      * @return array
      */
-    public function getDefaultBlockParameters()
+    public function getDefaultParameters()
     {
         return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : array();
     }

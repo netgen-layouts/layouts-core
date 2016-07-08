@@ -78,64 +78,74 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockName
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultName
      */
-    public function testGetDefaultBlockName()
+    public function testGetDefaultName()
     {
-        self::assertEquals('Name', $this->blockType->getDefaultBlockName());
+        self::assertEquals('Name', $this->blockType->getDefaultName());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockViewType
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultViewType
      */
-    public function testGetDefaultBlockViewType()
+    public function testGetDefaultViewType()
     {
-        self::assertEquals('default', $this->blockType->getDefaultBlockViewType());
+        self::assertEquals('default', $this->blockType->getDefaultViewType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockItemViewType
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultItemViewType
      */
-    public function testGetDefaultBlockItemViewType()
+    public function testGetDefaultItemViewType()
     {
-        self::assertEquals('standard', $this->blockType->getDefaultBlockItemViewType());
+        self::assertEquals('standard', $this->blockType->getDefaultItemViewType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockParameters
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultParameters
      */
-    public function testGetDefaultBlockParameters()
+    public function testGetDefaultParameters()
     {
-        self::assertEquals(array('tag' => 'h3'), $this->blockType->getDefaultBlockParameters());
+        self::assertEquals(array('tag' => 'h3'), $this->blockType->getDefaultParameters());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockName
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultName
      */
-    public function testGetDefaultEmptyBlockName()
+    public function testGetDefaultEmptyName()
     {
         $this->blockType = new BlockType('title', true, 'Title', 'title', array());
 
-        self::assertEquals('', $this->blockType->getDefaultBlockName());
+        self::assertEquals('', $this->blockType->getDefaultName());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockViewType
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultViewType
      */
-    public function testGetDefaultEmptyBlockViewType()
+    public function testGetDefaultEmptyViewType()
     {
         $this->blockType = new BlockType('title', true, 'Title', 'title', array());
 
-        self::assertEquals('', $this->blockType->getDefaultBlockViewType());
+        self::assertEquals('', $this->blockType->getDefaultViewType());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultBlockParameters
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultViewType
      */
-    public function testGetDefaultEmptyBlockParameters()
+    public function testGetDefaultEmptyItemViewType()
     {
         $this->blockType = new BlockType('title', true, 'Title', 'title', array());
 
-        self::assertEquals(array(), $this->blockType->getDefaultBlockParameters());
+        self::assertEquals('', $this->blockType->getDefaultItemViewType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultParameters
+     */
+    public function testGetDefaultEmptyParameters()
+    {
+        $this->blockType = new BlockType('title', true, 'Title', 'title', array());
+
+        self::assertEquals(array(), $this->blockType->getDefaultParameters());
     }
 }

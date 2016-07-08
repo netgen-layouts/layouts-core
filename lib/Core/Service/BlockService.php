@@ -525,15 +525,15 @@ class BlockService implements BlockServiceInterface
         $blockCreateStruct = new BlockCreateStruct(
             array(
                 'definitionIdentifier' => $blockType->getDefinitionIdentifier(),
-                'name' => $blockType->getDefaultBlockName(),
-                'viewType' => $blockType->getDefaultBlockViewType(),
-                'itemViewType' => $blockType->getDefaultBlockItemViewType(),
+                'name' => $blockType->getDefaultName(),
+                'viewType' => $blockType->getDefaultViewType(),
+                'itemViewType' => $blockType->getDefaultItemViewType(),
             )
         );
 
         $blockCreateStruct->fillValues(
             $blockDefinition->getHandler()->getParameters(),
-            $blockType->getDefaultBlockParameters()
+            $blockType->getDefaultParameters()
         );
 
         return $blockCreateStruct;
