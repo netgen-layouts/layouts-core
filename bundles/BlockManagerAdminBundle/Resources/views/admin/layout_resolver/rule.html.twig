@@ -1,7 +1,7 @@
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="lr-panel">
-
+<div class="lr-rule-content" data-id="{{ rule.id }}">
+    {#{ dump(rule) }#}
     <div class="lr-panel-head">
 
         <div class="panel-head-title">
@@ -43,10 +43,11 @@
                     {% endif %}
 
                     {% if rule.enabled %}
-                        <li><a href="#">{{ 'layout_resolver.rules.disable_rule'|trans }}</a></li>
+                        <li><a href="#" class="js-rule-edit" data-action="disable">{{ 'layout_resolver.rules.disable_rule'|trans }}</a></li>
                     {% else %}
-                        <li><a href="#">{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
+                        <li><a href="#" class="js-rule-edit" data-action="enable">{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
                     {% endif %}
+
                 </ul>
             </div>
 
@@ -84,15 +85,20 @@
                 {% endif %}
 
                 {% if target_types|length > 0 %}
-                    {% if rule.targets|length == 0 %}
-                        <select class="lr-select">
-                            {% for target_type in target_types %}
-                                <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
-                            {% endfor %}
-                        </select>
-                    {% endif %}
+                    <div class="settings-action">
+                        <div class="settings-loader"><i class="loading-ng-icon"></i>Loading...</div>
+                        <div class="settings-action-add">
+                            {% if rule.targets|length == 0 %}
+                                <select class="lr-select js-target-type">
+                                    {% for target_type in target_types %}
+                                        <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
 
-                    <a href="#" class="lr-btn lr-btn-link"><i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}</a>
+                            <a href="#" class="lr-btn lr-btn-link js-target-add" {% if rule.targets|length > 0 %}data-target-type="{{ rule.targets[0].type}}"{% endif %}><i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}</a>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
 
@@ -110,13 +116,18 @@
                 {% endif %}
 
                 {% if condition_types|length > 0 %}
-                    <select class="lr-select">
-                        {% for condition_type in condition_types %}
-                            <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="settings-action">
+                        <div class="settings-loader"><i class="loading-ng-icon"></i>Loading...</div>
+                        <div class="settings-action-add">
+                            <select class="lr-select js-condition-type">
+                                {% for condition_type in condition_types %}
+                                    <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
+                                {% endfor %}
+                            </select>
 
-                    <a href="#" class="lr-btn lr-btn-link">{{ 'layout_resolver.rules.add_condition'|trans }}</a>
+                            <a href="#" class="lr-btn lr-btn-link js-condition-add">{{ 'layout_resolver.rules.add_condition'|trans }}</a>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -124,8 +135,8 @@
     </div>
 
     <div class="lr-panel-actions">
-        <a href="#" class="lr-btn">{{ 'layout_resolver.rules.cancel'|trans }}</a>
-        <a href="#" class="lr-btn lr-btn-primary">{{ 'layout_resolver.rules.save_changes'|trans }}</a>
+        <a href="#" class="lr-btn js-rule-edit" data-action="discard">{{ 'layout_resolver.rules.cancel'|trans }}</a>
+        <a href="#" class="lr-btn lr-btn-primary js-rule-edit" data-action="publish">{{ 'layout_resolver.rules.save_changes'|trans }}</a>
     </div>
 
 </div>

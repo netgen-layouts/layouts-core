@@ -47,7 +47,7 @@ module.exports = function (grunt) {
     sass: {
       options: {
         sourceMap: true,
-        sourceMapEmbed: false,
+        sourceMapEmbed: true,
         sourceMapContents: true,
         includePaths: ['.']
       },
@@ -68,7 +68,7 @@ module.exports = function (grunt) {
         processors: [
           // Add vendor prefixed styles
           require('autoprefixer-core')({
-            browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1']
+            browsers: ['> 1%', 'last 3 versions', 'Firefox ESR', 'Opera 12.1']
           })
         ]
       },

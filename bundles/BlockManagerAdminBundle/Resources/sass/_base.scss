@@ -9,6 +9,10 @@ body {
 body {
     padding:0.625em 0 4em;
     background-color:$bgColor;
+    &.ajax-loading,
+    &.ajax-loading * {
+        cursor:wait !important;
+    }
 }
 
 * {

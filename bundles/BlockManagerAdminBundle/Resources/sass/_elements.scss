@@ -22,6 +22,7 @@
     vertical-align:middle;
     &:hover {
         background:hsla(0, 0, 62, 0.2);
+        text-decoration:none;
     }
     &:focus:not(:active) {
         background:hsla(0, 0, 62, 0.3);
@@ -42,6 +43,7 @@
         font-size:24px;
         i {
             font-size:inherit;
+            display:block;
         }
     }
 
@@ -94,4 +96,119 @@
         outline:none;
         background-color:hsl(0, 0, 92);
     }
+}
+
+.loading-ng-icon {
+  display:inline-block;
+  position:relative;
+  font-size:1em;
+  width:1.375em;
+  height:2.375em;
+  margin:0em 1.5em -0.3em;
+  transform:rotate(-48deg);
+  animation:loadRotate 1.5s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  &::before,
+  &::after {
+    content:"";
+    display:block;
+    background:currentColor;
+    border-radius:50%;
+    position:absolute;
+    left:50%;
+  }
+  &::before {
+    width:1em;
+    height:1em;
+    margin-left:-0.5em;
+    bottom:1.375em;
+    animation:loadBounceTopSquash 0.75s alternate infinite ease, loadBounceTopFlow 0.75s alternate infinite ease;
+  }
+  &::after {
+    width:1.375em;
+    height:1.375em;
+    margin-left:-0.6875em;
+    bottom:0;
+    animation:loadBounceBottomSquash 0.75s alternate infinite ease, loadBounceBottomFlow 0.75s alternate infinite ease;
+  }
+}
+@keyframes loadBounceTopSquash {
+  0% {
+    height:0.375em;
+    border-radius:3.75em 3.75em 1.25em 1.25em;
+    transform:scaleX(2);
+  }
+  15% {
+    height:1em;
+    border-radius:50%;
+    transform:scaleX(1);
+  }
+  100% {
+    height:1em;
+    border-radius:50%;
+    transform:scaleX(1);
+  }
+}
+@keyframes loadBounceBottomSquash {
+  0% {
+    height:1em;
+    border-radius:1.25em 1.25em 3.75em 3.75em;
+    transform:scaleX(1.5);
+  }
+  15% {
+    height:1.375em;
+    border-radius:50%;
+    transform:scaleX(1);
+  }
+  100% {
+    height:1.375em;
+    border-radius:50%;
+    transform:scaleX(1);
+  }
+}
+@keyframes loadBounceTopFlow {
+  0% {
+    bottom:1.125em;
+  }
+  50% {
+    bottom:2.25em;
+    animation-timing-function:cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+  90% {
+    bottom:1.75em;
+  }
+  100% {
+    bottom:1.75em;
+  }
+}
+@keyframes loadBounceBottomFlow {
+  0% {
+    bottom:0.1875em;
+  }
+  50% {
+    bottom:-0.9375em;
+    animation-timing-function:cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+  90% {
+    bottom:0em;
+  }
+  100% {
+    bottom:0em;
+  }
+}
+@keyframes loadRotate {
+  0% {
+    transform:rotate(-228deg);
+  }
+  49% {
+    transform:rotate(-48deg);
+  }
+  51% {
+    transform:rotate(-48deg);
+  }
+  92% {
+    transform:rotate(132deg);
+  }
+  100% {
+    transform:rotate(132deg);
+  }
 }

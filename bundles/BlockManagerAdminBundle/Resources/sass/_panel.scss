@@ -4,10 +4,13 @@
     box-shadow:0 1px 2px rgba(43,59,93,.29);
     margin:0 0 1.5em;
     position:relative;
-    
+
     p {
         font-size:0.8125em;
         margin:0 0 1em;
+    }
+    a {
+        text-decoration:none;
     }
 
     //panel head
@@ -23,6 +26,7 @@
         .panel-icon {
             margin-right:0.5em;
             color:$panelLightColor;
+            display:flex;
         }
         .panel-name {
             flex:1;
@@ -74,6 +78,7 @@
             &::before {
                 @extend %material-icons;
                 content:"expand_more";
+                display:block;
             }
         }
     }
@@ -113,22 +118,26 @@
             background:hsl(218, 21, 93);
             .remove-setting {
                 position:absolute;
-                right:8px;
-                top:9px;
+                right:6px;
+                top:7px;
                 width:1.125rem;
                 text-align:center;
                 height:1.125rem;
                 line-height:1.125rem;
                 display:block;
                 color:hsl(330, 100, 50);
+                transition:background 0.15s;
                 i {
                     font-size:14px;
                     line-height:inherit;
                 }
+                &:hover {
+                    background:rgba(0, 0, 0, 0.08);
+                }
             }
         }
         .settings-value {
-            display:inline-block;
+            //display:inline-block;
             &.editable-value {
                 cursor:pointer;
                 border-bottom:1px dashed hsla(0, 0, 0, 0.2);
@@ -141,6 +150,16 @@
                     vertical-align:middle;
                 }
             }
+        }
+    }
+    .settings-loader {
+        text-align:center;
+        padding:0.75em 0;
+        color:#b3bccb;
+        font-size:10px;
+        display:none;
+        i {
+            font-size:0.75em;
         }
     }
 
@@ -163,4 +182,7 @@
             @extend %fadeIn;
         }
     }
+}
+pre.sf-dump {
+  z-index:999 !important;
 }
