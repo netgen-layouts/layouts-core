@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('bundles/netgenblockmanagerui/css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('main.css', 'ngbm_app_css') }}">
     {% endblock %}
 </head>
 
@@ -25,7 +25,7 @@
     <script src="{{ asset('bundles/netgenblockmanagerui/vendor/ace-editor/ace.js') }}"></script>
 
     {% block javascripts %}
-        <script src="{{ asset('bundles/netgenblockmanagerui/js/main.js') }}"></script>
+        <script src="{{ asset('main.js', 'ngbm_app_js') }}"></script>
     {% endblock %}
 </body>
 </html>
