@@ -110,6 +110,23 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Loads all layouts.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]
+     */
+    public function loadLayouts()
+    {
+        $persistenceLayouts = $this->layoutHandler->loadLayouts();
+
+        $layouts = array();
+        foreach ($persistenceLayouts as $persistenceLayout) {
+            $layouts[] = $this->layoutMapper->mapLayoutReference($persistenceLayout);
+        }
+
+        return $layouts;
+    }
+
+    /**
      * Loads all shared layouts.
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]

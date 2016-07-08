@@ -35,6 +35,13 @@ interface LayoutService
     public function loadLayoutDraft($layoutId);
 
     /**
+     * Loads all layouts.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]
+     */
+    public function loadLayouts();
+
+    /**
      * Loads all shared layouts.
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]

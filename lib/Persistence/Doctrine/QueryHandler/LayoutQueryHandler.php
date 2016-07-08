@@ -34,6 +34,20 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads all data for layouts.
+     *
+     * @return array
+     */
+    public function loadLayoutsData()
+    {
+        $query = $this->getLayoutSelectQuery();
+
+        $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
+
+        return $query->execute()->fetchAll();
+    }
+
+    /**
      * Loads all data for shared layouts.
      *
      * @return array
@@ -44,7 +58,7 @@ class LayoutQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('shared', ':shared')
         )
-            ->setParameter('shared', true, Type::BOOLEAN);
+        ->setParameter('shared', true, Type::BOOLEAN);
 
         $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
 

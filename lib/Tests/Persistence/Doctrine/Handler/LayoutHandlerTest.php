@@ -118,6 +118,64 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     */
+    public function testLoadLayouts()
+    {
+        self::assertEquals(
+            array(
+                new Layout(
+                    array(
+                        'id' => 1,
+                        'type' => '4_zones_a',
+                        'name' => 'My layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => false,
+                    )
+                ),
+                new Layout(
+                    array(
+                        'id' => 2,
+                        'type' => '4_zones_b',
+                        'name' => 'My other layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => false,
+                    )
+                ),
+                new Layout(
+                    array(
+                        'id' => 3,
+                        'type' => '4_zones_b',
+                        'name' => 'My third layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => true,
+                    )
+                ),
+                new Layout(
+                    array(
+                        'id' => 5,
+                        'type' => '4_zones_b',
+                        'name' => 'My fifth layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => true,
+                    )
+                ),
+            ),
+            $this->layoutHandler->loadLayouts()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadSharedLayoutsData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery

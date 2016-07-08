@@ -101,6 +101,22 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayouts
+     */
+    public function testLoadLayouts()
+    {
+        $layouts = $this->layoutService->loadLayouts();
+
+        self::assertInternalType('array', $layouts);
+        self::assertCount(4, $layouts);
+
+        foreach ($layouts as $layout) {
+            self::assertInstanceOf(LayoutReference::class, $layout);
+            self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadSharedLayouts
      */
     public function testLoadSharedLayouts()
@@ -108,6 +124,8 @@ abstract class LayoutServiceTest extends ServiceTest
         $layouts = $this->layoutService->loadSharedLayouts();
 
         self::assertInternalType('array', $layouts);
+        self::assertCount(2, $layouts);
+
         foreach ($layouts as $layout) {
             self::assertInstanceOf(LayoutReference::class, $layout);
             self::assertTrue($layout->isShared());
