@@ -62,7 +62,7 @@ target_type.route_prefix.label: 'Route prefix'
 target_type.path_info.label: 'Path info'
 target_type.path_info_prefix.label: 'Path info prefix'
 target_type.request_uri.label: 'Request URI'
-target_type.request_uri_prefix.label: 'Request URI'
+target_type.request_uri_prefix.label: 'Request URI prefix'
 
 condition_type.route_parameter.parameter_name.label: 'Parameter name'
 condition_type.route_parameter.parameter_value.label: 'Parameter value'
