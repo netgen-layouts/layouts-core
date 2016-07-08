@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Version;
@@ -47,6 +48,21 @@ class LayoutController extends Controller
         $this->repository = $repository;
         $this->layoutService = $layoutService;
         $this->validator = $validator;
+    }
+
+    /**
+     * Loads all shared layouts.
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     */
+    public function loadSharedLayouts()
+    {
+        $layouts = array();
+        foreach ($this->layoutService->loadSharedLayouts() as $layout) {
+            $layouts[] = new VersionedValue($layout, Version::API_V1);
+        }
+
+        return new ValueList($layouts);
     }
 
     /**
