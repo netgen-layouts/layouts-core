@@ -97,6 +97,46 @@
                 padding-left:$gutter;
             }
         }
+
+        form {
+            background:hsl(0, 0, 96);
+            padding:0.8em;
+            margin:0.5em 0;
+            font-size:0.8125rem;
+            label {
+                display:block;
+                margin:0;
+                font-weight:400;
+                font-size:0.9em;
+            }
+            input[type=text] {
+                display:block;
+                border:none;
+                padding:0.4em 0.5em;
+                margin:0 0 1em;
+                width:100%;
+            }
+            select:not([multiple]) {
+                @extend .lr-select;
+                background:#fff;
+                margin:0 0 1em;
+            }
+            select[multiple] {
+                width:100%;
+                border:none;
+                margin:0 0 1em;
+                option {
+                    padding:0.25em;
+                }
+            }
+            .form-actions {
+                text-align:right;
+            }
+            .lr-btn {
+                height:28px;
+                line-height:28px;
+            }
+        }
     }
 
     .lr-panel-actions {
@@ -181,6 +221,10 @@
             display:block;
             @extend %fadeIn;
         }
+    }
+
+    .ajax-loading & {
+        pointer-events:none;
     }
 }
 pre.sf-dump {

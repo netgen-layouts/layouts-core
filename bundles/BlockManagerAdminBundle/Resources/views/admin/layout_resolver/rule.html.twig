@@ -33,7 +33,7 @@
                     <i class="material-icons">more_vert</i>
                 </button>
                 <ul class="lr-dropdown-menu">
-                    <li><a href="#" {% if layout_name == null %} disabled {% endif %}>{{ 'layout_resolver.rules.unlink_layout'|trans }}</a></li>
+                    <li><a href="#" {% if layout_name == null %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rules.unlink_layout'|trans }}</a></li>
 
                     {% if layout_name != null %}
                         <li><a href="#">{{ 'layout_resolver.rules.link_other_layout'|trans }}</a></li>
@@ -44,7 +44,7 @@
                     {% if rule.enabled %}
                         <li><a href="#" class="js-rule-edit" data-action="disable">{{ 'layout_resolver.rules.disable_rule'|trans }}</a></li>
                     {% else %}
-                        <li><a href="#" class="js-rule-edit" data-action="enable">{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
+                        <li><a href="#" {% if layout_name == null %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
                     {% endif %}
                 </ul>
             </div>

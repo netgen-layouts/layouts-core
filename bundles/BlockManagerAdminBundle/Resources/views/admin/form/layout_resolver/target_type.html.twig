@@ -5,6 +5,8 @@
 {% block children %}
     {{ form_row(form.children.value) }}
 
-    <a class="lr-btn js-cancel-add">{{ 'target_type.button.cancel'|trans }}</a>
-    <button type="submit" class="lr-btn lr-btn-primary">{{ 'target_type.button.save'|trans }}</button>
+    <div class="form-actions">
+        <a class="lr-btn js-cancel-add">{{ 'target_type.button.cancel'|trans }}</a>
+        <button type="submit" class="lr-btn lr-btn-primary">{{ 'target_type.button.save'|trans }}</button>
+    </div>
 {% endblock %}
