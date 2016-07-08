@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -111,7 +112,7 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Loads all shared layouts.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]
      */
     public function loadSharedLayouts()
     {
@@ -119,7 +120,7 @@ class LayoutService implements LayoutServiceInterface
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->layoutMapper->mapLayout($persistenceLayout);
+            $layouts[] = $this->layoutMapper->mapLayoutReference($persistenceLayout);
         }
 
         return $layouts;
@@ -128,11 +129,11 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Returns if provided layout has a published status.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutReference $layout
      *
      * @return bool
      */
-    public function isPublished(Layout $layout)
+    public function isPublished(LayoutReference $layout)
     {
         return $this->layoutHandler->layoutExists($layout->getId(), Layout::STATUS_PUBLISHED);
     }

@@ -7,6 +7,7 @@ use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\LayoutReference;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
@@ -61,7 +62,48 @@ class LayoutNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZones
      */
-    public function testNormalize()
+    public function testNormalizeLayoutReference()
+    {
+        $currentDate = new DateTime();
+        $currentDate->setTimestamp(time());
+
+        $layout = new LayoutReference(
+            array(
+                'id' => 42,
+                'type' => '4_zones_a',
+                'status' => Layout::STATUS_DRAFT,
+                'created' => $currentDate,
+                'modified' => $currentDate,
+                'shared' => true,
+            )
+        );
+
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('isPublished')
+            ->with($this->equalTo($layout))
+            ->will($this->returnValue(true));
+
+        self::assertEquals(
+            array(
+                'id' => $layout->getId(),
+                'type' => $layout->getType(),
+                'published' => false,
+                'has_published_state' => true,
+                'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
+                'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+                'shared' => true,
+                'name' => $layout->getName(),
+            ),
+            $this->normalizer->normalize(new VersionedValue($layout, 1))
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZones
+     */
+    public function testNormalizeLayout()
     {
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
@@ -167,9 +209,12 @@ class LayoutNormalizerTest extends TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new Layout(), false),
+            array(new LayoutReference(), false),
             array(new VersionedValue(new Value(), 1), false),
             array(new VersionedValue(new Layout(), 2), false),
+            array(new VersionedValue(new LayoutReference(), 2), false),
             array(new VersionedValue(new Layout(), 1), true),
+            array(new VersionedValue(new LayoutReference(), 1), true),
         );
     }
 }

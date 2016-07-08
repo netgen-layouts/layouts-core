@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
@@ -108,8 +109,9 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertInternalType('array', $layouts);
         foreach ($layouts as $layout) {
-            self::assertInstanceOf(Layout::class, $layout);
+            self::assertInstanceOf(LayoutReference::class, $layout);
             self::assertTrue($layout->isShared());
+            self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         }
     }
 

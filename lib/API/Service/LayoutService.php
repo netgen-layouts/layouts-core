@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
@@ -36,18 +37,18 @@ interface LayoutService
     /**
      * Loads all shared layouts.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]
      */
     public function loadSharedLayouts();
 
     /**
      * Returns if provided layout has a published status.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutReference $layout
      *
      * @return bool
      */
-    public function isPublished(Layout $layout);
+    public function isPublished(LayoutReference $layout);
 
     /**
      * Loads a zone with specified identifier.

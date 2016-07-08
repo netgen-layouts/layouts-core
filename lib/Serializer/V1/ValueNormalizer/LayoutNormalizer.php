@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -49,7 +50,7 @@ class LayoutNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $layout */
         $layout = $object->getValue();
 
-        return array(
+        $data = array(
             'id' => $layout->getId(),
             'type' => $layout->getType(),
             'published' => $layout->getStatus() === Layout::STATUS_PUBLISHED ?
@@ -60,8 +61,13 @@ class LayoutNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'shared' => $layout->isShared(),
             'name' => $layout->getName(),
-            'zones' => $this->getZones($layout),
         );
+
+        if ($layout instanceof Layout) {
+            $data['zones'] = $this->getZones($layout);
+        }
+
+        return $data;
     }
 
     /**
@@ -78,7 +84,7 @@ class LayoutNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Layout && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof LayoutReference && $data->getVersion() === Version::API_V1;
     }
 
     /**

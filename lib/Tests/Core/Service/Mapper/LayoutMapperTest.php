@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
@@ -95,5 +96,37 @@ abstract class LayoutMapperTest extends MapperTest
         foreach ($layout->getZones() as $zone) {
             self::assertInstanceOf(APIZone::class, $zone);
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayoutReference
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::createDateTime
+     */
+    public function testMapLayoutReference()
+    {
+        $persistenceLayout = new Layout(
+            array(
+                'id' => 1,
+                'type' => '4_zones_a',
+                'name' => 'My layout',
+                'created' => 1447065813,
+                'modified' => 1447065813,
+                'status' => APILayout::STATUS_PUBLISHED,
+                'shared' => true,
+            )
+        );
+
+        $layout = $this->layoutMapper->mapLayoutReference($persistenceLayout);
+
+        self::assertInstanceOf(LayoutReference::class, $layout);
+        self::assertEquals(1, $layout->getId());
+        self::assertEquals('4_zones_a', $layout->getType());
+        self::assertEquals('My layout', $layout->getName());
+        self::assertInstanceOf(DateTime::class, $layout->getCreated());
+        self::assertEquals(1447065813, $layout->getCreated()->getTimestamp());
+        self::assertInstanceOf(DateTime::class, $layout->getModified());
+        self::assertEquals(1447065813, $layout->getModified()->getTimestamp());
+        self::assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
+        self::assertTrue($layout->isShared());
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
-use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\LayoutReference;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
-class LayoutTest extends TestCase
+class LayoutReferenceTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
@@ -18,13 +18,10 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isShared
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
      */
     public function testSetDefaultProperties()
     {
-        $layout = new Layout();
+        $layout = new LayoutReference();
 
         self::assertNull($layout->getId());
         self::assertNull($layout->getType());
@@ -33,9 +30,6 @@ class LayoutTest extends TestCase
         self::assertNull($layout->getModified());
         self::assertNull($layout->getStatus());
         self::assertNull($layout->isShared());
-        self::assertEquals(array(), $layout->getZones());
-        self::assertNull($layout->getZone('test'));
-        self::assertFalse($layout->hasZone('test'));
     }
 
     /**
@@ -47,9 +41,6 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isShared
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
      */
     public function testSetProperties()
     {
@@ -59,7 +50,7 @@ class LayoutTest extends TestCase
         $modifiedDate = new DateTime();
         $modifiedDate->setTimestamp(456);
 
-        $layout = new Layout(
+        $layout = new LayoutReference(
             array(
                 'id' => 42,
                 'type' => '4_zones_a',
@@ -68,7 +59,6 @@ class LayoutTest extends TestCase
                 'modified' => $modifiedDate,
                 'status' => Layout::STATUS_PUBLISHED,
                 'shared' => true,
-                'zones' => array('left' => new Zone(), 'right' => new Zone()),
             )
         );
 
@@ -79,13 +69,5 @@ class LayoutTest extends TestCase
         self::assertEquals($modifiedDate, $layout->getModified());
         self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         self::assertTrue($layout->isShared());
-        self::assertEquals(
-            array('left' => new Zone(), 'right' => new Zone()),
-            $layout->getZones()
-        );
-        self::assertNull($layout->getZone('test'));
-        self::assertFalse($layout->hasZone('test'));
-        self::assertInstanceOf(Zone::class, $layout->getZone('left'));
-        self::assertTrue($layout->hasZone('left'));
     }
 }
