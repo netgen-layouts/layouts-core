@@ -100,14 +100,33 @@ class LayoutController extends Controller
     }
 
     /**
-     * Loads all layout draft blocks.
+     * Loads all layout blocks.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param int $layoutId
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\ValueList
      */
-    public function viewLayoutBlocks(LayoutDraft $layout)
+    public function viewLayoutBlocks($layoutId, Request $request)
     {
+        $layout = null;
+
+        if ($request->query->get('published') !== 'true') {
+            try {
+                $layout = $this->layoutService->loadLayoutDraft(
+                    $layoutId
+                );
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+        }
+
+        if (!$layout instanceof Layout) {
+            $layout = $this->layoutService->loadLayout(
+                $layoutId
+            );
+        }
+
         $blocks = array();
         foreach ($layout->getZones() as $zone) {
             foreach ($zone->getBlocks() as $block) {
