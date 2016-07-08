@@ -162,7 +162,6 @@ class LayoutResolverController extends Controller
         $this->layoutResolverService->enableRule($rule);
 
         return $this->renderRule(
-            $this->
             $request->query->get('draft') === 'true' ?
                 $this->layoutResolverService->loadRuleDraft($rule->getId()) :
                 $this->layoutResolverService->loadRule($rule->getId())
