@@ -137,6 +137,17 @@ class LayoutHandlerTest extends TestCase
                         'shared' => true,
                     )
                 ),
+                new Layout(
+                    array(
+                        'id' => 5,
+                        'type' => '4_zones_b',
+                        'name' => 'My fifth layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => true,
+                    )
+                ),
             ),
             $this->layoutHandler->loadSharedLayouts()
         );
@@ -346,7 +357,7 @@ class LayoutHandlerTest extends TestCase
 
         self::assertInstanceOf(Layout::class, $createdLayout);
 
-        self::assertEquals(5, $createdLayout->id);
+        self::assertEquals(6, $createdLayout->id);
         self::assertEquals('new_layout', $createdLayout->type);
         self::assertEquals('New layout', $createdLayout->name);
         self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
@@ -443,7 +454,7 @@ class LayoutHandlerTest extends TestCase
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(5, $copiedLayout->id);
+        self::assertEquals(6, $copiedLayout->id);
         self::assertEquals('4_zones_a', $copiedLayout->type);
         self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
         self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);

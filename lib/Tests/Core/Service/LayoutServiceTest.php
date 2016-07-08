@@ -523,7 +523,7 @@ abstract class LayoutServiceTest extends ServiceTest
 
         self::assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(5, $copiedLayout->getId());
+        self::assertEquals(6, $copiedLayout->getId());
     }
 
     /**
