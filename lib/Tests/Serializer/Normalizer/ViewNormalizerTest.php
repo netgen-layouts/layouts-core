@@ -61,7 +61,7 @@ class ViewNormalizerTest extends TestCase
                         'param' => 'value',
                     )
                 ),
-                $this->equalTo(ViewInterface::CONTEXT_API_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_API)
             )
             ->will($this->returnValue('rendered view'));
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
 class BlockViewTest extends TestCase
@@ -22,7 +22,7 @@ class BlockViewTest extends TestCase
     protected $blockDefinition;
 
     /**
-     * @var \Netgen\BlockManager\View\BlockViewInterface
+     * @var \Netgen\BlockManager\View\View\BlockViewInterface
      */
     protected $view;
 
@@ -41,8 +41,8 @@ class BlockViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\BlockView::__construct
-     * @covers \Netgen\BlockManager\View\BlockView::getBlock
+     * @covers \Netgen\BlockManager\View\View\BlockView::__construct
+     * @covers \Netgen\BlockManager\View\View\BlockView::getBlock
      */
     public function testGetBlock()
     {
@@ -50,7 +50,7 @@ class BlockViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\BlockView::getBlockDefinition
+     * @covers \Netgen\BlockManager\View\View\BlockView::getBlockDefinition
      */
     public function testGetBlockDefinition()
     {
@@ -58,7 +58,7 @@ class BlockViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\BlockView::getParameters
+     * @covers \Netgen\BlockManager\View\View\BlockView::getParameters
      */
     public function testGetParameters()
     {
@@ -73,10 +73,10 @@ class BlockViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\BlockView::getAlias
+     * @covers \Netgen\BlockManager\View\View\BlockView::getIdentifier
      */
-    public function testGetAlias()
+    public function testGetIdentifier()
     {
-        self::assertEquals('block_view', $this->view->getAlias());
+        self::assertEquals('block_view', $this->view->getIdentifier());
     }
 }

@@ -6,7 +6,7 @@ use Netgen\BlockManager\View\Provider\LayoutViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\LayoutViewInterface;
+use Netgen\BlockManager\View\View\LayoutViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class LayoutViewProviderTest extends TestCase
@@ -28,7 +28,7 @@ class LayoutViewProviderTest extends TestCase
     {
         $layout = new Layout(array('id' => 42));
 
-        /** @var \Netgen\BlockManager\View\LayoutViewInterface $view */
+        /** @var \Netgen\BlockManager\View\View\LayoutViewInterface $view */
         $view = $this->layoutViewProvider->provideView($layout);
 
         self::assertInstanceOf(LayoutViewInterface::class, $view);

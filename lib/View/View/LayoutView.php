@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\BlockManager\View\View;
 
+use Netgen\BlockManager\View\View;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
 class LayoutView extends View implements LayoutViewInterface
@@ -28,11 +29,11 @@ class LayoutView extends View implements LayoutViewInterface
     }
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias()
+    public function getIdentifier()
     {
         return 'layout_view';
     }

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\View\ItemView;
+use Netgen\BlockManager\View\View\ItemView;
 use RuntimeException;
 
 class ItemViewProvider implements ViewProviderInterface

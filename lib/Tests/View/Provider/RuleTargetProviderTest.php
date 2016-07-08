@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\Provider\RuleTargetViewProvider;
-use Netgen\BlockManager\View\RuleTargetViewInterface;
+use Netgen\BlockManager\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class RuleTargetProviderTest extends TestCase
@@ -28,7 +28,7 @@ class RuleTargetProviderTest extends TestCase
     {
         $target = new Target(array('id' => 42));
 
-        /** @var \Netgen\BlockManager\View\RuleTargetViewInterface $view */
+        /** @var \Netgen\BlockManager\View\View\RuleTargetViewInterface $view */
         $view = $this->ruleTargetViewProvider->provideView($target);
 
         self::assertInstanceOf(RuleTargetViewInterface::class, $view);

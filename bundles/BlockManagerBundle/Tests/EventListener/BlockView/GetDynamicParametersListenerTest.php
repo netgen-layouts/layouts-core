@@ -10,7 +10,7 @@ use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +28,7 @@ class GetDynamicParametersListenerTest extends TestCase
     public function setUp()
     {
         $this->listener = new GetDynamicParametersListener(
-            array(ViewInterface::CONTEXT_VIEW)
+            array(ViewInterface::CONTEXT_DEFAULT)
         );
     }
 
@@ -63,7 +63,7 @@ class GetDynamicParametersListenerTest extends TestCase
         );
 
         $view = new BlockView(new Block(), $blockDefinition);
-        $view->setContext(ViewInterface::CONTEXT_VIEW);
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
@@ -100,7 +100,7 @@ class GetDynamicParametersListenerTest extends TestCase
         );
 
         $view = new BlockView(new Block(), $blockDefinition);
-        $view->setContext(ViewInterface::CONTEXT_API_VIEW);
+        $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);

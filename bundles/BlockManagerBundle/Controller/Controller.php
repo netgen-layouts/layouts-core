@@ -21,7 +21,7 @@ abstract class Controller extends BaseController
     protected function buildView(
         $value,
         array $parameters = array(),
-        $context = ViewInterface::CONTEXT_VIEW,
+        $context = ViewInterface::CONTEXT_DEFAULT,
         Response $response = null
     ) {
         $viewBuilder = $this->get('netgen_block_manager.view.builder');

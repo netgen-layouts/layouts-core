@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\View\RuleTargetView;
+use Netgen\BlockManager\View\View\RuleTargetView;
 use PHPUnit\Framework\TestCase;
 
 class RuleTargetViewTest extends TestCase
@@ -14,7 +14,7 @@ class RuleTargetViewTest extends TestCase
     protected $target;
 
     /**
-     * @var \Netgen\BlockManager\View\RuleTargetViewInterface
+     * @var \Netgen\BlockManager\View\View\RuleTargetViewInterface
      */
     protected $view;
 
@@ -28,8 +28,8 @@ class RuleTargetViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\RuleTargetView::__construct
-     * @covers \Netgen\BlockManager\View\RuleTargetView::getTarget
+     * @covers \Netgen\BlockManager\View\View\RuleTargetView::__construct
+     * @covers \Netgen\BlockManager\View\View\RuleTargetView::getTarget
      */
     public function testGetTarget()
     {
@@ -44,10 +44,10 @@ class RuleTargetViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\RuleTargetView::getAlias
+     * @covers \Netgen\BlockManager\View\View\RuleTargetView::getIdentifier
      */
-    public function testGetAlias()
+    public function testGetIdentifier()
     {
-        self::assertEquals('rule_target_view', $this->view->getAlias());
+        self::assertEquals('rule_target_view', $this->view->getIdentifier());
     }
 }

@@ -67,12 +67,7 @@ class Configuration implements ConfigurationInterface
     public function getAvailableNodeDefinitions()
     {
         return array(
-            $this->getTemplateResolverNodeDefinition('block_view'),
-            $this->getTemplateResolverNodeDefinition('item_view'),
-            $this->getTemplateResolverNodeDefinition('layout_view'),
-            $this->getTemplateResolverNodeDefinition('form_view'),
-            $this->getTemplateResolverNodeDefinition('rule_target_view'),
-            $this->getTemplateResolverNodeDefinition('rule_condition_view'),
+            $this->getViewNodeDefinition(),
             $this->getBlockDefinitionsNodeDefinition(),
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),
@@ -86,30 +81,32 @@ class Configuration implements ConfigurationInterface
     /**
      * Returns node definition for template resolvers.
      *
-     * @param string $nodeName
-     *
      * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    public function getTemplateResolverNodeDefinition($nodeName)
+    public function getViewNodeDefinition()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root($nodeName);
+        $node = $treeBuilder->root('view');
 
         $node
             ->requiresAtLeastOneElement()
-            ->useAttributeAsKey('context')
+            ->useAttributeAsKey('view')
             ->prototype('array')
-                ->useAttributeAsKey('config')
                 ->requiresAtLeastOneElement()
+                ->useAttributeAsKey('context')
                 ->prototype('array')
-                    ->children()
-                        ->scalarNode('template')
-                            ->isRequired()
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->arrayNode('match')
-                            ->isRequired()
-                            ->prototype('scalar')
+                    ->useAttributeAsKey('config')
+                    ->requiresAtLeastOneElement()
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('template')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->arrayNode('match')
+                                ->isRequired()
+                                ->prototype('scalar')
+                                ->end()
                             ->end()
                         ->end()
                     ->end()

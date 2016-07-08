@@ -146,7 +146,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->returnValue('rendered block'));
 
@@ -155,7 +155,7 @@ class RenderingExtensionTest extends TestCase
             $this->extension->renderBlock(
                 new Block(),
                 array('param' => 'value'),
-                ViewInterface::CONTEXT_VIEW
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -172,7 +172,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
@@ -181,7 +181,7 @@ class RenderingExtensionTest extends TestCase
             $this->extension->renderBlock(
                 new Block(),
                 array('param' => 'value'),
-                ViewInterface::CONTEXT_VIEW
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -201,14 +201,14 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
         $this->extension->renderBlock(
             new Block(),
             array('param' => 'value'),
-            ViewInterface::CONTEXT_VIEW
+            ViewInterface::CONTEXT_DEFAULT
         );
     }
 
@@ -223,7 +223,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->returnValue('rendered item'));
 
@@ -233,7 +233,7 @@ class RenderingExtensionTest extends TestCase
                 new Item(),
                 'viewType',
                 array('param' => 'value'),
-                ViewInterface::CONTEXT_VIEW
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -250,7 +250,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
@@ -260,7 +260,7 @@ class RenderingExtensionTest extends TestCase
                 new Item(),
                 'viewType',
                 array('param' => 'value'),
-                ViewInterface::CONTEXT_VIEW
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -280,7 +280,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
@@ -288,7 +288,7 @@ class RenderingExtensionTest extends TestCase
             new Item(),
             'viewType',
             array('param' => 'value'),
-            ViewInterface::CONTEXT_VIEW
+            ViewInterface::CONTEXT_DEFAULT
         );
     }
 
@@ -303,7 +303,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->returnValue('rendered value'));
 
@@ -312,7 +312,7 @@ class RenderingExtensionTest extends TestCase
             $this->extension->renderValueObject(
                 new Condition(),
                 array('param' => 'value'),
-                ViewInterface::CONTEXT_VIEW
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -329,7 +329,7 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
@@ -338,7 +338,7 @@ class RenderingExtensionTest extends TestCase
             $this->extension->renderValueObject(
                 new Condition(),
                 array('param' => 'value'),
-                ViewInterface::CONTEXT_VIEW
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -358,14 +358,14 @@ class RenderingExtensionTest extends TestCase
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_VIEW)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
         $this->extension->renderValueObject(
             new Condition(),
             array('param' => 'value'),
-            ViewInterface::CONTEXT_VIEW
+            ViewInterface::CONTEXT_DEFAULT
         );
     }
 
@@ -398,7 +398,7 @@ class RenderingExtensionTest extends TestCase
                     ),
                 )
             ),
-            ViewInterface::CONTEXT_VIEW,
+            ViewInterface::CONTEXT_DEFAULT,
             $twigTemplateMock,
             array(),
             array()
@@ -439,7 +439,7 @@ class RenderingExtensionTest extends TestCase
                     ),
                 )
             ),
-            ViewInterface::CONTEXT_VIEW,
+            ViewInterface::CONTEXT_DEFAULT,
             $twigTemplateMock,
             array(),
             array()

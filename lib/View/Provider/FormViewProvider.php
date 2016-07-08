@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Symfony\Component\Form\FormInterface;
-use Netgen\BlockManager\View\FormView;
+use Netgen\BlockManager\View\View\FormView;
 
 class FormViewProvider implements ViewProviderInterface
 {

@@ -38,6 +38,6 @@ abstract class AbstractView extends AbstractVersionedValue
      */
     public function getContext()
     {
-        return ViewInterface::CONTEXT_API_VIEW;
+        return ViewInterface::CONTEXT_API;
     }
 }

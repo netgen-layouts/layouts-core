@@ -58,9 +58,9 @@ class BlockController extends Controller
      *
      * @throws \Exception If rendering fails
      *
-     * @return \Netgen\BlockManager\View\BlockViewInterface
+     * @return \Netgen\BlockManager\View\View\BlockViewInterface
      */
-    public function viewBlockById($blockId, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    public function viewBlockById($blockId, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             $block = $this->blockService->loadBlock($blockId);

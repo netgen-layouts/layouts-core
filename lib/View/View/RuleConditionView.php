@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\BlockManager\View\View;
 
+use Netgen\BlockManager\View\View;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 
 class RuleConditionView extends View implements RuleConditionViewInterface
@@ -28,11 +29,11 @@ class RuleConditionView extends View implements RuleConditionViewInterface
     }
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias()
+    public function getIdentifier()
     {
         return 'rule_condition_view';
     }

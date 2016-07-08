@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\View\FormView;
+use Netgen\BlockManager\View\View\FormView;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 use Symfony\Component\Form\Forms;
@@ -16,7 +16,7 @@ class FormViewTest extends TestCase
     protected $form;
 
     /**
-     * @var \Netgen\BlockManager\View\FormViewInterface
+     * @var \Netgen\BlockManager\View\View\FormViewInterface
      */
     protected $view;
 
@@ -33,10 +33,10 @@ class FormViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FormView::__construct
-     * @covers \Netgen\BlockManager\View\FormView::getForm
-     * @covers \Netgen\BlockManager\View\FormView::getFormType
-     * @covers \Netgen\BlockManager\View\FormView::getFormView
+     * @covers \Netgen\BlockManager\View\View\FormView::__construct
+     * @covers \Netgen\BlockManager\View\View\FormView::getForm
+     * @covers \Netgen\BlockManager\View\View\FormView::getFormType
+     * @covers \Netgen\BlockManager\View\View\FormView::getFormView
      */
     public function testGetForm()
     {
@@ -49,10 +49,10 @@ class FormViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FormView::getAlias
+     * @covers \Netgen\BlockManager\View\View\FormView::getIdentifier
      */
-    public function testGetAlias()
+    public function testGetIdentifier()
     {
-        self::assertEquals('form_view', $this->view->getAlias());
+        self::assertEquals('form_view', $this->view->getIdentifier());
     }
 }

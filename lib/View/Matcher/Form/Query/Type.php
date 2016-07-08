@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\Matcher\Form\Query;
 
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\FormViewInterface;
+use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
 class Type implements MatcherInterface

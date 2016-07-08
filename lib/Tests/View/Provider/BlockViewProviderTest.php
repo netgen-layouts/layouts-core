@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\BlockViewInterface;
+use Netgen\BlockManager\View\View\BlockViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class BlockViewProviderTest extends TestCase
@@ -52,7 +52,7 @@ class BlockViewProviderTest extends TestCase
     {
         $block = new Block(array('id' => 42, 'definitionIdentifier' => 'block_definition'));
 
-        /** @var \Netgen\BlockManager\View\BlockViewInterface $view */
+        /** @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
         $view = $this->blockViewProvider->provideView($block);
 
         self::assertInstanceOf(BlockViewInterface::class, $view);

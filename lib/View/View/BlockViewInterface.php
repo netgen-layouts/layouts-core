@@ -1,6 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\BlockManager\View\View;
+
+use Netgen\BlockManager\View\ViewInterface;
 
 interface BlockViewInterface extends ViewInterface
 {

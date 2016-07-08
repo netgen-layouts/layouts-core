@@ -6,7 +6,7 @@ use Netgen\BlockManager\View\Provider\ItemViewProvider;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\ItemViewInterface;
+use Netgen\BlockManager\View\View\ItemViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class ItemViewProviderTest extends TestCase
@@ -28,7 +28,7 @@ class ItemViewProviderTest extends TestCase
     {
         $item = new Item();
 
-        /** @var \Netgen\BlockManager\View\ItemViewInterface $view */
+        /** @var \Netgen\BlockManager\View\View\ItemViewInterface $view */
         $view = $this->itemViewProvider->provideView($item, array('viewType' => 'view_type'));
 
         self::assertInstanceOf(ItemViewInterface::class, $view);

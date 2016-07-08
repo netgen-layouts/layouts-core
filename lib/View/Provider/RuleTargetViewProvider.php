@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\View\RuleTargetView;
+use Netgen\BlockManager\View\View\RuleTargetView;
 
 class RuleTargetViewProvider implements ViewProviderInterface
 {

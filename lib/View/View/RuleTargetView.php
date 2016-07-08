@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\BlockManager\View\View;
 
+use Netgen\BlockManager\View\View;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 
 class RuleTargetView extends View implements RuleTargetViewInterface
@@ -28,11 +29,11 @@ class RuleTargetView extends View implements RuleTargetViewInterface
     }
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias()
+    public function getIdentifier()
     {
         return 'rule_target_view';
     }

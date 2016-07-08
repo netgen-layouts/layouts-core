@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Stubs;
 
-use Netgen\BlockManager\View\FormViewInterface;
 use Netgen\BlockManager\View\View;
+use Netgen\BlockManager\View\View\FormViewInterface;
 
 class FormView extends View implements FormViewInterface
 {
@@ -36,11 +36,11 @@ class FormView extends View implements FormViewInterface
     }
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias()
+    public function getIdentifier()
     {
         return 'form_view';
     }

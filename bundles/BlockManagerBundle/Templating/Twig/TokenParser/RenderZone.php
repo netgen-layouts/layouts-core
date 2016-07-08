@@ -23,7 +23,7 @@ class RenderZone extends Twig_TokenParser
     {
         $stream = $this->parser->getStream();
 
-        $context = ViewInterface::CONTEXT_VIEW;
+        $context = ViewInterface::CONTEXT_DEFAULT;
         $zone = $this->parser->getExpressionParser()->parseExpression();
 
         while (!$stream->test(Twig_Token::BLOCK_END_TYPE)) {

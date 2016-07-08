@@ -13,7 +13,7 @@ interface RendererInterface
      *
      * @return string
      */
-    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW);
+    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT);
 
     /**
      * Renders the view.

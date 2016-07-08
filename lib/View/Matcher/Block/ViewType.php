@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View\Matcher\Block;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\BlockViewInterface;
+use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
 class ViewType implements MatcherInterface

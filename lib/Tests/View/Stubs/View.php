@@ -17,11 +17,11 @@ class View extends BaseView
     }
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias()
+    public function getIdentifier()
     {
         return 'view';
     }

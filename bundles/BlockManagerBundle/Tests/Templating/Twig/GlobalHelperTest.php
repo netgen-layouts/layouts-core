@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
 use PHPUnit\Framework\TestCase;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\View\RuleConditionView;
+use Netgen\BlockManager\View\View\RuleConditionView;
 use PHPUnit\Framework\TestCase;
 
 class RuleConditionViewTest extends TestCase
@@ -14,7 +14,7 @@ class RuleConditionViewTest extends TestCase
     protected $condition;
 
     /**
-     * @var \Netgen\BlockManager\View\RuleConditionViewInterface
+     * @var \Netgen\BlockManager\View\View\RuleConditionViewInterface
      */
     protected $view;
 
@@ -28,8 +28,8 @@ class RuleConditionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\RuleConditionView::__construct
-     * @covers \Netgen\BlockManager\View\RuleConditionView::getCondition
+     * @covers \Netgen\BlockManager\View\View\RuleConditionView::__construct
+     * @covers \Netgen\BlockManager\View\View\RuleConditionView::getCondition
      */
     public function testGetCondition()
     {
@@ -44,10 +44,10 @@ class RuleConditionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\RuleConditionView::getAlias
+     * @covers \Netgen\BlockManager\View\View\RuleConditionView::getIdentifier
      */
-    public function testGetAlias()
+    public function testGetIdentifier()
     {
-        self::assertEquals('rule_condition_view', $this->view->getAlias());
+        self::assertEquals('rule_condition_view', $this->view->getIdentifier());
     }
 }

@@ -3,12 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\View\LayoutViewInterface;
+use Netgen\BlockManager\View\View\LayoutViewInterface;
 
 class GlobalHelper
 {
     /**
-     * @var \Netgen\BlockManager\View\LayoutViewInterface
+     * @var \Netgen\BlockManager\View\View\LayoutViewInterface
      */
     protected $layoutView;
 
@@ -35,7 +35,7 @@ class GlobalHelper
     /**
      * Returns the layout view object.
      *
-     * @return \Netgen\BlockManager\View\LayoutViewInterface
+     * @return \Netgen\BlockManager\View\View\LayoutViewInterface
      */
     public function getLayoutView()
     {
@@ -45,7 +45,7 @@ class GlobalHelper
     /**
      * Sets the layout view object.
      *
-     * @param \Netgen\BlockManager\View\LayoutViewInterface $layoutView
+     * @param \Netgen\BlockManager\View\View\LayoutViewInterface $layoutView
      */
     public function setLayoutView(LayoutViewInterface $layoutView)
     {

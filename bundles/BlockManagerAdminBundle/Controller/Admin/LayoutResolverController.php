@@ -319,7 +319,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_VIEW,
+            ViewInterface::CONTEXT_DEFAULT,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -376,7 +376,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_VIEW,
+            ViewInterface::CONTEXT_DEFAULT,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -447,7 +447,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_VIEW,
+            ViewInterface::CONTEXT_DEFAULT,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -504,7 +504,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_VIEW,
+            ViewInterface::CONTEXT_DEFAULT,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

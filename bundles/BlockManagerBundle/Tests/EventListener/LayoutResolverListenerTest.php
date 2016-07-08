@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;

@@ -1,97 +1,98 @@
-block_view:
-    view:
-        title:
-            template: "NetgenBlockManagerBundle:block:title.html.twig"
-            match:
-                block\definition: title
-        text:
-            template: "NetgenBlockManagerBundle:block:text.html.twig"
-            match:
-                block\definition: text
-        rich_text:
-            template: "NetgenBlockManagerBundle:block:rich_text.html.twig"
-            match:
-                block\definition: rich_text
-        html_snippet:
-            template: "NetgenBlockManagerBundle:block:html_snippet.html.twig"
-            match:
-                block\definition: html_snippet
-        external_video:
-            template: "NetgenBlockManagerBundle:block:external_video.html.twig"
-            match:
-                block\definition: external_video
-        list\list:
-            template: "NetgenBlockManagerBundle:block/list:list.html.twig"
-            match:
-                block\definition: list
-                block\view_type: list
-        list\grid:
-            template: "NetgenBlockManagerBundle:block/list:grid.html.twig"
-            match:
-                block\definition: list
-                block\view_type: grid
-        gallery:
-            template: "NetgenBlockManagerBundle:block:gallery.html.twig"
-            match:
-                block\definition: gallery
-        # Fallbacks for content blocks! Do not remove!
-        twig_block:
-            template: "NetgenBlockManagerBundle:block:twig_block.html.twig"
-            match:
-                block\definition: twig_block
-        content:
-            template: "NetgenBlockManagerBundle:block:content.html.twig"
-            match:
-                block\definition: content
-        # Base block template
-        block:
-            template: "NetgenBlockManagerBundle:block:block.html.twig"
-            match: ~
-    api_view:
-        title:
-            template: "NetgenBlockManagerBundle:api/block:title.html.twig"
-            match:
-                block\definition: title
-                api_version: 1
-        text:
-            template: "NetgenBlockManagerBundle:api/block:text.html.twig"
-            match:
-                block\definition: text
-                api_version: 1
-        rich_text:
-            template: "NetgenBlockManagerBundle:api/block:rich_text.html.twig"
-            match:
-                block\definition: rich_text
-                api_version: 1
-        html_snippet:
-            template: "NetgenBlockManagerBundle:api/block:html_snippet.html.twig"
-            match:
-                block\definition: html_snippet
-                api_version: 1
-        external_video:
-            template: "NetgenBlockManagerBundle:api/block:external_video.html.twig"
-            match:
-                block\definition: external_video
-                api_version: 1
-        list\list:
-            template: "NetgenBlockManagerBundle:api/block/list:list.html.twig"
-            match:
-                block\definition: list
-                block\view_type: list
-                api_version: 1
-        list\grid:
-            template: "NetgenBlockManagerBundle:api/block/list:grid.html.twig"
-            match:
-                block\definition: list
-                block\view_type: grid
-                api_version: 1
-        gallery:
-            template: "NetgenBlockManagerBundle:api/block:gallery.html.twig"
-            match:
-                block\definition: gallery
-                api_version: 1
-        # Base block template
-        block:
-            template: "NetgenBlockManagerBundle:api/block:block.html.twig"
-            match:
-                api_version: 1
+view:
+    block_view:
+        default:
+            title:
+                template: "NetgenBlockManagerBundle:block:title.html.twig"
+                match:
+                    block\definition: title
+            text:
+                template: "NetgenBlockManagerBundle:block:text.html.twig"
+                match:
+                    block\definition: text
+            rich_text:
+                template: "NetgenBlockManagerBundle:block:rich_text.html.twig"
+                match:
+                    block\definition: rich_text
+            html_snippet:
+                template: "NetgenBlockManagerBundle:block:html_snippet.html.twig"
+                match:
+                    block\definition: html_snippet
+            external_video:
+                template: "NetgenBlockManagerBundle:block:external_video.html.twig"
+                match:
+                    block\definition: external_video
+            list\list:
+                template: "NetgenBlockManagerBundle:block/list:list.html.twig"
+                match:
+                    block\definition: list
+                    block\view_type: list
+            list\grid:
+                template: "NetgenBlockManagerBundle:block/list:grid.html.twig"
+                match:
+                    block\definition: list
+                    block\view_type: grid
+            gallery:
+                template: "NetgenBlockManagerBundle:block:gallery.html.twig"
+                match:
+                    block\definition: gallery
+            # Fallbacks for content blocks! Do not remove!
+            twig_block:
+                template: "NetgenBlockManagerBundle:block:twig_block.html.twig"
+                match:
+                    block\definition: twig_block
+            content:
+                template: "NetgenBlockManagerBundle:block:content.html.twig"
+                match:
+                    block\definition: content
+            # Base block template
+            block:
+                template: "NetgenBlockManagerBundle:block:block.html.twig"
+                match: ~
+        api:
+            title:
+                template: "NetgenBlockManagerBundle:api/block:title.html.twig"
+                match:
+                    block\definition: title
+                    api_version: 1
+            text:
+                template: "NetgenBlockManagerBundle:api/block:text.html.twig"
+                match:
+                    block\definition: text
+                    api_version: 1
+            rich_text:
+                template: "NetgenBlockManagerBundle:api/block:rich_text.html.twig"
+                match:
+                    block\definition: rich_text
+                    api_version: 1
+            html_snippet:
+                template: "NetgenBlockManagerBundle:api/block:html_snippet.html.twig"
+                match:
+                    block\definition: html_snippet
+                    api_version: 1
+            external_video:
+                template: "NetgenBlockManagerBundle:api/block:external_video.html.twig"
+                match:
+                    block\definition: external_video
+                    api_version: 1
+            list\list:
+                template: "NetgenBlockManagerBundle:api/block/list:list.html.twig"
+                match:
+                    block\definition: list
+                    block\view_type: list
+                    api_version: 1
+            list\grid:
+                template: "NetgenBlockManagerBundle:api/block/list:grid.html.twig"
+                match:
+                    block\definition: list
+                    block\view_type: grid
+                    api_version: 1
+            gallery:
+                template: "NetgenBlockManagerBundle:api/block:gallery.html.twig"
+                match:
+                    block\definition: gallery
+                    api_version: 1
+            # Base block template
+            block:
+                template: "NetgenBlockManagerBundle:api/block:block.html.twig"
+                match:
+                    api_version: 1

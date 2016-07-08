@@ -15,15 +15,15 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * @var array
      */
-    protected $configurations = array();
+    protected $viewConfig = array();
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
-     * @param array $configurations
+     * @param array $viewConfig
      */
-    public function __construct(array $matchers = array(), array $configurations = array())
+    public function __construct(array $matchers = array(), array $viewConfig = array())
     {
         foreach ($matchers as $matcher) {
             if (!$matcher instanceof MatcherInterface) {
@@ -37,7 +37,7 @@ class TemplateResolver implements TemplateResolverInterface
         }
 
         $this->matchers = $matchers;
-        $this->configurations = $configurations;
+        $this->viewConfig = $viewConfig;
     }
 
     /**
@@ -52,9 +52,9 @@ class TemplateResolver implements TemplateResolverInterface
     public function resolveTemplate(ViewInterface $view)
     {
         $context = $view->getContext();
-        $viewAlias = $view->getAlias();
+        $viewIdentifier = $view->getIdentifier();
 
-        if (!isset($this->configurations[$viewAlias][$context])) {
+        if (!isset($this->viewConfig[$viewIdentifier][$context])) {
             throw new RuntimeException(
                 sprintf(
                     'No view config could be found for view object "%s" and context "%s".',
@@ -64,7 +64,7 @@ class TemplateResolver implements TemplateResolverInterface
             );
         }
 
-        foreach ($this->configurations[$viewAlias][$context] as $config) {
+        foreach ($this->viewConfig[$viewIdentifier][$context] as $config) {
             if (!$this->matches($view, $config['match'])) {
                 continue;
             }

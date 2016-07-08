@@ -181,7 +181,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @return string
      */
-    public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             if ($this->isBlockCacheable($block)) {
@@ -222,7 +222,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @return string
      */
-    public function renderItem(Item $item, $viewType, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    public function renderItem(Item $item, $viewType, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             return $this->viewRenderer->renderValueObject(
@@ -252,7 +252,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @return string
      */
-    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             return $this->viewRenderer->renderValueObject(

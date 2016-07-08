@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Layout;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\Matcher\Layout\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\View\LayoutView;
+use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
 class LayoutViewTest extends TestCase
@@ -14,7 +14,7 @@ class LayoutViewTest extends TestCase
     protected $layout;
 
     /**
-     * @var \Netgen\BlockManager\View\LayoutViewInterface
+     * @var \Netgen\BlockManager\View\View\LayoutViewInterface
      */
     protected $view;
 
@@ -28,8 +28,8 @@ class LayoutViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\LayoutView::__construct
-     * @covers \Netgen\BlockManager\View\LayoutView::getLayout
+     * @covers \Netgen\BlockManager\View\View\LayoutView::__construct
+     * @covers \Netgen\BlockManager\View\View\LayoutView::getLayout
      */
     public function testGetLayout()
     {
@@ -44,10 +44,10 @@ class LayoutViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\LayoutView::getAlias
+     * @covers \Netgen\BlockManager\View\View\LayoutView::getIdentifier
      */
-    public function testGetAlias()
+    public function testGetIdentifier()
     {
-        self::assertEquals('layout_view', $this->view->getAlias());
+        self::assertEquals('layout_view', $this->view->getIdentifier());
     }
 }

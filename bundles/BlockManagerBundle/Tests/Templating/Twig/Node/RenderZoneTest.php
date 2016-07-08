@@ -14,9 +14,9 @@ class RenderZoneTest extends \Twig_Test_NodeTestCase
     public function testConstructor()
     {
         $zone = new Twig_Node_Expression_Name('zone', 1);
-        $node = new RenderZone($zone, ViewInterface::CONTEXT_VIEW, 1);
+        $node = new RenderZone($zone, ViewInterface::CONTEXT_DEFAULT, 1);
         $this->assertEquals($zone, $node->getNode('zone'));
-        $this->assertEquals(ViewInterface::CONTEXT_VIEW, $node->getAttribute('context'));
+        $this->assertEquals(ViewInterface::CONTEXT_DEFAULT, $node->getAttribute('context'));
     }
 
     /**
@@ -27,8 +27,9 @@ class RenderZoneTest extends \Twig_Test_NodeTestCase
         $environment = $this->getEnvironment();
         $environment->enableStrictVariables();
 
+        $context = ViewInterface::CONTEXT_DEFAULT;
         $zone = new Twig_Node_Expression_Name('zone', 1);
-        $node = new RenderZone($zone, ViewInterface::CONTEXT_VIEW, 1);
+        $node = new RenderZone($zone, $context, 1);
 
         return array(
             array(
@@ -37,7 +38,7 @@ class RenderZoneTest extends \Twig_Test_NodeTestCase
 // line 1
 \$ngbmZone = (isset(\$context["zone"]) ? \$context["zone"] : \$this->getContext(\$context, "zone"));
 if (\$ngbmZone instanceof \Netgen\BlockManager\API\Values\Page\Zone) {
-    \$this->env->getExtension("ngbm_render")->displayZone(\$ngbmZone, "view", \$this, \$context, \$blocks);
+    \$this->env->getExtension("ngbm_render")->displayZone(\$ngbmZone, "{$context}", \$this, \$context, \$blocks);
 }
 EOF
                 ,

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\View\ItemView;
+use Netgen\BlockManager\View\View\ItemView;
 use PHPUnit\Framework\TestCase;
 
 class ItemViewTest extends TestCase
@@ -14,7 +14,7 @@ class ItemViewTest extends TestCase
     protected $item;
 
     /**
-     * @var \Netgen\BlockManager\View\ItemViewInterface
+     * @var \Netgen\BlockManager\View\View\ItemViewInterface
      */
     protected $view;
 
@@ -28,8 +28,8 @@ class ItemViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ItemView::__construct
-     * @covers \Netgen\BlockManager\View\ItemView::getItem
+     * @covers \Netgen\BlockManager\View\View\ItemView::__construct
+     * @covers \Netgen\BlockManager\View\View\ItemView::getItem
      */
     public function testGetItem()
     {
@@ -45,7 +45,7 @@ class ItemViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ItemView::getViewType
+     * @covers \Netgen\BlockManager\View\View\ItemView::getViewType
      */
     public function testGetViewType()
     {
@@ -53,10 +53,10 @@ class ItemViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ItemView::getAlias
+     * @covers \Netgen\BlockManager\View\View\ItemView::getIdentifier
      */
-    public function testGetAlias()
+    public function testGetIdentifier()
     {
-        self::assertEquals('item_view', $this->view->getAlias());
+        self::assertEquals('item_view', $this->view->getIdentifier());
     }
 }

@@ -37,7 +37,7 @@ class Renderer implements RendererInterface
      *
      * @return string
      */
-    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_VIEW)
+    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
     {
         return $this->renderView(
             $this->viewBuilder->buildView($valueObject, $parameters, $context)

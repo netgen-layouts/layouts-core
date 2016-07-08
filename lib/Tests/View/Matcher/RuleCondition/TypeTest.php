@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\RuleConditionView;
+use Netgen\BlockManager\View\View\RuleConditionView;
 use Netgen\BlockManager\View\Matcher\RuleCondition\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;

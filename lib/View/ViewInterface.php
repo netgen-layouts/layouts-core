@@ -6,16 +6,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface ViewInterface
 {
-    const CONTEXT_VIEW = 'view';
+    const CONTEXT_DEFAULT = 'default';
 
-    const CONTEXT_API_VIEW = 'api_view';
+    const CONTEXT_API = 'api';
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias();
+    public function getIdentifier();
 
     /**
      * Returns the value in this view.

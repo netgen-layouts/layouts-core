@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView;
 
 class BlockViewProvider implements ViewProviderInterface
 {

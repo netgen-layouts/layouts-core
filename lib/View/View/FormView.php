@@ -1,7 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\BlockManager\View\View;
 
+use Netgen\BlockManager\View\View;
 use Symfony\Component\Form\FormInterface;
 
 class FormView extends View implements FormViewInterface
@@ -48,11 +49,11 @@ class FormView extends View implements FormViewInterface
     }
 
     /**
-     * Returns the view alias.
+     * Returns the view identifier.
      *
      * @return string
      */
-    public function getAlias()
+    public function getIdentifier()
     {
         return 'form_view';
     }

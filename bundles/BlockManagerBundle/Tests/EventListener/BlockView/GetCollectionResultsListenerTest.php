@@ -15,7 +15,7 @@ use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ class GetCollectionResultsListenerTest extends TestCase
         $this->listener = new GetCollectionResultsListener(
             $this->resultGeneratorMock,
             $this->blockServiceMock,
-            array(ViewInterface::CONTEXT_VIEW)
+            array(ViewInterface::CONTEXT_DEFAULT)
         );
     }
 
@@ -96,7 +96,7 @@ class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(new Block(), $blockDefinition);
-        $view->setContext(ViewInterface::CONTEXT_VIEW);
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
         $this->blockServiceMock
@@ -156,7 +156,7 @@ class GetCollectionResultsListenerTest extends TestCase
         );
 
         $view = new BlockView(new Block(), $blockDefinition);
-        $view->setContext(ViewInterface::CONTEXT_API_VIEW);
+        $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);

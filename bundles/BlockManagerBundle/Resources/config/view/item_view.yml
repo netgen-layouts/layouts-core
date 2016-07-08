@@ -1,11 +1,12 @@
-item_view:
-    view:
-        # Do not remove, fallback template for items which do not exist or are invalid
-        item:
-            template: "NetgenBlockManagerBundle:item:item.html.twig"
-            match: ~
-    api_view:
-        # Do not remove, fallback template for items which do not exist or are invalid
-        item:
-            template: "NetgenBlockManagerBundle:api/item:item.html.twig"
-            match: ~
+view:
+    item_view:
+        default:
+            # Do not remove, fallback template for items which do not exist or are invalid
+            item:
+                template: "NetgenBlockManagerBundle:item:item.html.twig"
+                match: ~
+        api:
+            # Do not remove, fallback template for items which do not exist or are invalid
+            item:
+                template: "NetgenBlockManagerBundle:api/item:item.html.twig"
+                match: ~

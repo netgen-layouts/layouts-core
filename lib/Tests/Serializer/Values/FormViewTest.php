@@ -35,6 +35,6 @@ class FormViewTest extends TestCase
      */
     public function testGetContext()
     {
-        self::assertEquals(ViewInterface::CONTEXT_API_VIEW, $this->value->getContext());
+        self::assertEquals(ViewInterface::CONTEXT_API, $this->value->getContext());
     }
 }

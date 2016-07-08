@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\Definition;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;

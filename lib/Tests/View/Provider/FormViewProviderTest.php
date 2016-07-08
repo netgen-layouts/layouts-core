@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Provider;
 use Netgen\BlockManager\View\Provider\FormViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\FormViewInterface;
+use Netgen\BlockManager\View\View\FormViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
@@ -34,7 +34,7 @@ class FormViewProviderTest extends TestCase
             ->method('createView')
             ->will($this->returnValue($formView));
 
-        /** @var \Netgen\BlockManager\View\FormViewInterface $view */
+        /** @var \Netgen\BlockManager\View\View\FormViewInterface $view */
         $view = $this->formViewProvider->provideView($form);
 
         self::assertInstanceOf(FormViewInterface::class, $view);

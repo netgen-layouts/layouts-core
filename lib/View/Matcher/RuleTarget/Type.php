@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View\Matcher\RuleTarget;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\RuleTargetViewInterface;
+use Netgen\BlockManager\View\View\RuleTargetViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
 class Type implements MatcherInterface

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\View\Provider\RuleConditionViewProvider;
-use Netgen\BlockManager\View\RuleConditionViewInterface;
+use Netgen\BlockManager\View\View\RuleConditionViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class RuleConditionProviderTest extends TestCase
@@ -28,7 +28,7 @@ class RuleConditionProviderTest extends TestCase
     {
         $condition = new Condition(array('id' => 42));
 
-        /** @var \Netgen\BlockManager\View\RuleConditionViewInterface $view */
+        /** @var \Netgen\BlockManager\View\View\RuleConditionViewInterface $view */
         $view = $this->ruleConditionViewProvider->provideView($condition);
 
         self::assertInstanceOf(RuleConditionViewInterface::class, $view);

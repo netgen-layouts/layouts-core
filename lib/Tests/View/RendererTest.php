@@ -45,14 +45,14 @@ class RendererTest extends TestCase
     public function testRenderValueObject()
     {
         $view = new View(new Value());
-        $view->setContext(ViewInterface::CONTEXT_API_VIEW);
+        $view->setContext(ViewInterface::CONTEXT_API);
         $view->setTemplate('some_template.html.twig');
         $view->setParameters(array('some_param' => 'some_value'));
 
         $this->viewBuilderMock
             ->expects($this->once())
             ->method('buildView')
-            ->with(new Value(), array('some_param' => 'some_value'), ViewInterface::CONTEXT_API_VIEW)
+            ->with(new Value(), array('some_param' => 'some_value'), ViewInterface::CONTEXT_API)
             ->will($this->returnValue($view));
 
         $this->twigEnvironmentMock
@@ -67,7 +67,7 @@ class RendererTest extends TestCase
         $renderedTemplate = $this->viewRenderer->renderValueObject(
             new Value(),
             array('some_param' => 'some_value'),
-            ViewInterface::CONTEXT_API_VIEW
+            ViewInterface::CONTEXT_API
         );
 
         self::assertEquals('rendered template', $renderedTemplate);

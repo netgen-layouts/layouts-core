@@ -1,29 +1,30 @@
-rule_target_view:
-    view:
-        route:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:route.html.twig"
-            match:
-                rule_target\type: route
-        route_prefix:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:route_prefix.html.twig"
-            match:
-                rule_target\type: route_prefix
-        path_info:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:path_info.html.twig"
-            match:
-                rule_target\type: path_info
-        path_info_prefix:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:path_info_prefix.html.twig"
-            match:
-                rule_target\type: path_info_prefix
-        request_uri:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:request_uri.html.twig"
-            match:
-                rule_target\type: request_uri
-        request_uri_prefix:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:request_uri_prefix.html.twig"
-            match:
-                rule_target\type: request_uri_prefix
-        rule_target:
-            template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:target.html.twig"
-            match: ~
+view:
+    rule_target_view:
+        default:
+            route:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:route.html.twig"
+                match:
+                    rule_target\type: route
+            route_prefix:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:route_prefix.html.twig"
+                match:
+                    rule_target\type: route_prefix
+            path_info:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:path_info.html.twig"
+                match:
+                    rule_target\type: path_info
+            path_info_prefix:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:path_info_prefix.html.twig"
+                match:
+                    rule_target\type: path_info_prefix
+            request_uri:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:request_uri.html.twig"
+                match:
+                    rule_target\type: request_uri
+            request_uri_prefix:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:request_uri_prefix.html.twig"
+                match:
+                    rule_target\type: request_uri_prefix
+            rule_target:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:target.html.twig"
+                match: ~
