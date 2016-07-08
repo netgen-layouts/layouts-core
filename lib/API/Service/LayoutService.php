@@ -34,6 +34,13 @@ interface LayoutService
     public function loadLayoutDraft($layoutId);
 
     /**
+     * Loads all shared layouts.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
+     */
+    public function loadSharedLayouts();
+
+    /**
      * Returns if provided layout has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout

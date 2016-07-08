@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 class LayoutQueryHandler extends QueryHandler
 {
@@ -28,6 +29,24 @@ class LayoutQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
             $query->addOrderBy('status', 'ASC');
         }
+
+        return $query->execute()->fetchAll();
+    }
+
+    /**
+     * Loads all data for shared layouts.
+     *
+     * @return array
+     */
+    public function loadSharedLayoutsData()
+    {
+        $query = $this->getLayoutSelectQuery();
+        $query->where(
+            $query->expr()->eq('shared', ':shared')
+        )
+            ->setParameter('shared', true, Type::BOOLEAN);
+
+        $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
 
         return $query->execute()->fetchAll();
     }

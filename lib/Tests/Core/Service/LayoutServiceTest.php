@@ -100,6 +100,20 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadSharedLayouts
+     */
+    public function testLoadSharedLayouts()
+    {
+        $layouts = $this->layoutService->loadSharedLayouts();
+
+        self::assertInternalType('array', $layouts);
+        foreach ($layouts as $layout) {
+            self::assertInstanceOf(Layout::class, $layout);
+            self::assertTrue($layout->isShared());
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
      */
     public function testIsPublished()

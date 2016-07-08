@@ -35,6 +35,13 @@ interface LayoutHandler
     public function loadZone($layoutId, $status, $identifier);
 
     /**
+     * Loads all shared layouts.
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
+     */
+    public function loadSharedLayouts();
+
+    /**
      * Returns if layout with specified ID exists.
      *
      * @param int|string $layoutId

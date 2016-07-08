@@ -118,6 +118,31 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadSharedLayoutsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     */
+    public function testLoadSharedLayouts()
+    {
+        self::assertEquals(
+            array(
+                new Layout(
+                    array(
+                        'id' => 3,
+                        'type' => '4_zones_b',
+                        'name' => 'My third layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => true,
+                    )
+                ),
+            ),
+            $this->layoutHandler->loadSharedLayouts()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */

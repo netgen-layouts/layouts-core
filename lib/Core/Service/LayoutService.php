@@ -109,6 +109,23 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Loads all shared layouts.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
+     */
+    public function loadSharedLayouts()
+    {
+        $persistenceLayouts = $this->layoutHandler->loadSharedLayouts();
+
+        $layouts = array();
+        foreach ($persistenceLayouts as $persistenceLayout) {
+            $layouts[] = $this->layoutMapper->mapLayout($persistenceLayout);
+        }
+
+        return $layouts;
+    }
+
+    /**
      * Returns if provided layout has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
