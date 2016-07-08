@@ -1,28 +1,28 @@
-ngbm_api_v1_block_load:
+ngbm_api_v1_blocks_load:
     path: /blocks/{blockId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:view"
 
-ngbm_api_v1_block_create:
+ngbm_api_v1_blocks_create:
     path: /blocks
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:create"
 
-ngbm_api_v1_block_move:
+ngbm_api_v1_blocks_move:
     path: /blocks/{blockId}/move
     methods: [PATCH]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:move"
 
-ngbm_api_v1_block_restore:
+ngbm_api_v1_blocks_restore:
     path: /blocks/{blockId}/restore
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:restore"
 
-ngbm_api_v1_block_delete:
+ngbm_api_v1_blocks_delete:
     path: /blocks/{blockId}
     methods: [DELETE]
     defaults:

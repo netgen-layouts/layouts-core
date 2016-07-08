@@ -1,64 +1,64 @@
-ngbm_api_v1_collection_load:
+ngbm_api_v1_collections_load:
     path: /collections/{collectionId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollection"
 
-ngbm_api_v1_collection_result:
+ngbm_api_v1_collections_result:
     path: /collections/{collectionId}/result
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionResult"
 
-ngbm_api_v1_collection_items:
+ngbm_api_v1_collections_items:
     path: /collections/{collectionId}/items
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionItems"
 
-ngbm_api_v1_collection_queries:
+ngbm_api_v1_collections_queries:
     path: /collections/{collectionId}/queries
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQueries"
 
-ngbm_api_v1_collection_load_item:
+ngbm_api_v1_collections_load_item:
     path: /collections/items/{itemId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadItem"
 
-ngbm_api_v1_collection_add_items:
+ngbm_api_v1_collections_add_items:
     path: /collections/{collectionId}/items
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:addItems"
 
-ngbm_api_v1_collection_move_item:
+ngbm_api_v1_collections_move_item:
     path: /collections/items/{itemId}/move
     methods: [PATCH]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveItem"
 
-ngbm_api_v1_collection_delete_item:
+ngbm_api_v1_collections_delete_item:
     path: /collections/items/{itemId}
     methods: [DELETE]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:deleteItem"
 
-ngbm_api_v1_collection_load_query:
+ngbm_api_v1_collections_load_query:
     path: /collections/queries/{queryId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"
 
-ngbm_api_v1_collection_move_query:
+ngbm_api_v1_collections_move_query:
     path: /collections/queries/{queryId}/move
     methods: [PATCH]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveQuery"
 
-ngbm_api_v1_collection_delete:
+ngbm_api_v1_collections_delete:
     path: /collections/queries/{queryId}
     methods: [DELETE]
     defaults:

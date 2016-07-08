@@ -1,58 +1,58 @@
-ngbm_api_v1_layout_shard:
+ngbm_api_v1_layouts_shard:
     path: /layouts/shared
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:loadSharedLayouts"
 
-ngbm_api_v1_layout_load:
+ngbm_api_v1_layouts_load:
     path: /layouts/{layoutId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:load"
 
-ngbm_api_v1_layout_blocks:
+ngbm_api_v1_layouts_blocks:
     path: /layouts/{layoutId}/blocks
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:viewLayoutBlocks"
 
-ngbm_api_v1_layout_zone_link:
+ngbm_api_v1_layouts_zone_link:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:linkZone"
 
-ngbm_api_v1_layout_zone_unlink:
+ngbm_api_v1_layouts_zone_unlink:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [DELETE]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:removeZoneLink"
 
-ngbm_api_v1_layout_create:
+ngbm_api_v1_layouts_create:
     path: /layouts
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:create"
 
-ngbm_api_v1_layout_update:
+ngbm_api_v1_layouts_update:
     path: /layouts/{layoutId}
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:update"
 
-ngbm_api_v1_layout_create_draft:
+ngbm_api_v1_layouts_create_draft:
     path: /layouts/{layoutId}/draft
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:createDraft"
 
-ngbm_api_v1_layout_discard_draft:
+ngbm_api_v1_layouts_discard_draft:
     path: /layouts/{layoutId}/draft
     methods: [DELETE]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:discardDraft"
 
-ngbm_api_v1_layout_publish:
+ngbm_api_v1_layouts_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
     defaults:
