@@ -78,23 +78,10 @@ class LayoutController extends Controller
      */
     public function load($layoutId, Request $request)
     {
-        $layout = null;
-
-        if ($request->query->get('published') !== 'true') {
-            try {
-                $layout = $this->layoutService->loadLayoutDraft(
-                    $layoutId
-                );
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        if (!$layout instanceof Layout) {
-            $layout = $this->layoutService->loadLayout(
-                $layoutId
-            );
-        }
+        $layout = $this->loadLayout(
+            $layoutId,
+            $request->query->get('published') !== 'true'
+        );
 
         return new View($layout, Version::API_V1);
     }
@@ -109,23 +96,10 @@ class LayoutController extends Controller
      */
     public function viewLayoutBlocks($layoutId, Request $request)
     {
-        $layout = null;
-
-        if ($request->query->get('published') !== 'true') {
-            try {
-                $layout = $this->layoutService->loadLayoutDraft(
-                    $layoutId
-                );
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        if (!$layout instanceof Layout) {
-            $layout = $this->layoutService->loadLayout(
-                $layoutId
-            );
-        }
+        $layout = $this->loadLayout(
+            $layoutId,
+            $request->query->get('published') !== 'true'
+        );
 
         $blocks = array();
         foreach ($layout->getZones() as $zone) {
@@ -278,5 +252,30 @@ class LayoutController extends Controller
         $this->layoutService->publishLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Loads either published or draft state of the layout.
+     *
+     * @param int|string $layoutId
+     * @param bool $loadDraft
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout|\Netgen\BlockManager\API\Values\Page\LayoutDraft
+     */
+    protected function loadLayout($layoutId, $loadDraft = true)
+    {
+        if ($loadDraft) {
+            try {
+                return $this->layoutService->loadLayoutDraft(
+                    $layoutId
+                );
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+        }
+
+        return $this->layoutService->loadLayout(
+            $layoutId
+        );
     }
 }
