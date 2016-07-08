@@ -46,6 +46,8 @@
                     {% else %}
                         <li><a href="#" {% if layout_name == null %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
                     {% endif %}
+
+                    <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rules.delete_rule'|trans }}</a></li>
                 </ul>
             </div>
 
