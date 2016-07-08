@@ -153,15 +153,19 @@ class LayoutResolverController extends Controller
      * Enables a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function enableRule(Rule $rule)
+    public function enableRule(Rule $rule, Request $request)
     {
         $this->layoutResolverService->enableRule($rule);
 
         return $this->renderRule(
-            $this->layoutResolverService->loadRule($rule->getId())
+            $this->
+            $request->query->get('draft') === 'true' ?
+                $this->layoutResolverService->loadRuleDraft($rule->getId()) :
+                $this->layoutResolverService->loadRule($rule->getId())
         );
     }
 
@@ -169,15 +173,18 @@ class LayoutResolverController extends Controller
      * Disables a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function disableRule(Rule $rule)
+    public function disableRule(Rule $rule, Request $request)
     {
         $this->layoutResolverService->disableRule($rule);
 
         return $this->renderRule(
-            $this->layoutResolverService->loadRule($rule->getId())
+            $request->query->get('draft') === 'true' ?
+                $this->layoutResolverService->loadRuleDraft($rule->getId()) :
+                $this->layoutResolverService->loadRule($rule->getId())
         );
     }
 
