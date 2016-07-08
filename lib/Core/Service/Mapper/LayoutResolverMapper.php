@@ -19,7 +19,7 @@ class LayoutResolverMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|\Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
      */
     public function mapRule(PersistenceRule $rule)
     {
@@ -60,7 +60,7 @@ class LayoutResolverMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target|\Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
      */
     public function mapTarget(PersistenceTarget $target)
     {
@@ -82,7 +82,7 @@ class LayoutResolverMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition|\Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
      */
     public function mapCondition(PersistenceCondition $condition)
     {

@@ -35,7 +35,7 @@ class LayoutMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Page\Zone|\Netgen\BlockManager\API\Values\Page\ZoneDraft
      */
     public function mapZone(PersistenceZone $zone)
     {
@@ -65,7 +65,7 @@ class LayoutMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Page\Layout|\Netgen\BlockManager\API\Values\Page\LayoutDraft
      */
     public function mapLayout(PersistenceLayout $layout)
     {

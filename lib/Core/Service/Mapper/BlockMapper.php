@@ -35,7 +35,7 @@ class BlockMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Page\Block|\Netgen\BlockManager\API\Values\Page\BlockDraft
      */
     public function mapBlock(PersistenceBlock $block)
     {

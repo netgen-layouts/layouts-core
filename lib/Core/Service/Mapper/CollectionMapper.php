@@ -19,7 +19,7 @@ class CollectionMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection|\Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
     public function mapCollection(PersistenceCollection $collection)
     {
@@ -60,7 +60,7 @@ class CollectionMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     * @return \Netgen\BlockManager\API\Values\Collection\Item|\Netgen\BlockManager\API\Values\Collection\ItemDraft
      */
     public function mapItem(PersistenceItem $item)
     {
@@ -84,7 +84,7 @@ class CollectionMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
+     * @return \Netgen\BlockManager\API\Values\Collection\Query|\Netgen\BlockManager\API\Values\Collection\QueryDraft
      */
     public function mapQuery(PersistenceQuery $query)
     {
