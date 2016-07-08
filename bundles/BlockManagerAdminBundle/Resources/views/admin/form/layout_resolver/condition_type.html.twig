@@ -5,6 +5,6 @@
 {% block children %}
     {{ form_row(form.children.value) }}
 
-    <a class="lr-btn js-cancel-add">Cancel</a>
+    <a class="lr-btn js-cancel-add">{{ 'condition_type.button.cancel'|trans }}</a>
     <button type="submit" class="lr-btn lr-btn-primary">{{ 'condition_type.button.save'|trans }}</button>
 {% endblock %}

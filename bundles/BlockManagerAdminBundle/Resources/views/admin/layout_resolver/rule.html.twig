@@ -1,7 +1,6 @@
 {% trans_default_domain 'ngbm_admin' %}
 
 <div class="lr-rule-content" data-id="{{ rule.id }}">
-    {#{ dump(rule) }#}
     <div class="lr-panel-head">
 
         <div class="panel-head-title">
@@ -47,7 +46,6 @@
                     {% else %}
                         <li><a href="#" class="js-rule-edit" data-action="enable">{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
                     {% endif %}
-
                 </ul>
             </div>
 
@@ -86,7 +84,7 @@
 
                 {% if target_types|length > 0 %}
                     <div class="settings-action">
-                        <div class="settings-loader"><i class="loading-ng-icon"></i>Loading...</div>
+                        <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rules.loading'|trans }}</div>
                         <div class="settings-action-add">
                             {% if rule.targets|length == 0 %}
                                 <select class="lr-select js-target-type">
@@ -96,7 +94,10 @@
                                 </select>
                             {% endif %}
 
-                            <a href="#" class="lr-btn lr-btn-link js-target-add" {% if rule.targets|length > 0 %}data-target-type="{{ rule.targets[0].type}}"{% endif %}><i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}</a>
+                            <a href="#" class="lr-btn lr-btn-link js-target-add"
+                                {% if rule.targets|length > 0 %} data-target-type="{{ rule.targets[0].type }}" {% endif %}>
+                                <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}
+                            </a>
                         </div>
                     </div>
                 {% endif %}
@@ -117,7 +118,7 @@
 
                 {% if condition_types|length > 0 %}
                     <div class="settings-action">
-                        <div class="settings-loader"><i class="loading-ng-icon"></i>Loading...</div>
+                        <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rules.loading'|trans }}</div>
                         <div class="settings-action-add">
                             <select class="lr-select js-condition-type">
                                 {% for condition_type in condition_types %}
@@ -125,7 +126,9 @@
                                 {% endfor %}
                             </select>
 
-                            <a href="#" class="lr-btn lr-btn-link js-condition-add">{{ 'layout_resolver.rules.add_condition'|trans }}</a>
+                            <a href="#" class="lr-btn lr-btn-link js-condition-add">
+                                {{ 'layout_resolver.rules.add_condition'|trans }}
+                            </a>
                         </div>
                     </div>
                 {% endif %}
@@ -135,8 +138,13 @@
     </div>
 
     <div class="lr-panel-actions">
-        <a href="#" class="lr-btn js-rule-edit" data-action="discard">{{ 'layout_resolver.rules.cancel'|trans }}</a>
-        <a href="#" class="lr-btn lr-btn-primary js-rule-edit" data-action="publish">{{ 'layout_resolver.rules.save_changes'|trans }}</a>
+        <a href="#" class="lr-btn js-rule-edit" data-action="discard">
+            {{ 'layout_resolver.rules.cancel'|trans }}
+        </a>
+
+        <a href="#" class="lr-btn lr-btn-primary js-rule-edit" data-action="publish">
+            {{ 'layout_resolver.rules.save_changes'|trans }}
+        </a>
     </div>
 
 </div>

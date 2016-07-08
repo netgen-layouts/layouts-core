@@ -67,5 +67,8 @@ target_type.request_uri_prefix.label: 'Request URI'
 condition_type.route_parameter.parameter_name.label: 'Parameter name'
 condition_type.route_parameter.parameter_value.label: 'Parameter value'
 
+target_type.button.cancel: 'Cancel'
 target_type.button.save: 'Save target'
+
+condition_type.button.cancel: 'Cancel'
 condition_type.button.save: 'Save condition'
