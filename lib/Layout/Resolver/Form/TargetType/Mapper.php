@@ -20,6 +20,7 @@ abstract class Mapper implements MapperInterface
             'required' => true,
             'constraints' => $targetType->getConstraints(),
             'label' => sprintf('target_type.%s.label', $targetType->getType()),
+            'error_bubbling' => false,
         );
     }
 

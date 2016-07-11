@@ -85,7 +85,6 @@ class KeyValuesType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,
-                'error_bubbling' => false,
             )
         );
     }
