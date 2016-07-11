@@ -177,7 +177,8 @@ class LayoutResolverHandlerTest extends TestCase
                     'ruleId' => 2,
                     'type' => 'route_parameter',
                     'value' => array(
-                        'some_param' => array(1, 2),
+                        'parameter_name' => 'some_param',
+                        'parameter_values' => array(1, 2),
                     ),
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -462,7 +463,8 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => 3,
                         'type' => 'route_parameter',
                         'value' => array(
-                            'some_param' => array(3, 4),
+                            'parameter_name' => 'some_param',
+                            'parameter_values' => array(3, 4),
                         ),
                         'status' => Rule::STATUS_ARCHIVED,
                     )
@@ -473,7 +475,8 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => 3,
                         'type' => 'route_parameter',
                         'value' => array(
-                            'some_other_param' => array(5, 6),
+                            'parameter_name' => 'some_other_param',
+                            'parameter_values' => array(5, 6),
                         ),
                         'status' => Rule::STATUS_ARCHIVED,
                     )

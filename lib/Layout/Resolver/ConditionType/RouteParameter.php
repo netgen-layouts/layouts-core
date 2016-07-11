@@ -39,7 +39,7 @@ class RouteParameter implements ConditionTypeInterface
                                 new Constraints\Type(array('type' => 'string')),
                             )
                         ),
-                        'parameter_value' => new Constraints\Required(
+                        'parameter_values' => new Constraints\Required(
                             array(
                                 new Constraints\NotBlank(),
                                 new Constraints\Type(array('type' => 'array')),

@@ -33,8 +33,8 @@ class RouteParameter extends Mapper
             'required' => true,
             'key_name' => 'parameter_name',
             'key_label' => 'condition_type.route_parameter.parameter_name.label',
-            'values_name' => 'parameter_value',
-            'values_label' => 'condition_type.route_parameter.parameter_value.label',
+            'values_name' => 'parameter_values',
+            'values_label' => 'condition_type.route_parameter.parameter_values.label',
             'values_type' => TextType::class,
         );
     }

@@ -47,14 +47,14 @@ class RouteParameterTest extends FormTestCase
         $submittedData = array(
             'value' => array(
                 'parameter_name' => 'some_name',
-                'parameter_value' => array('value1', 'value1'),
+                'parameter_values' => array('value1', 'value1'),
             ),
         );
 
         $updatedStruct = new ConditionCreateStruct();
         $updatedStruct->value = array(
             'parameter_name' => 'some_name',
-            'parameter_value' => array('value1', 'value1'),
+            'parameter_values' => array('value1', 'value1'),
         );
 
         $form = $this->factory->create(
