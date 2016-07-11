@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Core\Values\Page\LayoutReference;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
@@ -104,9 +103,9 @@ class LayoutResolverListenerTest extends TestCase
                     array(
                         new Rule(
                             array(
-                                'layout' => new LayoutReference(array('id' => 42))
+                                'layout' => new LayoutReference(array('id' => 42)),
                             )
-                        )
+                        ),
                     )
                 )
             );

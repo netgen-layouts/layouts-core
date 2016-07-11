@@ -35,10 +35,10 @@
                         <li><a href="#">{{ 'layout_resolver.rules.link_layout'|trans }}</a></li>
                     {% endif %}
 
-                    {% if rule.enabled %}
+                    {% if published_rule.enabled %}
                         <li><a href="#" class="js-rule-edit" data-action="disable">{{ 'layout_resolver.rules.disable_rule'|trans }}</a></li>
                     {% else %}
-                        <li><a href="#" {% if rule.layout == null or rule.targets|length == 0 %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
+                        <li><a href="#" {% if published_rule.layout == null or published_rule.targets|length == 0 %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
                     {% endif %}
 
                     <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rules.delete_rule'|trans }}</a></li>
