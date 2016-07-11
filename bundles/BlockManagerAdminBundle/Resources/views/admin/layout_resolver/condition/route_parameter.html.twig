@@ -1,12 +1,12 @@
 {% trans_default_domain 'ngbm_admin' %}
 
 <span class="settings-value editable-value js-setting-edit" data-setting-id="{{ condition.id }}" data-setting-type="condition">
-    {{ ('layout_resolver.condition.' ~ condition.type)|trans }}:
-
-    {% if condition.value is iterable %}
-        {% for key, value in condition.value %}
-            {{ key }}: {{ value|join(', ') }}
-        {% endfor %}
+    {% if condition.value.parameter_name is defined and condition.value.parameter_values is defined %}
+        {{ ('layout_resolver.condition.' ~ condition.type)|trans }}
+        <br /><br />
+        {{ 'layout_resolver.condition.route_parameter.parameter_name'|trans }}: {{ condition.value.parameter_name }}
+        <br />
+        {{ 'layout_resolver.condition.route_parameter.parameter_values'|trans }}: {{ condition.value.parameter_values|join(', ') }}
     {% endif %}
 </span>
 
