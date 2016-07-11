@@ -12,6 +12,16 @@
     {%- endif -%}
 {%- endblock form_row -%}
 
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul class="errors">
+            {%- for error in errors -%}
+                <li>{{ error.message }}</li>
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
 {%- block ngbm_key_values_widget -%}
     {% macro prototype(form) %}
         <div class="multientry-item">
