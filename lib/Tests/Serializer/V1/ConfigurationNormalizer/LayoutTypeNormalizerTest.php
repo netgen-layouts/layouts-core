@@ -24,6 +24,7 @@ class LayoutTypeNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer::getAllowedBlocks
      */
     public function testNormalize()
     {

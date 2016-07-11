@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -97,18 +98,8 @@ class LayoutNormalizer implements NormalizerInterface
     protected function getZones(Layout $layout)
     {
         $zones = array();
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->getType());
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
-            $allowedBlockDefinitions = true;
-
-            if ($layoutType->hasZone($zoneIdentifier)) {
-                $layoutTypeZone = $layoutType->getZone($zoneIdentifier);
-                if (!empty($layoutTypeZone->getAllowedBlockDefinitions())) {
-                    $allowedBlockDefinitions = $layoutTypeZone->getAllowedBlockDefinitions();
-                }
-            }
-
             $zones[] = array(
                 'identifier' => $zoneIdentifier,
                 'block_ids' => array_map(
@@ -117,12 +108,38 @@ class LayoutNormalizer implements NormalizerInterface
                     },
                     $zone->getBlocks()
                 ),
-                'allowed_block_definitions' => $allowedBlockDefinitions,
+                'allowed_block_definitions' => $this->getAllowedBlocks(
+                    $zone,
+                    $layout->getType()
+                ),
                 'linked_layout_id' => $zone->getLinkedLayoutId(),
                 'linked_zone_identifier' => $zone->getLinkedZoneIdentifier(),
             );
         }
 
         return $zones;
+    }
+
+    /**
+     * Returns all allowed block definitions from provided zone or
+     * true if all block definitions are allowed.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $layoutType
+     *
+     * @return array|bool
+     */
+    protected function getAllowedBlocks(Zone $zone, $layoutType)
+    {
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutType);
+
+        if ($layoutType->hasZone($zone->getIdentifier())) {
+            $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());
+            if (!empty($layoutTypeZone->getAllowedBlockDefinitions())) {
+                return $layoutTypeZone->getAllowedBlockDefinitions();
+            }
+        }
+
+        return true;
     }
 }
