@@ -173,6 +173,17 @@
                     }
                 }
             }
+            .errors {
+                list-style-type:none;
+                margin:0 0 1em;
+                padding:0;
+                li {
+                    color:red;
+                }
+            }
+            label + .errors {
+                margin:0.25em 0 0.125em;
+            }
         }
     }
 
