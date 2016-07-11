@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Core\Values\Page\LayoutReference;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
@@ -13,7 +14,7 @@ class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayout
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getPriority
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
@@ -26,7 +27,7 @@ class RuleTest extends TestCase
 
         self::assertNull($rule->getId());
         self::assertNull($rule->getStatus());
-        self::assertNull($rule->getLayoutId());
+        self::assertNull($rule->getLayout());
         self::assertNull($rule->getPriority());
         self::assertNull($rule->isEnabled());
         self::assertNull($rule->getComment());
@@ -38,7 +39,7 @@ class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getLayout
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getPriority
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isEnabled
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
@@ -51,7 +52,7 @@ class RuleTest extends TestCase
             array(
                 'id' => 42,
                 'status' => Rule::STATUS_PUBLISHED,
-                'layoutId' => 24,
+                'layout' => new LayoutReference(array('id' => 24)),
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
@@ -62,7 +63,7 @@ class RuleTest extends TestCase
 
         self::assertEquals(42, $rule->getId());
         self::assertEquals(Rule::STATUS_PUBLISHED, $rule->getStatus());
-        self::assertEquals(24, $rule->getLayoutId());
+        self::assertEquals(new LayoutReference(array('id' => 24)), $rule->getLayout());
         self::assertEquals(13, $rule->getPriority());
         self::assertTrue($rule->isEnabled());
         self::assertEquals('Comment', $rule->getComment());

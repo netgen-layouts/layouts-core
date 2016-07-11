@@ -18,9 +18,9 @@ class Rule extends ValueObject implements APIRule
     protected $status;
 
     /**
-     * @var int|string
+     * @var \Netgen\BlockManager\API\Values\Page\LayoutReference
      */
-    protected $layoutId;
+    protected $layout;
 
     /**
      * @var bool
@@ -68,13 +68,13 @@ class Rule extends ValueObject implements APIRule
     }
 
     /**
-     * Returns resolved layout ID.
+     * Returns resolved layout.
      *
-     * @return int|string
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference
      */
-    public function getLayoutId()
+    public function getLayout()
     {
-        return $this->layoutId;
+        return $this->layout;
     }
 
     /**

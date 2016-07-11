@@ -159,7 +159,8 @@ trait TestCaseTrait
     protected function createLayoutResolverMapper()
     {
         return new LayoutResolverMapper(
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $this->createLayoutMapper()
         );
     }
 }

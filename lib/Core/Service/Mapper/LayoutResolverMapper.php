@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
@@ -15,6 +18,24 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\ConditionDraft;
 class LayoutResolverMapper extends Mapper
 {
     /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
+     */
+    protected $layoutMapper;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
+     */
+    public function __construct(Handler $persistenceHandler, LayoutMapper $layoutMapper)
+    {
+        parent::__construct($persistenceHandler);
+
+        $this->layoutMapper = $layoutMapper;
+    }
+
+    /**
      * Builds the API rule value object from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
@@ -24,6 +45,18 @@ class LayoutResolverMapper extends Mapper
     public function mapRule(PersistenceRule $rule)
     {
         $handler = $this->persistenceHandler->getLayoutResolverHandler();
+
+        $layout = null;
+        try {
+            $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
+                $rule->layoutId,
+                Layout::STATUS_PUBLISHED
+            );
+
+            $layout = $this->layoutMapper->mapLayoutReference($layout);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
         $persistenceTargets = $handler->loadRuleTargets($rule);
 
@@ -42,7 +75,7 @@ class LayoutResolverMapper extends Mapper
         $ruleData = array(
             'id' => $rule->id,
             'status' => $rule->status,
-            'layoutId' => $rule->layoutId,
+            'layout' => $layout,
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
             'comment' => $rule->comment,

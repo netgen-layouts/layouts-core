@@ -72,6 +72,16 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutReference
+     */
+    public function testLoadLayoutReference()
+    {
+        $layout = $this->layoutService->loadLayoutReference(1);
+
+        self::assertInstanceOf(LayoutReference::class, $layout);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */

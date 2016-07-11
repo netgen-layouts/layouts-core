@@ -27,11 +27,11 @@ interface Rule extends Value
     public function getStatus();
 
     /**
-     * Returns resolved layout ID.
+     * Returns resolved layout.
      *
-     * @return int|string
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference
      */
-    public function getLayoutId();
+    public function getLayout();
 
     /**
      * Returns if the rule is enabled.

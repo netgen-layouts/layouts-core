@@ -24,6 +24,17 @@ interface LayoutService
     public function loadLayout($layoutId);
 
     /**
+     * Loads a layout reference with specified ID.
+     *
+     * @param int|string $layoutId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference
+     */
+    public function loadLayoutReference($layoutId);
+
+    /**
      * Loads a layout draft with specified ID.
      *
      * @param int|string $layoutId

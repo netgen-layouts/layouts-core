@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
@@ -203,14 +204,15 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 50;
+        $ruleUpdateStruct->layoutId = 3;
         $ruleUpdateStruct->priority = 6;
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertInstanceOf(RuleDraft::class, $updatedRule);
-        self::assertEquals(50, $updatedRule->getLayoutId());
+        self::assertInstanceOf(LayoutReference::class, $updatedRule->getLayout());
+        self::assertEquals(3, $updatedRule->getLayout()->getId());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
     }
@@ -229,7 +231,8 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertInstanceOf(RuleDraft::class, $updatedRule);
-        self::assertEquals(2, $updatedRule->getLayoutId());
+        self::assertInstanceOf(LayoutReference::class, $rule->getLayout());
+        self::assertEquals(2, $updatedRule->getLayout()->getId());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
     }
@@ -249,7 +252,7 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertInstanceOf(RuleDraft::class, $updatedRule);
-        self::assertNull($updatedRule->getLayoutId());
+        self::assertNull($updatedRule->getLayout());
         self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
     }

@@ -2,8 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -12,8 +11,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class LayoutResolverListener implements EventSubscriberInterface
 {
@@ -38,31 +35,23 @@ class LayoutResolverListener implements EventSubscriberInterface
     protected $globalHelper;
 
     /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
-     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
-        GlobalHelper $globalHelper,
-        LoggerInterface $logger = null
+        GlobalHelper $globalHelper
     ) {
         $this->layoutResolver = $layoutResolver;
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
         $this->globalHelper = $globalHelper;
-        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -91,30 +80,21 @@ class LayoutResolverListener implements EventSubscriberInterface
             return;
         }
 
-        $layout = null;
         foreach ($this->layoutResolver->resolveRules() as $rule) {
-            try {
-                $layout = $this->layoutService->loadLayout($rule->getLayoutId());
-            } catch (NotFoundException $e) {
-                // If layout was not found, we still want to display the page
-                $this->logger->notice(
-                    sprintf(
-                        'Layout resolver rule with ID %d matched a layout with ID %d, but the layout was not found',
-                        $rule->getId(),
-                        $rule->getLayoutId()
-                    )
-                );
-
-                return;
+            if (!$rule->getLayout() instanceof LayoutReference) {
+                continue;
             }
-        }
 
-        if (!$layout instanceof Layout) {
+            // We need the complete layout, not just the reference
+            $layout = $this->layoutService->loadLayout(
+                $rule->getLayout()->getId()
+            );
+
+            $this->globalHelper->setLayoutView(
+                $this->viewBuilder->buildView($layout)
+            );
+
             return;
         }
-
-        $this->globalHelper->setLayoutView(
-            $this->viewBuilder->buildView($layout)
-        );
     }
 }

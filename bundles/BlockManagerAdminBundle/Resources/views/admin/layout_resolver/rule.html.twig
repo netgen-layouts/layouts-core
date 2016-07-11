@@ -8,15 +8,9 @@
                 <i class="material-icons" role="presentation">select_all</i>
             </div>
 
-            {% set layout_name = null %}
-
-            {% if rule.layoutId > 0 %}
-                {% set layout_name = ngbm_layout_name(rule.layoutId) %}
-            {% endif %}
-
-            {% if layout_name != null %}
-                <div class="panel-name" title="{{ layout_name }}">
-                    <a target="_blank" href="{{ path('ngbm_app') }}#layout/{{ rule.layoutId }}">{{ layout_name }}</a>
+            {% if rule.layout != null %}
+                <div class="panel-name" title="{{ rule.layout.name }}">
+                    <a target="_blank" href="{{ path('ngbm_app') }}#layout/{{ rule.layout.id }}">{{ rule.layout.name }}</a>
                 </div>
             {% else %}
                 <div class="panel-name" title="{{ 'layout_resolver.rules.no_linked_layout'|trans }}">
@@ -33,9 +27,9 @@
                     <i class="material-icons">more_vert</i>
                 </button>
                 <ul class="lr-dropdown-menu">
-                    <li><a href="#" {% if layout_name == null %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rules.unlink_layout'|trans }}</a></li>
+                    <li><a href="#" {% if rule.layout == null %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rules.unlink_layout'|trans }}</a></li>
 
-                    {% if layout_name != null %}
+                    {% if rule.layout != null %}
                         <li><a href="#">{{ 'layout_resolver.rules.link_other_layout'|trans }}</a></li>
                     {% else %}
                         <li><a href="#">{{ 'layout_resolver.rules.link_layout'|trans }}</a></li>
@@ -44,7 +38,7 @@
                     {% if rule.enabled %}
                         <li><a href="#" class="js-rule-edit" data-action="disable">{{ 'layout_resolver.rules.disable_rule'|trans }}</a></li>
                     {% else %}
-                        <li><a href="#" {% if layout_name == null or rule.targets|length == 0 %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
+                        <li><a href="#" {% if rule.layout == null or rule.targets|length == 0 %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rules.enable_rule'|trans }}</a></li>
                     {% endif %}
 
                     <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rules.delete_rule'|trans }}</a></li>

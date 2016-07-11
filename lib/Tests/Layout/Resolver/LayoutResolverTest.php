@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Core\Values\Page\LayoutReference;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolver;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
@@ -61,7 +62,7 @@ class LayoutResolverTest extends TestCase
 
         $rule1 = new Rule(
             array(
-                'layoutId' => 12,
+                'layout' => new LayoutReference(array('id' => 12)),
                 'priority' => 2,
                 'enabled' => true,
             )
@@ -69,7 +70,7 @@ class LayoutResolverTest extends TestCase
 
         $rule2 = new Rule(
             array(
-                'layoutId' => 13,
+                'layout' => new LayoutReference(array('id' => 13)),
                 'priority' => 4,
                 'enabled' => true,
             )
@@ -77,7 +78,7 @@ class LayoutResolverTest extends TestCase
 
         $rule3 = new Rule(
             array(
-                'layoutId' => 14,
+                'layout' => new LayoutReference(array('id' => 14)),
                 'priority' => 5,
                 'enabled' => true,
             )
@@ -85,7 +86,7 @@ class LayoutResolverTest extends TestCase
 
         $rule4 = new Rule(
             array(
-                'layoutId' => 15,
+                'layout' => new LayoutReference(array('id' => 15)),
                 'priority' => 4,
                 'enabled' => true,
             )
@@ -123,7 +124,7 @@ class LayoutResolverTest extends TestCase
 
         $rule1 = new Rule(
             array(
-                'layoutId' => 13,
+                'layout' => new LayoutReference(array('id' => 13)),
                 'priority' => 5,
                 'enabled' => true,
             )
@@ -131,7 +132,7 @@ class LayoutResolverTest extends TestCase
 
         $rule2 = new Rule(
             array(
-                'layoutId' => 13,
+                'layout' => new LayoutReference(array('id' => 13)),
                 'priority' => 7,
                 'enabled' => true,
             )
@@ -168,14 +169,14 @@ class LayoutResolverTest extends TestCase
     {
         $rule1 = new Rule(
             array(
-                'layoutId' => 12,
+                'layout' => new LayoutReference(array('id' => 12)),
                 'enabled' => true,
             )
         );
 
         $rule2 = new Rule(
             array(
-                'layoutId' => 13,
+                'layout' => new LayoutReference(array('id' => 13)),
                 'enabled' => true,
             )
         );
@@ -222,7 +223,7 @@ class LayoutResolverTest extends TestCase
 
         $rule = new Rule(
             array(
-                'layoutId' => $layoutId,
+                'layout' => new LayoutReference(array('id' => $layoutId)),
                 'enabled' => true,
                 'conditions' => $conditions,
             )

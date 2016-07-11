@@ -10,13 +10,6 @@ services:
         arguments:
             - "@netgen_block_manager.configuration"
 
-    netgen_block_manager.templating.twig.extension.page:
-        class: "%netgen_block_manager.templating.twig.extension.page.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-        tags:
-            - { name: twig.extension }
-
     netgen_block_manager.templating.twig.extension.rendering:
         class: "%netgen_block_manager.templating.twig.extension.rendering.class%"
         arguments:

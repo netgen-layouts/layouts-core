@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Core\Values\Page\LayoutReference;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -98,7 +99,17 @@ class LayoutResolverListenerTest extends TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRules')
-            ->will($this->returnValue(array(new Rule(array('layoutId' => 42)))));
+            ->will(
+                $this->returnValue(
+                    array(
+                        new Rule(
+                            array(
+                                'layout' => new LayoutReference(array('id' => 42))
+                            )
+                        )
+                    )
+                )
+            );
 
         $this->layoutServiceMock
             ->expects($this->once())
@@ -156,17 +167,11 @@ class LayoutResolverListenerTest extends TestCase
         $this->layoutResolverMock
             ->expects($this->once())
             ->method('resolveRules')
-            ->will($this->returnValue(array(new Rule(array('layoutId' => 42)))));
+            ->will($this->returnValue(array(new Rule(array('layout' => null)))));
 
         $this->layoutServiceMock
-            ->expects($this->once())
-            ->method('loadLayout')
-            ->with($this->equalTo(42))
-            ->will(
-                $this->throwException(
-                    new NotFoundException('layout', 42)
-                )
-            );
+            ->expects($this->never())
+            ->method('loadLayout');
 
         $this->viewBuilderMock
             ->expects($this->never())

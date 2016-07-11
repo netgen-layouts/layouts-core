@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
+use Netgen\BlockManager\API\Values\Page\LayoutReference;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
@@ -34,7 +35,7 @@ abstract class LayoutResolverMapperTest extends MapperTest
             array(
                 'id' => 3,
                 'status' => APIRule::STATUS_PUBLISHED,
-                'layoutId' => 42,
+                'layoutId' => 1,
                 'enabled' => true,
                 'priority' => 12,
                 'comment' => 'Comment',
@@ -45,8 +46,9 @@ abstract class LayoutResolverMapperTest extends MapperTest
 
         self::assertInstanceOf(APIRule::class, $rule);
         self::assertEquals(3, $rule->getId());
+        self::assertInstanceOf(LayoutReference::class, $rule->getLayout());
+        self::assertEquals(1, $rule->getLayout()->getId());
         self::assertEquals(APIRule::STATUS_PUBLISHED, $rule->getStatus());
-        self::assertEquals(42, $rule->getLayoutId());
         self::assertTrue($rule->isEnabled());
         self::assertEquals(12, $rule->getPriority());
         self::assertEquals('Comment', $rule->getComment());

@@ -91,6 +91,27 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
+     * Loads a layout reference with specified ID.
+     *
+     * @param int|string $layoutId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference
+     */
+    public function loadLayoutReference($layoutId)
+    {
+        $this->layoutValidator->validateId($layoutId, 'layoutId');
+
+        return $this->layoutMapper->mapLayoutReference(
+            $this->layoutHandler->loadLayout(
+                $layoutId,
+                Layout::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    /**
      * Loads a layout draft with specified ID.
      *
      * @param int|string $layoutId
