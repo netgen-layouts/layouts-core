@@ -31,9 +31,7 @@ class FullEditTypeTest extends FormTestCase
 
         $config = new Configuration(
             'query_type',
-            'Query type',
-            array(),
-            array()
+            'Query type'
         );
 
         $this->queryType = new QueryType(

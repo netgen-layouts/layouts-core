@@ -28,21 +28,11 @@ class Configuration
      * @param array $forms
      * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[] $viewTypes
      */
-    public function __construct($identifier, array $forms, array $viewTypes)
+    public function __construct($identifier, array $forms = array(), array $viewTypes = array())
     {
         $this->identifier = $identifier;
         $this->forms = $forms;
         $this->viewTypes = $viewTypes;
-    }
-
-    /**
-     * Returns the block definition identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
     }
 
     /**

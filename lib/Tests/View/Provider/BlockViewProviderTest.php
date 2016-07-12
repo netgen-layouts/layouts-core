@@ -35,7 +35,7 @@ class BlockViewProviderTest extends TestCase
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
             new BlockDefinitionHandler(),
-            new Configuration('block_definition', array(), array())
+            new Configuration('block_definition')
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();

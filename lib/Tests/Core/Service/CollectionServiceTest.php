@@ -49,7 +49,7 @@ abstract class CollectionServiceTest extends ServiceTest
             new QueryType(
                 'ezcontent_search',
                 new QueryTypeHandler(),
-                new Configuration('query_type', 'Query type', array(), array())
+                new Configuration('query_type', 'Query type')
             )
         );
 
@@ -552,7 +552,7 @@ abstract class CollectionServiceTest extends ServiceTest
             new QueryType(
                 'ezcontent_search',
                 new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '', array(), array())
+                new Configuration('ezcontent_search', '')
             ),
             'new_query'
         );
@@ -581,7 +581,7 @@ abstract class CollectionServiceTest extends ServiceTest
             new QueryType(
                 'ezcontent_search',
                 new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '', array(), array())
+                new Configuration('ezcontent_search', '')
             ),
             'new_query'
         );
@@ -601,7 +601,7 @@ abstract class CollectionServiceTest extends ServiceTest
             new QueryType(
                 'ezcontent_search',
                 new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '', array(), array())
+                new Configuration('ezcontent_search', '')
             ),
             'default'
         );
@@ -621,7 +621,7 @@ abstract class CollectionServiceTest extends ServiceTest
             new QueryType(
                 'ezcontent_search',
                 new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '', array(), array())
+                new Configuration('ezcontent_search', '')
             ),
             'new_query'
         );
@@ -809,7 +809,7 @@ abstract class CollectionServiceTest extends ServiceTest
             new QueryType(
                 'ezcontent_search',
                 new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '', array(), array())
+                new Configuration('ezcontent_search', '')
             ),
             'new_query'
         );

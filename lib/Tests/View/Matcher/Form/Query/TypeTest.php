@@ -49,7 +49,7 @@ class TypeTest extends TestCase
                 'queryType' => new QueryType(
                     'type',
                     new QueryTypeHandler(),
-                    new Configuration('type', 'Type', array(), array())
+                    new Configuration('type', 'Type')
                 ),
             )
         );

@@ -29,15 +29,6 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::__construct
-     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getType
-     */
-    public function testGetType()
-    {
-        self::assertEquals('query_type', $this->configuration->getType());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::__construct
      * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getName
      */
     public function testGetName()

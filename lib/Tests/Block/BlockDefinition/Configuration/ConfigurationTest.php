@@ -30,14 +30,6 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getIdentifier
-     */
-    public function testGetIdentifier()
-    {
-        self::assertEquals('block_definition', $this->configuration->getIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getForms
      */
     public function testGetForms()

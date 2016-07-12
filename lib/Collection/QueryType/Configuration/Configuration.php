@@ -34,22 +34,12 @@ class Configuration
      * @param array $forms
      * @param array $defaults
      */
-    public function __construct($type, $name, array $forms, array $defaults)
+    public function __construct($type, $name, array $forms = array(), array $defaults = array())
     {
         $this->type = $type;
         $this->name = $name;
         $this->forms = $forms;
         $this->defaults = $defaults;
-    }
-
-    /**
-     * Returns the query type.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

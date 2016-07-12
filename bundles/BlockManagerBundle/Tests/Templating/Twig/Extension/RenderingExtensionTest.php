@@ -63,7 +63,7 @@ class RenderingExtensionTest extends TestCase
             new BlockDefinition(
                 'block_definition',
                 new BlockDefinitionHandler(),
-                new Configuration('block_definition', array(), array())
+                new Configuration('block_definition')
             )
         );
 
@@ -71,7 +71,7 @@ class RenderingExtensionTest extends TestCase
             new BlockDefinition(
                 'twig_block',
                 new TwigBlockHandler(),
-                new Configuration('twig_block', array(), array())
+                new Configuration('twig_block')
             )
         );
 

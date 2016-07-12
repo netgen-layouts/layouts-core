@@ -97,13 +97,13 @@ abstract class BlockServiceTest extends ServiceTest
         $blockDefinition1 = new BlockDefinition(
             'title',
             new BlockDefinitionHandler(),
-            new Configuration('title', array(), array())
+            new Configuration('title')
         );
 
         $blockDefinition2 = new BlockDefinition(
             'gallery',
             new BlockDefinitionHandler(),
-            new Configuration('gallery', array(), array())
+            new Configuration('gallery')
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
