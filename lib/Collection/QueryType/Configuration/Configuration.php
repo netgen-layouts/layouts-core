@@ -109,7 +109,7 @@ class Configuration
      *
      * @return array
      */
-    public function getDefaultQueryParameters()
+    public function getDefaultParameters()
     {
         return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : array();
     }

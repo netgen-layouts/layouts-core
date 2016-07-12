@@ -92,10 +92,10 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getDefaultQueryParameters
+     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getDefaultParameters
      */
-    public function testGetDefaultQueryParameters()
+    public function testGetDefaultParameters()
     {
-        self::assertEquals(array('parent_location_id' => 2), $this->configuration->getDefaultQueryParameters());
+        self::assertEquals(array('parent_location_id' => 2), $this->configuration->getDefaultParameters());
     }
 }
