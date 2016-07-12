@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
@@ -72,13 +72,13 @@ abstract class LayoutServiceTest extends ServiceTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutReference
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutInfo
      */
-    public function testLoadLayoutReference()
+    public function testLoadLayoutInfo()
     {
-        $layout = $this->layoutService->loadLayoutReference(1);
+        $layout = $this->layoutService->loadLayoutInfo(1);
 
-        self::assertInstanceOf(LayoutReference::class, $layout);
+        self::assertInstanceOf(LayoutInfo::class, $layout);
     }
 
     /**
@@ -121,7 +121,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertCount(4, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertInstanceOf(LayoutReference::class, $layout);
+            self::assertInstanceOf(LayoutInfo::class, $layout);
             self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         }
     }
@@ -137,7 +137,7 @@ abstract class LayoutServiceTest extends ServiceTest
         self::assertCount(2, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertInstanceOf(LayoutReference::class, $layout);
+            self::assertInstanceOf(LayoutInfo::class, $layout);
             self::assertTrue($layout->isShared());
             self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         }

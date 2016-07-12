@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 
-class Layout extends LayoutReference implements APILayout
+class Layout extends LayoutInfo implements APILayout
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Page\Zone[]

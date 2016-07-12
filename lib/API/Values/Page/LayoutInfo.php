@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values\Page;
 
 use Netgen\BlockManager\API\Values\Value;
 
-interface LayoutReference extends Value
+interface LayoutInfo extends Value
 {
     /**
      * Returns the layout ID.

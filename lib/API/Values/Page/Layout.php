@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-interface Layout extends LayoutReference
+interface Layout extends LayoutInfo
 {
     /**
      * @const string

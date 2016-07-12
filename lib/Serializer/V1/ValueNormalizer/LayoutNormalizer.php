@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -85,7 +85,7 @@ class LayoutNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof LayoutReference && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof LayoutInfo && $data->getVersion() === Version::API_V1;
     }
 
     /**

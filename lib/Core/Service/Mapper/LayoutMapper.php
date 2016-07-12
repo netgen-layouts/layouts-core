@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\Core\Values\Page\LayoutReference;
+use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
@@ -94,13 +94,13 @@ class LayoutMapper extends Mapper
     }
 
     /**
-     * Builds the API layout reference value object from persistence one.
+     * Builds the API layout info value object from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
      */
-    public function mapLayoutReference(PersistenceLayout $layout)
+    public function mapLayoutInfo(PersistenceLayout $layout)
     {
         $layoutData = array(
             'id' => $layout->id,
@@ -112,6 +112,6 @@ class LayoutMapper extends Mapper
             'shared' => $layout->shared,
         );
 
-        return new LayoutReference($layoutData);
+        return new LayoutInfo($layoutData);
     }
 }

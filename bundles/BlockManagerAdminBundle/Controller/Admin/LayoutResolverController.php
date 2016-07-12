@@ -129,7 +129,7 @@ class LayoutResolverController extends Controller
         // empty ("" or "0") means we remove the layout from the rule
         if ($layoutId !== null && !empty($layoutId)) {
             try {
-                $this->layoutService->loadLayoutReference($layoutId);
+                $this->layoutService->loadLayoutInfo($layoutId);
             } catch (NotFoundException $e) {
                 throw new BadStateException('layout_id', 'Layout does not exist.', $e);
             }

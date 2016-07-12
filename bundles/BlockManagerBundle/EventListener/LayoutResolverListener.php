@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -81,7 +81,7 @@ class LayoutResolverListener implements EventSubscriberInterface
         }
 
         foreach ($this->layoutResolver->resolveRules() as $rule) {
-            if (!$rule->getLayout() instanceof LayoutReference) {
+            if (!$rule->getLayout() instanceof LayoutInfo) {
                 continue;
             }
 

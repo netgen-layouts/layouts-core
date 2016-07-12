@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\LayoutReference as APILayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo as APILayoutInfo;
 use Netgen\BlockManager\ValueObject;
 
-class LayoutReference extends ValueObject implements APILayoutReference
+class LayoutInfo extends ValueObject implements APILayoutInfo
 {
     /**
      * @var int|string

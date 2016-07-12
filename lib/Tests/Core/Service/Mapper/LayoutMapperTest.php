@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
@@ -99,10 +99,10 @@ abstract class LayoutMapperTest extends MapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayoutReference
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayoutInfo
      * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::createDateTime
      */
-    public function testMapLayoutReference()
+    public function testMapLayoutInfo()
     {
         $persistenceLayout = new Layout(
             array(
@@ -116,9 +116,9 @@ abstract class LayoutMapperTest extends MapperTest
             )
         );
 
-        $layout = $this->layoutMapper->mapLayoutReference($persistenceLayout);
+        $layout = $this->layoutMapper->mapLayoutInfo($persistenceLayout);
 
-        self::assertInstanceOf(LayoutReference::class, $layout);
+        self::assertInstanceOf(LayoutInfo::class, $layout);
         self::assertEquals(1, $layout->getId());
         self::assertEquals('4_zones_a', $layout->getType());
         self::assertEquals('My layout', $layout->getName());

@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
-use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
@@ -24,15 +24,15 @@ interface LayoutService
     public function loadLayout($layoutId);
 
     /**
-     * Loads a layout reference with specified ID.
+     * Loads a layout info with specified ID.
      *
      * @param int|string $layoutId
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
      */
-    public function loadLayoutReference($layoutId);
+    public function loadLayoutInfo($layoutId);
 
     /**
      * Loads a layout draft with specified ID.
@@ -48,25 +48,25 @@ interface LayoutService
     /**
      * Loads all layouts.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
     public function loadLayouts();
 
     /**
      * Loads all shared layouts.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutReference[]
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
     public function loadSharedLayouts();
 
     /**
      * Returns if provided layout has a published status.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutReference $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
      *
      * @return bool
      */
-    public function isPublished(LayoutReference $layout);
+    public function isPublished(LayoutInfo $layout);
 
     /**
      * Loads a zone with specified identifier.

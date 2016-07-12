@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\API\Values\Page\LayoutReference;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
@@ -46,7 +46,7 @@ abstract class LayoutResolverMapperTest extends MapperTest
 
         self::assertInstanceOf(APIRule::class, $rule);
         self::assertEquals(3, $rule->getId());
-        self::assertInstanceOf(LayoutReference::class, $rule->getLayout());
+        self::assertInstanceOf(LayoutInfo::class, $rule->getLayout());
         self::assertEquals(1, $rule->getLayout()->getId());
         self::assertEquals(APIRule::STATUS_PUBLISHED, $rule->getStatus());
         self::assertTrue($rule->isEnabled());

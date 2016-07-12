@@ -7,7 +7,7 @@ use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\LayoutReference;
+use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
@@ -62,12 +62,12 @@ class LayoutNormalizerTest extends TestCase
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZones
      */
-    public function testNormalizeLayoutReference()
+    public function testNormalizeLayoutInfo()
     {
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
 
-        $layout = new LayoutReference(
+        $layout = new LayoutInfo(
             array(
                 'id' => 42,
                 'type' => '4_zones_a',
@@ -209,12 +209,12 @@ class LayoutNormalizerTest extends TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new Layout(), false),
-            array(new LayoutReference(), false),
+            array(new LayoutInfo(), false),
             array(new VersionedValue(new Value(), 1), false),
             array(new VersionedValue(new Layout(), 2), false),
-            array(new VersionedValue(new LayoutReference(), 2), false),
+            array(new VersionedValue(new LayoutInfo(), 2), false),
             array(new VersionedValue(new Layout(), 1), true),
-            array(new VersionedValue(new LayoutReference(), 1), true),
+            array(new VersionedValue(new LayoutInfo(), 1), true),
         );
     }
 }

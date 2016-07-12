@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Core\Values\Page\LayoutReference;
+use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
-class LayoutReferenceTest extends TestCase
+class LayoutInfoTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
@@ -21,7 +21,7 @@ class LayoutReferenceTest extends TestCase
      */
     public function testSetDefaultProperties()
     {
-        $layout = new LayoutReference();
+        $layout = new LayoutInfo();
 
         self::assertNull($layout->getId());
         self::assertNull($layout->getType());
@@ -50,7 +50,7 @@ class LayoutReferenceTest extends TestCase
         $modifiedDate = new DateTime();
         $modifiedDate->setTimestamp(456);
 
-        $layout = new LayoutReference(
+        $layout = new LayoutInfo(
             array(
                 'id' => 42,
                 'type' => '4_zones_a',
