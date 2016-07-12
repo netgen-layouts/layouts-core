@@ -44,4 +44,21 @@ abstract class QueryHandler
         $query->andWhere($query->expr()->eq($statusColumn, ':' . $paramName))
             ->setParameter($paramName, $status, Type::INTEGER);
     }
+
+    /**
+     * Applies offset and limit to the query.
+     *
+     * @param \Doctrine\DBAL\Query\QueryBuilder $query
+     * @param int $offset
+     * @param int $limit
+     */
+    public function applyOffsetAndLimit(QueryBuilder $query, $offset, $limit)
+    {
+        $offset = is_int($offset) ? $offset : 0;
+        $limit = is_int($limit) && $limit > 0 ? $limit : null;
+
+        $query
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+    }
 }

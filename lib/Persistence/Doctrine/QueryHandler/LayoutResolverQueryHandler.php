@@ -85,16 +85,17 @@ class LayoutResolverQueryHandler extends QueryHandler
      * Returns all data for all rules.
      *
      * @param int $status
+     * @param int $offset
+     * @param int $limit
      *
      * @return array
      */
-    public function loadRulesData($status = null)
+    public function loadRulesData($status, $offset = 0, $limit = null)
     {
         $query = $this->getRuleSelectQuery();
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status, 'r.status');
-        }
+        $this->applyStatusCondition($query, $status, 'r.status');
+        $this->applyOffsetAndLimit($query, $offset, $limit);
 
         return $query->execute()->fetchAll();
     }

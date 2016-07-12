@@ -118,11 +118,14 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Loads all layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
      */
-    public function loadLayouts()
+    public function loadLayouts($offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadLayoutsData();
+        $data = $this->queryHandler->loadLayoutsData($offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
@@ -130,11 +133,14 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Loads all shared layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
      */
-    public function loadSharedLayouts()
+    public function loadSharedLayouts($offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadSharedLayoutsData();
+        $data = $this->queryHandler->loadSharedLayoutsData($offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }

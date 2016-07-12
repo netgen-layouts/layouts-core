@@ -103,11 +103,20 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Loads all rules.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function loadRules()
+    public function loadRules($offset = 0, $limit = null)
     {
-        $persistenceRules = $this->handler->loadRules(Rule::STATUS_PUBLISHED);
+        $this->validator->validateOffsetAndLimit($offset, $limit);
+
+        $persistenceRules = $this->handler->loadRules(
+            Rule::STATUS_PUBLISHED,
+            $offset,
+            $limit
+        );
 
         $rules = array();
         foreach ($persistenceRules as $persistenceRule) {

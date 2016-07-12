@@ -40,9 +40,12 @@ interface LayoutResolverService
     /**
      * Loads all rules.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function loadRules();
+    public function loadRules($offset = 0, $limit = null);
 
     /**
      * Returns all rules that match specified target type and value.

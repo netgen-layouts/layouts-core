@@ -133,11 +133,16 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Loads all layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadLayouts()
+    public function loadLayouts($offset = 0, $limit = null)
     {
-        $persistenceLayouts = $this->layoutHandler->loadLayouts();
+        $this->layoutValidator->validateOffsetAndLimit($offset, $limit);
+
+        $persistenceLayouts = $this->layoutHandler->loadLayouts($offset, $limit);
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
@@ -150,11 +155,16 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Loads all shared layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadSharedLayouts()
+    public function loadSharedLayouts($offset = 0, $limit = null)
     {
-        $persistenceLayouts = $this->layoutHandler->loadSharedLayouts();
+        $this->layoutValidator->validateOffsetAndLimit($offset, $limit);
+
+        $persistenceLayouts = $this->layoutHandler->loadSharedLayouts($offset, $limit);
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {

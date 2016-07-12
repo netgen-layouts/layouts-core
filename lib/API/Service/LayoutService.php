@@ -48,16 +48,22 @@ interface LayoutService
     /**
      * Loads all layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadLayouts();
+    public function loadLayouts($offset = 0, $limit = null);
 
     /**
      * Loads all shared layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadSharedLayouts();
+    public function loadSharedLayouts($offset = 0, $limit = null);
 
     /**
      * Returns if provided layout has a published status.

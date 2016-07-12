@@ -115,11 +115,20 @@ class CollectionService implements APICollectionService
     /**
      * Loads all named collections.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
      */
-    public function loadNamedCollections()
+    public function loadNamedCollections($offset = 0, $limit = null)
     {
-        $persistenceCollections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_PUBLISHED);
+        $this->collectionValidator->validateOffsetAndLimit($offset, $limit);
+
+        $persistenceCollections = $this->collectionHandler->loadNamedCollections(
+            Collection::STATUS_PUBLISHED,
+            $offset,
+            $limit
+        );
 
         $collections = array();
         foreach ($persistenceCollections as $persistenceCollection) {

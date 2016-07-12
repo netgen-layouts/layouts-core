@@ -36,13 +36,17 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return array
      */
-    public function loadLayoutsData()
+    public function loadLayoutsData($offset = 0, $limit = null)
     {
         $query = $this->getLayoutSelectQuery();
 
         $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
+        $this->applyOffsetAndLimit($query, $offset, $limit);
 
         return $query->execute()->fetchAll();
     }
@@ -50,9 +54,12 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for shared layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return array
      */
-    public function loadSharedLayoutsData()
+    public function loadSharedLayoutsData($offset = 0, $limit = null)
     {
         $query = $this->getLayoutSelectQuery();
         $query->where(
@@ -61,6 +68,7 @@ class LayoutQueryHandler extends QueryHandler
         ->setParameter('shared', true, Type::BOOLEAN);
 
         $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
+        $this->applyOffsetAndLimit($query, $offset, $limit);
 
         return $query->execute()->fetchAll();
     }

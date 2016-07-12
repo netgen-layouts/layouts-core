@@ -82,12 +82,14 @@ class CollectionHandler implements CollectionHandlerInterface
      * Loads all named collections.
      *
      * @param int $status
+     * @param int $offset
+     * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function loadNamedCollections($status)
+    public function loadNamedCollections($status, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadNamedCollectionsData($status);
+        $data = $this->queryHandler->loadNamedCollectionsData($status, $offset, $limit);
 
         if (empty($data)) {
             return array();

@@ -37,28 +37,6 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for named collections.
-     *
-     * @param int $status
-     *
-     * @return array
-     */
-    public function loadNamedCollectionsData($status = null)
-    {
-        $query = $this->getCollectionSelectQuery();
-        $query->where(
-            $query->expr()->eq('type', ':type')
-        )
-        ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER);
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
-
-        return $query->execute()->fetchAll();
-    }
-
-    /**
      * Loads all data for an item.
      *
      * @param int|string $itemId
@@ -77,6 +55,29 @@ class CollectionQueryHandler extends QueryHandler
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
         }
+
+        return $query->execute()->fetchAll();
+    }
+
+    /**
+     * Loads all data for named collections.
+     *
+     * @param int $status
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function loadNamedCollectionsData($status, $offset = 0, $limit = null)
+    {
+        $query = $this->getCollectionSelectQuery();
+        $query->where(
+            $query->expr()->eq('type', ':type')
+        )
+        ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+        $this->applyOffsetAndLimit($query, $offset, $limit);
 
         return $query->execute()->fetchAll();
     }

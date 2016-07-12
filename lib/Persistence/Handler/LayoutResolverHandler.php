@@ -30,10 +30,12 @@ interface LayoutResolverHandler
      * Loads all rules.
      *
      * @param int $status
+     * @param int $offset
+     * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRules($status);
+    public function loadRules($status, $offset = 0, $limit = null);
 
     /**
      * Returns all rules that match specified target type and value.

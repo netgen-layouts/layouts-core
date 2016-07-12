@@ -73,12 +73,14 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Loads all rules.
      *
      * @param int $status
+     * @param int $offset
+     * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRules($status)
+    public function loadRules($status, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadRulesData($status);
+        $data = $this->queryHandler->loadRulesData($status, $offset, $limit);
 
         if (empty($data)) {
             return array();

@@ -37,16 +37,22 @@ interface LayoutHandler
     /**
      * Loads all layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
      */
-    public function loadLayouts();
+    public function loadLayouts($offset = 0, $limit = null);
 
     /**
      * Loads all shared layouts.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
      */
-    public function loadSharedLayouts();
+    public function loadSharedLayouts($offset = 0, $limit = null);
 
     /**
      * Returns if layout with specified ID exists.

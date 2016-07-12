@@ -87,4 +87,39 @@ abstract class Validator
 
         return true;
     }
+
+    /**
+     * Validates the provided offset and limit values.
+     *
+     * @param int $offset
+     * @param int $limit
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
+     */
+    public function validateOffsetAndLimit($offset, $limit)
+    {
+        $this->validate(
+            $offset,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'int')),
+            ),
+            'offset'
+        );
+
+        if ($limit !== null) {
+            $this->validate(
+                $limit,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'int')),
+                ),
+                'limit'
+            );
+        }
+
+        return true;
+    }
 }

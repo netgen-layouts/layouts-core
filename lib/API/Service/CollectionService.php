@@ -41,9 +41,12 @@ interface CollectionService
     /**
      * Loads all named collections.
      *
+     * @param int $offset
+     * @param int $limit
+     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
      */
-    public function loadNamedCollections();
+    public function loadNamedCollections($offset = 0, $limit = null);
 
     /**
      * Loads an item with specified ID.

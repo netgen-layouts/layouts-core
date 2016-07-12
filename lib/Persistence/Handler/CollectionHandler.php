@@ -29,10 +29,12 @@ interface CollectionHandler
      * Loads all named collections.
      *
      * @param int $status
+     * @param int $offset
+     * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function loadNamedCollections($status);
+    public function loadNamedCollections($status, $offset = 0, $limit = null);
 
     /**
      * Loads an item with specified ID.
