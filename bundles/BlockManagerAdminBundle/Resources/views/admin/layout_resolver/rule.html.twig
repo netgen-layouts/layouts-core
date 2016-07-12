@@ -92,7 +92,7 @@
                                 </select>
                             {% endif %}
 
-                            <a href="#" class="lr-btn lr-btn-link js-form-add" data-action="add-target"
+                            <a href="#" class="lr-btn lr-btn-link js-setting-add" data-action="add-target"
                                 {% if rule.targets|length > 0 %} data-target-type="{{ rule.targets[0].type }}" {% endif %}>
                                 <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}
                             </a>
@@ -124,7 +124,7 @@
                                 {% endfor %}
                             </select>
 
-                            <a href="#" class="lr-btn lr-btn-link js-form-add" data-action="add-condition">
+                            <a href="#" class="lr-btn lr-btn-link js-setting-add" data-action="add-condition">
                                 {{ 'layout_resolver.rules.add_condition'|trans }}
                             </a>
                         </div>
