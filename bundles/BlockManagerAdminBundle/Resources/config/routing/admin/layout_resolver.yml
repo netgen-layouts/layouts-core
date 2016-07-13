@@ -17,7 +17,7 @@ ngbm_admin_layout_resolver_rule_update:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:updateRule"
 
 ngbm_admin_layout_resolver_rule_update_prorities:
-    path: /rules/{ruleId}/priorities
+    path: /rules/priorities
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:updatePriorities"
