@@ -1,0 +1,7 @@
+{% extends 'NetgenBlockManagerAdminBundle:admin:pagelayout.html.twig' %}
+
+{% trans_default_domain 'ngbm_admin' %}
+
+{% block content %}
+    <a href="{{ path('ngbm_app', {shared: true}) }}" target="_blank">Create shared layout</a>
+{% endblock %}
