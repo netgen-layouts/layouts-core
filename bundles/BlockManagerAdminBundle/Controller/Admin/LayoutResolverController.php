@@ -166,8 +166,15 @@ class LayoutResolverController extends Controller
         $this->repository->beginTransaction();
 
         try {
-            $ruleIds = array_unique(
-                $request->request->get('rule_ids')
+            // Rules are ordered by descending priority
+            // in the request variable, we reverse the list here
+            // as it is way easier to increment priorities from 0
+            // then decrement them (especially when we need to
+            // make sure to skip rules which do not exist)
+            $ruleIds = array_reverse(
+                array_unique(
+                    $request->request->get('rule_ids')
+                )
             );
 
             $ruleUpdateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
