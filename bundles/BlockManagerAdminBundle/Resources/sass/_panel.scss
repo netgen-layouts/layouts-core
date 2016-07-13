@@ -311,11 +311,12 @@
     body.sorting & {
         .lr-panel-head {
             cursor:grab;
+            padding-left:$gutter+8;
             &::before {
                 content:"";
                 position:absolute;
                 background:transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAF0lEQVQIW2NkYGD4z8DAwMgAI0AMDA4AI3EBBCKrOnQAAAAASUVORK5CYII=') repeat;
-                width:4px;
+                width:8px;
                 left:5px;
                 top:10px;
                 bottom:10px;
