@@ -121,7 +121,7 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('target_type', $targetType, Type::STRING)
             ->setParameter('enabled', true, Type::BOOLEAN)
-            ->addOrderBy('rd.priority', 'ASC');
+            ->addOrderBy('rd.priority', 'DESC');
 
         $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'r.status');
 
