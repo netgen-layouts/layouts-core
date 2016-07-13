@@ -41,6 +41,11 @@ class AssetPackagesPass implements CompilerPassInterface
             'version' => BlockManagerUIVersion::VERSION_ID,
             'version_format' => 'v%%2$s/%%1$s',
         ),
+        'ngbm_app_vendor' => array(
+            'base_path' => '/bundles/netgenblockmanagerui/vendor',
+            'version' => null,
+            'version_format' => null,
+        ),
         'ngcb_css' => array(
             'base_path' => '/bundles/netgencontentbrowserui/css',
             'version' => ContentBrowserUIVersion::VERSION_ID,

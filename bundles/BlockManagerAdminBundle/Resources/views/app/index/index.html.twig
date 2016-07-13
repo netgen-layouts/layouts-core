@@ -20,9 +20,8 @@
 <body>
     <div id="app"></div>
 
-    <script src="{{ asset('bundles/netgenblockmanagerui/vendor/alloy-editor/alloy-editor-all.js') }}"></script>
-    {# <script src="//cdn.ckeditor.com/4.5.9/full/ckeditor.js"></script> #}
-    <script src="{{ asset('bundles/netgenblockmanagerui/vendor/ace-editor/ace.js') }}"></script>
+    <script src="{{ asset('alloy-editor/alloy-editor-all.js', 'ngbm_app_vendor') }}"></script>
+    <script src="{{ asset('ace-editor/ace.js', 'ngbm_app_vendor') }}"></script>
 
     {% block javascripts %}
         <script src="{{ asset('main.js', 'ngbm_app_js') }}"></script>
