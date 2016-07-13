@@ -309,8 +309,8 @@
     }
 
     body.sorting & {
+        cursor:grab;
         .lr-panel-head {
-            cursor:grab;
             padding-left:$gutter+8;
             &::before {
                 content:"";
@@ -321,6 +321,9 @@
                 top:10px;
                 bottom:10px;
                 opacity:0.25;
+            }
+            .lr-dropdown {
+                visibility:hidden;
             }
         }
         .panel-head-title,
@@ -336,8 +339,17 @@
                 z-index:100;
             }
         }
-        .lr-panel-actions {
-            display:none;
+        .lr-panel-actions,
+        .remove-setting,
+        .settings-action,
+        .panel-link-action {
+            display:none !important;
+        }
+        .editable-value {
+            border:none !important;
+            &::after {
+                display:none !important;
+            }
         }
     }
 
