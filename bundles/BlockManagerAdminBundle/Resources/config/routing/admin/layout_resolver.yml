@@ -10,17 +10,17 @@ ngbm_admin_layout_resolver_rule_create:
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:createRule"
 
-ngbm_admin_layout_resolver_rule_update:
-    path: /rules/{ruleId}
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.admin.layout_resolver:updateRule"
-
 ngbm_admin_layout_resolver_rule_update_prorities:
     path: /rules/priorities
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.admin.layout_resolver:updatePriorities"
+
+ngbm_admin_layout_resolver_rule_update:
+    path: /rules/{ruleId}
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layout_resolver:updateRule"
 
 ngbm_admin_layout_resolver_rule_enable:
     path: /rules/{ruleId}/enable
