@@ -157,6 +157,8 @@ class LayoutResolverController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If an error occurred
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updatePriorities(Request $request)
