@@ -61,6 +61,19 @@
         }
     }
 
+    &.lr-btn-white {
+        background:#fff;
+        &:hover {
+            background:hsla(0, 0, 62, 0.2);
+        }
+        &:focus:not(:active) {
+            background:hsla(0, 0, 62, 0.3);
+        }
+        &:active {
+            background:hsla(0, 0, 62, 0.4);
+        }
+    }
+
     i {
         vertical-align:middle;
         font-size:15px;

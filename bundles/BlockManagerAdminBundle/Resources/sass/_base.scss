@@ -33,3 +33,29 @@ h1 {
     font-size:1.625em;
     margin:1em 0 3em;
 }
+
+.lr-rules {
+    position:relative;
+}
+
+.rule-controls {
+    margin:0 0 1em;
+    text-align:right;
+    .sorting-show {
+        display:none;
+    }
+}
+
+body.sorting {
+    .rule-controls {
+        .sorting-show {
+            display:inline-block;
+        }
+        .sorting-hide {
+            display:none;
+        }
+    }
+    .js-add-rule {
+        display:none;
+    }
+}

@@ -3,15 +3,23 @@
 {% trans_default_domain 'ngbm_admin' %}
 
 {% block content %}
-    {% for rule in rules %}
-        <div class="lr-panel lr-rule">
-            {{ ngbm_render_rule(rule) }}
+    <div id="rules">
+        <div class="rule-controls">
+            <button class="lr-btn lr-btn-link sorting-hide js-sort-start">Reorder mappings <i class="material-icons">swap_vert</i></button>
+            <button class="lr-btn lr-btn sorting-show js-sort-cancel">Cancel</button>
+            <button class="lr-btn lr-btn-primary sorting-show js-sort-save">Save reordering</button>
         </div>
-    {% else %}
-        <p>{{ 'layout_resolver.rules.no_rules'|trans }}</p>
-    {% endfor %}
-
-    <a href="#" id="add-new-button" class="lr-btn lr-btn-primary js-add-rule">
-        <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_new_rule'|trans }}
-    </a>
+        <div class="lr-rules">
+            {% for rule in rules %}
+                <div class="lr-panel lr-rule">
+                    {{ ngbm_render_rule(rule) }}
+                </div>
+            {% else %}
+                <p>{{ 'layout_resolver.rules.no_rules'|trans }}</p>
+            {% endfor %}
+        </div>
+        <a href="#" id="add-new-button" class="lr-btn lr-btn-primary js-add-rule">
+            <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_new_rule'|trans }}
+        </a>
+    </div>
 {% endblock %}
