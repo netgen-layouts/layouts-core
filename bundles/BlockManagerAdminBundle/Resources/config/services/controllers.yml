@@ -1,6 +1,8 @@
 parameters:
     netgen_block_manager.controller.admin.layout_resolver.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
 
+    netgen_block_manager.controller.admin.layout_resolver.validator.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
+
     netgen_block_manager.controller.app.index.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\IndexController
     netgen_block_manager.controller.app.layout.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\LayoutController
     netgen_block_manager.controller.app.block.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\BlockController
@@ -16,6 +18,12 @@ services:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.layout.resolver.registry.target_type"
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
+            - "@netgen_block_manager.controller.admin.layout_resolver.validator"
+
+    netgen_block_manager.controller.admin.layout_resolver.validator:
+        class: "%netgen_block_manager.controller.admin.layout_resolver.validator.class%"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.controller.app.index:
         class: "%netgen_block_manager.controller.app.index.class%"

@@ -16,6 +16,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,11 @@ class LayoutResolverController extends Controller
     protected $conditionTypeRegistry;
 
     /**
+     * @var \Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
+     */
+    protected $validator;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Repository $repository
@@ -56,19 +62,22 @@ class LayoutResolverController extends Controller
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
+     * @param \Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator $validator
      */
     public function __construct(
         Repository $repository,
         LayoutResolverService $layoutResolverService,
         LayoutService $layoutService,
         TargetTypeRegistryInterface $targetTypeRegistry,
-        ConditionTypeRegistryInterface $conditionTypeRegistry
+        ConditionTypeRegistryInterface $conditionTypeRegistry,
+        LayoutResolverValidator $validator
     ) {
         $this->repository = $repository;
         $this->layoutResolverService = $layoutResolverService;
         $this->layoutService = $layoutService;
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;
+        $this->validator = $validator;
     }
 
     /**
@@ -141,6 +150,52 @@ class LayoutResolverController extends Controller
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         return $this->buildView($updatedRule);
+    }
+
+    /**
+     * Updates rule priorities.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updatePriorities(Request $request)
+    {
+        $this->validator->validatePriorities($request);
+
+        $this->repository->beginTransaction();
+
+        try {
+            $ruleIds = array_unique(
+                $request->request->get('rule_ids')
+            );
+
+            $ruleUpdateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
+            $ruleUpdateStruct->priority = 0;
+
+            foreach (array_values($ruleIds) as $ruleId) {
+                try {
+                    $rule = $this->layoutResolverService->loadRule($ruleId);
+                } catch (NotFoundException $e) {
+                    continue;
+                }
+
+                $this->layoutResolverService->updateRuleMetadata(
+                    $rule,
+                    $ruleUpdateStruct
+                );
+
+                $ruleUpdateStruct->priority += 10;
+            }
+
+            $this->repository->commitTransaction();
+
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        } catch (Exception $e) {
+            $this->repository->rollbackTransaction();
+
+            throw new BadStateException('rule', $e->getMessage());
+        }
     }
 
     /**
