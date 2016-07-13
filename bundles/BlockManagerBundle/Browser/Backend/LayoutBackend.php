@@ -151,7 +151,7 @@ class LayoutBackend implements BackendInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
      *
-     * @return \Netgen\Bundle\BlockManagerBundle\ContentBrowser\Item\Layout\Item
+     * @return \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item
      */
     protected function buildItem(LayoutInfo $layout)
     {
@@ -163,7 +163,7 @@ class LayoutBackend implements BackendInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo[] $layouts
      *
-     * @return \Netgen\Bundle\BlockManagerBundle\ContentBrowser\Item\Layout\Item[]
+     * @return \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item[]
      */
     protected function buildItems(array $layouts)
     {
