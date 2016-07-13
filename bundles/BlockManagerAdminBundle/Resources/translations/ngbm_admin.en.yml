@@ -19,6 +19,8 @@ layout_resolver.rules.conditions: 'Conditions'
 layout_resolver.rules.no_conditions: 'There are no conditions'
 layout_resolver.rules.add_condition: 'Add new condition'
 layout_resolver.rules.loading: 'Loading...'
+layout_resolver.rules.reorder_rules: 'Reorder mappings'
+layout_resolver.rules.save_order: 'Save order'
 layout_resolver.rules.cancel: 'Cancel'
 layout_resolver.rules.save_changes: 'Save changes'
 
