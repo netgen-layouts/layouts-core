@@ -1,8 +1,9 @@
 {
-    "name": "netgen-block-manager-admin-bundle",
-    "homepage": "http://www.netgenlabs.com",
-    "dependencies": {
-        "jquery": "^2.2.2",
-        "normalize.scss": "^5.0.3"
-    }
+  "name": "netgen-block-manager-admin-bundle",
+  "homepage": "http://www.netgenlabs.com",
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "normalize.scss": "^5.0.3",
+    "jquery-ui": "^1.12.0"
+  }
 }
