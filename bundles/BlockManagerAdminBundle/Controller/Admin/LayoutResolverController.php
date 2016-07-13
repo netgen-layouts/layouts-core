@@ -119,9 +119,6 @@ class LayoutResolverController extends Controller
         $layoutId = $request->request->get('layout_id');
         $layoutId = $layoutId !== null ? trim($layoutId) : null;
 
-        $priority = $request->request->get('priority');
-        $priority = $priority !== null ? (int)$priority : null;
-
         $comment = $request->request->get('comment');
         $comment = $comment !== null ? trim($comment) : null;
 
@@ -136,11 +133,10 @@ class LayoutResolverController extends Controller
         }
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->comment = $comment;
         $ruleUpdateStruct->layoutId = $layoutId !== null ?
             (!empty($layoutId) ? $layoutId : 0) :
             null;
-        $ruleUpdateStruct->comment = $comment;
-        $ruleUpdateStruct->priority = $priority;
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
@@ -157,13 +153,13 @@ class LayoutResolverController extends Controller
      */
     public function enableRule(Rule $rule, Request $request)
     {
-        $this->layoutResolverService->enableRule($rule);
+        $returnRule = $this->layoutResolverService->enableRule($rule);
 
-        return $this->buildView(
-            $request->query->get('draft') === 'true' ?
-                $this->layoutResolverService->loadRuleDraft($rule->getId()) :
-                $this->layoutResolverService->loadRule($rule->getId())
-        );
+        if ($request->query->get('draft') === 'true') {
+            $returnRule = $this->layoutResolverService->loadRuleDraft($rule->getId());
+        }
+
+        return $this->buildView($returnRule);
     }
 
     /**
@@ -176,13 +172,13 @@ class LayoutResolverController extends Controller
      */
     public function disableRule(Rule $rule, Request $request)
     {
-        $this->layoutResolverService->disableRule($rule);
+        $returnRule = $this->layoutResolverService->disableRule($rule);
 
-        return $this->buildView(
-            $request->query->get('draft') === 'true' ?
-                $this->layoutResolverService->loadRuleDraft($rule->getId()) :
-                $this->layoutResolverService->loadRule($rule->getId())
-        );
+        if ($request->query->get('draft') === 'true') {
+            $returnRule = $this->layoutResolverService->loadRuleDraft($rule->getId());
+        }
+
+        return $this->buildView($returnRule);
     }
 
     /**

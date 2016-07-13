@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
@@ -129,6 +130,16 @@ interface LayoutResolverHandler
     public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct);
 
     /**
+     * Updates rule metadata.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
+     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
+     */
+    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct);
+
+    /**
      * Copies a rule with specified ID.
      *
      * @param int|string $ruleId
@@ -159,6 +170,8 @@ interface LayoutResolverHandler
      * Enables a rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
     public function enableRule(Rule $rule);
 
@@ -166,6 +179,8 @@ interface LayoutResolverHandler
      * Disables a rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
     public function disableRule(Rule $rule);
 

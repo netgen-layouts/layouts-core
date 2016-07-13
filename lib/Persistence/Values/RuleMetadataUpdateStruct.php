@@ -4,15 +4,15 @@ namespace Netgen\BlockManager\Persistence\Values;
 
 use Netgen\BlockManager\ValueObject;
 
-class RuleUpdateStruct extends ValueObject
+class RuleMetadataUpdateStruct extends ValueObject
 {
     /**
-     * @var int|string
+     * @var bool
      */
-    public $layoutId;
+    public $enabled;
 
     /**
-     * @var string
+     * @var int
      */
-    public $comment;
+    public $priority;
 }

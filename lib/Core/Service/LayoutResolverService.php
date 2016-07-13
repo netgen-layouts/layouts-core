@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
@@ -65,7 +66,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param int|string $ruleId
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule If rule with speciled ID does not exist
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule If rule with specified ID does not exist
      */
     public function loadRule($ruleId)
     {
@@ -290,6 +291,37 @@ class LayoutResolverService implements APILayoutResolverService
     }
 
     /**
+     * Updates rule metadata.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
+    {
+        $persistenceRule = $this->handler->loadRule($rule->getId(), Rule::STATUS_PUBLISHED);
+
+        $this->validator->validateRuleMetadataUpdateStruct($ruleUpdateStruct);
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $updatedRule = $this->handler->updateRuleMetadata(
+                $persistenceRule,
+                $ruleUpdateStruct
+            );
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->mapper->mapRule($updatedRule);
+    }
+
+    /**
      * Copies a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
@@ -449,6 +481,8 @@ class LayoutResolverService implements APILayoutResolverService
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be enabled
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function enableRule(Rule $rule)
     {
@@ -469,13 +503,15 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->handler->enableRule($persistenceRule);
+            $updatedRule = $this->handler->enableRule($persistenceRule);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
         }
 
         $this->persistenceHandler->commitTransaction();
+
+        return $this->mapper->mapRule($updatedRule);
     }
 
     /**
@@ -484,6 +520,8 @@ class LayoutResolverService implements APILayoutResolverService
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be disabled
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function disableRule(Rule $rule)
     {
@@ -496,13 +534,15 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->handler->disableRule($persistenceRule);
+            $updatedRule = $this->handler->disableRule($persistenceRule);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
         }
 
         $this->persistenceHandler->commitTransaction();
+
+        return $this->mapper->mapRule($updatedRule);
     }
 
     /**
@@ -702,6 +742,16 @@ class LayoutResolverService implements APILayoutResolverService
     public function newRuleUpdateStruct()
     {
         return new RuleUpdateStruct();
+    }
+
+    /**
+     * Creates a new rule metadata update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct
+     */
+    public function newRuleMetadataUpdateStruct()
+    {
+        return new RuleMetadataUpdateStruct();
     }
 
     /**

@@ -91,13 +91,13 @@ CREATE TABLE "ngbm_rule" (
     "id" integer NOT NULL,
     "status" integer NOT NULL,
     "layout_id" integer,
-    "priority" integer NOT NULL,
     "comment" character varying(255)
 );
 
 CREATE TABLE "ngbm_rule_data" (
     "rule_id" integer NOT NULL,
-    "enabled" boolean NOT NULL
+    "enabled" boolean NOT NULL,
+    "priority" integer NOT NULL
 );
 
 CREATE TABLE "ngbm_rule_target" (

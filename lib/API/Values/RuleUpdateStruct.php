@@ -14,11 +14,6 @@ class RuleUpdateStruct extends ValueObject
     public $layoutId;
 
     /**
-     * @var int
-     */
-    public $priority;
-
-    /**
      * @var string
      */
     public $comment;

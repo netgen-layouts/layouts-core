@@ -68,7 +68,6 @@ class Version010000 extends AbstractMigration
         $ruleTable->addColumn('id', 'integer', array('autoincrement' => true));
         $ruleTable->addColumn('status', 'integer');
         $ruleTable->addColumn('layout_id', 'integer', array('notnull' => false));
-        $ruleTable->addColumn('priority', 'integer');
         $ruleTable->addColumn('comment', 'string', array('length' => 255, 'notnull' => false));
 
         $ruleTable->setPrimaryKey(array('id', 'status'));
@@ -81,6 +80,7 @@ class Version010000 extends AbstractMigration
 
         $ruleDataTable->addColumn('rule_id', 'integer');
         $ruleDataTable->addColumn('enabled', 'boolean');
+        $ruleDataTable->addColumn('priority', 'integer');
 
         $ruleDataTable->setPrimaryKey(array('rule_id'));
 

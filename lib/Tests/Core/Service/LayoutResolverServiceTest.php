@@ -12,6 +12,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
@@ -205,7 +206,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 3;
-        $ruleUpdateStruct->priority = 6;
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
@@ -213,7 +213,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertInstanceOf(RuleDraft::class, $updatedRule);
         self::assertInstanceOf(LayoutInfo::class, $updatedRule->getLayout());
         self::assertEquals(3, $updatedRule->getLayout()->getId());
-        self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
     }
 
@@ -225,7 +224,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->priority = 6;
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
@@ -233,7 +231,6 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertInstanceOf(RuleDraft::class, $updatedRule);
         self::assertInstanceOf(LayoutInfo::class, $rule->getLayout());
         self::assertEquals(2, $updatedRule->getLayout()->getId());
-        self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
     }
 
@@ -246,15 +243,34 @@ abstract class LayoutResolverServiceTest extends ServiceTest
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = 0;
-        $ruleUpdateStruct->priority = 6;
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertInstanceOf(RuleDraft::class, $updatedRule);
         self::assertNull($updatedRule->getLayout());
-        self::assertEquals(6, $updatedRule->getPriority());
         self::assertEquals('Updated comment', $updatedRule->getComment());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
+     */
+    public function testUpdateRuleMetadata()
+    {
+        $rule = $this->layoutResolverService->loadRule(4);
+
+        $updatedRule = $this->layoutResolverService->updateRuleMetadata(
+            $rule,
+            new RuleMetadataUpdateStruct(
+                array(
+                    'priority' => 50,
+                )
+            )
+        );
+
+        self::assertInstanceOf(Rule::class, $updatedRule);
+        self::assertEquals(50, $updatedRule->getPriority());
+        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->getStatus());
     }
 
     /**
@@ -399,10 +415,11 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     {
         $rule = $this->layoutResolverService->loadRule(4);
 
-        $this->layoutResolverService->enableRule($rule);
+        $enabledRule = $this->layoutResolverService->enableRule($rule);
 
-        $enabledRule = $this->layoutResolverService->loadRule($rule->getId());
+        self::assertInstanceOf(Rule::class, $enabledRule);
         self::assertTrue($enabledRule->isEnabled());
+        self::assertEquals(Rule::STATUS_PUBLISHED, $enabledRule->getStatus());
     }
 
     /**
@@ -445,10 +462,11 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     {
         $rule = $this->layoutResolverService->loadRule(1);
 
-        $this->layoutResolverService->disableRule($rule);
+        $disabledRule = $this->layoutResolverService->disableRule($rule);
 
-        $disabledRule = $this->layoutResolverService->loadRule($rule->getId());
+        self::assertInstanceOf(Rule::class, $disabledRule);
         self::assertFalse($disabledRule->isEnabled());
+        self::assertEquals(Rule::STATUS_PUBLISHED, $disabledRule->getStatus());
     }
 
     /**
@@ -602,6 +620,17 @@ abstract class LayoutResolverServiceTest extends ServiceTest
         self::assertEquals(
             new RuleUpdateStruct(),
             $this->layoutResolverService->newRuleUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newRuleMetadataUpdateStruct
+     */
+    public function testNewRuleMetadataUpdateStruct()
+    {
+        self::assertEquals(
+            new RuleMetadataUpdateStruct(),
+            $this->layoutResolverService->newRuleMetadataUpdateStruct()
         );
     }
 

@@ -101,7 +101,6 @@ CREATE TABLE ngbm_rule (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   layout_id int DEFAULT NULL,
-  priority int NOT NULL,
   comment nvarchar(255) DEFAULT NULL,
   PRIMARY KEY (id, status)
 );
@@ -109,6 +108,7 @@ CREATE TABLE ngbm_rule (
 CREATE TABLE ngbm_rule_data (
   rule_id int NOT NULL,
   enabled tinyint NOT NULL,
+  priority int NOT NULL,
   PRIMARY KEY (rule_id)
 );
 

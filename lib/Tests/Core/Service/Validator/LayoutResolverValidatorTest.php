@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
@@ -98,6 +99,26 @@ class LayoutResolverValidatorTest extends TestCase
 
         self::assertTrue(
             $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params))
+        );
+    }
+
+    /**
+     * @param array $params
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleUpdateStruct
+     * @dataProvider validateRuleMetadataUpdateStructProvider
+     */
+    public function testValidateRuleMetadataUpdateStruct(array $params, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        self::assertTrue(
+            $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
+                new RuleMetadataUpdateStruct($params)
+            )
         );
     }
 
@@ -202,16 +223,25 @@ class LayoutResolverValidatorTest extends TestCase
     public function validateRuleUpdateStructProvider()
     {
         return array(
-            array(array('layoutId' => 12, 'priority' => 2, 'comment' => 'Comment'), true),
-            array(array('layoutId' => null, 'priority' => 2, 'comment' => 'Comment'), true),
-            array(array('layoutId' => '12', 'priority' => 2, 'comment' => 'Comment'), true),
-            array(array('layoutId' => '', 'priority' => 2, 'comment' => 'Comment'), false),
-            array(array('layoutId' => array(), 'priority' => 2, 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'priority' => null, 'comment' => 'Comment'), true),
-            array(array('layoutId' => 12, 'priority' => '2', 'comment' => 'Comment'), false),
-            array(array('layoutId' => 12, 'priority' => 2, 'comment' => null), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'comment' => ''), true),
-            array(array('layoutId' => 12, 'priority' => 2, 'comment' => 42), false),
+            array(array('layoutId' => 12, 'comment' => 'Comment'), true),
+            array(array('layoutId' => null, 'comment' => 'Comment'), true),
+            array(array('layoutId' => '12', 'comment' => 'Comment'), true),
+            array(array('layoutId' => '', 'comment' => 'Comment'), false),
+            array(array('layoutId' => 12, 'comment' => null), true),
+            array(array('layoutId' => 12, 'comment' => ''), true),
+            array(array('layoutId' => 12, 'comment' => 42), false),
+        );
+    }
+
+    public function validateRuleMetadataUpdateStructProvider()
+    {
+        return array(
+            array(array('priority' => -12), true),
+            array(array('priority' => 0), true),
+            array(array('priority' => 12), true),
+            array(array('priority' => null), true),
+            array(array('priority' => '12'), false),
+            array(array('priority' => ''), false),
         );
     }
 

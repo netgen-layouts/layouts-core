@@ -12,6 +12,8 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct as APITargetUpdateStruct;
@@ -252,8 +254,30 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
             new RuleUpdateStruct(
                 array(
                     'layoutId' => $ruleUpdateStruct->layoutId !== null ? $ruleUpdateStruct->layoutId : $rule->layoutId,
-                    'priority' => $ruleUpdateStruct->priority !== null ? $ruleUpdateStruct->priority : $rule->priority,
                     'comment' => $ruleUpdateStruct->comment !== null ? $ruleUpdateStruct->comment : $rule->comment,
+                )
+            )
+        );
+
+        return $this->loadRule($rule->id, $rule->status);
+    }
+
+    /**
+     * Updates rule metadata.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
+     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
+     */
+    public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct)
+    {
+        $this->queryHandler->updateRuleData(
+            $rule->id,
+            new RuleMetadataUpdateStruct(
+                array(
+                    'enabled' => $rule->enabled,
+                    'priority' => $ruleUpdateStruct->priority !== null ? $ruleUpdateStruct->priority : $rule->priority,
                 )
             )
         );
@@ -419,20 +443,44 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Enables a rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
     public function enableRule(Rule $rule)
     {
-        $this->queryHandler->updateRuleData($rule->id, true);
+        $this->queryHandler->updateRuleData(
+            $rule->id,
+            new RuleMetadataUpdateStruct(
+                array(
+                    'enabled' => true,
+                    'priority' => $rule->priority,
+                )
+            )
+        );
+
+        return $this->loadRule($rule->id, $rule->status);
     }
 
     /**
      * Disables a rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
     public function disableRule(Rule $rule)
     {
-        $this->queryHandler->updateRuleData($rule->id, false);
+        $this->queryHandler->updateRuleData(
+            $rule->id,
+            new RuleMetadataUpdateStruct(
+                array(
+                    'enabled' => false,
+                    'priority' => $rule->priority,
+                )
+            )
+        );
+
+        return $this->loadRule($rule->id, $rule->status);
     }
 
     /**

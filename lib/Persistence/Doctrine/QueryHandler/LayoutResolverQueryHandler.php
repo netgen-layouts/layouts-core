@@ -10,6 +10,7 @@ use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
@@ -119,7 +120,7 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('target_type', $targetType, Type::STRING)
             ->setParameter('enabled', true, Type::BOOLEAN)
-            ->addOrderBy('r.priority', 'ASC');
+            ->addOrderBy('rd.priority', 'ASC');
 
         $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'r.status');
 
@@ -300,7 +301,6 @@ class LayoutResolverQueryHandler extends QueryHandler
                     'id' => ':id',
                     'status' => ':status',
                     'layout_id' => ':layout_id',
-                    'priority' => ':priority',
                     'comment' => ':comment',
                 )
             )
@@ -310,7 +310,6 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('status', $ruleCreateStruct->status, Type::INTEGER)
             ->setParameter('layout_id', $ruleCreateStruct->layoutId, Type::INTEGER)
-            ->setParameter('priority', $ruleCreateStruct->priority, Type::INTEGER)
             ->setParameter('comment', $ruleCreateStruct->comment, Type::STRING);
 
         $query->execute();
@@ -324,10 +323,12 @@ class LayoutResolverQueryHandler extends QueryHandler
                     array(
                         'rule_id' => ':rule_id',
                         'enabled' => ':enabled',
+                        'priority' => ':priority',
                     )
                 )
                 ->setParameter('rule_id', $createdRuleId, Type::INTEGER)
-                ->setParameter('enabled', $ruleCreateStruct->enabled, Type::BOOLEAN);
+                ->setParameter('enabled', $ruleCreateStruct->enabled, Type::BOOLEAN)
+                ->setParameter('priority', $ruleCreateStruct->priority, Type::INTEGER);
 
             $query->execute();
         }
@@ -348,14 +349,12 @@ class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->update('ngbm_rule')
             ->set('layout_id', ':layout_id')
-            ->set('priority', ':priority')
             ->set('comment', ':comment')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $ruleId, Type::INTEGER)
             ->setParameter('layout_id', $ruleUpdateStruct->layoutId !== 0 ? $ruleUpdateStruct->layoutId : null, Type::INTEGER)
-            ->setParameter('priority', $ruleUpdateStruct->priority, Type::INTEGER)
             ->setParameter('comment', $ruleUpdateStruct->comment, Type::STRING);
 
         $this->applyStatusCondition($query, $status);
@@ -367,19 +366,21 @@ class LayoutResolverQueryHandler extends QueryHandler
      * Updates rule data which is independent of statuses.
      *
      * @param int|string $ruleId
-     * @param bool $enabled
+     * @param \Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct $ruleMetadataUpdateStruct
      */
-    public function updateRuleData($ruleId, $enabled)
+    public function updateRuleData($ruleId, RuleMetadataUpdateStruct $ruleMetadataUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_rule_data')
             ->set('enabled', ':enabled')
+            ->set('priority', ':priority')
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
             ->setParameter('rule_id', $ruleId, Type::INTEGER)
-            ->setParameter('enabled', $enabled, Type::BOOLEAN);
+            ->setParameter('enabled', $ruleMetadataUpdateStruct->enabled, Type::BOOLEAN)
+            ->setParameter('priority', $ruleMetadataUpdateStruct->priority, Type::INTEGER);
 
         $query->execute();
     }
@@ -631,7 +632,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     protected function getRuleSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT r.id', 'r.status', 'r.layout_id', 'r.priority', 'r.comment', 'rd.enabled')
+        $query->select('DISTINCT r.id', 'r.status', 'r.layout_id', 'r.comment', 'rd.enabled', 'rd.priority')
             ->from('ngbm_rule', 'r')
             ->innerJoin('r', 'ngbm_rule_data', 'rd', 'rd.rule_id = r.id');
 

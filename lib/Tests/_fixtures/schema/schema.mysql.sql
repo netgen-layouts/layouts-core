@@ -101,7 +101,6 @@ CREATE TABLE `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
-  `priority` int(11) NOT NULL,
   `comment` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,6 +108,7 @@ CREATE TABLE `ngbm_rule` (
 CREATE TABLE `ngbm_rule_data` (
   `rule_id` int(11) NOT NULL,
   `enabled` tinyint NOT NULL,
+  `priority` int(11) NOT NULL,
   PRIMARY KEY (`rule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Values\LayoutResolver\ConditionDraft;
@@ -96,6 +97,32 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
         $this->layoutResolverService->updateRule(
             new RuleDraft(),
             new RuleUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
+     * @expectedException \Exception
+     */
+    public function testUpdateRuleMetadata()
+    {
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(0))
+            ->method('loadRule')
+            ->will($this->returnValue(new PersistenceRule()));
+
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(1))
+            ->method('updateRuleMetadata')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutResolverService->updateRuleMetadata(
+            new Rule(),
+            new RuleMetadataUpdateStruct()
         );
     }
 

@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
@@ -121,6 +122,16 @@ interface LayoutResolverService
     public function updateRule(RuleDraft $rule, RuleUpdateStruct $ruleUpdateStruct);
 
     /**
+     * Updates rule metadata.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct);
+
+    /**
      * Copies a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
@@ -170,6 +181,8 @@ interface LayoutResolverService
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be enabled
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function enableRule(Rule $rule);
 
@@ -179,6 +192,8 @@ interface LayoutResolverService
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be disabled
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function disableRule(Rule $rule);
 
@@ -251,6 +266,13 @@ interface LayoutResolverService
      * @return \Netgen\BlockManager\API\Values\RuleUpdateStruct
      */
     public function newRuleUpdateStruct();
+
+    /**
+     * Creates a new rule metadata update struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct
+     */
+    public function newRuleMetadataUpdateStruct();
 
     /**
      * Creates a new target create struct.

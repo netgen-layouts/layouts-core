@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
@@ -117,16 +118,6 @@ class LayoutResolverValidator extends Validator
             );
         }
 
-        if ($ruleUpdateStruct->priority !== null) {
-            $this->validate(
-                $ruleUpdateStruct->priority,
-                array(
-                    new Constraints\Type(array('type' => 'int')),
-                ),
-                'priority'
-            );
-        }
-
         if ($ruleUpdateStruct->comment !== null) {
             $this->validate(
                 $ruleUpdateStruct->comment,
@@ -134,6 +125,31 @@ class LayoutResolverValidator extends Validator
                     new Constraints\Type(array('type' => 'string')),
                 ),
                 'comment'
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Validates rule metadata update struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     *
+     * @return bool
+     */
+    public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct)
+    {
+        if ($ruleUpdateStruct->priority !== null) {
+            $this->validate(
+                $ruleUpdateStruct->priority,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'int')),
+                ),
+                'priority'
             );
         }
 

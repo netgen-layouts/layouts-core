@@ -96,6 +96,7 @@ DROP TABLE IF EXISTS `ngbm_rule_data`;
 CREATE TABLE `ngbm_rule_data` (
   `rule_id` integer NOT NULL,
   `enabled` integer NOT NULL,
+  `priority` integer NOT NULL,
   PRIMARY KEY (`rule_id`)
 );
 
@@ -128,7 +129,6 @@ CREATE TABLE `ngbm_rule` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `layout_id` integer DEFAULT NULL,
-  `priority` integer NOT NULL,
   `comment` text(255) DEFAULT NULL,
   PRIMARY KEY (`id`, `status`)
 );
