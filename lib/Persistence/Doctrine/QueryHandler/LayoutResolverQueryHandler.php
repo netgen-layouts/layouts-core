@@ -94,6 +94,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     public function loadRulesData($status, $offset = 0, $limit = null)
     {
         $query = $this->getRuleSelectQuery();
+        $query->addOrderBy('rd.priority', 'ASC');
 
         $this->applyStatusCondition($query, $status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);

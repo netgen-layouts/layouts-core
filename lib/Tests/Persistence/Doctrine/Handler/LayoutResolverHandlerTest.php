@@ -87,8 +87,11 @@ class LayoutResolverHandlerTest extends TestCase
 
         self::assertNotEmpty($rules);
 
-        foreach ($rules as $rule) {
+        foreach ($rules as $index => $rule) {
             self::assertInstanceOf(Rule::class, $rule);
+            if ($index > 0) {
+                self::assertGreaterThan($rules[$index - 1]->priority, $rules[$index]->priority);
+            }
         }
     }
 
