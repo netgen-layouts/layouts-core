@@ -31,11 +31,13 @@ class CreateTypeTest extends FormTestCase
         $submittedData = array(
             'name' => 'My layout',
             'type' => '4_zones_a',
+            'shared' => true,
         );
 
         $updatedStruct = new LayoutCreateStruct();
         $updatedStruct->name = 'My layout';
         $updatedStruct->type = '4_zones_a';
+        $updatedStruct->shared = true;
 
         $form = $this->factory->create(
             CreateType::class,

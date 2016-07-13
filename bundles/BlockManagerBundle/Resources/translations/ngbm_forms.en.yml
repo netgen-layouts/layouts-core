@@ -1,5 +1,6 @@
 layout.type: 'Layout type'
 layout.name: 'Name'
+layout.shared: 'Shared'
 
 block.view_type: 'View type'
 block.item_view_type: 'Item view type'

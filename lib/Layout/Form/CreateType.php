@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Layout\Form;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -80,6 +81,18 @@ class CreateType extends AbstractType
                     new LayoutName(),
                 ),
                 'property_path' => 'name',
+            )
+        );
+
+        $builder->add(
+            'shared',
+            CheckboxType::class,
+            array(
+                'label' => 'layout.shared',
+                'constraints' => array(
+                    new Constraints\NotNull(),
+                ),
+                'property_path' => 'shared',
             )
         );
     }
