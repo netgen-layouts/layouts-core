@@ -42,12 +42,15 @@
             }
         }
         .panel-link-action {
-            border-left:1px solid hsla(0, 0, 0, 0.14);
-            padding-left:$gutter;
-            margin-left:$gutter;
-            display:flex;
-            align-items:center;
-            cursor:pointer;
+            a {
+                border-left:1px solid hsla(0, 0, 0, 0.14);
+                padding-left:$gutter;
+                margin-left:$gutter;
+                display:flex;
+                align-items:center;
+                cursor:pointer;
+                color:inherit;
+            }
             i {
                 color:$panelLightColor;
                 margin-right:0.25em;
