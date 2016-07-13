@@ -58,7 +58,7 @@ class LayoutResolverHandlerTest extends TestCase
                     'id' => 1,
                     'layoutId' => 1,
                     'enabled' => true,
-                    'priority' => 0,
+                    'priority' => 20,
                     'comment' => 'My comment',
                     'status' => Rule::STATUS_PUBLISHED,
                 )
@@ -273,6 +273,30 @@ class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     */
+    public function testCreateRuleWithDefaultValues()
+    {
+        $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->comment = 'My rule';
+
+        $createdRule = $this->handler->createRule(
+            $ruleCreateStruct,
+            Rule::STATUS_DRAFT
+        );
+
+        self::assertInstanceOf(Rule::class, $createdRule);
+
+        self::assertEquals(22, $createdRule->id);
+        self::assertEquals(null, $createdRule->layoutId);
+        self::assertEquals(0, $createdRule->priority);
+        self::assertFalse($createdRule->enabled);
+        self::assertEquals('My rule', $createdRule->comment);
+        self::assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
@@ -379,7 +403,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         self::assertInstanceOf(Rule::class, $copiedRule);
         self::assertEquals(2, $copiedRule->layoutId);
-        self::assertEquals(4, $copiedRule->priority);
+        self::assertEquals(16, $copiedRule->priority);
         self::assertTrue($copiedRule->enabled);
         self::assertNull($copiedRule->comment);
         self::assertEquals(Rule::STATUS_PUBLISHED, $copiedRule->status);
@@ -444,7 +468,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         self::assertEquals(3, $copiedRule->id);
         self::assertEquals(3, $copiedRule->layoutId);
-        self::assertEquals(2, $copiedRule->priority);
+        self::assertEquals(18, $copiedRule->priority);
         self::assertTrue($copiedRule->enabled);
         self::assertNull($copiedRule->comment);
         self::assertEquals(Rule::STATUS_ARCHIVED, $copiedRule->status);
