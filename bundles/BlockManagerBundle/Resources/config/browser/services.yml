@@ -1,0 +1,60 @@
+parameters:
+    netgen_block_manager.browser.backend.layout.class: Netgen\Bundle\BlockManagerBundle\Browser\Backend\LayoutBackend
+
+    netgen_block_manager.browser.serializer.handler.layout.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\Serializer\LayoutSerializerHandler
+    netgen_block_manager.browser.template_value_provider.layout.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\Renderer\LayoutTemplateValueProvider
+
+    netgen_block_manager.browser.column_value_provider.layout.layout_id.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\LayoutId
+    netgen_block_manager.browser.column_value_provider.layout.type.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Type
+    netgen_block_manager.browser.column_value_provider.layout.created.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Created
+    netgen_block_manager.browser.column_value_provider.layout.modified.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Modified
+    netgen_block_manager.browser.column_value_provider.layout.shared.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Shared
+
+services:
+    netgen_block_manager.browser.backend.layout:
+        class: "%netgen_block_manager.browser.backend.layout.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+        tags:
+            -  { name: netgen_content_browser.backend, value_type: ngbm_layout }
+
+    netgen_block_manager.browser.serializer.handler.layout:
+        class: "%netgen_block_manager.browser.serializer.handler.layout.class%"
+        tags:
+            -  { name: netgen_content_browser.serializer.handler, value_type: ngbm_layout }
+
+    netgen_block_manager.browser.template_value_provider.layout:
+        class: "%netgen_block_manager.browser.template_value_provider.layout.class%"
+        tags:
+            -  { name: netgen_content_browser.template_value_provider, value_type: ngbm_layout }
+
+    netgen_block_manager.browser.column_value_provider.layout.layout_id:
+        class: "%netgen_block_manager.browser.column_value_provider.layout.layout_id.class%"
+        tags:
+            - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\layout_id }
+
+    netgen_block_manager.browser.column_value_provider.layout.type:
+        class: "%netgen_block_manager.browser.column_value_provider.layout.type.class%"
+        arguments:
+            - "@netgen_block_manager.configuration.registry.layout_type"
+        tags:
+            - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\type }
+
+    netgen_block_manager.browser.column_value_provider.layout.created:
+        class: "%netgen_block_manager.browser.column_value_provider.layout.created.class%"
+        arguments:
+            - "%netgen_content_browser.columns.date_format%"
+        tags:
+            - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\created }
+
+    netgen_block_manager.browser.column_value_provider.layout.modified:
+        class: "%netgen_block_manager.browser.column_value_provider.layout.modified.class%"
+        arguments:
+            - "%netgen_content_browser.columns.date_format%"
+        tags:
+            - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\modified }
+
+    netgen_block_manager.browser.column_value_provider.layout.shared:
+        class: "%netgen_block_manager.browser.column_value_provider.layout.shared.class%"
+        tags:
+            - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\shared }

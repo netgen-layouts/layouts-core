@@ -127,6 +127,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'view/block_view.yml' => 'netgen_block_manager',
             'view/item_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
+            'browser/item_types.yml' => 'netgen_content_browser',
         ) + $this->appendConfigs;
 
         foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
@@ -169,6 +170,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $loader->load('services/collection/collections.yml');
         $loader->load('services/collection/query_types.yml');
+
+        $loader->load('browser/services.yml');
 
         $loader->load('services/param_converters.yml');
         $loader->load('services/event_listeners.yml');

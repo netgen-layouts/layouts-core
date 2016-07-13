@@ -1,0 +1,35 @@
+item_types:
+    ngbm_layout:
+        min_selected: 1
+        max_selected: 1
+        tree:
+            enabled: false
+        search:
+            enabled: false
+        preview:
+            template: 'NetgenBlockManagerBundle:browser:layout.html.twig'
+        columns:
+            name:
+                name: columns.name
+                value_provider: name
+            layout_id:
+                name: columns.ngbm_layout.layout_id
+                value_provider: ngbm_layout\layout_id
+            type:
+                name: columns.ngbm_layout.type
+                value_provider: ngbm_layout\type
+            created:
+                name: columns.ngbm_layout.created
+                value_provider: ngbm_layout\created
+            modified:
+                name: columns.ngbm_layout.modified
+                value_provider: ngbm_layout\modified
+            shared:
+                name: columns.ngbm_layout.shared
+                value_provider: ngbm_layout\shared
+        default_columns:
+            - name
+            - type
+            - created
+            - modified
+            - shared

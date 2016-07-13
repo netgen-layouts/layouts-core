@@ -1,0 +1,5 @@
+columns.ngbm_layout.layout_id: 'Layout ID'
+columns.ngbm_layout.type: 'Type'
+columns.ngbm_layout.created: 'Created'
+columns.ngbm_layout.modified: 'Modified'
+columns.ngbm_layout.shared: 'Shared'
