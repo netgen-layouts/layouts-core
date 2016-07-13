@@ -19,26 +19,37 @@ class AssetPackagesPass implements CompilerPassInterface
         'ngbm_admin_css' => array(
             'base_path' => '/bundles/netgenblockmanageradmin/css',
             'version' => BlockManagerVersion::VERSION_ID,
+            'version_format' => 'v%%2$s/%%1$s',
         ),
         'ngbm_admin_js' => array(
             'base_path' => '/bundles/netgenblockmanageradmin/js',
             'version' => BlockManagerVersion::VERSION_ID,
+            'version_format' => 'v%%2$s/%%1$s',
+        ),
+        'ngbm_admin_vendor' => array(
+            'base_path' => '/bundles/netgenblockmanageradmin/vendor',
+            'version' => null,
+            'version_format' => null,
         ),
         'ngbm_app_css' => array(
             'base_path' => '/bundles/netgenblockmanagerui/css',
             'version' => BlockManagerUIVersion::VERSION_ID,
+            'version_format' => 'v%%2$s/%%1$s',
         ),
         'ngbm_app_js' => array(
             'base_path' => '/bundles/netgenblockmanagerui/js',
             'version' => BlockManagerUIVersion::VERSION_ID,
+            'version_format' => 'v%%2$s/%%1$s',
         ),
         'ngcb_css' => array(
             'base_path' => '/bundles/netgencontentbrowserui/css',
             'version' => ContentBrowserUIVersion::VERSION_ID,
+            'version_format' => 'v%%2$s/%%1$s',
         ),
         'ngcb_js' => array(
             'base_path' => '/bundles/netgencontentbrowserui/js',
             'version' => ContentBrowserUIVersion::VERSION_ID,
+            'version_format' => 'v%%2$s/%%1$s',
         ),
     );
 
@@ -60,7 +71,7 @@ class AssetPackagesPass implements CompilerPassInterface
                 'assets._package_' . $name,
                 $this->createPackageDefinition(
                     $package['base_path'],
-                    $this->createVersion($container, null, $name)
+                    $this->createVersion($container, $name, null, $package['version_format'])
                 )
             );
 
@@ -75,12 +86,13 @@ class AssetPackagesPass implements CompilerPassInterface
      * Creates a StaticVersionStrategy DI reference.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param string $version
      * @param string $name
+     * @param string $version
+     * @param string $versionFormat
      *
      * @return \Symfony\Component\DependencyInjection\Reference
      */
-    protected function createVersion(ContainerBuilder $container, $version, $name)
+    protected function createVersion(ContainerBuilder $container, $name, $version, $versionFormat)
     {
         if ($version === null) {
             return new Reference('assets.empty_version_strategy');
@@ -89,7 +101,7 @@ class AssetPackagesPass implements CompilerPassInterface
         $def = new DefinitionDecorator('assets.static_version_strategy');
         $def
             ->replaceArgument(0, $version)
-            ->replaceArgument(1, 'v%%2$s/%%1$s');
+            ->replaceArgument(1, $versionFormat);
 
         $container->setDefinition('assets._version_' . $name, $def);
 

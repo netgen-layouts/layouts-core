@@ -16,10 +16,10 @@
     {% endblock %}
 
     {% block javascripts %}
-        <script src="{{ asset('bundles/netgenblockmanageradmin/vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('jquery/dist/jquery.min.js', 'ngbm_admin_vendor') }}"></script>
         <script src="{{ asset('main.js', 'ngcb_js') }}"></script>
         <script src="https://bb.githack.com/effectiva/jquery_multientry/raw/3c491247c7a426928cfd02e6e1e33b06cd07c6a9/multientry.js"></script>
-        <script src="{{ asset('bundles/netgenblockmanageradmin/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('jquery-ui/jquery-ui.min.js', 'ngbm_admin_vendor') }}"></script>
         <script src="{{ asset('app.js', 'ngbm_admin_js') }}"></script>
     {% endblock %}
 </head>
