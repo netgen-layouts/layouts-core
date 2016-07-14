@@ -92,7 +92,6 @@ class QueryTypesConfigurationTest extends TestCase
             array(
                 'query_types' => array(
                     'type' => array(
-                        'name' => 'Type',
                         'defaults' => array(),
                     ),
                 ),
@@ -102,13 +101,6 @@ class QueryTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'query_types' => array(
                 'type' => array(
-                    'name' => 'Type',
-                    'forms' => array(
-                        'full' => array(
-                            'type' => FullEditType::class,
-                            'enabled' => true,
-                        ),
-                    ),
                     'defaults' => array(
                         'parameters' => array(),
                     ),
@@ -119,7 +111,7 @@ class QueryTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'query_types'
+            'query_types.*.defaults.parameters'
         );
     }
 
@@ -135,7 +127,6 @@ class QueryTypesConfigurationTest extends TestCase
             array(
                 'query_types' => array(
                     'type' => array(
-                        'name' => 'Type',
                         'defaults' => array(
                             'parameters' => array(
                                 'param1' => 'value1',
@@ -147,7 +138,6 @@ class QueryTypesConfigurationTest extends TestCase
             array(
                 'query_types' => array(
                     'type' => array(
-                        'name' => 'Type',
                         'defaults' => array(
                             'parameters' => array(
                                 'param2' => 'value2',
@@ -161,13 +151,6 @@ class QueryTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'query_types' => array(
                 'type' => array(
-                    'name' => 'Type',
-                    'forms' => array(
-                        'full' => array(
-                            'type' => FullEditType::class,
-                            'enabled' => true,
-                        ),
-                    ),
                     'defaults' => array(
                         'parameters' => array(
                             'param2' => 'value2',
@@ -180,7 +163,7 @@ class QueryTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'query_types'
+            'query_types.*.defaults.parameters'
         );
     }
 

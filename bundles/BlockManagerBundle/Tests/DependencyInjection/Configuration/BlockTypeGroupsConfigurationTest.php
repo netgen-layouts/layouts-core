@@ -72,7 +72,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
-                        'name' => 'block_type_group',
                         'block_types' => array('title', 'text'),
                     ),
                 ),
@@ -80,7 +79,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
-                        'name' => 'block_type_group',
                         'block_types' => array('image'),
                     ),
                 ),
@@ -90,8 +88,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_type_groups' => array(
                 'block_type_group' => array(
-                    'name' => 'block_type_group',
-                    'enabled' => true,
                     'block_types' => array('image'),
                 ),
             ),
@@ -100,7 +96,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups'
+            'block_type_groups.*.block_types'
         );
     }
 
@@ -116,7 +112,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
-                        'name' => 'block_type_group',
                         'block_types' => array('title', 'image'),
                     ),
                 ),
@@ -126,8 +121,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_type_groups' => array(
                 'block_type_group' => array(
-                    'name' => 'block_type_group',
-                    'enabled' => true,
                     'block_types' => array('title', 'image'),
                 ),
             ),
@@ -136,7 +129,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups'
+            'block_type_groups.*.block_types'
         );
     }
 
@@ -152,7 +145,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
             array(
                 'block_type_groups' => array(
                     'block_type_group' => array(
-                        'name' => 'block_type_group',
                         'block_types' => array('title', 'image', 'title'),
                     ),
                 ),
@@ -162,8 +154,6 @@ class BlockTypeGroupsConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_type_groups' => array(
                 'block_type_group' => array(
-                    'name' => 'block_type_group',
-                    'enabled' => true,
                     'block_types' => array('title', 'image'),
                 ),
             ),
@@ -172,7 +162,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups'
+            'block_type_groups.*.block_types'
         );
     }
 

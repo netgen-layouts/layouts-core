@@ -85,7 +85,6 @@ class ViewConfigurationTest extends TestCase
                     'block_view' => array(
                         'some_context' => array(
                             'block' => array(
-                                'template' => 'block.html.twig',
                                 'match' => array(24, 42),
                             ),
                         ),
@@ -99,7 +98,6 @@ class ViewConfigurationTest extends TestCase
                 'block_view' => array(
                     'some_context' => array(
                         'block' => array(
-                            'template' => 'block.html.twig',
                             'match' => array(24, 42),
                         ),
                     ),
@@ -110,7 +108,7 @@ class ViewConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'view'
+            'view.*.*.*.match'
         );
     }
 
@@ -128,7 +126,6 @@ class ViewConfigurationTest extends TestCase
                     'block_view' => array(
                         'some_context' => array(
                             'block' => array(
-                                'template' => 'block.html.twig',
                                 'match' => null,
                             ),
                         ),
@@ -142,7 +139,6 @@ class ViewConfigurationTest extends TestCase
                 'block_view' => array(
                     'some_context' => array(
                         'block' => array(
-                            'template' => 'block.html.twig',
                             'match' => array(),
                         ),
                     ),
@@ -153,7 +149,7 @@ class ViewConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'view'
+            'view.*.*.*.match'
         );
     }
 

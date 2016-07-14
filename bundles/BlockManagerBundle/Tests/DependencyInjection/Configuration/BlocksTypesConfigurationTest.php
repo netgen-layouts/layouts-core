@@ -90,16 +90,7 @@ class BlocksTypesConfigurationTest extends TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'name' => 'Block type',
-                        'definition_identifier' => 'title',
-                        'defaults' => array(
-                            'view_type' => 'large',
-                            'item_view_type' => 'standard',
-                            'parameters' => array(
-                                'param1' => 'value1',
-                                'param2' => 'value2',
-                            ),
-                        ),
+                        'defaults' => array(),
                     ),
                 ),
             ),
@@ -108,17 +99,8 @@ class BlocksTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'name' => 'Block type',
-                    'enabled' => true,
-                    'definition_identifier' => 'title',
                     'defaults' => array(
                         'name' => '',
-                        'view_type' => 'large',
-                        'item_view_type' => 'standard',
-                        'parameters' => array(
-                            'param1' => 'value1',
-                            'param2' => 'value2',
-                        ),
                     ),
                 ),
             ),
@@ -127,7 +109,7 @@ class BlocksTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types'
+            'block_types.*.defaults.name'
         );
     }
 
@@ -143,13 +125,7 @@ class BlocksTypesConfigurationTest extends TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'name' => 'Block type',
-                        'definition_identifier' => 'title',
-                        'defaults' => array(
-                            'name' => 'Name',
-                            'view_type' => 'large',
-                            'item_view_type' => 'standard',
-                        ),
+                        'defaults' => array(),
                     ),
                 ),
             ),
@@ -158,13 +134,7 @@ class BlocksTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'name' => 'Block type',
-                    'enabled' => true,
-                    'definition_identifier' => 'title',
                     'defaults' => array(
-                        'name' => 'Name',
-                        'view_type' => 'large',
-                        'item_view_type' => 'standard',
                         'parameters' => array(),
                     ),
                 ),
@@ -174,7 +144,7 @@ class BlocksTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types'
+            'block_types.*.defaults.parameters'
         );
     }
 
@@ -190,12 +160,7 @@ class BlocksTypesConfigurationTest extends TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'name' => 'Block type',
-                        'definition_identifier' => 'title',
                         'defaults' => array(
-                            'name' => 'Name',
-                            'view_type' => 'large',
-                            'item_view_type' => 'standard',
                             'parameters' => array(
                                 'param1' => 'value1',
                             ),
@@ -206,12 +171,7 @@ class BlocksTypesConfigurationTest extends TestCase
             array(
                 'block_types' => array(
                     'block_type' => array(
-                        'name' => 'Block type',
-                        'definition_identifier' => 'title',
                         'defaults' => array(
-                            'name' => 'Name',
-                            'view_type' => 'large',
-                            'item_view_type' => 'standard',
                             'parameters' => array(
                                 'param2' => 'value2',
                             ),
@@ -224,13 +184,7 @@ class BlocksTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_types' => array(
                 'block_type' => array(
-                    'name' => 'Block type',
-                    'enabled' => true,
-                    'definition_identifier' => 'title',
                     'defaults' => array(
-                        'name' => 'Name',
-                        'view_type' => 'large',
-                        'item_view_type' => 'standard',
                         'parameters' => array(
                             'param2' => 'value2',
                         ),
@@ -242,7 +196,7 @@ class BlocksTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types'
+            'block_types.*.defaults.parameters'
         );
     }
 

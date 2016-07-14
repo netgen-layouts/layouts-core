@@ -81,7 +81,6 @@ class LayoutTypesConfigurationTest extends TestCase
             array(
                 'layout_types' => array(
                     'layout' => array(
-                        'name' => 'layout',
                         'zones' => array(
                             'left' => array(
                                 'name' => 'Left',
@@ -96,7 +95,6 @@ class LayoutTypesConfigurationTest extends TestCase
             array(
                 'layout_types' => array(
                     'layout' => array(
-                        'name' => 'layout',
                         'zones' => array(
                             'top' => array(
                                 'name' => 'Top',
@@ -113,8 +111,6 @@ class LayoutTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'layout_types' => array(
                 'layout' => array(
-                    'name' => 'layout',
-                    'enabled' => true,
                     'zones' => array(
                         'top' => array(
                             'name' => 'Top',
@@ -132,7 +128,7 @@ class LayoutTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types'
+            'layout_types.*.zones'
         );
     }
 
@@ -148,10 +144,8 @@ class LayoutTypesConfigurationTest extends TestCase
             array(
                 'layout_types' => array(
                     'layout' => array(
-                        'name' => 'layout',
                         'zones' => array(
                             'zone' => array(
-                                'name' => 'zone',
                                 'allowed_block_definitions' => array('title', 'text'),
                             ),
                         ),
@@ -163,11 +157,8 @@ class LayoutTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'layout_types' => array(
                 'layout' => array(
-                    'name' => 'layout',
-                    'enabled' => true,
                     'zones' => array(
                         'zone' => array(
-                            'name' => 'zone',
                             'allowed_block_definitions' => array('title', 'text'),
                         ),
                     ),
@@ -178,7 +169,7 @@ class LayoutTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types'
+            'layout_types.*.zones.*.allowed_block_definitions'
         );
     }
 
@@ -194,10 +185,8 @@ class LayoutTypesConfigurationTest extends TestCase
             array(
                 'layout_types' => array(
                     'layout' => array(
-                        'name' => 'layout',
                         'zones' => array(
                             'zone' => array(
-                                'name' => 'zone',
                                 'allowed_block_definitions' => array('title', 'text', 'title'),
                             ),
                         ),
@@ -209,11 +198,8 @@ class LayoutTypesConfigurationTest extends TestCase
         $expectedConfig = array(
             'layout_types' => array(
                 'layout' => array(
-                    'name' => 'layout',
-                    'enabled' => true,
                     'zones' => array(
                         'zone' => array(
-                            'name' => 'zone',
                             'allowed_block_definitions' => array('title', 'text'),
                         ),
                     ),
@@ -224,7 +210,7 @@ class LayoutTypesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types'
+            'layout_types.*.zones.*.allowed_block_definitions'
         );
     }
 

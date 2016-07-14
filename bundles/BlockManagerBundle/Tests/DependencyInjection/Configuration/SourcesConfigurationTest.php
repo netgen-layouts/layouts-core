@@ -132,7 +132,6 @@ class SourcesConfigurationTest extends TestCase
             array(
                 'sources' => array(
                     'dynamic' => array(
-                        'name' => 'Dynamic',
                         'queries' => array(
                             'default' => array(
                                 'query_type' => 'type1',
@@ -148,7 +147,6 @@ class SourcesConfigurationTest extends TestCase
             array(
                 'sources' => array(
                     'dynamic' => array(
-                        'name' => 'Dynamic',
                         'queries' => array(
                             'default' => array(
                                 'query_type' => 'type2',
@@ -165,8 +163,6 @@ class SourcesConfigurationTest extends TestCase
         $expectedConfig = array(
             'sources' => array(
                 'dynamic' => array(
-                    'name' => 'Dynamic',
-                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
                             'query_type' => 'type2',
@@ -182,7 +178,7 @@ class SourcesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'sources'
+            'sources.*.queries'
         );
     }
 
@@ -198,10 +194,8 @@ class SourcesConfigurationTest extends TestCase
             array(
                 'sources' => array(
                     'dynamic' => array(
-                        'name' => 'Dynamic',
                         'queries' => array(
                             'default' => array(
-                                'query_type' => 'type',
                                 'default_parameters' => array(
                                     'param' => 'value',
                                     'param2' => 'value2',
@@ -214,10 +208,8 @@ class SourcesConfigurationTest extends TestCase
             array(
                 'sources' => array(
                     'dynamic' => array(
-                        'name' => 'Dynamic',
                         'queries' => array(
                             'default' => array(
-                                'query_type' => 'type',
                                 'default_parameters' => array(
                                     'param3' => 'value3',
                                 ),
@@ -231,11 +223,8 @@ class SourcesConfigurationTest extends TestCase
         $expectedConfig = array(
             'sources' => array(
                 'dynamic' => array(
-                    'name' => 'Dynamic',
-                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
-                            'query_type' => 'type',
                             'default_parameters' => array(
                                 'param3' => 'value3',
                             ),
@@ -248,7 +237,7 @@ class SourcesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'sources'
+            'sources.*.queries.*.default_parameters'
         );
     }
 
@@ -264,11 +253,8 @@ class SourcesConfigurationTest extends TestCase
             array(
                 'sources' => array(
                     'dynamic' => array(
-                        'name' => 'Dynamic',
                         'queries' => array(
-                            'default' => array(
-                                'query_type' => 'type',
-                            ),
+                            'default' => array(),
                         ),
                     ),
                 ),
@@ -278,11 +264,8 @@ class SourcesConfigurationTest extends TestCase
         $expectedConfig = array(
             'sources' => array(
                 'dynamic' => array(
-                    'name' => 'Dynamic',
-                    'enabled' => true,
                     'queries' => array(
                         'default' => array(
-                            'query_type' => 'type',
                             'default_parameters' => array(),
                         ),
                     ),
@@ -293,7 +276,7 @@ class SourcesConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'sources'
+            'sources.*.queries.*.default_parameters'
         );
     }
 

@@ -44,6 +44,16 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                 'type' => 'test_form',
                                 'enabled' => true,
                             ),
+                            'design' => array(
+                                'type' => 'design_type',
+                                'enabled' => false,
+                                'parameters' => array('param1'),
+                            ),
+                            'content' => array(
+                                'type' => 'content_type',
+                                'enabled' => false,
+                                'parameters' => array(),
+                            ),
                         ),
                         'view_types' => array(
                             'default' => array(
@@ -77,12 +87,12 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             'enabled' => true,
                         ),
                         'design' => array(
-                            'type' => DesignEditType::class,
+                            'type' => 'design_type',
                             'enabled' => false,
-                            'parameters' => array(),
+                            'parameters' => array('param1'),
                         ),
                         'content' => array(
-                            'type' => ContentEditType::class,
+                            'type' => 'content_type',
                             'enabled' => false,
                             'parameters' => array(),
                         ),
@@ -143,24 +153,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                 'parameters' => array('param2'),
                             ),
                         ),
-                        'view_types' => array(
-                            'default' => array(
-                                'name' => 'Default',
-                                'item_view_types' => array(
-                                    'standard' => array(
-                                        'name' => 'Standard',
-                                    ),
-                                ),
-                            ),
-                            'large' => array(
-                                'name' => 'Large',
-                                'item_view_types' => array(
-                                    'standard' => array(
-                                        'name' => 'Standard',
-                                    ),
-                                ),
-                            ),
-                        ),
                     ),
                 ),
             ),
@@ -185,24 +177,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             'parameters' => array('param2'),
                         ),
                     ),
-                    'view_types' => array(
-                        'default' => array(
-                            'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
-                                    'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                        'large' => array(
-                            'name' => 'Large',
-                            'item_view_types' => array(
-                                'standard' => array(
-                                    'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
                 ),
             ),
         );
@@ -210,7 +184,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions'
+            'block_definitions.*.forms'
         );
     }
 
@@ -276,22 +250,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_definitions' => array(
                 'block' => array(
-                    'forms' => array(
-                        'full' => array(
-                            'type' => FullEditType::class,
-                            'enabled' => true,
-                        ),
-                        'design' => array(
-                            'type' => DesignEditType::class,
-                            'enabled' => false,
-                            'parameters' => array(),
-                        ),
-                        'content' => array(
-                            'type' => ContentEditType::class,
-                            'enabled' => false,
-                            'parameters' => array(),
-                        ),
-                    ),
                     'view_types' => array(
                         'title' => array(
                             'name' => 'Title',
@@ -317,7 +275,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions'
+            'block_definitions.*.view_types'
         );
     }
 
