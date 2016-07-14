@@ -35,10 +35,10 @@ class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getCollectionIdentifiers
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::hasCollection
      */
-    public function testGetCollectionIdentifiers()
+    public function testHasCollection()
     {
-        self::assertEquals(array(), $this->handler->getCollectionIdentifiers());
+        self::assertEquals(false, $this->handler->hasCollection());
     }
 }

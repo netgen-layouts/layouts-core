@@ -234,10 +234,7 @@ class BlockService implements BlockServiceInterface
                 $blockCreateStruct->definitionIdentifier
             );
 
-            $collectionIdentifiers = $blockDefinition->getHandler()->getCollectionIdentifiers();
-            $collectionIdentifiers = array_unique($collectionIdentifiers);
-
-            foreach ($collectionIdentifiers as $collectionIdentifier) {
+            if($blockDefinition->getHandler()->hasCollection()) {
                 $collectionCreateStruct = new CollectionCreateStruct();
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
@@ -249,7 +246,7 @@ class BlockService implements BlockServiceInterface
                 $this->blockHandler->createCollectionReference(
                     $createdBlock,
                     $createdCollection,
-                    $collectionIdentifier
+                    'default'
                 );
             }
         } catch (Exception $e) {

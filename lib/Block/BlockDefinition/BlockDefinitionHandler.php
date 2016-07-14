@@ -32,13 +32,13 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     }
 
     /**
-     * Returns the identifiers of all collections that should exist in the block.
+     * Returns if this block definition should have a collection.
      *
      * @return array
      */
-    public function getCollectionIdentifiers()
+    public function hasCollection()
     {
-        return array();
+        return false;
     }
 
     /**
