@@ -14,7 +14,7 @@ class FormTest extends TestCase
 
     public function setUp()
     {
-        $this->form = new Form('content', 'form_type', array('param1', 'param2'));
+        $this->form = new Form('content', 'form_type', true, array('param1', 'param2'));
     }
 
     /**
@@ -32,6 +32,14 @@ class FormTest extends TestCase
     public function testGetType()
     {
         self::assertEquals('form_type', $this->form->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::isEnabled
+     */
+    public function testIsEnabled()
+    {
+        self::assertTrue($this->form->isEnabled());
     }
 
     /**

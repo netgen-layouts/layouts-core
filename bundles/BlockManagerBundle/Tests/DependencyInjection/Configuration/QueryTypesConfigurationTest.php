@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
+use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
@@ -40,6 +41,7 @@ class QueryTypesConfigurationTest extends TestCase
                         'forms' => array(
                             'full' => array(
                                 'type' => 'full_edit',
+                                'enabled' => true,
                             ),
                         ),
                         'defaults' => array(
@@ -59,6 +61,7 @@ class QueryTypesConfigurationTest extends TestCase
                     'forms' => array(
                         'full' => array(
                             'type' => 'full_edit',
+                            'enabled' => true,
                         ),
                     ),
                     'defaults' => array(
@@ -90,11 +93,6 @@ class QueryTypesConfigurationTest extends TestCase
                 'query_types' => array(
                     'type' => array(
                         'name' => 'Type',
-                        'forms' => array(
-                            'full' => array(
-                                'type' => 'full_edit',
-                            ),
-                        ),
                         'defaults' => array(),
                     ),
                 ),
@@ -107,7 +105,8 @@ class QueryTypesConfigurationTest extends TestCase
                     'name' => 'Type',
                     'forms' => array(
                         'full' => array(
-                            'type' => 'full_edit',
+                            'type' => FullEditType::class,
+                            'enabled' => true,
                         ),
                     ),
                     'defaults' => array(
@@ -137,11 +136,6 @@ class QueryTypesConfigurationTest extends TestCase
                 'query_types' => array(
                     'type' => array(
                         'name' => 'Type',
-                        'forms' => array(
-                            'full' => array(
-                                'type' => 'full_edit',
-                            ),
-                        ),
                         'defaults' => array(
                             'parameters' => array(
                                 'param1' => 'value1',
@@ -154,11 +148,6 @@ class QueryTypesConfigurationTest extends TestCase
                 'query_types' => array(
                     'type' => array(
                         'name' => 'Type',
-                        'forms' => array(
-                            'full' => array(
-                                'type' => 'full_edit',
-                            ),
-                        ),
                         'defaults' => array(
                             'parameters' => array(
                                 'param2' => 'value2',
@@ -175,7 +164,8 @@ class QueryTypesConfigurationTest extends TestCase
                     'name' => 'Type',
                     'forms' => array(
                         'full' => array(
-                            'type' => 'full_edit',
+                            'type' => FullEditType::class,
+                            'enabled' => true,
                         ),
                     ),
                     'defaults' => array(
@@ -216,11 +206,6 @@ class QueryTypesConfigurationTest extends TestCase
         $config = array(
             'query_types' => array(
                 'type' => array(
-                    'forms' => array(
-                        'full' => array(
-                            'type' => 'full_edit',
-                        ),
-                    ),
                     'defaults' => array(),
                 ),
             ),
@@ -239,29 +224,6 @@ class QueryTypesConfigurationTest extends TestCase
             'query_types' => array(
                 'type' => array(
                     'name' => '',
-                    'forms' => array(
-                        'full' => array(
-                            'type' => 'full_edit',
-                        ),
-                    ),
-                    'defaults' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
-     */
-    public function testQueryTypeSettingsWithNoForms()
-    {
-        $config = array(
-            'query_types' => array(
-                'type' => array(
-                    'forms' => array(),
                     'defaults' => array(),
                 ),
             ),
@@ -280,11 +242,6 @@ class QueryTypesConfigurationTest extends TestCase
             'query_types' => array(
                 'type' => array(
                     'name' => 'Type',
-                    'forms' => array(
-                        'full' => array(
-                            'type' => 'full_edit',
-                        ),
-                    ),
                 ),
             ),
         );

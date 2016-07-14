@@ -19,7 +19,7 @@ class ConfigurationTest extends TestCase
         $this->configuration = new Configuration(
             'block_definition',
             array(
-                'content' => new Form('content', 'form_type', array('param1', 'param2')),
+                'content' => new Form('content', 'form_type', true, array('param1', 'param2')),
             ),
             array(
                 'large' => new ViewType('large', 'Large'),
@@ -36,7 +36,7 @@ class ConfigurationTest extends TestCase
     {
         self::assertEquals(
             array(
-                'content' => new Form('content', 'form_type', array('param1', 'param2')),
+                'content' => new Form('content', 'form_type', true, array('param1', 'param2')),
             ),
             $this->configuration->getForms()
         );
@@ -57,7 +57,7 @@ class ConfigurationTest extends TestCase
     public function testGetForm()
     {
         self::assertEquals(
-            new Form('content', 'form_type', array('param1', 'param2')),
+            new Form('content', 'form_type', true, array('param1', 'param2')),
             $this->configuration->getForm('content')
         );
     }

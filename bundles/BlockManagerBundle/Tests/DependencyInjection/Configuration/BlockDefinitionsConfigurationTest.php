@@ -2,6 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
+use Netgen\BlockManager\Block\Form\ContentEditType;
+use Netgen\BlockManager\Block\Form\DesignEditType;
+use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
@@ -39,6 +42,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                         'forms' => array(
                             'full' => array(
                                 'type' => 'test_form',
+                                'enabled' => true,
                             ),
                         ),
                         'view_types' => array(
@@ -70,6 +74,17 @@ class BlockDefinitionsConfigurationTest extends TestCase
                     'forms' => array(
                         'full' => array(
                             'type' => 'test_form',
+                            'enabled' => true,
+                        ),
+                        'design' => array(
+                            'type' => DesignEditType::class,
+                            'enabled' => false,
+                            'parameters' => array(),
+                        ),
+                        'content' => array(
+                            'type' => ContentEditType::class,
+                            'enabled' => false,
+                            'parameters' => array(),
                         ),
                     ),
                     'view_types' => array(
@@ -114,12 +129,17 @@ class BlockDefinitionsConfigurationTest extends TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'forms' => array(
+                            'full' => array(
+                                'enabled' => false,
+                            ),
                             'design' => array(
                                 'type' => 'design_form',
+                                'enabled' => true,
                                 'parameters' => array('param1'),
                             ),
                             'content' => array(
                                 'type' => 'content_form',
+                                'enabled' => true,
                                 'parameters' => array('param2'),
                             ),
                         ),
@@ -150,12 +170,18 @@ class BlockDefinitionsConfigurationTest extends TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
+                        'full' => array(
+                            'type' => FullEditType::class,
+                            'enabled' => false,
+                        ),
                         'design' => array(
                             'type' => 'design_form',
+                            'enabled' => true,
                             'parameters' => array('param1'),
                         ),
                         'content' => array(
                             'type' => 'content_form',
+                            'enabled' => true,
                             'parameters' => array('param2'),
                         ),
                     ),
@@ -200,11 +226,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
             array(
                 'block_definitions' => array(
                     'block' => array(
-                        'forms' => array(
-                            'full' => array(
-                                'type' => 'test_form',
-                            ),
-                        ),
                         'view_types' => array(
                             'default' => array(
                                 'name' => 'Default',
@@ -229,11 +250,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
             array(
                 'block_definitions' => array(
                     'block' => array(
-                        'forms' => array(
-                            'full' => array(
-                                'type' => 'test_form',
-                            ),
-                        ),
                         'view_types' => array(
                             'title' => array(
                                 'name' => 'Title',
@@ -262,7 +278,18 @@ class BlockDefinitionsConfigurationTest extends TestCase
                 'block' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'test_form',
+                            'type' => FullEditType::class,
+                            'enabled' => true,
+                        ),
+                        'design' => array(
+                            'type' => DesignEditType::class,
+                            'enabled' => false,
+                            'parameters' => array(),
+                        ),
+                        'content' => array(
+                            'type' => ContentEditType::class,
+                            'enabled' => false,
+                            'parameters' => array(),
                         ),
                     ),
                     'view_types' => array(
@@ -311,42 +338,17 @@ class BlockDefinitionsConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
-    public function testBlockDefinitionSettingsWithNoForms()
-    {
-        $config = array(
-            'block_definitions' => array(
-                'block' => array(
-                    'forms' => array(),
-                    'view_types' => array(
-                        'default' => array(
-                            'name' => 'Default',
-                            'item_view_types' => array(
-                                'standard' => array(
-                                    'name' => 'Standard',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
-     */
     public function testBlockDefinitionSettingsWithMissingContentForm()
     {
         $config = array(
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
+                        'full' => array(
+                            'enabled' => false,
+                        ),
                         'design' => array(
-                            'type' => 'design_form',
-                            'parameters' => array('param'),
+                            'enabled' => true,
                         ),
                     ),
                     'view_types' => array(
@@ -376,9 +378,11 @@ class BlockDefinitionsConfigurationTest extends TestCase
             'block_definitions' => array(
                 'block' => array(
                     'forms' => array(
+                        'full' => array(
+                            'enabled' => false,
+                        ),
                         'content' => array(
-                            'type' => 'content_form',
-                            'parameters' => array('param'),
+                            'enabled' => true,
                         ),
                     ),
                     'view_types' => array(
@@ -409,11 +413,10 @@ class BlockDefinitionsConfigurationTest extends TestCase
                 'block' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'full_form',
+                            'enabled' => true,
                         ),
                         'design' => array(
-                            'type' => 'design_form',
-                            'parameters' => array('param'),
+                            'enabled' => true,
                         ),
                     ),
                     'view_types' => array(
@@ -444,11 +447,10 @@ class BlockDefinitionsConfigurationTest extends TestCase
                 'block' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'full_form',
+                            'enabled' => true,
                         ),
                         'content' => array(
-                            'type' => 'content_form',
-                            'parameters' => array('param'),
+                            'enabled' => true,
                         ),
                     ),
                     'view_types' => array(
@@ -479,15 +481,13 @@ class BlockDefinitionsConfigurationTest extends TestCase
                 'block' => array(
                     'forms' => array(
                         'full' => array(
-                            'type' => 'full_form',
+                            'enabled' => true,
                         ),
                         'design' => array(
-                            'type' => 'design_form',
-                            'parameters' => array('param'),
+                            'enabled' => true,
                         ),
                         'content' => array(
-                            'type' => 'content_form',
-                            'parameters' => array('param'),
+                            'enabled' => true,
                         ),
                     ),
                     'view_types' => array(
@@ -516,11 +516,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
-                    'forms' => array(
-                        'full' => array(
-                            'type' => 'full_form',
-                        ),
-                    ),
                     'view_types' => array(),
                 ),
             ),
@@ -538,11 +533,6 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
-                    'forms' => array(
-                        'full' => array(
-                            'type' => 'full_form',
-                        ),
-                    ),
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',

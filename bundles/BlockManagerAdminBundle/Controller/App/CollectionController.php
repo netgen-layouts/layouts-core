@@ -42,7 +42,7 @@ class CollectionController extends Controller
     {
         $queryType = $this->getQueryType($query->getType());
 
-        if (!$queryType->getConfig()->hasForm($formName)) {
+        if (!$queryType->getConfig()->hasForm($formName) || !$queryType->getConfig()->getForm($formName)->isEnabled()) {
             throw new InvalidArgumentException('form', 'Query does not support specified form.');
         }
 

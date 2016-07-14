@@ -15,6 +15,11 @@ class Form
     protected $type;
 
     /**
+     * @var bool
+     */
+    protected $enabled;
+
+    /**
      * @var array
      */
     protected $parameters;
@@ -24,12 +29,14 @@ class Form
      *
      * @param string $identifier
      * @param string $type
+     * @param bool $enabled
      * @param array $parameters
      */
-    public function __construct($identifier, $type, array $parameters = null)
+    public function __construct($identifier, $type, $enabled, array $parameters = null)
     {
         $this->identifier = $identifier;
         $this->type = $type;
+        $this->enabled = $enabled;
         $this->parameters = $parameters;
     }
 
@@ -51,6 +58,16 @@ class Form
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Returns if the form is enabled.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
     }
 
     /**

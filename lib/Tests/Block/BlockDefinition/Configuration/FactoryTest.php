@@ -30,6 +30,7 @@ class FactoryTest extends TestCase
             'forms' => array(
                 'content' => array(
                     'type' => 'form_type',
+                    'enabled' => true,
                     'parameters' => array('param1', 'param2'),
                 ),
             ),
@@ -62,7 +63,7 @@ class FactoryTest extends TestCase
             new Configuration(
                 'block_definition',
                 array(
-                    'content' => new Form('content', 'form_type', array('param1', 'param2')),
+                    'content' => new Form('content', 'form_type', true, array('param1', 'param2')),
                 ),
                 array(
                     'large' => new ViewType(

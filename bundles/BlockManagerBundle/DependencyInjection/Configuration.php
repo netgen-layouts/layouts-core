@@ -132,25 +132,21 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
                 ->children()
                     ->arrayNode('forms')
-                        ->isRequired()
+                        ->addDefaultsIfNotSet()
                         ->validate()
                             ->always(function ($v) {
                                 $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
 
-                                if (empty($v)) {
+                                if ($v['full']['enabled'] && ($v['design']['enabled'] || $v['content']['enabled'])) {
                                     throw $exception;
                                 }
 
-                                if (isset($v['full']) && (isset($v['design']) || isset($v['content']))) {
-                                    throw $exception;
-                                }
-
-                                if (!isset($v['full'])) {
-                                    if (isset($v['design']) && !isset($v['content'])) {
+                                if (!$v['full']['enabled']) {
+                                    if ($v['design']['enabled'] && !$v['content']['enabled']) {
                                         throw $exception;
                                     }
 
-                                    if (!isset($v['design']) && isset($v['content'])) {
+                                    if (!$v['design']['enabled'] && $v['content']['enabled']) {
                                         throw $exception;
                                     }
                                 }
@@ -160,19 +156,23 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->children()
                             ->arrayNode('full')
+                                ->addDefaultsIfNotSet()
+                                ->canBeDisabled()
                                 ->children()
                                     ->scalarNode('type')
-                                        ->isRequired()
                                         ->treatNullLike(FullEditType::class)
+                                        ->defaultValue(FullEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                 ->end()
                             ->end()
                             ->arrayNode('design')
+                                ->addDefaultsIfNotSet()
+                                ->canBeEnabled()
                                 ->children()
                                     ->scalarNode('type')
-                                        ->isRequired()
                                         ->treatNullLike(DesignEditType::class)
+                                        ->defaultValue(DesignEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                     ->arrayNode('parameters')
@@ -188,10 +188,12 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                             ->arrayNode('content')
+                                ->addDefaultsIfNotSet()
+                                ->canBeEnabled()
                                 ->children()
                                     ->scalarNode('type')
-                                        ->isRequired()
                                         ->treatNullLike(ContentEditType::class)
+                                        ->defaultValue(ContentEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                     ->arrayNode('parameters')
@@ -262,14 +264,15 @@ class Configuration implements ConfigurationInterface
                         ->cannotBeEmpty()
                     ->end()
                     ->arrayNode('forms')
-                        ->isRequired()
+                        ->addDefaultsIfNotSet()
                         ->children()
                             ->arrayNode('full')
-                                ->isRequired()
+                                ->canBeDisabled()
+                                ->addDefaultsIfNotSet()
                                 ->children()
                                     ->scalarNode('type')
-                                        ->isRequired()
                                         ->treatNullLike(QueryFullEditType::class)
+                                        ->defaultValue(QueryFullEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                 ->end()

@@ -34,7 +34,7 @@ class ContentEditTypeTest extends FormTestCase
         $config = new Configuration(
             'block_definition',
             array(
-                'content' => new Form('content', ContentEditType::class, array('css_class')),
+                'content' => new Form('content', ContentEditType::class, true, array('css_class')),
             ),
             array(
                 'large' => new ViewType(

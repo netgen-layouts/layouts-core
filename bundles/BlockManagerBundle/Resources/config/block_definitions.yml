@@ -1,67 +1,46 @@
 block_definitions:
     title:
-        forms:
-            full:
-                type: ~
         view_types:
             title:
                 name: 'Title'
 
     text:
-        forms:
-            full:
-                type: ~
         view_types:
             text:
                 name: 'Text'
 
     rich_text:
-        forms:
-            full:
-                type: ~
         view_types:
             rich_text:
                 name: 'Rich text'
 
     html_snippet:
-        forms:
-            full:
-                type: ~
         view_types:
             html_snippet:
                 name: 'HTML snippet'
 
     content:
-        forms:
-            full:
-                type: ~
         view_types:
             content:
                 name: 'Content'
 
     twig_block:
-        forms:
-            full:
-                type: ~
         view_types:
             twig_block:
                 name: 'Twig block'
 
     external_video:
-        forms:
-            full:
-                type: ~
         view_types:
             external_video:
                 name: 'External video'
 
     map:
         forms:
+            full:
+                enabled: false
             content:
-                type: ~
                 parameters: [latitude, longitude]
             design:
-                type: ~
                 parameters: [zoom, map_type, show_marker, css_class, css_id]
         view_types:
             map:
@@ -69,10 +48,10 @@ block_definitions:
 
     list:
         forms:
-            content:
-                type: ~
+            full:
+                enabled: false
+            content: ~
             design:
-                type: ~
                 parameters: [number_of_columns, css_class, css_id]
         view_types:
             list:
@@ -82,10 +61,10 @@ block_definitions:
 
     gallery:
         forms:
-            content:
-                type: ~
+            full:
+                enabled: false
+            content: ~
             design:
-                type: ~
                 parameters:
                     - next_and_previous
                     - show_pagination

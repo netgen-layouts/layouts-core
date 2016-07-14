@@ -234,7 +234,7 @@ class BlockService implements BlockServiceInterface
                 $blockCreateStruct->definitionIdentifier
             );
 
-            if($blockDefinition->getHandler()->hasCollection()) {
+            if ($blockDefinition->getHandler()->hasCollection()) {
                 $collectionCreateStruct = new CollectionCreateStruct();
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 

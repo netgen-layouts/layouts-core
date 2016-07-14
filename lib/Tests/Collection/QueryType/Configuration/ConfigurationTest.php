@@ -19,7 +19,7 @@ class ConfigurationTest extends TestCase
             'query_type',
             'Query type',
             array(
-                'full' => new Form('full', 'form_type', array('param1', 'param2')),
+                'full' => new Form('full', 'form_type', true, array('param1', 'param2')),
             ),
             array(
                 'parameters' => array('parent_location_id' => 2),
@@ -43,7 +43,7 @@ class ConfigurationTest extends TestCase
     {
         self::assertEquals(
             array(
-                'full' => new Form('full', 'form_type', array('param1', 'param2')),
+                'full' => new Form('full', 'form_type', true, array('param1', 'param2')),
             ),
             $this->configuration->getForms()
         );
@@ -64,7 +64,7 @@ class ConfigurationTest extends TestCase
     public function testGetForm()
     {
         self::assertEquals(
-            new Form('full', 'form_type', array('param1', 'param2')),
+            new Form('full', 'form_type', true, array('param1', 'param2')),
             $this->configuration->getForm('full')
         );
     }

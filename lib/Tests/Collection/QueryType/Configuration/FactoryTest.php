@@ -29,6 +29,7 @@ class FactoryTest extends TestCase
             'forms' => array(
                 'full' => array(
                     'type' => 'form_type',
+                    'enabled' => true,
                     'parameters' => array('param1', 'param2'),
                 ),
             ),
@@ -49,7 +50,7 @@ class FactoryTest extends TestCase
                 'query_type',
                 'Query type',
                 array(
-                    'full' => new Form('full', 'form_type', array('param1', 'param2')),
+                    'full' => new Form('full', 'form_type', true, array('param1', 'param2')),
                 ),
                 array(
                     'parameters' => array(

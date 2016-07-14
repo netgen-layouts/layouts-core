@@ -89,7 +89,7 @@ class BlockController extends Controller
     {
         $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
 
-        if (!$blockDefinition->getConfig()->hasForm($formName)) {
+        if (!$blockDefinition->getConfig()->hasForm($formName) || !$blockDefinition->getConfig()->getForm($formName)->isEnabled()) {
             throw new InvalidArgumentException('form', 'Block does not support specified form.');
         }
 

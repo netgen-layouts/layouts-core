@@ -34,7 +34,7 @@ class DesignEditTypeTest extends FormTestCase
         $config = new Configuration(
             'block_definition',
             array(
-                'design' => new Form('design', DesignEditType::class, array('css_class')),
+                'design' => new Form('design', DesignEditType::class, true, array('css_class')),
             ),
             array(
                 'large' => new ViewType(
