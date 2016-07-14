@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class ApiCsrfValidationListenerTest extends TestCase
+class AdminCsrfValidationListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -177,7 +177,7 @@ class ApiCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
-    public function testOnKernelRequestInNonApiRequest()
+    public function testOnKernelRequestInNonAdminRequest()
     {
         $this->csrfTokenManagerMock
             ->expects($this->never())
