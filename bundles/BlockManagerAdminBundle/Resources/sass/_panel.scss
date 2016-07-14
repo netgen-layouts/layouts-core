@@ -132,6 +132,34 @@
                     padding:0.25em;
                 }
             }
+            input[type="checkbox"] {
+                position:absolute;
+                left:-9999em;
+                + label {
+                    display:block;
+                    position:relative;
+                    padding:0 0 0 1.75em;
+                    margin:0.5em 0 1em;
+                    cursor:pointer;
+                    font-size:1em;
+                    line-height:1.4;
+                    &::before {
+                        @extend %material-icons;
+                        content:"check_box_outline_blank";
+                        font-size:18px;
+                        position:absolute;
+                        left:0;
+                        top:0;
+                    }
+                }
+                &:checked {
+                    + label {
+                        &::before {
+                            content:"check_box";
+                        }
+                    }
+                }
+            }
             .form-actions {
                 text-align:right;
             }
