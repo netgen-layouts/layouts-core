@@ -12,7 +12,7 @@ class Factory
      *
      * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
      */
-    public static function buildQueryTypeConfig($identifier, array $config)
+    public static function buildConfig($identifier, array $config)
     {
         $forms = array();
 

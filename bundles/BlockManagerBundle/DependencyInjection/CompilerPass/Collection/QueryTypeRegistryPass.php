@@ -39,7 +39,7 @@ class QueryTypeRegistryPass implements CompilerPassInterface
             $configService->setFactory(
                 array(
                     $container->getParameter('netgen_block_manager.collection.query_type.configuration.factory.class'),
-                    'buildQueryTypeConfig',
+                    'buildConfig',
                 )
             );
 

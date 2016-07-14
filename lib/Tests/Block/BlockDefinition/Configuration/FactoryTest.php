@@ -22,9 +22,9 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory::buildBlockDefinitionConfig
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory::buildConfig
      */
-    public function testBuildBlockDefinitionConfig()
+    public function testBuildConfig()
     {
         $config = array(
             'forms' => array(
@@ -53,7 +53,7 @@ class FactoryTest extends TestCase
             ),
         );
 
-        $blockDefinition = $this->factory->buildBlockDefinitionConfig(
+        $blockDefinition = $this->factory->buildConfig(
             'block_definition',
             $config
         );

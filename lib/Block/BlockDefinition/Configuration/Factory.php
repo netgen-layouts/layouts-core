@@ -12,7 +12,7 @@ class Factory
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
-    public static function buildBlockDefinitionConfig($identifier, array $config)
+    public static function buildConfig($identifier, array $config)
     {
         $forms = array();
         $viewTypes = array();

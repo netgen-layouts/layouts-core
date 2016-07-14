@@ -39,7 +39,7 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
             $configService->setFactory(
                 array(
                     $container->getParameter('netgen_block_manager.block.block_definition.configuration.factory.class'),
-                    'buildBlockDefinitionConfig',
+                    'buildConfig',
                 )
             );
 

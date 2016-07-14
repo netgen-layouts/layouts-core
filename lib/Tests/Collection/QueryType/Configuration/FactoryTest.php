@@ -20,9 +20,9 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Factory::buildQueryTypeConfig
+     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Factory::buildConfig
      */
-    public function testBuildQueryTypeConfig()
+    public function testBuildConfig()
     {
         $config = array(
             'name' => 'Query type',
@@ -39,7 +39,7 @@ class FactoryTest extends TestCase
             ),
         );
 
-        $queryType = $this->factory->buildQueryTypeConfig(
+        $queryType = $this->factory->buildConfig(
             'query_type',
             $config
         );
