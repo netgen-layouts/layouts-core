@@ -12,6 +12,11 @@ class ListHandler extends BlockDefinitionHandler
      */
     protected $columns = array();
 
+    /**
+     * Constructor.
+     *
+     * @param array $columns
+     */
     public function __construct(array $columns = array())
     {
         $this->columns = array_flip($columns);

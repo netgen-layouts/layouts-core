@@ -22,6 +22,13 @@ class MapHandler extends BlockDefinitionHandler
      */
     protected $mapTypes = array();
 
+    /**
+     * Constructor.
+     *
+     * @param int $minZoom
+     * @param int $maxZoom
+     * @param array $mapTypes
+     */
     public function __construct($minZoom, $maxZoom, array $mapTypes = array())
     {
         $this->minZoom = $minZoom;
