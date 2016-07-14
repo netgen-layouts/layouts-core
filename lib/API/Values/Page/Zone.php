@@ -47,4 +47,11 @@ interface Zone extends Value
      * @return \Netgen\BlockManager\API\Values\Page\Block[]
      */
     public function getBlocks();
+
+    /**
+     * Returns if the zone is considered empty.
+     *
+     * @return bool
+     */
+    public function isEmpty();
 }

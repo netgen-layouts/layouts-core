@@ -96,4 +96,18 @@ class Zone extends ValueObject implements APIZone
     {
         return $this->blocks;
     }
+
+    /**
+     * Returns if the zone is considered empty.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        if ($this->linkedLayoutId !== null && $this->linkedZoneIdentifier !== null) {
+            return false;
+        }
+
+        return empty($this->blocks);
+    }
 }
