@@ -1,0 +1,17 @@
+parameters:
+    netgen_block_manager.event_listener.set_is_admin_request.class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener
+    netgen_block_manager.event_listener.admin_csrf_validation_listener.class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener
+
+services:
+    netgen_block_manager.event_listener.set_is_admin_request:
+        class: "%netgen_block_manager.event_listener.set_is_admin_request.class%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.admin_csrf_validation_listener:
+        class: "%netgen_block_manager.event_listener.admin_csrf_validation_listener.class%"
+        arguments:
+            - "@security.csrf.token_manager"
+            - "%netgen_block_manager.admin.csrf_token_id%"
+        tags:
+            - { name: kernel.event_subscriber }

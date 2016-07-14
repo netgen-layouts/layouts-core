@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener;
-use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener;
+use Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class ApiCsrfValidationListenerTest extends TestCase
+class AdminCsrfValidationListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -31,7 +31,7 @@ class ApiCsrfValidationListenerTest extends TestCase
     protected $csrfTokenId;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener
+     * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener
      */
     protected $listener;
 
@@ -48,14 +48,14 @@ class ApiCsrfValidationListenerTest extends TestCase
 
         $this->csrfTokenId = 'token_id';
 
-        $this->listener = new ApiCsrfValidationListener(
+        $this->listener = new AdminCsrfValidationListener(
             $this->csrfTokenManagerMock,
             $this->csrfTokenId
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
@@ -66,10 +66,11 @@ class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::validateCsrfToken
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::isMethodSafe
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      */
     public function testOnKernelRequest()
     {
@@ -87,8 +88,8 @@ class ApiCsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->headers->set(ApiCsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->headers->set(AdminCsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -96,10 +97,10 @@ class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::validateCsrfToken
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::isMethodSafe
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken()
@@ -118,8 +119,8 @@ class ApiCsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->headers->set(ApiCsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->headers->set(AdminCsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -127,10 +128,10 @@ class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::validateCsrfToken
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::isMethodSafe
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnMissingTokenHeader()
@@ -147,7 +148,7 @@ class ApiCsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -155,7 +156,8 @@ class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest()
     {
@@ -165,14 +167,15 @@ class ApiCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestInNonApiRequest()
     {
@@ -182,33 +185,35 @@ class ApiCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, false);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoTokenManager()
     {
-        $this->listener = new ApiCsrfValidationListener();
+        $this->listener = new AdminCsrfValidationListener();
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         self::assertNull($this->listener->onKernelRequest($event));
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoTokenId()
     {
-        $this->listener = new ApiCsrfValidationListener(
+        $this->listener = new AdminCsrfValidationListener(
             $this->csrfTokenManagerMock
         );
 
@@ -218,14 +223,15 @@ class ApiCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoSession()
     {
@@ -240,7 +246,7 @@ class ApiCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -248,8 +254,9 @@ class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::isMethodSafe
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      */
     public function testOnKernelRequestWithSafeMethod()
     {
@@ -265,7 +272,7 @@ class ApiCsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_GET);
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);

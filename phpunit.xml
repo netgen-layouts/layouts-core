@@ -26,6 +26,10 @@
             <directory>bundles/BlockManagerBundle/Tests</directory>
             <exclude>bundles/BlockManagerBundle/Tests/Controller</exclude>
         </testsuite>
+        <testsuite name="Netgen\Bundle\BlockManagerAdminBundle">
+            <directory>bundles/BlockManagerAdminBundle/Tests</directory>
+            <exclude>bundles/BlockManagerAdminBundle/Tests/Controller</exclude>
+        </testsuite>
         <testsuite name="Netgen\Bundle\EzPublishBlockManagerBundle">
             <directory>bundles/EzPublishBlockManagerBundle/Tests</directory>
         </testsuite>
@@ -36,6 +40,7 @@
             <directory suffix=".php">lib</directory>
             <directory suffix=".php">ezlib</directory>
             <directory suffix=".php">bundles/BlockManagerBundle</directory>
+            <directory suffix=".php">bundles/BlockManagerAdminBundle</directory>
             <directory suffix=".php">bundles/EzPublishBlockManagerBundle</directory>
             <exclude>
                 <directory>lib/Tests</directory>

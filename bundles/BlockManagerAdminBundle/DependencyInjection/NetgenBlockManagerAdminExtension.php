@@ -29,6 +29,7 @@ class NetgenBlockManagerAdminExtension extends Extension implements PrependExten
 
         $loader->load('default_settings.yml');
         $loader->load('services/controllers.yml');
+        $loader->load('services/event_listeners.yml');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\EventListener;
+namespace Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class ApiCsrfValidationListener implements EventSubscriberInterface
+class CsrfValidationListener implements EventSubscriberInterface
 {
     const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
 
@@ -57,11 +57,6 @@ class ApiCsrfValidationListener implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event)
     {
         if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
-            return;
-        }
-
-        $attributes = $event->getRequest()->attributes;
-        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;
         }
 
