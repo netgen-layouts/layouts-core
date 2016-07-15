@@ -21,10 +21,10 @@ class IndexController extends Controller
         return $this->render(
             !empty($appEnvironment) ?
                 sprintf(
-                    'NetgenBlockManagerAdminBundle:app/index:index_%s.html.twig',
+                    'NetgenBlockManagerAdminBundle:app:index_%s.html.twig',
                     $appEnvironment
                 ) :
-            'NetgenBlockManagerAdminBundle:app/index:index.html.twig'
+            'NetgenBlockManagerAdminBundle:app:index.html.twig'
         );
     }
 }
