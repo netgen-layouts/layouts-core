@@ -14,6 +14,7 @@ block.edit.query_type: 'Query type'
 block.edit.named_collection: 'Named collection'
 block.edit.cancel: 'Cancel'
 block.edit.apply: 'Apply'
+block.edit.change: 'Change'
 
 block.notice.empty_collection: 'This block is empty. Please pick some items manually or use a dynamic collection.'
 block.notice.no_video: 'No video selected. Please pick the video to display.'

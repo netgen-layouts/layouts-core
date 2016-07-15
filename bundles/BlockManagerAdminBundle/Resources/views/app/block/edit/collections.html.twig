@@ -16,19 +16,19 @@
     <div class="xeditable" data-xeditable-name="collection_type">
         <div class="current">
             <label>{{ 'block.edit.collection_type'|trans }}</label>
-            <a href="#" class="js-edit"><span>{{ collection_types[collection.type] }}</span> <i class="fa fa-pencil"></i></a>
+            <a href="#" class="js-edit"><span class="text">{{ collection_types[collection.type] }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
 
             {% if collection.type == type_dynamic and query_types|length > 1 %}
                 <label>{{ 'block.edit.query_type'|trans }}</label>
 
                 {% if query_types[collection.queries[0].type] is defined %}
-                    <a href="#" class="js-edit"><span>{{ query_types[collection.queries[0].type].config.name }}</span> <i class="fa fa-pencil"></i></a>
+                    <a href="#" class="js-edit"><span class="text">{{ query_types[collection.queries[0].type].config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
                 {% else %}
-                    <a href="#" class="js-edit"><span>{{ collection.queries[0].type }}</span> <i class="fa fa-pencil"></i></a>
+                    <a href="#" class="js-edit"><span class="text">{{ collection.queries[0].type }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
                 {% endif %}
             {% elseif collection.type == type_named and named_collections|length > 1 %}
                 <label>{{ 'block.edit.named_collection'|trans }}</label>
-                <a href="#" class="js-edit"><span>{{ collection.name }}</span> <i class="fa fa-pencil"></i></a>
+                <a href="#" class="js-edit"><span class="text">{{ collection.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
             {% endif %}
 
         </div>
@@ -47,6 +47,7 @@
                         <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">{{ collection_types[type_named] }}</option>
                     {% endif %}
                 </select>
+                <p class="input-note">IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.</p>
             </div>
 
             {% if query_types|length > 0 %}

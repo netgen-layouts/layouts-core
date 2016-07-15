@@ -10,9 +10,14 @@
     <div class="block-header">
         <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="material-icons">drag_handle</i></div>
         <div class="name">{{ block.name }}</div>
-        <div class="block-action js-destroy" title="{{ 'layout.block.delete'|trans }}"><i class="material-icons">close</i></div>
-        <div class="block-action js-revert" title="{{ 'layout.block.revert'|trans }}"><i class="material-icons">undo</i></div>
         <div class="template_name">{{ view_type_name }}</div>
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="js-revert"><a title="{{ 'layout.block.revert'|trans }}">{{ 'layout.block.revert'|trans }}</a></li>
+                <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
 
