@@ -64,37 +64,20 @@ class CsrfValidationListener implements EventSubscriberInterface
             return;
         }
 
+        $request = $event->getRequest();
+
         // Skip CSRF validation if no session is available
-        if (!$event->getRequest()->getSession()->isStarted()) {
+        if (!$request->getSession()->isStarted()) {
             return;
         }
 
-        if ($this->isMethodSafe($event->getRequest()->getMethod())) {
+        if ($request->isMethodSafe()) {
             return;
         }
 
-        if (!$this->validateCsrfToken($event->getRequest())) {
+        if (!$this->validateCsrfToken($request)) {
             throw new AccessDeniedHttpException('Missing or invalid CSRF token');
         }
-    }
-
-    /**
-     * Returns true if method is considered safe.
-     *
-     * @param string $method
-     *
-     * @return bool
-     */
-    protected function isMethodSafe($method)
-    {
-        return in_array(
-            $method,
-            array(
-                Request::METHOD_GET,
-                Request::METHOD_HEAD,
-                Request::METHOD_OPTIONS,
-            )
-        );
     }
 
     /**

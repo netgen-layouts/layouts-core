@@ -70,7 +70,6 @@ class AdminCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      */
     public function testOnKernelRequest()
     {
@@ -100,7 +99,6 @@ class AdminCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken()
@@ -131,7 +129,6 @@ class AdminCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnMissingTokenHeader()
@@ -256,7 +253,6 @@ class AdminCsrfValidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::isMethodSafe
      */
     public function testOnKernelRequestWithSafeMethod()
     {
