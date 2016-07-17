@@ -2,8 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
-use Netgen\BlockManager\Block\Form\ContentEditType;
-use Netgen\BlockManager\Block\Form\DesignEditType;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;

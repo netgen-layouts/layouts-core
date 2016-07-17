@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
-use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
