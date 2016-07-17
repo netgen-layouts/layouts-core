@@ -47,7 +47,7 @@
                         <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">{{ collection_types[type_named] }}</option>
                     {% endif %}
                 </select>
-                <p class="input-note">IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.</p>
+                <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>
             </div>
 
             {% if query_types|length > 0 %}

@@ -16,6 +16,8 @@ block.edit.cancel: 'Cancel'
 block.edit.apply: 'Apply'
 block.edit.change: 'Change'
 
+block.edit.notice.change_collection_type: 'IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.'
+
 block.notice.empty_collection: 'This block is empty. Please pick some items manually or use a dynamic collection.'
 block.notice.no_video: 'No video selected. Please pick the video to display.'
 
