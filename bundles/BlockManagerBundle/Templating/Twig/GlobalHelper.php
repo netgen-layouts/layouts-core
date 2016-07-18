@@ -15,7 +15,7 @@ class GlobalHelper
     /**
      * @var string
      */
-    protected $pageLayout;
+    protected $pageLayoutTemplate;
 
     /**
      * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
@@ -57,9 +57,9 @@ class GlobalHelper
      *
      * @return string
      */
-    public function getPageLayout()
+    public function getPageLayoutTemplate()
     {
-        return $this->pageLayout;
+        return $this->pageLayoutTemplate;
     }
 
     /**
@@ -67,9 +67,9 @@ class GlobalHelper
      *
      * @param string
      */
-    public function setPageLayout($pageLayout)
+    public function setPageLayoutTemplate($pageLayoutTemplate)
     {
-        $this->pageLayout = $pageLayout;
+        $this->pageLayoutTemplate = $pageLayoutTemplate;
     }
 
     /**
@@ -98,7 +98,7 @@ class GlobalHelper
             return $this->layoutView->getTemplate();
         }
 
-        return $this->pageLayout;
+        return $this->pageLayoutTemplate;
     }
 
     /**

@@ -77,7 +77,7 @@ class PageLayoutListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertEquals('pagelayout.html.twig', $this->globalHelper->getPageLayout());
+        self::assertEquals('pagelayout.html.twig', $this->globalHelper->getPageLayoutTemplate());
     }
 
     /**
@@ -95,7 +95,7 @@ class PageLayoutListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertNull($this->globalHelper->getPageLayout());
+        self::assertNull($this->globalHelper->getPageLayoutTemplate());
     }
 
     /**
@@ -114,6 +114,6 @@ class PageLayoutListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertNull($this->globalHelper->getPageLayout());
+        self::assertNull($this->globalHelper->getPageLayoutTemplate());
     }
 }

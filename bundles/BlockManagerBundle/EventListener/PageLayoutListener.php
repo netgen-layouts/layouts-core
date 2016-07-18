@@ -61,7 +61,7 @@ class PageLayoutListener implements EventSubscriberInterface
             return;
         }
 
-        $this->globalHelper->setPageLayout(
+        $this->globalHelper->setPageLayoutTemplate(
             $this->pageLayoutResolver->resolvePageLayout()
         );
     }

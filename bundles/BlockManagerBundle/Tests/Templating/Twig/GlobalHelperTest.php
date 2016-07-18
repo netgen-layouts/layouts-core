@@ -45,22 +45,22 @@ class GlobalHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getPageLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getPageLayoutTemplate
      */
-    public function testGetDefaultPageLayout()
+    public function testGetDefaultPageLayoutTemplate()
     {
-        self::assertNull($this->globalHelper->getPageLayout());
+        self::assertNull($this->globalHelper->getPageLayoutTemplate());
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::setPageLayout
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getPageLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::setPageLayoutTemplate
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper::getPageLayoutTemplate
      */
-    public function testGetPageLayout()
+    public function testGetPageLayoutTemplate()
     {
-        $this->globalHelper->setPageLayout('defaultPagelayout');
+        $this->globalHelper->setPageLayoutTemplate('defaultPagelayout');
 
-        self::assertEquals('defaultPagelayout', $this->globalHelper->getPageLayout());
+        self::assertEquals('defaultPagelayout', $this->globalHelper->getPageLayoutTemplate());
     }
 
     /**
@@ -87,7 +87,7 @@ class GlobalHelperTest extends TestCase
      */
     public function testGetLayoutTemplate()
     {
-        $this->globalHelper->setPageLayout('pagelayout.html.twig');
+        $this->globalHelper->setPageLayoutTemplate('pagelayout.html.twig');
 
         $layoutView = new LayoutView(new Layout());
         $layoutView->setTemplate('layout.html.twig');
@@ -101,7 +101,7 @@ class GlobalHelperTest extends TestCase
      */
     public function testGetLayoutTemplateWithNoLayoutView()
     {
-        $this->globalHelper->setPageLayout('pagelayout.html.twig');
+        $this->globalHelper->setPageLayoutTemplate('pagelayout.html.twig');
 
         self::assertEquals('pagelayout.html.twig', $this->globalHelper->getLayoutTemplate());
     }
