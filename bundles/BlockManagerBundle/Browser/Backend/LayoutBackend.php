@@ -4,6 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation;
 use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
@@ -61,7 +63,15 @@ class LayoutBackend implements BackendInterface
      */
     public function loadItem($id)
     {
-        $layout = $this->layoutService->loadLayoutInfo($id);
+        try {
+            $layout = $this->layoutService->loadLayoutInfo($id);
+        } catch (BaseNotFoundException $e) {
+            throw new NotFoundException(
+                sprintf('Item with ID "%s" not found.', $id),
+                0,
+                $e
+            );
+        }
 
         return $this->buildItem($layout);
     }
