@@ -1,12 +1,11 @@
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="lr-rule-content" data-id="{{ rule.id }}">
+<div class="lr-rule-content {% if not published_rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
     <div class="lr-panel-head">
-
         <div class="panel-head-title">
 
             <div class="panel-icon">
-                <i class="material-icons" role="presentation">select_all</i>
+                <i class="material-icons" role="presentation">{% if published_rule.enabled %}dns{% else %}do_not_disturb{% endif %}</i>
             </div>
 
             {% if rule.layout != null %}
@@ -20,6 +19,10 @@
                         <a class="js-trigger" href="#"><i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rules.no_linked_layout.link'|trans }}</a>
                     </div>
                 </div>
+            {% endif %}
+
+            {% if not published_rule.enabled %}
+                <span class="disabled-label">{{ 'layout_resolver.rules.inactive'|trans }}</span>
             {% endif %}
 
             <!-- Right aligned menu below button -->
@@ -55,7 +58,7 @@
         <div class="panel-head-info">
 
             <div class="meta-info lr-tt" title="{{ 'layout_resolver.rules.number_of_targets'|trans }}">
-                <i class="material-icons" role="presentation">settings_system_daydream</i> <span class="meta-badge js-target-counter">{{ rule.targets|length }}</span>
+                <i class="material-icons" role="presentation">gps_fixed</i> <span class="meta-badge js-target-counter">{{ rule.targets|length }}</span>
             </div>
 
             <div class="meta-info lr-tt" title="{{ 'layout_resolver.rules.number_of_conditions'|trans }}">
