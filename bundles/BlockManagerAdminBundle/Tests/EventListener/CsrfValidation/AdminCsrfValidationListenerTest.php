@@ -55,7 +55,7 @@ class AdminCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
@@ -66,10 +66,10 @@ class AdminCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
      */
     public function testOnKernelRequest()
     {
@@ -97,8 +97,8 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken()
@@ -127,8 +127,8 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnMissingTokenHeader()
@@ -154,7 +154,7 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest()
     {
@@ -172,7 +172,7 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestInNonAdminRequest()
     {
@@ -190,7 +190,7 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoTokenManager()
     {
@@ -206,7 +206,7 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoTokenId()
     {
@@ -228,7 +228,7 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoSession()
     {
@@ -252,7 +252,7 @@ class AdminCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestWithSafeMethod()
     {
