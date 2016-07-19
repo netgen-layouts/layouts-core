@@ -15,7 +15,7 @@
 
     <div class="xeditable" data-xeditable-name="collection_type">
         <div class="current">
-            <label>{{ 'block.edit.collection_type'|trans }}</label>
+            <label>{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">Test tooltip</div></div></a></label>
             <a href="#" class="js-edit"><span class="text">{{ collection_types[collection.type] }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
 
             {% if collection.type == type_dynamic and query_types|length > 1 %}
@@ -35,7 +35,7 @@
 
         <div class="form js-dependable-selects-group">
             <div>
-                <label for="collection-type">{{ 'block.edit.collection_type'|trans }}</label>
+                <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <i class="material-icons" data-toggle="tooltip" data-placement="top" title="Tooltip on top">help</i></label>
                 <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master">
                     <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
 
