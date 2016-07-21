@@ -1,5 +1,8 @@
 {% if collections is not empty and collections['default'] is defined %}
-    <section>
-        <div data-browser-config-name="{{ ngbm.config.parameter('app.block_edit.default_browser_config') }}" class="collection-items"></div>
-    </section>
+    <div class="sidebar-panel">
+        <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseItems" aria-expanded="true" aria-controls="collapseItems">Items</a>
+        <div class="collapse in" id="collapseItems">
+            <div data-browser-config-name="{{ ngbm.config.parameter('app.block_edit.default_browser_config') }}" class="collection-items"></div>
+        </div>
+    </div>
 {% endif %}
