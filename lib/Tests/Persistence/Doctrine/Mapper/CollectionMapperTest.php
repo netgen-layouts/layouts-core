@@ -59,7 +59,7 @@ class CollectionMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapCollections($data));
+        $this->assertEquals($expectedData, $this->mapper->mapCollections($data));
     }
 
     /**
@@ -113,7 +113,7 @@ class CollectionMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapItems($data));
+        $this->assertEquals($expectedData, $this->mapper->mapItems($data));
     }
 
     /**
@@ -171,6 +171,6 @@ class CollectionMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapQueries($data));
+        $this->assertEquals($expectedData, $this->mapper->mapQueries($data));
     }
 }

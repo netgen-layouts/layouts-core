@@ -19,6 +19,6 @@ class RoutePrefixTest extends RouteTest
      */
     public function testGetType()
     {
-        self::assertEquals('route_prefix', $this->targetType->getType());
+        $this->assertEquals('route_prefix', $this->targetType->getType());
     }
 }

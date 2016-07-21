@@ -70,7 +70,7 @@ class RendererTest extends TestCase
             ViewInterface::CONTEXT_API
         );
 
-        self::assertEquals('rendered template', $renderedTemplate);
+        $this->assertEquals('rendered template', $renderedTemplate);
     }
 
     /**
@@ -94,6 +94,6 @@ class RendererTest extends TestCase
 
         $renderedTemplate = $this->viewRenderer->renderView($view);
 
-        self::assertEquals('rendered template', $renderedTemplate);
+        $this->assertEquals('rendered template', $renderedTemplate);
     }
 }

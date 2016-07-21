@@ -25,14 +25,14 @@ class RuleTest extends TestCase
     {
         $rule = new Rule();
 
-        self::assertNull($rule->getId());
-        self::assertNull($rule->getStatus());
-        self::assertNull($rule->getLayout());
-        self::assertNull($rule->getPriority());
-        self::assertNull($rule->isEnabled());
-        self::assertNull($rule->getComment());
-        self::assertEquals(array(), $rule->getTargets());
-        self::assertEquals(array(), $rule->getConditions());
+        $this->assertNull($rule->getId());
+        $this->assertNull($rule->getStatus());
+        $this->assertNull($rule->getLayout());
+        $this->assertNull($rule->getPriority());
+        $this->assertNull($rule->isEnabled());
+        $this->assertNull($rule->getComment());
+        $this->assertEquals(array(), $rule->getTargets());
+        $this->assertEquals(array(), $rule->getConditions());
     }
 
     /**
@@ -61,13 +61,13 @@ class RuleTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $rule->getId());
-        self::assertEquals(Rule::STATUS_PUBLISHED, $rule->getStatus());
-        self::assertEquals(new LayoutInfo(array('id' => 24)), $rule->getLayout());
-        self::assertEquals(13, $rule->getPriority());
-        self::assertTrue($rule->isEnabled());
-        self::assertEquals('Comment', $rule->getComment());
-        self::assertCount(2, $rule->getTargets());
-        self::assertCount(1, $rule->getConditions());
+        $this->assertEquals(42, $rule->getId());
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $rule->getStatus());
+        $this->assertEquals(new LayoutInfo(array('id' => 24)), $rule->getLayout());
+        $this->assertEquals(13, $rule->getPriority());
+        $this->assertTrue($rule->isEnabled());
+        $this->assertEquals('Comment', $rule->getComment());
+        $this->assertCount(2, $rule->getTargets());
+        $this->assertCount(1, $rule->getConditions());
     }
 }

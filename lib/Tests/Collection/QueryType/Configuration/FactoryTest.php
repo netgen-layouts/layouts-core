@@ -45,7 +45,7 @@ class FactoryTest extends TestCase
             $config
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new Configuration(
                 'query_type',
                 'Query type',

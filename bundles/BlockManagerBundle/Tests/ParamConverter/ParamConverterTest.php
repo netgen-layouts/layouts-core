@@ -21,9 +21,9 @@ class ParamConverterTest extends TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertTrue($paramConverter->apply($request, $configuration));
-        self::assertTrue($request->attributes->has('value'));
-        self::assertEquals(
+        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
             new Value(),
             $request->attributes->get('value')
         );
@@ -39,8 +39,8 @@ class ParamConverterTest extends TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertFalse($paramConverter->apply($request, $configuration));
-        self::assertFalse($request->attributes->has('value'));
+        $this->assertFalse($paramConverter->apply($request, $configuration));
+        $this->assertFalse($request->attributes->has('value'));
     }
 
     /**
@@ -55,8 +55,8 @@ class ParamConverterTest extends TestCase
         $configuration->setIsOptional(true);
 
         $paramConverter = new ParamConverter();
-        self::assertFalse($paramConverter->apply($request, $configuration));
-        self::assertFalse($request->attributes->has('value'));
+        $this->assertFalse($paramConverter->apply($request, $configuration));
+        $this->assertFalse($request->attributes->has('value'));
     }
 
     /**
@@ -83,7 +83,7 @@ class ParamConverterTest extends TestCase
         $configuration->setClass(Value::class);
 
         $paramConverter = new ParamConverter();
-        self::assertTrue($paramConverter->supports($configuration));
+        $this->assertTrue($paramConverter->supports($configuration));
     }
 
     /**
@@ -95,6 +95,6 @@ class ParamConverterTest extends TestCase
         $configuration->setClass('Some\Class');
 
         $paramConverter = new ParamConverter();
-        self::assertFalse($paramConverter->supports($configuration));
+        $this->assertFalse($paramConverter->supports($configuration));
     }
 }

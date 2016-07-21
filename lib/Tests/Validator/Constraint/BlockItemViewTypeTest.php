@@ -13,6 +13,6 @@ class BlockItemViewTypeTest extends TestCase
     public function testValidatedBy()
     {
         $constraint = new BlockItemViewType();
-        self::assertEquals('ngbm_block_item_view_type', $constraint->validatedBy());
+        $this->assertEquals('ngbm_block_item_view_type', $constraint->validatedBy());
     }
 }

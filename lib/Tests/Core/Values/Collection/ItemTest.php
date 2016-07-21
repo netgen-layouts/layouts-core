@@ -22,13 +22,13 @@ class ItemTest extends TestCase
     {
         $item = new Item();
 
-        self::assertNull($item->getId());
-        self::assertNull($item->getStatus());
-        self::assertNull($item->getCollectionId());
-        self::assertNull($item->getPosition());
-        self::assertNull($item->getType());
-        self::assertNull($item->getValueId());
-        self::assertNull($item->getValueType());
+        $this->assertNull($item->getId());
+        $this->assertNull($item->getStatus());
+        $this->assertNull($item->getCollectionId());
+        $this->assertNull($item->getPosition());
+        $this->assertNull($item->getType());
+        $this->assertNull($item->getValueId());
+        $this->assertNull($item->getValueType());
     }
 
     /**
@@ -55,12 +55,12 @@ class ItemTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $item->getId());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $item->getStatus());
-        self::assertEquals(30, $item->getCollectionId());
-        self::assertEquals(3, $item->getPosition());
-        self::assertEquals(Item::TYPE_OVERRIDE, $item->getType());
-        self::assertEquals(32, $item->getValueId());
-        self::assertEquals('ezcontent', $item->getValueType());
+        $this->assertEquals(42, $item->getId());
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertEquals(30, $item->getCollectionId());
+        $this->assertEquals(3, $item->getPosition());
+        $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
+        $this->assertEquals(32, $item->getValueId());
+        $this->assertEquals('ezcontent', $item->getValueType());
     }
 }

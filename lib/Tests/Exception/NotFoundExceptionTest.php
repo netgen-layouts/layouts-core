@@ -14,7 +14,7 @@ class NotFoundExceptionTest extends TestCase
     {
         $exception = new NotFoundException('test', 1);
 
-        self::assertEquals(
+        $this->assertEquals(
             'Could not find test with identifier "1"',
             $exception->getMessage()
         );

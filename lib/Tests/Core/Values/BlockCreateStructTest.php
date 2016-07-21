@@ -11,10 +11,10 @@ class BlockCreateStructTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
 
-        self::assertNull($blockCreateStruct->definitionIdentifier);
-        self::assertNull($blockCreateStruct->viewType);
-        self::assertNull($blockCreateStruct->itemViewType);
-        self::assertNull($blockCreateStruct->name);
+        $this->assertNull($blockCreateStruct->definitionIdentifier);
+        $this->assertNull($blockCreateStruct->viewType);
+        $this->assertNull($blockCreateStruct->itemViewType);
+        $this->assertNull($blockCreateStruct->name);
     }
 
     public function testSetProperties()
@@ -28,9 +28,9 @@ class BlockCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('text', $blockCreateStruct->definitionIdentifier);
-        self::assertEquals('default', $blockCreateStruct->viewType);
-        self::assertEquals('standard', $blockCreateStruct->itemViewType);
-        self::assertEquals('My block', $blockCreateStruct->name);
+        $this->assertEquals('text', $blockCreateStruct->definitionIdentifier);
+        $this->assertEquals('default', $blockCreateStruct->viewType);
+        $this->assertEquals('standard', $blockCreateStruct->itemViewType);
+        $this->assertEquals('My block', $blockCreateStruct->name);
     }
 }

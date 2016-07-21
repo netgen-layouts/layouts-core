@@ -16,7 +16,7 @@ class ParameterTest extends TestCase
     {
         $parameter = new Parameter(array(), true);
 
-        self::assertTrue($parameter->isRequired());
+        $this->assertTrue($parameter->isRequired());
     }
 
     /**
@@ -27,7 +27,7 @@ class ParameterTest extends TestCase
     {
         $parameter = new Parameter();
 
-        self::assertFalse($parameter->isRequired());
+        $this->assertFalse($parameter->isRequired());
     }
 
     /**
@@ -38,7 +38,7 @@ class ParameterTest extends TestCase
     {
         $parameter = new Parameter();
 
-        self::assertEquals(null, $parameter->getDefaultValue());
+        $this->assertEquals(null, $parameter->getDefaultValue());
     }
 
     /**
@@ -51,7 +51,7 @@ class ParameterTest extends TestCase
     {
         $parameter = new Parameter();
 
-        self::assertEquals(array(), $parameter->getConstraints());
+        $this->assertEquals(array(), $parameter->getConstraints());
     }
 
     /**
@@ -64,7 +64,7 @@ class ParameterTest extends TestCase
     {
         $parameter = new Parameter(array(), true);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(new Constraints\NotBlank()),
             $parameter->getConstraints()
         );

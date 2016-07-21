@@ -11,8 +11,8 @@ class QueryCreateStructTest extends TestCase
     {
         $queryCreateStruct = new QueryCreateStruct();
 
-        self::assertNull($queryCreateStruct->identifier);
-        self::assertNull($queryCreateStruct->type);
+        $this->assertNull($queryCreateStruct->identifier);
+        $this->assertNull($queryCreateStruct->type);
     }
 
     public function testSetProperties()
@@ -24,7 +24,7 @@ class QueryCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('my_query', $queryCreateStruct->identifier);
-        self::assertEquals('ezcontent_search', $queryCreateStruct->type);
+        $this->assertEquals('my_query', $queryCreateStruct->identifier);
+        $this->assertEquals('ezcontent_search', $queryCreateStruct->type);
     }
 }

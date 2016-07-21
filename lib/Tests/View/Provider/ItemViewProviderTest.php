@@ -31,11 +31,11 @@ class ItemViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\ItemViewInterface $view */
         $view = $this->itemViewProvider->provideView($item, array('viewType' => 'view_type'));
 
-        self::assertInstanceOf(ItemViewInterface::class, $view);
+        $this->assertInstanceOf(ItemViewInterface::class, $view);
 
-        self::assertEquals($item, $view->getItem());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($item, $view->getItem());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'item' => $item,
                 'viewType' => 'view_type',
@@ -71,7 +71,7 @@ class ItemViewProviderTest extends TestCase
      */
     public function testSupports($value, $supports)
     {
-        self::assertEquals($supports, $this->itemViewProvider->supports($value));
+        $this->assertEquals($supports, $this->itemViewProvider->supports($value));
     }
 
     /**

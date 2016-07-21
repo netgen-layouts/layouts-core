@@ -70,7 +70,7 @@ class ViewNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize($view);
 
-        self::assertEquals(array('id' => 42, 'html' => 'rendered view'), $data);
+        $this->assertEquals(array('id' => 42, 'html' => 'rendered view'), $data);
     }
 
     /**
@@ -82,7 +82,7 @@ class ViewNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

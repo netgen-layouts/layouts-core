@@ -91,20 +91,20 @@ class ResultGeneratorTest extends TestCase
         $collection = $this->generateManualCollection($collectionItems);
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
-        self::assertInstanceOf(Result::class, $result);
-        self::assertEquals($collection, $result->getCollection());
-        self::assertEquals($totalCount, $result->getTotalCount());
-        self::assertEquals($offset, $result->getOffset());
-        self::assertEquals($limit, $result->getLimit());
+        $this->assertInstanceOf(Result::class, $result);
+        $this->assertEquals($collection, $result->getCollection());
+        $this->assertEquals($totalCount, $result->getTotalCount());
+        $this->assertEquals($offset, $result->getOffset());
+        $this->assertEquals($limit, $result->getLimit());
 
         $items = array();
         foreach ($result->getResults() as $resultItem) {
             $items[] = $resultItem->getItem();
-            self::assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
+            $this->assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
             // Test items and positions?
         }
 
-        self::assertEquals($this->buildExpectedValues($values), $items);
+        $this->assertEquals($this->buildExpectedValues($values), $items);
     }
 
     /**
@@ -167,11 +167,11 @@ class ResultGeneratorTest extends TestCase
 
         $result = $this->generator->generateResult($collection, $offset, $limit);
 
-        self::assertInstanceOf(Result::class, $result);
-        self::assertEquals($collection, $result->getCollection());
-        self::assertEquals($totalCount, $result->getTotalCount());
-        self::assertEquals($offset, $result->getOffset());
-        self::assertEquals($limit, $result->getLimit());
+        $this->assertInstanceOf(Result::class, $result);
+        $this->assertEquals($collection, $result->getCollection());
+        $this->assertEquals($totalCount, $result->getTotalCount());
+        $this->assertEquals($offset, $result->getOffset());
+        $this->assertEquals($limit, $result->getLimit());
 
         $items = array();
         foreach ($result->getResults() as $resultItem) {
@@ -179,7 +179,7 @@ class ResultGeneratorTest extends TestCase
             // Test type, items and positions?
         }
 
-        self::assertEquals($this->buildExpectedValues($values), $items);
+        $this->assertEquals($this->buildExpectedValues($values), $items);
     }
 
     /**
@@ -232,7 +232,7 @@ class ResultGeneratorTest extends TestCase
             0, null, ResultGeneratorInterface::IGNORE_EXCEPTIONS
         );
 
-        self::assertInstanceOf(Result::class, $result);
+        $this->assertInstanceOf(Result::class, $result);
     }
 
     /**
@@ -251,7 +251,7 @@ class ResultGeneratorTest extends TestCase
             0, null, ResultGeneratorInterface::IGNORE_EXCEPTIONS
         );
 
-        self::assertInstanceOf(Result::class, $result);
+        $this->assertInstanceOf(Result::class, $result);
     }
 
     /**

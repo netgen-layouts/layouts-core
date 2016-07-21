@@ -55,7 +55,7 @@ class FormViewNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new FormView($form, 1));
 
-        self::assertEquals(array('form' => 'rendered form view'), $data);
+        $this->assertEquals(array('form' => 'rendered form view'), $data);
     }
 
     /**
@@ -67,7 +67,7 @@ class FormViewNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

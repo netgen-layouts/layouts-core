@@ -32,7 +32,7 @@ class LayoutIdTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             42,
             $this->provider->getValue($item)
         );

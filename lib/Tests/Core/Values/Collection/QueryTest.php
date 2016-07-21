@@ -24,15 +24,15 @@ class QueryTest extends TestCase
     {
         $query = new Query();
 
-        self::assertNull($query->getId());
-        self::assertNull($query->getStatus());
-        self::assertNull($query->getCollectionId());
-        self::assertNull($query->getPosition());
-        self::assertNull($query->getIdentifier());
-        self::assertNull($query->getType());
-        self::assertEquals(array(), $query->getParameters());
-        self::assertNull($query->getParameter('test'));
-        self::assertFalse($query->hasParameter('test'));
+        $this->assertNull($query->getId());
+        $this->assertNull($query->getStatus());
+        $this->assertNull($query->getCollectionId());
+        $this->assertNull($query->getPosition());
+        $this->assertNull($query->getIdentifier());
+        $this->assertNull($query->getType());
+        $this->assertEquals(array(), $query->getParameters());
+        $this->assertNull($query->getParameter('test'));
+        $this->assertFalse($query->hasParameter('test'));
     }
 
     /**
@@ -61,16 +61,16 @@ class QueryTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $query->getId());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $query->getStatus());
-        self::assertEquals(30, $query->getCollectionId());
-        self::assertEquals(3, $query->getPosition());
-        self::assertEquals('my_query', $query->getIdentifier());
-        self::assertEquals('ezcontent_search', $query->getType());
-        self::assertEquals(array('param' => 'value'), $query->getParameters());
-        self::assertNull($query->getParameter('test'));
-        self::assertEquals('value', $query->getParameter('param'));
-        self::assertFalse($query->hasParameter('test'));
-        self::assertTrue($query->hasParameter('param'));
+        $this->assertEquals(42, $query->getId());
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertEquals(30, $query->getCollectionId());
+        $this->assertEquals(3, $query->getPosition());
+        $this->assertEquals('my_query', $query->getIdentifier());
+        $this->assertEquals('ezcontent_search', $query->getType());
+        $this->assertEquals(array('param' => 'value'), $query->getParameters());
+        $this->assertNull($query->getParameter('test'));
+        $this->assertEquals('value', $query->getParameter('param'));
+        $this->assertFalse($query->hasParameter('test'));
+        $this->assertTrue($query->hasParameter('param'));
     }
 }

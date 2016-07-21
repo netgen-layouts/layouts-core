@@ -36,7 +36,7 @@ class RequestUriTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('request_uri', $this->targetType->getType());
+        $this->assertEquals('request_uri', $this->targetType->getType());
     }
 
     /**
@@ -51,7 +51,7 @@ class RequestUriTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->targetType->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**
@@ -59,7 +59,7 @@ class RequestUriTest extends TestCase
      */
     public function testProvideValue()
     {
-        self::assertEquals(
+        $this->assertEquals(
             '/the/answer?a=42',
             $this->targetType->provideValue()
         );
@@ -73,7 +73,7 @@ class RequestUriTest extends TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertNull($this->targetType->provideValue());
+        $this->assertNull($this->targetType->provideValue());
     }
 
     /**

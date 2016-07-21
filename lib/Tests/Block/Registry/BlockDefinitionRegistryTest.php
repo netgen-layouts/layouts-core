@@ -41,7 +41,7 @@ class BlockDefinitionRegistryTest extends TestCase
      */
     public function testAddBlockDefinition()
     {
-        self::assertEquals(array('block_definition' => $this->blockDefinition), $this->registry->getBlockDefinitions());
+        $this->assertEquals(array('block_definition' => $this->blockDefinition), $this->registry->getBlockDefinitions());
     }
 
     /**
@@ -49,7 +49,7 @@ class BlockDefinitionRegistryTest extends TestCase
      */
     public function testGetBlockDefinition()
     {
-        self::assertEquals($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
+        $this->assertEquals($this->blockDefinition, $this->registry->getBlockDefinition('block_definition'));
     }
 
     /**
@@ -66,7 +66,7 @@ class BlockDefinitionRegistryTest extends TestCase
      */
     public function testHasBlockDefinition()
     {
-        self::assertTrue($this->registry->hasBlockDefinition('block_definition'));
+        $this->assertTrue($this->registry->hasBlockDefinition('block_definition'));
     }
 
     /**
@@ -74,6 +74,6 @@ class BlockDefinitionRegistryTest extends TestCase
      */
     public function testHasBlockDefinitionWithNoBlockDefinition()
     {
-        self::assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
+        $this->assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
     }
 }

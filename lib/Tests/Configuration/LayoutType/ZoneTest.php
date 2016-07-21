@@ -23,7 +23,7 @@ class ZoneTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('left', $this->zone->getIdentifier());
+        $this->assertEquals('left', $this->zone->getIdentifier());
     }
 
     /**
@@ -31,7 +31,7 @@ class ZoneTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('Left', $this->zone->getName());
+        $this->assertEquals('Left', $this->zone->getName());
     }
 
     /**
@@ -39,7 +39,7 @@ class ZoneTest extends TestCase
      */
     public function testGetAllowedBlockDefinitions()
     {
-        self::assertEquals(array('title'), $this->zone->getAllowedBlockDefinitions());
+        $this->assertEquals(array('title'), $this->zone->getAllowedBlockDefinitions());
     }
 
     /**
@@ -47,7 +47,7 @@ class ZoneTest extends TestCase
      */
     public function testIsBlockDefinitionAllowed()
     {
-        self::assertTrue($this->zone->isBlockDefinitionAllowed('title'));
+        $this->assertTrue($this->zone->isBlockDefinitionAllowed('title'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ZoneTest extends TestCase
     {
         $this->zone = new Zone('left', 'Left', array());
 
-        self::assertTrue($this->zone->isBlockDefinitionAllowed('title'));
+        $this->assertTrue($this->zone->isBlockDefinitionAllowed('title'));
     }
 
     /**
@@ -65,6 +65,6 @@ class ZoneTest extends TestCase
      */
     public function testIsBlockDefinitionAllowedReturnsFalse()
     {
-        self::assertFalse($this->zone->isBlockDefinitionAllowed('text'));
+        $this->assertFalse($this->zone->isBlockDefinitionAllowed('text'));
     }
 }

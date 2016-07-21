@@ -119,11 +119,11 @@ class DesignEditTypeTest extends FormTestCase
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            self::assertArrayHasKey($key, $children);
+            $this->assertArrayHasKey($key, $children);
         }
 
         foreach (array_keys($submittedData['parameters']) as $key) {
-            self::assertArrayHasKey($key, $children['parameters']);
+            $this->assertArrayHasKey($key, $children['parameters']);
         }
     }
 
@@ -144,8 +144,8 @@ class DesignEditTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($this->blockDefinition, $options['blockDefinition']);
-        self::assertEquals(new BlockUpdateStruct(), $options['data']);
+        $this->assertEquals($this->blockDefinition, $options['blockDefinition']);
+        $this->assertEquals(new BlockUpdateStruct(), $options['data']);
     }
 
     /**

@@ -94,7 +94,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('ngbm_render', $this->extension->getName());
+        $this->assertEquals('ngbm_render', $this->extension->getName());
     }
 
     /**
@@ -103,7 +103,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testGetGlobals()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'ngbm' => $this->globalHelperMock,
             ),
@@ -116,10 +116,10 @@ class RenderingExtensionTest extends TestCase
      */
     public function testGetFunctions()
     {
-        self::assertNotEmpty($this->extension->getFunctions());
+        $this->assertNotEmpty($this->extension->getFunctions());
 
         foreach ($this->extension->getFunctions() as $function) {
-            self::assertInstanceOf(Twig_SimpleFunction::class, $function);
+            $this->assertInstanceOf(Twig_SimpleFunction::class, $function);
         }
     }
 
@@ -128,10 +128,10 @@ class RenderingExtensionTest extends TestCase
      */
     public function testGetTokenParsers()
     {
-        self::assertNotEmpty($this->extension->getTokenParsers());
+        $this->assertNotEmpty($this->extension->getTokenParsers());
 
         foreach ($this->extension->getTokenParsers() as $tokenParser) {
-            self::assertInstanceOf(Twig_TokenParser::class, $tokenParser);
+            $this->assertInstanceOf(Twig_TokenParser::class, $tokenParser);
         }
     }
 
@@ -150,7 +150,7 @@ class RenderingExtensionTest extends TestCase
             )
             ->will($this->returnValue('rendered block'));
 
-        self::assertEquals(
+        $this->assertEquals(
             'rendered block',
             $this->extension->renderBlock(
                 new Block(),
@@ -176,7 +176,7 @@ class RenderingExtensionTest extends TestCase
             )
             ->will($this->throwException(new Exception()));
 
-        self::assertEquals(
+        $this->assertEquals(
             '',
             $this->extension->renderBlock(
                 new Block(),
@@ -227,7 +227,7 @@ class RenderingExtensionTest extends TestCase
             )
             ->will($this->returnValue('rendered item'));
 
-        self::assertEquals(
+        $this->assertEquals(
             'rendered item',
             $this->extension->renderItem(
                 new Item(),
@@ -254,7 +254,7 @@ class RenderingExtensionTest extends TestCase
             )
             ->will($this->throwException(new Exception()));
 
-        self::assertEquals(
+        $this->assertEquals(
             '',
             $this->extension->renderItem(
                 new Item(),
@@ -307,7 +307,7 @@ class RenderingExtensionTest extends TestCase
             )
             ->will($this->returnValue('rendered value'));
 
-        self::assertEquals(
+        $this->assertEquals(
             'rendered value',
             $this->extension->renderValueObject(
                 new Condition(),
@@ -333,7 +333,7 @@ class RenderingExtensionTest extends TestCase
             )
             ->will($this->throwException(new Exception()));
 
-        self::assertEquals(
+        $this->assertEquals(
             '',
             $this->extension->renderValueObject(
                 new Condition(),
@@ -449,7 +449,7 @@ class RenderingExtensionTest extends TestCase
 
         ob_get_clean();
 
-        self::assertEquals(
+        $this->assertEquals(
             'rendered block 1rendered block 2',
             $renderedTemplate
         );

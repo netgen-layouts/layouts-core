@@ -19,6 +19,6 @@ class RequestUriPrefixTest extends RequestUriTest
      */
     public function testGetType()
     {
-        self::assertEquals('request_uri_prefix', $this->targetType->getType());
+        $this->assertEquals('request_uri_prefix', $this->targetType->getType());
     }
 }

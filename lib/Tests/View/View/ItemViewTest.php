@@ -33,8 +33,8 @@ class ItemViewTest extends TestCase
      */
     public function testGetItem()
     {
-        self::assertEquals($this->item, $this->view->getItem());
-        self::assertEquals(
+        $this->assertEquals($this->item, $this->view->getItem());
+        $this->assertEquals(
             array(
                 'param' => 'value',
                 'item' => $this->item,
@@ -49,7 +49,7 @@ class ItemViewTest extends TestCase
      */
     public function testGetViewType()
     {
-        self::assertEquals('view_type', $this->view->getViewType());
+        $this->assertEquals('view_type', $this->view->getViewType());
     }
 
     /**
@@ -57,6 +57,6 @@ class ItemViewTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('item_view', $this->view->getIdentifier());
+        $this->assertEquals('item_view', $this->view->getIdentifier());
     }
 }

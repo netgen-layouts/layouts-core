@@ -35,7 +35,7 @@ class SourceTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('source', $this->source->getIdentifier());
+        $this->assertEquals('source', $this->source->getIdentifier());
     }
 
     /**
@@ -43,7 +43,7 @@ class SourceTest extends TestCase
      */
     public function testGetIsEnabled()
     {
-        self::assertEquals(true, $this->source->isEnabled());
+        $this->assertEquals(true, $this->source->isEnabled());
     }
 
     /**
@@ -51,7 +51,7 @@ class SourceTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('Source', $this->source->getName());
+        $this->assertEquals('Source', $this->source->getName());
     }
 
     /**
@@ -59,7 +59,7 @@ class SourceTest extends TestCase
      */
     public function testGetQueries()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'default' => new Query(
                     'default',
@@ -76,7 +76,7 @@ class SourceTest extends TestCase
      */
     public function testHasQuery()
     {
-        self::assertTrue($this->source->hasQuery('default'));
+        $this->assertTrue($this->source->hasQuery('default'));
     }
 
     /**
@@ -84,7 +84,7 @@ class SourceTest extends TestCase
      */
     public function testHasQueryReturnsFalse()
     {
-        self::assertFalse($this->source->hasQuery('other'));
+        $this->assertFalse($this->source->hasQuery('other'));
     }
 
     /**
@@ -92,7 +92,7 @@ class SourceTest extends TestCase
      */
     public function testGetQuery()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 'default',
                 'ezcontent_search',

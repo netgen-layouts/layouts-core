@@ -106,12 +106,12 @@ class LayoutResolverTest extends TestCase
 
         $resolvedRules = $this->layoutResolver->resolveRules();
 
-        self::assertCount(4, $resolvedRules);
+        $this->assertCount(4, $resolvedRules);
 
         // We can't be sure in what order two rules with same priority will be returned,
         // so just assert the first one and the last one
-        self::assertEquals($rule3, $resolvedRules[0]);
-        self::assertEquals($rule1, $resolvedRules[3]);
+        $this->assertEquals($rule3, $resolvedRules[0]);
+        $this->assertEquals($rule1, $resolvedRules[3]);
     }
 
     /**
@@ -144,7 +144,7 @@ class LayoutResolverTest extends TestCase
             ->with($this->equalTo('target2'), $this->equalTo(84))
             ->will($this->returnValue(array($rule1, $rule2)));
 
-        self::assertEquals(array($rule2, $rule1), $this->layoutResolver->resolveRules());
+        $this->assertEquals(array($rule2, $rule1), $this->layoutResolver->resolveRules());
     }
 
     /**
@@ -159,7 +159,7 @@ class LayoutResolverTest extends TestCase
             ->expects($this->never())
             ->method('matchRules');
 
-        self::assertEmpty($this->layoutResolver->resolveRules());
+        $this->assertEmpty($this->layoutResolver->resolveRules());
     }
 
     /**
@@ -187,7 +187,7 @@ class LayoutResolverTest extends TestCase
             ->with($this->equalTo('target'), $this->equalTo(42))
             ->will($this->returnValue(array($rule1, $rule2)));
 
-        self::assertEquals(array($rule1, $rule2), $this->layoutResolver->matchRules('target', 42));
+        $this->assertEquals(array($rule1, $rule2), $this->layoutResolver->matchRules('target', 42));
     }
 
     /**
@@ -201,7 +201,7 @@ class LayoutResolverTest extends TestCase
             ->with($this->equalTo('target'), $this->equalTo(42))
             ->will($this->returnValue(array()));
 
-        self::assertEmpty($this->layoutResolver->matchRules('target', 42));
+        $this->assertEmpty($this->layoutResolver->matchRules('target', 42));
     }
 
     /**
@@ -235,7 +235,7 @@ class LayoutResolverTest extends TestCase
             ->with($this->equalTo('target', 42))
             ->will($this->returnValue(array($rule)));
 
-        self::assertEquals(
+        $this->assertEquals(
             $layoutId !== null ? array($rule) : array(),
             $this->layoutResolver->matchRules('target', '42')
         );

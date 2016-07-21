@@ -80,13 +80,13 @@ class FormMapperTest extends TestCase
             )
         );
 
-        self::assertCount(1, $this->formBuilder->all());
+        $this->assertCount(1, $this->formBuilder->all());
 
         $form = $this->formBuilder->get('param_name');
 
-        self::assertEquals('parameters[param_name]', $form->getPropertyPath());
-        self::assertEquals('label_prefix.param_name', $form->getOption('label'));
-        self::assertInstanceOf(TextType::class, $form->getType()->getInnerType());
+        $this->assertEquals('parameters[param_name]', $form->getPropertyPath());
+        $this->assertEquals('label_prefix.param_name', $form->getOption('label'));
+        $this->assertInstanceOf(TextType::class, $form->getType()->getInnerType());
     }
 
     /**
@@ -116,16 +116,16 @@ class FormMapperTest extends TestCase
             )
         );
 
-        self::assertCount(1, $this->formBuilder->all());
+        $this->assertCount(1, $this->formBuilder->all());
 
         $form = $this->formBuilder->get('param_name');
 
-        self::assertEquals('parameters[param_name]', $form->getPropertyPath());
-        self::assertEquals('label_prefix.param_name', $form->getOption('label'));
-        self::assertInstanceOf(TextType::class, $form->getType()->getInnerType());
+        $this->assertEquals('parameters[param_name]', $form->getPropertyPath());
+        $this->assertEquals('label_prefix.param_name', $form->getOption('label'));
+        $this->assertInstanceOf(TextType::class, $form->getType()->getInnerType());
 
-        self::assertCount(1, $form->getModelTransformers());
-        self::assertInstanceOf(ParameterFilterDataTransformer::class, $form->getModelTransformers()[0]);
+        $this->assertCount(1, $form->getModelTransformers());
+        $this->assertInstanceOf(ParameterFilterDataTransformer::class, $form->getModelTransformers()[0]);
     }
 
     /**

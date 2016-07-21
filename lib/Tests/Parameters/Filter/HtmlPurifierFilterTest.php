@@ -34,6 +34,6 @@ HTML;
 <a href="http://www.google.com">Google</a>
 HTML;
 
-        self::assertEquals($safeHtml, $this->filter->filter($unsafeHtml));
+        $this->assertEquals($safeHtml, $this->filter->filter($unsafeHtml));
     }
 }

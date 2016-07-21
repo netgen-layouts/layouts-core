@@ -24,8 +24,8 @@ class NullValueConverterTest extends TestCase
      */
     public function testSupports()
     {
-        self::assertTrue($this->valueConverter->supports(new NullValue(42, 'value')));
-        self::assertFalse($this->valueConverter->supports(new stdClass()));
+        $this->assertTrue($this->valueConverter->supports(new NullValue(42, 'value')));
+        $this->assertFalse($this->valueConverter->supports(new stdClass()));
     }
 
     /**
@@ -33,7 +33,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetValueType()
     {
-        self::assertEquals('value', $this->valueConverter->getValueType(new NullValue(42, 'value')));
+        $this->assertEquals('value', $this->valueConverter->getValueType(new NullValue(42, 'value')));
     }
 
     /**
@@ -41,7 +41,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetId()
     {
-        self::assertEquals(42, $this->valueConverter->getId(new NullValue(42, 'value')));
+        $this->assertEquals(42, $this->valueConverter->getId(new NullValue(42, 'value')));
     }
 
     /**
@@ -49,7 +49,7 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('(INVALID ITEM)', $this->valueConverter->getName(new NullValue(42, 'value')));
+        $this->assertEquals('(INVALID ITEM)', $this->valueConverter->getName(new NullValue(42, 'value')));
     }
 
     /**
@@ -57,6 +57,6 @@ class NullValueConverterTest extends TestCase
      */
     public function testGetIsVisible()
     {
-        self::assertTrue($this->valueConverter->getIsVisible(new NullValue(42, 'value')));
+        $this->assertTrue($this->valueConverter->getIsVisible(new NullValue(42, 'value')));
     }
 }

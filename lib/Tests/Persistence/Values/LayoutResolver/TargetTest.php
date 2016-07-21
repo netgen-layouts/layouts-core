@@ -12,11 +12,11 @@ class TargetTest extends TestCase
     {
         $target = new Target();
 
-        self::assertNull($target->id);
-        self::assertNull($target->ruleId);
-        self::assertNull($target->type);
-        self::assertNull($target->value);
-        self::assertNull($target->status);
+        $this->assertNull($target->id);
+        $this->assertNull($target->ruleId);
+        $this->assertNull($target->type);
+        $this->assertNull($target->value);
+        $this->assertNull($target->status);
     }
 
     public function testSetProperties()
@@ -31,10 +31,10 @@ class TargetTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $target->id);
-        self::assertEquals(30, $target->ruleId);
-        self::assertEquals('target', $target->type);
-        self::assertEquals(32, $target->value);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $target->status);
+        $this->assertEquals(42, $target->id);
+        $this->assertEquals(30, $target->ruleId);
+        $this->assertEquals('target', $target->type);
+        $this->assertEquals(32, $target->value);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $target->status);
     }
 }

@@ -11,13 +11,13 @@ class LayoutTest extends TestCase
     {
         $layout = new Layout();
 
-        self::assertNull($layout->id);
-        self::assertNull($layout->type);
-        self::assertNull($layout->name);
-        self::assertNull($layout->shared);
-        self::assertNull($layout->created);
-        self::assertNull($layout->modified);
-        self::assertNull($layout->status);
+        $this->assertNull($layout->id);
+        $this->assertNull($layout->type);
+        $this->assertNull($layout->name);
+        $this->assertNull($layout->shared);
+        $this->assertNull($layout->created);
+        $this->assertNull($layout->modified);
+        $this->assertNull($layout->status);
     }
 
     public function testSetProperties()
@@ -34,12 +34,12 @@ class LayoutTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $layout->id);
-        self::assertEquals('4_zones_a', $layout->type);
-        self::assertEquals('My layout', $layout->name);
-        self::assertEquals(true, $layout->shared);
-        self::assertEquals(123, $layout->created);
-        self::assertEquals(456, $layout->modified);
-        self::assertEquals(Layout::STATUS_PUBLISHED, $layout->status);
+        $this->assertEquals(42, $layout->id);
+        $this->assertEquals('4_zones_a', $layout->type);
+        $this->assertEquals('My layout', $layout->name);
+        $this->assertEquals(true, $layout->shared);
+        $this->assertEquals(123, $layout->created);
+        $this->assertEquals(456, $layout->modified);
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->status);
     }
 }

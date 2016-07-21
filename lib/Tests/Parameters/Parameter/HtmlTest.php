@@ -13,7 +13,7 @@ class HtmlTest extends TestCase
     public function testGetType()
     {
         $parameter = $this->getParameter();
-        self::assertEquals('html', $parameter->getType());
+        $this->assertEquals('html', $parameter->getType());
     }
 
     /**
@@ -27,7 +27,7 @@ class HtmlTest extends TestCase
     public function testValidOptions($options, $resolvedOptions)
     {
         $parameter = $this->getParameter($options);
-        self::assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
     /**

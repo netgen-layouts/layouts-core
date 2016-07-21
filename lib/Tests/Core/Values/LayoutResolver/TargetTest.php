@@ -20,11 +20,11 @@ class TargetTest extends TestCase
     {
         $target = new Target();
 
-        self::assertNull($target->getId());
-        self::assertNull($target->getStatus());
-        self::assertNull($target->getRuleId());
-        self::assertNull($target->getType());
-        self::assertNull($target->getValue());
+        $this->assertNull($target->getId());
+        $this->assertNull($target->getStatus());
+        $this->assertNull($target->getRuleId());
+        $this->assertNull($target->getType());
+        $this->assertNull($target->getValue());
     }
 
     /**
@@ -47,10 +47,10 @@ class TargetTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $target->getId());
-        self::assertEquals(Rule::STATUS_PUBLISHED, $target->getStatus());
-        self::assertEquals(30, $target->getRuleId());
-        self::assertEquals('target', $target->getType());
-        self::assertEquals(32, $target->getValue());
+        $this->assertEquals(42, $target->getId());
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $target->getStatus());
+        $this->assertEquals(30, $target->getRuleId());
+        $this->assertEquals('target', $target->getType());
+        $this->assertEquals(32, $target->getValue());
     }
 }

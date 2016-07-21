@@ -37,11 +37,11 @@ class FormViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\FormViewInterface $view */
         $view = $this->formViewProvider->provideView($form);
 
-        self::assertInstanceOf(FormViewInterface::class, $view);
+        $this->assertInstanceOf(FormViewInterface::class, $view);
 
-        self::assertEquals($form, $view->getForm());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($form, $view->getForm());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'form' => $formView,
             ),
@@ -58,7 +58,7 @@ class FormViewProviderTest extends TestCase
      */
     public function testSupports($value, $supports)
     {
-        self::assertEquals($supports, $this->formViewProvider->supports($value));
+        $this->assertEquals($supports, $this->formViewProvider->supports($value));
     }
 
     /**

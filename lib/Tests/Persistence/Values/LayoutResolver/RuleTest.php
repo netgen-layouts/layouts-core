@@ -11,12 +11,12 @@ class RuleTest extends TestCase
     {
         $rule = new Rule();
 
-        self::assertNull($rule->id);
-        self::assertNull($rule->layoutId);
-        self::assertNull($rule->priority);
-        self::assertNull($rule->enabled);
-        self::assertNull($rule->comment);
-        self::assertNull($rule->status);
+        $this->assertNull($rule->id);
+        $this->assertNull($rule->layoutId);
+        $this->assertNull($rule->priority);
+        $this->assertNull($rule->enabled);
+        $this->assertNull($rule->comment);
+        $this->assertNull($rule->status);
     }
 
     public function testSetProperties()
@@ -32,11 +32,11 @@ class RuleTest extends TestCase
             )
         );
 
-        self::assertEquals(43, $rule->id);
-        self::assertEquals(25, $rule->layoutId);
-        self::assertTrue($rule->enabled);
-        self::assertEquals(3, $rule->priority);
-        self::assertEquals('Comment', $rule->comment);
-        self::assertEquals(Rule::STATUS_DRAFT, $rule->status);
+        $this->assertEquals(43, $rule->id);
+        $this->assertEquals(25, $rule->layoutId);
+        $this->assertTrue($rule->enabled);
+        $this->assertEquals(3, $rule->priority);
+        $this->assertEquals('Comment', $rule->comment);
+        $this->assertEquals(Rule::STATUS_DRAFT, $rule->status);
     }
 }

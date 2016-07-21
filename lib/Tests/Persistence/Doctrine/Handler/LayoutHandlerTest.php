@@ -60,7 +60,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayout()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Layout(
                 array(
                     'id' => 1,
@@ -93,7 +93,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadZone()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Zone(
                 array(
                     'identifier' => 'top',
@@ -124,7 +124,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayouts()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Layout(
                     array(
@@ -182,7 +182,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadSharedLayouts()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Layout(
                     array(
@@ -217,7 +217,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutExists()
     {
-        self::assertTrue($this->layoutHandler->layoutExists(1, Layout::STATUS_PUBLISHED));
+        $this->assertTrue($this->layoutHandler->layoutExists(1, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -226,7 +226,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNotExists()
     {
-        self::assertFalse($this->layoutHandler->layoutExists(999999, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->layoutHandler->layoutExists(999999, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -235,7 +235,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNotExistsInStatus()
     {
-        self::assertFalse($this->layoutHandler->layoutExists(1, Layout::STATUS_ARCHIVED));
+        $this->assertFalse($this->layoutHandler->layoutExists(1, Layout::STATUS_ARCHIVED));
     }
 
     /**
@@ -244,7 +244,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testZoneExists()
     {
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutHandler->zoneExists(1, Layout::STATUS_PUBLISHED, 'left')
         );
     }
@@ -255,7 +255,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testZoneNotExists()
     {
-        self::assertFalse(
+        $this->assertFalse(
             $this->layoutHandler->zoneExists(1, Layout::STATUS_PUBLISHED, 'non_existing')
         );
     }
@@ -266,7 +266,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameExists()
     {
-        self::assertTrue($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_PUBLISHED));
+        $this->assertTrue($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -275,7 +275,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExists()
     {
-        self::assertFalse($this->layoutHandler->layoutNameExists('Non existent', null, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->layoutHandler->layoutNameExists('Non existent', null, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -284,7 +284,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExistsWithExcludedId()
     {
-        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', 1, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', 1, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -293,7 +293,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExistsInStatus()
     {
-        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_ARCHIVED));
+        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_ARCHIVED));
     }
 
     /**
@@ -302,7 +302,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayoutZones()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Zone(
                     array(
@@ -358,7 +358,7 @@ class LayoutHandlerTest extends TestCase
 
         $updatedZone = $this->layoutHandler->linkZone($zone, $linkedZone);
 
-        self::assertEquals(
+        $this->assertEquals(
             new Zone(
                 array(
                     'identifier' => 'top',
@@ -382,7 +382,7 @@ class LayoutHandlerTest extends TestCase
 
         $updatedZone = $this->layoutHandler->removeZoneLink($zone);
 
-        self::assertEquals(
+        $this->assertEquals(
             new Zone(
                 array(
                     'identifier' => 'left',
@@ -413,21 +413,21 @@ class LayoutHandlerTest extends TestCase
             array('first_zone', 'second_zone')
         );
 
-        self::assertInstanceOf(Layout::class, $createdLayout);
+        $this->assertInstanceOf(Layout::class, $createdLayout);
 
-        self::assertEquals(6, $createdLayout->id);
-        self::assertEquals('new_layout', $createdLayout->type);
-        self::assertEquals('New layout', $createdLayout->name);
-        self::assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
-        self::assertTrue($createdLayout->shared);
+        $this->assertEquals(6, $createdLayout->id);
+        $this->assertEquals('new_layout', $createdLayout->type);
+        $this->assertEquals('New layout', $createdLayout->name);
+        $this->assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
+        $this->assertTrue($createdLayout->shared);
 
-        self::assertInternalType('int', $createdLayout->created);
-        self::assertGreaterThan(0, $createdLayout->created);
+        $this->assertInternalType('int', $createdLayout->created);
+        $this->assertGreaterThan(0, $createdLayout->created);
 
-        self::assertInternalType('int', $createdLayout->modified);
-        self::assertGreaterThan(0, $createdLayout->modified);
+        $this->assertInternalType('int', $createdLayout->modified);
+        $this->assertGreaterThan(0, $createdLayout->modified);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Zone(
                     array(
@@ -467,8 +467,8 @@ class LayoutHandlerTest extends TestCase
             $layoutUpdateStruct
         );
 
-        self::assertInstanceOf(Layout::class, $updatedLayout);
-        self::assertEquals('New name', $updatedLayout->name);
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        $this->assertEquals('New name', $updatedLayout->name);
     }
 
     /**
@@ -485,9 +485,9 @@ class LayoutHandlerTest extends TestCase
             $time
         );
 
-        self::assertInstanceOf(Layout::class, $updatedLayout);
-        self::assertEquals($originalLayout->created, $updatedLayout->created);
-        self::assertEquals($time, $updatedLayout->modified);
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        $this->assertEquals($originalLayout->created, $updatedLayout->created);
+        $this->assertEquals($time, $updatedLayout->modified);
     }
 
     /**
@@ -510,18 +510,18 @@ class LayoutHandlerTest extends TestCase
         $copiedLayoutId = $this->layoutHandler->copyLayout(1);
         $copiedLayout = $this->layoutHandler->loadLayout($copiedLayoutId, Layout::STATUS_PUBLISHED);
 
-        self::assertInstanceOf(Layout::class, $copiedLayout);
+        $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(6, $copiedLayout->id);
-        self::assertEquals('4_zones_a', $copiedLayout->type);
-        self::assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
-        self::assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
-        self::assertFalse($copiedLayout->shared);
+        $this->assertEquals(6, $copiedLayout->id);
+        $this->assertEquals('4_zones_a', $copiedLayout->type);
+        $this->assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
+        $this->assertFalse($copiedLayout->shared);
 
-        self::assertGreaterThan(0, $copiedLayout->created);
-        self::assertGreaterThan(0, $copiedLayout->modified);
+        $this->assertGreaterThan(0, $copiedLayout->created);
+        $this->assertGreaterThan(0, $copiedLayout->modified);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Zone(
                     array(
@@ -563,7 +563,7 @@ class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayoutZones($copiedLayout)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Block(
                     array(
@@ -591,7 +591,7 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Block(
                     array(
@@ -646,15 +646,15 @@ class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(7, Layout::STATUS_DRAFT)
         );
 
-        self::assertCount(1, $draftReferences);
-        self::assertEquals(3, $draftReferences[0]->collectionId);
+        $this->assertCount(1, $draftReferences);
+        $this->assertEquals(3, $draftReferences[0]->collectionId);
 
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
         );
 
-        self::assertCount(1, $draftReferences);
-        self::assertEquals(3, $publishedReferences[0]->collectionId);
+        $this->assertCount(1, $draftReferences);
+        $this->assertEquals(3, $publishedReferences[0]->collectionId);
 
         // Second block
 
@@ -662,17 +662,17 @@ class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(8, Layout::STATUS_DRAFT)
         );
 
-        self::assertCount(2, $draftReferences);
-        self::assertContains($draftReferences[0]->collectionId, array(3, 6));
-        self::assertContains($draftReferences[1]->collectionId, array(3, 6));
+        $this->assertCount(2, $draftReferences);
+        $this->assertContains($draftReferences[0]->collectionId, array(3, 6));
+        $this->assertContains($draftReferences[1]->collectionId, array(3, 6));
 
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(8, Layout::STATUS_PUBLISHED)
         );
 
-        self::assertCount(2, $draftReferences);
-        self::assertContains($publishedReferences[0]->collectionId, array(3, 7));
-        self::assertContains($publishedReferences[1]->collectionId, array(3, 7));
+        $this->assertCount(2, $draftReferences);
+        $this->assertContains($publishedReferences[0]->collectionId, array(3, 7));
+        $this->assertContains($publishedReferences[1]->collectionId, array(3, 7));
     }
 
     /**
@@ -697,18 +697,18 @@ class LayoutHandlerTest extends TestCase
             Layout::STATUS_ARCHIVED
         );
 
-        self::assertInstanceOf(Layout::class, $copiedLayout);
+        $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        self::assertEquals(1, $copiedLayout->id);
-        self::assertEquals('4_zones_a', $copiedLayout->type);
-        self::assertEquals('My layout', $copiedLayout->name);
-        self::assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->status);
-        self::assertFalse($copiedLayout->shared);
+        $this->assertEquals(1, $copiedLayout->id);
+        $this->assertEquals('4_zones_a', $copiedLayout->type);
+        $this->assertEquals('My layout', $copiedLayout->name);
+        $this->assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->status);
+        $this->assertFalse($copiedLayout->shared);
 
-        self::assertGreaterThan(0, $copiedLayout->created);
-        self::assertGreaterThan(0, $copiedLayout->modified);
+        $this->assertGreaterThan(0, $copiedLayout->created);
+        $this->assertGreaterThan(0, $copiedLayout->modified);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Zone(
                     array(
@@ -750,7 +750,7 @@ class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayoutZones($copiedLayout)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Block(
                     array(
@@ -774,7 +774,7 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Block(
                     array(
@@ -821,16 +821,16 @@ class LayoutHandlerTest extends TestCase
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(1, Layout::STATUS_ARCHIVED)
         );
-        self::assertCount(2, $archivedReferences);
-        self::assertContains($archivedReferences[0]->collectionId, array(2, 3));
-        self::assertContains($archivedReferences[1]->collectionId, array(2, 3));
+        $this->assertCount(2, $archivedReferences);
+        $this->assertContains($archivedReferences[0]->collectionId, array(2, 3));
+        $this->assertContains($archivedReferences[1]->collectionId, array(2, 3));
 
         // Second block
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(2, Layout::STATUS_ARCHIVED)
         );
-        self::assertCount(1, $archivedReferences);
-        self::assertEquals(3, $archivedReferences[0]->collectionId);
+        $this->assertCount(1, $archivedReferences);
+        $this->assertEquals(3, $archivedReferences[0]->collectionId);
     }
 
     /**
@@ -898,16 +898,16 @@ class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED)
         );
 
-        self::assertCount(2, $publishedReferences);
-        self::assertContains($publishedReferences[0]->collectionId, array(2, 3));
-        self::assertContains($publishedReferences[1]->collectionId, array(2, 3));
+        $this->assertCount(2, $publishedReferences);
+        $this->assertContains($publishedReferences[0]->collectionId, array(2, 3));
+        $this->assertContains($publishedReferences[1]->collectionId, array(2, 3));
 
         // Second block
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(2, Layout::STATUS_PUBLISHED)
         );
 
-        self::assertCount(1, $publishedReferences);
-        self::assertEquals(3, $publishedReferences[0]->collectionId);
+        $this->assertCount(1, $publishedReferences);
+        $this->assertEquals(3, $publishedReferences[0]->collectionId);
     }
 }

@@ -71,7 +71,7 @@ class ItemBuilderTest extends TestCase
             array(new ValueConverter())
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             $item,
             $builder->buildFromObject($value)
         );
@@ -102,7 +102,7 @@ class ItemBuilderTest extends TestCase
             array(new ValueConverter())
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             $item,
             $builder->build(42, 'value')
         );
@@ -124,7 +124,7 @@ class ItemBuilderTest extends TestCase
         );
 
         $item = $builder->build(42, 'value');
-        self::assertInstanceOf(NullValue::class, $item->getObject());
+        $this->assertInstanceOf(NullValue::class, $item->getObject());
     }
 
     /**
@@ -145,7 +145,7 @@ class ItemBuilderTest extends TestCase
         );
 
         $item = $builder->build(42, 'value');
-        self::assertInstanceOf(NullValue::class, $item->getObject());
+        $this->assertInstanceOf(NullValue::class, $item->getObject());
     }
 
     /**

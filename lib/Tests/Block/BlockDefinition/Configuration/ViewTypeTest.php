@@ -31,7 +31,7 @@ class ViewTypeTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('large', $this->viewType->getIdentifier());
+        $this->assertEquals('large', $this->viewType->getIdentifier());
     }
 
     /**
@@ -39,7 +39,7 @@ class ViewTypeTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('Large', $this->viewType->getName());
+        $this->assertEquals('Large', $this->viewType->getName());
     }
 
     /**
@@ -47,7 +47,7 @@ class ViewTypeTest extends TestCase
      */
     public function testGetItemViewTypes()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'standard' => new ItemViewType('standard', 'Standard'),
                 'standard_with_intro' => new ItemViewType('standard_with_intro', 'Standard with intro'),
@@ -61,8 +61,8 @@ class ViewTypeTest extends TestCase
      */
     public function testHasItemViewType()
     {
-        self::assertTrue($this->viewType->hasItemViewType('standard'));
-        self::assertFalse($this->viewType->hasItemViewType('unknown'));
+        $this->assertTrue($this->viewType->hasItemViewType('standard'));
+        $this->assertFalse($this->viewType->hasItemViewType('unknown'));
     }
 
     /**
@@ -70,7 +70,7 @@ class ViewTypeTest extends TestCase
      */
     public function testGetItemViewType()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new ItemViewType('standard', 'Standard'),
             $this->viewType->getItemViewType('standard')
         );

@@ -33,7 +33,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('Query type', $this->configuration->getName());
+        $this->assertEquals('Query type', $this->configuration->getName());
     }
 
     /**
@@ -41,7 +41,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetForms()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'full' => new Form('full', 'form_type', true, array('param1', 'param2')),
             ),
@@ -54,8 +54,8 @@ class ConfigurationTest extends TestCase
      */
     public function testHasForm()
     {
-        self::assertTrue($this->configuration->hasForm('full'));
-        self::assertFalse($this->configuration->hasForm('unknown'));
+        $this->assertTrue($this->configuration->hasForm('full'));
+        $this->assertFalse($this->configuration->hasForm('unknown'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetForm()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Form('full', 'form_type', true, array('param1', 'param2')),
             $this->configuration->getForm('full')
         );
@@ -83,7 +83,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetDefaults()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'parameters' => array('parent_location_id' => 2),
             ),
@@ -96,6 +96,6 @@ class ConfigurationTest extends TestCase
      */
     public function testGetDefaultParameters()
     {
-        self::assertEquals(array('parent_location_id' => 2), $this->configuration->getDefaultParameters());
+        $this->assertEquals(array('parent_location_id' => 2), $this->configuration->getDefaultParameters());
     }
 }

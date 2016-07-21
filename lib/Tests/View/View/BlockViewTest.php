@@ -46,7 +46,7 @@ class BlockViewTest extends TestCase
      */
     public function testGetBlock()
     {
-        self::assertEquals($this->block, $this->view->getBlock());
+        $this->assertEquals($this->block, $this->view->getBlock());
     }
 
     /**
@@ -54,7 +54,7 @@ class BlockViewTest extends TestCase
      */
     public function testGetBlockDefinition()
     {
-        self::assertEquals($this->blockDefinition, $this->view->getBlockDefinition());
+        $this->assertEquals($this->blockDefinition, $this->view->getBlockDefinition());
     }
 
     /**
@@ -62,7 +62,7 @@ class BlockViewTest extends TestCase
      */
     public function testGetParameters()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'param' => 'value',
                 'block' => $this->block,
@@ -77,6 +77,6 @@ class BlockViewTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('block_view', $this->view->getIdentifier());
+        $this->assertEquals('block_view', $this->view->getIdentifier());
     }
 }

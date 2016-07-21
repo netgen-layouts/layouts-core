@@ -31,7 +31,7 @@ class ItemTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('ngbm_layout', $this->item->getType());
+        $this->assertEquals('ngbm_layout', $this->item->getType());
     }
 
     /**
@@ -39,7 +39,7 @@ class ItemTest extends TestCase
      */
     public function testGetValue()
     {
-        self::assertEquals(42, $this->item->getValue());
+        $this->assertEquals(42, $this->item->getValue());
     }
 
     /**
@@ -47,7 +47,7 @@ class ItemTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('My layout', $this->item->getName());
+        $this->assertEquals('My layout', $this->item->getName());
     }
 
     /**
@@ -55,7 +55,7 @@ class ItemTest extends TestCase
      */
     public function testGetParentId()
     {
-        self::assertEquals(0, $this->item->getParentId());
+        $this->assertEquals(0, $this->item->getParentId());
     }
 
     /**
@@ -63,7 +63,7 @@ class ItemTest extends TestCase
      */
     public function testIsVisible()
     {
-        self::assertTrue($this->item->isVisible());
+        $this->assertTrue($this->item->isVisible());
     }
 
     /**
@@ -71,6 +71,6 @@ class ItemTest extends TestCase
      */
     public function testGetLayout()
     {
-        self::assertEquals($this->layout, $this->item->getLayout());
+        $this->assertEquals($this->layout, $this->item->getLayout());
     }
 }

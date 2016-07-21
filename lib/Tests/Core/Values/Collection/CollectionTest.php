@@ -24,14 +24,14 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection();
 
-        self::assertNull($collection->getId());
-        self::assertNull($collection->getStatus());
-        self::assertNull($collection->getType());
-        self::assertNull($collection->getName());
-        self::assertEquals(array(), $collection->getItems());
-        self::assertEquals(array(), $collection->getManualItems());
-        self::assertEquals(array(), $collection->getOverrideItems());
-        self::assertEquals(array(), $collection->getQueries());
+        $this->assertNull($collection->getId());
+        $this->assertNull($collection->getStatus());
+        $this->assertNull($collection->getType());
+        $this->assertNull($collection->getName());
+        $this->assertEquals(array(), $collection->getItems());
+        $this->assertEquals(array(), $collection->getManualItems());
+        $this->assertEquals(array(), $collection->getOverrideItems());
+        $this->assertEquals(array(), $collection->getQueries());
     }
 
     /**
@@ -63,20 +63,20 @@ class CollectionTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $collection->getId());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $collection->getStatus());
-        self::assertEquals(Collection::TYPE_NAMED, $collection->getType());
-        self::assertEquals('My collection', $collection->getName());
-        self::assertCount(2, $collection->getItems());
-        self::assertCount(1, $collection->getManualItems());
-        self::assertCount(1, $collection->getOverrideItems());
-        self::assertCount(1, $collection->getQueries());
+        $this->assertEquals(42, $collection->getId());
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertEquals(Collection::TYPE_NAMED, $collection->getType());
+        $this->assertEquals('My collection', $collection->getName());
+        $this->assertCount(2, $collection->getItems());
+        $this->assertCount(1, $collection->getManualItems());
+        $this->assertCount(1, $collection->getOverrideItems());
+        $this->assertCount(1, $collection->getQueries());
 
-        self::assertEquals(Item::TYPE_MANUAL, $collection->getItems()[0]->getType());
-        self::assertEquals(Item::TYPE_OVERRIDE, $collection->getItems()[1]->getType());
-        self::assertEquals(Item::TYPE_MANUAL, $collection->getManualItems()[3]->getType());
-        self::assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItems()[5]->getType());
+        $this->assertEquals(Item::TYPE_MANUAL, $collection->getItems()[0]->getType());
+        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getItems()[1]->getType());
+        $this->assertEquals(Item::TYPE_MANUAL, $collection->getManualItems()[3]->getType());
+        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItems()[5]->getType());
 
-        self::assertEquals('my_query', $collection->getQueries()[0]->getIdentifier());
+        $this->assertEquals('my_query', $collection->getQueries()[0]->getIdentifier());
     }
 }

@@ -50,9 +50,9 @@ class PositionHelperTest extends TestCase
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1);
 
-        self::assertEquals(1, $newPosition);
+        $this->assertEquals(1, $newPosition);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(0, 2, 3),
             $this->getPositionData()
         );
@@ -67,9 +67,9 @@ class PositionHelperTest extends TestCase
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions());
 
-        self::assertEquals(3, $newPosition);
+        $this->assertEquals(3, $newPosition);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(0, 1, 2),
             $this->getPositionData()
         );
@@ -101,7 +101,7 @@ class PositionHelperTest extends TestCase
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 0, 2);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(0, 0, 1),
             $this->getPositionData()
         );
@@ -115,7 +115,7 @@ class PositionHelperTest extends TestCase
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 2, 0);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(1, 2, 2),
             $this->getPositionData()
         );
@@ -161,7 +161,7 @@ class PositionHelperTest extends TestCase
 
         $this->positionHelper->removePosition($this->getPositionHelperConditions(), 1);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(0, 1),
             $this->getPositionData()
         );
@@ -173,7 +173,7 @@ class PositionHelperTest extends TestCase
      */
     public function testGetNextPosition()
     {
-        self::assertEquals(3, $this->positionHelper->getNextPosition($this->getPositionHelperConditions()));
+        $this->assertEquals(3, $this->positionHelper->getNextPosition($this->getPositionHelperConditions()));
     }
 
     /**

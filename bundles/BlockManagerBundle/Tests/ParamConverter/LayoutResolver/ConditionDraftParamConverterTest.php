@@ -32,7 +32,7 @@ class ConditionDraftParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('conditionId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('conditionId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -40,7 +40,7 @@ class ConditionDraftParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('condition', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('condition', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -48,7 +48,7 @@ class ConditionDraftParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APIConditionDraft::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APIConditionDraft::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -65,6 +65,6 @@ class ConditionDraftParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        self::assertEquals($layout, $this->paramConverter->loadValueObject(array('conditionId' => 42)));
+        $this->assertEquals($layout, $this->paramConverter->loadValueObject(array('conditionId' => 42)));
     }
 }

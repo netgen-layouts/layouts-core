@@ -80,7 +80,7 @@ class LayoutResolverListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::REQUEST => array('onKernelRequest', -255)),
             $this->listener->getSubscribedEvents()
         );
@@ -128,7 +128,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertEquals($layoutView, $this->globalHelper->getLayoutView());
+        $this->assertEquals($layoutView, $this->globalHelper->getLayoutView());
     }
 
     /**
@@ -155,7 +155,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -182,7 +182,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -208,7 +208,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -235,6 +235,6 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalHelper->getLayoutView());
     }
 }

@@ -15,8 +15,8 @@ class PathInfoTest extends AbstractTargetHandlerTest
     {
         $rules = $this->handler->matchRules($this->getTargetIdentifier(), '/the/answer');
 
-        self::assertCount(1, $rules);
-        self::assertEquals(7, $rules[0]->id);
+        $this->assertCount(1, $rules);
+        $this->assertEquals(7, $rules[0]->id);
     }
 
     /**

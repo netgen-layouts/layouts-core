@@ -81,7 +81,7 @@ class CollectionNormalizerTest extends TestCase
             )
             ->will($this->returnValue(array('queries')));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
@@ -102,7 +102,7 @@ class CollectionNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

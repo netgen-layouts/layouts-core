@@ -42,7 +42,7 @@ class DefinitionTest extends TestCase
             $this->createMock(BlockDefinitionInterface::class)
         );
 
-        self::assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -66,6 +66,6 @@ class DefinitionTest extends TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        self::assertFalse($this->matcher->match(new View(new Value()), array()));
+        $this->assertFalse($this->matcher->match(new View(new Value()), array()));
     }
 }

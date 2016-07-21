@@ -50,7 +50,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testLoadCollection()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Collection(
                 array(
                     'id' => 1,
@@ -81,11 +81,11 @@ class CollectionHandlerTest extends TestCase
     {
         $collections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_PUBLISHED);
 
-        self::assertNotEmpty($collections);
+        $this->assertNotEmpty($collections);
 
         foreach ($collections as $collection) {
-            self::assertInstanceOf(Collection::class, $collection);
-            self::assertEquals(Collection::TYPE_NAMED, $collection->type);
+            $this->assertInstanceOf(Collection::class, $collection);
+            $this->assertEquals(Collection::TYPE_NAMED, $collection->type);
         }
     }
 
@@ -97,7 +97,7 @@ class CollectionHandlerTest extends TestCase
     {
         $collections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_ARCHIVED);
 
-        self::assertEmpty($collections);
+        $this->assertEmpty($collections);
     }
 
     /**
@@ -107,7 +107,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testLoadItem()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Item(
                 array(
                     'id' => 1,
@@ -143,10 +143,10 @@ class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT)
         );
 
-        self::assertNotEmpty($items);
+        $this->assertNotEmpty($items);
 
         foreach ($items as $item) {
-            self::assertInstanceOf(Item::class, $item);
+            $this->assertInstanceOf(Item::class, $item);
         }
     }
 
@@ -157,7 +157,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testLoadQuery()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 1,
@@ -199,10 +199,10 @@ class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED)
         );
 
-        self::assertNotEmpty($queries);
+        $this->assertNotEmpty($queries);
 
         foreach ($queries as $query) {
-            self::assertInstanceOf(Query::class, $query);
+            $this->assertInstanceOf(Query::class, $query);
         }
     }
 
@@ -212,7 +212,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCollectionExists()
     {
-        self::assertTrue($this->collectionHandler->collectionExists(1, Collection::STATUS_DRAFT));
+        $this->assertTrue($this->collectionHandler->collectionExists(1, Collection::STATUS_DRAFT));
     }
 
     /**
@@ -221,7 +221,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExists()
     {
-        self::assertFalse($this->collectionHandler->collectionExists(999999, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->collectionExists(999999, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -230,7 +230,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->collectionExists(1, Collection::STATUS_ARCHIVED));
+        $this->assertFalse($this->collectionHandler->collectionExists(1, Collection::STATUS_ARCHIVED));
     }
 
     /**
@@ -239,7 +239,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testIsNamedCollection()
     {
-        self::assertTrue($this->collectionHandler->isNamedCollection(3, Collection::STATUS_PUBLISHED));
+        $this->assertTrue($this->collectionHandler->isNamedCollection(3, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -248,7 +248,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testIsNamedCollectionReturnsFalse()
     {
-        self::assertFalse($this->collectionHandler->isNamedCollection(2, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->isNamedCollection(2, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -257,7 +257,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionExists()
     {
-        self::assertTrue($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_PUBLISHED));
+        $this->assertTrue($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -266,7 +266,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionNotExists()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('Non existent', null, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->namedCollectionExists('Non existent', null, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -275,7 +275,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionNotExistsWithExcludedId()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', 3, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->namedCollectionExists('My collection', 3, Collection::STATUS_PUBLISHED));
     }
 
     /**
@@ -284,7 +284,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testNamedCollectionNotExistsInStatus()
     {
-        self::assertFalse($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_ARCHIVED));
+        $this->assertFalse($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_ARCHIVED));
     }
 
     /**
@@ -313,14 +313,14 @@ class CollectionHandlerTest extends TestCase
             Collection::STATUS_DRAFT
         );
 
-        self::assertInstanceOf(Collection::class, $createdCollection);
+        $this->assertInstanceOf(Collection::class, $createdCollection);
 
-        self::assertEquals(6, $createdCollection->id);
-        self::assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
-        self::assertEquals('New collection', $createdCollection->name);
-        self::assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
+        $this->assertEquals(6, $createdCollection->id);
+        $this->assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
+        $this->assertEquals('New collection', $createdCollection->name);
+        $this->assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
 
-        self::assertEquals(
+        $this->assertEquals(
             new Item(
                 array(
                     'id' => 13,
@@ -335,7 +335,7 @@ class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadItem(13, Collection::STATUS_DRAFT)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 5,
@@ -365,12 +365,12 @@ class CollectionHandlerTest extends TestCase
             $collectionUpdateStruct
         );
 
-        self::assertInstanceOf(Collection::class, $updatedCollection);
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
 
-        self::assertEquals(3, $updatedCollection->id);
-        self::assertEquals(Collection::TYPE_NAMED, $updatedCollection->type);
-        self::assertEquals('Updated collection', $updatedCollection->name);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $updatedCollection->status);
+        $this->assertEquals(3, $updatedCollection->id);
+        $this->assertEquals(Collection::TYPE_NAMED, $updatedCollection->type);
+        $this->assertEquals('Updated collection', $updatedCollection->name);
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
     /**
@@ -391,9 +391,9 @@ class CollectionHandlerTest extends TestCase
             $queryCreateStruct
         );
 
-        self::assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
 
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 5,
@@ -422,12 +422,12 @@ class CollectionHandlerTest extends TestCase
             Collection::TYPE_MANUAL
         );
 
-        self::assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
-        self::assertEmpty($this->collectionHandler->loadCollectionQueries($collection));
+        $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
+        $this->assertEmpty($this->collectionHandler->loadCollectionQueries($collection));
 
         $items = $this->collectionHandler->loadCollectionItems($collection);
         foreach ($items as $index => $item) {
-            self::assertEquals($index, $item->position);
+            $this->assertEquals($index, $item->position);
         }
     }
 
@@ -444,16 +444,16 @@ class CollectionHandlerTest extends TestCase
     {
         $copiedCollectionId = $this->collectionHandler->copyCollection(3);
 
-        self::assertEquals(6, $copiedCollectionId);
+        $this->assertEquals(6, $copiedCollectionId);
 
         $copiedCollection = $this->collectionHandler->loadCollection($copiedCollectionId, Collection::STATUS_PUBLISHED);
 
-        self::assertInstanceOf(Collection::class, $copiedCollection);
-        self::assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
-        self::assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->name);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->status);
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
+        $this->assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
+        $this->assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->name);
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->status);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Item(
                     array(
@@ -492,7 +492,7 @@ class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Query(
                     array(
@@ -549,14 +549,14 @@ class CollectionHandlerTest extends TestCase
             Collection::STATUS_ARCHIVED
         );
 
-        self::assertInstanceOf(Collection::class, $copiedCollection);
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
 
-        self::assertEquals(3, $copiedCollection->id);
-        self::assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
-        self::assertEquals('My collection', $copiedCollection->name);
-        self::assertEquals(Collection::STATUS_ARCHIVED, $copiedCollection->status);
+        $this->assertEquals(3, $copiedCollection->id);
+        $this->assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
+        $this->assertEquals('My collection', $copiedCollection->name);
+        $this->assertEquals(Collection::STATUS_ARCHIVED, $copiedCollection->status);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Item(
                     array(
@@ -595,7 +595,7 @@ class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Query(
                     array(
@@ -682,7 +682,7 @@ class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
-        self::assertEquals(
+        $this->assertEquals(
             new Item(
                 array(
                     'id' => 13,
@@ -702,7 +702,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT);
-        self::assertEquals(2, $secondItem->position);
+        $this->assertEquals(2, $secondItem->position);
     }
 
     /**
@@ -716,7 +716,7 @@ class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
-        self::assertEquals(
+        $this->assertEquals(
             new Item(
                 array(
                     'id' => 13,
@@ -780,7 +780,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveItem()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Item(
                 array(
                     'id' => 1,
@@ -799,7 +799,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT);
-        self::assertEquals(0, $firstItem->position);
+        $this->assertEquals(0, $firstItem->position);
     }
 
     /**
@@ -809,7 +809,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveItemToLowerPosition()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Item(
                 array(
                     'id' => 2,
@@ -828,7 +828,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $firstItem = $this->collectionHandler->loadItem(1, Collection::STATUS_DRAFT);
-        self::assertEquals(1, $firstItem->position);
+        $this->assertEquals(1, $firstItem->position);
     }
 
     /**
@@ -871,7 +871,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $secondItem = $this->collectionHandler->loadItem(3, Collection::STATUS_DRAFT);
-        self::assertEquals(1, $secondItem->position);
+        $this->assertEquals(1, $secondItem->position);
 
         try {
             $this->collectionHandler->loadItem(2, Collection::STATUS_DRAFT);
@@ -887,7 +887,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testQueryIdentifierExists()
     {
-        self::assertTrue(
+        $this->assertTrue(
             $this->collectionHandler->queryIdentifierExists(
                 $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
                 'default'
@@ -901,7 +901,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testQueryIdentifierNotExists()
     {
-        self::assertFalse(
+        $this->assertFalse(
             $this->collectionHandler->queryIdentifierExists(
                 $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
                 'featured'
@@ -920,7 +920,7 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->setParameter('param', 'value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 5,
@@ -940,7 +940,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $secondQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
-        self::assertEquals(2, $secondQuery->position);
+        $this->assertEquals(2, $secondQuery->position);
     }
 
     /**
@@ -954,7 +954,7 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->setParameter('param', 'value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 5,
@@ -1022,7 +1022,7 @@ class CollectionHandlerTest extends TestCase
         $queryUpdateStruct->setParameter('parent_location_id', 3);
         $queryUpdateStruct->setParameter('some_param', 'Some value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 1,
@@ -1055,7 +1055,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveQuery()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 2,
@@ -1080,7 +1080,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $firstQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
-        self::assertEquals(0, $firstQuery->position);
+        $this->assertEquals(0, $firstQuery->position);
     }
 
     /**
@@ -1090,7 +1090,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testMoveQueryToLowerPosition()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Query(
                 array(
                     'id' => 3,
@@ -1115,7 +1115,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $firstQuery = $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED);
-        self::assertEquals(1, $firstQuery->position);
+        $this->assertEquals(1, $firstQuery->position);
     }
 
     /**
@@ -1158,7 +1158,7 @@ class CollectionHandlerTest extends TestCase
         );
 
         $secondQuery = $this->collectionHandler->loadQuery(3, Collection::STATUS_PUBLISHED);
-        self::assertEquals(0, $secondQuery->position);
+        $this->assertEquals(0, $secondQuery->position);
 
         try {
             $this->collectionHandler->loadQuery(2, Collection::STATUS_PUBLISHED);

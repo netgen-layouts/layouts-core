@@ -72,10 +72,10 @@ class ParametersTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        self::assertArrayHasKey('parameters', $children);
+        $this->assertArrayHasKey('parameters', $children);
 
         foreach (array_keys($submittedData['parameters']) as $key) {
-            self::assertArrayHasKey($key, $children['parameters']);
+            $this->assertArrayHasKey($key, $children['parameters']);
         }
     }
 
@@ -96,7 +96,7 @@ class ParametersTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'inherit_data' => true,
                 'parameters' => array(),

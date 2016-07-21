@@ -93,7 +93,7 @@ class BlockValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->blockValidator->validateBlockCreateStruct(new BlockCreateStruct($params))
         );
     }
@@ -122,7 +122,7 @@ class BlockValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->blockValidator->validateBlockUpdateStruct(
                 new Block(
                     array(

@@ -36,7 +36,7 @@ class PathInfoTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('path_info', $this->targetType->getType());
+        $this->assertEquals('path_info', $this->targetType->getType());
     }
 
     /**
@@ -51,7 +51,7 @@ class PathInfoTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->targetType->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**
@@ -59,7 +59,7 @@ class PathInfoTest extends TestCase
      */
     public function testProvideValue()
     {
-        self::assertEquals(
+        $this->assertEquals(
             '/the/answer',
             $this->targetType->provideValue()
         );
@@ -73,7 +73,7 @@ class PathInfoTest extends TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertNull($this->targetType->provideValue());
+        $this->assertNull($this->targetType->provideValue());
     }
 
     /**

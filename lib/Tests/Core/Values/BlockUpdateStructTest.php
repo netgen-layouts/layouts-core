@@ -11,9 +11,9 @@ class BlockUpdateStructTest extends TestCase
     {
         $blockUpdateStruct = new BlockUpdateStruct();
 
-        self::assertNull($blockUpdateStruct->viewType);
-        self::assertNull($blockUpdateStruct->itemViewType);
-        self::assertNull($blockUpdateStruct->name);
+        $this->assertNull($blockUpdateStruct->viewType);
+        $this->assertNull($blockUpdateStruct->itemViewType);
+        $this->assertNull($blockUpdateStruct->name);
     }
 
     public function testSetProperties()
@@ -26,8 +26,8 @@ class BlockUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('default', $blockUpdateStruct->viewType);
-        self::assertEquals('standard', $blockUpdateStruct->itemViewType);
-        self::assertEquals('My block', $blockUpdateStruct->name);
+        $this->assertEquals('default', $blockUpdateStruct->viewType);
+        $this->assertEquals('standard', $blockUpdateStruct->itemViewType);
+        $this->assertEquals('My block', $blockUpdateStruct->name);
     }
 }

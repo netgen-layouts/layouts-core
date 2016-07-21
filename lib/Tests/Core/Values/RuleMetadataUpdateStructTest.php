@@ -11,7 +11,7 @@ class RuleMetadataUpdateStructTest extends TestCase
     {
         $ruleUpdateStruct = new RuleMetadataUpdateStruct();
 
-        self::assertNull($ruleUpdateStruct->priority);
+        $this->assertNull($ruleUpdateStruct->priority);
     }
 
     public function testSetProperties()
@@ -22,6 +22,6 @@ class RuleMetadataUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $ruleUpdateStruct->priority);
+        $this->assertEquals(42, $ruleUpdateStruct->priority);
     }
 }

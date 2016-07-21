@@ -56,8 +56,8 @@ class QueryRunnerTest extends TestCase
         $results = $this->queryRunner->runQueries($query, $offset, $limit);
         $resultCount = $this->queryRunner->getTotalCount($query);
 
-        self::assertEquals($expectedResult, $results);
-        self::assertEquals(9, $resultCount);
+        $this->assertEquals($expectedResult, $results);
+        $this->assertEquals(9, $resultCount);
     }
 
     /**
@@ -121,8 +121,8 @@ class QueryRunnerTest extends TestCase
         $results = $this->queryRunner->runQueries($queries, $offset, $limit);
         $resultCount = $this->queryRunner->getTotalCount($queries);
 
-        self::assertEquals($expectedResult, $results);
-        self::assertEquals(29, $resultCount);
+        $this->assertEquals($expectedResult, $results);
+        $this->assertEquals(29, $resultCount);
     }
 
     /**
@@ -131,8 +131,8 @@ class QueryRunnerTest extends TestCase
      */
     public function testRunEmptyQueries()
     {
-        self::assertEquals(array(), $this->queryRunner->runQueries(array()));
-        self::assertEquals(0, $this->queryRunner->getTotalCount(array()));
+        $this->assertEquals(array(), $this->queryRunner->runQueries(array()));
+        $this->assertEquals(0, $this->queryRunner->getTotalCount(array()));
     }
 
     public function runSingleQueryProvider()

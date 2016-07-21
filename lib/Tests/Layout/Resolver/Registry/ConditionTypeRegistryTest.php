@@ -32,7 +32,7 @@ class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionTypes()
     {
-        self::assertEquals(array('type' => $this->conditionType), $this->registry->getConditionTypes());
+        $this->assertEquals(array('type' => $this->conditionType), $this->registry->getConditionTypes());
     }
 
     /**
@@ -40,7 +40,7 @@ class ConditionTypeRegistryTest extends TestCase
      */
     public function testGetConditionType()
     {
-        self::assertEquals($this->conditionType, $this->registry->getConditionType('type'));
+        $this->assertEquals($this->conditionType, $this->registry->getConditionType('type'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ConditionTypeRegistryTest extends TestCase
      */
     public function testHasConditionType()
     {
-        self::assertTrue($this->registry->hasConditionType('type'));
+        $this->assertTrue($this->registry->hasConditionType('type'));
     }
 
     /**
@@ -65,6 +65,6 @@ class ConditionTypeRegistryTest extends TestCase
      */
     public function testHasConditionTypeWithNoConditionType()
     {
-        self::assertFalse($this->registry->hasConditionType('other_type'));
+        $this->assertFalse($this->registry->hasConditionType('other_type'));
     }
 }

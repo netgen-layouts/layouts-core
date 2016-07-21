@@ -69,7 +69,7 @@ class TemplateResolverTest extends TestCase
             $viewConfiguration
         );
 
-        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
+        $this->assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
     }
 
     /**
@@ -94,7 +94,7 @@ class TemplateResolverTest extends TestCase
             $viewConfiguration
         );
 
-        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
+        $this->assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
     }
 
     /**
@@ -123,7 +123,7 @@ class TemplateResolverTest extends TestCase
             $viewConfiguration
         );
 
-        self::assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
+        $this->assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
     }
 
     /**

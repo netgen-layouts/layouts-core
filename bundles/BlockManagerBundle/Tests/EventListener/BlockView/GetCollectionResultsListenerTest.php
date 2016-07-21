@@ -57,7 +57,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(ViewEvents::BUILD_VIEW => 'onBuildView'),
             $this->listener->getSubscribedEvents()
         );
@@ -119,7 +119,7 @@ class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'collections' => array(
                     'collection1' => new Result(array('collection' => new Collection())),
@@ -140,7 +140,7 @@ class GetCollectionResultsListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        self::assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getViewParameters());
     }
 
     /**
@@ -161,6 +161,6 @@ class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        self::assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getViewParameters());
     }
 }

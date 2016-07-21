@@ -23,13 +23,13 @@ class LayoutInfoTest extends TestCase
     {
         $layout = new LayoutInfo();
 
-        self::assertNull($layout->getId());
-        self::assertNull($layout->getType());
-        self::assertNull($layout->getName());
-        self::assertNull($layout->getCreated());
-        self::assertNull($layout->getModified());
-        self::assertNull($layout->getStatus());
-        self::assertNull($layout->isShared());
+        $this->assertNull($layout->getId());
+        $this->assertNull($layout->getType());
+        $this->assertNull($layout->getName());
+        $this->assertNull($layout->getCreated());
+        $this->assertNull($layout->getModified());
+        $this->assertNull($layout->getStatus());
+        $this->assertNull($layout->isShared());
     }
 
     /**
@@ -62,12 +62,12 @@ class LayoutInfoTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $layout->getId());
-        self::assertEquals('4_zones_a', $layout->getType());
-        self::assertEquals('My layout', $layout->getName());
-        self::assertEquals($createdDate, $layout->getCreated());
-        self::assertEquals($modifiedDate, $layout->getModified());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
-        self::assertTrue($layout->isShared());
+        $this->assertEquals(42, $layout->getId());
+        $this->assertEquals('4_zones_a', $layout->getType());
+        $this->assertEquals('My layout', $layout->getName());
+        $this->assertEquals($createdDate, $layout->getCreated());
+        $this->assertEquals($modifiedDate, $layout->getModified());
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertTrue($layout->isShared());
     }
 }

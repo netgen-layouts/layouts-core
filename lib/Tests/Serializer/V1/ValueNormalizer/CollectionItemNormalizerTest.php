@@ -62,7 +62,7 @@ class CollectionItemNormalizerTest extends TestCase
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
             ->will($this->returnValue($value));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
@@ -100,7 +100,7 @@ class CollectionItemNormalizerTest extends TestCase
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
             ->will($this->throwException(new RuntimeException()));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => $item->getId(),
                 'collection_id' => $item->getCollectionId(),
@@ -124,7 +124,7 @@ class CollectionItemNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

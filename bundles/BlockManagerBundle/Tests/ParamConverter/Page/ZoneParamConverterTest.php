@@ -32,7 +32,7 @@ class ZoneParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('layoutId', 'zoneIdentifier'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('layoutId', 'zoneIdentifier'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -40,7 +40,7 @@ class ZoneParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('zone', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('zone', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -48,7 +48,7 @@ class ZoneParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APIZone::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APIZone::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -65,7 +65,7 @@ class ZoneParamConverterTest extends TestCase
             ->with($this->equalTo(42), $this->equalTo('left'))
             ->will($this->returnValue($zone));
 
-        self::assertEquals(
+        $this->assertEquals(
             $zone,
             $this->paramConverter->loadValueObject(
                 array(

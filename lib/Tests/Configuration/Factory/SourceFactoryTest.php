@@ -31,7 +31,7 @@ class SourceFactoryTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new Source(
                 'dynamic',
                 true,

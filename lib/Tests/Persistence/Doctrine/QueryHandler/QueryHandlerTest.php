@@ -40,6 +40,6 @@ class QueryHandlerTest extends TestCase
         $query = $this->databaseConnection->createQueryBuilder();
         $this->queryHandler->applyStatusCondition($query, 1);
 
-        self::assertEquals(array('status' => 1), $query->getParameters());
+        $this->assertEquals(array('status' => 1), $query->getParameters());
     }
 }

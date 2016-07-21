@@ -19,6 +19,6 @@ class PathInfoPrefixTest extends PathInfoTest
      */
     public function testGetType()
     {
-        self::assertEquals('path_info_prefix', $this->targetType->getType());
+        $this->assertEquals('path_info_prefix', $this->targetType->getType());
     }
 }

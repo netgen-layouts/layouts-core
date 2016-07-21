@@ -32,7 +32,7 @@ class ViewTypeTest extends TestCase
     {
         $view = new ItemView(new Item(), 'view_type');
 
-        self::assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -56,6 +56,6 @@ class ViewTypeTest extends TestCase
      */
     public function testMatchWithNoItemView()
     {
-        self::assertFalse($this->matcher->match(new View(new Value()), array()));
+        $this->assertFalse($this->matcher->match(new View(new Value()), array()));
     }
 }

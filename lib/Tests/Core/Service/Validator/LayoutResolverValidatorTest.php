@@ -79,7 +79,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateRuleCreateStruct(new RuleCreateStruct($params))
         );
     }
@@ -97,7 +97,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params))
         );
     }
@@ -115,7 +115,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
                 new RuleMetadataUpdateStruct($params)
             )
@@ -135,7 +135,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateTargetCreateStruct(new TargetCreateStruct($params))
         );
     }
@@ -153,7 +153,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateTargetUpdateStruct(
                 new Target(array('type' => 'target')),
                 new TargetUpdateStruct($params)
@@ -174,7 +174,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateConditionCreateStruct(new ConditionCreateStruct($params))
         );
     }
@@ -192,7 +192,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutResolverValidator->validateConditionUpdateStruct(
                 new Condition(array('type' => 'condition')),
                 new ConditionUpdateStruct($params)

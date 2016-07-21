@@ -12,9 +12,9 @@ class ItemCreateStructTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
 
-        self::assertNull($itemCreateStruct->valueId);
-        self::assertNull($itemCreateStruct->valueType);
-        self::assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
+        $this->assertNull($itemCreateStruct->valueId);
+        $this->assertNull($itemCreateStruct->valueType);
+        $this->assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
     }
 
     public function testSetProperties()
@@ -27,8 +27,8 @@ class ItemCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals(3, $itemCreateStruct->valueId);
-        self::assertEquals('value_type', $itemCreateStruct->valueType);
-        self::assertEquals(Item::TYPE_OVERRIDE, $itemCreateStruct->type);
+        $this->assertEquals(3, $itemCreateStruct->valueId);
+        $this->assertEquals('value_type', $itemCreateStruct->valueType);
+        $this->assertEquals(Item::TYPE_OVERRIDE, $itemCreateStruct->type);
     }
 }

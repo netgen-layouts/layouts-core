@@ -23,13 +23,13 @@ class ZoneTest extends TestCase
     {
         $zone = new Zone();
 
-        self::assertNull($zone->getIdentifier());
-        self::assertNull($zone->getLayoutId());
-        self::assertNull($zone->getStatus());
-        self::assertNull($zone->getLinkedLayoutId());
-        self::assertNull($zone->getLinkedZoneIdentifier());
-        self::assertEquals(array(), $zone->getBlocks());
-        self::assertTrue($zone->isEmpty());
+        $this->assertNull($zone->getIdentifier());
+        $this->assertNull($zone->getLayoutId());
+        $this->assertNull($zone->getStatus());
+        $this->assertNull($zone->getLinkedLayoutId());
+        $this->assertNull($zone->getLinkedZoneIdentifier());
+        $this->assertEquals(array(), $zone->getBlocks());
+        $this->assertTrue($zone->isEmpty());
     }
 
     /**
@@ -57,13 +57,13 @@ class ZoneTest extends TestCase
             )
         );
 
-        self::assertEquals('left', $zone->getIdentifier());
-        self::assertEquals(84, $zone->getLayoutId());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
-        self::assertEquals(array(new Block()), $zone->getBlocks());
-        self::assertNull($zone->getLinkedLayoutId());
-        self::assertNull($zone->getLinkedZoneIdentifier());
-        self::assertFalse($zone->isEmpty());
+        $this->assertEquals('left', $zone->getIdentifier());
+        $this->assertEquals(84, $zone->getLayoutId());
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertEquals(array(new Block()), $zone->getBlocks());
+        $this->assertNull($zone->getLinkedLayoutId());
+        $this->assertNull($zone->getLinkedZoneIdentifier());
+        $this->assertFalse($zone->isEmpty());
     }
 
     /**
@@ -89,12 +89,12 @@ class ZoneTest extends TestCase
             )
         );
 
-        self::assertEquals('left', $zone->getIdentifier());
-        self::assertEquals(84, $zone->getLayoutId());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
-        self::assertEquals(array(), $zone->getBlocks());
-        self::assertEquals(42, $zone->getLinkedLayoutId());
-        self::assertEquals('top', $zone->getLinkedZoneIdentifier());
-        self::assertFalse($zone->isEmpty());
+        $this->assertEquals('left', $zone->getIdentifier());
+        $this->assertEquals(84, $zone->getLayoutId());
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertEquals(array(), $zone->getBlocks());
+        $this->assertEquals(42, $zone->getLinkedLayoutId());
+        $this->assertEquals('top', $zone->getLinkedZoneIdentifier());
+        $this->assertFalse($zone->isEmpty());
     }
 }

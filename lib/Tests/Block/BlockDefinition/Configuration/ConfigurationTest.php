@@ -34,7 +34,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetForms()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'content' => new Form('content', 'form_type', true, array('param1', 'param2')),
             ),
@@ -47,8 +47,8 @@ class ConfigurationTest extends TestCase
      */
     public function testHasForm()
     {
-        self::assertTrue($this->configuration->hasForm('content'));
-        self::assertFalse($this->configuration->hasForm('unknown'));
+        $this->assertTrue($this->configuration->hasForm('content'));
+        $this->assertFalse($this->configuration->hasForm('unknown'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetForm()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Form('content', 'form_type', true, array('param1', 'param2')),
             $this->configuration->getForm('content')
         );
@@ -76,7 +76,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetViewTypes()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'large' => new ViewType('large', 'Large'),
                 'small' => new ViewType('small', 'Small'),
@@ -90,8 +90,8 @@ class ConfigurationTest extends TestCase
      */
     public function testHasViewType()
     {
-        self::assertTrue($this->configuration->hasViewType('large'));
-        self::assertFalse($this->configuration->hasViewType('unknown'));
+        $this->assertTrue($this->configuration->hasViewType('large'));
+        $this->assertFalse($this->configuration->hasViewType('unknown'));
     }
 
     /**
@@ -99,7 +99,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetViewType()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new ViewType('large', 'Large'),
             $this->configuration->getViewType('large')
         );

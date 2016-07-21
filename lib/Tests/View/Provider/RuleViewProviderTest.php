@@ -60,11 +60,11 @@ class RuleViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\RuleViewInterface $view */
         $view = $this->ruleViewProvider->provideView($rule);
 
-        self::assertInstanceOf(RuleViewInterface::class, $view);
+        $this->assertInstanceOf(RuleViewInterface::class, $view);
 
-        self::assertEquals($rule, $view->getRule());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($rule, $view->getRule());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'rule' => $rule,
                 'published_rule' => $rule,
@@ -97,11 +97,11 @@ class RuleViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\RuleViewInterface $view */
         $view = $this->ruleViewProvider->provideView($rule);
 
-        self::assertInstanceOf(RuleViewInterface::class, $view);
+        $this->assertInstanceOf(RuleViewInterface::class, $view);
 
-        self::assertEquals($rule, $view->getRule());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($rule, $view->getRule());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'rule' => $rule,
                 'published_rule' => $publishedRule,
@@ -133,11 +133,11 @@ class RuleViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\RuleViewInterface $view */
         $view = $this->ruleViewProvider->provideView($rule);
 
-        self::assertInstanceOf(RuleViewInterface::class, $view);
+        $this->assertInstanceOf(RuleViewInterface::class, $view);
 
-        self::assertEquals($rule, $view->getRule());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($rule, $view->getRule());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'rule' => $rule,
                 'published_rule' => null,
@@ -161,7 +161,7 @@ class RuleViewProviderTest extends TestCase
      */
     public function testSupports($value, $supports)
     {
-        self::assertEquals($supports, $this->ruleViewProvider->supports($value));
+        $this->assertEquals($supports, $this->ruleViewProvider->supports($value));
     }
 
     /**

@@ -88,7 +88,7 @@ class BlockMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapBlocks($data));
+        $this->assertEquals($expectedData, $this->mapper->mapBlocks($data));
     }
 
     /**
@@ -142,6 +142,6 @@ class BlockMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapCollectionReferences($data));
+        $this->assertEquals($expectedData, $this->mapper->mapCollectionReferences($data));
     }
 }

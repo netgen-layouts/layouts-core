@@ -24,6 +24,6 @@ class IntegerTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(IntegerType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(IntegerType::class, $this->parameterHandler->getFormType());
     }
 }

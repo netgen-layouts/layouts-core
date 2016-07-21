@@ -67,7 +67,7 @@ class LayoutResolverMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapRules($data));
+        $this->assertEquals($expectedData, $this->mapper->mapRules($data));
     }
 
     /**
@@ -113,7 +113,7 @@ class LayoutResolverMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapTargets($data));
+        $this->assertEquals($expectedData, $this->mapper->mapTargets($data));
     }
 
     /**
@@ -161,6 +161,6 @@ class LayoutResolverMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapConditions($data));
+        $this->assertEquals($expectedData, $this->mapper->mapConditions($data));
     }
 }

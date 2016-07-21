@@ -24,7 +24,7 @@ class SerializerListenerTest extends TestCase
         $serializerMock = $this->createMock(SerializerInterface::class);
         $eventListener = new SerializerListener($serializerMock);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::VIEW => 'onView'),
             $eventListener->getSubscribedEvents()
         );
@@ -65,12 +65,12 @@ class SerializerListenerTest extends TestCase
 
         $eventListener->onView($event);
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             'serialized content',
             $event->getResponse()->getContent()
         );
@@ -96,7 +96,7 @@ class SerializerListenerTest extends TestCase
 
         $eventListener->onView($event);
 
-        self::assertNull($event->getResponse());
+        $this->assertNull($event->getResponse());
     }
 
     /**
@@ -119,7 +119,7 @@ class SerializerListenerTest extends TestCase
 
         $eventListener->onView($event);
 
-        self::assertNull($event->getResponse());
+        $this->assertNull($event->getResponse());
     }
 
     /**
@@ -143,6 +143,6 @@ class SerializerListenerTest extends TestCase
 
         $eventListener->onView($event);
 
-        self::assertNull($event->getResponse());
+        $this->assertNull($event->getResponse());
     }
 }

@@ -27,7 +27,7 @@ class FormViewTest extends TestCase
     public function testViewParameters()
     {
         $this->value->setViewParameters(array('param' => 'value'));
-        self::assertEquals(array('param' => 'value'), $this->value->getViewParameters());
+        $this->assertEquals(array('param' => 'value'), $this->value->getViewParameters());
     }
 
     /**
@@ -35,6 +35,6 @@ class FormViewTest extends TestCase
      */
     public function testGetContext()
     {
-        self::assertEquals(ViewInterface::CONTEXT_API, $this->value->getContext());
+        $this->assertEquals(ViewInterface::CONTEXT_API, $this->value->getContext());
     }
 }

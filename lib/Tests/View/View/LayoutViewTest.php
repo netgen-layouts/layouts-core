@@ -33,8 +33,8 @@ class LayoutViewTest extends TestCase
      */
     public function testGetLayout()
     {
-        self::assertEquals($this->layout, $this->view->getLayout());
-        self::assertEquals(
+        $this->assertEquals($this->layout, $this->view->getLayout());
+        $this->assertEquals(
             array(
                 'param' => 'value',
                 'layout' => $this->layout,
@@ -48,6 +48,6 @@ class LayoutViewTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('layout_view', $this->view->getIdentifier());
+        $this->assertEquals('layout_view', $this->view->getIdentifier());
     }
 }

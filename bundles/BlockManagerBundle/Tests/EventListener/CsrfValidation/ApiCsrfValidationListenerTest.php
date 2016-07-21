@@ -59,7 +59,7 @@ class ApiCsrfValidationListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::REQUEST => 'onKernelRequest'),
             $this->listener->getSubscribedEvents()
         );
@@ -201,7 +201,7 @@ class ApiCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        self::assertNull($this->listener->onKernelRequest($event));
+        $this->assertNull($this->listener->onKernelRequest($event));
     }
 
     /**

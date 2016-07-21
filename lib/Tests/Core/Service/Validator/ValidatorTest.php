@@ -46,7 +46,7 @@ class ValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue($this->validator->validateId($id));
+        $this->assertTrue($this->validator->validateId($id));
     }
 
     /**
@@ -63,7 +63,7 @@ class ValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue($this->validator->validateIdentifier($identifier, null, $isRequired));
+        $this->assertTrue($this->validator->validateIdentifier($identifier, null, $isRequired));
     }
 
     /**
@@ -80,7 +80,7 @@ class ValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue($this->validator->validatePosition($position, null, $isRequired));
+        $this->assertTrue($this->validator->validatePosition($position, null, $isRequired));
     }
 
     public function validateIdDataProvider()

@@ -11,7 +11,7 @@ class CollectionUpdateStructTest extends TestCase
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
 
-        self::assertNull($collectionUpdateStruct->name);
+        $this->assertNull($collectionUpdateStruct->name);
     }
 
     public function testSetProperties()
@@ -22,6 +22,6 @@ class CollectionUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('My collection', $collectionUpdateStruct->name);
+        $this->assertEquals('My collection', $collectionUpdateStruct->name);
     }
 }

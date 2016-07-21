@@ -54,8 +54,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $responseContent = json_decode($response->getContent(), true);
         if (is_array($responseContent)) {
             foreach ($excludedElements as $excludedElement) {
-                self::assertArrayHasKey($excludedElement, $responseContent);
-                self::assertNotEmpty($responseContent[$excludedElement]);
+                $this->assertArrayHasKey($excludedElement, $responseContent);
+                $this->assertNotEmpty($responseContent[$excludedElement]);
                 unset($responseContent[$excludedElement]);
             }
 
@@ -78,9 +78,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
             $this->showErrorInBrowserIfOccurred($response);
         }
 
-        self::assertResponseCode($response, $statusCode);
-        self::assertHeader($response, MediaTypes::JSON);
-        self::assertExceptionResponseMessage($response, $statusCode);
+        $this->assertResponseCode($response, $statusCode);
+        $this->assertHeader($response, MediaTypes::JSON);
+        $this->assertExceptionResponseMessage($response, $statusCode);
     }
 
     /**
@@ -92,13 +92,13 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function assertExceptionResponseMessage(Response $response, $statusCode = Response::HTTP_BAD_REQUEST)
     {
         $responseContent = json_decode($response->getContent(), true);
-        self::assertInternalType('array', $responseContent);
+        $this->assertInternalType('array', $responseContent);
 
-        self::assertArrayHasKey('status_code', $responseContent);
-        self::assertArrayHasKey('status_text', $responseContent);
+        $this->assertArrayHasKey('status_code', $responseContent);
+        $this->assertArrayHasKey('status_text', $responseContent);
 
-        self::assertEquals($responseContent['status_code'], $statusCode);
-        self::assertEquals($responseContent['status_text'], Response::$statusTexts[$statusCode]);
+        $this->assertEquals($responseContent['status_code'], $statusCode);
+        $this->assertEquals($responseContent['status_text'], Response::$statusTexts[$statusCode]);
     }
 
     /**

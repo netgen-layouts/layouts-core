@@ -43,19 +43,19 @@ abstract class LayoutMapperTest extends MapperTest
 
         $zone = $this->layoutMapper->mapZone($persistenceZone);
 
-        self::assertInstanceOf(APIZone::class, $zone);
-        self::assertEquals('right', $zone->getIdentifier());
-        self::assertEquals(1, $zone->getLayoutId());
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
-        self::assertEquals(24, $zone->getLinkedLayoutId());
-        self::assertEquals('top', $zone->getLinkedZoneIdentifier());
+        $this->assertInstanceOf(APIZone::class, $zone);
+        $this->assertEquals('right', $zone->getIdentifier());
+        $this->assertEquals(1, $zone->getLayoutId());
+        $this->assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertEquals(24, $zone->getLinkedLayoutId());
+        $this->assertEquals('top', $zone->getLinkedZoneIdentifier());
 
-        self::assertNotEmpty($zone->getBlocks());
+        $this->assertNotEmpty($zone->getBlocks());
 
         $position = 0;
         foreach ($zone->getBlocks() as $block) {
-            self::assertEquals($position, $block->getPosition());
-            self::assertInstanceOf(APIBlock::class, $block);
+            $this->assertEquals($position, $block->getPosition());
+            $this->assertInstanceOf(APIBlock::class, $block);
             ++$position;
         }
     }
@@ -80,21 +80,21 @@ abstract class LayoutMapperTest extends MapperTest
 
         $layout = $this->layoutMapper->mapLayout($persistenceLayout);
 
-        self::assertInstanceOf(APILayout::class, $layout);
-        self::assertEquals(1, $layout->getId());
-        self::assertEquals('4_zones_a', $layout->getType());
-        self::assertEquals('My layout', $layout->getName());
-        self::assertInstanceOf(DateTime::class, $layout->getCreated());
-        self::assertEquals(1447065813, $layout->getCreated()->getTimestamp());
-        self::assertInstanceOf(DateTime::class, $layout->getModified());
-        self::assertEquals(1447065813, $layout->getModified()->getTimestamp());
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
-        self::assertTrue($layout->isShared());
+        $this->assertInstanceOf(APILayout::class, $layout);
+        $this->assertEquals(1, $layout->getId());
+        $this->assertEquals('4_zones_a', $layout->getType());
+        $this->assertEquals('My layout', $layout->getName());
+        $this->assertInstanceOf(DateTime::class, $layout->getCreated());
+        $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
+        $this->assertInstanceOf(DateTime::class, $layout->getModified());
+        $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
+        $this->assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertTrue($layout->isShared());
 
-        self::assertNotEmpty($layout->getZones());
+        $this->assertNotEmpty($layout->getZones());
 
         foreach ($layout->getZones() as $zone) {
-            self::assertInstanceOf(APIZone::class, $zone);
+            $this->assertInstanceOf(APIZone::class, $zone);
         }
     }
 
@@ -118,15 +118,15 @@ abstract class LayoutMapperTest extends MapperTest
 
         $layout = $this->layoutMapper->mapLayoutInfo($persistenceLayout);
 
-        self::assertInstanceOf(LayoutInfo::class, $layout);
-        self::assertEquals(1, $layout->getId());
-        self::assertEquals('4_zones_a', $layout->getType());
-        self::assertEquals('My layout', $layout->getName());
-        self::assertInstanceOf(DateTime::class, $layout->getCreated());
-        self::assertEquals(1447065813, $layout->getCreated()->getTimestamp());
-        self::assertInstanceOf(DateTime::class, $layout->getModified());
-        self::assertEquals(1447065813, $layout->getModified()->getTimestamp());
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
-        self::assertTrue($layout->isShared());
+        $this->assertInstanceOf(LayoutInfo::class, $layout);
+        $this->assertEquals(1, $layout->getId());
+        $this->assertEquals('4_zones_a', $layout->getType());
+        $this->assertEquals('My layout', $layout->getName());
+        $this->assertInstanceOf(DateTime::class, $layout->getCreated());
+        $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
+        $this->assertInstanceOf(DateTime::class, $layout->getModified());
+        $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
+        $this->assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertTrue($layout->isShared());
     }
 }

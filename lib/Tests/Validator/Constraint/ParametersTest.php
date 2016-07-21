@@ -13,6 +13,6 @@ class ParametersTest extends TestCase
     public function testValidatedBy()
     {
         $constraint = new Parameters();
-        self::assertEquals('ngbm_parameters', $constraint->validatedBy());
+        $this->assertEquals('ngbm_parameters', $constraint->validatedBy());
     }
 }

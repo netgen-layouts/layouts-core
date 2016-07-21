@@ -41,8 +41,8 @@ class LayoutBackendTest extends TestCase
 
         $locations = $this->backend->getDefaultSections();
 
-        self::assertCount(1, $locations);
-        self::assertInstanceOf(RootLocation::class, $locations[0]);
+        $this->assertCount(1, $locations);
+        $this->assertInstanceOf(RootLocation::class, $locations[0]);
     }
 
     /**
@@ -56,7 +56,7 @@ class LayoutBackendTest extends TestCase
 
         $location = $this->backend->loadLocation(1);
 
-        self::assertInstanceOf(RootLocation::class, $location);
+        $this->assertInstanceOf(RootLocation::class, $location);
     }
 
     /**
@@ -73,8 +73,8 @@ class LayoutBackendTest extends TestCase
 
         $item = $this->backend->loadItem(1);
 
-        self::assertInstanceOf(ItemInterface::class, $item);
-        self::assertEquals(1, $item->getValue());
+        $this->assertInstanceOf(ItemInterface::class, $item);
+        $this->assertEquals(1, $item->getValue());
     }
 
     /**
@@ -99,7 +99,7 @@ class LayoutBackendTest extends TestCase
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
-        self::assertEquals(array(), $locations);
+        $this->assertEquals(array(), $locations);
     }
 
     /**
@@ -109,7 +109,7 @@ class LayoutBackendTest extends TestCase
     {
         $count = $this->backend->getSubLocationsCount(new RootLocation());
 
-        self::assertEquals(0, $count);
+        $this->assertEquals(0, $count);
     }
 
     /**
@@ -130,9 +130,9 @@ class LayoutBackendTest extends TestCase
 
         $items = $this->backend->getSubItems(new RootLocation());
 
-        self::assertCount(2, $items);
+        $this->assertCount(2, $items);
         foreach ($items as $item) {
-            self::assertInstanceOf(ItemInterface::class, $item);
+            $this->assertInstanceOf(ItemInterface::class, $item);
         }
     }
 
@@ -158,9 +158,9 @@ class LayoutBackendTest extends TestCase
             10
         );
 
-        self::assertCount(2, $items);
+        $this->assertCount(2, $items);
         foreach ($items as $item) {
-            self::assertInstanceOf(ItemInterface::class, $item);
+            $this->assertInstanceOf(ItemInterface::class, $item);
         }
     }
 
@@ -176,7 +176,7 @@ class LayoutBackendTest extends TestCase
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 
-        self::assertEquals(2, $count);
+        $this->assertEquals(2, $count);
     }
 
     /**
@@ -186,7 +186,7 @@ class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test');
 
-        self::assertEquals(array(), $items);
+        $this->assertEquals(array(), $items);
     }
 
     /**
@@ -196,7 +196,7 @@ class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test', 5, 10);
 
-        self::assertEquals(array(), $items);
+        $this->assertEquals(array(), $items);
     }
 
     /**
@@ -206,7 +206,7 @@ class LayoutBackendTest extends TestCase
     {
         $count = $this->backend->searchCount('test');
 
-        self::assertEquals(0, $count);
+        $this->assertEquals(0, $count);
     }
 
     /**

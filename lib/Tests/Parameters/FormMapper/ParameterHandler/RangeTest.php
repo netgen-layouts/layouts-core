@@ -25,7 +25,7 @@ class RangeTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(RangeType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(RangeType::class, $this->parameterHandler->getFormType());
     }
 
     /**
@@ -40,7 +40,7 @@ class RangeTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'attr' => array(
                     'min' => 3,

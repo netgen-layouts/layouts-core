@@ -45,7 +45,7 @@ class RouteParameterTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('route_parameter', $this->conditionType->getType());
+        $this->assertEquals('route_parameter', $this->conditionType->getType());
     }
 
     /**
@@ -60,7 +60,7 @@ class RouteParameterTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**
@@ -73,7 +73,7 @@ class RouteParameterTest extends TestCase
      */
     public function testMatches($value, $matches)
     {
-        self::assertEquals($matches, $this->conditionType->matches($value));
+        $this->assertEquals($matches, $this->conditionType->matches($value));
     }
 
     /**
@@ -84,7 +84,7 @@ class RouteParameterTest extends TestCase
         // Make sure we have no request
         $this->requestStack->pop();
 
-        self::assertFalse($this->conditionType->matches(array()));
+        $this->assertFalse($this->conditionType->matches(array()));
     }
 
     /**

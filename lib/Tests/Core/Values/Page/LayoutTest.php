@@ -26,16 +26,16 @@ class LayoutTest extends TestCase
     {
         $layout = new Layout();
 
-        self::assertNull($layout->getId());
-        self::assertNull($layout->getType());
-        self::assertNull($layout->getName());
-        self::assertNull($layout->getCreated());
-        self::assertNull($layout->getModified());
-        self::assertNull($layout->getStatus());
-        self::assertNull($layout->isShared());
-        self::assertEquals(array(), $layout->getZones());
-        self::assertNull($layout->getZone('test'));
-        self::assertFalse($layout->hasZone('test'));
+        $this->assertNull($layout->getId());
+        $this->assertNull($layout->getType());
+        $this->assertNull($layout->getName());
+        $this->assertNull($layout->getCreated());
+        $this->assertNull($layout->getModified());
+        $this->assertNull($layout->getStatus());
+        $this->assertNull($layout->isShared());
+        $this->assertEquals(array(), $layout->getZones());
+        $this->assertNull($layout->getZone('test'));
+        $this->assertFalse($layout->hasZone('test'));
     }
 
     /**
@@ -72,20 +72,20 @@ class LayoutTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $layout->getId());
-        self::assertEquals('4_zones_a', $layout->getType());
-        self::assertEquals('My layout', $layout->getName());
-        self::assertEquals($createdDate, $layout->getCreated());
-        self::assertEquals($modifiedDate, $layout->getModified());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
-        self::assertTrue($layout->isShared());
-        self::assertEquals(
+        $this->assertEquals(42, $layout->getId());
+        $this->assertEquals('4_zones_a', $layout->getType());
+        $this->assertEquals('My layout', $layout->getName());
+        $this->assertEquals($createdDate, $layout->getCreated());
+        $this->assertEquals($modifiedDate, $layout->getModified());
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertTrue($layout->isShared());
+        $this->assertEquals(
             array('left' => new Zone(), 'right' => new Zone()),
             $layout->getZones()
         );
-        self::assertNull($layout->getZone('test'));
-        self::assertFalse($layout->hasZone('test'));
-        self::assertInstanceOf(Zone::class, $layout->getZone('left'));
-        self::assertTrue($layout->hasZone('left'));
+        $this->assertNull($layout->getZone('test'));
+        $this->assertFalse($layout->hasZone('test'));
+        $this->assertInstanceOf(Zone::class, $layout->getZone('left'));
+        $this->assertTrue($layout->hasZone('left'));
     }
 }

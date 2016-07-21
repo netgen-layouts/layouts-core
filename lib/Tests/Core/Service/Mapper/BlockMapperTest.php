@@ -49,17 +49,17 @@ abstract class BlockMapperTest extends MapperTest
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
-        self::assertInstanceOf(APIBlock::class, $block);
-        self::assertEquals(1, $block->getId());
-        self::assertEquals(1, $block->getLayoutId());
-        self::assertEquals('right', $block->getZoneIdentifier());
-        self::assertEquals(3, $block->getPosition());
-        self::assertEquals('text', $block->getDefinitionIdentifier());
-        self::assertEquals(array('some_param' => 'some_value'), $block->getParameters());
-        self::assertEquals('default', $block->getViewType());
-        self::assertEquals('standard', $block->getItemViewType());
-        self::assertEquals('My block', $block->getName());
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(1, $block->getId());
+        $this->assertEquals(1, $block->getLayoutId());
+        $this->assertEquals('right', $block->getZoneIdentifier());
+        $this->assertEquals(3, $block->getPosition());
+        $this->assertEquals('text', $block->getDefinitionIdentifier());
+        $this->assertEquals(array('some_param' => 'some_value'), $block->getParameters());
+        $this->assertEquals('default', $block->getViewType());
+        $this->assertEquals('standard', $block->getItemViewType());
+        $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(APILayout::STATUS_PUBLISHED, $block->getStatus());
     }
 
     /**
@@ -81,14 +81,14 @@ abstract class BlockMapperTest extends MapperTest
 
         $reference = $this->blockMapper->mapCollectionReference($persistenceReference);
 
-        self::assertInstanceOf(APICollectionReference::class, $reference);
+        $this->assertInstanceOf(APICollectionReference::class, $reference);
 
-        self::assertEquals(1, $reference->getBlock()->getId());
-        self::assertEquals(APILayout::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
-        self::assertEquals(2, $reference->getCollection()->getId());
-        self::assertEquals(Collection::STATUS_PUBLISHED, $reference->getCollection()->getStatus());
-        self::assertEquals('default', $reference->getIdentifier());
-        self::assertEquals(5, $reference->getOffset());
-        self::assertEquals(10, $reference->getLimit());
+        $this->assertEquals(1, $reference->getBlock()->getId());
+        $this->assertEquals(APILayout::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
+        $this->assertEquals(2, $reference->getCollection()->getId());
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $reference->getCollection()->getStatus());
+        $this->assertEquals('default', $reference->getIdentifier());
+        $this->assertEquals(5, $reference->getOffset());
+        $this->assertEquals(10, $reference->getLimit());
     }
 }

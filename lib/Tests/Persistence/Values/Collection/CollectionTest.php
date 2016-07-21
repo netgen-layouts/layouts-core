@@ -11,10 +11,10 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection();
 
-        self::assertNull($collection->id);
-        self::assertNull($collection->type);
-        self::assertNull($collection->name);
-        self::assertNull($collection->status);
+        $this->assertNull($collection->id);
+        $this->assertNull($collection->type);
+        $this->assertNull($collection->name);
+        $this->assertNull($collection->status);
     }
 
     public function testSetProperties()
@@ -28,9 +28,9 @@ class CollectionTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $collection->id);
-        self::assertEquals(Collection::TYPE_NAMED, $collection->type);
-        self::assertEquals('My collection', $collection->name);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $collection->status);
+        $this->assertEquals(42, $collection->id);
+        $this->assertEquals(Collection::TYPE_NAMED, $collection->type);
+        $this->assertEquals('My collection', $collection->name);
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $collection->status);
     }
 }

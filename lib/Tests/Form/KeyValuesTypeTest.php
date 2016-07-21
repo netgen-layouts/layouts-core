@@ -50,24 +50,24 @@ class KeyValuesTypeTest extends FormTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($submittedData, $form->getData());
 
-        self::assertEquals('Key', $form->get('some_key')->getConfig()->getOption('label'));
-        self::assertEquals('Value', $form->get('some_value')->getConfig()->getOption('label'));
+        $this->assertEquals('Key', $form->get('some_key')->getConfig()->getOption('label'));
+        $this->assertEquals('Value', $form->get('some_value')->getConfig()->getOption('label'));
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             CollectionType::class,
             $form->get('some_value')->getConfig()->getType()->getInnerType()
         );
 
         $view = $form->createView();
 
-        self::assertArrayHasKey('key_name', $view->vars);
-        self::assertArrayHasKey('values_name', $view->vars);
+        $this->assertArrayHasKey('key_name', $view->vars);
+        $this->assertArrayHasKey('values_name', $view->vars);
 
-        self::assertEquals('some_key', $view->vars['key_name']);
-        self::assertEquals('some_value', $view->vars['values_name']);
+        $this->assertEquals('some_key', $view->vars['key_name']);
+        $this->assertEquals('some_value', $view->vars['values_name']);
 
-        self::assertArrayHasKey('some_key', $view->children);
-        self::assertArrayHasKey('some_value', $view->children);
+        $this->assertArrayHasKey('some_key', $view->children);
+        $this->assertArrayHasKey('some_value', $view->children);
     }
 
     /**
@@ -90,12 +90,12 @@ class KeyValuesTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        self::assertEquals('some_key', $resolvedOptions['key_name']);
-        self::assertEquals('some_key_label', $resolvedOptions['key_label']);
-        self::assertEquals('some_values', $resolvedOptions['values_name']);
-        self::assertEquals('some_values_label', $resolvedOptions['values_label']);
-        self::assertEquals('some_type', $resolvedOptions['values_type']);
-        self::assertEquals(array('constraint'), $resolvedOptions['values_constraints']);
+        $this->assertEquals('some_key', $resolvedOptions['key_name']);
+        $this->assertEquals('some_key_label', $resolvedOptions['key_label']);
+        $this->assertEquals('some_values', $resolvedOptions['values_name']);
+        $this->assertEquals('some_values_label', $resolvedOptions['values_label']);
+        $this->assertEquals('some_type', $resolvedOptions['values_type']);
+        $this->assertEquals(array('constraint'), $resolvedOptions['values_constraints']);
     }
 
     /**
@@ -103,6 +103,6 @@ class KeyValuesTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('ngbm_key_values', $this->formType->getBlockPrefix());
+        $this->assertEquals('ngbm_key_values', $this->formType->getBlockPrefix());
     }
 }

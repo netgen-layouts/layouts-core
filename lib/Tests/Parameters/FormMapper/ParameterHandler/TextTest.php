@@ -23,6 +23,6 @@ class TextTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(TextareaType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(TextareaType::class, $this->parameterHandler->getFormType());
     }
 }

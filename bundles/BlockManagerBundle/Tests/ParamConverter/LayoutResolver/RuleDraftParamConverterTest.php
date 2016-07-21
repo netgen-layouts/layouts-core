@@ -32,7 +32,7 @@ class RuleDraftParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('ruleId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('ruleId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -40,7 +40,7 @@ class RuleDraftParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('rule', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('rule', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -48,7 +48,7 @@ class RuleDraftParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APIRuleDraft::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APIRuleDraft::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -65,6 +65,6 @@ class RuleDraftParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        self::assertEquals($layout, $this->paramConverter->loadValueObject(array('ruleId' => 42)));
+        $this->assertEquals($layout, $this->paramConverter->loadValueObject(array('ruleId' => 42)));
     }
 }

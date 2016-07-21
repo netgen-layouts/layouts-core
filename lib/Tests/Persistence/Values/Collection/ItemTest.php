@@ -12,13 +12,13 @@ class ItemTest extends TestCase
     {
         $item = new Item();
 
-        self::assertNull($item->id);
-        self::assertNull($item->collectionId);
-        self::assertNull($item->position);
-        self::assertNull($item->type);
-        self::assertNull($item->valueId);
-        self::assertNull($item->valueType);
-        self::assertNull($item->status);
+        $this->assertNull($item->id);
+        $this->assertNull($item->collectionId);
+        $this->assertNull($item->position);
+        $this->assertNull($item->type);
+        $this->assertNull($item->valueId);
+        $this->assertNull($item->valueType);
+        $this->assertNull($item->status);
     }
 
     public function testSetProperties()
@@ -35,12 +35,12 @@ class ItemTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $item->id);
-        self::assertEquals(30, $item->collectionId);
-        self::assertEquals(3, $item->position);
-        self::assertEquals(Item::TYPE_OVERRIDE, $item->type);
-        self::assertEquals(32, $item->valueId);
-        self::assertEquals('ezcontent', $item->valueType);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $item->status);
+        $this->assertEquals(42, $item->id);
+        $this->assertEquals(30, $item->collectionId);
+        $this->assertEquals(3, $item->position);
+        $this->assertEquals(Item::TYPE_OVERRIDE, $item->type);
+        $this->assertEquals(32, $item->valueId);
+        $this->assertEquals('ezcontent', $item->valueType);
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $item->status);
     }
 }

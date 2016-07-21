@@ -32,7 +32,7 @@ class QueryDraftParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('queryId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('queryId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -40,7 +40,7 @@ class QueryDraftParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('query', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('query', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -48,7 +48,7 @@ class QueryDraftParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APIQueryDraft::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APIQueryDraft::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -65,6 +65,6 @@ class QueryDraftParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($item));
 
-        self::assertEquals($item, $this->paramConverter->loadValueObject(array('queryId' => 42)));
+        $this->assertEquals($item, $this->paramConverter->loadValueObject(array('queryId' => 42)));
     }
 }

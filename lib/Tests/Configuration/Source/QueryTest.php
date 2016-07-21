@@ -23,7 +23,7 @@ class QueryTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('default', $this->query->getIdentifier());
+        $this->assertEquals('default', $this->query->getIdentifier());
     }
 
     /**
@@ -31,7 +31,7 @@ class QueryTest extends TestCase
      */
     public function testGetQueryType()
     {
-        self::assertEquals('ezcontent_search', $this->query->getQueryType());
+        $this->assertEquals('ezcontent_search', $this->query->getQueryType());
     }
 
     /**
@@ -39,6 +39,6 @@ class QueryTest extends TestCase
      */
     public function testGetDefaultParameters()
     {
-        self::assertEquals(array('parent_location_id' => 2), $this->query->getDefaultParameters());
+        $this->assertEquals(array('parent_location_id' => 2), $this->query->getDefaultParameters());
     }
 }

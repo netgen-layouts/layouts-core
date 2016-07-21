@@ -23,7 +23,7 @@ class ViewRendererListenerTest extends TestCase
         $viewRendererMock = $this->createMock(RendererInterface::class);
         $eventListener = new ViewRendererListener($viewRendererMock);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::VIEW => 'onView'),
             $eventListener->getSubscribedEvents()
         );
@@ -62,18 +62,18 @@ class ViewRendererListenerTest extends TestCase
 
         $eventListener->onView($event);
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             Response::class,
             $event->getResponse()
         );
 
         // Verify that we use the response available in view object
-        self::assertEquals(
+        $this->assertEquals(
             $event->getResponse()->headers->get('X-NGBM-Test'),
             'test'
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             'rendered content',
             $event->getResponse()->getContent()
         );
@@ -99,6 +99,6 @@ class ViewRendererListenerTest extends TestCase
 
         $eventListener->onView($event);
 
-        self::assertNull($event->getResponse());
+        $this->assertNull($event->getResponse());
     }
 }

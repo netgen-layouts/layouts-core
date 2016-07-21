@@ -26,9 +26,9 @@ class ResultItemTest extends TestCase
             )
         );
 
-        self::assertEquals(new Item(), $resultItem->getItem());
-        self::assertEquals(new CollectionItem(), $resultItem->getCollectionItem());
-        self::assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
-        self::assertEquals(3, $resultItem->getPosition());
+        $this->assertEquals(new Item(), $resultItem->getItem());
+        $this->assertEquals(new CollectionItem(), $resultItem->getCollectionItem());
+        $this->assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
+        $this->assertEquals(3, $resultItem->getPosition());
     }
 }

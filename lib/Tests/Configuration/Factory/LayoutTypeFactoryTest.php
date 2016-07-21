@@ -28,7 +28,7 @@ class LayoutTypeFactoryTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new LayoutType(
                 '4_zones_a',
                 true,

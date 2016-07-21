@@ -53,7 +53,7 @@ class CreateTypeTest extends FormTestCase
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            self::assertArrayHasKey($key, $children);
+            $this->assertArrayHasKey($key, $children);
         }
     }
 
@@ -73,7 +73,7 @@ class CreateTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals(new LayoutCreateStruct(), $options['data']);
+        $this->assertEquals(new LayoutCreateStruct(), $options['data']);
     }
 
     /**

@@ -31,11 +31,11 @@ class RuleTargetProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\RuleTargetViewInterface $view */
         $view = $this->ruleTargetViewProvider->provideView($target);
 
-        self::assertInstanceOf(RuleTargetViewInterface::class, $view);
+        $this->assertInstanceOf(RuleTargetViewInterface::class, $view);
 
-        self::assertEquals($target, $view->getTarget());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($target, $view->getTarget());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'target' => $target,
             ),
@@ -52,7 +52,7 @@ class RuleTargetProviderTest extends TestCase
      */
     public function testSupports($value, $supports)
     {
-        self::assertEquals($supports, $this->ruleTargetViewProvider->supports($value));
+        $this->assertEquals($supports, $this->ruleTargetViewProvider->supports($value));
     }
 
     /**

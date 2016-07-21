@@ -43,7 +43,7 @@ class QueryTypeTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('query_type', $this->queryType->getType());
+        $this->assertEquals('query_type', $this->queryType->getType());
     }
 
     /**
@@ -51,7 +51,7 @@ class QueryTypeTest extends TestCase
      */
     public function testGetHandler()
     {
-        self::assertEquals($this->handler, $this->queryType->getHandler());
+        $this->assertEquals($this->handler, $this->queryType->getHandler());
     }
 
     /**
@@ -59,6 +59,6 @@ class QueryTypeTest extends TestCase
      */
     public function testGetConfig()
     {
-        self::assertEquals($this->configMock, $this->queryType->getConfig());
+        $this->assertEquals($this->configMock, $this->queryType->getConfig());
     }
 }

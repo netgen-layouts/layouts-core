@@ -41,7 +41,7 @@ class QueryTypeRegistryTest extends TestCase
      */
     public function testAddQueryType()
     {
-        self::assertEquals(array('query_type' => $this->queryType), $this->registry->getQueryTypes());
+        $this->assertEquals(array('query_type' => $this->queryType), $this->registry->getQueryTypes());
     }
 
     /**
@@ -49,7 +49,7 @@ class QueryTypeRegistryTest extends TestCase
      */
     public function testGetQueryType()
     {
-        self::assertEquals($this->queryType, $this->registry->getQueryType('query_type'));
+        $this->assertEquals($this->queryType, $this->registry->getQueryType('query_type'));
     }
 
     /**
@@ -66,7 +66,7 @@ class QueryTypeRegistryTest extends TestCase
      */
     public function testHasQueryType()
     {
-        self::assertTrue($this->registry->hasQueryType('query_type'));
+        $this->assertTrue($this->registry->hasQueryType('query_type'));
     }
 
     /**
@@ -74,6 +74,6 @@ class QueryTypeRegistryTest extends TestCase
      */
     public function testHasQueryTypeWithNoQueryType()
     {
-        self::assertFalse($this->registry->hasQueryType('other_query_type'));
+        $this->assertFalse($this->registry->hasQueryType('other_query_type'));
     }
 }

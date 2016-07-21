@@ -44,25 +44,25 @@ abstract class LayoutResolverMapperTest extends MapperTest
 
         $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
 
-        self::assertInstanceOf(APIRule::class, $rule);
-        self::assertEquals(3, $rule->getId());
-        self::assertInstanceOf(LayoutInfo::class, $rule->getLayout());
-        self::assertEquals(1, $rule->getLayout()->getId());
-        self::assertEquals(APIRule::STATUS_PUBLISHED, $rule->getStatus());
-        self::assertTrue($rule->isEnabled());
-        self::assertEquals(12, $rule->getPriority());
-        self::assertEquals('Comment', $rule->getComment());
+        $this->assertInstanceOf(APIRule::class, $rule);
+        $this->assertEquals(3, $rule->getId());
+        $this->assertInstanceOf(LayoutInfo::class, $rule->getLayout());
+        $this->assertEquals(1, $rule->getLayout()->getId());
+        $this->assertEquals(APIRule::STATUS_PUBLISHED, $rule->getStatus());
+        $this->assertTrue($rule->isEnabled());
+        $this->assertEquals(12, $rule->getPriority());
+        $this->assertEquals('Comment', $rule->getComment());
 
-        self::assertNotEmpty($rule->getTargets());
+        $this->assertNotEmpty($rule->getTargets());
 
         foreach ($rule->getTargets() as $target) {
-            self::assertInstanceOf(APITarget::class, $target);
+            $this->assertInstanceOf(APITarget::class, $target);
         }
 
-        self::assertNotEmpty($rule->getConditions());
+        $this->assertNotEmpty($rule->getConditions());
 
         foreach ($rule->getConditions() as $condition) {
-            self::assertInstanceOf(APICondition::class, $condition);
+            $this->assertInstanceOf(APICondition::class, $condition);
         }
     }
 
@@ -83,12 +83,12 @@ abstract class LayoutResolverMapperTest extends MapperTest
 
         $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
 
-        self::assertInstanceOf(APITarget::class, $target);
-        self::assertEquals(1, $target->getId());
-        self::assertEquals(APIRule::STATUS_PUBLISHED, $target->getStatus());
-        self::assertEquals(42, $target->getRuleId());
-        self::assertEquals('target', $target->getType());
-        self::assertEquals(42, $target->getValue());
+        $this->assertInstanceOf(APITarget::class, $target);
+        $this->assertEquals(1, $target->getId());
+        $this->assertEquals(APIRule::STATUS_PUBLISHED, $target->getStatus());
+        $this->assertEquals(42, $target->getRuleId());
+        $this->assertEquals('target', $target->getType());
+        $this->assertEquals(42, $target->getValue());
     }
 
     /**
@@ -108,11 +108,11 @@ abstract class LayoutResolverMapperTest extends MapperTest
 
         $condition = $this->layoutResolverMapper->mapCondition($persistenceCondition);
 
-        self::assertInstanceOf(APICondition::class, $condition);
-        self::assertEquals(1, $condition->getId());
-        self::assertEquals(APIRule::STATUS_PUBLISHED, $condition->getStatus());
-        self::assertEquals(42, $condition->getRuleId());
-        self::assertEquals('condition', $condition->getType());
-        self::assertEquals(42, $condition->getValue());
+        $this->assertInstanceOf(APICondition::class, $condition);
+        $this->assertEquals(1, $condition->getId());
+        $this->assertEquals(APIRule::STATUS_PUBLISHED, $condition->getStatus());
+        $this->assertEquals(42, $condition->getRuleId());
+        $this->assertEquals('condition', $condition->getType());
+        $this->assertEquals(42, $condition->getValue());
     }
 }

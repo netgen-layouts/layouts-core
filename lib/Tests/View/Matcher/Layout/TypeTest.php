@@ -38,7 +38,7 @@ class TypeTest extends TestCase
 
         $view = new LayoutView($layout);
 
-        self::assertEquals($expected, $this->matcher->match($view, $config));
+        $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
 
     /**
@@ -62,6 +62,6 @@ class TypeTest extends TestCase
      */
     public function testMatchWithNoLayoutView()
     {
-        self::assertFalse($this->matcher->match(new View(new Value()), array()));
+        $this->assertFalse($this->matcher->match(new View(new Value()), array()));
     }
 }

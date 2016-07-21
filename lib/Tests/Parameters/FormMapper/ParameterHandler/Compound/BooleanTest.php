@@ -26,7 +26,7 @@ class BooleanTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(CompoundBooleanType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(CompoundBooleanType::class, $this->parameterHandler->getFormType());
     }
 
     /**
@@ -34,7 +34,7 @@ class BooleanTest extends TestCase
      */
     public function testGetDefaultOptions()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'label' => false,
                 'parameter_validation_groups' => array('group'),

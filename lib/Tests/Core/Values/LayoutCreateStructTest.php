@@ -11,9 +11,9 @@ class LayoutCreateStructTest extends TestCase
     {
         $layoutCreateStruct = new LayoutCreateStruct();
 
-        self::assertNull($layoutCreateStruct->type);
-        self::assertNull($layoutCreateStruct->name);
-        self::assertNull($layoutCreateStruct->shared);
+        $this->assertNull($layoutCreateStruct->type);
+        $this->assertNull($layoutCreateStruct->name);
+        $this->assertNull($layoutCreateStruct->shared);
     }
 
     public function testSetProperties()
@@ -26,8 +26,8 @@ class LayoutCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('4_zones_a', $layoutCreateStruct->type);
-        self::assertEquals('My layout', $layoutCreateStruct->name);
-        self::assertTrue($layoutCreateStruct->shared);
+        $this->assertEquals('4_zones_a', $layoutCreateStruct->type);
+        $this->assertEquals('My layout', $layoutCreateStruct->name);
+        $this->assertTrue($layoutCreateStruct->shared);
     }
 }

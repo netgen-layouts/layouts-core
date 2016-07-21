@@ -74,7 +74,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->collectionValidator->validateCollectionCreateStruct(new CollectionCreateStruct($params))
         );
     }
@@ -92,7 +92,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->collectionValidator->validateCollectionUpdateStruct(new CollectionUpdateStruct($params))
         );
     }
@@ -110,7 +110,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params))
         );
     }
@@ -139,7 +139,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params))
         );
     }
@@ -168,7 +168,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->collectionValidator->validateQueryUpdateStruct(
                 new Query(array('type' => 'query_type')),
                 new QueryUpdateStruct($params)

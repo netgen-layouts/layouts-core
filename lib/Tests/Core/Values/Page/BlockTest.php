@@ -27,18 +27,18 @@ class BlockTest extends TestCase
     {
         $block = new Block();
 
-        self::assertNull($block->getId());
-        self::assertNull($block->getLayoutId());
-        self::assertNull($block->getZoneIdentifier());
-        self::assertNull($block->getPosition());
-        self::assertNull($block->getDefinitionIdentifier());
-        self::assertEquals(array(), $block->getParameters());
-        self::assertNull($block->getParameter('test'));
-        self::assertFalse($block->hasParameter('test'));
-        self::assertNull($block->getViewType());
-        self::assertNull($block->getItemViewType());
-        self::assertNull($block->getName());
-        self::assertNull($block->getStatus());
+        $this->assertNull($block->getId());
+        $this->assertNull($block->getLayoutId());
+        $this->assertNull($block->getZoneIdentifier());
+        $this->assertNull($block->getPosition());
+        $this->assertNull($block->getDefinitionIdentifier());
+        $this->assertEquals(array(), $block->getParameters());
+        $this->assertNull($block->getParameter('test'));
+        $this->assertFalse($block->hasParameter('test'));
+        $this->assertNull($block->getViewType());
+        $this->assertNull($block->getItemViewType());
+        $this->assertNull($block->getName());
+        $this->assertNull($block->getStatus());
     }
 
     /**
@@ -76,25 +76,25 @@ class BlockTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $block->getId());
-        self::assertEquals(84, $block->getLayoutId());
-        self::assertEquals('left', $block->getZoneIdentifier());
-        self::assertEquals(3, $block->getPosition());
-        self::assertEquals('text', $block->getDefinitionIdentifier());
-        self::assertEquals(
+        $this->assertEquals(42, $block->getId());
+        $this->assertEquals(84, $block->getLayoutId());
+        $this->assertEquals('left', $block->getZoneIdentifier());
+        $this->assertEquals(3, $block->getPosition());
+        $this->assertEquals('text', $block->getDefinitionIdentifier());
+        $this->assertEquals(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ),
             $block->getParameters()
         );
-        self::assertNull($block->getParameter('test'));
-        self::assertEquals('some_value', $block->getParameter('some_param'));
-        self::assertFalse($block->hasParameter('test'));
-        self::assertTrue($block->hasParameter('some_param'));
-        self::assertEquals('default', $block->getViewType());
-        self::assertEquals('standard', $block->getItemViewType());
-        self::assertEquals('My block', $block->getName());
-        self::assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertNull($block->getParameter('test'));
+        $this->assertEquals('some_value', $block->getParameter('some_param'));
+        $this->assertFalse($block->hasParameter('test'));
+        $this->assertTrue($block->hasParameter('some_param'));
+        $this->assertEquals('default', $block->getViewType());
+        $this->assertEquals('standard', $block->getItemViewType());
+        $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());
     }
 }

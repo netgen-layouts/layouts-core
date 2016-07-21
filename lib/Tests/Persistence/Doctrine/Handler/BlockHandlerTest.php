@@ -60,7 +60,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testLoadBlock()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 1,
@@ -97,7 +97,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testBlockExists()
     {
-        self::assertTrue($this->blockHandler->blockExists(1, Layout::STATUS_PUBLISHED));
+        $this->assertTrue($this->blockHandler->blockExists(1, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -106,7 +106,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExists()
     {
-        self::assertFalse($this->blockHandler->blockExists(999999, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->blockHandler->blockExists(999999, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -115,7 +115,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExistsInStatus()
     {
-        self::assertFalse($this->blockHandler->blockExists(6, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->blockHandler->blockExists(6, Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -124,7 +124,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testLoadZoneBlocks()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Block(
                     array(
@@ -171,7 +171,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testLoadCollectionReference()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new CollectionReference(
                 array(
                     'blockId' => 1,
@@ -209,7 +209,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testLoadCollectionReferences()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new CollectionReference(
                     array(
@@ -254,7 +254,7 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 7,
@@ -280,7 +280,7 @@ class BlockHandlerTest extends TestCase
         );
 
         $secondBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
-        self::assertEquals(1, $secondBlock->position);
+        $this->assertEquals(1, $secondBlock->position);
     }
 
     /**
@@ -297,7 +297,7 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->name = 'My block';
         $blockCreateStruct->setParameter('a_param', 'A value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 7,
@@ -379,7 +379,7 @@ class BlockHandlerTest extends TestCase
         $blockUpdateStruct->setParameter('number_of_columns', 4);
         $blockUpdateStruct->setParameter('some_param', 'Some value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 1,
@@ -410,7 +410,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testUpdateCollectionReference()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new CollectionReference(
                 array(
                     'blockId' => 1,
@@ -437,7 +437,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testCopyBlock()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 7,
@@ -468,7 +468,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockToDifferentZone()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 7,
@@ -503,7 +503,7 @@ class BlockHandlerTest extends TestCase
             $targetBlock
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new CollectionReference(
                     array(
@@ -539,7 +539,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlock()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 1,
@@ -563,7 +563,7 @@ class BlockHandlerTest extends TestCase
         );
 
         $firstBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
-        self::assertEquals(0, $firstBlock->position);
+        $this->assertEquals(0, $firstBlock->position);
     }
 
     /**
@@ -573,7 +573,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockToLowerPosition()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 5,
@@ -597,7 +597,7 @@ class BlockHandlerTest extends TestCase
         );
 
         $firstBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
-        self::assertEquals(1, $firstBlock->position);
+        $this->assertEquals(1, $firstBlock->position);
     }
 
     /**
@@ -633,7 +633,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testMoveBlockToZone()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 1,
@@ -701,7 +701,7 @@ class BlockHandlerTest extends TestCase
             Layout::STATUS_DRAFT
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new Block(
                 array(
                     'id' => 1,
@@ -725,15 +725,15 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
         );
 
-        self::assertCount(2, $collectionReferences);
+        $this->assertCount(2, $collectionReferences);
 
         $collectionIds = array(
             $collectionReferences[0]->collectionId,
             $collectionReferences[1]->collectionId,
         );
 
-        self::assertContains(2, $collectionIds);
-        self::assertContains(3, $collectionIds);
+        $this->assertContains(2, $collectionIds);
+        $this->assertContains(3, $collectionIds);
     }
 
     /**
@@ -754,15 +754,15 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
         );
 
-        self::assertCount(2, $collectionReferences);
+        $this->assertCount(2, $collectionReferences);
 
         $collectionIds = array(
             $collectionReferences[0]->collectionId,
             $collectionReferences[1]->collectionId,
         );
 
-        self::assertContains(2, $collectionIds);
-        self::assertContains(3, $collectionIds);
+        $this->assertContains(2, $collectionIds);
+        $this->assertContains(3, $collectionIds);
     }
 
     /**
@@ -777,7 +777,7 @@ class BlockHandlerTest extends TestCase
         );
 
         $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
-        self::assertEquals(0, $secondBlock->position);
+        $this->assertEquals(0, $secondBlock->position);
 
         try {
             $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
@@ -819,7 +819,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testCollectionReferenceExists()
     {
-        self::assertTrue(
+        $this->assertTrue(
             $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'default'
@@ -833,7 +833,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testCollectionReferenceNotExists()
     {
-        self::assertFalse(
+        $this->assertFalse(
             $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'something_else'
@@ -853,7 +853,7 @@ class BlockHandlerTest extends TestCase
             'new'
         );
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->blockHandler->collectionReferenceExists(
                 $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
                 'new'
@@ -890,7 +890,7 @@ class BlockHandlerTest extends TestCase
             )
         );
 
-        self::assertFalse(
+        $this->assertFalse(
             $this->blockHandler->collectionReferenceExists(
                 $block,
                 'default'

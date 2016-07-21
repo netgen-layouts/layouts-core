@@ -13,6 +13,6 @@ class ValueTypeTest extends TestCase
     public function testValidatedBy()
     {
         $constraint = new ValueType();
-        self::assertEquals('ngbm_value_type', $constraint->validatedBy());
+        $this->assertEquals('ngbm_value_type', $constraint->validatedBy());
     }
 }

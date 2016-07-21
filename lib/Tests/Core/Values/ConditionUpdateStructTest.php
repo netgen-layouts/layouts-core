@@ -11,7 +11,7 @@ class ConditionUpdateStructTest extends TestCase
     {
         $conditionUpdateStruct = new ConditionUpdateStruct();
 
-        self::assertNull($conditionUpdateStruct->value);
+        $this->assertNull($conditionUpdateStruct->value);
     }
 
     public function testSetProperties()
@@ -22,6 +22,6 @@ class ConditionUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $conditionUpdateStruct->value);
+        $this->assertEquals(42, $conditionUpdateStruct->value);
     }
 }

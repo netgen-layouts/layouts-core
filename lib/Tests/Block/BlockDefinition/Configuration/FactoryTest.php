@@ -59,7 +59,7 @@ class FactoryTest extends TestCase
             $config
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new Configuration(
                 'block_definition',
                 array(

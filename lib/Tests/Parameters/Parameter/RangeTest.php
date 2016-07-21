@@ -14,7 +14,7 @@ class RangeTest extends TestCase
     public function testGetType()
     {
         $parameter = $this->getParameter(array('min' => 5, 'max' => 10));
-        self::assertEquals('range', $parameter->getType());
+        $this->assertEquals('range', $parameter->getType());
     }
 
     /**
@@ -30,7 +30,7 @@ class RangeTest extends TestCase
     public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
     {
         $parameter = $this->getParameter($options, $required, $defaultValue);
-        self::assertEquals($expected, $parameter->getDefaultValue());
+        $this->assertEquals($expected, $parameter->getDefaultValue());
     }
 
     /**
@@ -44,7 +44,7 @@ class RangeTest extends TestCase
     public function testValidOptions($options, $resolvedOptions)
     {
         $parameter = $this->getParameter($options);
-        self::assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -190,7 +190,7 @@ class RangeTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**

@@ -25,7 +25,7 @@ class ValueListTest extends TestCase
      */
     public function testGetValue()
     {
-        self::assertEquals(array(new StubValue()), $this->value->getValue());
+        $this->assertEquals(array(new StubValue()), $this->value->getValue());
     }
 
     /**
@@ -34,6 +34,6 @@ class ValueListTest extends TestCase
      */
     public function testGetStatusCode()
     {
-        self::assertEquals(Response::HTTP_ACCEPTED, $this->value->getStatusCode());
+        $this->assertEquals(Response::HTTP_ACCEPTED, $this->value->getStatusCode());
     }
 }

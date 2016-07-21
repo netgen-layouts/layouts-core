@@ -21,11 +21,11 @@ class CollectionReferenceTest extends TestCase
     {
         $collectionReference = new CollectionReference();
 
-        self::assertNull($collectionReference->getBlock());
-        self::assertNull($collectionReference->getCollection());
-        self::assertNull($collectionReference->getIdentifier());
-        self::assertNull($collectionReference->getOffset());
-        self::assertNull($collectionReference->getLimit());
+        $this->assertNull($collectionReference->getBlock());
+        $this->assertNull($collectionReference->getCollection());
+        $this->assertNull($collectionReference->getIdentifier());
+        $this->assertNull($collectionReference->getOffset());
+        $this->assertNull($collectionReference->getLimit());
     }
 
     /**
@@ -48,10 +48,10 @@ class CollectionReferenceTest extends TestCase
             )
         );
 
-        self::assertEquals(new Block(), $collectionReference->getBlock());
-        self::assertEquals(new Collection(), $collectionReference->getCollection());
-        self::assertEquals('default', $collectionReference->getIdentifier());
-        self::assertEquals(3, $collectionReference->getOffset());
-        self::assertEquals(10, $collectionReference->getLimit());
+        $this->assertEquals(new Block(), $collectionReference->getBlock());
+        $this->assertEquals(new Collection(), $collectionReference->getCollection());
+        $this->assertEquals('default', $collectionReference->getIdentifier());
+        $this->assertEquals(3, $collectionReference->getOffset());
+        $this->assertEquals(10, $collectionReference->getLimit());
     }
 }

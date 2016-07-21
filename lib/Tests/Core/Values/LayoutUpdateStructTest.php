@@ -11,7 +11,7 @@ class LayoutUpdateStructTest extends TestCase
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
 
-        self::assertNull($layoutUpdateStruct->name);
+        $this->assertNull($layoutUpdateStruct->name);
     }
 
     public function testSetProperties()
@@ -22,6 +22,6 @@ class LayoutUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('My layout', $layoutUpdateStruct->name);
+        $this->assertEquals('My layout', $layoutUpdateStruct->name);
     }
 }

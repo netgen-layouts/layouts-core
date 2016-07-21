@@ -23,7 +23,7 @@ class RootLocationTest extends TestCase
      */
     public function testGetId()
     {
-        self::assertEquals(0, $this->location->getId());
+        $this->assertEquals(0, $this->location->getId());
     }
 
     /**
@@ -31,7 +31,7 @@ class RootLocationTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('ngbm_layout', $this->location->getType());
+        $this->assertEquals('ngbm_layout', $this->location->getType());
     }
 
     /**
@@ -39,7 +39,7 @@ class RootLocationTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('All layouts', $this->location->getName());
+        $this->assertEquals('All layouts', $this->location->getName());
     }
 
     /**
@@ -47,6 +47,6 @@ class RootLocationTest extends TestCase
      */
     public function testGetParentId()
     {
-        self::assertEquals(null, $this->location->getParentId());
+        $this->assertEquals(null, $this->location->getParentId());
     }
 }

@@ -14,7 +14,7 @@ class ChoiceTest extends TestCase
     public function testGetType()
     {
         $parameter = $this->getParameter(array('options' => array('One' => 1)));
-        self::assertEquals('choice', $parameter->getType());
+        $this->assertEquals('choice', $parameter->getType());
     }
 
     /**
@@ -30,7 +30,7 @@ class ChoiceTest extends TestCase
     public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
     {
         $parameter = $this->getParameter($options, $required, $defaultValue);
-        self::assertEquals($expected, $parameter->getDefaultValue());
+        $this->assertEquals($expected, $parameter->getDefaultValue());
     }
 
     /**
@@ -44,7 +44,7 @@ class ChoiceTest extends TestCase
     public function testValidOptions($options, $resolvedOptions)
     {
         $parameter = $this->getParameter($options);
-        self::assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -212,7 +212,7 @@ class ChoiceTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**
@@ -228,7 +228,7 @@ class ChoiceTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**

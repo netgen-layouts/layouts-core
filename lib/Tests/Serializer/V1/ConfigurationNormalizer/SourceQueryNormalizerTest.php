@@ -31,7 +31,7 @@ class SourceQueryNormalizerTest extends TestCase
             array('param' => 'value')
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'identifier' => $sourceQuery->getIdentifier(),
                 'query_type' => $sourceQuery->getQueryType(),
@@ -50,7 +50,7 @@ class SourceQueryNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

@@ -52,7 +52,7 @@ class ResultItemBuilderTest extends TestCase
             )
         );
 
-        self::assertEquals($resultItem, $this->builder->build($value, 5));
+        $this->assertEquals($resultItem, $this->builder->build($value, 5));
     }
 
     /**
@@ -84,6 +84,6 @@ class ResultItemBuilderTest extends TestCase
             )
         );
 
-        self::assertEquals($resultItem, $this->builder->buildFromItem($item, 5));
+        $this->assertEquals($resultItem, $this->builder->buildFromItem($item, 5));
     }
 }

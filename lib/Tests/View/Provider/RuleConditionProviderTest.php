@@ -31,11 +31,11 @@ class RuleConditionProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\RuleConditionViewInterface $view */
         $view = $this->ruleConditionViewProvider->provideView($condition);
 
-        self::assertInstanceOf(RuleConditionViewInterface::class, $view);
+        $this->assertInstanceOf(RuleConditionViewInterface::class, $view);
 
-        self::assertEquals($condition, $view->getCondition());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($condition, $view->getCondition());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'condition' => $condition,
             ),
@@ -52,7 +52,7 @@ class RuleConditionProviderTest extends TestCase
      */
     public function testSupports($value, $supports)
     {
-        self::assertEquals($supports, $this->ruleConditionViewProvider->supports($value));
+        $this->assertEquals($supports, $this->ruleConditionViewProvider->supports($value));
     }
 
     /**

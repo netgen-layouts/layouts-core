@@ -14,7 +14,7 @@ class IdentifierTest extends TestCase
     public function testGetType()
     {
         $parameter = $this->getParameter();
-        self::assertEquals('identifier', $parameter->getType());
+        $this->assertEquals('identifier', $parameter->getType());
     }
 
     /**
@@ -28,7 +28,7 @@ class IdentifierTest extends TestCase
     public function testValidOptions($options, $resolvedOptions)
     {
         $parameter = $this->getParameter($options);
-        self::assertEquals($resolvedOptions, $parameter->getOptions());
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
     /**
@@ -102,7 +102,7 @@ class IdentifierTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());
-        self::assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() == 0);
     }
 
     /**

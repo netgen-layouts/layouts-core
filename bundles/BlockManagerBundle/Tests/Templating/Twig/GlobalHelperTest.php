@@ -29,7 +29,7 @@ class GlobalHelperTest extends TestCase
      */
     public function testGetDefaultLayoutView()
     {
-        self::assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalHelper->getLayoutView());
     }
 
     /**
@@ -41,7 +41,7 @@ class GlobalHelperTest extends TestCase
         $layoutView = new LayoutView(new Layout());
         $this->globalHelper->setLayoutView($layoutView);
 
-        self::assertEquals($layoutView, $this->globalHelper->getLayoutView());
+        $this->assertEquals($layoutView, $this->globalHelper->getLayoutView());
     }
 
     /**
@@ -49,7 +49,7 @@ class GlobalHelperTest extends TestCase
      */
     public function testGetDefaultPageLayoutTemplate()
     {
-        self::assertNull($this->globalHelper->getPageLayoutTemplate());
+        $this->assertNull($this->globalHelper->getPageLayoutTemplate());
     }
 
     /**
@@ -60,7 +60,7 @@ class GlobalHelperTest extends TestCase
     {
         $this->globalHelper->setPageLayoutTemplate('defaultPagelayout');
 
-        self::assertEquals('defaultPagelayout', $this->globalHelper->getPageLayoutTemplate());
+        $this->assertEquals('defaultPagelayout', $this->globalHelper->getPageLayoutTemplate());
     }
 
     /**
@@ -71,7 +71,7 @@ class GlobalHelperTest extends TestCase
         $layoutView = new LayoutView(new Layout());
         $this->globalHelper->setLayoutView($layoutView);
 
-        self::assertEquals(new Layout(), $this->globalHelper->getLayout());
+        $this->assertEquals(new Layout(), $this->globalHelper->getLayout());
     }
 
     /**
@@ -79,7 +79,7 @@ class GlobalHelperTest extends TestCase
      */
     public function testGetLayoutWithNoLayoutView()
     {
-        self::assertNull($this->globalHelper->getLayout());
+        $this->assertNull($this->globalHelper->getLayout());
     }
 
     /**
@@ -93,7 +93,7 @@ class GlobalHelperTest extends TestCase
         $layoutView->setTemplate('layout.html.twig');
         $this->globalHelper->setLayoutView($layoutView);
 
-        self::assertEquals('layout.html.twig', $this->globalHelper->getLayoutTemplate());
+        $this->assertEquals('layout.html.twig', $this->globalHelper->getLayoutTemplate());
     }
 
     /**
@@ -103,7 +103,7 @@ class GlobalHelperTest extends TestCase
     {
         $this->globalHelper->setPageLayoutTemplate('pagelayout.html.twig');
 
-        self::assertEquals('pagelayout.html.twig', $this->globalHelper->getLayoutTemplate());
+        $this->assertEquals('pagelayout.html.twig', $this->globalHelper->getLayoutTemplate());
     }
 
     /**
@@ -112,6 +112,6 @@ class GlobalHelperTest extends TestCase
      */
     public function testGetConfig()
     {
-        self::assertEquals($this->configMock, $this->globalHelper->getConfig());
+        $this->assertEquals($this->configMock, $this->globalHelper->getConfig());
     }
 }

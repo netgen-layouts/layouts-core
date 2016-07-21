@@ -33,8 +33,8 @@ class RuleTargetViewTest extends TestCase
      */
     public function testGetTarget()
     {
-        self::assertEquals($this->target, $this->view->getTarget());
-        self::assertEquals(
+        $this->assertEquals($this->target, $this->view->getTarget());
+        $this->assertEquals(
             array(
                 'param' => 'value',
                 'target' => $this->target,
@@ -48,6 +48,6 @@ class RuleTargetViewTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('rule_target_view', $this->view->getIdentifier());
+        $this->assertEquals('rule_target_view', $this->view->getIdentifier());
     }
 }

@@ -32,7 +32,7 @@ class CollectionParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('collectionId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('collectionId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -40,7 +40,7 @@ class CollectionParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('collection', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('collection', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -48,7 +48,7 @@ class CollectionParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APICollection::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APICollection::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -65,6 +65,6 @@ class CollectionParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($collection));
 
-        self::assertEquals($collection, $this->paramConverter->loadValueObject(array('collectionId' => 42)));
+        $this->assertEquals($collection, $this->paramConverter->loadValueObject(array('collectionId' => 42)));
     }
 }

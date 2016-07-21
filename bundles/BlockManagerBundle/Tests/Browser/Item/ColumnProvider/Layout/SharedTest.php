@@ -32,7 +32,7 @@ class SharedTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             'Yes',
             $this->provider->getValue($item)
         );

@@ -32,7 +32,7 @@ class LayoutDraftParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('layoutId'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('layoutId'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -40,7 +40,7 @@ class LayoutDraftParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('layout', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('layout', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -48,7 +48,7 @@ class LayoutDraftParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APILayoutDraft::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APILayoutDraft::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -65,6 +65,6 @@ class LayoutDraftParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        self::assertEquals($layout, $this->paramConverter->loadValueObject(array('layoutId' => 42)));
+        $this->assertEquals($layout, $this->paramConverter->loadValueObject(array('layoutId' => 42)));
     }
 }

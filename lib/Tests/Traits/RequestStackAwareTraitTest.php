@@ -11,7 +11,7 @@ class RequestStackAwareTraitTest extends TestCase
     public function testDefaultRequestStackValue()
     {
         $value = new RequestStackAwareValue();
-        self::assertNull($value->getRequestStack());
+        $this->assertNull($value->getRequestStack());
     }
 
     /**
@@ -24,6 +24,6 @@ class RequestStackAwareTraitTest extends TestCase
         $value = new RequestStackAwareValue();
         $value->setRequestStack($requestStack);
 
-        self::assertEquals($requestStack, $value->getRequestStack());
+        $this->assertEquals($requestStack, $value->getRequestStack());
     }
 }

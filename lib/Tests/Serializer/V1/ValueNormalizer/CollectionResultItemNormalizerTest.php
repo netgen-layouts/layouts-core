@@ -50,7 +50,7 @@ class CollectionResultItemNormalizerTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
@@ -86,7 +86,7 @@ class CollectionResultItemNormalizerTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => null,
                 'collection_id' => null,
@@ -110,7 +110,7 @@ class CollectionResultItemNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

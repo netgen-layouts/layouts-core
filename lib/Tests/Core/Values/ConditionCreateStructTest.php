@@ -11,8 +11,8 @@ class ConditionCreateStructTest extends TestCase
     {
         $conditionCreateStruct = new ConditionCreateStruct();
 
-        self::assertNull($conditionCreateStruct->type);
-        self::assertNull($conditionCreateStruct->value);
+        $this->assertNull($conditionCreateStruct->type);
+        $this->assertNull($conditionCreateStruct->value);
     }
 
     public function testSetProperties()
@@ -24,7 +24,7 @@ class ConditionCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('condition', $conditionCreateStruct->type);
-        self::assertEquals(42, $conditionCreateStruct->value);
+        $this->assertEquals('condition', $conditionCreateStruct->type);
+        $this->assertEquals(42, $conditionCreateStruct->value);
     }
 }

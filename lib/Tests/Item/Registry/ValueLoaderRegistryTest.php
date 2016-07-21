@@ -32,7 +32,7 @@ class ValueLoaderRegistryTest extends TestCase
      */
     public function testGetValueLoaders()
     {
-        self::assertEquals(array('value' => $this->valueLoader), $this->registry->getValueLoaders());
+        $this->assertEquals(array('value' => $this->valueLoader), $this->registry->getValueLoaders());
     }
 
     /**
@@ -40,7 +40,7 @@ class ValueLoaderRegistryTest extends TestCase
      */
     public function testGetValueLoader()
     {
-        self::assertEquals($this->valueLoader, $this->registry->getValueLoader('value'));
+        $this->assertEquals($this->valueLoader, $this->registry->getValueLoader('value'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ValueLoaderRegistryTest extends TestCase
      */
     public function testHasValueLoader()
     {
-        self::assertTrue($this->registry->hasValueLoader('value'));
+        $this->assertTrue($this->registry->hasValueLoader('value'));
     }
 
     /**
@@ -65,6 +65,6 @@ class ValueLoaderRegistryTest extends TestCase
      */
     public function testHasValueLoaderWithNoValueLoader()
     {
-        self::assertFalse($this->registry->hasValueLoader('other_value'));
+        $this->assertFalse($this->registry->hasValueLoader('other_value'));
     }
 }

@@ -24,7 +24,7 @@ class CompoundParameterHandlerTest extends TestCase
      */
     public function testConvertOptions()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'parameters' => array(
                     'param' => new TextLine(),
@@ -41,7 +41,7 @@ class CompoundParameterHandlerTest extends TestCase
      */
     public function testGetDefaultOptions()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'label' => false,
                 'parameter_validation_groups' => array('group'),

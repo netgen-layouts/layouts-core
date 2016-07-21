@@ -12,11 +12,11 @@ class ConditionTest extends TestCase
     {
         $condition = new Condition();
 
-        self::assertNull($condition->id);
-        self::assertNull($condition->ruleId);
-        self::assertNull($condition->type);
-        self::assertNull($condition->value);
-        self::assertNull($condition->status);
+        $this->assertNull($condition->id);
+        $this->assertNull($condition->ruleId);
+        $this->assertNull($condition->type);
+        $this->assertNull($condition->value);
+        $this->assertNull($condition->status);
     }
 
     public function testSetProperties()
@@ -31,10 +31,10 @@ class ConditionTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $condition->id);
-        self::assertEquals(30, $condition->ruleId);
-        self::assertEquals('condition', $condition->type);
-        self::assertEquals(32, $condition->value);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $condition->status);
+        $this->assertEquals(42, $condition->id);
+        $this->assertEquals(30, $condition->ruleId);
+        $this->assertEquals('condition', $condition->type);
+        $this->assertEquals(32, $condition->value);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $condition->status);
     }
 }

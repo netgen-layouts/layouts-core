@@ -24,6 +24,6 @@ class BooleanTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(CheckboxType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(CheckboxType::class, $this->parameterHandler->getFormType());
     }
 }

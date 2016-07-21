@@ -26,7 +26,7 @@ class CollectViewParametersEventTest extends TestCase
      */
     public function testGetViewParameters()
     {
-        self::assertEquals(array(), $this->event->getViewParameters());
+        $this->assertEquals(array(), $this->event->getViewParameters());
     }
 
     /**
@@ -34,7 +34,7 @@ class CollectViewParametersEventTest extends TestCase
      */
     public function testGetParameterBag()
     {
-        self::assertInstanceOf(ParameterBag::class, $this->event->getParameterBag());
+        $this->assertInstanceOf(ParameterBag::class, $this->event->getParameterBag());
     }
 
     /**
@@ -42,6 +42,6 @@ class CollectViewParametersEventTest extends TestCase
      */
     public function testGetView()
     {
-        self::assertEquals(new View(new Value()), $this->event->getView());
+        $this->assertEquals(new View(new Value()), $this->event->getView());
     }
 }

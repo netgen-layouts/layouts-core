@@ -26,7 +26,7 @@ class ParameterFilterDataTransformerTest extends TestCase
      */
     public function testTransform()
     {
-        self::assertEquals(42, $this->dataTransformer->transform(42));
+        $this->assertEquals(42, $this->dataTransformer->transform(42));
     }
 
     /**
@@ -34,7 +34,7 @@ class ParameterFilterDataTransformerTest extends TestCase
      */
     public function testTransformNullValue()
     {
-        self::assertEquals('', $this->dataTransformer->transform(null));
+        $this->assertEquals('', $this->dataTransformer->transform(null));
     }
 
     /**
@@ -42,7 +42,7 @@ class ParameterFilterDataTransformerTest extends TestCase
      */
     public function testReverseTransform()
     {
-        self::assertEquals('cd/ca', $this->dataTransformer->reverseTransform('ac/dc'));
+        $this->assertEquals('cd/ca', $this->dataTransformer->reverseTransform('ac/dc'));
     }
 
     /**
@@ -50,6 +50,6 @@ class ParameterFilterDataTransformerTest extends TestCase
      */
     public function testReverseTransformEmptyValue()
     {
-        self::assertNull($this->dataTransformer->reverseTransform(''));
+        $this->assertNull($this->dataTransformer->reverseTransform(''));
     }
 }

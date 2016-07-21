@@ -28,7 +28,7 @@ class BlockTypeGroupTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('simple_blocks', $this->blockTypeGroup->getIdentifier());
+        $this->assertEquals('simple_blocks', $this->blockTypeGroup->getIdentifier());
     }
 
     /**
@@ -36,7 +36,7 @@ class BlockTypeGroupTest extends TestCase
      */
     public function testGetIsEnabled()
     {
-        self::assertEquals(true, $this->blockTypeGroup->isEnabled());
+        $this->assertEquals(true, $this->blockTypeGroup->isEnabled());
     }
 
     /**
@@ -44,7 +44,7 @@ class BlockTypeGroupTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('Simple blocks', $this->blockTypeGroup->getName());
+        $this->assertEquals('Simple blocks', $this->blockTypeGroup->getName());
     }
 
     /**
@@ -52,6 +52,6 @@ class BlockTypeGroupTest extends TestCase
      */
     public function testGetBlockTypes()
     {
-        self::assertEquals(array('title', 'title_with_h3'), $this->blockTypeGroup->getBlockTypes());
+        $this->assertEquals(array('title', 'title_with_h3'), $this->blockTypeGroup->getBlockTypes());
     }
 }

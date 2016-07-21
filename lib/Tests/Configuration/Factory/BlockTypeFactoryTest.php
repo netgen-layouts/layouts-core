@@ -25,7 +25,7 @@ class BlockTypeFactoryTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new BlockType(
                 'title',
                 true,

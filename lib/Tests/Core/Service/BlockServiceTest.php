@@ -137,7 +137,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $block = $this->blockService->loadBlock(1);
 
-        self::assertInstanceOf(APIBlock::class, $block);
+        $this->assertInstanceOf(APIBlock::class, $block);
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $block = $this->blockService->loadBlockDraft(1);
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
     }
 
     /**
@@ -176,7 +176,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $block = $this->blockService->loadBlock(1);
 
-        self::assertTrue($this->blockService->isPublished($block));
+        $this->assertTrue($this->blockService->isPublished($block));
     }
 
     /**
@@ -186,7 +186,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $block = $this->blockService->loadBlockDraft(6);
 
-        self::assertFalse($this->blockService->isPublished($block));
+        $this->assertFalse($this->blockService->isPublished($block));
     }
 
     /**
@@ -199,7 +199,7 @@ abstract class BlockServiceTest extends ServiceTest
             'default'
         );
 
-        self::assertInstanceOf(CollectionReference::class, $collection);
+        $this->assertInstanceOf(CollectionReference::class, $collection);
     }
 
     /**
@@ -213,7 +213,7 @@ abstract class BlockServiceTest extends ServiceTest
             'non_existing'
         );
 
-        self::assertInstanceOf(CollectionReference::class, $collection);
+        $this->assertInstanceOf(CollectionReference::class, $collection);
     }
 
     /**
@@ -225,10 +225,10 @@ abstract class BlockServiceTest extends ServiceTest
             $this->blockService->loadBlock(1)
         );
 
-        self::assertNotEmpty($collections);
+        $this->assertNotEmpty($collections);
 
         foreach ($collections as $collection) {
-            self::assertInstanceOf(CollectionReference::class, $collection);
+            $this->assertInstanceOf(CollectionReference::class, $collection);
         }
     }
 
@@ -249,20 +249,20 @@ abstract class BlockServiceTest extends ServiceTest
             0
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
 
         $secondBlock = $this->blockService->loadBlockDraft(1);
-        self::assertEquals(1, $secondBlock->getPosition());
+        $this->assertEquals(1, $secondBlock->getPosition());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
-        self::assertCount(1, $collectionReferences);
+        $this->assertCount(1, $collectionReferences);
 
-        self::assertEquals('default', $collectionReferences[0]->getIdentifier());
-        self::assertEquals(0, $collectionReferences[0]->getOffset());
-        self::assertNull($collectionReferences[0]->getLimit());
+        $this->assertEquals('default', $collectionReferences[0]->getIdentifier());
+        $this->assertEquals(0, $collectionReferences[0]->getOffset());
+        $this->assertNull($collectionReferences[0]->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(6);
-        self::assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+        $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
     }
 
     /**
@@ -281,7 +281,7 @@ abstract class BlockServiceTest extends ServiceTest
             'top'
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
     }
 
     /**
@@ -300,8 +300,8 @@ abstract class BlockServiceTest extends ServiceTest
             'right'
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals(2, $block->getPosition());
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertEquals(2, $block->getPosition());
     }
 
     /**
@@ -374,10 +374,10 @@ abstract class BlockServiceTest extends ServiceTest
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals('small', $block->getViewType());
-        self::assertEquals('Super cool block', $block->getName());
-        self::assertEquals(
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertEquals('small', $block->getViewType());
+        $this->assertEquals('Super cool block', $block->getName());
+        $this->assertEquals(
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
@@ -404,9 +404,9 @@ abstract class BlockServiceTest extends ServiceTest
             $newCollection
         );
 
-        self::assertInstanceOf(CollectionReference::class, $updatedReference);
-        self::assertEquals($newCollection->getId(), $updatedReference->getCollection()->getId());
-        self::assertEquals($newCollection->getStatus(), $updatedReference->getCollection()->getStatus());
+        $this->assertInstanceOf(CollectionReference::class, $updatedReference);
+        $this->assertEquals($newCollection->getId(), $updatedReference->getCollection()->getId());
+        $this->assertEquals($newCollection->getStatus(), $updatedReference->getCollection()->getStatus());
     }
 
     /**
@@ -423,10 +423,10 @@ abstract class BlockServiceTest extends ServiceTest
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals('small', $block->getViewType());
-        self::assertEquals('My block', $block->getName());
-        self::assertEquals(
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertEquals('small', $block->getViewType());
+        $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
@@ -450,10 +450,10 @@ abstract class BlockServiceTest extends ServiceTest
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        self::assertInstanceOf(APIBlockDraft::class, $block);
-        self::assertEquals('list', $block->getViewType());
-        self::assertEquals('Super cool block', $block->getName());
-        self::assertEquals(
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertEquals('list', $block->getViewType());
+        $this->assertEquals('Super cool block', $block->getName());
+        $this->assertEquals(
             array(
                 'test_param' => 'test_value',
                 'some_other_test_param' => 'some_other_test_value',
@@ -473,11 +473,11 @@ abstract class BlockServiceTest extends ServiceTest
             $this->blockService->loadBlockDraft(1)
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $copiedBlock);
-        self::assertEquals(7, $copiedBlock->getId());
+        $this->assertInstanceOf(APIBlockDraft::class, $copiedBlock);
+        $this->assertEquals(7, $copiedBlock->getId());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
-        self::assertInstanceOf(Collection::class, $copiedCollection);
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -491,12 +491,12 @@ abstract class BlockServiceTest extends ServiceTest
             'left'
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $copiedBlock);
-        self::assertEquals(7, $copiedBlock->getId());
-        self::assertEquals('left', $copiedBlock->getZoneIdentifier());
+        $this->assertInstanceOf(APIBlockDraft::class, $copiedBlock);
+        $this->assertEquals(7, $copiedBlock->getId());
+        $this->assertEquals('left', $copiedBlock->getZoneIdentifier());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
-        self::assertInstanceOf(Collection::class, $copiedCollection);
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
     }
 
     /**
@@ -536,12 +536,12 @@ abstract class BlockServiceTest extends ServiceTest
             1
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $movedBlock);
-        self::assertEquals(1, $movedBlock->getId());
-        self::assertEquals(1, $movedBlock->getPosition());
+        $this->assertInstanceOf(APIBlockDraft::class, $movedBlock);
+        $this->assertEquals(1, $movedBlock->getId());
+        $this->assertEquals(1, $movedBlock->getPosition());
 
         $secondBlock = $this->blockService->loadBlockDraft(2);
-        self::assertEquals(0, $secondBlock->getPosition());
+        $this->assertEquals(0, $secondBlock->getPosition());
     }
 
     /**
@@ -556,10 +556,10 @@ abstract class BlockServiceTest extends ServiceTest
             'left'
         );
 
-        self::assertInstanceOf(APIBlockDraft::class, $movedBlock);
-        self::assertEquals(2, $movedBlock->getId());
-        self::assertEquals('left', $movedBlock->getZoneIdentifier());
-        self::assertEquals(0, $movedBlock->getPosition());
+        $this->assertInstanceOf(APIBlockDraft::class, $movedBlock);
+        $this->assertEquals(2, $movedBlock->getId());
+        $this->assertEquals('left', $movedBlock->getZoneIdentifier());
+        $this->assertEquals(0, $movedBlock->getPosition());
     }
 
     /**
@@ -629,19 +629,19 @@ abstract class BlockServiceTest extends ServiceTest
 
         $restoredBlock = $this->blockService->restoreBlock($block);
 
-        self::assertInstanceOf(APIBlockDraft::class, $restoredBlock);
-        self::assertEquals('list', $restoredBlock->getViewType());
-        self::assertEquals('standard', $restoredBlock->getItemViewType());
-        self::assertEquals('My block', $restoredBlock->getName());
-        self::assertEquals(array('number_of_columns' => 2), $restoredBlock->getParameters());
-        self::assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
-        self::assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
+        $this->assertInstanceOf(APIBlockDraft::class, $restoredBlock);
+        $this->assertEquals('list', $restoredBlock->getViewType());
+        $this->assertEquals('standard', $restoredBlock->getItemViewType());
+        $this->assertEquals('My block', $restoredBlock->getName());
+        $this->assertEquals(array('number_of_columns' => 2), $restoredBlock->getParameters());
+        $this->assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
+        $this->assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
-        self::assertCount(2, $collectionReferences);
+        $this->assertCount(2, $collectionReferences);
 
-        self::assertEquals(2, $collectionReferences[0]->getCollection()->getId());
-        self::assertEquals(3, $collectionReferences[1]->getCollection()->getId());
+        $this->assertEquals(2, $collectionReferences[0]->getCollection()->getId());
+        $this->assertEquals(3, $collectionReferences[1]->getCollection()->getId());
     }
 
     /**
@@ -671,7 +671,7 @@ abstract class BlockServiceTest extends ServiceTest
         }
 
         $secondBlock = $this->blockService->loadBlockDraft(2);
-        self::assertEquals(0, $secondBlock->getPosition());
+        $this->assertEquals(0, $secondBlock->getPosition());
     }
 
     /**
@@ -679,7 +679,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testNewBlockCreateStruct()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new BlockCreateStruct(
                 array(
                     'definitionIdentifier' => 'title',
@@ -716,7 +716,7 @@ abstract class BlockServiceTest extends ServiceTest
      */
     public function testNewBlockUpdateStruct()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new BlockUpdateStruct(),
             $this->blockService->newBlockUpdateStruct()
         );
@@ -729,7 +729,7 @@ abstract class BlockServiceTest extends ServiceTest
     {
         $block = $this->blockService->loadBlockDraft(6);
 
-        self::assertEquals(
+        $this->assertEquals(
             new BlockUpdateStruct(
                 array(
                     'viewType' => $block->getViewType(),

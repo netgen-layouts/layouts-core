@@ -14,7 +14,7 @@ class CollectionCreateStructTest extends TestCase
     {
         $collectionCreateStruct = new CollectionCreateStruct();
 
-        self::assertNull($collectionCreateStruct->name);
+        $this->assertNull($collectionCreateStruct->name);
     }
 
     /**
@@ -28,6 +28,6 @@ class CollectionCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('My collection', $collectionCreateStruct->name);
+        $this->assertEquals('My collection', $collectionCreateStruct->name);
     }
 }

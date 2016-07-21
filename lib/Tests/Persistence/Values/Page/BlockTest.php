@@ -11,15 +11,15 @@ class BlockTest extends TestCase
     {
         $block = new Block();
 
-        self::assertNull($block->id);
-        self::assertNull($block->layoutId);
-        self::assertNull($block->zoneIdentifier);
-        self::assertNull($block->position);
-        self::assertNull($block->definitionIdentifier);
-        self::assertNull($block->parameters);
-        self::assertNull($block->viewType);
-        self::assertNull($block->itemViewType);
-        self::assertNull($block->name);
+        $this->assertNull($block->id);
+        $this->assertNull($block->layoutId);
+        $this->assertNull($block->zoneIdentifier);
+        $this->assertNull($block->position);
+        $this->assertNull($block->definitionIdentifier);
+        $this->assertNull($block->parameters);
+        $this->assertNull($block->viewType);
+        $this->assertNull($block->itemViewType);
+        $this->assertNull($block->name);
     }
 
     public function testSetProperties()
@@ -41,20 +41,20 @@ class BlockTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $block->id);
-        self::assertEquals(84, $block->layoutId);
-        self::assertEquals('top', $block->zoneIdentifier);
-        self::assertEquals(4, $block->position);
-        self::assertEquals('text', $block->definitionIdentifier);
-        self::assertEquals(
+        $this->assertEquals(42, $block->id);
+        $this->assertEquals(84, $block->layoutId);
+        $this->assertEquals('top', $block->zoneIdentifier);
+        $this->assertEquals(4, $block->position);
+        $this->assertEquals('text', $block->definitionIdentifier);
+        $this->assertEquals(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ),
             $block->parameters
         );
-        self::assertEquals('default', $block->viewType);
-        self::assertEquals('standard', $block->itemViewType);
-        self::assertEquals('My block', $block->name);
+        $this->assertEquals('default', $block->viewType);
+        $this->assertEquals('standard', $block->itemViewType);
+        $this->assertEquals('My block', $block->name);
     }
 }

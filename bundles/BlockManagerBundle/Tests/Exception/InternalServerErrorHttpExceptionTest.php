@@ -15,7 +15,7 @@ class InternalServerErrorHttpExceptionTest extends TestCase
     {
         $exception = new InternalServerErrorHttpException('An error occurred. That is all we know.');
 
-        self::assertEquals(Response::HTTP_INTERNAL_SERVER_ERROR, $exception->getStatusCode());
-        self::assertEquals('An error occurred. That is all we know.', $exception->getMessage());
+        $this->assertEquals(Response::HTTP_INTERNAL_SERVER_ERROR, $exception->getStatusCode());
+        $this->assertEquals('An error occurred. That is all we know.', $exception->getMessage());
     }
 }

@@ -23,7 +23,7 @@ class FormTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('full', $this->form->getIdentifier());
+        $this->assertEquals('full', $this->form->getIdentifier());
     }
 
     /**
@@ -31,7 +31,7 @@ class FormTest extends TestCase
      */
     public function testGetType()
     {
-        self::assertEquals('form_type', $this->form->getType());
+        $this->assertEquals('form_type', $this->form->getType());
     }
 
     /**
@@ -39,7 +39,7 @@ class FormTest extends TestCase
      */
     public function testIsEnabled()
     {
-        self::assertTrue($this->form->isEnabled());
+        $this->assertTrue($this->form->isEnabled());
     }
 
     /**
@@ -47,6 +47,6 @@ class FormTest extends TestCase
      */
     public function testGetParameters()
     {
-        self::assertEquals(array('param1', 'param2'), $this->form->getParameters());
+        $this->assertEquals(array('param1', 'param2'), $this->form->getParameters());
     }
 }

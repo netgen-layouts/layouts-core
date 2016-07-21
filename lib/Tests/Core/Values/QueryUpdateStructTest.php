@@ -11,7 +11,7 @@ class QueryUpdateStructTest extends TestCase
     {
         $queryUpdateStruct = new QueryUpdateStruct();
 
-        self::assertNull($queryUpdateStruct->identifier);
+        $this->assertNull($queryUpdateStruct->identifier);
     }
 
     public function testSetProperties()
@@ -22,6 +22,6 @@ class QueryUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('my_query', $queryUpdateStruct->identifier);
+        $this->assertEquals('my_query', $queryUpdateStruct->identifier);
     }
 }

@@ -37,7 +37,7 @@ class GetDynamicParametersListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(ViewEvents::BUILD_VIEW => 'onBuildView'),
             $this->listener->getSubscribedEvents()
         );
@@ -68,7 +68,7 @@ class GetDynamicParametersListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             array('param' => 'value'),
             $event->getViewParameters()
         );
@@ -84,7 +84,7 @@ class GetDynamicParametersListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        self::assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getViewParameters());
     }
 
     /**
@@ -105,6 +105,6 @@ class GetDynamicParametersListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        self::assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getViewParameters());
     }
 }

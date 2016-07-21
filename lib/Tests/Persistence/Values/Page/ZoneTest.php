@@ -12,11 +12,11 @@ class ZoneTest extends TestCase
     {
         $zone = new Zone();
 
-        self::assertNull($zone->identifier);
-        self::assertNull($zone->layoutId);
-        self::assertNull($zone->status);
-        self::assertNull($zone->linkedLayoutId);
-        self::assertNull($zone->linkedZoneIdentifier);
+        $this->assertNull($zone->identifier);
+        $this->assertNull($zone->layoutId);
+        $this->assertNull($zone->status);
+        $this->assertNull($zone->linkedLayoutId);
+        $this->assertNull($zone->linkedZoneIdentifier);
     }
 
     public function testSetProperties()
@@ -31,10 +31,10 @@ class ZoneTest extends TestCase
             )
         );
 
-        self::assertEquals('left', $zone->identifier);
-        self::assertEquals(84, $zone->layoutId);
-        self::assertEquals(Layout::STATUS_PUBLISHED, $zone->status);
-        self::assertEquals(24, $zone->linkedLayoutId);
-        self::assertEquals('top', $zone->linkedZoneIdentifier);
+        $this->assertEquals('left', $zone->identifier);
+        $this->assertEquals(84, $zone->layoutId);
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->status);
+        $this->assertEquals(24, $zone->linkedLayoutId);
+        $this->assertEquals('top', $zone->linkedZoneIdentifier);
     }
 }

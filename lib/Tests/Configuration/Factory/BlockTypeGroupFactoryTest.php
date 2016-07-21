@@ -22,7 +22,7 @@ class BlockTypeGroupFactoryTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             new BlockTypeGroup(
                 'simple_blocks',
                 true,

@@ -15,8 +15,8 @@ class RequestUriTest extends AbstractTargetHandlerTest
     {
         $rules = $this->handler->matchRules($this->getTargetIdentifier(), '/the/answer?a=42');
 
-        self::assertCount(1, $rules);
-        self::assertEquals(9, $rules[0]->id);
+        $this->assertCount(1, $rules);
+        $this->assertEquals(9, $rules[0]->id);
     }
 
     /**

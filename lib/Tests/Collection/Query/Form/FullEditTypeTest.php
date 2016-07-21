@@ -94,11 +94,11 @@ class FullEditTypeTest extends FormTestCase
         $children = $view->children;
 
         foreach (array_keys($submittedData) as $key) {
-            self::assertArrayHasKey($key, $children);
+            $this->assertArrayHasKey($key, $children);
         }
 
         foreach (array_keys($submittedData['parameters']) as $key) {
-            self::assertArrayHasKey($key, $children['parameters']);
+            $this->assertArrayHasKey($key, $children['parameters']);
         }
     }
 
@@ -119,8 +119,8 @@ class FullEditTypeTest extends FormTestCase
             )
         );
 
-        self::assertEquals($this->queryType, $options['queryType']);
-        self::assertEquals(new QueryUpdateStruct(), $options['data']);
+        $this->assertEquals($this->queryType, $options['queryType']);
+        $this->assertEquals(new QueryUpdateStruct(), $options['data']);
     }
 
     /**

@@ -24,7 +24,7 @@ class ParameterStructTest extends TestCase
      */
     public function testDefaultProperties()
     {
-        self::assertEquals(array(), $this->struct->getParameters());
+        $this->assertEquals(array(), $this->struct->getParameters());
     }
 
     /**
@@ -40,7 +40,7 @@ class ParameterStructTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -57,7 +57,7 @@ class ParameterStructTest extends TestCase
         $this->struct->setParameter('some_param', 'some_value');
         $this->struct->setParameter('some_other_param', 'some_other_value');
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -74,7 +74,7 @@ class ParameterStructTest extends TestCase
         $this->struct->setParameter('some_param', 'some_value');
         $this->struct->setParameter('some_param', 'new_value');
 
-        self::assertEquals(array('some_param' => 'new_value'), $this->struct->getParameters());
+        $this->assertEquals(array('some_param' => 'new_value'), $this->struct->getParameters());
     }
 
     /**
@@ -84,7 +84,7 @@ class ParameterStructTest extends TestCase
     {
         $this->struct->setParameter('some_param', 'some_value');
 
-        self::assertEquals('some_value', $this->struct->getParameter('some_param'));
+        $this->assertEquals('some_value', $this->struct->getParameter('some_param'));
     }
 
     /**
@@ -105,7 +105,7 @@ class ParameterStructTest extends TestCase
     {
         $this->struct->setParameter('some_param', 'some_value');
 
-        self::assertTrue($this->struct->hasParameter('some_param'));
+        $this->assertTrue($this->struct->hasParameter('some_param'));
     }
 
     /**
@@ -115,7 +115,7 @@ class ParameterStructTest extends TestCase
     {
         $this->struct->setParameter('some_param', 'some_value');
 
-        self::assertFalse($this->struct->hasParameter('some_other_param'));
+        $this->assertFalse($this->struct->hasParameter('some_other_param'));
     }
 
     /**
@@ -143,7 +143,7 @@ class ParameterStructTest extends TestCase
 
         $this->struct->fillValues($parameters, $initialValues);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'css_class' => 'initial_css',
                 'css_id' => 'id',
@@ -179,7 +179,7 @@ class ParameterStructTest extends TestCase
 
         $this->struct->fillValues($parameters, $initialValues, false);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'css_class' => 'initial_css',
                 'css_id' => null,

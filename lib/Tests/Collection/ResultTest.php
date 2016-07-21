@@ -27,10 +27,10 @@ class ResultTest extends TestCase
             )
         );
 
-        self::assertEquals(new Collection(), $result->getCollection());
-        self::assertEquals(array('items'), $result->getResults());
-        self::assertEquals(15, $result->getTotalCount());
-        self::assertEquals(3, $result->getOffset());
-        self::assertEquals(5, $result->getLimit());
+        $this->assertEquals(new Collection(), $result->getCollection());
+        $this->assertEquals(array('items'), $result->getResults());
+        $this->assertEquals(15, $result->getTotalCount());
+        $this->assertEquals(3, $result->getOffset());
+        $this->assertEquals(5, $result->getLimit());
     }
 }

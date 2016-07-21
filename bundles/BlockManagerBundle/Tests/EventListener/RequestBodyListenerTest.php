@@ -22,7 +22,7 @@ class RequestBodyListenerTest extends TestCase
         $decoderMock = $this->createMock(DecoderInterface::class);
         $eventListener = new RequestBodyListener($decoderMock);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::REQUEST => 'onKernelRequest'),
             $eventListener->getSubscribedEvents()
         );
@@ -51,7 +51,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $eventListener->onKernelRequest($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             'value',
             $event->getRequest()->request->get('test')
         );
@@ -73,7 +73,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $eventListener->onKernelRequest($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             false,
             $event->getRequest()->attributes->has('test')
         );
@@ -96,7 +96,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $eventListener->onKernelRequest($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             false,
             $event->getRequest()->attributes->has('test')
         );
@@ -119,7 +119,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $eventListener->onKernelRequest($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             false,
             $event->getRequest()->attributes->has('test')
         );
@@ -143,7 +143,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $eventListener->onKernelRequest($event);
 
-        self::assertEquals(
+        $this->assertEquals(
             false,
             $event->getRequest()->attributes->has('test')
         );

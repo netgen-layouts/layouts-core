@@ -33,7 +33,7 @@ class CollectionReferenceParamConverterTest extends TestCase
      */
     public function testGetSourceAttributeName()
     {
-        self::assertEquals(array('blockId', 'collectionIdentifier'), $this->paramConverter->getSourceAttributeNames());
+        $this->assertEquals(array('blockId', 'collectionIdentifier'), $this->paramConverter->getSourceAttributeNames());
     }
 
     /**
@@ -41,7 +41,7 @@ class CollectionReferenceParamConverterTest extends TestCase
      */
     public function testGetDestinationAttributeName()
     {
-        self::assertEquals('collectionReference', $this->paramConverter->getDestinationAttributeName());
+        $this->assertEquals('collectionReference', $this->paramConverter->getDestinationAttributeName());
     }
 
     /**
@@ -49,7 +49,7 @@ class CollectionReferenceParamConverterTest extends TestCase
      */
     public function testGetSupportedClass()
     {
-        self::assertEquals(APICollectionReference::class, $this->paramConverter->getSupportedClass());
+        $this->assertEquals(APICollectionReference::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
@@ -73,7 +73,7 @@ class CollectionReferenceParamConverterTest extends TestCase
             ->with($this->equalTo($block), $this->equalTo('default'))
             ->will($this->returnValue($collectionReference));
 
-        self::assertEquals(
+        $this->assertEquals(
             $collectionReference,
             $this->paramConverter->loadValueObject(
                 array(

@@ -26,7 +26,7 @@ class LayoutTemplateValueProviderTest extends TestCase
     {
         $item = $this->getItem();
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'layout' => $item->getLayout(),
             ),

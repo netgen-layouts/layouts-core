@@ -24,7 +24,7 @@ class ViewTest extends TestCase
      */
     public function testGetValueObject()
     {
-        self::assertEquals(new Value(), $this->view->getValueObject());
+        $this->assertEquals(new Value(), $this->view->getValueObject());
     }
 
     /**
@@ -35,7 +35,7 @@ class ViewTest extends TestCase
     {
         $this->view->setContext('context');
 
-        self::assertEquals('context', $this->view->getContext());
+        $this->assertEquals('context', $this->view->getContext());
     }
 
     /**
@@ -46,7 +46,7 @@ class ViewTest extends TestCase
     {
         $this->view->setTemplate('template.html.twig');
 
-        self::assertEquals('template.html.twig', $this->view->getTemplate());
+        $this->assertEquals('template.html.twig', $this->view->getTemplate());
     }
 
     /**
@@ -54,7 +54,7 @@ class ViewTest extends TestCase
      */
     public function testGetDefaultResponse()
     {
-        self::assertEquals(new Response(), $this->view->getResponse());
+        $this->assertEquals(new Response(), $this->view->getResponse());
     }
 
     /**
@@ -67,7 +67,7 @@ class ViewTest extends TestCase
 
         $this->view->setResponse($response);
 
-        self::assertEquals($response, $this->view->getResponse());
+        $this->assertEquals($response, $this->view->getResponse());
     }
 
     /**
@@ -77,7 +77,7 @@ class ViewTest extends TestCase
     {
         $this->view->setParameters(array('param' => 'value'));
 
-        self::assertTrue($this->view->hasParameter('param'));
+        $this->assertTrue($this->view->hasParameter('param'));
     }
 
     /**
@@ -87,7 +87,7 @@ class ViewTest extends TestCase
     {
         $this->view->setParameters(array('param' => 'value'));
 
-        self::assertFalse($this->view->hasParameter('other_param'));
+        $this->assertFalse($this->view->hasParameter('other_param'));
     }
 
     /**
@@ -97,7 +97,7 @@ class ViewTest extends TestCase
     {
         $this->view->setParameters(array('param' => 'value'));
 
-        self::assertEquals('value', $this->view->getParameter('param'));
+        $this->assertEquals('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -124,7 +124,7 @@ class ViewTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -152,7 +152,7 @@ class ViewTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'some_param' => 'new_value',
                 'some_other_param' => 'some_other_value',

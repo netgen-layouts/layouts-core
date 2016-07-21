@@ -12,13 +12,13 @@ class QueryTest extends TestCase
     {
         $query = new Query();
 
-        self::assertNull($query->id);
-        self::assertNull($query->collectionId);
-        self::assertNull($query->position);
-        self::assertNull($query->identifier);
-        self::assertNull($query->type);
-        self::assertNull($query->parameters);
-        self::assertNull($query->status);
+        $this->assertNull($query->id);
+        $this->assertNull($query->collectionId);
+        $this->assertNull($query->position);
+        $this->assertNull($query->identifier);
+        $this->assertNull($query->type);
+        $this->assertNull($query->parameters);
+        $this->assertNull($query->status);
     }
 
     public function testSetProperties()
@@ -35,12 +35,12 @@ class QueryTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $query->id);
-        self::assertEquals(30, $query->collectionId);
-        self::assertEquals(3, $query->position);
-        self::assertEquals('my_query', $query->identifier);
-        self::assertEquals('ezcontent_search', $query->type);
-        self::assertEquals(array('param' => 'value'), $query->parameters);
-        self::assertEquals(Collection::STATUS_PUBLISHED, $query->status);
+        $this->assertEquals(42, $query->id);
+        $this->assertEquals(30, $query->collectionId);
+        $this->assertEquals(3, $query->position);
+        $this->assertEquals('my_query', $query->identifier);
+        $this->assertEquals('ezcontent_search', $query->type);
+        $this->assertEquals(array('param' => 'value'), $query->parameters);
+        $this->assertEquals(Collection::STATUS_PUBLISHED, $query->status);
     }
 }

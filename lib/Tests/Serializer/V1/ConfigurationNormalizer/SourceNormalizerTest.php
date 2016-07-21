@@ -61,7 +61,7 @@ class SourceNormalizerTest extends TestCase
             )
             ->will($this->returnValue(array('queries')));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'identifier' => $source->getIdentifier(),
                 'name' => $source->getName(),
@@ -80,7 +80,7 @@ class SourceNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

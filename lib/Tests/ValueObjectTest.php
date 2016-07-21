@@ -19,8 +19,8 @@ class ValueObjectTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $value->someProperty);
-        self::assertEquals(84, $value->someOtherProperty);
+        $this->assertEquals(42, $value->someProperty);
+        $this->assertEquals(84, $value->someOtherProperty);
     }
 
     /**

@@ -16,7 +16,7 @@ class NullValueTest extends TestCase
     {
         $value = new NullValue(42, 'type');
 
-        self::assertEquals(42, $value->getId());
-        self::assertEquals('type', $value->getValueType());
+        $this->assertEquals(42, $value->getId());
+        $this->assertEquals('type', $value->getValueType());
     }
 }

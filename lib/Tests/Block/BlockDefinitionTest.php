@@ -43,7 +43,7 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('block_definition', $this->blockDefinition->getIdentifier());
+        $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -51,7 +51,7 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetHandler()
     {
-        self::assertEquals($this->handler, $this->blockDefinition->getHandler());
+        $this->assertEquals($this->handler, $this->blockDefinition->getHandler());
     }
 
     /**
@@ -59,6 +59,6 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetConfig()
     {
-        self::assertEquals($this->configMock, $this->blockDefinition->getConfig());
+        $this->assertEquals($this->configMock, $this->blockDefinition->getConfig());
     }
 }

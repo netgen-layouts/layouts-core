@@ -24,6 +24,6 @@ class IdentifierTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(TextType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(TextType::class, $this->parameterHandler->getFormType());
     }
 }

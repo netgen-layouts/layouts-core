@@ -35,6 +35,6 @@ class CompoundParameterTest extends TestCase
     {
         $parameter = new CompoundParameter(array('param' => new TextLine()), array(), true);
 
-        self::assertEquals(array('param' => new TextLine()), $parameter->getParameters());
+        $this->assertEquals(array('param' => new TextLine()), $parameter->getParameters());
     }
 }

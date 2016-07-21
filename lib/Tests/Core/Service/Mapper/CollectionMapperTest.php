@@ -41,31 +41,31 @@ abstract class CollectionMapperTest extends MapperTest
 
         $collection = $this->collectionMapper->mapCollection($persistenceCollection);
 
-        self::assertInstanceOf(APICollection::class, $collection);
-        self::assertEquals(2, $collection->getId());
-        self::assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
-        self::assertNull(null, $collection->getName());
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertInstanceOf(APICollection::class, $collection);
+        $this->assertEquals(2, $collection->getId());
+        $this->assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
+        $this->assertNull(null, $collection->getName());
+        $this->assertEquals(APICollection::STATUS_PUBLISHED, $collection->getStatus());
 
         foreach ($collection->getItems() as $item) {
-            self::assertInstanceOf(APIItem::class, $item);
+            $this->assertInstanceOf(APIItem::class, $item);
         }
 
         foreach ($collection->getManualItems() as $item) {
-            self::assertInstanceOf(APIItem::class, $item);
+            $this->assertInstanceOf(APIItem::class, $item);
         }
 
         foreach ($collection->getOverrideItems() as $item) {
-            self::assertInstanceOf(APIItem::class, $item);
+            $this->assertInstanceOf(APIItem::class, $item);
         }
 
-        self::assertEquals(
+        $this->assertEquals(
             count($collection->getItems()),
             count($collection->getManualItems()) + count($collection->getOverrideItems())
         );
 
         foreach ($collection->getQueries() as $query) {
-            self::assertInstanceOf(APIQuery::class, $query);
+            $this->assertInstanceOf(APIQuery::class, $query);
         }
     }
 
@@ -88,14 +88,14 @@ abstract class CollectionMapperTest extends MapperTest
 
         $item = $this->collectionMapper->mapItem($persistenceItem);
 
-        self::assertInstanceOf(APIItem::class, $item);
-        self::assertEquals(1, $item->getId());
-        self::assertEquals(42, $item->getCollectionId());
-        self::assertEquals(1, $item->getPosition());
-        self::assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
-        self::assertEquals('12', $item->getValueId());
-        self::assertEquals('ezcontent', $item->getValueType());
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertInstanceOf(APIItem::class, $item);
+        $this->assertEquals(1, $item->getId());
+        $this->assertEquals(42, $item->getCollectionId());
+        $this->assertEquals(1, $item->getPosition());
+        $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
+        $this->assertEquals('12', $item->getValueId());
+        $this->assertEquals('ezcontent', $item->getValueType());
+        $this->assertEquals(APICollection::STATUS_PUBLISHED, $item->getStatus());
     }
 
     /**
@@ -117,13 +117,13 @@ abstract class CollectionMapperTest extends MapperTest
 
         $query = $this->collectionMapper->mapQuery($persistenceQuery);
 
-        self::assertInstanceOf(APIQuery::class, $query);
-        self::assertEquals(1, $query->getId());
-        self::assertEquals(42, $query->getCollectionId());
-        self::assertEquals(1, $query->getPosition());
-        self::assertEquals('my_search', $query->getIdentifier());
-        self::assertEquals('ezcontent_search', $query->getType());
-        self::assertEquals(array('param' => 'value'), $query->getParameters());
-        self::assertEquals(APICollection::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertInstanceOf(APIQuery::class, $query);
+        $this->assertEquals(1, $query->getId());
+        $this->assertEquals(42, $query->getCollectionId());
+        $this->assertEquals(1, $query->getPosition());
+        $this->assertEquals('my_search', $query->getIdentifier());
+        $this->assertEquals('ezcontent_search', $query->getType());
+        $this->assertEquals(array('param' => 'value'), $query->getParameters());
+        $this->assertEquals(APICollection::STATUS_PUBLISHED, $query->getStatus());
     }
 }

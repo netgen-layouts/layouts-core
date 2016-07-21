@@ -44,7 +44,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
     {
         $blockTypeGroup = new BlockTypeGroup('identifier', true, 'Block group', array('type1', 'type2'));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'identifier' => $blockTypeGroup->getIdentifier(),
                 'name' => $blockTypeGroup->getName(),
@@ -63,7 +63,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

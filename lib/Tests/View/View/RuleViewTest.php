@@ -33,8 +33,8 @@ class RuleViewTest extends TestCase
      */
     public function testGetRule()
     {
-        self::assertEquals($this->rule, $this->view->getRule());
-        self::assertEquals(
+        $this->assertEquals($this->rule, $this->view->getRule());
+        $this->assertEquals(
             array(
                 'param' => 'value',
                 'rule' => $this->rule,
@@ -48,6 +48,6 @@ class RuleViewTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('rule_view', $this->view->getIdentifier());
+        $this->assertEquals('rule_view', $this->view->getIdentifier());
     }
 }

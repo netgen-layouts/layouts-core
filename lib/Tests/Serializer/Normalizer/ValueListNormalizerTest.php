@@ -57,7 +57,7 @@ class ValueListNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize($valueList);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'value' => array('value_id' => 24),
                 'array' => array('param' => 'value'),
@@ -76,7 +76,7 @@ class ValueListNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

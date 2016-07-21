@@ -25,6 +25,6 @@ class VersionedValueTest extends TestCase
      */
     public function testGetVersion()
     {
-        self::assertEquals(42, $this->value->getVersion());
+        $this->assertEquals(42, $this->value->getVersion());
     }
 }

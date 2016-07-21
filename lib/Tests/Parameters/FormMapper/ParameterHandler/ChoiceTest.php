@@ -25,7 +25,7 @@ class ChoiceTest extends TestCase
      */
     public function testGetFormType()
     {
-        self::assertEquals(ChoiceType::class, $this->parameterHandler->getFormType());
+        $this->assertEquals(ChoiceType::class, $this->parameterHandler->getFormType());
     }
 
     /**
@@ -43,7 +43,7 @@ class ChoiceTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'multiple' => true,
                 'choices' => array(
@@ -73,7 +73,7 @@ class ChoiceTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'multiple' => true,
                 'choices' => array(

@@ -32,7 +32,7 @@ class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetTypes()
     {
-        self::assertEquals(array('type' => $this->targetType), $this->registry->getTargetTypes());
+        $this->assertEquals(array('type' => $this->targetType), $this->registry->getTargetTypes());
     }
 
     /**
@@ -40,7 +40,7 @@ class TargetTypeRegistryTest extends TestCase
      */
     public function testGetTargetType()
     {
-        self::assertEquals($this->targetType, $this->registry->getTargetType('type'));
+        $this->assertEquals($this->targetType, $this->registry->getTargetType('type'));
     }
 
     /**
@@ -57,7 +57,7 @@ class TargetTypeRegistryTest extends TestCase
      */
     public function testHasTargetType()
     {
-        self::assertTrue($this->registry->hasTargetType('type'));
+        $this->assertTrue($this->registry->hasTargetType('type'));
     }
 
     /**
@@ -65,6 +65,6 @@ class TargetTypeRegistryTest extends TestCase
      */
     public function testHasTargetTypeWithNoTargetType()
     {
-        self::assertFalse($this->registry->hasTargetType('other_type'));
+        $this->assertFalse($this->registry->hasTargetType('other_type'));
     }
 }

@@ -57,7 +57,7 @@ class BlockNormalizerTest extends TestCase
             ->with($this->equalTo($block))
             ->will($this->returnValue(true));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => $block->getId(),
                 'definition_identifier' => $block->getDefinitionIdentifier(),
@@ -83,7 +83,7 @@ class BlockNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

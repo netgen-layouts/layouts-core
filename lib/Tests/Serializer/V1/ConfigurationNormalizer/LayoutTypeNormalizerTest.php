@@ -37,7 +37,7 @@ class LayoutTypeNormalizerTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'identifier' => $layoutType->getIdentifier(),
                 'name' => $layoutType->getName(),
@@ -67,7 +67,7 @@ class LayoutTypeNormalizerTest extends TestCase
      */
     public function testSupportsNormalization($data, $expected)
     {
-        self::assertEquals($expected, $this->normalizer->supportsNormalization($data));
+        $this->assertEquals($expected, $this->normalizer->supportsNormalization($data));
     }
 
     /**

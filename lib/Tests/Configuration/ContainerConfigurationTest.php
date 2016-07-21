@@ -36,7 +36,7 @@ class ContainerConfigurationTest extends TestCase
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(true));
 
-        self::assertTrue($this->configuration->hasParameter('some_param'));
+        $this->assertTrue($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -50,7 +50,7 @@ class ContainerConfigurationTest extends TestCase
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue(false));
 
-        self::assertFalse($this->configuration->hasParameter('some_param'));
+        $this->assertFalse($this->configuration->hasParameter('some_param'));
     }
 
     /**
@@ -70,7 +70,7 @@ class ContainerConfigurationTest extends TestCase
             ->with($this->equalTo('netgen_block_manager.some_param'))
             ->will($this->returnValue('some_param_value'));
 
-        self::assertEquals('some_param_value', $this->configuration->getParameter('some_param'));
+        $this->assertEquals('some_param_value', $this->configuration->getParameter('some_param'));
     }
 
     /**

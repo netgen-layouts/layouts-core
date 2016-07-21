@@ -37,7 +37,7 @@ class TypeTest extends TestCase
             )
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             '4 zones A',
             $this->provider->getValue($item)
         );

@@ -53,7 +53,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testAddBlockType()
     {
-        self::assertEquals(array('block_type' => $this->blockType), $this->registry->getBlockTypes());
+        $this->assertEquals(array('block_type' => $this->blockType), $this->registry->getBlockTypes());
     }
 
     /**
@@ -61,7 +61,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testHasBlockType()
     {
-        self::assertTrue($this->registry->hasBlockType('block_type'));
+        $this->assertTrue($this->registry->hasBlockType('block_type'));
     }
 
     /**
@@ -69,7 +69,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testHasBlockTypeWithNoBlockType()
     {
-        self::assertFalse($this->registry->hasBlockType('other_block_type'));
+        $this->assertFalse($this->registry->hasBlockType('other_block_type'));
     }
 
     /**
@@ -77,7 +77,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testGetBlockType()
     {
-        self::assertEquals($this->blockType, $this->registry->getBlockType('block_type'));
+        $this->assertEquals($this->blockType, $this->registry->getBlockType('block_type'));
     }
 
     /**
@@ -95,7 +95,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testAddBlockTypeGroup()
     {
-        self::assertEquals(array('block_type_group' => $this->blockTypeGroup), $this->registry->getBlockTypeGroups());
+        $this->assertEquals(array('block_type_group' => $this->blockTypeGroup), $this->registry->getBlockTypeGroups());
     }
 
     /**
@@ -103,7 +103,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testHasBlockTypeGroup()
     {
-        self::assertTrue($this->registry->hasBlockTypeGroup('block_type_group'));
+        $this->assertTrue($this->registry->hasBlockTypeGroup('block_type_group'));
     }
 
     /**
@@ -111,7 +111,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testHasBlockTypeWithNoBlockTypeGroup()
     {
-        self::assertFalse($this->registry->hasBlockTypeGroup('other_block_type_group'));
+        $this->assertFalse($this->registry->hasBlockTypeGroup('other_block_type_group'));
     }
 
     /**
@@ -119,7 +119,7 @@ class BlockTypeRegistryTest extends TestCase
      */
     public function testGetBlockTypeGroup()
     {
-        self::assertEquals($this->blockTypeGroup, $this->registry->getBlockTypeGroup('block_type_group'));
+        $this->assertEquals($this->blockTypeGroup, $this->registry->getBlockTypeGroup('block_type_group'));
     }
 
     /**

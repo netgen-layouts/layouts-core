@@ -38,7 +38,7 @@ class HandlerTest extends TestCase
     {
         $handler = $this->createPersistenceHandler();
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             LayoutHandler::class,
             $handler->getLayoutHandler()
         );
@@ -51,7 +51,7 @@ class HandlerTest extends TestCase
     {
         $handler = $this->createPersistenceHandler();
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             BlockHandler::class,
             $handler->getBlockHandler()
         );
@@ -64,7 +64,7 @@ class HandlerTest extends TestCase
     {
         $handler = $this->createPersistenceHandler();
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             CollectionHandler::class,
             $handler->getCollectionHandler()
         );
@@ -77,7 +77,7 @@ class HandlerTest extends TestCase
     {
         $handler = $this->createPersistenceHandler();
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             LayoutResolverHandler::class,
             $handler->getLayoutResolverHandler()
         );

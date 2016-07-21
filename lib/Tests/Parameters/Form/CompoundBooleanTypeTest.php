@@ -75,15 +75,15 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        self::assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        self::assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
+        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
+        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
 
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        $this->assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -130,15 +130,15 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        self::assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        self::assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
+        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
+        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
 
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        $this->assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -182,15 +182,15 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        self::assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        self::assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
+        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
+        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
 
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        $this->assertArrayHasKey('main_checkbox', $children);
 
         foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
         }
     }
 
@@ -213,16 +213,16 @@ class CompoundBooleanTypeTest extends FormTestCase
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
-        self::assertTrue($resolvedOptions['inherit_data']);
-        self::assertEquals(array(), $resolvedOptions['parameters']);
-        self::assertEquals('label', $resolvedOptions['label_prefix']);
-        self::assertEquals('parameters', $resolvedOptions['property_path_prefix']);
-        self::assertNull($resolvedOptions['parameter_validation_groups']);
-        self::assertEquals('checkbox_label', $resolvedOptions['checkbox_label']);
-        self::assertEquals('checkbox_property_path', $resolvedOptions['checkbox_property_path']);
-        self::assertEquals('_self', $resolvedOptions['checkbox_name']);
-        self::assertFalse($resolvedOptions['checkbox_required']);
-        self::assertEquals(array(), $resolvedOptions['checkbox_constraints']);
+        $this->assertTrue($resolvedOptions['inherit_data']);
+        $this->assertEquals(array(), $resolvedOptions['parameters']);
+        $this->assertEquals('label', $resolvedOptions['label_prefix']);
+        $this->assertEquals('parameters', $resolvedOptions['property_path_prefix']);
+        $this->assertNull($resolvedOptions['parameter_validation_groups']);
+        $this->assertEquals('checkbox_label', $resolvedOptions['checkbox_label']);
+        $this->assertEquals('checkbox_property_path', $resolvedOptions['checkbox_property_path']);
+        $this->assertEquals('_self', $resolvedOptions['checkbox_name']);
+        $this->assertFalse($resolvedOptions['checkbox_required']);
+        $this->assertEquals(array(), $resolvedOptions['checkbox_constraints']);
     }
 
     /**
@@ -285,6 +285,6 @@ class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('ngbm_compound_boolean', $this->formType->getBlockPrefix());
+        $this->assertEquals('ngbm_compound_boolean', $this->formType->getBlockPrefix());
     }
 }

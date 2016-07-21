@@ -11,10 +11,10 @@ class RuleCreateStructTest extends TestCase
     {
         $ruleCreateStruct = new RuleCreateStruct();
 
-        self::assertNull($ruleCreateStruct->layoutId);
-        self::assertEquals(0, $ruleCreateStruct->priority);
-        self::assertFalse($ruleCreateStruct->enabled);
-        self::assertNull($ruleCreateStruct->comment);
+        $this->assertNull($ruleCreateStruct->layoutId);
+        $this->assertEquals(0, $ruleCreateStruct->priority);
+        $this->assertFalse($ruleCreateStruct->enabled);
+        $this->assertNull($ruleCreateStruct->comment);
     }
 
     public function testSetProperties()
@@ -28,9 +28,9 @@ class RuleCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $ruleCreateStruct->layoutId);
-        self::assertEquals(13, $ruleCreateStruct->priority);
-        self::assertTrue($ruleCreateStruct->enabled);
-        self::assertEquals('Comment', $ruleCreateStruct->comment);
+        $this->assertEquals(42, $ruleCreateStruct->layoutId);
+        $this->assertEquals(13, $ruleCreateStruct->priority);
+        $this->assertTrue($ruleCreateStruct->enabled);
+        $this->assertEquals('Comment', $ruleCreateStruct->comment);
     }
 }

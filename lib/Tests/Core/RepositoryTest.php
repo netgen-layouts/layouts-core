@@ -50,7 +50,7 @@ class RepositoryTest extends TestCase
      */
     public function testGetLayoutService()
     {
-        self::assertInstanceOf(LayoutService::class, $this->repository->getLayoutService());
+        $this->assertInstanceOf(LayoutService::class, $this->repository->getLayoutService());
     }
 
     /**
@@ -58,7 +58,7 @@ class RepositoryTest extends TestCase
      */
     public function testGetBlockService()
     {
-        self::assertInstanceOf(BlockService::class, $this->repository->getBlockService());
+        $this->assertInstanceOf(BlockService::class, $this->repository->getBlockService());
     }
 
     /**
@@ -66,7 +66,7 @@ class RepositoryTest extends TestCase
      */
     public function testGetCollectionService()
     {
-        self::assertInstanceOf(CollectionService::class, $this->repository->getCollectionService());
+        $this->assertInstanceOf(CollectionService::class, $this->repository->getCollectionService());
     }
 
     /**
@@ -74,7 +74,7 @@ class RepositoryTest extends TestCase
      */
     public function testGetLayoutResolverService()
     {
-        self::assertInstanceOf(LayoutResolverService::class, $this->repository->getLayoutResolverService());
+        $this->assertInstanceOf(LayoutResolverService::class, $this->repository->getLayoutResolverService());
     }
 
     /**

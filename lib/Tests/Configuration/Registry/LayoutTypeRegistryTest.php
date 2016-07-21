@@ -38,7 +38,7 @@ class LayoutTypeRegistryTest extends TestCase
      */
     public function testAddLayoutType()
     {
-        self::assertEquals(array('layout_type' => $this->layoutType), $this->registry->getLayoutTypes());
+        $this->assertEquals(array('layout_type' => $this->layoutType), $this->registry->getLayoutTypes());
     }
 
     /**
@@ -46,7 +46,7 @@ class LayoutTypeRegistryTest extends TestCase
      */
     public function testHasLayoutType()
     {
-        self::assertTrue($this->registry->hasLayoutType('layout_type'));
+        $this->assertTrue($this->registry->hasLayoutType('layout_type'));
     }
 
     /**
@@ -54,7 +54,7 @@ class LayoutTypeRegistryTest extends TestCase
      */
     public function testHasLayoutTypeWithNoLayoutType()
     {
-        self::assertFalse($this->registry->hasLayoutType('other_layout_type'));
+        $this->assertFalse($this->registry->hasLayoutType('other_layout_type'));
     }
 
     /**
@@ -62,7 +62,7 @@ class LayoutTypeRegistryTest extends TestCase
      */
     public function testGetLayoutType()
     {
-        self::assertEquals($this->layoutType, $this->registry->getLayoutType('layout_type'));
+        $this->assertEquals($this->layoutType, $this->registry->getLayoutType('layout_type'));
     }
 
     /**

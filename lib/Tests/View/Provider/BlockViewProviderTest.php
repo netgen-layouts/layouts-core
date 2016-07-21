@@ -55,11 +55,11 @@ class BlockViewProviderTest extends TestCase
         /** @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
         $view = $this->blockViewProvider->provideView($block);
 
-        self::assertInstanceOf(BlockViewInterface::class, $view);
+        $this->assertInstanceOf(BlockViewInterface::class, $view);
 
-        self::assertEquals($block, $view->getBlock());
-        self::assertNull($view->getTemplate());
-        self::assertEquals(
+        $this->assertEquals($block, $view->getBlock());
+        $this->assertNull($view->getTemplate());
+        $this->assertEquals(
             array(
                 'block' => $block,
                 'block_definition' => $this->blockDefinition,
@@ -77,7 +77,7 @@ class BlockViewProviderTest extends TestCase
      */
     public function testSupports($value, $supports)
     {
-        self::assertEquals($supports, $this->blockViewProvider->supports($value));
+        $this->assertEquals($supports, $this->blockViewProvider->supports($value));
     }
 
     /**

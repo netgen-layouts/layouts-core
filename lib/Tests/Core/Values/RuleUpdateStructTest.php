@@ -11,8 +11,8 @@ class RuleUpdateStructTest extends TestCase
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
 
-        self::assertNull($ruleUpdateStruct->layoutId);
-        self::assertNull($ruleUpdateStruct->comment);
+        $this->assertNull($ruleUpdateStruct->layoutId);
+        $this->assertNull($ruleUpdateStruct->comment);
     }
 
     public function testSetProperties()
@@ -24,7 +24,7 @@ class RuleUpdateStructTest extends TestCase
             )
         );
 
-        self::assertEquals(42, $ruleUpdateStruct->layoutId);
-        self::assertEquals('Comment', $ruleUpdateStruct->comment);
+        $this->assertEquals(42, $ruleUpdateStruct->layoutId);
+        $this->assertEquals('Comment', $ruleUpdateStruct->comment);
     }
 }

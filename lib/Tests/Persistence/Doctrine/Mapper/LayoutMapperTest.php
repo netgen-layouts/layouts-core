@@ -70,7 +70,7 @@ class LayoutMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapLayouts($data));
+        $this->assertEquals($expectedData, $this->mapper->mapLayouts($data));
     }
 
     /**
@@ -116,6 +116,6 @@ class LayoutMapperTest extends TestCase
             ),
         );
 
-        self::assertEquals($expectedData, $this->mapper->mapZones($data));
+        $this->assertEquals($expectedData, $this->mapper->mapZones($data));
     }
 }

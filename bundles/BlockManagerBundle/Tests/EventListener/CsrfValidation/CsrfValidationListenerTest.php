@@ -58,7 +58,7 @@ class CsrfValidationListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::REQUEST => 'onKernelRequest'),
             $this->listener->getSubscribedEvents()
         );
@@ -173,7 +173,7 @@ class CsrfValidationListenerTest extends TestCase
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        self::assertNull($this->listener->onKernelRequest($event));
+        $this->assertNull($this->listener->onKernelRequest($event));
     }
 
     /**

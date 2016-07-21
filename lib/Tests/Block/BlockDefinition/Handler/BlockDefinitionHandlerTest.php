@@ -23,7 +23,7 @@ class BlockDefinitionHandlerTest extends TestCase
      */
     public function testGetParameters()
     {
-        self::assertEquals(array(), $this->handler->getParameters());
+        $this->assertEquals(array(), $this->handler->getParameters());
     }
 
     /**
@@ -31,7 +31,7 @@ class BlockDefinitionHandlerTest extends TestCase
      */
     public function testGetDynamicParameters()
     {
-        self::assertEquals(array(), $this->handler->getDynamicParameters(new Block()));
+        $this->assertEquals(array(), $this->handler->getDynamicParameters(new Block()));
     }
 
     /**
@@ -39,6 +39,6 @@ class BlockDefinitionHandlerTest extends TestCase
      */
     public function testHasCollection()
     {
-        self::assertEquals(false, $this->handler->hasCollection());
+        $this->assertEquals(false, $this->handler->hasCollection());
     }
 }

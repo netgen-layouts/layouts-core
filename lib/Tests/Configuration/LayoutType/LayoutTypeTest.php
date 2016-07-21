@@ -35,7 +35,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        self::assertEquals('4_zones_a', $this->layoutType->getIdentifier());
+        $this->assertEquals('4_zones_a', $this->layoutType->getIdentifier());
     }
 
     /**
@@ -43,7 +43,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetIsEnabled()
     {
-        self::assertEquals(true, $this->layoutType->isEnabled());
+        $this->assertEquals(true, $this->layoutType->isEnabled());
     }
 
     /**
@@ -51,7 +51,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetName()
     {
-        self::assertEquals('4 zones A', $this->layoutType->getName());
+        $this->assertEquals('4 zones A', $this->layoutType->getName());
     }
 
     /**
@@ -59,7 +59,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetZones()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'left' => new Zone(
                     'left',
@@ -76,7 +76,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetZoneIdentifiers()
     {
-        self::assertEquals(array('left'), $this->layoutType->getZoneIdentifiers());
+        $this->assertEquals(array('left'), $this->layoutType->getZoneIdentifiers());
     }
 
     /**
@@ -84,7 +84,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testHasZone()
     {
-        self::assertTrue($this->layoutType->hasZone('left'));
+        $this->assertTrue($this->layoutType->hasZone('left'));
     }
 
     /**
@@ -92,7 +92,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testHasZoneReturnsFalse()
     {
-        self::assertFalse($this->layoutType->hasZone('right'));
+        $this->assertFalse($this->layoutType->hasZone('right'));
     }
 
     /**
@@ -100,7 +100,7 @@ class LayoutTypeTest extends TestCase
      */
     public function testGetZone()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Zone(
                 'left',
                 'Left',

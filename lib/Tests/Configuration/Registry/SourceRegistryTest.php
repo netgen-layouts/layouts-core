@@ -38,7 +38,7 @@ class SourceRegistryTest extends TestCase
      */
     public function testAddSource()
     {
-        self::assertEquals(array('source' => $this->source), $this->registry->getSources());
+        $this->assertEquals(array('source' => $this->source), $this->registry->getSources());
     }
 
     /**
@@ -46,7 +46,7 @@ class SourceRegistryTest extends TestCase
      */
     public function testHasSource()
     {
-        self::assertTrue($this->registry->hasSource('source'));
+        $this->assertTrue($this->registry->hasSource('source'));
     }
 
     /**
@@ -54,7 +54,7 @@ class SourceRegistryTest extends TestCase
      */
     public function testHasSourceWithNoSource()
     {
-        self::assertFalse($this->registry->hasSource('other_source'));
+        $this->assertFalse($this->registry->hasSource('other_source'));
     }
 
     /**
@@ -62,7 +62,7 @@ class SourceRegistryTest extends TestCase
      */
     public function testGetSource()
     {
-        self::assertEquals($this->source, $this->registry->getSource('source'));
+        $this->assertEquals($this->source, $this->registry->getSource('source'));
     }
 
     /**

@@ -33,7 +33,7 @@ class ParameterFilterRegistryTest extends TestCase
      */
     public function testGetParameterFilters()
     {
-        self::assertEquals(array($this->filter), $this->registry->getParameterFilters('html'));
+        $this->assertEquals(array($this->filter), $this->registry->getParameterFilters('html'));
     }
 
     /**

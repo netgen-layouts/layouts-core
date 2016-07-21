@@ -11,8 +11,8 @@ class TargetCreateStructTest extends TestCase
     {
         $targetCreateStruct = new TargetCreateStruct();
 
-        self::assertNull($targetCreateStruct->type);
-        self::assertNull($targetCreateStruct->value);
+        $this->assertNull($targetCreateStruct->type);
+        $this->assertNull($targetCreateStruct->value);
     }
 
     public function testSetProperties()
@@ -24,7 +24,7 @@ class TargetCreateStructTest extends TestCase
             )
         );
 
-        self::assertEquals('target', $targetCreateStruct->type);
-        self::assertEquals(42, $targetCreateStruct->value);
+        $this->assertEquals('target', $targetCreateStruct->type);
+        $this->assertEquals(42, $targetCreateStruct->value);
     }
 }

@@ -24,7 +24,7 @@ class ParameterHandlerTest extends TestCase
      */
     public function testConvertOptions()
     {
-        self::assertEquals(array(), $this->parameterHandler->convertOptions(new TextLine()));
+        $this->assertEquals(array(), $this->parameterHandler->convertOptions(new TextLine()));
     }
 
     /**
@@ -32,7 +32,7 @@ class ParameterHandlerTest extends TestCase
      */
     public function testGetDefaultOptions()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'required' => true,
                 'label' => 'label.name',

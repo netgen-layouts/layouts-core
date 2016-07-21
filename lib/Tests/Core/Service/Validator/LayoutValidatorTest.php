@@ -48,7 +48,7 @@ class LayoutValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params))
         );
     }
@@ -66,7 +66,7 @@ class LayoutValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->layoutValidator->validateLayoutUpdateStruct(
                 new LayoutUpdateStruct($params)
             )

@@ -52,7 +52,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRule()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Rule(
                 array(
                     'id' => 1,
@@ -85,12 +85,12 @@ class LayoutResolverHandlerTest extends TestCase
     {
         $rules = $this->handler->loadRules(Rule::STATUS_PUBLISHED);
 
-        self::assertNotEmpty($rules);
+        $this->assertNotEmpty($rules);
 
         foreach ($rules as $index => $rule) {
-            self::assertInstanceOf(Rule::class, $rule);
+            $this->assertInstanceOf(Rule::class, $rule);
             if ($index > 0) {
-                self::assertLessThanOrEqual($rules[$index - 1]->priority, $rules[$index]->priority);
+                $this->assertLessThanOrEqual($rules[$index - 1]->priority, $rules[$index]->priority);
             }
         }
     }
@@ -103,7 +103,7 @@ class LayoutResolverHandlerTest extends TestCase
     {
         $rules = $this->handler->loadRules(Rule::STATUS_ARCHIVED);
 
-        self::assertEmpty($rules);
+        $this->assertEmpty($rules);
     }
 
     /**
@@ -113,7 +113,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadTarget()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Target(
                 array(
                     'id' => 1,
@@ -147,10 +147,10 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
         );
 
-        self::assertNotEmpty($targets);
+        $this->assertNotEmpty($targets);
 
         foreach ($targets as $target) {
-            self::assertInstanceOf(Target::class, $target);
+            $this->assertInstanceOf(Target::class, $target);
         }
     }
 
@@ -164,7 +164,7 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
         );
 
-        self::assertEquals(2, $targets);
+        $this->assertEquals(2, $targets);
     }
 
     /**
@@ -174,7 +174,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadCondition()
     {
-        self::assertEquals(
+        $this->assertEquals(
             new Condition(
                 array(
                     'id' => 1,
@@ -211,10 +211,10 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(2, Rule::STATUS_PUBLISHED)
         );
 
-        self::assertNotEmpty($conditions);
+        $this->assertNotEmpty($conditions);
 
         foreach ($conditions as $condition) {
-            self::assertInstanceOf(Condition::class, $condition);
+            $this->assertInstanceOf(Condition::class, $condition);
         }
     }
 
@@ -224,7 +224,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleExists()
     {
-        self::assertTrue($this->handler->ruleExists(1, Rule::STATUS_PUBLISHED));
+        $this->assertTrue($this->handler->ruleExists(1, Rule::STATUS_PUBLISHED));
     }
 
     /**
@@ -233,7 +233,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExists()
     {
-        self::assertFalse($this->handler->ruleExists(999999, Rule::STATUS_PUBLISHED));
+        $this->assertFalse($this->handler->ruleExists(999999, Rule::STATUS_PUBLISHED));
     }
 
     /**
@@ -242,7 +242,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExistsInStatus()
     {
-        self::assertFalse($this->handler->ruleExists(1, Rule::STATUS_ARCHIVED));
+        $this->assertFalse($this->handler->ruleExists(1, Rule::STATUS_ARCHIVED));
     }
 
     /**
@@ -262,14 +262,14 @@ class LayoutResolverHandlerTest extends TestCase
             Rule::STATUS_DRAFT
         );
 
-        self::assertInstanceOf(Rule::class, $createdRule);
+        $this->assertInstanceOf(Rule::class, $createdRule);
 
-        self::assertEquals(22, $createdRule->id);
-        self::assertEquals(3, $createdRule->layoutId);
-        self::assertEquals(5, $createdRule->priority);
-        self::assertTrue($createdRule->enabled);
-        self::assertEquals('My rule', $createdRule->comment);
-        self::assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
+        $this->assertEquals(22, $createdRule->id);
+        $this->assertEquals(3, $createdRule->layoutId);
+        $this->assertEquals(5, $createdRule->priority);
+        $this->assertTrue($createdRule->enabled);
+        $this->assertEquals('My rule', $createdRule->comment);
+        $this->assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -286,14 +286,14 @@ class LayoutResolverHandlerTest extends TestCase
             Rule::STATUS_DRAFT
         );
 
-        self::assertInstanceOf(Rule::class, $createdRule);
+        $this->assertInstanceOf(Rule::class, $createdRule);
 
-        self::assertEquals(22, $createdRule->id);
-        self::assertEquals(null, $createdRule->layoutId);
-        self::assertEquals(0, $createdRule->priority);
-        self::assertFalse($createdRule->enabled);
-        self::assertEquals('My rule', $createdRule->comment);
-        self::assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
+        $this->assertEquals(22, $createdRule->id);
+        $this->assertEquals(null, $createdRule->layoutId);
+        $this->assertEquals(0, $createdRule->priority);
+        $this->assertFalse($createdRule->enabled);
+        $this->assertEquals('My rule', $createdRule->comment);
+        $this->assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -311,12 +311,12 @@ class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertInstanceOf(Rule::class, $updatedRule);
 
-        self::assertEquals(3, $updatedRule->id);
-        self::assertEquals(15, $updatedRule->layoutId);
-        self::assertEquals('New comment', $updatedRule->comment);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(3, $updatedRule->id);
+        $this->assertEquals(15, $updatedRule->layoutId);
+        $this->assertEquals('New comment', $updatedRule->comment);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -333,12 +333,12 @@ class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertInstanceOf(Rule::class, $updatedRule);
 
-        self::assertEquals(3, $updatedRule->id);
-        self::assertEquals(3, $updatedRule->layoutId);
-        self::assertEquals('New comment', $updatedRule->comment);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(3, $updatedRule->id);
+        $this->assertEquals(3, $updatedRule->layoutId);
+        $this->assertEquals('New comment', $updatedRule->comment);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -356,12 +356,12 @@ class LayoutResolverHandlerTest extends TestCase
             $ruleUpdateStruct
         );
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertInstanceOf(Rule::class, $updatedRule);
 
-        self::assertEquals(3, $updatedRule->id);
-        self::assertNull($updatedRule->layoutId);
-        self::assertEquals('New comment', $updatedRule->comment);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(3, $updatedRule->id);
+        $this->assertNull($updatedRule->layoutId);
+        $this->assertEquals('New comment', $updatedRule->comment);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -379,9 +379,9 @@ class LayoutResolverHandlerTest extends TestCase
             )
         );
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
-        self::assertEquals(50, $updatedRule->priority);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertEquals(50, $updatedRule->priority);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -397,18 +397,18 @@ class LayoutResolverHandlerTest extends TestCase
     {
         $copiedRuleId = $this->handler->copyRule(5);
 
-        self::assertEquals(22, $copiedRuleId);
+        $this->assertEquals(22, $copiedRuleId);
 
         $copiedRule = $this->handler->loadRule($copiedRuleId, Rule::STATUS_PUBLISHED);
 
-        self::assertInstanceOf(Rule::class, $copiedRule);
-        self::assertEquals(2, $copiedRule->layoutId);
-        self::assertEquals(16, $copiedRule->priority);
-        self::assertTrue($copiedRule->enabled);
-        self::assertNull($copiedRule->comment);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $copiedRule->status);
+        $this->assertInstanceOf(Rule::class, $copiedRule);
+        $this->assertEquals(2, $copiedRule->layoutId);
+        $this->assertEquals(16, $copiedRule->priority);
+        $this->assertTrue($copiedRule->enabled);
+        $this->assertNull($copiedRule->comment);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $copiedRule->status);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Target(
                     array(
@@ -432,7 +432,7 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRuleTargets($copiedRule)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Condition(
                     array(
@@ -464,16 +464,16 @@ class LayoutResolverHandlerTest extends TestCase
             Rule::STATUS_ARCHIVED
         );
 
-        self::assertInstanceOf(Rule::class, $copiedRule);
+        $this->assertInstanceOf(Rule::class, $copiedRule);
 
-        self::assertEquals(3, $copiedRule->id);
-        self::assertEquals(3, $copiedRule->layoutId);
-        self::assertEquals(18, $copiedRule->priority);
-        self::assertTrue($copiedRule->enabled);
-        self::assertNull($copiedRule->comment);
-        self::assertEquals(Rule::STATUS_ARCHIVED, $copiedRule->status);
+        $this->assertEquals(3, $copiedRule->id);
+        $this->assertEquals(3, $copiedRule->layoutId);
+        $this->assertEquals(18, $copiedRule->priority);
+        $this->assertTrue($copiedRule->enabled);
+        $this->assertNull($copiedRule->comment);
+        $this->assertEquals(Rule::STATUS_ARCHIVED, $copiedRule->status);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Target(
                     array(
@@ -497,7 +497,7 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRuleTargets($copiedRule)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 new Condition(
                     array(
@@ -573,9 +573,9 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(5, Rule::STATUS_PUBLISHED)
         );
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
-        self::assertTrue($updatedRule->enabled);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertTrue($updatedRule->enabled);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -588,9 +588,9 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
         );
 
-        self::assertInstanceOf(Rule::class, $updatedRule);
-        self::assertFalse($updatedRule->enabled);
-        self::assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+        $this->assertFalse($updatedRule->enabled);
+        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -603,7 +603,7 @@ class LayoutResolverHandlerTest extends TestCase
         $targetCreateStruct->type = 'target';
         $targetCreateStruct->value = '42';
 
-        self::assertEquals(
+        $this->assertEquals(
             new Target(
                 array(
                     'id' => 43,
@@ -629,7 +629,7 @@ class LayoutResolverHandlerTest extends TestCase
         $targetUpdateStruct = new TargetUpdateStruct();
         $targetUpdateStruct->value = 'my_new_route';
 
-        self::assertEquals(
+        $this->assertEquals(
             new Target(
                 array(
                     'id' => 1,
@@ -670,7 +670,7 @@ class LayoutResolverHandlerTest extends TestCase
         $conditionCreateStruct->type = 'condition';
         $conditionCreateStruct->value = array('param' => 'value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Condition(
                 array(
                     'id' => 5,
@@ -696,7 +696,7 @@ class LayoutResolverHandlerTest extends TestCase
         $conditionUpdateStruct = new ConditionUpdateStruct();
         $conditionUpdateStruct->value = array('new_param' => 'new_value');
 
-        self::assertEquals(
+        $this->assertEquals(
             new Condition(
                 array(
                     'id' => 1,

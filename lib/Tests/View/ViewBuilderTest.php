@@ -89,10 +89,10 @@ class ViewBuilderTest extends TestCase
         $viewParameters = array('some_param' => 'some_value');
         $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
 
-        self::assertInstanceOf(View::class, $builtView);
-        self::assertEquals('some_template.html.twig', $builtView->getTemplate());
-        self::assertEquals('context', $builtView->getContext());
-        self::assertEquals(
+        $this->assertInstanceOf(View::class, $builtView);
+        $this->assertEquals('some_template.html.twig', $builtView->getTemplate());
+        $this->assertEquals('context', $builtView->getContext());
+        $this->assertEquals(
             array('view_context' => $builtView->getContext()) + $viewParameters,
             $builtView->getParameters()
         );
