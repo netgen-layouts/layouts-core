@@ -6,6 +6,8 @@ layout.block.revert: 'Revert block to published state'
 
 block.edit.tabs.content: 'Content'
 block.edit.tabs.design: 'Design'
+block.edit.options: 'Options'
+block.edit.items: 'Items'
 block.edit.collection_type: 'Collection type'
 block.edit.collection_type.manual_collection: 'Manual collection'
 block.edit.collection_type.dynamic_collection: 'Dynamic collection'

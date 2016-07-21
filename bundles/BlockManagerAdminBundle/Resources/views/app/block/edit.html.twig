@@ -18,15 +18,16 @@
 
             <div class="tab-pane" id="content-tab">
                 <div class="sidebar-panel">
-                    <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">Options</a>
-                    <div class="collapse in" id="collapseSettings">
+                    <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
+                        {{ 'block.edit.options'|trans }}
+                    </a>
 
+                    <div class="collapse in" id="collapseSettings">
                         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
                         {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collections.html.twig' %}
 
                         {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_query.html.twig' %}
-
                     </div>
                 </div>
 
