@@ -184,6 +184,7 @@ class CollectionValidatorTest extends TestCase
             array(array('name' => 23, 'type' => Collection::TYPE_NAMED), false),
             array(array('name' => null, 'type' => Collection::TYPE_NAMED), false),
             array(array('name' => '', 'type' => Collection::TYPE_NAMED), false),
+            array(array('name' => '   ', 'type' => Collection::TYPE_NAMED), false),
             array(array('name' => null, 'type' => 23), false),
             array(array('name' => null, 'type' => null), false),
             array(array('name' => null, 'type' => 'type'), false),
@@ -197,6 +198,7 @@ class CollectionValidatorTest extends TestCase
             array(array('name' => 23), false),
             array(array('name' => null), false),
             array(array('name' => ''), false),
+            array(array('name' => '   '), false),
         );
     }
 

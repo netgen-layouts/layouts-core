@@ -84,6 +84,7 @@ class LayoutValidatorTest extends TestCase
             array(array('type' => 42, 'name' => 'Name', 'shared' => null), false),
             array(array('type' => 'type', 'name' => null, 'shared' => null), false),
             array(array('type' => 'type', 'name' => '', 'shared' => null), false),
+            array(array('type' => 'type', 'name' => '   ', 'shared' => null), false),
             array(array('type' => 'type', 'name' => 42, 'shared' => null), false),
             array(array('type' => 'type', 'name' => 'Name', 'shared' => ''), false),
             array(array('type' => 'type', 'name' => 'Name', 'shared' => 42), false),
@@ -97,6 +98,7 @@ class LayoutValidatorTest extends TestCase
             array(array('name' => 23), false),
             array(array('name' => null), false),
             array(array('name' => ''), false),
+            array(array('name' => '   '), false),
         );
     }
 }

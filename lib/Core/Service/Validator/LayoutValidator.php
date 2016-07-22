@@ -19,8 +19,12 @@ class LayoutValidator extends Validator
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
     {
+        $layoutName = is_string($layoutCreateStruct->name) ?
+            trim($layoutCreateStruct->name) :
+            $layoutCreateStruct->name;
+
         $this->validate(
-            $layoutCreateStruct->name,
+            $layoutName,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
@@ -61,8 +65,12 @@ class LayoutValidator extends Validator
      */
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct)
     {
+        $layoutName = is_string($layoutUpdateStruct->name) ?
+            trim($layoutUpdateStruct->name) :
+            $layoutUpdateStruct->name;
+
         $this->validate(
-            $layoutUpdateStruct->name,
+            $layoutName,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),

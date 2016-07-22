@@ -139,8 +139,12 @@ class CollectionValidator extends Validator
                 );
             }
         } elseif ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
+            $collectionName = is_string($collectionCreateStruct->name) ?
+                trim($collectionCreateStruct->name) :
+                $collectionCreateStruct->name;
+
             $this->validate(
-                $collectionCreateStruct->name,
+                $collectionName,
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
@@ -163,8 +167,12 @@ class CollectionValidator extends Validator
      */
     public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
     {
+        $collectionName = is_string($collectionUpdateStruct->name) ?
+            trim($collectionUpdateStruct->name) :
+            $collectionUpdateStruct->name;
+
         $this->validate(
-            $collectionUpdateStruct->name,
+            $collectionName,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
