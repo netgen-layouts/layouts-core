@@ -2,7 +2,8 @@ pagelayout.title: 'Netgen Block Manager'
 
 layout.block.move: 'Move block'
 layout.block.delete: 'Delete block'
-layout.block.revert: 'Revert block to published state'
+layout.block.revert: 'Revert'
+layout.block.revert_note: 'From published version'
 
 block.edit.tabs.content: 'Content'
 block.edit.tabs.design: 'Design'

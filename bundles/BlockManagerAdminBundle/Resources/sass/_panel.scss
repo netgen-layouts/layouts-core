@@ -1,4 +1,5 @@
 .lr-panel {
+  margin:0 0 1.5em;
   p {
       font-size:0.8125em;
       margin:0 0 1em;
@@ -11,7 +12,6 @@
     background:$panelBg;
     border-radius:2px;
     box-shadow:0 1px 2px rgba(43,59,93,.29);
-    margin:0 0 1.5em;
     position:relative;
     &.disabled {
       .panel-icon {

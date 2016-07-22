@@ -3,6 +3,6 @@
 {% trans_default_domain 'ngbm_forms' %}
 
 {% block children %}
-    {{ form_row(form.children.name) }}
     {{ form_row(form.children.type, {attr: {class: 'layout-type'}}) }}
+    {{ form_row(form.children.name) }}
 {% endblock %}
