@@ -103,7 +103,7 @@ netgen_block_manager:
 ```
 
 If using eZ Platform, there's no need setting the main pagelayout, since it will be picked up
-from default eZ Platform config.
+automatically from your eZ Platform config.
 
 Adjusting your base pagelayout template
 ---------------------------------------
