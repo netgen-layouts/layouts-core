@@ -55,6 +55,15 @@ Run the following command to create the database schema:
 php app/console doctrine:migrations:migrate --configuration=vendor/netgen/block-manager/migrations/doctrine.yml
 ```
 
+Install assets
+--------------
+
+Run the following from your repo root to install Block Manager assets:
+
+```
+php app/console assets:install --symlink --relative
+```
+
 Activate the routes
 -------------------
 
