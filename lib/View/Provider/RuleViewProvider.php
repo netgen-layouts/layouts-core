@@ -90,16 +90,16 @@ class RuleViewProvider implements ViewProviderInterface
      */
     protected function loadPublishedRule(Rule $rule)
     {
-        if ($rule instanceof RuleDraft) {
-            try {
-                return $this->layoutResolverService->loadRule(
-                    $rule->getId()
-                );
-            } catch (NotFoundException $e) {
-                return;
-            }
+        if (!$rule instanceof RuleDraft) {
+            return $rule;
         }
 
-        return $rule;
+        try {
+            return $this->layoutResolverService->loadRule(
+                $rule->getId()
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
     }
 }
