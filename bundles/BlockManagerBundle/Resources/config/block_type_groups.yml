@@ -9,5 +9,5 @@ block_type_groups:
         name: 'Gallery'
         block_types: [slider, thumb_gallery, grid_gallery, sushi_bar]
     content:
-        name: 'Content'
+        name: 'Placeholders'
         block_types: [content, twig_block]
