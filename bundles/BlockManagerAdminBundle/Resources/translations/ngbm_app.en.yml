@@ -23,8 +23,8 @@ block.edit.change: 'Change'
 block.edit.notice.change_collection_type: 'IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.'
 
 block.notice.empty_collection: 'This block is not configured yet. Please pick some items manually, use a dynamic collection or saved configuration to show items in this block.'
-block.notice.no_video: 'This video block is not configured yet. Please set the Video ID.'
-block.notice.empty_ez_content: 'This block is not configured yet. Please define the eZ content field identifier which needs to be rendered here.'
-block.notice.empty_twig_block: 'This block is not configured yet. Please define the twig block name which needs to be rendered here.'
+block.notice.no_video: 'This block is not configured yet. Please set the video ID.'
+block.notice.empty_ez_content: 'This block is not configured yet. Please define the eZ content field identifier which will be used to render the block.'
+block.notice.empty_twig_block: 'This block is not configured yet. Please define the Twig template block name which will be used to render the block.'
 
 block.rich_text.placeholder: 'Click here to write'
