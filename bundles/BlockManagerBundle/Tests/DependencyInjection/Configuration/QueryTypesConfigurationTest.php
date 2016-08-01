@@ -170,6 +170,37 @@ class QueryTypesConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
      */
+    public function testQueryTypeSettingsWithNoDefaults()
+    {
+        $config = array(
+            array(
+                'query_types' => array(
+                    'type' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'query_types' => array(
+                'type' => array(
+                    'defaults' => array(
+                        'parameters' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'query_types.*.defaults.parameters'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
+     */
     public function testQueryTypeSettingsWithNoQueryTypes()
     {
         $config = array(
@@ -207,23 +238,6 @@ class QueryTypesConfigurationTest extends TestCase
                 'type' => array(
                     'name' => '',
                     'defaults' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getQueryTypesNodeDefinition
-     */
-    public function testQueryTypeSettingsWithNoDefaults()
-    {
-        $config = array(
-            'query_types' => array(
-                'type' => array(
-                    'name' => 'Type',
                 ),
             ),
         );

@@ -280,7 +280,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                     ->arrayNode('defaults')
-                        ->isRequired()
+                        ->addDefaultsIfNotSet()
                         ->children()
                             ->arrayNode('parameters')
                                 ->defaultValue(array())
