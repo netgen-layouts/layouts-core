@@ -8,6 +8,6 @@ block_type_groups:
     gallery:
         name: 'Gallery'
         block_types: [slider, thumb_gallery, grid_gallery, sushi_bar]
-    content:
+    placeholders:
         name: 'Placeholders'
         block_types: [content, twig_block]
