@@ -1,7 +1,7 @@
 {% if collections is not empty and collections['default'] is defined %}
     {% set collection = collections['default'] %}
 
-    {% if collection.type == constant('TYPE_DYNAMIC', collection) %}
+    {% if collection.type is constant('TYPE_DYNAMIC', collection) %}
         {% if collection.queries is not empty %}
             <div data-query-form="true" data-form="{{ path('ngbm_app_collection_query_form_edit', {'queryId': collection.queries[0].id, 'formName': 'full'}) }}"></div>
         {% endif %}
