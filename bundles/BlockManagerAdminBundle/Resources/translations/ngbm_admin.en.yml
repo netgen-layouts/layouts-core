@@ -1,5 +1,6 @@
-pagelayout.title: 'Netgen Block Manager'
+pagelayout.title: 'Netgen Layouts'
 
+layout_resolver.title: 'Mappings'
 layout_resolver.rules.no_rules: 'There are no mappings defined'
 layout_resolver.rules.add_new_rule: 'Add new mapping'
 layout_resolver.rules.no_linked_layout: 'No linked layout'
@@ -42,3 +43,5 @@ layout_resolver.target.route_prefix: 'Route prefix'
 layout_resolver.condition.route_parameter: 'Route parameter'
 layout_resolver.condition.route_parameter.parameter_name: 'Parameter name'
 layout_resolver.condition.route_parameter.parameter_values: 'Parameter values'
+
+shared_layouts.title: 'Shared layouts'

@@ -2,6 +2,10 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
+{% block title %}
+    <title>{{ 'layout_resolver.title'|trans }} - {{ 'pagelayout.title'|trans }}</title>
+{% endblock %}
+
 {% block content %}
     <div id="rules">
         <div class="rule-controls">

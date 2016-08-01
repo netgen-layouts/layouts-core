@@ -1,4 +1,3 @@
-
 {% trans_default_domain 'ngbm_admin' %}
 
 <!DOCTYPE html>
@@ -9,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="ngbm-admin-csrf-token" content="{{ csrf_token( ngbm.config.parameter('admin.csrf_token_id') ) }}">
 
-    <title>{{ 'pagelayout.title'|trans }}</title>
+    {% block title %}
+        <title>{{ 'pagelayout.title'|trans }}</title>
+    {% endblock %}
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('vendor.css', 'ngcb_css') }}">
