@@ -41,7 +41,7 @@ block_definitions:
             content:
                 parameters: [latitude, longitude]
             design:
-                parameters: [zoom, map_type, show_marker, css_class, css_id]
+                parameters: [zoom, map_type, show_marker, css_class, css_id, set_container]
         view_types:
             map:
                 name: 'Map'
@@ -52,7 +52,7 @@ block_definitions:
                 enabled: false
             content: ~
             design:
-                parameters: [number_of_columns, css_class, css_id]
+                parameters: [number_of_columns, css_class, css_id, set_container]
         view_types:
             list:
                 name: 'List'
@@ -77,6 +77,7 @@ block_definitions:
                     - enable_lightbox
                     - css_class
                     - css_id
+                    - set_container
         view_types:
             slider:
                 name: 'Slider'

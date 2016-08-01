@@ -53,6 +53,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
         return array(
             'css_class' => new Parameter\TextLine(),
             'css_id' => new Parameter\TextLine(),
+            'set_container' => new Parameter\Boolean(),
         );
     }
 }
