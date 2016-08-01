@@ -107,6 +107,7 @@ class NumberTest extends TestCase
                 array(
                     'max' => null,
                     'min' => null,
+                    'scale' => 3,
                 ),
             ),
             array(
@@ -116,6 +117,7 @@ class NumberTest extends TestCase
                 array(
                     'max' => 5,
                     'min' => null,
+                    'scale' => 3,
                 ),
             ),
             array(
@@ -125,6 +127,7 @@ class NumberTest extends TestCase
                 array(
                     'max' => null,
                     'min' => null,
+                    'scale' => 3,
                 ),
             ),
             array(
@@ -134,6 +137,7 @@ class NumberTest extends TestCase
                 array(
                     'min' => 5,
                     'max' => null,
+                    'scale' => 3,
                 ),
             ),
             array(
@@ -143,6 +147,7 @@ class NumberTest extends TestCase
                 array(
                     'max' => null,
                     'min' => null,
+                    'scale' => 3,
                 ),
             ),
             array(
@@ -153,6 +158,7 @@ class NumberTest extends TestCase
                 array(
                     'min' => 5,
                     'max' => 10,
+                    'scale' => 3,
                 ),
             ),
             array(
@@ -163,6 +169,17 @@ class NumberTest extends TestCase
                 array(
                     'min' => 5,
                     'max' => 5,
+                    'scale' => 3,
+                ),
+            ),
+            array(
+                array(
+                    'scale' => 5,
+                ),
+                array(
+                    'min' => null,
+                    'max' => null,
+                    'scale' => 5,
                 ),
             ),
         );
@@ -185,6 +202,15 @@ class NumberTest extends TestCase
                 ),
                 array(
                     'max' => '5',
+                ),
+                array(
+                    'min' => array(),
+                ),
+                array(
+                    'min' => 5.5,
+                ),
+                array(
+                    'min' => '5',
                 ),
                 array(
                     'min' => array(),

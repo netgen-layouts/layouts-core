@@ -42,11 +42,13 @@ class Number extends Parameter
     {
         $optionsResolver->setDefault('min', null);
         $optionsResolver->setDefault('max', null);
+        $optionsResolver->setDefault('scale', 3);
 
-        $optionsResolver->setRequired(array('min', 'max'));
+        $optionsResolver->setRequired(array('min', 'max', 'scale'));
 
         $optionsResolver->setAllowedTypes('min', array('numeric', 'null'));
         $optionsResolver->setAllowedTypes('max', array('numeric', 'null'));
+        $optionsResolver->setAllowedTypes('scale', array('int'));
 
         $optionsResolver->setNormalizer(
             'max',
