@@ -1,0 +1,5 @@
+{% macro layout_path(layout_id) %}
+{% spaceless %}
+    {{ path('ngbm_app') }}#layout/{{ layout_id }}
+{% endspaceless %}
+{% endmacro %}
