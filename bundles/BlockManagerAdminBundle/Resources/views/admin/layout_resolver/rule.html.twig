@@ -1,3 +1,5 @@
+{% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
+
 {% trans_default_domain 'ngbm_admin' %}
 
 <div class="lr-rule-content {% if not published_rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
@@ -10,7 +12,7 @@
 
             {% if rule.layout != null %}
                 <div class="panel-name" title="{{ rule.layout.name }}">
-                    <a target="_blank" href="{{ path('ngbm_app') }}#layout/{{ rule.layout.id }}">{{ rule.layout.name }}</a>
+                    <a target="_blank" href="{{ macros.layout_path(rule.layout.id) }}">{{ rule.layout.name }}</a>
                 </div>
             {% else %}
                 <div class="panel-name" title="{{ 'layout_resolver.rules.no_linked_layout'|trans }}">
