@@ -48,6 +48,7 @@ class MapHandler extends BlockDefinitionHandler
                 array(
                     'min' => -90,
                     'max' => 90,
+                    'scale' => 6,
                 ),
                 true,
                 0
@@ -56,6 +57,7 @@ class MapHandler extends BlockDefinitionHandler
                 array(
                     'min' => -180,
                     'max' => 180,
+                    'scale' => 6,
                 ),
                 true,
                 0
