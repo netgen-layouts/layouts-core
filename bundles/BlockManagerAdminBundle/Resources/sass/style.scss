@@ -1,8 +1,8 @@
 @import "../public/vendor/normalize.scss/sass/normalize/import-now";
-@import "https://fonts.googleapis.com/css?family=Roboto:400,300,700&subset=latin,latin-ext";
+
+@import "fonts";
 @import "variables";
 @import "grid";
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "base";
 @import "tooltip";
 @import "dropdown";
