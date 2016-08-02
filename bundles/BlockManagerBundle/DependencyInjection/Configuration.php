@@ -75,6 +75,7 @@ class Configuration implements ConfigurationInterface
             $this->getSourcesNodeDefinition(),
             $this->getQueryTypesNodeDefinition(),
             $this->getPagelayoutNodeDefinition(),
+            $this->getGoogleMapsNodeDefinition(),
         );
     }
 
@@ -518,6 +519,21 @@ class Configuration implements ConfigurationInterface
         $node
             ->defaultValue('NetgenBlockManagerBundle::pagelayout.html.twig')
             ->cannotBeEmpty();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for Google Maps.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+     */
+    public function getGoogleMapsNodeDefinition()
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root('google_maps_api_key', 'scalar');
+
+        $node->defaultValue('');
 
         return $node;
     }

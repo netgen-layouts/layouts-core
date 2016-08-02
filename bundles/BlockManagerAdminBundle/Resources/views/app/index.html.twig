@@ -32,6 +32,12 @@
     <script src="{{ asset('alloy-editor/alloy-editor-all.js', 'ngbm_app_vendor') }}"></script>
     <script src="{{ asset('ace-editor/ace.js', 'ngbm_app_vendor') }}"></script>
 
+    {% set google_maps_api_key = ngbm.config.parameter('google_maps_api_key') %}
+
+    {% if google_maps_api_key is not empty %}
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}" async defer></script>
+    {% endif %}
+
     {% block javascripts %}
         <script src="{{ asset('main.js', 'ngbm_app_js') }}"></script>
     {% endblock %}

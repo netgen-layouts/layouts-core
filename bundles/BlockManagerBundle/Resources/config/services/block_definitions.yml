@@ -29,10 +29,10 @@ parameters:
     netgen_block_manager.block.block_definition.handler.map.min_zoom: 0
     netgen_block_manager.block.block_definition.handler.map.max_zoom: 20
     netgen_block_manager.block.block_definition.handler.map.map_types:
-        roadmap: 'Roadmap'
-        satellite: 'Satellite'
-        hybrid: 'Hybrid'
-        terrain: 'Terrain'
+        ROADMAP: 'Roadmap'
+        SATELLITE: 'Satellite'
+        HYBRID: 'Hybrid'
+        TERRAIN: 'Terrain'
 
     netgen_block_manager.block.block_definition.handler.list.columns:
         2: '2 columns'

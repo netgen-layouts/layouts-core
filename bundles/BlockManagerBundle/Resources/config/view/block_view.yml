@@ -74,6 +74,11 @@ view:
                 match:
                     block\definition: external_video
                     api_version: 1
+            map:
+                template: "NetgenBlockManagerBundle:api/block:map.html.twig"
+                match:
+                    block\definition: map
+                    api_version: 1
             list\list:
                 template: "NetgenBlockManagerBundle:api/block/list:list.html.twig"
                 match:

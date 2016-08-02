@@ -1,0 +1,15 @@
+{% extends 'NetgenBlockManagerBundle:api/block:block.html.twig' %}
+
+{% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
+
+{% trans_default_domain 'ngbm_app' %}
+
+{% set google_maps_api_key = ngbm.config.parameter('google_maps_api_key') %}
+
+{% block content %}
+    {% if google_maps_api_key is not empty %}
+        <div class="map-embed"></div>
+    {% else %}
+        {{ macros.notice('block.notice.no_google_maps_api_key'|trans) }}
+    {% endif %}
+{% endblock %}
