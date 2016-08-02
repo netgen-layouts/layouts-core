@@ -19,10 +19,10 @@ block_definitions:
             html_snippet:
                 name: 'HTML snippet'
 
-    content:
+    full_view:
         view_types:
-            content:
-                name: 'Content'
+            full_view:
+                name: 'Full view'
 
     twig_block:
         view_types:

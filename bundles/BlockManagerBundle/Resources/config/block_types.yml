@@ -48,11 +48,11 @@ block_types:
             view_type: html_snippet
             item_view_type: standard
 
-    content:
-        name: 'Content'
-        definition_identifier: content
+    full_view:
+        name: 'Full view'
+        definition_identifier: full_view
         defaults:
-            view_type: content
+            view_type: full_view
             item_view_type: standard
 
     twig_block:

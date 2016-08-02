@@ -40,10 +40,10 @@ view:
                 template: "NetgenBlockManagerBundle:block:twig_block.html.twig"
                 match:
                     block\definition: twig_block
-            content:
-                template: "NetgenBlockManagerBundle:block:content.html.twig"
+            full_view:
+                template: "NetgenBlockManagerBundle:block:full_view.html.twig"
                 match:
-                    block\definition: content
+                    block\definition: full_view
             # Base block template
             block:
                 template: "NetgenBlockManagerBundle:block:block.html.twig"
@@ -96,10 +96,10 @@ view:
                 match:
                     block\definition: twig_block
                     api_version: 1
-            content:
-                template: "NetgenBlockManagerBundle:api/block:content.html.twig"
+            full_view:
+                template: "NetgenBlockManagerBundle:api/block:full_view.html.twig"
                 match:
-                    block\definition: content
+                    block\definition: full_view
                     api_version: 1
             # Base block template
             block:

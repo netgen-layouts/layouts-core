@@ -10,4 +10,4 @@ block_type_groups:
         block_types: [slider, thumb_gallery, grid_gallery, sushi_bar]
     placeholders:
         name: 'Placeholders'
-        block_types: [content, twig_block]
+        block_types: [full_view, twig_block]

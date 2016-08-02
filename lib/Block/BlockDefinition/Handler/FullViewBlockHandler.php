@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 
-class ContentBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
+class FullViewBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
     /**
      * @var string
