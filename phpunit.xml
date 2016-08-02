@@ -44,7 +44,6 @@
             <directory suffix=".php">bundles/EzPublishBlockManagerBundle</directory>
             <exclude>
                 <directory>lib/Tests</directory>
-                <directory>lib/Migrations</directory>
                 <directory>ezlib/Tests</directory>
                 <directory>bundles/*Bundle/Controller</directory>
                 <directory>bundles/*Bundle/Tests</directory>
