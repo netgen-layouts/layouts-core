@@ -1,4 +1,4 @@
 name: Netgen Block Manager
 migrations_namespace: Netgen\BlockManager\Migrations\Doctrine
 table_name: ngbm_migration_versions
-migrations_directory: doctrine
+migrations_directory: ../lib/Migrations/Doctrine
