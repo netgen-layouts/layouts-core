@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="ngbm-admin-csrf-token" content="{{ csrf_token( ngbm.config.parameter('admin.csrf_token_id') ) }}">
-    <meta name="ngcb-base-path" content="{{ path('ngcb_root') }}">
+
+    {% include 'NetgenBlockManagerAdminBundle:admin:head.html.twig' %}
 
     {% block title %}
         <title>{{ 'pagelayout.title'|trans }}</title>
