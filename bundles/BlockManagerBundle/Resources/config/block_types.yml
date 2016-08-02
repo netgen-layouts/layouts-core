@@ -61,8 +61,6 @@ block_types:
         defaults:
             view_type: twig_block
             item_view_type: standard
-            parameters:
-                block_name: twig_block
 
     list:
         name: 'List'

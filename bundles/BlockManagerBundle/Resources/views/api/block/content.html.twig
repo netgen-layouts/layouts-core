@@ -1,0 +1,9 @@
+{% extends 'NetgenBlockManagerBundle:api/block:block.html.twig' %}
+
+{% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
+
+{% trans_default_domain 'ngbm_app' %}
+
+{% block content %}
+    {{ macros.notice('block.notice.content'|trans) }}
+{% endblock %}

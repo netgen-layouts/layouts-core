@@ -91,6 +91,16 @@ view:
                 match:
                     block\definition: gallery
                     api_version: 1
+            twig_block:
+                template: "NetgenBlockManagerBundle:api/block:twig_block.html.twig"
+                match:
+                    block\definition: twig_block
+                    api_version: 1
+            content:
+                template: "NetgenBlockManagerBundle:api/block:content.html.twig"
+                match:
+                    block\definition: content
+                    api_version: 1
             # Base block template
             block:
                 template: "NetgenBlockManagerBundle:api/block:block.html.twig"

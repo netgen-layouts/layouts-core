@@ -1,0 +1,13 @@
+{% extends 'NetgenBlockManagerBundle:api/block:block.html.twig' %}
+
+{% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
+
+{% trans_default_domain 'ngbm_app' %}
+
+{% block content %}
+    {% if block.parameter('block_name') is empty %}
+        {{ macros.notice('block.notice.empty_twig_block'|trans) }}
+    {% else %}
+        <h1>{{ block.parameter('block_name') }}</h1>
+    {% endif %}
+{% endblock %}

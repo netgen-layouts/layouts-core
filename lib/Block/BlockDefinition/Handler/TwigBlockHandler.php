@@ -15,7 +15,7 @@ class TwigBlockHandler extends TwigBlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'block_name' => new Parameter\Identifier(array(), true),
+            'block_name' => new Parameter\Identifier(),
         );
     }
 
