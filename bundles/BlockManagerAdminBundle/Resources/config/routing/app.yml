@@ -1,29 +1,37 @@
+ngbm_app_no_slash:
+    path: /app
+    methods: [GET]
+    defaults:
+        _controller: "FrameworkBundle:Redirect:redirect"
+        route: ngbm_app
+        permanent: true
+
 ngbm_app:
-    path: /
+    path: /app/
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.index:index"
 
 ngbm_app_block_edit:
-    path: /blocks/{blockId}/edit
+    path: /app/blocks/{blockId}/edit
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:edit"
 
 ngbm_app_layout_form_create:
-    path: /layouts/form/create
+    path: /app/layouts/form/create
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.layout:layoutCreateForm"
 
 ngbm_app_block_form_edit:
-    path: /blocks/{blockId}/form/edit/{formName}
+    path: /app/blocks/{blockId}/form/edit/{formName}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:editForm"
 
 ngbm_app_collection_query_form_edit:
-    path: /collections/queries/{queryId}/form/edit/{formName}
+    path: /app/collections/queries/{queryId}/form/edit/{formName}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.collection:queryEditForm"

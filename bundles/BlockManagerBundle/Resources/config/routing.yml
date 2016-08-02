@@ -8,7 +8,6 @@ _ngbm_admin:
 
 _ngbm_app:
     resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/app.yml"
-    prefix: /app
 
 ngbm_root:
     path: /

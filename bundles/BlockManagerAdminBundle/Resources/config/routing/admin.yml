@@ -1,3 +1,10 @@
+# Redirect routes, must be specified BEFORE regular routes
+
+_ngbm_admin_redirect:
+    resource: "admin/redirects.yml"
+
+# Regular routes follow
+
 _ngbm_admin_layout_resolver:
     resource: "admin/layout_resolver.yml"
     prefix: /layout_resolver

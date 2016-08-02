@@ -1,5 +1,13 @@
+ngbm_dev_app_no_slash:
+    path: /dev/app
+    methods: [GET]
+    defaults:
+        _controller: "FrameworkBundle:Redirect:redirect"
+        route: ngbm_dev_app
+        permanent: true
+
 ngbm_dev_app:
-    path: /
+    path: /dev/app/
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.index:index"

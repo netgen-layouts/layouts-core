@@ -1,5 +1,4 @@
 _ngbm_dev_app:
     resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/app_dev.yml"
-    prefix: /dev/app
     defaults:
         _ngbm_environment: dev
