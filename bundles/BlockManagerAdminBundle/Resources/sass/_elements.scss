@@ -1,4 +1,4 @@
-.lr-btn {
+.nl-btn {
     background:0 0;
     border:none;
     border-radius:2px;
@@ -31,11 +31,11 @@
         background:hsla(0, 0, 62, 0.4);
     }
 
-    &.lr-btn-link {
+    &.nl-btn-link {
         color:$linkColor;
     }
 
-    &.lr-btn-icon {
+    &.nl-btn-icon {
         border-radius:50%;
         width:$btnHeight;
         min-width:$btnHeight;
@@ -47,7 +47,7 @@
         }
     }
 
-    &.lr-btn-primary {
+    &.nl-btn-primary {
         background:$linkColor;
         color:#fff;
         &:hover {
@@ -61,7 +61,7 @@
         }
     }
 
-    &.lr-btn-white {
+    &.nl-btn-white {
         background:#fff;
         &:hover {
             background:hsla(0, 0, 62, 0.2);
