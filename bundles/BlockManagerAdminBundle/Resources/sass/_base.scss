@@ -42,13 +42,13 @@ h1 {
     }
 }
 
-#lr-app {
+#layouts-app {
     margin:0 auto;
     max-width:1200px;
     width:98%;
     min-height:100%;
     display:flex;
-    .lr-sidebar {
+    .layouts-sidebar {
         width:20%;
         background:hsl(0, 0, 90);
         .main-menu {
@@ -75,7 +75,7 @@ h1 {
                     &.current {
                         > a {
                             background:$bgColor;
-                            color:$textColor;
+                            color:$highlightColor;
                             cursor:default;
                         }
                     }
@@ -83,7 +83,7 @@ h1 {
             }
         }
     }
-    .lr-content {
+    .layouts-content {
         flex:1;
         padding:$gutter;
     }

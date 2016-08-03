@@ -15,7 +15,7 @@
     position:relative;
     &.disabled {
       .panel-icon {
-        color:hsl(340, 82, 59);
+        color:$highlightColor;
       }
     }
   }
@@ -171,7 +171,7 @@
           .form-actions {
               text-align:right;
           }
-          .lr-btn {
+          .nl-btn {
               height:28px;
               line-height:28px;
           }
@@ -410,7 +410,7 @@
     padding:0.5em 0.7em;
     font-size:8px;
     color:#fff;
-    background:hsl(340, 82, 59);
+    background:$highlightColor;
     line-height:1.375;
   }
 }

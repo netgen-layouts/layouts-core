@@ -29,7 +29,7 @@
 
             <!-- Right aligned menu below button -->
             <div class="lr-dropdown" data-position="right">
-                <button class="lr-btn lr-btn-icon lr-dropdown-toggle">
+                <button class="nl-btn nl-btn-icon lr-dropdown-toggle">
                     <i class="material-icons">more_vert</i>
                 </button>
                 <ul class="lr-dropdown-menu">
@@ -101,7 +101,7 @@
                                 </select>
                             {% endif %}
 
-                            <a href="#" class="lr-btn lr-btn-link js-setting-add" data-action="add-target"
+                            <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
                                 {% if rule.targets|length > 0 %} data-target-type="{{ rule.targets[0].type }}" {% endif %}>
                                 <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_target'|trans }}
                             </a>
@@ -133,7 +133,7 @@
                                 {% endfor %}
                             </select>
 
-                            <a href="#" class="lr-btn lr-btn-link js-setting-add" data-action="add-condition">
+                            <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-condition">
                                 <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_condition'|trans }}
                             </a>
                         </div>
@@ -145,11 +145,11 @@
     </div>
 
     <div class="lr-panel-actions">
-        <a href="#" class="lr-btn js-rule-edit" data-action="discard">
+        <a href="#" class="nl-btn js-rule-edit" data-action="discard">
             {{ 'layout_resolver.rules.cancel'|trans }}
         </a>
 
-        <a href="#" class="lr-btn lr-btn-primary js-rule-edit" data-action="publish">
+        <a href="#" class="nl-btn nl-btn-primary js-rule-edit" data-action="publish">
             {{ 'layout_resolver.rules.save_changes'|trans }}
         </a>
     </div>
