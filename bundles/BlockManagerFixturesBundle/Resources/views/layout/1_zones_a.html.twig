@@ -1,0 +1,13 @@
+{% extends ngbm.pageLayoutTemplate %}
+
+{% block layout %}
+<div class="zone-layout-1zonesa">
+
+    {% if not ngbm.layout.zone('main').empty %}
+        <section class="zone zone-main">
+            {% ngbm_render_zone ngbm.layout.zone('main') %}
+        </section>
+    {% endif %}
+
+</div>
+{% endblock %}

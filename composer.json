@@ -37,7 +37,8 @@
             "Netgen\\BlockManager\\Ez\\": "ezlib/",
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
             "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/",
-            "Netgen\\Bundle\\EzPublishBlockManagerBundle\\": "bundles/EzPublishBlockManagerBundle/"
+            "Netgen\\Bundle\\EzPublishBlockManagerBundle\\": "bundles/EzPublishBlockManagerBundle/",
+            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/"
         },
         "exclude-from-classmap": [
             "**/Tests/"
