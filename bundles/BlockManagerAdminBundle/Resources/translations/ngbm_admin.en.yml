@@ -47,3 +47,6 @@ layout_resolver.condition.route_parameter.parameter_values: 'Parameter values'
 shared_layouts.title: 'Shared layouts'
 shared_layouts.create_layout: 'Create shared layout'
 shared_layouts.no_layouts: 'There are no shared layouts defined'
+
+menu.main_menu.layout_resolver: 'Layout mappings'
+menu.main_menu.shared_layouts: 'Shared layouts'
