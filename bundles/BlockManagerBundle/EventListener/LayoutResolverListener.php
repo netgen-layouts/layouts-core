@@ -86,7 +86,7 @@ class LayoutResolverListener implements EventSubscriberInterface
             }
 
             // We need the complete layout, not just the reference
-            $layout = $this->layoutService->loadLayout(
+            $layout = $this->layoutService->loadLayoutDraft(
                 $rule->getLayout()->getId()
             );
 
