@@ -7,6 +7,17 @@
     </div>
 {% endmacro %}
 
+{% macro info(info, icon_class) %}
+    <div class="info">
+        {% if icon_class is defined and icon_class is not empty %}
+            <div class="info-icon">
+                <span class="{{ icon_class }}"></span>
+            </div>
+        {% endif %}
+        <span class="msg">{{ info }}</span>
+    </div>
+{% endmacro %}
+
 {% macro collection(collections, identifier, item_view_type, view_context) %}
     {% if collections[identifier] is defined %}
         {% if collections[identifier].results|length == 0 %}
