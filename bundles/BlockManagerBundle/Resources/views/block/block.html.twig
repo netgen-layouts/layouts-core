@@ -1,5 +1,5 @@
-{% set css_class = block.parameter('css_class') %}
-{% set css_id = block.parameter('css_id') %}
+{% set css_class = css_class|default(block.parameter('css_class')) %}
+{% set css_id = css_id|default(block.parameter('css_id')) %}
 {% set set_container = block.parameter('set_container') %}
 
 <div
