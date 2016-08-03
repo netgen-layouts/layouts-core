@@ -1,58 +1,88 @@
 layout_types:
-    1_zones_a:
-        name: '1 zones A'
+    layout_1:
+        name: 'Layout 1'
         zones:
             main:
                 name: 'Main'
 
-    4_zones_a:
-        name: '4 zones A'
+    layout_2:
+        name: 'Layout 2'
         zones:
-            top:
-                name: 'Top'
+            header:
+                name: 'Header'
+            post_header:
+                name: 'Post header'
+            main:
+                name: 'Main'
+            pre_footer:
+                name: 'Pre footer'
+            footer:
+                name: 'Footer'
+
+    layout_3:
+        name: 'Layout 3'
+        zones:
+            header:
+                name: 'Header'
+            post_header:
+                name: 'Post header'
             left:
                 name: 'Left'
             right:
                 name: 'Right'
-            bottom:
-                name: 'Bottom'
+            pre_footer:
+                name: 'Pre footer'
+            footer:
+                name: 'Footer'
 
-    4_zones_b:
-        name: '4 zones B'
+    layout_4:
+        name: 'Layout 4'
         zones:
-            top:
-                name: 'Top'
+            header:
+                name: 'Header'
+            post_header:
+                name: 'Post header'
             left:
                 name: 'Left'
             right:
                 name: 'Right'
-            bottom:
-                name: 'Bottom'
+            pre_footer:
+                name: 'Pre footer'
+            footer:
+                name: 'Footer'
 
-    4_zones_c:
-        name: '4 zones C'
+    layout_5:
+        name: 'Layout 5'
         zones:
-            top:
-                name: 'Top'
+            header:
+                name: 'Header'
+            post_header:
+                name: 'Post header'
             left:
                 name: 'Left'
             right:
                 name: 'Right'
-            bottom:
-                name: 'Bottom'
+            pre_footer:
+                name: 'Pre footer'
+            footer:
+                name: 'Footer'
 
-    6_zones_a:
-        name: '6 zones A'
+    layout_6:
+        name: 'Layout 6'
         zones:
-            top1:
-                name: 'Top 1'
-            top2:
-                name: 'Top 2'
+            header:
+                name: 'Header'
+            post_header:
+                name: 'Post header'
+            top:
+                name: 'Top'
             left:
                 name: 'Left'
             center:
                 name: 'Center'
             right:
                 name: 'Right'
-            bottom:
-                name: 'Bottom'
+            pre_footer:
+                name: 'Pre footer'
+            footer:
+                name: 'Footer'

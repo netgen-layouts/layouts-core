@@ -1,49 +1,58 @@
 view:
     layout_view:
         default:
-            1_zones_a:
-                template: "NetgenBlockManagerBundle:layout:1_zones_a.html.twig"
+            layout_1:
+                template: "NetgenBlockManagerBundle:layout:layout_1.html.twig"
                 match:
-                    layout\type: 1_zones_a
-            4_zones_a:
-                template: "NetgenBlockManagerBundle:layout:4_zones_a.html.twig"
+                    layout\type: layout_1
+            layout_2:
+                template: "NetgenBlockManagerBundle:layout:layout_2.html.twig"
                 match:
-                    layout\type: 4_zones_a
-            4_zones_b:
-                template: "NetgenBlockManagerBundle:layout:4_zones_b.html.twig"
+                    layout\type: layout_2
+            layout_3:
+                template: "NetgenBlockManagerBundle:layout:layout_3.html.twig"
                 match:
-                    layout\type: 4_zones_b
-            4_zones_c:
-                template: "NetgenBlockManagerBundle:layout:4_zones_c.html.twig"
+                    layout\type: layout_3
+            layout_4:
+                template: "NetgenBlockManagerBundle:layout:layout_4.html.twig"
                 match:
-                    layout\type: 4_zones_c
-            6_zones_a:
-                template: "NetgenBlockManagerBundle:layout:6_zones_a.html.twig"
+                    layout\type: layout_4
+            layout_5:
+                template: "NetgenBlockManagerBundle:layout:layout_5.html.twig"
                 match:
-                    layout\type: 6_zones_a
+                    layout\type: layout_5
+            layout_6:
+                template: "NetgenBlockManagerBundle:layout:layout_6.html.twig"
+                match:
+                    layout\type: layout_6
         api:
-            1_zones_a:
-                template: "NetgenBlockManagerBundle:api/layout:1_zones_a.html.twig"
+            layout_1:
+                template: "NetgenBlockManagerBundle:api/layout:layout_1.html.twig"
                 match:
-                    layout\type: 1_zones_a
+                    layout\type: layout_1
                     api_version: 1
-            4_zones_a:
-                template: "NetgenBlockManagerBundle:api/layout:4_zones_a.html.twig"
+            layout_2:
+                template: "NetgenBlockManagerBundle:api/layout:layout_2.html.twig"
                 match:
-                    layout\type: 4_zones_a
+                    layout\type: layout_2
                     api_version: 1
-            4_zones_b:
-                template: "NetgenBlockManagerBundle:api/layout:4_zones_b.html.twig"
+            layout_3:
+                template: "NetgenBlockManagerBundle:api/layout:layout_3.html.twig"
                 match:
-                    layout\type: 4_zones_b
+                    layout\type: layout_3
                     api_version: 1
-            4_zones_c:
-                template: "NetgenBlockManagerBundle:api/layout:4_zones_c.html.twig"
+            layout_4:
+                template: "NetgenBlockManagerBundle:api/layout:layout_4.html.twig"
                 match:
-                    layout\type: 4_zones_c
+                    layout\type: layout_4
                     api_version: 1
-            6_zones_a:
-                template: "NetgenBlockManagerBundle:api/layout:6_zones_a.html.twig"
+            layout_5:
+                template: "NetgenBlockManagerBundle:api/layout:layout_5.html.twig"
                 match:
-                    layout\type: 6_zones_a
+                    layout\type: layout_5
+                    api_version: 1
+            layout_6:
+                template: "NetgenBlockManagerBundle:api/layout:layout_6.html.twig"
+                match:
+                    layout\type: layout_6
                     api_version: 1

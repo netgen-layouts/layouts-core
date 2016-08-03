@@ -1,13 +1,21 @@
 {% extends ngbm.pageLayoutTemplate %}
 
 {% block layout %}
-<div class="zone-layout-4zonesb">
+<div class="zone-layout-layout4">
 
-    {% if not ngbm.layout.zone('top').empty %}
+    {% if not ngbm.layout.zone('header').empty or not ngbm.layout.zone('post_header').empty %}
         <div class="top-content-block">
-            <section class="zone zone-top">
-                {% ngbm_render_zone ngbm.layout.zone('top') %}
-            </section>
+            {% if not ngbm.layout.zone('header').empty %}
+                <section class="zone zone-header">
+                    {% ngbm_render_zone ngbm.layout.zone('header') %}
+                </section>
+            {% endif %}
+
+            {% if not ngbm.layout.zone('post_header').empty %}
+                <section class="zone zone-post_header">
+                    {% ngbm_render_zone ngbm.layout.zone('post_header') %}
+                </section>
+            {% endif %}
         </div>
     {% endif %}
 
@@ -34,11 +42,19 @@
         </div>
     {% endif %}
 
-    {% if not ngbm.layout.zone('bottom').empty %}
+    {% if not ngbm.layout.zone('pre_footer').empty or not ngbm.layout.zone('footer').empty %}
         <div class="bottom-content-block">
-            <section class="zone zone-bottom">
-                {% ngbm_render_zone ngbm.layout.zone('bottom') %}
-            </section>
+            {% if not ngbm.layout.zone('pre_footer').empty %}
+                <section class="zone zone-pre_footer">
+                    {% ngbm_render_zone ngbm.layout.zone('pre_footer') %}
+                </section>
+            {% endif %}
+
+            {% if not ngbm.layout.zone('footer').empty %}
+                <section class="zone zone-footer">
+                    {% ngbm_render_zone ngbm.layout.zone('footer') %}
+                </section>
+            {% endif %}
         </div>
     {% endif %}
 

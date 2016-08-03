@@ -1,0 +1,37 @@
+{% extends ngbm.pageLayoutTemplate %}
+
+{% block layout %}
+<div class="zone-layout-layout2">
+
+    {% if not ngbm.layout.zone('header').empty %}
+        <section class="zone zone-header">
+            {% ngbm_render_zone ngbm.layout.zone('header') %}
+        </section>
+    {% endif %}
+
+    {% if not ngbm.layout.zone('post_header').empty %}
+        <section class="zone zone-post_header">
+            {% ngbm_render_zone ngbm.layout.zone('post_header') %}
+        </section>
+    {% endif %}
+
+    {% if not ngbm.layout.zone('main').empty %}
+        <section class="zone zone-main">
+            {% ngbm_render_zone ngbm.layout.zone('main') %}
+        </section>
+    {% endif %}
+
+    {% if not ngbm.layout.zone('pre_footer').empty %}
+        <section class="zone zone-pre_footer">
+            {% ngbm_render_zone ngbm.layout.zone('pre_footer') %}
+        </section>
+    {% endif %}
+
+    {% if not ngbm.layout.zone('footer').empty %}
+        <section class="zone zone-footer">
+            {% ngbm_render_zone ngbm.layout.zone('footer') %}
+        </section>
+    {% endif %}
+
+</div>
+{% endblock %}
