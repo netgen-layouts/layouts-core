@@ -8,6 +8,6 @@
     {% if block.parameter('block_name') is empty %}
         {{ macros.notice('block.notice.empty_twig_block'|trans) }}
     {% else %}
-        {{ macros.info('block.notice.twig_block'|trans({ '%block%': block.parameter('block_name') }), 'icon-twig_block') }}
+        {{ macros.info('block.info.twig_block'|trans({ '%block%': block.parameter('block_name') }), 'icon-twig_block') }}
     {% endif %}
 {% endblock %}
