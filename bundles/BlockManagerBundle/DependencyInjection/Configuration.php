@@ -99,6 +99,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('config')
                     ->requiresAtLeastOneElement()
                     ->prototype('array')
+                        ->performNoDeepMerging()
                         ->children()
                             ->scalarNode('template')
                                 ->isRequired()
