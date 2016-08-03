@@ -9,6 +9,10 @@ _ngbm_admin_layout_resolver:
     resource: "admin/layout_resolver.yml"
     prefix: /layout_resolver
 
+_ngbm_admin_layouts:
+    resource: "admin/layouts.yml"
+    prefix: /layouts
+
 _ngbm_admin_shared_layouts:
     resource: "admin/shared_layouts.yml"
     prefix: /shared_layouts

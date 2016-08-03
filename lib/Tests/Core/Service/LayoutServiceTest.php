@@ -118,10 +118,11 @@ abstract class LayoutServiceTest extends ServiceTest
         $layouts = $this->layoutService->loadLayouts();
 
         $this->assertInternalType('array', $layouts);
-        $this->assertCount(4, $layouts);
+        $this->assertCount(2, $layouts);
 
         foreach ($layouts as $layout) {
             $this->assertInstanceOf(LayoutInfo::class, $layout);
+            $this->assertFalse($layout->isShared());
             $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         }
     }

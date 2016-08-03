@@ -1,5 +1,6 @@
 parameters:
     netgen_block_manager.controller.admin.layout_resolver.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
+    netgen_block_manager.controller.admin.layouts.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutsController
     netgen_block_manager.controller.admin.shared_layouts.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\SharedLayoutsController
 
     netgen_block_manager.controller.admin.layout_resolver.validator.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
@@ -20,6 +21,12 @@ services:
             - "@netgen_block_manager.layout.resolver.registry.target_type"
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
             - "@netgen_block_manager.controller.admin.layout_resolver.validator"
+
+    netgen_block_manager.controller.admin.layouts:
+        class: "%netgen_block_manager.controller.admin.layouts.class%"
+        parent: netgen_block_manager.controller.base
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.admin.shared_layouts:
         class: "%netgen_block_manager.controller.admin.shared_layouts.class%"

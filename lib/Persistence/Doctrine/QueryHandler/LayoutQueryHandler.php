@@ -44,6 +44,10 @@ class LayoutQueryHandler extends QueryHandler
     public function loadLayoutsData($offset = 0, $limit = null)
     {
         $query = $this->getLayoutSelectQuery();
+        $query->where(
+            $query->expr()->eq('shared', ':shared')
+        )
+        ->setParameter('shared', false, Type::BOOLEAN);
 
         $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
         $this->applyOffsetAndLimit($query, $offset, $limit);

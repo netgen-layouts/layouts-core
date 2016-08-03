@@ -36,6 +36,11 @@ class MainMenuBuilder
             ->setExtra('translation_domain', 'ngbm_admin');
 
         $menu
+            ->addChild('layouts', array('route' => 'ngbm_admin_layouts_index'))
+            ->setLabel('menu.main_menu.layouts')
+            ->setExtra('translation_domain', 'ngbm_admin');
+
+        $menu
             ->addChild('shared_layouts', array('route' => 'ngbm_admin_shared_layouts_index'))
             ->setLabel('menu.main_menu.shared_layouts')
             ->setExtra('translation_domain', 'ngbm_admin');

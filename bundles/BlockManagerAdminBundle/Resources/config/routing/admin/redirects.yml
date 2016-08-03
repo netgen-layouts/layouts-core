@@ -12,6 +12,14 @@ ngbm_admin_layout_resolver_index_no_slash:
         route: ngbm_admin_layout_resolver_index
         permanent: true
 
+ngbm_admin_layouts_index_no_slash:
+    path: /layouts
+    methods: [GET]
+    defaults:
+        _controller: "FrameworkBundle:Redirect:redirect"
+        route: ngbm_admin_layouts_index
+        permanent: true
+
 ngbm_admin_shared_layouts_index_no_slash:
     path: /shared_layouts
     methods: [GET]

@@ -1,0 +1,25 @@
+{% extends 'NetgenBlockManagerAdminBundle:admin:pagelayout.html.twig' %}
+
+{% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
+
+{% trans_default_domain 'ngbm_admin' %}
+
+{% block title %}
+    <title>{{ 'layouts.title'|trans }} - {{ 'pagelayout.title'|trans }}</title>
+{% endblock %}
+
+{% block content %}
+    <div id="layouts">
+        <div class="l-layouts">
+            {% for layout in layouts %}
+                <p><a href="{{ macros.layout_path(layout.id) }}">{{ layout.name }}</a></p>
+            {% else %}
+                <p>{{ 'layouts.no_layouts'|trans }}</p>
+            {% endfor %}
+        </div>
+
+        <a href="{{ path('ngbm_app') }}" id="add-new-button" class="nl-btn nl-btn-primary">
+            <i class="material-icons">add</i> {{ 'layouts.create_layout'|trans }}
+        </a>
+    </div>
+{% endblock %}

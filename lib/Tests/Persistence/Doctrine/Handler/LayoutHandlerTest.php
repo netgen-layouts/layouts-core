@@ -148,28 +148,6 @@ class LayoutHandlerTest extends TestCase
                         'shared' => false,
                     )
                 ),
-                new Layout(
-                    array(
-                        'id' => 3,
-                        'type' => '4_zones_b',
-                        'name' => 'My third layout',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'shared' => true,
-                    )
-                ),
-                new Layout(
-                    array(
-                        'id' => 5,
-                        'type' => '4_zones_b',
-                        'name' => 'My fifth layout',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
-                        'shared' => true,
-                    )
-                ),
             ),
             $this->layoutHandler->loadLayouts()
         );
