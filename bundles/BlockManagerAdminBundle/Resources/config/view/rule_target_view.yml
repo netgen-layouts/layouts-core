@@ -25,6 +25,3 @@ view:
                 template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:request_uri_prefix.html.twig"
                 match:
                     rule_target\type: request_uri_prefix
-            rule_target:
-                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:target.html.twig"
-                match: ~

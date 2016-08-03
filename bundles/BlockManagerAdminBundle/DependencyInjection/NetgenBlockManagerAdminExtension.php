@@ -45,7 +45,6 @@ class NetgenBlockManagerAdminExtension extends Extension implements PrependExten
             'view/form_view.yml' => 'netgen_block_manager',
             'view/rule_condition_view.yml' => 'netgen_block_manager',
             'view/rule_target_view.yml' => 'netgen_block_manager',
-            'view/rule_view.yml' => 'netgen_block_manager',
         );
 
         foreach ($prependConfigs as $configFile => $prependConfig) {

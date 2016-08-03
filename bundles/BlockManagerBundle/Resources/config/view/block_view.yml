@@ -60,10 +60,6 @@ view:
                 template: "NetgenBlockManagerBundle:block:full_view.html.twig"
                 match:
                     block\definition: full_view
-            # Base block template
-            block:
-                template: "NetgenBlockManagerBundle:block:block.html.twig"
-                match: ~
         api:
             title:
                 template: "NetgenBlockManagerBundle:api/block:title.html.twig"
@@ -121,9 +117,4 @@ view:
                 template: "NetgenBlockManagerBundle:api/block:full_view.html.twig"
                 match:
                     block\definition: full_view
-                    api_version: 1
-            # Base block template
-            block:
-                template: "NetgenBlockManagerBundle:api/block:block.html.twig"
-                match:
                     api_version: 1
