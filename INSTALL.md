@@ -13,11 +13,12 @@ composer require netgen/block-manager:^1.0
 Activate the bundles
 --------------------
 
-Activate the Block Manager in your kernel class:
+Activate the Block Manager in your kernel class together will all other required bundles:
 
 ```
 ...
 
+$bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
 $bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
@@ -29,11 +30,12 @@ $bundles[] = new Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBu
 return $bundles;
 ```
 
-If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`. Make sure it is activated after the main bundles:
+If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`. Make sure it is activated after all other bundles:
 
 ```
 ...
 
+$bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
 $bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
