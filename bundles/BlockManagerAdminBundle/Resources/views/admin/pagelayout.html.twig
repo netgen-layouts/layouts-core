@@ -29,14 +29,16 @@
     {% endblock %}
 </head>
 <body>
-    <div class="sidebar">
-        <div class="main-menu">
-            {{ knp_menu_render('ngbm.admin.main_menu') }}
+    <div id="lr-app">
+        <div class="lr-sidebar">
+            <div class="main-menu">
+                {{ knp_menu_render('ngbm.admin.main_menu') }}
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        {% block content %}{% endblock %}
+        <div class="lr-content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 </body>
 </html>
