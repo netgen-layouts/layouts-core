@@ -2,9 +2,7 @@
 {% set css_id = css_id|default(block.parameter('css_id')) %}
 {% set set_container = block.parameter('set_container') %}
 
-<div class="{{ css_class }}"
-    {% if css_id is not empty %} id="{{ css_id }}" {% endif %}
->
+<div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
     {% if set_container %}<div class="container">{% endif %}
     {% block content %}{% endblock %}
     {% if set_container %}</div>{% endif %}
