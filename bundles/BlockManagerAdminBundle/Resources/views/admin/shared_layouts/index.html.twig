@@ -10,7 +10,7 @@
     <div id="shared-layouts">
         <div class="sl-layouts">
             {% for layout in shared_layouts %}
-                <div class="nl-panel">
+                <div class="nl-panel nl-layout">
                     {{ ngbm_render_layout(layout, [], 'admin') }}
                 </div>
             {% else %}
