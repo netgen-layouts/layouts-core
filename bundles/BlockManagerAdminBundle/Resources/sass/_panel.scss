@@ -1,4 +1,4 @@
-.lr-panel {
+.nl-panel {
   margin:0 0 1.5em;
   p {
       font-size:0.8125em;
@@ -8,7 +8,7 @@
       text-decoration:none;
   }
 
-  .lr-rule-content {
+  .nl-rule-content {
     background:$panelBg;
     border-radius:2px;
     box-shadow:0 1px 2px rgba(43,59,93,.29);
@@ -21,7 +21,7 @@
   }
 
   //panel head
-  .lr-panel-head {
+  .nl-panel-head {
       padding:$gutter;
       display:flex;
       position:relative;
@@ -95,7 +95,7 @@
   }
 
   //panel body
-  .lr-panel-body {
+  .nl-panel-body {
       display:none;
       padding:$gutter;
       border-top:1px solid #eee;
@@ -128,7 +128,7 @@
               width:100%;
           }
           select:not([multiple]) {
-              @extend .lr-select;
+              @extend .nl-select;
               background:#fff;
               margin:0 0 1em;
           }
@@ -259,7 +259,7 @@
       }
   }
 
-  .lr-panel-actions {
+  .nl-panel-actions {
       display:none;
       padding:$gutter;
       border-top:1px solid #eee;
@@ -324,11 +324,11 @@
   }
 
   &.show-body {
-      .lr-panel-body {
+      .nl-panel-body {
           display:block;
           @extend %fadeIn;
       }
-      .lr-panel-head {
+      .nl-panel-head {
           .panel-toggle {
               &::before {
                   content:"expand_less";
@@ -337,7 +337,7 @@
       }
   }
   &.show-actions {
-      .lr-panel-actions {
+      .nl-panel-actions {
           display:block;
           @extend %fadeIn;
       }
@@ -349,7 +349,7 @@
 
   body.sorting & {
       cursor:grab;
-      .lr-panel-head {
+      .nl-panel-head {
           padding-left:$gutter+8;
           &::before {
               content:"";
@@ -361,12 +361,12 @@
               bottom:10px;
               opacity:0.25;
           }
-          .lr-dropdown {
+          .nl-dropdown {
               visibility:hidden;
           }
       }
       .panel-head-title,
-      .lr-panel-body {
+      .nl-panel-body {
           position:relative;
           &::before {
               content:"";
@@ -378,7 +378,7 @@
               z-index:100;
           }
       }
-      .lr-panel-actions,
+      .nl-panel-actions,
       .remove-setting,
       .settings-action,
       .panel-link-action {

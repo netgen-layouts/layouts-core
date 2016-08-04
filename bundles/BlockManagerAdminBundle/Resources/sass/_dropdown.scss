@@ -1,6 +1,6 @@
-.lr-dropdown {
+.nl-dropdown {
     position:relative;
-    .lr-dropdown-menu {
+    .nl-dropdown-menu {
         display:none;
         position:absolute;
         top:100%;
@@ -36,14 +36,14 @@
             }
         }
     }
-    &.lr-dropdown-active {
-        .lr-dropdown-menu {
+    &.nl-dropdown-active {
+        .nl-dropdown-menu {
             display:block;
             animation:showDropdown 200ms ease-out;
         }
     }
     &[data-position="right"] {
-        .lr-dropdown-menu {
+        .nl-dropdown-menu {
             right:0;
             left:auto;
         }

@@ -13,9 +13,9 @@
             <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.rules.cancel'|trans }}</button>
             <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.rules.save_order'|trans }}</button>
         </div>
-        <div class="lr-rules">
+        <div class="nl-rules">
             {% for rule in rules %}
-                <div class="lr-panel lr-rule">
+                <div class="nl-panel nl-rule">
                     {{ ngbm_render_rule(rule) }}
                 </div>
             {% else %}

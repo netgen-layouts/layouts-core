@@ -2,8 +2,8 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="lr-rule-content {% if not published_rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
-    <div class="lr-panel-head">
+<div class="nl-rule-content {% if not published_rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
+    <div class="nl-panel-head">
         <div class="panel-head-title">
 
             <div class="panel-icon">
@@ -28,11 +28,11 @@
             {% endif %}
 
             <!-- Right aligned menu below button -->
-            <div class="lr-dropdown" data-position="right">
-                <button class="nl-btn nl-btn-icon lr-dropdown-toggle">
+            <div class="nl-dropdown" data-position="right">
+                <button class="nl-btn nl-btn-icon nl-dropdown-toggle">
                     <i class="material-icons">more_vert</i>
                 </button>
-                <ul class="lr-dropdown-menu">
+                <ul class="nl-dropdown-menu">
                     <li><a href="#" {% if rule.layout == null %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rules.unlink_layout'|trans }}</a></li>
 
                     {% if rule.layout != null %}
@@ -59,11 +59,11 @@
 
         <div class="panel-head-info">
 
-            <div class="meta-info lr-tt" title="{{ 'layout_resolver.rules.number_of_targets'|trans }}">
+            <div class="meta-info nl-tt" title="{{ 'layout_resolver.rules.number_of_targets'|trans }}">
                 <i class="material-icons" role="presentation">gps_fixed</i> <span class="meta-badge js-target-counter">{{ rule.targets|length }}</span>
             </div>
 
-            <div class="meta-info lr-tt" title="{{ 'layout_resolver.rules.number_of_conditions'|trans }}">
+            <div class="meta-info nl-tt" title="{{ 'layout_resolver.rules.number_of_conditions'|trans }}">
                 <i class="material-icons" role="presentation">done_all</i> <span class="meta-badge js-condition-counter">{{ rule.conditions|length }}</span>
             </div>
 
@@ -73,9 +73,9 @@
 
     </div>
 
-    <div class="lr-panel-body">
+    <div class="nl-panel-body">
 
-        <div class="lr-grid">
+        <div class="nl-grid">
             <div class="col-xs6">
                 {% if rule.targets|length > 0 %}
                     <p>{{ ('layout_resolver.rules.target_header.' ~ rule.targets[0].type)|trans }}:</p>
@@ -94,7 +94,7 @@
                         <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rules.loading'|trans }}</div>
                         <div class="settings-action-add">
                             {% if rule.targets|length == 0 %}
-                                <select class="lr-select js-target-type">
+                                <select class="nl-select js-target-type">
                                     {% for target_type in target_types %}
                                         <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
                                     {% endfor %}
@@ -127,7 +127,7 @@
                     <div class="settings-action">
                         <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rules.loading'|trans }}</div>
                         <div class="settings-action-add">
-                            <select class="lr-select js-condition-type">
+                            <select class="nl-select js-condition-type">
                                 {% for condition_type in condition_types %}
                                     <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
                                 {% endfor %}
@@ -144,7 +144,7 @@
 
     </div>
 
-    <div class="lr-panel-actions">
+    <div class="nl-panel-actions">
         <a href="#" class="nl-btn js-rule-edit" data-action="discard">
             {{ 'layout_resolver.rules.cancel'|trans }}
         </a>
