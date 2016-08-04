@@ -3,7 +3,9 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class LayoutsController extends Controller
 {
@@ -35,5 +37,19 @@ class LayoutsController extends Controller
                 'layouts' => $this->layoutService->loadLayouts(),
             )
         );
+    }
+
+    /**
+     * Deletes a layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteLayout(LayoutInfo $layout)
+    {
+        $this->layoutService->deleteLayout($layout);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }
