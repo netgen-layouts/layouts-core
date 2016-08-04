@@ -205,9 +205,9 @@ interface LayoutService
     /**
      * Deletes a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
      */
-    public function deleteLayout(Layout $layout);
+    public function deleteLayout(LayoutInfo $layout);
 
     /**
      * Creates a new layout create struct.

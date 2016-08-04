@@ -587,9 +587,9 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Deletes a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
      */
-    public function deleteLayout(Layout $layout)
+    public function deleteLayout(LayoutInfo $layout)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
