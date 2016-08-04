@@ -37,7 +37,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.view', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.pagelayout',
-            'NetgenBlockManagerBundle::pagelayout.html.twig'
+            'NetgenBlockManagerBundle::empty_pagelayout.html.twig'
         );
     }
 
