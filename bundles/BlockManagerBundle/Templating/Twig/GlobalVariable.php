@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 
-class GlobalHelper
+class GlobalVariable
 {
     /**
      * @var \Netgen\BlockManager\View\View\LayoutViewInterface

@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -37,9 +37,9 @@ class LayoutResolverListenerTest extends TestCase
     protected $viewBuilderMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalHelper;
+    protected $globalVariable;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener
@@ -63,7 +63,7 @@ class LayoutResolverListenerTest extends TestCase
             ViewBuilderInterface::class
         );
 
-        $this->globalHelper = new GlobalHelper(
+        $this->globalVariable = new GlobalVariable(
             $this->createMock(ConfigurationInterface::class)
         );
 
@@ -71,7 +71,7 @@ class LayoutResolverListenerTest extends TestCase
             $this->layoutResolverMock,
             $this->layoutServiceMock,
             $this->viewBuilderMock,
-            $this->globalHelper
+            $this->globalVariable
         );
     }
 
@@ -128,7 +128,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals($layoutView, $this->globalHelper->getLayoutView());
+        $this->assertEquals($layoutView, $this->globalVariable->getLayoutView());
     }
 
     /**
@@ -155,7 +155,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalVariable->getLayoutView());
     }
 
     /**
@@ -182,7 +182,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalVariable->getLayoutView());
     }
 
     /**
@@ -208,7 +208,7 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalVariable->getLayoutView());
     }
 
     /**
@@ -235,6 +235,6 @@ class LayoutResolverListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertNull($this->globalHelper->getLayoutView());
+        $this->assertNull($this->globalVariable->getLayoutView());
     }
 }

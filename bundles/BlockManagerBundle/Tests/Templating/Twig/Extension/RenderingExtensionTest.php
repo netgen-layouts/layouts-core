@@ -15,7 +15,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_SimpleFunction;
 use Twig_TokenParser;
@@ -38,7 +38,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $globalHelperMock;
+    protected $globalVariableMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -76,14 +76,14 @@ class RenderingExtensionTest extends TestCase
         );
 
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
-        $this->globalHelperMock = $this->createMock(GlobalHelper::class);
+        $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
         $this->extension = new RenderingExtension(
             $this->blockDefinitionRegistry,
             $this->layoutServiceMock,
-            $this->globalHelperMock,
+            $this->globalVariableMock,
             $this->viewRendererMock,
             $this->fragmentHandlerMock
         );
@@ -105,7 +105,7 @@ class RenderingExtensionTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'ngbm' => $this->globalHelperMock,
+                'ngbm' => $this->globalVariableMock,
             ),
             $this->extension->getGlobals()
         );

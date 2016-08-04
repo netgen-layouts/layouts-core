@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 
 class PageLayoutListener implements EventSubscriberInterface
 {
@@ -17,22 +17,22 @@ class PageLayoutListener implements EventSubscriberInterface
     protected $pageLayoutResolver;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalHelper;
+    protected $globalVariable;
 
     /**
      * Constructor.
      *
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
+     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      */
     public function __construct(
         PageLayoutResolverInterface $pageLayoutResolver,
-        GlobalHelper $globalHelper
+        GlobalVariable $globalVariable
     ) {
         $this->pageLayoutResolver = $pageLayoutResolver;
-        $this->globalHelper = $globalHelper;
+        $this->globalVariable = $globalVariable;
     }
 
     /**
@@ -61,7 +61,7 @@ class PageLayoutListener implements EventSubscriberInterface
             return;
         }
 
-        $this->globalHelper->setPageLayoutTemplate(
+        $this->globalVariable->setPageLayoutTemplate(
             $this->pageLayoutResolver->resolvePageLayout()
         );
     }

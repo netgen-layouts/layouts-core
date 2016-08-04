@@ -6,7 +6,7 @@ use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\PageLayoutListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -21,9 +21,9 @@ class PageLayoutListenerTest extends TestCase
     protected $pageLayoutResolverMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalHelper;
+    protected $globalVariable;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\PageLayoutListener
@@ -39,13 +39,13 @@ class PageLayoutListenerTest extends TestCase
             PageLayoutResolverInterface::class
         );
 
-        $this->globalHelper = new GlobalHelper(
+        $this->globalVariable = new GlobalVariable(
             $this->createMock(ConfigurationInterface::class)
         );
 
         $this->listener = new PageLayoutListener(
             $this->pageLayoutResolverMock,
-            $this->globalHelper
+            $this->globalVariable
         );
     }
 
@@ -77,7 +77,7 @@ class PageLayoutListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals('pagelayout.html.twig', $this->globalHelper->getPageLayoutTemplate());
+        $this->assertEquals('pagelayout.html.twig', $this->globalVariable->getPageLayoutTemplate());
     }
 
     /**
@@ -95,7 +95,7 @@ class PageLayoutListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertNull($this->globalHelper->getPageLayoutTemplate());
+        $this->assertNull($this->globalVariable->getPageLayoutTemplate());
     }
 
     /**
@@ -114,6 +114,6 @@ class PageLayoutListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertNull($this->globalHelper->getPageLayoutTemplate());
+        $this->assertNull($this->globalVariable->getPageLayoutTemplate());
     }
 }

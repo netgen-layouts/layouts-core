@@ -9,7 +9,7 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Psr\Log\LoggerInterface;
@@ -37,9 +37,9 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     protected $layoutService;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalHelper;
+    protected $globalVariable;
 
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
@@ -66,7 +66,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
+     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
      * @param \Psr\Log\LoggerInterface $logger
@@ -74,14 +74,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     public function __construct(
         BlockDefinitionRegistryInterface $blockDefinitionRegistry,
         LayoutService $layoutService,
-        GlobalHelper $globalHelper,
+        GlobalVariable $globalVariable,
         RendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
         LoggerInterface $logger = null
     ) {
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->layoutService = $layoutService;
-        $this->globalHelper = $globalHelper;
+        $this->globalVariable = $globalVariable;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
         $this->logger = $logger ?: new NullLogger();
@@ -180,7 +180,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     public function getGlobals()
     {
         return array(
-            'ngbm' => $this->globalHelper,
+            'ngbm' => $this->globalVariable,
         );
     }
 

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 
 class LayoutResolverListener implements EventSubscriberInterface
 {
@@ -30,9 +30,9 @@ class LayoutResolverListener implements EventSubscriberInterface
     protected $viewBuilder;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper
+     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalHelper;
+    protected $globalVariable;
 
     /**
      * Constructor.
@@ -40,18 +40,18 @@ class LayoutResolverListener implements EventSubscriberInterface
      * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalHelper $globalHelper
+     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
-        GlobalHelper $globalHelper
+        GlobalVariable $globalVariable
     ) {
         $this->layoutResolver = $layoutResolver;
         $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
-        $this->globalHelper = $globalHelper;
+        $this->globalVariable = $globalVariable;
     }
 
     /**
@@ -90,7 +90,7 @@ class LayoutResolverListener implements EventSubscriberInterface
                 $rule->getLayout()->getId()
             );
 
-            $this->globalHelper->setLayoutView(
+            $this->globalVariable->setLayoutView(
                 $this->viewBuilder->buildView($layout)
             );
 
