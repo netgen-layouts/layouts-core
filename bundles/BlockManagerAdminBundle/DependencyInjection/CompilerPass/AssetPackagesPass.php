@@ -36,6 +36,11 @@ class AssetPackagesPass implements CompilerPassInterface
             'version' => null,
             'version_format' => null,
         ),
+        'ngbm_admin' => array(
+            'base_path' => '/bundles/netgenblockmanageradmin',
+            'version' => null,
+            'version_format' => null,
+        ),
         'ngbm_app_css' => array(
             'base_path' => '/bundles/netgenblockmanagerui/css',
             'version' => BlockManagerUIVersion::VERSION_ID,
@@ -51,6 +56,11 @@ class AssetPackagesPass implements CompilerPassInterface
             'version' => null,
             'version_format' => null,
         ),
+        'ngbm_app' => array(
+            'base_path' => '/bundles/netgenblockmanagerui',
+            'version' => null,
+            'version_format' => null,
+        ),
         'ngcb_css' => array(
             'base_path' => '/bundles/netgencontentbrowserui/css',
             'version' => ContentBrowserUIVersion::VERSION_ID,
@@ -60,6 +70,11 @@ class AssetPackagesPass implements CompilerPassInterface
             'base_path' => '/bundles/netgencontentbrowserui/js',
             'version' => ContentBrowserUIVersion::VERSION_ID,
             'version_format' => 'v%%2$s/%%1$s',
+        ),
+        'ngcb' => array(
+            'base_path' => '/bundles/netgencontentbrowserui',
+            'version' => null,
+            'version_format' => null,
         ),
     );
 
