@@ -1,6 +1,6 @@
 view:
     rule_target_view:
-        default:
+        admin:
             route:
                 template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/target:route.html.twig"
                 match:

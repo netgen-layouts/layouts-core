@@ -16,7 +16,7 @@
         <div class="nl-rules">
             {% for rule in rules %}
                 <div class="nl-panel nl-rule">
-                    {{ ngbm_render_rule(rule) }}
+                    {{ ngbm_render_rule(rule, [], 'admin') }}
                 </div>
             {% else %}
                 <p>{{ 'layout_resolver.rules.no_rules'|trans }}</p>
