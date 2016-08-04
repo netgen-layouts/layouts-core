@@ -104,7 +104,7 @@ class LayoutResolverListener implements EventSubscriberInterface
             } catch (NotFoundException $e) {
                 $this->logger->notice(
                     sprintf(
-                        "Rule with ID %d was resolved, but its layout was not found",
+                        'Rule with ID %d was resolved, but its layout was not found',
                         $rule->getId()
                     )
                 );
