@@ -26,6 +26,11 @@ class AssetPackagesPass implements CompilerPassInterface
             'version' => BlockManagerVersion::VERSION_ID,
             'version_format' => 'v%%2$s/%%1$s',
         ),
+        'ngbm_admin_images' => array(
+            'base_path' => '/bundles/netgenblockmanageradmin/images',
+            'version' => null,
+            'version_format' => null,
+        ),
         'ngbm_admin_vendor' => array(
             'base_path' => '/bundles/netgenblockmanageradmin/vendor',
             'version' => null,
