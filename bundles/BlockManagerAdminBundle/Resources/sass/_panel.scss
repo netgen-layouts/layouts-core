@@ -418,3 +418,13 @@
 pre.sf-dump {
   z-index:999 !important;
 }
+
+.sl-layouts {
+    .nl-panel {
+        .nl-panel-head {
+            .panel-icon {
+                transform:rotate(210deg);
+            }
+        }
+    }
+}

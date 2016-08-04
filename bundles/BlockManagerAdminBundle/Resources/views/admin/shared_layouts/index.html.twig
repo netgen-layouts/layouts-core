@@ -12,7 +12,39 @@
     <div id="shared-layouts">
         <div class="sl-layouts">
             {% for layout in shared_layouts %}
-                <p><a href="{{ macros.layout_path(layout.id) }}">{{ layout.name }}</a></p>
+                <div class="nl-panel">
+                    <div class="nl-rule-content">
+                        <div class="nl-panel-head">
+                            <div class="panel-head-title">
+
+                                <div class="panel-icon">
+                                    <i class="material-icons" role="presentation">share</i>
+                                </div>
+
+                                <div class="panel-name">
+                                    <a href="{{ macros.layout_path(layout.id) }}" target="_blank">{{ layout.name }}</a>
+                                </div>
+
+                                <div class="nl-dropdown" data-position="right">
+                                    <button class="nl-btn nl-btn-icon nl-dropdown-toggle">
+                                        <i class="material-icons">more_vert</i>
+                                    </button>
+                                    <ul class="nl-dropdown-menu">
+                                        <li><a href="{{ macros.layout_path(layout.id) }}" target="_blank" class="js-layout-delete">Edit layout</a></li>
+                                        <li><a href="#" class="js-layout-delete">Delete layout</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <div class="panel-head-info">
+                                <div class="meta-info nl-tt" title="{{ 'layouts.number_of_rules'|trans }}">
+                                    <i class="material-icons" role="presentation">dns</i> <span class="meta-badge js-target-counter">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% else %}
                 <p>{{ 'shared_layouts.no_layouts'|trans }}</p>
             {% endfor %}

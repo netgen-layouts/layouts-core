@@ -47,6 +47,7 @@ layout_resolver.condition.route_parameter.parameter_values: 'Parameter values'
 layouts.title: 'Layouts'
 layouts.create_layout: 'Create layout'
 layouts.no_layouts: 'There are no layouts defined'
+layouts.number_of_rules: 'Number of rules linked to this layout'
 
 shared_layouts.title: 'Shared layouts'
 shared_layouts.create_layout: 'Create shared layout'
