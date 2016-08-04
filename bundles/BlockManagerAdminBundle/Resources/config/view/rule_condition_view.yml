@@ -1,6 +1,6 @@
 view:
     rule_condition_view:
-        default:
+        admin:
             route_parameter:
                 template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/condition:route_parameter.html.twig"
                 match:

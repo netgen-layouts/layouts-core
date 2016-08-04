@@ -1,6 +1,6 @@
 view:
     form_view:
-        default:
+        api:
             layout\create:
                 template: "NetgenBlockManagerAdminBundle:app/form/layout:create.html.twig"
                 match:
@@ -21,6 +21,7 @@ view:
                 template: "NetgenBlockManagerAdminBundle:app/form/query/edit:full.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
+        admin:
             condition\type:
                 template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
                 match:

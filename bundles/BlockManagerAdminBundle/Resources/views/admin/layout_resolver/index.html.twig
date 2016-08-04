@@ -9,21 +9,21 @@
 {% block content %}
     <div id="rules">
         <div class="rule-controls">
-            <button class="nl-btn nl-btn-link sorting-hide js-sort-start">{{ 'layout_resolver.rules.reorder_rules'|trans }} <i class="material-icons">swap_vert</i></button>
-            <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.rules.cancel'|trans }}</button>
-            <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.rules.save_order'|trans }}</button>
+            <button class="nl-btn nl-btn-link sorting-hide js-sort-start">{{ 'layout_resolver.reorder_rules'|trans }} <i class="material-icons">swap_vert</i></button>
+            <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
+            <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
         </div>
         <div class="nl-rules">
             {% for rule in rules %}
                 <div class="nl-panel nl-rule">
-                    {{ ngbm_render_rule(rule) }}
+                    {{ ngbm_render_rule(rule, [], 'admin') }}
                 </div>
             {% else %}
-                <p>{{ 'layout_resolver.rules.no_rules'|trans }}</p>
+                <p>{{ 'layout_resolver.no_rules'|trans }}</p>
             {% endfor %}
         </div>
         <a href="#" id="add-new-button" class="nl-btn nl-btn-primary js-add-rule">
-            <i class="material-icons">add</i> {{ 'layout_resolver.rules.add_new_rule'|trans }}
+            <i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}
         </a>
     </div>
 {% endblock %}

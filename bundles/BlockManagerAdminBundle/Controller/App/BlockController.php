@@ -115,7 +115,7 @@ class BlockController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            return $this->buildView($form);
+            return $this->buildView($form, array(), ViewInterface::CONTEXT_API);
         }
 
         if ($form->isValid()) {
@@ -127,7 +127,7 @@ class BlockController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_DEFAULT,
+            ViewInterface::CONTEXT_API,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

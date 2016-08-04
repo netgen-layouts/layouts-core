@@ -8,6 +8,8 @@ interface ViewInterface
 {
     const CONTEXT_DEFAULT = 'default';
 
+    const CONTEXT_ADMIN = 'admin';
+
     const CONTEXT_API = 'api';
 
     /**

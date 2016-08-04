@@ -110,7 +110,7 @@ class LayoutResolverController extends Controller
             $createdRule
         );
 
-        return $this->buildView($createdRule);
+        return $this->buildView($createdRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
@@ -149,7 +149,7 @@ class LayoutResolverController extends Controller
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
-        return $this->buildView($updatedRule);
+        return $this->buildView($updatedRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
@@ -223,7 +223,7 @@ class LayoutResolverController extends Controller
             $returnRule = $this->layoutResolverService->loadRuleDraft($rule->getId());
         }
 
-        return $this->buildView($returnRule);
+        return $this->buildView($returnRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
@@ -242,7 +242,7 @@ class LayoutResolverController extends Controller
             $returnRule = $this->layoutResolverService->loadRuleDraft($rule->getId());
         }
 
-        return $this->buildView($returnRule);
+        return $this->buildView($returnRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
@@ -275,7 +275,7 @@ class LayoutResolverController extends Controller
 
             $this->repository->commitTransaction();
 
-            return $this->buildView($createdDraft);
+            return $this->buildView($createdDraft, array(), ViewInterface::CONTEXT_ADMIN);
         } catch (Exception $e) {
             $this->repository->rollbackTransaction();
 
@@ -298,7 +298,7 @@ class LayoutResolverController extends Controller
             $rule->getId()
         );
 
-        return $this->buildView($publishedRule);
+        return $this->buildView($publishedRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
@@ -312,7 +312,7 @@ class LayoutResolverController extends Controller
     {
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
-        return $this->buildView($publishedRule);
+        return $this->buildView($publishedRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
@@ -361,7 +361,7 @@ class LayoutResolverController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            return $this->buildView($form);
+            return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
         }
 
         if ($form->isValid()) {
@@ -370,14 +370,16 @@ class LayoutResolverController extends Controller
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
                     $rule->getId()
-                )
+                ),
+                array(),
+                ViewInterface::CONTEXT_ADMIN
             );
         }
 
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_DEFAULT,
+            ViewInterface::CONTEXT_ADMIN,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -418,7 +420,7 @@ class LayoutResolverController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            return $this->buildView($form);
+            return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
         }
 
         if ($form->isValid()) {
@@ -426,7 +428,9 @@ class LayoutResolverController extends Controller
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $target->getRuleId()
+                    $target->getRuleId(),
+                    array(),
+                    ViewInterface::CONTEXT_ADMIN
                 )
             );
         }
@@ -434,7 +438,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_DEFAULT,
+            ViewInterface::CONTEXT_ADMIN,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -453,7 +457,9 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $this->layoutResolverService->loadRuleDraft(
                 $target->getRuleId()
-            )
+            ),
+            array(),
+            ViewInterface::CONTEXT_ADMIN
         );
     }
 
@@ -489,7 +495,7 @@ class LayoutResolverController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            return $this->buildView($form);
+            return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
         }
 
         if ($form->isValid()) {
@@ -497,7 +503,9 @@ class LayoutResolverController extends Controller
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $rule->getId()
+                    $rule->getId(),
+                    array(),
+                    ViewInterface::CONTEXT_ADMIN
                 )
             );
         }
@@ -505,7 +513,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_DEFAULT,
+            ViewInterface::CONTEXT_ADMIN,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -546,7 +554,7 @@ class LayoutResolverController extends Controller
         $form->handleRequest($request);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
-            return $this->buildView($form);
+            return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
         }
 
         if ($form->isValid()) {
@@ -554,7 +562,9 @@ class LayoutResolverController extends Controller
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $condition->getRuleId()
+                    $condition->getRuleId(),
+                    array(),
+                    ViewInterface::CONTEXT_ADMIN
                 )
             );
         }
@@ -562,7 +572,7 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $form,
             array(),
-            ViewInterface::CONTEXT_DEFAULT,
+            ViewInterface::CONTEXT_ADMIN,
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
@@ -581,7 +591,9 @@ class LayoutResolverController extends Controller
         return $this->buildView(
             $this->layoutResolverService->loadRuleDraft(
                 $condition->getRuleId()
-            )
+            ),
+            array(),
+            ViewInterface::CONTEXT_ADMIN
         );
     }
 }
