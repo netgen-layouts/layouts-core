@@ -11,6 +11,8 @@ parameters:
         item_view:
             default: 'NetgenBlockManagerBundle:item:item.html.twig'
             api: 'NetgenBlockManagerBundle:api/item:item.html.twig'
+        layout_info_view:
+            admin: 'NetgenBlockManagerAdminBundle:admin/layouts:layout.html.twig'
         rule_view:
             admin: 'NetgenBlockManagerAdminBundle:admin/layout_resolver:rule.html.twig'
         rule_target_view:
