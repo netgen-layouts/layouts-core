@@ -49,7 +49,7 @@ parameters:
     netgen_block_manager.block.block_definition.handler.gallery.max_autoplay_time: 12
 
     netgen_block_manager.block.block_definition.handler.gallery.transitions:
-        slide: 'Default'
+        slide: 'Slide'
         fade: 'Fade'
 
     netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios:
