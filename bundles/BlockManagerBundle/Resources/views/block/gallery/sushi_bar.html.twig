@@ -4,19 +4,17 @@
 
 {% block content %}
     {% if collections['default'] is defined %}
-       <div class="row">
-            <div class="sushi-swiper swiper-container">
-                <div class="swiper-wrapper">
-                    {% for result in collections['default'].results %}
-                        <div class="swiper-slide">
-                            {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+        <div class="sushi-swiper swiper-container">
+            <div class="swiper-wrapper">
+                {% for result in collections['default'].results %}
+                    <div class="swiper-slide">
+                        {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
+                    </div>
+                {% endfor %}
             </div>
-       </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
    {% endif %}
 {% endblock %}
