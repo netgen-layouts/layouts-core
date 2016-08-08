@@ -19,7 +19,7 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
         }
 
         $allRules = $container->getParameter('netgen_block_manager.view');
-        $this->updateRules($container, $allRules);
+        $allRules = $this->updateRules($container, $allRules);
 
         $container->setParameter('netgen_block_manager.view', $allRules);
     }
