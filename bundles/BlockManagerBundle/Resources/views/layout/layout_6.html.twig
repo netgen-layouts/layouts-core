@@ -13,7 +13,9 @@
 
             {% if not ngbm.layout.zone('post_header').empty %}
                 <section class="zone zone-post_header">
-                    {% ngbm_render_zone ngbm.layout.zone('post_header') %}
+                    <div class="container">
+                        {% ngbm_render_zone ngbm.layout.zone('post_header') %}
+                    </div>
                 </section>
             {% endif %}
         </div>
@@ -71,7 +73,9 @@
         <div class="bottom-content-block">
             {% if not ngbm.layout.zone('pre_footer').empty %}
                 <section class="zone zone-pre_footer">
-                    {% ngbm_render_zone ngbm.layout.zone('pre_footer') %}
+                    <div class="container">
+                        {% ngbm_render_zone ngbm.layout.zone('pre_footer') %}
+                    </div>
                 </section>
             {% endif %}
 
