@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.view.matcher.api_version.class: Netgen\BlockManager\View\Matcher\APIVersion
     netgen_block_manager.view.matcher.form.type.class: Netgen\BlockManager\View\Matcher\Form\Type
+    netgen_block_manager.view.matcher.form.block.definition.class: Netgen\BlockManager\View\Matcher\Form\Block\Definition
     netgen_block_manager.view.matcher.form.query.type.class: Netgen\BlockManager\View\Matcher\Form\Query\Type
     netgen_block_manager.view.matcher.layout.type.class: Netgen\BlockManager\View\Matcher\Layout\Type
     netgen_block_manager.view.matcher.block.definition.class: Netgen\BlockManager\View\Matcher\Block\Definition
@@ -20,6 +21,11 @@ services:
         class: "%netgen_block_manager.view.matcher.form.type.class%"
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\type }
+
+    netgen_block_manager.view.matcher.form.block.definition:
+        class: "%netgen_block_manager.view.matcher.form.block.definition.class%"
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: form\block\definition }
 
     netgen_block_manager.view.matcher.form.query.type:
         class: "%netgen_block_manager.view.matcher.form.query.type.class%"
