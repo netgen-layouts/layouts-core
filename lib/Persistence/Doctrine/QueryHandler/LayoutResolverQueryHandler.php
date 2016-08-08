@@ -124,6 +124,7 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->addOrderBy('rd.priority', 'DESC');
 
         $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'r.status');
+        $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'rt.status');
 
         if (!isset($this->targetHandlers[$targetType])) {
             throw new RuntimeException(
