@@ -13,6 +13,16 @@ view:
                 template: "NetgenBlockManagerAdminBundle:app/form/block/edit:content.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Block\Form\ContentEditType
+            block\design_edit\list:
+                template: "NetgenBlockManagerAdminBundle:app/form/block/edit/design:list.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Block\Form\DesignEditType
+                    form\block\definition: list
+            block\design_edit\gallery:
+                template: "NetgenBlockManagerAdminBundle:app/form/block/edit/design:gallery.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Block\Form\DesignEditType
+                    form\block\definition: gallery
             block\design_edit:
                 template: "NetgenBlockManagerAdminBundle:app/form/block/edit:design.html.twig"
                 match:

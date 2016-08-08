@@ -2,9 +2,11 @@
 
 {% block children %}
     <div class="master-slave-selects">
-        {{ form_row(form.children.view_type, {attr: {class: 'master'}}) }}
+        {{ form_row(form.children.view_type, {attr: {class: 'master view-type'}}) }}
         {{ form_row(form.children.item_view_type, {attr: {class: 'slave'}}) }}
     </div>
 
-    {{ form_row(form.children.parameters) }}
+    {% block parameters %}
+        {{ form_row(form.children.parameters) }}
+    {% endblock %}
 {% endblock %}

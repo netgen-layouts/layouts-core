@@ -2,5 +2,8 @@
 
 {% block children %}
     {{ form_row(form.children.name) }}
-    {{ form_row(form.children.parameters) }}
+
+    {% block parameters %}
+        {{ form_row(form.children.parameters) }}
+    {% endblock %}
 {% endblock %}

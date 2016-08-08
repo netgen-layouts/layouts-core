@@ -1,0 +1,8 @@
+{% extends 'NetgenBlockManagerAdminBundle:app/form/block/edit:design.html.twig' %}
+
+{% block parameters %}
+    {% set parameters = form.children.parameters %}
+
+    {{ form_row(parameters.children.number_of_columns, {attr: {'data-view-type': 'grid'}}) }}
+    {{ form_rest(parameters) }}
+{% endblock %}
