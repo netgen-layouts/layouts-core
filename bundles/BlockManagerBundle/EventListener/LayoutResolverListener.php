@@ -56,7 +56,7 @@ class LayoutResolverListener implements EventSubscriberInterface
         LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
         GlobalVariable $globalVariable,
-        LoggerInterface $logger
+        LoggerInterface $logger = null
     ) {
         $this->layoutResolver = $layoutResolver;
         $this->layoutService = $layoutService;
