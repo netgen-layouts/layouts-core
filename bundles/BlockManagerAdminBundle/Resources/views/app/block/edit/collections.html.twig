@@ -1,6 +1,8 @@
 {% trans_default_domain 'ngbm_app' %}
 
-{% if collections is not empty and collections['default'] is defined %}
+{% set can_change_collection = query_types|length > 0 or named_collections|length > 0 %}
+
+{% if collections is not empty and collections['default'] is defined and can_change_collection %}
     {% set collection = collections['default'] %}
 
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
