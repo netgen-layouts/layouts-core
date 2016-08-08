@@ -162,6 +162,7 @@ class LayoutNormalizerTest extends TestCase
                 'zones' => array(
                     array(
                         'identifier' => 'left',
+                        'name' => 'Left',
                         'block_ids' => array(24),
                         'allowed_block_definitions' => array('title'),
                         'linked_layout_id' => null,
@@ -169,6 +170,7 @@ class LayoutNormalizerTest extends TestCase
                     ),
                     array(
                         'identifier' => 'right',
+                        'name' => 'Right',
                         'block_ids' => array(),
                         'allowed_block_definitions' => true,
                         'linked_layout_id' => 24,

@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -51,6 +52,8 @@ class LayoutNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $layout */
         $layout = $object->getValue();
 
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->getType());
+
         $data = array(
             'id' => $layout->getId(),
             'type' => $layout->getType(),
@@ -65,7 +68,7 @@ class LayoutNormalizer implements NormalizerInterface
         );
 
         if ($layout instanceof Layout) {
-            $data['zones'] = $this->getZones($layout);
+            $data['zones'] = $this->getZones($layout, $layoutType);
         }
 
         return $data;
@@ -92,16 +95,18 @@ class LayoutNormalizer implements NormalizerInterface
      * Returns the array with layout zones.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      *
      * @return array
      */
-    protected function getZones(Layout $layout)
+    protected function getZones(Layout $layout, LayoutType $layoutType)
     {
         $zones = array();
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
             $zones[] = array(
                 'identifier' => $zoneIdentifier,
+                'name' => $this->getZoneName($zone, $layoutType),
                 'block_ids' => array_map(
                     function (Block $block) {
                         return $block->getId();
@@ -110,7 +115,7 @@ class LayoutNormalizer implements NormalizerInterface
                 ),
                 'allowed_block_definitions' => $this->getAllowedBlocks(
                     $zone,
-                    $layout->getType()
+                    $layoutType
                 ),
                 'linked_layout_id' => $zone->getLinkedLayoutId(),
                 'linked_zone_identifier' => $zone->getLinkedZoneIdentifier(),
@@ -121,18 +126,33 @@ class LayoutNormalizer implements NormalizerInterface
     }
 
     /**
+     * Returns provided zone name.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
+     *
+     * @return string
+     */
+    protected function getZoneName(Zone $zone, LayoutType $layoutType)
+    {
+        if ($layoutType->hasZone($zone->getIdentifier())) {
+            return $layoutType->getZone($zone->getIdentifier())->getName();
+        }
+
+        return '';
+    }
+
+    /**
      * Returns all allowed block definitions from provided zone or
      * true if all block definitions are allowed.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param string $layoutType
+     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      *
      * @return array|bool
      */
-    protected function getAllowedBlocks(Zone $zone, $layoutType)
+    protected function getAllowedBlocks(Zone $zone, LayoutType $layoutType)
     {
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutType);
-
         if ($layoutType->hasZone($zone->getIdentifier())) {
             $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());
             if (!empty($layoutTypeZone->getAllowedBlockDefinitions())) {
