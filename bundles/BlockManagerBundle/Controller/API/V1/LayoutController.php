@@ -112,6 +112,37 @@ class LayoutController extends Controller
     }
 
     /**
+     * Loads all zone blocks.
+     *
+     * @param int $layoutId
+     * @param string $zoneIdentifier
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     */
+    public function viewZoneBlocks($layoutId, $zoneIdentifier, Request $request)
+    {
+        $layout = $this->loadLayout(
+            $layoutId,
+            $request->query->get('published') !== 'true'
+        );
+
+        $layoutZones = $layout->getZones();
+        if (!isset($layoutZones[$zoneIdentifier])) {
+            throw new NotFoundException('zone', $zoneIdentifier);
+        }
+
+        $blocks = array();
+        foreach ($layoutZones[$zoneIdentifier]->getBlocks() as $block) {
+            $blocks[] = new View($block, Version::API_V1);
+        }
+
+        return new ValueList($blocks);
+    }
+
+    /**
      * Links the provided zone to zone from shared layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
