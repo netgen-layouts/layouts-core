@@ -28,9 +28,9 @@ class Block extends ValueObject implements APIBlock
     protected $position;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $definitionIdentifier;
+    protected $blockDefinition;
 
     /**
      * @var string
@@ -98,13 +98,13 @@ class Block extends ValueObject implements APIBlock
     }
 
     /**
-     * Returns block definition identifier.
+     * Returns the block definition.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getDefinitionIdentifier()
+    public function getBlockDefinition()
     {
-        return $this->definitionIdentifier;
+        return $this->blockDefinition;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
@@ -14,7 +15,7 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getBlockDefinition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
@@ -31,7 +32,7 @@ class BlockTest extends TestCase
         $this->assertNull($block->getLayoutId());
         $this->assertNull($block->getZoneIdentifier());
         $this->assertNull($block->getPosition());
-        $this->assertNull($block->getDefinitionIdentifier());
+        $this->assertNull($block->getBlockDefinition());
         $this->assertEquals(array(), $block->getParameters());
         $this->assertNull($block->getParameter('test'));
         $this->assertFalse($block->hasParameter('test'));
@@ -47,7 +48,7 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinitionIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getBlockDefinition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
@@ -64,7 +65,7 @@ class BlockTest extends TestCase
                 'layoutId' => 84,
                 'zoneIdentifier' => 'left',
                 'position' => 3,
-                'definitionIdentifier' => 'text',
+                'blockDefinition' => new BlockDefinition('text'),
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
@@ -80,7 +81,7 @@ class BlockTest extends TestCase
         $this->assertEquals(84, $block->getLayoutId());
         $this->assertEquals('left', $block->getZoneIdentifier());
         $this->assertEquals(3, $block->getPosition());
-        $this->assertEquals('text', $block->getDefinitionIdentifier());
+        $this->assertEquals(new BlockDefinition('text'), $block->getBlockDefinition());
         $this->assertEquals(
             array(
                 'some_param' => 'some_value',

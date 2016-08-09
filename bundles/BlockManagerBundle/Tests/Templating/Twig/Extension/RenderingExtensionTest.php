@@ -3,17 +3,14 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
@@ -25,11 +22,6 @@ use PHPUnit\Framework\TestCase;
 
 class RenderingExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
-     */
-    protected $blockDefinitionRegistry;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -57,31 +49,12 @@ class RenderingExtensionTest extends TestCase
 
     public function setUp()
     {
-        $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
-
-        $this->blockDefinitionRegistry->addBlockDefinition(
-            new BlockDefinition(
-                'block_definition',
-                new BlockDefinitionHandler(),
-                new Configuration('block_definition')
-            )
-        );
-
-        $this->blockDefinitionRegistry->addBlockDefinition(
-            new BlockDefinition(
-                'twig_block',
-                new TwigBlockHandler(),
-                new Configuration('twig_block')
-            )
-        );
-
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
         $this->extension = new RenderingExtension(
-            $this->blockDefinitionRegistry,
             $this->layoutServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
@@ -141,11 +114,13 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderBlock()
     {
+        $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
+
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
-                $this->equalTo(new Block()),
+                $this->equalTo($block),
                 $this->equalTo(array('param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
@@ -154,7 +129,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertEquals(
             'rendered block',
             $this->extension->renderBlock(
-                new Block(),
+                $block,
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_DEFAULT
             )
@@ -167,11 +142,13 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderBlockReturnsEmptyStringOnException()
     {
+        $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
+
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
-                $this->equalTo(new Block()),
+                $this->equalTo($block),
                 $this->equalTo(array('param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
@@ -180,7 +157,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertEquals(
             '',
             $this->extension->renderBlock(
-                new Block(),
+                $block,
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_DEFAULT
             )
@@ -195,19 +172,20 @@ class RenderingExtensionTest extends TestCase
     public function testRenderBlockThrowsExceptionInDebug()
     {
         $this->extension->setDebug(true);
+        $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
 
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
-                $this->equalTo(new Block()),
+                $this->equalTo($block),
                 $this->equalTo(array('param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
         $this->extension->renderBlock(
-            new Block(),
+            $block,
             array('param' => 'value'),
             ViewInterface::CONTEXT_DEFAULT
         );
@@ -393,9 +371,9 @@ class RenderingExtensionTest extends TestCase
             new Zone(
                 array(
                     'blocks' => array(
-                        new Block(array('definitionIdentifier' => 'block_definition')),
-                        new Block(array('definitionIdentifier' => 'twig_block')),
-                        new Block(array('definitionIdentifier' => 'block_definition')),
+                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
+                        new Block(array('blockDefinition' => new TwigBlockDefinition('twig_block'))),
+                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
                     ),
                 )
             ),
@@ -434,9 +412,9 @@ class RenderingExtensionTest extends TestCase
             new Zone(
                 array(
                     'blocks' => array(
-                        new Block(array('definitionIdentifier' => 'block_definition')),
-                        new Block(array('definitionIdentifier' => 'twig_block')),
-                        new Block(array('definitionIdentifier' => 'block_definition')),
+                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
+                        new Block(array('blockDefinition' => new TwigBlockDefinition('twig_block'))),
+                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
                     ),
                 )
             ),

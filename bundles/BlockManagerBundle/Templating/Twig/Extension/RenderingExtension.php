@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
@@ -24,11 +23,6 @@ use Exception;
 
 class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
@@ -67,7 +61,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
@@ -76,7 +69,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
         LayoutService $layoutService,
         GlobalVariable $globalVariable,
         RendererInterface $viewRenderer,
@@ -84,7 +76,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         $blockController,
         LoggerInterface $logger = null
     ) {
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->layoutService = $layoutService;
         $this->globalVariable = $globalVariable;
         $this->viewRenderer = $viewRenderer;
@@ -319,11 +310,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         }
 
         foreach ($blocks as $block) {
-            $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-                $block->getDefinitionIdentifier()
-            );
-
-            $blockDefinitionHandler = $blockDefinition->getHandler();
+            $blockDefinitionHandler = $block->getBlockDefinition()->getHandler();
             if ($blockDefinitionHandler instanceof TwigBlockDefinitionHandlerInterface) {
                 $this->displayTwigBlock(
                     $blockDefinitionHandler,

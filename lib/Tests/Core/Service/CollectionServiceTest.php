@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
@@ -18,9 +18,8 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 
-abstract class CollectionServiceTest extends ServiceTest
+abstract class CollectionServiceTest extends ServiceTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -28,35 +27,15 @@ abstract class CollectionServiceTest extends ServiceTest
     protected $collectionValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
-        $this->queryTypeRegistry = new QueryTypeRegistry();
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('query_type', 'Query type')
-            )
-        );
-
-        $this->collectionService = $this->createCollectionService(
-            $this->collectionValidatorMock,
-            $this->queryTypeRegistry
-        );
+        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }
 
     /**

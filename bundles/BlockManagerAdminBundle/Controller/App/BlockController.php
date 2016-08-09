@@ -66,7 +66,6 @@ class BlockController extends Controller
             'NetgenBlockManagerAdminBundle:app/block:edit.html.twig',
             array(
                 'block' => $block,
-                'block_definition' => $this->getBlockDefinition($block->getDefinitionIdentifier()),
                 'collections' => $collections,
                 'named_collections' => $this->collectionService->loadNamedCollections(),
                 'query_types' => $this->queryTypeRegistry->getQueryTypes(),
@@ -87,7 +86,7 @@ class BlockController extends Controller
      */
     public function editForm(BlockDraft $block, $formName, Request $request)
     {
-        $blockDefinition = $this->getBlockDefinition($block->getDefinitionIdentifier());
+        $blockDefinition = $block->getBlockDefinition();
 
         if (!$blockDefinition->getConfig()->hasForm($formName) || !$blockDefinition->getConfig()->getForm($formName)->isEnabled()) {
             throw new InvalidArgumentException('form', 'Block does not support specified form.');

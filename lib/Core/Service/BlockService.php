@@ -355,7 +355,7 @@ class BlockService implements BlockServiceInterface
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
 
-            if (!$this->isBlockAllowedWithinZone($block->getDefinitionIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
+            if (!$this->isBlockAllowedWithinZone($block->getBlockDefinition()->getIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
                 throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
             }
         }
@@ -405,7 +405,7 @@ class BlockService implements BlockServiceInterface
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
 
-            if (!$this->isBlockAllowedWithinZone($block->getDefinitionIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
+            if (!$this->isBlockAllowedWithinZone($block->getBlockDefinition()->getIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
                 throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
             }
         }
@@ -566,9 +566,7 @@ class BlockService implements BlockServiceInterface
         $blockUpdateStruct->itemViewType = $block->getItemViewType();
         $blockUpdateStruct->name = $block->getName();
 
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $block->getDefinitionIdentifier()
-        );
+        $blockDefinition = $block->getBlockDefinition();
 
         $blockUpdateStruct->fillValues(
             $blockDefinition->getHandler()->getParameters(),

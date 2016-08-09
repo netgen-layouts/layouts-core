@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
@@ -18,16 +19,27 @@ class BlockMapper extends Mapper
     protected $collectionMapper;
 
     /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     */
+    protected $blockDefinitionRegistry;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
+     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
-    public function __construct(Handler $persistenceHandler, CollectionMapper $collectionMapper)
+    public function __construct(
+        Handler $persistenceHandler,
+        CollectionMapper $collectionMapper,
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry
+    )
     {
         parent::__construct($persistenceHandler);
 
         $this->collectionMapper = $collectionMapper;
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
     }
 
     /**
@@ -44,7 +56,9 @@ class BlockMapper extends Mapper
             'layoutId' => $block->layoutId,
             'zoneIdentifier' => $block->zoneIdentifier,
             'position' => $block->position,
-            'definitionIdentifier' => $block->definitionIdentifier,
+            'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition(
+                $block->definitionIdentifier
+            ),
             'parameters' => $block->parameters,
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,

@@ -3,26 +3,10 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\View\View\BlockView;
 
 class BlockViewProvider implements ViewProviderInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
-     */
-    public function __construct(BlockDefinitionRegistryInterface $blockDefinitionRegistry)
-    {
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-    }
-
     /**
      * Provides the view.
      *
@@ -34,12 +18,7 @@ class BlockViewProvider implements ViewProviderInterface
     public function provideView($valueObject, array $parameters = array())
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Block $valueObject */
-        $blockView = new BlockView(
-            $valueObject,
-            $this->blockDefinitionRegistry->getBlockDefinition(
-                $valueObject->getDefinitionIdentifier()
-            )
-        );
+        $blockView = new BlockView($valueObject);
 
         return $blockView;
     }

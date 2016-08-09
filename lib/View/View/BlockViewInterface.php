@@ -12,11 +12,4 @@ interface BlockViewInterface extends ViewInterface
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function getBlock();
-
-    /**
-     * Returns the block definition.
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    public function getBlockDefinition();
 }

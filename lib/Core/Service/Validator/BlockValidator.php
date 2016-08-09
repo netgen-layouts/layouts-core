@@ -115,7 +115,7 @@ class BlockValidator extends Validator
      */
     public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($block->getDefinitionIdentifier());
+        $blockDefinition = $block->getBlockDefinition();
 
         if ($blockUpdateStruct->viewType !== null) {
             $this->validate(

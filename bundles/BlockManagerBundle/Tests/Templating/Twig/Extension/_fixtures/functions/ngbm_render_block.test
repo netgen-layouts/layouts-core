@@ -4,7 +4,13 @@
 {{ ngbm_render_block(block) }}
 --DATA--
 return array(
-    'block' => new \Netgen\BlockManager\Core\Values\Page\Block(array('definitionIdentifier' => 'block_definition')),
+    'block' => new \Netgen\BlockManager\Core\Values\Page\Block(
+        array(
+            'blockDefinition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
+                'block_definition'
+            )
+        )
+    ),
 )
 --CONFIG--
 return array()

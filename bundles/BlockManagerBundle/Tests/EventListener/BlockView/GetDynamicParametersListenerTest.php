@@ -2,10 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener;
-use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -49,27 +48,16 @@ class GetDynamicParametersListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
-        $handlerMock
-            ->expects($this->once())
-            ->method('getDynamicParameters')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array('param' => 'value')));
+        $block = new Block(array('blockDefinition' => new BlockDefinition('def')));
 
-        $blockDefinition = new BlockDefinition(
-            'def',
-            $handlerMock,
-            $this->createMock(Configuration::class)
-        );
-
-        $view = new BlockView(new Block(), $blockDefinition);
+        $view = new BlockView($block);
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array('param' => 'value'),
+            array('definition_param' => 'definition_value'),
             $event->getViewParameters()
         );
     }
@@ -93,13 +81,7 @@ class GetDynamicParametersListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $blockDefinition = new BlockDefinition(
-            'def',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
-            $this->createMock(Configuration::class)
-        );
-
-        $view = new BlockView(new Block(), $blockDefinition);
+        $view = new BlockView(new Block(array('blockDefinition' => new BlockDefinition('def'))));
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 

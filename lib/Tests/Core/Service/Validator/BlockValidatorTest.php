@@ -14,6 +14,7 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -107,17 +108,6 @@ class BlockValidatorTest extends TestCase
      */
     public function testValidateBlockUpdateStruct(array $params, $isValid)
     {
-        $blockDefinition = new BlockDefinition(
-            'block',
-            new BlockDefinitionHandler(),
-            $this->blockDefinitionConfig
-        );
-
-        $this->blockDefinitionRegistryMock
-            ->expects($this->any())
-            ->method('getBlockDefinition')
-            ->will($this->returnValue($blockDefinition));
-
         if (!$isValid) {
             $this->expectException(InvalidArgumentException::class);
         }
@@ -127,7 +117,10 @@ class BlockValidatorTest extends TestCase
                 new Block(
                     array(
                         'viewType' => 'large',
-                        'definitionIdentifier' => 'block_definition',
+                        'blockDefinition' => new BlockDefinitionStub(
+                            'block_definition',
+                            array('large' => array('standard'))
+                        ),
                     )
                 ),
                 new BlockUpdateStruct($params)

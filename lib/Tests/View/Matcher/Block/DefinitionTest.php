@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\Matcher\Block\Definition;
@@ -33,7 +34,7 @@ class DefinitionTest extends TestCase
     {
         $block = new Block(
             array(
-                'definitionIdentifier' => 'text',
+                'blockDefinition' => new BlockDefinition('text'),
             )
         );
 

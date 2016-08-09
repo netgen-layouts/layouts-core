@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -40,7 +41,7 @@ class BlockNormalizerTest extends TestCase
                 'layoutId' => 24,
                 'zoneIdentifier' => 'bottom',
                 'position' => 2,
-                'definitionIdentifier' => 'text',
+                'blockDefinition' => new BlockDefinition('text'),
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
@@ -60,7 +61,7 @@ class BlockNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'id' => $block->getId(),
-                'definition_identifier' => $block->getDefinitionIdentifier(),
+                'definition_identifier' => $block->getBlockDefinition()->getIdentifier(),
                 'name' => $block->getName(),
                 'zone_identifier' => $block->getZoneIdentifier(),
                 'position' => 2,

@@ -8,19 +8,17 @@ use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
-abstract class CollectionMapperTest extends MapperTest
+abstract class CollectionMapperTest extends ServiceTestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
-     */
-    protected $collectionMapper;
-
     /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->collectionMapper = $this->createCollectionMapper();
     }
 

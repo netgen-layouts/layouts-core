@@ -1,5 +1,7 @@
 {% trans_default_domain 'ngbm_app' %}
 
+{% set block_definition = block.blockDefinition %}
+
 <section>
     {% if block_definition.config.getForm('full').enabled %}
         {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collections.html.twig' %}

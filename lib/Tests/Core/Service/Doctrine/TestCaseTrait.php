@@ -2,9 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
@@ -13,7 +10,7 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait as PersistenceTestCaseTrait;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait as PersistenceTestCase;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\LayoutService;
@@ -21,7 +18,7 @@ use Netgen\BlockManager\Core\Service\BlockService;
 
 trait TestCaseTrait
 {
-    use PersistenceTestCaseTrait;
+    use PersistenceTestCase;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
@@ -42,17 +39,16 @@ trait TestCaseTrait
      * Creates a layout service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(LayoutValidator $validator, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    protected function createLayoutService(LayoutValidator $validator)
     {
         return new LayoutService(
             $validator,
             $this->createLayoutMapper(),
             $this->persistenceHandler,
-            $layoutTypeRegistry
+            $this->layoutTypeRegistry
         );
     }
 
@@ -60,22 +56,17 @@ trait TestCaseTrait
      * Creates a block service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\BlockService
      */
-    protected function createBlockService(
-        BlockValidator $validator,
-        LayoutTypeRegistryInterface $layoutTypeRegistry,
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry
-    ) {
+    protected function createBlockService(BlockValidator $validator)
+    {
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
             $this->persistenceHandler,
-            $layoutTypeRegistry,
-            $blockDefinitionRegistry
+            $this->layoutTypeRegistry,
+            $this->blockDefinitionRegistry
         );
     }
 
@@ -83,14 +74,13 @@ trait TestCaseTrait
      * Creates a collection service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\CollectionService
      */
-    protected function createCollectionService(CollectionValidator $validator, QueryTypeRegistryInterface $queryTypeRegistry)
+    protected function createCollectionService(CollectionValidator $validator)
     {
         return new CollectionService(
-            $queryTypeRegistry,
+            $this->queryTypeRegistry,
             $validator,
             $this->createCollectionMapper(),
             $this->persistenceHandler
@@ -122,7 +112,8 @@ trait TestCaseTrait
     {
         return new BlockMapper(
             $this->persistenceHandler,
-            $this->createCollectionMapper()
+            $this->createCollectionMapper(),
+            $this->blockDefinitionRegistry
         );
     }
 

@@ -8,19 +8,17 @@ use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
+use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
-abstract class BlockMapperTest extends MapperTest
+abstract class BlockMapperTest extends ServiceTestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
-     */
-    protected $blockMapper;
-
     /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->blockMapper = $this->createBlockMapper();
     }
 
@@ -49,12 +47,16 @@ abstract class BlockMapperTest extends MapperTest
 
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
+        $this->assertEquals(
+            $this->blockDefinitionRegistry->getBlockDefinition('text'),
+            $block->getBlockDefinition()
+        );
+
         $this->assertInstanceOf(APIBlock::class, $block);
         $this->assertEquals(1, $block->getId());
         $this->assertEquals(1, $block->getLayoutId());
         $this->assertEquals('right', $block->getZoneIdentifier());
         $this->assertEquals(3, $block->getPosition());
-        $this->assertEquals('text', $block->getDefinitionIdentifier());
         $this->assertEquals(array('some_param' => 'some_value'), $block->getParameters());
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());

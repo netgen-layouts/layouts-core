@@ -2,16 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -20,7 +14,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
 
-abstract class BlockServiceTest extends ServiceTest
+abstract class BlockServiceTest extends ServiceTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -38,91 +32,19 @@ abstract class BlockServiceTest extends ServiceTest
     protected $collectionValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    protected $blockService;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    protected $layoutService;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->blockValidatorMock = $this->createMock(BlockValidator::class);
-
         $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
-
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
-        $layoutType = new LayoutType(
-            '4_zones_a',
-            true,
-            '4 zones A',
-            array(
-                'left' => new LayoutTypeZone('left', 'Left', array()),
-                'right' => new LayoutTypeZone('right', 'Right', array('title', 'list')),
-                'bottom' => new LayoutTypeZone('bottom', 'Bottom', array('title')),
-            )
-        );
-
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType($layoutType);
-
-        $blockDefinition1 = new BlockDefinition(
-            'title',
-            array('small' => array('standard'))
-        );
-
-        $blockDefinition2 = new BlockDefinition(
-            'gallery',
-            array('standard' => array('standard'))
-        );
-
-        $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
-        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition1);
-        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition2);
-
-        $this->queryTypeRegistry = new QueryTypeRegistry();
-
-        $this->blockService = $this->createBlockService(
-            $this->blockValidatorMock,
-            $this->layoutTypeRegistry,
-            $this->blockDefinitionRegistry
-        );
-
-        $this->layoutService = $this->createLayoutService(
-            $this->layoutValidatorMock,
-            $this->layoutTypeRegistry
-        );
-
-        $this->collectionService = $this->createCollectionService(
-            $this->collectionValidatorMock,
-            $this->queryTypeRegistry
-        );
+        $this->blockService = $this->createBlockService($this->blockValidatorMock);
+        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }
 
     /**
@@ -621,7 +543,7 @@ abstract class BlockServiceTest extends ServiceTest
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockThrowsBadStateExceptionWithDisallowedIdentifier()
+    public function testMoveBlockWithDisallowedIdentifierThrowsBadStateException()
     {
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(1),

@@ -9,19 +9,17 @@ use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
-abstract class LayoutResolverMapperTest extends MapperTest
+abstract class LayoutResolverMapperTest extends ServiceTestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
-     */
-    protected $layoutResolverMapper;
-
     /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->layoutResolverMapper = $this->createLayoutResolverMapper();
     }
 

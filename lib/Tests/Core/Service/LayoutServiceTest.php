@@ -5,9 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -15,7 +12,7 @@ use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
-abstract class LayoutServiceTest extends ServiceTest
+abstract class LayoutServiceTest extends ServiceTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -23,41 +20,15 @@ abstract class LayoutServiceTest extends ServiceTest
     protected $layoutValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    protected $layoutService;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
-        $layoutType = new LayoutType(
-            '4_zones_a',
-            true,
-            '4 zones A',
-            array(
-                'top' => new LayoutTypeZone('top', 'Top', array()),
-                'left' => new LayoutTypeZone('left', 'Left', array()),
-                'right' => new LayoutTypeZone('right', 'Right', array()),
-                'bottom' => new LayoutTypeZone('bottom', 'Bottom', array()),
-            )
-        );
-
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType($layoutType);
-
-        $this->layoutService = $this->createLayoutService(
-            $this->layoutValidatorMock,
-            $this->layoutTypeRegistry
-        );
+        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
     }
 
     /**

@@ -14,16 +14,30 @@ return array(
     'zone' => new \Netgen\BlockManager\Core\Values\Page\Zone(
         array(
             'blocks' => array(
-                new \Netgen\BlockManager\Core\Values\Page\Block(array('definitionIdentifier' => 'block_definition')),
                 new \Netgen\BlockManager\Core\Values\Page\Block(
                     array(
-                        'definitionIdentifier' => 'twig_block',
+                        'blockDefinition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
+                            'block_definition'
+                        )
+                    )
+                ),
+                new \Netgen\BlockManager\Core\Values\Page\Block(
+                    array(
+                        'blockDefinition' => new \Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition(
+                            'twig_block'
+                        ),
                         'parameters' => array(
                             'block_name' => 'my_block',
                         ),
                     )
                 ),
-                new \Netgen\BlockManager\Core\Values\Page\Block(array('definitionIdentifier' => 'block_definition')),
+                new \Netgen\BlockManager\Core\Values\Page\Block(
+                    array(
+                        'blockDefinition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
+                            'block_definition'
+                        )
+                    )
+                ),
             )
         )
     ),

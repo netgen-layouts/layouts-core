@@ -41,7 +41,7 @@ class BlockNormalizer implements NormalizerInterface
 
         return array(
             'id' => $block->getId(),
-            'definition_identifier' => $block->getDefinitionIdentifier(),
+            'definition_identifier' => $block->getBlockDefinition()->getIdentifier(),
             'name' => $block->getName(),
             'zone_identifier' => $block->getZoneIdentifier(),
             'position' => $block->getPosition(),

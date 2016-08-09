@@ -9,19 +9,17 @@ use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use DateTime;
+use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
-abstract class LayoutMapperTest extends MapperTest
+abstract class LayoutMapperTest extends ServiceTestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
-     */
-    protected $layoutMapper;
-
     /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->layoutMapper = $this->createLayoutMapper();
     }
 

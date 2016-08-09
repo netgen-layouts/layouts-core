@@ -195,6 +195,7 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.collection.mapper"
+            - "@netgen_block_manager.block.registry.block_definition"
 
     netgen_block_manager.core.service.block:
         class: "%netgen_block_manager.core.service.block.class%"

@@ -19,7 +19,7 @@ use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 
-abstract class LayoutResolverServiceTest extends ServiceTest
+abstract class LayoutResolverServiceTest extends ServiceTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -27,15 +27,12 @@ abstract class LayoutResolverServiceTest extends ServiceTest
     protected $layoutResolverValidatorMock;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
-     */
-    protected $layoutResolverService;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->layoutResolverValidatorMock = $this->createMock(LayoutResolverValidator::class);
 
         $this->layoutResolverService = $this->createLayoutResolverService($this->layoutResolverValidatorMock);

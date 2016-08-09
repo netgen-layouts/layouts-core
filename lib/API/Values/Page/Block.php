@@ -35,11 +35,11 @@ interface Block extends Value
     public function getPosition();
 
     /**
-     * Returns block definition identifier.
+     * Returns the block definition.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getDefinitionIdentifier();
+    public function getBlockDefinition();
 
     /**
      * Returns block parameters.
