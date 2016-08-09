@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if collections['default'] is defined %}
-        <div class="sushi-swiper swiper-container" data-effect="{{ block.parameter('transition') }}" {% if block.parameter('infinite_loop') %}data-loop="true"{% endif %} {% if block.parameter('autoplay') %}data-autoplay="{{ block.parameter('autoplay_time') }}"{% endif %}>
+        <div class="sushi-swiper swiper-container" data-effect="{{ block.parameter('transition') }}" {% if block.parameter('infinite_loop') %}data-loop="true"{% endif %} {% if block.parameter('autoplay') %}data-autoplay="{{ block.parameter('autoplay_time') }}"{% endif %} {% if block.parameter('number_of_thumbnails') %}data-slides-per-view="{{ block.parameter('number_of_thumbnails') }}"{% endif %}>
             <div class="swiper-wrapper">
                 {% for result in collections['default'].results %}
                     <div class="swiper-slide">
