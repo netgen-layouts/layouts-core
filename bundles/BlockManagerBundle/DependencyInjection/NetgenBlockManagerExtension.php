@@ -109,7 +109,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $this->buildConfigObjects($container, 'layout_type', $config['layout_types']);
         $this->buildConfigObjects($container, 'source', $config['sources']);
         $this->buildBlockTypes($container, $config['block_types']);
-        $this->buildConfigObjects($container, 'block_type_group', $config['block_type_groups']);
+        $this->buildBlockTypeGroups($container, $config['block_type_groups']);
     }
 
     /**
@@ -214,6 +214,38 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                     )
                 )
                 ->addTag('netgen_block_manager.configuration.block_type')
+                ->setAbstract(false);
+        }
+    }
+
+    /**
+     * Builds the config objects from provided array config.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $configs
+     */
+    protected function buildBlockTypeGroups(ContainerBuilder $container, array $configs = array())
+    {
+        foreach ($configs as $identifier => $config) {
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type_group.%s', $identifier);
+
+            $blockTypeReferences = array();
+            foreach ($config['block_types'] as $blockType) {
+                $blockTypeReferences[] = new Reference(
+                    sprintf(
+                        'netgen_block_manager.configuration.block_type.%s',
+                        $blockType
+                    )
+                );
+            }
+
+            $container
+                ->setDefinition(
+                    $serviceIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.block_type_group')
+                )
+                ->setArguments(array($identifier, $config, $blockTypeReferences))
+                ->addTag('netgen_block_manager.configuration.block_type_group')
                 ->setAbstract(false);
         }
     }

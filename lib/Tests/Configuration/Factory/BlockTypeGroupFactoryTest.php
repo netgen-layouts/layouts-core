@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Configuration\Factory;
 
 use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeGroupFactoryTest extends TestCase
@@ -18,8 +19,8 @@ class BlockTypeGroupFactoryTest extends TestCase
             array(
                 'name' => 'Simple blocks',
                 'enabled' => true,
-                'block_types' => array('title', 'title_with_h3'),
-            )
+            ),
+            array(new BlockType('title'), new BlockType('title_with_h3'))
         );
 
         $this->assertEquals(
@@ -27,7 +28,7 @@ class BlockTypeGroupFactoryTest extends TestCase
                 'simple_blocks',
                 true,
                 'Simple blocks',
-                array('title', 'title_with_h3')
+                array(new BlockType('title'), new BlockType('title_with_h3'))
             ),
             $blockTypeGroup
         );

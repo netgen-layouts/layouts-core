@@ -3,28 +3,12 @@
 namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class BlockTypeGroupNormalizer implements NormalizerInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface
-     */
-    protected $blockTypeRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface $blockTypeRegistry
-     */
-    public function __construct(BlockTypeRegistryInterface $blockTypeRegistry)
-    {
-        $this->blockTypeRegistry = $blockTypeRegistry;
-    }
-
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
@@ -41,8 +25,8 @@ class BlockTypeGroupNormalizer implements NormalizerInterface
 
         $enabledBlockTypes = array();
         foreach ($blockTypeGroup->getBlockTypes() as $blockType) {
-            if ($this->blockTypeRegistry->getBlockType($blockType)->isEnabled()) {
-                $enabledBlockTypes[] = $blockType;
+            if ($blockType->isEnabled()) {
+                $enabledBlockTypes[] = $blockType->getIdentifier();
             }
         }
 

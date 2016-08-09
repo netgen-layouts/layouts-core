@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Configuration\BlockType;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeGroupTest extends TestCase
@@ -18,7 +19,7 @@ class BlockTypeGroupTest extends TestCase
             'simple_blocks',
             true,
             'Simple blocks',
-            array('title', 'title_with_h3')
+            array(new BlockType('title'), new BlockType('title_with_h3'))
         );
     }
 
@@ -52,6 +53,9 @@ class BlockTypeGroupTest extends TestCase
      */
     public function testGetBlockTypes()
     {
-        $this->assertEquals(array('title', 'title_with_h3'), $this->blockTypeGroup->getBlockTypes());
+        $this->assertEquals(
+            array(new BlockType('title'), new BlockType('title_with_h3')),
+            $this->blockTypeGroup->getBlockTypes()
+        );
     }
 }

@@ -2,22 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeGroupNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
-     */
-    protected $blockTypeRegistry;
-
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer
      */
@@ -25,25 +18,20 @@ class BlockTypeGroupNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->blockTypeRegistry = new BlockTypeRegistry();
-        $this->blockTypeRegistry->addBlockType(
-            new BlockType('type1', true, 'Type 1', new BlockDefinition('title'))
-        );
-
-        $this->blockTypeRegistry->addBlockType(
-            new BlockType('type2', false, 'Type 2', new BlockDefinition('title'))
-        );
-
-        $this->normalizer = new BlockTypeGroupNormalizer($this->blockTypeRegistry);
+        $this->normalizer = new BlockTypeGroupNormalizer();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer::normalize
      */
     public function testNormalize()
     {
-        $blockTypeGroup = new BlockTypeGroup('identifier', true, 'Block group', array('type1', 'type2'));
+        $blockTypeGroup = new BlockTypeGroup(
+            'identifier',
+            true,
+            'Block group',
+            array(new BlockType('type1'), new BlockType('type2', false))
+        );
 
         $this->assertEquals(
             array(

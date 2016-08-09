@@ -20,7 +20,7 @@ class BlockTypeGroup
     protected $name;
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Configuration\BlockType\BlockType[]
      */
     protected $blockTypes = array();
 
@@ -30,7 +30,7 @@ class BlockTypeGroup
      * @param string $identifier
      * @param bool $enabled
      * @param string $name
-     * @param array $blockTypes
+     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType[] $blockTypes
      */
     public function __construct($identifier, $enabled, $name, array $blockTypes = array())
     {
@@ -71,9 +71,9 @@ class BlockTypeGroup
     }
 
     /**
-     * Returns the identifiers of block types in this group.
+     * Returns the block types in this group.
      *
-     * @return array
+     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType[]
      */
     public function getBlockTypes()
     {
