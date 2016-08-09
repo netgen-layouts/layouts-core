@@ -14,9 +14,9 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -153,24 +153,13 @@ class CollectionValidatorTest extends TestCase
      */
     public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
-        $queryType = new QueryType(
-            'query_type',
-            new QueryTypeHandler(),
-            $this->queryTypeConfigMock
-        );
-
-        $this->queryTypeRegistryMock
-            ->expects($this->any())
-            ->method('getQueryType')
-            ->will($this->returnValue($queryType));
-
         if (!$isValid) {
             $this->expectException(InvalidArgumentException::class);
         }
 
         $this->assertTrue(
             $this->collectionValidator->validateQueryUpdateStruct(
-                new Query(array('type' => 'query_type')),
+                new Query(array('queryType' => new QueryTypeStub('query_type'))),
                 new QueryUpdateStruct($params)
             )
         );

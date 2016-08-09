@@ -2,17 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,31 +26,9 @@ class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $config = new Configuration(
-            'block_definition',
-            array(),
-            array(
-                'large' => new ViewType(
-                    'large',
-                    'Large',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                    )
-                ),
-                'small' => new ViewType(
-                    'small',
-                    'Small',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                    )
-                ),
-            )
-        );
-
         $this->blockDefinition = new BlockDefinition(
             'block_definition',
-            new BlockDefinitionHandler(),
-            $config
+            array('large' => array('standard'), 'small' => array('standard'))
         );
     }
 

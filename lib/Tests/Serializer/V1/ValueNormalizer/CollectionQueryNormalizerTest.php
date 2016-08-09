@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +32,7 @@ class CollectionQueryNormalizerTest extends TestCase
                 'collectionId' => 24,
                 'position' => 3,
                 'identifier' => 'default',
-                'type' => 'ezcontent_search',
+                'queryType' => new QueryType('ezcontent_search'),
                 'parameters' => array(
                     'param' => 'value',
                     'param2' => array(
@@ -47,7 +48,7 @@ class CollectionQueryNormalizerTest extends TestCase
                 'collection_id' => $query->getCollectionId(),
                 'position' => $query->getPosition(),
                 'identifier' => $query->getIdentifier(),
-                'type' => $query->getType(),
+                'type' => $query->getQueryType()->getType(),
                 'parameters' => $query->getParameters(),
             ),
             $this->normalizer->normalize(new VersionedValue($query, 1))

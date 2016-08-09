@@ -28,7 +28,7 @@ class CollectionQueryNormalizer implements NormalizerInterface
             'collection_id' => $query->getCollectionId(),
             'position' => $query->getPosition(),
             'identifier' => $query->getIdentifier(),
-            'type' => $query->getType(),
+            'type' => $query->getQueryType()->getType(),
             'parameters' => $query->getParameters(),
         );
     }

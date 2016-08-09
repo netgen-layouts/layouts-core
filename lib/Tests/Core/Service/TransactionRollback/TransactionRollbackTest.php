@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
@@ -83,14 +82,12 @@ abstract class TransactionRollbackTest extends TestCase
      * Creates a collection service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\CollectionService
      */
-    protected function createCollectionService(CollectionValidator $validator, QueryTypeRegistryInterface $queryTypeRegistry)
+    protected function createCollectionService(CollectionValidator $validator)
     {
         return new CollectionService(
-            $queryTypeRegistry,
             $validator,
             $this->createCollectionMapper(),
             $this->persistenceHandler

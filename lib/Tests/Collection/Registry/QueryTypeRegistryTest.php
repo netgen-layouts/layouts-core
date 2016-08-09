@@ -2,10 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Registry;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 
 class QueryTypeRegistryTest extends TestCase
@@ -24,13 +22,7 @@ class QueryTypeRegistryTest extends TestCase
     {
         $this->registry = new QueryTypeRegistry();
 
-        $configMock = $this->createMock(Configuration::class);
-
-        $this->queryType = new QueryType(
-            'query_type',
-            new QueryTypeHandler(),
-            $configMock
-        );
+        $this->queryType = new QueryType('query_type');
 
         $this->registry->addQueryType($this->queryType);
     }

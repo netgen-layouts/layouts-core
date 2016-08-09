@@ -8,9 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResult
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\Collection\ResultGeneratorInterface;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -69,11 +67,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $blockDefinition = new BlockDefinition(
-            'def',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
-            $this->createMock(Configuration::class)
-        );
+        $blockDefinition = new BlockDefinition('def');
 
         $collectionReference1 = new CollectionReference(
             array(
@@ -149,11 +143,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $blockDefinition = new BlockDefinition(
-            'def',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
-            $this->createMock(Configuration::class)
-        );
+        $blockDefinition = new BlockDefinition('def');
 
         $view = new BlockView(new Block(), $blockDefinition);
         $view->setContext(ViewInterface::CONTEXT_API);

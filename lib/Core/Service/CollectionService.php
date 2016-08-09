@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
@@ -23,11 +22,6 @@ use Exception;
 
 class CollectionService implements APICollectionService
 {
-    /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
      */
@@ -51,18 +45,15 @@ class CollectionService implements APICollectionService
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
-        QueryTypeRegistryInterface $queryTypeRegistry,
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
         Handler $persistenceHandler
     ) {
-        $this->queryTypeRegistry = $queryTypeRegistry;
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
         $this->persistenceHandler = $persistenceHandler;
@@ -833,10 +824,7 @@ class CollectionService implements APICollectionService
 
         $queryUpdateStruct->identifier = $query->getIdentifier();
 
-        $queryType = $this->queryTypeRegistry->getQueryType(
-            $query->getType()
-        );
-
+        $queryType = $query->getQueryType();
         $queryUpdateStruct->fillValues(
             $queryType->getHandler()->getParameters(),
             $query->getParameters(),

@@ -2,25 +2,8 @@
 
 namespace Netgen\BlockManager\Collection\ResultGenerator;
 
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-
 class QueryRunner implements QueryRunnerInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
-     */
-    public function __construct(QueryTypeRegistryInterface $queryTypeRegistry)
-    {
-        $this->queryTypeRegistry = $queryTypeRegistry;
-    }
-
     /**
      * Runs all the provided queries and merges result into one list.
      *
@@ -43,13 +26,10 @@ class QueryRunner implements QueryRunnerInterface
         $values = array();
 
         foreach ($queries as $query) {
-            $queryType = $query->getType();
+            $queryTypeHandler = $query->getQueryType()->getHandler();
             $queryParameters = $query->getParameters();
 
-            $queryCount = $this->queryTypeRegistry
-                ->getQueryType($queryType)
-                ->getHandler()
-                ->getCount($queryParameters);
+            $queryCount = $queryTypeHandler->getCount($queryParameters);
 
             $totalCount = $previousCount + $queryCount;
             if ($previousCount + $queryCount <= $offset) {
@@ -57,7 +37,6 @@ class QueryRunner implements QueryRunnerInterface
                 continue;
             }
 
-            $queryTypeHandler = $this->queryTypeRegistry->getQueryType($queryType)->getHandler();
             $queryValues = $queryTypeHandler->getValues(
                 $queryParameters,
                 empty($values) && $offset > 0 ? $offset - $previousCount : 0
@@ -91,8 +70,8 @@ class QueryRunner implements QueryRunnerInterface
 
         $totalCount = 0;
         foreach ($queries as $query) {
-            $totalCount += $this->queryTypeRegistry
-                ->getQueryType($query->getType())
+            $totalCount += $query
+                ->getQueryType()
                 ->getHandler()
                 ->getCount($query->getParameters());
         }

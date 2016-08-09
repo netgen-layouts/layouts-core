@@ -13,8 +13,6 @@ services:
 
     netgen_block_manager.collection.query_runner:
         class: "%netgen_block_manager.collection.query_runner.class%"
-        arguments:
-            - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.collection.result_item_builder:
         class: "%netgen_block_manager.collection.result_item_builder.class%"

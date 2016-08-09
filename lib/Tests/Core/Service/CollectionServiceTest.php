@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
@@ -276,7 +274,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $collection,
             Collection::TYPE_DYNAMIC,
             $this->collectionService->newQueryCreateStruct(
-                $this->queryTypeRegistry->getQueryType('ezcontent_search'),
+                new QueryType('ezcontent_search'),
                 'default'
             )
         );
@@ -285,7 +283,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->getType());
         $this->assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
         $this->assertCount(1, $updatedCollection->getQueries());
-        $this->assertEquals('ezcontent_search', $updatedCollection->getQueries()[0]->getType());
+        $this->assertEquals('ezcontent_search', $updatedCollection->getQueries()[0]->getQueryType()->getType());
     }
 
     /**
@@ -528,11 +526,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddQuery()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '')
-            ),
+            new QueryType('ezcontent_search'),
             'new_query'
         );
 
@@ -557,11 +551,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddQueryInManualCollectionThrowsBadStateException()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '')
-            ),
+            new QueryType('ezcontent_search'),
             'new_query'
         );
 
@@ -577,11 +567,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddQueryWithExistingIdentifierThrowsBadStateException()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '')
-            ),
+            new QueryType('ezcontent_search'),
             'default'
         );
 
@@ -597,11 +583,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testAddQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '')
-            ),
+            new QueryType('ezcontent_search'),
             'new_query'
         );
 
@@ -785,11 +767,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testNewQueryCreateStruct()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('ezcontent_search', '')
-            ),
+            new QueryType('ezcontent_search'),
             'new_query'
         );
 

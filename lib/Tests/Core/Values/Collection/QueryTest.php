@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class QueryTest extends TestCase
@@ -15,7 +16,7 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
@@ -29,7 +30,7 @@ class QueryTest extends TestCase
         $this->assertNull($query->getCollectionId());
         $this->assertNull($query->getPosition());
         $this->assertNull($query->getIdentifier());
-        $this->assertNull($query->getType());
+        $this->assertNull($query->getQueryType());
         $this->assertEquals(array(), $query->getParameters());
         $this->assertNull($query->getParameter('test'));
         $this->assertFalse($query->hasParameter('test'));
@@ -42,7 +43,7 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
@@ -56,7 +57,7 @@ class QueryTest extends TestCase
                 'collectionId' => 30,
                 'position' => 3,
                 'identifier' => 'my_query',
-                'type' => 'ezcontent_search',
+                'queryType' => new QueryType('query_type'),
                 'parameters' => array('param' => 'value'),
             )
         );
@@ -66,7 +67,7 @@ class QueryTest extends TestCase
         $this->assertEquals(30, $query->getCollectionId());
         $this->assertEquals(3, $query->getPosition());
         $this->assertEquals('my_query', $query->getIdentifier());
-        $this->assertEquals('ezcontent_search', $query->getType());
+        $this->assertEquals(new QueryType('query_type'), $query->getQueryType());
         $this->assertEquals(array('param' => 'value'), $query->getParameters());
         $this->assertNull($query->getParameter('test'));
         $this->assertEquals('value', $query->getParameter('param'));

@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
 use Netgen\BlockManager\View\View\FormView;
@@ -46,11 +44,7 @@ class DefinitionTest extends TestCase
             Form::class,
             null,
             array(
-                'blockDefinition' => new BlockDefinition(
-                    'block',
-                    new BlockDefinitionHandler(),
-                    new Configuration('block')
-                ),
+                'blockDefinition' => new BlockDefinition('block'),
             )
         );
 

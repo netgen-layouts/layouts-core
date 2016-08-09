@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
@@ -14,6 +16,24 @@ use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 
 class CollectionMapper extends Mapper
 {
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     */
+    protected $queryTypeRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
+     */
+    public function __construct(Handler $persistenceHandler, QueryTypeRegistryInterface $queryTypeRegistry)
+    {
+        parent::__construct($persistenceHandler);
+
+        $this->queryTypeRegistry = $queryTypeRegistry;
+    }
+
     /**
      * Builds the API collection value object from persistence one.
      *
@@ -94,7 +114,9 @@ class CollectionMapper extends Mapper
             'collectionId' => $query->collectionId,
             'position' => $query->position,
             'identifier' => $query->identifier,
-            'type' => $query->type,
+            'queryType' => $this->queryTypeRegistry->getQueryType(
+                $query->type
+            ),
             'parameters' => $query->parameters,
         );
 

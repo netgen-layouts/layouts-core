@@ -22,12 +22,7 @@
 
             {% if collection.type == type_dynamic and query_types|length > 1 %}
                 <label>{{ 'block.edit.query_type'|trans }}</label>
-
-                {% if query_types[collection.queries[0].type] is defined %}
-                    <a href="#" class="js-edit"><span class="text">{{ query_types[collection.queries[0].type].config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
-                {% else %}
-                    <a href="#" class="js-edit"><span class="text">{{ collection.queries[0].type }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
-                {% endif %}
+                <a href="#" class="js-edit"><span class="text">{{ collection.queries[0].queryType.config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
             {% elseif collection.type == type_named and named_collections|length > 1 %}
                 <label>{{ 'block.edit.named_collection'|trans }}</label>
                 <a href="#" class="js-edit"><span class="text">{{ collection.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
@@ -57,7 +52,7 @@
                     <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
                     <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
                         {% for query_type in query_types %}
-                            <option {% if collection.queries[0] is defined and collection.queries[0].type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
+                            <option {% if collection.queries[0] is defined and collection.queries[0].queryType.type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

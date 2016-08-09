@@ -44,9 +44,9 @@ interface Query extends Value
     /**
      * Returns the query type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    public function getType();
+    public function getQueryType();
 
     /**
      * Returns the query parameters.

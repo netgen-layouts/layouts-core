@@ -80,7 +80,6 @@ trait TestCaseTrait
     protected function createCollectionService(CollectionValidator $validator)
     {
         return new CollectionService(
-            $this->queryTypeRegistry,
             $validator,
             $this->createCollectionMapper(),
             $this->persistenceHandler
@@ -139,7 +138,8 @@ trait TestCaseTrait
     protected function createCollectionMapper()
     {
         return new CollectionMapper(
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $this->queryTypeRegistry
         );
     }
 

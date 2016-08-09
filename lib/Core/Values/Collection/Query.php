@@ -33,9 +33,9 @@ class Query extends ValueObject implements APIQuery
     protected $identifier;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    protected $type;
+    protected $queryType;
 
     /**
      * @var array
@@ -95,11 +95,11 @@ class Query extends ValueObject implements APIQuery
     /**
      * Returns the query type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    public function getType()
+    public function getQueryType()
     {
-        return $this->type;
+        return $this->queryType;
     }
 
     /**

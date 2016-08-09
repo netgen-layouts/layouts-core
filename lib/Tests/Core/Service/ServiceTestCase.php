@@ -8,9 +8,7 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
-use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
@@ -108,13 +106,7 @@ abstract class ServiceTestCase extends TestCase
         $this->layoutTypeRegistry->addLayoutType($layoutType2);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'ezcontent_search',
-                new QueryTypeHandler(),
-                new Configuration('query_type', 'Query type')
-            )
-        );
+        $this->queryTypeRegistry->addQueryType(new QueryType('ezcontent_search'));
 
         $blockDefinition1 = new BlockDefinition('title', array('small' => array('standard')));
         $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')));

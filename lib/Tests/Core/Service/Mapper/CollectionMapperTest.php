@@ -115,12 +115,16 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $query = $this->collectionMapper->mapQuery($persistenceQuery);
 
+        $this->assertEquals(
+            $this->queryTypeRegistry->getQueryType('ezcontent_search'),
+            $query->getQueryType()
+        );
+
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertEquals(1, $query->getId());
         $this->assertEquals(42, $query->getCollectionId());
         $this->assertEquals(1, $query->getPosition());
         $this->assertEquals('my_search', $query->getIdentifier());
-        $this->assertEquals('ezcontent_search', $query->getType());
         $this->assertEquals(array('param' => 'value'), $query->getParameters());
         $this->assertEquals(APICollection::STATUS_PUBLISHED, $query->getStatus());
     }

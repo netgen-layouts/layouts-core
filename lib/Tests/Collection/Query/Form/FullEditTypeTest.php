@@ -2,16 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,16 +27,7 @@ class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $config = new Configuration(
-            'query_type',
-            'Query type'
-        );
-
-        $this->queryType = new QueryType(
-            'query_type',
-            new QueryTypeHandler(),
-            $config
-        );
+        $this->queryType = new QueryType('query_type');
     }
 
     /**

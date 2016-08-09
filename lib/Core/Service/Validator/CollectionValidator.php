@@ -302,7 +302,7 @@ class CollectionValidator extends Validator
             );
         }
 
-        $queryType = $this->queryTypeRegistry->getQueryType($query->getType());
+        $queryType = $query->getQueryType();
 
         $this->validate(
             $queryUpdateStruct,

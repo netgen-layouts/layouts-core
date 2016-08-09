@@ -53,10 +53,7 @@ class CollectionServiceTest extends TransactionRollbackTest
 
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
-        $this->collectionService = $this->createCollectionService(
-            $this->collectionValidatorMock,
-            new QueryTypeRegistry()
-        );
+        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }
 
     /**

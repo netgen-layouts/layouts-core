@@ -13,6 +13,7 @@ use Netgen\BlockManager\Collection\ResultItem;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
@@ -517,9 +518,9 @@ class ResultGeneratorTest extends TestCase
         }
 
         $queries = array(
-            new Query(array('identifier' => 'first', 'type' => 'ezcontent_search')),
-            new Query(array('identifier' => 'second', 'type' => 'ezcontent_search')),
-            new Query(array('identifier' => 'third', 'type' => 'ezcontent_search')),
+            new Query(array('identifier' => 'first', 'queryType' => new QueryType('ezcontent_search'))),
+            new Query(array('identifier' => 'second', 'queryType' => new QueryType('ezcontent_search'))),
+            new Query(array('identifier' => 'third', 'queryType' => new QueryType('ezcontent_search'))),
         );
 
         $collection = new Collection(

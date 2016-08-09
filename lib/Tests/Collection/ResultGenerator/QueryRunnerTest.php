@@ -2,21 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Collection\ResultGenerator;
 
-use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunner;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 
 class QueryRunnerTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
     /**
      * @var \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface
      */
@@ -24,9 +16,7 @@ class QueryRunnerTest extends TestCase
 
     public function setUp()
     {
-        $this->queryTypeRegistry = new QueryTypeRegistry();
-
-        $this->queryRunner = new QueryRunner($this->queryTypeRegistry);
+        $this->queryRunner = new QueryRunner();
     }
 
     /**
@@ -41,17 +31,8 @@ class QueryRunnerTest extends TestCase
      */
     public function testRunSingleQuery($offset, $limit, $expectedResult)
     {
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'query',
-                new QueryTypeHandler(
-                    array(40, 41, 42, 43, 44, 45, 46, 47, 48)
-                ),
-                $this->createMock(Configuration::class)
-            )
-        );
-
-        $query = array(new Query(array('type' => 'query')));
+        $queryType = new QueryType('query', array(40, 41, 42, 43, 44, 45, 46, 47, 48));
+        $query = array(new Query(array('queryType' => $queryType)));
 
         $results = $this->queryRunner->runQueries($query, $offset, $limit);
         $resultCount = $this->queryRunner->getTotalCount($query);
@@ -71,51 +52,16 @@ class QueryRunnerTest extends TestCase
      */
     public function testRunMultipleQueries($offset, $limit, $expectedResult)
     {
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'query1',
-                new QueryTypeHandler(
-                    array(40, 41, 42, 43, 44, 45, 46, 47, 48)
-                ),
-                $this->createMock(Configuration::class)
-            )
-        );
-
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'query2',
-                new QueryTypeHandler(
-                    array(52, 53, 54, 55, 56)
-                ),
-                $this->createMock(Configuration::class)
-            )
-        );
-
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'query3',
-                new QueryTypeHandler(
-                    array(62, 63, 64, 65, 66, 67, 68, 69)
-                ),
-                $this->createMock(Configuration::class)
-            )
-        );
-
-        $this->queryTypeRegistry->addQueryType(
-            new QueryType(
-                'query4',
-                new QueryTypeHandler(
-                    array(70, 71, 72, 73, 74, 75, 76)
-                ),
-                $this->createMock(Configuration::class)
-            )
-        );
+        $queryType1 = new QueryType('query1', array(40, 41, 42, 43, 44, 45, 46, 47, 48));
+        $queryType2 = new QueryType('query2', array(52, 53, 54, 55, 56));
+        $queryType3 = new QueryType('query3', array(62, 63, 64, 65, 66, 67, 68, 69));
+        $queryType4 = new QueryType('query4', array(70, 71, 72, 73, 74, 75, 76));
 
         $queries = array(
-            new Query(array('type' => 'query1')),
-            new Query(array('type' => 'query2')),
-            new Query(array('type' => 'query3')),
-            new Query(array('type' => 'query4')),
+            new Query(array('queryType' => $queryType1)),
+            new Query(array('queryType' => $queryType2)),
+            new Query(array('queryType' => $queryType3)),
+            new Query(array('queryType' => $queryType4)),
         );
 
         $results = $this->queryRunner->runQueries($queries, $offset, $limit);
