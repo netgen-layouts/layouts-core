@@ -126,7 +126,8 @@ trait TestCaseTrait
     {
         return new LayoutMapper(
             $this->createBlockMapper(),
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $this->layoutTypeRegistry
         );
     }
 

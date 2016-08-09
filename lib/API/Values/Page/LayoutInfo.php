@@ -16,9 +16,9 @@ interface LayoutInfo extends Value
     /**
      * Returns the layout type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
      */
-    public function getType();
+    public function getLayoutType();
 
     /**
      * Returns the layout human readable name.

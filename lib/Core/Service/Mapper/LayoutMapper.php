@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
@@ -19,16 +20,23 @@ class LayoutMapper extends Mapper
     protected $blockMapper;
 
     /**
+     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
+     */
+    protected $layoutTypeRegistry;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
-    public function __construct(BlockMapper $blockMapper, Handler $persistenceHandler)
+    public function __construct(BlockMapper $blockMapper, Handler $persistenceHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         parent::__construct($persistenceHandler);
 
         $this->blockMapper = $blockMapper;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
     /**
@@ -79,7 +87,9 @@ class LayoutMapper extends Mapper
 
         $layoutData = array(
             'id' => $layout->id,
-            'type' => $layout->type,
+            'layoutType' => $this->layoutTypeRegistry->getLayoutType(
+                $layout->type
+            ),
             'name' => $layout->name,
             'created' => $this->createDateTime($layout->created),
             'modified' => $this->createDateTime($layout->modified),
@@ -104,7 +114,9 @@ class LayoutMapper extends Mapper
     {
         $layoutData = array(
             'id' => $layout->id,
-            'type' => $layout->type,
+            'layoutType' => $this->layoutTypeRegistry->getLayoutType(
+                $layout->type
+            ),
             'name' => $layout->name,
             'created' => $this->createDateTime($layout->created),
             'modified' => $this->createDateTime($layout->modified),

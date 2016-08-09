@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -17,11 +16,6 @@ use DateTime;
 class LayoutNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
-    /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     protected $layoutService;
@@ -29,12 +23,10 @@ class LayoutNormalizer implements NormalizerInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      */
-    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry, LayoutService $layoutService)
+    public function __construct(LayoutService $layoutService)
     {
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->layoutService = $layoutService;
     }
 
@@ -51,12 +43,11 @@ class LayoutNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Layout $layout */
         $layout = $object->getValue();
-
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->getType());
+        $layoutType = $layout->getLayoutType();
 
         $data = array(
             'id' => $layout->getId(),
-            'type' => $layout->getType(),
+            'type' => $layoutType->getIdentifier(),
             'published' => $layout->getStatus() === Layout::STATUS_PUBLISHED ?
                 true :
                 false,

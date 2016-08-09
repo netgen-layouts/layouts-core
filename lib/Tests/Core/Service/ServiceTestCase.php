@@ -6,8 +6,7 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
+use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
@@ -84,20 +83,29 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function prepareRegistries()
     {
-        $layoutType = new LayoutType(
+        $layoutType1 = new LayoutType(
             '4_zones_a',
-            true,
-            '4 zones A',
             array(
-                'top' => new LayoutTypeZone('top', 'Top', array()),
-                'left' => new LayoutTypeZone('left', 'Left', array()),
-                'right' => new LayoutTypeZone('right', 'Right', array('title', 'list')),
-                'bottom' => new LayoutTypeZone('bottom', 'Bottom', array('title')),
+                'top' => array(),
+                'left' => array(),
+                'right' => array('title', 'list'),
+                'bottom' => array('title'),
+            )
+        );
+
+        $layoutType2 = new LayoutType(
+            '4_zones_b',
+            array(
+                'top' => array(),
+                'left' => array(),
+                'right' => array(),
+                'bottom' => array(),
             )
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType($layoutType);
+        $this->layoutTypeRegistry->addLayoutType($layoutType1);
+        $this->layoutTypeRegistry->addLayoutType($layoutType2);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType(

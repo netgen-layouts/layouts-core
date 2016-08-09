@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;

@@ -31,7 +31,7 @@ class BlockViewProviderTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
-                'blockDefinition' => new BlockDefinition('block_definition')
+                'blockDefinition' => new BlockDefinition('block_definition'),
             )
         );
 

@@ -22,6 +22,6 @@ class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getLayout()->getType(), $config);
+        return in_array($view->getLayout()->getLayoutType()->getIdentifier(), $config);
     }
 }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
@@ -12,7 +13,7 @@ class LayoutTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getLayoutType
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
@@ -27,7 +28,7 @@ class LayoutTest extends TestCase
         $layout = new Layout();
 
         $this->assertNull($layout->getId());
-        $this->assertNull($layout->getType());
+        $this->assertNull($layout->getLayoutType());
         $this->assertNull($layout->getName());
         $this->assertNull($layout->getCreated());
         $this->assertNull($layout->getModified());
@@ -41,7 +42,7 @@ class LayoutTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getType
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getLayoutType
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
@@ -62,7 +63,7 @@ class LayoutTest extends TestCase
         $layout = new Layout(
             array(
                 'id' => 42,
-                'type' => '4_zones_a',
+                'layoutType' => new LayoutType('4_zones_a'),
                 'name' => 'My layout',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
@@ -73,7 +74,7 @@ class LayoutTest extends TestCase
         );
 
         $this->assertEquals(42, $layout->getId());
-        $this->assertEquals('4_zones_a', $layout->getType());
+        $this->assertEquals(new LayoutType('4_zones_a'), $layout->getLayoutType());
         $this->assertEquals('My layout', $layout->getName());
         $this->assertEquals($createdDate, $layout->getCreated());
         $this->assertEquals($modifiedDate, $layout->getModified());

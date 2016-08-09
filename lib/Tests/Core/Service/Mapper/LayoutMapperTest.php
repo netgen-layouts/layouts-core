@@ -78,9 +78,13 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $layout = $this->layoutMapper->mapLayout($persistenceLayout);
 
+        $this->assertEquals(
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $layout->getLayoutType()
+        );
+
         $this->assertInstanceOf(APILayout::class, $layout);
         $this->assertEquals(1, $layout->getId());
-        $this->assertEquals('4_zones_a', $layout->getType());
         $this->assertEquals('My layout', $layout->getName());
         $this->assertInstanceOf(DateTime::class, $layout->getCreated());
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
@@ -116,9 +120,13 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $layout = $this->layoutMapper->mapLayoutInfo($persistenceLayout);
 
+        $this->assertEquals(
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $layout->getLayoutType()
+        );
+
         $this->assertInstanceOf(LayoutInfo::class, $layout);
         $this->assertEquals(1, $layout->getId());
-        $this->assertEquals('4_zones_a', $layout->getType());
         $this->assertEquals('My layout', $layout->getName());
         $this->assertInstanceOf(DateTime::class, $layout->getCreated());
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());

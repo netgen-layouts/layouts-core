@@ -34,8 +34,7 @@ class BlockMapper extends Mapper
         Handler $persistenceHandler,
         CollectionMapper $collectionMapper,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
-    )
-    {
+    ) {
         parent::__construct($persistenceHandler);
 
         $this->collectionMapper = $collectionMapper;

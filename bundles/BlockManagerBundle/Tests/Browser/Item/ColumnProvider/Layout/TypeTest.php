@@ -2,9 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Type;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
@@ -18,10 +17,7 @@ class TypeTest extends TestCase
 
     public function setUp()
     {
-        $layoutTypeRegistry = new LayoutTypeRegistry();
-        $layoutTypeRegistry->addLayoutType(new LayoutType('4_zones_a', true, '4 zones A', array()));
-
-        $this->provider = new Type($layoutTypeRegistry);
+        $this->provider = new Type();
     }
 
     /**
@@ -32,7 +28,7 @@ class TypeTest extends TestCase
         $item = new Item(
             new LayoutInfo(
                 array(
-                    'type' => '4_zones_a',
+                    'layoutType' => new LayoutType('4_zones_a', array(), '4 zones A'),
                 )
             )
         );

@@ -35,8 +35,6 @@ services:
 
     netgen_block_manager.browser.column_value_provider.layout.type:
         class: "%netgen_block_manager.browser.column_value_provider.layout.type.class%"
-        arguments:
-            - "@netgen_block_manager.configuration.registry.layout_type"
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\type }
 

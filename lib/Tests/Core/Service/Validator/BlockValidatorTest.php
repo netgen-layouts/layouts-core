@@ -13,7 +13,6 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;

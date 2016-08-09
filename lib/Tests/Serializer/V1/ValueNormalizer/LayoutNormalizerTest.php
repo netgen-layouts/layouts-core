@@ -3,26 +3,20 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class LayoutNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -35,24 +29,9 @@ class LayoutNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-
-        $layoutType = new LayoutType(
-            '4_zones_a',
-            true,
-            '4 zones A',
-            array(
-                'left' => new LayoutTypeZone('left', 'Left', array('title')),
-                'right' => new LayoutTypeZone('right', 'Right', array()),
-            )
-        );
-
-        $this->layoutTypeRegistry->addLayoutType($layoutType);
-
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
         $this->normalizer = new LayoutNormalizer(
-            $this->layoutTypeRegistry,
             $this->layoutServiceMock
         );
     }
@@ -67,10 +46,20 @@ class LayoutNormalizerTest extends TestCase
         $currentDate = new DateTime();
         $currentDate->setTimestamp(time());
 
+        $layoutType = new LayoutType(
+            '4_zones_a',
+            true,
+            '4 zones A',
+            array(
+                'left' => new LayoutTypeZone('left', 'Left', array('title')),
+                'right' => new LayoutTypeZone('right', 'Right', array()),
+            )
+        );
+
         $layout = new LayoutInfo(
             array(
                 'id' => 42,
-                'type' => '4_zones_a',
+                'layoutType' => $layoutType,
                 'status' => Layout::STATUS_DRAFT,
                 'created' => $currentDate,
                 'modified' => $currentDate,
@@ -87,7 +76,7 @@ class LayoutNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'id' => $layout->getId(),
-                'type' => $layout->getType(),
+                'type' => $layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
@@ -114,10 +103,20 @@ class LayoutNormalizerTest extends TestCase
             )
         );
 
+        $layoutType = new LayoutType(
+            '4_zones_a',
+            true,
+            '4 zones A',
+            array(
+                'left' => new LayoutTypeZone('left', 'Left', array('title')),
+                'right' => new LayoutTypeZone('right', 'Right', array()),
+            )
+        );
+
         $layout = new Layout(
             array(
                 'id' => 42,
-                'type' => '4_zones_a',
+                'layoutType' => $layoutType,
                 'status' => Layout::STATUS_DRAFT,
                 'created' => $currentDate,
                 'modified' => $currentDate,
@@ -152,7 +151,7 @@ class LayoutNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'id' => $layout->getId(),
-                'type' => $layout->getType(),
+                'type' => $layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
                 'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
