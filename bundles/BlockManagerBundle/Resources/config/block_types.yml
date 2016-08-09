@@ -3,8 +3,6 @@ block_types:
         name: 'Title'
         definition_identifier: title
         defaults:
-            view_type: title
-            item_view_type: standard
             parameters:
                 title: 'Title'
 
@@ -12,31 +10,21 @@ block_types:
         name: 'Text'
         definition_identifier: text
         defaults:
-            view_type: text
-            item_view_type: standard
             parameters:
                 content: 'Text'
 
     rich_text:
         name: 'Rich text'
         definition_identifier: rich_text
-        defaults:
-            view_type: rich_text
-            item_view_type: standard
 
     external_video:
         name: 'External video'
         definition_identifier: external_video
-        defaults:
-            view_type: external_video
-            item_view_type: standard
 
     map:
         name: 'Map'
         definition_identifier: map
         defaults:
-            view_type: map
-            item_view_type: standard
             parameters:
                 zoom: 5
                 show_marker: true
@@ -44,64 +32,45 @@ block_types:
     html_snippet:
         name: 'HTML snippet'
         definition_identifier: html_snippet
-        defaults:
-            view_type: html_snippet
-            item_view_type: standard
 
     full_view:
         name: 'Full view'
         definition_identifier: full_view
-        defaults:
-            view_type: full_view
-            item_view_type: standard
 
     twig_block:
         name: 'Twig block'
         definition_identifier: twig_block
-        defaults:
-            view_type: twig_block
-            item_view_type: standard
 
     list:
         name: 'List'
         definition_identifier: list
-        defaults:
-            view_type: list
-            item_view_type: standard
 
     grid:
         name: 'Grid'
         definition_identifier: list
         defaults:
             view_type: grid
-            item_view_type: standard
             parameters:
                 number_of_columns: 3
 
     slider:
         name: 'Slider'
         definition_identifier: gallery
-        defaults:
-            view_type: slider
-            item_view_type: standard
 
     thumb_gallery:
         name: 'Thumb gallery'
         definition_identifier: gallery
         defaults:
             view_type: thumb_gallery
-            item_view_type: standard
 
     grid_gallery:
         name: 'Grid gallery'
         definition_identifier: gallery
         defaults:
             view_type: grid_gallery
-            item_view_type: standard
 
     sushi_bar:
         name: 'Sushi bar'
         definition_identifier: gallery
         defaults:
             view_type: sushi_bar
-            item_view_type: standard

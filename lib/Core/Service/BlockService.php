@@ -519,12 +519,26 @@ class BlockService implements BlockServiceInterface
             $blockType->getDefinitionIdentifier()
         );
 
+        $config = $blockDefinition->getConfig();
+
+        $viewTypeIdentifier = $blockType->getDefaultViewType();
+        $itemViewTypeIdentifier = $blockType->getDefaultItemViewType();
+
+        if (!$config->hasViewType($viewTypeIdentifier)) {
+            $viewTypeIdentifier = $config->getViewTypeIdentifiers()[0];
+        }
+
+        $viewType = $config->getViewType($viewTypeIdentifier);
+        if (!$viewType->hasItemViewType($itemViewTypeIdentifier)) {
+            $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
+        }
+
         $blockCreateStruct = new BlockCreateStruct(
             array(
                 'definitionIdentifier' => $blockType->getDefinitionIdentifier(),
                 'name' => $blockType->getDefaultName(),
-                'viewType' => $blockType->getDefaultViewType(),
-                'itemViewType' => $blockType->getDefaultItemViewType(),
+                'viewType' => $viewTypeIdentifier,
+                'itemViewType' => $itemViewTypeIdentifier,
             )
         );
 

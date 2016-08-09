@@ -119,6 +119,76 @@ class BlocksTypesConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
+    public function testBlockTypeSettingsWithNoDefaultViewType()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block_type' => array(
+                        'defaults' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block_type' => array(
+                    'defaults' => array(
+                        'view_type' => '',
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.defaults.view_type'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testBlockTypeSettingsWithNoDefaultItemViewType()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block_type' => array(
+                        'defaults' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block_type' => array(
+                    'defaults' => array(
+                        'item_view_type' => '',
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.defaults.item_view_type'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
     public function testBlockTypeSettingsWithNoDefaultParameters()
     {
         $config = array(
@@ -204,6 +274,40 @@ class BlocksTypesConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
      */
+    public function testBlockTypeSettingsWithNoDefaults()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block_type' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block_type' => array(
+                    'defaults' => array(
+                        'name' => '',
+                        'view_type' => '',
+                        'item_view_type' => '',
+                        'parameters' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.defaults'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
+     */
     public function testBlockTypeSettingsWithNoBlockTypes()
     {
         $config = array(
@@ -221,7 +325,9 @@ class BlocksTypesConfigurationTest extends TestCase
     {
         $config = array(
             'block_types' => array(
-                'block_type' => array(),
+                'block_type' => array(
+                    'definition_identifier' => 'block',
+                ),
             ),
         );
 
@@ -238,65 +344,6 @@ class BlocksTypesConfigurationTest extends TestCase
             'block_types' => array(
                 'block_type' => array(
                     'name' => 'Block type',
-                    'defaults' => array(
-                        'view_type' => 'large',
-                        'item_view_type' => 'standard',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithNoDefaults()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithNoDefaultViewType()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'defaults' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithNoDefaultItemViewType()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                    'defaults' => array(
-                        'view_type' => 'large',
-                    ),
                 ),
             ),
         );

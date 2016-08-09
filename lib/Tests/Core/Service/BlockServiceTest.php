@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
@@ -97,13 +99,37 @@ abstract class BlockServiceTest extends ServiceTest
         $blockDefinition1 = new BlockDefinition(
             'title',
             new BlockDefinitionHandler(),
-            new Configuration('title')
+            new Configuration(
+                'title',
+                array(),
+                array(
+                    'small' => new ViewType(
+                        'small',
+                        'Small',
+                        array(
+                            'standard' => new ItemViewType('standard', 'Standard'),
+                        )
+                    ),
+                )
+            )
         );
 
         $blockDefinition2 = new BlockDefinition(
             'gallery',
             new BlockDefinitionHandler(),
-            new Configuration('gallery')
+            new Configuration(
+                'gallery',
+                array(),
+                array(
+                    'standard' => new ViewType(
+                        'standard',
+                        'Standard',
+                        array(
+                            'standard' => new ItemViewType('standard', 'Standard'),
+                        )
+                    ),
+                )
+            )
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
@@ -701,6 +727,117 @@ abstract class BlockServiceTest extends ServiceTest
                     array(
                         'view_type' => 'small',
                         'item_view_type' => 'standard',
+                        'name' => 'My block',
+                        'parameters' => array(
+                            'css_class' => 'css-class',
+                        ),
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockCreateStruct
+     */
+    public function testNewBlockCreateStructWithNonExistingViewType()
+    {
+        $this->assertEquals(
+            new BlockCreateStruct(
+                array(
+                    'definitionIdentifier' => 'title',
+                    'viewType' => 'small',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'css-class',
+                        'css_id' => null,
+                    ),
+                )
+            ),
+            $this->blockService->newBlockCreateStruct(
+                new BlockType(
+                    'title',
+                    true,
+                    'Title',
+                    'title',
+                    array(
+                        'view_type' => 'non_existing',
+                        'item_view_type' => 'standard',
+                        'name' => 'My block',
+                        'parameters' => array(
+                            'css_class' => 'css-class',
+                        ),
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockCreateStruct
+     */
+    public function testNewBlockCreateStructWithNonExistingItemViewType()
+    {
+        $this->assertEquals(
+            new BlockCreateStruct(
+                array(
+                    'definitionIdentifier' => 'title',
+                    'viewType' => 'small',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'css-class',
+                        'css_id' => null,
+                    ),
+                )
+            ),
+            $this->blockService->newBlockCreateStruct(
+                new BlockType(
+                    'title',
+                    true,
+                    'Title',
+                    'title',
+                    array(
+                        'view_type' => 'small',
+                        'item_view_type' => 'non_existing',
+                        'name' => 'My block',
+                        'parameters' => array(
+                            'css_class' => 'css-class',
+                        ),
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockCreateStruct
+     */
+    public function testNewBlockCreateStructWithNonExistingViewTypeAndItemViewType()
+    {
+        $this->assertEquals(
+            new BlockCreateStruct(
+                array(
+                    'definitionIdentifier' => 'title',
+                    'viewType' => 'small',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameters' => array(
+                        'css_class' => 'css-class',
+                        'css_id' => null,
+                    ),
+                )
+            ),
+            $this->blockService->newBlockCreateStruct(
+                new BlockType(
+                    'title',
+                    true,
+                    'Title',
+                    'title',
+                    array(
+                        'view_type' => 'non_existing',
+                        'item_view_type' => 'non_existing',
                         'name' => 'My block',
                         'parameters' => array(
                             'css_class' => 'css-class',

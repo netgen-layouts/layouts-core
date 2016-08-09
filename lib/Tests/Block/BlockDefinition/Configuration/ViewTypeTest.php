@@ -57,6 +57,17 @@ class ViewTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewTypeIdentifiers
+     */
+    public function testGetItemViewTypeIdentifiers()
+    {
+        $this->assertEquals(
+            array('standard', 'standard_with_intro'),
+            $this->viewType->getItemViewTypeIdentifiers()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::hasItemViewType
      */
     public function testHasItemViewType()

@@ -88,6 +88,16 @@ class Configuration
     }
 
     /**
+     * Returns the block definition view type identifiers.
+     *
+     * @return string[]
+     */
+    public function getViewTypeIdentifiers()
+    {
+        return array_keys($this->viewTypes);
+    }
+
+    /**
      * Returns if the block definition has a view type with provided identifier.
      *
      * @param string $viewTypeIdentifier

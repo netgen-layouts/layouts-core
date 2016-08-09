@@ -66,6 +66,16 @@ class ViewType
     }
 
     /**
+     * Returns the item view type identifiers.
+     *
+     * @return string[]
+     */
+    public function getItemViewTypeIdentifiers()
+    {
+        return array_keys($this->itemViewTypes);
+    }
+
+    /**
      * Returns if the view type has an item view type with provided identifier.
      *
      * @param string $viewTypeIdentifier

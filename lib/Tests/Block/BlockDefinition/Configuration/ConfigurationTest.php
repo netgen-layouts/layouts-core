@@ -86,6 +86,17 @@ class ConfigurationTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getViewTypeIdentifiers
+     */
+    public function testGetViewTypeIdentifiers()
+    {
+        $this->assertEquals(
+            array('large', 'small'),
+            $this->configuration->getViewTypeIdentifiers()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::hasViewType
      */
     public function testHasViewType()
