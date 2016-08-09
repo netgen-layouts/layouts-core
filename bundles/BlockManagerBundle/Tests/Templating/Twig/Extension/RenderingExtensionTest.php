@@ -85,7 +85,8 @@ class RenderingExtensionTest extends TestCase
             $this->layoutServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
-            $this->fragmentHandlerMock
+            $this->fragmentHandlerMock,
+            'ngbm_block:viewBlockById'
         );
     }
 

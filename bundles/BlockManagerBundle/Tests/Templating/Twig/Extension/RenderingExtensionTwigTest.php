@@ -93,7 +93,8 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             $this->layoutServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
-            $this->fragmentHandlerMock
+            $this->fragmentHandlerMock,
+            'ngbm_block:viewBlockById'
         );
     }
 
