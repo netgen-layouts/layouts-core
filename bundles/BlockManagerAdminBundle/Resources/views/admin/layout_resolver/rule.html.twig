@@ -12,7 +12,7 @@
 
             {% if rule.layout != null %}
                 <div class="panel-name" title="{{ rule.layout.name }}">
-                    <a target="_blank" href="{{ macros.layout_path(rule.layout.id) }}">{{ rule.layout.name }}</a>
+                    <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ rule.layout.name }}</a>
                 </div>
             {% else %}
                 <div class="panel-name" title="{{ 'layout_resolver.rule.no_linked_layout'|trans }}">
