@@ -3,8 +3,8 @@
 {% block parameters %}
     {% set parameters = form.children.parameters %}
 
-    {{ form_row(parameters.children.next_and_previous, {attr: {'data-view-type': 'slider,thumb_gallery'}}) }}
-    {{ form_row(parameters.children.show_pagination, {attr: {'data-view-type': 'slider'}}) }}
+    {{ form_row(parameters.children.next_and_previous, {attr: {'data-view-type': 'slider,thumb_gallery,sushi_bar'}}) }}
+    {{ form_row(parameters.children.show_pagination, {attr: {'data-view-type': 'slider,sushi_bar'}}) }}
     {{ form_row(parameters.children.infinite_loop, {attr: {'data-view-type': 'slider,sushi_bar'}}) }}
     {{ form_row(parameters.children.transition, {attr: {'data-view-type': 'slider'}}) }}
     {{ form_row(parameters.children.autoplay, {attr: {'data-view-type': 'slider,sushi_bar'}}) }}
