@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Configuration\BlockType;
 
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
+
 class BlockType
 {
     /**
@@ -20,9 +22,9 @@ class BlockType
     protected $name;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $definitionIdentifier;
+    protected $blockDefinition;
 
     /**
      * @var array
@@ -35,15 +37,15 @@ class BlockType
      * @param string $identifier
      * @param bool $enabled
      * @param string $name
-     * @param string $definitionIdentifier
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      * @param array $defaults
      */
-    public function __construct($identifier, $enabled, $name, $definitionIdentifier, array $defaults = array())
+    public function __construct($identifier, $enabled, $name, BlockDefinitionInterface $blockDefinition, array $defaults = array())
     {
         $this->identifier = $identifier;
         $this->enabled = $enabled;
         $this->name = $name;
-        $this->definitionIdentifier = $definitionIdentifier;
+        $this->blockDefinition = $blockDefinition;
         $this->defaults = $defaults;
     }
 
@@ -78,13 +80,13 @@ class BlockType
     }
 
     /**
-     * Returns the definition identifier.
+     * Returns the block definition.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getDefinitionIdentifier()
+    public function getBlockDefinition()
     {
-        return $this->definitionIdentifier;
+        return $this->blockDefinition;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Configuration\BlockType;
 
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeTest extends TestCase
@@ -12,13 +13,20 @@ class BlockTypeTest extends TestCase
      */
     protected $blockType;
 
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    protected $blockDefinition;
+
     public function setUp()
     {
+        $this->blockDefinition = new BlockDefinition('title');
+
         $this->blockType = new BlockType(
             'title',
             true,
             'Title',
-            'title',
+            $this->blockDefinition,
             array(
                 'name' => 'Name',
                 'view_type' => 'default',
@@ -54,11 +62,11 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefinitionIdentifier
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getBlockDefinition
      */
-    public function testGetDefinitionIdentifier()
+    public function testGetBlockDefinition()
     {
-        $this->assertEquals('title', $this->blockType->getDefinitionIdentifier());
+        $this->assertEquals($this->blockDefinition, $this->blockType->getBlockDefinition());
     }
 
     /**
@@ -114,7 +122,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyName()
     {
-        $this->blockType = new BlockType('title', true, 'Title', 'title', array());
+        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
 
         $this->assertEquals('', $this->blockType->getDefaultName());
     }
@@ -124,7 +132,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyViewType()
     {
-        $this->blockType = new BlockType('title', true, 'Title', 'title', array());
+        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
 
         $this->assertEquals('', $this->blockType->getDefaultViewType());
     }
@@ -134,7 +142,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyItemViewType()
     {
-        $this->blockType = new BlockType('title', true, 'Title', 'title', array());
+        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
 
         $this->assertEquals('', $this->blockType->getDefaultItemViewType());
     }
@@ -144,7 +152,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyParameters()
     {
-        $this->blockType = new BlockType('title', true, 'Title', 'title', array());
+        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
 
         $this->assertEquals(array(), $this->blockType->getDefaultParameters());
     }

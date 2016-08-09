@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\Resource\FileResource;
@@ -107,7 +108,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $this->buildConfigObjects($container, 'layout_type', $config['layout_types']);
         $this->buildConfigObjects($container, 'source', $config['sources']);
-        $this->buildConfigObjects($container, 'block_type', $config['block_types']);
+        $this->buildBlockTypes($container, $config['block_types']);
         $this->buildConfigObjects($container, 'block_type_group', $config['block_type_groups']);
     }
 
@@ -182,6 +183,39 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/parameters.yml');
 
         $loader->load('services/api.yml');
+    }
+
+    /**
+     * Builds the config objects from provided array config.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $configs
+     */
+    protected function buildBlockTypes(ContainerBuilder $container, array $configs = array())
+    {
+        foreach ($configs as $identifier => $config) {
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type.%s', $identifier);
+
+            $container
+                ->setDefinition(
+                    $serviceIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.block_type')
+                )
+                ->setArguments(
+                    array(
+                        $identifier,
+                        $config,
+                        new Reference(
+                            sprintf(
+                                'netgen_block_manager.block.block_definition.%s',
+                                $config['definition_identifier']
+                            )
+                        ),
+                    )
+                )
+                ->addTag('netgen_block_manager.configuration.block_type')
+                ->setAbstract(false);
+        }
     }
 
     /**

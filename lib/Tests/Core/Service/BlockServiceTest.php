@@ -2,10 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
@@ -22,7 +19,6 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 
 abstract class BlockServiceTest extends ServiceTest
 {
@@ -98,38 +94,12 @@ abstract class BlockServiceTest extends ServiceTest
 
         $blockDefinition1 = new BlockDefinition(
             'title',
-            new BlockDefinitionHandler(),
-            new Configuration(
-                'title',
-                array(),
-                array(
-                    'small' => new ViewType(
-                        'small',
-                        'Small',
-                        array(
-                            'standard' => new ItemViewType('standard', 'Standard'),
-                        )
-                    ),
-                )
-            )
+            array('small' => array('standard'))
         );
 
         $blockDefinition2 = new BlockDefinition(
             'gallery',
-            new BlockDefinitionHandler(),
-            new Configuration(
-                'gallery',
-                array(),
-                array(
-                    'standard' => new ViewType(
-                        'standard',
-                        'Standard',
-                        array(
-                            'standard' => new ItemViewType('standard', 'Standard'),
-                        )
-                    ),
-                )
-            )
+            array('standard' => array('standard'))
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
@@ -265,7 +235,12 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlock()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType('title', true, 'Title', 'title')
+            new BlockType(
+                'title',
+                true,
+                'Title',
+                $this->blockDefinitionRegistry->getBlockDefinition('title')
+            )
         );
 
         $block = $this->blockService->createBlock(
@@ -298,7 +273,12 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlockWithNonExistentLayoutType()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType('title', true, 'Title', 'title')
+            new BlockType(
+                'title',
+                true,
+                'Title',
+                $this->blockDefinitionRegistry->getBlockDefinition('title')
+            )
         );
 
         $block = $this->blockService->createBlock(
@@ -317,7 +297,12 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlockWithNoPosition()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType('title', true, 'Title', 'title')
+            new BlockType(
+                'title',
+                true,
+                'Title',
+                $this->blockDefinitionRegistry->getBlockDefinition('title')
+            )
         );
 
         $block = $this->blockService->createBlock(
@@ -338,7 +323,12 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlockThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType('title', true, 'Title', 'title')
+            new BlockType(
+                'title',
+                true,
+                'Title',
+                $this->blockDefinitionRegistry->getBlockDefinition('title')
+            )
         );
 
         $this->blockService->createBlock(
@@ -357,7 +347,12 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlockWithNonExistingZoneThrowsBadStateException()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType('title', true, 'Title', 'title')
+            new BlockType(
+                'title',
+                true,
+                'Title',
+                $this->blockDefinitionRegistry->getBlockDefinition('title')
+            )
         );
 
         $this->blockService->createBlock(
@@ -375,7 +370,12 @@ abstract class BlockServiceTest extends ServiceTest
     public function testCreateBlockWithWithDisallowedIdentifierThrowsBadStateException()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType('gallery', true, 'Gallery', 'gallery')
+            new BlockType(
+                'gallery',
+                true,
+                'Gallery',
+                $this->blockDefinitionRegistry->getBlockDefinition('gallery')
+            )
         );
 
         $this->blockService->createBlock(
@@ -723,7 +723,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'title',
                     true,
                     'Title',
-                    'title',
+                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
                         'view_type' => 'small',
                         'item_view_type' => 'standard',
@@ -760,7 +760,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'title',
                     true,
                     'Title',
-                    'title',
+                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
                         'view_type' => 'non_existing',
                         'item_view_type' => 'standard',
@@ -797,7 +797,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'title',
                     true,
                     'Title',
-                    'title',
+                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
                         'view_type' => 'small',
                         'item_view_type' => 'non_existing',
@@ -834,7 +834,7 @@ abstract class BlockServiceTest extends ServiceTest
                     'title',
                     true,
                     'Title',
-                    'title',
+                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
                         'view_type' => 'non_existing',
                         'item_view_type' => 'non_existing',

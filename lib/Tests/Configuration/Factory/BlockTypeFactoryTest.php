@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Configuration\Factory;
 
 use Netgen\BlockManager\Configuration\Factory\BlockTypeFactory;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeFactoryTest extends TestCase
@@ -13,6 +14,8 @@ class BlockTypeFactoryTest extends TestCase
      */
     public function testBuildBlockType()
     {
+        $blockDefinition = new BlockDefinition('title');
+
         $blockType = BlockTypeFactory::buildBlockType(
             'title',
             array(
@@ -22,7 +25,8 @@ class BlockTypeFactoryTest extends TestCase
                 'defaults' => array(
                     'viewType' => 'default',
                 ),
-            )
+            ),
+            $blockDefinition
         );
 
         $this->assertEquals(
@@ -30,7 +34,7 @@ class BlockTypeFactoryTest extends TestCase
                 'title',
                 true,
                 'Title',
-                'title',
+                $blockDefinition,
                 array(
                     'viewType' => 'default',
                 )

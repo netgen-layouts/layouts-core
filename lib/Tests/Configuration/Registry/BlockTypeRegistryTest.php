@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Configuration\Registry;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeRegistryTest extends TestCase
@@ -32,7 +33,7 @@ class BlockTypeRegistryTest extends TestCase
             'block_type',
             true,
             'Block type',
-            'text',
+            new BlockDefinition('text'),
             array()
         );
 

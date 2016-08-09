@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -15,8 +16,15 @@ class BlockTypeNormalizerTest extends TestCase
      */
     protected $normalizer;
 
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    protected $blockDefinition;
+
     public function setUp()
     {
+        $this->blockDefinition = new BlockDefinition('title');
+
         $this->normalizer = new BlockTypeNormalizer();
     }
 
@@ -29,7 +37,7 @@ class BlockTypeNormalizerTest extends TestCase
             'identifier',
             true,
             'Block type',
-            'title',
+            $this->blockDefinition,
             array(
                 'name' => 'Default name',
                 'view_type' => 'Default view type',
@@ -41,7 +49,7 @@ class BlockTypeNormalizerTest extends TestCase
             array(
                 'identifier' => $blockType->getIdentifier(),
                 'name' => $blockType->getName(),
-                'definition_identifier' => $blockType->getDefinitionIdentifier(),
+                'definition_identifier' => $this->blockDefinition->getIdentifier(),
                 'defaults' => $blockType->getDefaults(),
             ),
             $this->normalizer->normalize(new VersionedValue($blockType, 1))
@@ -67,6 +75,8 @@ class BlockTypeNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
+        $blockDefinition = new BlockDefinition('title');
+
         return array(
             array(null, false),
             array(true, false),
@@ -76,10 +86,10 @@ class BlockTypeNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new BlockType('identifier', true, 'name', 'definition'), false),
+            array(new BlockType('identifier', true, 'name', $blockDefinition), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new BlockType('identifier', true, 'name', 'definition'), 2), false),
-            array(new VersionedValue(new BlockType('identifier', true, 'name', 'definition'), 1), true),
+            array(new VersionedValue(new BlockType('identifier', true, 'name', $blockDefinition), 2), false),
+            array(new VersionedValue(new BlockType('identifier', true, 'name', $blockDefinition), 1), true),
         );
     }
 }

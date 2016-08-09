@@ -7,6 +7,7 @@ use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -26,11 +27,11 @@ class BlockTypeGroupNormalizerTest extends TestCase
     {
         $this->blockTypeRegistry = new BlockTypeRegistry();
         $this->blockTypeRegistry->addBlockType(
-            new BlockType('type1', true, 'Type 1', 'title')
+            new BlockType('type1', true, 'Type 1', new BlockDefinition('title'))
         );
 
         $this->blockTypeRegistry->addBlockType(
-            new BlockType('type2', false, 'Type 2', 'title')
+            new BlockType('type2', false, 'Type 2', new BlockDefinition('title'))
         );
 
         $this->normalizer = new BlockTypeGroupNormalizer($this->blockTypeRegistry);

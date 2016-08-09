@@ -515,10 +515,7 @@ class BlockService implements BlockServiceInterface
      */
     public function newBlockCreateStruct(BlockType $blockType)
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $blockType->getDefinitionIdentifier()
-        );
-
+        $blockDefinition = $blockType->getBlockDefinition();
         $config = $blockDefinition->getConfig();
 
         $viewTypeIdentifier = $blockType->getDefaultViewType();
@@ -535,7 +532,7 @@ class BlockService implements BlockServiceInterface
 
         $blockCreateStruct = new BlockCreateStruct(
             array(
-                'definitionIdentifier' => $blockType->getDefinitionIdentifier(),
+                'definitionIdentifier' => $blockDefinition->getIdentifier(),
                 'name' => $blockType->getDefaultName(),
                 'viewType' => $viewTypeIdentifier,
                 'itemViewType' => $itemViewTypeIdentifier,
