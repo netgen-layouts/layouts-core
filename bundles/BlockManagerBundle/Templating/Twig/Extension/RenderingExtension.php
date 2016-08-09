@@ -24,8 +24,6 @@ use Exception;
 
 class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
-    const BLOCK_CONTROLLER = 'ngbm_block:viewBlockById';
-
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
@@ -57,6 +55,11 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     protected $logger;
 
     /**
+     * @var string
+     */
+    protected $blockController;
+
+    /**
      * @var bool
      */
     protected $debug = false;
@@ -69,6 +72,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
+     * @param string $blockController
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -77,6 +81,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         GlobalVariable $globalVariable,
         RendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
+        $blockController,
         LoggerInterface $logger = null
     ) {
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
@@ -84,6 +89,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         $this->globalVariable = $globalVariable;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
+        $this->blockController = $blockController;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -208,7 +214,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             if ($this->isBlockCacheable($block)) {
                 return $this->fragmentHandler->render(
                     new ControllerReference(
-                        self::BLOCK_CONTROLLER,
+                        $this->blockController,
                         array(
                             'blockId' => $block->getId(),
                             'parameters' => $parameters,
