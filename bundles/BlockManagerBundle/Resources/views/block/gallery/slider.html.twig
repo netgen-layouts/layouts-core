@@ -4,7 +4,11 @@
 
 {% block content %}
     {% if collections['default'] is defined %}
-        <div class="default-swiper swiper-container" data-effect="{{ block.parameter('transition') }}" {% if block.parameter('infinite_loop') %}data-loop="true"{% endif %} {% if block.parameter('autoplay') %}data-autoplay="{{ block.parameter('autoplay_time') }}"{% endif %}>
+        <div class="default-swiper swiper-container"
+            data-effect="{{ block.parameter('transition') }}"
+            {% if block.parameter('infinite_loop') %}data-loop="true"{% endif %}
+            {% if block.parameter('autoplay') %}data-autoplay="{{ block.parameter('autoplay_time') }}"{% endif %}
+        >
             <div class="swiper-wrapper">
                 {% for result in collections['default'].results %}
                     <div class="swiper-slide">
