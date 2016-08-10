@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Configuration\Source;
 
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class SourceTest extends TestCase
@@ -22,7 +23,7 @@ class SourceTest extends TestCase
             array(
                 'default' => new Query(
                     'default',
-                    'ezcontent_search',
+                    new QueryType('ezcontent_search'),
                     array('parent_location_id' => 2)
                 ),
             )
@@ -63,7 +64,7 @@ class SourceTest extends TestCase
             array(
                 'default' => new Query(
                     'default',
-                    'ezcontent_search',
+                    new QueryType('ezcontent_search'),
                     array('parent_location_id' => 2)
                 ),
             ),
@@ -95,7 +96,7 @@ class SourceTest extends TestCase
         $this->assertEquals(
             new Query(
                 'default',
-                'ezcontent_search',
+                new QueryType('ezcontent_search'),
                 array('parent_location_id' => 2)
             ),
             $this->source->getQuery('default')

@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Configuration\Source;
 
+use Netgen\BlockManager\Collection\QueryTypeInterface;
+
 class Query
 {
     /**
@@ -10,7 +12,7 @@ class Query
     protected $identifier;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     protected $queryType;
 
@@ -23,10 +25,10 @@ class Query
      * Constructor.
      *
      * @param string $identifier
-     * @param string $queryType
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param array $defaultParameters
      */
-    public function __construct($identifier, $queryType, array $defaultParameters)
+    public function __construct($identifier, QueryTypeInterface $queryType, array $defaultParameters)
     {
         $this->identifier = $identifier;
         $this->queryType = $queryType;
@@ -46,7 +48,7 @@ class Query
     /**
      * Returns the query type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     public function getQueryType()
     {

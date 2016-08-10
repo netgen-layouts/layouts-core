@@ -12,17 +12,18 @@ class SourceFactory
      *
      * @param string $identifier
      * @param array $config
+     * @param \Netgen\BlockManager\Collection\QueryTypeInterface[] $queryTypes
      *
      * @return \Netgen\BlockManager\Configuration\Source\Source
      */
-    public static function buildSource($identifier, array $config)
+    public static function buildSource($identifier, array $config, array $queryTypes)
     {
         $queries = array();
 
         foreach ($config['queries'] as $queryIdentifier => $queryConfig) {
             $queries[$queryIdentifier] = new Query(
                 $queryIdentifier,
-                $queryConfig['query_type'],
+                $queryTypes[$queryIdentifier],
                 $queryConfig['default_parameters']
             );
         }

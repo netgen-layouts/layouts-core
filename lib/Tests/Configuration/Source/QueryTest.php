@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Configuration\Source;
 
 use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class QueryTest extends TestCase
@@ -14,7 +15,7 @@ class QueryTest extends TestCase
 
     public function setUp()
     {
-        $this->query = new Query('default', 'ezcontent_search', array('parent_location_id' => 2));
+        $this->query = new Query('default', new QueryType('ezcontent_search'), array('parent_location_id' => 2));
     }
 
     /**
@@ -31,7 +32,7 @@ class QueryTest extends TestCase
      */
     public function testGetQueryType()
     {
-        $this->assertEquals('ezcontent_search', $this->query->getQueryType());
+        $this->assertEquals(new QueryType('ezcontent_search'), $this->query->getQueryType());
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer;
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -27,14 +28,14 @@ class SourceQueryNormalizerTest extends TestCase
     {
         $sourceQuery = new Query(
             'identifier',
-            'type',
+            new QueryType('type'),
             array('param' => 'value')
         );
 
         $this->assertEquals(
             array(
                 'identifier' => $sourceQuery->getIdentifier(),
-                'query_type' => $sourceQuery->getQueryType(),
+                'query_type' => $sourceQuery->getQueryType()->getType(),
                 'default_parameters' => $sourceQuery->getDefaultParameters(),
             ),
             $this->normalizer->normalize(new VersionedValue($sourceQuery, 1))
@@ -69,10 +70,10 @@ class SourceQueryNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new Query('identifier', 'type', array()), false),
+            array(new Query('identifier', new QueryType('type'), array()), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Query('identifier', 'type', array()), 2), false),
-            array(new VersionedValue(new Query('identifier', 'type', array()), 1), true),
+            array(new VersionedValue(new Query('identifier', new QueryType('type'), array()), 2), false),
+            array(new VersionedValue(new Query('identifier', new QueryType('type'), array()), 1), true),
         );
     }
 }

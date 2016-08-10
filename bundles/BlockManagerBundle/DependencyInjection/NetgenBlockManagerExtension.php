@@ -107,7 +107,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         }
 
         $this->buildConfigObjects($container, 'layout_type', $config['layout_types']);
-        $this->buildConfigObjects($container, 'source', $config['sources']);
+        $this->buildSources($container, $config['sources']);
         $this->buildBlockTypes($container, $config['block_types']);
         $this->buildBlockTypeGroups($container, $config['block_type_groups']);
     }
@@ -183,6 +183,38 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/parameters.yml');
 
         $loader->load('services/api.yml');
+    }
+
+    /**
+     * Builds the config objects from provided array config.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $configs
+     */
+    protected function buildSources(ContainerBuilder $container, array $configs = array())
+    {
+        foreach ($configs as $identifier => $config) {
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
+
+            $queryTypes = array();
+            foreach ($config['queries'] as $queryIdentifier => $queryConfig) {
+                $queryTypes[$queryIdentifier] = new Reference(
+                    sprintf(
+                        'netgen_block_manager.collection.query_type.%s',
+                        $queryConfig['query_type']
+                    )
+                );
+            }
+
+            $container
+                ->setDefinition(
+                    $serviceIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.source')
+                )
+                ->setArguments(array($identifier, $config, $queryTypes))
+                ->addTag('netgen_block_manager.configuration.source')
+                ->setAbstract(false);
+        }
     }
 
     /**

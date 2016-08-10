@@ -25,7 +25,7 @@ class SourceQueryNormalizer implements NormalizerInterface
 
         return array(
             'identifier' => $query->getIdentifier(),
-            'query_type' => $query->getQueryType(),
+            'query_type' => $query->getQueryType()->getType(),
             'default_parameters' => $query->getDefaultParameters(),
         );
     }
