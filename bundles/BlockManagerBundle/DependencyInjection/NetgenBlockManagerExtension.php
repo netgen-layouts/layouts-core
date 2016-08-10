@@ -106,7 +106,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             }
         }
 
-        $this->buildConfigObjects($container, 'layout_type', $config['layout_types']);
+        $this->buildLayoutTypes($container, $config['layout_types']);
         $this->buildSources($container, $config['sources']);
         $this->buildBlockTypes($container, $config['block_types']);
         $this->buildBlockTypeGroups($container, $config['block_type_groups']);
@@ -191,14 +191,36 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $configs
      */
+    protected function buildLayoutTypes(ContainerBuilder $container, array $configs = array())
+    {
+        foreach ($configs as $identifier => $config) {
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
+
+            $container
+                ->setDefinition(
+                    $serviceIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.layout_type')
+                )
+                ->setArguments(array($identifier, $config))
+                ->addTag('netgen_block_manager.configuration.layout_type')
+                ->setAbstract(false);
+        }
+    }
+
+    /**
+     * Builds the config objects from provided array config.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $configs
+     */
     protected function buildSources(ContainerBuilder $container, array $configs = array())
     {
         foreach ($configs as $identifier => $config) {
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
 
-            $queryTypes = array();
+            $queryTypeReferences = array();
             foreach ($config['queries'] as $queryIdentifier => $queryConfig) {
-                $queryTypes[$queryIdentifier] = new Reference(
+                $queryTypeReferences[$queryIdentifier] = new Reference(
                     sprintf(
                         'netgen_block_manager.collection.query_type.%s',
                         $queryConfig['query_type']
@@ -211,7 +233,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                     $serviceIdentifier,
                     new DefinitionDecorator('netgen_block_manager.configuration.source')
                 )
-                ->setArguments(array($identifier, $config, $queryTypes))
+                ->setArguments(array($identifier, $config, $queryTypeReferences))
                 ->addTag('netgen_block_manager.configuration.source')
                 ->setAbstract(false);
         }
@@ -278,29 +300,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 )
                 ->setArguments(array($identifier, $config, $blockTypeReferences))
                 ->addTag('netgen_block_manager.configuration.block_type_group')
-                ->setAbstract(false);
-        }
-    }
-
-    /**
-     * Builds the config objects from provided array config.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param string $configName
-     * @param array $configs
-     */
-    protected function buildConfigObjects(ContainerBuilder $container, $configName, array $configs = array())
-    {
-        foreach ($configs as $identifier => $config) {
-            $serviceIdentifier = sprintf('netgen_block_manager.configuration.%s.%s', $configName, $identifier);
-
-            $container
-                ->setDefinition(
-                    $serviceIdentifier,
-                    new DefinitionDecorator(sprintf('netgen_block_manager.configuration.%s', $configName))
-                )
-                ->setArguments(array($identifier, $config))
-                ->addTag(sprintf('netgen_block_manager.configuration.%s', $configName))
                 ->setAbstract(false);
         }
     }
