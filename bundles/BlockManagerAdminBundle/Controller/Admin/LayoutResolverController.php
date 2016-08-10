@@ -428,10 +428,10 @@ class LayoutResolverController extends Controller
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $target->getRuleId(),
-                    array(),
-                    ViewInterface::CONTEXT_ADMIN
-                )
+                    $target->getRuleId()
+                ),
+                array(),
+                ViewInterface::CONTEXT_ADMIN
             );
         }
 
@@ -503,10 +503,10 @@ class LayoutResolverController extends Controller
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $rule->getId(),
-                    array(),
-                    ViewInterface::CONTEXT_ADMIN
-                )
+                    $rule->getId()
+                ),
+                array(),
+                ViewInterface::CONTEXT_ADMIN
             );
         }
 
@@ -562,10 +562,10 @@ class LayoutResolverController extends Controller
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $condition->getRuleId(),
-                    array(),
-                    ViewInterface::CONTEXT_ADMIN
-                )
+                    $condition->getRuleId()
+                ),
+                array(),
+                ViewInterface::CONTEXT_ADMIN
             );
         }
 
