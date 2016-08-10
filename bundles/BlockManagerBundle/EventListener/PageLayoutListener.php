@@ -61,6 +61,14 @@ class PageLayoutListener implements EventSubscriberInterface
             return;
         }
 
+        $this->resolvePageLayout();
+    }
+
+    /**
+     * Resolves the pagelayout and injects it into global variable.
+     */
+    protected function resolvePageLayout()
+    {
         $this->globalVariable->setPageLayoutTemplate(
             $this->pageLayoutResolver->resolvePageLayout()
         );
