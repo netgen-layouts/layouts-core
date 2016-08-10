@@ -244,6 +244,8 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.layout.mapper"
+            - "@netgen_block_manager.layout.resolver.registry.target_type"
+            - "@netgen_block_manager.layout.resolver.registry.condition_type"
 
     netgen_block_manager.core.service.layout_resolver:
         class: "%netgen_block_manager.core.service.layout_resolver.class%"

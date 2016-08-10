@@ -28,11 +28,11 @@ interface Condition extends Value
     public function getRuleId();
 
     /**
-     * Returns the type.
+     * Returns the condition type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    public function getType();
+    public function getConditionType();
 
     /**
      * Returns the condition value.

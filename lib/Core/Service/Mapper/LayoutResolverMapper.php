@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
@@ -23,16 +25,34 @@ class LayoutResolverMapper extends Mapper
     protected $layoutMapper;
 
     /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     */
+    protected $targetTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     */
+    protected $conditionTypeRegistry;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
+     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
      */
-    public function __construct(Handler $persistenceHandler, LayoutMapper $layoutMapper)
-    {
+    public function __construct(
+        Handler $persistenceHandler,
+        LayoutMapper $layoutMapper,
+        TargetTypeRegistryInterface $targetTypeRegistry,
+        ConditionTypeRegistryInterface $conditionTypeRegistry
+    ) {
         parent::__construct($persistenceHandler);
 
         $this->layoutMapper = $layoutMapper;
+        $this->targetTypeRegistry = $targetTypeRegistry;
+        $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
 
     /**
@@ -101,7 +121,9 @@ class LayoutResolverMapper extends Mapper
             'id' => $target->id,
             'status' => $target->status,
             'ruleId' => $target->ruleId,
-            'type' => $target->type,
+            'targetType' => $this->targetTypeRegistry->getTargetType(
+                $target->type
+            ),
             'value' => $target->value,
         );
 
@@ -123,7 +145,9 @@ class LayoutResolverMapper extends Mapper
             'id' => $condition->id,
             'status' => $condition->status,
             'ruleId' => $condition->ruleId,
-            'type' => $condition->type,
+            'conditionType' => $this->conditionTypeRegistry->getConditionType(
+                $condition->type
+            ),
             'value' => $condition->value,
         );
 

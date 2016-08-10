@@ -155,7 +155,7 @@ class LayoutResolverValidatorTest extends TestCase
 
         $this->assertTrue(
             $this->layoutResolverValidator->validateTargetUpdateStruct(
-                new Target(array('type' => 'target')),
+                new Target(array('targetType' => new TargetType('target'))),
                 new TargetUpdateStruct($params)
             )
         );
@@ -194,7 +194,7 @@ class LayoutResolverValidatorTest extends TestCase
 
         $this->assertTrue(
             $this->layoutResolverValidator->validateConditionUpdateStruct(
-                new Condition(array('type' => 'condition')),
+                new Condition(array('conditionType' => new ConditionType('condition'))),
                 new ConditionUpdateStruct($params)
             )
         );

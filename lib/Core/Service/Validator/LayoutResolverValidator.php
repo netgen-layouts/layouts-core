@@ -199,7 +199,7 @@ class LayoutResolverValidator extends Validator
      */
     public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
-        $targetType = $this->targetTypeRegistry->getTargetType($target->getType());
+        $targetType = $target->getTargetType();
 
         $this->validate(
             $targetUpdateStruct->value,
@@ -253,7 +253,7 @@ class LayoutResolverValidator extends Validator
      */
     public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
-        $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getType());
+        $conditionType = $condition->getConditionType();
 
         $this->validate(
             $conditionUpdateStruct->value,

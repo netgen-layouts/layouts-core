@@ -7,10 +7,8 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolver;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
-use Netgen\BlockManager\Layout\Resolver\Target;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
 
@@ -27,11 +25,6 @@ class LayoutResolverTest extends TestCase
     protected $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
-     */
-    protected $conditionTypeRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
      */
     protected $layoutResolver;
@@ -42,12 +35,9 @@ class LayoutResolverTest extends TestCase
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
 
-        $this->conditionTypeRegistry = new ConditionTypeRegistry();
-
         $this->layoutResolver = new LayoutResolver(
             $this->layoutResolverServiceMock,
-            $this->targetTypeRegistry,
-            $this->conditionTypeRegistry
+            $this->targetTypeRegistry
         );
     }
 
@@ -217,8 +207,7 @@ class LayoutResolverTest extends TestCase
     {
         $conditions = array();
         foreach ($matches as $conditionType => $match) {
-            $this->conditionTypeRegistry->addConditionType(new ConditionType($conditionType, $match));
-            $conditions[] = new Condition(array('type' => $conditionType));
+            $conditions[] = new Condition(array('conditionType' => new ConditionType($conditionType, $match)));
         }
 
         $rule = new Rule(

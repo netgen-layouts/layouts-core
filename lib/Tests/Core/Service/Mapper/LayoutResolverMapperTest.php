@@ -81,11 +81,15 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
 
+        $this->assertEquals(
+            $this->targetTypeRegistry->getTargetType('target'),
+            $target->getTargetType()
+        );
+
         $this->assertInstanceOf(APITarget::class, $target);
         $this->assertEquals(1, $target->getId());
         $this->assertEquals(APIRule::STATUS_PUBLISHED, $target->getStatus());
         $this->assertEquals(42, $target->getRuleId());
-        $this->assertEquals('target', $target->getType());
         $this->assertEquals(42, $target->getValue());
     }
 
@@ -106,11 +110,15 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $condition = $this->layoutResolverMapper->mapCondition($persistenceCondition);
 
+        $this->assertEquals(
+            $this->conditionTypeRegistry->getConditionType('condition'),
+            $condition->getConditionType()
+        );
+
         $this->assertInstanceOf(APICondition::class, $condition);
         $this->assertEquals(1, $condition->getId());
         $this->assertEquals(APIRule::STATUS_PUBLISHED, $condition->getStatus());
         $this->assertEquals(42, $condition->getRuleId());
-        $this->assertEquals('condition', $condition->getType());
         $this->assertEquals(42, $condition->getValue());
     }
 }

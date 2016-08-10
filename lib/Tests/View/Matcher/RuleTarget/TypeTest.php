@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\View\View\RuleTargetView;
 use Netgen\BlockManager\View\Matcher\RuleTarget\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -32,7 +33,7 @@ class TypeTest extends TestCase
     {
         $target = new Target(
             array(
-                'type' => 'route',
+                'targetType' => new TargetType('route'),
             )
         );
 

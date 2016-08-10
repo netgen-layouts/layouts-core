@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\View\View\RuleConditionView;
 use Netgen\BlockManager\View\Matcher\RuleCondition\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -32,7 +33,7 @@ class TypeTest extends TestCase
     {
         $condition = new Condition(
             array(
-                'type' => 'route_parameter',
+                'conditionType' => new ConditionType('route_parameter'),
             )
         );
 

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Layout\Resolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 
 class LayoutResolver implements LayoutResolverInterface
@@ -20,25 +19,17 @@ class LayoutResolver implements LayoutResolverInterface
     protected $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
-     */
-    protected $conditionTypeRegistry;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
      */
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        TargetTypeRegistryInterface $targetTypeRegistry,
-        ConditionTypeRegistryInterface $conditionTypeRegistry
+        TargetTypeRegistryInterface $targetTypeRegistry
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->targetTypeRegistry = $targetTypeRegistry;
-        $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
 
     /**
@@ -119,7 +110,7 @@ class LayoutResolver implements LayoutResolverInterface
     protected function matchConditions(array $conditions)
     {
         foreach ($conditions as $condition) {
-            $conditionType = $this->conditionTypeRegistry->getConditionType($condition->getType());
+            $conditionType = $condition->getConditionType();
             if (!$conditionType->matches($condition->getValue())) {
                 return false;
             }

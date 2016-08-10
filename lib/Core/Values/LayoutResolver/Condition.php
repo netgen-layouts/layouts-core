@@ -23,9 +23,9 @@ class Condition extends ValueObject implements APICondition
     protected $ruleId;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    protected $type;
+    protected $conditionType;
 
     /**
      * @var mixed
@@ -63,13 +63,13 @@ class Condition extends ValueObject implements APICondition
     }
 
     /**
-     * Returns the type.
+     * Returns the condition type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    public function getType()
+    public function getConditionType()
     {
-        return $this->type;
+        return $this->conditionType;
     }
 
     /**

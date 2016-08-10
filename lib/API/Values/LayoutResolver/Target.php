@@ -30,9 +30,9 @@ interface Target extends Value
     /**
      * Returns the target type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    public function getType();
+    public function getTargetType();
 
     /**
      * Returns the target value.

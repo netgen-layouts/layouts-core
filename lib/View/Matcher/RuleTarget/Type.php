@@ -22,6 +22,6 @@ class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getTarget()->getType(), $config);
+        return in_array($view->getTarget()->getTargetType()->getType(), $config);
     }
 }

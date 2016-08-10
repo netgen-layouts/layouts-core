@@ -6,12 +6,16 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
 
 abstract class ServiceTestCase extends TestCase
@@ -30,6 +34,16 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     */
+    protected $targetTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     */
+    protected $conditionTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -118,6 +132,26 @@ abstract class ServiceTestCase extends TestCase
         $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition2);
         $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition3);
         $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition4);
+
+        $this->targetTypeRegistry = new TargetTypeRegistry();
+        $this->targetTypeRegistry->addTargetType(new TargetType('target'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('route'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('route_prefix'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('path_info'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('path_info_prefix'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('request_uri'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('request_uri_prefix'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('ezcontent'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('ezlocation'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('ezchildren'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('ezsubtree'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('ez_semantic_path_info'));
+        $this->targetTypeRegistry->addTargetType(new TargetType('ez_semantic_path_info_prefix'));
+
+        $this->conditionTypeRegistry = new ConditionTypeRegistry();
+        $this->conditionTypeRegistry->addConditionType(new ConditionType('condition'));
+        $this->conditionTypeRegistry->addConditionType(new ConditionType('ez_site_access'));
+        $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
     }
 
     /**

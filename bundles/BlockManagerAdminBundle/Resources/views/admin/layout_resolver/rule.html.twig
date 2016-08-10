@@ -78,7 +78,7 @@
         <div class="nl-grid">
             <div class="col-xs6">
                 {% if rule.targets|length > 0 %}
-                    <p>{{ ('layout_resolver.rule.target_header.' ~ rule.targets[0].type)|trans }}:</p>
+                    <p>{{ ('layout_resolver.rule.target_header.' ~ rule.targets[0].targetType.type)|trans }}:</p>
 
                     <ul class="settings-list target-list">
                         {% for target in rule.targets %}
@@ -102,7 +102,7 @@
                             {% endif %}
 
                             <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
-                                {% if rule.targets|length > 0 %} data-target-type="{{ rule.targets[0].type }}" {% endif %}>
+                                {% if rule.targets|length > 0 %} data-target-type="{{ rule.targets[0].targetType.type }}" {% endif %}>
                                 <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_target'|trans }}
                             </a>
                         </div>

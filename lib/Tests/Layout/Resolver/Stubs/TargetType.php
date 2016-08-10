@@ -23,7 +23,7 @@ class TargetType implements TargetTypeInterface
      * @param string $type
      * @param mixed $value
      */
-    public function __construct($type, $value)
+    public function __construct($type, $value = null)
     {
         $this->type = $type;
         $this->value = $value;

@@ -23,9 +23,9 @@ class Target extends ValueObject implements APITarget
     protected $ruleId;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    protected $type;
+    protected $targetType;
 
     /**
      * @var mixed
@@ -65,11 +65,11 @@ class Target extends ValueObject implements APITarget
     /**
      * Returns the target type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    public function getType()
+    public function getTargetType()
     {
-        return $this->type;
+        return $this->targetType;
     }
 
     /**

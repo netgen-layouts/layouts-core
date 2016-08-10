@@ -152,7 +152,9 @@ trait TestCaseTrait
     {
         return new LayoutResolverMapper(
             $this->persistenceHandler,
-            $this->createLayoutMapper()
+            $this->createLayoutMapper(),
+            $this->targetTypeRegistry,
+            $this->conditionTypeRegistry
         );
     }
 }

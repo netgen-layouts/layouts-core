@@ -396,9 +396,7 @@ class LayoutResolverController extends Controller
      */
     public function targetEditForm(TargetDraft $target, Request $request)
     {
-        $targetType = $this->targetTypeRegistry->getTargetType(
-            $target->getType()
-        );
+        $targetType = $target->getTargetType();
 
         $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
         $updateStruct->value = $target->getValue();
@@ -530,9 +528,7 @@ class LayoutResolverController extends Controller
      */
     public function conditionEditForm(ConditionDraft $condition, Request $request)
     {
-        $conditionType = $this->conditionTypeRegistry->getConditionType(
-            $condition->getType()
-        );
+        $conditionType = $condition->getConditionType();
 
         $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();
         $updateStruct->value = $condition->getValue();

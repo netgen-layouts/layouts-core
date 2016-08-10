@@ -2,7 +2,7 @@
 
 <span class="settings-value editable-value js-setting-edit" data-setting-id="{{ condition.id }}" data-setting-type="condition">
     {% if condition.value.parameter_name is defined and condition.value.parameter_values is defined %}
-        {{ ('layout_resolver.condition.' ~ condition.type)|trans }}
+        {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans }}
         <br /><br />
         {{ 'layout_resolver.condition.route_parameter.parameter_name'|trans }}: {{ condition.value.parameter_name }}
         <br />
