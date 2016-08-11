@@ -4,6 +4,7 @@ layout.block.move: 'Move block'
 layout.block.delete: 'Delete block'
 layout.block.revert: 'Revert'
 layout.block.revert_note: 'To published version'
+layout.block.maximize: 'Maximize'
 
 block.edit.tabs.content: 'Content'
 block.edit.tabs.design: 'Design'
