@@ -32,7 +32,7 @@ API tests are functional tests, meaning they need a fully functional Symfony app
 To run the tests, you need to require some Composer packages:
 
 ```
-composer require lakion/api-test-case:*
+composer require lakion/api-test-case:^1.0
 ```
 
 Afterwards, running tests is as simple as calling the following command:

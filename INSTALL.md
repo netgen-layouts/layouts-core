@@ -100,7 +100,8 @@ All of your full views need to extend `ngbm.layoutTemplate` variable. If layout 
 this variable will hold the name of the template belonging to the resolved layout. In case when
 layout was not resolved, it will hold the name of your main pagelayout template (the one your
 full views previously extended: see below for configuring the main pagelayout template). This
-makes it possible for your full view templates to be fully generic.
+makes it possible for your full view templates to be fully generic, that is, not depend whether
+there is a resolved layout or not.
 
 Configuring your main pagelayout template
 -----------------------------------------
@@ -113,15 +114,14 @@ netgen_block_manager:
     pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
 ```
 
-If using eZ Platform, there's no need setting the main pagelayout, since it will be picked up
-automatically from your eZ Platform config.
+If using eZ Platform 1.3 or later, there's no need setting the main pagelayout, since it will be
+picked up automatically from your pagelayout siteaccess config.
 
 Adjusting your base pagelayout template
 ---------------------------------------
 
 To actually display the resolved layout template in your page, you need to modify your main pagelayout
-template and wrap your main Twig block in another block named `layout`. For example, if your main Twig
-block is named `content`, your pagelayout needs to look like this:
+template to include a Twig block named `layout` which wraps a `content` Twig block and looks like this:
 
 ```
 {% block layout %}
@@ -129,10 +129,10 @@ block is named `content`, your pagelayout needs to look like this:
 {% endblock %}
 ```
 
-There are two goals to wrapping your main block like this:
+There are two goals to achieve with the above Twig block:
 
-* If no layout could be resolved for current page, your full view templates will just keep using the main block
-  `content` as before
-* If layout is resolved, it will use the `layout` block, in which case `content` block will not be used. You
-  will of course need to make sure that in this case, all your layouts have a block in one of the zones
-  which will display your main Twig block from full view templates
+* If no layout could be resolved for current page, your full view templates will just keep using the `content`
+  Twig block as before
+* If layout is resolved, it will use the `layout` block, in which case `content` Twig block will not be used. You
+  will of course need to make sure that in this case, all your layouts have a full view block in one of the zones
+  which will display your `content` Twig block from full view templates
