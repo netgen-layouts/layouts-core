@@ -4,8 +4,9 @@
 <html lang="{{ app.request.locale|replace({'_': '-'}) }}">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#02a6f2">
 
     {% include 'NetgenBlockManagerAdminBundle:admin:head.html.twig' %}
 
@@ -14,7 +15,6 @@
     <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-16x16.png', 'ngbm_admin_images') }}" sizes="16x16">
     <link rel="manifest" href="{{ asset('favicon/manifest.json', 'ngbm_admin_images') }}">
     <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg', 'ngbm_admin_images') }}" color="#5bbad5">
-    <meta name="theme-color" content="#383838">
 
     {% block title %}
         <title>{{ 'pagelayout.title'|trans }}</title>
