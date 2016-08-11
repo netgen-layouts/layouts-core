@@ -5,14 +5,22 @@ _ngbm_admin_redirect:
 
 # Regular routes follow
 
+ngbm_admin:
+    path: /admin/
+    methods: [GET]
+    defaults:
+        _controller: "FrameworkBundle:Redirect:redirect"
+        route: ngbm_admin_layout_resolver_index
+        permanent: true
+
 _ngbm_admin_layout_resolver:
     resource: "admin/layout_resolver.yml"
-    prefix: /layout_resolver
+    prefix: /admin/layout_resolver
 
 _ngbm_admin_layouts:
     resource: "admin/layouts.yml"
-    prefix: /layouts
+    prefix: /admin/layouts
 
 _ngbm_admin_shared_layouts:
     resource: "admin/shared_layouts.yml"
-    prefix: /shared_layouts
+    prefix: /admin/shared_layouts

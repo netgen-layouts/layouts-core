@@ -4,7 +4,6 @@ _ngbm_api_v1:
 
 _ngbm_admin:
     resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/admin.yml"
-    prefix: /admin
 
 _ngbm_app:
     resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/app.yml"
