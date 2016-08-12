@@ -17,10 +17,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $this->setUpClient();
 
-        $this->prepareDatabase(
-            __DIR__ . '/../../../../../lib/Tests/_fixtures/schema',
-            __DIR__ . '/../../../../../lib/Tests/_fixtures'
-        );
+        $this->prepareDatabase(__DIR__ . '/../../../../../lib/Tests/_fixtures');
 
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }

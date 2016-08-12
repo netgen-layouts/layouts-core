@@ -33,16 +33,18 @@ trait DatabaseTrait
     /**
      * Sets up the database connection.
      *
-     * @param string $schemaPath
      * @param string $fixturesPath
-     * @param bool $useMigrations
      */
-    protected function prepareDatabase($schemaPath, $fixturesPath, $useMigrations = false)
+    protected function prepareDatabase($fixturesPath)
     {
         $this->databaseUri = getenv('DATABASE');
         if (empty($this->databaseUri)) {
             $this->databaseUri = $this->inMemoryDsn;
         }
+
+        $useMigrations = getenv('USE_MIGRATIONS') === 'true';
+
+        $schemaPath = rtrim($fixturesPath, '/') . '/schema';
 
         preg_match('/^(?<db>.+):\/\//', $this->databaseUri, $matches);
         $this->databaseServer = $matches['db'];
