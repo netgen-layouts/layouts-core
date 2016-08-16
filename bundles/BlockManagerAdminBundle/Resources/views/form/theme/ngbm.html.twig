@@ -1,15 +1,15 @@
-{%- use 'form_div_layout.html.twig' with form_row as base_form_row -%}
-
 {%- block form_row -%}
-    {%- if 'checkbox' in block_prefixes or 'radio' in block_prefixes -%}
-        <div>
-            {{- form_errors(form) -}}
+    <div {% if errors|length > 0 %} class="error-input" {% endif %}>
+        {%- if 'checkbox' in block_prefixes or 'radio' in block_prefixes -%}
             {{- form_widget(form) -}}
             {{- form_label(form) -}}
-        </div>
-    {%- else -%}
-        {{- block('base_form_row') -}}
-    {%- endif -%}
+            {{- form_errors(form) -}}
+        {%- else -%}
+            {{- form_label(form) -}}
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        {%- endif -%}
+    </div>
 {%- endblock form_row -%}
 
 {%- block form_errors -%}
