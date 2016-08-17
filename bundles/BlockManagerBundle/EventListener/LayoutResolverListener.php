@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
@@ -82,7 +81,7 @@ class LayoutResolverListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ($event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+        if (!$event->isMasterRequest()) {
             return;
         }
 
