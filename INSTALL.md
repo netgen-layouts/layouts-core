@@ -30,24 +30,6 @@ $bundles[] = new Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBu
 return $bundles;
 ```
 
-If using eZ Platform, you also need to activate `NetgenEzPublishBlockManagerBundle`. Make sure it is activated after all other bundles:
-
-```
-...
-
-$bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
-$bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
-$bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
-$bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
-$bundles[] = new Netgen\Bundle\ContentBrowserUIBundle\NetgenContentBrowserUIBundle();
-$bundles[] = new Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle();
-$bundles[] = new Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle();
-$bundles[] = new Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBundle();
-$bundles[] = new Netgen\Bundle\EzPublishBlockManagerBundle\NetgenEzPublishBlockManagerBundle();
-
-return $bundles;
-```
-
 Import database schema
 ----------------------
 
@@ -113,9 +95,6 @@ somewhere in your application:
 netgen_block_manager:
     pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
 ```
-
-If using eZ Platform 1.3 or later, there's no need setting the main pagelayout, since it will be
-picked up automatically from your pagelayout siteaccess config.
 
 Adjusting your base pagelayout template
 ---------------------------------------
