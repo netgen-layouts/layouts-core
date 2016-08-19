@@ -99,7 +99,7 @@ class ResultGenerator implements ResultGeneratorInterface
         }
 
         $resultItems = array();
-        for ($i = $offset, $queryValuesIndex = 0;; ++$i) {
+        for ($i = $offset, $queryValuesIndex = 0; ; ++$i) {
             if ($limit !== null && $i >= $offset + $limit) {
                 break;
             }
@@ -173,7 +173,7 @@ class ResultGenerator implements ResultGeneratorInterface
 
         $totalCount = 0;
 
-        for ($i = 0;; ++$i) {
+        for ($i = 0; ; ++$i) {
             if (isset($overrideItems[$i])) {
                 ++$totalCount;
                 --$queryCount;

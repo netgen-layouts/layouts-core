@@ -26,7 +26,7 @@ class ParameterFilterDataTransformer implements DataTransformerInterface
      *
      * @param mixed $value The value in the original representation
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException When the transformation fails.
+     * @throws \Symfony\Component\Form\Exception\TransformationFailedException When the transformation fails
      *
      * @return mixed The value in the transformed representation
      */
@@ -45,7 +45,7 @@ class ParameterFilterDataTransformer implements DataTransformerInterface
      *
      * @param mixed $value The value in the transformed representation
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException When the transformation fails.
+     * @throws \Symfony\Component\Form\Exception\TransformationFailedException When the transformation fails
      *
      * @return mixed The value in the original representation
      */

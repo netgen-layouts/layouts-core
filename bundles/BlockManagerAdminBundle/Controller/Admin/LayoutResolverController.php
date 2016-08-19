@@ -119,7 +119,7 @@ class LayoutResolverController extends Controller
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout does not exist.
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
@@ -390,7 +390,7 @@ class LayoutResolverController extends Controller
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist.
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
@@ -522,7 +522,7 @@ class LayoutResolverController extends Controller
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist.
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */

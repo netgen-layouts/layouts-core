@@ -212,7 +212,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param int $offset
      * @param int $limit
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided identifier already exists within the block.
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided identifier already exists within the block
      */
     public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
     {

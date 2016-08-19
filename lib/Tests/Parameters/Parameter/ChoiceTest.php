@@ -81,15 +81,19 @@ class ChoiceTest extends TestCase
      */
     public function defaultValueProvider()
     {
+        $optionsClosure = function () {
+            return array('Option' => 'option');
+        };
+
         return array(
             array(array('options' => array('Option' => 'option')), true, null, 'option'),
             array(array('options' => array('Option' => 'option')), false, null, null),
             array(array('options' => array('Option' => 'option')), true, 'value', 'value'),
             array(array('options' => array('Option' => 'option')), false, 'value', 'value'),
-            array(array('options' => function () {return array('Option' => 'option');}), true, null, null),
-            array(array('options' => function () {return array('Option' => 'option');}), false, null, null),
-            array(array('options' => function () {return array('Option' => 'option');}), true, 'value', 'value'),
-            array(array('options' => function () {return array('Option' => 'option');}), false, 'value', 'value'),
+            array(array('options' => $optionsClosure), true, null, null),
+            array(array('options' => $optionsClosure), false, null, null),
+            array(array('options' => $optionsClosure), true, 'value', 'value'),
+            array(array('options' => $optionsClosure), false, 'value', 'value'),
         );
     }
 
@@ -151,11 +155,13 @@ class ChoiceTest extends TestCase
             array(
                 array(
                     'multiple' => true,
-                    'options' => function () {},
+                    'options' => function () {
+                    },
                 ),
                 array(
                     'multiple' => true,
-                    'options' => function () {},
+                    'options' => function () {
+                    },
                 ),
             ),
         );
@@ -224,7 +230,11 @@ class ChoiceTest extends TestCase
      */
     public function testValidationWithClosure($value, $isValid)
     {
-        $parameter = $this->getParameter(array('options' => function () {return array('One' => 1, 'Two' => 2);}));
+        $closure = function () {
+            return array('One' => 1, 'Two' => 2);
+        };
+
+        $parameter = $this->getParameter(array('options' => $closure));
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $parameter->getConstraints());

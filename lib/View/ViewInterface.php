@@ -82,7 +82,7 @@ interface ViewInterface
      *
      * @param string $identifier
      *
-     * @throws \OutOfBoundsException If view does not have the parameter.
+     * @throws \OutOfBoundsException If view does not have the parameter
      *
      * @return mixed
      */

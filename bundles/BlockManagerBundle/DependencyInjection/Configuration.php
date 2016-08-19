@@ -456,7 +456,9 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
                 ->canBeDisabled()
                 ->beforeNormalization()
-                    ->ifTrue(function ($v) { return is_array($v) && !array_key_exists('queries', $v); })
+                    ->ifTrue(function ($v) {
+                        return is_array($v) && !array_key_exists('queries', $v);
+                    })
                     ->then(function ($v) {
                         // Key that should not be rewritten to the query config
                         $excludedKeys = array('name' => true);
