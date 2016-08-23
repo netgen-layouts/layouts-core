@@ -9,7 +9,7 @@ _ngbm_admin_no_slash:
     methods: [GET]
     defaults:
         _controller: "FrameworkBundle:Redirect:redirect"
-        route: ngbm_admin_layout_resolver_index
+        route: ngbm_admin
         permanent: true
 
 ngbm_admin_layout_resolver_index_no_slash:
