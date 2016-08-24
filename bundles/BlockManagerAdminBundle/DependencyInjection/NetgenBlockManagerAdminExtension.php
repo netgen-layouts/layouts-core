@@ -6,6 +6,7 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
@@ -41,7 +42,15 @@ class NetgenBlockManagerAdminExtension extends Extension implements PrependExten
      */
     public function prepend(ContainerBuilder $container)
     {
+        $loader = new XmlFileLoader(
+            $container,
+            new FileLocator(__DIR__ . '/../Resources/config')
+        );
+
+        $loader->load('framework/assets.xml');
+
         $prependConfigs = array(
+            'framework/assets.yml' => 'framework',
             'view/form_view.yml' => 'netgen_block_manager',
             'view/rule_condition_view.yml' => 'netgen_block_manager',
             'view/rule_target_view.yml' => 'netgen_block_manager',
