@@ -95,6 +95,8 @@ class LayoutNormalizer implements NormalizerInterface
         $zones = array();
 
         foreach ($layout->getZones() as $zoneIdentifier => $zone) {
+            $linkedZone = $this->layoutService->findLinkedZone($zone);
+
             $zones[] = array(
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
@@ -108,8 +110,8 @@ class LayoutNormalizer implements NormalizerInterface
                     $zone,
                     $layoutType
                 ),
-                'linked_layout_id' => $zone->getLinkedLayoutId(),
-                'linked_zone_identifier' => $zone->getLinkedZoneIdentifier(),
+                'linked_layout_id' => $linkedZone ? $linkedZone->getLayoutId() : null,
+                'linked_zone_identifier' => $linkedZone ? $linkedZone->getIdentifier() : null,
             );
         }
 
