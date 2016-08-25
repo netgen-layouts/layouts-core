@@ -6,6 +6,5 @@
     <parameters>
         <parameter key="ngbm_admin.asset.version" type="constant">Netgen\BlockManager\Version::VERSION_ID</parameter>
         <parameter key="ngbm_app.asset.version" type="constant">Netgen\Bundle\BlockManagerUIBundle\Version::VERSION_ID</parameter>
-        <parameter key="ngcb.asset.version" type="constant">Netgen\Bundle\ContentBrowserUIBundle\Version::VERSION_ID</parameter>
     </parameters>
 </container>
