@@ -91,7 +91,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             $configs = $preProcessor($configs, $container);
         }
 
-        $configuration = new Configuration($extensionAlias, $this->configTreeBuilders);
+        $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
         foreach ($this->postProcessors as $postProcessor) {
@@ -139,6 +139,19 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             $container->prependExtensionConfig($prependConfig, $config);
             $container->addResource(new FileResource($configFile));
         }
+    }
+
+    /**
+     * Returns extension configuration.
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return new Configuration($this->getAlias(), $this->configTreeBuilders);
     }
 
     /**
