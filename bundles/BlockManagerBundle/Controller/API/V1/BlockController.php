@@ -98,6 +98,24 @@ class BlockController extends Controller
     }
 
     /**
+     * Copies the block draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function copy(BlockDraft $block, Request $request)
+    {
+        $copiedBlock = $this->blockService->copyBlock(
+            $block,
+            $request->request->get('zone_identifier')
+        );
+
+        return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
+    }
+
+    /**
      * Moves the block draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
