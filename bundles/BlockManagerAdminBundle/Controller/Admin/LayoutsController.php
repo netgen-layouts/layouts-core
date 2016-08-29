@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
+use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,6 +38,20 @@ class LayoutsController extends Controller
                 'layouts' => $this->layoutService->loadLayouts(),
             )
         );
+    }
+
+    /**
+     * Copies a layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
+     */
+    public function copyLayout(LayoutInfo $layout)
+    {
+        $copiedLayout = $this->layoutService->copyLayout($layout);
+
+        return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**

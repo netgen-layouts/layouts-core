@@ -464,11 +464,11 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Copies a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
      */
-    public function copyLayout(Layout $layout)
+    public function copyLayout(LayoutInfo $layout)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
@@ -485,9 +485,16 @@ class LayoutService implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout(
-            $this->layoutHandler->loadLayout($copiedLayoutId, $persistenceLayout->status)
+        $copiedLayout = $this->layoutHandler->loadLayout(
+            $copiedLayoutId,
+            $persistenceLayout->status
         );
+
+        if ($layout instanceof Layout) {
+            return $this->layoutMapper->mapLayout($copiedLayout);
+        }
+
+        return $this->layoutMapper->mapLayoutInfo($copiedLayout);
     }
 
     /**

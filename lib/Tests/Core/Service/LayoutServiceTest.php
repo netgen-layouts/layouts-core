@@ -518,6 +518,20 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testCopyLayout()
     {
+        $layout = $this->layoutService->loadLayoutInfo(1);
+        $copiedLayout = $this->layoutService->copyLayout($layout);
+
+        $this->assertInstanceOf(LayoutInfo::class, $copiedLayout);
+        $this->assertNotInstanceOf(Layout::class, $copiedLayout);
+
+        $this->assertEquals(6, $copiedLayout->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     */
+    public function testCopyLayoutWithLayout()
+    {
         $layout = $this->layoutService->loadLayout(1);
         $copiedLayout = $this->layoutService->copyLayout($layout);
 

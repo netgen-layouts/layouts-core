@@ -169,11 +169,11 @@ interface LayoutService
     /**
      * Copies a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
      */
-    public function copyLayout(Layout $layout);
+    public function copyLayout(LayoutInfo $layout);
 
     /**
      * Creates a layout draft.

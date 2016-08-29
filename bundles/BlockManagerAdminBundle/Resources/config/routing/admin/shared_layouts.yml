@@ -4,6 +4,12 @@ ngbm_admin_shared_layouts_index:
     defaults:
         _controller: "netgen_block_manager.controller.admin.shared_layouts:index"
 
+ngbm_admin_shared_layouts_layout_copy:
+    path: /{layoutId}/copy
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layouts:copyLayout"
+
 ngbm_admin_shared_layouts_layout_delete:
     path: /{layoutId}
     methods: [DELETE]
