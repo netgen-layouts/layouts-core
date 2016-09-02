@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
@@ -56,7 +57,13 @@ class GetDynamicParametersListenerTest extends TestCase
         $this->listener->onBuildView($event);
 
         $this->assertEquals(
-            array('definition_param' => 'definition_value'),
+            array(
+                'dynamic_parameters' => new Collection(
+                    array(
+                        'definition_param' => 'definition_value',
+                    )
+                ),
+            ),
             $event->getViewParameters()
         );
     }
