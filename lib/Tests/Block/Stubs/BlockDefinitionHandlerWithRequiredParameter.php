@@ -26,7 +26,7 @@ class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHan
     /**
      * Returns if this block definition should have a collection.
      *
-     * @return array
+     * @return bool
      */
     public function hasCollection()
     {

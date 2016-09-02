@@ -93,7 +93,7 @@ class GalleryHandler extends BlockDefinitionHandler
     /**
      * Returns if this block definition should have a collection.
      *
-     * @return array
+     * @return bool
      */
     public function hasCollection()
     {
