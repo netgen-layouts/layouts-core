@@ -9,6 +9,10 @@ view:
                 template: "NetgenBlockManagerBundle:block:text.html.twig"
                 match:
                     block\definition: text
+            markdown:
+                template: "NetgenBlockManagerBundle:block:markdown.html.twig"
+                match:
+                    block\definition: markdown
             rich_text:
                 template: "NetgenBlockManagerBundle:block:rich_text.html.twig"
                 match:
@@ -70,6 +74,11 @@ view:
                 template: "NetgenBlockManagerBundle:api/block:text.html.twig"
                 match:
                     block\definition: text
+                    api_version: 1
+            markdown:
+                template: "NetgenBlockManagerBundle:api/block:markdown.html.twig"
+                match:
+                    block\definition: markdown
                     api_version: 1
             rich_text:
                 template: "NetgenBlockManagerBundle:api/block:rich_text.html.twig"

@@ -13,6 +13,11 @@ block_types:
             parameters:
                 content: 'Text'
 
+    markdown:
+        name: 'Markdown'
+        definition_identifier: markdown
+        enabled: false
+
     rich_text:
         name: 'Rich text'
         definition_identifier: rich_text

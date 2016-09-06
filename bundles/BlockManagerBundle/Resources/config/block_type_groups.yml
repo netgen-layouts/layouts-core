@@ -1,7 +1,7 @@
 block_type_groups:
     basic:
         name: 'Basic'
-        block_types: [title, text, rich_text, external_video, map, html_snippet]
+        block_types: [title, text, markdown, rich_text, external_video, map, html_snippet]
     listing:
         name: 'Listing'
         block_types: [list, grid]

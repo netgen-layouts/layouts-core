@@ -9,6 +9,11 @@ block_definitions:
             text:
                 name: 'Text'
 
+    markdown:
+        view_types:
+            markdown:
+                name: 'Markdown'
+
     rich_text:
         view_types:
             rich_text:

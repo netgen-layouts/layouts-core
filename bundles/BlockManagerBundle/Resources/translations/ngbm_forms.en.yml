@@ -17,6 +17,11 @@ block.text.css_class: 'CSS class'
 block.text.css_id: 'CSS ID'
 block.text.set_container: 'Wrap in container'
 
+block.markdown.content: 'Content'
+block.markdown.css_class: 'CSS class'
+block.markdown.css_id: 'CSS ID'
+block.markdown.set_container: 'Wrap in container'
+
 block.rich_text.content: 'Content'
 block.rich_text.css_class: 'CSS class'
 block.rich_text.css_id: 'CSS ID'
