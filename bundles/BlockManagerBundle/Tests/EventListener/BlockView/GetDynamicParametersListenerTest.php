@@ -11,7 +11,6 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\Event\View\ViewEvents;
-use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class GetDynamicParametersListenerTest extends TestCase
@@ -26,9 +25,7 @@ class GetDynamicParametersListenerTest extends TestCase
      */
     public function setUp()
     {
-        $this->listener = new GetDynamicParametersListener(
-            array(ViewInterface::CONTEXT_DEFAULT)
-        );
+        $this->listener = new GetDynamicParametersListener();
     }
 
     /**
@@ -51,7 +48,6 @@ class GetDynamicParametersListenerTest extends TestCase
         $block = new Block(array('blockDefinition' => new BlockDefinition('def')));
 
         $view = new BlockView($block);
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
@@ -76,21 +72,6 @@ class GetDynamicParametersListenerTest extends TestCase
     {
         $view = new View(new Value());
         $event = new CollectViewParametersEvent($view);
-        $this->listener->onBuildView($event);
-
-        $this->assertEquals(array(), $event->getViewParameters());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener::onBuildView
-     */
-    public function testOnBuildViewWithWrongContext()
-    {
-        $view = new BlockView(new Block(array('blockDefinition' => new BlockDefinition('def'))));
-        $view->setContext(ViewInterface::CONTEXT_API);
-        $event = new CollectViewParametersEvent($view);
-
         $this->listener->onBuildView($event);
 
         $this->assertEquals(array(), $event->getViewParameters());

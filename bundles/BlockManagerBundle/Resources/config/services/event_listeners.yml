@@ -90,7 +90,5 @@ services:
 
     netgen_block_manager.event_listener.block_view.get_dynamic_parameters:
         class: "%netgen_block_manager.event_listener.block_view.get_dynamic_parameters.class%"
-        arguments:
-            - "%netgen_block_manager.block_view.dynamic_parameters_contexts%"
         tags:
             - { name: kernel.event_subscriber }
