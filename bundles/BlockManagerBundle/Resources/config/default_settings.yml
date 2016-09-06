@@ -2,19 +2,3 @@ parameters:
     netgen_block_manager.route_prefix: /bm
     netgen_block_manager.block_view.collection_results_contexts: ['default', 'api']
     netgen_block_manager.api.csrf_token_id: ngbm_api
-
-    netgen_block_manager.view.default_templates:
-        block_view:
-            default: 'NetgenBlockManagerBundle:block:block.html.twig'
-            api: 'NetgenBlockManagerBundle:api/block:block.html.twig'
-        item_view:
-            default: 'NetgenBlockManagerBundle:item:item.html.twig'
-            api: 'NetgenBlockManagerBundle:api/item:item.html.twig'
-        layout_info_view:
-            admin: 'NetgenBlockManagerAdminBundle:admin/layouts:layout.html.twig'
-        rule_view:
-            admin: 'NetgenBlockManagerAdminBundle:admin/layout_resolver:rule.html.twig'
-        rule_target_view:
-            admin: 'NetgenBlockManagerAdminBundle:admin/layout_resolver/target:target.html.twig'
-        rule_condition_view:
-            admin: 'NetgenBlockManagerAdminBundle:admin/layout_resolver/condition:condition.html.twig'

@@ -68,6 +68,7 @@ class Configuration implements ConfigurationInterface
     {
         return array(
             $this->getViewNodeDefinition(),
+            $this->getDefaultViewTemplatesNodeDefinition(),
             $this->getBlockDefinitionsNodeDefinition(),
             $this->getBlockTypesNodeDefinition(),
             $this->getBlockTypeGroupsNodeDefinition(),
@@ -112,6 +113,31 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
+                ->end()
+            ->end();
+
+        return $node;
+    }
+
+    /**
+     * Returns node definition for template resolvers.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    public function getDefaultViewTemplatesNodeDefinition()
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root('default_view_templates');
+
+        $node
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('view')
+            ->prototype('array')
+                ->requiresAtLeastOneElement()
+                ->useAttributeAsKey('context')
+                ->prototype('scalar')
+                    ->isRequired()
+                    ->cannotBeEmpty()
                 ->end()
             ->end();
 

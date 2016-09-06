@@ -34,7 +34,7 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
      */
     protected function updateRules(ContainerBuilder $container, $allRules)
     {
-        $defaultTemplates = $container->getParameter('netgen_block_manager.view.default_templates');
+        $defaultTemplates = $container->getParameter('netgen_block_manager.default_view_templates');
 
         foreach ($defaultTemplates as $viewName => $viewTemplates) {
             foreach ($viewTemplates as $context => $template) {

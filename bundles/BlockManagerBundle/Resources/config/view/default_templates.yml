@@ -1,0 +1,7 @@
+default_view_templates:
+    block_view:
+        default: 'NetgenBlockManagerBundle:block:block.html.twig'
+        api: 'NetgenBlockManagerBundle:api/block:block.html.twig'
+    item_view:
+        default: 'NetgenBlockManagerBundle:item:item.html.twig'
+        api: 'NetgenBlockManagerBundle:api/item:item.html.twig'
