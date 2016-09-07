@@ -7,7 +7,7 @@
         <div class="panel-head-title">
 
             <div class="panel-icon">
-                <i class="material-icons" role="presentation">{% if layout.shared %}share{% else %}view_quilt{% endif %}</i>
+                <i class="layout-icon {% if layout.shared %}layout-icon-shared{% else %}{{ layout.layoutType.identifier }}{% endif %}"></i>
             </div>
 
             <div class="panel-name">
