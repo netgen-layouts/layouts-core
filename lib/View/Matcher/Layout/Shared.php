@@ -7,7 +7,7 @@ use Netgen\BlockManager\View\View\LayoutInfoViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-class Type implements MatcherInterface
+class Shared implements MatcherInterface
 {
     /**
      * Returns if the view matches the config.
@@ -23,6 +23,10 @@ class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getLayout()->getLayoutType()->getIdentifier(), $config);
+        if (empty($config)) {
+            return true;
+        }
+
+        return $view->getLayout()->isShared() === array_values($config)[0];
     }
 }

@@ -1,0 +1,7 @@
+view:
+    layout_info_view:
+        admin:
+            layout\shared:
+                template: "NetgenBlockManagerAdminBundle:admin/shared_layouts:layout.html.twig"
+                match:
+                    layout\shared: true
