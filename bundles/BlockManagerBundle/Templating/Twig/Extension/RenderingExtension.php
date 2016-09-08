@@ -339,6 +339,8 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param array $twigBlocks
      *
      * @throws \Exception If an error occurred
+     *
+     * @return string
      */
     protected function displayTwigBlock(
         TwigBlockDefinitionHandlerInterface $blockDefinitionHandler,

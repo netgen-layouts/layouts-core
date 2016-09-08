@@ -424,9 +424,7 @@ class RenderingExtensionTest extends TestCase
             array()
         );
 
-        $renderedTemplate = ob_get_contents();
-
-        ob_get_clean();
+        $renderedTemplate = ob_get_clean();
 
         $this->assertEquals(
             'rendered block 1rendered block 2',

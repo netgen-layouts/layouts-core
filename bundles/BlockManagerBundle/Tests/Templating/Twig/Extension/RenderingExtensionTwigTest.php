@@ -49,7 +49,9 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             ->will(
                 $this->returnCallback(
                     function ($block, $parameters, $context) {
-                        if ($context === ViewInterface::CONTEXT_DEFAULT) {
+                        if (isset($parameters['twig_block_content'])) {
+                            return $parameters['twig_block_content'];
+                        } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
                             return 'rendered block';
                         } elseif ($context === 'json') {
                             return '{"block_id": 5}';
