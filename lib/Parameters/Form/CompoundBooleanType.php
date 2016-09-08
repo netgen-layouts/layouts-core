@@ -31,6 +31,7 @@ class CompoundBooleanType extends ParametersType
                 'checkbox_label',
                 'checkbox_constraints',
                 'checkbox_property_path',
+                'checkbox_reverse',
             )
         );
 
@@ -39,10 +40,12 @@ class CompoundBooleanType extends ParametersType
         $resolver->setAllowedTypes('checkbox_label', 'string');
         $resolver->setAllowedTypes('checkbox_constraints', 'array');
         $resolver->setAllowedTypes('checkbox_property_path', 'string');
+        $resolver->setAllowedTypes('checkbox_reverse', 'bool');
 
         $resolver->setDefault('checkbox_name', '_self');
         $resolver->setDefault('checkbox_required', false);
         $resolver->setDefault('checkbox_constraints', array());
+        $resolver->setDefault('checkbox_reverse', false);
 
         $resolver->setDefault(
             'validation_groups',
@@ -76,7 +79,12 @@ class CompoundBooleanType extends ParametersType
                     return;
                 }
 
-                if (!isset($data[$options['checkbox_name']]) || !$data[$options['checkbox_name']]) {
+                $clearChildren = !isset($data[$options['checkbox_name']]) || !$data[$options['checkbox_name']];
+                if (isset($options['checkbox_reverse']) && $options['checkbox_reverse'] === true) {
+                    $clearChildren = !$clearChildren;
+                }
+
+                if ($clearChildren) {
                     foreach ($data as $key => $value) {
                         if ($key !== $options['checkbox_name']) {
                             $data[$key] = null;
@@ -120,6 +128,7 @@ class CompoundBooleanType extends ParametersType
 
         $view->vars = array(
             'checkbox_name' => $options['checkbox_name'],
+            'checkbox_reverse' => $options['checkbox_reverse'],
         ) + $view->vars;
     }
 

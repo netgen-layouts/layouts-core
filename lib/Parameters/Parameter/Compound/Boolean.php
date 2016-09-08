@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Parameter\Compound;
 
 use Netgen\BlockManager\Parameters\CompoundParameter;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class Boolean extends CompoundParameter
@@ -29,6 +30,18 @@ class Boolean extends CompoundParameter
         }
 
         return parent::getDefaultValue();
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    protected function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefault('reverse', false);
+        $optionsResolver->setRequired(array('reverse'));
+        $optionsResolver->setAllowedTypes('reverse', 'bool');
     }
 
     /**

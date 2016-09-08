@@ -34,6 +34,7 @@ class Boolean extends CompoundParameterHandler
             'checkbox_label' => $options['label_prefix'] . '.' . $parameterName,
             'checkbox_constraints' => $parameter->getConstraints(),
             'checkbox_property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
+            'checkbox_reverse' => $parameter->getOptions()['reverse'],
         ) + parent::getDefaultOptions($parameter, $parameterName, $options);
     }
 }

@@ -100,8 +100,26 @@ class BooleanTest extends TestCase
     {
         return array(
             array(
+                array(
+                    'reverse' => false,
+                ),
+                array(
+                    'reverse' => false,
+                ),
+            ),
+            array(
+                array(
+                    'reverse' => true,
+                ),
+                array(
+                    'reverse' => true,
+                ),
+            ),
+            array(
                 array(),
-                array(),
+                array(
+                    'reverse' => false,
+                ),
             ),
         );
     }
@@ -115,6 +133,9 @@ class BooleanTest extends TestCase
     {
         return array(
             array(
+                array(
+                    'reverse' => 'true',
+                ),
                 array(
                     'undefined_value' => 'Value',
                 ),

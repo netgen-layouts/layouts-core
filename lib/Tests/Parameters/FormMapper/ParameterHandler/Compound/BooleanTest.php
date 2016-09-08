@@ -43,13 +43,14 @@ class BooleanTest extends TestCase
                 'checkbox_required' => true,
                 'checkbox_label' => 'label.name',
                 'checkbox_property_path' => 'parameters[name]',
+                'checkbox_reverse' => true,
                 'checkbox_constraints' => array(
                     new Constraints\NotNull(),
                     new Constraints\Type(array('type' => 'bool')),
                 ),
             ),
             $this->parameterHandler->getDefaultOptions(
-                new BooleanParameter(array(), array(), true),
+                new BooleanParameter(array(), array('reverse' => true), true),
                 'name',
                 array(
                     'parameter_validation_groups' => array('group'),

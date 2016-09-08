@@ -195,6 +195,121 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
+     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     */
+    public function testSubmitValidDataWithReverseMode()
+    {
+        $submittedData = array(
+            'main_checkbox' => array(
+                '_self' => '1',
+                'css_id' => 'Some CSS ID',
+                'css_class' => 'Some CSS class',
+            ),
+        );
+
+        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct->setParameter('main_checkbox', true);
+
+        $parentForm = $this->factory->create(
+            FormType::class,
+            $this->getMockForAbstractClass(ParameterStruct::class)
+        );
+
+        $parentForm->add(
+            'main_checkbox',
+            CompoundBooleanType::class,
+            array(
+                'parameters' => array(
+                    'css_class' => new TextLineParameter(),
+                    'css_id' => new TextLineParameter(),
+                ),
+                'label_prefix' => 'label',
+                'property_path_prefix' => 'parameters',
+                'checkbox_label' => 'checkbox_label',
+                'checkbox_property_path' => 'parameters[main_checkbox]',
+                'checkbox_reverse' => true,
+            )
+        );
+
+        $parentForm->submit($submittedData);
+
+        $this->assertTrue($parentForm->isSynchronized());
+        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $view = $parentForm->createView();
+        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
+        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
+
+        $children = $view->children;
+
+        $this->assertArrayHasKey('main_checkbox', $children);
+
+        foreach (array_keys($submittedData['main_checkbox']) as $key) {
+            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
+     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     */
+    public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode()
+    {
+        $submittedData = array(
+            'main_checkbox' => array(
+                'css_id' => 'Some CSS ID',
+                'css_class' => 'Some CSS class',
+            ),
+        );
+
+        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct->setParameter('main_checkbox', false);
+        $updatedStruct->setParameter('css_id', 'Some CSS ID');
+        $updatedStruct->setParameter('css_class', 'Some CSS class');
+
+        $parentForm = $this->factory->create(
+            FormType::class,
+            $this->getMockForAbstractClass(ParameterStruct::class)
+        );
+
+        $parentForm->add(
+            'main_checkbox',
+            CompoundBooleanType::class,
+            array(
+                'parameters' => array(
+                    'css_class' => new TextLineParameter(),
+                    'css_id' => new TextLineParameter(),
+                ),
+                'label_prefix' => 'label',
+                'property_path_prefix' => 'parameters',
+                'checkbox_label' => 'checkbox_label',
+                'checkbox_property_path' => 'parameters[main_checkbox]',
+                'checkbox_reverse' => true,
+            )
+        );
+
+        $parentForm->submit($submittedData);
+
+        $this->assertTrue($parentForm->isSynchronized());
+        $this->assertEquals($updatedStruct, $parentForm->getData());
+
+        $view = $parentForm->createView();
+        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
+        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
+
+        $children = $view->children;
+
+        $this->assertArrayHasKey('main_checkbox', $children);
+
+        foreach (array_keys($submittedData['main_checkbox']) as $key) {
+            $this->assertArrayHasKey($key, $children['main_checkbox']->children);
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::configureOptions
      */
     public function testConfigureOptions()
@@ -209,6 +324,7 @@ class CompoundBooleanTypeTest extends FormTestCase
             'property_path_prefix' => 'parameters',
             'checkbox_label' => 'checkbox_label',
             'checkbox_property_path' => 'checkbox_property_path',
+            'checkbox_reverse' => true,
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
@@ -223,6 +339,7 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals('_self', $resolvedOptions['checkbox_name']);
         $this->assertFalse($resolvedOptions['checkbox_required']);
         $this->assertEquals(array(), $resolvedOptions['checkbox_constraints']);
+        $this->assertTrue($resolvedOptions['checkbox_reverse']);
     }
 
     /**
