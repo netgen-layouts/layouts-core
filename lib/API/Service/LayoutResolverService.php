@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
@@ -47,6 +48,15 @@ interface LayoutResolverService
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
     public function loadRules($offset = 0, $limit = null);
+
+    /**
+     * Returns the number of rules pointing to provided layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     *
+     * @return int
+     */
+    public function getRuleCount(LayoutInfo $layout);
 
     /**
      * Returns all rules that match specified target type and value.

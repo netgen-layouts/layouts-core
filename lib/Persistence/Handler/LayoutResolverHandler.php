@@ -12,6 +12,7 @@ use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 interface LayoutResolverHandler
 {
@@ -37,6 +38,15 @@ interface LayoutResolverHandler
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
      */
     public function loadRules($status, $offset = 0, $limit = null);
+
+    /**
+     * Returns the number of rules pointing to provided layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     *
+     * @return int
+     */
+    public function getRuleCount(Layout $layout);
 
     /**
      * Returns all rules that match specified target type and value.

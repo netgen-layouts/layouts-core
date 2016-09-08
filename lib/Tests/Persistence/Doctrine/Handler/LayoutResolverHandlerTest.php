@@ -26,6 +26,11 @@ class LayoutResolverHandlerTest extends TestCase
     protected $handler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
+     */
+    protected $layoutHandler;
+
+    /**
      * Sets up the tests.
      */
     public function setUp()
@@ -33,6 +38,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->prepareHandlers();
 
         $this->handler = $this->createLayoutResolverHandler();
+        $this->layoutHandler = $this->createLayoutHandler();
     }
 
     /**
@@ -104,6 +110,19 @@ class LayoutResolverHandlerTest extends TestCase
         $rules = $this->handler->loadRules(Rule::STATUS_ARCHIVED);
 
         $this->assertEmpty($rules);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
+     */
+    public function testGetRuleCount()
+    {
+        $rules = $this->handler->getRuleCount(
+            $this->layoutHandler->loadLayout(1, Rule::STATUS_PUBLISHED)
+        );
+
+        $this->assertEquals(3, $rules);
     }
 
     /**

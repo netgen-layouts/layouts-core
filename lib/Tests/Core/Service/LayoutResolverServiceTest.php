@@ -17,10 +17,16 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
+use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 
 abstract class LayoutResolverServiceTest extends ServiceTestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutValidatorMock;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -33,8 +39,10 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         parent::setUp();
 
+        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
         $this->layoutResolverValidatorMock = $this->createMock(LayoutResolverValidator::class);
 
+        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
         $this->layoutResolverService = $this->createLayoutResolverService($this->layoutResolverValidatorMock);
     }
 
@@ -90,6 +98,18 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         foreach ($rules as $rule) {
             $this->assertInstanceOf(Rule::class, $rule);
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
+     */
+    public function testGetRuleCount()
+    {
+        $ruleCount = $this->layoutResolverService->getRuleCount(
+            $this->layoutService->loadLayoutInfo(1)
+        );
+
+        $this->assertEquals(3, $ruleCount);
     }
 
     /**

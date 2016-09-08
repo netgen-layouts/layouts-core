@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
+use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\View\Provider\LayoutInfoViewProvider;
 use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -12,13 +13,22 @@ use PHPUnit\Framework\TestCase;
 class LayoutInfoViewProviderTest extends TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutResolverServiceMock;
+
+    /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
     protected $layoutInfoViewProvider;
 
     public function setUp()
     {
-        $this->layoutInfoViewProvider = new LayoutInfoViewProvider();
+        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+
+        $this->layoutInfoViewProvider = new LayoutInfoViewProvider(
+            $this->layoutResolverServiceMock
+        );
     }
 
     /**
@@ -27,6 +37,12 @@ class LayoutInfoViewProviderTest extends TestCase
     public function testProvideView()
     {
         $layout = new LayoutInfo(array('id' => 42));
+
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
+            ->method('getRuleCount')
+            ->with($this->equalTo($layout))
+            ->will($this->returnValue(3));
 
         /** @var \Netgen\BlockManager\View\View\LayoutInfoViewInterface $view */
         $view = $this->layoutInfoViewProvider->provideView($layout);
@@ -38,6 +54,7 @@ class LayoutInfoViewProviderTest extends TestCase
         $this->assertEquals(
             array(
                 'layout' => $layout,
+                'rule_count' => 3,
             ),
             $view->getParameters()
         );

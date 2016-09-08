@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\RuleCreateStruct as APIRuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
@@ -91,6 +92,18 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $data = $this->mapper->mapRules($data);
 
         return $data;
+    }
+
+    /**
+     * Returns the number of rules pointing to provided layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     *
+     * @return int
+     */
+    public function getRuleCount(Layout $layout)
+    {
+        return $this->queryHandler->getRuleCount($layout->id, Rule::STATUS_PUBLISHED);
     }
 
     /**

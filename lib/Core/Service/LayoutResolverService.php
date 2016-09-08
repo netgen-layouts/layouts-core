@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -125,6 +126,23 @@ class LayoutResolverService implements APILayoutResolverService
         }
 
         return $rules;
+    }
+
+    /**
+     * Returns the number of rules pointing to provided layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     *
+     * @return int
+     */
+    public function getRuleCount(LayoutInfo $layout)
+    {
+        $persistenceLayout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
+            $layout->getId(),
+            $layout->getStatus()
+        );
+
+        return $this->handler->getRuleCount($persistenceLayout);
     }
 
     /**

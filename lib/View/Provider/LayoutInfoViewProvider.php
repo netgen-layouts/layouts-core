@@ -2,11 +2,27 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
+use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\View\View\LayoutInfoView;
 
 class LayoutInfoViewProvider implements ViewProviderInterface
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     */
+    protected $layoutResolverService;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
+     */
+    public function __construct(LayoutResolverService $layoutResolverService)
+    {
+        $this->layoutResolverService = $layoutResolverService;
+    }
+
     /**
      * Provides the view.
      *
@@ -19,6 +35,12 @@ class LayoutInfoViewProvider implements ViewProviderInterface
     {
         /** @var \Netgen\BlockManager\API\Values\Page\LayoutInfo $valueObject */
         $layoutInfoView = new LayoutInfoView($valueObject);
+
+        $layoutInfoView->addParameters(
+            array(
+                'rule_count' => $this->layoutResolverService->getRuleCount($valueObject),
+            )
+        );
 
         return $layoutInfoView;
     }

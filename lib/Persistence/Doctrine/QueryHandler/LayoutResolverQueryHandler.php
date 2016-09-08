@@ -103,6 +103,31 @@ class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns the number of rules pointing to provided layout.
+     *
+     * @param int|string $layoutId
+     * @param int $ruleStatus
+     *
+     * @return int
+     */
+    public function getRuleCount($layoutId, $ruleStatus)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('ngbm_rule')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $ruleStatus);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) ? (int)$data[0]['count'] : 0;
+    }
+
+    /**
      * Returns all rule data for rules that match specified target type and value.
      *
      * @param string $targetType
