@@ -296,11 +296,11 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param string $context
      * @param \Twig_Template $twigTemplate
      * @param array $twigContext
-     * @param array $twigBocks
+     * @param array $twigBlocks
      *
      * @throws \Exception If an error occurred
      */
-    public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBocks = array())
+    public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
     {
         $blocks = $zone->getBlocks();
 
@@ -317,7 +317,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                     $block,
                     $twigTemplate,
                     $twigContext,
-                    $twigBocks
+                    $twigBlocks
                 );
 
                 continue;
@@ -334,7 +334,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Twig_Template $twigTemplate
      * @param array $twigContext
-     * @param array $twigBocks
+     * @param array $twigBlocks
      *
      * @throws \Exception If an error occurred
      */
@@ -343,13 +343,13 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         Block $block,
         Twig_Template $twigTemplate,
         $twigContext,
-        array $twigBocks = array()
+        array $twigBlocks = array()
     ) {
         try {
             $twigTemplate->displayBlock(
                 $blockDefinitionHandler->getTwigBlockName($block),
                 $twigContext,
-                $twigBocks
+                $twigBlocks
             );
         } catch (Exception $e) {
             $this->logBlockError($block, $e);
