@@ -24,6 +24,16 @@ class FullViewBlockHandler extends BlockDefinitionHandler implements TwigBlockDe
     }
 
     /**
+     * Returns the array specifying block parameters.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    public function getParameters()
+    {
+        return $this->getCommonParameters();
+    }
+
+    /**
      * Returns the name of the Twig block to use.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

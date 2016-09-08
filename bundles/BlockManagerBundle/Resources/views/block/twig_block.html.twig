@@ -1,5 +1,5 @@
-{# This template is intentionally left blank #}
+{% extends 'NetgenBlockManagerBundle:block:block.html.twig' %}
 
-{# Block with "twig_block" definition identifier cannot be rendered manually #}
-{# so we define this template in order not to crash the page if someone tries #}
-{# to render the block by hand #}
+{% block content %}
+    {{ twig_block_content|raw }}
+{% endblock %}

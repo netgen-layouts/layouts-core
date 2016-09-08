@@ -55,7 +55,6 @@ view:
                 match:
                     block\definition: gallery
                     block\view_type: sushi_bar
-            # Fallbacks for content blocks! Do not remove!
             twig_block:
                 template: "NetgenBlockManagerBundle:block:twig_block.html.twig"
                 match:

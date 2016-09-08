@@ -16,7 +16,7 @@ class TwigBlockHandler extends TwigBlockDefinitionHandler
     {
         return array(
             'block_name' => new Parameter\Identifier(),
-        );
+        ) + $this->getCommonParameters();
     }
 
     /**

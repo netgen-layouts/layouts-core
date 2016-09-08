@@ -310,9 +310,11 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         }
 
         foreach ($blocks as $block) {
+            $params = array();
+
             $blockDefinitionHandler = $block->getBlockDefinition()->getHandler();
             if ($blockDefinitionHandler instanceof TwigBlockDefinitionHandlerInterface) {
-                $this->displayTwigBlock(
+                $twigBlockContent = $this->displayTwigBlock(
                     $blockDefinitionHandler,
                     $block,
                     $twigTemplate,
@@ -320,10 +322,10 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                     $twigBlocks
                 );
 
-                continue;
+                $params['twig_block_content'] = $twigBlockContent;
             }
 
-            echo $this->renderBlock($block, array(), $context);
+            echo $this->renderBlock($block, $params, $context);
         }
     }
 
@@ -346,12 +348,18 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         array $twigBlocks = array()
     ) {
         try {
+            ob_start();
+
             $twigTemplate->displayBlock(
                 $blockDefinitionHandler->getTwigBlockName($block),
                 $twigContext,
                 $twigBlocks
             );
+
+            return ob_get_clean();
         } catch (Exception $e) {
+            ob_get_clean();
+
             $this->logBlockError($block, $e);
 
             if ($this->debug) {

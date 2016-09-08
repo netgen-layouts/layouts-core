@@ -70,6 +70,13 @@ block.gallery.css_id: 'CSS ID'
 block.gallery.set_container: 'Wrap in container'
 
 block.twig_block.block_name: 'Twig block name'
+block.twig_block.css_class: 'CSS class'
+block.twig_block.css_id: 'CSS ID'
+block.twig_block.set_container: 'Wrap in container'
+
+block.full_view.css_class: 'CSS class'
+block.full_view.css_id: 'CSS ID'
+block.full_view.set_container: 'Wrap in container'
 
 target_type.route.label: 'Route'
 target_type.route_prefix.label: 'Route prefix'
