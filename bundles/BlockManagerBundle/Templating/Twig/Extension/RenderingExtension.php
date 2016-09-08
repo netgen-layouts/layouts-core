@@ -365,6 +365,8 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             if ($this->debug) {
                 throw $e;
             }
+
+            return '';
         }
     }
 
