@@ -1,8 +1,16 @@
 parameters:
+    netgen_block_manager.event_listener.layout_view.rule_count.class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener
     netgen_block_manager.event_listener.set_is_admin_request.class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener
     netgen_block_manager.event_listener.admin_csrf_validation_listener.class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener
 
 services:
+    netgen_block_manager.event_listener.layout_view.rule_count:
+        class: "%netgen_block_manager.event_listener.layout_view.rule_count.class%"
+        arguments:
+            - "@netgen_block_manager.api.service.layout_resolver"
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.set_is_admin_request:
         class: "%netgen_block_manager.event_listener.set_is_admin_request.class%"
         tags:
