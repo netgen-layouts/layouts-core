@@ -433,7 +433,8 @@
         }
     }
 
-    .disabled-label {
+    .disabled-label,
+    .unpublished-label {
         text-transform:uppercase;
         display:inline-block;
         margin:0 1em;
@@ -442,6 +443,10 @@
         color:#fff;
         background:$highlightColor;
         line-height:1.375;
+        font-weight:700;
+    }
+    .unpublished-label {
+        background:hsl(200, 20, 50);
     }
 }
 
