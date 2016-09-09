@@ -14,7 +14,7 @@
                 <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
             </div>
 
-            {% if layout.status == constant(layout, 'STATUS_DRAFT') %}
+            {% if layout.status == constant('STATUS_DRAFT', layout) %}
                 <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
             {% endif %}
 
