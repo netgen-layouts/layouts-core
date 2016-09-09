@@ -123,6 +123,7 @@ class LayoutBackendTest extends TestCase
             ->expects($this->once())
             ->method('loadLayouts')
             ->with(
+                $this->equalTo(false),
                 $this->equalTo(0),
                 $this->equalTo(25)
             )
@@ -147,6 +148,7 @@ class LayoutBackendTest extends TestCase
             ->expects($this->once())
             ->method('loadLayouts')
             ->with(
+                $this->equalTo(false),
                 $this->equalTo(5),
                 $this->equalTo(10)
             )

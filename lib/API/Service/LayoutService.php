@@ -46,24 +46,28 @@ interface LayoutService
     public function loadLayoutDraft($layoutId);
 
     /**
-     * Loads all layouts.
+     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadLayouts($offset = 0, $limit = null);
+    public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
     /**
-     * Loads all shared layouts.
+     * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadSharedLayouts($offset = 0, $limit = null);
+    public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
     /**
      * Returns if provided layout has a published status.

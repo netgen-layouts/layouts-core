@@ -111,7 +111,7 @@ class LayoutBackend implements BackendInterface
      */
     public function getSubItems(LocationInterface $location, $offset = 0, $limit = 25)
     {
-        $layouts = $this->layoutService->loadLayouts($offset, $limit);
+        $layouts = $this->layoutService->loadLayouts(false, $offset, $limit);
 
         return $this->buildItems($layouts);
     }

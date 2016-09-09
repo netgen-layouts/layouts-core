@@ -116,31 +116,35 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
-     * Loads all layouts.
+     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
      */
-    public function loadLayouts($offset = 0, $limit = null)
+    public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadLayoutsData($offset, $limit);
+        $data = $this->queryHandler->loadLayoutsData($includeDrafts, false, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }
 
     /**
-     * Loads all shared layouts.
+     * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
      */
-    public function loadSharedLayouts($offset = 0, $limit = null)
+    public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadSharedLayoutsData($offset, $limit);
+        $data = $this->queryHandler->loadLayoutsData($includeDrafts, true, $offset, $limit);
 
         return $this->layoutMapper->mapLayouts($data);
     }

@@ -99,6 +99,31 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayouts
+     */
+    public function testLoadLayoutsWithUnpublishedLayouts()
+    {
+        $layouts = $this->layoutService->loadLayouts(true);
+
+        $this->assertInternalType('array', $layouts);
+        $this->assertCount(3, $layouts);
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(LayoutInfo::class, $layout);
+            $this->assertFalse($layout->isShared());
+
+            if ($layout->getStatus() === Layout::STATUS_DRAFT) {
+                try {
+                    $this->layoutService->loadLayout($layout->getId());
+                    $this->fail('Layout in draft status with existing published version loaded.');
+                } catch (NotFoundException $e) {
+                    // Do nothing
+                }
+            }
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadSharedLayouts
      */
     public function testLoadSharedLayouts()

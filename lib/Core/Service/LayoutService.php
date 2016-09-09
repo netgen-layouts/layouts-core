@@ -131,18 +131,24 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Loads all layouts.
+     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadLayouts($offset = 0, $limit = null)
+    public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
         $this->layoutValidator->validateOffsetAndLimit($offset, $limit);
 
-        $persistenceLayouts = $this->layoutHandler->loadLayouts($offset, $limit);
+        $persistenceLayouts = $this->layoutHandler->loadLayouts(
+            $includeDrafts,
+            $offset,
+            $limit
+        );
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
@@ -153,18 +159,24 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Loads all shared layouts.
+     * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
      */
-    public function loadSharedLayouts($offset = 0, $limit = null)
+    public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
         $this->layoutValidator->validateOffsetAndLimit($offset, $limit);
 
-        $persistenceLayouts = $this->layoutHandler->loadSharedLayouts($offset, $limit);
+        $persistenceLayouts = $this->layoutHandler->loadSharedLayouts(
+            $includeDrafts,
+            $offset,
+            $limit
+        );
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {

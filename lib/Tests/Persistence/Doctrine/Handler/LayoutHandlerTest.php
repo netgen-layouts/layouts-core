@@ -154,6 +154,53 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     */
+    public function testLoadLayoutsWithUnpublishedLayouts()
+    {
+        $this->assertEquals(
+            array(
+                new Layout(
+                    array(
+                        'id' => 1,
+                        'type' => '4_zones_a',
+                        'name' => 'My layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => false,
+                    )
+                ),
+                new Layout(
+                    array(
+                        'id' => 2,
+                        'type' => '4_zones_b',
+                        'name' => 'My other layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => false,
+                    )
+                ),
+                new Layout(
+                    array(
+                        'id' => 4,
+                        'type' => '4_zones_b',
+                        'name' => 'My fourth layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_DRAFT,
+                        'shared' => false,
+                    )
+                ),
+            ),
+            $this->layoutHandler->loadLayouts(true)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadSharedLayoutsData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery

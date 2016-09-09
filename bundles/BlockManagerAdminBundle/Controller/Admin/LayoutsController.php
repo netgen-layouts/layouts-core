@@ -35,7 +35,7 @@ class LayoutsController extends Controller
         return $this->render(
             'NetgenBlockManagerAdminBundle:admin/layouts:index.html.twig',
             array(
-                'layouts' => $this->layoutService->loadLayouts(),
+                'layouts' => $this->layoutService->loadLayouts(true),
             )
         );
     }

@@ -14,6 +14,10 @@
                 <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
             </div>
 
+            {% if layout.status == constant(layout, 'STATUS_DRAFT') %}
+                <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
+            {% endif %}
+
             <div class="nl-dropdown" data-position="right">
                 <button class="nl-btn nl-btn-icon nl-dropdown-toggle">
                     <i class="material-icons">more_vert</i>

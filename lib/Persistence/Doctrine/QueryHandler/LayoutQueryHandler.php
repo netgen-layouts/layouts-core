@@ -34,44 +34,57 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for layouts.
+     * Loads all data for layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
      *
+     * @param bool $includeDrafts
+     * @param bool $shared
      * @param int $offset
      * @param int $limit
      *
      * @return array
      */
-    public function loadLayoutsData($offset = 0, $limit = null)
+    public function loadLayoutsData($includeDrafts = false, $shared = null, $offset = 0, $limit = null)
     {
         $query = $this->getLayoutSelectQuery();
-        $query->where(
-            $query->expr()->eq('shared', ':shared')
-        )
-        ->setParameter('shared', false, Type::BOOLEAN);
 
-        $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
-        $this->applyOffsetAndLimit($query, $offset, $limit);
+        if ($includeDrafts) {
+            $query->leftJoin(
+                'ngbm_layout',
+                'ngbm_layout',
+                'l2',
+                $query->expr()->andX(
+                    $query->expr()->eq('ngbm_layout.id', 'l2.id'),
+                    $query->expr()->eq('l2.status', ':status')
+                )
+            );
+        }
 
-        return $query->execute()->fetchAll();
-    }
+        if ($shared !== null) {
+            $query->where(
+                $query->expr()->eq('ngbm_layout.shared', ':shared')
+            );
+        }
 
-    /**
-     * Loads all data for shared layouts.
-     *
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return array
-     */
-    public function loadSharedLayoutsData($offset = 0, $limit = null)
-    {
-        $query = $this->getLayoutSelectQuery();
-        $query->where(
-            $query->expr()->eq('shared', ':shared')
-        )
-        ->setParameter('shared', true, Type::BOOLEAN);
+        if ($includeDrafts) {
+            $query->andWhere(
+                $query->expr()->orX(
+                    $query->expr()->eq('ngbm_layout.status', ':status'),
+                    $query->expr()->isNull('l2.id')
+                )
+            );
+        } else {
+            $query->andWhere(
+                $query->expr()->eq('ngbm_layout.status', ':status')
+            );
+        }
 
-        $this->applyStatusCondition($query, Layout::STATUS_PUBLISHED);
+        if ($shared !== null) {
+            $query->setParameter('shared', (bool)$shared, Type::BOOLEAN);
+        }
+
+        $query->setParameter('status', Layout::STATUS_PUBLISHED, Type::INTEGER);
+
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
         return $query->execute()->fetchAll();
@@ -492,7 +505,7 @@ class LayoutQueryHandler extends QueryHandler
     protected function getLayoutSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'type', 'name', 'created', 'modified', 'shared')
+        $query->select('DISTINCT ngbm_layout.*')
             ->from('ngbm_layout');
 
         return $query;
@@ -506,7 +519,7 @@ class LayoutQueryHandler extends QueryHandler
     protected function getZoneSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT identifier', 'layout_id', 'status', 'linked_layout_id', 'linked_zone_identifier')
+        $query->select('DISTINCT ngbm_zone.*')
             ->from('ngbm_zone');
 
         return $query;
