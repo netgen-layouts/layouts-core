@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
@@ -106,7 +106,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     public function testGetRuleCount()
     {
         $ruleCount = $this->layoutResolverService->getRuleCount(
-            $this->layoutService->loadLayoutInfo(1)
+            $this->layoutService->loadLayout(1)
         );
 
         $this->assertEquals(3, $ruleCount);
@@ -228,7 +228,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         $this->assertInstanceOf(RuleDraft::class, $updatedRule);
-        $this->assertInstanceOf(LayoutInfo::class, $updatedRule->getLayout());
+        $this->assertInstanceOf(Layout::class, $updatedRule->getLayout());
         $this->assertEquals(3, $updatedRule->getLayout()->getId());
         $this->assertEquals('Updated comment', $updatedRule->getComment());
     }
@@ -246,7 +246,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         $this->assertInstanceOf(RuleDraft::class, $updatedRule);
-        $this->assertInstanceOf(LayoutInfo::class, $rule->getLayout());
+        $this->assertInstanceOf(Layout::class, $rule->getLayout());
         $this->assertEquals(2, $updatedRule->getLayout()->getId());
         $this->assertEquals('Updated comment', $updatedRule->getComment());
     }

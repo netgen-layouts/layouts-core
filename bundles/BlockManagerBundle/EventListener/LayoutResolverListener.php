@@ -2,17 +2,13 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class LayoutResolverListener implements EventSubscriberInterface
 {
@@ -20,11 +16,6 @@ class LayoutResolverListener implements EventSubscriberInterface
      * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
      */
     protected $layoutResolver;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    protected $layoutService;
 
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
@@ -37,31 +28,20 @@ class LayoutResolverListener implements EventSubscriberInterface
     protected $globalVariable;
 
     /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
-     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         LayoutResolverInterface $layoutResolver,
-        LayoutService $layoutService,
         ViewBuilderInterface $viewBuilder,
-        GlobalVariable $globalVariable,
-        LoggerInterface $logger = null
+        GlobalVariable $globalVariable
     ) {
         $this->layoutResolver = $layoutResolver;
-        $this->layoutService = $layoutService;
         $this->viewBuilder = $viewBuilder;
         $this->globalVariable = $globalVariable;
-        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -91,28 +71,12 @@ class LayoutResolverListener implements EventSubscriberInterface
         }
 
         foreach ($this->layoutResolver->resolveRules() as $rule) {
-            if (!$rule->getLayout() instanceof LayoutInfo) {
+            if (!$rule->getLayout() instanceof Layout) {
                 continue;
             }
 
-            // We need the complete layout, not just the reference
-            try {
-                $layout = $this->layoutService->loadLayout(
-                    $rule->getLayout()->getId()
-                );
-            } catch (NotFoundException $e) {
-                $this->logger->notice(
-                    sprintf(
-                        'Rule with ID %d was resolved, but its layout was not found',
-                        $rule->getId()
-                    )
-                );
-
-                return;
-            }
-
             $this->globalVariable->setLayoutView(
-                $this->viewBuilder->buildView($layout)
+                $this->viewBuilder->buildView($rule->getLayout())
             );
 
             return;

@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
@@ -40,16 +39,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayout(1);
 
         $this->assertInstanceOf(Layout::class, $layout);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutInfo
-     */
-    public function testLoadLayoutInfo()
-    {
-        $layout = $this->layoutService->loadLayoutInfo(1);
-
-        $this->assertInstanceOf(LayoutInfo::class, $layout);
     }
 
     /**
@@ -92,7 +81,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertCount(2, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(LayoutInfo::class, $layout);
+            $this->assertInstanceOf(Layout::class, $layout);
             $this->assertFalse($layout->isShared());
             $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         }
@@ -109,7 +98,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertCount(3, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(LayoutInfo::class, $layout);
+            $this->assertInstanceOf(Layout::class, $layout);
             $this->assertFalse($layout->isShared());
 
             if ($layout->getStatus() === Layout::STATUS_DRAFT) {
@@ -134,7 +123,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertCount(2, $layouts);
 
         foreach ($layouts as $layout) {
-            $this->assertInstanceOf(LayoutInfo::class, $layout);
+            $this->assertInstanceOf(Layout::class, $layout);
             $this->assertTrue($layout->isShared());
             $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
         }
@@ -542,20 +531,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout()
-    {
-        $layout = $this->layoutService->loadLayoutInfo(1);
-        $copiedLayout = $this->layoutService->copyLayout($layout);
-
-        $this->assertInstanceOf(LayoutInfo::class, $copiedLayout);
-        $this->assertNotInstanceOf(Layout::class, $copiedLayout);
-
-        $this->assertEquals(6, $copiedLayout->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     */
-    public function testCopyLayoutWithLayout()
     {
         $layout = $this->layoutService->loadLayout(1);
         $copiedLayout = $this->layoutService->copyLayout($layout);

@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
@@ -64,7 +64,7 @@ class LayoutBackend implements BackendInterface
     public function loadItem($id)
     {
         try {
-            $layout = $this->layoutService->loadLayoutInfo($id);
+            $layout = $this->layoutService->loadLayout($id);
         } catch (BaseNotFoundException $e) {
             throw new NotFoundException(
                 sprintf('Item with ID "%s" not found.', $id),
@@ -159,11 +159,11 @@ class LayoutBackend implements BackendInterface
     /**
      * Builds the item from provided layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @return \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item
      */
-    protected function buildItem(LayoutInfo $layout)
+    protected function buildItem(Layout $layout)
     {
         return new Item($layout);
     }
@@ -171,14 +171,14 @@ class LayoutBackend implements BackendInterface
     /**
      * Builds the items from provided layouts.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo[] $layouts
+     * @param \Netgen\BlockManager\API\Values\Page\Layout[] $layouts
      *
      * @return \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item[]
      */
     protected function buildItems(array $layouts)
     {
         return array_map(
-            function (LayoutInfo $layout) {
+            function (Layout $layout) {
                 return $this->buildItem($layout);
             },
             $layouts

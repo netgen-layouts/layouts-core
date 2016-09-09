@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -91,27 +90,6 @@ class LayoutService implements LayoutServiceInterface
     }
 
     /**
-     * Loads a layout info with specified ID.
-     *
-     * @param int|string $layoutId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
-     */
-    public function loadLayoutInfo($layoutId)
-    {
-        $this->layoutValidator->validateId($layoutId, 'layoutId');
-
-        return $this->layoutMapper->mapLayoutInfo(
-            $this->layoutHandler->loadLayout(
-                $layoutId,
-                Layout::STATUS_PUBLISHED
-            )
-        );
-    }
-
-    /**
      * Loads a layout draft with specified ID.
      *
      * @param int|string $layoutId
@@ -138,7 +116,7 @@ class LayoutService implements LayoutServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
+     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
      */
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
@@ -152,7 +130,7 @@ class LayoutService implements LayoutServiceInterface
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->layoutMapper->mapLayoutInfo($persistenceLayout);
+            $layouts[] = $this->layoutMapper->mapLayout($persistenceLayout);
         }
 
         return $layouts;
@@ -166,7 +144,7 @@ class LayoutService implements LayoutServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
+     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
      */
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
@@ -180,7 +158,7 @@ class LayoutService implements LayoutServiceInterface
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->layoutMapper->mapLayoutInfo($persistenceLayout);
+            $layouts[] = $this->layoutMapper->mapLayout($persistenceLayout);
         }
 
         return $layouts;
@@ -189,11 +167,11 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Returns if provided layout has a published status.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @return bool
      */
-    public function isPublished(LayoutInfo $layout)
+    public function isPublished(Layout $layout)
     {
         return $this->layoutHandler->layoutExists($layout->getId(), Layout::STATUS_PUBLISHED);
     }
@@ -476,11 +454,11 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Copies a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(LayoutInfo $layout)
+    public function copyLayout(Layout $layout)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
@@ -502,11 +480,7 @@ class LayoutService implements LayoutServiceInterface
             $persistenceLayout->status
         );
 
-        if ($layout instanceof Layout) {
-            return $this->layoutMapper->mapLayout($copiedLayout);
-        }
-
-        return $this->layoutMapper->mapLayoutInfo($copiedLayout);
+        return $this->layoutMapper->mapLayout($copiedLayout);
     }
 
     /**
@@ -606,9 +580,9 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Deletes a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      */
-    public function deleteLayout(LayoutInfo $layout)
+    public function deleteLayout(Layout $layout)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 

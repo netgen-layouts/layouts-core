@@ -67,7 +67,7 @@ class LayoutBackendTest extends TestCase
     {
         $this->layoutServiceMock
             ->expects($this->once())
-            ->method('loadLayoutInfo')
+            ->method('loadLayout')
             ->with($this->equalTo(1))
             ->will($this->returnValue($this->getLayout(1)));
 
@@ -85,7 +85,7 @@ class LayoutBackendTest extends TestCase
     {
         $this->layoutServiceMock
             ->expects($this->once())
-            ->method('loadLayoutInfo')
+            ->method('loadLayout')
             ->with($this->equalTo(1))
             ->will($this->throwException(new NotFoundException('layout', 1)));
 

@@ -63,13 +63,10 @@ services:
         class: "%netgen_block_manager.event_listener.layout_resolver.class%"
         arguments:
             - "@netgen_block_manager.layout.resolver"
-            - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.templating.global_variable"
-            - "@?logger"
         tags:
             - { name: kernel.event_subscriber }
-            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.event_listener.api_csrf_validation_listener:
         class: "%netgen_block_manager.event_listener.api_csrf_validation_listener.class%"

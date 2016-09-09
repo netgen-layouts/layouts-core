@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Browser\Item\Serializer;
 
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Serializer\LayoutSerializerHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -35,6 +35,6 @@ class LayoutSerializerHandlerTest extends TestCase
      */
     protected function getItem()
     {
-        return new Item(new LayoutInfo());
+        return new Item(new Layout());
     }
 }

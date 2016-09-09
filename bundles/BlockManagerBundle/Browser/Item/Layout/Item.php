@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout;
 
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 
 class Item implements ItemInterface, LayoutInterface
@@ -10,16 +10,16 @@ class Item implements ItemInterface, LayoutInterface
     const TYPE = 'ngbm_layout';
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @var \Netgen\BlockManager\API\Values\Page\Layout
      */
     protected $layout;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      */
-    public function __construct(LayoutInfo $layout)
+    public function __construct(Layout $layout)
     {
         $this->layout = $layout;
     }
@@ -77,7 +77,7 @@ class Item implements ItemInterface, LayoutInterface
     /**
      * Returns the layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function getLayout()
     {

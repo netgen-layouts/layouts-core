@@ -1,5 +1,5 @@
 default_view_templates:
-    layout_info_view:
+    layout_view:
         admin: 'NetgenBlockManagerAdminBundle:admin/layouts:layout.html.twig'
     rule_view:
         admin: 'NetgenBlockManagerAdminBundle:admin/layout_resolver:rule.html.twig'

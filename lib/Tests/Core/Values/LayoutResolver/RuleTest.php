@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
@@ -52,7 +52,7 @@ class RuleTest extends TestCase
             array(
                 'id' => 42,
                 'status' => Rule::STATUS_PUBLISHED,
-                'layout' => new LayoutInfo(array('id' => 24)),
+                'layout' => new Layout(array('id' => 24)),
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
@@ -63,7 +63,7 @@ class RuleTest extends TestCase
 
         $this->assertEquals(42, $rule->getId());
         $this->assertEquals(Rule::STATUS_PUBLISHED, $rule->getStatus());
-        $this->assertEquals(new LayoutInfo(array('id' => 24)), $rule->getLayout());
+        $this->assertEquals(new Layout(array('id' => 24)), $rule->getLayout());
         $this->assertEquals(13, $rule->getPriority());
         $this->assertTrue($rule->isEnabled());
         $this->assertEquals('Comment', $rule->getComment());

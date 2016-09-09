@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Type;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
@@ -26,7 +26,7 @@ class TypeTest extends TestCase
     public function testGetValue()
     {
         $item = new Item(
-            new LayoutInfo(
+            new Layout(
                 array(
                     'layoutType' => new LayoutType('4_zones_a', array(), '4 zones A'),
                 )

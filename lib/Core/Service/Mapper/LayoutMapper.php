@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
@@ -101,29 +100,5 @@ class LayoutMapper extends Mapper
         return $layout->status === PersistenceLayout::STATUS_PUBLISHED ?
             new Layout($layoutData) :
             new LayoutDraft($layoutData);
-    }
-
-    /**
-     * Builds the API layout info value object from persistence one.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
-     */
-    public function mapLayoutInfo(PersistenceLayout $layout)
-    {
-        $layoutData = array(
-            'id' => $layout->id,
-            'layoutType' => $this->layoutTypeRegistry->getLayoutType(
-                $layout->type
-            ),
-            'name' => $layout->name,
-            'created' => $this->createDateTime($layout->created),
-            'modified' => $this->createDateTime($layout->modified),
-            'status' => $layout->status,
-            'shared' => $layout->shared,
-        );
-
-        return new LayoutInfo($layoutData);
     }
 }

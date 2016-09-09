@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
@@ -22,17 +21,6 @@ interface LayoutService
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function loadLayout($layoutId);
-
-    /**
-     * Loads a layout info with specified ID.
-     *
-     * @param int|string $layoutId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
-     */
-    public function loadLayoutInfo($layoutId);
 
     /**
      * Loads a layout draft with specified ID.
@@ -53,7 +41,7 @@ interface LayoutService
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
+     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
      */
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
@@ -65,18 +53,18 @@ interface LayoutService
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo[]
+     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
      */
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
     /**
      * Returns if provided layout has a published status.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @return bool
      */
-    public function isPublished(LayoutInfo $layout);
+    public function isPublished(Layout $layout);
 
     /**
      * Loads a zone with specified identifier.
@@ -173,11 +161,11 @@ interface LayoutService
     /**
      * Copies a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(LayoutInfo $layout);
+    public function copyLayout(Layout $layout);
 
     /**
      * Creates a layout draft.
@@ -209,9 +197,9 @@ interface LayoutService
     /**
      * Deletes a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      */
-    public function deleteLayout(LayoutInfo $layout);
+    public function deleteLayout(Layout $layout);
 
     /**
      * Creates a new layout create struct.

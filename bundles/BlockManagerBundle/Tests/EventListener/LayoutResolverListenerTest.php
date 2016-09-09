@@ -3,8 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
@@ -25,11 +23,6 @@ class LayoutResolverListenerTest extends TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $layoutResolverMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutServiceMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -55,10 +48,6 @@ class LayoutResolverListenerTest extends TestCase
             LayoutResolverInterface::class
         );
 
-        $this->layoutServiceMock = $this->createMock(
-            LayoutService::class
-        );
-
         $this->viewBuilderMock = $this->createMock(
             ViewBuilderInterface::class
         );
@@ -69,7 +58,6 @@ class LayoutResolverListenerTest extends TestCase
 
         $this->listener = new LayoutResolverListener(
             $this->layoutResolverMock,
-            $this->layoutServiceMock,
             $this->viewBuilderMock,
             $this->globalVariable
         );
@@ -103,18 +91,12 @@ class LayoutResolverListenerTest extends TestCase
                     array(
                         new Rule(
                             array(
-                                'layout' => new LayoutInfo(array('id' => 42)),
+                                'layout' => $layout,
                             )
                         ),
                     )
                 )
             );
-
-        $this->layoutServiceMock
-            ->expects($this->once())
-            ->method('loadLayout')
-            ->with($this->equalTo(42))
-            ->will($this->returnValue($layout));
 
         $this->viewBuilderMock
             ->expects($this->once())
@@ -141,10 +123,6 @@ class LayoutResolverListenerTest extends TestCase
             ->method('resolveRules')
             ->will($this->returnValue(array()));
 
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('loadLayout');
-
         $this->viewBuilderMock
             ->expects($this->never())
             ->method('buildView');
@@ -168,10 +146,6 @@ class LayoutResolverListenerTest extends TestCase
             ->method('resolveRules')
             ->will($this->returnValue(array(new Rule(array('layout' => null)))));
 
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('loadLayout');
-
         $this->viewBuilderMock
             ->expects($this->never())
             ->method('buildView');
@@ -193,11 +167,6 @@ class LayoutResolverListenerTest extends TestCase
         $this->layoutResolverMock
             ->expects($this->never())
             ->method('resolveRules');
-
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('loadLayout');
-
         $this->viewBuilderMock
             ->expects($this->never())
             ->method('buildView');
@@ -219,10 +188,6 @@ class LayoutResolverListenerTest extends TestCase
         $this->layoutResolverMock
             ->expects($this->never())
             ->method('resolveRules');
-
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('loadLayout');
 
         $this->viewBuilderMock
             ->expects($this->never())

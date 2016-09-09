@@ -73,7 +73,7 @@ class LayoutResolverMapper extends Mapper
                 Layout::STATUS_PUBLISHED
             );
 
-            $layout = $this->layoutMapper->mapLayoutInfo($layout);
+            $layout = $this->layoutMapper->mapLayout($layout);
         } catch (NotFoundException $e) {
             // Do nothing
         }

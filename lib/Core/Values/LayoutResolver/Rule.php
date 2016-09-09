@@ -18,7 +18,7 @@ class Rule extends ValueObject implements APIRule
     protected $status;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @var \Netgen\BlockManager\API\Values\Page\Layout
      */
     protected $layout;
 
@@ -70,7 +70,7 @@ class Rule extends ValueObject implements APIRule
     /**
      * Returns resolved layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function getLayout()
     {

@@ -3,7 +3,6 @@ parameters:
     netgen_block_manager.param_converter.page.block_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockDraftParamConverter
     netgen_block_manager.param_converter.page.zone.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter
     netgen_block_manager.param_converter.page.zone_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneDraftParamConverter
-    netgen_block_manager.param_converter.page.layout_info.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutInfoParamConverter
     netgen_block_manager.param_converter.page.layout.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
     netgen_block_manager.param_converter.page.layout_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutDraftParamConverter
     netgen_block_manager.param_converter.page.collection_reference.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter
@@ -49,26 +48,19 @@ services:
         tags:
             - { name: request.param_converter, priority: 10 }
 
-    netgen_block_manager.param_converter.page.layout_info:
-        class: "%netgen_block_manager.param_converter.page.layout_info.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-        tags:
-            - { name: request.param_converter, priority: 0 }
-
     netgen_block_manager.param_converter.page.layout:
         class: "%netgen_block_manager.param_converter.page.layout.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
-            - { name: request.param_converter, priority: 10 }
+            - { name: request.param_converter, priority: 0 }
 
     netgen_block_manager.param_converter.page.layout_draft:
         class: "%netgen_block_manager.param_converter.page.layout_draft.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
-            - { name: request.param_converter, priority: 20 }
+            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.page.collection_reference:
         class: "%netgen_block_manager.param_converter.page.collection_reference.class%"

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
@@ -34,58 +33,6 @@ class LayoutNormalizerTest extends TestCase
 
         $this->normalizer = new LayoutNormalizer(
             $this->layoutServiceMock
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZones
-     */
-    public function testNormalizeLayoutInfo()
-    {
-        $currentDate = new DateTime();
-        $currentDate->setTimestamp(time());
-
-        $layoutType = new LayoutType(
-            '4_zones_a',
-            true,
-            '4 zones A',
-            array(
-                'left' => new LayoutTypeZone('left', 'Left', array('title')),
-                'right' => new LayoutTypeZone('right', 'Right', array()),
-            )
-        );
-
-        $layout = new LayoutInfo(
-            array(
-                'id' => 42,
-                'layoutType' => $layoutType,
-                'status' => Layout::STATUS_DRAFT,
-                'created' => $currentDate,
-                'modified' => $currentDate,
-                'shared' => true,
-            )
-        );
-
-        $this->layoutServiceMock
-            ->expects($this->once())
-            ->method('isPublished')
-            ->with($this->equalTo($layout))
-            ->will($this->returnValue(true));
-
-        $this->assertEquals(
-            array(
-                'id' => $layout->getId(),
-                'type' => $layoutType->getIdentifier(),
-                'published' => false,
-                'has_published_state' => true,
-                'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
-                'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
-                'shared' => true,
-                'name' => $layout->getName(),
-            ),
-            $this->normalizer->normalize(new VersionedValue($layout, 1))
         );
     }
 
@@ -226,12 +173,9 @@ class LayoutNormalizerTest extends TestCase
             array(42.12, false),
             array(new Value(), false),
             array(new Layout(), false),
-            array(new LayoutInfo(), false),
             array(new VersionedValue(new Value(), 1), false),
             array(new VersionedValue(new Layout(), 2), false),
-            array(new VersionedValue(new LayoutInfo(), 2), false),
             array(new VersionedValue(new Layout(), 1), true),
-            array(new VersionedValue(new LayoutInfo(), 1), true),
         );
     }
 }

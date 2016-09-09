@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -56,11 +55,8 @@ class LayoutNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'shared' => $layout->isShared(),
             'name' => $layout->getName(),
+            'zones' => $this->getZones($layout, $layoutType),
         );
-
-        if ($layout instanceof Layout) {
-            $data['zones'] = $this->getZones($layout, $layoutType);
-        }
 
         return $data;
     }
@@ -79,7 +75,7 @@ class LayoutNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof LayoutInfo && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof Layout && $data->getVersion() === Version::API_V1;
     }
 
     /**

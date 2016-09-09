@@ -3,13 +3,13 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\Layout;
 
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @var \Netgen\BlockManager\API\Values\Page\Layout
      */
     protected $layout;
 
@@ -20,7 +20,7 @@ class ItemTest extends TestCase
 
     public function setUp()
     {
-        $this->layout = new LayoutInfo(array('id' => 42, 'name' => 'My layout'));
+        $this->layout = new Layout(array('id' => 42, 'name' => 'My layout'));
 
         $this->item = new Item($this->layout);
     }

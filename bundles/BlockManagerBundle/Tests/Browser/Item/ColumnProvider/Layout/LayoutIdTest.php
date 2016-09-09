@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\LayoutId;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class LayoutIdTest extends TestCase
     public function testGetValue()
     {
         $item = new Item(
-            new LayoutInfo(
+            new Layout(
                 array(
                     'id' => 42,
                 )

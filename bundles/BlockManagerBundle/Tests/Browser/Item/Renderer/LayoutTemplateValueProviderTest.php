@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Browser\Item\Renderer;
 
-use Netgen\BlockManager\Core\Values\Page\LayoutInfo;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Renderer\LayoutTemplateValueProvider;
 use PHPUnit\Framework\TestCase;
@@ -39,6 +39,6 @@ class LayoutTemplateValueProviderTest extends TestCase
      */
     protected function getItem()
     {
-        return new Item(new LayoutInfo());
+        return new Item(new Layout());
     }
 }

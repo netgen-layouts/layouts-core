@@ -29,7 +29,7 @@ interface Rule extends Value
     /**
      * Returns resolved layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutInfo
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function getLayout();
 

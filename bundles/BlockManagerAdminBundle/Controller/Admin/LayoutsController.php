@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\LayoutInfo;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,11 +43,11 @@ class LayoutsController extends Controller
     /**
      * Copies a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function copyLayout(LayoutInfo $layout)
+    public function copyLayout(Layout $layout)
     {
         $copiedLayout = $this->layoutService->copyLayout($layout);
 
@@ -57,11 +57,11 @@ class LayoutsController extends Controller
     /**
      * Deletes a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutInfo $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteLayout(LayoutInfo $layout)
+    public function deleteLayout(Layout $layout)
     {
         $this->layoutService->deleteLayout($layout);
 
