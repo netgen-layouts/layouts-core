@@ -5,21 +5,6 @@ namespace Netgen\BlockManager\API\Values\Page;
 interface Layout extends LayoutInfo
 {
     /**
-     * @const string
-     */
-    const STATUS_DRAFT = 0;
-
-    /**
-     * @const string
-     */
-    const STATUS_PUBLISHED = 1;
-
-    /**
-     * @const string
-     */
-    const STATUS_ARCHIVED = 2;
-
-    /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone[]
