@@ -19,9 +19,11 @@
 {% endmacro %}
 
 {% macro collection(collections, identifier, item_view_type, view_context) %}
+    {% import _self as self %}
+
     {% if collections[identifier] is defined %}
         {% if collections[identifier].results|length == 0 %}
-            {{ _self.notice('block.notice.empty_collection'|trans) }}
+            {{ self.notice('block.notice.empty_collection'|trans) }}
         {% else %}
             <div class="list-row">
                 {% for result in collections[identifier].results %}

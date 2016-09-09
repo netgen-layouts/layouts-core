@@ -29,19 +29,21 @@
         </div>
     {% endmacro %}
 
+    {% import _self as self %}
+
     {% set key_form = form.children[key_name] %}
     {% set values_form = form.children[values_name] %}
 
     {{- form_row(key_form) -}}
 
-    <div class="multientry" data-prototype="{{ _self.prototype(values_form.vars.prototype)|e }}">
+    <div class="multientry" data-prototype="{{ self.prototype(values_form.vars.prototype)|e }}">
         {{- form_label(values_form) -}}
         {{- form_errors(values_form) -}}
 
         <div class="multientry-items">
             {% for value_form in values_form %}
                 {{- form_errors(value_form) -}}
-                {{ _self.prototype(value_form) }}
+                {{ self.prototype(value_form) }}
             {% endfor %}
         </div>
 
