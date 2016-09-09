@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,12 +43,13 @@ class LayoutsController extends Controller
     /**
      * Copies a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int $layoutId
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function copyLayout(Layout $layout)
+    public function copyLayout($layoutId)
     {
+        $layout = $this->loadLayout($layoutId);
         $copiedLayout = $this->layoutService->copyLayout($layout);
 
         return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
@@ -57,14 +58,33 @@ class LayoutsController extends Controller
     /**
      * Deletes a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int $layoutId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteLayout(Layout $layout)
+    public function deleteLayout($layoutId)
     {
+        $layout = $this->loadLayout($layoutId);
         $this->layoutService->deleteLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Loads either published or draft state of the layout.
+     *
+     * @param int|string $layoutId
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout|\Netgen\BlockManager\API\Values\Page\LayoutDraft
+     */
+    protected function loadLayout($layoutId)
+    {
+        try {
+            return $this->layoutService->loadLayout($layoutId);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        return $this->layoutService->loadLayoutDraft($layoutId);
     }
 }
