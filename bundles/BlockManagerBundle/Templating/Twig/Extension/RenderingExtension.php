@@ -360,7 +360,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
 
             return ob_get_clean();
         } catch (Exception $e) {
-            ob_get_clean();
+            ob_end_clean();
 
             $this->logBlockError($block, $e);
 
