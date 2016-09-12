@@ -532,8 +532,9 @@ class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'left')
         );
 
-        $copiedLayoutId = $this->layoutHandler->copyLayout(1);
-        $copiedLayout = $this->layoutHandler->loadLayout($copiedLayoutId, Layout::STATUS_PUBLISHED);
+        $copiedLayout = $this->layoutHandler->copyLayout(
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
+        );
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
@@ -661,43 +662,35 @@ class LayoutHandlerTest extends TestCase
         );
 
         // Verify that non named collections were copied
-        $this->collectionHandler->loadCollection(4, Collection::STATUS_DRAFT);
+        $this->collectionHandler->loadCollection(6, Collection::STATUS_PUBLISHED);
         $this->collectionHandler->loadCollection(7, Collection::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
 
         // First block
-        $draftReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(7, Layout::STATUS_DRAFT)
-        );
-
-        $this->assertCount(1, $draftReferences);
-        $this->assertEquals(3, $draftReferences[0]->collectionId);
-
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+        $references = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(1, $draftReferences);
-        $this->assertEquals(3, $publishedReferences[0]->collectionId);
+        $this->assertCount(1, $references);
+        $this->assertEquals($references[0]->collectionId, 3);
 
         // Second block
-
-        $draftReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(8, Layout::STATUS_DRAFT)
-        );
-
-        $this->assertCount(2, $draftReferences);
-        $this->assertContains($draftReferences[0]->collectionId, array(3, 6));
-        $this->assertContains($draftReferences[1]->collectionId, array(3, 6));
-
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+        $references = $this->blockHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(8, Layout::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(2, $draftReferences);
-        $this->assertContains($publishedReferences[0]->collectionId, array(3, 7));
-        $this->assertContains($publishedReferences[1]->collectionId, array(3, 7));
+        $this->assertCount(2, $references);
+        $this->assertContains($references[0]->collectionId, array(3, 6));
+        $this->assertContains($references[1]->collectionId, array(3, 6));
+
+        // Second block
+        $references = $this->blockHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(9, Layout::STATUS_PUBLISHED)
+        );
+
+        $this->assertCount(1, $references);
+        $this->assertEquals($references[0]->collectionId, 7);
     }
 
     /**

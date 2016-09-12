@@ -275,19 +275,20 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Copies a block with specified ID to a zone with specified identifier.
+     * Copies a block to a specified layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $zoneIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock(Block $block, $zoneIdentifier)
+    public function copyBlock(Block $block, Layout $layout, $zoneIdentifier)
     {
         $position = $this->positionHelper->getNextPosition(
             $this->getPositionHelperConditions(
-                $block->layoutId,
-                $block->status,
+                $layout->id,
+                $layout->status,
                 $zoneIdentifier
             )
         );
@@ -295,9 +296,9 @@ class BlockHandler implements BlockHandlerInterface
         $createdBlockId = $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
-                    'layoutId' => $block->layoutId,
+                    'layoutId' => $layout->id,
                     'zoneIdentifier' => $zoneIdentifier,
-                    'status' => $block->status,
+                    'status' => $layout->status,
                     'position' => $position,
                     'definitionIdentifier' => $block->definitionIdentifier,
                     'viewType' => $block->viewType,
@@ -308,45 +309,11 @@ class BlockHandler implements BlockHandlerInterface
             )
         );
 
-        return $this->loadBlock($createdBlockId, $block->status);
-    }
+        $copiedBlock = $this->loadBlock($createdBlockId, $layout->status);
 
-    /**
-     * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
-     */
-    public function copyBlockCollections(Block $block, Block $targetBlock)
-    {
-        $collectionsData = $this->queryHandler->loadCollectionReferencesData(
-            $block->id,
-            $block->status
-        );
+        $this->copyBlockCollections($block, $copiedBlock);
 
-        foreach ($collectionsData as $collectionsDataRow) {
-            $newCollectionId = $collectionsDataRow['collection_id'];
-
-            if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
-                $newCollectionId = $this->collectionHandler->copyCollection(
-                    $collectionsDataRow['collection_id'],
-                    $block->status
-                );
-            }
-
-            $this->createCollectionReference(
-                $targetBlock,
-                $this->collectionHandler->loadCollection(
-                    $newCollectionId,
-                    $collectionsDataRow['collection_status']
-                ),
-                $collectionsDataRow['identifier'],
-                $collectionsDataRow['start'],
-                $collectionsDataRow['length']
-            );
-        }
+        return $copiedBlock;
     }
 
     /**
@@ -531,6 +498,44 @@ class BlockHandler implements BlockHandlerInterface
                 $block->id,
                 $block->status,
                 $collectionReference->identifier
+            );
+        }
+    }
+
+    /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    protected function copyBlockCollections(Block $block, Block $targetBlock)
+    {
+        $collectionsData = $this->queryHandler->loadCollectionReferencesData(
+            $block->id,
+            $block->status
+        );
+
+        foreach ($collectionsData as $collectionsDataRow) {
+            $newCollectionId = $collectionsDataRow['collection_id'];
+
+            if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
+                $newCollectionId = $this->collectionHandler->copyCollection(
+                    $collectionsDataRow['collection_id'],
+                    $block->status
+                );
+            }
+
+            $this->createCollectionReference(
+                $targetBlock,
+                $this->collectionHandler->loadCollection(
+                    $newCollectionId,
+                    $collectionsDataRow['collection_status']
+                ),
+                $collectionsDataRow['identifier'],
+                $collectionsDataRow['start'],
+                $collectionsDataRow['length']
             );
         }
     }

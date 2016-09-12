@@ -123,24 +123,15 @@ interface BlockHandler
     public function updateCollectionReference(Block $block, $identifier, Collection $collection);
 
     /**
-     * Copies a block with specified ID to a zone with specified identifier.
+     * Copies a block to a specified layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param string $zoneIdentifier
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock(Block $block, $zoneIdentifier);
-
-    /**
-     * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
-     */
-    public function copyBlockCollections(Block $block, Block $targetBlock);
+    public function copyBlock(Block $block, Layout $layout, $zoneIdentifier);
 
     /**
      * Moves a block to specified position in the zone.

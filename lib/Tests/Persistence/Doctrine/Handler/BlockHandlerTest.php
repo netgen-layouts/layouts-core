@@ -437,6 +437,12 @@ class BlockHandlerTest extends TestCase
      */
     public function testCopyBlock()
     {
+        $copiedBlock = $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+            'right'
+        );
+
         $this->assertEquals(
             new Block(
                 array(
@@ -454,10 +460,35 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                'right'
-            )
+            $copiedBlock
+        );
+
+        $this->assertEquals(
+            array(
+                new CollectionReference(
+                    array(
+                        'blockId' => 7,
+                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'collectionId' => 6,
+                        'collectionStatus' => Collection::STATUS_DRAFT,
+                        'identifier' => 'default',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+                new CollectionReference(
+                    array(
+                        'blockId' => 7,
+                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'collectionId' => 3,
+                        'collectionStatus' => Collection::STATUS_PUBLISHED,
+                        'identifier' => 'featured',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadCollectionReferences($copiedBlock)
         );
     }
 
@@ -466,13 +497,19 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
-    public function testCopyBlockToDifferentZone()
+    public function testCopyBlockToDifferentLayoutAndZone()
     {
+        $copiedBlock = $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(2, Layout::STATUS_DRAFT),
+            'bottom'
+        );
+
         $this->assertEquals(
             new Block(
                 array(
                     'id' => 7,
-                    'layoutId' => 1,
+                    'layoutId' => 2,
                     'zoneIdentifier' => 'bottom',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
@@ -485,29 +522,14 @@ class BlockHandlerTest extends TestCase
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                'bottom'
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     */
-    public function testCopyBlockCollections()
-    {
-        $targetBlock = $this->blockHandler->loadBlock(6, Layout::STATUS_DRAFT);
-        $this->blockHandler->copyBlockCollections(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-            $targetBlock
+            $copiedBlock
         );
 
         $this->assertEquals(
             array(
                 new CollectionReference(
                     array(
-                        'blockId' => 6,
+                        'blockId' => 7,
                         'blockStatus' => Layout::STATUS_DRAFT,
                         'collectionId' => 6,
                         'collectionStatus' => Collection::STATUS_DRAFT,
@@ -518,7 +540,7 @@ class BlockHandlerTest extends TestCase
                 ),
                 new CollectionReference(
                     array(
-                        'blockId' => 6,
+                        'blockId' => 7,
                         'blockStatus' => Layout::STATUS_DRAFT,
                         'collectionId' => 3,
                         'collectionStatus' => Collection::STATUS_PUBLISHED,
@@ -528,7 +550,7 @@ class BlockHandlerTest extends TestCase
                     )
                 ),
             ),
-            $this->blockHandler->loadCollectionReferences($targetBlock)
+            $this->blockHandler->loadCollectionReferences($copiedBlock)
         );
     }
 

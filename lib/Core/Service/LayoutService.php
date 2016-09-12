@@ -465,20 +465,13 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayoutId = $this->layoutHandler->copyLayout(
-                $persistenceLayout->id
-            );
+            $copiedLayout = $this->layoutHandler->copyLayout($persistenceLayout);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
         }
 
         $this->persistenceHandler->commitTransaction();
-
-        $copiedLayout = $this->layoutHandler->loadLayout(
-            $copiedLayoutId,
-            $persistenceLayout->status
-        );
 
         return $this->layoutMapper->mapLayout($copiedLayout);
     }

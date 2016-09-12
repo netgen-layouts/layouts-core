@@ -150,13 +150,13 @@ interface LayoutHandler
     public function updateModified(Layout $layout, $timestamp);
 
     /**
-     * Copies a layout with specified ID.
+     * Copies the layout.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId);
+    public function copyLayout(Layout $layout);
 
     /**
      * Creates a new layout status.

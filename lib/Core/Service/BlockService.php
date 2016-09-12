@@ -365,10 +365,9 @@ class BlockService implements BlockServiceInterface
         try {
             $copiedBlock = $this->blockHandler->copyBlock(
                 $persistenceBlock,
+                $persistenceLayout,
                 $zoneIdentifier !== null ? $zoneIdentifier : $persistenceBlock->zoneIdentifier
             );
-
-            $this->blockHandler->copyBlockCollections($persistenceBlock, $copiedBlock);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

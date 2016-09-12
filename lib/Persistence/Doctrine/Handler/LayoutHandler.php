@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
-use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
@@ -326,111 +325,53 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
-     * Copies a layout with specified ID.
+     * Copies the layout.
      *
-     * @param int|string $layoutId
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout($layoutId)
+    public function copyLayout(Layout $layout)
     {
-        // First copy layout and zone data
-        $insertedLayoutId = null;
+        $layoutZones = $this->loadLayoutZones($layout);
 
-        /** @var \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct[] $zoneCreateStructs */
         $zoneCreateStructs = array();
-
-        $layoutData = $this->queryHandler->loadLayoutData($layoutId);
-        foreach ($layoutData as $layoutDataRow) {
-            $zoneCreateStructs = array_map(
-                function (array $zoneDataRow) {
-                    return new ZoneCreateStruct(
-                        array(
-                            'identifier' => $zoneDataRow['identifier'],
-                            'linkedLayoutId' => $zoneDataRow['linked_layout_id'],
-                            'linkedZoneIdentifier' => $zoneDataRow['linked_zone_identifier'],
-                        )
-                    );
-                },
-                $this->queryHandler->loadLayoutZonesData($layoutId, $layoutDataRow['status'])
-            );
-
-            $insertedLayoutId = $this->queryHandler->createLayout(
-                new LayoutCreateStruct(
-                    array(
-                        'type' => $layoutDataRow['type'],
-                        'name' => $layoutDataRow['name'] . ' (copy) ' . crc32(microtime()),
-                        'status' => $layoutDataRow['status'],
-                        'shared' => $layoutDataRow['shared'],
-                        'zoneCreateStructs' => $zoneCreateStructs,
-                    )
-                ),
-                $insertedLayoutId
+        foreach ($layoutZones as $layoutZone) {
+            $zoneCreateStructs[] = new ZoneCreateStruct(
+                array(
+                    'identifier' => $layoutZone->identifier,
+                    'linkedLayoutId' => $layoutZone->linkedLayoutId,
+                    'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
+                )
             );
         }
 
-        // Then copy block data
+        $copiedLayoutId = $this->queryHandler->createLayout(
+            new LayoutCreateStruct(
+                array(
+                    'type' => $layout->type,
+                    'name' => $layout->name . ' (copy) ' . crc32(microtime()),
+                    'status' => $layout->status,
+                    'shared' => $layout->shared,
+                    'zoneCreateStructs' => $zoneCreateStructs,
+                )
+            )
+        );
 
-        $blockIdMapping = array();
-        foreach ($zoneCreateStructs as $zoneCreateStruct) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData($layoutId, $zoneCreateStruct->identifier);
+        $copiedLayout = $this->loadLayout($copiedLayoutId, $layout->status);
 
-            foreach ($blockData as $blockDataRow) {
-                $createdBlockId = $this->blockQueryHandler->createBlock(
-                    new BlockCreateStruct(
-                        array(
-                            'layoutId' => $insertedLayoutId,
-                            'zoneIdentifier' => $blockDataRow['zone_identifier'],
-                            'status' => $blockDataRow['status'],
-                            'position' => $blockDataRow['position'],
-                            'definitionIdentifier' => $blockDataRow['definition_identifier'],
-                            'viewType' => $blockDataRow['view_type'],
-                            'itemViewType' => $blockDataRow['item_view_type'],
-                            'name' => $blockDataRow['name'],
-                            'parameters' => $blockDataRow['parameters'],
-                        )
-                    ),
-                    isset($blockIdMapping[$blockDataRow['id']]) ?
-                        $blockIdMapping[$blockDataRow['id']] :
-                        null
-                );
-
-                if (!isset($blockIdMapping[$blockDataRow['id']])) {
-                    $blockIdMapping[$blockDataRow['id']] = $createdBlockId;
-                }
-            }
-        }
-
-        $collectionIdMapping = array();
-
-        foreach ($blockIdMapping as $oldBlockId => $newBlockId) {
-            $collectionsData = $this->blockQueryHandler->loadCollectionReferencesData($oldBlockId);
-            foreach ($collectionsData as $collectionsDataRow) {
-                if (!isset($collectionIdMapping[$collectionsDataRow['collection_id']])) {
-                    if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
-                        $copiedCollectionId = $this->collectionHandler->copyCollection(
-                            $collectionsDataRow['collection_id']
-                        );
-
-                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $copiedCollectionId;
-                    } else {
-                        $collectionIdMapping[$collectionsDataRow['collection_id']] = $collectionsDataRow['collection_id'];
-                    }
-                }
-
-                $this->blockQueryHandler->createCollectionReference(
-                    $newBlockId,
-                    $collectionsDataRow['block_status'],
-                    $collectionIdMapping[$collectionsDataRow['collection_id']],
-                    $collectionsDataRow['collection_status'],
-                    $collectionsDataRow['identifier'],
-                    $collectionsDataRow['start'],
-                    $collectionsDataRow['length']
+        foreach ($layoutZones as $layoutZone) {
+            $zoneBlocks = $this->blockHandler->loadZoneBlocks($layoutZone);
+            foreach ($zoneBlocks as $block) {
+                $this->blockHandler->copyBlock(
+                    $block,
+                    $copiedLayout,
+                    $layoutZone->identifier
                 );
             }
         }
 
-        return $insertedLayoutId;
+        return $copiedLayout;
     }
 
     /**
@@ -443,51 +384,43 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
-        /** @var \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct[] $zoneCreateStructs */
-        $zoneCreateStructs = array_map(
-            function (array $zoneDataRow) {
-                return new ZoneCreateStruct(
-                    array(
-                        'identifier' => $zoneDataRow['identifier'],
-                        'linkedLayoutId' => $zoneDataRow['linked_layout_id'],
-                        'linkedZoneIdentifier' => $zoneDataRow['linked_zone_identifier'],
-                    )
-                );
-            },
-            $this->queryHandler->loadLayoutZonesData($layout->id, $layout->status)
-        );
+        $layoutZones = $this->loadLayoutZones($layout);
 
-        $layoutData = $this->queryHandler->loadLayoutData($layout->id, $layout->status);
+        $zoneCreateStructs = array();
+        foreach ($layoutZones as $layoutZone) {
+            $zoneCreateStructs[] = new ZoneCreateStruct(
+                array(
+                    'identifier' => $layoutZone->identifier,
+                    'linkedLayoutId' => $layoutZone->linkedLayoutId,
+                    'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
+                )
+            );
+        }
 
         $this->queryHandler->createLayout(
             new LayoutCreateStruct(
                 array(
-                    'type' => $layoutData[0]['type'],
-                    'name' => $layoutData[0]['name'],
+                    'type' => $layout->type,
+                    'name' => $layout->name,
                     'status' => $newStatus,
-                    'shared' => $layoutData[0]['shared'],
+                    'shared' => $layout->shared,
                     'zoneCreateStructs' => $zoneCreateStructs,
                 )
             ),
-            $layoutData[0]['id']
+            $layout->id
         );
 
-        foreach ($zoneCreateStructs as $zoneCreateStruct) {
-            $blockData = $this->blockQueryHandler->loadZoneBlocksData(
-                $layoutData[0]['id'],
-                $zoneCreateStruct->identifier,
-                $layout->status
-            );
-
-            foreach ($blockData as $blockDataRow) {
+        foreach ($layoutZones as $layoutZone) {
+            $zoneBlocks = $this->blockHandler->loadZoneBlocks($layoutZone);
+            foreach ($zoneBlocks as $block) {
                 $this->blockHandler->createBlockStatus(
-                    $this->blockHandler->loadBlock($blockDataRow['id'], $layout->status),
+                    $block,
                     $newStatus
                 );
             }
         }
 
-        return $this->loadLayout($layoutData[0]['id'], $newStatus);
+        return $this->loadLayout($layout->id, $newStatus);
     }
 
     /**

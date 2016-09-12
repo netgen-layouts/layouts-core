@@ -197,6 +197,11 @@ class BlockServiceTest extends TransactionRollbackTest
             ->method('loadBlock')
             ->will($this->returnValue(new PersistenceBlock()));
 
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('copyBlock')
