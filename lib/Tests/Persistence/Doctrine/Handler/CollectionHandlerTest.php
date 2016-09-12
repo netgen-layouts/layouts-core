@@ -442,12 +442,11 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollection()
     {
-        $copiedCollectionId = $this->collectionHandler->copyCollection(3);
+        $copiedCollection = $this->collectionHandler->copyCollection(
+            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED)
+        );
 
-        $this->assertEquals(6, $copiedCollectionId);
-
-        $copiedCollection = $this->collectionHandler->loadCollection($copiedCollectionId, Collection::STATUS_PUBLISHED);
-
+        $this->assertEquals(6, $copiedCollection->id);
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
         $this->assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->name);
@@ -458,7 +457,7 @@ class CollectionHandlerTest extends TestCase
                 new Item(
                     array(
                         'id' => 13,
-                        'collectionId' => $copiedCollectionId,
+                        'collectionId' => $copiedCollection->id,
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '70',
@@ -469,7 +468,7 @@ class CollectionHandlerTest extends TestCase
                 new Item(
                     array(
                         'id' => 14,
-                        'collectionId' => $copiedCollectionId,
+                        'collectionId' => $copiedCollection->id,
                         'position' => 3,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '71',
@@ -480,7 +479,7 @@ class CollectionHandlerTest extends TestCase
                 new Item(
                     array(
                         'id' => 15,
-                        'collectionId' => $copiedCollectionId,
+                        'collectionId' => $copiedCollection->id,
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
                         'valueId' => '72',
@@ -497,7 +496,7 @@ class CollectionHandlerTest extends TestCase
                 new Query(
                     array(
                         'id' => 5,
-                        'collectionId' => $copiedCollectionId,
+                        'collectionId' => $copiedCollection->id,
                         'position' => 0,
                         'identifier' => 'default',
                         'type' => 'ezcontent_search',
@@ -514,7 +513,7 @@ class CollectionHandlerTest extends TestCase
                 new Query(
                     array(
                         'id' => 6,
-                        'collectionId' => $copiedCollectionId,
+                        'collectionId' => $copiedCollection->id,
                         'position' => 1,
                         'identifier' => 'featured',
                         'type' => 'ezcontent_search',

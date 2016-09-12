@@ -347,90 +347,61 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Copies a collection with specified ID.
+     * Copies a collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return int The ID of copied collection
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection($collectionId, $status = null)
+    public function copyCollection(Collection $collection)
     {
-        // First copy collection data
+        $copiedCollectionId = $this->queryHandler->createCollection(
+            new CollectionCreateStruct(
+                array(
+                    'status' => $collection->status,
+                    'type' => $collection->type,
+                    'name' => (int)$collection->type === Collection::TYPE_NAMED ?
+                        $collection->name . ' (copy) ' . crc32(microtime()) :
+                        $collection->name,
+                )
+            )
+        );
 
-        $collectionData = $this->queryHandler->loadCollectionData($collectionId, $status);
-        $insertedCollectionId = null;
+        $collectionItems = $this->loadCollectionItems($collection);
 
-        foreach ($collectionData as $collectionDataRow) {
-            $insertedCollectionId = $this->queryHandler->createCollection(
-                new CollectionCreateStruct(
-                    array(
-                        'status' => $collectionDataRow['status'],
-                        'type' => $collectionDataRow['type'],
-                        'name' => (int)$collectionDataRow['type'] === Collection::TYPE_NAMED ?
-                            $collectionDataRow['name'] . ' (copy) ' . crc32(microtime()) :
-                            $collectionDataRow['name'],
-                    )
-                ),
-                $insertedCollectionId
-            );
-        }
-
-        // Then copy item data
-
-        $itemData = $this->queryHandler->loadCollectionItemsData($collectionId, $status);
-        $itemIdMapping = array();
-
-        foreach ($itemData as $itemDataRow) {
-            $insertedItemId = $this->queryHandler->addItem(
+        foreach ($collectionItems as $collectionItem) {
+            $this->queryHandler->addItem(
                 new ItemCreateStruct(
                     array(
-                        'collectionId' => $insertedCollectionId,
-                        'position' => $itemDataRow['position'],
-                        'status' => $itemDataRow['status'],
-                        'valueId' => $itemDataRow['value_id'],
-                        'valueType' => $itemDataRow['value_type'],
-                        'type' => $itemDataRow['type'],
+                        'collectionId' => $copiedCollectionId,
+                        'position' => $collectionItem->position,
+                        'status' => $collectionItem->status,
+                        'valueId' => $collectionItem->valueId,
+                        'valueType' => $collectionItem->valueType,
+                        'type' => $collectionItem->type,
                     )
-                ),
-                isset($itemIdMapping[$itemDataRow['id']]) ?
-                    $itemIdMapping[$itemDataRow['id']] :
-                    null
+                )
             );
-
-            if (!isset($itemIdMapping[$itemDataRow['id']])) {
-                $itemIdMapping[$itemDataRow['id']] = $insertedItemId;
-            }
         }
 
-        // Then copy collection query data
+        $collectionQueries = $this->loadCollectionQueries($collection);
 
-        $queryData = $this->queryHandler->loadCollectionQueriesData($collectionId, $status);
-        $queryIdMapping = array();
-
-        foreach ($queryData as $queryDataRow) {
-            $insertedQueryId = $this->queryHandler->addQuery(
+        foreach ($collectionQueries as $collectionQuery) {
+            $this->queryHandler->addQuery(
                 new QueryCreateStruct(
                     array(
-                        'collectionId' => $insertedCollectionId,
-                        'position' => $queryDataRow['position'],
-                        'status' => $queryDataRow['status'],
-                        'identifier' => $queryDataRow['identifier'],
-                        'type' => $queryDataRow['type'],
-                        'parameters' => $queryDataRow['parameters'],
+                        'collectionId' => $copiedCollectionId,
+                        'position' => $collectionQuery->position,
+                        'status' => $collectionQuery->status,
+                        'identifier' => $collectionQuery->identifier,
+                        'type' => $collectionQuery->type,
+                        'parameters' => $collectionQuery->parameters,
                     )
-                ),
-                isset($queryIdMapping[$queryDataRow['id']]) ?
-                    $queryIdMapping[$queryDataRow['id']] :
-                    null
+                )
             );
-
-            if (!isset($queryIdMapping[$queryDataRow['id']])) {
-                $queryIdMapping[$queryDataRow['id']] = $insertedQueryId;
-            }
         }
 
-        return $insertedCollectionId;
+        return $this->loadCollection($copiedCollectionId, $collection->status);
     }
 
     /**
@@ -443,54 +414,54 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollectionStatus(Collection $collection, $newStatus)
     {
-        $collectionData = $this->queryHandler->loadCollectionData($collection->id, $collection->status);
-
         $this->queryHandler->createCollection(
             new CollectionCreateStruct(
                 array(
                     'status' => $newStatus,
-                    'type' => $collectionData[0]['type'],
-                    'name' => $collectionData[0]['name'],
+                    'type' => $collection->type,
+                    'name' => $collection->name,
                 )
             ),
-            $collectionData[0]['id']
+            $collection->id
         );
 
-        $itemData = $this->queryHandler->loadCollectionItemsData($collectionData[0]['id'], $collection->status);
-        foreach ($itemData as $itemDataRow) {
+        $collectionItems = $this->loadCollectionItems($collection);
+
+        foreach ($collectionItems as $collectionItem) {
             $this->queryHandler->addItem(
                 new ItemCreateStruct(
                     array(
-                        'collectionId' => $itemDataRow['collection_id'],
-                        'position' => $itemDataRow['position'],
+                        'collectionId' => $collectionItem->collectionId,
+                        'position' => $collectionItem->position,
                         'status' => $newStatus,
-                        'valueId' => $itemDataRow['value_id'],
-                        'valueType' => $itemDataRow['value_type'],
-                        'type' => $itemDataRow['type'],
+                        'valueId' => $collectionItem->valueId,
+                        'valueType' => $collectionItem->valueType,
+                        'type' => $collectionItem->type,
                     )
                 ),
-                $itemDataRow['id']
+                $collectionItem->id
             );
         }
 
-        $queryData = $this->queryHandler->loadCollectionQueriesData($collectionData[0]['id'], $collection->status);
-        foreach ($queryData as $queryDataRow) {
+        $collectionQueries = $this->loadCollectionQueries($collection);
+
+        foreach ($collectionQueries as $collectionQuery) {
             $this->queryHandler->addQuery(
                 new QueryCreateStruct(
                     array(
-                        'collectionId' => $queryDataRow['collection_id'],
-                        'position' => $queryDataRow['position'],
+                        'collectionId' => $collectionQuery->collectionId,
+                        'position' => $collectionQuery->position,
                         'status' => $newStatus,
-                        'identifier' => $queryDataRow['identifier'],
-                        'type' => $queryDataRow['type'],
-                        'parameters' => $queryDataRow['parameters'],
+                        'identifier' => $collectionQuery->identifier,
+                        'type' => $collectionQuery->type,
+                        'parameters' => $collectionQuery->parameters,
                     )
                 ),
-                $queryDataRow['id']
+                $collectionQuery->id
             );
         }
 
-        return $this->loadCollection($collectionData[0]['id'], $newStatus);
+        return $this->loadCollection($collection->id, $newStatus);
     }
 
     /**

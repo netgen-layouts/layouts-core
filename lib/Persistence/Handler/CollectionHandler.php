@@ -141,14 +141,13 @@ interface CollectionHandler
     public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
 
     /**
-     * Copies a collection with specified ID.
+     * Copies a collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return int The ID of copied collection
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection($collectionId, $status = null);
+    public function copyCollection(Collection $collection);
 
     /**
      * Creates a new collection status.

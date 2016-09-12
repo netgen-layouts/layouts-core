@@ -353,9 +353,7 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedRuleId = $this->handler->copyRule(
-                $persistenceRule->id
-            );
+            $copiedRule = $this->handler->copyRule($persistenceRule);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -363,9 +361,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapRule(
-            $this->handler->loadRule($copiedRuleId, $persistenceRule->status)
-        );
+        return $this->mapper->mapRule($copiedRule);
     }
 
     /**

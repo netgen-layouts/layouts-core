@@ -150,13 +150,13 @@ interface LayoutResolverHandler
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct);
 
     /**
-     * Copies a rule with specified ID.
+     * Copies a rule.
      *
-     * @param int|string $ruleId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
-     * @return int The ID of copied rule
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function copyRule($ruleId);
+    public function copyRule(Rule $rule);
 
     /**
      * Creates a new rule status.

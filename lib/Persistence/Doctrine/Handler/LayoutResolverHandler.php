@@ -299,86 +299,63 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     }
 
     /**
-     * Copies a rule with specified ID.
+     * Copies a rule.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
-     * @return int The ID of copied rule
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function copyRule($ruleId, $status = null)
+    public function copyRule(Rule $rule)
     {
-        // First copy rule data
+        // First copy the rule
 
-        $ruleData = $this->queryHandler->loadRuleData($ruleId, $status);
-        $insertedRuleId = null;
+        $copiedRuleId = $this->queryHandler->createRule(
+            new RuleCreateStruct(
+                array(
+                    'layoutId' => $rule->layoutId,
+                    'priority' => $rule->priority,
+                    'enabled' => $rule->enabled,
+                    'comment' => $rule->comment,
+                    'status' => $rule->status,
+                )
+            )
+        );
 
-        foreach ($ruleData as $ruleDataRow) {
-            $insertedRuleId = $this->queryHandler->createRule(
-                new RuleCreateStruct(
-                    array(
-                        'layoutId' => $ruleDataRow['layout_id'],
-                        'priority' => $ruleDataRow['priority'],
-                        'enabled' => $ruleDataRow['enabled'],
-                        'comment' => $ruleDataRow['comment'],
-                        'status' => $ruleDataRow['status'],
-                    )
-                ),
-                $insertedRuleId
-            );
-        }
+        // Then copy rule targets
 
-        // Then copy rule target data
+        $ruleTargets = $this->loadRuleTargets($rule);
 
-        $targetData = $this->queryHandler->loadRuleTargetsData($ruleId, $status);
-        $targetIdMapping = array();
-
-        foreach ($targetData as $targetDataRow) {
-            $insertedTargetId = $this->queryHandler->addTarget(
+        foreach ($ruleTargets as $ruleTarget) {
+            $this->queryHandler->addTarget(
                 new TargetCreateStruct(
                     array(
-                        'ruleId' => $insertedRuleId,
-                        'status' => $targetDataRow['status'],
-                        'type' => $targetDataRow['type'],
-                        'value' => $targetDataRow['value'],
+                        'ruleId' => $copiedRuleId,
+                        'status' => $ruleTarget->status,
+                        'type' => $ruleTarget->type,
+                        'value' => $ruleTarget->value,
                     )
-                ),
-                isset($targetIdMapping[$targetDataRow['id']]) ?
-                    $targetIdMapping[$targetDataRow['id']] :
-                    null
+                )
             );
-
-            if (!isset($targetIdMapping[$targetDataRow['id']])) {
-                $targetIdMapping[$targetDataRow['id']] = $insertedTargetId;
-            }
         }
 
-        // Then copy rule condition data
+        // Then copy rule conditions
 
-        $conditionData = $this->queryHandler->loadRuleConditionsData($ruleId, $status);
-        $conditionIdMapping = array();
+        $ruleConditions = $this->loadRuleConditions($rule);
 
-        foreach ($conditionData as $conditionDataRow) {
-            $insertedConditionId = $this->queryHandler->addCondition(
+        foreach ($ruleConditions as $ruleCondition) {
+            $this->queryHandler->addCondition(
                 new ConditionCreateStruct(
                     array(
-                        'ruleId' => $insertedRuleId,
-                        'status' => $conditionDataRow['status'],
-                        'type' => $conditionDataRow['type'],
-                        'value' => json_decode($conditionDataRow['value'], true),
+                        'ruleId' => $copiedRuleId,
+                        'status' => $ruleCondition->status,
+                        'type' => $ruleCondition->type,
+                        'value' => $ruleCondition->value,
                     )
-                ),
-                isset($conditionIdMapping[$conditionDataRow['id']]) ?
-                    $conditionIdMapping[$conditionDataRow['id']] :
-                    null
+                )
             );
-
-            if (!isset($conditionIdMapping[$conditionDataRow['id']])) {
-                $conditionIdMapping[$conditionDataRow['id']] = $insertedConditionId;
-            }
         }
 
-        return $insertedRuleId;
+        return $this->loadRule($copiedRuleId, $rule->status);
     }
 
     /**
@@ -391,52 +368,58 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function createRuleStatus(Rule $rule, $newStatus)
     {
-        $ruleData = $this->queryHandler->loadRuleData($rule->id, $rule->status);
+        // First copy the rule
 
         $this->queryHandler->createRule(
             new RuleCreateStruct(
                 array(
-                    'layoutId' => $ruleData[0]['layout_id'],
-                    'priority' => $ruleData[0]['priority'],
-                    'enabled' => $ruleData[0]['enabled'],
-                    'comment' => $ruleData[0]['comment'],
+                    'layoutId' => $rule->layoutId,
+                    'priority' => $rule->priority,
+                    'enabled' => $rule->enabled,
+                    'comment' => $rule->comment,
                     'status' => $newStatus,
                 )
             ),
-            $ruleData[0]['id']
+            $rule->id
         );
 
-        $targetData = $this->queryHandler->loadRuleTargetsData($ruleData[0]['id'], $rule->status);
-        foreach ($targetData as $targetDataRow) {
+        // Then copy rule targets
+
+        $ruleTargets = $this->loadRuleTargets($rule);
+
+        foreach ($ruleTargets as $ruleTarget) {
             $this->queryHandler->addTarget(
                 new TargetCreateStruct(
                     array(
-                        'ruleId' => $targetDataRow['rule_id'],
+                        'ruleId' => $ruleTarget->ruleId,
                         'status' => $newStatus,
-                        'type' => $targetDataRow['type'],
-                        'value' => $targetDataRow['value'],
+                        'type' => $ruleTarget->type,
+                        'value' => $ruleTarget->value,
                     )
                 ),
-                $targetDataRow['id']
+                $ruleTarget->id
             );
         }
 
-        $conditionData = $this->queryHandler->loadRuleConditionsData($ruleData[0]['id'], $rule->status);
-        foreach ($conditionData as $conditionDataRow) {
+        // Then copy rule conditions
+
+        $ruleConditions = $this->loadRuleConditions($rule);
+
+        foreach ($ruleConditions as $ruleCondition) {
             $this->queryHandler->addCondition(
                 new ConditionCreateStruct(
                     array(
-                        'ruleId' => $conditionDataRow['rule_id'],
+                        'ruleId' => $ruleCondition->ruleId,
                         'status' => $newStatus,
-                        'type' => $conditionDataRow['type'],
-                        'value' => json_decode($conditionDataRow['value'], true),
+                        'type' => $ruleCondition->type,
+                        'value' => $ruleCondition->value,
                     )
                 ),
-                $conditionDataRow['id']
+                $ruleCondition->id
             );
         }
 
-        return $this->loadRule($ruleData[0]['id'], $newStatus);
+        return $this->loadRule($rule->id, $newStatus);
     }
 
     /**

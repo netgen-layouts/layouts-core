@@ -415,30 +415,29 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function createBlockCollectionsStatus(Block $block, $newStatus)
     {
-        $collectionsData = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status);
-        foreach ($collectionsData as $collectionsDataRow) {
-            if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
-                $this->collectionHandler->createCollectionStatus(
-                    $this->collectionHandler->loadCollection(
-                        $collectionsDataRow['collection_id'],
-                        $block->status
-                    ),
+        $collectionReferences = $this->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            if ($collection->type !== Collection::TYPE_NAMED) {
+                $collection = $this->collectionHandler->createCollectionStatus(
+                    $collection,
                     $newStatus
                 );
-
-                $newCollectionStatus = $newStatus;
-            } else {
-                $newCollectionStatus = $collectionsDataRow['collection_status'];
             }
 
             $this->queryHandler->createCollectionReference(
                 $block->id,
                 $newStatus,
-                $collectionsDataRow['collection_id'],
-                $newCollectionStatus,
-                $collectionsDataRow['identifier'],
-                $collectionsDataRow['start'],
-                $collectionsDataRow['length']
+                $collection->id,
+                $collection->status,
+                $collectionReference->identifier,
+                $collectionReference->offset,
+                $collectionReference->limit
             );
         }
     }
@@ -507,35 +506,27 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
     protected function copyBlockCollections(Block $block, Block $targetBlock)
     {
-        $collectionsData = $this->queryHandler->loadCollectionReferencesData(
-            $block->id,
-            $block->status
-        );
+        $collectionReferences = $this->loadCollectionReferences($block);
 
-        foreach ($collectionsData as $collectionsDataRow) {
-            $newCollectionId = $collectionsDataRow['collection_id'];
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
 
-            if (!$this->collectionHandler->isNamedCollection($collectionsDataRow['collection_id'], $collectionsDataRow['collection_status'])) {
-                $newCollectionId = $this->collectionHandler->copyCollection(
-                    $collectionsDataRow['collection_id'],
-                    $block->status
-                );
+            if ($collection->type !== Collection::TYPE_NAMED) {
+                $collection = $this->collectionHandler->copyCollection($collection);
             }
 
             $this->createCollectionReference(
                 $targetBlock,
-                $this->collectionHandler->loadCollection(
-                    $newCollectionId,
-                    $collectionsDataRow['collection_status']
-                ),
-                $collectionsDataRow['identifier'],
-                $collectionsDataRow['start'],
-                $collectionsDataRow['length']
+                $collection,
+                $collectionReference->identifier,
+                $collectionReference->offset,
+                $collectionReference->limit
             );
         }
     }

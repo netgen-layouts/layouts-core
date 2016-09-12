@@ -414,13 +414,12 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testCopyRule()
     {
-        $copiedRuleId = $this->handler->copyRule(5);
-
-        $this->assertEquals(22, $copiedRuleId);
-
-        $copiedRule = $this->handler->loadRule($copiedRuleId, Rule::STATUS_PUBLISHED);
+        $copiedRule = $this->handler->copyRule(
+            $this->handler->loadRule(5, Rule::STATUS_PUBLISHED)
+        );
 
         $this->assertInstanceOf(Rule::class, $copiedRule);
+        $this->assertEquals(22, $copiedRule->id);
         $this->assertEquals(2, $copiedRule->layoutId);
         $this->assertEquals(16, $copiedRule->priority);
         $this->assertTrue($copiedRule->enabled);
@@ -432,7 +431,7 @@ class LayoutResolverHandlerTest extends TestCase
                 new Target(
                     array(
                         'id' => 43,
-                        'ruleId' => $copiedRuleId,
+                        'ruleId' => $copiedRule->id,
                         'type' => 'route_prefix',
                         'value' => 'my_second_cool_',
                         'status' => Rule::STATUS_PUBLISHED,
@@ -441,7 +440,7 @@ class LayoutResolverHandlerTest extends TestCase
                 new Target(
                     array(
                         'id' => 44,
-                        'ruleId' => $copiedRuleId,
+                        'ruleId' => $copiedRule->id,
                         'type' => 'route_prefix',
                         'value' => 'my_third_cool_',
                         'status' => Rule::STATUS_PUBLISHED,
@@ -456,7 +455,7 @@ class LayoutResolverHandlerTest extends TestCase
                 new Condition(
                     array(
                         'id' => 5,
-                        'ruleId' => $copiedRuleId,
+                        'ruleId' => $copiedRule->id,
                         'type' => 'ez_site_access',
                         'value' => array('cro'),
                         'status' => Rule::STATUS_PUBLISHED,

@@ -352,8 +352,8 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedCollectionId = $this->collectionHandler->copyCollection(
-                $persistenceCollection->id
+            $copiedCollection = $this->collectionHandler->copyCollection(
+                $persistenceCollection
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -362,9 +362,7 @@ class CollectionService implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection(
-            $this->collectionHandler->loadCollection($copiedCollectionId, $persistenceCollection->status)
-        );
+        return $this->collectionMapper->mapCollection($copiedCollection);
     }
 
     /**
