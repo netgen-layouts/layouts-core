@@ -116,7 +116,7 @@ interface LayoutHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function removeZoneLink(Zone $zone);
+    public function unlinkZone(Zone $zone);
 
     /**
      * Creates a layout.

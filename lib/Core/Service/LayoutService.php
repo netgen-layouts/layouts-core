@@ -352,14 +352,14 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
      */
-    public function removeZoneLink(ZoneDraft $zone)
+    public function unlinkZone(ZoneDraft $zone)
     {
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Layout::STATUS_DRAFT, $zone->getIdentifier());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedZone = $this->layoutHandler->removeZoneLink($persistenceZone);
+            $updatedZone = $this->layoutHandler->unlinkZone($persistenceZone);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

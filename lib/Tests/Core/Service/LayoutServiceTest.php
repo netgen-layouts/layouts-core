@@ -439,13 +439,13 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeZoneLink
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
      */
-    public function testRemoveZoneLink()
+    public function testUnlinkZone()
     {
         $zone = $this->layoutService->loadZoneDraft(2, 'top');
 
-        $updatedZone = $this->layoutService->removeZoneLink($zone);
+        $updatedZone = $this->layoutService->unlinkZone($zone);
 
         $this->assertNull($updatedZone->getLinkedLayoutId());
         $this->assertNull($updatedZone->getLinkedZoneIdentifier());

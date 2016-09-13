@@ -169,9 +169,9 @@ class LayoutController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function removeZoneLink(ZoneDraft $zone)
+    public function unlinkZone(ZoneDraft $zone)
     {
-        $this->layoutService->removeZoneLink($zone);
+        $this->layoutService->unlinkZone($zone);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

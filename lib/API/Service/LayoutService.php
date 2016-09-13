@@ -132,7 +132,7 @@ interface LayoutService
      *
      * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
      */
-    public function removeZoneLink(ZoneDraft $zone);
+    public function unlinkZone(ZoneDraft $zone);
 
     /**
      * Creates a layout.

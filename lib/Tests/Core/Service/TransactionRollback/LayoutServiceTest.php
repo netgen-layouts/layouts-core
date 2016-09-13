@@ -106,10 +106,10 @@ class LayoutServiceTest extends TransactionRollbackTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeZoneLink
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
      * @expectedException \Exception
      */
-    public function testRemoveZoneLink()
+    public function testUnlinkZone()
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -118,14 +118,14 @@ class LayoutServiceTest extends TransactionRollbackTest
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
-            ->method('removeZoneLink')
+            ->method('unlinkZone')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->removeZoneLink(new ZoneDraft());
+        $this->layoutService->unlinkZone(new ZoneDraft());
     }
 
     /**

@@ -238,9 +238,9 @@ class LayoutHandler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function removeZoneLink(Zone $zone)
+    public function unlinkZone(Zone $zone)
     {
-        $this->queryHandler->removeZoneLink($zone->layoutId, $zone->identifier, $zone->status);
+        $this->queryHandler->unlinkZone($zone->layoutId, $zone->identifier, $zone->status);
 
         return $this->loadZone(
             $zone->layoutId,

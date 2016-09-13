@@ -398,14 +398,14 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::removeZoneLink
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::removeZoneLink
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::unlinkZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::unlinkZone
      */
-    public function testRemoveZoneLink()
+    public function testUnlinkZone()
     {
         $zone = $this->layoutHandler->loadZone(1, Layout::STATUS_DRAFT, 'left');
 
-        $updatedZone = $this->layoutHandler->removeZoneLink($zone);
+        $updatedZone = $this->layoutHandler->unlinkZone($zone);
 
         $this->assertEquals(
             new Zone(

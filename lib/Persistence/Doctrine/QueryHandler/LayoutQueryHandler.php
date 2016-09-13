@@ -297,7 +297,7 @@ class LayoutQueryHandler extends QueryHandler
      * @param string $zoneIdentifier
      * @param int $status
      */
-    public function removeZoneLink($layoutId, $zoneIdentifier, $status)
+    public function unlinkZone($layoutId, $zoneIdentifier, $status)
     {
         $query = $this->connection->createQueryBuilder();
         $query
