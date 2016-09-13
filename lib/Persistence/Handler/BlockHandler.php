@@ -159,20 +159,25 @@ interface BlockHandler
     public function moveBlockToZone(Block $block, $zoneIdentifier, $position);
 
     /**
+     * Restores the specified block from the provided status. Zone and position are kept as is.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $fromStatus
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If $fromStatus is the same to block status
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block does not have a $fromStatus status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function restoreBlock(Block $block, $fromStatus);
+
+    /**
      * Creates a new block status.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
      */
     public function createBlockStatus(Block $block, $newStatus);
-
-    /**
-     * Creates a new status for all collections in specified block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param int $newStatus
-     */
-    public function createBlockCollectionsStatus(Block $block, $newStatus);
 
     /**
      * Deletes a block with specified ID.
@@ -187,11 +192,4 @@ interface BlockHandler
      * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
      */
     public function deleteCollectionReference(CollectionReference $collectionReference);
-
-    /**
-     * Deletes all block collections.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     */
-    public function deleteBlockCollections(Block $block);
 }

@@ -9,7 +9,6 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
@@ -447,32 +446,12 @@ class BlockService implements BlockServiceInterface
     {
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
 
-        try {
-            $publishedBlock = $this->blockHandler->loadBlock($persistenceBlock->id, Layout::STATUS_PUBLISHED);
-        } catch (NotFoundException $e) {
-            throw new BadStateException('block', 'Block cannot be restored as it does not have a published status.');
-        }
-
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedBlock = $this->blockHandler->updateBlock(
+            $restoredBlock = $this->blockHandler->restoreBlock(
                 $persistenceBlock,
-                new BlockUpdateStruct(
-                    array(
-                        'name' => $publishedBlock->name,
-                        'viewType' => $publishedBlock->viewType,
-                        'itemViewType' => $publishedBlock->itemViewType,
-                        'parameters' => $publishedBlock->parameters,
-                    )
-                )
-            );
-
-            $this->blockHandler->deleteBlockCollections($persistenceBlock);
-
-            $this->blockHandler->createBlockCollectionsStatus(
-                $publishedBlock,
-                $persistenceBlock->status
+                Layout::STATUS_PUBLISHED
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -481,7 +460,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($updatedBlock);
+        return $this->blockMapper->mapBlock($restoredBlock);
     }
 
     /**

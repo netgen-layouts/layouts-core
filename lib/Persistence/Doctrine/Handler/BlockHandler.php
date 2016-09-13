@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
@@ -380,6 +381,59 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Restores the specified block from the provided status. Zone and position are kept as is.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $fromStatus
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If $fromStatus is the same to block status
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block does not have a $fromStatus status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function restoreBlock(Block $block, $fromStatus)
+    {
+        if ($block->status == $fromStatus) {
+            throw new InvalidArgumentException(
+                'fromStatus',
+                'The block cannot be restored from itself'
+            );
+        }
+
+        try {
+            $fromBlock = $this->loadBlock($block->id, $fromStatus);
+        } catch (NotFoundException $e) {
+            throw new BadStateException(
+                'block',
+                'Block cannot be restored as it does not have a published status'
+            );
+        }
+
+        $this->deleteBlock($block);
+
+        $this->queryHandler->createBlock(
+            new BlockCreateStruct(
+                array(
+                    'layoutId' => $block->layoutId,
+                    'zoneIdentifier' => $block->zoneIdentifier,
+                    'status' => $block->status,
+                    'position' => $block->position,
+                    'definitionIdentifier' => $block->definitionIdentifier,
+                    'viewType' => $fromBlock->viewType,
+                    'itemViewType' => $fromBlock->itemViewType,
+                    'name' => $fromBlock->name,
+                    'parameters' => $fromBlock->parameters,
+                )
+            ),
+            $block->id
+        );
+
+        $this->createBlockCollectionsStatus($fromBlock, $block->status);
+
+        return $this->loadBlock($block->id, $block->status);
+    }
+
+    /**
      * Creates a new block status.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -408,12 +462,75 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Deletes a block with specified ID.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     */
+    public function deleteBlock(Block $block)
+    {
+        $this->deleteBlockData($block);
+
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperConditions(
+                $block->layoutId,
+                $block->status,
+                $block->zoneIdentifier
+            ),
+            $block->position
+        );
+    }
+
+    /**
+     * Deletes the collection reference.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     */
+    public function deleteCollectionReference(CollectionReference $collectionReference)
+    {
+        $this->queryHandler->deleteCollectionReference(
+            $collectionReference->blockId,
+            $collectionReference->blockStatus,
+            $collectionReference->identifier
+        );
+    }
+
+    /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     */
+    protected function copyBlockCollections(Block $block, Block $targetBlock)
+    {
+        $collectionReferences = $this->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            if ($collection->type !== Collection::TYPE_NAMED) {
+                $collection = $this->collectionHandler->copyCollection($collection);
+            }
+
+            $this->createCollectionReference(
+                $targetBlock,
+                $collection,
+                $collectionReference->identifier,
+                $collectionReference->offset,
+                $collectionReference->limit
+            );
+        }
+    }
+
+    /**
      * Creates a new status for all collections in specified block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
      */
-    public function createBlockCollectionsStatus(Block $block, $newStatus)
+    protected function createBlockCollectionsStatus(Block $block, $newStatus)
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -443,37 +560,14 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Deletes a block with specified ID.
+     * Deletes all block data.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      */
-    public function deleteBlock(Block $block)
+    protected function deleteBlockData(Block $block)
     {
         $this->deleteBlockCollections($block);
         $this->queryHandler->deleteBlock($block->id, $block->status);
-
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperConditions(
-                $block->layoutId,
-                $block->status,
-                $block->zoneIdentifier
-            ),
-            $block->position
-        );
-    }
-
-    /**
-     * Deletes the collection reference.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
-     */
-    public function deleteCollectionReference(CollectionReference $collectionReference)
-    {
-        $this->queryHandler->deleteCollectionReference(
-            $collectionReference->blockId,
-            $collectionReference->blockStatus,
-            $collectionReference->identifier
-        );
     }
 
     /**
@@ -481,7 +575,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      */
-    public function deleteBlockCollections(Block $block)
+    protected function deleteBlockCollections(Block $block)
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -497,36 +591,6 @@ class BlockHandler implements BlockHandlerInterface
                 $block->id,
                 $block->status,
                 $collectionReference->identifier
-            );
-        }
-    }
-
-    /**
-     * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
-     */
-    protected function copyBlockCollections(Block $block, Block $targetBlock)
-    {
-        $collectionReferences = $this->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
-            if ($collection->type !== Collection::TYPE_NAMED) {
-                $collection = $this->collectionHandler->copyCollection($collection);
-            }
-
-            $this->createCollectionReference(
-                $targetBlock,
-                $collection,
-                $collectionReference->identifier,
-                $collectionReference->offset,
-                $collectionReference->limit
             );
         }
     }

@@ -759,35 +759,6 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
-     */
-    public function testCreateBlockCollectionsStatus()
-    {
-        $this->blockHandler->deleteBlockCollections(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
-        );
-
-        $this->blockHandler->createBlockCollectionsStatus(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
-            Layout::STATUS_DRAFT
-        );
-
-        $collectionReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
-        );
-
-        $this->assertCount(2, $collectionReferences);
-
-        $collectionIds = array(
-            $collectionReferences[0]->collectionId,
-            $collectionReferences[1]->collectionId,
-        );
-
-        $this->assertContains(2, $collectionIds);
-        $this->assertContains(3, $collectionIds);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
@@ -817,22 +788,6 @@ class BlockHandlerTest extends TestCase
 
         // Verify that named collection still exists
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     */
-    public function testDeleteBlockCollections()
-    {
-        $this->blockHandler->deleteBlockCollections(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
-        );
-
-        // Verify that named collection still exists
-        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
-
-        $this->collectionHandler->loadCollection(1, Layout::STATUS_DRAFT);
     }
 
     /**
