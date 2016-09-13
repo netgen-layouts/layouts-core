@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
@@ -51,15 +51,15 @@ class LayoutResolverListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::REQUEST => array('onKernelRequest', -255));
+        return array(KernelEvents::CONTROLLER => array('onKernelController', -255));
     }
 
     /**
      * Resolves the layout to be used for the current request.
      *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelController(FilterControllerEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;

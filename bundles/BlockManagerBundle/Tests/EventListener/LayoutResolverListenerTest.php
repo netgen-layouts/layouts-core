@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +40,11 @@ class LayoutResolverListenerTest extends TestCase
     protected $listener;
 
     /**
+     * @var \Closure
+     */
+    protected $dummyController;
+
+    /**
      * Sets up the test.
      */
     public function setUp()
@@ -61,6 +66,9 @@ class LayoutResolverListenerTest extends TestCase
             $this->viewBuilderMock,
             $this->globalVariable
         );
+
+        $this->dummyController = function () {
+        };
     }
 
     /**
@@ -69,16 +77,16 @@ class LayoutResolverListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::REQUEST => array('onKernelRequest', -255)),
+            array(KernelEvents::CONTROLLER => array('onKernelController', -255)),
             $this->listener->getSubscribedEvents()
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelController
      */
-    public function testOnKernelRequest()
+    public function testOnKernelController()
     {
         $layout = new Layout();
         $layoutView = new LayoutView($layout);
@@ -107,16 +115,16 @@ class LayoutResolverListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $event = new FilterControllerEvent($kernelMock, $this->dummyController, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelController($event);
 
         $this->assertEquals($layoutView, $this->globalVariable->getLayoutView());
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelController
      */
-    public function testOnKernelRequestWithNoRulesResolved()
+    public function testOnKernelControllerWithNoRulesResolved()
     {
         $this->layoutResolverMock
             ->expects($this->once())
@@ -130,16 +138,16 @@ class LayoutResolverListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $event = new FilterControllerEvent($kernelMock, $this->dummyController, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelController($event);
 
         $this->assertNull($this->globalVariable->getLayoutView());
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelController
      */
-    public function testOnKernelRequestWithNonExistingLayout()
+    public function testOnKernelControllerWithNonExistingLayout()
     {
         $this->layoutResolverMock
             ->expects($this->once())
@@ -153,16 +161,16 @@ class LayoutResolverListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $event = new FilterControllerEvent($kernelMock, $this->dummyController, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelController($event);
 
         $this->assertNull($this->globalVariable->getLayoutView());
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelController
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelControllerInSubRequest()
     {
         $this->layoutResolverMock
             ->expects($this->never())
@@ -174,16 +182,16 @@ class LayoutResolverListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $event = new FilterControllerEvent($kernelMock, $this->dummyController, $request, HttpKernelInterface::SUB_REQUEST);
+        $this->listener->onKernelController($event);
 
         $this->assertNull($this->globalVariable->getLayoutView());
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelRequest
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\LayoutResolverListener::onKernelController
      */
-    public function testOnKernelRequestInApiRequest()
+    public function testOnKernelControllerInApiRequest()
     {
         $this->layoutResolverMock
             ->expects($this->never())
@@ -197,8 +205,8 @@ class LayoutResolverListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $event = new FilterControllerEvent($kernelMock, $this->dummyController, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelController($event);
 
         $this->assertNull($this->globalVariable->getLayoutView());
     }
