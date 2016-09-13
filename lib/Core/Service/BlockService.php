@@ -211,12 +211,12 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator->validatePosition($position, 'position');
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
-        if (!$this->isBlockAllowedWithinZone($blockCreateStruct->definitionIdentifier, $persistenceLayout->type, $zoneIdentifier)) {
-            throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
-        }
-
         if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $persistenceLayout->status, $zoneIdentifier)) {
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
+        }
+
+        if (!$this->isBlockAllowedWithinZone($blockCreateStruct->definitionIdentifier, $persistenceLayout->type, $zoneIdentifier)) {
+            throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
         }
 
         $this->persistenceHandler->beginTransaction();
