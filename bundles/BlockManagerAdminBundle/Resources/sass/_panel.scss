@@ -21,6 +21,11 @@
         }
     }
 
+    .nl-layout-content {
+        .nl-tooltip {
+            width:120px;
+        }
+    }
     //panel head
     .nl-panel-head {
         padding:$gutter;
