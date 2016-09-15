@@ -52,7 +52,7 @@ layouts.no_layouts: 'There are no layouts defined'
 
 layouts.layout.unpublished_draft: 'Unpublished draft'
 layouts.layout.edit_layout: 'Edit layout'
-layouts.layout.copy_layout: 'Copy layout'
+layouts.layout.copy_layout: 'Duplicate layout'
 layouts.layout.delete_layout: 'Delete layout'
 layouts.layout.number_of_rules: 'Number of mappings linked to this layout'
 
