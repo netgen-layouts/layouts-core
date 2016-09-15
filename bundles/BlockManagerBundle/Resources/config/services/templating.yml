@@ -9,6 +9,9 @@ services:
         class: "%netgen_block_manager.templating.global_variable.class%"
         arguments:
             - "@netgen_block_manager.configuration"
+            - "@netgen_block_manager.layout.resolver"
+            - "@netgen_block_manager.templating.pagelayout_resolver"
+            - "@netgen_block_manager.view.builder"
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: "%netgen_block_manager.templating.twig.extension.rendering.class%"
