@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -35,6 +36,11 @@ abstract class EditType extends AbstractType
     protected $viewTypesByItemViewType = array();
 
     /**
+     * @var array
+     */
+    protected $viewTypesByParameters = array();
+
+    /**
      * Configures the options for this type.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
@@ -48,6 +54,22 @@ abstract class EditType extends AbstractType
     }
 
     /**
+     * Builds the form view.
+     *
+     * @param \Symfony\Component\Form\FormView $view
+     * @param \Symfony\Component\Form\FormInterface $form
+     * @param array $options
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        parent::buildView($view, $form, $options);
+
+        $view->vars = array(
+            'parameter_view_types' => $this->viewTypesByParameters,
+        ) + $view->vars;
+    }
+
+    /**
      * Adds view type and item view type form children to form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
@@ -58,7 +80,7 @@ abstract class EditType extends AbstractType
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['blockDefinition'];
 
-        $this->buildViewTypes($blockDefinition);
+        $this->processViewTypeConfig($blockDefinition);
 
         $builder->add(
             'view_type',
@@ -169,18 +191,31 @@ abstract class EditType extends AbstractType
     }
 
     /**
-     * Builds the view type and item view type arrays used by the form.
+     * Processes the view type config and builds arrays used by the forms.
+     *
+     * @todo Move this code somewhere else
      *
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      */
-    protected function buildViewTypes(BlockDefinitionInterface $blockDefinition)
+    protected function processViewTypeConfig(BlockDefinitionInterface $blockDefinition)
     {
+        $blockDefinitionParameters = array_keys($blockDefinition->getHandler()->getParameters());
+
         foreach ($blockDefinition->getConfig()->getViewTypes() as $viewType) {
             $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();
 
             foreach ($viewType->getItemViewTypes() as $itemViewType) {
                 $this->itemViewTypes[$viewType->getIdentifier()][$itemViewType->getIdentifier()] = $itemViewType->getName();
                 $this->viewTypesByItemViewType[$itemViewType->getIdentifier()][] = $viewType->getIdentifier();
+            }
+
+            $validParameters = $viewType->getValidParameters();
+            if (!is_array($validParameters)) {
+                $validParameters = $blockDefinitionParameters;
+            }
+
+            foreach ($validParameters as $validParameter) {
+                $this->viewTypesByParameters[$validParameter][] = $viewType->getIdentifier();
             }
         }
     }

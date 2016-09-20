@@ -61,6 +61,7 @@ block_definitions:
         view_types:
             list:
                 name: 'List'
+                valid_parameters: [css_class, css_id, set_container]
             grid:
                 name: 'Grid'
 
@@ -86,9 +87,43 @@ block_definitions:
         view_types:
             slider:
                 name: 'Slider'
+                valid_parameters:
+                    - next_and_previous
+                    - show_pagination
+                    - infinite_loop
+                    - transition
+                    - autoplay
+                    - aspect_ratio
+                    - css_class
+                    - css_id
+                    - set_container
             thumb_gallery:
                 name: 'Thumb gallery'
+                valid_parameters:
+                    - next_and_previous
+                    - aspect_ratio
+                    - show_details
+                    - css_class
+                    - css_id
+                    - set_container
             grid_gallery:
                 name: 'Grid gallery'
+                valid_parameters:
+                    - aspect_ratio
+                    - number_of_thumbnails
+                    - enable_lightbox
+                    - css_class
+                    - css_id
+                    - set_container
             sushi_bar:
                 name: 'Sushi bar'
+                valid_parameters:
+                    - next_and_previous
+                    - show_pagination
+                    - infinite_loop
+                    - autoplay
+                    - aspect_ratio
+                    - number_of_thumbnails
+                    - css_class
+                    - css_id
+                    - set_container

@@ -258,6 +258,7 @@ class Configuration implements ConfigurationInterface
                                         'name' => 'Disabled',
                                         'enabled' => false,
                                         'item_view_types' => array(),
+                                        'valid_parameters' => null,
                                     );
                                 })
                             ->end()
@@ -278,6 +279,24 @@ class Configuration implements ConfigurationInterface
                                                 ->cannotBeEmpty()
                                             ->end()
                                         ->end()
+                                    ->end()
+                                ->end()
+                                ->variableNode('valid_parameters')
+                                    ->defaultNull()
+                                    ->validate()
+                                        ->ifTrue(function ($v) {
+                                            return $v !== null && !is_array($v);
+                                        })
+                                        ->thenInvalid('The value should be null or an array')
+                                    ->end()
+                                    ->validate()
+                                        ->always(function ($v) {
+                                            if (is_array($v)) {
+                                                return array_values(array_unique($v));
+                                            }
+
+                                            return $v;
+                                        })
                                     ->end()
                                 ->end()
                             ->end()

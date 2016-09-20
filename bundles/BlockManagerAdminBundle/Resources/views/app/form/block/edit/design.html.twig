@@ -1,4 +1,4 @@
-{% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
+{% extends 'NetgenBlockManagerAdminBundle:app/form/block:edit.html.twig' %}
 
 {% block children %}
     <div class="master-slave-selects">
@@ -7,6 +7,6 @@
     </div>
 
     {% block parameters %}
-        {{ form_row(form.children.parameters) }}
+        {{ parent() }}
     {% endblock %}
 {% endblock %}

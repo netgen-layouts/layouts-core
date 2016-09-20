@@ -61,6 +61,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                         'name' => 'Standard',
                                     ),
                                 ),
+                                'valid_parameters' => array('param1', 'param2'),
                             ),
                             'large' => array(
                                 'name' => 'Large',
@@ -105,11 +106,13 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                     'name' => 'Standard',
                                 ),
                             ),
+                            'valid_parameters' => array('param1', 'param2'),
                         ),
                         'large' => array(
                             'name' => 'Disabled',
                             'enabled' => false,
                             'item_view_types' => array(),
+                            'valid_parameters' => null,
                         ),
                     ),
                 ),
@@ -205,6 +208,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                         'name' => 'Standard',
                                     ),
                                 ),
+                                'valid_parameters' => array('param1', 'param2'),
                             ),
                             'large' => array(
                                 'name' => 'Large',
@@ -213,6 +217,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                         'name' => 'Standard',
                                     ),
                                 ),
+                                'valid_parameters' => array('param3', 'param4'),
                             ),
                         ),
                     ),
@@ -229,6 +234,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                         'name' => 'Standard',
                                     ),
                                 ),
+                                'valid_parameters' => array('param5', 'param6'),
                             ),
                             'large' => array(
                                 'enabled' => false,
@@ -251,6 +257,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                     'name' => 'Standard',
                                 ),
                             ),
+                            'valid_parameters' => array('param1', 'param2'),
                         ),
                         'title' => array(
                             'name' => 'Title',
@@ -260,11 +267,13 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                     'name' => 'Standard',
                                 ),
                             ),
+                            'valid_parameters' => array('param5', 'param6'),
                         ),
                         'large' => array(
                             'name' => 'Disabled',
                             'enabled' => false,
                             'item_view_types' => array(),
+                            'valid_parameters' => null,
                         ),
                     ),
                 ),
@@ -275,6 +284,60 @@ class BlockDefinitionsConfigurationTest extends TestCase
             $config,
             $expectedConfig,
             'block_definitions.*.view_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testBlockDefinitionSettingsWithoutValidParameters()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'view_types' => array(
+                            'default' => array(
+                                'name' => 'Default',
+                                'enabled' => true,
+                                'item_view_types' => array(
+                                    'standard' => array(
+                                        'name' => 'Standard',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => 'Default',
+                            'enabled' => true,
+                            'item_view_types' => array(
+                                'standard' => array(
+                                    'name' => 'Standard',
+                                ),
+                            ),
+                            'valid_parameters' => null,
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.view_types.*'
         );
     }
 

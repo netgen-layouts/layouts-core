@@ -22,17 +22,28 @@ class ViewType
     protected $itemViewTypes = array();
 
     /**
+     * @var array
+     */
+    protected $validParameters;
+
+    /**
      * Constructor.
      *
      * @param string $identifier
      * @param string $name
      * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[] $itemViewTypes
+     * @param array $validParameters
      */
-    public function __construct($identifier, $name, array $itemViewTypes = array())
-    {
+    public function __construct(
+        $identifier,
+        $name,
+        array $itemViewTypes = array(),
+        array $validParameters = null
+    ) {
         $this->identifier = $identifier;
         $this->name = $name;
         $this->itemViewTypes = $itemViewTypes;
+        $this->validParameters = $validParameters;
     }
 
     /**
@@ -73,6 +84,16 @@ class ViewType
     public function getItemViewTypeIdentifiers()
     {
         return array_keys($this->itemViewTypes);
+    }
+
+    /**
+     * Returns the valid parameters.
+     *
+     * @return array
+     */
+    public function getValidParameters()
+    {
+        return $this->validParameters;
     }
 
     /**

@@ -42,7 +42,8 @@ class Factory
             $viewTypes[$viewTypeIdentifier] = new ViewType(
                 $viewTypeIdentifier,
                 $viewTypeConfig['name'],
-                $itemViewTypes
+                $itemViewTypes,
+                $viewTypeConfig['valid_parameters']
             );
         }
 

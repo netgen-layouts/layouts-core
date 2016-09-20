@@ -1,9 +1,9 @@
-{% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
+{% extends 'NetgenBlockManagerAdminBundle:app/form/block:edit.html.twig' %}
 
 {% block children %}
     {{ form_row(form.children.name) }}
 
     {% block parameters %}
-        {{ form_row(form.children.parameters) }}
+        {{ parent() }}
     {% endblock %}
 {% endblock %}

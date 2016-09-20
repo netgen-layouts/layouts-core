@@ -21,7 +21,8 @@ class ViewTypeTest extends TestCase
             array(
                 'standard' => new ItemViewType('standard', 'Standard'),
                 'standard_with_intro' => new ItemViewType('standard_with_intro', 'Standard with intro'),
-            )
+            ),
+            array('param1', 'param2')
         );
     }
 
@@ -94,5 +95,16 @@ class ViewTypeTest extends TestCase
     public function testGetItemViewTypeThrowsRuntimeException()
     {
         $this->viewType->getItemViewType('unknown');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getValidParameters
+     */
+    public function testGetValidParameters()
+    {
+        $this->assertEquals(
+            array('param1', 'param2'),
+            $this->viewType->getValidParameters()
+        );
     }
 }

@@ -43,6 +43,7 @@ class FactoryTest extends TestCase
                             'name' => 'Standard',
                         ),
                     ),
+                    'valid_parameters' => array('param1', 'param2'),
                 ),
                 'small' => array(
                     'name' => 'Small',
@@ -76,7 +77,8 @@ class FactoryTest extends TestCase
                                 'standard',
                                 'Standard'
                             ),
-                        )
+                        ),
+                        array('param1', 'param2')
                     ),
                 )
             ),
