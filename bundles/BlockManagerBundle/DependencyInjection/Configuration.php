@@ -240,10 +240,22 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('view_types')
                         ->isRequired()
-                        ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()
                         ->useAttributeAsKey('view_type')
                         ->prototype('array')
+                            ->canBeDisabled()
+                            ->validate()
+                                ->ifTrue(function ($v) {
+                                    return $v['enabled'] !== true;
+                                })
+                                ->then(function ($v) {
+                                    return array(
+                                        'name' => 'Disabled',
+                                        'enabled' => false,
+                                        'item_view_types' => array(),
+                                    );
+                                })
+                            ->end()
                             ->children()
                                 ->scalarNode('name')
                                     ->isRequired()

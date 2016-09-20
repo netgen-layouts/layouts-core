@@ -37,6 +37,7 @@ class FactoryTest extends TestCase
             'view_types' => array(
                 'large' => array(
                     'name' => 'Large',
+                    'enabled' => true,
                     'item_view_types' => array(
                         'standard' => array(
                             'name' => 'Standard',
@@ -45,6 +46,7 @@ class FactoryTest extends TestCase
                 ),
                 'small' => array(
                     'name' => 'Small',
+                    'enabled' => false,
                     'item_view_types' => array(
                         'standard' => array(
                             'name' => 'Standard',
@@ -69,16 +71,6 @@ class FactoryTest extends TestCase
                     'large' => new ViewType(
                         'large',
                         'Large',
-                        array(
-                            'standard' => new ItemViewType(
-                                'standard',
-                                'Standard'
-                            ),
-                        )
-                    ),
-                    'small' => new ViewType(
-                        'small',
-                        'Small',
                         array(
                             'standard' => new ItemViewType(
                                 'standard',

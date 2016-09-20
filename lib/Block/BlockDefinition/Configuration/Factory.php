@@ -27,6 +27,10 @@ class Factory
         }
 
         foreach ($config['view_types'] as $viewTypeIdentifier => $viewTypeConfig) {
+            if (!$viewTypeConfig['enabled']) {
+                continue;
+            }
+
             $itemViewTypes = array();
             foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
                 $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(

@@ -64,6 +64,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             ),
                             'large' => array(
                                 'name' => 'Large',
+                                'enabled' => false,
                                 'item_view_types' => array(
                                     'standard' => array(
                                         'name' => 'Standard',
@@ -98,6 +99,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',
+                            'enabled' => true,
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
@@ -105,12 +107,9 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             ),
                         ),
                         'large' => array(
-                            'name' => 'Large',
-                            'item_view_types' => array(
-                                'standard' => array(
-                                    'name' => 'Standard',
-                                ),
-                            ),
+                            'name' => 'Disabled',
+                            'enabled' => false,
+                            'item_view_types' => array(),
                         ),
                     ),
                 ),
@@ -192,7 +191,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
-    public function testBlockDefinitionSettingsNoViewTypesMerge()
+    public function testBlockDefinitionSettingsViewTypesMerge()
     {
         $config = array(
             array(
@@ -231,13 +230,8 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                     ),
                                 ),
                             ),
-                            'image' => array(
-                                'name' => 'Image',
-                                'item_view_types' => array(
-                                    'standard' => array(
-                                        'name' => 'Standard',
-                                    ),
-                                ),
+                            'large' => array(
+                                'enabled' => false,
                             ),
                         ),
                     ),
@@ -249,21 +243,28 @@ class BlockDefinitionsConfigurationTest extends TestCase
             'block_definitions' => array(
                 'block' => array(
                     'view_types' => array(
-                        'title' => array(
-                            'name' => 'Title',
+                        'default' => array(
+                            'name' => 'Default',
+                            'enabled' => true,
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
                                 ),
                             ),
                         ),
-                        'image' => array(
-                            'name' => 'Image',
+                        'title' => array(
+                            'name' => 'Title',
+                            'enabled' => true,
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
                                 ),
                             ),
+                        ),
+                        'large' => array(
+                            'name' => 'Disabled',
+                            'enabled' => false,
+                            'item_view_types' => array(),
                         ),
                     ),
                 ),
