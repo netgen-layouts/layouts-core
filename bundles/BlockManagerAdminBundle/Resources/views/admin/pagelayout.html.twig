@@ -32,10 +32,7 @@
     <div id="layouts-app">
         <div class="layouts-sidebar">
             <div class="main-menu">
-                {{ knp_menu_render(
-                    'ngbm.admin.main_menu',
-                    {'template': 'NetgenBlockManagerAdminBundle:admin:menu.html.twig'}
-                ) }}
+                {% include 'NetgenBlockManagerAdminBundle:admin:main_menu.html.twig' %}
             </div>
         </div>
 
