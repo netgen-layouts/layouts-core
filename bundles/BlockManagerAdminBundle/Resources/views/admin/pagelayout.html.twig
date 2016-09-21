@@ -16,9 +16,11 @@
     <link rel="manifest" href="{{ asset('favicon/manifest.json', 'ngbm_admin_images') }}">
     <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg', 'ngbm_admin_images') }}" color="#5bbad5">
 
-    {% block title %}
-        <title>{{ 'pagelayout.title'|trans }}</title>
-    {% endblock %}
+    <title>
+        {% block title %}
+            {{ 'pagelayout.title'|trans }}
+        {% endblock %}
+    </title>
 
     {% block stylesheets %}
         {% include 'NetgenBlockManagerAdminBundle:admin:stylesheets.html.twig' %}
