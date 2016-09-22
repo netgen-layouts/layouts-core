@@ -71,6 +71,7 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
             "___{$viewName}_{$context}_default___" => array(
                 'template' => $defaultTemplate,
                 'match' => array(),
+                'parameters' => array(),
             ),
         );
 

@@ -42,6 +42,9 @@ class ViewConfigurationTest extends TestCase
                                 'match' => array(
                                     'block_identifier' => 42,
                                 ),
+                                'parameters' => array(
+                                    'param' => 'value',
+                                ),
                             ),
                         ),
                     ),
@@ -57,6 +60,9 @@ class ViewConfigurationTest extends TestCase
                             'template' => 'block.html.twig',
                             'match' => array(
                                 'block_identifier' => 42,
+                            ),
+                            'parameters' => array(
+                                'param' => 'value',
                             ),
                         ),
                     ),
@@ -150,6 +156,45 @@ class ViewConfigurationTest extends TestCase
             $config,
             $expectedConfig,
             'view.*.*.*.match'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getViewNodeDefinition
+     */
+    public function testViewSettingsWithNoParameters()
+    {
+        $config = array(
+            array(
+                'view' => array(
+                    'block_view' => array(
+                        'some_context' => array(
+                            'block' => array(),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'view' => array(
+                'block_view' => array(
+                    'some_context' => array(
+                        'block' => array(
+                            'parameters' => array(),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'view.*.*.*.parameters'
         );
     }
 

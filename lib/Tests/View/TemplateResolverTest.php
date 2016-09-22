@@ -57,6 +57,9 @@ class TemplateResolverTest extends TestCase
                         'match' => array(
                             'definition_identifier' => 'text',
                         ),
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
                     ),
                 ),
             ),
@@ -69,7 +72,10 @@ class TemplateResolverTest extends TestCase
             $viewConfiguration
         );
 
-        $this->assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
+        $templateResolver->resolveTemplate($this->view);
+
+        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+        $this->assertEquals(array('param' => 'value'), $this->view->getParameters());
     }
 
     /**
@@ -84,6 +90,9 @@ class TemplateResolverTest extends TestCase
                     'text' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(),
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
                     ),
                 ),
             ),
@@ -94,7 +103,10 @@ class TemplateResolverTest extends TestCase
             $viewConfiguration
         );
 
-        $this->assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
+        $templateResolver->resolveTemplate($this->view);
+
+        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+        $this->assertEquals(array('param' => 'value'), $this->view->getParameters());
     }
 
     /**
@@ -109,10 +121,12 @@ class TemplateResolverTest extends TestCase
                     'text' => array(
                         'template' => 'some_template.html.twig',
                         'match' => array(),
+                        'parameters' => array(),
                     ),
                     'text_other' => array(
                         'template' => 'some_other_template.html.twig',
                         'match' => array(),
+                        'parameters' => array(),
                     ),
                 ),
             ),
@@ -123,7 +137,9 @@ class TemplateResolverTest extends TestCase
             $viewConfiguration
         );
 
-        $this->assertEquals('some_template.html.twig', $templateResolver->resolveTemplate($this->view));
+        $templateResolver->resolveTemplate($this->view);
+
+        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
     }
 
     /**

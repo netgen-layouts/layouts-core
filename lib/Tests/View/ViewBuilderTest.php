@@ -73,8 +73,7 @@ class ViewBuilderTest extends TestCase
         $this->templateResolverMock
             ->expects($this->once())
             ->method('resolveTemplate')
-            ->with($this->equalTo($view))
-            ->will($this->returnValue('some_template.html.twig'));
+            ->with($this->equalTo($view));
 
         $this->eventDispatcherMock
             ->expects($this->once())
@@ -90,7 +89,6 @@ class ViewBuilderTest extends TestCase
         $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
 
         $this->assertInstanceOf(View::class, $builtView);
-        $this->assertEquals('some_template.html.twig', $builtView->getTemplate());
         $this->assertEquals('context', $builtView->getContext());
         $this->assertEquals(
             array('view_context' => $builtView->getContext()) + $viewParameters,
@@ -106,6 +104,10 @@ class ViewBuilderTest extends TestCase
     public function testBuildViewWithNoViewProviders()
     {
         $value = new Value();
+
+        $this->templateResolverMock
+            ->expects($this->never())
+            ->method('resolveTemplate');
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,

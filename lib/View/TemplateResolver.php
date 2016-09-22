@@ -69,7 +69,10 @@ class TemplateResolver implements TemplateResolverInterface
                 continue;
             }
 
-            return $config['template'];
+            $view->setTemplate($config['template']);
+            $view->addParameters($config['parameters']);
+
+            return;
         }
 
         throw new RuntimeException(

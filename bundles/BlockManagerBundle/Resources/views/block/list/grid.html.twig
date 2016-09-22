@@ -1,14 +1,19 @@
 {% extends 'NetgenBlockManagerBundle:block:block.html.twig' %}
 
 {% set number_of_columns = block.parameter('number_of_columns')|default(2) %}
-{% set template_name = 'NetgenBlockManagerBundle:block/list/grid:' ~ number_of_columns ~ '_columns.html.twig' %}
+
+{% if column_templates is defined and column_templates[number_of_columns] is defined %}
+    {% set template_name = column_templates[number_of_columns] %}
+{% else %}
+    {% set template_name = 'NetgenBlockManagerBundle:block/list/grid:' ~ number_of_columns ~ '_columns.html.twig' %}
+{% endif %}
 
 {% block content %}
-   {% if collections['default'] is defined %}
-       <div class="row">
-           {% for result in collections['default'].results %}
-                {% include template_name ignore missing %}
-           {% endfor %}
-       </div>
-   {% endif %}
+    {% if collections['default'] is defined %}
+        <div class="row">
+            {% for result in collections['default'].results %}
+                {% include template_name %}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
