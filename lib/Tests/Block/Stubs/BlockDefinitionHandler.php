@@ -9,6 +9,21 @@ use Netgen\BlockManager\Parameters\Parameter;
 class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
     /**
+     * @var array
+     */
+    protected $parameterGroups = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $parameterGroups
+     */
+    public function __construct($parameterGroups = array())
+    {
+        $this->parameterGroups = $parameterGroups;
+    }
+
+    /**
      * Returns the array specifying block parameters.
      *
      * The keys are parameter identifiers.
@@ -18,8 +33,8 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'css_class' => new Parameter\TextLine(array()),
-            'css_id' => new Parameter\TextLine(array()),
+            'css_class' => new Parameter\TextLine(array(), false, null, $this->parameterGroups),
+            'css_id' => new Parameter\TextLine(array(), false, null, $this->parameterGroups),
         );
     }
 

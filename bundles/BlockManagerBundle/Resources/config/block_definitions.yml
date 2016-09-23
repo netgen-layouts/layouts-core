@@ -43,10 +43,8 @@ block_definitions:
         forms:
             full:
                 enabled: false
-            content:
-                parameters: [latitude, longitude]
-            design:
-                parameters: [zoom, map_type, show_marker, css_class, css_id, set_container]
+            content: ~
+            design: ~
         view_types:
             map:
                 name: 'Map'
@@ -56,8 +54,7 @@ block_definitions:
             full:
                 enabled: false
             content: ~
-            design:
-                parameters: [number_of_columns, css_class, css_id, set_container]
+            design: ~
         view_types:
             list:
                 name: 'List'
@@ -70,20 +67,7 @@ block_definitions:
             full:
                 enabled: false
             content: ~
-            design:
-                parameters:
-                    - next_and_previous
-                    - show_pagination
-                    - infinite_loop
-                    - transition
-                    - autoplay
-                    - aspect_ratio
-                    - show_details
-                    - number_of_thumbnails
-                    - enable_lightbox
-                    - css_class
-                    - css_id
-                    - set_container
+            design: ~
         view_types:
             slider:
                 name: 'Slider'

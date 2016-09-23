@@ -51,7 +51,8 @@ class MapHandler extends BlockDefinitionHandler
                     'scale' => 6,
                 ),
                 true,
-                0
+                0,
+                array(self::GROUP_CONTENT)
             ),
             'longitude' => new Parameter\Number(
                 array(
@@ -60,17 +61,32 @@ class MapHandler extends BlockDefinitionHandler
                     'scale' => 6,
                 ),
                 true,
-                0
+                0,
+                array(self::GROUP_CONTENT)
             ),
             'zoom' => new Parameter\Range(
                 array(
                     'min' => $this->minZoom,
                     'max' => $this->maxZoom,
                 ),
-                true
+                true,
+                null,
+                array(self::GROUP_DESIGN)
             ),
-            'map_type' => new Parameter\Choice(array('options' => $this->mapTypes), true),
-            'show_marker' => new Parameter\Boolean(),
-        ) + $this->getCommonParameters();
+            'map_type' => new Parameter\Choice(
+                array(
+                    'options' => $this->mapTypes,
+                ),
+                true,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
+            'show_marker' => new Parameter\Boolean(
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
+        ) + $this->getCommonParameters(array(self::GROUP_DESIGN));
     }
 }

@@ -30,8 +30,15 @@ class ListHandler extends BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'number_of_columns' => new Parameter\Choice(array('options' => $this->columns), true),
-        ) + $this->getCommonParameters();
+            'number_of_columns' => new Parameter\Choice(
+                array(
+                    'options' => $this->columns,
+                ),
+                true,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
+        ) + $this->getCommonParameters(array(self::GROUP_DESIGN));
     }
 
     /**

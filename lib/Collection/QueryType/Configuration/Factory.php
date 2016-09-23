@@ -20,8 +20,7 @@ class Factory
             $forms[$formIdentifier] = new Form(
                 $formIdentifier,
                 $formConfig['type'],
-                $formConfig['enabled'],
-                isset($formConfig['parameters']) ? $formConfig['parameters'] : null
+                $formConfig['enabled']
             );
         }
 

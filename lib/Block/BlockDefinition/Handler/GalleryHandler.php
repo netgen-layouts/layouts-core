@@ -63,31 +63,96 @@ class GalleryHandler extends BlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'next_and_previous' => new Parameter\Boolean(),
+            'next_and_previous' => new Parameter\Boolean(
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
             'show_pagination' => new Parameter\Compound\Boolean(
                 array(
-                    'pagination_type' => new Parameter\Choice(array('options' => $this->paginationTypes), true),
-                )
+                    'pagination_type' => new Parameter\Choice(
+                        array(
+                            'options' => $this->paginationTypes,
+                        ),
+                        true,
+                        null,
+                        array(self::GROUP_DESIGN)
+                    ),
+                ),
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
             ),
-            'infinite_loop' => new Parameter\Boolean(),
-            'transition' => new Parameter\Choice(array('options' => $this->transitions), true),
+            'infinite_loop' => new Parameter\Boolean(
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
+            'transition' => new Parameter\Choice(
+                array(
+                    'options' => $this->transitions,
+                ),
+                true,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
             'autoplay' => new Parameter\Compound\Boolean(
                 array(
                     'autoplay_time' => new Parameter\Range(
-                        array('min' => $this->minAutoplayTime, 'max' => $this->maxAutoplayTime),
-                        true
+                        array(
+                            'min' => $this->minAutoplayTime,
+                            'max' => $this->maxAutoplayTime,
+                        ),
+                        true,
+                        null,
+                        array(self::GROUP_DESIGN)
                     ),
-                )
+                ),
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
             ),
-            'aspect_ratio' => new Parameter\Choice(array('options' => $this->aspectRatios), true),
+            'aspect_ratio' => new Parameter\Choice(
+                array(
+                    'options' => $this->aspectRatios,
+                ),
+                true,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
             'show_details' => new Parameter\Compound\Boolean(
                 array(
-                    'show_details_on_hover' => new Parameter\Boolean(),
-                )
+                    'show_details_on_hover' => new Parameter\Boolean(
+                        array(),
+                        false,
+                        null,
+                        array(self::GROUP_DESIGN)
+                    ),
+                ),
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
             ),
-            'number_of_thumbnails' => new Parameter\Integer(array('min' => 1), true),
-            'enable_lightbox' => new Parameter\Boolean(),
-        ) + $this->getCommonParameters();
+            'number_of_thumbnails' => new Parameter\Integer(
+                array(
+                    'min' => 1,
+                ),
+                true,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
+            'enable_lightbox' => new Parameter\Boolean(
+                array(),
+                false,
+                null,
+                array(self::GROUP_DESIGN)
+            ),
+        ) + $this->getCommonParameters(array(self::GROUP_DESIGN));
     }
 
     /**

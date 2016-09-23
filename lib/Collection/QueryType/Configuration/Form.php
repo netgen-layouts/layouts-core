@@ -20,24 +20,17 @@ class Form
     protected $enabled;
 
     /**
-     * @var array
-     */
-    protected $parameters;
-
-    /**
      * Constructor.
      *
      * @param string $identifier
      * @param string $type
      * @param bool $enabled
-     * @param array $parameters
      */
-    public function __construct($identifier, $type, $enabled, array $parameters = null)
+    public function __construct($identifier, $type, $enabled)
     {
         $this->identifier = $identifier;
         $this->type = $type;
         $this->enabled = $enabled;
-        $this->parameters = $parameters;
     }
 
     /**
@@ -68,15 +61,5 @@ class Form
     public function isEnabled()
     {
         return $this->enabled;
-    }
-
-    /**
-     * Returns the query parameters this form will display.
-     *
-     * @return array
-     */
-    public function getParameters()
-    {
-        return $this->parameters;
     }
 }

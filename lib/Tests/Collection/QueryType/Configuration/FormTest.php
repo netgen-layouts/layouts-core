@@ -14,7 +14,7 @@ class FormTest extends TestCase
 
     public function setUp()
     {
-        $this->form = new Form('full', 'form_type', true, array('param1', 'param2'));
+        $this->form = new Form('full', 'form_type', true);
     }
 
     /**
@@ -40,13 +40,5 @@ class FormTest extends TestCase
     public function testIsEnabled()
     {
         $this->assertTrue($this->form->isEnabled());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Form::getParameters
-     */
-    public function testGetParameters()
-    {
-        $this->assertEquals(array('param1', 'param2'), $this->form->getParameters());
     }
 }

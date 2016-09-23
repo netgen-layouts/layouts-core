@@ -45,12 +45,10 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             'design' => array(
                                 'type' => 'design_type',
                                 'enabled' => false,
-                                'parameters' => array('param1'),
                             ),
                             'content' => array(
                                 'type' => 'content_type',
                                 'enabled' => false,
-                                'parameters' => array(),
                             ),
                         ),
                         'view_types' => array(
@@ -89,12 +87,10 @@ class BlockDefinitionsConfigurationTest extends TestCase
                         'design' => array(
                             'type' => 'design_type',
                             'enabled' => false,
-                            'parameters' => array('param1'),
                         ),
                         'content' => array(
                             'type' => 'content_type',
                             'enabled' => false,
-                            'parameters' => array(),
                         ),
                     ),
                     'view_types' => array(
@@ -145,12 +141,10 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             'design' => array(
                                 'type' => 'design_form',
                                 'enabled' => true,
-                                'parameters' => array('param1'),
                             ),
                             'content' => array(
                                 'type' => 'content_form',
                                 'enabled' => true,
-                                'parameters' => array('param2'),
                             ),
                         ),
                     ),
@@ -169,12 +163,10 @@ class BlockDefinitionsConfigurationTest extends TestCase
                         'design' => array(
                             'type' => 'design_form',
                             'enabled' => true,
-                            'parameters' => array('param1'),
                         ),
                         'content' => array(
                             'type' => 'content_form',
                             'enabled' => true,
-                            'parameters' => array('param2'),
                         ),
                     ),
                 ),

@@ -43,6 +43,28 @@ class ParameterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getGroups
+     */
+    public function testGetDefaultGroups()
+    {
+        $parameter = new Parameter();
+
+        $this->assertEquals(array(), $parameter->getGroups());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
+     * @covers \Netgen\BlockManager\Parameters\Parameter::getGroups
+     */
+    public function testGetGroups()
+    {
+        $parameter = new Parameter(array(), false, null, array('group'));
+
+        $this->assertEquals(array('group'), $parameter->getGroups());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Parameter::__construct
      * @covers \Netgen\BlockManager\Parameters\Parameter::getConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getRequiredConstraints
      * @covers \Netgen\BlockManager\Parameters\Parameter::getValueConstraints

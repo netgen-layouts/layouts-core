@@ -18,9 +18,15 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
      * @param array $options
      * @param bool $isRequired
      * @param mixed $defaultValue
+     * @param array $groups
      */
-    public function __construct(array $parameters = array(), array $options = array(), $isRequired = false, $defaultValue = null)
-    {
+    public function __construct(
+        array $parameters = array(),
+        array $options = array(),
+        $isRequired = false,
+        $defaultValue = null,
+        array $groups = array()
+    ) {
         foreach ($parameters as $parameter) {
             if (!$parameter instanceof ParameterInterface) {
                 throw new LogicException('Only parameters can be added to compound parameter.');
@@ -33,7 +39,7 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
 
         $this->parameters = $parameters;
 
-        parent::__construct($options, $isRequired, $defaultValue);
+        parent::__construct($options, $isRequired, $defaultValue, $groups);
     }
 
     /**

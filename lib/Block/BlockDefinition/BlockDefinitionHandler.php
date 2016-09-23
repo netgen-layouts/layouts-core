@@ -7,6 +7,9 @@ use Netgen\BlockManager\Parameters\Parameter;
 
 abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
+    const GROUP_CONTENT = 'content';
+    const GROUP_DESIGN = 'design';
+
     /**
      * Returns the array specifying block parameters.
      *
@@ -46,14 +49,31 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      *
      * The keys are parameter identifiers.
      *
+     * @param array $groups
+     *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
-    protected function getCommonParameters()
+    protected function getCommonParameters(array $groups = array())
     {
         return array(
-            'css_class' => new Parameter\TextLine(),
-            'css_id' => new Parameter\TextLine(),
-            'set_container' => new Parameter\Boolean(),
+            'css_class' => new Parameter\TextLine(
+                array(),
+                false,
+                null,
+                $groups
+            ),
+            'css_id' => new Parameter\TextLine(
+                array(),
+                false,
+                null,
+                $groups
+            ),
+            'set_container' => new Parameter\Boolean(
+                array(),
+                false,
+                null,
+                $groups
+            ),
         );
     }
 }

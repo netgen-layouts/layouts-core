@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Block\Form;
 
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class DesignEditType extends EditType
@@ -14,14 +15,11 @@ class DesignEditType extends EditType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['blockDefinition'];
-
         $this->addViewTypeForm($builder, $options);
         $this->addParametersForm(
             $builder,
             $options,
-            $blockDefinition->getConfig()->getForm('design')->getParameters()
+            array(BlockDefinitionHandler::GROUP_DESIGN)
         );
     }
 }

@@ -52,4 +52,9 @@ interface ParameterInterface
      * @return mixed
      */
     public function getDefaultValue();
+
+    /**
+     * @return array
+     */
+    public function getGroups();
 }

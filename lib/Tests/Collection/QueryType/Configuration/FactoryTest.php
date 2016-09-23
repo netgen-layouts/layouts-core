@@ -50,7 +50,7 @@ class FactoryTest extends TestCase
                 'query_type',
                 'Query type',
                 array(
-                    'full' => new Form('full', 'form_type', true, array('param1', 'param2')),
+                    'full' => new Form('full', 'form_type', true),
                 ),
                 array(
                     'parameters' => array(
