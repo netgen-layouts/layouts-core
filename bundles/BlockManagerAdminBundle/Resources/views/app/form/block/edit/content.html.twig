@@ -4,6 +4,6 @@
     {{ form_row(form.children.name) }}
 
     {% block parameters %}
-        {{ parent() }}
+        {{ form_row(form.children.parameters) }}
     {% endblock %}
 {% endblock %}
