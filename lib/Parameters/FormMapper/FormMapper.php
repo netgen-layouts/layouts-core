@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class FormMapper implements FormMapperInterface
 {

@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\View\ViewEvents;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class ViewBuilder implements ViewBuilderInterface
 {

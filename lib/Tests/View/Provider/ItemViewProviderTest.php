@@ -46,7 +46,7 @@ class ItemViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProvideViewThrowsRuntimeExceptionOnMissingViewType()
     {
@@ -55,7 +55,7 @@ class ItemViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidViewType()
     {

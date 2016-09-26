@@ -6,7 +6,7 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
 use Doctrine\DBAL\Migrations\Migration;
 use Doctrine\DBAL\Types\Type;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 trait DatabaseTrait
 {

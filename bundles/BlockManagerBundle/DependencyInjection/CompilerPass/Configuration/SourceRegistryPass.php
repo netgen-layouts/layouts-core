@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Conf
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class SourceRegistryPass implements CompilerPassInterface
 {

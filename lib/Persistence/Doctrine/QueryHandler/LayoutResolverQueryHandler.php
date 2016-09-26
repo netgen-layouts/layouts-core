@@ -14,7 +14,7 @@ use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class LayoutResolverQueryHandler extends QueryHandler
 {

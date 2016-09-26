@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use LogicException;
+use Netgen\BlockManager\Exception\LogicException;
 
 abstract class CompoundParameter extends Parameter implements CompoundParameterInterface
 {

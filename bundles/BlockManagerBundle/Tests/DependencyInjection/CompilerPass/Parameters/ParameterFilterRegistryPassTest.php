@@ -54,7 +54,7 @@ class ParameterFilterRegistryPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParameterFilterRegistryPass::process
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProcessThrowsExceptionWithNoTypeIdentifier()
     {

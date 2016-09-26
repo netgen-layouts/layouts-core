@@ -102,7 +102,7 @@ class ViewTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\View::getParameter
-     * @expectedException \OutOfBoundsException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsOutOfBoundsException()
     {

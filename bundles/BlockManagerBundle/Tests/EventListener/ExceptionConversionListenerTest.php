@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
+use Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs\ExceptionStub;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -17,7 +18,6 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\BadStateException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Netgen\BlockManager\Exception\Exception;
 use RuntimeException;
 use PHPUnit\Framework\TestCase;
 
@@ -139,7 +139,7 @@ class ExceptionConversionListenerTest extends TestCase
                 Response::HTTP_UNPROCESSABLE_ENTITY,
             ),
             array(
-                $this->getMockForAbstractClass(Exception::class),
+                new ExceptionStub('Some error'),
                 InternalServerErrorHttpException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
             ),

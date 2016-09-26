@@ -50,7 +50,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\FormMapperPass::process
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {

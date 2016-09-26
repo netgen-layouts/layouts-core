@@ -48,7 +48,7 @@ class FormMapperTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::__construct
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testConstructorThrowsRuntimeExceptionWithNoParameterHandlerInterface()
     {
@@ -131,7 +131,7 @@ class FormMapperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::mapParameter
      * @covers \Netgen\BlockManager\Parameters\FormMapper\FormMapper::configureOptions
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testMapParameterThrowsRuntimeException()
     {

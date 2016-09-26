@@ -29,7 +29,7 @@ class ItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testConstructorThrowsRuntimeExceptionWithNoValueConverters()
     {
@@ -38,7 +38,7 @@ class ItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testConstructorThrowsRuntimeExceptionWithWrongInterface()
     {
@@ -150,7 +150,7 @@ class ItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::buildFromObject
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testBuildFromObjectThrowsRuntimeExceptionWithUnsupportedValueConverter()
     {

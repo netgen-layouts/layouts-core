@@ -33,7 +33,7 @@ class TargetTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::__construct
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testConstructorThrowsRuntimeException()
     {
@@ -42,7 +42,7 @@ class TargetTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testBuildFormThrowsRuntimeException()
     {

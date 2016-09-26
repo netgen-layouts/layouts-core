@@ -75,7 +75,7 @@ class ContainerConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
-     * @expectedException \OutOfBoundsException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsOutOfBoundsException()
     {

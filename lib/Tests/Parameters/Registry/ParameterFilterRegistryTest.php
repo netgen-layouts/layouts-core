@@ -38,7 +38,7 @@ class ParameterFilterRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilters
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testAddParameterFiltersThrowRuntimeException()
     {

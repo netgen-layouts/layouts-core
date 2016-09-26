@@ -49,7 +49,7 @@ class LayoutTypeRegistryPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypeRegistryPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypeRegistryPass::validateLayoutTypes
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
     {

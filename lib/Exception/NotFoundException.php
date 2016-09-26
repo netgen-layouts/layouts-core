@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Exception;
 
 use Exception as BaseException;
 
-class NotFoundException extends Exception
+class NotFoundException extends BaseException implements Exception
 {
     /**
      * Creates a new not found exception.

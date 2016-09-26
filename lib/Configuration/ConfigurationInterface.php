@@ -20,7 +20,7 @@ interface ConfigurationInterface
      *
      * @param string $parameterName
      *
-     * @throws \OutOfBoundsException If parameter is undefined
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter is undefined
      *
      * @return mixed
      */

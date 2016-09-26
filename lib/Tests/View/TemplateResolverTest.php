@@ -24,7 +24,7 @@ class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testConstructorThrowsRuntimeExceptionIfNoMatcherInterface()
     {
@@ -144,7 +144,7 @@ class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
@@ -154,7 +154,7 @@ class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfEmptyContext()
     {
@@ -169,7 +169,7 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatch()
     {
@@ -206,7 +206,7 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {

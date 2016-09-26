@@ -8,7 +8,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class TargetType extends AbstractType
 {

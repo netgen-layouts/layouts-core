@@ -12,7 +12,7 @@ class LayoutResolverQueryHandlerTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testConstructorThrowsRuntimeException()
     {

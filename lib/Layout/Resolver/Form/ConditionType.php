@@ -8,7 +8,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class ConditionType extends AbstractType
 {

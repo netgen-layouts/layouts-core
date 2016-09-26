@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Item;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class ItemBuilder implements ItemBuilderInterface
 {

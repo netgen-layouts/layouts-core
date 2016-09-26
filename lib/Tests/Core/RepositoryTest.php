@@ -103,7 +103,7 @@ class RepositoryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Repository::commitTransaction
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testCommitTransactionThrowsRuntimeException()
     {
@@ -129,7 +129,7 @@ class RepositoryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Repository::rollbackTransaction
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testRollbackTransactionThrowsRuntimeException()
     {

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class Configuration
 {

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Configuration\LayoutType;
 
-use InvalidArgumentException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class LayoutType
 {
@@ -117,9 +117,9 @@ class LayoutType
     {
         if (!$this->hasZone($zoneIdentifier)) {
             throw new InvalidArgumentException(
+                $zoneIdentifier,
                 sprintf(
-                    'Zone "%s" does not exist in "%s" layout type.',
-                    $zoneIdentifier,
+                    'Zone does not exist in "%s" layout type.',
                     $this->identifier
                 )
             );

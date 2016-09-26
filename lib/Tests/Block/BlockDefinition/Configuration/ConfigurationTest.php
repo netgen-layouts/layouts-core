@@ -64,7 +64,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getForm
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testGetFormThrowsRuntimeException()
     {
@@ -118,7 +118,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getViewType
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testGetViewTypeThrowsRuntimeException()
     {

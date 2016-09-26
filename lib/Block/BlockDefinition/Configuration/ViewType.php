@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class ViewType
 {

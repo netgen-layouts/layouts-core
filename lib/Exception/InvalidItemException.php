@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Exception;
 
-class InvalidItemException extends Exception
+use Exception as BaseException;
+
+class InvalidItemException extends BaseException implements Exception
 {
 }

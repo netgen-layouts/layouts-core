@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 class TemplateResolver implements TemplateResolverInterface
 {

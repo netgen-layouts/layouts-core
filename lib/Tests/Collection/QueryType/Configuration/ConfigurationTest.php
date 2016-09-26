@@ -71,7 +71,7 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getForm
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testGetFormThrowsRuntimeException()
     {

@@ -90,7 +90,7 @@ class ViewTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testGetItemViewTypeThrowsRuntimeException()
     {

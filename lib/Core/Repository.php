@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Persistence\Handler;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Exception;
 
 class Repository implements APIRepository

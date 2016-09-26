@@ -61,7 +61,7 @@ class ParamConverterTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
-     * @expectedException \UnexpectedValueException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testApplyWithEmptyAndNonOptionalAttribute()
     {

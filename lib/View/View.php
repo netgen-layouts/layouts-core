@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\View;
 
 use Symfony\Component\HttpFoundation\Response;
-use OutOfBoundsException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 abstract class View implements ViewInterface
 {
@@ -137,7 +137,10 @@ abstract class View implements ViewInterface
     public function getParameter($identifier)
     {
         if (!$this->hasParameter($identifier)) {
-            throw new OutOfBoundsException("View does not have the '{$identifier}' parameter.");
+            throw new InvalidArgumentException(
+                $identifier,
+                'View does not have the specified parameter'
+            );
         }
 
         $parameters = $this->getParameters();
