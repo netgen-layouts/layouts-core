@@ -77,8 +77,8 @@ class TemplateResolver implements TemplateResolverInterface
 
         throw new RuntimeException(
             sprintf(
-                'No template match could be found for view object "%s" and context "%s".',
-                get_class($view),
+                'No template match could be found for "%s" view and context "%s".',
+                $view->getIdentifier(),
                 $context
             )
         );
