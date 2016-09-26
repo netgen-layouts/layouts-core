@@ -128,7 +128,7 @@ class LayoutNormalizer implements NormalizerInterface
             return $layoutType->getZone($zone->getIdentifier())->getName();
         }
 
-        return '';
+        return $zone->getIdentifier();
     }
 
     /**
