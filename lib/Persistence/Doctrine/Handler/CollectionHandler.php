@@ -79,7 +79,7 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Loads all named collections.
+     * Loads all shared collections.
      *
      * @param int $status
      * @param int $offset
@@ -87,9 +87,9 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function loadNamedCollections($status, $offset = 0, $limit = null)
+    public function loadSharedCollections($status, $offset = 0, $limit = null)
     {
-        $data = $this->queryHandler->loadNamedCollectionsData($status, $offset, $limit);
+        $data = $this->queryHandler->loadSharedCollectionsData($status, $offset, $limit);
 
         if (empty($data)) {
             return array();
@@ -194,22 +194,21 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Returns if collection with specified ID is named.
+     * Returns if collection with specified ID is shared.
      *
      * @param int|string $collectionId
-     * @param int $status
      *
      * @return bool
      */
-    public function isNamedCollection($collectionId, $status)
+    public function isSharedCollection($collectionId)
     {
-        $data = $this->queryHandler->loadCollectionData($collectionId, $status);
+        $data = $this->queryHandler->loadCollectionData($collectionId);
 
-        return isset($data[0]['type']) && (int)$data[0]['type'] === Collection::TYPE_NAMED;
+        return isset($data[0]['shared']) && (bool)$data[0]['shared'] === true;
     }
 
     /**
-     * Returns if named collection exists.
+     * Returns if collection name exists.
      *
      * @param string $name
      * @param int|string $excludedCollectionId
@@ -217,9 +216,9 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return bool
      */
-    public function namedCollectionExists($name, $excludedCollectionId = null, $status = null)
+    public function collectionNameExists($name, $excludedCollectionId = null, $status = null)
     {
-        return $this->queryHandler->namedCollectionExists($name, $excludedCollectionId, $status);
+        return $this->queryHandler->collectionNameExists($name, $excludedCollectionId, $status);
     }
 
     /**
@@ -233,7 +232,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function createCollection(APICollectionCreateStruct $collectionCreateStruct, $status)
     {
         $name = null;
-        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
+        if ($collectionCreateStruct->name !== null) {
             $name = trim($collectionCreateStruct->name);
         }
 
@@ -242,6 +241,7 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $status,
                     'type' => $collectionCreateStruct->type,
+                    'shared' => $collectionCreateStruct->shared !== null ? $collectionCreateStruct->shared : false,
                     'name' => $name,
                 )
             )
@@ -291,7 +291,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
     {
         $name = $collection->name;
-        if ($collection->type === Collection::TYPE_NAMED && $collectionUpdateStruct->name !== null) {
+        if ($collectionUpdateStruct->name !== null) {
             $name = trim($collectionUpdateStruct->name);
         }
 
@@ -360,9 +360,10 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $collection->status,
                     'type' => $collection->type,
-                    'name' => (int)$collection->type === Collection::TYPE_NAMED ?
+                    'shared' => $collection->shared,
+                    'name' => $collection->name !== null ?
                         $collection->name . ' (copy) ' . crc32(microtime()) :
-                        $collection->name,
+                        null,
                 )
             )
         );
@@ -419,6 +420,7 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $newStatus,
                     'type' => $collection->type,
+                    'shared' => $collection->shared,
                     'name' => $collection->name,
                 )
             ),

@@ -431,7 +431,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        // First delete all non named collections
+        // First delete all non shared collections
         $collectionData = $this->queryHandler->loadLayoutCollectionsData($layoutId, $status);
 
         foreach ($collectionData as $collectionDataRow) {
@@ -441,8 +441,11 @@ class LayoutHandler implements LayoutHandlerInterface
                 $collectionDataRow['identifier']
             );
 
-            if (!$this->collectionHandler->isNamedCollection($collectionDataRow['collection_id'], $collectionDataRow['collection_status'])) {
-                $this->collectionHandler->deleteCollection($collectionDataRow['collection_id'], $collectionDataRow['collection_status']);
+            if (!$this->collectionHandler->isSharedCollection($collectionDataRow['collection_id'])) {
+                $this->collectionHandler->deleteCollection(
+                    $collectionDataRow['collection_id'],
+                    $collectionDataRow['collection_status']
+                );
             }
         }
 

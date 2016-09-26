@@ -17,6 +17,11 @@ class CollectionCreateStruct extends ValueObject
     public $type;
 
     /**
+     * @var bool
+     */
+    public $shared;
+
+    /**
      * @var int
      */
     public $status;

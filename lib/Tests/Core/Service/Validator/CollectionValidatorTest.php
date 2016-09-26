@@ -168,15 +168,19 @@ class CollectionValidatorTest extends TestCase
     public function validateCollectionCreateStructProvider()
     {
         return array(
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL), true),
-            array(array('name' => 'Collection', 'type' => Collection::TYPE_NAMED), true),
-            array(array('name' => 23, 'type' => Collection::TYPE_NAMED), false),
-            array(array('name' => null, 'type' => Collection::TYPE_NAMED), false),
-            array(array('name' => '', 'type' => Collection::TYPE_NAMED), false),
-            array(array('name' => '   ', 'type' => Collection::TYPE_NAMED), false),
-            array(array('name' => null, 'type' => 23), false),
-            array(array('name' => null, 'type' => null), false),
-            array(array('name' => null, 'type' => 'type'), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => null), true),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => false), true),
+            array(array('name' => 'Collection', 'type' => Collection::TYPE_MANUAL, 'shared' => true), true),
+            array(array('name' => 'Collection', 'type' => Collection::TYPE_MANUAL, 'shared' => true), true),
+            array(array('name' => 23, 'type' => Collection::TYPE_MANUAL, 'shared' => true), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => true), false),
+            array(array('name' => '', 'type' => Collection::TYPE_MANUAL, 'shared' => true), false),
+            array(array('name' => '   ', 'type' => Collection::TYPE_MANUAL, 'shared' => true), false),
+            array(array('name' => null, 'type' => 23, 'shared' => null), false),
+            array(array('name' => null, 'type' => null, 'shared' => null), false),
+            array(array('name' => null, 'type' => 'type', 'shared' => null), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => 42), false),
+            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => ''), false),
         );
     }
 

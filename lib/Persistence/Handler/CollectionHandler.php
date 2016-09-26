@@ -26,7 +26,7 @@ interface CollectionHandler
     public function loadCollection($collectionId, $status);
 
     /**
-     * Loads all named collections.
+     * Loads all shared collections.
      *
      * @param int $status
      * @param int $offset
@@ -34,7 +34,7 @@ interface CollectionHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
      */
-    public function loadNamedCollections($status, $offset = 0, $limit = null);
+    public function loadSharedCollections($status, $offset = 0, $limit = null);
 
     /**
      * Loads an item with specified ID.
@@ -89,17 +89,16 @@ interface CollectionHandler
     public function collectionExists($collectionId, $status);
 
     /**
-     * Returns if collection with specified ID is named.
+     * Returns if collection with specified ID is shared.
      *
      * @param int|string $collectionId
-     * @param int $status
      *
      * @return bool
      */
-    public function isNamedCollection($collectionId, $status);
+    public function isSharedCollection($collectionId);
 
     /**
-     * Returns if named collection exists.
+     * Returns if collection name exists.
      *
      * @param string $name
      * @param int|string $excludedCollectionId
@@ -107,7 +106,7 @@ interface CollectionHandler
      *
      * @return bool
      */
-    public function namedCollectionExists($name, $excludedCollectionId = null, $status = null);
+    public function collectionNameExists($name, $excludedCollectionId = null, $status = null);
 
     /**
      * Creates a collection.

@@ -510,7 +510,7 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            if ($collection->type !== Collection::TYPE_NAMED) {
+            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
                 $collection = $this->collectionHandler->copyCollection($collection);
             }
 
@@ -540,7 +540,7 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            if ($collection->type !== Collection::TYPE_NAMED) {
+            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
                 $collection = $this->collectionHandler->createCollectionStatus(
                     $collection,
                     $newStatus
@@ -580,7 +580,7 @@ class BlockHandler implements BlockHandlerInterface
         $collectionReferences = $this->loadCollectionReferences($block);
 
         foreach ($collectionReferences as $collectionReference) {
-            if (!$this->collectionHandler->isNamedCollection($collectionReference->collectionId, $collectionReference->collectionStatus)) {
+            if (!$this->collectionHandler->isSharedCollection($collectionReference->collectionId)) {
                 $this->collectionHandler->deleteCollection(
                     $collectionReference->collectionId,
                     $collectionReference->collectionStatus

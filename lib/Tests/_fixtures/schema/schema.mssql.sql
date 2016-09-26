@@ -52,6 +52,7 @@ CREATE TABLE ngbm_collection (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   type int NOT NULL,
+  shared tinyint NOT NULL,
   name nvarchar(255) DEFAULT NULL,
   PRIMARY KEY (id, status)
 );

@@ -58,13 +58,13 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection` DISABLE KEYS */;
-INSERT INTO `ngbm_collection` VALUES (1,0,0,NULL);
-INSERT INTO `ngbm_collection` VALUES (2,1,1,NULL);
-INSERT INTO `ngbm_collection` VALUES (3,0,2,'My collection');
-INSERT INTO `ngbm_collection` VALUES (3,1,2,'My collection');
-INSERT INTO `ngbm_collection` VALUES (4,0,1,NULL);
-INSERT INTO `ngbm_collection` VALUES (4,1,1,NULL);
-INSERT INTO `ngbm_collection` VALUES (5,0,2,'My other collection');
+INSERT INTO `ngbm_collection` VALUES (1,0,0,false,NULL);
+INSERT INTO `ngbm_collection` VALUES (2,1,1,false,NULL);
+INSERT INTO `ngbm_collection` VALUES (3,0,1,true,'My collection');
+INSERT INTO `ngbm_collection` VALUES (3,1,1,true,'My collection');
+INSERT INTO `ngbm_collection` VALUES (4,0,1,false,NULL);
+INSERT INTO `ngbm_collection` VALUES (4,1,1,false,NULL);
+INSERT INTO `ngbm_collection` VALUES (5,0,1,true,'My other collection');
 /*!40000 ALTER TABLE `ngbm_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 

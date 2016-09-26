@@ -33,6 +33,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'id' => 2,
                 'status' => APICollection::STATUS_PUBLISHED,
                 'type' => APICollection::TYPE_DYNAMIC,
+                'shared' => true,
                 'name' => null,
             )
         );
@@ -42,6 +43,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertEquals(2, $collection->getId());
         $this->assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
+        $this->assertTrue($collection->isShared());
         $this->assertNull(null, $collection->getName());
         $this->assertEquals(APICollection::STATUS_PUBLISHED, $collection->getStatus());
 

@@ -14,6 +14,7 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isShared
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getName
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
@@ -27,6 +28,7 @@ class CollectionTest extends TestCase
         $this->assertNull($collection->getId());
         $this->assertNull($collection->getStatus());
         $this->assertNull($collection->getType());
+        $this->assertNull($collection->isShared());
         $this->assertNull($collection->getName());
         $this->assertEquals(array(), $collection->getItems());
         $this->assertEquals(array(), $collection->getManualItems());
@@ -39,6 +41,7 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isShared
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getName
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
@@ -51,7 +54,8 @@ class CollectionTest extends TestCase
             array(
                 'id' => 42,
                 'status' => Collection::STATUS_PUBLISHED,
-                'type' => Collection::TYPE_NAMED,
+                'type' => Collection::TYPE_DYNAMIC,
+                'shared' => true,
                 'name' => 'My collection',
                 'items' => array(
                     new Item(array('type' => Item::TYPE_MANUAL, 'position' => 3)),
@@ -65,7 +69,8 @@ class CollectionTest extends TestCase
 
         $this->assertEquals(42, $collection->getId());
         $this->assertEquals(Collection::STATUS_PUBLISHED, $collection->getStatus());
-        $this->assertEquals(Collection::TYPE_NAMED, $collection->getType());
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
+        $this->assertTrue($collection->isShared());
         $this->assertEquals('My collection', $collection->getName());
         $this->assertCount(2, $collection->getItems());
         $this->assertCount(1, $collection->getManualItems());

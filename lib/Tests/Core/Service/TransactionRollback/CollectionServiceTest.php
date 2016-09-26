@@ -85,7 +85,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->will(
                 $this->returnValue(
                     new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED)
+                        array('type' => Collection::TYPE_DYNAMIC)
                     )
                 )
             );
@@ -149,7 +149,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->will(
                 $this->returnValue(
                     new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED)
+                        array('type' => Collection::TYPE_DYNAMIC)
                     )
                 )
             );
@@ -252,7 +252,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->will(
                 $this->returnValue(
                     new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED)
+                        array('type' => Collection::TYPE_DYNAMIC)
                     )
                 )
             );
@@ -359,7 +359,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->will(
                 $this->returnValue(
                     new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED)
+                        array('type' => Collection::TYPE_DYNAMIC)
                     )
                 )
             );
@@ -428,17 +428,6 @@ class CollectionServiceTest extends TransactionRollbackTest
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED)
-                    )
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
             ->method('moveQuery')
             ->will($this->throwException(new Exception()));
 
@@ -462,17 +451,6 @@ class CollectionServiceTest extends TransactionRollbackTest
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_NAMED)
-                    )
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
             ->method('deleteQuery')
             ->will($this->throwException(new Exception()));
 

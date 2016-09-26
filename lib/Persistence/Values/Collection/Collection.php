@@ -19,11 +19,6 @@ class Collection extends ValueObject
     /**
      * @const int
      */
-    const TYPE_NAMED = 2;
-
-    /**
-     * @const int
-     */
     const STATUS_DRAFT = 0;
 
     /**
@@ -49,6 +44,13 @@ class Collection extends ValueObject
      * @var int
      */
     public $type;
+
+    /**
+     * Indicates if the collection is shared.
+     *
+     * @var bool
+     */
+    public $shared;
 
     /**
      * Human readable name of this collection.

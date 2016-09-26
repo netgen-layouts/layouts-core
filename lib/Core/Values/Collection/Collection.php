@@ -24,6 +24,11 @@ class Collection extends ValueObject implements APICollection
     protected $type;
 
     /**
+     * @var bool
+     */
+    protected $shared;
+
+    /**
      * @var string
      */
     protected $name;
@@ -92,6 +97,16 @@ class Collection extends ValueObject implements APICollection
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Returns if the collection is shared.
+     *
+     * @return int
+     */
+    public function isShared()
+    {
+        return $this->shared;
     }
 
     /**

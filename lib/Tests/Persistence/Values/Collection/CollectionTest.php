@@ -13,6 +13,7 @@ class CollectionTest extends TestCase
 
         $this->assertNull($collection->id);
         $this->assertNull($collection->type);
+        $this->assertNull($collection->shared);
         $this->assertNull($collection->name);
         $this->assertNull($collection->status);
     }
@@ -22,14 +23,16 @@ class CollectionTest extends TestCase
         $collection = new Collection(
             array(
                 'id' => 42,
-                'type' => Collection::TYPE_NAMED,
+                'type' => Collection::TYPE_DYNAMIC,
+                'shared' => false,
                 'name' => 'My collection',
                 'status' => Collection::STATUS_PUBLISHED,
             )
         );
 
         $this->assertEquals(42, $collection->id);
-        $this->assertEquals(Collection::TYPE_NAMED, $collection->type);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->type);
+        $this->assertFalse($collection->shared);
         $this->assertEquals('My collection', $collection->name);
         $this->assertEquals(Collection::STATUS_PUBLISHED, $collection->status);
     }

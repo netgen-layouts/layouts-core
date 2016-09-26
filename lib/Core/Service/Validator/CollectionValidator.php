@@ -109,7 +109,6 @@ class CollectionValidator extends Validator
                         'choices' => array(
                             Collection::TYPE_MANUAL,
                             Collection::TYPE_DYNAMIC,
-                            Collection::TYPE_NAMED,
                         ),
                         'strict' => true,
                     )
@@ -138,19 +137,31 @@ class CollectionValidator extends Validator
                     'Dynamic collection can only have one query'
                 );
             }
-        } elseif ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
-            $collectionName = is_string($collectionCreateStruct->name) ?
-                trim($collectionCreateStruct->name) :
-                $collectionCreateStruct->name;
+        }
 
+        if ($collectionCreateStruct->shared !== null) {
             $this->validate(
-                $collectionName,
+                $collectionCreateStruct->shared,
                 array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
+                    new Constraints\Type(array('type' => 'bool')),
                 ),
-                'name'
+                'shared'
             );
+
+            if ($collectionCreateStruct->shared === true) {
+                $collectionName = is_string($collectionCreateStruct->name) ?
+                    trim($collectionCreateStruct->name) :
+                    $collectionCreateStruct->name;
+
+                $this->validate(
+                    $collectionName,
+                    array(
+                        new Constraints\NotBlank(),
+                        new Constraints\Type(array('type' => 'string')),
+                    ),
+                    'name'
+                );
+            }
         }
 
         return true;

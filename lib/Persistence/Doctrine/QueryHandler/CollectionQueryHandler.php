@@ -7,7 +7,6 @@ use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Doctrine\DBAL\Types\Type;
 
 class CollectionQueryHandler extends QueryHandler
@@ -60,7 +59,7 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for named collections.
+     * Loads all data for shared collections.
      *
      * @param int $status
      * @param int $offset
@@ -68,13 +67,13 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadNamedCollectionsData($status, $offset = 0, $limit = null)
+    public function loadSharedCollectionsData($status, $offset = 0, $limit = null)
     {
         $query = $this->getCollectionSelectQuery();
         $query->where(
-            $query->expr()->eq('type', ':type')
+            $query->expr()->eq('shared', ':shared')
         )
-        ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER);
+        ->setParameter('shared', true, Type::BOOLEAN);
 
         $this->applyStatusCondition($query, $status);
         $this->applyOffsetAndLimit($query, $offset, $limit);
@@ -183,7 +182,7 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if the named collection exists.
+     * Returns if the collection name exists.
      *
      * @param string $name
      * @param int|string $excludedCollectionId
@@ -191,18 +190,14 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function namedCollectionExists($name, $excludedCollectionId = null, $status = null)
+    public function collectionNameExists($name, $excludedCollectionId = null, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('ngbm_collection')
             ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('type', ':type'),
-                    $query->expr()->eq('name', ':name')
-                )
+                $query->expr()->eq('name', ':name')
             )
-            ->setParameter('type', Collection::TYPE_NAMED, Type::INTEGER)
             ->setParameter('name', trim($name), Type::STRING);
 
         if ($excludedCollectionId !== null) {
@@ -236,6 +231,7 @@ class CollectionQueryHandler extends QueryHandler
                     'id' => ':id',
                     'status' => ':status',
                     'type' => ':type',
+                    'shared' => ':shared',
                     'name' => ':name',
                 )
             )
@@ -245,6 +241,7 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER)
             ->setParameter('type', $collectionCreateStruct->type, Type::INTEGER)
+            ->setParameter('shared', $collectionCreateStruct->shared, Type::BOOLEAN)
             ->setParameter('name', $collectionCreateStruct->name, Type::STRING);
 
         $query->execute();
@@ -598,7 +595,7 @@ class CollectionQueryHandler extends QueryHandler
     protected function getCollectionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'type', 'name')
+        $query->select('DISTINCT id', 'status', 'type', 'shared', 'name')
             ->from('ngbm_collection');
 
         return $query;

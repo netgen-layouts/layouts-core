@@ -104,18 +104,18 @@ class CollectionService implements APICollectionService
     }
 
     /**
-     * Loads all named collections.
+     * Loads all shared collections.
      *
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
      */
-    public function loadNamedCollections($offset = 0, $limit = null)
+    public function loadSharedCollections($offset = 0, $limit = null)
     {
         $this->collectionValidator->validateOffsetAndLimit($offset, $limit);
 
-        $persistenceCollections = $this->collectionHandler->loadNamedCollections(
+        $persistenceCollections = $this->collectionHandler->loadSharedCollections(
             Collection::STATUS_PUBLISHED,
             $offset,
             $limit
@@ -218,7 +218,7 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
@@ -226,9 +226,9 @@ class CollectionService implements APICollectionService
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
 
-        if ($collectionCreateStruct->type === Collection::TYPE_NAMED) {
-            if ($this->collectionHandler->namedCollectionExists($collectionCreateStruct->name)) {
-                throw new BadStateException('name', 'Named collection with provided name already exists.');
+        if ($collectionCreateStruct->name !== null) {
+            if ($this->collectionHandler->collectionNameExists($collectionCreateStruct->name)) {
+                throw new BadStateException('name', 'Collection with provided name already exists.');
             }
         }
 
@@ -255,8 +255,7 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not named
-     *                                                          If collection with provided name already exists
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
@@ -266,13 +265,9 @@ class CollectionService implements APICollectionService
 
         $this->collectionValidator->validateCollectionUpdateStruct($collectionUpdateStruct);
 
-        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
-            throw new BadStateException('collection', 'Only named collections can be updated.');
-        }
-
         if ($collectionUpdateStruct->name !== null) {
-            if ($this->collectionHandler->namedCollectionExists($collectionUpdateStruct->name, $persistenceCollection->id)) {
-                throw new BadStateException('name', 'Named collection with provided name already exists.');
+            if ($this->collectionHandler->collectionNameExists($collectionUpdateStruct->name, $persistenceCollection->id)) {
+                throw new BadStateException('name', 'Collection with provided name already exists.');
             }
         }
 
@@ -310,10 +305,6 @@ class CollectionService implements APICollectionService
 
         if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
             throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
-        }
-
-        if ($persistenceCollection->type === Collection::TYPE_NAMED) {
-            throw new BadStateException('collection', 'Only manual or dynamic collections can be converted.');
         }
 
         if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
@@ -584,8 +575,7 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
-     *                                                          If query with specified identifier already exists within the collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
@@ -593,10 +583,6 @@ class CollectionService implements APICollectionService
     public function addQuery(CollectionDraft $collection, QueryCreateStruct $queryCreateStruct, $position = null)
     {
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
-
-        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
-            throw new BadStateException('queryCreateStruct', 'Query can only be added to a named collection.');
-        }
 
         $this->collectionValidator->validatePosition($position, 'position');
 
@@ -670,19 +656,11 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      * @param int $position
      *
-     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      */
     public function moveQuery(QueryDraft $query, $position)
     {
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Collection::STATUS_DRAFT);
-
-        $persistenceCollection = $this->collectionHandler->loadCollection($query->getCollectionId(), Collection::STATUS_DRAFT);
-
-        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
-            throw new BadStateException('queryCreateStruct', 'Query can only be moved inside a named collection.');
-        }
 
         $this->collectionValidator->validatePosition($position, 'position', true);
 
@@ -706,19 +684,11 @@ class CollectionService implements APICollectionService
     /**
      * Removes a query.
      *
-     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
-     *
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      */
     public function deleteQuery(QueryDraft $query)
     {
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Collection::STATUS_DRAFT);
-
-        $persistenceCollection = $this->collectionHandler->loadCollection($query->getCollectionId(), Collection::STATUS_DRAFT);
-
-        if ($persistenceCollection->type !== Collection::TYPE_NAMED) {
-            throw new BadStateException('queryCreateStruct', 'Query can only be deleted from a named collection.');
-        }
 
         $this->persistenceHandler->beginTransaction();
 

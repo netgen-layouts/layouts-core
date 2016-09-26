@@ -24,6 +24,7 @@ class CollectionMapper
                 array(
                     'id' => (int)$dataItem['id'],
                     'type' => (int)$dataItem['type'],
+                    'shared' => (bool)$dataItem['shared'],
                     'name' => $dataItem['name'],
                     'status' => (int)$dataItem['status'],
                 )

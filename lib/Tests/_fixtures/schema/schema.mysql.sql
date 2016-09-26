@@ -52,6 +52,7 @@ CREATE TABLE `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `type` int(11) NOT NULL,
+  `shared` tinyint NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

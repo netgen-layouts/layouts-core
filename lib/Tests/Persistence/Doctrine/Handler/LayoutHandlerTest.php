@@ -661,7 +661,7 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
-        // Verify that non named collections were copied
+        // Verify that non shared collections were copied
         $this->collectionHandler->loadCollection(6, Collection::STATUS_PUBLISHED);
         $this->collectionHandler->loadCollection(7, Collection::STATUS_PUBLISHED);
 
@@ -832,7 +832,7 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
-        // Verify that non named collection status was copied
+        // Verify that non shared collection status was copied
         $this->collectionHandler->loadCollection(2, Collection::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
@@ -871,7 +871,7 @@ class LayoutHandlerTest extends TestCase
             // Do nothing
         }
 
-        // Verify that named collection is not deleted (ID == 3)
+        // Verify that shared collection is not deleted (ID == 3)
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 
         // Verify that we don't have the layout any more
@@ -907,7 +907,7 @@ class LayoutHandlerTest extends TestCase
             // Do nothing
         }
 
-        // Verify that NOT all collections are deleted, especially the named one (ID == 3)
+        // Verify that NOT all collections are deleted, especially the shared one (ID == 3)
         $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
 

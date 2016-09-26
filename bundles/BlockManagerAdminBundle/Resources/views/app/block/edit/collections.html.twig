@@ -1,54 +1,64 @@
 {% trans_default_domain 'ngbm_app' %}
 
-{% set can_change_collection = query_types|length > 0 or named_collections|length > 0 %}
+{% set can_change_collection = query_types|length > 0 or shared_collections|length > 0 %}
 
 {% if collections is not empty and collections['default'] is defined and can_change_collection %}
     {% set collection = collections['default'] %}
 
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
     {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}
-    {% set type_named = constant('TYPE_NAMED', collection) %}
 
     {% set collection_types = {
-        (type_manual): 'block.edit.collection_type.manual_collection'|trans,
-        (type_dynamic): 'block.edit.collection_type.dynamic_collection'|trans,
-        (type_named): 'block.edit.collection_type.named_collection'|trans
+        'manual': 'block.edit.collection_type.manual_collection'|trans,
+        'dynamic': 'block.edit.collection_type.dynamic_collection'|trans,
+        'shared': 'block.edit.shared_collection'|trans
     } %}
 
     <div class="xeditable" data-xeditable-name="collection_type">
         <div class="current">
-            <label>{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">{{ 'block.edit.collection_type.tooltip'|trans }}</div></div></a></label>
-            <a href="#" class="js-edit"><span class="text">{{ collection_types[collection.type] }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
-
-            {% if collection.type == type_dynamic and query_types|length > 1 %}
-                <label>{{ 'block.edit.query_type'|trans }}</label>
-                <a href="#" class="js-edit"><span class="text">{{ collection.queries[0].queryType.config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
-            {% elseif collection.type == type_named and named_collections|length > 1 %}
-                <label>{{ 'block.edit.named_collection'|trans }}</label>
-                <a href="#" class="js-edit"><span class="text">{{ collection.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+            {% if not collection.shared %}
+                {% set current_type = (collection.type == type_manual ? 'manual' : 'dynamic') %}
+            {% else %}
+                {% set current_type = 'shared' %}
             {% endif %}
 
+            <label>{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">{{ 'block.edit.collection_type.tooltip'|trans }}</div></div></a></label>
+            <a href="#" class="js-edit"><span class="text">{{ collection_types[current_type] }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+
+            {% if not collection.shared %}
+                {% if collection.type == type_dynamic and query_types|length > 1 %}
+                    <label>{{ 'block.edit.query_type'|trans }}</label>
+                    <a href="#" class="js-edit"><span class="text">{{ collection.queries[0].queryType.config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+                {% endif %}
+            {% else %}
+                {% if shared_collections|length > 1 %}
+                    <label>{{ 'block.edit.shared_collection'|trans }}</label>
+                    <a href="#" class="js-edit"><span class="text">{{ collection.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+                {% endif %}
+            {% endif %}
         </div>
 
         <div class="form js-dependable-selects-group">
             <div>
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">{{ 'block.edit.collection_type.tooltip'|trans }}</div></div></a></label>
                 <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master">
-                    <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
+                    {% if not collection.shared %}
+                        <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="manual">{{ collection_types['manual'] }}</option>
 
-                    {% if query_types|length > 0 %}
-                        <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">{{ collection_types[type_dynamic] }}</option>
-                    {% endif %}
-
-                    {% if named_collections|length > 0 %}
-                        <option {% if collection.type == type_named %} selected="selected" {% endif %} value="{{ type_named }}">{{ collection_types[type_named] }}</option>
+                        {% if query_types|length > 0 %}
+                            <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="dynamic">{{ collection_types['dynamic'] }}</option>
+                        {% endif %}
+                    {% else %}
+                        {% if shared_collections|length > 0 %}
+                            <option {% if collection.shared %} selected="selected" {% endif %} value="shared">{{ collection_types['shared'] }}</option>
+                        {% endif %}
                     {% endif %}
                 </select>
                 <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>
             </div>
 
             {% if query_types|length > 0 %}
-                <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
+                <div class="js-dependable" data-linked-value="dynamic">
                     <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
                     <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
                         {% for query_type in query_types %}
@@ -58,12 +68,12 @@
                 </div>
             {% endif %}
 
-            {% if named_collections|length > 0 %}
-                <div class="js-dependable" data-linked-value="{{ type_named }}">
-                    <label for="named-collections">{{ 'block.edit.named_collection'|trans }}</label>
-                    <select id="named-collections"  name="block_collection[named_collection_id]">
-                        {% for named_collection in named_collections %}
-                            <option {% if collection.id == named_collection.id %} selected="selected" {% endif %} value="{{ named_collection.id }}">{{ named_collection.name }}</option>
+            {% if shared_collections|length > 0 %}
+                <div class="js-dependable" data-linked-value="shared">
+                    <label for="shared-collections">{{ 'block.edit.shared_collection'|trans }}</label>
+                    <select id="shared-collections" name="block_collection[shared_collection_id]">
+                        {% for shared_collection in shared_collections %}
+                            <option {% if collection.id == shared_collection.id %} selected="selected" {% endif %} value="{{ shared_collection.id }}">{{ shared_collection.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

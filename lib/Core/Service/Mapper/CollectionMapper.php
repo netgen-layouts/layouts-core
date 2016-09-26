@@ -65,6 +65,7 @@ class CollectionMapper extends Mapper
             'id' => $collection->id,
             'status' => $collection->status,
             'type' => $collection->type,
+            'shared' => $collection->shared,
             'name' => $collection->name,
             'items' => $items,
             'queries' => $queries,

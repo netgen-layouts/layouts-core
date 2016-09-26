@@ -67,7 +67,7 @@ class BlockController extends Controller
             array(
                 'block' => $block,
                 'collections' => $collections,
-                'named_collections' => $this->collectionService->loadNamedCollections(),
+                'shared_collections' => $this->collectionService->loadSharedCollections(),
                 'query_types' => $this->queryTypeRegistry->getQueryTypes(),
             )
         );

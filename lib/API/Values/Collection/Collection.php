@@ -19,11 +19,6 @@ interface Collection extends Value
     /**
      * @const int
      */
-    const TYPE_NAMED = 2;
-
-    /**
-     * @const int
-     */
     const STATUS_DRAFT = 0;
 
     /**
@@ -56,6 +51,13 @@ interface Collection extends Value
      * @return int
      */
     public function getType();
+
+    /**
+     * Returns if the collection is shared.
+     *
+     * @return int
+     */
+    public function isShared();
 
     /**
      * Returns the collection name.

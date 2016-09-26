@@ -77,17 +77,17 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadNamedCollections
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadSharedCollections
      */
-    public function testLoadNamedCollections()
+    public function testLoadSharedCollections()
     {
-        $collections = $this->collectionService->loadNamedCollections();
+        $collections = $this->collectionService->loadSharedCollections();
 
         $this->assertNotEmpty($collections);
 
         foreach ($collections as $collection) {
             $this->assertInstanceOf(Collection::class, $collection);
-            $this->assertEquals(Collection::TYPE_NAMED, $collection->getType());
+            $this->assertTrue($collection->isShared());
         }
     }
 
@@ -180,22 +180,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
         $this->assertInstanceOf(CollectionDraft::class, $createdCollection);
-        $this->assertNull($createdCollection->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
-     */
-    public function testCreateNamedCollection()
-    {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            Collection::TYPE_NAMED,
-            'New name'
-        );
-
-        $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
-
-        $this->assertInstanceOf(CollectionDraft::class, $createdCollection);
         $this->assertEquals('New name', $createdCollection->getName());
     }
 
@@ -203,10 +187,10 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCreateNamedCollectionThrowsBadStateException()
+    public function testCreateCollectionThrowsBadStateException()
     {
         $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            Collection::TYPE_NAMED,
+            Collection::TYPE_MANUAL,
             'My collection'
         );
 
@@ -236,23 +220,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testUpdateCollectionWithExistingNameThrowsBadStateException()
     {
         $collection = $this->collectionService->loadCollectionDraft(5);
-
-        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'My collection';
-
-        $this->collectionService->updateCollection(
-            $collection,
-            $collectionUpdateStruct
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testUpdateNonNamedCollectionThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(1);
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
         $collectionUpdateStruct->name = 'My collection';
@@ -312,34 +279,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingFromNamedCollection()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $this->collectionService->changeCollectionType(
-            $collection,
-            Collection::TYPE_MANUAL
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToNamedCollection()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(4);
-
-        $this->collectionService->changeCollectionType(
-            $collection,
-            Collection::TYPE_NAMED
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
     public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct()
     {
         $collection = $this->collectionService->loadCollectionDraft(1);
@@ -366,7 +305,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
      */
-    public function testCopyNamedCollection()
+    public function testCopyCollectionWithName()
     {
         $collection = $this->collectionService->loadCollection(3);
         $copiedCollection = $this->collectionService->copyCollection($collection);
@@ -668,18 +607,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testMoveQueryThrowsBadStateExceptionOnNonNamedCollection()
-    {
-        $this->collectionService->moveQuery(
-            $this->collectionService->loadQueryDraft(4),
-            0
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
      */
     public function testDeleteQuery()
@@ -705,16 +632,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testDeleteQueryThrowsBadStateExceptionOnNonNamedCollection()
-    {
-        $query = $this->collectionService->loadQueryDraft(4);
-        $this->collectionService->deleteQuery($query);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct()
@@ -722,12 +639,12 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(
             new CollectionCreateStruct(
                 array(
-                    'type' => Collection::TYPE_NAMED,
+                    'type' => Collection::TYPE_DYNAMIC,
                     'name' => 'New collection',
                 )
             ),
             $this->collectionService->newCollectionCreateStruct(
-                Collection::TYPE_NAMED,
+                Collection::TYPE_DYNAMIC,
                 'New collection'
             )
         );

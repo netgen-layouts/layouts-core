@@ -44,6 +44,7 @@ CREATE TABLE `ngbm_collection` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `type` integer NOT NULL,
+  `shared` integer NOT NULL,
   `name` text(255) DEFAULT NULL,
   PRIMARY KEY (`id`, `status`)
 );

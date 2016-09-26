@@ -28,13 +28,15 @@ class CollectionMapperTest extends TestCase
         $data = array(
             array(
                 'id' => 42,
-                'type' => Collection::TYPE_NAMED,
+                'type' => Collection::TYPE_DYNAMIC,
+                'shared' => true,
                 'name' => 'My collection',
                 'status' => Collection::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'type' => Collection::TYPE_MANUAL,
+                'shared' => false,
                 'name' => null,
                 'status' => Collection::STATUS_DRAFT,
             ),
@@ -44,7 +46,8 @@ class CollectionMapperTest extends TestCase
             new Collection(
                 array(
                     'id' => 42,
-                    'type' => Collection::TYPE_NAMED,
+                    'type' => Collection::TYPE_DYNAMIC,
+                    'shared' => true,
                     'name' => 'My collection',
                     'status' => Collection::STATUS_PUBLISHED,
                 )
@@ -53,6 +56,7 @@ class CollectionMapperTest extends TestCase
                 array(
                     'id' => 43,
                     'type' => Collection::TYPE_MANUAL,
+                    'shared' => false,
                     'name' => null,
                     'status' => Collection::STATUS_DRAFT,
                 )

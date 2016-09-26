@@ -55,6 +55,7 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'type' => Collection::TYPE_MANUAL,
+                    'shared' => false,
                     'name' => null,
                     'status' => Collection::STATUS_DRAFT,
                 )
@@ -74,28 +75,28 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadNamedCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadNamedCollectionsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadSharedCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSharedCollectionsData
      */
-    public function testLoadNamedCollections()
+    public function testLoadSharedCollections()
     {
-        $collections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_PUBLISHED);
+        $collections = $this->collectionHandler->loadSharedCollections(Collection::STATUS_PUBLISHED);
 
         $this->assertNotEmpty($collections);
 
         foreach ($collections as $collection) {
             $this->assertInstanceOf(Collection::class, $collection);
-            $this->assertEquals(Collection::TYPE_NAMED, $collection->type);
+            $this->assertTrue($collection->shared);
         }
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadNamedCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadNamedCollectionsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadSharedCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSharedCollectionsData
      */
-    public function testLoadNamedCollectionsInNonExistentStatus()
+    public function testLoadSharedCollectionsInNonExistentStatus()
     {
-        $collections = $this->collectionHandler->loadNamedCollections(Collection::STATUS_ARCHIVED);
+        $collections = $this->collectionHandler->loadSharedCollections(Collection::STATUS_ARCHIVED);
 
         $this->assertEmpty($collections);
     }
@@ -234,57 +235,57 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isNamedCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isSharedCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      */
-    public function testIsNamedCollection()
+    public function testIsSharedCollection()
     {
-        $this->assertTrue($this->collectionHandler->isNamedCollection(3, Collection::STATUS_PUBLISHED));
+        $this->assertTrue($this->collectionHandler->isSharedCollection(3));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isNamedCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isSharedCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      */
-    public function testIsNamedCollectionReturnsFalse()
+    public function testIsSharedCollectionReturnsFalse()
     {
-        $this->assertFalse($this->collectionHandler->isNamedCollection(2, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->isSharedCollection(2));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
      */
-    public function testNamedCollectionExists()
+    public function testCollectionNameExists()
     {
-        $this->assertTrue($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_PUBLISHED));
+        $this->assertTrue($this->collectionHandler->collectionNameExists('My collection', null, Collection::STATUS_PUBLISHED));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
      */
-    public function testNamedCollectionNotExists()
+    public function testCollectionNameNotExists()
     {
-        $this->assertFalse($this->collectionHandler->namedCollectionExists('Non existent', null, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->collectionNameExists('Non existent', null, Collection::STATUS_PUBLISHED));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
      */
-    public function testNamedCollectionNotExistsWithExcludedId()
+    public function testCollectionNameNotExistsWithExcludedId()
     {
-        $this->assertFalse($this->collectionHandler->namedCollectionExists('My collection', 3, Collection::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->collectionNameExists('My collection', 3, Collection::STATUS_PUBLISHED));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::namedCollectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::namedCollectionExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
      */
-    public function testNamedCollectionNotExistsInStatus()
+    public function testCollectionNameNotExistsInStatus()
     {
-        $this->assertFalse($this->collectionHandler->namedCollectionExists('My collection', null, Collection::STATUS_ARCHIVED));
+        $this->assertFalse($this->collectionHandler->collectionNameExists('My collection', null, Collection::STATUS_ARCHIVED));
     }
 
     /**
@@ -303,7 +304,8 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct->type = 'type';
 
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_NAMED;
+        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
+        $collectionCreateStruct->shared = false;
         $collectionCreateStruct->name = 'New collection';
         $collectionCreateStruct->itemCreateStructs = array($itemCreateStruct);
         $collectionCreateStruct->queryCreateStructs = array($queryCreateStruct);
@@ -316,7 +318,8 @@ class CollectionHandlerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $createdCollection);
 
         $this->assertEquals(6, $createdCollection->id);
-        $this->assertEquals(Collection::TYPE_NAMED, $createdCollection->type);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
+        $this->assertFalse($createdCollection->shared);
         $this->assertEquals('New collection', $createdCollection->name);
         $this->assertEquals(Collection::STATUS_DRAFT, $createdCollection->status);
 
@@ -368,7 +371,8 @@ class CollectionHandlerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $updatedCollection);
 
         $this->assertEquals(3, $updatedCollection->id);
-        $this->assertEquals(Collection::TYPE_NAMED, $updatedCollection->type);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
+        $this->assertTrue($updatedCollection->shared);
         $this->assertEquals('Updated collection', $updatedCollection->name);
         $this->assertEquals(Collection::STATUS_PUBLISHED, $updatedCollection->status);
     }
@@ -448,7 +452,8 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(6, $copiedCollection->id);
         $this->assertInstanceOf(Collection::class, $copiedCollection);
-        $this->assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
+        $this->assertTrue($copiedCollection->shared);
         $this->assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->name);
         $this->assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->status);
 
@@ -551,7 +556,8 @@ class CollectionHandlerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $copiedCollection);
 
         $this->assertEquals(3, $copiedCollection->id);
-        $this->assertEquals(Collection::TYPE_NAMED, $copiedCollection->type);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
+        $this->assertTrue($copiedCollection->shared);
         $this->assertEquals('My collection', $copiedCollection->name);
         $this->assertEquals(Collection::STATUS_ARCHIVED, $copiedCollection->status);
 

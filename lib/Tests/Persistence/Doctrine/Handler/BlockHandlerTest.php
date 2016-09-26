@@ -786,7 +786,7 @@ class BlockHandlerTest extends TestCase
             // Do nothing
         }
 
-        // Verify that named collection still exists
+        // Verify that shared collection still exists
         $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
     }
 

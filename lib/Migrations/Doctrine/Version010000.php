@@ -122,6 +122,7 @@ class Version010000 extends AbstractMigration
         $collectionTable->addColumn('id', 'integer', array('autoincrement' => true));
         $collectionTable->addColumn('status', 'integer');
         $collectionTable->addColumn('type', 'integer');
+        $collectionTable->addColumn('shared', 'boolean');
         $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
 
         $collectionTable->setPrimaryKey(array('id', 'status'));

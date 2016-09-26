@@ -31,6 +31,7 @@ class CollectionReferenceNormalizer implements NormalizerInterface
             'block_id' => $block->getId(),
             'collection_id' => $collection->getId(),
             'collection_type' => $collection->getType(),
+            'collection_shared' => $collection->isShared(),
             'collection_name' => $collection->getName(),
             'offset' => $collectionReference->getOffset(),
             'limit' => $collectionReference->getLimit(),

@@ -18,6 +18,12 @@ use Netgen\BlockManager\API\Values\Page\BlockDraft;
 
 class BlockCollectionController extends Controller
 {
+    const NEW_TYPE_MANUAL = 'manual';
+
+    const NEW_TYPE_DYNAMIC = 'dynamic';
+
+    const NEW_TYPE_SHARED = 'shared';
+
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
@@ -103,7 +109,7 @@ class BlockCollectionController extends Controller
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid
      *                                                                 If query type does not exist
-     *                                                                 If specified named collection is not named
+     *                                                                 If specified shared collection is not shared
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -111,44 +117,44 @@ class BlockCollectionController extends Controller
     {
         $newType = $request->request->get('new_type');
 
-        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC, Collection::TYPE_NAMED), true)) {
+        if (!in_array($newType, array(self::NEW_TYPE_MANUAL, self::NEW_TYPE_DYNAMIC, self::NEW_TYPE_SHARED), true)) {
             throw new InvalidArgumentException('new_type', 'Specified collection type is not valid');
         }
 
         $collection = $collectionReference->getCollection();
 
-        if ($newType === Collection::TYPE_MANUAL) {
+        if ($newType === self::NEW_TYPE_MANUAL) {
             if ($collection->getType() === Collection::TYPE_MANUAL) {
                 // Noop
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }
 
-            if ($collection->getType() === Collection::TYPE_NAMED) {
+            if ($collection->isShared()) {
                 $newCollection = $this->collectionService->createCollection(
-                    $this->collectionService->newCollectionCreateStruct($newType)
+                    $this->collectionService->newCollectionCreateStruct(Collection::TYPE_MANUAL)
                 );
             } else {
-                $newCollection = $this->collectionService->changeCollectionType($collection, $newType);
+                $newCollection = $this->collectionService->changeCollectionType($collection, Collection::TYPE_MANUAL);
             }
 
             $this->blockService->updateCollectionReference($collectionReference, $newCollection);
-        } elseif ($newType === Collection::TYPE_DYNAMIC) {
+        } elseif ($newType === self::NEW_TYPE_DYNAMIC) {
             $queryType = $this->getQueryType($request->request->get('query_type'));
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType, 'default');
 
-            if ($collection->getType() === Collection::TYPE_NAMED) {
-                $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct($newType);
+            if ($collection->isShared()) {
+                $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_DYNAMIC);
                 $collectionCreateStruct->queryCreateStructs = array($queryCreateStruct);
                 $newCollection = $this->collectionService->createCollection($collectionCreateStruct);
             } else {
-                $newCollection = $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
+                $newCollection = $this->collectionService->changeCollectionType($collection, Collection::TYPE_DYNAMIC, $queryCreateStruct);
             }
 
             $this->blockService->updateCollectionReference($collectionReference, $newCollection);
-        } elseif ($newType === Collection::TYPE_NAMED) {
-            $newCollection = $this->collectionService->loadCollection($request->request->get('named_collection_id'));
-            if ($newCollection->getType() !== Collection::TYPE_NAMED) {
-                throw new InvalidArgumentException('named_collection_id', 'Specified collection is not named');
+        } elseif ($newType === self::NEW_TYPE_SHARED) {
+            $newCollection = $this->collectionService->loadCollection($request->request->get('shared_collection_id'));
+            if (!$newCollection->isShared()) {
+                throw new InvalidArgumentException('shared_collection_id', 'Specified collection is not shared');
             }
 
             if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {

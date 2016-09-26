@@ -39,14 +39,14 @@ interface CollectionService
     public function loadCollectionDraft($collectionId);
 
     /**
-     * Loads all named collections.
+     * Loads all shared collections.
      *
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
      */
-    public function loadNamedCollections($offset = 0, $limit = null);
+    public function loadSharedCollections($offset = 0, $limit = null);
 
     /**
      * Loads an item with specified ID.
@@ -97,7 +97,7 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists (If creating a named collection)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
@@ -109,8 +109,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not named
-     *                                                          If collection with provided name already exists
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
      */
@@ -209,8 +208,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
-     *                                                          If query with specified identifier already exists within the collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
@@ -235,16 +233,12 @@ interface CollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      * @param int $position
      *
-     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
-     *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      */
     public function moveQuery(QueryDraft $query, $position);
 
     /**
      * Removes a query.
-     *
-     * @throw \Netgen\BlockManager\Exception\BadStateException If collection the query is in is not named
      *
      * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
      */

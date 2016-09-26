@@ -38,6 +38,7 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
+            'shared' => $collection->isShared(),
             'name' => $collection->getName(),
             'items' => $this->serializer->normalize(new ValueList($items)),
             'queries' => $this->serializer->normalize(new ValueList($queries)),

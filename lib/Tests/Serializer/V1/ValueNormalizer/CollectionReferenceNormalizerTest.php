@@ -31,6 +31,7 @@ class CollectionReferenceNormalizerTest extends TestCase
             array(
                 'id' => 24,
                 'type' => Collection::TYPE_MANUAL,
+                'shared' => false,
                 'name' => null,
                 'status' => Collection::STATUS_PUBLISHED,
             )
@@ -52,6 +53,7 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'block_id' => $collectionReference->getBlock()->getId(),
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
+                'collection_shared' => $collection->isShared(),
                 'collection_name' => $collection->getName(),
                 'offset' => $collectionReference->getOffset(),
                 'limit' => $collectionReference->getLimit(),
@@ -69,6 +71,7 @@ class CollectionReferenceNormalizerTest extends TestCase
             array(
                 'id' => 24,
                 'type' => Collection::TYPE_MANUAL,
+                'shared' => false,
                 'name' => null,
                 'status' => Collection::STATUS_DRAFT,
             )
@@ -90,6 +93,7 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'block_id' => $collectionReference->getBlock()->getId(),
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
+                'collection_shared' => $collection->isShared(),
                 'collection_name' => $collection->getName(),
                 'offset' => $collectionReference->getOffset(),
                 'limit' => $collectionReference->getLimit(),

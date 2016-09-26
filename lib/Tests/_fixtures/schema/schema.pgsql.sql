@@ -54,6 +54,7 @@ CREATE TABLE "ngbm_collection" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "type" integer NOT NULL,
+  "shared" boolean NOT NULL,
   "name" character varying(255)
 );
 
