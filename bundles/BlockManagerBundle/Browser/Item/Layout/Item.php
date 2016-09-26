@@ -61,7 +61,6 @@ class Item implements ItemInterface, LayoutInterface
      */
     public function getParentId()
     {
-        return;
     }
 
     /**
