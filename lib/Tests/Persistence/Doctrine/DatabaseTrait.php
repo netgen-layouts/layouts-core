@@ -51,11 +51,9 @@ trait DatabaseTrait
 
         $this->createDatabaseConnection();
 
-        if ($useMigrations) {
-            $this->executeMigrations();
-        } else {
+        $useMigrations ?
+            $this->executeMigrations() :
             $this->executeStatements($schemaPath);
-        }
 
         $this->insertDatabaseFixtures($fixturesPath);
 

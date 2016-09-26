@@ -58,11 +58,9 @@ class Collection extends ValueObject implements APICollection
         parent::__construct($properties);
 
         foreach ($this->items as $item) {
-            if ($item->getType() === APIItem::TYPE_MANUAL) {
-                $this->manualItems[$item->getPosition()] = $item;
-            } else {
+            $item->getType() === APIItem::TYPE_MANUAL ?
+                $this->manualItems[$item->getPosition()] = $item :
                 $this->overrideItems[$item->getPosition()] = $item;
-            }
         }
     }
 

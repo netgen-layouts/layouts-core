@@ -34,8 +34,8 @@ class ValidatorFactory extends ConstraintValidatorFactory
             return new ParametersValidator(
                 new ParameterFilterRegistry()
             );
-        } else {
-            return parent::getInstance($constraint);
         }
+
+        return parent::getInstance($constraint);
     }
 }
