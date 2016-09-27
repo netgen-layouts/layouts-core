@@ -85,7 +85,6 @@ class DesignEditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::buildViewTypes
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
      */

@@ -40,7 +40,6 @@ class GetDynamicParametersListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener::onBuildView
      */
     public function testOnBuildView()
@@ -65,7 +64,6 @@ class GetDynamicParametersListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener::onBuildView
      */
     public function testOnBuildViewWithNoBlockView()

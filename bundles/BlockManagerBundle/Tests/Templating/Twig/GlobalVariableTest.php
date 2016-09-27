@@ -55,7 +55,6 @@ class GlobalVariableTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::setPageLayoutTemplate
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getPageLayoutTemplate
      */
     public function testGetPageLayoutTemplate()

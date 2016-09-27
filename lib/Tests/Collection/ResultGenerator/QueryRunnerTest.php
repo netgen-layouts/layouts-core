@@ -24,7 +24,6 @@ class QueryRunnerTest extends TestCase
      * @param int $limit
      * @param array $expectedResult
      *
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::__construct
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
      * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
      * @dataProvider runSingleQueryProvider

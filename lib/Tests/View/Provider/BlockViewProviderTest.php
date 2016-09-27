@@ -23,7 +23,6 @@ class BlockViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::__construct
      * @covers \Netgen\BlockManager\View\Provider\BlockViewProvider::provideView
      */
     public function testProvideView()
