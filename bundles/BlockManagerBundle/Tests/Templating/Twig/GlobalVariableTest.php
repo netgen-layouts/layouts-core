@@ -85,15 +85,6 @@ class GlobalVariableTest extends TestCase
                 )
             );
 
-        $layoutView = new LayoutView(new Layout());
-        $layoutView->setTemplate('layout.html.twig');
-
-        $this->viewBuilderMock
-            ->expects($this->once())
-            ->method('buildView')
-            ->with($this->equalTo(new Layout()))
-            ->will($this->returnValue($layoutView));
-
         $this->assertEquals(new Layout(), $this->globalVariable->getLayout());
     }
 

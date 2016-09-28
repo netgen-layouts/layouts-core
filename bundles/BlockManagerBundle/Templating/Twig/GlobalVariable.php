@@ -7,6 +7,7 @@ use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 
 class GlobalVariable
@@ -30,6 +31,11 @@ class GlobalVariable
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
     protected $viewBuilder;
+
+    /**
+     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    protected $layout;
 
     /**
      * @var \Netgen\BlockManager\View\View\LayoutViewInterface
@@ -68,7 +74,11 @@ class GlobalVariable
      */
     public function getPageLayoutTemplate()
     {
-        return $this->pageLayoutResolver->resolvePageLayout();
+        if ($this->pageLayoutTemplate === null) {
+            $this->pageLayoutTemplate = $this->pageLayoutResolver->resolvePageLayout();
+        }
+
+        return $this->pageLayoutTemplate;
     }
 
     /**
@@ -78,24 +88,24 @@ class GlobalVariable
      */
     public function getLayout()
     {
-        $this->resolveLayout();
-
-        if (!$this->layoutView instanceof LayoutViewInterface) {
-            return;
+        if ($this->layout === null) {
+            $this->resolveLayout();
         }
 
-        return $this->layoutView->getLayout();
+        return $this->layout;
     }
 
     /**
      * Returns the currently valid layout template, or base pagelayout if
      * no layout was resolved.
      *
+     * @param string $context
+     *
      * @return string
      */
-    public function getLayoutTemplate()
+    public function getLayoutTemplate($context = ViewInterface::CONTEXT_DEFAULT)
     {
-        $this->resolveLayout();
+        $this->buildLayoutView($context);
 
         if (!$this->layoutView instanceof LayoutViewInterface) {
             return $this->getPageLayoutTemplate();
@@ -119,18 +129,28 @@ class GlobalVariable
      */
     protected function resolveLayout()
     {
-        if ($this->layoutView instanceof LayoutViewInterface) {
-            return;
-        }
-
         foreach ($this->layoutResolver->resolveRules() as $rule) {
             if (!$rule->getLayout() instanceof Layout) {
                 continue;
             }
 
-            $this->layoutView = $this->viewBuilder->buildView($rule->getLayout());
+            $this->layout = $rule->getLayout();
 
             break;
+        }
+    }
+
+    /**
+     * Resolves the used layout, based on current conditions.
+     *
+     * @param string $context
+     */
+    protected function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
+    {
+        $layout = $this->getLayout();
+
+        if ($this->layoutView === null && $layout instanceof Layout) {
+            $this->layoutView = $this->viewBuilder->buildView($layout, array(), $context);
         }
     }
 }
