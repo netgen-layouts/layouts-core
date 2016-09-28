@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandler as BaseTwigBlockDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Parameter;
 
-class TwigBlockDefinitionHandler extends BaseTwigBlockDefinitionHandler
+class TwigBlockDefinitionHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
     /**
      * Returns the array specifying block parameters.
@@ -23,13 +23,15 @@ class TwigBlockDefinitionHandler extends BaseTwigBlockDefinitionHandler
     }
 
     /**
-     * Returns the name of the parameter which will provide the Twig block name.
+     * Returns the name of the Twig block to use.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @return string
      */
-    public function getTwigBlockParameter()
+    public function getTwigBlockName(Block $block)
     {
-        return 'block_name';
+        return $block->getParameter('block_name');
     }
 
     /**
