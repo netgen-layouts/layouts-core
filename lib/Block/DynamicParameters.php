@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Block\BlockDefinition\DynamicParameters;
+namespace Netgen\BlockManager\Block;
 
-class Collection
+class DynamicParameters
 {
     /**
      * @var array

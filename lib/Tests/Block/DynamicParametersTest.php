@@ -1,20 +1,20 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\DynamicParameters;
+namespace Netgen\BlockManager\Tests\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection;
+use Netgen\BlockManager\Block\DynamicParameters;
 use PHPUnit\Framework\TestCase;
 
-class CollectionTest extends TestCase
+class DynamicParametersTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection
+     * @var \Netgen\BlockManager\Block\DynamicParameters
      */
     protected $collection;
 
     public function setUp()
     {
-        $this->collection = new Collection(
+        $this->collection = new DynamicParameters(
             array(
                 'param' => 'value',
                 'closure_param' => function () {
@@ -25,8 +25,8 @@ class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection::getParameter
+     * @covers \Netgen\BlockManager\Block\DynamicParameters::__construct
+     * @covers \Netgen\BlockManager\Block\DynamicParameters::getParameter
      */
     public function testGetParameter()
     {
@@ -34,7 +34,7 @@ class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection::getParameter
+     * @covers \Netgen\BlockManager\Block\DynamicParameters::getParameter
      */
     public function testGetParameterWithClosureParam()
     {
@@ -42,7 +42,7 @@ class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection::getParameter
+     * @covers \Netgen\BlockManager\Block\DynamicParameters::getParameter
      */
     public function testGetParameterWithNonExistingParam()
     {

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -13,6 +14,11 @@ class BlockDefinition implements BlockDefinitionInterface
      * @var string
      */
     protected $identifier;
+
+    /**
+     * @var \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler
+     */
+    protected $handler;
 
     /**
      * @var array
@@ -29,6 +35,8 @@ class BlockDefinition implements BlockDefinitionInterface
     {
         $this->identifier = $identifier;
         $this->viewTypes = $viewTypes;
+
+        $this->handler = new BlockDefinitionHandler();
     }
 
     /**
@@ -42,11 +50,43 @@ class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
+     * Returns the array specifying block parameters.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    public function getParameters()
+    {
+        return $this->handler->getParameters();
+    }
+
+    /**
+     * Returns the array of dynamic parameters provided by this block definition.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters
+     */
+    public function getDynamicParameters(Block $block)
+    {
+        return $this->handler->getDynamicParameters($block);
+    }
+
+    /**
+     * Returns if this block definition should have a collection.
+     *
+     * @return bool
+     */
+    public function hasCollection()
+    {
+        return $this->handler->hasCollection();
+    }
+
+    /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function getHandler()
     {
-        return new BlockDefinitionHandler();
+        return $this->handler;
     }
 
     /**

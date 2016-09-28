@@ -23,6 +23,11 @@ class QueryType implements QueryTypeInterface
     protected $config;
 
     /**
+     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    protected $parameters;
+
+    /**
      * Constructor.
      *
      * @param string $type
@@ -34,6 +39,48 @@ class QueryType implements QueryTypeInterface
         $this->type = $type;
         $this->handler = $handler;
         $this->config = $config;
+    }
+
+    /**
+     * Returns the array specifying query parameters.
+     *
+     * The keys are parameter identifiers.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    public function getParameters()
+    {
+        if ($this->parameters === null) {
+            $this->parameters = $this->handler->getParameters();
+        }
+
+        return $this->parameters;
+    }
+
+    /**
+     * Returns the values from the query.
+     *
+     * @param array $parameters
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return mixed[]
+     */
+    public function getValues(array $parameters, $offset = 0, $limit = null)
+    {
+        return $this->handler->getValues($parameters, $offset, $limit);
+    }
+
+    /**
+     * Returns the value count from the query.
+     *
+     * @param array $parameters
+     *
+     * @return int
+     */
+    public function getCount(array $parameters)
+    {
+        return $this->handler->getCount($parameters);
     }
 
     /**

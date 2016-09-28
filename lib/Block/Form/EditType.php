@@ -175,7 +175,7 @@ abstract class EditType extends AbstractType
         $blockDefinition = $options['blockDefinition'];
         $formParameters = array();
 
-        foreach ($blockDefinition->getHandler()->getParameters() as $parameterName => $parameter) {
+        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
             if ($this->includeParameter($parameter, $groups)) {
                 $formParameters[$parameterName] = $parameter;
             }
@@ -221,7 +221,7 @@ abstract class EditType extends AbstractType
      */
     protected function processViewTypeConfig(BlockDefinitionInterface $blockDefinition)
     {
-        $blockDefinitionParameters = array_keys($blockDefinition->getHandler()->getParameters());
+        $blockDefinitionParameters = array_keys($blockDefinition->getParameters());
 
         foreach ($blockDefinition->getConfig()->getViewTypes() as $viewType) {
             $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();

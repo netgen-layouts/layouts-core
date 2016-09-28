@@ -768,7 +768,7 @@ class CollectionService implements APICollectionService
         );
 
         $queryCreateStruct->fillValues(
-            $queryType->getHandler()->getParameters(),
+            $queryType->getParameters(),
             $queryType->getConfig()->getDefaultParameters()
         );
 
@@ -794,7 +794,7 @@ class CollectionService implements APICollectionService
 
         $queryType = $query->getQueryType();
         $queryUpdateStruct->fillValues(
-            $queryType->getHandler()->getParameters(),
+            $queryType->getParameters(),
             $query->getParameters(),
             false
         );

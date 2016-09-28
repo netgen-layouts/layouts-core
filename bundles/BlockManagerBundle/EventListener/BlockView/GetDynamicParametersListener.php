@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\Block\BlockDefinition\DynamicParameters\Collection;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
@@ -35,9 +34,7 @@ class GetDynamicParametersListener implements EventSubscriberInterface
         $blockDefinition = $view->getBlock()->getBlockDefinition();
         $event->getParameterBag()->set(
             'dynamic_parameters',
-            new Collection(
-                $blockDefinition->getHandler()->getDynamicParameters($view->getBlock())
-            )
+            $blockDefinition->getDynamicParameters($view->getBlock())
         );
     }
 }

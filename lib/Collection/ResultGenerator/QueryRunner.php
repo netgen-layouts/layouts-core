@@ -26,10 +26,10 @@ class QueryRunner implements QueryRunnerInterface
         $values = array();
 
         foreach ($queries as $query) {
-            $queryTypeHandler = $query->getQueryType()->getHandler();
+            $queryType = $query->getQueryType();
             $queryParameters = $query->getParameters();
 
-            $queryCount = $queryTypeHandler->getCount($queryParameters);
+            $queryCount = $queryType->getCount($queryParameters);
 
             $totalCount = $previousCount + $queryCount;
             if ($previousCount + $queryCount <= $offset) {
@@ -37,7 +37,7 @@ class QueryRunner implements QueryRunnerInterface
                 continue;
             }
 
-            $queryValues = $queryTypeHandler->getValues(
+            $queryValues = $queryType->getValues(
                 $queryParameters,
                 empty($values) && $offset > 0 ? $offset - $previousCount : 0
             );
@@ -72,7 +72,6 @@ class QueryRunner implements QueryRunnerInterface
         foreach ($queries as $query) {
             $totalCount += $query
                 ->getQueryType()
-                ->getHandler()
                 ->getCount($query->getParameters());
         }
 

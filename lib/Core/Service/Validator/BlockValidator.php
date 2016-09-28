@@ -92,7 +92,7 @@ class BlockValidator extends Validator
             array(
                 new Parameters(
                     array(
-                        'parameters' => $blockDefinition->getHandler()->getParameters(),
+                        'parameters' => $blockDefinition->getParameters(),
                         'required' => true,
                     )
                 ),
@@ -161,7 +161,7 @@ class BlockValidator extends Validator
             array(
                 new Parameters(
                     array(
-                        'parameters' => $blockDefinition->getHandler()->getParameters(),
+                        'parameters' => $blockDefinition->getParameters(),
                         'required' => false,
                     )
                 ),
