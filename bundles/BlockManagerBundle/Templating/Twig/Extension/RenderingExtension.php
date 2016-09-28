@@ -101,7 +101,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function getName()
     {
-        return 'ngbm_render';
+        return self::class;
     }
 
     /**

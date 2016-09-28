@@ -68,7 +68,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testGetName()
     {
-        $this->assertEquals('ngbm_render', $this->extension->getName());
+        $this->assertEquals(get_class($this->extension), $this->extension->getName());
     }
 
     /**
