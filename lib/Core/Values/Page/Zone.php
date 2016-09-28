@@ -23,14 +23,9 @@ class Zone extends ValueObject implements APIZone
     protected $status;
 
     /**
-     * @var int
+     * @var \Netgen\BlockManager\API\Values\Page\Zone
      */
-    protected $linkedLayoutId;
-
-    /**
-     * @var string
-     */
-    protected $linkedZoneIdentifier;
+    protected $linkedZone;
 
     /**
      * @var array
@@ -68,23 +63,13 @@ class Zone extends ValueObject implements APIZone
     }
 
     /**
-     * Returns the linked layout ID.
+     * Returns the linked zone.
      *
-     * @return int
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function getLinkedLayoutId()
+    public function getLinkedZone()
     {
-        return $this->linkedLayoutId;
-    }
-
-    /**
-     * Returns the linked zone identifier.
-     *
-     * @return string
-     */
-    public function getLinkedZoneIdentifier()
-    {
-        return $this->linkedZoneIdentifier;
+        return $this->linkedZone;
     }
 
     /**
@@ -98,16 +83,16 @@ class Zone extends ValueObject implements APIZone
     }
 
     /**
-     * Returns if the zone is considered empty.
+     * Count elements of an object.
      *
-     * @return bool
+     * @return int
      */
-    public function isEmpty()
+    public function count()
     {
-        if ($this->linkedLayoutId !== null && $this->linkedZoneIdentifier !== null) {
-            return false;
+        if ($this->linkedZone instanceof self) {
+            return $this->linkedZone->count();
         }
 
-        return empty($this->blocks);
+        return count($this->blocks);
     }
 }

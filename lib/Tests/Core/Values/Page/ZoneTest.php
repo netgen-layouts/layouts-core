@@ -14,10 +14,9 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZoneIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isEmpty
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::count
      */
     public function testSetDefaultProperties()
     {
@@ -26,10 +25,9 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->getIdentifier());
         $this->assertNull($zone->getLayoutId());
         $this->assertNull($zone->getStatus());
-        $this->assertNull($zone->getLinkedLayoutId());
-        $this->assertNull($zone->getLinkedZoneIdentifier());
+        $this->assertNull($zone->getLinkedZone());
         $this->assertEquals(array(), $zone->getBlocks());
-        $this->assertTrue($zone->isEmpty());
+        $this->assertEquals(0, count($zone));
     }
 
     /**
@@ -37,10 +35,9 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZoneIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isEmpty
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::count
      */
     public function testSetProperties()
     {
@@ -49,8 +46,7 @@ class ZoneTest extends TestCase
                 'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Layout::STATUS_PUBLISHED,
-                'linkedLayoutId' => null,
-                'linkedZoneIdentifier' => null,
+                'linkedZone' => null,
                 'blocks' => array(
                     new Block(),
                 ),
@@ -61,9 +57,8 @@ class ZoneTest extends TestCase
         $this->assertEquals(84, $zone->getLayoutId());
         $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
         $this->assertEquals(array(new Block()), $zone->getBlocks());
-        $this->assertNull($zone->getLinkedLayoutId());
-        $this->assertNull($zone->getLinkedZoneIdentifier());
-        $this->assertFalse($zone->isEmpty());
+        $this->assertNull($zone->getLinkedZone());
+        $this->assertEquals(1, count($zone));
     }
 
     /**
@@ -71,20 +66,28 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZoneIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isEmpty
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::count
      */
     public function testIsEmptyWithLinkedLayout()
     {
+        $linkedZone = new Zone(
+            array(
+                'identifier' => 'right',
+                'layoutId' => 42,
+                'blocks' => array(
+                    new Block(),
+                ),
+            )
+        );
+
         $zone = new Zone(
             array(
                 'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Layout::STATUS_PUBLISHED,
-                'linkedLayoutId' => 42,
-                'linkedZoneIdentifier' => 'top',
+                'linkedZone' => $linkedZone,
                 'blocks' => array(),
             )
         );
@@ -93,8 +96,7 @@ class ZoneTest extends TestCase
         $this->assertEquals(84, $zone->getLayoutId());
         $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
         $this->assertEquals(array(), $zone->getBlocks());
-        $this->assertEquals(42, $zone->getLinkedLayoutId());
-        $this->assertEquals('top', $zone->getLinkedZoneIdentifier());
-        $this->assertFalse($zone->isEmpty());
+        $this->assertEquals($linkedZone, $zone->getLinkedZone());
+        $this->assertEquals(1, count($zone));
     }
 }

@@ -100,24 +100,12 @@ interface LayoutService
     public function layoutNameExists($name);
 
     /**
-     * Finds the final linked zone for specified zone by following the entire chain of links (or rather
-     * maximum number of links in the chain, hardcoded to 25).
-     *
-     * If zone does not have a linked zone, if chain limit is reached or if circular links are
-     * detected, the method returns null.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
-     */
-    public function findLinkedZone(Zone $zone);
-
-    /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
      *
      * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
      * @param \Netgen\BlockManager\API\Values\Page\Zone $linkedZone
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
      *

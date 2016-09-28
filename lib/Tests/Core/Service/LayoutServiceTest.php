@@ -222,185 +222,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
-     */
-    public function testFindLinkedZone()
-    {
-        $zone = $this->layoutService->loadZoneDraft(2, 'top');
-
-        $this->assertInstanceOf(
-            Zone::class,
-            $this->layoutService->findLinkedZone($zone)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
-     */
-    public function testFindLinkedZoneWithNoLinkedZone()
-    {
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
-
-        $this->assertNull($this->layoutService->findLinkedZone($zone));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
-     */
-    public function testFindLinkedZoneWithCircularReferences()
-    {
-        $previousLayout = $this->layoutService->loadLayout(3);
-
-        // Creates 10 shared layouts and links one zone in previously created layout
-        // to one zone in currently created layout, thus creating a chain of linked layouts
-
-        for ($i = 0; $i < 10; ++$i) {
-            $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-                '4_zones_a',
-                'My layout ' . $i
-            );
-
-            $layoutCreateStruct->shared = true;
-
-            $createdLayout = $this->layoutService->createLayout(
-                $layoutCreateStruct
-            );
-
-            $createdLayout = $this->layoutService->publishLayout($createdLayout);
-
-            $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
-
-            $this->layoutService->linkZone(
-                $previousLayoutDraft->getZone('left'),
-                $createdLayout->getZone('left')
-            );
-
-            $this->layoutService->publishLayout($previousLayoutDraft);
-
-            $previousLayout = $createdLayout;
-        }
-
-        // Link the zone in last created layout to zone in one of the previously
-        // created layouts, thus creating a circular reference
-
-        $createdLayoutDraft = $this->layoutService->createDraft($createdLayout);
-
-        $this->layoutService->linkZone(
-            $createdLayoutDraft->getZone('left'),
-            $this->layoutService->loadZone(8, 'left')
-        );
-
-        $this->layoutService->publishLayout($createdLayoutDraft);
-
-        // Now link the regular zone to the first zone in chain
-
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(3, 'left');
-
-        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
-
-        $this->assertNull($this->layoutService->findLinkedZone($updatedZone));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
-     */
-    public function testFindLinkedZoneWithReachedLimit()
-    {
-        $previousLayout = $this->layoutService->loadLayout(3);
-
-        // Creates 30 shared layouts and links one zone in previously created layout
-        // to one zone in currently created layout, thus creating a chain of linked layouts
-
-        for ($i = 0; $i < 30; ++$i) {
-            $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-                '4_zones_a',
-                'My layout ' . $i
-            );
-
-            $layoutCreateStruct->shared = true;
-
-            $createdLayout = $this->layoutService->createLayout(
-                $layoutCreateStruct
-            );
-
-            $createdLayout = $this->layoutService->publishLayout($createdLayout);
-
-            $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
-
-            $this->layoutService->linkZone(
-                $previousLayoutDraft->getZone('left'),
-                $createdLayout->getZone('left')
-            );
-
-            $this->layoutService->publishLayout($previousLayoutDraft);
-
-            $previousLayout = $createdLayout;
-        }
-
-        // Now link the regular zone to the first zone in chain
-
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(3, 'left');
-
-        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
-
-        $this->assertNull($this->layoutService->findLinkedZone($updatedZone));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::findLinkedZone
-     */
-    public function testFindLinkedZoneWithDeletedZone()
-    {
-        $previousLayout = $this->layoutService->loadLayout(3);
-
-        // Creates 10 shared layouts and links one zone in previously created layout
-        // to one zone in currently created layout, thus creating a chain of linked layouts
-
-        for ($i = 0; $i < 10; ++$i) {
-            $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-                '4_zones_a',
-                'My layout ' . $i
-            );
-
-            $layoutCreateStruct->shared = true;
-
-            $createdLayout = $this->layoutService->createLayout(
-                $layoutCreateStruct
-            );
-
-            $createdLayout = $this->layoutService->publishLayout($createdLayout);
-
-            $previousLayoutDraft = $this->layoutService->createDraft($previousLayout);
-
-            $this->layoutService->linkZone(
-                $previousLayoutDraft->getZone('left'),
-                $createdLayout->getZone('left')
-            );
-
-            $this->layoutService->publishLayout($previousLayoutDraft);
-
-            $previousLayout = $createdLayout;
-        }
-
-        // Delete one of the layouts in the chain
-
-        $this->layoutService->deleteLayout(
-            $this->layoutService->loadLayout(8)
-        );
-
-        // Now link the regular zone to the first zone in chain
-
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(3, 'left');
-
-        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
-
-        $this->assertNull($this->layoutService->findLinkedZone($updatedZone));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      */
     public function testLinkZone()
@@ -410,15 +231,29 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
-        $this->assertEquals($linkedZone->getLayoutId(), $updatedZone->getLinkedLayoutId());
-        $this->assertEquals($linkedZone->getIdentifier(), $updatedZone->getLinkedZoneIdentifier());
+        $this->assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
+        $this->assertEquals(Layout::STATUS_PUBLISHED, $updatedZone->getLinkedZone()->getStatus());
+        $this->assertEquals($linkedZone->getLayoutId(), $updatedZone->getLinkedZone()->getLayoutId());
+        $this->assertEquals($linkedZone->getIdentifier(), $updatedZone->getLinkedZone()->getIdentifier());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testLinkZoneThrowsBadStateExceptionWhenNotInSharedLayout()
+    public function testLinkZoneWhenInSharedLayout()
+    {
+        $zone = $this->layoutService->loadZoneDraft(3, 'left');
+        $linkedZone = $this->layoutService->loadZone(5, 'left');
+
+        $this->layoutService->linkZone($zone, $linkedZone);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testLinkZoneThrowsBadStateExceptionWhenLinkedZoneNotInSharedLayout()
     {
         $zone = $this->layoutService->loadZoneDraft(2, 'left');
         $linkedZone = $this->layoutService->loadZone(1, 'left');
@@ -447,8 +282,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $updatedZone = $this->layoutService->unlinkZone($zone);
 
-        $this->assertNull($updatedZone->getLinkedLayoutId());
-        $this->assertNull($updatedZone->getLinkedZoneIdentifier());
+        $this->assertNull($updatedZone->getLinkedZone());
     }
 
     /**
@@ -545,7 +379,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testCreateDraft()
     {
-        $layout = $this->layoutService->loadLayout(3);
+        $layout = $this->layoutService->loadLayout(5);
         $draftLayout = $this->layoutService->createDraft($layout);
 
         $this->assertInstanceOf(LayoutDraft::class, $draftLayout);

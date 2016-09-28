@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\API\Values\Page;
 
 use Netgen\BlockManager\API\Values\Value;
+use Countable;
 
-interface Zone extends Value
+interface Zone extends Value, Countable
 {
     /**
      * Returns zone identifier.
@@ -28,18 +29,11 @@ interface Zone extends Value
     public function getStatus();
 
     /**
-     * Returns the linked layout ID.
+     * Returns the linked zone.
      *
-     * @return int
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function getLinkedLayoutId();
-
-    /**
-     * Returns the linked zone identifier.
-     *
-     * @return string
-     */
-    public function getLinkedZoneIdentifier();
+    public function getLinkedZone();
 
     /**
      * Returns zone blocks.
@@ -47,11 +41,4 @@ interface Zone extends Value
      * @return \Netgen\BlockManager\API\Values\Page\Block[]
      */
     public function getBlocks();
-
-    /**
-     * Returns if the zone is considered empty.
-     *
-     * @return bool
-     */
-    public function isEmpty();
 }

@@ -33,8 +33,8 @@ abstract class LayoutMapperTest extends ServiceTestCase
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => APILayout::STATUS_PUBLISHED,
-                'linkedLayoutId' => 24,
-                'linkedZoneIdentifier' => 'top',
+                'linkedLayoutId' => 3,
+                'linkedZoneIdentifier' => 'right',
             )
         );
 
@@ -44,8 +44,10 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals('right', $zone->getIdentifier());
         $this->assertEquals(1, $zone->getLayoutId());
         $this->assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
-        $this->assertEquals(24, $zone->getLinkedLayoutId());
-        $this->assertEquals('top', $zone->getLinkedZoneIdentifier());
+        $this->assertInstanceOf(APIZone::class, $zone->getLinkedZone());
+        $this->assertEquals(APILayout::STATUS_PUBLISHED, $zone->getLinkedZone()->getStatus());
+        $this->assertEquals(3, $zone->getLinkedZone()->getLayoutId());
+        $this->assertEquals('right', $zone->getLinkedZone()->getIdentifier());
 
         $this->assertNotEmpty($zone->getBlocks());
 

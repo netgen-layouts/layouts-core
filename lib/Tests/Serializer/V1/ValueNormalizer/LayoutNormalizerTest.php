@@ -10,7 +10,6 @@ use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use DateTime;
 use PHPUnit\Framework\TestCase;
@@ -73,16 +72,19 @@ class LayoutNormalizerTest extends TestCase
                     'left' => new Zone(
                         array(
                             'identifier' => 'left',
-                            'linkedLayoutId' => null,
-                            'linkedZoneIdentifier' => null,
+                            'linkedZone' => null,
                             'blocks' => array($block),
                         )
                     ),
                     'right' => new Zone(
                         array(
                             'identifier' => 'right',
-                            'linkedLayoutId' => 24,
-                            'linkedZoneIdentifier' => 'top',
+                            'linkedZone' => new Zone(
+                                array(
+                                    'layoutId' => 24,
+                                    'identifier' => 'top',
+                                )
+                            ),
                             'blocks' => array(),
                         )
                     ),
@@ -95,21 +97,6 @@ class LayoutNormalizerTest extends TestCase
             ->method('isPublished')
             ->with($this->equalTo($layout))
             ->will($this->returnValue(true));
-
-        $this->layoutServiceMock
-            ->expects($this->any())
-            ->method('findLinkedZone')
-            ->with($this->isInstanceOf(APIZone::class))
-            ->will(
-                $this->returnCallback(function (APIZone $zone) {
-                    return new Zone(
-                        array(
-                            'layoutId' => $zone->getLinkedLayoutId(),
-                            'identifier' => $zone->getLinkedZoneIdentifier(),
-                        )
-                    );
-                })
-            );
 
         $this->assertEquals(
             array(

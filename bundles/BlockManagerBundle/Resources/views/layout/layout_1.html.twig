@@ -3,7 +3,7 @@
 {% block layout %}
 <div class="zone-layout-layout1">
 
-    {% if not ngbm.layout.zone('main').empty %}
+    {% if ngbm.layout.zone('main') is not empty %}
         <section class="zone zone-main">
             {% ngbm_render_zone ngbm.layout.zone('main') %}
         </section>

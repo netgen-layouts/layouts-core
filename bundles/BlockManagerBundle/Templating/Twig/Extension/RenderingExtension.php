@@ -304,9 +304,8 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     {
         $blocks = $zone->getBlocks();
 
-        $linkedZone = $this->layoutService->findLinkedZone($zone);
-        if ($linkedZone instanceof Zone) {
-            $blocks = $linkedZone->getBlocks();
+        if ($zone->getLinkedZone() instanceof Zone) {
+            $blocks = $zone->getLinkedZone()->getBlocks();
         }
 
         foreach ($blocks as $block) {

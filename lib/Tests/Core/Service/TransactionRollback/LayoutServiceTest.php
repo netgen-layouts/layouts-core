@@ -80,21 +80,26 @@ class LayoutServiceTest extends TransactionRollbackTest
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('shared' => false))));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('loadZone')
             ->will($this->returnValue(new PersistenceZone(array('layoutId' => 1))));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects($this->at(2))
             ->method('loadLayout')
             ->will($this->returnValue(new PersistenceLayout(array('shared' => true))));
 
         $this->layoutHandlerMock
-            ->expects($this->at(2))
+            ->expects($this->at(3))
             ->method('loadZone')
             ->will($this->returnValue(new PersistenceZone(array('layoutId' => 2))));
 
         $this->layoutHandlerMock
-            ->expects($this->at(3))
+            ->expects($this->at(4))
             ->method('linkZone')
             ->will($this->throwException(new Exception()));
 

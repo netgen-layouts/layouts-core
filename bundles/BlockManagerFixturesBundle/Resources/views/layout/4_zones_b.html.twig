@@ -3,7 +3,7 @@
 {% block layout %}
 <div class="zone-layout-4zonesb">
 
-    {% if not ngbm.layout.zone('top').empty %}
+    {% if ngbm.layout.zone('top') is not empty %}
         <div class="top-content-block">
             <section class="zone zone-top">
                 {% ngbm_render_zone ngbm.layout.zone('top') %}
@@ -11,19 +11,19 @@
         </div>
     {% endif %}
 
-    {% if not ngbm.layout.zone('left').empty or not ngbm.layout.zone('right').empty %}
+    {% if ngbm.layout.zone('left') is not empty or ngbm.layout.zone('right') is not empty %}
         <div class="main-content-block">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        {% if not ngbm.layout.zone('left').empty %}
+                        {% if ngbm.layout.zone('left') is not empty %}
                             <section class="zone zone-left">
                                 {% ngbm_render_zone ngbm.layout.zone('left') %}
                             </section>
                         {% endif %}
                     </div>
                     <div class="col-lg-4">
-                        {% if not ngbm.layout.zone('right').empty %}
+                        {% if ngbm.layout.zone('right') is not empty %}
                             <section class="zone zone-right">
                                 {% ngbm_render_zone ngbm.layout.zone('right') %}
                             </section>
@@ -34,7 +34,7 @@
         </div>
     {% endif %}
 
-    {% if not ngbm.layout.zone('bottom').empty %}
+    {% if ngbm.layout.zone('bottom') is not empty %}
         <div class="bottom-content-block">
             <section class="zone zone-bottom">
                 {% ngbm_render_zone ngbm.layout.zone('bottom') %}
