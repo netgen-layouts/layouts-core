@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
-use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
