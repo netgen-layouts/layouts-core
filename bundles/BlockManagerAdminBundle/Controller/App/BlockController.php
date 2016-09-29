@@ -87,17 +87,16 @@ class BlockController extends Controller
     public function editForm(BlockDraft $block, $formName, Request $request)
     {
         $blockDefinition = $block->getBlockDefinition();
+        $blockDefinitionConfig = $blockDefinition->getConfig();
 
-        if (!$blockDefinition->getConfig()->hasForm($formName) || !$blockDefinition->getConfig()->getForm($formName)->isEnabled()) {
+        if (!$blockDefinitionConfig->hasForm($formName) || !$blockDefinitionConfig->getForm($formName)->isEnabled()) {
             throw new InvalidArgumentException('form', 'Block does not support specified form.');
         }
-
-        $blockForm = $blockDefinition->getConfig()->getForm($formName);
 
         $updateStruct = $this->blockService->newBlockUpdateStruct($block);
 
         $form = $this->createForm(
-            $blockForm->getType(),
+            $blockDefinitionConfig->getForm($formName)->getType(),
             $updateStruct,
             array(
                 'blockDefinition' => $blockDefinition,

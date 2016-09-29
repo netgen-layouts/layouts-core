@@ -41,17 +41,16 @@ class CollectionController extends Controller
     public function queryEditForm(QueryDraft $query, $formName, Request $request)
     {
         $queryType = $query->getQueryType();
+        $queryTypeConfig = $queryType->getConfig();
 
-        if (!$queryType->getConfig()->hasForm($formName) || !$queryType->getConfig()->getForm($formName)->isEnabled()) {
+        if (!$queryTypeConfig->hasForm($formName) || !$queryTypeConfig->getForm($formName)->isEnabled()) {
             throw new InvalidArgumentException('form', 'Query does not support specified form.');
         }
-
-        $queryForm = $queryType->getConfig()->getForm($formName);
 
         $updateStruct = $this->collectionService->newQueryUpdateStruct($query);
 
         $form = $this->createForm(
-            $queryForm->getType(),
+            $queryTypeConfig->getForm($formName)->getType(),
             $updateStruct,
             array(
                 'queryType' => $queryType,
