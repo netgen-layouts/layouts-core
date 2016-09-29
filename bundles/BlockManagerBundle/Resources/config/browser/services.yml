@@ -16,17 +16,17 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
-            -  { name: netgen_content_browser.backend, value_type: ngbm_layout }
+            -  { name: netgen_content_browser.backend, item_type: ngbm_layout }
 
     netgen_block_manager.browser.serializer.handler.layout:
         class: "%netgen_block_manager.browser.serializer.handler.layout.class%"
         tags:
-            -  { name: netgen_content_browser.serializer.handler, value_type: ngbm_layout }
+            -  { name: netgen_content_browser.serializer.handler, item_type: ngbm_layout }
 
     netgen_block_manager.browser.template_value_provider.layout:
         class: "%netgen_block_manager.browser.template_value_provider.layout.class%"
         tags:
-            -  { name: netgen_content_browser.template_value_provider, value_type: ngbm_layout }
+            -  { name: netgen_content_browser.template_value_provider, item_type: ngbm_layout }
 
     netgen_block_manager.browser.column_value_provider.layout.layout_id:
         class: "%netgen_block_manager.browser.column_value_provider.layout.layout_id.class%"
