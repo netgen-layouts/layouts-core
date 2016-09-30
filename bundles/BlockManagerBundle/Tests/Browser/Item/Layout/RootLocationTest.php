@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class RootLocationTest extends TestCase
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\EzTags\Location
+     * @var \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation
      */
     protected $location;
 
@@ -18,16 +18,16 @@ class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\EzTags\Location::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\EzTags\Location::getId
+     * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::getLocationId
      */
-    public function testGetId()
+    public function testGetLocationId()
     {
-        $this->assertEquals(0, $this->location->getId());
+        $this->assertEquals(0, $this->location->getLocationId());
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\EzTags\Location::getType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::getType
      */
     public function testGetType()
     {
@@ -35,7 +35,7 @@ class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\EzTags\Location::getName
+     * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::getName
      */
     public function testGetName()
     {
@@ -43,7 +43,7 @@ class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\EzTags\Location::getParentId
+     * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::getParentId
      */
     public function testGetParentId()
     {
