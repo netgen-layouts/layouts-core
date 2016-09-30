@@ -106,24 +106,24 @@ class ResultGenerator implements ResultGeneratorInterface
 
             try {
                 if (isset($overrideItems[$i])) {
-                    $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
-
                     // Since we're basically overriding the values that come
                     // from the outside of the collection (i.e. the queries),
                     // we need to advance the query pointer
                     ++$queryValuesIndex;
+
+                    $resultItem = $this->resultItemBuilder->buildFromItem($overrideItems[$i], $i);
                 } elseif (isset($manualItems[$i])) {
                     $resultItem = $this->resultItemBuilder->buildFromItem(
                         $manualItems[$i],
                         $i
                     );
                 } elseif (isset($queryValues[$queryValuesIndex])) {
+                    ++$queryValuesIndex;
+
                     $resultItem = $this->resultItemBuilder->build(
-                        $queryValues[$queryValuesIndex],
+                        $queryValues[$queryValuesIndex - 1],
                         $i
                     );
-
-                    ++$queryValuesIndex;
                 } else {
                     // We don't want empty slots in final result.
                     break;
