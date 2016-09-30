@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface;
 use Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilderInterface;
-use Exception;
 use Netgen\BlockManager\Item\NullValue;
+use Exception;
 
 class ResultGenerator implements ResultGeneratorInterface
 {
@@ -47,10 +47,6 @@ class ResultGenerator implements ResultGeneratorInterface
     public function generateResult(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
         $resultItems = $this->generateItems($collection, $offset, $limit, $flags);
-
-        if (!($flags & self::INCLUDE_INVISIBLE_ITEMS)) {
-            $resultItems = $this->filterInvisibleItems($resultItems);
-        }
 
         $result = new Result(
             array(
@@ -129,17 +125,13 @@ class ResultGenerator implements ResultGeneratorInterface
                     break;
                 }
 
-                if (!$this->isItemIncluded($resultItem, $flags)) {
-                    continue;
+                if ($this->isItemIncluded($resultItem, $flags)) {
+                    $resultItems[] = $resultItem;
                 }
-
-                $resultItems[] = $resultItem;
             } catch (Exception $e) {
                 if (!($flags & self::IGNORE_EXCEPTIONS)) {
                     throw $e;
                 }
-
-                continue;
             }
         }
 
@@ -244,28 +236,9 @@ class ResultGenerator implements ResultGeneratorInterface
     }
 
     /**
-     * Removes invisible items from the list.
-     *
-     * @param \Netgen\BlockManager\Collection\ResultItem[] $items
+     * Returns if current item will be included in result set.
      *
      * @TODO Refactor out to separate service
-     *
-     * @return \Netgen\BlockManager\Collection\ResultItem[]
-     */
-    protected function filterInvisibleItems(array $items)
-    {
-        $visibleItems = array();
-        foreach ($items as $item) {
-            if ($item->getItem()->isVisible()) {
-                $visibleItems[] = $item;
-            }
-        }
-
-        return $visibleItems;
-    }
-
-    /**
-     * Returns if current item will be included in result set.
      *
      * @param \Netgen\BlockManager\Collection\ResultItem $resultItem
      * @param $flags
@@ -275,7 +248,11 @@ class ResultGenerator implements ResultGeneratorInterface
     protected function isItemIncluded(ResultItem $resultItem, $flags)
     {
         if (!$resultItem->getItem()->getObject() instanceof NullValue) {
-            return true;
+            if ((bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)) {
+                return true;
+            }
+
+            return $resultItem->getItem()->isVisible();
         }
 
         return (bool)($flags & self::INCLUDE_INVALID_ITEMS);
