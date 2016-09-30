@@ -1,6 +1,6 @@
 {% extends 'NetgenBlockManagerBundle:api/block:block.html.twig' %}
 
-{% block inline_data %}
+{% block content %}
     <p data-inline>
         <span contenteditable="true" data-attr="content" data-inline-child>
             {{ block.parameter('content')|nl2br }}

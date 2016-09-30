@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'ngbm_app' %}
 
-{% block inline_data %}
+{% block content %}
     <div class="alloy-editor" contenteditable="true" data-attr="content" data-placeholder="{{ 'block.rich_text.placeholder'|trans }}">
         {{ block.parameter('content')|raw }}
     </div>

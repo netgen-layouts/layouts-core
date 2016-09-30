@@ -1,9 +1,10 @@
 {% trans_default_domain 'ngbm_app' %}
 
 {% set view_type_name = block.viewType %}
+{% set config = block.blockDefinition.config %}
 
-{% if block.blockDefinition.config.hasViewType(view_type_name) %}
-    {% set view_type_name = block.blockDefinition.config.viewType(view_type_name).name %}
+{% if config.hasViewType(view_type_name) %}
+    {% set view_type_name = config.viewType(view_type_name).name %}
 {% endif %}
 
 {% block controls %}
@@ -23,7 +24,5 @@
         </div>
     </div>
 {% endblock %}
-
-{% block inline_data %}{% endblock %}
 
 {% block content %}{% endblock %}
