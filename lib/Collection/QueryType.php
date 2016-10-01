@@ -42,6 +42,16 @@ class QueryType implements QueryTypeInterface
     }
 
     /**
+     * Returns the query type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Returns the array specifying query parameters.
      *
      * The keys are parameter identifiers.
@@ -64,7 +74,7 @@ class QueryType implements QueryTypeInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return mixed[]
+     * @return \Iterator
      */
     public function getValues(array $parameters, $offset = 0, $limit = null)
     {
@@ -84,13 +94,13 @@ class QueryType implements QueryTypeInterface
     }
 
     /**
-     * Returns the query type.
+     * Returns the name of the parameter which will be used as a limit inside the query.
      *
      * @return string
      */
-    public function getType()
+    public function getLimitParameter()
     {
-        return $this->type;
+        return $this->handler->getLimitParameter();
     }
 
     /**

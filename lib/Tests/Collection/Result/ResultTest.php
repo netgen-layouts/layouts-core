@@ -1,19 +1,19 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection;
+namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Collection\Result;
+use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result::getCollection
-     * @covers \Netgen\BlockManager\Collection\Result::getResults
-     * @covers \Netgen\BlockManager\Collection\Result::getTotalCount
-     * @covers \Netgen\BlockManager\Collection\Result::getOffset
-     * @covers \Netgen\BlockManager\Collection\Result::getLimit
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getCollection
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getResults
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getTotalCount
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getOffset
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getLimit
      */
     public function testObject()
     {

@@ -1,21 +1,10 @@
 parameters:
-    netgen_block_manager.collection.result_generator.class: Netgen\BlockManager\Collection\ResultGenerator
-    netgen_block_manager.collection.query_runner.class: Netgen\BlockManager\Collection\ResultGenerator\QueryRunner
-    netgen_block_manager.collection.result_item_builder.class: Netgen\BlockManager\Collection\ResultGenerator\ResultItemBuilder
+    netgen_block_manager.collection.result_builder.class: Netgen\BlockManager\Collection\Result\ResultBuilder
     netgen_block_manager.collection.registry.query_type.class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
 
 services:
-    netgen_block_manager.collection.result_generator:
-        class: "%netgen_block_manager.collection.result_generator.class%"
-        arguments:
-            - "@netgen_block_manager.collection.query_runner"
-            - "@netgen_block_manager.collection.result_item_builder"
-
-    netgen_block_manager.collection.query_runner:
-        class: "%netgen_block_manager.collection.query_runner.class%"
-
-    netgen_block_manager.collection.result_item_builder:
-        class: "%netgen_block_manager.collection.result_item_builder.class%"
+    netgen_block_manager.collection.result_builder:
+        class: "%netgen_block_manager.collection.result_builder.class%"
         arguments:
             - "@netgen_block_manager.item.item_builder"
 

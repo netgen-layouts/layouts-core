@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\ResultGeneratorInterface;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
@@ -35,25 +35,25 @@ class BlockCollectionController extends Controller
     protected $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultGeneratorInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
-    protected $resultGenerator;
+    protected $resultBuilder;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
+     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
-        ResultGeneratorInterface $resultGenerator
+        ResultBuilderInterface $resultBuilder
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
-        $this->resultGenerator = $resultGenerator;
+        $this->resultBuilder = $resultBuilder;
     }
 
     /**
@@ -89,13 +89,12 @@ class BlockCollectionController extends Controller
         $limit = $request->query->get('limit', null);
 
         return new VersionedValue(
-            $this->resultGenerator->generateResult(
+            $this->resultBuilder->buildResult(
                 $collectionReference->getCollection(),
                 (int)$offset,
                 !empty($limit) ? (int)$limit : null,
-                ResultGeneratorInterface::INCLUDE_INVISIBLE_ITEMS |
-                ResultGeneratorInterface::INCLUDE_INVALID_ITEMS |
-                ResultGeneratorInterface::IGNORE_EXCEPTIONS
+                ResultBuilderInterface::INCLUDE_INVISIBLE_ITEMS |
+                ResultBuilderInterface::INCLUDE_INVALID_ITEMS
             ),
             Version::API_V1
         );

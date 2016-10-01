@@ -74,14 +74,50 @@ interface Collection extends Value
     public function getItems();
 
     /**
-     * Returns the list of items manually added to the collection.
+     * Returns if the collection has a manual item at specified position.
+     *
+     * @param int $position
+     *
+     * @return bool
+     */
+    public function hasManualItem($position);
+
+    /**
+     * Returns the manual item at specified position.
+     *
+     * @param int $position
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     */
+    public function getManualItem($position);
+
+    /**
+     * Returns the manual items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
     public function getManualItems();
 
     /**
-     * Returns the list of items that override the item present at a specific slot.
+     * Returns if the collection has an override item at specified position.
+     *
+     * @param int $position
+     *
+     * @return bool
+     */
+    public function hasOverrideItem($position);
+
+    /**
+     * Returns the override item at specified position.
+     *
+     * @param int $position
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     */
+    public function getOverrideItem($position);
+
+    /**
+     * Returns the override items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */

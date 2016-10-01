@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\ResultItem;
+use Netgen\BlockManager\Collection\Result\ResultItem;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -20,7 +20,7 @@ class CollectionResultItemNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Collection\ResultItem $resultItem */
+        /** @var \Netgen\BlockManager\Collection\Result\ResultItem $resultItem */
         $resultItem = $object->getValue();
         $item = $resultItem->getItem();
         $collectionItem = $resultItem->getCollectionItem();

@@ -5,6 +5,13 @@ namespace Netgen\BlockManager\Collection;
 interface QueryTypeInterface
 {
     /**
+     * Returns the query type.
+     *
+     * @return string
+     */
+    public function getType();
+
+    /**
      * Returns the array specifying query parameters.
      *
      * The keys are parameter identifiers.
@@ -20,7 +27,7 @@ interface QueryTypeInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return mixed[]
+     * @return \Iterator
      */
     public function getValues(array $parameters, $offset = 0, $limit = null);
 
@@ -34,11 +41,11 @@ interface QueryTypeInterface
     public function getCount(array $parameters);
 
     /**
-     * Returns the query type.
+     * Returns the name of the parameter which will be used as a limit inside the query.
      *
      * @return string
      */
-    public function getType();
+    public function getLimitParameter();
 
     /**
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface

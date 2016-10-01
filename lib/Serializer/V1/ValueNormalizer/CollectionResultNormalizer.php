@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\Result;
+use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -22,7 +22,7 @@ class CollectionResultNormalizer extends SerializerAwareNormalizer implements No
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Collection\Result $result */
+        /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
 
         $resultItems = array();

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use ArrayIterator;
 
 class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
 {
@@ -47,7 +48,7 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
      */
     public function getValues(array $parameters, $offset = 0, $limit = null)
     {
-        return array_slice($this->values, $offset, $limit);
+        return new ArrayIterator(array_slice($this->values, $offset, $limit));
     }
 
     /**
@@ -60,5 +61,15 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
     public function getCount(array $parameters)
     {
         return count($this->values);
+    }
+
+    /**
+     * Returns the name of the parameter which will be used as a limit inside the query.
+     *
+     * @return string
+     */
+    public function getLimitParameter()
+    {
+        return null;
     }
 }

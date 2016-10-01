@@ -20,7 +20,7 @@ interface QueryTypeHandlerInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return mixed[]
+     * @return \Iterator
      */
     public function getValues(array $parameters, $offset = 0, $limit = null);
 
@@ -32,4 +32,11 @@ interface QueryTypeHandlerInterface
      * @return int
      */
     public function getCount(array $parameters);
+
+    /**
+     * Returns the name of the parameter which will be used as a limit inside the query.
+     *
+     * @return string
+     */
+    public function getLimitParameter();
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Collection;
+namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\ValueObject;
 

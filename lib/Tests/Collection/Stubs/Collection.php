@@ -1,46 +1,51 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values\Collection;
+namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 
-class Collection extends ValueObject implements APICollection
+class Collection implements APICollection
 {
     /**
-     * @var int|string
+     * @var array
      */
-    protected $id;
+    protected $manualItems;
 
     /**
-     * @var int
+     * @var array
      */
-    protected $status;
+    protected $overrideItems;
 
     /**
-     * @var int
+     * @var array
      */
-    protected $type;
+    protected $queryValues;
 
     /**
-     * @var bool
+     * @var array
      */
-    protected $shared;
+    protected $queryCounts;
 
     /**
-     * @var string
+     * Constructor.
+     *
+     * @param array $manualItems
+     * @param array $overrideItems
+     * @param array $queryValues
+     * @param array $queryCounts
      */
-    protected $name;
-
-    /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
-    protected $items = array();
-
-    /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query[]
-     */
-    protected $queries = array();
+    public function __construct(
+        array $manualItems = array(),
+        array $overrideItems = array(),
+        array $queryValues = array(),
+        array $queryCounts = array()
+    ) {
+        $this->manualItems = $manualItems;
+        $this->overrideItems = $overrideItems;
+        $this->queryValues = $queryValues;
+        $this->queryCounts = $queryCounts;
+    }
 
     /**
      * Returns the collection ID.
@@ -49,7 +54,6 @@ class Collection extends ValueObject implements APICollection
      */
     public function getId()
     {
-        return $this->id;
     }
 
     /**
@@ -59,7 +63,6 @@ class Collection extends ValueObject implements APICollection
      */
     public function getStatus()
     {
-        return $this->status;
     }
 
     /**
@@ -69,7 +72,6 @@ class Collection extends ValueObject implements APICollection
      */
     public function getType()
     {
-        return $this->type;
     }
 
     /**
@@ -79,7 +81,6 @@ class Collection extends ValueObject implements APICollection
      */
     public function isShared()
     {
-        return $this->shared;
     }
 
     /**
@@ -89,7 +90,6 @@ class Collection extends ValueObject implements APICollection
      */
     public function getName()
     {
-        return $this->name;
     }
 
     /**
@@ -99,7 +99,6 @@ class Collection extends ValueObject implements APICollection
      */
     public function getItems()
     {
-        return $this->items;
     }
 
     /**
@@ -111,7 +110,7 @@ class Collection extends ValueObject implements APICollection
      */
     public function hasManualItem($position)
     {
-        return $this->hasItem(Item::TYPE_MANUAL, $position);
+        return isset($this->manualItems[$position]);
     }
 
     /**
@@ -123,7 +122,9 @@ class Collection extends ValueObject implements APICollection
      */
     public function getManualItem($position)
     {
-        return $this->getItem(Item::TYPE_MANUAL, $position);
+        return isset($this->manualItems[$position]) ?
+            $this->manualItems[$position] :
+            null;
     }
 
     /**
@@ -133,7 +134,7 @@ class Collection extends ValueObject implements APICollection
      */
     public function getManualItems()
     {
-        return $this->filterItems(Item::TYPE_MANUAL);
+        return $this->manualItems;
     }
 
     /**
@@ -145,7 +146,7 @@ class Collection extends ValueObject implements APICollection
      */
     public function hasOverrideItem($position)
     {
-        return $this->hasItem(Item::TYPE_OVERRIDE, $position);
+        return isset($this->overrideItems[$position]);
     }
 
     /**
@@ -157,7 +158,9 @@ class Collection extends ValueObject implements APICollection
      */
     public function getOverrideItem($position)
     {
-        return $this->getItem(Item::TYPE_OVERRIDE, $position);
+        return isset($this->overrideItems[$position]) ?
+            $this->overrideItems[$position] :
+            null;
     }
 
     /**
@@ -167,7 +170,7 @@ class Collection extends ValueObject implements APICollection
      */
     public function getOverrideItems()
     {
-        return $this->filterItems(Item::TYPE_OVERRIDE);
+        return $this->overrideItems;
     }
 
     /**
@@ -177,62 +180,21 @@ class Collection extends ValueObject implements APICollection
      */
     public function getQueries()
     {
-        return $this->queries;
-    }
+        $queries = array();
 
-    /**
-     * Returns if the item exists at specified position.
-     *
-     * @param int $type
-     * @param int $position
-     *
-     * @return bool
-     */
-    protected function hasItem($type, $position)
-    {
-        foreach ($this->items as $item) {
-            if ($item->getType() === $type && $item->getPosition() === $position) {
-                return true;
-            }
+        foreach ($this->queryValues as $index => $singleQueryValues) {
+            $queries[] = new Query(
+                array(
+                    'identifier' => $index,
+                    'queryType' => new QueryType(
+                        'ezcontent_search',
+                        $singleQueryValues,
+                        isset($this->queryCounts[$index]) ? $this->queryCounts[$index] : null
+                    ),
+                )
+            );
         }
 
-        return false;
-    }
-
-    /**
-     * Returns the item at specified position.
-     *
-     * @param int $type
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
-    protected function getItem($type, $position)
-    {
-        foreach ($this->items as $item) {
-            if ($item->getType() === $type && $item->getPosition() === $position) {
-                return $item;
-            }
-        }
-    }
-
-    /**
-     * Returns all items of specified type.
-     *
-     * @param int $type
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
-    protected function filterItems($type)
-    {
-        $items = array();
-
-        foreach ($this->items as $item) {
-            if ($item->getType() === $type) {
-                $items[$item->getPosition()] = $item;
-            }
-        }
-
-        return $items;
+        return $queries;
     }
 }

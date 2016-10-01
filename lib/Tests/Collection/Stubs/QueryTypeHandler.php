@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\Parameter\Integer;
 use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use ArrayIterator;
 
 class QueryTypeHandler implements QueryTypeHandlerInterface
 {
@@ -14,13 +15,20 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     protected $values = array();
 
     /**
+     * @var int|null
+     */
+    protected $count;
+
+    /**
      * Constructor.
      *
      * @param array $values
+     * @param int $count
      */
-    public function __construct(array $values = array())
+    public function __construct(array $values = array(), $count = null)
     {
         $this->values = $values;
+        $this->count = $count;
     }
 
     /**
@@ -45,11 +53,11 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return mixed[]
+     * @return \Iterator
      */
     public function getValues(array $parameters, $offset = 0, $limit = null)
     {
-        return array_slice($this->values, $offset, $limit);
+        return new ArrayIterator(array_slice($this->values, $offset, $limit));
     }
 
     /**
@@ -61,6 +69,20 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
      */
     public function getCount(array $parameters)
     {
+        if ($this->count !== null) {
+            return $this->count;
+        }
+
         return count($this->values);
+    }
+
+    /**
+     * Returns the name of the parameter which will be used as a limit inside the query.
+     *
+     * @return string
+     */
+    public function getLimitParameter()
+    {
+        return null;
     }
 }

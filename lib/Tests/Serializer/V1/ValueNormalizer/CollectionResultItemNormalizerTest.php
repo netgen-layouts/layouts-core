@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\ResultItem;
+use Netgen\BlockManager\Collection\Result\ResultItem;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultItemNormalizer;

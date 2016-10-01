@@ -6,8 +6,8 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener;
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Collection\Result;
-use Netgen\BlockManager\Collection\ResultGeneratorInterface;
+use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -23,7 +23,7 @@ class GetCollectionResultsListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $resultGeneratorMock;
+    protected $resultBuilderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -40,11 +40,11 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function setUp()
     {
-        $this->resultGeneratorMock = $this->createMock(ResultGeneratorInterface::class);
+        $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->listener = new GetCollectionResultsListener(
-            $this->resultGeneratorMock,
+            $this->resultBuilderMock,
             $this->blockServiceMock,
             array(ViewInterface::CONTEXT_DEFAULT)
         );
@@ -99,15 +99,15 @@ class GetCollectionResultsListenerTest extends TestCase
             ->with($this->equalTo(new Block()))
             ->will($this->returnValue(array($collectionReference1, $collectionReference2)));
 
-        $this->resultGeneratorMock
+        $this->resultBuilderMock
             ->expects($this->at(0))
-            ->method('generateResult')
+            ->method('buildResult')
             ->with($this->equalTo(new Collection()))
             ->will($this->returnValue(new Result(array('collection' => new Collection()))));
 
-        $this->resultGeneratorMock
+        $this->resultBuilderMock
             ->expects($this->at(1))
-            ->method('generateResult')
+            ->method('buildResult')
             ->with($this->equalTo(new Collection()))
             ->will($this->returnValue(new Result(array('collection' => new Collection()))));
 

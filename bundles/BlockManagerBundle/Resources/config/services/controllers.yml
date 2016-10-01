@@ -68,14 +68,14 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.collection.result_generator"
+            - "@netgen_block_manager.collection.result_builder"
 
     netgen_block_manager.controller.api.v1.collection:
         class: "%netgen_block_manager.controller.api.v1.collection.class%"
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.repository"
-            - "@netgen_block_manager.collection.result_generator"
+            - "@netgen_block_manager.collection.result_builder"
             - "@netgen_block_manager.controller.api.v1.collection.validator"
 
     netgen_block_manager.controller.api.v1.block.validator:

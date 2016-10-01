@@ -1,43 +1,37 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection\ResultGenerator;
+namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Collection\ResultGenerator\QueryRunner;
+use Netgen\BlockManager\Collection\Result\CollectionQueryIterator;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
 
-class QueryRunnerTest extends TestCase
+class CollectionQueryIteratorTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Collection\ResultGenerator\QueryRunnerInterface
-     */
-    protected $queryRunner;
-
-    public function setUp()
-    {
-        $this->queryRunner = new QueryRunner();
-    }
+    use IteratorTestTrait;
 
     /**
      * @param int $offset
      * @param int $limit
      * @param array $expectedResult
      *
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
-     * @dataProvider runSingleQueryProvider
+     * @dataProvider singleQueryProvider
      */
-    public function testRunSingleQuery($offset, $limit, $expectedResult)
+    public function testWithSingleQuery($offset, $limit, $expectedResult)
     {
         $queryType = new QueryType('query', array(40, 41, 42, 43, 44, 45, 46, 47, 48));
-        $query = array(new Query(array('queryType' => $queryType)));
+        $query = new Query(array('queryType' => $queryType));
 
-        $results = $this->queryRunner->runQueries($query, $offset, $limit);
-        $resultCount = $this->queryRunner->getTotalCount($query);
+        $queryIterator = new CollectionQueryIterator(
+            new Collection(array('queries' => array($query))),
+            $offset,
+            $limit
+        );
 
-        $this->assertEquals($expectedResult, $results);
-        $this->assertEquals(9, $resultCount);
+        $this->assertIteratorValues($expectedResult, $queryIterator->getIterator());
+        $this->assertEquals(9, $queryIterator->count());
     }
 
     /**
@@ -45,11 +39,9 @@ class QueryRunnerTest extends TestCase
      * @param int $limit
      * @param array $expectedResult
      *
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
-     * @dataProvider runMultipleQueriesProvider
+     * @dataProvider multipleQueriesProvider
      */
-    public function testRunMultipleQueries($offset, $limit, $expectedResult)
+    public function testWithMultipleQueries($offset, $limit, $expectedResult)
     {
         $queryType1 = new QueryType('query1', array(40, 41, 42, 43, 44, 45, 46, 47, 48));
         $queryType2 = new QueryType('query2', array(52, 53, 54, 55, 56));
@@ -63,24 +55,25 @@ class QueryRunnerTest extends TestCase
             new Query(array('queryType' => $queryType4)),
         );
 
-        $results = $this->queryRunner->runQueries($queries, $offset, $limit);
-        $resultCount = $this->queryRunner->getTotalCount($queries);
+        $queryIterator = new CollectionQueryIterator(
+            new Collection(array('queries' => $queries)),
+            $offset,
+            $limit
+        );
 
-        $this->assertEquals($expectedResult, $results);
-        $this->assertEquals(29, $resultCount);
+        $this->assertIteratorValues($expectedResult, $queryIterator->getIterator());
+        $this->assertEquals(29, $queryIterator->count());
     }
 
-    /**
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::runQueries
-     * @covers \Netgen\BlockManager\Collection\ResultGenerator\QueryRunner::getTotalCount
-     */
-    public function testRunEmptyQueries()
+    public function testWithEmptyQueries()
     {
-        $this->assertEquals(array(), $this->queryRunner->runQueries(array()));
-        $this->assertEquals(0, $this->queryRunner->getTotalCount(array()));
+        $queryIterator = new CollectionQueryIterator(new Collection());
+
+        $this->assertIteratorValues(array(), $queryIterator->getIterator());
+        $this->assertEquals(0, $queryIterator->count());
     }
 
-    public function runSingleQueryProvider()
+    public function singleQueryProvider()
     {
         return array(
             array(0, 0, array()),
@@ -103,7 +96,7 @@ class QueryRunnerTest extends TestCase
         );
     }
 
-    public function runMultipleQueriesProvider()
+    public function multipleQueriesProvider()
     {
         return array(
             array(0, 0, array()),

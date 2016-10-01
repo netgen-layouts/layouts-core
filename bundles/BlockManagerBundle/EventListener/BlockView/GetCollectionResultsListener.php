@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Collection\ResultGeneratorInterface;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
@@ -12,9 +12,9 @@ use Netgen\BlockManager\Event\View\ViewEvents;
 class GetCollectionResultsListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\ResultGeneratorInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
-    protected $resultGenerator;
+    protected $resultBuilder;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -29,16 +29,16 @@ class GetCollectionResultsListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
+     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param array $enabledContexts
      */
     public function __construct(
-        ResultGeneratorInterface $resultGenerator,
+        ResultBuilderInterface $resultBuilder,
         BlockService $blockService,
         array $enabledContexts = array()
     ) {
-        $this->resultGenerator = $resultGenerator;
+        $this->resultBuilder = $resultBuilder;
         $this->blockService = $blockService;
         $this->enabledContexts = $enabledContexts;
     }
@@ -73,11 +73,10 @@ class GetCollectionResultsListener implements EventSubscriberInterface
 
         $collectionReferences = $this->blockService->loadCollectionReferences($view->getBlock());
         foreach ($collectionReferences as $collectionReference) {
-            $results[$collectionReference->getIdentifier()] = $this->resultGenerator->generateResult(
+            $results[$collectionReference->getIdentifier()] = $this->resultBuilder->buildResult(
                 $collectionReference->getCollection(),
                 $collectionReference->getOffset(),
-                $collectionReference->getLimit(),
-                ResultGeneratorInterface::IGNORE_EXCEPTIONS
+                $collectionReference->getLimit()
             );
         }
 

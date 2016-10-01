@@ -27,13 +27,14 @@ class QueryType implements QueryTypeInterface
      *
      * @param string $type
      * @param array $values
+     * @param int $count
      */
-    public function __construct($type, array $values = array())
+    public function __construct($type, array $values = array(), $count = null)
     {
         $this->type = $type;
         $this->values = $values;
 
-        $this->handler = new QueryTypeHandler($this->values);
+        $this->handler = new QueryTypeHandler($this->values, $count);
     }
 
     /**
@@ -55,7 +56,7 @@ class QueryType implements QueryTypeInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return mixed[]
+     * @return \Iterator
      */
     public function getValues(array $parameters, $offset = 0, $limit = null)
     {
@@ -72,6 +73,16 @@ class QueryType implements QueryTypeInterface
     public function getCount(array $parameters)
     {
         return $this->handler->getCount($parameters);
+    }
+
+    /**
+     * Returns the name of the parameter which will be used as a limit inside the query.
+     *
+     * @return string
+     */
+    public function getLimitParameter()
+    {
+        return $this->handler->getLimitParameter();
     }
 
     /**

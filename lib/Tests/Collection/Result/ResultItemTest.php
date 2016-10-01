@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Collection;
+namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Collection\ResultItem;
+use Netgen\BlockManager\Collection\Result\ResultItem;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use PHPUnit\Framework\TestCase;
@@ -10,10 +10,10 @@ use PHPUnit\Framework\TestCase;
 class ResultItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\ResultItem::getItem
-     * @covers \Netgen\BlockManager\Collection\ResultItem::getCollectionItem
-     * @covers \Netgen\BlockManager\Collection\ResultItem::getType
-     * @covers \Netgen\BlockManager\Collection\ResultItem::getPosition
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItem::getItem
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItem::getCollectionItem
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItem::getType
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItem::getPosition
      */
     public function testObject()
     {

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\Result;
-use Netgen\BlockManager\Collection\ResultItem;
+use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Collection\Result\ResultItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Collection;
+namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\ValueObject;
 
@@ -12,7 +12,7 @@ class Result extends ValueObject
     protected $collection;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultItem[]
+     * @var \Netgen\BlockManager\Collection\Result\ResultItem[]
      */
     protected $results;
 
@@ -44,7 +44,7 @@ class Result extends ValueObject
     /**
      * Returns the items in this result.
      *
-     * @return \Netgen\BlockManager\Collection\ResultItem[]
+     * @return \Netgen\BlockManager\Collection\Result\ResultItem[]
      */
     public function getResults()
     {

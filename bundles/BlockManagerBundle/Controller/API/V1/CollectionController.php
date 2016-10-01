@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
-use Netgen\BlockManager\Collection\ResultGeneratorInterface;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -32,9 +32,9 @@ class CollectionController extends Controller
     protected $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\ResultGeneratorInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
-    protected $resultGenerator;
+    protected $resultBuilder;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator
@@ -45,16 +45,16 @@ class CollectionController extends Controller
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Repository $repository
-     * @param \Netgen\BlockManager\Collection\ResultGeneratorInterface $resultGenerator
+     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
      */
     public function __construct(
         Repository $repository,
-        ResultGeneratorInterface $resultGenerator,
+        ResultBuilderInterface $resultBuilder,
         CollectionValidator $validator
     ) {
         $this->repository = $repository;
-        $this->resultGenerator = $resultGenerator;
+        $this->resultBuilder = $resultBuilder;
         $this->validator = $validator;
 
         $this->collectionService = $repository->getCollectionService();
@@ -86,13 +86,12 @@ class CollectionController extends Controller
         $limit = $request->query->get('limit', null);
 
         return new VersionedValue(
-            $this->resultGenerator->generateResult(
+            $this->resultBuilder->buildResult(
                 $collection,
                 (int)$offset,
                 !empty($limit) ? (int)$limit : null,
-                ResultGeneratorInterface::INCLUDE_INVISIBLE_ITEMS |
-                ResultGeneratorInterface::INCLUDE_INVALID_ITEMS |
-                ResultGeneratorInterface::IGNORE_EXCEPTIONS
+                ResultBuilderInterface::INCLUDE_INVISIBLE_ITEMS |
+                ResultBuilderInterface::INCLUDE_INVALID_ITEMS
             ),
             Version::API_V1
         );
