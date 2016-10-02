@@ -2,7 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
+use Netgen\BlockManager\Item\ItemLoader;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilder;
 use Netgen\BlockManager\Item\ItemBuilder;
@@ -24,9 +25,14 @@ class ResultBuilderTest extends TestCase
     protected $itemBuilder;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $valueLoaderRegistryMock;
+    protected $itemLoader;
+
+    /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
+     */
+    protected $valueLoaderRegistry;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
@@ -35,19 +41,19 @@ class ResultBuilderTest extends TestCase
 
     public function setUp()
     {
-        $this->valueLoaderRegistryMock = $this->createMock(ValueLoaderRegistryInterface::class);
-
-        $this->valueLoaderRegistryMock
-            ->expects($this->any())
-            ->method('getValueLoader')
-            ->will($this->returnValue(new ValueLoader()));
+        $this->valueLoaderRegistry = new ValueLoaderRegistry();
+        $this->valueLoaderRegistry->addValueLoader(new ValueLoader());
 
         $this->itemBuilder = new ItemBuilder(
-            $this->valueLoaderRegistryMock,
             array(new ValueConverter())
         );
 
-        $this->resultBuilder = new ResultBuilder($this->itemBuilder);
+        $this->itemLoader = new ItemLoader(
+            $this->valueLoaderRegistry,
+            $this->itemBuilder
+        );
+
+        $this->resultBuilder = new ResultBuilder($this->itemLoader, $this->itemBuilder);
     }
 
     /**

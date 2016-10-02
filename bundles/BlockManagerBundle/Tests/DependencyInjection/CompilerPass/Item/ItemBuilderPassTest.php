@@ -42,7 +42,7 @@ class ItemBuilderPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.item.item_builder',
-            1,
+            0,
             array(
                 new Reference('netgen_block_manager.item.value_converter.test'),
                 new Reference('netgen_block_manager.item.value_converter.test2'),

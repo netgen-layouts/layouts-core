@@ -9,21 +9,9 @@ interface ItemBuilderInterface
      *
      * @param mixed $object
      *
-     * @throws \RuntimeException If value cannot be built
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Item\Item
+     * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function buildFromObject($object);
-
-    /**
-     * Builds the item from provided value ID and value type.
-     *
-     * @param int|string $valueId
-     * @param string $valueType
-     *
-     * @throws \RuntimeException If value cannot be built
-     *
-     * @return \Netgen\BlockManager\Item\Item
-     */
-    public function build($valueId, $valueType);
+    public function build($object);
 }

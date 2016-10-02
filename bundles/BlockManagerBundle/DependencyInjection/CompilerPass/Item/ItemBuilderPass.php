@@ -30,6 +30,6 @@ class ItemBuilderPass implements CompilerPassInterface
             $valueConverters[] = new Reference($serviceName);
         }
 
-        $itemBuilder->replaceArgument(1, $valueConverters);
+        $itemBuilder->replaceArgument(0, $valueConverters);
     }
 }

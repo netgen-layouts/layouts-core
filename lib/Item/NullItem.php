@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\ValueObject;
 
-class Item extends ValueObject implements ItemInterface
+class NullItem extends ValueObject implements ItemInterface
 {
     /**
      * @var int|string
@@ -15,21 +15,6 @@ class Item extends ValueObject implements ItemInterface
      * @var string
      */
     protected $valueType;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var bool
-     */
-    protected $isVisible;
-
-    /**
-     * @var mixed
-     */
-    protected $object;
 
     /**
      * Returns the external value ID.
@@ -58,7 +43,7 @@ class Item extends ValueObject implements ItemInterface
      */
     public function getName()
     {
-        return $this->name;
+        return '(INVALID ITEM)';
     }
 
     /**
@@ -68,7 +53,7 @@ class Item extends ValueObject implements ItemInterface
      */
     public function isVisible()
     {
-        return $this->isVisible;
+        return true;
     }
 
     /**
@@ -78,6 +63,5 @@ class Item extends ValueObject implements ItemInterface
      */
     public function getObject()
     {
-        return $this->object;
     }
 }

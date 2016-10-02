@@ -4,12 +4,18 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\NullValue;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 
 class ResultBuilder implements ResultBuilderInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     */
+    protected $itemLoader;
+
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
@@ -18,10 +24,12 @@ class ResultBuilder implements ResultBuilderInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
      * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
      */
-    public function __construct(ItemBuilderInterface $itemBuilder)
+    public function __construct(ItemLoaderInterface $itemLoader, ItemBuilderInterface $itemBuilder)
     {
+        $this->itemLoader = $itemLoader;
         $this->itemBuilder = $itemBuilder;
     }
 
@@ -64,8 +72,8 @@ class ResultBuilder implements ResultBuilderInterface
     {
         $resultItems = array();
 
-        foreach ($collectionIterator as $position => $item) {
-            $resultItem = $this->buildResultItem($item, $position);
+        foreach ($collectionIterator as $position => $object) {
+            $resultItem = $this->buildResultItem($object, $position);
             if ($this->isItemIncluded($resultItem->getItem(), $flags)) {
                 $resultItems[] = $resultItem;
             }
@@ -87,7 +95,7 @@ class ResultBuilder implements ResultBuilderInterface
         if ($object instanceof CollectionItem) {
             return new ResultItem(
                 array(
-                    'item' => $this->itemBuilder->build($object->getValueId(), $object->getValueType()),
+                    'item' => $this->itemLoader->load($object->getValueId(), $object->getValueType()),
                     'collectionItem' => $object,
                     'type' => $object->getType() === CollectionItem::TYPE_MANUAL ?
                         ResultItem::TYPE_MANUAL :
@@ -99,7 +107,7 @@ class ResultBuilder implements ResultBuilderInterface
 
         return new ResultItem(
             array(
-                'item' => $this->itemBuilder->buildFromObject($object),
+                'item' => $this->itemBuilder->build($object),
                 'collectionItem' => null,
                 'type' => ResultItem::TYPE_DYNAMIC,
                 'position' => $position,
@@ -112,14 +120,14 @@ class ResultBuilder implements ResultBuilderInterface
      *
      * @TODO Refactor out to separate service
      *
-     * @param \Netgen\BlockManager\Item\Item $item
+     * @param \Netgen\BlockManager\Item\ItemInterface $item
      * @param $flags
      *
      * @return bool
      */
-    protected function isItemIncluded(Item $item, $flags)
+    protected function isItemIncluded(ItemInterface $item, $flags)
     {
-        if (!$item->getObject() instanceof NullValue) {
+        if (!$item instanceof NullItem) {
             if ((bool)($flags & self::INCLUDE_INVISIBLE_ITEMS)) {
                 return true;
             }

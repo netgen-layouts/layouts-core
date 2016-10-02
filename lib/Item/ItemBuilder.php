@@ -2,18 +2,10 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Exception\InvalidItemException;
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 class ItemBuilder implements ItemBuilderInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
-     */
-    protected $valueLoaderRegistry;
-
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
      */
@@ -22,15 +14,10 @@ class ItemBuilder implements ItemBuilderInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
      * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters
      */
-    public function __construct(
-        ValueLoaderRegistryInterface $valueLoaderRegistry,
-        array $valueConverters = array()
-    ) {
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
-
+    public function __construct(array $valueConverters = array())
+    {
         if (empty($valueConverters)) {
             throw new RuntimeException('At least one value converter needs to be defined.');
         }
@@ -54,11 +41,11 @@ class ItemBuilder implements ItemBuilderInterface
      *
      * @param mixed $object
      *
-     * @throws \RuntimeException If value cannot be built
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If value cannot be built
      *
-     * @return \Netgen\BlockManager\Item\Item
+     * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function buildFromObject($object)
+    public function build($object)
     {
         foreach ($this->valueConverters as $valueConverter) {
             if (!$valueConverter->supports($object)) {
@@ -84,34 +71,5 @@ class ItemBuilder implements ItemBuilderInterface
                 is_object($object) ? get_class($object) : gettype($object)
             )
         );
-    }
-
-    /**
-     * Builds the item from provided value ID and value type.
-     *
-     * @param int|string $valueId
-     * @param string $valueType
-     *
-     * @throws \RuntimeException If value cannot be built
-     *
-     * @return \Netgen\BlockManager\Item\Item
-     */
-    public function build($valueId, $valueType)
-    {
-        try {
-            $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
-        } catch (InvalidArgumentException $e) {
-            return $this->buildFromObject(
-                new NullValue($valueId, $valueType)
-            );
-        }
-
-        try {
-            $loadedValue = $valueLoader->load($valueId);
-        } catch (InvalidItemException $e) {
-            $loadedValue = new NullValue($valueId, $valueType);
-        }
-
-        return $this->buildFromObject($loadedValue);
     }
 }

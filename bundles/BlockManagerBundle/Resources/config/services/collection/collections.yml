@@ -6,6 +6,7 @@ services:
     netgen_block_manager.collection.result_builder:
         class: "%netgen_block_manager.collection.result_builder.class%"
         arguments:
+            - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.item_builder"
 
     netgen_block_manager.collection.registry.query_type:
