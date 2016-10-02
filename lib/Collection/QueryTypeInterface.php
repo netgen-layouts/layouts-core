@@ -41,15 +41,6 @@ interface QueryTypeInterface
     public function getCount(array $parameters);
 
     /**
-     * Returns the limit internal to this query.
-     *
-     * @param array $parameters
-     *
-     * @return int
-     */
-    public function getInternalLimit(array $parameters);
-
-    /**
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
     public function getHandler();

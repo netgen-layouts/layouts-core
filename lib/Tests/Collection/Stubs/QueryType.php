@@ -76,18 +76,6 @@ class QueryType implements QueryTypeInterface
     }
 
     /**
-     * Returns the limit internal to this query.
-     *
-     * @param array $parameters
-     *
-     * @return int
-     */
-    public function getInternalLimit(array $parameters)
-    {
-        return $this->handler->getInternalLimit($parameters);
-    }
-
-    /**
      * Returns the query type.
      *
      * @return string

@@ -57,40 +57,39 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         }
 
         $values = new AppendIterator();
-        $previousCount = 0;
-        $valuesCount = 0;
+        $currentCount = 0;
+        $realCount = 0;
 
         foreach ($this->collection->getQueries() as $query) {
             $queryType = $query->getQueryType();
             $queryParameters = $query->getParameters();
 
             $queryCount = $queryType->getCount($queryParameters);
-            $totalCount = $previousCount + $queryCount;
 
-            // We're skipping all the way to the start of the fetch (i.e. the offset)
-            if ($totalCount <= $this->offset) {
-                $previousCount = $totalCount;
-                continue;
+            // We're running queries only when we reach the wanted offset
+            if ($currentCount + $queryCount > $this->offset) {
+                $queryValues = $queryType->getValues(
+                    $queryParameters,
+                    // We always use the offset of 0 for query fetches
+                    // except for the first time, when we skip the number
+                    // of items that were needed to finally go over the offset
+                    $realCount === 0 && $this->offset > 0 ?
+                        $this->offset - $currentCount :
+                        0
+                );
+
+                $values->append(new ArrayIterator($queryValues));
+                $realCount += count($queryValues);
+
+                // When we have enough results make sure that we limit
+                // the number of items to actual limit if it exists
+                if ($this->limit > 0 && $realCount >= $this->limit) {
+                    $values = new LimitIterator($values, 0, $this->limit);
+                    break;
+                }
             }
 
-            $queryValues = $queryType->getValues(
-                $queryParameters,
-                $valuesCount === 0 && $this->offset > 0 ?
-                    $this->offset - $previousCount :
-                    0
-            );
-
-            $values->append(new ArrayIterator($queryValues));
-            $valuesCount += count($queryValues);
-
-            // When we have enough results make sure that we limit
-            // the number of items to actual limit
-            if ($this->limit > 0 && $valuesCount >= $this->limit) {
-                $values = new LimitIterator($values, 0, $this->limit);
-                break;
-            }
-
-            $previousCount = $totalCount;
+            $currentCount = $currentCount + $queryCount;
         }
 
         return $values;
@@ -106,17 +105,9 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         $totalCount = 0;
 
         foreach ($this->collection->getQueries() as $query) {
-            $queryType = $query->getQueryType();
-            $parameters = $query->getParameters();
-
-            $queryCount = $queryType->getCount($parameters);
-
-            $internalLimit = $queryType->getInternalLimit($parameters);
-            if ($internalLimit !== null && $queryCount > $internalLimit) {
-                $queryCount = $internalLimit;
-            }
-
-            $totalCount += $queryCount;
+            $totalCount += $query->getQueryType()->getCount(
+                $query->getParameters()
+            );
         }
 
         return $totalCount;

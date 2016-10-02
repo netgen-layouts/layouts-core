@@ -84,25 +84,28 @@ class QueryType implements QueryTypeInterface
     /**
      * Returns the value count from the query.
      *
+     * To the outside world, query count is whatever the query returns
+     * based on parameter values. This may not correspond to inner query count
+     * when parameters themselves contain offset and limit parameters which are then
+     * used for inner query.
+     *
+     * Due to that, this method takes the inner query limit (as used in parameters)
+     * and returns it instead if returned count is larger.
+     *
      * @param array $parameters
      *
      * @return int
      */
     public function getCount(array $parameters)
     {
-        return $this->handler->getCount($parameters);
-    }
+        $queryCount = $this->handler->getCount($parameters);
 
-    /**
-     * Returns the limit internal to this query.
-     *
-     * @param array $parameters
-     *
-     * @return int
-     */
-    public function getInternalLimit(array $parameters)
-    {
-        return $this->handler->getInternalLimit($parameters);
+        $internalLimit = $this->handler->getInternalLimit($parameters);
+        if ($internalLimit !== null && $queryCount > $internalLimit) {
+            $queryCount = $internalLimit;
+        }
+
+        return $queryCount;
     }
 
     /**
