@@ -29,11 +29,6 @@ class CollectionIterator implements Iterator, Countable
     protected $pointer;
 
     /**
-     * @var bool
-     */
-    protected $advanceQuery = true;
-
-    /**
      * @var \Netgen\BlockManager\Collection\Result\CollectionQueryIterator
      */
     protected $collectionIterator;
@@ -105,11 +100,6 @@ class CollectionIterator implements Iterator, Countable
         if ($this->collection->hasOverrideItem($this->pointer)) {
             return $this->collection->getOverrideItem($this->pointer);
         } elseif ($this->collection->hasManualItem($this->pointer)) {
-            // We don't want to advance the query iterator when using
-            // a manual item, since manual items are injected between
-            // query values
-            $this->advanceQuery = false;
-
             return $this->collection->getManualItem($this->pointer);
         }
 
@@ -121,13 +111,11 @@ class CollectionIterator implements Iterator, Countable
      */
     public function next()
     {
-        ++$this->pointer;
-
-        if ($this->advanceQuery) {
+        if ($this->advanceQuery()) {
             $this->queryIterator->next();
         }
 
-        $this->advanceQuery = true;
+        ++$this->pointer;
     }
 
     /**
@@ -169,5 +157,26 @@ class CollectionIterator implements Iterator, Countable
     {
         $this->pointer = $this->offset;
         $this->queryIterator->rewind();
+    }
+
+    /**
+     * Returns if the query should be advanced when calling next().
+     *
+     * @return bool
+     */
+    protected function advanceQuery()
+    {
+        if ($this->collection->hasOverrideItem($this->pointer)) {
+            return true;
+        }
+
+        if ($this->collection->hasManualItem($this->pointer)) {
+            // We don't want to advance the query iterator when using
+            // a manual item, since manual items are injected between
+            // query values
+            return false;
+        }
+
+        return true;
     }
 }
