@@ -3,34 +3,32 @@
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getCollection
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getResults
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getTotalCount
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getOffset
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getLimit
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getItem
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getCollectionItem
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getType
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
      */
     public function testObject()
     {
-        $result = new Result(
+        $resultItem = new Result(
             array(
-                'collection' => new Collection(),
-                'results' => array('items'),
-                'totalCount' => 15,
-                'offset' => 3,
-                'limit' => 5,
+                'item' => new Item(),
+                'collectionItem' => new CollectionItem(),
+                'type' => Result::TYPE_MANUAL,
+                'position' => 3,
             )
         );
 
-        $this->assertEquals(new Collection(), $result->getCollection());
-        $this->assertEquals(array('items'), $result->getResults());
-        $this->assertEquals(15, $result->getTotalCount());
-        $this->assertEquals(3, $result->getOffset());
-        $this->assertEquals(5, $result->getLimit());
+        $this->assertEquals(new Item(), $resultItem->getItem());
+        $this->assertEquals(new CollectionItem(), $resultItem->getCollectionItem());
+        $this->assertEquals(Result::TYPE_MANUAL, $resultItem->getType());
+        $this->assertEquals(3, $resultItem->getPosition());
     }
 }

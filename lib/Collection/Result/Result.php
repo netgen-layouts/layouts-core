@@ -3,104 +3,72 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\ValueObject;
-use IteratorAggregate;
-use ArrayIterator;
-use Countable;
 
-class Result extends ValueObject implements IteratorAggregate, Countable
+class Result extends ValueObject
 {
-    /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    protected $collection;
+    const TYPE_MANUAL = 0;
+
+    const TYPE_OVERRIDE = 1;
+
+    const TYPE_DYNAMIC = 2;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultItem[]
+     * @var \Netgen\BlockManager\Item\ItemInterface
      */
-    protected $results;
+    protected $item;
 
     /**
-     * @var int
+     * @var \Netgen\BlockManager\API\Values\Collection\Item
      */
-    protected $totalCount;
-
-    /**
-     * @var int
-     */
-    protected $offset;
+    protected $collectionItem;
 
     /**
      * @var int
      */
-    protected $limit;
+    protected $type;
 
     /**
-     * Returns the collection from which was this result generated.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     * @var int
      */
-    public function getCollection()
+    protected $position;
+
+    /**
+     * Returns the item.
+     *
+     * @return \Netgen\BlockManager\Item\ItemInterface
+     */
+    public function getItem()
     {
-        return $this->collection;
+        return $this->item;
     }
 
     /**
-     * Returns the items in this result.
+     * Returns the collection item.
      *
-     * @return \Netgen\BlockManager\Collection\Result\ResultItem[]
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function getResults()
+    public function getCollectionItem()
     {
-        return $this->results;
+        return $this->collectionItem;
     }
 
     /**
-     * Returns the total count of items in this result.
+     * Returns the type.
      *
      * @return int
      */
-    public function getTotalCount()
+    public function getType()
     {
-        return $this->totalCount;
+        return $this->type;
     }
 
     /**
-     * Returns the offset with which was this result generated.
+     * Returns the position.
      *
      * @return int
      */
-    public function getOffset()
+    public function getPosition()
     {
-        return $this->offset;
-    }
-
-    /**
-     * Returns the limit with which was this result generated.
-     *
-     * @return int
-     */
-    public function getLimit()
-    {
-        return $this->limit;
-    }
-
-    /**
-     * Retrieve an external iterator.
-     *
-     * @return \Traversable
-     */
-    public function getIterator()
-    {
-        return new ArrayIterator($this->results);
-    }
-
-    /**
-     * Count elements of an object.
-     *
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->results);
+        return $this->position;
     }
 }

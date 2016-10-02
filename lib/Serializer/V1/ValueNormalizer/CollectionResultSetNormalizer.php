@@ -2,12 +2,14 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\Result\ResultItem;
+use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
-class CollectionResultItemNormalizer implements NormalizerInterface
+class CollectionResultSetNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -20,20 +22,17 @@ class CollectionResultItemNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Collection\Result\ResultItem $resultItem */
-        $resultItem = $object->getValue();
-        $item = $resultItem->getItem();
-        $collectionItem = $resultItem->getCollectionItem();
+        /** @var \Netgen\BlockManager\Collection\Result\ResultSet $resultSet */
+        $resultSet = $object->getValue();
+
+        $results = array();
+        foreach ($resultSet->getResults() as $result) {
+            $results[] = new VersionedValue($result, $object->getVersion());
+        }
 
         return array(
-            'id' => $collectionItem !== null ? $collectionItem->getId() : null,
-            'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
-            'position' => $resultItem->getPosition(),
-            'type' => $resultItem->getType(),
-            'value_id' => $item->getValueId(),
-            'value_type' => $item->getValueType(),
-            'name' => $item->getName(),
-            'visible' => $item->isVisible(),
+            'items' => $this->serializer->normalize(new ValueList($results)),
+            'item_count' => $resultSet->getTotalCount(),
         );
     }
 
@@ -51,6 +50,6 @@ class CollectionResultItemNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof ResultItem && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof ResultSet && $data->getVersion() === Version::API_V1;
     }
 }

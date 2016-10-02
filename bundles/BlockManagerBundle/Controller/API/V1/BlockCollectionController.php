@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
+use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
@@ -35,25 +35,25 @@ class BlockCollectionController extends Controller
     protected $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultBuilder;
+    protected $resultLoader;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
+     * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
-        ResultBuilderInterface $resultBuilder
+        ResultLoaderInterface $resultLoader
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
-        $this->resultBuilder = $resultBuilder;
+        $this->resultLoader = $resultLoader;
     }
 
     /**
@@ -89,12 +89,12 @@ class BlockCollectionController extends Controller
         $limit = $request->query->get('limit', null);
 
         return new VersionedValue(
-            $this->resultBuilder->buildResult(
+            $this->resultLoader->load(
                 $collectionReference->getCollection(),
                 (int)$offset,
                 !empty($limit) ? (int)$limit : null,
-                ResultBuilderInterface::INCLUDE_INVISIBLE_ITEMS |
-                ResultBuilderInterface::INCLUDE_INVALID_ITEMS
+                ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
+                ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),
             Version::API_V1
         );

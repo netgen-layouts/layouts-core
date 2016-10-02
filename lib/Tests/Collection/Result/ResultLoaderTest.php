@@ -2,12 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
 use Netgen\BlockManager\Item\ItemLoader;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultBuilder;
+use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\BlockManager\Collection\Result\ResultLoader;
 use Netgen\BlockManager\Item\ItemBuilder;
-use Netgen\BlockManager\Collection\Result\ResultItem;
+use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
@@ -17,7 +18,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
-class ResultBuilderTest extends TestCase
+class ResultLoaderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
@@ -35,9 +36,9 @@ class ResultBuilderTest extends TestCase
     protected $valueLoaderRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultBuilder;
+    protected $resultLoader;
 
     public function setUp()
     {
@@ -53,37 +54,41 @@ class ResultBuilderTest extends TestCase
             $this->itemBuilder
         );
 
-        $this->resultBuilder = new ResultBuilder($this->itemLoader, $this->itemBuilder);
+        $this->resultLoader = new ResultLoader(
+            $this->itemLoader,
+            $this->itemBuilder,
+            new ResultIteratorFactory()
+        );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::buildResult
+     * @covers \Netgen\BlockManager\Collection\Result\ResultLoader::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\ResultLoader::load
      */
-    public function testBuildResultForManualCollection()
+    public function testLoadForManualCollection()
     {
         $collection = $this->buildCollection(
             array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
         );
 
-        $result = $this->resultBuilder->buildResult($collection, 0, 5);
+        $result = $this->resultLoader->load($collection, 0, 5);
 
-        $this->assertInstanceOf(Result::class, $result);
+        $this->assertInstanceOf(ResultSet::class, $result);
         $this->assertEquals($collection, $result->getCollection());
         $this->assertEquals(0, $result->getOffset());
         $this->assertEquals(5, $result->getLimit());
 
         foreach ($result->getResults() as $index => $resultItem) {
-            $this->assertInstanceOf(ResultItem::class, $resultItem);
-            $this->assertEquals(ResultItem::TYPE_MANUAL, $resultItem->getType());
+            $this->assertInstanceOf(Result::class, $resultItem);
+            $this->assertEquals(Result::TYPE_MANUAL, $resultItem->getType());
             $this->assertEquals($index, $resultItem->getPosition());
         }
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::buildResult
+     * @covers \Netgen\BlockManager\Collection\Result\ResultLoader::load
      */
-    public function testBuildResultForDynamicCollection()
+    public function testLoadForDynamicCollection()
     {
         $collection = $this->buildCollection(
             array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
@@ -92,15 +97,15 @@ class ResultBuilderTest extends TestCase
             array(13)
         );
 
-        $result = $this->resultBuilder->buildResult($collection, 0, 5);
+        $result = $this->resultLoader->load($collection, 0, 5);
 
-        $this->assertInstanceOf(Result::class, $result);
+        $this->assertInstanceOf(ResultSet::class, $result);
         $this->assertEquals($collection, $result->getCollection());
         $this->assertEquals(0, $result->getOffset());
         $this->assertEquals(5, $result->getLimit());
 
         foreach ($result->getResults() as $index => $resultItem) {
-            $this->assertInstanceOf(ResultItem::class, $resultItem);
+            $this->assertInstanceOf(Result::class, $resultItem);
             $this->assertEquals($index, $resultItem->getPosition());
             // @todo Test item types
         }

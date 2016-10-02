@@ -3,21 +3,15 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultItem;
+use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer;
-use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Symfony\Component\Serializer\Serializer;
+use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
 
 class CollectionResultNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $serializerMock;
-
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer
      */
@@ -25,10 +19,7 @@ class CollectionResultNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->serializerMock = $this->createMock(Serializer::class);
-
         $this->normalizer = new CollectionResultNormalizer();
-        $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
@@ -36,35 +27,75 @@ class CollectionResultNormalizerTest extends TestCase
      */
     public function testNormalize()
     {
-        $result = new Result(
+        $collectionItem = new CollectionItem(
             array(
-                'results' => array(
-                    new ResultItem(),
-                    new ResultItem(),
-                ),
-                'totalCount' => 5,
+                'id' => 42,
+                'collectionId' => 24,
             )
         );
 
-        $this->serializerMock
-            ->expects($this->at(0))
-            ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    new ValueList(
-                        array(
-                            new VersionedValue(new ResultItem(), 1),
-                            new VersionedValue(new ResultItem(), 1),
-                        )
-                    )
-                )
+        $item = new Item(
+            array(
+                'name' => 'Value name',
+                'isVisible' => true,
             )
-            ->will($this->returnValue(array('items')));
+        );
+
+        $result = new Result(
+            array(
+                'item' => $item,
+                'collectionItem' => $collectionItem,
+                'type' => Result::TYPE_MANUAL,
+                'position' => 3,
+            )
+        );
 
         $this->assertEquals(
             array(
-                'items' => array('items'),
-                'item_count' => 5,
+                'id' => $collectionItem->getId(),
+                'collection_id' => $collectionItem->getCollectionId(),
+                'position' => $result->getPosition(),
+                'type' => $result->getType(),
+                'value_id' => $item->getValueId(),
+                'value_type' => $item->getValueType(),
+                'name' => $item->getName(),
+                'visible' => $item->isVisible(),
+            ),
+            $this->normalizer->normalize(new VersionedValue($result, 1))
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer::normalize
+     */
+    public function testNormalizeWithoutCollectionItem()
+    {
+        $item = new Item(
+            array(
+                'name' => 'Value name',
+                'isVisible' => true,
+            )
+        );
+
+        $result = new Result(
+            array(
+                'item' => $item,
+                'collectionItem' => null,
+                'type' => Result::TYPE_DYNAMIC,
+                'position' => 3,
+            )
+        );
+
+        $this->assertEquals(
+            array(
+                'id' => null,
+                'collection_id' => null,
+                'position' => $result->getPosition(),
+                'type' => $result->getType(),
+                'value_id' => $item->getValueId(),
+                'value_type' => $item->getValueType(),
+                'name' => $item->getName(),
+                'visible' => $item->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -97,9 +128,9 @@ class CollectionResultNormalizerTest extends TestCase
             array(array(), false),
             array(42, false),
             array(42.12, false),
-            array(new Value(), false),
+            array(new APIValue(), false),
             array(new Result(), false),
-            array(new VersionedValue(new Value(), 1), false),
+            array(new VersionedValue(new APIValue(), 1), false),
             array(new VersionedValue(new Result(), 2), false),
             array(new VersionedValue(new Result(), 1), true),
         );

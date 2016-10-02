@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\View\ItemView;
 use Netgen\BlockManager\Exception\RuntimeException;
 
@@ -26,7 +26,7 @@ class ItemViewProvider implements ViewProviderInterface
             throw new RuntimeException('To build the item view, "viewType" parameter needs to be a string.');
         }
 
-        /** @var \Netgen\BlockManager\Item\Item $valueObject */
+        /** @var \Netgen\BlockManager\Item\ItemInterface $valueObject */
         $itemView = new ItemView($valueObject, $parameters['viewType']);
 
         return $itemView;
@@ -41,6 +41,6 @@ class ItemViewProvider implements ViewProviderInterface
      */
     public function supports($valueObject)
     {
-        return $valueObject instanceof Item;
+        return $valueObject instanceof ItemInterface;
     }
 }

@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
+use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
@@ -12,9 +12,9 @@ use Netgen\BlockManager\Event\View\ViewEvents;
 class GetCollectionResultsListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultBuilder;
+    protected $resultLoader;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -29,16 +29,16 @@ class GetCollectionResultsListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
+     * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param array $enabledContexts
      */
     public function __construct(
-        ResultBuilderInterface $resultBuilder,
+        ResultLoaderInterface $resultLoader,
         BlockService $blockService,
         array $enabledContexts = array()
     ) {
-        $this->resultBuilder = $resultBuilder;
+        $this->resultLoader = $resultLoader;
         $this->blockService = $blockService;
         $this->enabledContexts = $enabledContexts;
     }
@@ -69,17 +69,17 @@ class GetCollectionResultsListener implements EventSubscriberInterface
             return;
         }
 
-        $results = array();
+        $collections = array();
 
         $collectionReferences = $this->blockService->loadCollectionReferences($view->getBlock());
         foreach ($collectionReferences as $collectionReference) {
-            $results[$collectionReference->getIdentifier()] = $this->resultBuilder->buildResult(
+            $collections[$collectionReference->getIdentifier()] = $this->resultLoader->load(
                 $collectionReference->getCollection(),
                 $collectionReference->getOffset(),
                 $collectionReference->getLimit()
             );
         }
 
-        $event->getParameterBag()->add(array('collections' => $results));
+        $event->getParameterBag()->add(array('collections' => $collections));
     }
 }

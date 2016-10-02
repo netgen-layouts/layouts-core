@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class ItemViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\Item
+     * @var \Netgen\BlockManager\Item\ItemInterface
      */
     protected $item;
 

@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -231,7 +231,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Renders the provided item.
      *
-     * @param \Netgen\BlockManager\Item\Item $item
+     * @param \Netgen\BlockManager\Item\ItemInterface $item
      * @param string $viewType
      * @param array $parameters
      * @param string $context
@@ -240,7 +240,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @return string
      */
-    public function renderItem(Item $item, $viewType, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    public function renderItem(ItemInterface $item, $viewType, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             return $this->viewRenderer->renderValueObject(
@@ -407,10 +407,10 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * we do not want rendering of the item to crash the page,
      * hence we log an error.
      *
-     * @param \Netgen\BlockManager\Item\Item $item
+     * @param \Netgen\BlockManager\Item\ItemInterface $item
      * @param \Exception $exception
      */
-    protected function logItemError(Item $item, Exception $exception)
+    protected function logItemError(ItemInterface $item, Exception $exception)
     {
         $this->logger->error(
             sprintf(

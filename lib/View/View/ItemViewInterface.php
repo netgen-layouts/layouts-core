@@ -9,7 +9,7 @@ interface ItemViewInterface extends ViewInterface
     /**
      * Returns the item.
      *
-     * @return \Netgen\BlockManager\Item\Item
+     * @return \Netgen\BlockManager\Item\ItemInterface
      */
     public function getItem();
 

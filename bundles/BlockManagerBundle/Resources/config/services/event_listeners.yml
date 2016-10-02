@@ -60,7 +60,7 @@ services:
     netgen_block_manager.event_listener.block_view.get_collection_results:
         class: "%netgen_block_manager.event_listener.block_view.get_collection_results.class%"
         arguments:
-            - "@netgen_block_manager.collection.result_builder"
+            - "@netgen_block_manager.collection.result_loader"
             - "@netgen_block_manager.api.service.block"
             - "%netgen_block_manager.block_view.collection_results_contexts%"
         tags:
