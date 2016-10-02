@@ -8,6 +8,7 @@ use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
+use Iterator;
 
 class ResultBuilder implements ResultBuilderInterface
 {
@@ -47,10 +48,15 @@ class ResultBuilder implements ResultBuilderInterface
     {
         $collectionIterator = new CollectionIterator($collection, $offset, $limit);
 
+        $resultItems = $this->filterResultItems(
+            $this->getResultItems($collectionIterator),
+            $flags
+        );
+
         $result = new Result(
             array(
                 'collection' => $collection,
-                'results' => $this->getResultItems($collectionIterator, $flags),
+                'results' => iterator_to_array($resultItems),
                 'totalCount' => $collectionIterator->count(),
                 'offset' => $offset,
                 'limit' => $limit,
@@ -64,22 +70,31 @@ class ResultBuilder implements ResultBuilderInterface
      * Returns result items from collection items and query values.
      *
      * @param \Netgen\BlockManager\Collection\Result\CollectionIterator $collectionIterator
+     *
+     * @return \Generator
+     */
+    protected function getResultItems(CollectionIterator $collectionIterator)
+    {
+        foreach ($collectionIterator as $position => $object) {
+            yield $this->buildResultItem($object, $position);
+        }
+    }
+
+    /**
+     * Filters result items.
+     *
+     * @param \Iterator $iterator
      * @param int $flags
      *
-     * @return \Netgen\BlockManager\Collection\Result\ResultItem[]
+     * @return \Generator
      */
-    protected function getResultItems(CollectionIterator $collectionIterator, $flags = 0)
+    protected function filterResultItems(Iterator $iterator, $flags = 0)
     {
-        $resultItems = array();
-
-        foreach ($collectionIterator as $position => $object) {
-            $resultItem = $this->buildResultItem($object, $position);
+        foreach ($iterator as $resultItem) {
             if ($this->isItemIncluded($resultItem->getItem(), $flags)) {
-                $resultItems[] = $resultItem;
+                yield $resultItem;
             }
         }
-
-        return $resultItems;
     }
 
     /**
