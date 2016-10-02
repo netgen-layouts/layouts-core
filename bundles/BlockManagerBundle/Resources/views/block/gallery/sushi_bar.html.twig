@@ -11,7 +11,7 @@
             {% if block.parameter('number_of_thumbnails') %}data-slides-per-view="{{ block.parameter('number_of_thumbnails') }}"{% endif %}
         >
             <div class="swiper-wrapper">
-                {% for result in collections['default'].results %}
+                {% for result in collections['default'] %}
                     <div class="swiper-slide">
                         {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
                     </div>

@@ -3,8 +3,11 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\ValueObject;
+use IteratorAggregate;
+use ArrayIterator;
+use Countable;
 
-class Result extends ValueObject
+class Result extends ValueObject implements IteratorAggregate, Countable
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
@@ -79,5 +82,25 @@ class Result extends ValueObject
     public function getLimit()
     {
         return $this->limit;
+    }
+
+    /**
+     * Retrieve an external iterator.
+     *
+     * @return \Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->results);
+    }
+
+    /**
+     * Count elements of an object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->results);
     }
 }
