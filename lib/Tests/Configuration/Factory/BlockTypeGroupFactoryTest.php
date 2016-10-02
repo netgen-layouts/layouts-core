@@ -18,7 +18,6 @@ class BlockTypeGroupFactoryTest extends TestCase
             'simple_blocks',
             array(
                 'name' => 'Simple blocks',
-                'enabled' => true,
             ),
             array(new BlockType('title'), new BlockType('title_with_h3'))
         );
@@ -26,7 +25,6 @@ class BlockTypeGroupFactoryTest extends TestCase
         $this->assertEquals(
             new BlockTypeGroup(
                 'simple_blocks',
-                true,
                 'Simple blocks',
                 array(new BlockType('title'), new BlockType('title_with_h3'))
             ),

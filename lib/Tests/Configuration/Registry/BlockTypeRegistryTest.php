@@ -32,7 +32,6 @@ class BlockTypeRegistryTest extends TestCase
 
         $this->blockTypeGroup = new BlockTypeGroup(
             'block_type_group',
-            true,
             'Block type group',
             array()
         );

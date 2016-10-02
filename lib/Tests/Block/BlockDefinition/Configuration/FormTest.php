@@ -33,12 +33,4 @@ class FormTest extends TestCase
     {
         $this->assertEquals('form_type', $this->form->getType());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::isEnabled
-     */
-    public function testIsEnabled()
-    {
-        $this->assertTrue($this->form->isEnabled());
-    }
 }

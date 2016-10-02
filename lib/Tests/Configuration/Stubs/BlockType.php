@@ -11,13 +11,11 @@ class BlockType extends BaseBlockType
      * Constructor.
      *
      * @param string $identifier
-     * @param bool $enabled
      */
-    public function __construct($identifier, $enabled = true)
+    public function __construct($identifier)
     {
         parent::__construct(
             $identifier,
-            $enabled,
             $identifier,
             new BlockDefinition($identifier),
             array()

@@ -19,7 +19,6 @@ class SourceFactoryTest extends TestCase
             'dynamic',
             array(
                 'name' => 'Dynamic source',
-                'enabled' => true,
                 'queries' => array(
                     'default' => array(
                         'query_type' => 'ezcontent_search',
@@ -43,7 +42,6 @@ class SourceFactoryTest extends TestCase
         $this->assertEquals(
             new Source(
                 'dynamic',
-                true,
                 'Dynamic source',
                 array(
                     'default' => new Query(

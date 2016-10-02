@@ -35,7 +35,6 @@ class BlockTypeNormalizerTest extends TestCase
     {
         $blockType = new BlockType(
             'identifier',
-            true,
             'Block type',
             $this->blockDefinition,
             array(
@@ -86,10 +85,10 @@ class BlockTypeNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new BlockType('identifier', true, 'name', $blockDefinition), false),
+            array(new BlockType('identifier', 'name', $blockDefinition), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new BlockType('identifier', true, 'name', $blockDefinition), 2), false),
-            array(new VersionedValue(new BlockType('identifier', true, 'name', $blockDefinition), 1), true),
+            array(new VersionedValue(new BlockType('identifier', 'name', $blockDefinition), 2), false),
+            array(new VersionedValue(new BlockType('identifier', 'name', $blockDefinition), 1), true),
         );
     }
 }

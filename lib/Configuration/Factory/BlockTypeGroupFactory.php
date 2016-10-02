@@ -19,7 +19,6 @@ class BlockTypeGroupFactory
     {
         return new BlockTypeGroup(
             $identifier,
-            $config['enabled'],
             $config['name'],
             $blockTypes
         );

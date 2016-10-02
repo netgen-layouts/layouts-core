@@ -10,11 +10,6 @@ class BlockTypeGroup
     protected $identifier;
 
     /**
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
      * @var string
      */
     protected $name;
@@ -28,14 +23,12 @@ class BlockTypeGroup
      * Constructor.
      *
      * @param string $identifier
-     * @param bool $enabled
      * @param string $name
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockType[] $blockTypes
      */
-    public function __construct($identifier, $enabled, $name, array $blockTypes = array())
+    public function __construct($identifier, $name, array $blockTypes = array())
     {
         $this->identifier = $identifier;
-        $this->enabled = $enabled;
         $this->name = $name;
         $this->blockTypes = $blockTypes;
     }
@@ -48,16 +41,6 @@ class BlockTypeGroup
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    /**
-     * Returns if the block type group is enabled.
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 
     /**

@@ -12,11 +12,6 @@ class Source
     protected $identifier;
 
     /**
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
      * @var string
      */
     protected $name;
@@ -30,14 +25,12 @@ class Source
      * Constructor.
      *
      * @param string $identifier
-     * @param bool $enabled
      * @param string $name
      * @param \Netgen\BlockManager\Configuration\Source\Query[] $queries
      */
-    public function __construct($identifier, $enabled, $name, array $queries)
+    public function __construct($identifier, $name, array $queries)
     {
         $this->identifier = $identifier;
-        $this->enabled = $enabled;
         $this->name = $name;
         $this->queries = $queries;
     }
@@ -50,16 +43,6 @@ class Source
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    /**
-     * Returns if the source is enabled.
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 
     /**

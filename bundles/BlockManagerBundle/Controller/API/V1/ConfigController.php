@@ -84,16 +84,12 @@ class ConfigController extends Controller
     {
         $blockTypeGroups = array();
         foreach ($this->blockTypeRegistry->getBlockTypeGroups() as $blockTypeGroup) {
-            if ($blockTypeGroup->isEnabled()) {
-                $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
-            }
+            $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
         }
 
         $blockTypes = array();
         foreach ($this->blockTypeRegistry->getBlockTypes() as $blockType) {
-            if ($blockType->isEnabled()) {
-                $blockTypes[] = new VersionedValue($blockType, Version::API_V1);
-            }
+            $blockTypes[] = new VersionedValue($blockType, Version::API_V1);
         }
 
         return new ValueList(
@@ -113,9 +109,7 @@ class ConfigController extends Controller
     {
         $layoutTypes = array();
         foreach ($this->layoutTypeRegistry->getLayoutTypes() as $layoutType) {
-            if ($layoutType->isEnabled()) {
-                $layoutTypes[] = new VersionedValue($layoutType, Version::API_V1);
-            }
+            $layoutTypes[] = new VersionedValue($layoutType, Version::API_V1);
         }
 
         return new ValueList($layoutTypes);
@@ -130,9 +124,7 @@ class ConfigController extends Controller
     {
         $sources = array();
         foreach ($this->sourceRegistry->getSources() as $source) {
-            if ($source->isEnabled()) {
-                $sources[] = new VersionedValue($source, Version::API_V1);
-            }
+            $sources[] = new VersionedValue($source, Version::API_V1);
         }
 
         return new ValueList($sources);

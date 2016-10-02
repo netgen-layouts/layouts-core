@@ -17,7 +17,6 @@ class LayoutTypeTest extends TestCase
     {
         $this->layoutType = new LayoutType(
             '4_zones_a',
-            true,
             '4 zones A',
             array(
                 'left' => new Zone(
@@ -36,14 +35,6 @@ class LayoutTypeTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('4_zones_a', $this->layoutType->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::isEnabled
-     */
-    public function testGetIsEnabled()
-    {
-        $this->assertEquals(true, $this->layoutType->isEnabled());
     }
 
     /**

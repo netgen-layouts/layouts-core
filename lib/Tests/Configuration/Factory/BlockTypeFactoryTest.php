@@ -21,7 +21,6 @@ class BlockTypeFactoryTest extends TestCase
             array(
                 'name' => 'Title',
                 'definition_identifier' => 'title',
-                'enabled' => true,
                 'defaults' => array(
                     'viewType' => 'default',
                 ),
@@ -32,7 +31,6 @@ class BlockTypeFactoryTest extends TestCase
         $this->assertEquals(
             new BlockType(
                 'title',
-                true,
                 'Title',
                 $blockDefinition,
                 array(

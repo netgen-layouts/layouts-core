@@ -15,22 +15,15 @@ class Form
     protected $type;
 
     /**
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
      * Constructor.
      *
      * @param string $identifier
      * @param string $type
-     * @param bool $enabled
      */
-    public function __construct($identifier, $type, $enabled)
+    public function __construct($identifier, $type)
     {
         $this->identifier = $identifier;
         $this->type = $type;
-        $this->enabled = $enabled;
     }
 
     /**
@@ -51,15 +44,5 @@ class Form
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Returns if the form is enabled.
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 }

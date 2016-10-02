@@ -18,7 +18,6 @@ class LayoutTypeFactoryTest extends TestCase
             '4_zones_a',
             array(
                 'name' => '4 zones A',
-                'enabled' => true,
                 'zones' => array(
                     'left' => array(
                         'name' => 'Left',
@@ -31,7 +30,6 @@ class LayoutTypeFactoryTest extends TestCase
         $this->assertEquals(
             new LayoutType(
                 '4_zones_a',
-                true,
                 '4 zones A',
                 array(
                     'left' => new Zone(

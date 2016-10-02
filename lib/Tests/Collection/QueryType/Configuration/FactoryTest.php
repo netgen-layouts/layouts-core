@@ -32,6 +32,10 @@ class FactoryTest extends TestCase
                     'enabled' => true,
                     'parameters' => array('param1', 'param2'),
                 ),
+                'content' => array(
+                    'type' => 'form_type',
+                    'enabled' => false,
+                ),
             ),
             'defaults' => array(
                 'parameters' => array(

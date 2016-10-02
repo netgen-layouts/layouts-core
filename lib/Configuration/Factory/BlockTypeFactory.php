@@ -20,7 +20,6 @@ class BlockTypeFactory
     {
         return new BlockType(
             $identifier,
-            $config['enabled'],
             $config['name'],
             $blockDefinition,
             $config['defaults']

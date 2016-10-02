@@ -52,7 +52,6 @@ class LayoutNormalizerTest extends TestCase
 
         $layoutType = new LayoutType(
             '4_zones_a',
-            true,
             '4 zones A',
             array(
                 'left' => new LayoutTypeZone('left', 'Left', array('title')),

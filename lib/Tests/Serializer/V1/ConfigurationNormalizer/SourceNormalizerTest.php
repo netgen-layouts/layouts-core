@@ -39,7 +39,6 @@ class SourceNormalizerTest extends TestCase
     {
         $source = new Source(
             'identifier',
-            true,
             'Source',
             array(
                 new Query('identifier', new QueryType('ezcontent'), array('param' => 'value')),
@@ -100,10 +99,10 @@ class SourceNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new Source('identifier', true, 'name', array()), false),
+            array(new Source('identifier', 'name', array()), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Source('identifier', true, 'name', array()), 2), false),
-            array(new VersionedValue(new Source('identifier', true, 'name', array()), 1), true),
+            array(new VersionedValue(new Source('identifier', 'name', array()), 2), false),
+            array(new VersionedValue(new Source('identifier', 'name', array()), 1), true),
         );
     }
 }

@@ -24,7 +24,6 @@ class BlockTypeTest extends TestCase
 
         $this->blockType = new BlockType(
             'title',
-            true,
             'Title',
             $this->blockDefinition,
             array(
@@ -43,14 +42,6 @@ class BlockTypeTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('title', $this->blockType->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::isEnabled
-     */
-    public function testGetIsEnabled()
-    {
-        $this->assertEquals(true, $this->blockType->isEnabled());
     }
 
     /**
@@ -122,7 +113,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyName()
     {
-        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
+        $this->blockType = new BlockType('title', 'Title', $this->blockDefinition, array());
 
         $this->assertEquals('', $this->blockType->getDefaultName());
     }
@@ -132,7 +123,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyViewType()
     {
-        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
+        $this->blockType = new BlockType('title', 'Title', $this->blockDefinition, array());
 
         $this->assertEquals('', $this->blockType->getDefaultViewType());
     }
@@ -142,7 +133,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyItemViewType()
     {
-        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
+        $this->blockType = new BlockType('title', 'Title', $this->blockDefinition, array());
 
         $this->assertEquals('', $this->blockType->getDefaultItemViewType());
     }
@@ -152,7 +143,7 @@ class BlockTypeTest extends TestCase
      */
     public function testGetDefaultEmptyParameters()
     {
-        $this->blockType = new BlockType('title', true, 'Title', $this->blockDefinition, array());
+        $this->blockType = new BlockType('title', 'Title', $this->blockDefinition, array());
 
         $this->assertEquals(array(), $this->blockType->getDefaultParameters());
     }

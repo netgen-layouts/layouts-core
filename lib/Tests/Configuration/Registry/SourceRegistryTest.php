@@ -24,7 +24,6 @@ class SourceRegistryTest extends TestCase
 
         $this->source = new Source(
             'source',
-            true,
             'Source',
             array()
         );

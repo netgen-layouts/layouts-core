@@ -18,7 +18,6 @@ class SourceTest extends TestCase
     {
         $this->source = new Source(
             'source',
-            true,
             'Source',
             array(
                 'default' => new Query(
@@ -37,14 +36,6 @@ class SourceTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('source', $this->source->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::isEnabled
-     */
-    public function testGetIsEnabled()
-    {
-        $this->assertEquals(true, $this->source->isEnabled());
     }
 
     /**

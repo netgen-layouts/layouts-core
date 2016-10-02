@@ -3,7 +3,7 @@
 {% set block_definition = block.blockDefinition %}
 
 <section>
-    {% if block_definition.config.getForm('full').enabled %}
+    {% if block_definition.config.hasForm('full') %}
         {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collections.html.twig' %}
 
         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'formName': 'full'}) }}"></div>
@@ -11,7 +11,7 @@
         {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_query.html.twig' %}
 
         {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_items.html.twig' %}
-    {% elseif block_definition.config.getForm('design').enabled and block_definition.config.getForm('content').enabled %}
+    {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
                 <li><a id="content">{{ 'block.edit.tabs.content'|trans }}</a></li>

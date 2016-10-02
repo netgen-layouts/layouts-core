@@ -12,11 +12,6 @@ class LayoutType
     protected $identifier;
 
     /**
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
      * @var string
      */
     protected $name;
@@ -30,14 +25,12 @@ class LayoutType
      * Constructor.
      *
      * @param string $identifier
-     * @param bool $enabled
      * @param string $name
      * @param \Netgen\BlockManager\Configuration\LayoutType\Zone[] $zones
      */
-    public function __construct($identifier, $enabled, $name, array $zones)
+    public function __construct($identifier, $name, array $zones)
     {
         $this->identifier = $identifier;
-        $this->enabled = $enabled;
         $this->name = $name;
         $this->zones = $zones;
     }
@@ -50,16 +43,6 @@ class LayoutType
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    /**
-     * Returns if the layout type is enabled.
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 
     /**

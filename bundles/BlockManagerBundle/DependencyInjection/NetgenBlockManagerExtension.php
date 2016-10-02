@@ -208,6 +208,10 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected function buildLayoutTypes(ContainerBuilder $container, array $configs = array())
     {
         foreach ($configs as $identifier => $config) {
+            if (!$config['enabled']) {
+                continue;
+            }
+
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
 
             $container
@@ -230,6 +234,10 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected function buildSources(ContainerBuilder $container, array $configs = array())
     {
         foreach ($configs as $identifier => $config) {
+            if (!$config['enabled']) {
+                continue;
+            }
+
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
 
             $queryTypeReferences = array();
@@ -262,6 +270,10 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected function buildBlockTypes(ContainerBuilder $container, array $configs = array())
     {
         foreach ($configs as $identifier => $config) {
+            if (!$config['enabled']) {
+                continue;
+            }
+
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type.%s', $identifier);
 
             $container
@@ -295,6 +307,10 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected function buildBlockTypeGroups(ContainerBuilder $container, array $configs = array())
     {
         foreach ($configs as $identifier => $config) {
+            if (!$config['enabled']) {
+                continue;
+            }
+
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type_group.%s', $identifier);
 
             $blockTypeReferences = array();

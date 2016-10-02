@@ -159,7 +159,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
                 'title',
-                true,
                 'Title',
                 $this->blockDefinitionRegistry->getBlockDefinition('title')
             )
@@ -197,7 +196,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
                 'title',
-                true,
                 'Title',
                 $this->blockDefinitionRegistry->getBlockDefinition('title')
             )
@@ -221,7 +219,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
                 'title',
-                true,
                 'Title',
                 $this->blockDefinitionRegistry->getBlockDefinition('title')
             )
@@ -247,7 +244,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
                 'title',
-                true,
                 'Title',
                 $this->blockDefinitionRegistry->getBlockDefinition('title')
             )
@@ -271,7 +267,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
                 'title',
-                true,
                 'Title',
                 $this->blockDefinitionRegistry->getBlockDefinition('title')
             )
@@ -294,7 +289,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
                 'gallery',
-                true,
                 'Gallery',
                 $this->blockDefinitionRegistry->getBlockDefinition('gallery')
             )
@@ -643,7 +637,6 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     'title',
-                    true,
                     'Title',
                     $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
@@ -680,7 +673,6 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     'title',
-                    true,
                     'Title',
                     $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
@@ -717,7 +709,6 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     'title',
-                    true,
                     'Title',
                     $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
@@ -754,7 +745,6 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     'title',
-                    true,
                     'Title',
                     $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(

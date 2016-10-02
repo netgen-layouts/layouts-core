@@ -17,10 +17,13 @@ class Factory
         $forms = array();
 
         foreach ($config['forms'] as $formIdentifier => $formConfig) {
+            if (!$formConfig['enabled']) {
+                continue;
+            }
+
             $forms[$formIdentifier] = new Form(
                 $formIdentifier,
-                $formConfig['type'],
-                $formConfig['enabled']
+                $formConfig['type']
             );
         }
 

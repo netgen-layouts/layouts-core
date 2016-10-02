@@ -29,7 +29,6 @@ class LayoutTypeNormalizerTest extends TestCase
     {
         $layoutType = new LayoutType(
             '4_zones_a',
-            true,
             'Layout type',
             array(
                 'zone1' => new Zone('zone1', 'Zone 1', array('title')),
@@ -86,10 +85,10 @@ class LayoutTypeNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new LayoutType('4_zones_a', true, '4 zones A', array()), false),
+            array(new LayoutType('4_zones_a', '4 zones A', array()), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new LayoutType('4_zones_a', true, '4 zones A', array()), 2), false),
-            array(new VersionedValue(new LayoutType('4_zones_a', true, '4 zones A', array()), 1), true),
+            array(new VersionedValue(new LayoutType('4_zones_a', '4 zones A', array()), 2), false),
+            array(new VersionedValue(new LayoutType('4_zones_a', '4 zones A', array()), 1), true),
         );
     }
 }

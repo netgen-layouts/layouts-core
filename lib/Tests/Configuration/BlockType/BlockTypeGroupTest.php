@@ -17,7 +17,6 @@ class BlockTypeGroupTest extends TestCase
     {
         $this->blockTypeGroup = new BlockTypeGroup(
             'simple_blocks',
-            true,
             'Simple blocks',
             array(new BlockType('title'), new BlockType('title_with_h3'))
         );
@@ -30,14 +29,6 @@ class BlockTypeGroupTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('simple_blocks', $this->blockTypeGroup->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup::isEnabled
-     */
-    public function testGetIsEnabled()
-    {
-        $this->assertEquals(true, $this->blockTypeGroup->isEnabled());
     }
 
     /**

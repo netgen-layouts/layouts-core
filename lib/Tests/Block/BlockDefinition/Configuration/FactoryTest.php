@@ -32,6 +32,10 @@ class FactoryTest extends TestCase
                     'type' => 'form_type',
                     'enabled' => true,
                 ),
+                'full' => array(
+                    'type' => 'form_type',
+                    'enabled' => false,
+                ),
             ),
             'view_types' => array(
                 'large' => array(

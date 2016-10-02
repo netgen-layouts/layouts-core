@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -23,17 +24,15 @@ class BlockTypeGroupNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup $blockTypeGroup */
         $blockTypeGroup = $object->getValue();
 
-        $enabledBlockTypes = array();
-        foreach ($blockTypeGroup->getBlockTypes() as $blockType) {
-            if ($blockType->isEnabled()) {
-                $enabledBlockTypes[] = $blockType->getIdentifier();
-            }
-        }
-
         return array(
             'identifier' => $blockTypeGroup->getIdentifier(),
             'name' => $blockTypeGroup->getName(),
-            'block_types' => $enabledBlockTypes,
+            'block_types' => array_map(
+                function (BlockType $blockType) {
+                    return $blockType->getIdentifier();
+                },
+                $blockTypeGroup->getBlockTypes()
+            ),
         );
     }
 

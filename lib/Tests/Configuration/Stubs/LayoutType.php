@@ -7,6 +7,13 @@ use Netgen\BlockManager\Configuration\LayoutType\Zone;
 
 class LayoutType extends BaseLayoutType
 {
+    /**
+     * Constructor.
+     *
+     * @param string $identifier
+     * @param array $zones
+     * @param string $name
+     */
     public function __construct($identifier, $zones = array(), $name = null)
     {
         $zoneObjects = array();
@@ -15,6 +22,6 @@ class LayoutType extends BaseLayoutType
             $zoneObjects[$zone] = new Zone($zone, $zone, $allowedBlocks);
         }
 
-        parent::__construct($identifier, true, $name ?: $identifier, $zoneObjects);
+        parent::__construct($identifier, $name ?: $identifier, $zoneObjects);
     }
 }
