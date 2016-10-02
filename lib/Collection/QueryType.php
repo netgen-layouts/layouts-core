@@ -74,7 +74,7 @@ class QueryType implements QueryTypeInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Iterator
+     * @return mixed[]
      */
     public function getValues(array $parameters, $offset = 0, $limit = null)
     {
@@ -94,13 +94,15 @@ class QueryType implements QueryTypeInterface
     }
 
     /**
-     * Returns the name of the parameter which will be used as a limit inside the query.
+     * Returns the limit internal to this query.
      *
-     * @return string
+     * @param array $parameters
+     *
+     * @return int
      */
-    public function getLimitParameter()
+    public function getInternalLimit(array $parameters)
     {
-        return $this->handler->getLimitParameter();
+        return $this->handler->getInternalLimit($parameters);
     }
 
     /**

@@ -56,21 +56,44 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
             return new ArrayIterator();
         }
 
-        $iterator = new AppendIterator();
+        $values = new AppendIterator();
+        $previousCount = 0;
+        $valuesCount = 0;
 
         foreach ($this->collection->getQueries() as $query) {
-            $iterator->append(
-                $query->getQueryType()->getValues(
-                    $query->getParameters()
-                )
+            $queryType = $query->getQueryType();
+            $queryParameters = $query->getParameters();
+
+            $queryCount = $queryType->getCount($queryParameters);
+            $totalCount = $previousCount + $queryCount;
+
+            // We're skipping all the way to the start of the fetch (i.e. the offset)
+            if ($totalCount <= $this->offset) {
+                $previousCount = $totalCount;
+                continue;
+            }
+
+            $queryValues = $queryType->getValues(
+                $queryParameters,
+                $valuesCount === 0 && $this->offset > 0 ?
+                    $this->offset - $previousCount :
+                    0
             );
+
+            $values->append(new ArrayIterator($queryValues));
+            $valuesCount += count($queryValues);
+
+            // When we have enough results make sure that we limit
+            // the number of items to actual limit
+            if ($this->limit > 0 && $valuesCount >= $this->limit) {
+                $values = new LimitIterator($values, 0, $this->limit);
+                break;
+            }
+
+            $previousCount = $totalCount;
         }
 
-        return new LimitIterator(
-            $iterator,
-            $this->offset,
-            $this->limit > 0 ? $this->limit : -1
-        );
+        return $values;
     }
 
     /**
@@ -86,20 +109,11 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
             $queryType = $query->getQueryType();
             $parameters = $query->getParameters();
 
-            $limit = null;
-            $limitParameter = $queryType->getLimitParameter();
             $queryCount = $queryType->getCount($parameters);
 
-            if (
-                isset($parameters[$limitParameter]) &&
-                is_int($parameters[$limitParameter]) &&
-                $parameters[$limitParameter] >= 0
-            ) {
-                $limit = $parameters[$limitParameter];
-            }
-
-            if ($limit !== null && $queryCount > $limit) {
-                $queryCount = $limit;
+            $internalLimit = $queryType->getInternalLimit($parameters);
+            if ($internalLimit !== null && $queryCount > $internalLimit) {
+                $queryCount = $internalLimit;
             }
 
             $totalCount += $queryCount;

@@ -27,7 +27,7 @@ interface QueryTypeInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Iterator
+     * @return mixed[]
      */
     public function getValues(array $parameters, $offset = 0, $limit = null);
 
@@ -41,11 +41,13 @@ interface QueryTypeInterface
     public function getCount(array $parameters);
 
     /**
-     * Returns the name of the parameter which will be used as a limit inside the query.
+     * Returns the limit internal to this query.
      *
-     * @return string
+     * @param array $parameters
+     *
+     * @return int
      */
-    public function getLimitParameter();
+    public function getInternalLimit(array $parameters);
 
     /**
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
