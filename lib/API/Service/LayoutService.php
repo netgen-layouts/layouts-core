@@ -150,10 +150,13 @@ interface LayoutService
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $newName
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout);
+    public function copyLayout(Layout $layout, $newName);
 
     /**
      * Creates a layout draft.

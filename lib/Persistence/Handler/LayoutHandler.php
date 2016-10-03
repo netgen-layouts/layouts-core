@@ -153,10 +153,11 @@ interface LayoutHandler
      * Copies the layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param string $newName
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout);
+    public function copyLayout(Layout $layout, $newName);
 
     /**
      * Creates a new layout status.

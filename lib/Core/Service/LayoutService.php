@@ -393,17 +393,24 @@ class LayoutService implements LayoutServiceInterface
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param string $newName
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout)
+    public function copyLayout(Layout $layout, $newName)
     {
+        if ($this->layoutHandler->layoutNameExists($newName, $layout->getId())) {
+            throw new BadStateException('name', 'Layout with provided name already exists.');
+        }
+
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->layoutHandler->copyLayout($persistenceLayout);
+            $copiedLayout = $this->layoutHandler->copyLayout($persistenceLayout, $newName);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

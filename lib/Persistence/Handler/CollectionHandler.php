@@ -143,10 +143,11 @@ interface CollectionHandler
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $newName
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection);
+    public function copyCollection(Collection $collection, $newName = null);
 
     /**
      * Creates a new collection status.

@@ -533,14 +533,15 @@ class LayoutHandlerTest extends TestCase
         );
 
         $copiedLayout = $this->layoutHandler->copyLayout(
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            'New name'
         );
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
         $this->assertEquals(6, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
-        $this->assertRegExp('/^My layout \(copy\) \d+$/', $copiedLayout->name);
+        $this->assertEquals('New name', $copiedLayout->name);
         $this->assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
 

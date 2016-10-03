@@ -195,11 +195,16 @@ class LayoutServiceTest extends TransactionRollbackTest
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
+            ->method('layoutNameExists')
+            ->will($this->returnValue(false));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
             ->method('loadLayout')
             ->will($this->returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects($this->at(2))
             ->method('copyLayout')
             ->will($this->throwException(new Exception()));
 
@@ -207,7 +212,7 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->copyLayout(new Layout());
+        $this->layoutService->copyLayout(new Layout(), 'New name');
     }
 
     /**

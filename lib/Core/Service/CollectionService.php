@@ -333,18 +333,28 @@ class CollectionService implements APICollectionService
      * Copies a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param string $newName
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection)
+    public function copyCollection(Collection $collection, $newName = null)
     {
+        if ($newName !== null) {
+            if ($this->collectionHandler->collectionNameExists($newName, $collection->getId())) {
+                throw new BadStateException('name', 'Collection with provided name already exists.');
+            }
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
             $copiedCollection = $this->collectionHandler->copyCollection(
-                $persistenceCollection
+                $persistenceCollection,
+                $newName
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

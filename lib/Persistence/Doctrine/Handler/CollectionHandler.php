@@ -350,10 +350,11 @@ class CollectionHandler implements CollectionHandlerInterface
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $newName
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection)
+    public function copyCollection(Collection $collection, $newName = null)
     {
         $copiedCollectionId = $this->queryHandler->createCollection(
             new CollectionCreateStruct(
@@ -361,9 +362,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'status' => $collection->status,
                     'type' => $collection->type,
                     'shared' => $collection->shared,
-                    'name' => $collection->name !== null ?
-                        $collection->name . ' (copy) ' . crc32(microtime()) :
-                        null,
+                    'name' => $newName !== null ? $newName : null,
                 )
             )
         );

@@ -294,7 +294,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testCopyCollection()
     {
-        $collection = $this->collectionService->loadCollection(2);
+        $collection = $this->collectionService->loadCollection(3);
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
         $this->assertInstanceOf(Collection::class, $copiedCollection);
@@ -308,11 +308,21 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testCopyCollectionWithName()
     {
         $collection = $this->collectionService->loadCollection(3);
-        $copiedCollection = $this->collectionService->copyCollection($collection);
+        $copiedCollection = $this->collectionService->copyCollection($collection, 'New name');
 
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(6, $copiedCollection->getId());
-        $this->assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->getName());
+        $this->assertEquals('New name', $copiedCollection->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCopyCollectionWithNameThrowsBadStateException()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+        $this->collectionService->copyCollection($collection, 'My other collection');
     }
 
     /**

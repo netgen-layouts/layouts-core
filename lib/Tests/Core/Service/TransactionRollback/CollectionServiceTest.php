@@ -145,6 +145,11 @@ class CollectionServiceTest extends TransactionRollbackTest
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
+            ->method('collectionNameExists')
+            ->will($this->returnValue(false));
+
+        $this->collectionHandlerMock
+            ->expects($this->at(1))
             ->method('loadCollection')
             ->will(
                 $this->returnValue(
@@ -155,7 +160,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             );
 
         $this->collectionHandlerMock
-            ->expects($this->at(1))
+            ->expects($this->at(2))
             ->method('copyCollection')
             ->will($this->throwException(new Exception()));
 
@@ -163,7 +168,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->copyCollection(new Collection());
+        $this->collectionService->copyCollection(new Collection(), 'New name');
     }
 
     /**

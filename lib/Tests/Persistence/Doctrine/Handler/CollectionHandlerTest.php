@@ -447,14 +447,15 @@ class CollectionHandlerTest extends TestCase
     public function testCopyCollection()
     {
         $copiedCollection = $this->collectionHandler->copyCollection(
-            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED)
+            $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED),
+            'New name'
         );
 
         $this->assertEquals(6, $copiedCollection->id);
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
         $this->assertTrue($copiedCollection->shared);
-        $this->assertRegExp('/^My collection \(copy\) \d+$/', $copiedCollection->name);
+        $this->assertEquals('New name', $copiedCollection->name);
         $this->assertEquals(Collection::STATUS_PUBLISHED, $copiedCollection->status);
 
         $this->assertEquals(

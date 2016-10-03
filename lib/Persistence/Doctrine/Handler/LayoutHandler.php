@@ -328,10 +328,11 @@ class LayoutHandler implements LayoutHandlerInterface
      * Copies the layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param string $newName
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function copyLayout(Layout $layout)
+    public function copyLayout(Layout $layout, $newName)
     {
         $layoutZones = $this->loadLayoutZones($layout);
 
@@ -350,7 +351,7 @@ class LayoutHandler implements LayoutHandlerInterface
             new LayoutCreateStruct(
                 array(
                     'type' => $layout->type,
-                    'name' => $layout->name . ' (copy) ' . crc32(microtime()),
+                    'name' => $newName,
                     'status' => $layout->status,
                     'shared' => $layout->shared,
                     'zoneCreateStructs' => $zoneCreateStructs,

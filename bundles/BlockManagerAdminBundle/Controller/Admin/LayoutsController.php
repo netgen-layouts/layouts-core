@@ -50,7 +50,10 @@ class LayoutsController extends Controller
     public function copyLayout($layoutId)
     {
         $layout = $this->loadLayout($layoutId);
-        $copiedLayout = $this->layoutService->copyLayout($layout);
+        $copiedLayout = $this->layoutService->copyLayout(
+            $layout,
+            $layout->getName() . ' (copy) ' . crc32(microtime())
+        );
 
         return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
     }
