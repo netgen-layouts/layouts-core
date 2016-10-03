@@ -55,9 +55,10 @@ class ResultLoaderTest extends TestCase
         );
 
         $this->resultLoader = new ResultLoader(
-            $this->itemLoader,
-            $this->itemBuilder,
-            new ResultIteratorFactory()
+            new ResultIteratorFactory(
+                $this->itemLoader,
+                $this->itemBuilder
+            )
         );
     }
 
