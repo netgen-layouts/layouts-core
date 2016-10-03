@@ -2,10 +2,13 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use IteratorIterator;
+use Iterator;
 
-class ResultIteratorFactory
+class ItemLoaderIterator extends IteratorIterator
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
@@ -20,36 +23,42 @@ class ResultIteratorFactory
     /**
      * Constructor.
      *
+     * @param \Iterator $iterator
      * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
      * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
      */
     public function __construct(
+        Iterator $iterator,
         ItemLoaderInterface $itemLoader,
         ItemBuilderInterface $itemBuilder
     ) {
+        parent::__construct($iterator);
+
         $this->itemLoader = $itemLoader;
         $this->itemBuilder = $itemBuilder;
     }
 
     /**
-     * Builds and returns result iterator from provided collection iterator.
+     * Returns the item for provided object.
      *
-     * @param \Netgen\BlockManager\Collection\Result\CollectionIterator $collectionIterator
-     * @param int $flags
+     * Object can be a collection item, which only holds the reference to the value (ID and type),
+     * or a value itself.
      *
-     * @return \Iterator
+     * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function getResultIterator(CollectionIterator $collectionIterator, $flags = 0)
+    public function current()
     {
-        return new ResultFilterIterator(
-            new ResultBuilderIterator(
-                new ItemLoaderIterator(
-                    $collectionIterator,
-                    $this->itemLoader,
-                    $this->itemBuilder
-                )
-            ),
-            $flags
+        $object = parent::current();
+
+        if (!$object instanceof Item) {
+            return $this->itemBuilder->build($object);
+        }
+
+        $item = $this->itemLoader->load(
+            $object->getValueId(),
+            $object->getValueType()
         );
+
+        return new CollectionItemBased($item, $object);
     }
 }

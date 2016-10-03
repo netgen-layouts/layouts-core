@@ -6,12 +6,13 @@ parameters:
 services:
     netgen_block_manager.collection.result_iterator_factory:
         class: "%netgen_block_manager.collection.result_iterator_factory.class%"
+        arguments:
+            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_block_manager.item.item_builder"
 
     netgen_block_manager.collection.result_loader:
         class: "%netgen_block_manager.collection.result_loader.class%"
         arguments:
-            - "@netgen_block_manager.item.item_loader"
-            - "@netgen_block_manager.item.item_builder"
             - "@netgen_block_manager.collection.result_iterator_factory"
 
     netgen_block_manager.collection.registry.query_type:
