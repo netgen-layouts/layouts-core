@@ -232,7 +232,7 @@ class LayoutService implements LayoutServiceInterface
      */
     public function layoutNameExists($name, $excludedLayoutId = null)
     {
-        return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId = null);
+        return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
     /**

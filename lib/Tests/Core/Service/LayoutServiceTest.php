@@ -216,7 +216,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::layoutNameExists
      */
-    public function testLayoutNameExistsWithExcludedLayoutId()
+    public function testLayoutNameNotExistsWithExcludedLayoutId()
     {
         $this->assertFalse($this->layoutService->layoutNameExists('My layout', 1));
     }
