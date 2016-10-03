@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,11 @@ class BlockCollectionController extends Controller
     protected $collectionService;
 
     /**
+     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator
+     */
+    protected $validator;
+
+    /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
     protected $resultLoader;
@@ -44,15 +50,18 @@ class BlockCollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
+     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator $validator
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
+        BlockCollectionValidator $validator,
         ResultLoaderInterface $resultLoader
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
+        $this->validator = $validator;
         $this->resultLoader = $resultLoader;
     }
 
@@ -114,12 +123,9 @@ class BlockCollectionController extends Controller
      */
     public function changeCollectionType(CollectionReference $collectionReference, Request $request)
     {
+        $this->validator->validateChangeCollectionType($request);
+
         $newType = $request->request->get('new_type');
-
-        if (!in_array($newType, array(self::NEW_TYPE_MANUAL, self::NEW_TYPE_DYNAMIC, self::NEW_TYPE_SHARED), true)) {
-            throw new InvalidArgumentException('new_type', 'Specified collection type is not valid');
-        }
-
         $collection = $collectionReference->getCollection();
 
         if ($newType === self::NEW_TYPE_MANUAL) {
