@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Exception\RuntimeException;
+use ArrayIterator;
 
 class Layout extends ValueObject implements APILayout
 {
@@ -159,5 +161,70 @@ class Layout extends ValueObject implements APILayout
     public function hasZone($zoneIdentifier)
     {
         return isset($this->zones[$zoneIdentifier]);
+    }
+
+    /**
+     * Retrieve an external iterator.
+     *
+     * @return \Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->zones);
+    }
+
+    /**
+     * Count elements of an object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->zones);
+    }
+
+    /**
+     * Whether a offset exists.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->zones[$offset]);
+    }
+
+    /**
+     * Offset to retrieve.
+     *
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->zones[$offset];
+    }
+
+    /**
+     * Offset to set.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new RuntimeException('Method call not supported');
+    }
+
+    /**
+     * Offset to unset.
+     *
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        throw new RuntimeException('Method call not supported');
     }
 }

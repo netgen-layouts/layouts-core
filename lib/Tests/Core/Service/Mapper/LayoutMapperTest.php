@@ -96,7 +96,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
         $this->assertNotEmpty($layout->getZones());
 
-        foreach ($layout->getZones() as $zone) {
+        foreach ($layout as $zone) {
             $this->assertInstanceOf(APIZone::class, $zone);
         }
     }

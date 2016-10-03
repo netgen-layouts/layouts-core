@@ -3,8 +3,11 @@
 namespace Netgen\BlockManager\API\Values\Page;
 
 use Netgen\BlockManager\API\Values\Value;
+use IteratorAggregate;
+use ArrayAccess;
+use Countable;
 
-interface Layout extends Value
+interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * @const string

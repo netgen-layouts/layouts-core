@@ -60,43 +60,4 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->getLinkedZone());
         $this->assertEquals(1, count($zone));
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::count
-     */
-    public function testIsEmptyWithLinkedLayout()
-    {
-        $linkedZone = new Zone(
-            array(
-                'identifier' => 'right',
-                'layoutId' => 42,
-                'blocks' => array(
-                    new Block(),
-                ),
-            )
-        );
-
-        $zone = new Zone(
-            array(
-                'identifier' => 'left',
-                'layoutId' => 84,
-                'status' => Layout::STATUS_PUBLISHED,
-                'linkedZone' => $linkedZone,
-                'blocks' => array(),
-            )
-        );
-
-        $this->assertEquals('left', $zone->getIdentifier());
-        $this->assertEquals(84, $zone->getLayoutId());
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
-        $this->assertEquals(array(), $zone->getBlocks());
-        $this->assertEquals($linkedZone, $zone->getLinkedZone());
-        $this->assertEquals(1, count($zone));
-    }
 }

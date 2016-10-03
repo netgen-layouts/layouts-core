@@ -90,7 +90,7 @@ class LayoutNormalizer implements NormalizerInterface
     {
         $zones = array();
 
-        foreach ($layout->getZones() as $zoneIdentifier => $zone) {
+        foreach ($layout as $zoneIdentifier => $zone) {
             $linkedZone = $zone->getLinkedZone();
 
             $zones[] = array(

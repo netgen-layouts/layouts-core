@@ -102,8 +102,8 @@ class LayoutController extends Controller
         );
 
         $blocks = array();
-        foreach ($layout->getZones() as $zone) {
-            foreach ($zone->getBlocks() as $block) {
+        foreach ($layout as $zone) {
+            foreach ($zone as $block) {
                 $blocks[] = new View($block, Version::API_V1);
             }
         }
@@ -129,13 +129,12 @@ class LayoutController extends Controller
             $request->query->get('published') !== 'true'
         );
 
-        $layoutZones = $layout->getZones();
-        if (!isset($layoutZones[$zoneIdentifier])) {
+        if (!$layout->hasZone($zoneIdentifier)) {
             throw new NotFoundException('zone', $zoneIdentifier);
         }
 
         $blocks = array();
-        foreach ($layoutZones[$zoneIdentifier]->getBlocks() as $block) {
+        foreach ($layout->getZone($zoneIdentifier, false) as $block) {
             $blocks[] = new View($block, Version::API_V1);
         }
 
