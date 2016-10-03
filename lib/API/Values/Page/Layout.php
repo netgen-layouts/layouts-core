@@ -80,11 +80,14 @@ interface Layout extends Value
     /**
      * Returns the specified zone or null if zone does not exist.
      *
+     * By default, this method will return the linked zone if the requested zone has one.
+     *
      * @param string $zoneIdentifier
+     * @param bool $ignoreLinkedZone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function getZone($zoneIdentifier);
+    public function getZone($zoneIdentifier, $ignoreLinkedZone = false);
 
     /**
      * Returns if layout has a specified zone.

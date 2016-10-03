@@ -85,16 +85,10 @@ class Zone extends ValueObject implements APIZone
     /**
      * Returns the count of blocks in the zone.
      *
-     * If linked zone is specified, it's count is returned.
-     *
      * @return int
      */
     public function count()
     {
-        if ($this->linkedZone instanceof self) {
-            return $this->linkedZone->count();
-        }
-
         return count($this->blocks);
     }
 }

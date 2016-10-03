@@ -130,13 +130,23 @@ class Layout extends ValueObject implements APILayout
     /**
      * Returns the specified zone or null if zone does not exist.
      *
+     * By default, this method will return the linked zone if the requested zone has one.
+     *
      * @param string $zoneIdentifier
+     * @param bool $ignoreLinkedZone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function getZone($zoneIdentifier)
+    public function getZone($zoneIdentifier, $ignoreLinkedZone = false)
     {
-        return isset($this->zones[$zoneIdentifier]) ? $this->zones[$zoneIdentifier] : null;
+        if (isset($this->zones[$zoneIdentifier])) {
+            $linkedZone = $this->zones[$zoneIdentifier]->getLinkedZone();
+            if ($linkedZone instanceof Zone && !$ignoreLinkedZone) {
+                return $linkedZone;
+            }
+
+            return $this->zones[$zoneIdentifier];
+        }
     }
 
     /**
