@@ -3,5 +3,11 @@
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    {% block children %}{% endblock %}
+    {% block children %}
+        {% for child in form %}
+            {{ form_row(child) }}
+        {% endfor %}
+    {% endblock %}
+
+    {{ form_rest(form) }}
 {{ form_end(form) }}
