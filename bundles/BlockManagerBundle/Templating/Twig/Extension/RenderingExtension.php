@@ -229,6 +229,43 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     }
 
     /**
+     * Renders the provided Twig block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param string $context
+     * @param string $twigBlockName
+     * @param \Twig_Template $twigTemplate
+     * @param string $twigContext
+     * @param array $twigBlocks
+     *
+     * @throws \Exception If an error occurred
+     *
+     * @return string
+     */
+    protected function renderTwigBlock(Block $block, $context, $twigBlockName, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    {
+        try {
+            ob_start();
+
+            $twigTemplate->displayBlock($twigBlockName, $twigContext, $twigBlocks);
+
+            $params = array('twig_block_content' => ob_get_clean());
+
+            return $this->renderBlock($block, $params, $context);
+        } catch (Exception $e) {
+            ob_end_clean();
+
+            $this->logBlockError($block, $e);
+
+            if ($this->debug) {
+                throw $e;
+            }
+
+            return '';
+        }
+    }
+
+    /**
      * Renders the provided item.
      *
      * @param \Netgen\BlockManager\Item\ItemInterface $item
@@ -302,67 +339,23 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
     {
+        /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
         foreach ($zone as $block) {
-            /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-            $params = array();
-
             $blockDefinitionHandler = $block->getBlockDefinition()->getHandler();
             if ($blockDefinitionHandler instanceof TwigBlockDefinitionHandlerInterface) {
-                $twigBlockContent = $this->displayTwigBlock(
-                    $blockDefinitionHandler,
+                echo $this->renderTwigBlock(
                     $block,
+                    $context,
+                    $blockDefinitionHandler->getTwigBlockName($block),
                     $twigTemplate,
                     $twigContext,
                     $twigBlocks
                 );
 
-                $params['twig_block_content'] = $twigBlockContent;
+                continue;
             }
 
-            echo $this->renderBlock($block, $params, $context);
-        }
-    }
-
-    /**
-     * Displays the provided twig block.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $blockDefinitionHandler
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Twig_Template $twigTemplate
-     * @param array $twigContext
-     * @param array $twigBlocks
-     *
-     * @throws \Exception If an error occurred
-     *
-     * @return string
-     */
-    protected function displayTwigBlock(
-        TwigBlockDefinitionHandlerInterface $blockDefinitionHandler,
-        Block $block,
-        Twig_Template $twigTemplate,
-        $twigContext,
-        array $twigBlocks = array()
-    ) {
-        try {
-            ob_start();
-
-            $twigTemplate->displayBlock(
-                $blockDefinitionHandler->getTwigBlockName($block),
-                $twigContext,
-                $twigBlocks
-            );
-
-            return ob_get_clean();
-        } catch (Exception $e) {
-            ob_end_clean();
-
-            $this->logBlockError($block, $e);
-
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
+            echo $this->renderBlock($block, array(), $context);
         }
     }
 
