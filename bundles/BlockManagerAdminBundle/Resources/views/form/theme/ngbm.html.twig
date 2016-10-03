@@ -31,8 +31,8 @@
 
     {% import _self as self %}
 
-    {% set key_form = form.children[key_name] %}
-    {% set values_form = form.children[values_name] %}
+    {% set key_form = form[key_name] %}
+    {% set values_form = form[values_name] %}
 
     {{- form_row(key_form) -}}
 
@@ -62,7 +62,7 @@
         {%- endif -%}
 
         <div class="checkbox">
-            {% set checkbox = form.children[form.vars.checkbox_name] %}
+            {% set checkbox = form[form.vars.checkbox_name] %}
 
             {{- form_errors(checkbox) -}}
             {{- form_widget(checkbox) -}}

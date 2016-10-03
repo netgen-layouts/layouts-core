@@ -1,6 +1,6 @@
 {% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
 
-{% form_theme form.children.type _self %}
+{% form_theme form.type _self %}
 
 {% trans_default_domain 'ngbm_forms' %}
 
@@ -14,6 +14,6 @@
 {% endblock %}
 
 {% block children %}
-    {{ form_row(form.children.type, {attr: {class: 'layout-type'}}) }}
-    {{ form_row(form.children.name) }}
+    {{ form_row(form.type, {attr: {class: 'layout-type'}}) }}
+    {{ form_row(form.name) }}
 {% endblock %}

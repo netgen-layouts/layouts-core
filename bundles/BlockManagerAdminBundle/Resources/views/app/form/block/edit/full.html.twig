@@ -1,11 +1,11 @@
 {% extends 'NetgenBlockManagerAdminBundle:app/form/block:edit.html.twig' %}
 
 {% block children %}
-    {{ form_row(form.children.name) }}
+    {{ form_row(form.name) }}
 
     <div class="master-slave-selects">
-        {{ form_row(form.children.view_type, {attr: {class: 'master'}}) }}
-        {{ form_row(form.children.item_view_type, {attr: {class: 'slave'}}) }}
+        {{ form_row(form.view_type, {attr: {class: 'master'}}) }}
+        {{ form_row(form.item_view_type, {attr: {class: 'slave'}}) }}
     </div>
 
     {% block parameters %}
