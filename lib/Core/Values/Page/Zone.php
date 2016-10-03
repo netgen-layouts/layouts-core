@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\ValueObject;
-use ArrayIterator;
 
 class Zone extends ValueObject implements APIZone
 {
@@ -97,21 +96,5 @@ class Zone extends ValueObject implements APIZone
         }
 
         return count($this->blocks);
-    }
-
-    /**
-     * Returns the iterator used for iterating over zone blocks.
-     *
-     * If linked zone is specified, it's iterator is returned.
-     *
-     * @return \Traversable
-     */
-    public function getIterator()
-    {
-        if ($this->linkedZone instanceof self) {
-            return $this->linkedZone->getIterator();
-        }
-
-        return new ArrayIterator($this->blocks);
     }
 }
