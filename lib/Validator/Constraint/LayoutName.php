@@ -12,6 +12,11 @@ class LayoutName extends Constraint
     public $message = 'netgen_block_manager.layout_name.layout_exists';
 
     /**
+     * @var int
+     */
+    public $excludedLayoutId;
+
+    /**
      * Returns the name of the class that validates this constraint.
      *
      * @return string

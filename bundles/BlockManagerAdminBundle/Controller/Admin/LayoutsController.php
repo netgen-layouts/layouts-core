@@ -4,8 +4,10 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class LayoutsController extends Controller
@@ -56,6 +58,46 @@ class LayoutsController extends Controller
         );
 
         return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
+    }
+
+    /**
+     * Copies a layout.
+     *
+     * @param int $layoutId
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
+     */
+    public function copyLayoutForm($layoutId, Request $request)
+    {
+        $layout = $this->loadLayout($layoutId);
+
+        $form = $this->createForm(
+            CopyType::class,
+            array('name' => $layout->getName() . ' (copy)'),
+            array(
+                'layout' => $layout,
+                'action' => $this->generateUrl(
+                    'ngbm_admin_layouts_layout_copy',
+                    array(
+                        'layoutId' => $layout->getId(),
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $copiedLayout = $this->layoutService->copyLayout(
+                $layout,
+                $form->getData()['name']
+            );
+
+            return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
+        }
+
+        return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**

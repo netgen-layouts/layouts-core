@@ -22,6 +22,10 @@ view:
                 match:
                     form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
         admin:
+            layout\copy:
+                template: "NetgenBlockManagerAdminBundle:admin/form/layout:copy.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Layout\Form\CopyType
             condition\type:
                 template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
                 match:

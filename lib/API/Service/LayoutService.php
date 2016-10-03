@@ -94,10 +94,11 @@ interface LayoutService
      * Returns if layout with provided name exists.
      *
      * @param string $name
+     * @param int|string $excludedLayoutId
      *
      * @return bool
      */
-    public function layoutNameExists($name);
+    public function layoutNameExists($name, $excludedLayoutId = null);
 
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.

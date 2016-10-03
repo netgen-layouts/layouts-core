@@ -32,7 +32,7 @@ class LayoutNameValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /** @var \Netgen\BlockManager\Validator\Constraint\LayoutName $constraint */
-        if ($this->layoutService->layoutNameExists(trim($value))) {
+        if ($this->layoutService->layoutNameExists(trim($value), $constraint->excludedLayoutId)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

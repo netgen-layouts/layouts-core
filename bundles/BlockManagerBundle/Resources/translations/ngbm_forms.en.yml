@@ -2,6 +2,8 @@ layout.type: 'Layout type'
 layout.name: 'Name'
 layout.shared: 'Shared'
 
+layout.button.copy: 'Copy layout'
+
 block.view_type: 'View type'
 block.item_view_type: 'Item view type'
 block.name: 'Block label'

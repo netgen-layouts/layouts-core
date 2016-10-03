@@ -1,0 +1,11 @@
+{% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
+
+{% trans_default_domain 'ngbm_forms' %}
+
+{% block children %}
+    {{ form_row(form.children.name) }}
+
+    <div class="form-actions">
+        <button type="submit" class="nl-btn nl-btn-primary">{{ 'layout.button.copy'|trans }}</button>
+    </div>
+{% endblock %}

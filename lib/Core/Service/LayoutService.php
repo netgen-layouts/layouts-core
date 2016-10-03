@@ -226,12 +226,13 @@ class LayoutService implements LayoutServiceInterface
      * Returns if layout with provided name exists.
      *
      * @param string $name
+     * @param int|string $excludedLayoutId
      *
      * @return bool
      */
-    public function layoutNameExists($name)
+    public function layoutNameExists($name, $excludedLayoutId = null)
     {
-        return $this->layoutHandler->layoutNameExists($name);
+        return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId = null);
     }
 
     /**
