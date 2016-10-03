@@ -3,9 +3,10 @@
 namespace Netgen\BlockManager\API\Values\Page;
 
 use Netgen\BlockManager\API\Values\Value;
+use IteratorAggregate;
 use Countable;
 
-interface Zone extends Value, Countable
+interface Zone extends Value, IteratorAggregate, Countable
 {
     /**
      * Returns zone identifier.

@@ -302,13 +302,8 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
     {
-        $blocks = $zone->getBlocks();
-
-        if ($zone->getLinkedZone() instanceof Zone) {
-            $blocks = $zone->getLinkedZone()->getBlocks();
-        }
-
-        foreach ($blocks as $block) {
+        foreach ($zone as $block) {
+            /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
             $params = array();
 
             $blockDefinitionHandler = $block->getBlockDefinition()->getHandler();
