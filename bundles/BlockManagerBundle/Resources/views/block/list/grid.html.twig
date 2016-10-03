@@ -9,9 +9,9 @@
 {% endif %}
 
 {% block content %}
-    {% if collections['default'] is defined %}
+    {% if collections.default is defined and collections.default is not empty %}
         <div class="row">
-            {% for result in collections['default'] %}
+            {% for result in collections.default %}
                 {% include template_name %}
             {% endfor %}
         </div>

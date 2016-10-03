@@ -5,12 +5,12 @@
 {% trans_default_domain 'ngbm_app' %}
 
 {% block content %}
-    {% if collections['default'] is defined %}
-        {% if collections['default'] is empty %}
+    {% if collections.default is defined %}
+        {% if collections.default is empty %}
             {{ macros.notice('block.notice.empty_collection'|trans) }}
         {% else %}
             <div class="grid-row">
-                {% for result in collections['default'] %}
+                {% for result in collections.default %}
                     <div class="grid-item cols-{{ block.parameter('number_of_columns')|default(3) }}">
                         {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
                     </div>

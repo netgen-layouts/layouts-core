@@ -1,5 +1,5 @@
-{% if collections is not empty and collections['default'] is defined %}
-    {% set collection = collections['default'] %}
+{% if collections.default is defined %}
+    {% set collection = collections.default %}
 
     {% if collection.type is constant('TYPE_DYNAMIC', collection) %}
         {% if collection.queries is not empty %}

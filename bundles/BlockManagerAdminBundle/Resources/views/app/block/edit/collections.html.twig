@@ -2,8 +2,8 @@
 
 {% set can_change_collection = query_types|length > 0 or shared_collections|length > 0 %}
 
-{% if collections is not empty and collections['default'] is defined and can_change_collection %}
-    {% set collection = collections['default'] %}
+{% if collections.default is defined and can_change_collection %}
+    {% set collection = collections.default %}
 
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
     {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}

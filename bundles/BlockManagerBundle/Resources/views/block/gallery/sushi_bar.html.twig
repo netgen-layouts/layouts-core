@@ -3,7 +3,7 @@
 {% import 'NetgenBlockManagerBundle:parts:macros.html.twig' as macros %}
 
 {% block content %}
-    {% if collections['default'] is defined %}
+    {% if collections.default is defined %}
         <div class="sushi-swiper swiper-container"
             data-effect="{{ block.parameter('transition') }}"
             {% if block.parameter('infinite_loop') %}data-loop="true"{% endif %}
@@ -11,7 +11,7 @@
             {% if block.parameter('number_of_thumbnails') %}data-slides-per-view="{{ block.parameter('number_of_thumbnails') }}"{% endif %}
         >
             <div class="swiper-wrapper">
-                {% for result in collections['default'] %}
+                {% for result in collections.default %}
                     <div class="swiper-slide">
                         {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
                     </div>

@@ -1,6 +1,6 @@
 {% trans_default_domain 'ngbm_app' %}
 
-{% if collections is not empty and collections['default'] is defined %}
+{% if collections.default is defined %}
     <div class="sidebar-panel">
         <a class="toggle-link" role="button" data-toggle="collapse" href="#collapseItems" aria-expanded="true" aria-controls="collapseItems">
             {{ 'block.edit.items'|trans }}
