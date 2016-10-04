@@ -53,7 +53,7 @@ class LayoutController extends Controller
 
         $form->handleRequest($request);
 
-        if ($request->getMethod() !== Request::METHOD_POST) {
+        if (!$form->isSubmitted()) {
             return $this->buildView($form, array(), ViewInterface::CONTEXT_API);
         }
 
