@@ -31,15 +31,17 @@
     {% endblock %}
 </head>
 <body>
-    <div id="layouts-app">
-        <div class="layouts-sidebar">
-            <div class="main-menu">
-                {% include 'NetgenBlockManagerAdminBundle:admin:main_menu.html.twig' %}
+    <div class="ng-layouts-app">
+        <div class="ng-layouts-container">
+            <div class="layouts-sidebar">
+                <div class="main-menu">
+                    {% include 'NetgenBlockManagerAdminBundle:admin:main_menu.html.twig' %}
+                </div>
             </div>
-        </div>
 
-        <div class="layouts-content">
-            {% block content %}{% endblock %}
+            <div class="layouts-content">
+                {% block content %}{% endblock %}
+            </div>
         </div>
     </div>
 </body>
