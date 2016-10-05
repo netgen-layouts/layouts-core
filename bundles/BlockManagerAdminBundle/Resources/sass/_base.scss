@@ -81,7 +81,7 @@ body {
     }
     .layouts-content {
         flex:1;
-        padding:$gutter*2 $gutter $gutter;
+        padding:$gutter*2 $gutter;
     }
     &.sorting {
         .rule-controls {
