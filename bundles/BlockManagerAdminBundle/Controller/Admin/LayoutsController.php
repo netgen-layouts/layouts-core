@@ -46,29 +46,11 @@ class LayoutsController extends Controller
      * Copies a layout.
      *
      * @param int $layoutId
-     *
-     * @return \Netgen\BlockManager\View\ViewInterface
-     */
-    public function copyLayout($layoutId)
-    {
-        $layout = $this->loadLayout($layoutId);
-        $copiedLayout = $this->layoutService->copyLayout(
-            $layout,
-            $layout->getName() . ' (copy) ' . crc32(microtime())
-        );
-
-        return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
-    }
-
-    /**
-     * Copies a layout.
-     *
-     * @param int $layoutId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function copyLayoutForm($layoutId, Request $request)
+    public function copyLayout($layoutId, Request $request)
     {
         $layout = $this->loadLayout($layoutId);
 
