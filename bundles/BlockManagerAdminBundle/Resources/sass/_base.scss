@@ -1,3 +1,8 @@
+html,
+body {
+    height:100%;
+}
+
 .nl-rules {
     position:relative;
 }
@@ -19,6 +24,7 @@
     &.ajax-loading * {
         cursor:wait !important;
     }
+    display:flex;
     background-color:$bgColor;
     font-family:$baseFont;
     font-size:16px;
