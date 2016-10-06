@@ -1,0 +1,6 @@
+--TEST--
+Exception for unexpected token in "ngbm_render_block" tag
+--TEMPLATE--
+{% ngbm_render_block block foo='bar' %}
+--EXCEPTION--
+Twig_Error_Syntax: Unexpected token "name" of value "foo" in "index.twig" at line 2.

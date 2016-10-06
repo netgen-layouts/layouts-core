@@ -1,0 +1,28 @@
+--TEST--
+"ngbm_render_block" tag with Twig block
+--TEMPLATE(base.html.twig)--
+--TEMPLATE--
+{% extends 'base.html.twig' %}
+
+{% ngbm_render_block block %}
+
+{% block my_block %}
+This is my block
+{% endblock %}
+--DATA--
+return array(
+    'block' => new \Netgen\BlockManager\Core\Values\Page\Block(
+        array(
+            'blockDefinition' => new \Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition(
+                'twig_block'
+            ),
+            'parameters' => array(
+                'block_name' => 'my_block',
+            ),
+        )
+    ),
+)
+--CONFIG--
+return array()
+--EXPECT--
+This is my block

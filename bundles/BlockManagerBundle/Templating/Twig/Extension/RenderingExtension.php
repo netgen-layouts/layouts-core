@@ -174,6 +174,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     {
         return array(
             new RenderZone(),
+            new RenderBlock(),
         );
     }
 
@@ -319,7 +320,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @throws \Exception If an error occurred
      */
-    protected function displayBlock(Block $block, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    public function displayBlock(Block $block, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
     {
         $blockParams = array();
 
