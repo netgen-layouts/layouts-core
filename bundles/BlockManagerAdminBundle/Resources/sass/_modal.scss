@@ -1,4 +1,4 @@
-.nl-modal-container {
+.nl-modal-mask {
     $modalBorderRadius:4px;
     position:fixed;
     z-index:1000;
@@ -45,25 +45,6 @@
             border-radius:$modalBorderRadius $modalBorderRadius 0 0;
             font-size:16px;
         }
-        form {
-            label {
-                display:block;
-                font-weight:normal;
-                font-size:14px;
-                margin:0 0 4px;
-            }
-            input[type=text] {
-                display:block;
-                margin:0 0 1em;
-                width:100%;
-                padding:6px;
-                font-size:14px;
-                border:1px solid hsl(0, 0, 85);
-            }
-            .form-actions {
-                text-align:right;
-            }
-        }
         .errors {
             list-style-type:none;
             margin:-0.5em 0 1.5em;
@@ -74,11 +55,32 @@
             }
         }
     }
+    form {
+        label {
+            display:block;
+            font-weight:normal;
+            font-size:14px;
+            margin:0 0 4px;
+        }
+        input[type=text] {
+            display:block;
+            margin:0 0 1em;
+            width:100%;
+            padding:6px;
+            font-size:14px;
+            border:1px solid hsl(0, 0, 85);
+        }
+        .form-actions {
+            text-align:right;
+        }
+    }
     .nl-modal-loader {
-        text-align:center;
-        padding:30px;
-        color:hsl(0, 0, 85);
-        font-size:12px;
+        color:#fff;
+        font-size:14px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
         display:none;
         > span {
             @extend .loading-ng-icon;
@@ -88,7 +90,7 @@
         .nl-modal-loader {
             display:block;
         }
-        .nl-modal-body {
+        .nl-modal {
             display:none;
         }
     }
