@@ -3,6 +3,7 @@ layout.name: 'Name'
 layout.shared: 'Shared'
 
 layout.button.copy: 'Copy layout'
+layout.button.cancel: 'Cancel'
 
 block.view_type: 'View type'
 block.item_view_type: 'Item view type'
