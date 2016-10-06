@@ -58,7 +58,6 @@ class LayoutsController extends Controller
             CopyType::class,
             array('name' => $layout->getName() . ' (copy)'),
             array(
-                'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layouts_layout_copy',
                     array(

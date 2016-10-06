@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Layout\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,9 +20,6 @@ class CopyType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array('layout'));
-        $resolver->setAllowedTypes('layout', Layout::class);
-
         $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
@@ -35,8 +31,6 @@ class CopyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $layout = $options['layout'];
-
         $builder->add(
             'name',
             TextType::class,
@@ -44,11 +38,7 @@ class CopyType extends AbstractType
                 'label' => 'layout.name',
                 'constraints' => array(
                     new Constraints\NotBlank(),
-                    new LayoutName(
-                        array(
-                            'excludedLayoutId' => $layout->getId(),
-                        )
-                    ),
+                    new LayoutName(),
                 ),
             )
         );
