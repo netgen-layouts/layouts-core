@@ -70,7 +70,11 @@ class LayoutsController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!$form->isSubmitted()) {
+            return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
+        }
+
+        if ($form->isValid()) {
             $copiedLayout = $this->layoutService->copyLayout(
                 $layout,
                 $form->getData()['name']
@@ -79,7 +83,12 @@ class LayoutsController extends Controller
             return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
         }
 
-        return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
+        return $this->buildView(
+            $form,
+            array(),
+            ViewInterface::CONTEXT_ADMIN,
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 
     /**
