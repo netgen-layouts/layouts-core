@@ -1,0 +1,26 @@
+{% form_theme form 'NetgenBlockManagerAdminBundle:form/theme:ngbm.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="nl-modal">
+        <button class="close-modal"></button>
+        <div class="nl-modal-loader"><span></span></div>
+
+        <div class="nl-modal-head">
+            {% block header %}{% endblock %}
+        </div>
+
+        <div class="nl-modal-body">
+            {% block children %}
+                {% for child in form %}
+                    {{ form_row(child) }}
+                {% endfor %}
+            {% endblock %}
+
+            {% block buttons %}{% endblock %}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+{{ form_end(form) }}

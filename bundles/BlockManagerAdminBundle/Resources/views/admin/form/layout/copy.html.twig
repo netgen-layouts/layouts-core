@@ -1,10 +1,16 @@
-{% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
+{% extends 'NetgenBlockManagerAdminBundle:form:modal.html.twig' %}
 
 {% trans_default_domain 'ngbm_forms' %}
 
+{% block header %}
+    {{ 'layout.title.copy'|trans }}
+{% endblock %}
+
 {% block children %}
     {{ form_row(form.name) }}
+{% endblock %}
 
+{% block buttons %}
     <div class="form-actions">
         <a class="nl-btn js-cancel-copy">{{ 'layout.button.cancel'|trans }}</a>
         <button type="submit" class="nl-btn nl-btn-primary">{{ 'layout.button.copy'|trans }}</button>
