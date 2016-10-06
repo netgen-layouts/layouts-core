@@ -54,6 +54,15 @@ class TemplateResolver implements TemplateResolverInterface
         $context = $view->getContext();
         $viewIdentifier = $view->getIdentifier();
 
+        if (!is_string($context)) {
+            throw new RuntimeException(
+                sprintf(
+                    'View context expected to be of string type, got %s',
+                    is_object($context) ? get_class($context) : gettype($context)
+                )
+            );
+        }
+
         if (!isset($this->viewConfig[$viewIdentifier][$context])) {
             throw new RuntimeException(
                 sprintf(

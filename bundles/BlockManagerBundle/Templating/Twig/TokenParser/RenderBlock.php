@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock as RenderBlockNode;
-use Netgen\BlockManager\View\ViewInterface;
 use Twig_TokenParser;
 use Twig_Error_Syntax;
 use Twig_Token;
@@ -23,14 +22,14 @@ class RenderBlock extends Twig_TokenParser
     {
         $stream = $this->parser->getStream();
 
-        $context = ViewInterface::CONTEXT_DEFAULT;
+        $context = null;
         $block = $this->parser->getExpressionParser()->parseExpression();
 
         while (!$stream->test(Twig_Token::BLOCK_END_TYPE)) {
             if ($stream->test(Twig_Token::NAME_TYPE, 'context')) {
                 $stream->next();
                 $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
-                $context = $stream->expect(Twig_Token::STRING_TYPE)->getValue();
+                $context = $this->parser->getExpressionParser()->parseExpression();
 
                 continue;
             }

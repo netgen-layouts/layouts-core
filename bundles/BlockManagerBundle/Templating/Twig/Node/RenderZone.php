@@ -2,27 +2,32 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node;
 
-use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Twig_Node_Expression;
 use Twig_Compiler;
 use Twig_Node;
 
 class RenderZone extends Twig_Node
 {
+    use ContextTrait;
+
     /**
      * Constructor.
      *
      * @param \Twig_Node_Expression $zone
-     * @param string $context
+     * @param Twig_Node_Expression $context
      * @param int $line
      * @param string $tag
      */
-    public function __construct(Twig_Node_Expression $zone, $context, $line, $tag = null)
+    public function __construct(Twig_Node_Expression $zone, Twig_Node_Expression $context = null, $line = 0, $tag = null)
     {
         parent::__construct(
-            array('zone' => $zone),
-            array('context' => $context),
+            array(
+                'zone' => $zone,
+                'context' => $context,
+            ),
+            array(),
             $line,
             $tag
         );
@@ -38,13 +43,16 @@ class RenderZone extends Twig_Node
         $compiler
             ->addDebugInfo($this)
             ->write('$ngbmZone = ')
-            ->subcompile($this->getNode('zone'))
-            ->write(';' . PHP_EOL)
+                ->subcompile($this->getNode('zone'))
+            ->write(';' . PHP_EOL);
+
+        $this->compileContextNode($compiler, $this->getNode('context'));
+
+        $compiler
             ->write('if ($ngbmZone instanceof ' . Zone::class . ') {' . PHP_EOL)
             ->indent()
                 ->write('$this->env->getExtension("' . RenderingExtension::class . '")->displayZone($ngbmZone, ')
-                ->repr($this->getAttribute('context'))
-                ->raw(', $this, $context, $blocks);' . PHP_EOL)
+                ->raw('$ngbmContext, $this, $context, $blocks);' . PHP_EOL)
             ->outdent()
             ->write('}' . PHP_EOL);
     }
