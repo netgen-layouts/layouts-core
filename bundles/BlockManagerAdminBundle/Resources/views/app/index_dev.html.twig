@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="/bmdev/app/scripts/vendor.js"></script>
-    <script src="/bmdev/app/scripts/main.js"></script>
+    <script src="{{ asset('dev/js/netgen-core.js', 'ngcore') }}"></script>
+    <script src="{{ asset('dev/js/netgen-content-browser.js', 'ngcb') }}"></script>
+    <script src="{{ asset('dev/js/netgen-block-manager.js', 'ngbm_app') }}"></script>
 {% endblock %}
