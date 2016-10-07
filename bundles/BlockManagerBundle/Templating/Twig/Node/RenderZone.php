@@ -22,15 +22,12 @@ class RenderZone extends Twig_Node
      */
     public function __construct(Twig_Node_Expression $zone, Twig_Node_Expression $context = null, $line = 0, $tag = null)
     {
-        parent::__construct(
-            array(
-                'zone' => $zone,
-                'context' => $context,
-            ),
-            array(),
-            $line,
-            $tag
-        );
+        $nodes = array('zone' => $zone);
+        if ($context instanceof Twig_Node_Expression) {
+            $nodes['context'] = $context;
+        }
+
+        parent::__construct($nodes, array(), $line, $tag);
     }
 
     /**
@@ -46,7 +43,7 @@ class RenderZone extends Twig_Node
                 ->subcompile($this->getNode('zone'))
             ->write(';' . PHP_EOL);
 
-        $this->compileContextNode($compiler, $this->getNode('context'));
+        $this->compileContextNode($compiler);
 
         $compiler
             ->write('if ($ngbmZone instanceof ' . Zone::class . ') {' . PHP_EOL)

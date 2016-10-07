@@ -12,10 +12,14 @@ trait ContextTrait
      * Compiles the context node.
      *
      * @param \Twig_Compiler $compiler
-     * @param \Twig_Node $contextNode
      */
-    protected function compileContextNode(Twig_Compiler $compiler, Twig_Node $contextNode = null)
+    protected function compileContextNode(Twig_Compiler $compiler)
     {
+        $contextNode = null;
+        if ($this->hasNode('context')) {
+            $contextNode = $this->getNode('context');
+        }
+
         if ($contextNode instanceof Twig_Node) {
             $compiler
                 ->write('$ngbmContext = ')

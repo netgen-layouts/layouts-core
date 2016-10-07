@@ -31,7 +31,7 @@ class RenderBlockTest extends \Twig_Test_NodeTestCase
         $node = new RenderBlock($block, null, 1);
 
         $this->assertEquals($block, $node->getNode('block'));
-        $this->assertNull($node->getNode('context'));
+        $this->assertFalse($node->hasNode('context'));
     }
 
     /**

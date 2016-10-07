@@ -110,38 +110,13 @@ class RenderingExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
-     */
-    public function testRenderBlock()
-    {
-        $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderValueObject')
-            ->with(
-                $this->equalTo($block),
-                $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
-            )
-            ->will($this->returnValue('rendered block'));
-
-        $this->assertEquals(
-            'rendered block',
-            $this->extension->renderBlock(
-                $block,
-                array('param' => 'value'),
-                ViewInterface::CONTEXT_DEFAULT
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logBlockError
      */
-    public function testRenderBlockReturnsEmptyStringOnException()
+    public function testDisplayBlockReturnsEmptyStringOnException()
     {
+        $twigTemplateMock = $this->createMock(Twig_Template::class);
+
         $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
 
         $this->viewRendererMock
@@ -149,28 +124,32 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo($block),
-                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(array()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
         $this->assertEquals(
             '',
-            $this->extension->renderBlock(
+            $this->extension->displayBlock(
                 $block,
-                array('param' => 'value'),
-                ViewInterface::CONTEXT_DEFAULT
+                ViewInterface::CONTEXT_DEFAULT,
+                $twigTemplateMock,
+                array(),
+                array()
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logBlockError
      * @expectedException \Exception
      */
-    public function testRenderBlockThrowsExceptionInDebug()
+    public function testDisplayBlockThrowsExceptionInDebug()
     {
+        $twigTemplateMock = $this->createMock(Twig_Template::class);
+
         $this->extension->setDebug(true);
         $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
 
@@ -179,15 +158,17 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo($block),
-                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(array()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
 
-        $this->extension->renderBlock(
+        $this->extension->displayBlock(
             $block,
-            array('param' => 'value'),
-            ViewInterface::CONTEXT_DEFAULT
+            ViewInterface::CONTEXT_DEFAULT,
+            $twigTemplateMock,
+            array(),
+            array()
         );
     }
 
@@ -353,7 +334,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @expectedException \Exception
      */
-    public function testDisplayZoneThrowsException()
+    public function testDisplayZoneThrowsExceptionInDebug()
     {
         $twigTemplateMock = $this->createMock(Twig_Template::class);
 
@@ -387,7 +368,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
      */
-    public function testDisplayZoneThrowsExceptionInDebugMode()
+    public function testDisplayZoneRendersBlocksOnException()
     {
         $twigTemplateMock = $this->createMock(Twig_Template::class);
 

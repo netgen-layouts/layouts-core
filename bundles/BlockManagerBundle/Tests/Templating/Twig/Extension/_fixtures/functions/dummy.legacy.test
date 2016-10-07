@@ -1,0 +1,10 @@
+--TEST--
+dummy test to avoid risky flag
+--TEMPLATE--
+dummy
+--DATA--
+return array()
+--CONFIG--
+return array()
+--EXPECT--
+dummy

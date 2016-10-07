@@ -31,7 +31,7 @@ class RenderZoneTest extends \Twig_Test_NodeTestCase
         $node = new RenderZone($zone, null, 1);
 
         $this->assertEquals($zone, $node->getNode('zone'));
-        $this->assertNull($node->getNode('context'));
+        $this->assertFalse($node->hasNode('context'));
     }
 
     /**

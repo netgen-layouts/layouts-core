@@ -22,15 +22,12 @@ class RenderBlock extends Twig_Node
      */
     public function __construct(Twig_Node_Expression $block, Twig_Node_Expression $context = null, $line = 0, $tag = null)
     {
-        parent::__construct(
-            array(
-                'block' => $block,
-                'context' => $context,
-            ),
-            array(),
-            $line,
-            $tag
-        );
+        $nodes = array('block' => $block);
+        if ($context instanceof Twig_Node_Expression) {
+            $nodes['context'] = $context;
+        }
+
+        parent::__construct($nodes, array(), $line, $tag);
     }
 
     /**
@@ -46,7 +43,7 @@ class RenderBlock extends Twig_Node
                 ->subcompile($this->getNode('block'))
             ->write(';' . PHP_EOL);
 
-        $this->compileContextNode($compiler, $this->getNode('context'));
+        $this->compileContextNode($compiler);
 
         $compiler
             ->write('if ($ngbmBlock instanceof ' . Block::class . ') {' . PHP_EOL)

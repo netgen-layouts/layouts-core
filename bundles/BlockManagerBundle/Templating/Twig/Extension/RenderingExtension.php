@@ -114,13 +114,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     {
         return array(
             new Twig_SimpleFunction(
-                'ngbm_render_block',
-                array($this, 'renderBlock'),
-                array(
-                    'is_safe' => array('html'),
-                )
-            ),
-            new Twig_SimpleFunction(
                 'ngbm_render_item',
                 array($this, 'renderItem'),
                 array(
@@ -188,46 +181,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         return array(
             'ngbm' => $this->globalVariable,
         );
-    }
-
-    /**
-     * Renders the provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $parameters
-     * @param string $context
-     *
-     * @throws \Exception If an error occurred
-     *
-     * @return string
-     */
-    public function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
-    {
-        try {
-            if ($this->isBlockCacheable($block)) {
-                return $this->fragmentHandler->render(
-                    new ControllerReference(
-                        $this->blockController,
-                        array(
-                            'blockId' => $block->getId(),
-                            'parameters' => $parameters,
-                            'context' => $context,
-                        )
-                    ),
-                    'esi'
-                );
-            }
-
-            return $this->viewRenderer->renderValueObject($block, $parameters, $context);
-        } catch (Exception $e) {
-            $this->logBlockError($block, $e);
-
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
-        }
     }
 
     /**
@@ -336,6 +289,46 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         }
 
         echo $this->renderBlock($block, $blockParams, $context);
+    }
+
+    /**
+     * Renders the provided block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
+     * @param string $context
+     *
+     * @throws \Exception If an error occurred
+     *
+     * @return string
+     */
+    protected function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    {
+        try {
+            if ($this->isBlockCacheable($block)) {
+                return $this->fragmentHandler->render(
+                    new ControllerReference(
+                        $this->blockController,
+                        array(
+                            'blockId' => $block->getId(),
+                            'parameters' => $parameters,
+                            'context' => $context,
+                        )
+                    ),
+                    'esi'
+                );
+            }
+
+            return $this->viewRenderer->renderValueObject($block, $parameters, $context);
+        } catch (Exception $e) {
+            $this->logBlockError($block, $e);
+
+            if ($this->debug) {
+                throw $e;
+            }
+
+            return '';
+        }
     }
 
     /**
