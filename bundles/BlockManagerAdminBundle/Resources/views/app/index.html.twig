@@ -19,10 +19,12 @@
     <link rel="manifest" href="{{ asset('favicon/manifest.json', 'ngbm_admin_images') }}">
     <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg', 'ngbm_admin_images') }}" color="#5bbad5">
 
-    <link rel="stylesheet" href="{{ asset('alloy-editor/assets/alloy-editor-ocean-min.css', 'ngbm_app_vendor') }}">
+    <link rel="stylesheet" href="{{ asset('alloy-editor/assets/alloy-editor-ocean-min.css', 'ngcore_vendor') }}">
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('main.css', 'ngbm_app_css') }}">
+        <link rel="stylesheet" href="{{ asset('netgen-core.css', 'ngcore_css') }}">
+        <link rel="stylesheet" href="{{ asset('netgen-content-browser.css', 'ngcb_css') }}">
+        <link rel="stylesheet" href="{{ asset('netgen-block-manager.css', 'ngbm_app_css') }}">
     {% endblock %}
 </head>
 
