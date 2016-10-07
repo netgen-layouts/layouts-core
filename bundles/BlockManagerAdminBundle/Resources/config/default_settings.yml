@@ -1,3 +1,4 @@
 parameters:
     netgen_block_manager.admin.csrf_token_id: ngbm_admin
+    netgen_block_manager.admin.pagelayout: 'NetgenBlockManagerAdminBundle:admin:pagelayout.html.twig'
     netgen_block_manager.app.block_edit.default_browser_config: ezcontent
