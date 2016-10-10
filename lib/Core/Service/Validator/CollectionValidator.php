@@ -117,28 +117,6 @@ class CollectionValidator extends Validator
             'type'
         );
 
-        if ($collectionCreateStruct->type === Collection::TYPE_MANUAL) {
-            if (
-                is_array($collectionCreateStruct->queryCreateStructs) &&
-                !empty($collectionCreateStruct->queryCreateStructs)
-            ) {
-                throw new InvalidArgumentException(
-                    'queryCreateStructs',
-                    'Manual collection cannot have any queries'
-                );
-            }
-        } elseif ($collectionCreateStruct->type === Collection::TYPE_DYNAMIC) {
-            if (
-                !is_array($collectionCreateStruct->queryCreateStructs) ||
-                count($collectionCreateStruct->queryCreateStructs) !== 1
-            ) {
-                throw new InvalidArgumentException(
-                    'queryCreateStructs',
-                    'Dynamic collection can only have one query'
-                );
-            }
-        }
-
         if ($collectionCreateStruct->shared !== null) {
             $this->validate(
                 $collectionCreateStruct->shared,
@@ -160,6 +138,28 @@ class CollectionValidator extends Validator
                         new Constraints\Type(array('type' => 'string')),
                     ),
                     'name'
+                );
+            }
+        }
+
+        if ($collectionCreateStruct->type === Collection::TYPE_MANUAL) {
+            if (
+                is_array($collectionCreateStruct->queryCreateStructs) &&
+                !empty($collectionCreateStruct->queryCreateStructs)
+            ) {
+                throw new InvalidArgumentException(
+                    'queryCreateStructs',
+                    'Manual collection cannot have any queries'
+                );
+            }
+        } elseif ($collectionCreateStruct->type === Collection::TYPE_DYNAMIC) {
+            if (
+                !is_array($collectionCreateStruct->queryCreateStructs) ||
+                empty($collectionCreateStruct->queryCreateStructs)
+            ) {
+                throw new InvalidArgumentException(
+                    'queryCreateStructs',
+                    'Dynamic collection needs to have at least one query'
                 );
             }
         }
