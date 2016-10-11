@@ -1,0 +1,14 @@
+{
+    "id": 7,
+    "definition_identifier": "list",
+    "name": "My block",
+    "zone_identifier": "left",
+    "position": 1,
+    "layout_id": 1,
+    "parameters": {
+        "number_of_columns": 2
+    },
+    "view_type": "list",
+    "item_view_type": "standard",
+    "has_published_state": false
+}

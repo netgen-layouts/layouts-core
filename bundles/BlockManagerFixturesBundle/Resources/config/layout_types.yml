@@ -10,6 +10,7 @@ layout_types:
         zones:
             top:
                 name: 'Top'
+                allowed_block_definitions: [title]
             left:
                 name: 'Left'
             right:

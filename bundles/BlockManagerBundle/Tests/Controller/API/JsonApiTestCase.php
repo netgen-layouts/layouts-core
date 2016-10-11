@@ -63,6 +63,17 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     }
 
     /**
+     * Asserts that response is empty and has No Content status code.
+     *
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     */
+    protected function assertEmptyResponse(Response $response)
+    {
+        $this->assertEmpty($response->getContent());
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Asserts that response has a proper JSON exception content.
      * If statusCode is set, asserts that response has given status code.
      *

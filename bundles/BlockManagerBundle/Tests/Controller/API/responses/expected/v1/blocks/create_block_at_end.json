@@ -9,7 +9,8 @@
         "tag": "h1",
         "title": "Title",
         "css_class": null,
-        "css_id": null
+        "css_id": null,
+        "set_container": null
     },
     "view_type": "title",
     "item_view_type": "standard",

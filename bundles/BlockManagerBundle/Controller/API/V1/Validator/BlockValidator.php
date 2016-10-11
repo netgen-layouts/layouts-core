@@ -11,7 +11,7 @@ class BlockValidator
     use ValidatorTrait;
 
     /**
-     * Validates block creation parameters from the request.
+     * Validates block create parameters from the request.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
