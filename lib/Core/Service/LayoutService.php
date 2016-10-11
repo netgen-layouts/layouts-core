@@ -97,6 +97,8 @@ class LayoutService implements LayoutServiceInterface
      */
     public function loadLayoutDraft($layoutId)
     {
+        $this->layoutValidator->validateId($layoutId, 'layoutId');
+
         return $this->layoutMapper->mapLayout(
             $this->layoutHandler->loadLayout(
                 $layoutId,
