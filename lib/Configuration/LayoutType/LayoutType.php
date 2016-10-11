@@ -100,9 +100,10 @@ class LayoutType
     {
         if (!$this->hasZone($zoneIdentifier)) {
             throw new InvalidArgumentException(
-                $zoneIdentifier,
+                'zoneIdentifier',
                 sprintf(
-                    'Zone does not exist in "%s" layout type.',
+                    'Zone "%s" does not exist in "%s" layout type.',
+                    $zoneIdentifier,
                     $this->identifier
                 )
             );

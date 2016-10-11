@@ -52,7 +52,13 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     public function getBlockType($identifier)
     {
         if (!$this->hasBlockType($identifier)) {
-            throw new InvalidArgumentException('block type', $identifier);
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Block type with "%s" identifier does not exist.',
+                    $identifier
+                )
+            );
         }
 
         return $this->blockTypes[$identifier];
@@ -102,7 +108,13 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     public function getBlockTypeGroup($identifier)
     {
         if (!$this->hasBlockTypeGroup($identifier)) {
-            throw new InvalidArgumentException('block type group', $identifier);
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Block type group with "%s" identifier does not exist.',
+                    $identifier
+                )
+            );
         }
 
         return $this->blockTypeGroups[$identifier];

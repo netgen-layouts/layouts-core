@@ -215,7 +215,7 @@ class Layout extends ValueObject implements APILayout
      */
     public function offsetSet($offset, $value)
     {
-        throw new RuntimeException('Method call not supported');
+        throw new RuntimeException('Method call not supported.');
     }
 
     /**
@@ -225,6 +225,6 @@ class Layout extends ValueObject implements APILayout
      */
     public function offsetUnset($offset)
     {
-        throw new RuntimeException('Method call not supported');
+        throw new RuntimeException('Method call not supported.');
     }
 }

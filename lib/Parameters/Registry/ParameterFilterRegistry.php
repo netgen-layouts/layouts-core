@@ -24,7 +24,7 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
             if (!$parameterFilter instanceof ParameterFilterInterface) {
                 throw new RuntimeException(
                     sprintf(
-                        'Parameter filter "%s" needs to implement ParameterFilterInterface',
+                        'Parameter filter "%s" needs to implement ParameterFilterInterface.',
                         get_class($parameterFilter)
                     )
                 );

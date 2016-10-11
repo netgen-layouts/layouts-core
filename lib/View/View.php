@@ -138,8 +138,11 @@ abstract class View implements ViewInterface
     {
         if (!$this->hasParameter($identifier)) {
             throw new InvalidArgumentException(
-                $identifier,
-                'View does not have the specified parameter'
+                'identifier',
+                sprintf(
+                    'View does not have the "%s" parameter.',
+                    $identifier
+                )
             );
         }
 

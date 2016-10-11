@@ -159,7 +159,13 @@ class BlockCollectionController extends Controller
         } elseif ($newType === self::NEW_TYPE_SHARED) {
             $newCollection = $this->collectionService->loadCollection($request->request->get('shared_collection_id'));
             if (!$newCollection->isShared()) {
-                throw new InvalidArgumentException('shared_collection_id', 'Specified collection is not shared');
+                throw new InvalidArgumentException(
+                    'shared_collection_id',
+                    sprintf(
+                        'Collection with ID "%s" is not shared.',
+                        $newCollection->getId()
+                    )
+                );
             }
 
             if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {

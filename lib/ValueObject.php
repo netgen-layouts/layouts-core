@@ -22,7 +22,11 @@ abstract class ValueObject
             if (!property_exists($this, $property)) {
                 throw new InvalidArgumentException(
                     'properties',
-                    'Property "' . $property . '" does not exist in "' . get_class($this) . '" class.'
+                    sprintf(
+                        'Property "%s" does not exist in "%s" class.',
+                        $property,
+                        get_class($this)
+                    )
                 );
             }
 

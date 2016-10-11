@@ -138,7 +138,7 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
      */
     public function offsetSet($offset, $value)
     {
-        throw new RuntimeException('Method call not supported');
+        throw new RuntimeException('Method call not supported.');
     }
 
     /**
@@ -148,6 +148,6 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
      */
     public function offsetUnset($offset)
     {
-        throw new RuntimeException('Method call not supported');
+        throw new RuntimeException('Method call not supported.');
     }
 }

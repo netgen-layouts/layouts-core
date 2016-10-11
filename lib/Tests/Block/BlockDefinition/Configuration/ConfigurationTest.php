@@ -64,9 +64,9 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getForm
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetFormThrowsRuntimeException()
+    public function testGetFormThrowsInvalidArgumentException()
     {
         $this->configuration->getForm('unknown');
     }
@@ -118,9 +118,9 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getViewType
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetViewTypeThrowsRuntimeException()
+    public function testGetViewTypeThrowsInvalidArgumentException()
     {
         $this->configuration->getViewType('unknown');
     }

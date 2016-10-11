@@ -30,7 +30,7 @@ class ConditionType extends AbstractType
             if (!$mapper instanceof MapperInterface) {
                 throw new RuntimeException(
                     sprintf(
-                        '"%s" condition type form mapper must implement FormMapperInterface interface',
+                        '"%s" condition type form mapper must implement FormMapperInterface interface.',
                         $conditionType
                     )
                 );
@@ -67,7 +67,7 @@ class ConditionType extends AbstractType
         if (!isset($this->mappers[$conditionType->getType()])) {
             throw new RuntimeException(
                 sprintf(
-                    'Form mapper for "%s" condition type does not exist',
+                    'Form mapper for "%s" condition type does not exist.',
                     $conditionType->getType()
                 )
             );

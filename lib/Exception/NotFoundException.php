@@ -16,7 +16,11 @@ class NotFoundException extends BaseException implements Exception
     public function __construct($what, $identifier, BaseException $previousException = null)
     {
         parent::__construct(
-            'Could not find ' . $what . ' with identifier "' . $identifier . '"',
+            sprintf(
+                'Could not find %s with identifier "%s"',
+                $what,
+                $identifier
+            ),
             0,
             $previousException
         );

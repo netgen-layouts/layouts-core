@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class Configuration
 {
@@ -63,35 +63,40 @@ class Configuration
     }
 
     /**
-     * Returns if the query type has a form with provided identifier.
+     * Returns if the query type has a form with provided name.
      *
-     * @param $formIdentifier
+     * @param $formName
      *
      * @return bool
      */
-    public function hasForm($formIdentifier)
+    public function hasForm($formName)
     {
-        return isset($this->forms[$formIdentifier]);
+        return isset($this->forms[$formName]);
     }
 
     /**
-     * Returns the form for provided form identifier.
+     * Returns the form for provided form name.
      *
-     * @param $formIdentifier
+     * @param $formName
      *
-     * @throws \RuntimeException If query type does not have the form
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query type does not have the form
      *
      * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form
      */
-    public function getForm($formIdentifier)
+    public function getForm($formName)
     {
-        if (!$this->hasForm($formIdentifier)) {
-            throw new RuntimeException(
-                "Form '{$formIdentifier}' does not exist in '{$this->type}' query type."
+        if (!$this->hasForm($formName)) {
+            throw new InvalidArgumentException(
+                'formName',
+                sprintf(
+                    'Form "%s" does not exist in "%s" query type.',
+                    $formName,
+                    $this->type
+                )
             );
         }
 
-        return $this->forms[$formIdentifier];
+        return $this->forms[$formName];
     }
 
     /**

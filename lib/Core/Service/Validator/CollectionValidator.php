@@ -95,7 +95,7 @@ class CollectionValidator extends Validator
             if (count($allQueryIdentifiers) !== count(array_unique($allQueryIdentifiers))) {
                 throw new InvalidArgumentException(
                     'queryCreateStructs',
-                    'All query create structs must have a unique identifier'
+                    'All query create structs must have a unique identifier.'
                 );
             }
         }
@@ -149,7 +149,7 @@ class CollectionValidator extends Validator
             ) {
                 throw new InvalidArgumentException(
                     'queryCreateStructs',
-                    'Manual collection cannot have any queries'
+                    'Manual collection cannot have any queries.'
                 );
             }
         } elseif ($collectionCreateStruct->type === Collection::TYPE_DYNAMIC) {
@@ -159,7 +159,7 @@ class CollectionValidator extends Validator
             ) {
                 throw new InvalidArgumentException(
                     'queryCreateStructs',
-                    'Dynamic collection needs to have at least one query'
+                    'Dynamic collection needs to have at least one query.'
                 );
             }
         }

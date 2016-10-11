@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -314,7 +313,6 @@ class LayoutService implements LayoutServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type does not exist
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
@@ -322,10 +320,6 @@ class LayoutService implements LayoutServiceInterface
     public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
-
-        if (!$this->layoutTypeRegistry->hasLayoutType($layoutCreateStruct->type)) {
-            throw new InvalidArgumentException('layoutCreateStruct', 'Provided layout type does not exist.');
-        }
 
         if ($this->layoutHandler->layoutNameExists($layoutCreateStruct->name)) {
             throw new BadStateException('name', 'Layout with provided name already exists.');

@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,18 +79,12 @@ class BlockController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block does not support the specified form
-     *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function editForm(BlockDraft $block, $formName, Request $request)
     {
         $blockDefinition = $block->getBlockDefinition();
         $blockDefinitionConfig = $blockDefinition->getConfig();
-
-        if (!$blockDefinitionConfig->hasForm($formName)) {
-            throw new InvalidArgumentException('form', 'Block does not support specified form.');
-        }
 
         $updateStruct = $this->blockService->newBlockUpdateStruct($block);
 

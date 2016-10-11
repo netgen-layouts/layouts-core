@@ -46,7 +46,13 @@ class TargetTypeRegistry implements TargetTypeRegistryInterface
     public function getTargetType($type)
     {
         if (!$this->hasTargetType($type)) {
-            throw new InvalidArgumentException('target type', $type);
+            throw new InvalidArgumentException(
+                'type',
+                sprintf(
+                    'Target type "%s" does not exist.',
+                    $type
+                )
+            );
         }
 
         return $this->targetTypes[$type];

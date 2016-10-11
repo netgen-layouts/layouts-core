@@ -30,7 +30,7 @@ class TargetType extends AbstractType
             if (!$mapper instanceof MapperInterface) {
                 throw new RuntimeException(
                     sprintf(
-                        '"%s" target type form mapper must implement FormMapperInterface interface',
+                        '"%s" target type form mapper must implement FormMapperInterface interface.',
                         $targetType
                     )
                 );
@@ -67,7 +67,7 @@ class TargetType extends AbstractType
         if (!isset($this->mappers[$targetType->getType()])) {
             throw new RuntimeException(
                 sprintf(
-                    'Form mapper for "%s" target type does not exist',
+                    'Form mapper for "%s" target type does not exist.',
                     $targetType->getType()
                 )
             );

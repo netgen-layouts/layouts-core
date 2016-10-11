@@ -46,7 +46,13 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     public function getLayoutType($identifier)
     {
         if (!$this->hasLayoutType($identifier)) {
-            throw new InvalidArgumentException('layout type', $identifier);
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Layout type with "%s" identifier does not exist.',
+                    $identifier
+                )
+            );
         }
 
         return $this->layoutTypes[$identifier];

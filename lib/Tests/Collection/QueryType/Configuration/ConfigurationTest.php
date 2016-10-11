@@ -71,9 +71,9 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getForm
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetFormThrowsRuntimeException()
+    public function testGetFormThrowsInvalidArgumentException()
     {
         $this->configuration->getForm('unknown');
     }

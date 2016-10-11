@@ -136,7 +136,7 @@ class Zone extends ValueObject implements APIZone
      */
     public function offsetSet($offset, $value)
     {
-        throw new RuntimeException('Method call not supported');
+        throw new RuntimeException('Method call not supported.');
     }
 
     /**
@@ -146,6 +146,6 @@ class Zone extends ValueObject implements APIZone
      */
     public function offsetUnset($offset)
     {
-        throw new RuntimeException('Method call not supported');
+        throw new RuntimeException('Method call not supported.');
     }
 }

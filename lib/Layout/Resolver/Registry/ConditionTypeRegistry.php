@@ -46,7 +46,13 @@ class ConditionTypeRegistry implements ConditionTypeRegistryInterface
     public function getConditionType($type)
     {
         if (!$this->hasConditionType($type)) {
-            throw new InvalidArgumentException('condition type', $type);
+            throw new InvalidArgumentException(
+                'type',
+                sprintf(
+                    'Condition type "%s" does not exist.',
+                    $type
+                )
+            );
         }
 
         return $this->conditionTypes[$type];

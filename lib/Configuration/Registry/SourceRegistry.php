@@ -35,7 +35,7 @@ class SourceRegistry implements SourceRegistryInterface
     }
 
     /**
-     * RReturns the source with provided identifier.
+     * Returns the source with provided identifier.
      *
      * @param string $identifier
      *
@@ -46,7 +46,13 @@ class SourceRegistry implements SourceRegistryInterface
     public function getSource($identifier)
     {
         if (!$this->hasSource($identifier)) {
-            throw new InvalidArgumentException('source', $identifier);
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Source with "%s" identifier does not exist.',
+                    $identifier
+                )
+            );
         }
 
         return $this->sources[$identifier];

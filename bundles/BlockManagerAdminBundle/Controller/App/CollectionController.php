@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,18 +33,12 @@ class CollectionController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query does not support the specified form
-     *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function queryEditForm(QueryDraft $query, $formName, Request $request)
     {
         $queryType = $query->getQueryType();
         $queryTypeConfig = $queryType->getConfig();
-
-        if (!$queryTypeConfig->hasForm($formName)) {
-            throw new InvalidArgumentException('form', 'Query does not support specified form.');
-        }
 
         $updateStruct = $this->collectionService->newQueryUpdateStruct($query);
 

@@ -16,7 +16,11 @@ class BadStateException extends BaseException implements Exception
     public function __construct($argument, $whatIsWrong, BaseException $previousException = null)
     {
         parent::__construct(
-            'Argument "' . $argument . '" has an invalid state. ' . $whatIsWrong,
+            sprintf(
+                'Argument "%s" has an invalid state. %s',
+                $argument,
+                $whatIsWrong
+            ),
             0,
             $previousException
         );

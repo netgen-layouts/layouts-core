@@ -46,7 +46,13 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     public function getValueLoader($valueType)
     {
         if (!$this->hasValueLoader($valueType)) {
-            throw new InvalidArgumentException('value loader', $valueType);
+            throw new InvalidArgumentException(
+                'valueType',
+                sprintf(
+                    'Value loader for "%s" value type does not exist.',
+                    $valueType
+                )
+            );
         }
 
         return $this->valueLoaders[$valueType];

@@ -128,7 +128,6 @@ interface LayoutService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type does not exist
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft

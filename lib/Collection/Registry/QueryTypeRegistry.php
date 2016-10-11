@@ -46,7 +46,13 @@ class QueryTypeRegistry implements QueryTypeRegistryInterface
     public function getQueryType($type)
     {
         if (!$this->hasQueryType($type)) {
-            throw new InvalidArgumentException('query type', $type);
+            throw new InvalidArgumentException(
+                'type',
+                sprintf(
+                    'Query type "%s" does not exist.',
+                    $type
+                )
+            );
         }
 
         return $this->queryTypes[$type];

@@ -310,20 +310,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     */
-    public function testCreateLayoutThrowsInvalidArgumentException()
-    {
-        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            'non_existing',
-            'My layout'
-        );
-
-        $this->layoutService->createLayout($layoutCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateLayoutThrowsBadStateException()

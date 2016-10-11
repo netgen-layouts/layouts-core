@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class Configuration
 {
@@ -46,35 +46,40 @@ class Configuration
     }
 
     /**
-     * Returns if the block definition has a form with provided identifier.
+     * Returns if the block definition has a form with provided name.
      *
-     * @param string $formIdentifier
+     * @param string $formName
      *
      * @return bool
      */
-    public function hasForm($formIdentifier)
+    public function hasForm($formName)
     {
-        return isset($this->forms[$formIdentifier]);
+        return isset($this->forms[$formName]);
     }
 
     /**
-     * Returns the form for provided form identifier.
+     * Returns the form for provided form name.
      *
-     * @param string $formIdentifier
+     * @param string $formName
      *
-     * @throws \RuntimeException If form does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
      */
-    public function getForm($formIdentifier)
+    public function getForm($formName)
     {
-        if (!$this->hasForm($formIdentifier)) {
-            throw new RuntimeException(
-                "Form '{$formIdentifier}' does not exist in '{$this->identifier}' block definition."
+        if (!$this->hasForm($formName)) {
+            throw new InvalidArgumentException(
+                'formName',
+                sprintf(
+                    'Form "%s" does not exist in "%s" block definition.',
+                    $formName,
+                    $this->identifier
+                )
             );
         }
 
-        return $this->forms[$formIdentifier];
+        return $this->forms[$formName];
     }
 
     /**
@@ -114,16 +119,17 @@ class Configuration
      *
      * @param string $viewTypeIdentifier
      *
-     * @throws \RuntimeException If view type does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If view type does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
      */
     public function getViewType($viewTypeIdentifier)
     {
         if (!$this->hasViewType($viewTypeIdentifier)) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
+                'viewTypeIdentifier',
                 sprintf(
-                    "View type '%s' does not exist in '%s' block definition.",
+                    'View type "%s" does not exist in "%s" block definition.',
                     $viewTypeIdentifier,
                     $this->identifier
                 )

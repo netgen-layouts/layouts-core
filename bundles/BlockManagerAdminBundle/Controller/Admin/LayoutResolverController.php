@@ -137,7 +137,14 @@ class LayoutResolverController extends Controller
             try {
                 $this->layoutService->loadLayout($layoutId);
             } catch (NotFoundException $e) {
-                throw new BadStateException('layout_id', 'Layout does not exist.', $e);
+                throw new BadStateException(
+                    'layout_id',
+                    sprintf(
+                        'Layout with ID "%s" does not exist.',
+                        $layoutId
+                    ),
+                    $e
+                );
             }
         }
 

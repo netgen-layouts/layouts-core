@@ -46,7 +46,13 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     public function getBlockDefinition($identifier)
     {
         if (!$this->hasBlockDefinition($identifier)) {
-            throw new InvalidArgumentException('block definition', $identifier);
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Block definition with "%s" identifier does not exist.',
+                    $identifier
+                )
+            );
         }
 
         return $this->blockDefinitions[$identifier];

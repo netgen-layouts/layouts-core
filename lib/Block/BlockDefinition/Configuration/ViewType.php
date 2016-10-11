@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class ViewType
 {
@@ -113,16 +113,17 @@ class ViewType
      *
      * @param string $viewTypeIdentifier
      *
-     * @throws \RuntimeException If item view type does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If item view type does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
      */
     public function getItemViewType($viewTypeIdentifier)
     {
         if (!$this->hasItemViewType($viewTypeIdentifier)) {
-            throw new RuntimeException(
+            throw new InvalidArgumentException(
+                'viewTypeIdentifier',
                 sprintf(
-                    "Item view type '%s' does not exist in '%s' view type.",
+                    'Item view type "%s" does not exist in "%s" view type.',
                     $viewTypeIdentifier,
                     $this->identifier
                 )

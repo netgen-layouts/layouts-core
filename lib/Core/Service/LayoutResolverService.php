@@ -576,9 +576,10 @@ class LayoutResolverService implements APILayoutResolverService
 
         if (!empty($ruleTargets) && $ruleTargets[0]->type !== $targetCreateStruct->type) {
             throw new BadStateException(
-                'type',
+                'rule',
                 sprintf(
-                    'Rule only accepts targets with "%s" target type',
+                    'Rule with ID "%s" only accepts targets with "%s" target type.',
+                    $rule->getId(),
                     $ruleTargets[0]->type
                 )
             );

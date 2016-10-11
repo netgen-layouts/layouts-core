@@ -57,7 +57,7 @@ class TemplateResolver implements TemplateResolverInterface
         if (!is_string($context)) {
             throw new RuntimeException(
                 sprintf(
-                    'View context expected to be of string type, got %s',
+                    'View context expected to be of string type, got %s.',
                     is_object($context) ? get_class($context) : gettype($context)
                 )
             );

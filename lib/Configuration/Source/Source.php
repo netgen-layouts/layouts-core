@@ -90,9 +90,10 @@ class Source
     {
         if (!$this->hasQuery($queryIdentifier)) {
             throw new InvalidArgumentException(
-                $queryIdentifier,
+                'queryIdentifier',
                 sprintf(
-                    'Query does not exist in "%s" source.',
+                    'Query with "%s" identifier does not exist in "%s" source.',
+                    $queryIdentifier,
                     $this->identifier
                 )
             );

@@ -59,7 +59,10 @@ abstract class ParameterStruct extends ValueObject implements ParameterCollectio
         if (!$this->hasParameter($parameterName)) {
             throw new InvalidArgumentException(
                 'parameterName',
-                'Parameter does not exist in the struct.'
+                sprintf(
+                    'Parameter "%s" does not exist in the struct.',
+                    $parameterName
+                )
             );
         }
 

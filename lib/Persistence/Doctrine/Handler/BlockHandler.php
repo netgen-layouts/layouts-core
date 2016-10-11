@@ -396,7 +396,7 @@ class BlockHandler implements BlockHandlerInterface
         if ($block->status == $fromStatus) {
             throw new InvalidArgumentException(
                 'fromStatus',
-                'The block cannot be restored from itself'
+                'The block cannot be restored from itself.'
             );
         }
 

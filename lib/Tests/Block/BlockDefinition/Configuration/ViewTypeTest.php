@@ -90,9 +90,9 @@ class ViewTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetItemViewTypeThrowsRuntimeException()
+    public function testGetItemViewTypeThrowsInvalidArgumentException()
     {
         $this->viewType->getItemViewType('unknown');
     }
