@@ -148,6 +148,17 @@ class LayoutHandlerTest extends TestCase
                         'shared' => false,
                     )
                 ),
+                new Layout(
+                    array(
+                        'id' => 6,
+                        'type' => '4_zones_b',
+                        'name' => 'My sixth layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
+                        'shared' => false,
+                    )
+                ),
             ),
             $this->layoutHandler->loadLayouts()
         );
@@ -192,6 +203,17 @@ class LayoutHandlerTest extends TestCase
                         'created' => 1447065813,
                         'modified' => 1447065813,
                         'status' => Layout::STATUS_DRAFT,
+                        'shared' => false,
+                    )
+                ),
+                new Layout(
+                    array(
+                        'id' => 6,
+                        'type' => '4_zones_b',
+                        'name' => 'My sixth layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Layout::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -440,7 +462,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $createdLayout);
 
-        $this->assertEquals(6, $createdLayout->id);
+        $this->assertEquals(7, $createdLayout->id);
         $this->assertEquals('new_layout', $createdLayout->type);
         $this->assertEquals('New layout', $createdLayout->name);
         $this->assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
@@ -539,7 +561,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        $this->assertEquals(6, $copiedLayout->id);
+        $this->assertEquals(7, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
         $this->assertEquals('New name', $copiedLayout->name);
         $this->assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);

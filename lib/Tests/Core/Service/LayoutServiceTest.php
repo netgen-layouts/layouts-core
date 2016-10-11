@@ -78,7 +78,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadLayouts();
 
         $this->assertInternalType('array', $layouts);
-        $this->assertCount(2, $layouts);
+        $this->assertCount(3, $layouts);
 
         foreach ($layouts as $layout) {
             $this->assertInstanceOf(Layout::class, $layout);
@@ -95,7 +95,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadLayouts(true);
 
         $this->assertInternalType('array', $layouts);
-        $this->assertCount(3, $layouts);
+        $this->assertCount(4, $layouts);
 
         foreach ($layouts as $layout) {
             $this->assertInstanceOf(Layout::class, $layout);
@@ -365,7 +365,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        $this->assertEquals(6, $copiedLayout->getId());
+        $this->assertEquals(7, $copiedLayout->getId());
         $this->assertEquals('New name', $copiedLayout->getName());
     }
 
@@ -384,7 +384,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testCreateDraft()
     {
-        $layout = $this->layoutService->loadLayout(5);
+        $layout = $this->layoutService->loadLayout(6);
         $draftLayout = $this->layoutService->createDraft($layout);
 
         $this->assertInstanceOf(LayoutDraft::class, $draftLayout);
