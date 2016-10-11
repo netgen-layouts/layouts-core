@@ -69,11 +69,11 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 2,
+                        'number_of_columns' => 3,
                     ),
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard_with_intro',
+                    'name' => 'My published block',
                     'status' => Layout::STATUS_PUBLISHED,
                 )
             ),
@@ -134,11 +134,11 @@ class BlockHandlerTest extends TestCase
                         'position' => 0,
                         'definitionIdentifier' => 'list',
                         'parameters' => array(
-                            'number_of_columns' => 2,
+                            'number_of_columns' => 3,
                         ),
-                        'viewType' => 'list',
-                        'itemViewType' => 'standard',
-                        'name' => 'My block',
+                        'viewType' => 'grid',
+                        'itemViewType' => 'standard_with_intro',
+                        'name' => 'My published block',
                         'status' => Layout::STATUS_PUBLISHED,
                     )
                 ),
@@ -732,11 +732,11 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 2,
+                        'number_of_columns' => 3,
                     ),
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard_with_intro',
+                    'name' => 'My published block',
                     'status' => Layout::STATUS_DRAFT,
                 )
             ),

@@ -57,7 +57,7 @@ return array(
     ),
     'ngbm_block' => array(
         array('id' => 1, 'status' => 0, 'layout_id' => 1, 'zone_identifier' => 'right', 'position' => 0, 'definition_identifier' => 'list', 'view_type' => 'list', 'item_view_type' => 'standard', 'name' => 'My block', 'parameters' => '{"number_of_columns": 2}'),
-        array('id' => 1, 'status' => 1, 'layout_id' => 1, 'zone_identifier' => 'right', 'position' => 0, 'definition_identifier' => 'list', 'view_type' => 'list', 'item_view_type' => 'standard', 'name' => 'My block', 'parameters' => '{"number_of_columns": 2}'),
+        array('id' => 1, 'status' => 1, 'layout_id' => 1, 'zone_identifier' => 'right', 'position' => 0, 'definition_identifier' => 'list', 'view_type' => 'grid', 'item_view_type' => 'standard_with_intro', 'name' => 'My published block', 'parameters' => '{"number_of_columns": 3}'),
         array('id' => 2, 'status' => 0, 'layout_id' => 1, 'zone_identifier' => 'left', 'position' => 0, 'definition_identifier' => 'list', 'view_type' => 'grid', 'item_view_type' => 'standard', 'name' => 'My other block', 'parameters' => '{"number_of_columns": 3}'),
         array('id' => 2, 'status' => 1, 'layout_id' => 1, 'zone_identifier' => 'left', 'position' => 0, 'definition_identifier' => 'list', 'view_type' => 'grid', 'item_view_type' => 'standard', 'name' => 'My other block', 'parameters' => '{"number_of_columns": 3}'),
         array('id' => 3, 'status' => 0, 'layout_id' => 2, 'zone_identifier' => 'right', 'position' => 0, 'definition_identifier' => 'text', 'view_type' => 'text', 'item_view_type' => 'standard', 'name' => 'My third block', 'parameters' => '{"content": "Text"}'),

@@ -22,7 +22,7 @@
 LOCK TABLES `ngbm_block` WRITE;
 /*!40000 ALTER TABLE `ngbm_block` DISABLE KEYS */;
 INSERT INTO `ngbm_block` VALUES (1,0,1,'right',0,'list','list','standard','My block','{\"number_of_columns\": 2}');
-INSERT INTO `ngbm_block` VALUES (1,1,1,'right',0,'list','list','standard','My block','{\"number_of_columns\": 2}');
+INSERT INTO `ngbm_block` VALUES (1,1,1,'right',0,'list','grid','standard_with_intro','My published block','{\"number_of_columns\": 3}');
 INSERT INTO `ngbm_block` VALUES (2,0,1,'left',0,'list','grid','standard','My other block','{\"number_of_columns\": 3}');
 INSERT INTO `ngbm_block` VALUES (2,1,1,'left',0,'list','grid','standard','My other block','{\"number_of_columns\": 3}');
 INSERT INTO `ngbm_block` VALUES (3,0,2,'right',0,'text','text','standard','My third block','{\"content\": \"Text\"}');

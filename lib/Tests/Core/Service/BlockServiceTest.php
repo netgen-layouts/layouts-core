@@ -551,33 +551,16 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testRestoreBlock()
     {
-        // First update a block
-
-        $blockUpdateStruct = new BlockUpdateStruct(
-            array(
-                'viewType' => 'small',
-                'itemViewType' => 'new',
-                'name' => 'New name',
-            )
-        );
-
-        $blockUpdateStruct->setParameter('number_of_columns', 5);
-
         $block = $this->blockService->loadBlockDraft(1);
-        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
-        $movedBlock = $this->blockService->moveBlock($updatedBlock, 0, 'left');
-
-        // Then verify that restored block has all published status' properties
-
         $restoredBlock = $this->blockService->restoreBlock($block);
 
         $this->assertInstanceOf(APIBlockDraft::class, $restoredBlock);
-        $this->assertEquals('list', $restoredBlock->getViewType());
-        $this->assertEquals('standard', $restoredBlock->getItemViewType());
-        $this->assertEquals('My block', $restoredBlock->getName());
-        $this->assertEquals(array('number_of_columns' => 2), $restoredBlock->getParameters());
-        $this->assertEquals($movedBlock->getPosition(), $restoredBlock->getPosition());
-        $this->assertEquals($movedBlock->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
+        $this->assertEquals('grid', $restoredBlock->getViewType());
+        $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
+        $this->assertEquals('My published block', $restoredBlock->getName());
+        $this->assertEquals(array('number_of_columns' => 3), $restoredBlock->getParameters());
+        $this->assertEquals($block->getPosition(), $restoredBlock->getPosition());
+        $this->assertEquals($block->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
         $this->assertCount(2, $collectionReferences);
