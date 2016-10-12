@@ -309,13 +309,9 @@ class LayoutController extends Controller
     protected function loadLayout($layoutId, $loadDraft = true)
     {
         if ($loadDraft) {
-            try {
-                return $this->layoutService->loadLayoutDraft(
-                    $layoutId
-                );
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
+            return $this->layoutService->loadLayoutDraft(
+                $layoutId
+            );
         }
 
         return $this->layoutService->loadLayout(
