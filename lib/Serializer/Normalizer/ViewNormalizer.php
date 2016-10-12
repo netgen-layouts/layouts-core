@@ -41,16 +41,20 @@ class ViewNormalizer extends SerializerAwareNormalizer implements NormalizerInte
                 $object->getValue(),
                 $object->getVersion(),
                 $object->getStatusCode()
-            )
+            ),
+            $format,
+            $context
         );
 
-        $normalizedData['html'] = $this->viewRenderer->renderValueObject(
-            $object->getValue(),
-            array(
-                'api_version' => $object->getVersion(),
-            ) + $object->getViewParameters(),
-            $object->getContext()
-        );
+        if (!isset($context['disable_html']) || $context['disable_html'] !== true) {
+            $normalizedData['html'] = $this->viewRenderer->renderValueObject(
+                $object->getValue(),
+                array(
+                    'api_version' => $object->getVersion(),
+                ) + $object->getViewParameters(),
+                $object->getContext()
+            );
+        }
 
         return $normalizedData;
     }

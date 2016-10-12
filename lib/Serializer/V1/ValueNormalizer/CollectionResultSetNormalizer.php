@@ -31,7 +31,7 @@ class CollectionResultSetNormalizer extends SerializerAwareNormalizer implements
         }
 
         return array(
-            'items' => $this->serializer->normalize(new ValueList($results)),
+            'items' => $this->serializer->normalize(new ValueList($results), $format, $context),
             'item_count' => $resultSet->getTotalCount(),
         );
     }

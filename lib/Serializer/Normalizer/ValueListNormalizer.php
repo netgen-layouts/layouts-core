@@ -26,9 +26,9 @@ class ValueListNormalizer extends SerializerAwareNormalizer implements Normalize
             $dataItem = $value;
 
             if ($value instanceof ValueInterface) {
-                $dataItem = $this->serializer->normalize($value);
+                $dataItem = $this->serializer->normalize($value, $format, $context);
             } elseif (is_array($value)) {
-                $dataItem = $this->serializer->normalize(new ValueList($value));
+                $dataItem = $this->serializer->normalize(new ValueList($value), $format, $context);
             }
 
             $data[$key] = $dataItem;

@@ -36,7 +36,7 @@ class SourceNormalizer extends SerializerAwareNormalizer implements NormalizerIn
         return array(
             'identifier' => $source->getIdentifier(),
             'name' => $source->getName(),
-            'queries' => $this->serializer->normalize(new ValueList($queries)),
+            'queries' => $this->serializer->normalize(new ValueList($queries), $format, $context),
         );
     }
 

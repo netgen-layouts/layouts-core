@@ -47,19 +47,24 @@ class SerializerListener implements EventSubscriberInterface
             return;
         }
 
-        $attributes = $event->getRequest()->attributes;
-        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
+        $request = $event->getRequest();
+        if ($request->attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;
         }
 
-        $controllerResult = $event->getControllerResult();
-        if (!$controllerResult instanceof ValueInterface) {
+        $value = $event->getControllerResult();
+        if (!$value instanceof ValueInterface) {
             return;
         }
 
-        $response = new JsonResponse(null, $controllerResult->getStatusCode());
+        $context = array();
+        if ($request->query->get('html') === 'false') {
+            $context['disable_html'] = true;
+        }
+
+        $response = new JsonResponse(null, $value->getStatusCode());
         $response->setContent(
-            $this->serializer->serialize($controllerResult, 'json')
+            $this->serializer->serialize($value, 'json', $context)
         );
 
         $event->setResponse($response);
