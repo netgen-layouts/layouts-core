@@ -75,4 +75,18 @@ abstract class Controller extends BaseController
 
         return $blockTypeRegistry->getBlockType($identifier);
     }
+
+    /**
+     * Returns if the specified value type exists in the registry.
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    protected function hasValueType($type)
+    {
+        $valueLoaderRegistry = $this->get('netgen_block_manager.item.registry.value_loader');
+
+        return $valueLoaderRegistry->hasValueLoader($type);
+    }
 }

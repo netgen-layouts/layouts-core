@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
-use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
@@ -15,8 +14,6 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValid
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Exception;
 
 class CollectionController extends Controller
@@ -153,9 +150,6 @@ class CollectionController extends Controller
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If some of the required parameters in request body are empty, missing or have an invalid format
-     * @throws \Netgen\BlockManager\Exception\BadStateException If items could not be created
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function addItems(CollectionDraft $collection, Request $request)
@@ -182,17 +176,13 @@ class CollectionController extends Controller
             }
 
             $this->repository->commitTransaction();
-        } catch (InvalidArgumentException $e) {
-            $this->repository->rollbackTransaction();
 
-            throw $e;
+            return new Response(null, Response::HTTP_NO_CONTENT);
         } catch (Exception $e) {
             $this->repository->rollbackTransaction();
 
-            throw new BadStateException('items', $e->getMessage());
+            throw $e;
         }
-
-        return new JsonResponse(null, Response::HTTP_CREATED);
     }
 
     /**

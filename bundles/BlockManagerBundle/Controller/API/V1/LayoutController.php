@@ -119,8 +119,6 @@ class LayoutController extends Controller
      * @param string $zoneIdentifier
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
-     *
      * @return \Netgen\BlockManager\Serializer\Values\ValueList
      */
     public function viewZoneBlocks($layoutId, $zoneIdentifier, Request $request)
@@ -237,8 +235,6 @@ class LayoutController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException
-     *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function createDraft(Layout $layout)
@@ -266,7 +262,7 @@ class LayoutController extends Controller
         } catch (Exception $e) {
             $this->repository->rollbackTransaction();
 
-            throw new BadStateException('layout', $e->getMessage());
+            throw $e;
         }
     }
 
