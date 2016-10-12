@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
@@ -147,14 +148,23 @@ class LayoutController extends Controller
      * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If linked layout or zone do not exist
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function linkZone(ZoneDraft $zone, Request $request)
     {
-        $linkedZone = $this->layoutService->loadZone(
-            $request->request->get('linked_layout_id'),
-            $request->request->get('linked_zone_identifier')
-        );
+        try {
+            $linkedZone = $this->layoutService->loadZone(
+                $request->request->get('linked_layout_id'),
+                $request->request->get('linked_zone_identifier')
+            );
+        } catch (NotFoundException $e) {
+            throw new BadStateException(
+                'linked_zone_identifier',
+                'Specified linked layout or zone do not exist'
+            );
+        }
 
         $this->layoutService->linkZone($zone, $linkedZone);
 
@@ -188,7 +198,11 @@ class LayoutController extends Controller
     {
         $this->validator->validateCreateLayout($request);
 
-        $layoutType = $this->getLayoutType($request->request->get('layout_type'));
+        try {
+            $layoutType = $this->getLayoutType($request->request->get('layout_type'));
+        } catch (InvalidArgumentException $e) {
+            throw new BadStateException('layout_type', 'Layout type does not exist.', $e);
+        }
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType->getIdentifier(),
