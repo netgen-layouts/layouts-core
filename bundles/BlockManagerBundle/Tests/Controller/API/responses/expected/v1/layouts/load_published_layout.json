@@ -1,0 +1,44 @@
+{
+    "id": 1,
+    "type": "4_zones_a",
+    "published": true,
+    "has_published_state": true,
+    "created_at": "2015-11-09T11:43:33+0100",
+    "updated_at": "2015-11-09T11:43:33+0100",
+    "shared": false,
+    "name": "My layout",
+    "zones": [
+        {
+            "identifier": "bottom",
+            "name": "Bottom",
+            "block_ids": [],
+            "allowed_block_definitions": true,
+            "linked_layout_id": null,
+            "linked_zone_identifier": null
+        },
+        {
+            "identifier": "left",
+            "name": "Left",
+            "block_ids": [2],
+            "allowed_block_definitions": true,
+            "linked_layout_id": null,
+            "linked_zone_identifier": null
+        },
+        {
+            "identifier": "right",
+            "name": "Right",
+            "block_ids": [1, 5],
+            "allowed_block_definitions": true,
+            "linked_layout_id": null,
+            "linked_zone_identifier": null
+        },
+        {
+            "identifier": "top",
+            "name": "Top",
+            "block_ids": [],
+            "allowed_block_definitions": ["title"],
+            "linked_layout_id": null,
+            "linked_zone_identifier": null
+        }
+    ]
+}

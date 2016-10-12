@@ -1,0 +1,44 @@
+[
+    {
+        "id": 2,
+        "definition_identifier": "list",
+        "name": "My other block",
+        "zone_identifier": "left",
+        "position": 0,
+        "layout_id": 1,
+        "parameters": {
+            "number_of_columns": 3
+        },
+        "view_type": "grid",
+        "item_view_type": "standard",
+        "has_published_state": true
+    },
+    {
+        "id": 1,
+        "definition_identifier": "list",
+        "name": "My published block",
+        "zone_identifier": "right",
+        "position": 0,
+        "layout_id": 1,
+        "parameters": {
+            "number_of_columns": 3
+        },
+        "view_type": "grid",
+        "item_view_type": "standard_with_intro",
+        "has_published_state": true
+    },
+    {
+        "id": 5,
+        "definition_identifier": "list",
+        "name": "My fourth block",
+        "zone_identifier": "right",
+        "position": 1,
+        "layout_id": 1,
+        "parameters": {
+            "number_of_columns": 3
+        },
+        "view_type": "grid",
+        "item_view_type": "standard",
+        "has_published_state": true
+    }
+]
