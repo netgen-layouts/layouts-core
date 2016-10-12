@@ -154,7 +154,7 @@ class BlockService implements BlockServiceInterface
      */
     public function loadCollectionReference(Block $block, $identifier)
     {
-        $this->blockValidator->validateIdentifier($identifier);
+        $this->blockValidator->validateIdentifier($identifier, null, true);
 
         return $this->blockMapper->mapCollectionReference(
             $this->blockHandler->loadCollectionReference(

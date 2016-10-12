@@ -188,7 +188,7 @@ class LayoutService implements LayoutServiceInterface
     public function loadZone($layoutId, $identifier)
     {
         $this->layoutValidator->validateId($layoutId, 'layoutId');
-        $this->layoutValidator->validateIdentifier($identifier, 'identifier');
+        $this->layoutValidator->validateIdentifier($identifier, 'identifier', true);
 
         return $this->layoutMapper->mapZone(
             $this->layoutHandler->loadZone(
@@ -212,7 +212,7 @@ class LayoutService implements LayoutServiceInterface
     public function loadZoneDraft($layoutId, $identifier)
     {
         $this->layoutValidator->validateId($layoutId, 'layoutId');
-        $this->layoutValidator->validateIdentifier($identifier, 'identifier');
+        $this->layoutValidator->validateIdentifier($identifier, 'identifier', true);
 
         return $this->layoutMapper->mapZone(
             $this->layoutHandler->loadZone(
