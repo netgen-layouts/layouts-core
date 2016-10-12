@@ -729,6 +729,33 @@ class BlockControllerTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
      */
+    public function testMoveWithOutOfRangePosition()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'zone_identifier' => 'left',
+                'position' => 9999,
+            )
+        );
+
+        $this->client->request(
+            'PATCH',
+            '/bm/api/v1/blocks/1/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
     public function testMoveWithInvalidZoneIdentifier()
     {
         $data = $this->jsonEncode(
