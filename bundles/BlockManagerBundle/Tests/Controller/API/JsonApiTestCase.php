@@ -38,8 +38,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      * Asserts that response has JSON content.
      * If filename is set, asserts that response content matches the one in given file.
      * If statusCode is set, asserts that response has given status code.
-     * If excludeElements is set, the items in it will not be checked for value equality
-     *     but only for existence. This is useful in our case when response has a rendered HTML.
+     * If excludeElements is set, the items in it will not be checked for value equality but only for existence.
      *
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @param string $filename

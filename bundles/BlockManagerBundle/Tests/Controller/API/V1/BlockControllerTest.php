@@ -13,13 +13,12 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testView()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/1');
+        $this->client->request('GET', '/bm/api/v1/blocks/1?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/view_block',
-            Response::HTTP_OK,
-            array('html')
+            Response::HTTP_OK
         );
     }
 
@@ -53,7 +52,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/blocks?html=false',
             array(),
             array(),
             array(),
@@ -63,8 +62,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block',
-            Response::HTTP_CREATED,
-            array('html')
+            Response::HTTP_CREATED
         );
     }
 
@@ -84,7 +82,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/blocks?html=false',
             array(),
             array(),
             array(),
@@ -94,8 +92,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_at_end',
-            Response::HTTP_CREATED,
-            array('html')
+            Response::HTTP_CREATED
         );
     }
 
@@ -469,7 +466,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/copy',
+            '/bm/api/v1/blocks/1/copy?html=false',
             array(),
             array(),
             array(),
@@ -479,8 +476,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/copy_block',
-            Response::HTTP_CREATED,
-            array('html')
+            Response::HTTP_CREATED
         );
     }
 
@@ -493,7 +489,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/copy',
+            '/bm/api/v1/blocks/1/copy?html=false',
             array(),
             array(),
             array(),
@@ -503,8 +499,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/copy_block_in_same_zone',
-            Response::HTTP_CREATED,
-            array('html')
+            Response::HTTP_CREATED
         );
     }
 
@@ -820,7 +815,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/restore',
+            '/bm/api/v1/blocks/1/restore?html=false',
             array(),
             array(),
             array(),
@@ -830,8 +825,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/restore_block',
-            Response::HTTP_OK,
-            array('html')
+            Response::HTTP_OK
         );
     }
 
