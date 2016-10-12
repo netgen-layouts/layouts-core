@@ -1,0 +1,14 @@
+{
+    "id": 2,
+    "collection_id": 3,
+    "position": 0,
+    "identifier": "default",
+    "type": "ezcontent_search",
+    "parameters": {
+        "parent_location_id": 2,
+        "sort_direction": "descending",
+        "sort_type": "date_published",
+        "offset": 0,
+        "query_type": "list"
+    }
+}

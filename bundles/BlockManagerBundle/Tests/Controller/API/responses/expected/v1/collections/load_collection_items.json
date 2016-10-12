@@ -1,0 +1,32 @@
+[
+    {
+        "id": 7,
+        "collection_id": 3,
+        "position": 2,
+        "type": 0,
+        "value_id": "70",
+        "value_type": "ezcontent",
+        "name": null,
+        "visible": null
+    },
+    {
+        "id": 8,
+        "collection_id": 3,
+        "position": 3,
+        "type": 0,
+        "value_id": "71",
+        "value_type": "ezcontent",
+        "name": null,
+        "visible": null
+    },
+    {
+        "id": 9,
+        "collection_id": 3,
+        "position": 5,
+        "type": 0,
+        "value_id": "72",
+        "value_type": "ezcontent",
+        "name": null,
+        "visible": null
+    }
+]
