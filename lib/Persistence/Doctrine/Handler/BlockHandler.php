@@ -212,18 +212,9 @@ class BlockHandler implements BlockHandlerInterface
      * @param string $identifier
      * @param int $offset
      * @param int $limit
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided identifier already exists within the block
      */
     public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
     {
-        if ($this->collectionReferenceExists($block, $identifier)) {
-            throw new BadStateException(
-                'identifier',
-                'Collection with provided identifier already exists in the block'
-            );
-        }
-
         $this->queryHandler->createCollectionReference($block->id, $block->status, $collection->id, $collection->status, $identifier, $offset, $limit);
     }
 

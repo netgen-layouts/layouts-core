@@ -839,20 +839,6 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createCollectionReference
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateCollectionReferenceThrowsBadStateException()
-    {
-        $this->blockHandler->createCollectionReference(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
-            'default'
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteCollectionReference
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReference
      */
