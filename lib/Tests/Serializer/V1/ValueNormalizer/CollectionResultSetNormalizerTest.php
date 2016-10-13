@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer;
-use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Symfony\Component\Serializer\Serializer;
@@ -51,11 +50,9 @@ class CollectionResultSetNormalizerTest extends TestCase
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    new ValueList(
-                        array(
-                            new VersionedValue(new Result(), 1),
-                            new VersionedValue(new Result(), 1),
-                        )
+                    array(
+                        new VersionedValue(new Result(), 1),
+                        new VersionedValue(new Result(), 1),
                     )
                 )
             )

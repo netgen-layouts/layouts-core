@@ -20,8 +20,8 @@ class VersionedValueTest extends TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\AbstractVersionedValue::__construct
-     * @covers Netgen\BlockManager\Serializer\Values\VersionedValue::getVersion
+     * @covers \Netgen\BlockManager\Serializer\Values\AbstractVersionedValue::__construct
+     * @covers \Netgen\BlockManager\Serializer\Values\VersionedValue::getVersion
      */
     public function testGetVersion()
     {

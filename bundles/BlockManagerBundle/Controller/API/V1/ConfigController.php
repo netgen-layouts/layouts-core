@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface;
-use Netgen\BlockManager\Serializer\Values\ValueList;
+use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -64,11 +64,11 @@ class ConfigController extends Controller
     /**
      * Returns the general config.
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function getConfig()
     {
-        return new ValueList(
+        return new Value(
             array(
                 'csrf_token' => $this->getCsrfToken(),
             )
@@ -78,7 +78,7 @@ class ConfigController extends Controller
     /**
      * Serializes the block types.
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function getBlockTypes()
     {
@@ -92,7 +92,7 @@ class ConfigController extends Controller
             $blockTypes[] = new VersionedValue($blockType, Version::API_V1);
         }
 
-        return new ValueList(
+        return new Value(
             array(
                 'block_type_groups' => $blockTypeGroups,
                 'block_types' => $blockTypes,
@@ -103,7 +103,7 @@ class ConfigController extends Controller
     /**
      * Serializes the layout types.
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function getLayoutTypes()
     {
@@ -112,13 +112,13 @@ class ConfigController extends Controller
             $layoutTypes[] = new VersionedValue($layoutType, Version::API_V1);
         }
 
-        return new ValueList($layoutTypes);
+        return new Value($layoutTypes);
     }
 
     /**
      * Serializes the collection sources.
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function getSources()
     {
@@ -127,7 +127,7 @@ class ConfigController extends Controller
             $sources[] = new VersionedValue($source, Version::API_V1);
         }
 
-        return new ValueList($sources);
+        return new Value($sources);
     }
 
     /**

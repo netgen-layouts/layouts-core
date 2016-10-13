@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Serializer\Values\ValueList;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -40,8 +39,8 @@ class CollectionNormalizer extends SerializerAwareNormalizer implements Normaliz
             'type' => $collection->getType(),
             'shared' => $collection->isShared(),
             'name' => $collection->getName(),
-            'items' => $this->serializer->normalize(new ValueList($items), $format, $context),
-            'queries' => $this->serializer->normalize(new ValueList($queries), $format, $context),
+            'items' => $this->serializer->normalize($items, $format, $context),
+            'queries' => $this->serializer->normalize($queries, $format, $context),
         );
     }
 

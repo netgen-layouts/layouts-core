@@ -21,8 +21,8 @@ class FormViewTest extends TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\View::setViewParameters
-     * @covers Netgen\BlockManager\Serializer\Values\View::getViewParameters
+     * @covers \Netgen\BlockManager\Serializer\Values\View::setViewParameters
+     * @covers \Netgen\BlockManager\Serializer\Values\View::getViewParameters
      */
     public function testViewParameters()
     {
@@ -31,7 +31,7 @@ class FormViewTest extends TestCase
     }
 
     /**
-     * @covers Netgen\BlockManager\Serializer\Values\AbstractView::getContext
+     * @covers \Netgen\BlockManager\Serializer\Values\AbstractView::getContext
      */
     public function testGetContext()
     {

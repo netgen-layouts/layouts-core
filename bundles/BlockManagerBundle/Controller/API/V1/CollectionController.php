@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
-use Netgen\BlockManager\Serializer\Values\ValueList;
+use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Serializer\Version;
@@ -99,7 +99,7 @@ class CollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function loadCollectionItems(CollectionDraft $collection)
     {
@@ -110,7 +110,7 @@ class CollectionController extends Controller
             $collection->getItems()
         );
 
-        return new ValueList($items);
+        return new Value($items);
     }
 
     /**
@@ -118,7 +118,7 @@ class CollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function loadCollectionQueries(CollectionDraft $collection)
     {
@@ -129,7 +129,7 @@ class CollectionController extends Controller
             $collection->getQueries()
         );
 
-        return new ValueList($queries);
+        return new Value($queries);
     }
 
     /**

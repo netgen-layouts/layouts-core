@@ -12,7 +12,7 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Values\ValueList;
+use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -54,7 +54,7 @@ class LayoutController extends Controller
     /**
      * Loads all shared layouts.
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function loadSharedLayouts()
     {
@@ -63,7 +63,7 @@ class LayoutController extends Controller
             $layouts[] = new VersionedValue($layout, Version::API_V1);
         }
 
-        return new ValueList($layouts);
+        return new Value($layouts);
     }
 
     /**
@@ -93,7 +93,7 @@ class LayoutController extends Controller
      * @param int $layoutId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function viewLayoutBlocks($layoutId, Request $request)
     {
@@ -109,7 +109,7 @@ class LayoutController extends Controller
             }
         }
 
-        return new ValueList($blocks);
+        return new Value($blocks);
     }
 
     /**
@@ -119,7 +119,7 @@ class LayoutController extends Controller
      * @param string $zoneIdentifier
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\Serializer\Values\ValueList
+     * @return \Netgen\BlockManager\Serializer\Values\Value
      */
     public function viewZoneBlocks($layoutId, $zoneIdentifier, Request $request)
     {
@@ -137,7 +137,7 @@ class LayoutController extends Controller
             $blocks[] = new View($block, Version::API_V1);
         }
 
-        return new ValueList($blocks);
+        return new Value($blocks);
     }
 
     /**
