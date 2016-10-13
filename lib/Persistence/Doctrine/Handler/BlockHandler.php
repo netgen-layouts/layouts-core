@@ -400,7 +400,7 @@ class BlockHandler implements BlockHandlerInterface
             );
         }
 
-        $this->deleteBlock($block);
+        $this->deleteBlockData($block);
 
         $this->queryHandler->createBlock(
             new BlockCreateStruct(
