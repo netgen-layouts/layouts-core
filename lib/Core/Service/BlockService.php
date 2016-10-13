@@ -9,6 +9,7 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
@@ -446,15 +447,65 @@ class BlockService implements BlockServiceInterface
      */
     public function restoreBlock(BlockDraft $block)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        $draftBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+
+        try {
+            $publishedBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_PUBLISHED);
+        } catch (NotFoundException $e) {
+            throw new BadStateException('block', 'Block does not have a published status.');
+        }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $restoredBlock = $this->blockHandler->restoreBlock(
-                $persistenceBlock,
-                Layout::STATUS_PUBLISHED
+            $updatedBlock = $this->blockHandler->updateBlock(
+                $draftBlock,
+                new BlockUpdateStruct(
+                    array(
+                        'name' => $publishedBlock->name,
+                        'viewType' => $publishedBlock->viewType,
+                        'itemViewType' => $publishedBlock->itemViewType,
+                        'parameters' => $publishedBlock->parameters,
+                    )
+                )
             );
+
+            $draftReferences = $this->blockHandler->loadCollectionReferences($draftBlock);
+            foreach ($draftReferences as $draftReference) {
+                $this->blockHandler->deleteCollectionReference($draftReference);
+
+                if (!$this->collectionHandler->isSharedCollection($draftReference->collectionId)) {
+                    $this->collectionHandler->deleteCollection(
+                        $draftReference->collectionId,
+                        $draftReference->collectionStatus
+                    );
+                }
+
+                $publishedReference = $this->blockHandler->loadCollectionReference(
+                    $publishedBlock,
+                    $draftReference->identifier
+                );
+
+                $collection = $this->collectionHandler->loadCollection(
+                    $publishedReference->collectionId,
+                    $publishedReference->collectionStatus
+                );
+
+                if (!$this->collectionHandler->isSharedCollection($publishedReference->collectionId)) {
+                    $collection = $this->collectionHandler->createCollectionStatus(
+                        $collection,
+                        $draftBlock->status
+                    );
+                }
+
+                $this->blockHandler->createCollectionReference(
+                    $draftBlock,
+                    $collection,
+                    $draftReference->identifier,
+                    $draftReference->offset,
+                    $draftReference->limit
+                );
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -462,7 +513,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($restoredBlock);
+        return $this->blockMapper->mapBlock($updatedBlock);
     }
 
     /**

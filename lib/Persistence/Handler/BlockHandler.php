@@ -157,19 +157,6 @@ interface BlockHandler
     public function moveBlockToZone(Block $block, $zoneIdentifier, $position);
 
     /**
-     * Restores the specified block from the provided status. Zone and position are kept as is.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param int $fromStatus
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If $fromStatus is the same to block status
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block does not have a $fromStatus status
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
-     */
-    public function restoreBlock(Block $block, $fromStatus);
-
-    /**
      * Creates a new block status.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block

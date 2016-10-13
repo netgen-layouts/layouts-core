@@ -250,7 +250,12 @@ class BlockServiceTest extends TransactionRollbackTest
 
         $this->blockHandlerMock
             ->expects($this->at(1))
-            ->method('restoreBlock')
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
+            ->method('updateBlock')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler

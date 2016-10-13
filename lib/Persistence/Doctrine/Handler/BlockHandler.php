@@ -3,8 +3,6 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
@@ -372,59 +370,6 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Restores the specified block from the provided status. Zone and position are kept as is.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param int $fromStatus
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If $fromStatus is the same to block status
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block does not have a $fromStatus status
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
-     */
-    public function restoreBlock(Block $block, $fromStatus)
-    {
-        if ($block->status == $fromStatus) {
-            throw new InvalidArgumentException(
-                'fromStatus',
-                'The block cannot be restored from itself.'
-            );
-        }
-
-        try {
-            $fromBlock = $this->loadBlock($block->id, $fromStatus);
-        } catch (NotFoundException $e) {
-            throw new BadStateException(
-                'block',
-                'Block cannot be restored as it does not have a published status'
-            );
-        }
-
-        $this->deleteBlockData($block);
-
-        $this->queryHandler->createBlock(
-            new BlockCreateStruct(
-                array(
-                    'layoutId' => $block->layoutId,
-                    'zoneIdentifier' => $block->zoneIdentifier,
-                    'status' => $block->status,
-                    'position' => $block->position,
-                    'definitionIdentifier' => $block->definitionIdentifier,
-                    'viewType' => $fromBlock->viewType,
-                    'itemViewType' => $fromBlock->itemViewType,
-                    'name' => $fromBlock->name,
-                    'parameters' => $fromBlock->parameters,
-                )
-            ),
-            $block->id
-        );
-
-        $this->createBlockCollectionsStatus($fromBlock, $block->status);
-
-        return $this->loadBlock($block->id, $block->status);
-    }
-
-    /**
      * Creates a new block status.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -459,7 +404,8 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function deleteBlock(Block $block)
     {
-        $this->deleteBlockData($block);
+        $this->deleteBlockCollections($block);
+        $this->queryHandler->deleteBlock($block->id, $block->status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -548,17 +494,6 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->limit
             );
         }
-    }
-
-    /**
-     * Deletes all block data.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     */
-    protected function deleteBlockData(Block $block)
-    {
-        $this->deleteBlockCollections($block);
-        $this->queryHandler->deleteBlock($block->id, $block->status);
     }
 
     /**
