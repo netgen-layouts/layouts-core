@@ -34,4 +34,44 @@ class BlockCollectionControllerTest extends JsonApiTestCase
             Response::HTTP_NOT_FOUND
         );
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     */
+    public function testLoadCollectionResult()
+    {
+        $this->client->request('GET', '/bm/api/v1/blocks/5/collections/default/result');
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/block_collections/load_collection_result',
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     */
+    public function testLoadCollectionResultWithNonExistentBlock()
+    {
+        $this->client->request('GET', '/bm/api/v1/blocks/9999/collections/default/result');
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     */
+    public function testLoadCollectionResultWithNonExistentCollectionReference()
+    {
+        $this->client->request('GET', '/bm/api/v1/blocks/1/collections/unknown/result');
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
 }
