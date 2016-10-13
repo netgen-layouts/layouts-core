@@ -61,10 +61,6 @@ trait TestCaseTrait
                 $this->databaseConnection,
                 $connectionHelper
             ),
-            new BlockQueryHandler(
-                $this->databaseConnection,
-                $connectionHelper
-            ),
             $this->createBlockHandler(),
             $this->createCollectionHandler(),
             new LayoutMapper()

@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -174,7 +173,9 @@ interface BlockHandler
     /**
      * Deletes the collection reference.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     * @param int|string $blockId
+     * @param int $blockStatus
+     * @param string $identifier
      */
-    public function deleteCollectionReference(CollectionReference $collectionReference);
+    public function deleteCollectionReference($blockId, $blockStatus, $identifier);
 }

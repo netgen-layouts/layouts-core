@@ -847,10 +847,9 @@ class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
 
         $this->blockHandler->deleteCollectionReference(
-            $this->blockHandler->loadCollectionReference(
-                $block,
-                'default'
-            )
+            1,
+            Layout::STATUS_DRAFT,
+            'default'
         );
 
         $this->assertFalse(

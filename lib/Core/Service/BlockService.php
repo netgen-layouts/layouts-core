@@ -472,7 +472,11 @@ class BlockService implements BlockServiceInterface
 
             $draftReferences = $this->blockHandler->loadCollectionReferences($draftBlock);
             foreach ($draftReferences as $draftReference) {
-                $this->blockHandler->deleteCollectionReference($draftReference);
+                $this->blockHandler->deleteCollectionReference(
+                    $draftReference->blockId,
+                    $draftReference->blockStatus,
+                    $draftReference->identifier
+                );
 
                 if (!$this->collectionHandler->isSharedCollection($draftReference->collectionId)) {
                     $this->collectionHandler->deleteCollection(

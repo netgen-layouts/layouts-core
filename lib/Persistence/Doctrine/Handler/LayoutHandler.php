@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
@@ -25,11 +24,6 @@ class LayoutHandler implements LayoutHandlerInterface
     protected $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler
-     */
-    protected $blockQueryHandler;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     protected $blockHandler;
@@ -48,20 +42,17 @@ class LayoutHandler implements LayoutHandlerInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler $queryHandler
-     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler $blockQueryHandler
      * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
      * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
      */
     public function __construct(
         LayoutQueryHandler $queryHandler,
-        BlockQueryHandler $blockQueryHandler,
         BaseBlockHandler $blockHandler,
         BaseCollectionHandler $collectionHandler,
         LayoutMapper $layoutMapper
     ) {
         $this->queryHandler = $queryHandler;
-        $this->blockQueryHandler = $blockQueryHandler;
         $this->blockHandler = $blockHandler;
         $this->collectionHandler = $collectionHandler;
         $this->layoutMapper = $layoutMapper;
@@ -436,7 +427,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $collectionData = $this->queryHandler->loadLayoutCollectionsData($layoutId, $status);
 
         foreach ($collectionData as $collectionDataRow) {
-            $this->blockQueryHandler->deleteCollectionReference(
+            $this->blockHandler->deleteCollectionReference(
                 $collectionDataRow['block_id'],
                 $collectionDataRow['block_status'],
                 $collectionDataRow['identifier']

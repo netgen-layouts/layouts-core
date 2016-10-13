@@ -14,7 +14,6 @@ use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandl
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -420,15 +419,13 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Deletes the collection reference.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     * @param int|string $blockId
+     * @param int $blockStatus
+     * @param string $identifier
      */
-    public function deleteCollectionReference(CollectionReference $collectionReference)
+    public function deleteCollectionReference($blockId, $blockStatus, $identifier)
     {
-        $this->queryHandler->deleteCollectionReference(
-            $collectionReference->blockId,
-            $collectionReference->blockStatus,
-            $collectionReference->identifier
-        );
+        $this->queryHandler->deleteCollectionReference($blockId, $blockStatus, $identifier);
     }
 
     /**
@@ -506,18 +503,18 @@ class BlockHandler implements BlockHandlerInterface
         $collectionReferences = $this->loadCollectionReferences($block);
 
         foreach ($collectionReferences as $collectionReference) {
+            $this->deleteCollectionReference(
+                $block->id,
+                $block->status,
+                $collectionReference->identifier
+            );
+
             if (!$this->collectionHandler->isSharedCollection($collectionReference->collectionId)) {
                 $this->collectionHandler->deleteCollection(
                     $collectionReference->collectionId,
                     $collectionReference->collectionStatus
                 );
             }
-
-            $this->queryHandler->deleteCollectionReference(
-                $block->id,
-                $block->status,
-                $collectionReference->identifier
-            );
         }
     }
 
