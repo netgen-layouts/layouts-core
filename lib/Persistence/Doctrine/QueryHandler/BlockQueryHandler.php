@@ -120,36 +120,6 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if provided collection reference already exists in the block.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function collectionReferenceExists($blockId, $status, $identifier)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('ngbm_block_collection')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING);
-
-        $this->applyStatusCondition($query, $status, 'block_status');
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
      * Creates a block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct

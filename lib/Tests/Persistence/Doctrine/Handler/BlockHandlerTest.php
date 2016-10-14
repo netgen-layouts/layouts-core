@@ -791,50 +791,29 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionReferenceExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionReferenceExists
-     */
-    public function testCollectionReferenceExists()
-    {
-        $this->assertTrue(
-            $this->blockHandler->collectionReferenceExists(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                'default'
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::collectionReferenceExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::collectionReferenceExists
-     */
-    public function testCollectionReferenceNotExists()
-    {
-        $this->assertFalse(
-            $this->blockHandler->collectionReferenceExists(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                'something_else'
-            )
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createCollectionReference
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createCollectionReference
      */
     public function testCreateCollectionReference()
     {
-        $this->blockHandler->createCollectionReference(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED),
-            'new'
-        );
+        $block = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
+        $collection = $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
 
-        $this->assertTrue(
-            $this->blockHandler->collectionReferenceExists(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-                'new'
-            )
+        $this->blockHandler->createCollectionReference($block, $collection, 'new');
+
+        $this->assertEquals(
+            new CollectionReference(
+                array(
+                    'blockId' => $block->id,
+                    'blockStatus' => $block->status,
+                    'collectionId' => $collection->id,
+                    'collectionStatus' => $collection->status,
+                    'identifier' => 'new',
+                    'offset' => 0,
+                    'limit' => null,
+                )
+            ),
+            $this->blockHandler->loadCollectionReference($block, 'new')
         );
     }
 }

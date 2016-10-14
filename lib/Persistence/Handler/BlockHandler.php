@@ -64,16 +64,6 @@ interface BlockHandler
     public function loadCollectionReferences(Block $block);
 
     /**
-     * Returns if provided collection reference already exists in the block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function collectionReferenceExists(Block $block, $identifier);
-
-    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct

@@ -147,19 +147,6 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Returns if provided collection reference already exists in the block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function collectionReferenceExists(Block $block, $identifier)
-    {
-        return $this->queryHandler->collectionReferenceExists($block->id, $block->status, $identifier);
-    }
-
-    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
@@ -212,7 +199,15 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
     {
-        $this->queryHandler->createCollectionReference($block->id, $block->status, $collection->id, $collection->status, $identifier, $offset, $limit);
+        $this->queryHandler->createCollectionReference(
+            $block->id,
+            $block->status,
+            $collection->id,
+            $collection->status,
+            $identifier,
+            $offset,
+            $limit
+        );
     }
 
     /**
@@ -463,9 +458,11 @@ class BlockHandler implements BlockHandlerInterface
                 $collection = $this->collectionHandler->copyCollection($collection);
             }
 
-            $this->createCollectionReference(
-                $targetBlock,
-                $collection,
+            $this->queryHandler->createCollectionReference(
+                $targetBlock->id,
+                $targetBlock->status,
+                $collection->id,
+                $collection->status,
                 $collectionReference->identifier,
                 $collectionReference->offset,
                 $collectionReference->limit
