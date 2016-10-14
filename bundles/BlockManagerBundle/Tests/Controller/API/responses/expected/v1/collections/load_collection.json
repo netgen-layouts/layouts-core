@@ -9,8 +9,8 @@
             "collection_id": 3,
             "position": 2,
             "type": 0,
-            "value_id": "70",
-            "value_type": "ezcontent",
+            "value_id": "72",
+            "value_type": "ezlocation",
             "name": null,
             "visible": null
         },
@@ -19,8 +19,8 @@
             "collection_id": 3,
             "position": 3,
             "type": 0,
-            "value_id": "71",
-            "value_type": "ezcontent",
+            "value_id": "73",
+            "value_type": "ezlocation",
             "name": null,
             "visible": null
         },
@@ -29,8 +29,8 @@
             "collection_id": 3,
             "position": 5,
             "type": 0,
-            "value_id": "72",
-            "value_type": "ezcontent",
+            "value_id": "74",
+            "value_type": "ezlocation",
             "name": null,
             "visible": null
         }
