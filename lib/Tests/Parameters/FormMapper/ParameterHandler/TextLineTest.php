@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use PHPUnit\Framework\TestCase;
 

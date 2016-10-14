@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Html;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use PHPUnit\Framework\TestCase;
 

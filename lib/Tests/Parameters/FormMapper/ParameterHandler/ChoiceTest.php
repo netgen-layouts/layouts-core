@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\Parameter\Choice as ChoiceParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use PHPUnit\Framework\TestCase;
 

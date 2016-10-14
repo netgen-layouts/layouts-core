@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\Parameter\Range as RangeParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Range;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use PHPUnit\Framework\TestCase;
 
