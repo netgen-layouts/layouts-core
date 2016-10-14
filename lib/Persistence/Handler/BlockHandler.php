@@ -171,11 +171,18 @@ interface BlockHandler
     public function deleteBlock(Block $block);
 
     /**
-     * Deletes the collection reference.
+     * Deletes blocks with specified IDs.
      *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param string $identifier
+     * @param array $blockIds
+     * @param int $status
      */
-    public function deleteCollectionReference($blockId, $blockStatus, $identifier);
+    public function deleteBlocks(array $blockIds, $status = null);
+
+    /**
+     * Deletes block collections with specified block IDs.
+     *
+     * @param array $blockIds
+     * @param int $status
+     */
+    public function deleteBlockCollections(array $blockIds, $status = null);
 }

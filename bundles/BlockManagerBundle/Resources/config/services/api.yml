@@ -81,7 +81,6 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.doctrine.layout.query_handler"
             - "@netgen_block_manager.persistence.doctrine.block.handler"
-            - "@netgen_block_manager.persistence.doctrine.collection.handler"
             - "@netgen_block_manager.persistence.doctrine.layout.mapper"
 
     # Block related persistence APIs

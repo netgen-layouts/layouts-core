@@ -403,8 +403,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function deleteBlock(Block $block)
     {
-        $this->deleteBlockCollections($block);
-        $this->queryHandler->deleteBlock($block->id, $block->status);
+        $this->deleteBlocks(array($block->id), $block->status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -417,15 +416,31 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Deletes the collection reference.
+     * Deletes blocks with specified IDs.
      *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param string $identifier
+     * @param array $blockIds
+     * @param int $status
      */
-    public function deleteCollectionReference($blockId, $blockStatus, $identifier)
+    public function deleteBlocks(array $blockIds, $status = null)
     {
-        $this->queryHandler->deleteCollectionReference($blockId, $blockStatus, $identifier);
+        $this->deleteBlockCollections($blockIds, $status);
+        $this->queryHandler->deleteBlocks($blockIds, $status);
+    }
+
+    /**
+     * Deletes block collections with specified block IDs.
+     *
+     * @param array $blockIds
+     * @param int $status
+     */
+    public function deleteBlockCollections(array $blockIds, $status = null)
+    {
+        $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
+        foreach ($collectionIds as $collectionId) {
+            $this->collectionHandler->deleteCollection($collectionId, $status);
+        }
+
+        $this->queryHandler->deleteCollectionReferences($blockIds, $status);
     }
 
     /**
@@ -490,31 +505,6 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->offset,
                 $collectionReference->limit
             );
-        }
-    }
-
-    /**
-     * Deletes all block collections.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     */
-    protected function deleteBlockCollections(Block $block)
-    {
-        $collectionReferences = $this->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $this->deleteCollectionReference(
-                $block->id,
-                $block->status,
-                $collectionReference->identifier
-            );
-
-            if (!$this->collectionHandler->isSharedCollection($collectionReference->collectionId)) {
-                $this->collectionHandler->deleteCollection(
-                    $collectionReference->collectionId,
-                    $collectionReference->collectionStatus
-                );
-            }
         }
     }
 

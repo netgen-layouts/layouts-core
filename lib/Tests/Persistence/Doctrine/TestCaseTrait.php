@@ -62,7 +62,6 @@ trait TestCaseTrait
                 $connectionHelper
             ),
             $this->createBlockHandler(),
-            $this->createCollectionHandler(),
             new LayoutMapper()
         );
     }

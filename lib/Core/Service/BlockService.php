@@ -470,26 +470,10 @@ class BlockService implements BlockServiceInterface
                 )
             );
 
-            $draftReferences = $this->blockHandler->loadCollectionReferences($draftBlock);
-            foreach ($draftReferences as $draftReference) {
-                $this->blockHandler->deleteCollectionReference(
-                    $draftReference->blockId,
-                    $draftReference->blockStatus,
-                    $draftReference->identifier
-                );
+            $this->blockHandler->deleteBlockCollections(array($draftBlock->id), $draftBlock->status);
 
-                if (!$this->collectionHandler->isSharedCollection($draftReference->collectionId)) {
-                    $this->collectionHandler->deleteCollection(
-                        $draftReference->collectionId,
-                        $draftReference->collectionStatus
-                    );
-                }
-
-                $publishedReference = $this->blockHandler->loadCollectionReference(
-                    $publishedBlock,
-                    $draftReference->identifier
-                );
-
+            $publishedReferences = $this->blockHandler->loadCollectionReferences($publishedBlock);
+            foreach ($publishedReferences as $publishedReference) {
                 $collection = $this->collectionHandler->loadCollection(
                     $publishedReference->collectionId,
                     $publishedReference->collectionStatus
@@ -505,9 +489,9 @@ class BlockService implements BlockServiceInterface
                 $this->blockHandler->createCollectionReference(
                     $draftBlock,
                     $collection,
-                    $draftReference->identifier,
-                    $draftReference->offset,
-                    $draftReference->limit
+                    $publishedReference->identifier,
+                    $publishedReference->offset,
+                    $publishedReference->limit
                 );
             }
         } catch (Exception $e) {

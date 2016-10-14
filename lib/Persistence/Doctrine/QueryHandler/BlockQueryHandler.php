@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Connection;
 
 class BlockQueryHandler extends QueryHandler
 {
@@ -327,22 +328,24 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes a block.
+     * Deletes all blocks with provided IDs.
      *
-     * @param int|string $blockId
+     * @param array $blockIds
      * @param int $status
      */
-    public function deleteBlock($blockId, $status)
+    public function deleteBlocks(array $blockIds, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_block')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->in('id', array(':id'))
             )
-            ->setParameter('id', $blockId, Type::INTEGER);
+            ->setParameter('id', $blockIds, Connection::PARAM_INT_ARRAY);
 
-        $this->applyStatusCondition($query, $status);
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
 
         $query->execute();
     }
@@ -371,6 +374,72 @@ class BlockQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $blockStatus, 'block_status', 'block_status');
 
         $query->execute();
+    }
+
+    /**
+     * Deletes the collection reference.
+     *
+     * @param array $blockIds
+     * @param int $status
+     */
+    public function deleteCollectionReferences(array $blockIds, $status = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_block_collection')
+            ->where(
+                $query->expr()->in('block_id', array(':block_id'))
+            )
+            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status, 'block_status', 'block_status');
+        }
+
+        $query->execute();
+    }
+
+    /**
+     * Loads all block collection IDs.
+     *
+     * @param array $blockIds
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadBlockCollectionIds(array $blockIds, $status = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT bc.collection_id')
+            ->from('ngbm_block_collection', 'bc')
+            ->innerJoin(
+                'bc',
+                'ngbm_collection',
+                'c',
+                $query->expr()->andX(
+                    $query->expr()->eq('bc.collection_id', 'c.id'),
+                    $query->expr()->eq('bc.collection_status', 'c.status'),
+                    $query->expr()->eq('c.shared', ':shared')
+                )
+            )
+            ->where(
+                $query->expr()->in('bc.block_id', array(':block_id'))
+            )
+            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY)
+            ->setParameter('shared', false, Type::BOOLEAN);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');
+        }
+
+        $result = $query->execute()->fetchAll();
+
+        return array_map(
+            function (array $row) {
+                return $row['collection_id'];
+            },
+            $result
+        );
     }
 
     /**

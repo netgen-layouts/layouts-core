@@ -837,26 +837,4 @@ class BlockHandlerTest extends TestCase
             )
         );
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReference
-     */
-    public function testDeleteCollectionReference()
-    {
-        $block = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
-
-        $this->blockHandler->deleteCollectionReference(
-            1,
-            Layout::STATUS_DRAFT,
-            'default'
-        );
-
-        $this->assertFalse(
-            $this->blockHandler->collectionReferenceExists(
-                $block,
-                'default'
-            )
-        );
-    }
 }

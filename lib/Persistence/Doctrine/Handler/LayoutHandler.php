@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler as BaseCollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct as APILayoutCreateStruct;
@@ -29,11 +28,6 @@ class LayoutHandler implements LayoutHandlerInterface
     protected $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
-     */
-    protected $collectionHandler;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
      */
     protected $layoutMapper;
@@ -43,18 +37,15 @@ class LayoutHandler implements LayoutHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler $queryHandler
      * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
      * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
      */
     public function __construct(
         LayoutQueryHandler $queryHandler,
         BaseBlockHandler $blockHandler,
-        BaseCollectionHandler $collectionHandler,
         LayoutMapper $layoutMapper
     ) {
         $this->queryHandler = $queryHandler;
         $this->blockHandler = $blockHandler;
-        $this->collectionHandler = $collectionHandler;
         $this->layoutMapper = $layoutMapper;
     }
 
@@ -423,25 +414,8 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        // First delete all non shared collections
-        $collectionData = $this->queryHandler->loadLayoutCollectionsData($layoutId, $status);
-
-        foreach ($collectionData as $collectionDataRow) {
-            $this->blockHandler->deleteCollectionReference(
-                $collectionDataRow['block_id'],
-                $collectionDataRow['block_status'],
-                $collectionDataRow['identifier']
-            );
-
-            if (!$this->collectionHandler->isSharedCollection($collectionDataRow['collection_id'])) {
-                $this->collectionHandler->deleteCollection(
-                    $collectionDataRow['collection_id'],
-                    $collectionDataRow['collection_status']
-                );
-            }
-        }
-
-        $this->queryHandler->deleteLayoutBlocks($layoutId, $status);
+        $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
+        $this->blockHandler->deleteBlocks($blockIds, $status);
         $this->queryHandler->deleteLayout($layoutId, $status);
     }
 }

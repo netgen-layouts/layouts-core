@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
-use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Doctrine\DBAL\Types\Type;
 
 class LayoutQueryHandler extends QueryHandler
 {
@@ -139,32 +139,6 @@ class LayoutQueryHandler extends QueryHandler
         }
 
         $query->addOrderBy('identifier', 'ASC');
-
-        return $query->execute()->fetchAll();
-    }
-
-    /**
-     * Loads all layout collections data.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     *
-     * @return array
-     */
-    public function loadLayoutCollectionsData($layoutId, $status = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('bc.block_id', 'bc.block_status', 'bc.identifier', 'bc.collection_id', 'bc.collection_status')
-            ->from('ngbm_block_collection', 'bc')
-            ->innerJoin('bc', 'ngbm_block', 'b', 'bc.block_id = b.id and bc.block_status = b.status')
-            ->where(
-                $query->expr()->eq('b.layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status, 'bc.block_status');
-        }
 
         return $query->execute()->fetchAll();
     }
@@ -437,29 +411,6 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes all layout blocks.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     */
-    public function deleteLayoutBlocks($layoutId, $status = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->delete('ngbm_block')
-            ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
-            )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
-
-        $query->execute();
-    }
-
-    /**
      * Deletes the layout.
      *
      * @param int|string $layoutId
@@ -496,6 +447,38 @@ class LayoutQueryHandler extends QueryHandler
         }
 
         $query->execute();
+    }
+
+    /**
+     * Loads all layout block IDs.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadLayoutBlockIds($layoutId, $status = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT id')
+            ->from('ngbm_block')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        $result = $query->execute()->fetchAll();
+
+        return array_map(
+            function (array $row) {
+                return $row['id'];
+            },
+            $result
+        );
     }
 
     /**
