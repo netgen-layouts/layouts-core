@@ -5,8 +5,8 @@
             "collection_id": null,
             "position": 0,
             "type": 2,
-            "value_id": 139,
-            "value_type": "ezcontent",
+            "value_id": 140,
+            "value_type": "ezlocation",
             "name": "Will Starbucks Lose Its Coffee Smell To Fresh Croissants?",
             "visible": true
         },
@@ -15,8 +15,8 @@
             "collection_id": null,
             "position": 1,
             "type": 2,
-            "value_id": 78,
-            "value_type": "ezcontent",
+            "value_id": 79,
+            "value_type": "ezlocation",
             "name": "Airbus Regains Top Spot From Boeing In Q1",
             "visible": true
         },
@@ -25,8 +25,8 @@
             "collection_id": 4,
             "position": 2,
             "type": 0,
-            "value_id": 70,
-            "value_type": "ezcontent",
+            "value_id": 72,
+            "value_type": "ezlocation",
             "name": "NHL Upsets This Week's Social TV Rankings",
             "visible": true
         },
@@ -35,8 +35,8 @@
             "collection_id": 4,
             "position": 3,
             "type": 0,
-            "value_id": 71,
-            "value_type": "ezcontent",
+            "value_id": 73,
+            "value_type": "ezlocation",
             "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
             "visible": true
         },
@@ -45,8 +45,8 @@
             "collection_id": null,
             "position": 4,
             "type": 2,
-            "value_id": 75,
-            "value_type": "ezcontent",
+            "value_id": 78,
+            "value_type": "ezlocation",
             "name": "British Airways rolls out first painted A380",
             "visible": true
         },
@@ -55,8 +55,8 @@
             "collection_id": 4,
             "position": 5,
             "type": 0,
-            "value_id": 72,
-            "value_type": "ezcontent",
+            "value_id": 74,
+            "value_type": "ezlocation",
             "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
             "visible": true
         }
