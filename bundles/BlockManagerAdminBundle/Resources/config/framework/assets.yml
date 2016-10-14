@@ -22,21 +22,3 @@ assets:
             base_path: '/bundles/netgenblockmanageradmin'
             version: ~
             version_format: ~
-        ngbm_app_css:
-            base_path: '/bundles/netgenblockmanagerui/css'
-            # version: '%ngbm_app.asset.version%'
-            version: ~
-            version_format: 'v%%2$s/%%1$s'
-        ngbm_app_js:
-            base_path: '/bundles/netgenblockmanagerui/js'
-            # version: '%ngbm_app.asset.version%'
-            version: ~
-            version_format: 'v%%2$s/%%1$s'
-        ngbm_app_vendor:
-            base_path: '/bundles/netgenblockmanagerui/vendor'
-            version: ~
-            version_format: ~
-        ngbm_app:
-            base_path: '/bundles/netgenblockmanagerui'
-            version: ~
-            version_format: ~

@@ -19,18 +19,18 @@
     <link rel="manifest" href="{{ asset('favicon/manifest.json', 'ngbm_admin_images') }}">
     <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg', 'ngbm_admin_images') }}" color="#5bbad5">
 
-    <link rel="stylesheet" href="{{ asset('alloy-editor/assets/alloy-editor-ocean-min.css', 'ngbm_app_vendor') }}">
+    <link rel="stylesheet" href="{{ asset('alloy-editor/assets/alloy-editor-ocean-min.css', 'ngcore_vendor') }}">
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('main.css', 'ngbm_app_css') }}">
+        <link rel="stylesheet" href="{{ asset('netgen-block-manager.css', 'ngbm_app_css') }}">
     {% endblock %}
 </head>
 
 <body>
-    <div id="app"></div>
+    <div id="app" class="ngc"></div>
 
-    <script src="{{ asset('alloy-editor/alloy-editor-all.js', 'ngbm_app_vendor') }}"></script>
-    <script src="{{ asset('ace-editor/ace.js', 'ngbm_app_vendor') }}"></script>
+    <script src="{{ asset('alloy-editor/alloy-editor-all.js', 'ngcore_vendor') }}"></script>
+    <script src="{{ asset('ace-editor/ace.js', 'ngcore_vendor') }}"></script>
 
     {% set google_maps_api_key = ngbm.config.parameter('google_maps_api_key') %}
 
@@ -39,7 +39,7 @@
     {% endif %}
 
     {% block javascripts %}
-        <script src="{{ asset('main.js', 'ngbm_app_js') }}"></script>
+        <script src="{{ asset('netgen-block-manager.js', 'ngbm_app_js') }}"></script>
     {% endblock %}
 </body>
 </html>

@@ -31,7 +31,7 @@ body {
     line-height:1.5;
     color:$textColor;
     min-height:100%;
-    a {
+    a:not(.nl-btn) {
         color:$linkColor;
     }
     h1 {

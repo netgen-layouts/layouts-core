@@ -42,16 +42,14 @@
             <div>
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">{{ 'block.edit.collection_type.tooltip'|trans }}</div></div></a></label>
                 <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master">
-                    {% if not collection.shared %}
-                        <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="manual">{{ collection_types['manual'] }}</option>
+                    <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="manual">{{ collection_types['manual'] }}</option>
 
-                        {% if query_types|length > 0 %}
-                            <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="dynamic">{{ collection_types['dynamic'] }}</option>
-                        {% endif %}
-                    {% else %}
-                        {% if shared_collections|length > 0 %}
-                            <option {% if collection.shared %} selected="selected" {% endif %} value="shared">{{ collection_types['shared'] }}</option>
-                        {% endif %}
+                    {% if query_types|length > 0 %}
+                        <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="dynamic">{{ collection_types['dynamic'] }}</option>
+                    {% endif %}
+
+                    {% if shared_collections|length > 0 %}
+                        <option {% if collection.shared %} selected="selected" {% endif %} value="shared">{{ collection_types['shared'] }}</option>
                     {% endif %}
                 </select>
                 <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>

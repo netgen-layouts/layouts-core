@@ -1,10 +1,10 @@
 {% extends 'NetgenBlockManagerAdminBundle:app:index.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/bmdev/app/styles/main.css">
+    <link rel="stylesheet" href="{{ asset('dev/css/netgen-block-manager.css', 'ngbm_app') }}">
 {% endblock %}
 
 {% block javascripts %}
-    <script src="/bmdev/app/scripts/vendor.js"></script>
-    <script src="/bmdev/app/scripts/main.js"></script>
+    <script src="{{ asset('dev/js/vendor.js', 'ngbm_app') }}"></script>
+    <script src="{{ asset('dev/js/main.js', 'ngbm_app') }}"></script>
 {% endblock %}
