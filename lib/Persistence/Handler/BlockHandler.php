@@ -121,6 +121,14 @@ interface BlockHandler
     public function copyBlock(Block $block, Layout $layout, $zoneIdentifier);
 
     /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     */
+    public function copyBlockCollections(Block $block, Block $targetBlock);
+
+    /**
      * Moves a block to specified position in the zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -152,6 +160,14 @@ interface BlockHandler
      * @param int $newStatus
      */
     public function createBlockStatus(Block $block, $newStatus);
+
+    /**
+     * Creates a new status for all non shared collections in specified block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $newStatus
+     */
+    public function createBlockCollectionsStatus(Block $block, $newStatus);
 
     /**
      * Deletes a block with specified ID.

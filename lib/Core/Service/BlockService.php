@@ -471,29 +471,7 @@ class BlockService implements BlockServiceInterface
             );
 
             $this->blockHandler->deleteBlockCollections(array($draftBlock->id), $draftBlock->status);
-
-            $publishedReferences = $this->blockHandler->loadCollectionReferences($publishedBlock);
-            foreach ($publishedReferences as $publishedReference) {
-                $collection = $this->collectionHandler->loadCollection(
-                    $publishedReference->collectionId,
-                    $publishedReference->collectionStatus
-                );
-
-                if (!$this->collectionHandler->isSharedCollection($publishedReference->collectionId)) {
-                    $collection = $this->collectionHandler->createCollectionStatus(
-                        $collection,
-                        $draftBlock->status
-                    );
-                }
-
-                $this->blockHandler->createCollectionReference(
-                    $draftBlock,
-                    $collection,
-                    $publishedReference->identifier,
-                    $publishedReference->offset,
-                    $publishedReference->limit
-                );
-            }
+            $this->blockHandler->createBlockCollectionsStatus($publishedBlock, $draftBlock->status);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

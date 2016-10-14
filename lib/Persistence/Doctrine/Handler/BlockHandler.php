@@ -301,6 +301,38 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     */
+    public function copyBlockCollections(Block $block, Block $targetBlock)
+    {
+        $collectionReferences = $this->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
+                $collection = $this->collectionHandler->copyCollection($collection);
+            }
+
+            $this->queryHandler->createCollectionReference(
+                $targetBlock->id,
+                $targetBlock->status,
+                $collection->id,
+                $collection->status,
+                $collectionReference->identifier,
+                $collectionReference->offset,
+                $collectionReference->limit
+            );
+        }
+    }
+
+    /**
      * Moves a block to specified position in the zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -392,6 +424,41 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Creates a new status for all non shared collections in specified block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $newStatus
+     */
+    public function createBlockCollectionsStatus(Block $block, $newStatus)
+    {
+        $collectionReferences = $this->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
+                $collection = $this->collectionHandler->createCollectionStatus(
+                    $collection,
+                    $newStatus
+                );
+            }
+
+            $this->queryHandler->createCollectionReference(
+                $block->id,
+                $newStatus,
+                $collection->id,
+                $collection->status,
+                $collectionReference->identifier,
+                $collectionReference->offset,
+                $collectionReference->limit
+            );
+        }
+    }
+
+    /**
      * Deletes a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -436,73 +503,6 @@ class BlockHandler implements BlockHandlerInterface
         }
 
         $this->queryHandler->deleteCollectionReferences($blockIds, $status);
-    }
-
-    /**
-     * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
-     */
-    protected function copyBlockCollections(Block $block, Block $targetBlock)
-    {
-        $collectionReferences = $this->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
-            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
-                $collection = $this->collectionHandler->copyCollection($collection);
-            }
-
-            $this->queryHandler->createCollectionReference(
-                $targetBlock->id,
-                $targetBlock->status,
-                $collection->id,
-                $collection->status,
-                $collectionReference->identifier,
-                $collectionReference->offset,
-                $collectionReference->limit
-            );
-        }
-    }
-
-    /**
-     * Creates a new status for all collections in specified block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param int $newStatus
-     */
-    protected function createBlockCollectionsStatus(Block $block, $newStatus)
-    {
-        $collectionReferences = $this->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
-            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
-                $collection = $this->collectionHandler->createCollectionStatus(
-                    $collection,
-                    $newStatus
-                );
-            }
-
-            $this->queryHandler->createCollectionReference(
-                $block->id,
-                $newStatus,
-                $collection->id,
-                $collection->status,
-                $collectionReference->identifier,
-                $collectionReference->offset,
-                $collectionReference->limit
-            );
-        }
     }
 
     /**
