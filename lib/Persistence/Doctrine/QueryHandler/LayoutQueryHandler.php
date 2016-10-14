@@ -86,6 +86,7 @@ class LayoutQueryHandler extends QueryHandler
         $query->setParameter('status', Layout::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
+        $query->orderBy('id', 'ASC');
 
         return $query->execute()->fetchAll();
     }
