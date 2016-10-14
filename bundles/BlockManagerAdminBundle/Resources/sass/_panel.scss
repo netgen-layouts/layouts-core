@@ -212,6 +212,14 @@
             }
 
             .js-input-browse {
+                .js-clear {
+                    background:#fff;
+                    border-radius:0;
+                    border-right:1px solid hsl(0, 0, 96);
+                    &:hover {
+                        background:hsl(0, 0, 98);
+                    }
+                }
                 .js-trigger {
                     background:#fff;
                     color:inherit;
