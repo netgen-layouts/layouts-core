@@ -7,7 +7,11 @@
         </a>
 
         <div class="collapse in" id="collapseItems">
-            <div data-browser-config-name="{{ ngbm.config.parameter('app.block_edit.default_browser_config') }}" class="collection-items"></div>
+            <div
+                data-browser-config-name="{{ ngbm.config.parameter('app.block_edit.default_browser_config') }}"
+                data-max_selected="0"
+                class="collection-items">
+            </div>
         </div>
     </div>
 {% endif %}
