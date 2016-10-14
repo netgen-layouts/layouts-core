@@ -139,7 +139,12 @@ class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getRuleSelectQuery();
         $query
-            ->innerJoin('r', 'ngbm_rule_target', 'rt', 'r.id = rt.rule_id')
+            ->innerJoin(
+                'r',
+                'ngbm_rule_target',
+                'rt',
+                $query->expr()->eq('r.id', 'rt.rule_id')
+            )
             ->where(
                 $query->expr()->eq('rd.enabled', ':enabled'),
                 $query->expr()->eq('rt.type', ':target_type')
@@ -661,7 +666,12 @@ class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT r.id', 'r.status', 'r.layout_id', 'r.comment', 'rd.enabled', 'rd.priority')
             ->from('ngbm_rule', 'r')
-            ->innerJoin('r', 'ngbm_rule_data', 'rd', 'rd.rule_id = r.id');
+            ->innerJoin(
+                'r',
+                'ngbm_rule_data',
+                'rd',
+                $query->expr()->eq('rd.rule_id', 'r.id')
+            );
 
         return $query;
     }
