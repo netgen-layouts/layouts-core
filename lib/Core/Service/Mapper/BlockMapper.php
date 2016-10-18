@@ -50,15 +50,23 @@ class BlockMapper extends Mapper
      */
     public function mapBlock(PersistenceBlock $block)
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $block->definitionIdentifier
+        );
+
+        $parameterValues = array();
+        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
+            $parameterValues[$parameterName] = isset($block->parameters[$parameterName]) ?
+                $block->parameters[$parameterName] : null;
+        }
+
         $blockData = array(
             'id' => $block->id,
             'layoutId' => $block->layoutId,
             'zoneIdentifier' => $block->zoneIdentifier,
             'position' => $block->position,
-            'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition(
-                $block->definitionIdentifier
-            ),
-            'parameters' => $block->parameters,
+            'blockDefinition' => $blockDefinition,
+            'parameters' => $parameterValues,
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
