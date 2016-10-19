@@ -109,24 +109,16 @@ class CollectionMapper extends Mapper
      */
     public function mapQuery(PersistenceQuery $query)
     {
-        $queryType = $this->queryTypeRegistry->getQueryType(
-            $query->type
-        );
-
-        $parameterValues = array();
-        foreach ($queryType->getParameters() as $parameterName => $parameter) {
-            $parameterValues[$parameterName] = isset($query->parameters[$parameterName]) ?
-                $query->parameters[$parameterName] : null;
-        }
-
         $queryData = array(
             'id' => $query->id,
             'status' => $query->status,
             'collectionId' => $query->collectionId,
             'position' => $query->position,
             'identifier' => $query->identifier,
-            'queryType' => $queryType,
-            'parameters' => $parameterValues,
+            'queryType' => $this->queryTypeRegistry->getQueryType(
+                $query->type
+            ),
+            'parameters' => $query->parameters,
         );
 
         return $query->status === PersistenceCollection::STATUS_PUBLISHED ?
