@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class ParameterHandler implements ParameterHandlerInterface
 {
@@ -42,5 +43,15 @@ abstract class ParameterHandler implements ParameterHandlerInterface
             'property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
             'constraints' => $constraints,
         );
+    }
+
+    /**
+     * Allows the handler to do any kind of processing to created form.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Symfony\Component\Form\FormBuilderInterface $form
+     */
+    public function processForm(ParameterInterface $parameter, FormBuilderInterface $form)
+    {
     }
 }

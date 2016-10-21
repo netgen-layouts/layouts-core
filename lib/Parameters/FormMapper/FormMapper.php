@@ -86,6 +86,8 @@ class FormMapper implements FormMapperInterface
             )
         );
 
+        $parameterHandler->processForm($parameter, $parameterForm);
+
         $parameterFilters = $this->parameterFilterRegistry->getParameterFilters($parameterType);
         if (!empty($parameterFilters)) {
             $parameterForm->addModelTransformer(
