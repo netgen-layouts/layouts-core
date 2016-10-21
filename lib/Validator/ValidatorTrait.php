@@ -36,12 +36,10 @@ trait ValidatorTrait
     {
         $violations = $this->validator->validate($value, $constraints);
 
-        if ($violations->count() > 0) {
-            $violation = $violations->offsetGet(0);
-
+        if (count($violations) > 0) {
             throw new InvalidArgumentException(
-                $propertyPath !== null ? $propertyPath : $violation->getPropertyPath(),
-                $violation->getMessage()
+                $propertyPath !== null ? $propertyPath : $violations[0]->getPropertyPath(),
+                $violations[0]->getMessage()
             );
         }
     }

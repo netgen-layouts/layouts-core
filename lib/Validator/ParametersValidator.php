@@ -54,12 +54,10 @@ class ParametersValidator extends ConstraintValidator
             )
         );
 
-        if ($violations->count() > 0) {
-            $violation = $violations->offsetGet(0);
-
+        if (count($violations) > 0) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('%parameterName%', $violation->getPropertyPath())
-                ->setParameter('%message%', $violation->getMessage())
+                ->setParameter('%parameterName%', $violations[0]->getPropertyPath())
+                ->setParameter('%message%', $violations[0]->getMessage())
                 ->addViolation();
         }
     }
