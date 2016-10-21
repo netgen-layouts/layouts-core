@@ -16,6 +16,8 @@ use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 
 class CollectionMapper extends Mapper
 {
+    use ParametersMapper;
+
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
      */
@@ -109,16 +111,21 @@ class CollectionMapper extends Mapper
      */
     public function mapQuery(PersistenceQuery $query)
     {
+        $queryType = $this->queryTypeRegistry->getQueryType(
+            $query->type
+        );
+
         $queryData = array(
             'id' => $query->id,
             'status' => $query->status,
             'collectionId' => $query->collectionId,
             'position' => $query->position,
             'identifier' => $query->identifier,
-            'queryType' => $this->queryTypeRegistry->getQueryType(
-                $query->type
+            'queryType' => $queryType,
+            'parameters' => $this->mapParameters(
+                $queryType->getParameters(),
+                $query->parameters
             ),
-            'parameters' => $query->parameters,
         );
 
         return $query->status === PersistenceCollection::STATUS_PUBLISHED ?

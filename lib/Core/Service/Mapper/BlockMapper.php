@@ -13,6 +13,8 @@ use Netgen\BlockManager\Persistence\Handler;
 
 class BlockMapper extends Mapper
 {
+    use ParametersMapper;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
@@ -50,15 +52,20 @@ class BlockMapper extends Mapper
      */
     public function mapBlock(PersistenceBlock $block)
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $block->definitionIdentifier
+        );
+
         $blockData = array(
             'id' => $block->id,
             'layoutId' => $block->layoutId,
             'zoneIdentifier' => $block->zoneIdentifier,
             'position' => $block->position,
-            'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition(
-                $block->definitionIdentifier
+            'blockDefinition' => $blockDefinition,
+            'parameters' => $this->mapParameters(
+                $blockDefinition->getParameters(),
+                $block->parameters
             ),
-            'parameters' => $block->parameters,
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
