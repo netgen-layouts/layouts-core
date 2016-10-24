@@ -41,7 +41,7 @@ class ParametersValidator extends ConstraintValidator
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        $validator->atPath('parameters')->validate(
+        $validator->validate(
             $value->getParameters(),
             new Constraints\Collection(
                 array(

@@ -92,7 +92,7 @@ class BlockController extends Controller
             $blockDefinitionConfig->getForm($formName)->getType(),
             $updateStruct,
             array(
-                'blockDefinition' => $blockDefinition,
+                'block' => $block,
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit',
                     array(

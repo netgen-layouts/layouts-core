@@ -2,21 +2,22 @@
 
 namespace Netgen\BlockManager\Block\Form;
 
+use Netgen\BlockManager\Validator\Constraint\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Validator\Constraints;
 
 abstract class EditType extends AbstractType
 {
@@ -49,10 +50,20 @@ abstract class EditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('blockDefinition');
-        $resolver->setAllowedTypes('blockDefinition', BlockDefinitionInterface::class);
+        $resolver->setRequired('block');
+        $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
         $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
+
+        $resolver->setDefault('constraints', function (Options $options) {
+            return array(
+                new BlockUpdateStructConstraint(
+                    array(
+                        'payload' => $options['block'],
+                    )
+                ),
+            );
+        });
     }
 
     /**
@@ -80,7 +91,7 @@ abstract class EditType extends AbstractType
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['blockDefinition'];
+        $blockDefinition = $options['block']->getBlockDefinition();
 
         $this->processViewTypeConfig($blockDefinition);
 
@@ -108,18 +119,6 @@ abstract class EditType extends AbstractType
                         );
                     },
                     'choices_as_values' => true,
-                    'constraints' => array(
-                        new Constraints\NotBlank(),
-                        new Constraints\Choice(
-                            array(
-                                'choices' => isset($this->itemViewTypes[$viewType]) ?
-                                    array_flip($this->itemViewTypes[$viewType]) :
-                                    array(),
-                                'multiple' => false,
-                                'strict' => true,
-                            )
-                        ),
-                    ),
                     'property_path' => 'itemViewType',
                 )
             );
@@ -173,7 +172,7 @@ abstract class EditType extends AbstractType
     protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = array())
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['blockDefinition'];
+        $blockDefinition = $options['block']->getBlockDefinition();
         $formParameters = array();
 
         foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
@@ -190,14 +189,6 @@ abstract class EditType extends AbstractType
                 'parameters' => $formParameters,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
                 'property_path_prefix' => 'parameters',
-                'constraints' => array(
-                    new Parameters(
-                        array(
-                            'parameters' => $blockDefinition->getParameters(),
-                            'required' => false,
-                        )
-                    )
-                ),
             )
         );
     }

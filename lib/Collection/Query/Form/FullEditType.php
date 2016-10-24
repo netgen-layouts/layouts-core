@@ -53,7 +53,7 @@ class FullEditType extends AbstractType
                             'parameters' => $queryType->getParameters(),
                             'required' => false,
                         )
-                    )
+                    ),
                 ),
             )
         );
