@@ -96,10 +96,11 @@ class ParametersTypeTest extends FormTestCase
 
         $this->assertEquals(
             array(
-                'inherit_data' => true,
                 'parameters' => array(),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
+                'inherit_data' => true,
+                'translation_domain' => ParametersType::TRANSLATION_DOMAIN,
             ),
             $resolvedOptions
         );
