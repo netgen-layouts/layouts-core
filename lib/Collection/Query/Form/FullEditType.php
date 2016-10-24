@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Collection\Query\Form;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,8 +21,8 @@ class FullEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('queryType');
-        $resolver->setAllowedTypes('queryType', QueryTypeInterface::class);
+        $resolver->setRequired('query');
+        $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
         $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
@@ -36,7 +36,7 @@ class FullEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
-        $queryType = $options['queryType'];
+        $queryType = $options['query']->getQueryType();
         $parameters = $queryType->getParameters();
 
         $builder->add(

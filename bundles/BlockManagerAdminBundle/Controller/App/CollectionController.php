@@ -37,8 +37,7 @@ class CollectionController extends Controller
      */
     public function queryEditForm(QueryDraft $query, $formName, Request $request)
     {
-        $queryType = $query->getQueryType();
-        $queryTypeConfig = $queryType->getConfig();
+        $queryTypeConfig = $query->getQueryType()->getConfig();
 
         $updateStruct = $this->collectionService->newQueryUpdateStruct($query);
 
@@ -46,7 +45,7 @@ class CollectionController extends Controller
             $queryTypeConfig->getForm($formName)->getType(),
             $updateStruct,
             array(
-                'queryType' => $queryType,
+                'query' => $query,
                 'action' => $this->generateUrl(
                     'ngbm_app_collection_query_form_edit',
                     array(
