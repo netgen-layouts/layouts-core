@@ -101,10 +101,8 @@ class KeyValuesType extends AbstractType
     {
         parent::buildView($view, $form, $options);
 
-        $view->vars = array(
-            'key_name' => $options['key_name'],
-            'values_name' => $options['values_name'],
-        ) + $view->vars;
+        $view->vars['key_name'] = $options['key_name'];
+        $view->vars['values_name'] = $options['values_name'];
     }
 
     /**

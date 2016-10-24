@@ -76,9 +76,7 @@ abstract class EditType extends AbstractType
     {
         parent::buildView($view, $form, $options);
 
-        $view->vars = array(
-            'parameter_view_types' => $this->viewTypesByParameters,
-        ) + $view->vars;
+        $view->vars['parameter_view_types'] = $this->viewTypesByParameters;
     }
 
     /**

@@ -97,9 +97,7 @@ class CompoundBooleanType extends ParametersType
     {
         parent::buildView($view, $form, $options);
 
-        $view->vars = array(
-            'reverse' => $options['reverse'],
-        ) + $view->vars;
+        $view->vars['reverse'] = $options['reverse'];
     }
 
     /**
