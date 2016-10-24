@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
@@ -189,6 +190,14 @@ abstract class EditType extends AbstractType
                 'parameters' => $formParameters,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
                 'property_path_prefix' => 'parameters',
+                'constraints' => array(
+                    new Parameters(
+                        array(
+                            'parameters' => $blockDefinition->getParameters(),
+                            'required' => false,
+                        )
+                    )
+                ),
             )
         );
     }

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Collection\Query\Form;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
+use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -46,6 +47,14 @@ class FullEditType extends AbstractType
                 'parameters' => $parameters,
                 'label_prefix' => 'query.' . $queryType->getType(),
                 'property_path_prefix' => 'parameters',
+                'constraints' => array(
+                    new Parameters(
+                        array(
+                            'parameters' => $queryType->getParameters(),
+                            'required' => false,
+                        )
+                    )
+                ),
             )
         );
     }

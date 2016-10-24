@@ -9,12 +9,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraint;
 
 class CompoundBooleanType extends ParametersType
 {
-    const COMPOUND_GROUP = 'Compound';
-
     /**
      * Configures the options for this type.
      *
@@ -26,40 +23,20 @@ class CompoundBooleanType extends ParametersType
 
         $resolver->setRequired(
             array(
-                'checkbox_name',
                 'checkbox_required',
                 'checkbox_label',
-                'checkbox_constraints',
                 'checkbox_property_path',
-                'checkbox_reverse',
+                'reverse',
             )
         );
 
-        $resolver->setAllowedTypes('checkbox_name', 'string');
         $resolver->setAllowedTypes('checkbox_required', 'bool');
         $resolver->setAllowedTypes('checkbox_label', 'string');
-        $resolver->setAllowedTypes('checkbox_constraints', 'array');
         $resolver->setAllowedTypes('checkbox_property_path', 'string');
-        $resolver->setAllowedTypes('checkbox_reverse', 'bool');
+        $resolver->setAllowedTypes('reverse', 'bool');
 
-        $resolver->setDefault('checkbox_name', '_self');
         $resolver->setDefault('checkbox_required', false);
-        $resolver->setDefault('checkbox_constraints', array());
-        $resolver->setDefault('checkbox_reverse', false);
-
-        $resolver->setDefault(
-            'validation_groups',
-            function (FormInterface $form) {
-                $formName = $form->getName();
-                $parameters = $form->getData()->getParameters();
-
-                if (isset($parameters[$formName]) && $parameters[$formName]) {
-                    return array(Constraint::DEFAULT_GROUP, self::COMPOUND_GROUP);
-                }
-
-                return array(Constraint::DEFAULT_GROUP);
-            }
-        );
+        $resolver->setDefault('reverse', false);
     }
 
     /**
@@ -79,14 +56,14 @@ class CompoundBooleanType extends ParametersType
                     return;
                 }
 
-                $clearChildren = !isset($data[$options['checkbox_name']]) || !$data[$options['checkbox_name']];
-                if (isset($options['checkbox_reverse']) && $options['checkbox_reverse'] === true) {
+                $clearChildren = !isset($data['_self']) || !$data['_self'];
+                if (isset($options['reverse']) && $options['reverse'] === true) {
                     $clearChildren = !$clearChildren;
                 }
 
                 if ($clearChildren) {
                     foreach ($data as $key => $value) {
-                        if ($key !== $options['checkbox_name']) {
+                        if ($key !== '_self') {
                             $data[$key] = null;
                         }
                     }
@@ -97,22 +74,16 @@ class CompoundBooleanType extends ParametersType
         );
 
         $builder->add(
-            $options['checkbox_name'],
+            '_self',
             CheckboxType::class,
             array(
                 'label' => $options['checkbox_label'],
                 'required' => $options['checkbox_required'],
                 'property_path' => $options['checkbox_property_path'],
-                'constraints' => $options['checkbox_constraints'],
             )
         );
 
-        parent::buildForm(
-            $builder,
-            array(
-                'parameter_validation_groups' => array(self::COMPOUND_GROUP),
-            ) + $options
-        );
+        parent::buildForm($builder, $options);
     }
 
     /**
@@ -127,8 +98,7 @@ class CompoundBooleanType extends ParametersType
         parent::buildView($view, $form, $options);
 
         $view->vars = array(
-            'checkbox_name' => $options['checkbox_name'],
-            'checkbox_reverse' => $options['checkbox_reverse'],
+            'reverse' => $options['reverse'],
         ) + $view->vars;
     }
 

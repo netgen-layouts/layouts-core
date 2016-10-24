@@ -38,17 +38,14 @@ class ParametersType extends AbstractType
                 'parameters',
                 'label_prefix',
                 'property_path_prefix',
-                'parameter_validation_groups',
             )
         );
 
         $resolver->setAllowedTypes('parameters', 'array');
         $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('property_path_prefix', 'string');
-        $resolver->setAllowedTypes('parameter_validation_groups', array('null', 'array'));
 
         $resolver->setDefault('inherit_data', true);
-        $resolver->setDefault('parameter_validation_groups', null);
     }
 
     /**
@@ -67,7 +64,6 @@ class ParametersType extends AbstractType
                 array(
                     'label_prefix' => $options['label_prefix'],
                     'property_path_prefix' => $options['property_path_prefix'],
-                    'parameter_validation_groups' => $options['parameter_validation_groups'],
                 )
             );
         }

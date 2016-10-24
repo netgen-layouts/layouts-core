@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\FormMapper\DataTransformer\ParameterFilterDataTransformer;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -88,15 +87,6 @@ class FormMapper implements FormMapperInterface
 
         $parameterHandler->processForm($parameter, $parameterForm);
 
-        $parameterFilters = $this->parameterFilterRegistry->getParameterFilters($parameterType);
-        if (!empty($parameterFilters)) {
-            $parameterForm->addModelTransformer(
-                new ParameterFilterDataTransformer(
-                    $parameterFilters
-                )
-            );
-        }
-
         $formBuilder->add($parameterForm);
     }
 
@@ -109,12 +99,10 @@ class FormMapper implements FormMapperInterface
     {
         $optionsResolver->setDefault('label_prefix', false);
         $optionsResolver->setDefault('property_path_prefix', 'parameters');
-        $optionsResolver->setDefault('parameter_validation_groups', null);
 
-        $optionsResolver->setRequired(array('label_prefix', 'property_path_prefix', 'parameter_validation_groups'));
+        $optionsResolver->setRequired(array('label_prefix', 'property_path_prefix'));
 
         $optionsResolver->setAllowedTypes('label_prefix', 'string');
         $optionsResolver->setAllowedTypes('property_path_prefix', 'string');
-        $optionsResolver->setAllowedTypes('parameter_validation_groups', array('null', 'array'));
     }
 }

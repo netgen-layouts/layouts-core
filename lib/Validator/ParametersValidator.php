@@ -38,10 +38,10 @@ class ParametersValidator extends ConstraintValidator
         /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $value */
         $this->filterParameters($value, $constraint->parameters);
 
-        /** @var \Symfony\Component\Validator\Validator\ValidatorInterface $validator */
-        $validator = $this->context->getValidator();
+        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
+        $validator = $this->context->getValidator()->inContext($this->context);
 
-        $violations = $validator->validate(
+        $validator->atPath('parameters')->validate(
             $value->getParameters(),
             new Constraints\Collection(
                 array(
@@ -53,13 +53,6 @@ class ParametersValidator extends ConstraintValidator
                 )
             )
         );
-
-        if (count($violations) > 0) {
-            $this->context->buildViolation($constraint->message)
-                ->setParameter('%parameterName%', $violations[0]->getPropertyPath())
-                ->setParameter('%message%', $violations[0]->getMessage())
-                ->addViolation();
-        }
     }
 
     /**

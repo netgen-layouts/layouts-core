@@ -33,6 +33,8 @@ abstract class CompoundParameterHandler extends ParameterHandler
     {
         return array(
             'label' => false,
-        ) + $options;
+            'label_prefix' => $options['label_prefix'],
+            'property_path_prefix' => $options['property_path_prefix'],
+        ) + parent::getDefaultOptions($parameter, $parameterName, $options);
     }
 }
