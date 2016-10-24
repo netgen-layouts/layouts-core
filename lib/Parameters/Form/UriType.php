@@ -33,54 +33,59 @@ class UriType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $linkTypes = array(
+            'forms.uri.link_type.url' => Uri::LINK_TYPE_URL,
+            'forms.uri.link_type.email' => Uri::LINK_TYPE_EMAIL,
+            'forms.uri.link_type.internal' => Uri::LINK_TYPE_INTERNAL,
+        );
+
+        if (!$options['required']) {
+            $linkTypes = array(
+                'forms.uri.link_type.none' => Uri::LINK_TYPE_NONE,
+            ) + $linkTypes;
+        }
+
         $builder->add(
             'link_type',
             ChoiceType::class,
             array(
                 'label' => 'forms.uri.link_type',
-                'choices' => array(
-                    'forms.uri.link_type.url' => Uri::LINK_TYPE_URL,
-                    'forms.uri.link_type.email' => Uri::LINK_TYPE_EMAIL,
-                    'forms.uri.link_type.internal' => Uri::LINK_TYPE_INTERNAL,
-                ),
+                'choices' => $linkTypes,
                 'choices_as_values' => true,
                 'required' => true,
             )
         );
 
         $builder->add(
-            'url',
+            Uri::LINK_TYPE_URL,
             UrlType::class,
             array(
                 'label' => 'forms.uri.link_type.url',
-                'required' => true,
             )
         );
 
         $builder->add(
-            'email',
+            Uri::LINK_TYPE_EMAIL,
             EmailType::class,
             array(
                 'label' => 'forms.uri.link_type.email',
-                'required' => true,
             )
         );
 
         $builder->add(
-            'internal_link',
+            Uri::LINK_TYPE_INTERNAL,
             ContentBrowserType::class,
             array(
                 'label' => 'forms.uri.link_type.internal',
-                'required' => true,
                 'item_type' => 'ezlocation',
             )
         );
 
         $builder->add(
-            'internal_link_suffix',
+            'internal_suffix',
             TextType::class,
             array(
-                'label' => 'forms.uri.internal_link_suffix',
+                'label' => 'forms.uri.internal_suffix',
             )
         );
 

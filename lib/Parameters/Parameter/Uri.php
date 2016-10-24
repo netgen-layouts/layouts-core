@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints;
 
 class Uri extends Parameter
 {
+    const LINK_TYPE_NONE = 'none';
+
     const LINK_TYPE_URL = 'url';
 
     const LINK_TYPE_EMAIL = 'email';
@@ -36,25 +38,32 @@ class Uri extends Parameter
             return array();
         }
 
-        $fields = array();
+        $fields = array(
+            self::LINK_TYPE_URL => null,
+            self::LINK_TYPE_EMAIL => null,
+            self::LINK_TYPE_INTERNAL => null,
+            'internal_suffix' => null,
+        );
 
         if (isset($value['link_type'])) {
             if ($value['link_type'] === self::LINK_TYPE_URL) {
-                $fields[$value['link_type']] = array(
+                $fields[self::LINK_TYPE_URL] = array(
                     new Constraints\NotBlank(),
                     new Constraints\Url(),
                 );
             } elseif ($value['link_type'] === self::LINK_TYPE_EMAIL) {
-                $fields[$value['link_type']] = array(
+                $fields[self::LINK_TYPE_EMAIL] = array(
                     new Constraints\NotBlank(),
-                    new Constraints\Url(),
+                    new Constraints\Email(),
                 );
             } elseif ($value['link_type'] === self::LINK_TYPE_INTERNAL) {
-                $fields[$value['link_type']] = array(
+                $fields[self::LINK_TYPE_INTERNAL] = array(
                     new Constraints\NotBlank(),
                 );
 
-                $fields['internal_link_suffix'] = array();
+                $fields['internal_suffix'] = array(
+                    new Constraints\Type(array('type' => 'string')),
+                );
             }
         }
 
@@ -66,13 +75,21 @@ class Uri extends Parameter
                             new Constraints\NotBlank(),
                             new Constraints\Choice(
                                 array(
-                                    'choices' => array(
-                                        self::LINK_TYPE_URL,
-                                        self::LINK_TYPE_EMAIL,
-                                        self::LINK_TYPE_INTERNAL
-                                    )
+                                    'callback' => function () {
+                                        $linkTypes = array(
+                                            self::LINK_TYPE_URL,
+                                            self::LINK_TYPE_EMAIL,
+                                            self::LINK_TYPE_INTERNAL,
+                                        );
+
+                                        if (!$this->isRequired()) {
+                                            array_unshift($linkTypes, self::LINK_TYPE_NONE);
+                                        }
+
+                                        return $linkTypes;
+                                    },
                                 )
-                            )
+                            ),
                         ),
                         'open_in_new_window' => array(
                             new Constraints\NotNull(),

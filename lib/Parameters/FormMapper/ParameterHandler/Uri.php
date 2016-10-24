@@ -19,16 +19,18 @@ class Uri extends ParameterHandler
     }
 
     /**
-     * Converts parameter options to Symfony form options.
+     * Returns default parameter options for Symfony form.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param string $parameterName
+     * @param array $options
      *
      * @return array
      */
-    public function convertOptions(ParameterInterface $parameter)
+    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
     {
         return array(
             'label' => false,
-        );
+        ) + parent::getDefaultOptions($parameter, $parameterName, $options);
     }
 }
