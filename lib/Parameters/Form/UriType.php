@@ -3,26 +3,18 @@
 namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType;
+use Netgen\BlockManager\Parameters\Parameter\Uri;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraint;
 
 class UriType extends AbstractType
 {
-    const LINK_TYPE_URL = 'url';
-
-    const LINK_TYPE_EMAIL = 'email';
-
-    const LINK_TYPE_INTERNAL = 'internal';
-
     /**
      * Configures the options for this type.
      *
@@ -31,19 +23,6 @@ class UriType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-
-        $resolver->setDefault(
-            'validation_groups',
-            function (FormInterface $form) {
-                $formData = $form->getData();
-
-                if (!empty($formData['link_type'])) {
-                    return array(Constraint::DEFAULT_GROUP, $formData['link_type']);
-                }
-
-                return array(Constraint::DEFAULT_GROUP);
-            }
-        );
     }
 
     /**
@@ -60,9 +39,9 @@ class UriType extends AbstractType
             array(
                 'label' => 'forms.uri.link_type',
                 'choices' => array(
-                    'forms.uri.link_type.url' => self::LINK_TYPE_URL,
-                    'forms.uri.link_type.email' => self::LINK_TYPE_EMAIL,
-                    'forms.uri.link_type.internal' => self::LINK_TYPE_INTERNAL,
+                    'forms.uri.link_type.url' => Uri::LINK_TYPE_URL,
+                    'forms.uri.link_type.email' => Uri::LINK_TYPE_EMAIL,
+                    'forms.uri.link_type.internal' => Uri::LINK_TYPE_INTERNAL,
                 ),
                 'choices_as_values' => true,
                 'required' => true,
@@ -75,18 +54,6 @@ class UriType extends AbstractType
             array(
                 'label' => 'forms.uri.link_type.url',
                 'required' => true,
-                'constraints' => array(
-                    new Constraints\NotBlank(
-                        array(
-                            'groups' => array(self::LINK_TYPE_URL),
-                        )
-                    ),
-                    new Constraints\Url(
-                        array(
-                            'groups' => array(self::LINK_TYPE_URL),
-                        )
-                    ),
-                ),
             )
         );
 
@@ -96,18 +63,6 @@ class UriType extends AbstractType
             array(
                 'label' => 'forms.uri.link_type.email',
                 'required' => true,
-                'constraints' => array(
-                    new Constraints\NotBlank(
-                        array(
-                            'groups' => array(self::LINK_TYPE_EMAIL),
-                        )
-                    ),
-                    new Constraints\Email(
-                        array(
-                            'groups' => array(self::LINK_TYPE_EMAIL),
-                        )
-                    ),
-                ),
             )
         );
 
@@ -118,13 +73,6 @@ class UriType extends AbstractType
                 'label' => 'forms.uri.link_type.internal',
                 'required' => true,
                 'item_type' => 'ezlocation',
-                'constraints' => array(
-                    new Constraints\NotBlank(
-                        array(
-                            'groups' => array(self::LINK_TYPE_INTERNAL),
-                        )
-                    ),
-                ),
             )
         );
 
@@ -142,9 +90,6 @@ class UriType extends AbstractType
             array(
                 'label' => 'forms.uri.new_window',
                 'required' => true,
-                'constraints' => array(
-                    new Constraints\NotNull(),
-                ),
             )
         );
     }
