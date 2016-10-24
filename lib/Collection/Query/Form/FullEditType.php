@@ -2,10 +2,11 @@
 
 namespace Netgen\BlockManager\Collection\Query\Form;
 
+use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +26,16 @@ class FullEditType extends AbstractType
         $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
         $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
+
+        $resolver->setDefault('constraints', function (Options $options) {
+            return array(
+                new QueryUpdateStructConstraint(
+                    array(
+                        'payload' => $options['query'],
+                    )
+                ),
+            );
+        });
     }
 
     /**
@@ -47,14 +58,6 @@ class FullEditType extends AbstractType
                 'parameters' => $parameters,
                 'label_prefix' => 'query.' . $queryType->getType(),
                 'property_path_prefix' => 'parameters',
-                'constraints' => array(
-                    new Parameters(
-                        array(
-                            'parameters' => $queryType->getParameters(),
-                            'required' => false,
-                        )
-                    ),
-                ),
             )
         );
     }

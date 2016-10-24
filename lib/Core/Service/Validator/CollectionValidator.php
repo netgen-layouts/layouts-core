@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -284,30 +285,15 @@ class CollectionValidator extends Validator
      */
     public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
-        if ($queryUpdateStruct->identifier !== null) {
-            $this->validate(
-                $queryUpdateStruct->identifier,
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                ),
-                'identifier'
-            );
-        }
-
-        $queryType = $query->getQueryType();
-
         $this->validate(
             $queryUpdateStruct,
             array(
-                new Parameters(
+                new QueryUpdateStructConstraint(
                     array(
-                        'parameters' => $queryType->getParameters(),
-                        'required' => false,
+                        'payload' => $query,
                     )
                 ),
-            ),
-            'parameters'
+            )
         );
     }
 }

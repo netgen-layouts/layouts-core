@@ -9,6 +9,7 @@ use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\ParametersValidator;
 use Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator;
 use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
+use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Symfony\Component\Validator\Constraint;
@@ -40,6 +41,8 @@ class ValidatorFactory extends ConstraintValidatorFactory
             return new BlockCreateStructValidator();
         } elseif ($name === 'ngbm_block_update_struct') {
             return new BlockUpdateStructValidator();
+        } elseif ($name === 'ngbm_query_update_struct') {
+            return new QueryUpdateStructValidator();
         }
 
         return parent::getInstance($constraint);

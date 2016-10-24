@@ -7,6 +7,7 @@ parameters:
 
     netgen_block_manager.validator.block_create_struct.class: Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator
     netgen_block_manager.validator.block_update_struct.class: Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator
+    netgen_block_manager.validator.query_update_struct.class: Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator
 
 services:
     netgen_block_manager.validator.layout_name:
@@ -49,3 +50,8 @@ services:
         class: "%netgen_block_manager.validator.block_update_struct.class%"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_update_struct }
+
+    netgen_block_manager.validator.query_update_struct:
+        class: "%netgen_block_manager.validator.query_update_struct.class%"
+        tags:
+            - { name: validator.constraint_validator, alias: ngbm_query_update_struct }
