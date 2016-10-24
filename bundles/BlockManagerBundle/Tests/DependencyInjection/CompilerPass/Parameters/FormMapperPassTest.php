@@ -41,7 +41,7 @@ class FormMapperPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_block_manager.parameters.form_mapper',
-            1,
+            0,
             array(
                 'test' => new Reference('netgen_block_manager.parameters.parameter_handler.test'),
             )

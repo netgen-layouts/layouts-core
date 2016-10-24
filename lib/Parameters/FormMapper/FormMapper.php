@@ -3,18 +3,12 @@
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 class FormMapper implements FormMapperInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
-     */
-    protected $parameterFilterRegistry;
-
     /**
      * @var \Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface[]
      */
@@ -23,15 +17,10 @@ class FormMapper implements FormMapperInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface $parameterFilterRegistry
      * @param \Netgen\BlockManager\Parameters\FormMapper\ParameterHandlerInterface[] $parameterHandlers
      */
-    public function __construct(
-        ParameterFilterRegistryInterface $parameterFilterRegistry,
-        array $parameterHandlers = array()
-    ) {
-        $this->parameterFilterRegistry = $parameterFilterRegistry;
-
+    public function __construct(array $parameterHandlers = array())
+    {
         foreach ($parameterHandlers as $parameterHandler) {
             if (!$parameterHandler instanceof ParameterHandlerInterface) {
                 throw new RuntimeException(
