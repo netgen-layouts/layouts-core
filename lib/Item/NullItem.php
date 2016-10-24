@@ -12,11 +12,6 @@ class NullItem extends ValueObject implements ItemInterface
     protected $valueId;
 
     /**
-     * @var string
-     */
-    protected $valueType;
-
-    /**
      * Returns the external value ID.
      *
      * @return int|string
@@ -33,7 +28,7 @@ class NullItem extends ValueObject implements ItemInterface
      */
     public function getValueType()
     {
-        return $this->valueType;
+        return 'null';
     }
 
     /**

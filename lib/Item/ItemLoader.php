@@ -56,7 +56,6 @@ class ItemLoader implements ItemLoaderInterface
         return new NullItem(
             array(
                 'valueId' => $valueId,
-                'valueType' => $valueType,
             )
         );
     }
