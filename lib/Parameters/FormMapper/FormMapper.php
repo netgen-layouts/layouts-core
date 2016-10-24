@@ -74,7 +74,7 @@ class FormMapper implements FormMapperInterface
             )
         );
 
-        $parameterHandler->processForm($parameter, $parameterForm);
+        $parameterHandler->handleForm($parameter, $parameterForm);
 
         $formBuilder->add($parameterForm);
     }

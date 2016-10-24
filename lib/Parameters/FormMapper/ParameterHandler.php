@@ -43,7 +43,7 @@ abstract class ParameterHandler implements ParameterHandlerInterface
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param \Symfony\Component\Form\FormBuilderInterface $form
      */
-    public function processForm(ParameterInterface $parameter, FormBuilderInterface $form)
+    public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
     {
     }
 }
