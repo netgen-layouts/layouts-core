@@ -6,11 +6,8 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
-use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
-use Symfony\Component\Validator\Constraints;
+use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 
 class BlockValidator extends Validator
 {
@@ -45,60 +42,14 @@ class BlockValidator extends Validator
         );
 
         $this->validate(
-            $blockCreateStruct->definitionIdentifier,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'definitionIdentifier'
-        );
-
-        $this->validate(
-            $blockCreateStruct->viewType,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definition' => $blockDefinition)),
-            ),
-            'viewType'
-        );
-
-        $this->validate(
-            $blockCreateStruct->itemViewType,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-                new BlockItemViewType(
-                    array(
-                        'viewType' => $blockCreateStruct->viewType,
-                        'definition' => $blockDefinition,
-                    )
-                ),
-            ),
-            'itemViewType'
-        );
-
-        if ($blockCreateStruct->name !== null) {
-            $this->validate(
-                $blockCreateStruct->name,
-                array(
-                    new Constraints\Type(array('type' => 'string')),
-                ),
-                'name'
-            );
-        }
-
-        $this->validate(
             $blockCreateStruct,
             array(
-                new Parameters(
+                new BlockCreateStructConstraint(
                     array(
-                        'parameters' => $blockDefinition->getParameters(),
-                        'required' => true,
+                        'payload' => $blockDefinition,
                     )
                 ),
-            ),
-            'parameters'
+            )
         );
 
         return true;
