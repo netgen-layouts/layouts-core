@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Netgen\BlockManager\Validator\Constraint\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Validator\Constraints;
 
