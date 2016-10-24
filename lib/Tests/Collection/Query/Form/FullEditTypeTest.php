@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer;
@@ -9,16 +10,15 @@ use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FullEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType
+     * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
-    protected $queryType;
+    protected $query;
 
     /**
      * Sets up the test.
@@ -27,7 +27,9 @@ class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->queryType = new QueryType('query_type');
+        $queryType = new QueryType('query_type');
+
+        $this->query = new Query(array('queryType' => $queryType));
     }
 
     /**
@@ -44,7 +46,6 @@ class FullEditTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapper = new FormMapper(
-            new ParameterFilterRegistry(),
             array(
                 'text_line' => new TextLine(),
                 'integer' => new Integer(),
@@ -71,7 +72,7 @@ class FullEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             FullEditType::class,
             new QueryUpdateStruct(),
-            array('queryType' => $this->queryType)
+            array('query' => $this->query)
         );
 
         $form->submit($submittedData);
@@ -103,12 +104,12 @@ class FullEditTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'queryType' => $this->queryType,
+                'query' => $this->query,
                 'data' => new QueryUpdateStruct(),
             )
         );
 
-        $this->assertEquals($this->queryType, $options['queryType']);
+        $this->assertEquals($this->query, $options['query']);
         $this->assertEquals(new QueryUpdateStruct(), $options['data']);
     }
 
@@ -139,7 +140,7 @@ class FullEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'queryType' => '',
+                'query' => '',
             )
         );
     }
@@ -157,7 +158,7 @@ class FullEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'queryType' => $this->queryType,
+                'query' => $this->query,
                 'data' => '',
             )
         );

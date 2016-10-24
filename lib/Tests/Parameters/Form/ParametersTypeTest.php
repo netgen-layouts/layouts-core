@@ -7,7 +7,6 @@ use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\Parameter\TextLine as TextLineParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +19,6 @@ class ParametersTypeTest extends FormTestCase
     public function getMainType()
     {
         $formMapper = new FormMapper(
-            new ParameterFilterRegistry(),
             array(
                 'text_line' => new TextLine(),
             )
@@ -102,7 +100,6 @@ class ParametersTypeTest extends FormTestCase
                 'parameters' => array(),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'parameter_validation_groups' => null,
             ),
             $resolvedOptions
         );

@@ -57,7 +57,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals(1, $block->getLayoutId());
         $this->assertEquals('right', $block->getZoneIdentifier());
         $this->assertEquals(3, $block->getPosition());
-        $this->assertEquals(array('some_param' => 'some_value'), $block->getParameters());
+        $this->assertEquals(array('css_class' => null, 'css_id' => null), $block->getParameters());
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());

@@ -7,7 +7,6 @@ use Netgen\BlockManager\Parameters\Form\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\Parameter\TextLine as TextLineParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +19,6 @@ class CompoundBooleanTypeTest extends FormTestCase
     public function getMainType()
     {
         $formMapper = new FormMapper(
-            new ParameterFilterRegistry(),
             array(
                 'text_line' => new TextLine(),
             )
@@ -75,9 +73,6 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
-
         $children = $view->children;
 
         $this->assertArrayHasKey('main_checkbox', $children);
@@ -130,9 +125,6 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
-
         $children = $view->children;
 
         $this->assertArrayHasKey('main_checkbox', $children);
@@ -182,9 +174,6 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
-
         $children = $view->children;
 
         $this->assertArrayHasKey('main_checkbox', $children);
@@ -229,7 +218,7 @@ class CompoundBooleanTypeTest extends FormTestCase
                 'property_path_prefix' => 'parameters',
                 'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
-                'checkbox_reverse' => true,
+                'reverse' => true,
             )
         );
 
@@ -239,9 +228,6 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
-
         $children = $view->children;
 
         $this->assertArrayHasKey('main_checkbox', $children);
@@ -287,7 +273,7 @@ class CompoundBooleanTypeTest extends FormTestCase
                 'property_path_prefix' => 'parameters',
                 'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
-                'checkbox_reverse' => true,
+                'reverse' => true,
             )
         );
 
@@ -297,9 +283,6 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
         $view = $parentForm->createView();
-        $this->assertArrayHasKey('checkbox_name', $view->children['main_checkbox']->vars);
-        $this->assertEquals('_self', $view->children['main_checkbox']->vars['checkbox_name']);
-
         $children = $view->children;
 
         $this->assertArrayHasKey('main_checkbox', $children);
@@ -324,7 +307,7 @@ class CompoundBooleanTypeTest extends FormTestCase
             'property_path_prefix' => 'parameters',
             'checkbox_label' => 'checkbox_label',
             'checkbox_property_path' => 'checkbox_property_path',
-            'checkbox_reverse' => true,
+            'reverse' => true,
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
@@ -333,13 +316,10 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals(array(), $resolvedOptions['parameters']);
         $this->assertEquals('label', $resolvedOptions['label_prefix']);
         $this->assertEquals('parameters', $resolvedOptions['property_path_prefix']);
-        $this->assertNull($resolvedOptions['parameter_validation_groups']);
         $this->assertEquals('checkbox_label', $resolvedOptions['checkbox_label']);
         $this->assertEquals('checkbox_property_path', $resolvedOptions['checkbox_property_path']);
-        $this->assertEquals('_self', $resolvedOptions['checkbox_name']);
         $this->assertFalse($resolvedOptions['checkbox_required']);
-        $this->assertEquals(array(), $resolvedOptions['checkbox_constraints']);
-        $this->assertTrue($resolvedOptions['checkbox_reverse']);
+        $this->assertTrue($resolvedOptions['reverse']);
     }
 
     /**

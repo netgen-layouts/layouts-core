@@ -127,7 +127,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(42, $query->getCollectionId());
         $this->assertEquals(1, $query->getPosition());
         $this->assertEquals('my_search', $query->getIdentifier());
-        $this->assertEquals(array('param' => 'value'), $query->getParameters());
+        $this->assertEquals(array('offset' => null, 'param' => 'value'), $query->getParameters());
         $this->assertEquals(APICollection::STATUS_PUBLISHED, $query->getStatus());
     }
 }

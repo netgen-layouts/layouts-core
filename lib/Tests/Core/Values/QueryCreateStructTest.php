@@ -20,11 +20,11 @@ class QueryCreateStructTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct(
             array(
                 'identifier' => 'my_query',
-                'type' => 'ezcontent_search',
+                'type' => 'query_type',
             )
         );
 
         $this->assertEquals('my_query', $queryCreateStruct->identifier);
-        $this->assertEquals('ezcontent_search', $queryCreateStruct->type);
+        $this->assertEquals('query_type', $queryCreateStruct->type);
     }
 }

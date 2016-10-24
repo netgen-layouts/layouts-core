@@ -62,6 +62,11 @@ abstract class ValidatorTestCase extends TestCase
 
         $this->violationBuilderMock
             ->expects($this->any())
+            ->method('setCode')
+            ->will($this->returnValue($this->violationBuilderMock));
+
+        $this->violationBuilderMock
+            ->expects($this->any())
             ->method('setInvalidValue')
             ->will($this->returnValue($this->violationBuilderMock));
 
@@ -81,7 +86,7 @@ abstract class ValidatorTestCase extends TestCase
     protected function expectNoValidate()
     {
         $this->executionContextMock
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('buildViolation')
             ->will($this->returnValue($this->violationBuilderMock));
     }

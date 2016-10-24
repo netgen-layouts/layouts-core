@@ -560,11 +560,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals('new_identifier', $updatedQuery->getIdentifier());
         $this->assertEquals(
             array(
-                'parent_location_id' => 3,
-                'sort_direction' => 'descending',
-                'sort_type' => 'date_published',
-                'offset' => 0,
-                'query_type' => 'list',
+                'offset' => '0',
                 'param' => 'value',
             ),
             $updatedQuery->getParameters()

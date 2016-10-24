@@ -44,7 +44,8 @@ class CompoundParameterHandlerTest extends TestCase
         $this->assertEquals(
             array(
                 'label' => false,
-                'parameter_validation_groups' => array('group'),
+                'required' => false,
+                'property_path' => 'parameters[name]',
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
             ),
@@ -52,7 +53,6 @@ class CompoundParameterHandlerTest extends TestCase
                 new Boolean(),
                 'name',
                 array(
-                    'parameter_validation_groups' => array('group'),
                     'label_prefix' => 'label',
                     'property_path_prefix' => 'parameters',
                 )

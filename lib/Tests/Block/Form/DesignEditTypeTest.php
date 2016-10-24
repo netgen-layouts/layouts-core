@@ -6,13 +6,13 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\DesignEditType;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DesignEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition
+     * @var \Netgen\BlockManager\API\Values\Page\Block
      */
-    protected $blockDefinition;
+    protected $block;
 
     /**
      * Sets up the test.
@@ -55,11 +55,13 @@ class DesignEditTypeTest extends FormTestCase
             )
         );
 
-        $this->blockDefinition = new BlockDefinition(
+        $blockDefinition = new BlockDefinition(
             'block_definition',
             new BlockDefinitionHandler(array('design')),
             $config
         );
+
+        $this->block = new Block(array('blockDefinition' => $blockDefinition));
     }
 
     /**
@@ -76,7 +78,6 @@ class DesignEditTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapper = new FormMapper(
-            new ParameterFilterRegistry(),
             array('text_line' => new TextLine())
         );
 
@@ -106,7 +107,7 @@ class DesignEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             DesignEditType::class,
             new BlockUpdateStruct(),
-            array('blockDefinition' => $this->blockDefinition)
+            array('block' => $this->block)
         );
 
         $form->submit($submittedData);
@@ -138,12 +139,12 @@ class DesignEditTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'blockDefinition' => $this->blockDefinition,
+                'block' => $this->block,
                 'data' => new BlockUpdateStruct(),
             )
         );
 
-        $this->assertEquals($this->blockDefinition, $options['blockDefinition']);
+        $this->assertEquals($this->block, $options['block']);
         $this->assertEquals(new BlockUpdateStruct(), $options['data']);
     }
 
@@ -174,7 +175,7 @@ class DesignEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => '',
+                'block' => '',
             )
         );
     }
@@ -192,7 +193,7 @@ class DesignEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => $this->blockDefinition,
+                'block' => $this->block,
                 'data' => '',
             )
         );

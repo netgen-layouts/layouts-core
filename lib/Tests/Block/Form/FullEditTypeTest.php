@@ -2,22 +2,22 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
+use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
-use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FullEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition
+     * @var \Netgen\BlockManager\API\Values\Page\Block
      */
-    protected $blockDefinition;
+    protected $block;
 
     /**
      * Sets up the test.
@@ -26,10 +26,12 @@ class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->blockDefinition = new BlockDefinition(
+        $blockDefinition = new BlockDefinition(
             'block_definition',
             array('large' => array('standard'), 'small' => array('standard'))
         );
+
+        $this->block = new Block(array('blockDefinition' => $blockDefinition));
     }
 
     /**
@@ -46,7 +48,6 @@ class FullEditTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapper = new FormMapper(
-            new ParameterFilterRegistry(),
             array('text_line' => new TextLine())
         );
 
@@ -81,7 +82,7 @@ class FullEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             FullEditType::class,
             new BlockUpdateStruct(),
-            array('blockDefinition' => $this->blockDefinition)
+            array('block' => $this->block)
         );
 
         $form->submit($submittedData);
@@ -113,12 +114,12 @@ class FullEditTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'blockDefinition' => $this->blockDefinition,
+                'block' => $this->block,
                 'data' => new BlockUpdateStruct(),
             )
         );
 
-        $this->assertEquals($this->blockDefinition, $options['blockDefinition']);
+        $this->assertEquals($this->block, $options['block']);
         $this->assertEquals(new BlockUpdateStruct(), $options['data']);
     }
 
@@ -149,7 +150,7 @@ class FullEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => '',
+                'block' => '',
             )
         );
     }
@@ -167,7 +168,7 @@ class FullEditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'blockDefinition' => $this->blockDefinition,
+                'block' => $this->block,
                 'data' => '',
             )
         );

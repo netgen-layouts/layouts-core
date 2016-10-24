@@ -311,8 +311,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
         $blockUpdateStruct->name = 'Super cool block';
-        $blockUpdateStruct->setParameter('test_param', 'test_value');
-        $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
+        $blockUpdateStruct->setParameter('css_class', 'test_value');
+        $blockUpdateStruct->setParameter('css_id', 'some_other_test_value');
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
@@ -321,9 +321,60 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('Super cool block', $block->getName());
         $this->assertEquals(
             array(
-                'test_param' => 'test_value',
-                'some_other_test_param' => 'some_other_test_value',
-                'number_of_columns' => 2,
+                'css_class' => 'test_value',
+                'css_id' => 'some_other_test_value',
+            ),
+            $block->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     */
+    public function testUpdateBlockWithBlankName()
+    {
+        $block = $this->blockService->loadBlockDraft(1);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct->viewType = 'small';
+        $blockUpdateStruct->setParameter('css_class', 'test_value');
+        $blockUpdateStruct->setParameter('css_id', 'some_other_test_value');
+
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertEquals('small', $block->getViewType());
+        $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(
+            array(
+                'css_class' => 'test_value',
+                'css_id' => 'some_other_test_value',
+            ),
+            $block->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     */
+    public function testUpdateBlockWithBlankViewType()
+    {
+        $block = $this->blockService->loadBlockDraft(1);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct->name = 'Super cool block';
+        $blockUpdateStruct->setParameter('css_class', 'test_value');
+        $blockUpdateStruct->setParameter('css_id', 'some_other_test_value');
+
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        $this->assertInstanceOf(APIBlockDraft::class, $block);
+        $this->assertEquals('list', $block->getViewType());
+        $this->assertEquals('Super cool block', $block->getName());
+        $this->assertEquals(
+            array(
+                'css_class' => 'test_value',
+                'css_id' => 'some_other_test_value',
             ),
             $block->getParameters()
         );
@@ -349,60 +400,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(CollectionReference::class, $updatedReference);
         $this->assertEquals($newCollection->getId(), $updatedReference->getCollection()->getId());
         $this->assertEquals($newCollection->getStatus(), $updatedReference->getCollection()->getStatus());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     */
-    public function testUpdateBlockWithBlankName()
-    {
-        $block = $this->blockService->loadBlockDraft(1);
-
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
-        $blockUpdateStruct->viewType = 'small';
-        $blockUpdateStruct->setParameter('test_param', 'test_value');
-        $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
-
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
-
-        $this->assertInstanceOf(APIBlockDraft::class, $block);
-        $this->assertEquals('small', $block->getViewType());
-        $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(
-            array(
-                'test_param' => 'test_value',
-                'some_other_test_param' => 'some_other_test_value',
-                'number_of_columns' => 2,
-            ),
-            $block->getParameters()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     */
-    public function testUpdateBlockWithBlankViewType()
-    {
-        $block = $this->blockService->loadBlockDraft(1);
-
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
-        $blockUpdateStruct->name = 'Super cool block';
-        $blockUpdateStruct->setParameter('test_param', 'test_value');
-        $blockUpdateStruct->setParameter('some_other_test_param', 'some_other_test_value');
-
-        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
-
-        $this->assertInstanceOf(APIBlockDraft::class, $block);
-        $this->assertEquals('list', $block->getViewType());
-        $this->assertEquals('Super cool block', $block->getName());
-        $this->assertEquals(
-            array(
-                'test_param' => 'test_value',
-                'some_other_test_param' => 'some_other_test_value',
-                'number_of_columns' => 2,
-            ),
-            $block->getParameters()
-        );
     }
 
     /**
@@ -558,7 +555,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('grid', $restoredBlock->getViewType());
         $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
         $this->assertEquals('My published block', $restoredBlock->getName());
-        $this->assertEquals(array('number_of_columns' => 3), $restoredBlock->getParameters());
+        $this->assertEquals(array('css_class' => null, 'css_id' => null), $restoredBlock->getParameters());
         $this->assertEquals($block->getPosition(), $restoredBlock->getPosition());
         $this->assertEquals($block->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 
