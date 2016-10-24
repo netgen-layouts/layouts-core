@@ -67,6 +67,7 @@ class CollectionValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateCollectionCreateStruct(array $params, $isValid)
     {
@@ -74,9 +75,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->collectionValidator->validateCollectionCreateStruct(new CollectionCreateStruct($params))
-        );
+        $this->collectionValidator->validateCollectionCreateStruct(new CollectionCreateStruct($params));
     }
 
     /**
@@ -85,6 +84,7 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
      * @dataProvider validateCollectionUpdateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateCollectionUpdateStruct(array $params, $isValid)
     {
@@ -92,9 +92,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->collectionValidator->validateCollectionUpdateStruct(new CollectionUpdateStruct($params))
-        );
+        $this->collectionValidator->validateCollectionUpdateStruct(new CollectionUpdateStruct($params));
     }
 
     /**
@@ -103,6 +101,7 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
      * @dataProvider validateItemCreateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateItemCreateStruct(array $params, $isValid)
     {
@@ -110,9 +109,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params))
-        );
+        $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params));
     }
 
     /**
@@ -121,6 +118,7 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
      * @dataProvider validateQueryCreateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateQueryCreateStruct(array $params, $isValid)
     {
@@ -139,9 +137,7 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params))
-        );
+        $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params));
     }
 
     /**
@@ -150,6 +146,7 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
      * @dataProvider validateQueryUpdateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
@@ -157,11 +154,9 @@ class CollectionValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->collectionValidator->validateQueryUpdateStruct(
-                new Query(array('queryType' => new QueryTypeStub('query_type'))),
-                new QueryUpdateStruct($params)
-            )
+        $this->collectionValidator->validateQueryUpdateStruct(
+            new Query(array('queryType' => new QueryTypeStub('query_type'))),
+            new QueryUpdateStruct($params)
         );
     }
 

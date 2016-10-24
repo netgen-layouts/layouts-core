@@ -14,8 +14,6 @@ class LayoutValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
     {
@@ -50,8 +48,6 @@ class LayoutValidator extends Validator
                 'shared'
             );
         }
-
-        return true;
     }
 
     /**
@@ -60,8 +56,6 @@ class LayoutValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct)
     {
@@ -77,7 +71,5 @@ class LayoutValidator extends Validator
             ),
             'name'
         );
-
-        return true;
     }
 }

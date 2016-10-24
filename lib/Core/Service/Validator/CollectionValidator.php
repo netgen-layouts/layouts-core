@@ -39,8 +39,6 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
@@ -163,8 +161,6 @@ class CollectionValidator extends Validator
                 );
             }
         }
-
-        return true;
     }
 
     /**
@@ -173,8 +169,6 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
     {
@@ -190,8 +184,6 @@ class CollectionValidator extends Validator
             ),
             'name'
         );
-
-        return true;
     }
 
     /**
@@ -200,8 +192,6 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
     {
@@ -239,8 +229,6 @@ class CollectionValidator extends Validator
             ),
             'valueType'
         );
-
-        return true;
     }
 
     /**
@@ -249,8 +237,6 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct)
     {
@@ -286,8 +272,6 @@ class CollectionValidator extends Validator
             ),
             'parameters'
         );
-
-        return true;
     }
 
     /**
@@ -297,8 +281,6 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
@@ -327,7 +309,5 @@ class CollectionValidator extends Validator
             ),
             'parameters'
         );
-
-        return true;
     }
 }

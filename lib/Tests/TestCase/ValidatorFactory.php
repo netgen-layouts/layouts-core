@@ -7,6 +7,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\ParametersValidator;
+use Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator;
 use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
@@ -35,6 +36,8 @@ class ValidatorFactory extends ConstraintValidatorFactory
             return new ParametersValidator(
                 new ParameterFilterRegistry()
             );
+        } elseif ($name === 'ngbm_block_create_struct') {
+            return new BlockCreateStructValidator();
         } elseif ($name === 'ngbm_block_update_struct') {
             return new BlockUpdateStructValidator();
         }

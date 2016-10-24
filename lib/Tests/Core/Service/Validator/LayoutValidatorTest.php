@@ -41,6 +41,7 @@ class LayoutValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCreateStruct
      * @dataProvider validateLayoutCreateStructDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateLayoutCreateStruct(array $params, $isValid)
     {
@@ -48,9 +49,7 @@ class LayoutValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params))
-        );
+        $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params));
     }
 
     /**
@@ -59,6 +58,7 @@ class LayoutValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutUpdateStruct
      * @dataProvider validateLayoutUpdateStructDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateLayoutUpdateStruct(array $params, $isValid)
     {
@@ -66,10 +66,8 @@ class LayoutValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutValidator->validateLayoutUpdateStruct(
-                new LayoutUpdateStruct($params)
-            )
+        $this->layoutValidator->validateLayoutUpdateStruct(
+            new LayoutUpdateStruct($params)
         );
     }
 

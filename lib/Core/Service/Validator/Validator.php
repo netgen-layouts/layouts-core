@@ -16,8 +16,6 @@ abstract class Validator
      * @param string $propertyPath
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateId($id, $propertyPath = null)
     {
@@ -29,8 +27,6 @@ abstract class Validator
             ),
             $propertyPath
         );
-
-        return true;
     }
 
     /**
@@ -41,13 +37,11 @@ abstract class Validator
      * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateIdentifier($identifier, $propertyPath = null, $isRequired = false)
     {
         if (!$isRequired && $identifier === null) {
-            return true;
+            return;
         }
 
         $constraints = array(
@@ -56,8 +50,6 @@ abstract class Validator
         );
 
         $this->validate($identifier, $constraints, $propertyPath);
-
-        return true;
     }
 
     /**
@@ -68,13 +60,11 @@ abstract class Validator
      * @param bool $isRequired
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validatePosition($position, $propertyPath = null, $isRequired = false)
     {
         if (!$isRequired && $position === null) {
-            return true;
+            return;
         }
 
         $constraints = array(
@@ -84,8 +74,6 @@ abstract class Validator
         );
 
         $this->validate($position, $constraints, $propertyPath);
-
-        return true;
     }
 
     /**
@@ -95,8 +83,6 @@ abstract class Validator
      * @param int $limit
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateOffsetAndLimit($offset, $limit)
     {
@@ -119,7 +105,5 @@ abstract class Validator
                 'limit'
             );
         }
-
-        return true;
     }
 }

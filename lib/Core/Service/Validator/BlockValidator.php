@@ -32,8 +32,6 @@ class BlockValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
@@ -51,8 +49,6 @@ class BlockValidator extends Validator
                 ),
             )
         );
-
-        return true;
     }
 
     /**
@@ -62,8 +58,6 @@ class BlockValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
-     *
-     * @return bool
      */
     public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
@@ -77,7 +71,5 @@ class BlockValidator extends Validator
                 ),
             )
         );
-
-        return true;
     }
 }

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Validator\Constraints;
 
 trait ValidatorTrait
 {

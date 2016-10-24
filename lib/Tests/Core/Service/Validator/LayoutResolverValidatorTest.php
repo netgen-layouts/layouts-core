@@ -72,6 +72,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleCreateStruct
      * @dataProvider validateRuleCreateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateRuleCreateStruct(array $params, $isValid)
     {
@@ -79,9 +80,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateRuleCreateStruct(new RuleCreateStruct($params))
-        );
+        $this->layoutResolverValidator->validateRuleCreateStruct(new RuleCreateStruct($params));
     }
 
     /**
@@ -90,6 +89,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleUpdateStruct
      * @dataProvider validateRuleUpdateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateRuleUpdateStruct(array $params, $isValid)
     {
@@ -97,9 +97,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params))
-        );
+        $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params));
     }
 
     /**
@@ -108,6 +106,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleUpdateStruct
      * @dataProvider validateRuleMetadataUpdateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateRuleMetadataUpdateStruct(array $params, $isValid)
     {
@@ -115,10 +114,8 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
-                new RuleMetadataUpdateStruct($params)
-            )
+        $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
+            new RuleMetadataUpdateStruct($params)
         );
     }
 
@@ -128,6 +125,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetCreateStruct
      * @dataProvider validateTargetCreateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateTargetCreateStruct(array $params, $isValid)
     {
@@ -135,9 +133,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateTargetCreateStruct(new TargetCreateStruct($params))
-        );
+        $this->layoutResolverValidator->validateTargetCreateStruct(new TargetCreateStruct($params));
     }
 
     /**
@@ -146,6 +142,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetUpdateStruct
      * @dataProvider validateTargetUpdateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateTargetUpdateStruct(array $params, $isValid)
     {
@@ -153,11 +150,9 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateTargetUpdateStruct(
-                new Target(array('targetType' => new TargetType('target'))),
-                new TargetUpdateStruct($params)
-            )
+        $this->layoutResolverValidator->validateTargetUpdateStruct(
+            new Target(array('targetType' => new TargetType('target'))),
+            new TargetUpdateStruct($params)
         );
     }
 
@@ -167,6 +162,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionCreateStruct
      * @dataProvider validateConditionCreateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateConditionCreateStruct(array $params, $isValid)
     {
@@ -174,9 +170,7 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateConditionCreateStruct(new ConditionCreateStruct($params))
-        );
+        $this->layoutResolverValidator->validateConditionCreateStruct(new ConditionCreateStruct($params));
     }
 
     /**
@@ -185,6 +179,7 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionUpdateStruct
      * @dataProvider validateConditionUpdateStructProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateConditionUpdateStruct(array $params, $isValid)
     {
@@ -192,11 +187,9 @@ class LayoutResolverValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->layoutResolverValidator->validateConditionUpdateStruct(
-                new Condition(array('conditionType' => new ConditionType('condition'))),
-                new ConditionUpdateStruct($params)
-            )
+        $this->layoutResolverValidator->validateConditionUpdateStruct(
+            new Condition(array('conditionType' => new ConditionType('condition'))),
+            new ConditionUpdateStruct($params)
         );
     }
 

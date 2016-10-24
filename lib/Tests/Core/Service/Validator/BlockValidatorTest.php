@@ -75,6 +75,7 @@ class BlockValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateBlockCreateStruct(array $params, $isValid)
     {
@@ -93,9 +94,7 @@ class BlockValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->blockValidator->validateBlockCreateStruct(new BlockCreateStruct($params))
-        );
+        $this->blockValidator->validateBlockCreateStruct(new BlockCreateStruct($params));
     }
 
     /**
@@ -104,6 +103,7 @@ class BlockValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockUpdateStruct
      * @dataProvider validateBlockUpdateStructDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateBlockUpdateStruct(array $params, $isValid)
     {
@@ -111,19 +111,17 @@ class BlockValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue(
-            $this->blockValidator->validateBlockUpdateStruct(
-                new Block(
-                    array(
-                        'viewType' => 'large',
-                        'blockDefinition' => new BlockDefinitionStub(
-                            'block_definition',
-                            array('large' => array('standard'))
-                        ),
-                    )
-                ),
-                new BlockUpdateStruct($params)
-            )
+        $this->blockValidator->validateBlockUpdateStruct(
+            new Block(
+                array(
+                    'viewType' => 'large',
+                    'blockDefinition' => new BlockDefinitionStub(
+                        'block_definition',
+                        array('large' => array('standard'))
+                    ),
+                )
+            ),
+            new BlockUpdateStruct($params)
         );
     }
 

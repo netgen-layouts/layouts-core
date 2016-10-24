@@ -39,6 +39,7 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateId
      * @dataProvider validateIdDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateId($id, $isValid)
     {
@@ -46,7 +47,7 @@ class ValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue($this->validator->validateId($id));
+        $this->validator->validateId($id);
     }
 
     /**
@@ -56,6 +57,7 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
      * @dataProvider validateIdentifierDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidateIdentifier($identifier, $isRequired, $isValid)
     {
@@ -63,7 +65,7 @@ class ValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue($this->validator->validateIdentifier($identifier, null, $isRequired));
+        $this->validator->validateIdentifier($identifier, null, $isRequired);
     }
 
     /**
@@ -73,6 +75,7 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
      * @dataProvider validatePositionDataProvider
+     * @doesNotPerformAssertions
      */
     public function testValidatePosition($position, $isRequired, $isValid)
     {
@@ -80,7 +83,7 @@ class ValidatorTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $this->assertTrue($this->validator->validatePosition($position, null, $isRequired));
+        $this->validator->validatePosition($position, null, $isRequired);
     }
 
     public function validateIdDataProvider()
