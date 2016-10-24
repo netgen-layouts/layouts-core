@@ -90,11 +90,22 @@ class ParametersValidator extends ConstraintValidator
     {
         $fields = array();
         foreach ($parameters as $parameterName => $parameter) {
-            $fields[$parameterName] = $this->buildFieldConstraint($parameter->getConstraints(), $isRequired);
+            $parameterValue = $parameterCollection->hasParameter($parameterName) ?
+                $parameterCollection->getParameter($parameterName) :
+                null;
+
+            $fields[$parameterName] = $this->buildFieldConstraint(
+                $parameter->getConstraints($parameterValue),
+                $isRequired
+            );
 
             if ($parameter instanceof CompoundParameterInterface) {
                 foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
-                    $constraints = $subParameter->getValueConstraints();
+                    $subParameterValue = $parameterCollection->hasParameter($subParameterName) ?
+                        $parameterCollection->getParameter($subParameterName) :
+                        null;
+
+                    $constraints = $subParameter->getValueConstraints($subParameterValue);
 
                     if (
                         $parameterCollection->hasParameter($parameterName) &&
@@ -103,7 +114,7 @@ class ParametersValidator extends ConstraintValidator
                     ) {
                         $constraints = array_merge(
                             $constraints,
-                            $subParameter->getRequiredConstraints()
+                            $subParameter->getRequiredConstraints($subParameterValue)
                         );
                     }
 

@@ -49,9 +49,11 @@ class Boolean extends CompoundParameter
      *
      * Overriden because base NotBlank constraint checks for `false` too.
      *
+     * @param mixed $value
+     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getRequiredConstraints()
+    public function getRequiredConstraints($value)
     {
         if ($this->isRequired()) {
             return array(
@@ -65,9 +67,11 @@ class Boolean extends CompoundParameter
     /**
      * Returns constraints that will be used to validate the parameter value.
      *
+     * @param mixed $value
+     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getValueConstraints()
+    public function getValueConstraints($value)
     {
         return array(
             new Constraints\Type(

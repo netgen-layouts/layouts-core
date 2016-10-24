@@ -73,7 +73,7 @@ class ParameterTest extends TestCase
     {
         $parameter = new Parameter();
 
-        $this->assertEquals(array(), $parameter->getConstraints());
+        $this->assertEquals(array(), $parameter->getConstraints(null));
     }
 
     /**
@@ -88,7 +88,7 @@ class ParameterTest extends TestCase
 
         $this->assertEquals(
             array(new Constraints\NotBlank()),
-            $parameter->getConstraints()
+            $parameter->getConstraints(null)
         );
     }
 }

@@ -241,7 +241,7 @@ class NumberTest extends TestCase
         $parameter = $this->getParameter(array('min' => 5, 'max' => 10), $required);
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $parameter->getConstraints());
+        $errors = $validator->validate($value, $parameter->getConstraints($value));
         $this->assertEquals($isValid, $errors->count() == 0);
     }
 
