@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\BlockManager\Parameters\FormMapper\FormMapperInterface;
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
 
 class ParametersType extends AbstractType
 {

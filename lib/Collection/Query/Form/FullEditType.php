@@ -6,15 +6,13 @@ use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryU
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
 
 class FullEditType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_forms';
-
     /**
      * Configures the options for this type.
      *
@@ -22,10 +20,11 @@ class FullEditType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
+
         $resolver->setRequired('query');
         $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
-        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
 
         $resolver->setDefault('constraints', function (Options $options) {
             return array(

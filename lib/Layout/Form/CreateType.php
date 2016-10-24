@@ -5,18 +5,16 @@ namespace Netgen\BlockManager\Layout\Form;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Validator\Constraints;
 
 class CreateType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_forms';
-
     /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
@@ -39,8 +37,9 @@ class CreateType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
+
         $resolver->setAllowedTypes('data', LayoutCreateStruct::class);
-        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
     /**

@@ -5,15 +5,13 @@ namespace Netgen\BlockManager\Layout\Resolver\Form;
 use Netgen\BlockManager\API\Values\TargetStruct;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
-use Symfony\Component\Form\AbstractType;
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 class TargetType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_forms';
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[]
      */
@@ -47,10 +45,11 @@ class TargetType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
+
         $resolver->setRequired('targetType');
         $resolver->setAllowedTypes('targetType', TargetTypeInterface::class);
         $resolver->setAllowedTypes('data', TargetStruct::class);
-        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
     /**

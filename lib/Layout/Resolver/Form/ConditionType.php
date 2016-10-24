@@ -5,15 +5,13 @@ namespace Netgen\BlockManager\Layout\Resolver\Form;
 use Netgen\BlockManager\API\Values\ConditionStruct;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
-use Symfony\Component\Form\AbstractType;
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 class ConditionType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_forms';
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[]
      */
@@ -47,10 +45,11 @@ class ConditionType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
+
         $resolver->setRequired('conditionType');
         $resolver->setAllowedTypes('conditionType', ConditionTypeInterface::class);
         $resolver->setAllowedTypes('data', ConditionStruct::class);
-        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
     }
 
     /**

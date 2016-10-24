@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType;
-use Symfony\Component\Form\AbstractType;
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraint;
 
 class UriType extends AbstractType
 {
-    const TRANSLATION_DOMAIN = 'ngbm_forms';
-
     const LINK_TYPE_URL = 'url';
 
     const LINK_TYPE_EMAIL = 'email';
@@ -33,8 +31,6 @@ class UriType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-
-        $resolver->setDefault('translation_domain', self::TRANSLATION_DOMAIN);
 
         $resolver->setDefault(
             'validation_groups',
