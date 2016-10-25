@@ -8,23 +8,13 @@ use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class UriType extends AbstractType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        parent::configureOptions($resolver);
-    }
-
     /**
      * Builds the form.
      *
@@ -82,15 +72,25 @@ class UriType extends AbstractType
         );
 
         $builder->add(
-            'internal_suffix',
-            TextType::class,
+            'link',
+            HiddenType::class,
             array(
-                'label' => 'forms.uri.internal_suffix',
+                // We use the template to show the errors in the right place
+                // since we can't use error_mapping option to do it automatically
+                'error_bubbling' => false,
             )
         );
 
         $builder->add(
-            'open_in_new_window',
+            'link_suffix',
+            TextType::class,
+            array(
+                'label' => 'forms.uri.link_suffix',
+            )
+        );
+
+        $builder->add(
+            'new_window',
             CheckboxType::class,
             array(
                 'label' => 'forms.uri.new_window',

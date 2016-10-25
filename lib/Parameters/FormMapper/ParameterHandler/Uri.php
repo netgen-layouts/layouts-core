@@ -2,9 +2,11 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
+use Netgen\BlockManager\Parameters\Form\DataTransformer\UriDataTransformer;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Form\UriType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class Uri extends ParameterHandler
 {
@@ -32,5 +34,16 @@ class Uri extends ParameterHandler
         return array(
             'label' => false,
         ) + parent::getDefaultOptions($parameter, $parameterName, $options);
+    }
+
+    /**
+     * Allows the handler to do any kind of processing to created form.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Symfony\Component\Form\FormBuilderInterface $form
+     */
+    public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
+    {
+        $form->addModelTransformer(new UriDataTransformer());
     }
 }

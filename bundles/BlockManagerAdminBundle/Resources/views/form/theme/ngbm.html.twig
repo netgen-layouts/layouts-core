@@ -72,3 +72,37 @@
         </div>
     </div>
 {%- endblock ngbm_compound_boolean_widget -%}
+
+{% block ngbm_uri_widget %}
+    {{ form_row(form.link_type) }}
+
+    <div {% if value.link_type == 'url' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+        {{- form_label(form.url) -}}
+        {{- form_widget(form.url) -}}
+
+        {% if value.link_type == 'url' %}
+            {{- form_errors(form.link) -}}
+        {% endif %}
+    </div>
+
+    <div {% if value.link_type == 'email' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+        {{- form_label(form.email) -}}
+        {{- form_widget(form.email) -}}
+
+        {% if value.link_type == 'email' %}
+            {{- form_errors(form.link) -}}
+        {% endif %}
+    </div>
+
+    <div {% if value.link_type == 'internal' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+        {{- form_label(form.internal) -}}
+        {{- form_widget(form.internal) -}}
+
+        {% if value.link_type == 'internal' %}
+            {{- form_errors(form.link) -}}
+        {% endif %}
+    </div>
+
+    {{ form_rest(form) }}
+
+{% endblock ngbm_uri_widget %}
