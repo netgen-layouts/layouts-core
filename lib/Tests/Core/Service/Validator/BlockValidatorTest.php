@@ -196,33 +196,7 @@ class BlockValidatorTest extends TestCase
             array(
                 array(
                     'definitionIdentifier' => 'block_definition',
-                    'viewType' => null,
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'definitionIdentifier' => 'block_definition',
                     'viewType' => '',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'definitionIdentifier' => 'block_definition',
-                    'viewType' => 42,
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'parameters' => array(
@@ -249,33 +223,7 @@ class BlockValidatorTest extends TestCase
                 array(
                     'definitionIdentifier' => 'block_definition',
                     'viewType' => 'large',
-                    'itemViewType' => null,
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'definitionIdentifier' => 'block_definition',
-                    'viewType' => 'large',
                     'itemViewType' => '',
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'definitionIdentifier' => 'block_definition',
-                    'viewType' => 'large',
-                    'itemViewType' => 42,
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',
@@ -455,32 +403,8 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'viewType' => 42,
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
                     'viewType' => 'large',
                     'itemViewType' => '',
-                    'name' => 'My block',
-                    'parameters' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'viewType' => 'large',
-                    'itemViewType' => 42,
                     'name' => 'My block',
                     'parameters' => array(
                         'css_class' => 'class',

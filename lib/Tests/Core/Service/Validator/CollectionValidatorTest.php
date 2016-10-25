@@ -199,8 +199,6 @@ class CollectionValidatorTest extends TestCase
             array(array('valueId' => '', 'valueType' => 'value', 'type' => Item::TYPE_MANUAL), false),
             array(array('valueId' => 42, 'valueType' => 'nonexistent', 'type' => Item::TYPE_MANUAL), false),
             array(array('valueId' => 42, 'valueType' => '', 'type' => Item::TYPE_MANUAL), false),
-            array(array('valueId' => 42, 'valueType' => null, 'type' => Item::TYPE_MANUAL), false),
-            array(array('valueId' => 42, 'valueType' => 42, 'type' => Item::TYPE_MANUAL), false),
             array(array('valueId' => 42, 'valueType' => 'value', 'type' => 23), false),
             array(array('valueId' => 42, 'valueType' => 'value', 'type' => 'type'), false),
             array(array('valueId' => 42, 'valueType' => 'value', 'type' => null), false),

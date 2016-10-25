@@ -2,8 +2,11 @@
 
 namespace Netgen\BlockManager\Validator;
 
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class BlockItemViewTypeValidator extends ConstraintValidator
 {
@@ -15,7 +18,22 @@ class BlockItemViewTypeValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /** @var \Netgen\BlockManager\Validator\Constraint\BlockItemViewType $constraint */
+        if (!$constraint instanceof BlockItemViewType) {
+            throw new UnexpectedTypeException($constraint, BlockItemViewType::class);
+        }
+
+        if (!$constraint->definition instanceof BlockDefinitionInterface) {
+            throw new UnexpectedTypeException($constraint->definition, BlockDefinitionInterface::class);
+        }
+
+        if (!is_string($constraint->viewType)) {
+            throw new UnexpectedTypeException($constraint->viewType, 'string');
+        }
+
+        if (!is_string($value)) {
+            throw new UnexpectedTypeException($value, 'string');
+        }
+
         if (!$constraint->definition->getConfig()->hasViewType($constraint->viewType)) {
             $this->context->buildViolation($constraint->noViewTypeMessage)
                 ->setParameter('%viewType%', $constraint->viewType)

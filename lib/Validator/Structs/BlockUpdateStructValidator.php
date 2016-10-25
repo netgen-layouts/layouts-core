@@ -2,12 +2,16 @@
 
 namespace Netgen\BlockManager\Validator\Structs;
 
+use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class BlockUpdateStructValidator extends ConstraintValidator
 {
@@ -19,8 +23,18 @@ class BlockUpdateStructValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
-        /** @var \Netgen\BlockManager\API\Values\BlockUpdateStruct $value */
+        if (!$constraint instanceof BlockUpdateStructConstraint) {
+            throw new UnexpectedTypeException($constraint, BlockUpdateStructConstraint::class);
+        }
+
+        if (!$constraint->payload instanceof Block) {
+            throw new UnexpectedTypeException($constraint->payload, Block::class);
+        }
+
+        if (!$value instanceof BlockUpdateStruct) {
+            throw new UnexpectedTypeException($value, BlockUpdateStruct::class);
+        }
+
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $block = $constraint->payload;
         $blockDefinition = $block->getBlockDefinition();

@@ -5,9 +5,11 @@ namespace Netgen\BlockManager\Validator;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
+use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ParametersValidator extends ConstraintValidator
 {
@@ -34,8 +36,14 @@ class ParametersValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /** @var \Netgen\BlockManager\Validator\Constraint\Parameters $constraint */
-        /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $value */
+        if (!$constraint instanceof Parameters) {
+            throw new UnexpectedTypeException($constraint, Parameters::class);
+        }
+
+        if (!$value instanceof ParameterCollectionInterface) {
+            throw new UnexpectedTypeException($value, ParameterCollectionInterface::class);
+        }
+
         $this->filterParameters($value, $constraint->parameters);
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
