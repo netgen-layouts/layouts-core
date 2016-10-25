@@ -26,6 +26,25 @@ class Uri extends Parameter
     }
 
     /**
+     * Returns the default parameter value.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        if ($this->defaultValue === null) {
+            return array(
+                'link_type' => self::LINK_TYPE_NONE,
+                'link' => null,
+                'link_suffix' => null,
+                'new_window' => false,
+            );
+        }
+
+        return parent::getDefaultValue();
+    }
+
+    /**
      * Returns constraints that will be used to validate the parameter value.
      *
      * @param mixed $value
