@@ -11,8 +11,6 @@ use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
@@ -103,36 +101,20 @@ abstract class EditType extends AbstractType
             )
         );
 
-        $itemViewTypeBuilder = function (FormInterface $form, $viewType) {
-            $form->add(
-                'item_view_type',
-                ChoiceType::class,
-                array(
-                    'label' => 'block.item_view_type',
-                    'choices' => array_flip(call_user_func_array('array_merge', $this->itemViewTypes)),
-                    'choice_attr' => function ($value, $key, $index) {
-                        return array(
-                            'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
-                        );
-                    },
-                    'choices_as_values' => true,
-                    'property_path' => 'itemViewType',
-                )
-            );
-        };
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($builder, $itemViewTypeBuilder) {
-                $itemViewTypeBuilder($event->getForm(), $event->getData()->viewType);
-            }
-        );
-
-        $builder->get('view_type')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($itemViewTypeBuilder) {
-                $itemViewTypeBuilder($event->getForm()->getParent(), $event->getData());
-            }
+        $builder->add(
+            'item_view_type',
+            ChoiceType::class,
+            array(
+                'label' => 'block.item_view_type',
+                'choices' => array_flip(call_user_func_array('array_merge', $this->itemViewTypes)),
+                'choice_attr' => function ($value) {
+                    return array(
+                        'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
+                    );
+                },
+                'choices_as_values' => true,
+                'property_path' => 'itemViewType',
+            )
         );
     }
 
