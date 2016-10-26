@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\Form\DataTransformer\UriDataTransformer;
+use Netgen\BlockManager\Parameters\Form\DataTransformer\LinkDataTransformer;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
-use Netgen\BlockManager\Parameters\Form\UriType;
+use Netgen\BlockManager\Parameters\Form\LinkType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class Uri extends ParameterHandler
+class Link extends ParameterHandler
 {
     /**
      * Returns the form type for the parameter.
@@ -17,7 +17,7 @@ class Uri extends ParameterHandler
      */
     public function getFormType()
     {
-        return UriType::class;
+        return LinkType::class;
     }
 
     /**
@@ -44,6 +44,6 @@ class Uri extends ParameterHandler
      */
     public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
     {
-        $form->addModelTransformer(new UriDataTransformer());
+        $form->addModelTransformer(new LinkDataTransformer());
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Parameters\Form\DataTransformer;
 
-use Netgen\BlockManager\Parameters\Parameter\Uri;
+use Netgen\BlockManager\Parameters\Parameter\Link;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class UriDataTransformer implements DataTransformerInterface
+class LinkDataTransformer implements DataTransformerInterface
 {
     /**
      * Transforms a value from the original representation to a transformed representation.
@@ -30,17 +30,17 @@ class UriDataTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!in_array($value['link_type'], array(Uri::LINK_TYPE_URL, Uri::LINK_TYPE_EMAIL, Uri::LINK_TYPE_INTERNAL))) {
+        if (!in_array($value['link_type'], array(Link::LINK_TYPE_URL, Link::LINK_TYPE_EMAIL, Link::LINK_TYPE_INTERNAL))) {
             return null;
         }
 
         $transformedValue = $value;
 
-        if ($value['link_type'] === Uri::LINK_TYPE_URL) {
+        if ($value['link_type'] === Link::LINK_TYPE_URL) {
             $transformedValue['url'] = $value['link'];
-        } elseif ($value['link_type'] === Uri::LINK_TYPE_EMAIL) {
+        } elseif ($value['link_type'] === Link::LINK_TYPE_EMAIL) {
             $transformedValue['email'] = $value['link'];
-        } elseif ($value['link_type'] === Uri::LINK_TYPE_INTERNAL) {
+        } elseif ($value['link_type'] === Link::LINK_TYPE_INTERNAL) {
             $link = parse_url($value['link']);
             if (!empty($link['scheme']) && !empty($link['host'])) {
                 $transformedValue['internal'] = array(
@@ -76,7 +76,7 @@ class UriDataTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!in_array($value['link_type'], array(Uri::LINK_TYPE_URL, Uri::LINK_TYPE_EMAIL, Uri::LINK_TYPE_INTERNAL))) {
+        if (!in_array($value['link_type'], array(Link::LINK_TYPE_URL, Link::LINK_TYPE_EMAIL, Link::LINK_TYPE_INTERNAL))) {
             return null;
         }
 
@@ -87,11 +87,11 @@ class UriDataTransformer implements DataTransformerInterface
             'new_window' => isset($value['new_window']) && $value['new_window'] ? true : false,
         );
 
-        if ($value['link_type'] === Uri::LINK_TYPE_URL && isset($value['url'])) {
+        if ($value['link_type'] === Link::LINK_TYPE_URL && isset($value['url'])) {
             $transformedValue['link'] = $value['url'];
-        } elseif ($value['link_type'] === Uri::LINK_TYPE_EMAIL && isset($value['email'])) {
+        } elseif ($value['link_type'] === Link::LINK_TYPE_EMAIL && isset($value['email'])) {
             $transformedValue['link'] = $value['email'];
-        } elseif ($value['link_type'] === Uri::LINK_TYPE_INTERNAL) {
+        } elseif ($value['link_type'] === Link::LINK_TYPE_INTERNAL) {
             if (!empty($value['internal']['item_id']) && !empty($value['internal']['item_type'])) {
                 $transformedValue['link'] = $value['internal']['item_type'] . '://' . $value['internal']['item_id'];
             }

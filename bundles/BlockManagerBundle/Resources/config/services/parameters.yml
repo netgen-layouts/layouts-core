@@ -12,7 +12,9 @@ parameters:
     netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
     netgen_block_manager.parameters.parameter_handler.html.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Html
     netgen_block_manager.parameters.parameter_handler.choice.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice
-    netgen_block_manager.parameters.parameter_handler.uri.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Uri
+    netgen_block_manager.parameters.parameter_handler.url.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Url
+    netgen_block_manager.parameters.parameter_handler.email.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Email
+    netgen_block_manager.parameters.parameter_handler.link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Link
     netgen_block_manager.parameters.parameter_handler.compound.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean
 
     netgen_block_manager.parameters.form_mapper.class: Netgen\BlockManager\Parameters\FormMapper\FormMapper
@@ -74,10 +76,20 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_handler, type: choice }
 
-    netgen_block_manager.parameters.parameter_handler.uri:
-        class: "%netgen_block_manager.parameters.parameter_handler.uri.class%"
+    netgen_block_manager.parameters.parameter_handler.url:
+        class: "%netgen_block_manager.parameters.parameter_handler.url.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: uri }
+            - { name: netgen_block_manager.parameters.parameter_handler, type: url }
+
+    netgen_block_manager.parameters.parameter_handler.email:
+        class: "%netgen_block_manager.parameters.parameter_handler.email.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_handler, type: email }
+
+    netgen_block_manager.parameters.parameter_handler.link:
+        class: "%netgen_block_manager.parameters.parameter_handler.link.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_handler, type: link }
 
     netgen_block_manager.parameters.parameter_handler.compound.boolean:
         class: "%netgen_block_manager.parameters.parameter_handler.compound.boolean.class%"

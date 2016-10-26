@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
-use Netgen\BlockManager\Parameters\Parameter\Uri;
+use Netgen\BlockManager\Parameters\Parameter\Link;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UriType extends AbstractType
+class LinkType extends AbstractType
 {
     /**
      * Builds the form.
@@ -24,9 +24,9 @@ class UriType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $linkTypes = array(
-            'forms.uri.link_type.url' => Uri::LINK_TYPE_URL,
-            'forms.uri.link_type.email' => Uri::LINK_TYPE_EMAIL,
-            'forms.uri.link_type.internal' => Uri::LINK_TYPE_INTERNAL,
+            'forms.uri.link_type.url' => Link::LINK_TYPE_URL,
+            'forms.uri.link_type.email' => Link::LINK_TYPE_EMAIL,
+            'forms.uri.link_type.internal' => Link::LINK_TYPE_INTERNAL,
         );
 
         if (!$options['required']) {
@@ -47,7 +47,7 @@ class UriType extends AbstractType
         );
 
         $builder->add(
-            Uri::LINK_TYPE_URL,
+            Link::LINK_TYPE_URL,
             UrlType::class,
             array(
                 'label' => 'forms.uri.link_type.url',
@@ -55,7 +55,7 @@ class UriType extends AbstractType
         );
 
         $builder->add(
-            Uri::LINK_TYPE_EMAIL,
+            Link::LINK_TYPE_EMAIL,
             EmailType::class,
             array(
                 'label' => 'forms.uri.link_type.email',
@@ -63,7 +63,7 @@ class UriType extends AbstractType
         );
 
         $builder->add(
-            Uri::LINK_TYPE_INTERNAL,
+            Link::LINK_TYPE_INTERNAL,
             ContentBrowserDynamicType::class,
             array(
                 'label' => 'forms.uri.link_type.internal',

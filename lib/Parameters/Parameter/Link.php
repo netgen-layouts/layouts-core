@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\Parameter;
 use Symfony\Component\Validator\Constraints;
 
-class Uri extends Parameter
+class Link extends Parameter
 {
     const LINK_TYPE_URL = 'url';
 
@@ -20,7 +20,7 @@ class Uri extends Parameter
      */
     public function getType()
     {
-        return 'uri';
+        return 'link';
     }
 
     /**
