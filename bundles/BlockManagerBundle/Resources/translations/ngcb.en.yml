@@ -1,3 +1,5 @@
+item_types.layout: 'Layout'
+
 columns.ngbm_layout.layout_id: 'Layout ID'
 columns.ngbm_layout.type: 'Type'
 columns.ngbm_layout.created: 'Created'
