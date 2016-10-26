@@ -23,11 +23,11 @@ class UriDataTransformer implements DataTransformerInterface
     public function transform($value)
     {
         if (empty($value) || !is_array($value)) {
-            return array();
+            return null;
         }
 
         if (!isset($value['link_type'])) {
-            return array();
+            return null;
         }
 
         $transformedValue = $value;
@@ -55,25 +55,23 @@ class UriDataTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if (empty($value) || !is_array($value)) {
-            return array();
+            return null;
         }
 
         if (!isset($value['link_type'])) {
-            return array();
+            return null;
+        }
+
+        if (!in_array($value['link_type'], array(Uri::LINK_TYPE_URL, Uri::LINK_TYPE_EMAIL, Uri::LINK_TYPE_INTERNAL))) {
+            return null;
         }
 
         $transformedValue = array(
             'link_type' => $value['link_type'],
-            'link' => null,
+            'link' => isset($value[$value['link_type']]) ? $value[$value['link_type']] : null,
             'link_suffix' => isset($value['link_suffix']) ? $value['link_suffix'] : '',
             'new_window' => isset($value['new_window']) && $value['new_window'] ? true : false,
         );
-
-        if (in_array($value['link_type'], array(Uri::LINK_TYPE_URL, Uri::LINK_TYPE_EMAIL, Uri::LINK_TYPE_INTERNAL))) {
-            $transformedValue['link'] = isset($value[$value['link_type']]) ?
-                $value[$value['link_type']] :
-                null;
-        }
 
         return $transformedValue;
     }

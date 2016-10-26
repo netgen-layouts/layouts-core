@@ -7,8 +7,6 @@ use Symfony\Component\Validator\Constraints;
 
 class Uri extends Parameter
 {
-    const LINK_TYPE_NONE = 'none';
-
     const LINK_TYPE_URL = 'url';
 
     const LINK_TYPE_EMAIL = 'email';
@@ -26,25 +24,6 @@ class Uri extends Parameter
     }
 
     /**
-     * Returns the default parameter value.
-     *
-     * @return mixed
-     */
-    public function getDefaultValue()
-    {
-        if ($this->defaultValue === null) {
-            return array(
-                'link_type' => self::LINK_TYPE_NONE,
-                'link' => null,
-                'link_suffix' => null,
-                'new_window' => false,
-            );
-        }
-
-        return parent::getDefaultValue();
-    }
-
-    /**
      * Returns constraints that will be used to validate the parameter value.
      *
      * @param mixed $value
@@ -58,24 +37,16 @@ class Uri extends Parameter
                 new Constraints\NotBlank(),
                 new Constraints\Choice(
                     array(
-                        'callback' => function () {
-                            $linkTypes = array(
-                                self::LINK_TYPE_URL,
-                                self::LINK_TYPE_EMAIL,
-                                self::LINK_TYPE_INTERNAL,
-                            );
-
-                            if (!$this->isRequired()) {
-                                array_unshift($linkTypes, self::LINK_TYPE_NONE);
-                            }
-
-                            return $linkTypes;
-                        },
+                        'choices' => array(
+                            self::LINK_TYPE_URL,
+                            self::LINK_TYPE_EMAIL,
+                            self::LINK_TYPE_INTERNAL,
+                        )
                     )
                 ),
             ),
             'link' => array(
-                new Constraints\IsNull(),
+                new Constraints\NotBlank(),
             ),
             'link_suffix' => array(
                 new Constraints\Type(array('type' => 'string')),
@@ -86,22 +57,13 @@ class Uri extends Parameter
             ),
         );
 
-        if (isset($value['link_type'])) {
+        if (is_array($value) && isset($value['link_type'])) {
             if ($value['link_type'] === self::LINK_TYPE_URL) {
-                $fields['link'] = array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Url(),
-                );
+                $fields['link'][] = new Constraints\Url();
             } elseif ($value['link_type'] === self::LINK_TYPE_EMAIL) {
-                $fields['link'] = array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Email(),
-                );
+                $fields['link'][] = new Constraints\Email();
             } elseif ($value['link_type'] === self::LINK_TYPE_INTERNAL) {
-                $fields['link'] = array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'scalar')),
-                );
+                $fields['link'][] = new Constraints\Type(array('type' => 'scalar'));
             }
         }
 

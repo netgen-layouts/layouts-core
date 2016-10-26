@@ -31,7 +31,7 @@ class UriType extends AbstractType
 
         if (!$options['required']) {
             $linkTypes = array(
-                'forms.uri.link_type.none' => Uri::LINK_TYPE_NONE,
+                'forms.uri.link_type.none' => 'none',
             ) + $linkTypes;
         }
 
