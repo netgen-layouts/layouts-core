@@ -41,7 +41,7 @@ class Link extends Parameter
                             self::LINK_TYPE_URL,
                             self::LINK_TYPE_EMAIL,
                             self::LINK_TYPE_INTERNAL,
-                        )
+                        ),
                     )
                 ),
             ),
