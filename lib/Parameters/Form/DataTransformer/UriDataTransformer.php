@@ -26,14 +26,28 @@ class UriDataTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!isset($value['link_type'])) {
+        if (!isset($value['link_type']) || !isset($value['link'])) {
+            return null;
+        }
+
+        if (!in_array($value['link_type'], array(Uri::LINK_TYPE_URL, Uri::LINK_TYPE_EMAIL, Uri::LINK_TYPE_INTERNAL))) {
             return null;
         }
 
         $transformedValue = $value;
 
-        if (in_array($value['link_type'], array(Uri::LINK_TYPE_URL, Uri::LINK_TYPE_EMAIL, Uri::LINK_TYPE_INTERNAL))) {
-            $transformedValue[$value['link_type']] = $value['link'];
+        if ($value['link_type'] === Uri::LINK_TYPE_URL) {
+            $transformedValue['url'] = $value['link'];
+        } elseif ($value['link_type'] === Uri::LINK_TYPE_EMAIL) {
+            $transformedValue['email'] = $value['link'];
+        } elseif ($value['link_type'] === Uri::LINK_TYPE_INTERNAL) {
+            $link = parse_url($value['link']);
+            if (!empty($link['scheme']) && !empty($link['host'])) {
+                $transformedValue['internal'] = array(
+                    'item_id' => $link['host'],
+                    'item_type' => $link['scheme'],
+                );
+            }
         }
 
         return $transformedValue;
@@ -68,10 +82,20 @@ class UriDataTransformer implements DataTransformerInterface
 
         $transformedValue = array(
             'link_type' => $value['link_type'],
-            'link' => isset($value[$value['link_type']]) ? $value[$value['link_type']] : null,
+            'link' => null,
             'link_suffix' => isset($value['link_suffix']) ? $value['link_suffix'] : '',
             'new_window' => isset($value['new_window']) && $value['new_window'] ? true : false,
         );
+
+        if ($value['link_type'] === Uri::LINK_TYPE_URL && isset($value['url'])) {
+            $transformedValue['link'] = $value['url'];
+        } elseif ($value['link_type'] === Uri::LINK_TYPE_EMAIL && isset($value['email'])) {
+            $transformedValue['link'] = $value['email'];
+        } elseif ($value['link_type'] === Uri::LINK_TYPE_INTERNAL) {
+            if (!empty($value['internal']['item_id']) && !empty($value['internal']['item_type'])) {
+                $transformedValue['link'] = $value['internal']['item_type'] . '://' . $value['internal']['item_id'];
+            }
+        }
 
         return $transformedValue;
     }

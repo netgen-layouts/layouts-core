@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form;
 
-use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType;
+use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
 use Netgen\BlockManager\Parameters\Parameter\Uri;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -64,10 +64,10 @@ class UriType extends AbstractType
 
         $builder->add(
             Uri::LINK_TYPE_INTERNAL,
-            ContentBrowserType::class,
+            ContentBrowserDynamicType::class,
             array(
                 'label' => 'forms.uri.link_type.internal',
-                'item_type' => 'ezlocation',
+                'item_types' => array('ezlocation'),
             )
         );
 
