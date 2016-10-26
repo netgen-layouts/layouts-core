@@ -71,12 +71,14 @@ class UriType extends AbstractType
             )
         );
 
+        // We use the hidden field to collect the validation errors and
+        // to show them in the right place using a template (in one of url,
+        // email, internal forms) since we can't use error_mapping option
+        // to do it automatically based on submitted data
         $builder->add(
             'link',
             HiddenType::class,
             array(
-                // We use the template to show the errors in the right place
-                // since we can't use error_mapping option to do it automatically
                 'error_bubbling' => false,
             )
         );
