@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -11,18 +10,18 @@ use Symfony\Component\Validator\Constraint;
 class ValueTypeValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
+     * @var array
      */
-    protected $valueLoaderRegistry;
+    protected $valueTypes;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
+     * @param array $valueTypes
      */
-    public function __construct(ValueLoaderRegistryInterface $valueLoaderRegistry)
+    public function __construct(array $valueTypes = array())
     {
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
+        $this->valueTypes = $valueTypes;
     }
 
     /**
@@ -41,7 +40,7 @@ class ValueTypeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        if (!$this->valueLoaderRegistry->hasValueLoader($value)) {
+        if (!in_array($value, $this->valueTypes)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%valueType%', $value)
                 ->addViolation();

@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item;
 
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -23,13 +24,23 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
         }
 
         $valueLoaderRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $valueLoaders = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
 
-        foreach ($valueLoaders as $valueLoader) {
+        $valueTypes = array();
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $valueLoader => $tag) {
+            if (!isset($tag[0]['value_type'])) {
+                throw new RuntimeException(
+                    "Value loader service definition must have a 'value_type' attribute in its' tag."
+                );
+            }
+
             $valueLoaderRegistry->addMethodCall(
                 'addValueLoader',
                 array(new Reference($valueLoader))
             );
+
+            $valueTypes[] = $tag[0]['value_type'];
         }
+
+        $container->setParameter('netgen_block_manager.item.value_types', $valueTypes);
     }
 }

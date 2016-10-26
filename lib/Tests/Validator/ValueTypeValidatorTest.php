@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
-use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
@@ -22,10 +20,7 @@ class ValueTypeValidatorTest extends ValidatorTestCase
      */
     public function getValidator()
     {
-        $valueLoaderRegistry = new ValueLoaderRegistry();
-        $valueLoaderRegistry->addValueLoader(new ValueLoader());
-
-        return new ValueTypeValidator($valueLoaderRegistry);
+        return new ValueTypeValidator(array('value'));
     }
 
     /**
