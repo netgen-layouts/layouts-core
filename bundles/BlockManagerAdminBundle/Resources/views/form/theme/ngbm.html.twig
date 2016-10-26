@@ -76,29 +76,31 @@
 {% block ngbm_uri_widget %}
     {{ form_row(form.link_type) }}
 
-    <div {% if value.link_type == 'url' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+    {% set link_type = value.link_type is defined ? value.link_type : null %}
+
+    <div {% if link_type == 'url' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
         {{- form_label(form.url) -}}
         {{- form_widget(form.url) -}}
 
-        {% if value.link_type == 'url' %}
+        {% if link_type == 'url' %}
             {{- form_errors(form.link) -}}
         {% endif %}
     </div>
 
-    <div {% if value.link_type == 'email' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+    <div {% if link_type == 'email' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
         {{- form_label(form.email) -}}
         {{- form_widget(form.email) -}}
 
-        {% if value.link_type == 'email' %}
+        {% if link_type == 'email' %}
             {{- form_errors(form.link) -}}
         {% endif %}
     </div>
 
-    <div {% if value.link_type == 'internal' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+    <div {% if link_type == 'internal' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
         {{- form_label(form.internal) -}}
         {{- form_widget(form.internal) -}}
 
-        {% if value.link_type == 'internal' %}
+        {% if link_type == 'internal' %}
             {{- form_errors(form.link) -}}
         {% endif %}
     </div>
