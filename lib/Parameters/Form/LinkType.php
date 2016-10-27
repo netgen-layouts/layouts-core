@@ -13,9 +13,22 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LinkType extends AbstractType
 {
+    /**
+     * Configures the options for this type.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setRequired(array('value_types'));
+        $resolver->setAllowedTypes('value_types', 'array');
+        $resolver->setDefault('value_types', array());
+    }
+
     /**
      * Builds the form.
      *
@@ -77,7 +90,7 @@ class LinkType extends AbstractType
             ContentBrowserDynamicType::class,
             array(
                 'label' => 'forms.uri.link_type.internal',
-                'item_types' => array('ezlocation'),
+                'item_types' => $options['value_types'],
             )
         );
 

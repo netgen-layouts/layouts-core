@@ -96,6 +96,8 @@ services:
 
     netgen_block_manager.parameters.parameter_handler.link:
         class: "%netgen_block_manager.parameters.parameter_handler.link.class%"
+        arguments:
+            - "%netgen_block_manager.item.value_types%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_handler, type: link }
 

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Validator\Constraint\ItemLink;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class Link extends Parameter
@@ -24,6 +25,18 @@ class Link extends Parameter
     public function getType()
     {
         return 'link';
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    protected function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setRequired(array('value_types'));
+        $optionsResolver->setAllowedTypes('value_types', 'array');
+        $optionsResolver->setDefault('value_types', array());
     }
 
     /**
@@ -69,7 +82,11 @@ class Link extends Parameter
             } elseif ($value['link_type'] === self::LINK_TYPE_PHONE) {
                 $fields['link'][] = new Constraints\Type(array('type' => 'string'));
             } elseif ($value['link_type'] === self::LINK_TYPE_INTERNAL) {
-                $fields['link'][] = new ItemLink();
+                $fields['link'][] = new ItemLink(
+                    array(
+                        'valueTypes' => $this->options['value_types'],
+                    )
+                );
             }
         }
 

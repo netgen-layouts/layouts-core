@@ -11,6 +11,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 class Link extends ParameterHandler
 {
     /**
+     * @var array
+     */
+    protected $defaultValueTypes;
+
+    /**
+     * Constructor.
+     *
+     * @param array $defaultValueTypes
+     */
+    public function __construct(array $defaultValueTypes = array())
+    {
+        $this->defaultValueTypes = $defaultValueTypes;
+    }
+
+    /**
      * Returns the form type for the parameter.
      *
      * @return string
@@ -18,6 +33,22 @@ class Link extends ParameterHandler
     public function getFormType()
     {
         return LinkType::class;
+    }
+
+    /**
+     * Converts parameter options to Symfony form options.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     *
+     * @return array
+     */
+    public function convertOptions(ParameterInterface $parameter)
+    {
+        $valueTypes = $parameter->getOptions()['value_types'];
+
+        return array(
+            'value_types' => !empty($valueTypes) ? $valueTypes : $this->defaultValueTypes,
+        );
     }
 
     /**

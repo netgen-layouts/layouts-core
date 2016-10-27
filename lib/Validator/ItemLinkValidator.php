@@ -64,6 +64,16 @@ class ItemLinkValidator extends ConstraintValidator
             return;
         }
 
+        if (!empty($constraint->valueTypes) && is_array($constraint->valueTypes)) {
+            if (!in_array($parsedValue['scheme'], $constraint->valueTypes)) {
+                $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
+                    ->setParameter('%valueType%', $parsedValue['scheme'])
+                    ->addViolation();
+
+                return;
+            }
+        }
+
         try {
             $this->itemLoader->load($parsedValue['host'], $parsedValue['scheme']);
         } catch (InvalidItemException $e) {
