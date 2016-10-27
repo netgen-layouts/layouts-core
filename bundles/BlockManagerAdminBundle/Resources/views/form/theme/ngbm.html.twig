@@ -73,7 +73,7 @@
     </div>
 {%- endblock ngbm_compound_boolean_widget -%}
 
-{% block ngbm_uri_widget %}
+{% block ngbm_link_widget %}
     {{ form_row(form.link_type) }}
 
     {% set link_type = value.link_type is defined ? value.link_type : null %}
@@ -107,4 +107,4 @@
 
     {{ form_rest(form) }}
 
-{% endblock ngbm_uri_widget %}
+{% endblock ngbm_link_widget %}

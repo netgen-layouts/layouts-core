@@ -116,6 +116,6 @@ class LinkType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ngbm_uri';
+        return 'ngbm_link';
     }
 }
