@@ -96,6 +96,15 @@
         {% endif %}
     </div>
 
+    <div {% if link_type == 'phone' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
+        {{- form_label(form.phone) -}}
+        {{- form_widget(form.phone) -}}
+
+        {% if link_type == 'phone' %}
+            {{- form_errors(form.link) -}}
+        {% endif %}
+    </div>
+
     <div {% if link_type == 'internal' and form.link.vars.errors|length > 0 %} class="error-input" {% endif %}>
         {{- form_label(form.internal) -}}
         {{- form_widget(form.internal) -}}

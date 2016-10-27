@@ -12,6 +12,8 @@ class Link extends Parameter
 
     const LINK_TYPE_EMAIL = 'email';
 
+    const LINK_TYPE_PHONE = 'phone';
+
     const LINK_TYPE_INTERNAL = 'internal';
 
     /**
@@ -41,6 +43,7 @@ class Link extends Parameter
                         'choices' => array(
                             self::LINK_TYPE_URL,
                             self::LINK_TYPE_EMAIL,
+                            self::LINK_TYPE_PHONE,
                             self::LINK_TYPE_INTERNAL,
                         ),
                     )
@@ -63,6 +66,8 @@ class Link extends Parameter
                 $fields['link'][] = new Constraints\Url();
             } elseif ($value['link_type'] === self::LINK_TYPE_EMAIL) {
                 $fields['link'][] = new Constraints\Email();
+            } elseif ($value['link_type'] === self::LINK_TYPE_PHONE) {
+                $fields['link'][] = new Constraints\Type(array('type' => 'string'));
             } elseif ($value['link_type'] === self::LINK_TYPE_INTERNAL) {
                 $fields['link'][] = new ItemLink();
             }

@@ -27,6 +27,7 @@ class LinkType extends AbstractType
         $linkTypes = array(
             'forms.uri.link_type.url' => Link::LINK_TYPE_URL,
             'forms.uri.link_type.email' => Link::LINK_TYPE_EMAIL,
+            'forms.uri.link_type.phone' => Link::LINK_TYPE_PHONE,
             'forms.uri.link_type.internal' => Link::LINK_TYPE_INTERNAL,
         );
 
@@ -60,6 +61,14 @@ class LinkType extends AbstractType
             EmailType::class,
             array(
                 'label' => 'forms.uri.link_type.email',
+            )
+        );
+
+        $builder->add(
+            Link::LINK_TYPE_PHONE,
+            TextType::class,
+            array(
+                'label' => 'forms.uri.link_type.phone',
             )
         );
 
