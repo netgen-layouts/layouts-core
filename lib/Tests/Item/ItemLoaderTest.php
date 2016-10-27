@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Item;
 
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoader;
-use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;

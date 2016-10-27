@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Parameter;
 
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Validator\Constraint\ItemLink;
 use Symfony\Component\Validator\Constraints;
 
 class Link extends Parameter
@@ -63,7 +64,7 @@ class Link extends Parameter
             } elseif ($value['link_type'] === self::LINK_TYPE_EMAIL) {
                 $fields['link'][] = new Constraints\Email();
             } elseif ($value['link_type'] === self::LINK_TYPE_INTERNAL) {
-                $fields['link'][] = new Constraints\Type(array('type' => 'scalar'));
+                $fields['link'][] = new ItemLink();
             }
         }
 

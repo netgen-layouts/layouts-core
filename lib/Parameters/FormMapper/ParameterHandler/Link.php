@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\Form\DataTransformer\LinkDataTransformer;
+use Netgen\BlockManager\Parameters\Form\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Form\LinkType;
@@ -44,6 +44,6 @@ class Link extends ParameterHandler
      */
     public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
     {
-        $form->addModelTransformer(new LinkDataTransformer());
+        $form->setDataMapper(new LinkDataMapper());
     }
 }

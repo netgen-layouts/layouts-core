@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form;
 
+use Netgen\BlockManager\Parameters\Form\DataMapper\ItemLinkMapper;
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
 use Netgen\BlockManager\Parameters\Parameter\Link;
 use Netgen\BlockManager\Form\AbstractType;
@@ -31,7 +32,7 @@ class LinkType extends AbstractType
 
         if (!$options['required']) {
             $linkTypes = array(
-                'forms.uri.link_type.none' => 'none',
+                'forms.uri.link_type.none' => '',
             ) + $linkTypes;
         }
 
@@ -62,7 +63,7 @@ class LinkType extends AbstractType
             )
         );
 
-        $builder->add(
+        $internalLinkForm = $builder->create(
             Link::LINK_TYPE_INTERNAL,
             ContentBrowserDynamicType::class,
             array(
@@ -70,6 +71,9 @@ class LinkType extends AbstractType
                 'item_types' => array('ezlocation'),
             )
         );
+
+        $internalLinkForm->setDataMapper(new ItemLinkMapper());
+        $builder->add($internalLinkForm);
 
         // We use the hidden field to collect the validation errors and
         // to show them in the right place using a template (in one of url,
@@ -79,6 +83,7 @@ class LinkType extends AbstractType
             'link',
             HiddenType::class,
             array(
+                'mapped' => false,
                 'error_bubbling' => false,
             )
         );

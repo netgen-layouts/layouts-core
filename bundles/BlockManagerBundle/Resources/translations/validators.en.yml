@@ -3,4 +3,6 @@ netgen_block_manager.block_view_type.no_view_type: 'View type "%viewType%" does 
 netgen_block_manager.block_item_view_type.no_view_type: 'View type "%viewType%" does not exist.'
 netgen_block_manager.block_item_view_type.no_item_view_type: 'Block item view type "%itemViewType%" does not exist for "%viewType%" view type.'
 netgen_block_manager.value_type.no_value_type: 'Value type "%valueType%" does not exist.'
+netgen_block_manager.item_link.no_item: 'Item does not exist.'
+netgen_block_manager.item_link.invalid_item: 'Item is not valid.'
 netgen_block_manager.parameters.invalid_value: 'Parameter %parameterName% is invalid: %message%'
