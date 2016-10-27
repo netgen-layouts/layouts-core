@@ -14,6 +14,7 @@ parameters:
     netgen_block_manager.parameters.parameter_handler.choice.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice
     netgen_block_manager.parameters.parameter_handler.url.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Url
     netgen_block_manager.parameters.parameter_handler.email.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Email
+    netgen_block_manager.parameters.parameter_handler.item_link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\ItemLink
     netgen_block_manager.parameters.parameter_handler.link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Link
     netgen_block_manager.parameters.parameter_handler.compound.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean
 
@@ -85,6 +86,13 @@ services:
         class: "%netgen_block_manager.parameters.parameter_handler.email.class%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_handler, type: email }
+
+    netgen_block_manager.parameters.parameter_handler.item_link:
+        class: "%netgen_block_manager.parameters.parameter_handler.item_link.class%"
+        arguments:
+            - "%netgen_block_manager.item.value_types%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_handler, type: item_link }
 
     netgen_block_manager.parameters.parameter_handler.link:
         class: "%netgen_block_manager.parameters.parameter_handler.link.class%"
