@@ -66,19 +66,21 @@ class ItemLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
+     * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
      */
-    public function testLoadNullItem()
+    public function testLoadItemThrowsInvalidItemException()
     {
-        $this->valueLoaderRegistry->addValueLoader(new ValueLoader(true));
-
-        $this->assertInstanceOf(NullItem::class, $this->itemLoader->load(42, 'value'));
+        $this->itemLoader->load(42, 'value');
     }
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
+     * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
      */
-    public function testLoadNullItemWithNoValueLoader()
+    public function testLoadItemThrowsInvalidItemExceptionWithNoItem()
     {
-        $this->assertInstanceOf(NullItem::class, $this->itemLoader->load(42, 'value'));
+        $this->valueLoaderRegistry->addValueLoader(new ValueLoader(true));
+
+        $this->itemLoader->load(42, 'value');
     }
 }

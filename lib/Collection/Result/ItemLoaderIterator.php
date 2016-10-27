@@ -3,10 +3,12 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use IteratorIterator;
 use Iterator;
+use Netgen\BlockManager\Item\NullItem;
 
 class ItemLoaderIterator extends IteratorIterator
 {
@@ -54,10 +56,14 @@ class ItemLoaderIterator extends IteratorIterator
             return $this->itemBuilder->build($object);
         }
 
-        $item = $this->itemLoader->load(
-            $object->getValueId(),
-            $object->getValueType()
-        );
+        try {
+            $item = $this->itemLoader->load(
+                $object->getValueId(),
+                $object->getValueType()
+            );
+        } catch (InvalidItemException $e) {
+            $item = new NullItem($object->getValueId());
+        }
 
         return new CollectionItemBased($item, $object);
     }

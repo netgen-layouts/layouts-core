@@ -37,26 +37,22 @@ class ItemLoader implements ItemLoaderInterface
      * @param int|string $valueId
      * @param string $valueType
      *
+     * @throws \Netgen\BlockManager\Exception\InvalidItemException If item could not be loaded
+     *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
     public function load($valueId, $valueType)
     {
-        if ($this->valueLoaderRegistry->hasValueLoader($valueType)) {
-            $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
-
-            try {
-                $loadedValue = $valueLoader->load($valueId);
-
-                return $this->itemBuilder->build($loadedValue);
-            } catch (InvalidItemException $e) {
-                // Do nothing
-            }
+        if (!$this->valueLoaderRegistry->hasValueLoader($valueType)) {
+            throw new InvalidItemException(
+                sprintf('Value type "%s" does not exist.', $valueType)
+            );
         }
 
-        return new NullItem(
-            array(
-                'valueId' => $valueId,
-            )
+        $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
+
+        return $this->itemBuilder->build(
+            $valueLoader->load($valueId)
         );
     }
 }
