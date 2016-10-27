@@ -2,6 +2,7 @@ parameters:
     netgen_block_manager.controller.block_controller: 'ngbm_block:viewBlockById'
     netgen_block_manager.templating.global_variable.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
     netgen_block_manager.templating.twig.extension.rendering.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
+    netgen_block_manager.templating.twig.extension.item.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
     netgen_block_manager.templating.pagelayout_resolver.default.class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
 
 services:
@@ -21,6 +22,18 @@ services:
             - "@netgen_block_manager.view.renderer"
             - "@fragment.handler"
             - "%netgen_block_manager.controller.block_controller%"
+            - "@?logger"
+        calls:
+            - [setDebug, ["%kernel.debug%"]]
+        tags:
+            - { name: twig.extension }
+            - { name: monolog.logger, channel: ngbm }
+
+    netgen_block_manager.templating.twig.extension.item:
+        class: "%netgen_block_manager.templating.twig.extension.item.class%"
+        arguments:
+            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_block_manager.item.url_builder"
             - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]
