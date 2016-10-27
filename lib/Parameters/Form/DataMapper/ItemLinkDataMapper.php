@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Form\DataMapper;
 
 use Symfony\Component\Form\DataMapperInterface;
 
-class ItemLinkMapper implements DataMapperInterface
+class ItemLinkDataMapper implements DataMapperInterface
 {
     /**
      * Maps properties of some data to a list of forms.

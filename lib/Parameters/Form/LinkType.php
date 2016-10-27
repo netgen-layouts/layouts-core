@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\Form\DataMapper\ItemLinkMapper;
+use Netgen\BlockManager\Parameters\Form\DataMapper\ItemLinkDataMapper;
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
 use Netgen\BlockManager\Parameters\Parameter\Link;
 use Netgen\BlockManager\Form\AbstractType;
@@ -72,7 +72,7 @@ class LinkType extends AbstractType
             )
         );
 
-        $internalLinkForm->setDataMapper(new ItemLinkMapper());
+        $internalLinkForm->setDataMapper(new ItemLinkDataMapper());
         $builder->add($internalLinkForm);
 
         // We use the hidden field to collect the validation errors and
