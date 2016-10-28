@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LinkType extends AbstractType
@@ -84,16 +86,18 @@ class LinkType extends AbstractType
             array(
                 'label' => 'forms.uri.link_type.internal',
                 'item_types' => $options['value_types'],
+                'error_bubbling' => false,
             )
         );
 
         $internalLinkForm->setDataMapper(new ItemLinkDataMapper());
         $builder->add($internalLinkForm);
 
-        // We use the hidden field to collect the validation errors and
-        // to show them in the right place using a template (in one of url,
-        // email, internal forms) since we can't use error_mapping option
-        // to do it automatically based on submitted data
+        // We use the unmapped hidden field to collect the validation errors and
+        // to redirect them to the right place when building the form view.
+        // For "internal" form, this also needs "error_bubbling" set to false
+        // since "internal" form is compound and errors are redirected to parent
+        // by default.
         $builder->add(
             'link',
             HiddenType::class,
@@ -119,6 +123,30 @@ class LinkType extends AbstractType
                 'required' => true,
             )
         );
+    }
+
+    /**
+     * Builds the form view.
+     *
+     * @param \Symfony\Component\Form\FormView $view
+     * @param \Symfony\Component\Form\FormInterface $form
+     * @param array $options
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        parent::buildView($view, $form, $options);
+
+        $linkType = $form->get('link_type')->getData();
+        if (!$form->has($linkType)) {
+            return;
+        }
+
+        $targetForm = $form->get($linkType);
+        $linkErrors = $form->get('link')->getErrors();
+
+        foreach ($linkErrors as $linkError) {
+            $targetForm->addError($linkError);
+        }
     }
 
     /**
