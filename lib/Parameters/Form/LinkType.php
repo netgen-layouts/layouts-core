@@ -37,26 +37,19 @@ class LinkType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $linkTypes = array(
-            'forms.uri.link_type.url' => Link::LINK_TYPE_URL,
-            'forms.uri.link_type.email' => Link::LINK_TYPE_EMAIL,
-            'forms.uri.link_type.phone' => Link::LINK_TYPE_PHONE,
-            'forms.uri.link_type.internal' => Link::LINK_TYPE_INTERNAL,
-        );
-
-        if (!$options['required']) {
-            $linkTypes = array(
-                'forms.uri.link_type.none' => '',
-            ) + $linkTypes;
-        }
-
         $builder->add(
             'link_type',
             ChoiceType::class,
             array(
                 'label' => 'forms.uri.link_type',
-                'choices' => $linkTypes,
+                'choices' => array(
+                        'forms.uri.link_type.url' => Link::LINK_TYPE_URL,
+                        'forms.uri.link_type.email' => Link::LINK_TYPE_EMAIL,
+                        'forms.uri.link_type.phone' => Link::LINK_TYPE_PHONE,
+                        'forms.uri.link_type.internal' => Link::LINK_TYPE_INTERNAL,
+                    ),
                 'choices_as_values' => true,
+                'placeholder' => $options['required'] ? false : 'forms.uri.link_type.none',
                 'required' => true,
             )
         );
