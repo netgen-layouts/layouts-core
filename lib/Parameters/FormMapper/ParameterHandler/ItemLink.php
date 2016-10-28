@@ -59,6 +59,8 @@ class ItemLink extends ParameterHandler
      */
     public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
     {
+        parent::handleForm($parameter, $form);
+
         $form->setDataMapper(new ItemLinkDataMapper());
     }
 }
