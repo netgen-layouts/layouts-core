@@ -13,13 +13,20 @@ class TitleHandler extends BlockDefinitionHandler
     protected $options = array();
 
     /**
+     * @var array
+     */
+    protected $linkValueTypes = array();
+
+    /**
      * Constructor.
      *
      * @param array $options
+     * @param array $linkValueTypes
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = array(), array $linkValueTypes = array())
     {
         $this->options = array_flip($options);
+        $this->linkValueTypes = $linkValueTypes;
     }
 
     /**
@@ -35,6 +42,11 @@ class TitleHandler extends BlockDefinitionHandler
                 true
             ),
             'title' => new Parameter\TextLine(array(), true),
+            'link' => new Parameter\Link(
+                array(
+                    'value_types' => $this->linkValueTypes,
+                )
+            ),
         ) + $this->getCommonParameters();
     }
 }

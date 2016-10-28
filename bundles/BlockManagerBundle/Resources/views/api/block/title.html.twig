@@ -2,8 +2,8 @@
 
 {% block content %}
     <{{ block.parameter('tag')|default('h1') }} data-inline>
-       <span contenteditable="true" data-attr="title" data-hint="Click to write" data-inline-child>
-           {{ block.parameter('title') }}
-       </span>
+        <span contenteditable="true" data-attr="title" data-hint="Click to write" data-inline-child>
+            {{ block.parameter('title') }}
+        </span>
     </{{ block.parameter('tag')|default('h1') }}>
 {% endblock %}
