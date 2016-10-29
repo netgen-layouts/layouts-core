@@ -14,7 +14,7 @@ class ParameterVO extends ValueObject
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface
      */
-    protected $parameterType;
+    protected $parameter;
 
     /**
      * @var mixed
@@ -37,13 +37,13 @@ class ParameterVO extends ValueObject
     }
 
     /**
-     * Returns the parameter type.
+     * Returns the parameter.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */
-    public function getParameterType()
+    public function getParameter()
     {
-        return $this->parameterType;
+        return $this->parameter;
     }
 
     /**

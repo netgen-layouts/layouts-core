@@ -325,7 +325,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_class' => new ParameterVO(
                     array(
                         'identifier' => 'css_class',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
                         'value' => 'test_value',
                         'isEmpty' => false,
                     )
@@ -333,7 +333,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_id' => new ParameterVO(
                     array(
                         'identifier' => 'css_id',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
                         'value' => 'some_other_test_value',
                         'isEmpty' => false,
                     )
@@ -365,7 +365,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_class' => new ParameterVO(
                     array(
                         'identifier' => 'css_class',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
                         'value' => 'test_value',
                         'isEmpty' => false,
                     )
@@ -373,7 +373,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_id' => new ParameterVO(
                     array(
                         'identifier' => 'css_id',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
                         'value' => 'some_other_test_value',
                         'isEmpty' => false,
                     )
@@ -405,7 +405,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_class' => new ParameterVO(
                     array(
                         'identifier' => 'css_class',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
                         'value' => 'test_value',
                         'isEmpty' => false,
                     )
@@ -413,7 +413,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_id' => new ParameterVO(
                     array(
                         'identifier' => 'css_id',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
                         'value' => 'some_other_test_value',
                         'isEmpty' => false,
                     )
@@ -606,7 +606,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_class' => new ParameterVO(
                     array(
                         'identifier' => 'css_class',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
                         'value' => null,
                         'isEmpty' => true,
                     )
@@ -614,7 +614,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                 'css_id' => new ParameterVO(
                     array(
                         'identifier' => 'css_id',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
                         'value' => null,
                         'isEmpty' => true,
                     )

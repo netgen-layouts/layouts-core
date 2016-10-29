@@ -28,7 +28,7 @@ trait ParametersMapper
             $mappedValues[$parameterName] = new ParameterVO(
                 array(
                     'identifier' => $parameterName,
-                    'parameterType' => $parameter,
+                    'parameter' => $parameter,
                     'value' => $value,
                     'isEmpty' => $parameter->isValueEmpty($value),
                 )

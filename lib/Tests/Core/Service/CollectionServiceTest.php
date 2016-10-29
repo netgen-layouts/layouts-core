@@ -564,7 +564,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'offset' => new ParameterVO(
                     array(
                         'identifier' => 'offset',
-                        'parameterType' => $query->getQueryType()->getParameters()['offset'],
+                        'parameter' => $query->getQueryType()->getParameters()['offset'],
                         'value' => '0',
                         'isEmpty' => false,
                     )
@@ -572,7 +572,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 'param' => new ParameterVO(
                     array(
                         'identifier' => 'param',
-                        'parameterType' => $query->getQueryType()->getParameters()['param'],
+                        'parameter' => $query->getQueryType()->getParameters()['param'],
                         'value' => 'value',
                         'isEmpty' => false,
                     )

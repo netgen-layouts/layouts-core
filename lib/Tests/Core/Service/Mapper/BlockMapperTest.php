@@ -68,7 +68,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'css_class' => new ParameterVO(
                     array(
                         'identifier' => 'css_class',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
                         'value' => null,
                         'isEmpty' => true,
                     )
@@ -76,7 +76,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'css_id' => new ParameterVO(
                     array(
                         'identifier' => 'css_id',
-                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
                         'value' => null,
                         'isEmpty' => true,
                     )
