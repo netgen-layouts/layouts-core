@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\BlockManager\Parameters\Form\DataMapper\ItemLinkDataMapper;
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
-use Netgen\BlockManager\Parameters\ParameterDefinition\Link;
+use Netgen\BlockManager\Parameters\Value\Link;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -53,6 +53,7 @@ class LinkType extends AbstractType
                 'choices_as_values' => true,
                 'placeholder' => $options['required'] ? false : 'forms.uri.link_type.none',
                 'required' => true,
+                'property_path' => 'linkType',
             )
         );
 
@@ -104,6 +105,7 @@ class LinkType extends AbstractType
             array(
                 'mapped' => false,
                 'error_bubbling' => false,
+                'property_path' => 'link',
             )
         );
 
@@ -112,6 +114,7 @@ class LinkType extends AbstractType
             TextType::class,
             array(
                 'label' => 'forms.uri.link_suffix',
+                'property_path' => 'linkSuffix',
             )
         );
 
@@ -121,6 +124,7 @@ class LinkType extends AbstractType
             array(
                 'label' => 'forms.uri.new_window',
                 'required' => true,
+                'property_path' => 'newWindow',
             )
         );
     }

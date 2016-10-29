@@ -4,9 +4,8 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinition\Link as LinkDefinition;
-use Netgen\BlockManager\Validator\Constraint\ItemLink as ItemLinkConstraint;
-use Symfony\Component\Validator\Constraints;
+use Netgen\BlockManager\Parameters\Value\Link as LinkValue;
+use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
 
 class Link extends ParameterType
 {
@@ -30,56 +29,68 @@ class Link extends ParameterType
      */
     public function getValueConstraints(ParameterDefinition $parameterDefinition, $value)
     {
-        $options = $parameterDefinition->getOptions();
-
-        $fields = array(
-            'link_type' => array(
-                new Constraints\NotBlank(),
-                new Constraints\Choice(
-                    array(
-                        'choices' => array(
-                            LinkDefinition::LINK_TYPE_URL,
-                            LinkDefinition::LINK_TYPE_EMAIL,
-                            LinkDefinition::LINK_TYPE_PHONE,
-                            LinkDefinition::LINK_TYPE_INTERNAL,
-                        ),
-                    )
-                ),
-            ),
-            'link' => array(
-                new Constraints\NotBlank(),
-            ),
-            'link_suffix' => array(
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'new_window' => array(
-                new Constraints\NotNull(),
-                new Constraints\Type(array('type' => 'bool')),
-            ),
-        );
-
-        if (is_array($value) && isset($value['link_type'])) {
-            if ($value['link_type'] === LinkDefinition::LINK_TYPE_URL) {
-                $fields['link'][] = new Constraints\Url();
-            } elseif ($value['link_type'] === LinkDefinition::LINK_TYPE_EMAIL) {
-                $fields['link'][] = new Constraints\Email();
-            } elseif ($value['link_type'] === LinkDefinition::LINK_TYPE_PHONE) {
-                $fields['link'][] = new Constraints\Type(array('type' => 'string'));
-            } elseif ($value['link_type'] === LinkDefinition::LINK_TYPE_INTERNAL) {
-                $fields['link'][] = new ItemLinkConstraint(
-                    array(
-                        'valueTypes' => $options['value_types'],
-                    )
-                );
-            }
-        }
-
         return array(
-            new Constraints\Collection(
+            new LinkConstraint(
                 array(
-                    'fields' => $fields,
+                    'valueTypes' => $parameterDefinition->getOptions()['value_types'],
                 )
             ),
         );
+    }
+
+    /**
+     * Converts the parameter value to from a domain format to scalar/hash format.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function fromValue($value)
+    {
+        return array(
+            'link_type' => $value->getLinkType(),
+            'link' => $value->getLink(),
+            'link_suffix' => $value->getLinkSuffix(),
+            'new_window' => $value->getNewWindow(),
+        );
+    }
+
+    /**
+     * Converts the provided parameter value to value usable by the domain.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function toValue($value)
+    {
+        if (!is_array($value) || empty($value['link_type'])) {
+            return new LinkValue();
+        }
+
+        return new LinkValue(
+            array(
+                'linkType' => $value['link_type'],
+                'link' => isset($value['link']) ? $value['link'] : null,
+                'linkSuffix' => isset($value['link_suffix']) ? $value['link_suffix'] : null,
+                'newWindow' => isset($value['new_window']) ? $value['new_window'] : false,
+            )
+        );
+    }
+
+    /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        if (!$value instanceof LinkValue) {
+            return true;
+        }
+
+        return empty($value->getLinkType()) || empty($value->getLink());
     }
 }

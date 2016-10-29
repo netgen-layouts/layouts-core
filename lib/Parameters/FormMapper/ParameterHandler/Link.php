@@ -6,10 +6,16 @@ use Netgen\BlockManager\Parameters\Form\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Form\LinkType;
+use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class Link extends ParameterHandler
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    protected $parameterType;
+
     /**
      * @var array
      */
@@ -18,10 +24,12 @@ class Link extends ParameterHandler
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $parameterType
      * @param array $defaultValueTypes
      */
-    public function __construct(array $defaultValueTypes = array())
+    public function __construct(ParameterTypeInterface $parameterType, array $defaultValueTypes = array())
     {
+        $this->parameterType = $parameterType;
         $this->defaultValueTypes = $defaultValueTypes;
     }
 
@@ -77,6 +85,6 @@ class Link extends ParameterHandler
     {
         parent::handleForm($parameterDefinition, $form);
 
-        $form->setDataMapper(new LinkDataMapper());
+        $form->setDataMapper(new LinkDataMapper($this->parameterType));
     }
 }

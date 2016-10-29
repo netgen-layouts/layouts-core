@@ -2,10 +2,26 @@
 
 namespace Netgen\BlockManager\Parameters\Form\DataMapper;
 
+use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Symfony\Component\Form\DataMapperInterface;
 
 class LinkDataMapper implements DataMapperInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    protected $parameterType;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $parameterType
+     */
+    public function __construct(ParameterTypeInterface $parameterType)
+    {
+        $this->parameterType = $parameterType;
+    }
+
     /**
      * Maps properties of some data to a list of forms.
      *
@@ -16,13 +32,15 @@ class LinkDataMapper implements DataMapperInterface
      */
     public function mapDataToForms($data, $forms)
     {
-        if (!empty($data['link_type'])) {
-            $forms = iterator_to_array($forms);
+        /** @var \Netgen\BlockManager\Parameters\Value\Link $data */
+        $forms = iterator_to_array($forms);
 
-            $forms['link_type']->setData($data['link_type']);
-            $forms[$data['link_type']]->setData(isset($data['link']) ? $data['link'] : null);
-            $forms['link_suffix']->setData(isset($data['link_suffix']) ? $data['link_suffix'] : null);
-            $forms['new_window']->setData(isset($data['new_window']) ? $data['new_window'] : false);
+        $forms['link_type']->setData($data->getLinkType());
+        $forms['link_suffix']->setData($data->getLinkSuffix());
+        $forms['new_window']->setData($data->getNewWindow());
+
+        if (isset($forms[$data->getLinkType()])) {
+            $forms[$data->getLinkType()]->setData($data->getLink());
         }
     }
 
@@ -41,14 +59,14 @@ class LinkDataMapper implements DataMapperInterface
 
         $data = null;
         if (!empty($linkType)) {
-            $data['link_type'] = $linkType;
-            $data['link'] = null;
-            $data['link_suffix'] = $forms['link_suffix']->getData();
-            $data['new_window'] = $forms['new_window']->getData();
-
-            if (isset($forms[$linkType])) {
-                $data['link'] = $forms[$linkType]->getData();
-            }
+            $data = array(
+                'link_type' => $linkType,
+                'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : null,
+                'link_suffix' => $forms['link_suffix']->getData(),
+                'new_window' => $forms['new_window']->getData(),
+            );
         }
+
+        $data = $this->parameterType->toValue($data);
     }
 }

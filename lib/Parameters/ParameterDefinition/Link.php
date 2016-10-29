@@ -7,14 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Link extends ParameterDefinition
 {
-    const LINK_TYPE_URL = 'url';
-
-    const LINK_TYPE_EMAIL = 'email';
-
-    const LINK_TYPE_PHONE = 'phone';
-
-    const LINK_TYPE_INTERNAL = 'internal';
-
     /**
      * Returns the parameter type.
      *
