@@ -34,6 +34,13 @@ interface ViewInterface
     public function getContext();
 
     /**
+     * Returns the view fallback context.
+     *
+     * @return string
+     */
+    public function getFallbackContext();
+
+    /**
      * Sets the view context.
      *
      * @param string $context

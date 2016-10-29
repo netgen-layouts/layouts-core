@@ -30,6 +30,16 @@ class ParameterView extends View implements ParameterViewInterface
     }
 
     /**
+     * Returns the view fallback context.
+     *
+     * @return string
+     */
+    public function getFallbackContext()
+    {
+        return self::CONTEXT_DEFAULT;
+    }
+
+    /**
      * Returns the view identifier.
      *
      * @return string

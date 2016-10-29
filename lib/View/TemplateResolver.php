@@ -63,14 +63,26 @@ class TemplateResolver implements TemplateResolverInterface
             );
         }
 
+        $fallbackContext = $view->getFallbackContext();
         if (!isset($this->viewConfig[$viewIdentifier][$context])) {
-            throw new RuntimeException(
-                sprintf(
-                    'No view config could be found for view object "%s" and context "%s".',
-                    get_class($view),
-                    $context
-                )
-            );
+            $context = $fallbackContext;
+
+            if (
+                $fallbackContext === null ||
+                ($fallbackContext !== null && !isset($this->viewConfig[$viewIdentifier][$fallbackContext]))
+            ) {
+                $message = $fallbackContext !== null ?
+                    'No view config could be found for view object "%s" and fallback context "%s".' :
+                    'No view config could be found for view object "%s" and context "%s".';
+
+                throw new RuntimeException(
+                    sprintf(
+                        $message,
+                        get_class($view),
+                        $fallbackContext ?: $context
+                    )
+                );
+            }
         }
 
         foreach ($this->viewConfig[$viewIdentifier][$context] as $config) {
@@ -78,6 +90,7 @@ class TemplateResolver implements TemplateResolverInterface
                 continue;
             }
 
+            $view->setContext($context);
             $view->setTemplate($config['template']);
             $view->addParameters($config['parameters']);
 

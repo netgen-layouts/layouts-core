@@ -58,6 +58,16 @@ abstract class View implements ViewInterface
     }
 
     /**
+     * Returns the view fallback context.
+     *
+     * @return string
+     */
+    public function getFallbackContext()
+    {
+        return null;
+    }
+
+    /**
      * Sets the view context.
      *
      * @param string $context
