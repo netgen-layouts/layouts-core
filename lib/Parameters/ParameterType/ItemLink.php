@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Validator\Constraint\ItemLink as ItemLinkConstraint;
+use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
 
 class ItemLink extends ParameterType
 {

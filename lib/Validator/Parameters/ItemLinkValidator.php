@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\BlockManager\Validator\Parameters;
 
 use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Validator\Constraint\ItemLink;
+use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\ConstraintValidator;
