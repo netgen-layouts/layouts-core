@@ -13,7 +13,7 @@ use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
 
@@ -264,7 +264,7 @@ class CollectionValidator extends Validator
         $this->validate(
             $queryCreateStruct,
             array(
-                new Parameters(
+                new ParameterStruct(
                     array(
                         'parameters' => $queryType->getParameters(),
                         'required' => true,

@@ -9,16 +9,16 @@ use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\ParametersValidator;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 
-class ParametersValidatorTest extends ValidatorTestCase
+class ParameterStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {
         parent::setUp();
 
-        $this->constraint = new Parameters(
+        $this->constraint = new ParameterStruct(
             array(
                 'parameters' => array(
                     'css_id' => new ParameterDefinition\TextLine(array(), true),
@@ -45,7 +45,7 @@ class ParametersValidatorTest extends ValidatorTestCase
         $parameterFilterRegistry = new ParameterFilterRegistry();
         $parameterFilterRegistry->addParameterFilters('text_line', array(new ParameterFilter()));
 
-        return new ParametersValidator($parameterTypeRegistry, $parameterFilterRegistry);
+        return new ParameterStructValidator($parameterTypeRegistry, $parameterFilterRegistry);
     }
 
     /**
@@ -53,11 +53,11 @@ class ParametersValidatorTest extends ValidatorTestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Validator\ParametersValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\ParametersValidator::validate
-     * @covers \Netgen\BlockManager\Validator\ParametersValidator::filterParameters
-     * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildConstraintFields
-     * @covers \Netgen\BlockManager\Validator\ParametersValidator::buildFieldConstraint
+     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::__construct
+     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::validate
+     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::filterParameters
+     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::buildConstraintFields
+     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::buildFieldConstraint
      * @dataProvider validateDataProvider
      */
     public function testValidate($parameters, $required, $isValid)

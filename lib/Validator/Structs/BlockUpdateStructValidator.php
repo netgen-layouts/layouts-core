@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
@@ -79,7 +79,7 @@ class BlockUpdateStructValidator extends ConstraintValidator
         $validator->atPath('parameters')->validate(
             $value,
             array(
-                new Parameters(
+                new ParameterStruct(
                     array(
                         'parameters' => $blockDefinition->getParameters(),
                         'required' => false,

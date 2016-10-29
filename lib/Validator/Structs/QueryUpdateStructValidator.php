@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
@@ -51,7 +51,7 @@ class QueryUpdateStructValidator extends ConstraintValidator
         $validator->atPath('parameters')->validate(
             $value,
             array(
-                new Parameters(
+                new ParameterStruct(
                     array(
                         'parameters' => $queryType->getParameters(),
                         'required' => false,

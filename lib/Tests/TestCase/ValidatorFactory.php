@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
-use Netgen\BlockManager\Validator\ParametersValidator;
+use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
 use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
 use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
@@ -29,12 +29,12 @@ class ValidatorFactory extends ConstraintValidatorFactory
             return new BlockItemViewTypeValidator();
         } elseif ($name === 'ngbm_value_type') {
             return new ValueTypeValidator(array('value'));
-        } elseif ($name === 'ngbm_parameters') {
+        } elseif ($name === 'ngbm_parameter_struct') {
             $parameterTypeRegistry = new ParameterTypeRegistry();
             $parameterTypeRegistry->addParameterType(new ParameterType\TextLine());
             $parameterTypeRegistry->addParameterType(new ParameterType\Integer());
 
-            return new ParametersValidator(
+            return new ParameterStructValidator(
                 $parameterTypeRegistry,
                 new ParameterFilterRegistry()
             );

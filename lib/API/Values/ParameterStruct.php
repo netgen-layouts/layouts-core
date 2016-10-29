@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\ValueObject;
 
-abstract class ParameterStruct extends ValueObject implements ParameterCollectionInterface
+abstract class ParameterStruct extends ValueObject
 {
     /**
      * @var array

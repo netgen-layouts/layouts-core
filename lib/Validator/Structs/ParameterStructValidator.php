@@ -1,18 +1,18 @@
 <?php
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
-use Netgen\BlockManager\API\Values\ParameterCollectionInterface;
+use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ParametersValidator extends ConstraintValidator
+class ParameterStructValidator extends ConstraintValidator
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
@@ -46,12 +46,12 @@ class ParametersValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if (!$constraint instanceof Parameters) {
-            throw new UnexpectedTypeException($constraint, Parameters::class);
+        if (!$constraint instanceof ParameterStructConstraint) {
+            throw new UnexpectedTypeException($constraint, ParameterStructConstraint::class);
         }
 
-        if (!$value instanceof ParameterCollectionInterface) {
-            throw new UnexpectedTypeException($value, ParameterCollectionInterface::class);
+        if (!$value instanceof ParameterStruct) {
+            throw new UnexpectedTypeException($value, ParameterStruct::class);
         }
 
         $this->filterParameters($value, $constraint->parameters);
@@ -76,12 +76,12 @@ class ParametersValidator extends ConstraintValidator
     /**
      * Filters the parameter values.
      *
-     * @param \Netgen\BlockManager\API\Values\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameterDefinitions
      */
-    protected function filterParameters(ParameterCollectionInterface $parameterCollection, array $parameterDefinitions)
+    protected function filterParameters(ParameterStruct $parameterStruct, array $parameterDefinitions)
     {
-        foreach ($parameterCollection->getParameters() as $parameterName => $parameter) {
+        foreach ($parameterStruct->getParameters() as $parameterName => $parameter) {
             if (!isset($parameterDefinitions[$parameterName])) {
                 continue;
             }
@@ -91,25 +91,25 @@ class ParametersValidator extends ConstraintValidator
                 $parameter = $filter->filter($parameter);
             }
 
-            $parameterCollection->setParameter($parameterName, $parameter);
+            $parameterStruct->setParameter($parameterName, $parameter);
         }
     }
 
     /**
      * Builds the "fields" array from provided parameters and parameter values.
      *
-     * @param \Netgen\BlockManager\API\Values\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
      * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameterDefinitions
      * @param bool $isRequired
      *
      * @return array
      */
-    protected function buildConstraintFields(ParameterCollectionInterface $parameterCollection, array $parameterDefinitions, $isRequired = true)
+    protected function buildConstraintFields(ParameterStruct $parameterStruct, array $parameterDefinitions, $isRequired = true)
     {
         $fields = array();
         foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
-            $parameterValue = $parameterCollection->hasParameter($parameterName) ?
-                $parameterCollection->getParameter($parameterName) :
+            $parameterValue = $parameterStruct->hasParameter($parameterName) ?
+                $parameterStruct->getParameter($parameterName) :
                 null;
 
             $parameterType = $this->parameterTypeRegistry->getParameterType($parameterDefinition->getType());
@@ -121,16 +121,16 @@ class ParametersValidator extends ConstraintValidator
 
             if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
                 foreach ($parameterDefinition->getParameters() as $subParameterName => $subParameterDefinition) {
-                    $subParameterValue = $parameterCollection->hasParameter($subParameterName) ?
-                        $parameterCollection->getParameter($subParameterName) :
+                    $subParameterValue = $parameterStruct->hasParameter($subParameterName) ?
+                        $parameterStruct->getParameter($subParameterName) :
                         null;
 
                     $subParameterType = $this->parameterTypeRegistry->getParameterType($subParameterDefinition->getType());
                     $constraints = $subParameterType->getValueConstraints($subParameterDefinition, $subParameterValue);
 
                     if (
-                        $parameterCollection->hasParameter($parameterName) &&
-                        $parameterCollection->getParameter($parameterName) &&
+                        $parameterStruct->hasParameter($parameterName) &&
+                        $parameterStruct->getParameter($parameterName) &&
                         $subParameterDefinition->isRequired()
                     ) {
                         $constraints = array_merge(

@@ -9,7 +9,7 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Parameters;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraints;
 
 class BlockValidator extends Validator
@@ -89,7 +89,7 @@ class BlockValidator extends Validator
         $this->validate(
             $blockCreateStruct,
             array(
-                new Parameters(
+                new ParameterStruct(
                     array(
                         'parameters' => $blockDefinition->getParameters(),
                         'required' => true,

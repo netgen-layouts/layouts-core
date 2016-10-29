@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Validator\Constraint;
+namespace Netgen\BlockManager\Validator\Constraint\Structs;
 
 use Symfony\Component\Validator\Constraint;
 
-class Parameters extends Constraint
+class ParameterStruct extends Constraint
 {
     /**
      * @var string
      */
-    public $message = 'netgen_block_manager.parameters.invalid_value';
+    public $message = 'netgen_block_manager.parameter_struct.invalid_value';
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
@@ -28,6 +28,6 @@ class Parameters extends Constraint
      */
     public function validatedBy()
     {
-        return 'ngbm_parameters';
+        return 'ngbm_parameter_struct';
     }
 }
