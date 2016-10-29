@@ -62,14 +62,13 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
 
         foreach ($this->collection->getQueries() as $query) {
             $queryType = $query->getQueryType();
-            $queryParameters = $query->getParameters();
 
-            $queryCount = $queryType->getCount($queryParameters);
+            $queryCount = $queryType->getCount($query);
 
             // We're running queries only when we reach the wanted offset
             if ($currentCount + $queryCount > $this->offset) {
                 $queryValues = $queryType->getValues(
-                    $queryParameters,
+                    $query,
                     // We always use the offset of 0 for query fetches
                     // except for the first time, when we skip the number
                     // of items that were needed to finally go over the offset
@@ -105,9 +104,7 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         $totalCount = 0;
 
         foreach ($this->collection->getQueries() as $query) {
-            $totalCount += $query->getQueryType()->getCount(
-                $query->getParameters()
-            );
+            $totalCount += $query->getQueryType()->getCount($query);
         }
 
         return $totalCount;

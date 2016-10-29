@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Collection;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 
@@ -70,15 +71,15 @@ class QueryType implements QueryTypeInterface
     /**
      * Returns the values from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $offset
      * @param int $limit
      *
      * @return mixed[]
      */
-    public function getValues(array $parameters, $offset = 0, $limit = null)
+    public function getValues(Query $query, $offset = 0, $limit = null)
     {
-        return $this->handler->getValues($parameters, $offset, $limit);
+        return $this->handler->getValues($query, $offset, $limit);
     }
 
     /**
@@ -92,15 +93,15 @@ class QueryType implements QueryTypeInterface
      * Due to that, this method takes the inner query limit (as used in parameters)
      * and returns it instead if returned count is larger.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return int
      */
-    public function getCount(array $parameters)
+    public function getCount(Query $query)
     {
-        $queryCount = $this->handler->getCount($parameters);
+        $queryCount = $this->handler->getCount($query);
 
-        $internalLimit = $this->handler->getInternalLimit($parameters);
+        $internalLimit = $this->handler->getInternalLimit($query);
         if ($internalLimit !== null && $queryCount > $internalLimit) {
             $queryCount = $internalLimit;
         }

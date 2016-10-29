@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 
@@ -52,27 +53,27 @@ class QueryType implements QueryTypeInterface
     /**
      * Returns the values from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $offset
      * @param int $limit
      *
      * @return mixed[]
      */
-    public function getValues(array $parameters, $offset = 0, $limit = null)
+    public function getValues(Query $query, $offset = 0, $limit = null)
     {
-        return $this->handler->getValues($parameters, $offset, $limit);
+        return $this->handler->getValues($query, $offset, $limit);
     }
 
     /**
      * Returns the value count from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return int
      */
-    public function getCount(array $parameters)
+    public function getCount(Query $query)
     {
-        return $this->handler->getCount($parameters);
+        return $this->handler->getCount($query);
     }
 
     /**

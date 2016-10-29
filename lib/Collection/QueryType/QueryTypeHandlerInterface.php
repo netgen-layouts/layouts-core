@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Collection\QueryType;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
+
 interface QueryTypeHandlerInterface
 {
     /**
@@ -16,29 +18,29 @@ interface QueryTypeHandlerInterface
     /**
      * Returns the values from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $offset
      * @param int $limit
      *
      * @return mixed[]
      */
-    public function getValues(array $parameters, $offset = 0, $limit = null);
+    public function getValues(Query $query, $offset = 0, $limit = null);
 
     /**
      * Returns the value count from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return int
      */
-    public function getCount(array $parameters);
+    public function getCount(Query $query);
 
     /**
      * Returns the limit internal to this query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return int
      */
-    public function getInternalLimit(array $parameters);
+    public function getInternalLimit(Query $query);
 }

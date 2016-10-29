@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\Parameter\Integer;
 use Netgen\BlockManager\Parameters\Parameter\TextLine;
@@ -48,13 +49,13 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * Returns the values from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $offset
      * @param int $limit
      *
      * @return mixed[]
      */
-    public function getValues(array $parameters, $offset = 0, $limit = null)
+    public function getValues(Query $query, $offset = 0, $limit = null)
     {
         return array_slice($this->values, $offset, $limit);
     }
@@ -62,11 +63,11 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * Returns the value count from the query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return int
      */
-    public function getCount(array $parameters)
+    public function getCount(Query $query)
     {
         if ($this->count !== null) {
             return $this->count;
@@ -78,11 +79,11 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * Returns the limit internal to this query.
      *
-     * @param array $parameters
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return int
      */
-    public function getInternalLimit(array $parameters)
+    public function getInternalLimit(Query $query)
     {
     }
 }
