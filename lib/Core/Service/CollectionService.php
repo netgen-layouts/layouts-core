@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
@@ -38,6 +39,11 @@ class CollectionService implements APICollectionService
     protected $persistenceHandler;
 
     /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     */
+    protected $queryTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
     protected $collectionHandler;
@@ -48,15 +54,18 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
     public function __construct(
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
-        Handler $persistenceHandler
+        Handler $persistenceHandler,
+        QueryTypeRegistryInterface $queryTypeRegistry
     ) {
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
         $this->persistenceHandler = $persistenceHandler;
+        $this->queryTypeRegistry = $queryTypeRegistry;
 
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
@@ -595,19 +604,29 @@ class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Collection::STATUS_DRAFT);
 
         $this->collectionValidator->validatePosition($position, 'position');
-
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
 
         if ($this->collectionHandler->queryIdentifierExists($persistenceCollection, $queryCreateStruct->identifier)) {
             throw new BadStateException('identifier', 'Query with specified identifier already exists.');
         }
 
+        $queryType = $this->queryTypeRegistry->getQueryType(
+            $queryCreateStruct->type
+        );
+
+        $clonedQueryCreateStruct = clone $queryCreateStruct;
+        $clonedQueryCreateStruct->setParameters(
+            $queryCreateStruct->serializeValues(
+                $queryType->getParameters()
+            )
+        );
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdQuery = $this->collectionHandler->addQuery(
                 $persistenceCollection,
-                $queryCreateStruct,
+                $clonedQueryCreateStruct,
                 $position
             );
         } catch (Exception $e) {
@@ -643,12 +662,19 @@ class CollectionService implements APICollectionService
             }
         }
 
+        $clonedQueryUpdateStruct = clone $queryUpdateStruct;
+        $clonedQueryUpdateStruct->setParameters(
+            $queryUpdateStruct->serializeValues(
+                $query->getQueryType()->getParameters()
+            )
+        );
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $updatedQuery = $this->collectionHandler->updateQuery(
                 $persistenceQuery,
-                $queryUpdateStruct
+                $clonedQueryUpdateStruct
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

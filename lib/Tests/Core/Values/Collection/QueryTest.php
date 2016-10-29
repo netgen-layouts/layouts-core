@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -32,8 +33,13 @@ class QueryTest extends TestCase
         $this->assertNull($query->getIdentifier());
         $this->assertNull($query->getQueryType());
         $this->assertEquals(array(), $query->getParameters());
-        $this->assertNull($query->getParameter('test'));
         $this->assertFalse($query->hasParameter('test'));
+
+        try {
+            $query->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
     }
 
     /**
@@ -69,9 +75,14 @@ class QueryTest extends TestCase
         $this->assertEquals('my_query', $query->getIdentifier());
         $this->assertEquals(new QueryType('query_type'), $query->getQueryType());
         $this->assertEquals(array('param' => 'value'), $query->getParameters());
-        $this->assertNull($query->getParameter('test'));
         $this->assertEquals('value', $query->getParameter('param'));
         $this->assertFalse($query->hasParameter('test'));
         $this->assertTrue($query->hasParameter('param'));
+
+        try {
+            $query->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
     }
 }

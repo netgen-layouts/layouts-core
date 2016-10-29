@@ -1,6 +1,6 @@
 {% extends 'NetgenBlockManagerBundle:block:block.html.twig' %}
 
-{% set number_of_columns = block.parameter('number_of_columns')|default(2) %}
+{% set number_of_columns = block.parameter('number_of_columns').value|default(2) %}
 
 {% if column_templates is defined and column_templates[number_of_columns] is defined %}
     {% set template_name = column_templates[number_of_columns] %}

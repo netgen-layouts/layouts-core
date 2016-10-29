@@ -45,7 +45,7 @@ class MarkdownHandler extends BlockDefinitionHandler
      */
     public function getDynamicParameters(Block $block)
     {
-        $rawContent = $block->getParameter('content');
+        $rawContent = $block->getParameter('content')->getValue();
 
         return array(
             'html' => function () use ($rawContent) {

@@ -6,8 +6,9 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
-class CollectionQueryNormalizer implements NormalizerInterface
+class CollectionQueryNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -23,13 +24,18 @@ class CollectionQueryNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Collection\Query $query */
         $query = $object->getValue();
 
+        $parameters = array();
+        foreach ($query->getParameters() as $parameterName => $parameter) {
+            $parameters[$parameterName] = new VersionedValue($parameter, $object->getVersion());
+        }
+
         return array(
             'id' => $query->getId(),
             'collection_id' => $query->getCollectionId(),
             'position' => $query->getPosition(),
             'identifier' => $query->getIdentifier(),
             'type' => $query->getQueryType()->getType(),
-            'parameters' => $query->getParameters(),
+            'parameters' => $this->serializer->normalize($parameters, $format, $context),
         );
     }
 

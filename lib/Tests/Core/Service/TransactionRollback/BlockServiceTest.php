@@ -20,6 +20,7 @@ use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 
 class BlockServiceTest extends TransactionRollbackTest
 {
@@ -42,11 +43,6 @@ class BlockServiceTest extends TransactionRollbackTest
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $blockValidatorMock;
-
-    /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -81,10 +77,13 @@ class BlockServiceTest extends TransactionRollbackTest
 
         $this->blockValidatorMock = $this->createMock(BlockValidator::class);
 
+        $blockDefinitionRegistry = new BlockDefinitionRegistry();
+        $blockDefinitionRegistry->addBlockDefinition(new BlockDefinition('blockDef'));
+
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,
             new LayoutTypeRegistry(),
-            new BlockDefinitionRegistry()
+            $blockDefinitionRegistry
         );
     }
 
@@ -114,7 +113,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->blockService->createBlock(
-            new BlockCreateStruct(),
+            new BlockCreateStruct(array('definitionIdentifier' => 'blockDef')),
             new LayoutDraft(),
             'zone'
         );
@@ -141,7 +140,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->blockService->updateBlock(
-            new BlockDraft(),
+            new BlockDraft(array('blockDefinition' => new BlockDefinition('block_definition'))),
             new BlockUpdateStruct()
         );
     }

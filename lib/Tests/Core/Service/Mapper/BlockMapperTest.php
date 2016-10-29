@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\Parameters\ParameterVO;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -57,11 +58,32 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals(1, $block->getLayoutId());
         $this->assertEquals('right', $block->getZoneIdentifier());
         $this->assertEquals(3, $block->getPosition());
-        $this->assertEquals(array('css_class' => null, 'css_id' => null), $block->getParameters());
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(APILayout::STATUS_PUBLISHED, $block->getStatus());
+
+        $this->assertEquals(
+            array(
+                'css_class' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_class',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'value' => null,
+                        'isEmpty' => true,
+                    )
+                ),
+                'css_id' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_id',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'value' => null,
+                        'isEmpty' => true,
+                    )
+                ),
+            ),
+            $block->getParameters()
+        );
     }
 
     /**

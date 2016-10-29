@@ -5,9 +5,9 @@
 {% block content %}
     {% if collections.default is defined %}
         <div class="default-swiper swiper-container"
-            data-effect="{{ block.parameter('transition') }}"
-            {% if block.parameter('infinite_loop') %}data-loop="true"{% endif %}
-            {% if block.parameter('autoplay') %}data-autoplay="{{ block.parameter('autoplay_time') }}"{% endif %}
+            data-effect="{{ block.parameter('transition').value }}"
+            {% if block.parameter('infinite_loop').value %}data-loop="true"{% endif %}
+            {% if block.parameter('autoplay').value %}data-autoplay="{{ block.parameter('autoplay_time').value }}"{% endif %}
         >
             <div class="swiper-wrapper">
                 {% for result in collections.default %}
@@ -16,10 +16,10 @@
                     </div>
                 {% endfor %}
             </div>
-            {% if block.parameter('show_pagination') %}
+            {% if block.parameter('show_pagination').value %}
                 <div class="swiper-pagination"></div>
             {% endif %}
-            {% if block.parameter('next_and_previous') %}
+            {% if block.parameter('next_and_previous').value %}
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             {% endif %}

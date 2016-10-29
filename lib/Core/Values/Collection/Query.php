@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
 
 class Query extends ValueObject implements APIQuery
@@ -38,7 +39,7 @@ class Query extends ValueObject implements APIQuery
     protected $queryType;
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Parameters\ParameterVO[]
      */
     protected $parameters = array();
 
@@ -105,7 +106,7 @@ class Query extends ValueObject implements APIQuery
     /**
      * Returns the query parameters.
      *
-     * @return array
+     * @return \Netgen\BlockManager\Parameters\ParameterVO[]
      */
     public function getParameters()
     {
@@ -117,11 +118,23 @@ class Query extends ValueObject implements APIQuery
      *
      * @param string $parameter
      *
-     * @return mixed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterVO
      */
     public function getParameter($parameter)
     {
-        return isset($this->parameters[$parameter]) ? $this->parameters[$parameter] : null;
+        if (isset($this->parameters[$parameter])) {
+            return $this->parameters[$parameter];
+        }
+
+        throw new InvalidArgumentException(
+            'parameter',
+            sprintf(
+                'Parameter "%s" does not exist in block.',
+                $parameter
+            )
+        );
     }
 
     /**

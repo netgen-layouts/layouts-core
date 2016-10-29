@@ -148,4 +148,46 @@ abstract class Parameter implements ParameterInterface
     {
         return array();
     }
+
+    /**
+     * Converts the parameter value to from a domain format to scalar/hash format.
+     *
+     * This is a trivial implementation, just returning the provided value, usable by parameters
+     * which have the scalar/hash format equal to domain format.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function fromValue($value)
+    {
+        return $value;
+    }
+
+    /**
+     * Converts the provided parameter value to value usable by the domain.
+     *
+     * This is a trivial implementation, just returning the provided value, usable by parameters
+     * which have the scalar/hash format equal to domain format.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function toValue($value)
+    {
+        return $value;
+    }
+
+    /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        return $value === null;
+    }
 }

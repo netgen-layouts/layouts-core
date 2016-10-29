@@ -63,4 +63,31 @@ interface ParameterInterface
      * @return array
      */
     public function getGroups();
+
+    /**
+     * Converts the parameter value to from a domain format to scalar/hash format.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function fromValue($value);
+
+    /**
+     * Converts the provided parameter value to value usable by the domain.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function toValue($value);
+
+    /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value);
 }

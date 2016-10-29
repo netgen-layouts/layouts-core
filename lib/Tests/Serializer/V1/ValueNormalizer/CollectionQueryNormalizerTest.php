@@ -8,9 +8,15 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class CollectionQueryNormalizerTest extends TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $serializerMock;
+
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer
      */
@@ -18,7 +24,10 @@ class CollectionQueryNormalizerTest extends TestCase
 
     public function setUp()
     {
+        $this->serializerMock = $this->createMock(Serializer::class);
+
         $this->normalizer = new CollectionQueryNormalizer();
+        $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
@@ -41,6 +50,20 @@ class CollectionQueryNormalizerTest extends TestCase
                 ),
             )
         );
+
+        $this->serializerMock
+            ->expects($this->once())
+            ->method('normalize')
+            ->will(
+                $this->returnValue(
+                    array(
+                        'param' => 'value',
+                        'param2' => array(
+                            'param3' => 'value3',
+                        ),
+                    )
+                )
+            );
 
         $this->assertEquals(
             array(

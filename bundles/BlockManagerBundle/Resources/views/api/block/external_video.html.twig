@@ -5,11 +5,14 @@
 {% trans_default_domain 'ngbm_app' %}
 
 {% block content %}
-    {% if block.parameter('video_id') is empty or block.parameter('service') is empty %}
-        {{ macros.notice('block.notice.no_video'|trans) }}
-    {% else %}
-        <div class="external-video-block js-external-video" data-video-id="{{ block.parameter('video_id') }}" data-service="{{ block.parameter('service') }}">
+    {% if not block.parameter('video_id').empty and not block.parameter('service').empty %}
+        <div class="external-video-block js-external-video"
+             data-video-id="{{ block.parameter('video_id').value }}"
+             data-service="{{ block.parameter('service').value }}"
+        >
             <img src="" class="js-video-thumb" />
         </div>
+    {% else %}
+        {{ macros.notice('block.notice.no_video'|trans) }}
     {% endif %}
 {% endblock %}

@@ -5,11 +5,14 @@
     'vimeo': 'https://player.vimeo.com/video/%video_id%'
 } %}
 
+{% set service = block.parameter('service') %}
+{% set video_id = block.parameter('video_id') %}
+
 {% block content %}
-    {% if video_services[block.parameter('service')] is defined and block.parameter('video_id') is not empty %}
-        <div class="video-{{ block.parameter('service') }} embed-responsive embed-responsive-16by9">
+    {% if video_services[service.value] is defined and not video_id.empty %}
+        <div class="video-{{ service.value }} embed-responsive embed-responsive-16by9">
             <iframe
-                src="{{ video_services[block.parameter('service')]|replace({ '%video_id%': block.parameter('video_id') }) }}"
+                src="{{ video_services[service.value]|replace({ '%video_id%': video_id.value }) }}"
                 class="embed-responsive-item"
                 width="770"
                 height="433"

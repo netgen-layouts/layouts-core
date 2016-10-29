@@ -5,10 +5,11 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\Serializer\Version;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
 
-class BlockNormalizer implements NormalizerInterface
+class BlockNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -39,6 +40,11 @@ class BlockNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
         $block = $object->getValue();
 
+        $parameters = array();
+        foreach ($block->getParameters() as $parameterName => $parameter) {
+            $parameters[$parameterName] = new VersionedValue($parameter, $object->getVersion());
+        }
+
         return array(
             'id' => $block->getId(),
             'definition_identifier' => $block->getBlockDefinition()->getIdentifier(),
@@ -46,7 +52,7 @@ class BlockNormalizer implements NormalizerInterface
             'zone_identifier' => $block->getZoneIdentifier(),
             'position' => $block->getPosition(),
             'layout_id' => $block->getLayoutId(),
-            'parameters' => $block->getParameters(),
+            'parameters' => $this->serializer->normalize($parameters, $format, $context),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
             'has_published_state' => $this->blockService->isPublished($block),

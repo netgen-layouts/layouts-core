@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
 
 class Block extends ValueObject implements APIBlock
@@ -53,7 +54,7 @@ class Block extends ValueObject implements APIBlock
     protected $status;
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Parameters\ParameterVO[]
      */
     protected $parameters = array();
 
@@ -110,7 +111,7 @@ class Block extends ValueObject implements APIBlock
     /**
      * Returns block parameters.
      *
-     * @return array
+     * @return \Netgen\BlockManager\Parameters\ParameterVO[]
      */
     public function getParameters()
     {
@@ -122,11 +123,23 @@ class Block extends ValueObject implements APIBlock
      *
      * @param string $parameter
      *
-     * @return mixed
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterVO
      */
     public function getParameter($parameter)
     {
-        return isset($this->parameters[$parameter]) ? $this->parameters[$parameter] : null;
+        if (isset($this->parameters[$parameter])) {
+            return $this->parameters[$parameter];
+        }
+
+        throw new InvalidArgumentException(
+            'parameter',
+            sprintf(
+                'Parameter "%s" does not exist in block.',
+                $parameter
+            )
+        );
     }
 
     /**

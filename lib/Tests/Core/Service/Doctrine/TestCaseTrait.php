@@ -82,7 +82,8 @@ trait TestCaseTrait
         return new CollectionService(
             $validator,
             $this->createCollectionMapper(),
-            $this->persistenceHandler
+            $this->persistenceHandler,
+            $this->queryTypeRegistry
         );
     }
 

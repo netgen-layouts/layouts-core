@@ -1,6 +1,6 @@
-{% set css_class = ['bm-block', 'bm-' ~ block.blockDefinition.identifier, 'bm-vt-' ~ block.viewType, css_class|default(block.parameter('css_class'))]|join(' ') %}
-{% set css_id = css_id|default(block.parameter('css_id')) %}
-{% set set_container = block.parameter('set_container') %}
+{% set css_class = ['bm-block', 'bm-' ~ block.blockDefinition.identifier, 'bm-vt-' ~ block.viewType, css_class|default(block.parameter('css_class').value)]|join(' ') %}
+{% set css_id = css_id|default(block.parameter('css_id').value) %}
+{% set set_container = block.parameter('set_container').value %}
 
 {% if show_empty_wrapper is not defined %}
     {% set show_empty_wrapper = false %}

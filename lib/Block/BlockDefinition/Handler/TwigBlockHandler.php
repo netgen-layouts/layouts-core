@@ -30,6 +30,6 @@ class TwigBlockHandler extends BlockDefinitionHandler implements TwigBlockDefini
      */
     public function getTwigBlockName(Block $block)
     {
-        return $block->getParameter('block_name');
+        return $block->getParameter('block_name')->getValue();
     }
 }

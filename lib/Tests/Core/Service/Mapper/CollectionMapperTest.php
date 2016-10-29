@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\Parameters\ParameterVO;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -127,7 +128,28 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(42, $query->getCollectionId());
         $this->assertEquals(1, $query->getPosition());
         $this->assertEquals('my_search', $query->getIdentifier());
-        $this->assertEquals(array('offset' => null, 'param' => 'value'), $query->getParameters());
         $this->assertEquals(APICollection::STATUS_PUBLISHED, $query->getStatus());
+
+        $this->assertEquals(
+            array(
+                'offset' => new ParameterVO(
+                    array(
+                        'identifier' => 'offset',
+                        'parameterType' => $query->getQueryType()->getParameters()['offset'],
+                        'value' => null,
+                        'isEmpty' => true,
+                    )
+                ),
+                'param' => new ParameterVO(
+                    array(
+                        'identifier' => 'param',
+                        'parameterType' => $query->getQueryType()->getParameters()['param'],
+                        'value' => 'value',
+                        'isEmpty' => false,
+                    )
+                ),
+            ),
+            $query->getParameters()
+        );
     }
 }

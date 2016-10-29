@@ -222,18 +222,25 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
         }
 
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
+            $blockCreateStruct->definitionIdentifier
+        );
+
+        $clonedBlockCreateStruct = clone $blockCreateStruct;
+        $clonedBlockCreateStruct->setParameters(
+            $blockCreateStruct->serializeValues(
+                $blockDefinition->getParameters()
+            )
+        );
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdBlock = $this->blockHandler->createBlock(
-                $blockCreateStruct,
+                $clonedBlockCreateStruct,
                 $persistenceLayout,
                 $zoneIdentifier,
                 $position
-            );
-
-            $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-                $blockCreateStruct->definitionIdentifier
             );
 
             if ($blockDefinition->hasCollection()) {
@@ -275,12 +282,19 @@ class BlockService implements BlockServiceInterface
 
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
+        $clonedBlockUpdateStruct = clone $blockUpdateStruct;
+        $clonedBlockUpdateStruct->setParameters(
+            $blockUpdateStruct->serializeValues(
+                $block->getBlockDefinition()->getParameters()
+            )
+        );
+
         $this->persistenceHandler->beginTransaction();
 
         try {
             $updatedBlock = $this->blockHandler->updateBlock(
                 $persistenceBlock,
-                $blockUpdateStruct
+                $clonedBlockUpdateStruct
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

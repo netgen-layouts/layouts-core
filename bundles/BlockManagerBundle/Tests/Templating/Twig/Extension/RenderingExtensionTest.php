@@ -7,6 +7,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Parameters\ParameterVO;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
@@ -352,9 +353,28 @@ class RenderingExtensionTest extends TestCase
             new Zone(
                 array(
                     'blocks' => array(
-                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
-                        new Block(array('blockDefinition' => new TwigBlockDefinition('twig_block'))),
-                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
+                        new Block(
+                            array(
+                                'blockDefinition' => new BlockDefinition('block_definition'),
+                            )
+                        ),
+                        new Block(
+                            array(
+                                'blockDefinition' => new TwigBlockDefinition('twig_block'),
+                                'parameters' => array(
+                                    'block_name' => new ParameterVO(
+                                        array(
+                                            'value' => 'my_block',
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                        new Block(
+                            array(
+                                'blockDefinition' => new BlockDefinition('block_definition'),
+                            )
+                        ),
                     ),
                 )
             ),
@@ -393,9 +413,28 @@ class RenderingExtensionTest extends TestCase
             new Zone(
                 array(
                     'blocks' => array(
-                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
-                        new Block(array('blockDefinition' => new TwigBlockDefinition('twig_block'))),
-                        new Block(array('blockDefinition' => new BlockDefinition('block_definition'))),
+                        new Block(
+                            array(
+                                'blockDefinition' => new BlockDefinition('block_definition'),
+                            )
+                        ),
+                        new Block(
+                            array(
+                                'blockDefinition' => new TwigBlockDefinition('twig_block'),
+                                'parameters' => array(
+                                    'block_name' => new ParameterVO(
+                                        array(
+                                            'value' => 'my_block',
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                        new Block(
+                            array(
+                                'blockDefinition' => new BlockDefinition('block_definition'),
+                            )
+                        ),
                     ),
                 )
             ),

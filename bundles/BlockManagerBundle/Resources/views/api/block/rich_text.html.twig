@@ -4,6 +4,6 @@
 
 {% block content %}
     <div class="rich-text-editor" contenteditable="true" data-attr="content" data-placeholder="{{ 'block.rich_text.placeholder'|trans }}">
-        {{ block.parameter('content')|raw }}
+        {{ block.parameter('content').value|raw }}
     </div>
 {% endblock %}

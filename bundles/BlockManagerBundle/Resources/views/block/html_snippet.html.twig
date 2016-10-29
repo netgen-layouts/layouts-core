@@ -1,5 +1,5 @@
 {% extends 'NetgenBlockManagerBundle:block:block.html.twig' %}
 
 {% block content %}
-    {{ block.parameter('content')|raw }}
+    {{ block.parameter('content').value|raw }}
 {% endblock %}

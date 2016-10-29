@@ -226,6 +226,7 @@ services:
             - "@netgen_block_manager.core.service.collection.validator"
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.collection.registry.query_type"
 
     # Layout resolver related APIs
 

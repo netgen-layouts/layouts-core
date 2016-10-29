@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\Parameters\ParameterVO;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
@@ -560,8 +561,22 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals('new_identifier', $updatedQuery->getIdentifier());
         $this->assertEquals(
             array(
-                'offset' => '0',
-                'param' => 'value',
+                'offset' => new ParameterVO(
+                    array(
+                        'identifier' => 'offset',
+                        'parameterType' => $query->getQueryType()->getParameters()['offset'],
+                        'value' => '0',
+                        'isEmpty' => false,
+                    )
+                ),
+                'param' => new ParameterVO(
+                    array(
+                        'identifier' => 'param',
+                        'parameterType' => $query->getQueryType()->getParameters()['param'],
+                        'value' => 'value',
+                        'isEmpty' => false,
+                    )
+                ),
             ),
             $updatedQuery->getParameters()
         );

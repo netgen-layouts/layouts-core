@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
@@ -34,12 +35,17 @@ class BlockTest extends TestCase
         $this->assertNull($block->getPosition());
         $this->assertNull($block->getBlockDefinition());
         $this->assertEquals(array(), $block->getParameters());
-        $this->assertNull($block->getParameter('test'));
         $this->assertFalse($block->hasParameter('test'));
         $this->assertNull($block->getViewType());
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
         $this->assertNull($block->getStatus());
+
+        try {
+            $block->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
     }
 
     /**
@@ -82,14 +88,6 @@ class BlockTest extends TestCase
         $this->assertEquals('left', $block->getZoneIdentifier());
         $this->assertEquals(3, $block->getPosition());
         $this->assertEquals(new BlockDefinition('text'), $block->getBlockDefinition());
-        $this->assertEquals(
-            array(
-                'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
-            ),
-            $block->getParameters()
-        );
-        $this->assertNull($block->getParameter('test'));
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));
         $this->assertTrue($block->hasParameter('some_param'));
@@ -97,5 +95,19 @@ class BlockTest extends TestCase
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());
+
+        $this->assertEquals(
+            array(
+                'some_param' => 'some_value',
+                'some_other_param' => 'some_other_value',
+            ),
+            $block->getParameters()
+        );
+
+        try {
+            $block->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
     }
 }

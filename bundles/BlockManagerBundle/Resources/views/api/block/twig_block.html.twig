@@ -5,9 +5,11 @@
 {% trans_default_domain 'ngbm_app' %}
 
 {% block content %}
-    {% if block.parameter('block_name') is empty %}
-        {{ macros.notice('block.notice.empty_twig_block'|trans) }}
+    {% set block_name = block.parameter('block_name') %}
+
+    {% if not block_name.empty %}
+        {{ macros.info('block.info.twig_block'|trans({ '%block%': block_name.value }), 'icon-twig_block') }}
     {% else %}
-        {{ macros.info('block.info.twig_block'|trans({ '%block%': block.parameter('block_name') }), 'icon-twig_block') }}
+        {{ macros.notice('block.notice.empty_twig_block'|trans) }}
     {% endif %}
 {% endblock %}

@@ -2,19 +2,19 @@
 
 {% import 'NetgenBlockManagerBundle:parts:parameters.html.twig' as parameters %}
 
-{% set tag_name = block.parameter('tag')|default('h1') %}
+{% set tag = block.parameter('tag').value|default('h1') %}
 {% set link = block.parameter('link') %}
 
 {% block content %}
-    <{{ tag_name }} class="title">
-        {% if link is not empty %}
-            <a href="{{ parameters.link(link) }}" {% if link.new_window %} target="_blank" {% endif %}>
+    <{{ tag }} class="title">
+        {% if not link.empty %}
+            <a href="{{ parameters.link(link.value) }}" {% if link.value.new_window %} target="_blank" {% endif %}>
         {% endif %}
 
-        {{ block.parameter('title') }}
+        {{ block.parameter('title').value }}
 
-        {% if link is not empty %}
+        {% if not link.empty %}
             </a>
         {% endif %}
-    </{{ tag_name }}>
+    </{{ tag }}>
 {% endblock %}

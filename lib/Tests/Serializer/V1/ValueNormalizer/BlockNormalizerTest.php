@@ -9,9 +9,15 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class BlockNormalizerTest extends TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $serializerMock;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -24,9 +30,11 @@ class BlockNormalizerTest extends TestCase
 
     public function setUp()
     {
+        $this->serializerMock = $this->createMock(Serializer::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new BlockNormalizer($this->blockServiceMock);
+        $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
@@ -51,6 +59,18 @@ class BlockNormalizerTest extends TestCase
                 'name' => 'My block',
             )
         );
+
+        $this->serializerMock
+            ->expects($this->once())
+            ->method('normalize')
+            ->will(
+                $this->returnValue(
+                    array(
+                        'some_param' => 'some_value',
+                        'some_other_param' => 'some_other_value',
+                    )
+                )
+            );
 
         $this->blockServiceMock
             ->expects($this->once())

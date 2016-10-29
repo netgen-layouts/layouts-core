@@ -27,7 +27,12 @@ return array(
                             'twig_block'
                         ),
                         'parameters' => array(
-                            'block_name' => 'my_block',
+                            'block_name' => new \Netgen\BlockManager\Parameters\ParameterVO(
+                                array(
+                                    'identifier' => 'block_name',
+                                    'value' => 'my_block',
+                                )
+                            ),
                         ),
                     )
                 ),

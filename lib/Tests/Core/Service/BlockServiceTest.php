@@ -13,6 +13,7 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
+use Netgen\BlockManager\Parameters\ParameterVO;
 
 abstract class BlockServiceTest extends ServiceTestCase
 {
@@ -321,8 +322,22 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('Super cool block', $block->getName());
         $this->assertEquals(
             array(
-                'css_class' => 'test_value',
-                'css_id' => 'some_other_test_value',
+                'css_class' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_class',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'value' => 'test_value',
+                        'isEmpty' => false,
+                    )
+                ),
+                'css_id' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_id',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'value' => 'some_other_test_value',
+                        'isEmpty' => false,
+                    )
+                ),
             ),
             $block->getParameters()
         );
@@ -347,8 +362,22 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(
             array(
-                'css_class' => 'test_value',
-                'css_id' => 'some_other_test_value',
+                'css_class' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_class',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'value' => 'test_value',
+                        'isEmpty' => false,
+                    )
+                ),
+                'css_id' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_id',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'value' => 'some_other_test_value',
+                        'isEmpty' => false,
+                    )
+                ),
             ),
             $block->getParameters()
         );
@@ -373,8 +402,22 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('Super cool block', $block->getName());
         $this->assertEquals(
             array(
-                'css_class' => 'test_value',
-                'css_id' => 'some_other_test_value',
+                'css_class' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_class',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'value' => 'test_value',
+                        'isEmpty' => false,
+                    )
+                ),
+                'css_id' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_id',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'value' => 'some_other_test_value',
+                        'isEmpty' => false,
+                    )
+                ),
             ),
             $block->getParameters()
         );
@@ -555,9 +598,30 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('grid', $restoredBlock->getViewType());
         $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
         $this->assertEquals('My published block', $restoredBlock->getName());
-        $this->assertEquals(array('css_class' => null, 'css_id' => null), $restoredBlock->getParameters());
         $this->assertEquals($block->getPosition(), $restoredBlock->getPosition());
         $this->assertEquals($block->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
+
+        $this->assertEquals(
+            array(
+                'css_class' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_class',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'value' => null,
+                        'isEmpty' => true,
+                    )
+                ),
+                'css_id' => new ParameterVO(
+                    array(
+                        'identifier' => 'css_id',
+                        'parameterType' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'value' => null,
+                        'isEmpty' => true,
+                    )
+                ),
+            ),
+            $block->getParameters()
+        );
 
         $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
         $this->assertCount(2, $collectionReferences);
