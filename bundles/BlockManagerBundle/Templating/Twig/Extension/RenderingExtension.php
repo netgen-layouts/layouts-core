@@ -276,17 +276,17 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Displays the provided zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param string $context
+     * @param string $viewContext
      * @param \Twig_Template $twigTemplate
      * @param array $twigContext
      * @param array $twigBlocks
      *
      * @throws \Exception If an error occurred
      */
-    public function displayZone(Zone $zone, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    public function displayZone(Zone $zone, $viewContext, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
     {
         foreach ($zone as $block) {
-            $this->displayBlock($block, $context, $twigTemplate, $twigContext, $twigBlocks);
+            $this->displayBlock($block, $viewContext, $twigTemplate, $twigContext, $twigBlocks);
         }
     }
 
@@ -294,14 +294,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Displays the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param string $context
+     * @param string $viewContext
      * @param \Twig_Template $twigTemplate
      * @param array $twigContext
      * @param array $twigBlocks
      *
      * @throws \Exception If an error occurred
      */
-    public function displayBlock(Block $block, $context, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    public function displayBlock(Block $block, $viewContext, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
     {
         $blockParams = array();
 
@@ -316,7 +316,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             );
         }
 
-        echo $this->renderBlock($block, $blockParams, $context);
+        echo $this->renderBlock($block, $blockParams, $viewContext);
     }
 
     /**
@@ -324,13 +324,13 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param array $parameters
-     * @param string $context
+     * @param string $viewContext
      *
      * @throws \Exception If an error occurred
      *
      * @return string
      */
-    protected function renderBlock(Block $block, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    protected function renderBlock(Block $block, array $parameters = array(), $viewContext = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             if ($this->isBlockCacheable($block)) {
@@ -340,14 +340,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                         array(
                             'blockId' => $block->getId(),
                             'parameters' => $parameters,
-                            'context' => $context,
+                            'context' => $viewContext,
                         )
                     ),
                     'esi'
                 );
             }
 
-            return $this->viewRenderer->renderValueObject($block, $parameters, $context);
+            return $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
         } catch (Exception $e) {
             $this->logBlockError($block, $e);
 
