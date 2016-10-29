@@ -1,20 +1,15 @@
 {% extends 'NetgenBlockManagerBundle:block:block.html.twig' %}
 
-{% import 'NetgenBlockManagerBundle:parts:parameters.html.twig' as parameters %}
-
 {% set tag = block.parameter('tag').value|default('h1') %}
+{% set title = block.parameter('title').value %}
 {% set link = block.parameter('link') %}
 
 {% block content %}
     <{{ tag }} class="title">
         {% if not link.empty %}
-            <a href="{{ parameters.link(link.value) }}" {% if link.value.new_window %} target="_blank" {% endif %}>
-        {% endif %}
-
-        {{ block.parameter('title').value }}
-
-        {% if not link.empty %}
-            </a>
+            {{ ngbm_render_parameter(link, {content: title}) }}
+        {% else %}
+            {{ title }}
         {% endif %}
     </{{ tag }}>
 {% endblock %}

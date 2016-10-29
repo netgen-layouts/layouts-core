@@ -128,6 +128,13 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 )
             ),
             new Twig_SimpleFunction(
+                'ngbm_render_parameter',
+                array($this, 'renderValueObject'),
+                array(
+                    'is_safe' => array('html'),
+                )
+            ),
+            new Twig_SimpleFunction(
                 'ngbm_render_rule',
                 array($this, 'renderValueObject'),
                 array(

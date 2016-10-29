@@ -1,0 +1,25 @@
+{% spaceless %}
+{% if not parameter.empty %}
+    {% if parameter.value.linkType == 'url' %}
+        {% set link = parameter.value.link %}
+    {% elseif parameter.value.linkType == 'email' %}
+        {% set link = 'mailto:' ~ parameter.value.link ~ parameter.value.linkSuffix %}
+    {% elseif parameter.value.linkType == 'phone' %}
+        {% set link = 'tel:' ~ parameter.value.link %}
+    {% elseif parameter.value.linkType == 'internal' %}
+        {% set link = ngbm_item_path(parameter.value.link) ~ parameter.value.linkSuffix %}
+    {% endif %}
+
+    {% set attr = attr|default({}) %}
+
+    <a href="{{ link }}"
+        {% for name, value in attr %}
+            {% if name != 'target' %} {{ name }}="{{ value }}" {% endif %}
+        {% endfor %}
+
+        {% if parameter.value.newWindow %} target="_blank" {% endif %}
+    >
+        {{ content|default('') }}
+    </a>
+{% endif %}
+{% endspaceless %}
