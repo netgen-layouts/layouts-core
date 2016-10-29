@@ -117,6 +117,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_item',
                 array($this, 'renderItem'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -124,6 +125,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_layout',
                 array($this, 'renderValueObject'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -131,6 +133,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_parameter',
                 array($this, 'renderValueObject'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -138,6 +141,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_rule',
                 array($this, 'renderValueObject'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -145,6 +149,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_rule_target',
                 array($this, 'renderValueObject'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -152,6 +157,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_rule_condition',
                 array($this, 'renderValueObject'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -159,6 +165,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 'ngbm_render_value_object',
                 array($this, 'renderValueObject'),
                 array(
+                    'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
@@ -193,22 +200,29 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Renders the provided item.
      *
+     * @param array $context
      * @param \Netgen\BlockManager\Item\ItemInterface $item
      * @param string $viewType
      * @param array $parameters
-     * @param string $context
+     * @param string $viewContext
      *
      * @throws \Exception If an error occurred
      *
      * @return string
      */
-    public function renderItem(ItemInterface $item, $viewType, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = array(), $viewContext = null)
     {
+        if ($viewContext === null) {
+            $viewContext = !empty($context['view_context']) ?
+                $context['view_context'] :
+                ViewInterface::CONTEXT_DEFAULT;
+        }
+
         try {
             return $this->viewRenderer->renderValueObject(
                 $item,
                 array('viewType' => $viewType) + $parameters,
-                $context
+                $viewContext
             );
         } catch (Exception $e) {
             $this->logItemError($item, $e);
@@ -224,21 +238,28 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Renders the provided value object.
      *
+     * @param array $context
      * @param mixed $valueObject
      * @param array $parameters
-     * @param string $context
+     * @param string $viewContext
      *
      * @throws \Exception If an error occurred
      *
      * @return string
      */
-    public function renderValueObject($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    public function renderValueObject(array $context, $valueObject, array $parameters = array(), $viewContext = null)
     {
+        if ($viewContext === null) {
+            $viewContext = !empty($context['view_context']) ?
+                $context['view_context'] :
+                ViewInterface::CONTEXT_DEFAULT;
+        }
+
         try {
             return $this->viewRenderer->renderValueObject(
                 $valueObject,
                 $parameters,
-                $context
+                $viewContext
             );
         } catch (Exception $e) {
             $this->logValueObjectError($valueObject, $e);

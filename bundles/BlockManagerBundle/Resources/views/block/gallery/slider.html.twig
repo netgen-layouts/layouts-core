@@ -12,7 +12,7 @@
             <div class="swiper-wrapper">
                 {% for result in collections.default %}
                     <div class="swiper-slide">
-                        {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
+                        {{ ngbm_render_item(result.item, block.itemViewType) }}
                     </div>
                 {% endfor %}
             </div>

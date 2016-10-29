@@ -191,6 +191,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertEquals(
             'rendered item',
             $this->extension->renderItem(
+                array(),
                 new Item(),
                 'viewType',
                 array('param' => 'value'),
@@ -218,6 +219,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertEquals(
             '',
             $this->extension->renderItem(
+                array(),
                 new Item(),
                 'viewType',
                 array('param' => 'value'),
@@ -246,6 +248,7 @@ class RenderingExtensionTest extends TestCase
             ->will($this->throwException(new Exception()));
 
         $this->extension->renderItem(
+            array(),
             new Item(),
             'viewType',
             array('param' => 'value'),
@@ -271,6 +274,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertEquals(
             'rendered value',
             $this->extension->renderValueObject(
+                array(),
                 new Condition(),
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_DEFAULT
@@ -297,6 +301,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertEquals(
             '',
             $this->extension->renderValueObject(
+                array(),
                 new Condition(),
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_DEFAULT
@@ -324,6 +329,7 @@ class RenderingExtensionTest extends TestCase
             ->will($this->throwException(new Exception()));
 
         $this->extension->renderValueObject(
+            array(),
             new Condition(),
             array('param' => 'value'),
             ViewInterface::CONTEXT_DEFAULT

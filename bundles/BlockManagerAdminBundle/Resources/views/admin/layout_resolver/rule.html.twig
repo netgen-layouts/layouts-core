@@ -82,7 +82,7 @@
 
                     <ul class="settings-list target-list">
                         {% for target in rule.targets %}
-                            <li>{{ ngbm_render_rule_target(target, [], view_context) }}</li>
+                            <li>{{ ngbm_render_rule_target(target) }}</li>
                         {% endfor %}
                     </ul>
                 {% else %}
@@ -116,7 +116,7 @@
 
                     <ul class="settings-list condition-list">
                         {% for condition in rule.conditions %}
-                            <li>{{ ngbm_render_rule_condition(condition, [], view_context) }}</li>
+                            <li>{{ ngbm_render_rule_condition(condition) }}</li>
                         {% endfor %}
                     </ul>
                 {% else %}

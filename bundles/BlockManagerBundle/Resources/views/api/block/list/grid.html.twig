@@ -10,7 +10,7 @@
             <div class="grid-row">
                 {% for result in collections.default %}
                     <div class="grid-item cols-{{ block.parameter('number_of_columns').value|default(3) }}">
-                        {{ ngbm_render_item(result.item, block.itemViewType, [], view_context) }}
+                        {{ ngbm_render_item(result.item, block.itemViewType) }}
                     </div>
                 {% endfor %}
             </div>
