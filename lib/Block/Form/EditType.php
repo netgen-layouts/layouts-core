@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -175,12 +175,12 @@ abstract class EditType extends AbstractType
     /**
      * Returns if the parameter will be included in the form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameter
      * @param array $groups
      *
      * @return bool
      */
-    protected function includeParameter(ParameterInterface $parameter, array $groups = array())
+    protected function includeParameter(ParameterDefinitionInterface $parameter, array $groups = array())
     {
         $parameterGroups = $parameter->getGroups();
 

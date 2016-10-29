@@ -2,192 +2,92 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints;
+use Netgen\BlockManager\ValueObject;
 
-abstract class Parameter implements ParameterInterface
+class Parameter extends ValueObject
 {
     /**
-     * @var array
+     * @var string
      */
-    protected $options = array();
+    protected $identifier;
 
     /**
-     * @var bool
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
-    protected $isRequired;
+    protected $parameterDefinition;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    protected $parameterType;
 
     /**
      * @var mixed
      */
-    protected $defaultValue;
+    protected $value;
 
     /**
-     * @var array
+     * @var bool
      */
-    protected $groups;
+    protected $isEmpty;
 
     /**
-     * Constructor.
+     * Returns the parameter identifier.
      *
-     * @param array $options
-     * @param bool $isRequired
-     * @param mixed $defaultValue
-     * @param array $groups
+     * @return string
      */
-    public function __construct(
-        array $options = array(),
-        $isRequired = false,
-        $defaultValue = null,
-        array $groups = array()
-    ) {
-        $optionsResolver = new OptionsResolver();
-        $this->configureOptions($optionsResolver);
-        $this->options = $optionsResolver->resolve($options);
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
 
-        $this->isRequired = (bool)$isRequired;
-        $this->defaultValue = $defaultValue;
-        $this->groups = $groups;
+    /**
+     * Returns the parameter definition.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
+     */
+    public function getParameterDefinition()
+    {
+        return $this->parameterDefinition;
     }
 
     /**
      * Returns the parameter type.
      *
+     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    public function getParameterType()
+    {
+        return $this->parameterType;
+    }
+
+    /**
+     * Returns the parameter value.
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Returns if the parameter is empty.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return $this->isEmpty;
+    }
+
+    /**
+     * Returns the string representation of the parameter value.
+     *
      * @return string
      */
-    abstract public function getType();
-
-    /**
-     * Returns the parameter options.
-     *
-     * @return array
-     */
-    public function getOptions()
+    public function __toString()
     {
-        return $this->options;
-    }
-
-    /**
-     * Returns the parameter constraints.
-     *
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    public function getConstraints($value)
-    {
-        return array_merge(
-            $this->getRequiredConstraints($value),
-            $this->getValueConstraints($value)
-        );
-    }
-
-    /**
-     * Returns if the parameter is required.
-     *
-     * @return bool
-     */
-    public function isRequired()
-    {
-        return $this->isRequired;
-    }
-
-    /**
-     * Returns the default parameter value.
-     *
-     * @return mixed
-     */
-    public function getDefaultValue()
-    {
-        return $this->defaultValue;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
-    protected function configureOptions(OptionsResolver $optionsResolver)
-    {
-    }
-
-    /**
-     * Returns constraints that will be used when parameter is required.
-     *
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    public function getRequiredConstraints($value)
-    {
-        if ($this->isRequired()) {
-            return array(
-                new Constraints\NotBlank(),
-            );
-        }
-
-        return array();
-    }
-
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    public function getValueConstraints($value)
-    {
-        return array();
-    }
-
-    /**
-     * Converts the parameter value to from a domain format to scalar/hash format.
-     *
-     * This is a trivial implementation, just returning the provided value, usable by parameters
-     * which have the scalar/hash format equal to domain format.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function fromValue($value)
-    {
-        return $value;
-    }
-
-    /**
-     * Converts the provided parameter value to value usable by the domain.
-     *
-     * This is a trivial implementation, just returning the provided value, usable by parameters
-     * which have the scalar/hash format equal to domain format.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function toValue($value)
-    {
-        return $value;
-    }
-
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function isValueEmpty($value)
-    {
-        return $value === null;
+        return (string)$this->value;
     }
 }

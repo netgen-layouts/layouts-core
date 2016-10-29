@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 
 class TwigBlockDefinitionHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
@@ -13,12 +13,12 @@ class TwigBlockDefinitionHandler extends BlockDefinitionHandler implements TwigB
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters()
     {
         return array(
-            'block_name' => new Parameter\TextLine(array()),
+            'block_name' => new ParameterDefinition\TextLine(array()),
         );
     }
 

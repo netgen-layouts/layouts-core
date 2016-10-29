@@ -16,7 +16,10 @@ use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 
 class CollectionMapper extends Mapper
 {
-    use ParametersMapper;
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    protected $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
@@ -27,12 +30,17 @@ class CollectionMapper extends Mapper
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
-    public function __construct(Handler $persistenceHandler, QueryTypeRegistryInterface $queryTypeRegistry)
-    {
+    public function __construct(
+        Handler $persistenceHandler,
+        ParameterMapper $parameterMapper,
+        QueryTypeRegistryInterface $queryTypeRegistry
+    ) {
         parent::__construct($persistenceHandler);
 
+        $this->parameterMapper = $parameterMapper;
         $this->queryTypeRegistry = $queryTypeRegistry;
     }
 
@@ -122,7 +130,7 @@ class CollectionMapper extends Mapper
             'position' => $query->position,
             'identifier' => $query->identifier,
             'queryType' => $queryType,
-            'parameters' => $this->mapParameters(
+            'parameters' => $this->parameterMapper->mapParameters(
                 $queryType->getParameters(),
                 $query->parameters
             ),

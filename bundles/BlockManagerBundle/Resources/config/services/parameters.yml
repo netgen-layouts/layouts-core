@@ -1,5 +1,21 @@
 parameters:
+    netgen_block_manager.parameters.registry.parameter_type.class: Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
     netgen_block_manager.parameters.registry.parameter_filter.class: Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry
+
+    netgen_block_manager.parameters.parameter_type.text_line.class: Netgen\BlockManager\Parameters\ParameterType\TextLine
+    netgen_block_manager.parameters.parameter_type.identifier.class: Netgen\BlockManager\Parameters\ParameterType\Identifier
+    netgen_block_manager.parameters.parameter_type.integer.class: Netgen\BlockManager\Parameters\ParameterType\Integer
+    netgen_block_manager.parameters.parameter_type.range.class: Netgen\BlockManager\Parameters\ParameterType\Range
+    netgen_block_manager.parameters.parameter_type.number.class: Netgen\BlockManager\Parameters\ParameterType\Number
+    netgen_block_manager.parameters.parameter_type.boolean.class: Netgen\BlockManager\Parameters\ParameterType\Boolean
+    netgen_block_manager.parameters.parameter_type.text.class: Netgen\BlockManager\Parameters\ParameterType\Text
+    netgen_block_manager.parameters.parameter_type.html.class: Netgen\BlockManager\Parameters\ParameterType\Html
+    netgen_block_manager.parameters.parameter_type.choice.class: Netgen\BlockManager\Parameters\ParameterType\Choice
+    netgen_block_manager.parameters.parameter_type.url.class: Netgen\BlockManager\Parameters\ParameterType\Url
+    netgen_block_manager.parameters.parameter_type.email.class: Netgen\BlockManager\Parameters\ParameterType\Email
+    netgen_block_manager.parameters.parameter_type.item_link.class: Netgen\BlockManager\Parameters\ParameterType\ItemLink
+    netgen_block_manager.parameters.parameter_type.link.class: Netgen\BlockManager\Parameters\ParameterType\Link
+    netgen_block_manager.parameters.parameter_type.compound.boolean.class: Netgen\BlockManager\Parameters\ParameterType\Compound\Boolean
 
     netgen_block_manager.parameters.parameter_filter.html.html_purifier.class: Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter
 
@@ -24,6 +40,9 @@ parameters:
     netgen_block_manager.parameters.form.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\Form\CompoundBooleanType
 
 services:
+    netgen_block_manager.parameters.registry.parameter_type:
+        class: "%netgen_block_manager.parameters.registry.parameter_type.class%"
+
     netgen_block_manager.parameters.registry.parameter_filter:
         class: "%netgen_block_manager.parameters.registry.parameter_filter.class%"
 
@@ -31,6 +50,76 @@ services:
         class: "%netgen_block_manager.parameters.parameter_filter.html.html_purifier.class%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_filter, parameter_type: html }
+
+    netgen_block_manager.parameters.parameter_type.text_line:
+        class: "%netgen_block_manager.parameters.parameter_type.text_line.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.identifier:
+        class: "%netgen_block_manager.parameters.parameter_type.identifier.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.integer:
+        class: "%netgen_block_manager.parameters.parameter_type.integer.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.range:
+        class: "%netgen_block_manager.parameters.parameter_type.range.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.number:
+        class: "%netgen_block_manager.parameters.parameter_type.number.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.boolean:
+        class: "%netgen_block_manager.parameters.parameter_type.boolean.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.text:
+        class: "%netgen_block_manager.parameters.parameter_type.text.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.html:
+        class: "%netgen_block_manager.parameters.parameter_type.html.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.choice:
+        class: "%netgen_block_manager.parameters.parameter_type.choice.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.url:
+        class: "%netgen_block_manager.parameters.parameter_type.url.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.email:
+        class: "%netgen_block_manager.parameters.parameter_type.email.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.item_link:
+        class: "%netgen_block_manager.parameters.parameter_type.item_link.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.link:
+        class: "%netgen_block_manager.parameters.parameter_type.link.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
+    netgen_block_manager.parameters.parameter_type.compound.boolean:
+        class: "%netgen_block_manager.parameters.parameter_type.compound.boolean.class%"
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
 
     netgen_block_manager.parameters.parameter_handler.text_line:
         class: "%netgen_block_manager.parameters.parameter_handler.text_line.class%"

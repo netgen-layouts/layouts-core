@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\BlockManager\Parameters\Form\DataMapper\ItemLinkDataMapper;
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
-use Netgen\BlockManager\Parameters\Parameter\Link;
+use Netgen\BlockManager\Parameters\ParameterDefinition\Link;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

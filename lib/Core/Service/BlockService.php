@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
@@ -33,6 +34,11 @@ class BlockService implements BlockServiceInterface
      * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
     protected $blockMapper;
+
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    protected $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
@@ -69,6 +75,7 @@ class BlockService implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
+     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
@@ -76,12 +83,14 @@ class BlockService implements BlockServiceInterface
     public function __construct(
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
+        ParameterMapper $parameterMapper,
         Handler $persistenceHandler,
         LayoutTypeRegistryInterface $layoutTypeRegistry,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
     ) {
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
+        $this->parameterMapper = $parameterMapper;
         $this->persistenceHandler = $persistenceHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
@@ -228,8 +237,9 @@ class BlockService implements BlockServiceInterface
 
         $clonedBlockCreateStruct = clone $blockCreateStruct;
         $clonedBlockCreateStruct->setParameters(
-            $blockCreateStruct->serializeValues(
-                $blockDefinition->getParameters()
+            $this->parameterMapper->serializeValues(
+                $blockDefinition->getParameters(),
+                $blockCreateStruct->getParameters()
             )
         );
 
@@ -284,8 +294,9 @@ class BlockService implements BlockServiceInterface
 
         $clonedBlockUpdateStruct = clone $blockUpdateStruct;
         $clonedBlockUpdateStruct->setParameters(
-            $blockUpdateStruct->serializeValues(
-                $block->getBlockDefinition()->getParameters()
+            $this->parameterMapper->serializeValues(
+                $block->getBlockDefinition()->getParameters(),
+                $blockUpdateStruct->getParameters()
             )
         );
 

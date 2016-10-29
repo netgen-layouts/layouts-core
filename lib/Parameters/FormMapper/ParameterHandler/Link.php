@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\Form\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\Form\LinkType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -38,13 +38,13 @@ class Link extends ParameterHandler
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      *
      * @return array
      */
-    public function convertOptions(ParameterInterface $parameter)
+    public function convertOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        $valueTypes = $parameter->getOptions()['value_types'];
+        $valueTypes = $parameterDefinition->getOptions()['value_types'];
 
         return array(
             'value_types' => !empty($valueTypes) ? $valueTypes : $this->defaultValueTypes,
@@ -54,28 +54,28 @@ class Link extends ParameterHandler
     /**
      * Returns default parameter options for Symfony form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param string $parameterName
      * @param array $options
      *
      * @return array
      */
-    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
+    public function getDefaultOptions(ParameterDefinitionInterface $parameterDefinition, $parameterName, array $options)
     {
         return array(
             'label' => false,
-        ) + parent::getDefaultOptions($parameter, $parameterName, $options);
+        ) + parent::getDefaultOptions($parameterDefinition, $parameterName, $options);
     }
 
     /**
      * Allows the handler to do any kind of processing to created form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param \Symfony\Component\Form\FormBuilderInterface $form
      */
-    public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
+    public function handleForm(ParameterDefinitionInterface $parameterDefinition, FormBuilderInterface $form)
     {
-        parent::handleForm($parameter, $form);
+        parent::handleForm($parameterDefinition, $form);
 
         $form->setDataMapper(new LinkDataMapper());
     }

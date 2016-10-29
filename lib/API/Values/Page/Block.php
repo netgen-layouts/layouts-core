@@ -44,7 +44,7 @@ interface Block extends Value
     /**
      * Returns block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterVO[]
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
     public function getParameters();
 
@@ -55,7 +55,7 @@ interface Block extends Value
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterVO
+     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     public function getParameter($parameter);
 

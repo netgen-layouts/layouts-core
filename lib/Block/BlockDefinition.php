@@ -24,7 +24,7 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $config;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     protected $parameters;
 
@@ -55,7 +55,7 @@ class BlockDefinition implements BlockDefinitionInterface
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters()
     {

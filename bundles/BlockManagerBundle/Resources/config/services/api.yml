@@ -37,6 +37,8 @@ parameters:
     netgen_block_manager.core.service.layout_resolver.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
     netgen_block_manager.core.service.layout_resolver.class: Netgen\BlockManager\Core\Service\LayoutResolverService
 
+    netgen_block_manager.core.service.parameter_mapper.class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+
 services:
     netgen_block_manager.persistence.doctrine.handler:
         class: "%netgen_block_manager.persistence.doctrine.handler.class%"
@@ -194,6 +196,7 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.collection.mapper"
+            - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.block.registry.block_definition"
 
     netgen_block_manager.core.service.block:
@@ -201,6 +204,7 @@ services:
         arguments:
             - "@netgen_block_manager.core.service.block.validator"
             - "@netgen_block_manager.core.service.block.mapper"
+            - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.configuration.registry.layout_type"
             - "@netgen_block_manager.block.registry.block_definition"
@@ -218,6 +222,7 @@ services:
         class: "%netgen_block_manager.core.service.collection.mapper.class%"
         arguments:
             - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.core.service.collection:
@@ -225,6 +230,7 @@ services:
         arguments:
             - "@netgen_block_manager.core.service.collection.validator"
             - "@netgen_block_manager.core.service.collection.mapper"
+            - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.collection.registry.query_type"
 
@@ -252,6 +258,11 @@ services:
             - "@netgen_block_manager.core.service.layout_resolver.validator"
             - "@netgen_block_manager.core.service.layout_resolver.mapper"
             - "@netgen_block_manager.persistence.handler"
+
+    netgen_block_manager.core.service.parameter_mapper:
+        class: "%netgen_block_manager.core.service.parameter_mapper.class%"
+        arguments:
+            - "@netgen_block_manager.parameters.registry.parameter_type"
 
     # Service aliases
 

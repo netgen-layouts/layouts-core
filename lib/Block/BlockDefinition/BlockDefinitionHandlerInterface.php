@@ -9,7 +9,7 @@ interface BlockDefinitionHandlerInterface
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters();
 

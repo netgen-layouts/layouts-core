@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\BlockDefinition;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 
 abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
@@ -15,7 +15,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters()
     {
@@ -51,24 +51,24 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      *
      * @param array $groups
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     protected function getCommonParameters(array $groups = array())
     {
         return array(
-            'css_class' => new Parameter\TextLine(
+            'css_class' => new ParameterDefinition\TextLine(
                 array(),
                 false,
                 null,
                 $groups
             ),
-            'css_id' => new Parameter\TextLine(
+            'css_id' => new ParameterDefinition\TextLine(
                 array(),
                 false,
                 null,
                 $groups
             ),
-            'set_container' => new Parameter\Boolean(
+            'set_container' => new ParameterDefinition\Boolean(
                 array(),
                 false,
                 null,

@@ -51,7 +51,7 @@ interface Query extends Value
     /**
      * Returns the query parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterVO[]
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
     public function getParameters();
 
@@ -62,7 +62,7 @@ interface Query extends Value
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterVO
+     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     public function getParameter($parameter);
 

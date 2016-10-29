@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\API\Values\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
+use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Parameters;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
@@ -14,6 +15,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class ParametersValidator extends ConstraintValidator
 {
     /**
+     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     */
+    protected $parameterTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
      */
     protected $parameterFilterRegistry;
@@ -21,10 +27,14 @@ class ParametersValidator extends ConstraintValidator
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
      * @param \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface $parameterFilterRegistry
      */
-    public function __construct(ParameterFilterRegistryInterface $parameterFilterRegistry)
-    {
+    public function __construct(
+        ParameterTypeRegistryInterface $parameterTypeRegistry,
+        ParameterFilterRegistryInterface $parameterFilterRegistry
+    ) {
+        $this->parameterTypeRegistry = $parameterTypeRegistry;
         $this->parameterFilterRegistry = $parameterFilterRegistry;
     }
 
@@ -66,63 +76,66 @@ class ParametersValidator extends ConstraintValidator
     /**
      * Filters the parameter values.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\API\Values\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameterDefinitions
      */
-    protected function filterParameters(ParameterCollectionInterface $parameterCollection, array $parameters)
+    protected function filterParameters(ParameterCollectionInterface $parameterCollection, array $parameterDefinitions)
     {
-        foreach ($parameterCollection->getParameters() as $parameterName => $parameterValue) {
-            if (!isset($parameters[$parameterName])) {
+        foreach ($parameterCollection->getParameters() as $parameterName => $parameter) {
+            if (!isset($parameterDefinitions[$parameterName])) {
                 continue;
             }
 
-            $filters = $this->parameterFilterRegistry->getParameterFilters($parameters[$parameterName]->getType());
+            $filters = $this->parameterFilterRegistry->getParameterFilters($parameterDefinitions[$parameterName]->getType());
             foreach ($filters as $filter) {
-                $parameterValue = $filter->filter($parameterValue);
+                $parameter = $filter->filter($parameter);
             }
 
-            $parameterCollection->setParameter($parameterName, $parameterValue);
+            $parameterCollection->setParameter($parameterName, $parameter);
         }
     }
 
     /**
      * Builds the "fields" array from provided parameters and parameter values.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\API\Values\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameterDefinitions
      * @param bool $isRequired
      *
      * @return array
      */
-    protected function buildConstraintFields(ParameterCollectionInterface $parameterCollection, array $parameters, $isRequired = true)
+    protected function buildConstraintFields(ParameterCollectionInterface $parameterCollection, array $parameterDefinitions, $isRequired = true)
     {
         $fields = array();
-        foreach ($parameters as $parameterName => $parameter) {
+        foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
             $parameterValue = $parameterCollection->hasParameter($parameterName) ?
                 $parameterCollection->getParameter($parameterName) :
                 null;
 
+            $parameterType = $this->parameterTypeRegistry->getParameterType($parameterDefinition->getType());
+
             $fields[$parameterName] = $this->buildFieldConstraint(
-                $parameter->getConstraints($parameterValue),
+                $parameterType->getConstraints($parameterDefinition, $parameterValue),
                 $isRequired
             );
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                foreach ($parameterDefinition->getParameters() as $subParameterName => $subParameterDefinition) {
                     $subParameterValue = $parameterCollection->hasParameter($subParameterName) ?
                         $parameterCollection->getParameter($subParameterName) :
                         null;
 
-                    $constraints = $subParameter->getValueConstraints($subParameterValue);
+                    $subParameterType = $this->parameterTypeRegistry->getParameterType($subParameterDefinition->getType());
+                    $constraints = $subParameterType->getValueConstraints($subParameterDefinition, $subParameterValue);
 
                     if (
                         $parameterCollection->hasParameter($parameterName) &&
                         $parameterCollection->getParameter($parameterName) &&
-                        $subParameter->isRequired()
+                        $subParameterDefinition->isRequired()
                     ) {
                         $constraints = array_merge(
                             $constraints,
-                            $subParameter->getRequiredConstraints($subParameterValue)
+                            $subParameterType->getRequiredConstraints($subParameterDefinition, $subParameterValue)
                         );
                     }
 

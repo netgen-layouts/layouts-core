@@ -43,7 +43,7 @@ class QueryType implements QueryTypeInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters()
     {

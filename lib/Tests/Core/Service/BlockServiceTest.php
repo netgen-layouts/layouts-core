@@ -13,7 +13,7 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\BlockDraft as APIBlockDraft;
-use Netgen\BlockManager\Parameters\ParameterVO;
+use Netgen\BlockManager\Parameters\Parameter;
 
 abstract class BlockServiceTest extends ServiceTestCase
 {
@@ -322,18 +322,20 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('Super cool block', $block->getName());
         $this->assertEquals(
             array(
-                'css_class' => new ParameterVO(
+                'css_class' => new Parameter(
                     array(
                         'identifier' => 'css_class',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'test_value',
                         'isEmpty' => false,
                     )
                 ),
-                'css_id' => new ParameterVO(
+                'css_id' => new Parameter(
                     array(
                         'identifier' => 'css_id',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'some_other_test_value',
                         'isEmpty' => false,
                     )
@@ -362,18 +364,20 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(
             array(
-                'css_class' => new ParameterVO(
+                'css_class' => new Parameter(
                     array(
                         'identifier' => 'css_class',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'test_value',
                         'isEmpty' => false,
                     )
                 ),
-                'css_id' => new ParameterVO(
+                'css_id' => new Parameter(
                     array(
                         'identifier' => 'css_id',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'some_other_test_value',
                         'isEmpty' => false,
                     )
@@ -402,18 +406,20 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('Super cool block', $block->getName());
         $this->assertEquals(
             array(
-                'css_class' => new ParameterVO(
+                'css_class' => new Parameter(
                     array(
                         'identifier' => 'css_class',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'test_value',
                         'isEmpty' => false,
                     )
                 ),
-                'css_id' => new ParameterVO(
+                'css_id' => new Parameter(
                     array(
                         'identifier' => 'css_id',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'some_other_test_value',
                         'isEmpty' => false,
                     )
@@ -603,18 +609,20 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(
             array(
-                'css_class' => new ParameterVO(
+                'css_class' => new Parameter(
                     array(
                         'identifier' => 'css_class',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => null,
                         'isEmpty' => true,
                     )
                 ),
-                'css_id' => new ParameterVO(
+                'css_id' => new Parameter(
                     array(
                         'identifier' => 'css_id',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => null,
                         'isEmpty' => true,
                     )

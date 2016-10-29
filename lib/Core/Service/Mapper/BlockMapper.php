@@ -13,12 +13,15 @@ use Netgen\BlockManager\Persistence\Handler;
 
 class BlockMapper extends Mapper
 {
-    use ParametersMapper;
-
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
     protected $collectionMapper;
+
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    protected $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
@@ -30,16 +33,19 @@ class BlockMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
+     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
     public function __construct(
         Handler $persistenceHandler,
         CollectionMapper $collectionMapper,
+        ParameterMapper $parameterMapper,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
     ) {
         parent::__construct($persistenceHandler);
 
         $this->collectionMapper = $collectionMapper;
+        $this->parameterMapper = $parameterMapper;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
     }
 
@@ -62,7 +68,7 @@ class BlockMapper extends Mapper
             'zoneIdentifier' => $block->zoneIdentifier,
             'position' => $block->position,
             'blockDefinition' => $blockDefinition,
-            'parameters' => $this->mapParameters(
+            'parameters' => $this->parameterMapper->mapParameters(
                 $blockDefinition->getParameters(),
                 $block->parameters
             ),

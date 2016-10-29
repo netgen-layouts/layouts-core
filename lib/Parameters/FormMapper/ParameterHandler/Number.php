@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class Number extends ParameterHandler
@@ -21,16 +21,16 @@ class Number extends ParameterHandler
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      *
      * @return array
      */
-    public function convertOptions(ParameterInterface $parameter)
+    public function convertOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        $parameterOptions = $parameter->getOptions();
+        $options = $parameterDefinition->getOptions();
 
         return array(
-            'scale' => $parameterOptions['scale'],
+            'scale' => $options['scale'],
         );
     }
 }

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound;
 
 use Netgen\BlockManager\Parameters\FormMapper\CompoundParameterHandler;
 use Netgen\BlockManager\Parameters\Form\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 
 class Boolean extends CompoundParameterHandler
 {
@@ -21,32 +21,32 @@ class Boolean extends CompoundParameterHandler
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      *
      * @return array
      */
-    public function convertOptions(ParameterInterface $parameter)
+    public function convertOptions(ParameterDefinitionInterface $parameterDefinition)
     {
         return array(
-            'reverse' => $parameter->getOptions()['reverse'],
-        ) + parent::convertOptions($parameter);
+            'reverse' => $parameterDefinition->getOptions()['reverse'],
+        ) + parent::convertOptions($parameterDefinition);
     }
 
     /**
      * Returns default parameter options for Symfony form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param string $parameterName
      * @param array $options
      *
      * @return array
      */
-    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
+    public function getDefaultOptions(ParameterDefinitionInterface $parameterDefinition, $parameterName, array $options)
     {
         return array(
-            'checkbox_required' => $parameter->isRequired(),
+            'checkbox_required' => $parameterDefinition->isRequired(),
             'checkbox_label' => $options['label_prefix'] . '.' . $parameterName,
             'checkbox_property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
-        ) + parent::getDefaultOptions($parameter, $parameterName, $options);
+        ) + parent::getDefaultOptions($parameterDefinition, $parameterName, $options);
     }
 }

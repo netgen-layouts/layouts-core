@@ -3,8 +3,10 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
+use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\ParametersValidator;
@@ -19,10 +21,10 @@ class ParametersValidatorTest extends ValidatorTestCase
         $this->constraint = new Parameters(
             array(
                 'parameters' => array(
-                    'css_id' => new Parameter\TextLine(array(), true),
-                    'checkbox' => new Parameter\Compound\Boolean(
+                    'css_id' => new ParameterDefinition\TextLine(array(), true),
+                    'checkbox' => new ParameterDefinition\Compound\Boolean(
                         array(
-                            'param' => new Parameter\Identifier(array(), true),
+                            'param' => new ParameterDefinition\Identifier(array(), true),
                         )
                     ),
                 ),
@@ -35,10 +37,15 @@ class ParametersValidatorTest extends ValidatorTestCase
      */
     public function getValidator()
     {
+        $parameterTypeRegistry = new ParameterTypeRegistry();
+        $parameterTypeRegistry->addParameterType(new ParameterType\TextLine());
+        $parameterTypeRegistry->addParameterType(new ParameterType\Identifier());
+        $parameterTypeRegistry->addParameterType(new ParameterType\Compound\Boolean());
+
         $parameterFilterRegistry = new ParameterFilterRegistry();
         $parameterFilterRegistry->addParameterFilters('text_line', array(new ParameterFilter()));
 
-        return new ParametersValidator($parameterFilterRegistry);
+        return new ParametersValidator($parameterTypeRegistry, $parameterFilterRegistry);
     }
 
     /**

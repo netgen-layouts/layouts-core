@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class Choice extends ParameterHandler
@@ -21,19 +21,19 @@ class Choice extends ParameterHandler
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      *
      * @return array
      */
-    public function convertOptions(ParameterInterface $parameter)
+    public function convertOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        $parameterOptions = $parameter->getOptions();
+        $options = $parameterDefinition->getOptions();
 
         return array(
-            'multiple' => $parameterOptions['multiple'],
-            'choices' => is_callable($parameterOptions['options']) ?
-                $parameterOptions['options']() :
-                $parameterOptions['options'],
+            'multiple' => $options['multiple'],
+            'choices' => is_callable($options['options']) ?
+                $options['options']() :
+                $options['options'],
             'choices_as_values' => true,
         );
     }

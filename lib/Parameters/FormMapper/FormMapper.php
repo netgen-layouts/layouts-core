@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -39,13 +39,13 @@ class FormMapper implements FormMapperInterface
      * Maps the parameter to form type in provided builder.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $formBuilder
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param string $parameterName
      * @param array $options
      */
     public function mapParameter(
         FormBuilderInterface $formBuilder,
-        ParameterInterface $parameter,
+        ParameterDefinitionInterface $parameterDefinition,
         $parameterName,
         array $options = array()
     ) {
@@ -53,7 +53,7 @@ class FormMapper implements FormMapperInterface
         $this->configureOptions($optionsResolver);
         $options = $optionsResolver->resolve($options);
 
-        $parameterType = $parameter->getType();
+        $parameterType = $parameterDefinition->getType();
 
         if (!isset($this->parameterHandlers[$parameterType])) {
             throw new RuntimeException(
@@ -69,12 +69,12 @@ class FormMapper implements FormMapperInterface
         $parameterForm = $formBuilder->create(
             $parameterName,
             $parameterHandler->getFormType(),
-            $parameterHandler->convertOptions($parameter) + $parameterHandler->getDefaultOptions(
-                $parameter, $parameterName, $options
+            $parameterHandler->convertOptions($parameterDefinition) + $parameterHandler->getDefaultOptions(
+                $parameterDefinition, $parameterName, $options
             )
         );
 
-        $parameterHandler->handleForm($parameter, $parameterForm);
+        $parameterHandler->handleForm($parameterDefinition, $parameterForm);
 
         $formBuilder->add($parameterForm);
     }

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Exception\RuntimeException;
 class ParameterFilterRegistry implements ParameterFilterRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface[][]
      */
     protected $parameterFilters = array();
 

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 
 class MapHandler extends BlockDefinitionHandler
 {
@@ -39,12 +39,12 @@ class MapHandler extends BlockDefinitionHandler
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters()
     {
         return array(
-            'latitude' => new Parameter\Number(
+            'latitude' => new ParameterDefinition\Number(
                 array(
                     'min' => -90,
                     'max' => 90,
@@ -54,7 +54,7 @@ class MapHandler extends BlockDefinitionHandler
                 0,
                 array(self::GROUP_CONTENT)
             ),
-            'longitude' => new Parameter\Number(
+            'longitude' => new ParameterDefinition\Number(
                 array(
                     'min' => -180,
                     'max' => 180,
@@ -64,7 +64,7 @@ class MapHandler extends BlockDefinitionHandler
                 0,
                 array(self::GROUP_CONTENT)
             ),
-            'zoom' => new Parameter\Range(
+            'zoom' => new ParameterDefinition\Range(
                 array(
                     'min' => $this->minZoom,
                     'max' => $this->maxZoom,
@@ -73,7 +73,7 @@ class MapHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'map_type' => new Parameter\Choice(
+            'map_type' => new ParameterDefinition\Choice(
                 array(
                     'options' => $this->mapTypes,
                 ),
@@ -81,7 +81,7 @@ class MapHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'show_marker' => new Parameter\Boolean(
+            'show_marker' => new ParameterDefinition\Boolean(
                 array(),
                 false,
                 null,

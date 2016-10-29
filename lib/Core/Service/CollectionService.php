@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Service;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
@@ -34,6 +35,11 @@ class CollectionService implements APICollectionService
     protected $collectionMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    protected $parameterMapper;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
     protected $persistenceHandler;
@@ -53,17 +59,20 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
+     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
     public function __construct(
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
+        ParameterMapper $parameterMapper,
         Handler $persistenceHandler,
         QueryTypeRegistryInterface $queryTypeRegistry
     ) {
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
+        $this->parameterMapper = $parameterMapper;
         $this->persistenceHandler = $persistenceHandler;
         $this->queryTypeRegistry = $queryTypeRegistry;
 
@@ -616,8 +625,9 @@ class CollectionService implements APICollectionService
 
         $clonedQueryCreateStruct = clone $queryCreateStruct;
         $clonedQueryCreateStruct->setParameters(
-            $queryCreateStruct->serializeValues(
-                $queryType->getParameters()
+            $this->parameterMapper->serializeValues(
+                $queryType->getParameters(),
+                $queryCreateStruct->getParameters()
             )
         );
 
@@ -664,8 +674,9 @@ class CollectionService implements APICollectionService
 
         $clonedQueryUpdateStruct = clone $queryUpdateStruct;
         $clonedQueryUpdateStruct->setParameters(
-            $queryUpdateStruct->serializeValues(
-                $query->getQueryType()->getParameters()
+            $this->parameterMapper->serializeValues(
+                $query->getQueryType()->getParameters(),
+                $queryUpdateStruct->getParameters()
             )
         );
 

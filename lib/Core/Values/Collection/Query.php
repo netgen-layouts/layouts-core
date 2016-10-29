@@ -39,7 +39,7 @@ class Query extends ValueObject implements APIQuery
     protected $queryType;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterVO[]
+     * @var \Netgen\BlockManager\Parameters\Parameter[]
      */
     protected $parameters = array();
 
@@ -106,7 +106,7 @@ class Query extends ValueObject implements APIQuery
     /**
      * Returns the query parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterVO[]
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
     public function getParameters()
     {
@@ -120,7 +120,7 @@ class Query extends ValueObject implements APIQuery
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterVO
+     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     public function getParameter($parameter)
     {

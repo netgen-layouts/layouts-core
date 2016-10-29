@@ -8,6 +8,8 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -44,6 +46,11 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
     protected $conditionTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     */
+    protected $parameterTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -152,6 +159,10 @@ abstract class ServiceTestCase extends TestCase
         $this->conditionTypeRegistry->addConditionType(new ConditionType('condition'));
         $this->conditionTypeRegistry->addConditionType(new ConditionType('ez_site_access'));
         $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
+
+        $this->parameterTypeRegistry = new ParameterTypeRegistry();
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLine());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\Integer());
     }
 
     /**
@@ -217,4 +228,11 @@ abstract class ServiceTestCase extends TestCase
      * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
      */
     abstract protected function createLayoutResolverMapper();
+
+    /**
+     * Creates the parameter mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    abstract protected function createParameterMapper();
 }

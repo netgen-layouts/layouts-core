@@ -9,6 +9,7 @@ use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -73,6 +74,7 @@ abstract class TransactionRollbackTest extends TestCase
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
+            $this->createParameterMapper(),
             $this->persistenceHandler,
             $layoutTypeRegistry,
             $blockDefinitionRegistry
@@ -94,6 +96,7 @@ abstract class TransactionRollbackTest extends TestCase
         return new CollectionService(
             $validator,
             $this->createCollectionMapper(),
+            $this->createParameterMapper(),
             $this->persistenceHandler,
             $queryTypeRegistry
         );
@@ -153,5 +156,22 @@ abstract class TransactionRollbackTest extends TestCase
     protected function createLayoutResolverMapper()
     {
         return $this->createMock(LayoutResolverMapper::class);
+    }
+
+    /**
+     * Creates the parameter mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    protected function createParameterMapper()
+    {
+        $parameterMapper = $this->createMock(ParameterMapper::class);
+
+        $parameterMapper
+            ->expects($this->any())
+            ->method('serializeValues')
+            ->will($this->returnValue(array()));
+
+        return $parameterMapper;
     }
 }

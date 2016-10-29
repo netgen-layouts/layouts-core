@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\Parameters\ParameterVO;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -132,18 +132,20 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $this->assertEquals(
             array(
-                'offset' => new ParameterVO(
+                'offset' => new Parameter(
                     array(
                         'identifier' => 'offset',
-                        'parameter' => $query->getQueryType()->getParameters()['offset'],
+                        'parameterDefinition' => $query->getQueryType()->getParameters()['offset'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('integer'),
                         'value' => null,
                         'isEmpty' => true,
                     )
                 ),
-                'param' => new ParameterVO(
+                'param' => new Parameter(
                     array(
                         'identifier' => 'param',
-                        'parameter' => $query->getQueryType()->getParameters()['param'],
+                        'parameterDefinition' => $query->getQueryType()->getParameters()['param'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'value',
                         'isEmpty' => false,
                     )

@@ -52,7 +52,7 @@ class BlockDefinition implements BlockDefinitionInterface
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public function getParameters()
     {
@@ -64,7 +64,7 @@ class BlockDefinition implements BlockDefinitionInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\DynamicParameters
+     * @return \Netgen\BlockManager\Block\DynamicParameters
      */
     public function getDynamicParameters(Block $block)
     {

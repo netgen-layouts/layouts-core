@@ -12,7 +12,7 @@ class Parameters extends Constraint
     public $message = 'netgen_block_manager.parameters.invalid_value';
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     public $parameters = array();
 

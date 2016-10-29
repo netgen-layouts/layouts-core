@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean;
+use Netgen\BlockManager\Parameters\ParameterDefinition\Compound\Boolean;
 use Netgen\BlockManager\Parameters\FormMapper\CompoundParameterHandler;
-use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use Netgen\BlockManager\Parameters\ParameterDefinition\TextLine;
 use PHPUnit\Framework\TestCase;
 
 class CompoundParameterHandlerTest extends TestCase

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Parameters\Parameter\TextLine as TextLineParameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition\TextLine as TextLineParameterDefinition;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -57,8 +57,8 @@ class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             array(
                 'parameters' => array(
-                    'css_class' => new TextLineParameter(),
-                    'css_id' => new TextLineParameter(),
+                    'css_class' => new TextLineParameterDefinition(),
+                    'css_id' => new TextLineParameterDefinition(),
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
@@ -109,8 +109,8 @@ class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             array(
                 'parameters' => array(
-                    'css_class' => new TextLineParameter(),
-                    'css_id' => new TextLineParameter(),
+                    'css_class' => new TextLineParameterDefinition(),
+                    'css_id' => new TextLineParameterDefinition(),
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
@@ -158,8 +158,8 @@ class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             array(
                 'parameters' => array(
-                    'css_class' => new TextLineParameter(),
-                    'css_id' => new TextLineParameter(),
+                    'css_class' => new TextLineParameterDefinition(),
+                    'css_id' => new TextLineParameterDefinition(),
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
@@ -211,8 +211,8 @@ class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             array(
                 'parameters' => array(
-                    'css_class' => new TextLineParameter(),
-                    'css_id' => new TextLineParameter(),
+                    'css_class' => new TextLineParameterDefinition(),
+                    'css_id' => new TextLineParameterDefinition(),
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
@@ -266,8 +266,8 @@ class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             array(
                 'parameters' => array(
-                    'css_class' => new TextLineParameter(),
-                    'css_id' => new TextLineParameter(),
+                    'css_class' => new TextLineParameterDefinition(),
+                    'css_id' => new TextLineParameterDefinition(),
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',

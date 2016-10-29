@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterVO;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\ValueObject;
 
 abstract class ParameterStruct extends ValueObject implements ParameterCollectionInterface
@@ -85,7 +84,7 @@ abstract class ParameterStruct extends ValueObject implements ParameterCollectio
     /**
      * Fills the struct values based on provided list of parameters and values.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameters
      * @param array $values
      * @param bool $useDefaults
      */
@@ -94,47 +93,16 @@ abstract class ParameterStruct extends ValueObject implements ParameterCollectio
         foreach ($parameters as $parameterName => $parameter) {
             $value = $useDefaults ? $parameter->getDefaultValue() : null;
             if (isset($values[$parameterName])) {
-                $value = $values[$parameterName] instanceof ParameterVO ?
+                $value = $values[$parameterName] instanceof Parameter ?
                     $values[$parameterName]->getValue() :
                     $values[$parameterName];
             }
 
             $this->setParameter($parameterName, is_object($value) ? clone $value : $value);
 
-            if ($parameter instanceof CompoundParameterInterface) {
+            if ($parameter instanceof CompoundParameterDefinitionInterface) {
                 $this->fillValues($parameter->getParameters(), $values, $useDefaults);
             }
         }
-    }
-
-    /**
-     * Serializes the existing struct values based on provided parameters.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
-     *
-     * @return array
-     */
-    public function serializeValues(array $parameters)
-    {
-        $serializedValues = array();
-
-        foreach ($parameters as $parameterName => $parameter) {
-            if (!$this->hasParameter($parameterName)) {
-                continue;
-            }
-
-            $serializedValues[$parameterName] = $parameter->fromValue(
-                $this->getParameter($parameterName)
-            );
-
-            if ($parameter instanceof CompoundParameterInterface) {
-                $serializedValues = array_merge(
-                    $serializedValues,
-                    $this->serializeValues($parameter->getParameters())
-                );
-            }
-        }
-
-        return $serializedValues;
     }
 }

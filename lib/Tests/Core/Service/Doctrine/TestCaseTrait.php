@@ -6,6 +6,7 @@ use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -64,6 +65,7 @@ trait TestCaseTrait
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
+            $this->createParameterMapper(),
             $this->persistenceHandler,
             $this->layoutTypeRegistry,
             $this->blockDefinitionRegistry
@@ -82,6 +84,7 @@ trait TestCaseTrait
         return new CollectionService(
             $validator,
             $this->createCollectionMapper(),
+            $this->createParameterMapper(),
             $this->persistenceHandler,
             $this->queryTypeRegistry
         );
@@ -113,6 +116,7 @@ trait TestCaseTrait
         return new BlockMapper(
             $this->persistenceHandler,
             $this->createCollectionMapper(),
+            $this->createParameterMapper(),
             $this->blockDefinitionRegistry
         );
     }
@@ -140,6 +144,7 @@ trait TestCaseTrait
     {
         return new CollectionMapper(
             $this->persistenceHandler,
+            $this->createParameterMapper(),
             $this->queryTypeRegistry
         );
     }
@@ -156,6 +161,18 @@ trait TestCaseTrait
             $this->createLayoutMapper(),
             $this->targetTypeRegistry,
             $this->conditionTypeRegistry
+        );
+    }
+
+    /**
+     * Creates the parameter mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+     */
+    protected function createParameterMapper()
+    {
+        return new ParameterMapper(
+            $this->parameterTypeRegistry
         );
     }
 }
