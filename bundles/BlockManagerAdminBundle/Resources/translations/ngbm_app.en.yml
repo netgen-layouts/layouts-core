@@ -31,4 +31,5 @@ block.notice.no_google_maps_api_key: 'API key for Google Maps is not configured.
 block.info.twig_block: 'Twig block "%block%" will be rendered here.'
 block.info.full_view: 'Full view will be rendered here.'
 
+block.title.placeholder: 'Click to write'
 block.rich_text.placeholder: 'Click here to write'

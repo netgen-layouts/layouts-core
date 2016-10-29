@@ -1,11 +1,13 @@
 {% extends 'NetgenBlockManagerBundle:api/block:block.html.twig' %}
 
-{% block content %}
-    {% set tag = block.parameter('tag').value %}
+{% trans_default_domain 'ngbm_app' %}
 
-    <{{ tag|default('h1') }} data-inline>
-        <span contenteditable="true" data-attr="title" data-hint="Click to write" data-inline-child>
+{% block content %}
+    {% set tag = block.parameter('tag').value|default('h1') %}
+
+    <{{ tag }} data-inline>
+        <span contenteditable="true" data-attr="title" data-hint="{{ 'block.title.placeholder'|trans }}" data-inline-child>
             {{ block.parameter('title').value }}
         </span>
-    </{{ tag|default('h1') }}>
+    </{{ tag }}>
 {% endblock %}
