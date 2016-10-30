@@ -15,7 +15,7 @@ class BlockValidator
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If validation failed
      */
     public function validateCreateBlock(Request $request)
     {

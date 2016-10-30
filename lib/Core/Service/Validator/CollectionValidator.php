@@ -12,7 +12,7 @@ use Netgen\BlockManager\API\Values\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
@@ -39,7 +39,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
@@ -92,7 +92,7 @@ class CollectionValidator extends Validator
             );
 
             if (count($allQueryIdentifiers) !== count(array_unique($allQueryIdentifiers))) {
-                throw new InvalidArgumentException(
+                throw new ValidationFailedException(
                     'queryCreateStructs',
                     'All query create structs must have a unique identifier.'
                 );
@@ -146,7 +146,7 @@ class CollectionValidator extends Validator
                 is_array($collectionCreateStruct->queryCreateStructs) &&
                 !empty($collectionCreateStruct->queryCreateStructs)
             ) {
-                throw new InvalidArgumentException(
+                throw new ValidationFailedException(
                     'queryCreateStructs',
                     'Manual collection cannot have any queries.'
                 );
@@ -156,7 +156,7 @@ class CollectionValidator extends Validator
                 !is_array($collectionCreateStruct->queryCreateStructs) ||
                 empty($collectionCreateStruct->queryCreateStructs)
             ) {
-                throw new InvalidArgumentException(
+                throw new ValidationFailedException(
                     'queryCreateStructs',
                     'Dynamic collection needs to have at least one query.'
                 );
@@ -169,7 +169,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
     {
@@ -192,7 +192,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
     {
@@ -237,7 +237,7 @@ class CollectionValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct)
     {
@@ -281,7 +281,7 @@ class CollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {

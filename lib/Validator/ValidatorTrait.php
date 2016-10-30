@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Validator;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Exception;

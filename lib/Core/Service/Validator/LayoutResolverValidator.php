@@ -46,7 +46,7 @@ class LayoutResolverValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct)
     {
@@ -97,7 +97,7 @@ class LayoutResolverValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct)
     {
@@ -128,7 +128,7 @@ class LayoutResolverValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
@@ -149,7 +149,7 @@ class LayoutResolverValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateTargetCreateStruct(TargetCreateStruct $targetCreateStruct)
     {
@@ -177,7 +177,7 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
@@ -195,7 +195,7 @@ class LayoutResolverValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateConditionCreateStruct(ConditionCreateStruct $conditionCreateStruct)
     {
@@ -223,7 +223,7 @@ class LayoutResolverValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
