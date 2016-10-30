@@ -3,5 +3,5 @@
 {% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
 
 {% block content %}
-    {{ macros.collection(collections, 'default', block.itemViewType) }}
+    {{ macros.collection(collections, 'default', block.itemViewType, view_context) }}
 {% endblock %}
