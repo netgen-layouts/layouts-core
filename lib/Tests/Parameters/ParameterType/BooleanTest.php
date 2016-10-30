@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Boolean;
+use Netgen\BlockManager\Parameters\Parameter\Boolean;
 use Netgen\BlockManager\Parameters\ParameterType\Boolean as BooleanType;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -25,9 +25,9 @@ class BooleanTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\Boolean
+     * @return \Netgen\BlockManager\Parameters\Parameter\Boolean
      */
-    public function getParameterDefinition(array $options = array(), $required = false, $defaultValue = null)
+    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
         return new Boolean($options, $required, $defaultValue);
     }
@@ -44,10 +44,10 @@ class BooleanTest extends TestCase
     public function testValidation($value, $required, $isValid)
     {
         $type = new BooleanType();
-        $parameterDefinition = $this->getParameterDefinition(array(), $required);
+        $parameter = $this->getParameter(array(), $required);
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameterDefinition, $value));
+        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() == 0);
     }
 

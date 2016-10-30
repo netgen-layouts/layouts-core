@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Choice as ChoiceParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter\Choice as ChoiceParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use PHPUnit\Framework\TestCase;
@@ -32,7 +32,7 @@ class ChoiceTest extends TestCase
      */
     public function testConvertOptions()
     {
-        $parameter = new ChoiceParameterDefinition(
+        $parameter = new ChoiceParameter(
             array(
                 'multiple' => true,
                 'options' => array(
@@ -60,7 +60,7 @@ class ChoiceTest extends TestCase
      */
     public function testConvertOptionsWithClosure()
     {
-        $parameter = new ChoiceParameterDefinition(
+        $parameter = new ChoiceParameter(
             array(
                 'multiple' => true,
                 'options' => function () {

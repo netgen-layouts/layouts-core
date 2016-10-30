@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter;
 use PHPUnit\Framework\TestCase;
 
 class ParameterStructTest extends TestCase
@@ -124,11 +124,11 @@ class ParameterStructTest extends TestCase
     public function testFillValues()
     {
         $parameters = array(
-            'css_class' => new ParameterDefinition\TextLine(array(), false, 'css'),
-            'css_id' => new ParameterDefinition\TextLine(array(), false, 'id'),
-            'compound' => new ParameterDefinition\Compound\Boolean(
+            'css_class' => new Parameter\TextLine(array(), false, 'css'),
+            'css_id' => new Parameter\TextLine(array(), false, 'id'),
+            'compound' => new Parameter\Compound\Boolean(
                 array(
-                    'inner' => new ParameterDefinition\TextLine(array(), false, 'inner_default'),
+                    'inner' => new Parameter\TextLine(array(), false, 'inner_default'),
                 ),
                 array(),
                 false,
@@ -160,11 +160,11 @@ class ParameterStructTest extends TestCase
     public function testFillValuesWithoutDefaults()
     {
         $parameters = array(
-            'css_class' => new ParameterDefinition\TextLine(array(), false, 'css'),
-            'css_id' => new ParameterDefinition\TextLine(array(), false, 'id'),
-            'compound' => new ParameterDefinition\Compound\Boolean(
+            'css_class' => new Parameter\TextLine(array(), false, 'css'),
+            'css_id' => new Parameter\TextLine(array(), false, 'id'),
+            'compound' => new Parameter\Compound\Boolean(
                 array(
-                    'inner' => new ParameterDefinition\TextLine(array(), false, 'inner_default'),
+                    'inner' => new Parameter\TextLine(array(), false, 'inner_default'),
                 ),
                 array(),
                 false,

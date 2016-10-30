@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 
@@ -26,39 +26,39 @@ class ParameterMapper
     /**
      * Maps the parameter value in regard to provided list of parameters.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameterDefinitions
-     * @param array $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param array $parameterValues
      *
      * @return array
      */
-    public function mapParameters(array $parameterDefinitions, array $parameters)
+    public function mapParameters(array $parameters, array $parameterValues)
     {
         $mappedValues = array();
 
-        foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
-            $rawValue = array_key_exists($parameterName, $parameters) ?
-                $parameters[$parameterName] :
+        foreach ($parameters as $parameterName => $parameter) {
+            $rawValue = array_key_exists($parameterName, $parameterValues) ?
+                $parameterValues[$parameterName] :
                 null;
 
             $parameterType = $this->parameterTypeRegistry->getParameterType(
-                $parameterDefinition->getType()
+                $parameter->getType()
             );
 
             $value = $parameterType->toValue($rawValue);
             $mappedValues[$parameterName] = new ParameterValue(
                 array(
                     'identifier' => $parameterName,
-                    'parameterDefinition' => $parameterDefinition,
+                    'parameter' => $parameter,
                     'parameterType' => $parameterType,
                     'value' => $value,
                     'isEmpty' => $parameterType->isValueEmpty($value),
                 )
             );
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameter instanceof CompoundParameterInterface) {
                 $mappedValues = array_merge(
                     $mappedValues,
-                    $this->mapParameters($parameterDefinition->getParameters(), $parameters)
+                    $this->mapParameters($parameter->getParameters(), $parameterValues)
                 );
             }
         }
@@ -69,32 +69,32 @@ class ParameterMapper
     /**
      * Serializes the existing struct values based on provided parameters.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameterDefinitions
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
      * @param array $parameterValues
      *
      * @return array
      */
-    public function serializeValues(array $parameterDefinitions, array $parameterValues)
+    public function serializeValues(array $parameters, array $parameterValues)
     {
         $serializedValues = array();
 
-        foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
+        foreach ($parameters as $parameterName => $parameter) {
             if (!array_key_exists($parameterName, $parameterValues)) {
                 continue;
             }
 
             $parameterType = $this->parameterTypeRegistry->getParameterType(
-                $parameterDefinition->getType()
+                $parameter->getType()
             );
 
             $serializedValues[$parameterName] = $parameterType->fromValue(
                 $parameterValues[$parameterName]
             );
 
-            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+            if ($parameter instanceof CompoundParameterInterface) {
                 $serializedValues = array_merge(
                     $serializedValues,
-                    $this->serializeValues($parameterDefinition->getParameters(), $parameterValues)
+                    $this->serializeValues($parameter->getParameters(), $parameterValues)
                 );
             }
         }

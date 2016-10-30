@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class ParameterHandler implements ParameterHandlerInterface
@@ -10,11 +10,11 @@ abstract class ParameterHandler implements ParameterHandlerInterface
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      *
      * @return array
      */
-    public function convertOptions(ParameterDefinitionInterface $parameterDefinition)
+    public function convertOptions(ParameterInterface $parameter)
     {
         return array();
     }
@@ -22,16 +22,16 @@ abstract class ParameterHandler implements ParameterHandlerInterface
     /**
      * Returns default parameter options for Symfony form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param string $parameterName
      * @param array $options
      *
      * @return array
      */
-    public function getDefaultOptions(ParameterDefinitionInterface $parameterDefinition, $parameterName, array $options)
+    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
     {
         return array(
-            'required' => $parameterDefinition->isRequired(),
+            'required' => $parameter->isRequired(),
             'label' => $options['label_prefix'] . '.' . $parameterName,
             'property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
         );
@@ -40,10 +40,10 @@ abstract class ParameterHandler implements ParameterHandlerInterface
     /**
      * Allows the handler to do any kind of processing to created form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param \Symfony\Component\Form\FormBuilderInterface $form
      */
-    public function handleForm(ParameterDefinitionInterface $parameterDefinition, FormBuilderInterface $form)
+    public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
     {
     }
 }

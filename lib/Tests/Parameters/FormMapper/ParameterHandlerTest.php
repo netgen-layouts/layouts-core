@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\TextLine;
+use Netgen\BlockManager\Parameters\Parameter\TextLine;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler;
 use PHPUnit\Framework\TestCase;
 

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Choice;
+use Netgen\BlockManager\Parameters\Parameter\Choice;
 use Netgen\BlockManager\Parameters\ParameterType\Choice as ChoiceType;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -25,9 +25,9 @@ class ChoiceTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\Choice
+     * @return \Netgen\BlockManager\Parameters\Parameter\Choice
      */
-    public function getParameterDefinition(array $options = array(), $required = false, $defaultValue = null)
+    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
         return new Choice($options, $required, $defaultValue);
     }
@@ -42,10 +42,10 @@ class ChoiceTest extends TestCase
     public function testValidation($value, $isValid)
     {
         $type = new ChoiceType();
-        $parameterDefinition = $this->getParameterDefinition(array('options' => array('One' => 1, 'Two' => 2)));
+        $parameter = $this->getParameter(array('options' => array('One' => 1, 'Two' => 2)));
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameterDefinition, $value));
+        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() == 0);
     }
 
@@ -63,10 +63,10 @@ class ChoiceTest extends TestCase
         };
 
         $type = new ChoiceType();
-        $parameterDefinition = $this->getParameterDefinition(array('options' => $closure));
+        $parameter = $this->getParameter(array('options' => $closure));
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameterDefinition, $value));
+        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() == 0);
     }
 

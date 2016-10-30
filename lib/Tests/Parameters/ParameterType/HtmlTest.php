@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Html;
+use Netgen\BlockManager\Parameters\Parameter\Html;
 use Netgen\BlockManager\Parameters\ParameterType\Html as HtmlType;
 use PHPUnit\Framework\TestCase;
 
@@ -22,9 +22,9 @@ class HtmlTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\Html
+     * @return \Netgen\BlockManager\Parameters\Parameter\Html
      */
-    public function getParameterDefinition($options = array())
+    public function getParameter($options = array())
     {
         return new Html($options);
     }

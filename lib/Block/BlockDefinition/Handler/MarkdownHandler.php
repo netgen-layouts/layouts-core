@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\ParameterDefinition\Text;
+use Netgen\BlockManager\Parameters\Parameter\Text;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Michelf\MarkdownInterface;
 
@@ -27,7 +27,7 @@ class MarkdownHandler extends BlockDefinitionHandler
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {

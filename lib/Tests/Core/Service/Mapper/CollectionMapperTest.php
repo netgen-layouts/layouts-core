@@ -135,7 +135,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'offset' => new ParameterValue(
                     array(
                         'identifier' => 'offset',
-                        'parameterDefinition' => $query->getQueryType()->getParameters()['offset'],
+                        'parameter' => $query->getQueryType()->getParameters()['offset'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('integer'),
                         'value' => null,
                         'isEmpty' => true,
@@ -144,7 +144,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'param' => new ParameterValue(
                     array(
                         'identifier' => 'param',
-                        'parameterDefinition' => $query->getQueryType()->getParameters()['param'],
+                        'parameter' => $query->getQueryType()->getParameters()['param'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'value',
                         'isEmpty' => false,

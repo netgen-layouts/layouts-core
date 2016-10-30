@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Identifier;
+use Netgen\BlockManager\Parameters\Parameter\Identifier;
 use Netgen\BlockManager\Parameters\ParameterType\Identifier as IdentifierType;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -24,9 +24,9 @@ class IdentifierTest extends TestCase
      * @param array $options
      * @param bool $required
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\Identifier
+     * @return \Netgen\BlockManager\Parameters\Parameter\Identifier
      */
-    public function getParameterDefinition(array $options = array(), $required = false)
+    public function getParameter(array $options = array(), $required = false)
     {
         return new Identifier($options, $required);
     }
@@ -42,10 +42,10 @@ class IdentifierTest extends TestCase
     public function testValidation($value, $required, $isValid)
     {
         $type = new IdentifierType();
-        $parameterDefinition = $this->getParameterDefinition(array(), $required);
+        $parameter = $this->getParameter(array(), $required);
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameterDefinition, $value));
+        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() == 0);
     }
 

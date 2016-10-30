@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Range as RangeParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter\Range as RangeParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Range;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use PHPUnit\Framework\TestCase;
@@ -32,7 +32,7 @@ class RangeTest extends TestCase
      */
     public function testConvertOptions()
     {
-        $parameter = new RangeParameterDefinition(
+        $parameter = new RangeParameter(
             array(
                 'min' => 3,
                 'max' => 5,

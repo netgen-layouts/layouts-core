@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterHandler\Compound;
 
 use Netgen\BlockManager\Parameters\Form\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\ParameterDefinition\Compound\Boolean as BooleanParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean as BooleanParameter;
 use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean;
 use PHPUnit\Framework\TestCase;
 
@@ -44,7 +44,7 @@ class BooleanTest extends TestCase
                 'checkbox_property_path' => 'parameters[name]',
             ),
             $this->parameterHandler->getDefaultOptions(
-                new BooleanParameterDefinition(array(), array('reverse' => true), true),
+                new BooleanParameter(array(), array('reverse' => true), true),
                 'name',
                 array(
                     'label_prefix' => 'label',

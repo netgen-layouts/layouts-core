@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition\TextLine;
+use Netgen\BlockManager\Parameters\Parameter\TextLine;
 
 class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
 {
@@ -28,7 +28,7 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {

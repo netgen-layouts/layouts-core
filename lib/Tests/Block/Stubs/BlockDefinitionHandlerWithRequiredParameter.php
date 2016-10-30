@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter;
 
 class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHandler
 {
@@ -13,13 +13,13 @@ class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHan
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
         return array(
-            'css_class' => new ParameterDefinition\TextLine(array(), true),
-            'css_id' => new ParameterDefinition\TextLine(array()),
+            'css_class' => new Parameter\TextLine(array(), true),
+            'css_id' => new Parameter\TextLine(array()),
         );
     }
 

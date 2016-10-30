@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter;
 
 class TitleHandler extends BlockDefinitionHandler
 {
@@ -32,17 +32,17 @@ class TitleHandler extends BlockDefinitionHandler
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
         return array(
-            'tag' => new ParameterDefinition\Choice(
+            'tag' => new Parameter\Choice(
                 array('options' => $this->options),
                 true
             ),
-            'title' => new ParameterDefinition\TextLine(array(), true),
-            'link' => new ParameterDefinition\Link(
+            'title' => new Parameter\TextLine(array(), true),
+            'link' => new Parameter\Link(
                 array(
                     'value_types' => $this->linkValueTypes,
                 )

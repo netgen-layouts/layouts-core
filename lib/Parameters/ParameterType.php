@@ -16,30 +16,30 @@ abstract class ParameterType implements ParameterTypeInterface
     /**
      * Returns the parameter constraints.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getConstraints(ParameterDefinition $parameterDefinition, $value)
+    public function getConstraints(ParameterInterface $parameter, $value)
     {
         return array_merge(
-            $this->getRequiredConstraints($parameterDefinition, $value),
-            $this->getValueConstraints($parameterDefinition, $value)
+            $this->getRequiredConstraints($parameter, $value),
+            $this->getValueConstraints($parameter, $value)
         );
     }
 
     /**
      * Returns constraints that will be used when parameter is required.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value)
+    public function getRequiredConstraints(ParameterInterface $parameter, $value)
     {
-        if ($parameterDefinition->isRequired()) {
+        if ($parameter->isRequired()) {
             return array(
                 new Constraints\NotBlank(),
             );
@@ -51,12 +51,12 @@ abstract class ParameterType implements ParameterTypeInterface
     /**
      * Returns constraints that will be used to validate the parameter value.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    abstract public function getValueConstraints(ParameterDefinition $parameterDefinition, $value);
+    abstract public function getValueConstraints(ParameterInterface $parameter, $value);
 
     /**
      * Converts the parameter value to from a domain format to scalar/hash format.

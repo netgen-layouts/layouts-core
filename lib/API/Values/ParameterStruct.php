@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\ValueObject;
 
@@ -84,7 +84,7 @@ abstract class ParameterStruct extends ValueObject
     /**
      * Fills the struct values based on provided list of parameters and values.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[] $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
      * @param array $values
      * @param bool $useDefaults
      */
@@ -100,7 +100,7 @@ abstract class ParameterStruct extends ValueObject
 
             $this->setParameter($parameterName, is_object($value) ? clone $value : $value);
 
-            if ($parameter instanceof CompoundParameterDefinitionInterface) {
+            if ($parameter instanceof CompoundParameterInterface) {
                 $this->fillValues($parameter->getParameters(), $values, $useDefaults);
             }
         }

@@ -24,7 +24,7 @@ class QueryType implements QueryTypeInterface
     protected $config;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     protected $parameters;
 
@@ -57,7 +57,7 @@ class QueryType implements QueryTypeInterface
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {

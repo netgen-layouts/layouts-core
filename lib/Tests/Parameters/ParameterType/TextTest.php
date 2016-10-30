@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Text;
+use Netgen\BlockManager\Parameters\Parameter\Text;
 use Netgen\BlockManager\Parameters\ParameterType\Text as TextType;
 use PHPUnit\Framework\TestCase;
 
@@ -22,9 +22,9 @@ class TextTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\Text
+     * @return \Netgen\BlockManager\Parameters\Parameter\Text
      */
-    public function getParameterDefinition($options = array())
+    public function getParameter($options = array())
     {
         return new Text($options);
     }

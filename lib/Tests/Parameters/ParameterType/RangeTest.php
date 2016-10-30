@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\Range;
+use Netgen\BlockManager\Parameters\Parameter\Range;
 use Netgen\BlockManager\Parameters\ParameterType\Range as RangeType;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -25,9 +25,9 @@ class RangeTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\Range
+     * @return \Netgen\BlockManager\Parameters\Parameter\Range
      */
-    public function getParameterDefinition(array $options = array(), $required = false, $defaultValue = null)
+    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
         return new Range($options, $required, $defaultValue);
     }
@@ -43,10 +43,10 @@ class RangeTest extends TestCase
     public function testValidation($value, $required, $isValid)
     {
         $type = new RangeType();
-        $parameterDefinition = $this->getParameterDefinition(array('min' => 5, 'max' => 10), $required);
+        $parameter = $this->getParameter(array('min' => 5, 'max' => 10), $required);
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameterDefinition, $value));
+        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() == 0);
     }
 

@@ -2,39 +2,39 @@
 
 namespace Netgen\BlockManager\Parameters\FormMapper;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 
 abstract class CompoundParameterHandler extends ParameterHandler
 {
     /**
      * Converts parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      *
      * @return array
      */
-    public function convertOptions(ParameterDefinitionInterface $parameterDefinition)
+    public function convertOptions(ParameterInterface $parameter)
     {
         return array(
-            'parameters' => $parameterDefinition->getParameters(),
+            'parameters' => $parameter->getParameters(),
         );
     }
 
     /**
      * Returns default parameter options for Symfony form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param string $parameterName
      * @param array $options
      *
      * @return array
      */
-    public function getDefaultOptions(ParameterDefinitionInterface $parameterDefinition, $parameterName, array $options)
+    public function getDefaultOptions(ParameterInterface $parameter, $parameterName, array $options)
     {
         return array(
             'label' => false,
             'label_prefix' => $options['label_prefix'],
             'property_path_prefix' => $options['property_path_prefix'],
-        ) + parent::getDefaultOptions($parameterDefinition, $parameterName, $options);
+        ) + parent::getDefaultOptions($parameter, $parameterName, $options);
     }
 }

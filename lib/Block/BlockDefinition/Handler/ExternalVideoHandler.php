@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter;
 
 class ExternalVideoHandler extends BlockDefinitionHandler
 {
@@ -25,14 +25,14 @@ class ExternalVideoHandler extends BlockDefinitionHandler
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
         return array(
-            'service' => new ParameterDefinition\Choice(array('options' => $this->services), true),
-            'video_id' => new ParameterDefinition\TextLine(),
-            'caption' => new ParameterDefinition\TextLine(),
+            'service' => new Parameter\Choice(array('options' => $this->services), true),
+            'video_id' => new Parameter\TextLine(),
+            'caption' => new Parameter\TextLine(),
         ) + $this->getCommonParameters();
     }
 }

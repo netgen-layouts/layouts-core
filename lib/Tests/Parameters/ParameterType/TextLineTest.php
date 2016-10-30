@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition\TextLine;
+use Netgen\BlockManager\Parameters\Parameter\TextLine;
 use Netgen\BlockManager\Parameters\ParameterType\TextLine as TextLineType;
 use PHPUnit\Framework\TestCase;
 
@@ -22,9 +22,9 @@ class TextLineTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition\TextLine
+     * @return \Netgen\BlockManager\Parameters\Parameter\TextLine
      */
-    public function getParameterDefinition($options = array())
+    public function getParameter($options = array())
     {
         return new TextLine($options);
     }

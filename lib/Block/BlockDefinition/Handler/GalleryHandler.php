@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Parameters\Parameter;
 
 class GalleryHandler extends BlockDefinitionHandler
 {
@@ -58,20 +58,20 @@ class GalleryHandler extends BlockDefinitionHandler
     /**
      * Returns the array specifying block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function getParameters()
     {
         return array(
-            'next_and_previous' => new ParameterDefinition\Boolean(
+            'next_and_previous' => new Parameter\Boolean(
                 array(),
                 false,
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'show_pagination' => new ParameterDefinition\Compound\Boolean(
+            'show_pagination' => new Parameter\Compound\Boolean(
                 array(
-                    'pagination_type' => new ParameterDefinition\Choice(
+                    'pagination_type' => new Parameter\Choice(
                         array(
                             'options' => $this->paginationTypes,
                         ),
@@ -85,13 +85,13 @@ class GalleryHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'infinite_loop' => new ParameterDefinition\Boolean(
+            'infinite_loop' => new Parameter\Boolean(
                 array(),
                 false,
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'transition' => new ParameterDefinition\Choice(
+            'transition' => new Parameter\Choice(
                 array(
                     'options' => $this->transitions,
                 ),
@@ -99,9 +99,9 @@ class GalleryHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'autoplay' => new ParameterDefinition\Compound\Boolean(
+            'autoplay' => new Parameter\Compound\Boolean(
                 array(
-                    'autoplay_time' => new ParameterDefinition\Range(
+                    'autoplay_time' => new Parameter\Range(
                         array(
                             'min' => $this->minAutoplayTime,
                             'max' => $this->maxAutoplayTime,
@@ -116,7 +116,7 @@ class GalleryHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'aspect_ratio' => new ParameterDefinition\Choice(
+            'aspect_ratio' => new Parameter\Choice(
                 array(
                     'options' => $this->aspectRatios,
                 ),
@@ -124,9 +124,9 @@ class GalleryHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'show_details' => new ParameterDefinition\Compound\Boolean(
+            'show_details' => new Parameter\Compound\Boolean(
                 array(
-                    'show_details_on_hover' => new ParameterDefinition\Boolean(
+                    'show_details_on_hover' => new Parameter\Boolean(
                         array(),
                         false,
                         null,
@@ -138,7 +138,7 @@ class GalleryHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'number_of_thumbnails' => new ParameterDefinition\Integer(
+            'number_of_thumbnails' => new Parameter\Integer(
                 array(
                     'min' => 1,
                 ),
@@ -146,7 +146,7 @@ class GalleryHandler extends BlockDefinitionHandler
                 null,
                 array(self::GROUP_DESIGN)
             ),
-            'enable_lightbox' => new ParameterDefinition\Boolean(
+            'enable_lightbox' => new Parameter\Boolean(
                 array(),
                 false,
                 null,
