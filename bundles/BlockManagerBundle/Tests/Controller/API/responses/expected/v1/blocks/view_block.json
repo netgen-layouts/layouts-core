@@ -6,7 +6,10 @@
     "position": 0,
     "layout_id": 1,
     "parameters": {
-        "number_of_columns": 2
+        "number_of_columns": 2,
+        "css_class": null,
+        "css_id": null,
+        "set_container": null
     },
     "view_type": "list",
     "item_view_type": "standard",

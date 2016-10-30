@@ -43,7 +43,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'block_type' => 'title',
+                'block_type' => 'list',
                 'layout_id' => 1,
                 'zone_identifier' => 'bottom',
                 'position' => 0,
@@ -74,7 +74,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'block_type' => 'title',
+                'block_type' => 'list',
                 'layout_id' => 1,
                 'zone_identifier' => 'right',
             )
