@@ -3,28 +3,28 @@
 namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterValue;
 
 class ParameterView extends View implements ParameterViewInterface
 {
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\Parameter $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterValue $parameterValue
      */
-    public function __construct(Parameter $parameter)
+    public function __construct(ParameterValue $parameterValue)
     {
-        $this->valueObject = $parameter;
+        $this->valueObject = $parameterValue;
 
-        $this->internalParameters['parameter'] = $parameter;
+        $this->internalParameters['parameter'] = $parameterValue;
     }
 
     /**
      * Returns the parameter.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter
+     * @return \Netgen\BlockManager\Parameters\ParameterValue
      */
-    public function getParameterValueObject()
+    public function getParameterValue()
     {
         return $this->valueObject;
     }

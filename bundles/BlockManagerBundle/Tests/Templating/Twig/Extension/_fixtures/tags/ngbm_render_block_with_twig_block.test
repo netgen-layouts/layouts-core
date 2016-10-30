@@ -17,7 +17,7 @@ return array(
                 'twig_block'
             ),
             'parameters' => array(
-                'block_name' => new \Netgen\BlockManager\Parameters\Parameter(
+                'block_name' => new \Netgen\BlockManager\Parameters\ParameterValue(
                     array(
                         'identifier' => 'block_name',
                         'value' => 'my_block',

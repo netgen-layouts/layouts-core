@@ -54,7 +54,7 @@ class Block extends ValueObject implements APIBlock
     protected $status;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Parameter[]
+     * @var \Netgen\BlockManager\Parameters\ParameterValue[]
      */
     protected $parameters = array();
 
@@ -111,7 +111,7 @@ class Block extends ValueObject implements APIBlock
     /**
      * Returns block parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterValue[]
      */
     public function getParameters()
     {
@@ -125,7 +125,7 @@ class Block extends ValueObject implements APIBlock
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter
+     * @return \Netgen\BlockManager\Parameters\ParameterValue
      */
     public function getParameter($parameter)
     {

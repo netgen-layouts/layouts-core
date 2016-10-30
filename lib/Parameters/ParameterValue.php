@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\ValueObject;
 
-class Parameter extends ValueObject
+class ParameterValue extends ValueObject
 {
     /**
      * @var string
@@ -72,7 +72,7 @@ class Parameter extends ValueObject
     }
 
     /**
-     * Returns if the parameter is empty.
+     * Returns if the parameter value is empty.
      *
      * @return bool
      */

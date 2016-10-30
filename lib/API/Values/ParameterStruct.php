@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\ValueObject;
 
 abstract class ParameterStruct extends ValueObject
@@ -93,7 +93,7 @@ abstract class ParameterStruct extends ValueObject
         foreach ($parameters as $parameterName => $parameter) {
             $value = $useDefaults ? $parameter->getDefaultValue() : null;
             if (array_key_exists($parameterName, $values)) {
-                $value = $values[$parameterName] instanceof Parameter ?
+                $value = $values[$parameterName] instanceof ParameterValue ?
                     $values[$parameterName]->getValue() :
                     $values[$parameterName];
             }

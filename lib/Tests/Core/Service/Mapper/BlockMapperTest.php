@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -65,7 +65,7 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $this->assertEquals(
             array(
-                'css_class' => new Parameter(
+                'css_class' => new ParameterValue(
                     array(
                         'identifier' => 'css_class',
                         'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_class'],
@@ -74,7 +74,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                         'isEmpty' => true,
                     )
                 ),
-                'css_id' => new Parameter(
+                'css_id' => new ParameterValue(
                     array(
                         'identifier' => 'css_id',
                         'parameterDefinition' => $block->getBlockDefinition()->getParameters()['css_id'],

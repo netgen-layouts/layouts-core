@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\View\View\ParameterView;
 
 class ParameterViewProvider implements ViewProviderInterface
@@ -17,7 +17,7 @@ class ParameterViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\Parameters\Parameter $valueObject */
+        /** @var \Netgen\BlockManager\Parameters\ParameterValue $valueObject */
         $parameterView = new ParameterView($valueObject);
 
         return $parameterView;
@@ -32,6 +32,6 @@ class ParameterViewProvider implements ViewProviderInterface
      */
     public function supports($valueObject)
     {
-        return $valueObject instanceof Parameter;
+        return $valueObject instanceof ParameterValue;
     }
 }

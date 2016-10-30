@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class ParameterNormalizer implements NormalizerInterface
+class ParameterValueNormalizer implements NormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -20,10 +20,10 @@ class ParameterNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Parameters\Parameter $parameter */
-        $parameter = $object->getValue();
+        /** @var \Netgen\BlockManager\Parameters\ParameterValue $parameterValue */
+        $parameterValue = $object->getValue();
 
-        return $parameter->getParameterType()->fromValue($parameter->getValue());
+        return $parameterValue->getParameterType()->fromValue($parameterValue->getValue());
     }
 
     /**
@@ -40,6 +40,6 @@ class ParameterNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Parameter && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof ParameterValue && $data->getVersion() === Version::API_V1;
     }
 }
