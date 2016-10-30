@@ -26,7 +26,8 @@
         "symfony/phpunit-bridge": "^2.8|^3.0",
         "matthiasnoback/symfony-dependency-injection-test": "^1.0",
         "matthiasnoback/symfony-config-test": "^2.0",
-        "lakion/api-test-case": "^1.0"
+        "lakion/api-test-case": "^1.0",
+        "franzl/studio": "*"
     },
     "repositories": [
         { "type": "composer", "url": "https://packagist.netgen.biz" }
