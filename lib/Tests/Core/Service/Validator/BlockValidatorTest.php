@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
@@ -91,7 +91,7 @@ class BlockValidatorTest extends TestCase
             ->will($this->returnValue($blockDefinition));
 
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->blockValidator->validateBlockCreateStruct(new BlockCreateStruct($params));
@@ -108,7 +108,7 @@ class BlockValidatorTest extends TestCase
     public function testValidateBlockUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->blockValidator->validateBlockUpdateStruct(

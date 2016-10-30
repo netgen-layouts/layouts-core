@@ -13,7 +13,7 @@ use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
@@ -72,7 +72,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateCollectionCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->collectionValidator->validateCollectionCreateStruct(new CollectionCreateStruct($params));
@@ -89,7 +89,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateCollectionUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->collectionValidator->validateCollectionUpdateStruct(new CollectionUpdateStruct($params));
@@ -106,7 +106,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateItemCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params));
@@ -134,7 +134,7 @@ class CollectionValidatorTest extends TestCase
             ->will($this->returnValue($queryType));
 
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params));
@@ -151,7 +151,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->collectionValidator->validateQueryUpdateStruct(

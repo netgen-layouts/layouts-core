@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
@@ -46,7 +46,7 @@ class LayoutValidatorTest extends TestCase
     public function testValidateLayoutCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params));
@@ -63,7 +63,7 @@ class LayoutValidatorTest extends TestCase
     public function testValidateLayoutUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(ValidationFailedException::class);
         }
 
         $this->layoutValidator->validateLayoutUpdateStruct(

@@ -51,9 +51,9 @@ class ValidatorTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
      */
-    public function testValidateThrowsInvalidArgumentException()
+    public function testValidateThrowsValidationFailedException()
     {
         $this->validatorMock
             ->expects($this->once())

@@ -3,7 +3,9 @@
 namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Exception;
 
 trait ValidatorTrait
 {
@@ -29,16 +31,23 @@ trait ValidatorTrait
      * @param \Symfony\Component\Validator\Constraint|\Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPath
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
     public function validate($value, $constraints, $propertyPath = null)
     {
-        $violations = $this->validator->validate($value, $constraints);
+        try {
+            $violations = $this->validator->validate($value, $constraints);
+        } catch (Exception $e) {
+            throw new ValidationFailedException($e->getMessage(), 0, $e);
+        }
 
         if (count($violations) > 0) {
-            throw new InvalidArgumentException(
-                $propertyPath !== null ? $propertyPath : $violations[0]->getPropertyPath(),
-                $violations[0]->getMessage()
+            throw new ValidationFailedException(
+                sprintf(
+                    'There was an error validating "%s": %s',
+                    $propertyPath !== null ? $propertyPath : $violations[0]->getPropertyPath(),
+                    $violations[0]->getMessage()
+                )
             );
         }
     }
