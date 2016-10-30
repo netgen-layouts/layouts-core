@@ -47,6 +47,10 @@ class Link extends ParameterType
      */
     public function fromValue($value)
     {
+        if (!$value instanceof LinkValue) {
+            return null;
+        }
+
         return array(
             'link_type' => $value->getLinkType(),
             'link' => $value->getLink(),
