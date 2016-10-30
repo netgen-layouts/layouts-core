@@ -36,7 +36,7 @@ class ParameterMapper
         $mappedValues = array();
 
         foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
-            $rawValue = isset($parameters[$parameterName]) ?
+            $rawValue = array_key_exists($parameterName, $parameters) ?
                 $parameters[$parameterName] :
                 null;
 
@@ -79,7 +79,7 @@ class ParameterMapper
         $serializedValues = array();
 
         foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
-            if (!isset($parameterValues[$parameterName])) {
+            if (!array_key_exists($parameterName, $parameterValues)) {
                 continue;
             }
 

@@ -78,7 +78,7 @@ abstract class ParameterStruct extends ValueObject
      */
     public function hasParameter($parameterName)
     {
-        return isset($this->parameters[$parameterName]);
+        return array_key_exists($parameterName, $this->parameters);
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class ParameterStruct extends ValueObject
     {
         foreach ($parameters as $parameterName => $parameter) {
             $value = $useDefaults ? $parameter->getDefaultValue() : null;
-            if (isset($values[$parameterName])) {
+            if (array_key_exists($parameterName, $values)) {
                 $value = $values[$parameterName] instanceof Parameter ?
                     $values[$parameterName]->getValue() :
                     $values[$parameterName];
