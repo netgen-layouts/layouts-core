@@ -51,57 +51,46 @@ class TemplateResolver implements TemplateResolverInterface
      */
     public function resolveTemplate(ViewInterface $view)
     {
-        $context = $view->getContext();
-        $viewIdentifier = $view->getIdentifier();
+        $viewContext = $view->getContext();
+        $fallbackViewContext = $view->getFallbackContext();
 
-        if (!is_string($context)) {
+        if (!is_string($viewContext)) {
             throw new RuntimeException(
                 sprintf(
                     'View context expected to be of string type, got %s.',
-                    is_object($context) ? get_class($context) : gettype($context)
+                    is_object($viewContext) ? get_class($viewContext) : gettype($viewContext)
                 )
             );
         }
 
-        $fallbackContext = $view->getFallbackContext();
-        if (!isset($this->viewConfig[$viewIdentifier][$context])) {
-            $context = $fallbackContext;
-
-            if (
-                $fallbackContext === null ||
-                ($fallbackContext !== null && !isset($this->viewConfig[$viewIdentifier][$fallbackContext]))
-            ) {
-                $message = $fallbackContext !== null ?
-                    'No view config could be found for view object "%s" and fallback context "%s".' :
-                    'No view config could be found for view object "%s" and context "%s".';
-
-                throw new RuntimeException(
-                    sprintf(
-                        $message,
-                        get_class($view),
-                        $fallbackContext ?: $context
-                    )
-                );
-            }
+        $contextList = array($viewContext);
+        if (is_string($fallbackViewContext)) {
+            $contextList[] = $fallbackViewContext;
         }
 
-        foreach ($this->viewConfig[$viewIdentifier][$context] as $config) {
-            if (!$this->matches($view, $config['match'])) {
+        $viewIdentifier = $view->getIdentifier();
+        foreach ($contextList as $context) {
+            if (!isset($this->viewConfig[$viewIdentifier][$context])) {
                 continue;
             }
 
-            $view->setContext($context);
-            $view->setTemplate($config['template']);
-            $view->addParameters($config['parameters']);
+            foreach ($this->viewConfig[$viewIdentifier][$context] as $config) {
+                if (!$this->matches($view, $config['match'])) {
+                    continue;
+                }
 
-            return;
+                $view->setTemplate($config['template']);
+                $view->addParameters($config['parameters']);
+
+                return;
+            }
         }
 
         throw new RuntimeException(
             sprintf(
                 'No template match could be found for "%s" view and context "%s".',
                 $view->getIdentifier(),
-                $context
+                $viewContext
             )
         );
     }
