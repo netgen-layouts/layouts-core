@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
-use Netgen\BlockManager\Parameters\Value\Link as LinkValue;
+use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
 
 class Link extends ParameterType

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Form;
 
 use Netgen\BlockManager\Parameters\Form\DataMapper\ItemLinkDataMapper;
 use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
-use Netgen\BlockManager\Parameters\Value\Link;
+use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -45,10 +45,10 @@ class LinkType extends AbstractType
             array(
                 'label' => 'forms.uri.link_type',
                 'choices' => array(
-                        'forms.uri.link_type.url' => Link::LINK_TYPE_URL,
-                        'forms.uri.link_type.email' => Link::LINK_TYPE_EMAIL,
-                        'forms.uri.link_type.phone' => Link::LINK_TYPE_PHONE,
-                        'forms.uri.link_type.internal' => Link::LINK_TYPE_INTERNAL,
+                        'forms.uri.link_type.url' => LinkValue::LINK_TYPE_URL,
+                        'forms.uri.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
+                        'forms.uri.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
+                        'forms.uri.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
                     ),
                 'choices_as_values' => true,
                 'placeholder' => $options['required'] ? false : 'forms.uri.link_type.none',
@@ -58,7 +58,7 @@ class LinkType extends AbstractType
         );
 
         $builder->add(
-            Link::LINK_TYPE_URL,
+            LinkValue::LINK_TYPE_URL,
             UrlType::class,
             array(
                 'label' => 'forms.uri.link_type.url',
@@ -66,7 +66,7 @@ class LinkType extends AbstractType
         );
 
         $builder->add(
-            Link::LINK_TYPE_EMAIL,
+            LinkValue::LINK_TYPE_EMAIL,
             EmailType::class,
             array(
                 'label' => 'forms.uri.link_type.email',
@@ -74,7 +74,7 @@ class LinkType extends AbstractType
         );
 
         $builder->add(
-            Link::LINK_TYPE_PHONE,
+            LinkValue::LINK_TYPE_PHONE,
             TextType::class,
             array(
                 'label' => 'forms.uri.link_type.phone',
@@ -82,7 +82,7 @@ class LinkType extends AbstractType
         );
 
         $internalLinkForm = $builder->create(
-            Link::LINK_TYPE_INTERNAL,
+            LinkValue::LINK_TYPE_INTERNAL,
             ContentBrowserDynamicType::class,
             array(
                 'label' => 'forms.uri.link_type.internal',

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Parameters;
 
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
-use Netgen\BlockManager\Parameters\Value\Link as LinkValue;
+use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
