@@ -231,6 +231,24 @@ class LayoutController extends Controller
     }
 
     /**
+     * Copies the layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function copy(Layout $layout, Request $request)
+    {
+        $copiedLayout = $this->layoutService->copyLayout(
+            $layout,
+            $request->request->get('name')
+        );
+
+        return new View($copiedLayout, Version::API_V1, Response::HTTP_CREATED);
+    }
+
+    /**
      * Creates a new layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
@@ -267,6 +285,19 @@ class LayoutController extends Controller
     }
 
     /**
+     * Copies the layout draft.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function copyDraft(LayoutDraft $layout, Request $request)
+    {
+        return $this->copy($layout, $request);
+    }
+
+    /**
      * Discards a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
@@ -290,6 +321,20 @@ class LayoutController extends Controller
     public function publishDraft(LayoutDraft $layout)
     {
         $this->layoutService->publishLayout($layout);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Deletes a layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function delete(Layout $layout)
+    {
+        $this->layoutService->deleteLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
