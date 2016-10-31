@@ -36,7 +36,7 @@ ngbm_api_v1_collections_add_items:
 
 ngbm_api_v1_collections_move_item:
     path: /collections/items/{itemId}/move
-    methods: [PATCH]
+    methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveItem"
 
@@ -54,7 +54,7 @@ ngbm_api_v1_collections_load_query:
 
 ngbm_api_v1_collections_move_query:
     path: /collections/queries/{queryId}/move
-    methods: [PATCH]
+    methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveQuery"
 

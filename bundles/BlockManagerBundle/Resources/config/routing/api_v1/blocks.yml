@@ -18,7 +18,7 @@ ngbm_api_v1_blocks_copy:
 
 ngbm_api_v1_blocks_move:
     path: /blocks/{blockId}/move
-    methods: [PATCH]
+    methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:move"
 
