@@ -3,27 +3,27 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Exception;
 
 class CollectionItemNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemBuilderInterface
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemBuilder;
+    protected $itemLoader;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
+     * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
      */
-    public function __construct(ItemBuilderInterface $itemBuilder)
+    public function __construct(ItemLoaderInterface $itemLoader)
     {
-        $this->itemBuilder = $itemBuilder;
+        $this->itemLoader = $itemLoader;
     }
 
     /**
@@ -52,10 +52,10 @@ class CollectionItemNormalizer implements NormalizerInterface
         );
 
         try {
-            $value = $this->itemBuilder->build($item->getValueId(), $item->getValueType());
+            $value = $this->itemLoader->load($item->getValueId(), $item->getValueType());
             $data['name'] = $value->getName();
             $data['visible'] = $value->isVisible();
-        } catch (Exception $e) {
+        } catch (InvalidItemException $e) {
             // Do nothing
         }
 

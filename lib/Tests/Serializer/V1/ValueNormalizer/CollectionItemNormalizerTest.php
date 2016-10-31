@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidItemException;
 use PHPUnit\Framework\TestCase;
 
 class CollectionItemNormalizerTest extends TestCase
@@ -16,7 +16,7 @@ class CollectionItemNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemBuilderMock;
+    protected $itemLoaderMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer
@@ -25,10 +25,10 @@ class CollectionItemNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
         $this->normalizer = new CollectionItemNormalizer(
-            $this->itemBuilderMock
+            $this->itemLoaderMock
         );
     }
 
@@ -56,9 +56,9 @@ class CollectionItemNormalizerTest extends TestCase
             )
         );
 
-        $this->itemBuilderMock
+        $this->itemLoaderMock
             ->expects($this->any())
-            ->method('build')
+            ->method('load')
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
             ->will($this->returnValue($value));
 
@@ -94,11 +94,11 @@ class CollectionItemNormalizerTest extends TestCase
             )
         );
 
-        $this->itemBuilderMock
+        $this->itemLoaderMock
             ->expects($this->any())
-            ->method('build')
+            ->method('load')
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
-            ->will($this->throwException(new RuntimeException()));
+            ->will($this->throwException(new InvalidItemException()));
 
         $this->assertEquals(
             array(
