@@ -20,7 +20,7 @@ class ItemLinkDataMapper implements DataMapperInterface
         if (is_array($parsedData) && !empty($parsedData['scheme']) && !empty($parsedData['host'])) {
             $forms = iterator_to_array($forms);
             $forms['item_id']->setData($parsedData['host']);
-            $forms['item_type']->setData($parsedData['scheme']);
+            $forms['item_type']->setData(str_replace('-', '_', $parsedData['scheme']));
         }
     }
 
@@ -41,7 +41,7 @@ class ItemLinkDataMapper implements DataMapperInterface
 
         $data = null;
         if (!empty($itemId) && !empty($itemType)) {
-            $data = $itemType . '://' . $itemId;
+            $data = str_replace('_', '-', $itemType) . '://' . $itemId;
         }
     }
 }

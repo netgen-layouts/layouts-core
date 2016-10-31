@@ -121,7 +121,10 @@ class ItemExtension extends Twig_Extension
                     );
                 }
 
-                $item = $this->itemLoader->load($itemUri['host'], $itemUri['scheme']);
+                $item = $this->itemLoader->load(
+                    $itemUri['host'],
+                    str_replace('-', '_', $itemUri['scheme'])
+                );
             } elseif (is_scalar($valueId) && is_string($valueType)) {
                 $item = $this->itemLoader->load($valueId, $valueType);
             } elseif ($valueId instanceof ItemInterface) {

@@ -59,15 +59,18 @@ class ItemLinkValidator extends ConstraintValidator
             return;
         }
 
-        $validator->validate($parsedValue['scheme'], new ValueType());
+        $valueType = str_replace('-', '_', $parsedValue['scheme']);
+        $valueId = $parsedValue['host'];
+
+        $validator->validate($valueType, new ValueType());
         if (count($validator->getViolations()) > 0) {
             return;
         }
 
         if (!empty($constraint->valueTypes) && is_array($constraint->valueTypes)) {
-            if (!in_array($parsedValue['scheme'], $constraint->valueTypes)) {
+            if (!in_array($valueType, $constraint->valueTypes)) {
                 $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
-                    ->setParameter('%valueType%', $parsedValue['scheme'])
+                    ->setParameter('%valueType%', $valueType)
                     ->addViolation();
 
                 return;
@@ -75,7 +78,7 @@ class ItemLinkValidator extends ConstraintValidator
         }
 
         try {
-            $this->itemLoader->load($parsedValue['host'], $parsedValue['scheme']);
+            $this->itemLoader->load($valueId, $valueType);
         } catch (InvalidItemException $e) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
