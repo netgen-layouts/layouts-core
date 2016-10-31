@@ -2,6 +2,9 @@
 {% if not parameter.empty %}
     {% set value = parameter.value %}
 
+    {% set link = null %}
+    {% set content = content|default('') %}
+
     {% if value.linkType == constant('LINK_TYPE_URL', value) %}
         {% set link = value.link %}
     {% elseif value.linkType == constant('LINK_TYPE_EMAIL', value) %}
@@ -12,16 +15,20 @@
         {% set link = ngbm_item_path(value.link) ~ value.linkSuffix %}
     {% endif %}
 
-    {% set attr = attr|default({}) %}
+    {% if link is not empty %}
+        {% set attr = attr|default({}) %}
 
-    <a href="{{ link }}"
-        {% for name, value in attr %}
-            {% if name != 'target' %} {{ name }}="{{ value }}" {% endif %}
-        {% endfor %}
+        <a href="{{ link }}"
+            {% for name, value in attr %}
+                {% if name != 'target' %} {{ name }}="{{ value }}" {% endif %}
+            {% endfor %}
 
-        {% if value.newWindow %} target="_blank" {% endif %}
-    >
-        {{ content|default('') }}
-    </a>
+            {% if value.newWindow %} target="_blank" {% endif %}
+        >
+            {{ content }}
+        </a>
+    {% else %}
+        {{ content }}
+    {% endif %}
 {% endif %}
 {% endspaceless %}
