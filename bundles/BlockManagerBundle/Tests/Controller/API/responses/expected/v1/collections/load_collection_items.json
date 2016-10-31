@@ -6,8 +6,8 @@
         "type": 0,
         "value_id": "72",
         "value_type": "ezlocation",
-        "name": null,
-        "visible": null
+        "name": "NHL Upsets This Week's Social TV Rankings",
+        "visible": true
     },
     {
         "id": 8,
@@ -16,8 +16,8 @@
         "type": 0,
         "value_id": "73",
         "value_type": "ezlocation",
-        "name": null,
-        "visible": null
+        "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
+        "visible": true
     },
     {
         "id": 9,
@@ -26,7 +26,7 @@
         "type": 0,
         "value_id": "74",
         "value_type": "ezlocation",
-        "name": null,
-        "visible": null
+        "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
+        "visible": true
     }
 ]

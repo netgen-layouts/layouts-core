@@ -13,5 +13,6 @@
     },
     "view_type": "list",
     "item_view_type": "standard",
+    "published": false,
     "has_published_state": false
 }
