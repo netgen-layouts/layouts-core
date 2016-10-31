@@ -9,7 +9,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Parameters\Form\ParametersType;
 use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine;
+use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLineHandler;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\ContentEditType;
@@ -77,7 +77,7 @@ class ContentEditTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapper = new FormMapper(
-            array('text_line' => new TextLine())
+            array('text_line' => new TextLineHandler())
         );
 
         return array(new ParametersType($formMapper));

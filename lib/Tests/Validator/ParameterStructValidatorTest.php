@@ -38,9 +38,9 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     public function getValidator()
     {
         $parameterTypeRegistry = new ParameterTypeRegistry();
-        $parameterTypeRegistry->addParameterType(new ParameterType\TextLine());
-        $parameterTypeRegistry->addParameterType(new ParameterType\Identifier());
-        $parameterTypeRegistry->addParameterType(new ParameterType\Compound\Boolean());
+        $parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
+        $parameterTypeRegistry->addParameterType(new ParameterType\IdentifierType());
+        $parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
 
         $parameterFilterRegistry = new ParameterFilterRegistry();
         $parameterFilterRegistry->addParameterFilters('text_line', array(new ParameterFilter()));

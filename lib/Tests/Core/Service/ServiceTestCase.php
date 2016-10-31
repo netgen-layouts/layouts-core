@@ -161,8 +161,8 @@ abstract class ServiceTestCase extends TestCase
         $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLine());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\Integer());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
     }
 
     /**

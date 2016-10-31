@@ -31,8 +31,8 @@ class ValidatorFactory extends ConstraintValidatorFactory
             return new ValueTypeValidator(array('value'));
         } elseif ($name === 'ngbm_parameter_struct') {
             $parameterTypeRegistry = new ParameterTypeRegistry();
-            $parameterTypeRegistry->addParameterType(new ParameterType\TextLine());
-            $parameterTypeRegistry->addParameterType(new ParameterType\Integer());
+            $parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
+            $parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
 
             return new ParameterStructValidator(
                 $parameterTypeRegistry,

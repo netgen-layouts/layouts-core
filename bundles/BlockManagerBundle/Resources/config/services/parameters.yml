@@ -2,37 +2,37 @@ parameters:
     netgen_block_manager.parameters.registry.parameter_type.class: Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
     netgen_block_manager.parameters.registry.parameter_filter.class: Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry
 
-    netgen_block_manager.parameters.parameter_type.text_line.class: Netgen\BlockManager\Parameters\ParameterType\TextLine
-    netgen_block_manager.parameters.parameter_type.identifier.class: Netgen\BlockManager\Parameters\ParameterType\Identifier
-    netgen_block_manager.parameters.parameter_type.integer.class: Netgen\BlockManager\Parameters\ParameterType\Integer
-    netgen_block_manager.parameters.parameter_type.range.class: Netgen\BlockManager\Parameters\ParameterType\Range
-    netgen_block_manager.parameters.parameter_type.number.class: Netgen\BlockManager\Parameters\ParameterType\Number
-    netgen_block_manager.parameters.parameter_type.boolean.class: Netgen\BlockManager\Parameters\ParameterType\Boolean
-    netgen_block_manager.parameters.parameter_type.text.class: Netgen\BlockManager\Parameters\ParameterType\Text
-    netgen_block_manager.parameters.parameter_type.html.class: Netgen\BlockManager\Parameters\ParameterType\Html
-    netgen_block_manager.parameters.parameter_type.choice.class: Netgen\BlockManager\Parameters\ParameterType\Choice
-    netgen_block_manager.parameters.parameter_type.url.class: Netgen\BlockManager\Parameters\ParameterType\Url
-    netgen_block_manager.parameters.parameter_type.email.class: Netgen\BlockManager\Parameters\ParameterType\Email
-    netgen_block_manager.parameters.parameter_type.item_link.class: Netgen\BlockManager\Parameters\ParameterType\ItemLink
-    netgen_block_manager.parameters.parameter_type.link.class: Netgen\BlockManager\Parameters\ParameterType\Link
-    netgen_block_manager.parameters.parameter_type.compound.boolean.class: Netgen\BlockManager\Parameters\ParameterType\Compound\Boolean
+    netgen_block_manager.parameters.parameter_type.text_line.class: Netgen\BlockManager\Parameters\ParameterType\TextLineType
+    netgen_block_manager.parameters.parameter_type.identifier.class: Netgen\BlockManager\Parameters\ParameterType\IdentifierType
+    netgen_block_manager.parameters.parameter_type.integer.class: Netgen\BlockManager\Parameters\ParameterType\IntegerType
+    netgen_block_manager.parameters.parameter_type.range.class: Netgen\BlockManager\Parameters\ParameterType\RangeType
+    netgen_block_manager.parameters.parameter_type.number.class: Netgen\BlockManager\Parameters\ParameterType\NumberType
+    netgen_block_manager.parameters.parameter_type.boolean.class: Netgen\BlockManager\Parameters\ParameterType\BooleanType
+    netgen_block_manager.parameters.parameter_type.text.class: Netgen\BlockManager\Parameters\ParameterType\TextType
+    netgen_block_manager.parameters.parameter_type.html.class: Netgen\BlockManager\Parameters\ParameterType\HtmlType
+    netgen_block_manager.parameters.parameter_type.choice.class: Netgen\BlockManager\Parameters\ParameterType\ChoiceType
+    netgen_block_manager.parameters.parameter_type.url.class: Netgen\BlockManager\Parameters\ParameterType\UrlType
+    netgen_block_manager.parameters.parameter_type.email.class: Netgen\BlockManager\Parameters\ParameterType\EmailType
+    netgen_block_manager.parameters.parameter_type.item_link.class: Netgen\BlockManager\Parameters\ParameterType\ItemLinkType
+    netgen_block_manager.parameters.parameter_type.link.class: Netgen\BlockManager\Parameters\ParameterType\LinkType
+    netgen_block_manager.parameters.parameter_type.compound.boolean.class: Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType
 
     netgen_block_manager.parameters.parameter_filter.html.html_purifier.class: Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter
 
-    netgen_block_manager.parameters.parameter_handler.text_line.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLine
-    netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Identifier
-    netgen_block_manager.parameters.parameter_handler.integer.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Integer
-    netgen_block_manager.parameters.parameter_handler.range.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Range
-    netgen_block_manager.parameters.parameter_handler.number.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Number
-    netgen_block_manager.parameters.parameter_handler.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Boolean
-    netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Text
-    netgen_block_manager.parameters.parameter_handler.html.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Html
-    netgen_block_manager.parameters.parameter_handler.choice.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Choice
-    netgen_block_manager.parameters.parameter_handler.url.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Url
-    netgen_block_manager.parameters.parameter_handler.email.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Email
-    netgen_block_manager.parameters.parameter_handler.item_link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\ItemLink
-    netgen_block_manager.parameters.parameter_handler.link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Link
-    netgen_block_manager.parameters.parameter_handler.compound.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\Boolean
+    netgen_block_manager.parameters.parameter_handler.text_line.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLineHandler
+    netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\IdentifierHandler
+    netgen_block_manager.parameters.parameter_handler.integer.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\IntegerHandler
+    netgen_block_manager.parameters.parameter_handler.range.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\RangeHandler
+    netgen_block_manager.parameters.parameter_handler.number.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\NumberHandler
+    netgen_block_manager.parameters.parameter_handler.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\BooleanHandler
+    netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextHandler
+    netgen_block_manager.parameters.parameter_handler.html.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\HtmlHandler
+    netgen_block_manager.parameters.parameter_handler.choice.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\ChoiceHandler
+    netgen_block_manager.parameters.parameter_handler.url.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\UrlHandler
+    netgen_block_manager.parameters.parameter_handler.email.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\EmailHandler
+    netgen_block_manager.parameters.parameter_handler.item_link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\ItemLinkHandler
+    netgen_block_manager.parameters.parameter_handler.link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\LinkHandler
+    netgen_block_manager.parameters.parameter_handler.compound.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\BooleanHandler
 
     netgen_block_manager.parameters.form_mapper.class: Netgen\BlockManager\Parameters\FormMapper\FormMapper
 
