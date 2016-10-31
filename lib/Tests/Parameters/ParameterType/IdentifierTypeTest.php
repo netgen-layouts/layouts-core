@@ -57,15 +57,16 @@ class IdentifierTypeTest extends TestCase
     public function validationProvider()
     {
         return array(
-            array('123abcASD', true, true),
-            array('123abc_ASD', true, true),
-            array(null, true, false),
-            array('123abcASD', false, true),
-            array('123abc_ASD', false, true),
+            array('a123abcASD', true, true),
+            array('a123abc_ASD', true, true),
+            array('a123abcASD', false, true),
+            array('a123abc_ASD', false, true),
             array(null, false, true),
-            array('123abc ASD', false, false),
-            array('123a-bcASD', false, false),
-            array('123abc.ASD', false, false),
+            array(null, true, false),
+            array('a123abc ASD', false, false),
+            array('a123a-bcASD', false, false),
+            array('a123abc.ASD', false, false),
+            array('123abcASD', false, false),
         );
     }
 }

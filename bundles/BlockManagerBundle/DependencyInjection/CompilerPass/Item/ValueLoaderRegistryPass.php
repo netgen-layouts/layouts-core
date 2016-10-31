@@ -35,7 +35,7 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
                 );
             }
 
-            if (!preg_match('/[A-Za-z]([A-Za-z0-9_])*/', $tag[0]['value_type'])) {
+            if (!preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $tag[0]['value_type'])) {
                 throw new RuntimeException(
                     'Value type must begin with a letter and be followed by' .
                     'any combination of letters, digits and underscore.'

@@ -31,7 +31,7 @@ class IdentifierType extends ParameterType
         return array(
             new Constraints\Regex(
                 array(
-                    'pattern' => '/^[A-Za-z0-9_]+$/',
+                    'pattern' => '/^[A-Za-z]([A-Za-z0-9_])*$/',
                 )
             ),
         );
