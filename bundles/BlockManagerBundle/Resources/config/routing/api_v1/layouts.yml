@@ -42,7 +42,7 @@ ngbm_api_v1_layouts_create:
 
 ngbm_api_v1_layouts_update:
     path: /layouts/{layoutId}
-    methods: [POST]
+    methods: [PATCH]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:update"
 
