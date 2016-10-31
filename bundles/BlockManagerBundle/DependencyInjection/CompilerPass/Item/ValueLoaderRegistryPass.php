@@ -16,6 +16,8 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
      * You can modify the container here before it is dumped to PHP code.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @throws \Netgen\BlockManager\Exception\RuntimeException
      */
     public function process(ContainerBuilder $container)
     {
@@ -30,6 +32,13 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
             if (!isset($tag[0]['value_type'])) {
                 throw new RuntimeException(
                     "Value loader service definition must have a 'value_type' attribute in its' tag."
+                );
+            }
+
+            if (!preg_match('/[A-Za-z]([A-Za-z0-9_])*/', $tag[0]['value_type'])) {
+                throw new RuntimeException(
+                    'Value type must begin with a letter and be followed by' .
+                    'any combination of letters, digits and underscore.'
                 );
             }
 
