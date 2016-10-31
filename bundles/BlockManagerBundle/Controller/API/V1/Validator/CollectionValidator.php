@@ -21,13 +21,19 @@ class CollectionValidator
     {
         $items = $request->request->get('items');
         if (!is_array($items) || empty($items)) {
-            throw new ValidationFailedException('items', 'Item list is invalid.');
+            throw new ValidationFailedException('Item list is invalid.');
         }
 
-        foreach ($items as $item) {
+        foreach ($items as $index => $item) {
             foreach (array('type', 'value_id', 'value_type') as $param) {
-                if (!isset($item[$param])) {
-                    throw new ValidationFailedException($param, 'The value is missing.');
+                if (!array_key_exists($param, $item)) {
+                    throw new ValidationFailedException(
+                        sprintf(
+                            'The "%s" property is missing in item no. %d.',
+                            $param,
+                            $index
+                        )
+                    );
                 }
             }
         }
