@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\ItemDraft;
 use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
@@ -227,6 +228,44 @@ class CollectionController extends Controller
     public function loadQuery(QueryDraft $query)
     {
         return new VersionedValue($query, Version::API_V1);
+    }
+
+    /**
+     * Updates the query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If some of the parameters do not exist in the query
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
+     */
+    public function updateQuery(QueryDraft $query, Request $request)
+    {
+        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
+        $queryUpdateStruct->identifier = $request->request->get('identifier');
+
+        $parameters = $request->request->get('parameters');
+        if (is_array($request->request->get('parameters'))) {
+            foreach ($parameters as $parameterName => $parameterValue) {
+                if (!$query->hasParameter($parameterName)) {
+                    throw new BadStateException(
+                        'parameters[' . $parameterName . ']',
+                        'Parameter does not exist in query.'
+                    );
+                }
+
+                $parameterType = $query->getParameter($parameterName)->getParameterType();
+                $queryUpdateStruct->setParameter(
+                    $parameterName,
+                    $parameterType->toValue($parameterValue)
+                );
+            }
+        }
+
+        $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
+
+        return new VersionedValue($updatedQuery, Version::API_V1);
     }
 
     /**

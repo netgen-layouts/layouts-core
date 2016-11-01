@@ -58,6 +58,12 @@ ngbm_api_v1_collections_move_query:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:moveQuery"
 
+ngbm_api_v1_collections_update_query:
+    path: /collections/queries/{queryId}
+    methods: [PATCH]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.collection:updateQuery"
+
 ngbm_api_v1_collections_delete:
     path: /collections/queries/{queryId}
     methods: [DELETE]
