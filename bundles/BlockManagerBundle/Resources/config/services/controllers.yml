@@ -25,7 +25,6 @@ services:
         class: "%netgen_block_manager.controller.block.class%"
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
             - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]

@@ -1,5 +1,5 @@
 parameters:
-    netgen_block_manager.controller.block_controller: 'ngbm_block:viewBlockById'
+    netgen_block_manager.controller.block_controller: 'ngbm_block:viewBlock'
     netgen_block_manager.templating.global_variable.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
     netgen_block_manager.templating.twig.extension.rendering.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
     netgen_block_manager.templating.twig.extension.item.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
