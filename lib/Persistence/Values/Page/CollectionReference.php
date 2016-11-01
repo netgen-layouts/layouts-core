@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class CollectionReference extends ValueObject
+class CollectionReference extends Value
 {
     /**
      * Block ID.

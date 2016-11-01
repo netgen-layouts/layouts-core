@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver;
 
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +29,7 @@ class RuleTest extends TestCase
                 'enabled' => true,
                 'priority' => 3,
                 'comment' => 'Comment',
-                'status' => Rule::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             )
         );
 
@@ -37,6 +38,6 @@ class RuleTest extends TestCase
         $this->assertTrue($rule->enabled);
         $this->assertEquals(3, $rule->priority);
         $this->assertEquals('Comment', $rule->comment);
-        $this->assertEquals(Rule::STATUS_DRAFT, $rule->status);
+        $this->assertEquals(Value::STATUS_DRAFT, $rule->status);
     }
 }

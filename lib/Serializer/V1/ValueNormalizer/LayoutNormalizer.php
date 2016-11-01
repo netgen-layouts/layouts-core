@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -47,7 +48,7 @@ class LayoutNormalizer implements NormalizerInterface
         $data = array(
             'id' => $layout->getId(),
             'type' => $layoutType->getIdentifier(),
-            'published' => $layout->getStatus() === Layout::STATUS_PUBLISHED ?
+            'published' => $layout->getStatus() === Value::STATUS_PUBLISHED ?
                 true :
                 false,
             'has_published_state' => $this->layoutService->hasPublishedState($layout),

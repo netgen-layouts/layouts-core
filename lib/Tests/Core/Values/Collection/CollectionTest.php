@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -53,7 +54,7 @@ class CollectionTest extends TestCase
         $collection = new Collection(
             array(
                 'id' => 42,
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'type' => Collection::TYPE_DYNAMIC,
                 'shared' => true,
                 'name' => 'My collection',
@@ -68,7 +69,7 @@ class CollectionTest extends TestCase
         );
 
         $this->assertEquals(42, $collection->getId());
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertTrue($collection->isShared());
         $this->assertEquals('My collection', $collection->getName());

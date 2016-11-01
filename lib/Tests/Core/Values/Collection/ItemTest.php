@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -46,7 +46,7 @@ class ItemTest extends TestCase
         $item = new Item(
             array(
                 'id' => 42,
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
@@ -56,7 +56,7 @@ class ItemTest extends TestCase
         );
 
         $this->assertEquals(42, $item->getId());
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertEquals(30, $item->getCollectionId());
         $this->assertEquals(3, $item->getPosition());
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());

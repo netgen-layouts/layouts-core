@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Condition extends ValueObject
+class Condition extends Value
 {
     /**
      * @var int|string

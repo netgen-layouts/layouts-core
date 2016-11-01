@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +45,7 @@ class ZoneTest extends TestCase
             array(
                 'identifier' => 'left',
                 'layoutId' => 84,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'linkedZone' => null,
                 'blocks' => array(
                     new Block(),
@@ -55,7 +55,7 @@ class ZoneTest extends TestCase
 
         $this->assertEquals('left', $zone->getIdentifier());
         $this->assertEquals(84, $zone->getLayoutId());
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
         $this->assertEquals(array(new Block()), $zone->getBlocks());
         $this->assertNull($zone->getLinkedZone());
         $this->assertEquals(1, count($zone));

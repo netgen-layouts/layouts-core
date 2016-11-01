@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Block extends ValueObject
+class Block extends Value
 {
     /**
      * Block ID.
@@ -70,7 +70,7 @@ class Block extends ValueObject
     public $name;
 
     /**
-     * Block status. One of Layout::STATUS_* flags.
+     * Block status. One of self::STATUS_* flags.
      *
      * @var int
      */

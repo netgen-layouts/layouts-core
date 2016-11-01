@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +31,7 @@ class LayoutTest extends TestCase
                 'shared' => true,
                 'created' => 123,
                 'modified' => 456,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -40,6 +41,6 @@ class LayoutTest extends TestCase
         $this->assertEquals(true, $layout->shared);
         $this->assertEquals(123, $layout->created);
         $this->assertEquals(456, $layout->modified);
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->status);
     }
 }

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
@@ -32,7 +33,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceCollection = new Collection(
             array(
                 'id' => 2,
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'type' => APICollection::TYPE_DYNAMIC,
                 'shared' => true,
                 'name' => null,
@@ -46,7 +47,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
         $this->assertTrue($collection->isShared());
         $this->assertNull(null, $collection->getName());
-        $this->assertEquals(APICollection::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
 
         foreach ($collection->getItems() as $item) {
             $this->assertInstanceOf(APIItem::class, $item);
@@ -78,7 +79,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceItem = new Item(
             array(
                 'id' => 1,
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'position' => 1,
                 'type' => APIItem::TYPE_OVERRIDE,
@@ -96,7 +97,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValueId());
         $this->assertEquals('ezcontent', $item->getValueType());
-        $this->assertEquals(APICollection::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
     }
 
     /**
@@ -107,7 +108,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceQuery = new Query(
             array(
                 'id' => 1,
-                'status' => APICollection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'position' => 1,
                 'identifier' => 'my_search',
@@ -128,7 +129,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(42, $query->getCollectionId());
         $this->assertEquals(1, $query->getPosition());
         $this->assertEquals('my_search', $query->getIdentifier());
-        $this->assertEquals(APICollection::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
 
         $this->assertEquals(
             array(

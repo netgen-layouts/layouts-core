@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Page\BlockDraft;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Value;
 
 class BlockMapper extends Mapper
 {
@@ -78,7 +78,7 @@ class BlockMapper extends Mapper
             'status' => $block->status,
         );
 
-        return $block->status === PersistenceLayout::STATUS_PUBLISHED ?
+        return $block->status === Value::STATUS_PUBLISHED ?
             new Block($blockData) :
             new BlockDraft($blockData);
     }

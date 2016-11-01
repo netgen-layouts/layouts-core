@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Zone extends ValueObject
+class Zone extends Value
 {
     /**
      * Zone identifier.
@@ -21,7 +21,7 @@ class Zone extends ValueObject
     public $layoutId;
 
     /**
-     * Zone status. One of Layout::STATUS_* flags.
+     * Zone status. One of self::STATUS_* flags.
      *
      * @var int
      */

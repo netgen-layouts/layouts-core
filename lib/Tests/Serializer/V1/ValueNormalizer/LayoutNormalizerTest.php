@@ -63,7 +63,7 @@ class LayoutNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'layoutType' => $layoutType,
-                'status' => Layout::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'shared' => true,

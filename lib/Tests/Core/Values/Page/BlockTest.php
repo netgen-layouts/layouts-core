@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -79,7 +79,7 @@ class BlockTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -94,7 +94,7 @@ class BlockTest extends TestCase
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
 
         $this->assertEquals(
             array(

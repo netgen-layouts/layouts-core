@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
@@ -81,7 +82,7 @@ class CollectionMapper extends Mapper
             'queries' => $queries,
         );
 
-        return $collection->status === PersistenceCollection::STATUS_PUBLISHED ?
+        return $collection->status === Value::STATUS_PUBLISHED ?
             new Collection($collectionData) :
             new CollectionDraft($collectionData);
     }
@@ -105,7 +106,7 @@ class CollectionMapper extends Mapper
             'valueType' => $item->valueType,
         );
 
-        return $item->status === PersistenceCollection::STATUS_PUBLISHED ?
+        return $item->status === Value::STATUS_PUBLISHED ?
             new Item($itemData) :
             new ItemDraft($itemData);
     }
@@ -136,7 +137,7 @@ class CollectionMapper extends Mapper
             ),
         );
 
-        return $query->status === PersistenceCollection::STATUS_PUBLISHED ?
+        return $query->status === Value::STATUS_PUBLISHED ?
             new Query($queryData) :
             new QueryDraft($queryData);
     }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -368,7 +369,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $publishedCollection = $this->collectionService->publishCollection($collection);
 
         $this->assertInstanceOf(Collection::class, $publishedCollection);
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $publishedCollection->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $publishedCollection->getStatus());
 
         try {
             $this->collectionService->loadCollectionDraft($collection->getId());

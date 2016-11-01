@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -59,7 +59,7 @@ class QueryTest extends TestCase
         $query = new Query(
             array(
                 'id' => 42,
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
                 'position' => 3,
                 'identifier' => 'my_query',
@@ -69,7 +69,7 @@ class QueryTest extends TestCase
         );
 
         $this->assertEquals(42, $query->getId());
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertEquals(30, $query->getCollectionId());
         $this->assertEquals(3, $query->getPosition());
         $this->assertEquals('my_query', $query->getIdentifier());

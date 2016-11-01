@@ -7,6 +7,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
@@ -68,11 +69,11 @@ class LayoutHandlerTest extends TestCase
                     'name' => 'My layout',
                     'created' => 1447065813,
                     'modified' => 1447065813,
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                     'shared' => false,
                 )
             ),
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
     }
 
@@ -83,7 +84,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
-        $this->layoutHandler->loadLayout(999999, Layout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadLayout(999999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -98,12 +99,12 @@ class LayoutHandlerTest extends TestCase
                 array(
                     'identifier' => 'top',
                     'layoutId' => 2,
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
                 )
             ),
-            $this->layoutHandler->loadZone(2, Layout::STATUS_PUBLISHED, 'top')
+            $this->layoutHandler->loadZone(2, Value::STATUS_PUBLISHED, 'top')
         );
     }
 
@@ -114,7 +115,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLoadZoneThrowsNotFoundException()
     {
-        $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'non_existing');
+        $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'non_existing');
     }
 
     /**
@@ -133,7 +134,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -144,7 +145,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My other layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -155,7 +156,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My sixth layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -180,7 +181,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -191,7 +192,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My other layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -202,7 +203,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My fourth layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_DRAFT,
+                        'status' => Value::STATUS_DRAFT,
                         'shared' => false,
                     )
                 ),
@@ -213,7 +214,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My sixth layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
                     )
                 ),
@@ -238,7 +239,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My third layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => true,
                     )
                 ),
@@ -249,7 +250,7 @@ class LayoutHandlerTest extends TestCase
                         'name' => 'My fifth layout',
                         'created' => 1447065813,
                         'modified' => 1447065813,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'shared' => true,
                     )
                 ),
@@ -264,7 +265,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutExists()
     {
-        $this->assertTrue($this->layoutHandler->layoutExists(1, Layout::STATUS_PUBLISHED));
+        $this->assertTrue($this->layoutHandler->layoutExists(1, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -273,7 +274,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNotExists()
     {
-        $this->assertFalse($this->layoutHandler->layoutExists(999999, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->layoutHandler->layoutExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -282,7 +283,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNotExistsInStatus()
     {
-        $this->assertFalse($this->layoutHandler->layoutExists(1, Layout::STATUS_ARCHIVED));
+        $this->assertFalse($this->layoutHandler->layoutExists(1, Value::STATUS_ARCHIVED));
     }
 
     /**
@@ -292,7 +293,7 @@ class LayoutHandlerTest extends TestCase
     public function testZoneExists()
     {
         $this->assertTrue(
-            $this->layoutHandler->zoneExists(1, Layout::STATUS_PUBLISHED, 'left')
+            $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'left')
         );
     }
 
@@ -303,7 +304,7 @@ class LayoutHandlerTest extends TestCase
     public function testZoneNotExists()
     {
         $this->assertFalse(
-            $this->layoutHandler->zoneExists(1, Layout::STATUS_PUBLISHED, 'non_existing')
+            $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'non_existing')
         );
     }
 
@@ -313,7 +314,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameExists()
     {
-        $this->assertTrue($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_PUBLISHED));
+        $this->assertTrue($this->layoutHandler->layoutNameExists('My layout', null, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -322,7 +323,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExists()
     {
-        $this->assertFalse($this->layoutHandler->layoutNameExists('Non existent', null, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->layoutHandler->layoutNameExists('Non existent', null, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -331,7 +332,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExistsWithExcludedId()
     {
-        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', 1, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', 1, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -340,7 +341,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLayoutNameNotExistsInStatus()
     {
-        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', null, Layout::STATUS_ARCHIVED));
+        $this->assertFalse($this->layoutHandler->layoutNameExists('My layout', null, Value::STATUS_ARCHIVED));
     }
 
     /**
@@ -355,7 +356,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => 2,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -364,7 +365,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'left',
                         'layoutId' => 2,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -373,7 +374,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'right',
                         'layoutId' => 2,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -382,14 +383,14 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'top',
                         'layoutId' => 2,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'top',
                     )
                 ),
             ),
             $this->layoutHandler->loadLayoutZones(
-                $this->layoutHandler->loadLayout(2, Layout::STATUS_PUBLISHED)
+                $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED)
             )
         );
     }
@@ -400,8 +401,8 @@ class LayoutHandlerTest extends TestCase
      */
     public function testLinkZone()
     {
-        $zone = $this->layoutHandler->loadZone(1, Layout::STATUS_DRAFT, 'top');
-        $linkedZone = $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'top');
+        $zone = $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'top');
+        $linkedZone = $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'top');
 
         $updatedZone = $this->layoutHandler->linkZone($zone, $linkedZone);
 
@@ -410,7 +411,7 @@ class LayoutHandlerTest extends TestCase
                 array(
                     'identifier' => 'top',
                     'layoutId' => 1,
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
                 )
@@ -425,7 +426,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function testUnlinkZone()
     {
-        $zone = $this->layoutHandler->loadZone(1, Layout::STATUS_DRAFT, 'left');
+        $zone = $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'left');
 
         $updatedZone = $this->layoutHandler->unlinkZone($zone);
 
@@ -434,7 +435,7 @@ class LayoutHandlerTest extends TestCase
                 array(
                     'identifier' => 'left',
                     'layoutId' => 1,
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
                 )
@@ -456,7 +457,7 @@ class LayoutHandlerTest extends TestCase
 
         $createdLayout = $this->layoutHandler->createLayout(
             $layoutCreateStruct,
-            Layout::STATUS_DRAFT,
+            Value::STATUS_DRAFT,
             array('first_zone', 'second_zone')
         );
 
@@ -465,7 +466,7 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(7, $createdLayout->id);
         $this->assertEquals('new_layout', $createdLayout->type);
         $this->assertEquals('New layout', $createdLayout->name);
-        $this->assertEquals(Layout::STATUS_DRAFT, $createdLayout->status);
+        $this->assertEquals(Value::STATUS_DRAFT, $createdLayout->status);
         $this->assertTrue($createdLayout->shared);
 
         $this->assertInternalType('int', $createdLayout->created);
@@ -480,7 +481,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'first_zone',
                         'layoutId' => $createdLayout->id,
-                        'status' => Layout::STATUS_DRAFT,
+                        'status' => Value::STATUS_DRAFT,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -489,7 +490,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'second_zone',
                         'layoutId' => $createdLayout->id,
-                        'status' => Layout::STATUS_DRAFT,
+                        'status' => Value::STATUS_DRAFT,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -508,7 +509,7 @@ class LayoutHandlerTest extends TestCase
         $layoutUpdateStruct = new LayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
 
-        $originalLayout = $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateLayout(
             $originalLayout,
             $layoutUpdateStruct
@@ -526,7 +527,7 @@ class LayoutHandlerTest extends TestCase
     {
         $time = time();
 
-        $originalLayout = $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateModified(
             $originalLayout,
             $time
@@ -550,12 +551,12 @@ class LayoutHandlerTest extends TestCase
     {
         // Link the zone before copying, to make sure those are copied too
         $this->layoutHandler->linkZone(
-            $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left'),
-            $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'left')
+            $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
+            $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left')
         );
 
         $copiedLayout = $this->layoutHandler->copyLayout(
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
             'New name'
         );
 
@@ -564,7 +565,7 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(7, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
         $this->assertEquals('New name', $copiedLayout->name);
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $copiedLayout->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
 
         $this->assertGreaterThan(0, $copiedLayout->created);
@@ -576,7 +577,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => $copiedLayout->id,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -585,7 +586,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'left',
                         'layoutId' => $copiedLayout->id,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'left',
                     )
@@ -594,7 +595,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'right',
                         'layoutId' => $copiedLayout->id,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -603,7 +604,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'top',
                         'layoutId' => $copiedLayout->id,
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -627,7 +628,7 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -655,7 +656,7 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -671,7 +672,7 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -685,14 +686,14 @@ class LayoutHandlerTest extends TestCase
         );
 
         // Verify that non shared collections were copied
-        $this->collectionHandler->loadCollection(6, Collection::STATUS_PUBLISHED);
-        $this->collectionHandler->loadCollection(7, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(6, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(7, Value::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
 
         // First block
         $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(7, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(7, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $references);
@@ -700,7 +701,7 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(8, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(8, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(2, $references);
@@ -709,7 +710,7 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(9, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(9, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $references);
@@ -729,13 +730,13 @@ class LayoutHandlerTest extends TestCase
     {
         // Link the zone before copying, to make sure those are copied too
         $this->layoutHandler->linkZone(
-            $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'left'),
-            $this->layoutHandler->loadZone(3, Layout::STATUS_PUBLISHED, 'left')
+            $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
+            $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left')
         );
 
         $copiedLayout = $this->layoutHandler->createLayoutStatus(
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
-            Layout::STATUS_ARCHIVED
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
+            Value::STATUS_ARCHIVED
         );
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
@@ -743,7 +744,7 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(1, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
         $this->assertEquals('My layout', $copiedLayout->name);
-        $this->assertEquals(Layout::STATUS_ARCHIVED, $copiedLayout->status);
+        $this->assertEquals(Value::STATUS_ARCHIVED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
 
         $this->assertGreaterThan(0, $copiedLayout->created);
@@ -755,7 +756,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -764,7 +765,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'left',
                         'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'left',
                     )
@@ -773,7 +774,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'right',
                         'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -782,7 +783,7 @@ class LayoutHandlerTest extends TestCase
                     array(
                         'identifier' => 'top',
                         'layoutId' => 1,
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -806,7 +807,7 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
             ),
@@ -830,7 +831,7 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
                 new Block(
@@ -846,7 +847,7 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
-                        'status' => Layout::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
             ),
@@ -856,11 +857,11 @@ class LayoutHandlerTest extends TestCase
         );
 
         // Verify that non shared collection status was copied
-        $this->collectionHandler->loadCollection(2, Collection::STATUS_ARCHIVED);
+        $this->collectionHandler->loadCollection(2, Value::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(1, Value::STATUS_ARCHIVED)
         );
         $this->assertCount(2, $archivedReferences);
         $this->assertContains($archivedReferences[0]->collectionId, array(2, 3));
@@ -868,7 +869,7 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(2, Layout::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
         );
         $this->assertCount(1, $archivedReferences);
         $this->assertEquals(3, $archivedReferences[0]->collectionId);
@@ -887,18 +888,18 @@ class LayoutHandlerTest extends TestCase
 
         // Verify that we don't have the collections that were related to the layout
         try {
-            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT);
-            $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
             self::fail('Collections not deleted after deleting the layout.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         // Verify that shared collection is not deleted (ID == 3)
-        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
 
         // Verify that we don't have the layout any more
-        $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -909,34 +910,34 @@ class LayoutHandlerTest extends TestCase
      */
     public function testDeleteLayoutInOneStatus()
     {
-        $this->layoutHandler->deleteLayout(1, Layout::STATUS_DRAFT);
+        $this->layoutHandler->deleteLayout(1, Value::STATUS_DRAFT);
 
         // Verify that we don't have the layout in deleted status any more
         try {
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT);
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
             self::fail('Layout not deleted after deleting it in one status.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         // Verify that NOT all layout statuses are deleted
-        $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED);
+        $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
 
         // Verify that we don't have the collection that was related to layout in deleted status any more
         try {
-            $this->collectionHandler->loadCollection(1, Collection::STATUS_DRAFT);
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
             self::fail('Collection not deleted after deleting layout in one status.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         // Verify that NOT all collections are deleted, especially the shared one (ID == 3)
-        $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
-        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(1, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(2, $publishedReferences);
@@ -945,7 +946,7 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(2, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(2, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $publishedReferences);

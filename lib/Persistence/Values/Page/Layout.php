@@ -2,25 +2,10 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Page;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Layout extends ValueObject
+class Layout extends Value
 {
-    /**
-     * @const string
-     */
-    const STATUS_DRAFT = 0;
-
-    /**
-     * @const string
-     */
-    const STATUS_PUBLISHED = 1;
-
-    /**
-     * @const string
-     */
-    const STATUS_ARCHIVED = 2;
-
     /**
      * Layout ID.
      *
@@ -64,7 +49,7 @@ class Layout extends ValueObject
     public $modified;
 
     /**
-     * Layout status. One of Layout::STATUS_* flags.
+     * Layout status. One of self::STATUS_* flags.
      *
      * @var int
      */

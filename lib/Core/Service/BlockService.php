@@ -16,7 +16,7 @@ use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockDraft;
@@ -116,7 +116,7 @@ class BlockService implements BlockServiceInterface
         return $this->blockMapper->mapBlock(
             $this->blockHandler->loadBlock(
                 $blockId,
-                Layout::STATUS_PUBLISHED
+                Value::STATUS_PUBLISHED
             )
         );
     }
@@ -137,7 +137,7 @@ class BlockService implements BlockServiceInterface
         return $this->blockMapper->mapBlock(
             $this->blockHandler->loadBlock(
                 $blockId,
-                Layout::STATUS_DRAFT
+                Value::STATUS_DRAFT
             )
         );
     }
@@ -151,7 +151,7 @@ class BlockService implements BlockServiceInterface
      */
     public function hasPublishedState(Block $block)
     {
-        return $this->blockHandler->blockExists($block->getId(), Layout::STATUS_PUBLISHED);
+        return $this->blockHandler->blockExists($block->getId(), Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -217,7 +217,7 @@ class BlockService implements BlockServiceInterface
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, LayoutDraft $layout, $zoneIdentifier, $position = null)
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Layout::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
         $this->blockValidator->validatePosition($position, 'position');
@@ -288,7 +288,7 @@ class BlockService implements BlockServiceInterface
      */
     public function updateBlock(BlockDraft $block, BlockUpdateStruct $blockUpdateStruct)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
@@ -372,8 +372,8 @@ class BlockService implements BlockServiceInterface
      */
     public function copyBlock(BlockDraft $block, $zoneIdentifier = null)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
-        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Layout::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Value::STATUS_DRAFT);
 
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
@@ -420,8 +420,8 @@ class BlockService implements BlockServiceInterface
      */
     public function moveBlock(BlockDraft $block, $position, $zoneIdentifier = null)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
-        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Layout::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Value::STATUS_DRAFT);
 
         $this->blockValidator->validatePosition($position, 'position', true);
         $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
@@ -472,10 +472,10 @@ class BlockService implements BlockServiceInterface
      */
     public function restoreBlock(BlockDraft $block)
     {
-        $draftBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        $draftBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
         try {
-            $publishedBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_PUBLISHED);
+            $publishedBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_PUBLISHED);
         } catch (NotFoundException $e) {
             throw new BadStateException('block', 'Block does not have a published status.');
         }
@@ -514,7 +514,7 @@ class BlockService implements BlockServiceInterface
      */
     public function deleteBlock(BlockDraft $block)
     {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Layout::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 

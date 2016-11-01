@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
@@ -20,6 +21,7 @@ class BlockTest extends TestCase
         $this->assertNull($block->viewType);
         $this->assertNull($block->itemViewType);
         $this->assertNull($block->name);
+        $this->assertNull($block->status);
     }
 
     public function testSetProperties()
@@ -38,6 +40,7 @@ class BlockTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'status' => Value::STATUS_DRAFT,
             )
         );
 
@@ -56,5 +59,6 @@ class BlockTest extends TestCase
         $this->assertEquals('default', $block->viewType);
         $this->assertEquals('standard', $block->itemViewType);
         $this->assertEquals('My block', $block->name);
+        $this->assertEquals(Value::STATUS_DRAFT, $block->status);
     }
 }

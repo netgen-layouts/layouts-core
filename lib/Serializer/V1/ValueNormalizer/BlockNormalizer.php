@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -56,7 +56,7 @@ class BlockNormalizer extends SerializerAwareNormalizer implements NormalizerInt
             'parameters' => $this->serializer->normalize($parameters, $format, $context),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
-            'published' => $block->getStatus() === Layout::STATUS_PUBLISHED ?
+            'published' => $block->getStatus() === Value::STATUS_PUBLISHED ?
                 true :
                 false,
             'has_published_state' => $this->blockService->hasPublishedState($block),

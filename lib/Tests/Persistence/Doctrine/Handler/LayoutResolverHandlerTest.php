@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
@@ -66,10 +67,10 @@ class LayoutResolverHandlerTest extends TestCase
                     'enabled' => true,
                     'priority' => 20,
                     'comment' => 'My comment',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
-            $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
     }
 
@@ -80,7 +81,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRuleThrowsNotFoundException()
     {
-        $this->handler->loadRule(999999, Rule::STATUS_PUBLISHED);
+        $this->handler->loadRule(999999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -89,7 +90,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRules()
     {
-        $rules = $this->handler->loadRules(Rule::STATUS_PUBLISHED);
+        $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
 
         $this->assertNotEmpty($rules);
 
@@ -107,7 +108,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRulesInNonExistentStatus()
     {
-        $rules = $this->handler->loadRules(Rule::STATUS_ARCHIVED);
+        $rules = $this->handler->loadRules(Value::STATUS_ARCHIVED);
 
         $this->assertEmpty($rules);
     }
@@ -119,7 +120,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testGetRuleCount()
     {
         $rules = $this->handler->getRuleCount(
-            $this->layoutHandler->loadLayout(1, Rule::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
         $this->assertEquals(3, $rules);
@@ -139,10 +140,10 @@ class LayoutResolverHandlerTest extends TestCase
                     'ruleId' => 1,
                     'type' => 'route',
                     'value' => 'my_cool_route',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
-            $this->handler->loadTarget(1, Rule::STATUS_PUBLISHED)
+            $this->handler->loadTarget(1, Value::STATUS_PUBLISHED)
         );
     }
 
@@ -153,7 +154,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadTargetThrowsNotFoundException()
     {
-        $this->handler->loadTarget(999999, Rule::STATUS_PUBLISHED);
+        $this->handler->loadTarget(999999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -163,7 +164,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleTargets()
     {
         $targets = $this->handler->loadRuleTargets(
-            $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
         $this->assertNotEmpty($targets);
@@ -180,7 +181,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testGetTargetCount()
     {
         $targets = $this->handler->getTargetCount(
-            $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
         $this->assertEquals(2, $targets);
@@ -203,10 +204,10 @@ class LayoutResolverHandlerTest extends TestCase
                         'parameter_name' => 'some_param',
                         'parameter_values' => array(1, 2),
                     ),
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
-            $this->handler->loadCondition(1, Rule::STATUS_PUBLISHED)
+            $this->handler->loadCondition(1, Value::STATUS_PUBLISHED)
         );
     }
 
@@ -217,7 +218,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadConditionThrowsNotFoundException()
     {
-        $this->handler->loadCondition(999999, Rule::STATUS_PUBLISHED);
+        $this->handler->loadCondition(999999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -227,7 +228,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleConditions()
     {
         $conditions = $this->handler->loadRuleConditions(
-            $this->handler->loadRule(2, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(2, Value::STATUS_PUBLISHED)
         );
 
         $this->assertNotEmpty($conditions);
@@ -243,7 +244,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleExists()
     {
-        $this->assertTrue($this->handler->ruleExists(1, Rule::STATUS_PUBLISHED));
+        $this->assertTrue($this->handler->ruleExists(1, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -252,7 +253,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExists()
     {
-        $this->assertFalse($this->handler->ruleExists(999999, Rule::STATUS_PUBLISHED));
+        $this->assertFalse($this->handler->ruleExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -261,7 +262,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExistsInStatus()
     {
-        $this->assertFalse($this->handler->ruleExists(1, Rule::STATUS_ARCHIVED));
+        $this->assertFalse($this->handler->ruleExists(1, Value::STATUS_ARCHIVED));
     }
 
     /**
@@ -278,7 +279,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         $createdRule = $this->handler->createRule(
             $ruleCreateStruct,
-            Rule::STATUS_DRAFT
+            Value::STATUS_DRAFT
         );
 
         $this->assertInstanceOf(Rule::class, $createdRule);
@@ -288,7 +289,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(5, $createdRule->priority);
         $this->assertTrue($createdRule->enabled);
         $this->assertEquals('My rule', $createdRule->comment);
-        $this->assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
+        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -302,7 +303,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         $createdRule = $this->handler->createRule(
             $ruleCreateStruct,
-            Rule::STATUS_DRAFT
+            Value::STATUS_DRAFT
         );
 
         $this->assertInstanceOf(Rule::class, $createdRule);
@@ -312,7 +313,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(0, $createdRule->priority);
         $this->assertFalse($createdRule->enabled);
         $this->assertEquals('My rule', $createdRule->comment);
-        $this->assertEquals(Rule::STATUS_DRAFT, $createdRule->status);
+        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
     }
 
     /**
@@ -326,7 +327,7 @@ class LayoutResolverHandlerTest extends TestCase
         $ruleUpdateStruct->comment = 'New comment';
 
         $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
             $ruleUpdateStruct
         );
 
@@ -335,7 +336,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(3, $updatedRule->id);
         $this->assertEquals(15, $updatedRule->layoutId);
         $this->assertEquals('New comment', $updatedRule->comment);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -348,7 +349,7 @@ class LayoutResolverHandlerTest extends TestCase
         $ruleUpdateStruct->comment = 'New comment';
 
         $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
             $ruleUpdateStruct
         );
 
@@ -357,7 +358,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(3, $updatedRule->id);
         $this->assertEquals(3, $updatedRule->layoutId);
         $this->assertEquals('New comment', $updatedRule->comment);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -371,7 +372,7 @@ class LayoutResolverHandlerTest extends TestCase
         $ruleUpdateStruct->comment = 'New comment';
 
         $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
             $ruleUpdateStruct
         );
 
@@ -380,7 +381,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(3, $updatedRule->id);
         $this->assertNull($updatedRule->layoutId);
         $this->assertEquals('New comment', $updatedRule->comment);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -390,7 +391,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRuleMetadata()
     {
         $updatedRule = $this->handler->updateRuleMetadata(
-            $this->handler->loadRule(5, Rule::STATUS_PUBLISHED),
+            $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
             new RuleMetadataUpdateStruct(
                 array(
                     'priority' => 50,
@@ -400,7 +401,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertEquals(50, $updatedRule->priority);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -415,7 +416,7 @@ class LayoutResolverHandlerTest extends TestCase
     public function testCopyRule()
     {
         $copiedRule = $this->handler->copyRule(
-            $this->handler->loadRule(5, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(5, Value::STATUS_PUBLISHED)
         );
 
         $this->assertInstanceOf(Rule::class, $copiedRule);
@@ -424,7 +425,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(16, $copiedRule->priority);
         $this->assertTrue($copiedRule->enabled);
         $this->assertNull($copiedRule->comment);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $copiedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $copiedRule->status);
 
         $this->assertEquals(
             array(
@@ -434,7 +435,7 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => $copiedRule->id,
                         'type' => 'route_prefix',
                         'value' => 'my_second_cool_',
-                        'status' => Rule::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
                 new Target(
@@ -443,7 +444,7 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => $copiedRule->id,
                         'type' => 'route_prefix',
                         'value' => 'my_third_cool_',
-                        'status' => Rule::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -458,7 +459,7 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => $copiedRule->id,
                         'type' => 'ez_site_access',
                         'value' => array('cro'),
-                        'status' => Rule::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
             ),
@@ -478,8 +479,8 @@ class LayoutResolverHandlerTest extends TestCase
     public function testCreateRuleStatus()
     {
         $copiedRule = $this->handler->createRuleStatus(
-            $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
-            Rule::STATUS_ARCHIVED
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            Value::STATUS_ARCHIVED
         );
 
         $this->assertInstanceOf(Rule::class, $copiedRule);
@@ -489,7 +490,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(18, $copiedRule->priority);
         $this->assertTrue($copiedRule->enabled);
         $this->assertNull($copiedRule->comment);
-        $this->assertEquals(Rule::STATUS_ARCHIVED, $copiedRule->status);
+        $this->assertEquals(Value::STATUS_ARCHIVED, $copiedRule->status);
 
         $this->assertEquals(
             array(
@@ -499,7 +500,7 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => 3,
                         'type' => 'route',
                         'value' => 'my_fourth_cool_route',
-                        'status' => Rule::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
                 new Target(
@@ -508,7 +509,7 @@ class LayoutResolverHandlerTest extends TestCase
                         'ruleId' => 3,
                         'type' => 'route',
                         'value' => 'my_fifth_cool_route',
-                        'status' => Rule::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
             ),
@@ -526,7 +527,7 @@ class LayoutResolverHandlerTest extends TestCase
                             'parameter_name' => 'some_param',
                             'parameter_values' => array(3, 4),
                         ),
-                        'status' => Rule::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
                 new Condition(
@@ -538,7 +539,7 @@ class LayoutResolverHandlerTest extends TestCase
                             'parameter_name' => 'some_other_param',
                             'parameter_values' => array(5, 6),
                         ),
-                        'status' => Rule::STATUS_ARCHIVED,
+                        'status' => Value::STATUS_ARCHIVED,
                     )
                 ),
             ),
@@ -557,7 +558,7 @@ class LayoutResolverHandlerTest extends TestCase
     {
         $this->handler->deleteRule(3);
 
-        $this->handler->loadRule(3, Rule::STATUS_PUBLISHED);
+        $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -569,16 +570,16 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testDeleteRuleInOneStatus()
     {
-        $this->handler->deleteRule(5, Rule::STATUS_DRAFT);
+        $this->handler->deleteRule(5, Value::STATUS_DRAFT);
 
         // First, verify that NOT all rule statuses are deleted
         try {
-            $this->handler->loadRule(5, Rule::STATUS_PUBLISHED);
+            $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
         } catch (NotFoundException $e) {
             self::fail('Deleting the rule in draft status deleted other/all statuses.');
         }
 
-        $this->handler->loadRule(5, Rule::STATUS_DRAFT);
+        $this->handler->loadRule(5, Value::STATUS_DRAFT);
     }
 
     /**
@@ -588,12 +589,12 @@ class LayoutResolverHandlerTest extends TestCase
     public function testEnableRule()
     {
         $updatedRule = $this->handler->enableRule(
-            $this->handler->loadRule(5, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(5, Value::STATUS_PUBLISHED)
         );
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertTrue($updatedRule->enabled);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -603,12 +604,12 @@ class LayoutResolverHandlerTest extends TestCase
     public function testDisableRule()
     {
         $updatedRule = $this->handler->disableRule(
-            $this->handler->loadRule(1, Rule::STATUS_PUBLISHED)
+            $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertFalse($updatedRule->enabled);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**
@@ -628,11 +629,11 @@ class LayoutResolverHandlerTest extends TestCase
                     'ruleId' => 1,
                     'type' => 'target',
                     'value' => '42',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             $this->handler->addTarget(
-                $this->handler->loadRule(1, Rule::STATUS_PUBLISHED),
+                $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
                 $targetCreateStruct
             )
         );
@@ -654,11 +655,11 @@ class LayoutResolverHandlerTest extends TestCase
                     'ruleId' => 1,
                     'type' => 'route',
                     'value' => 'my_new_route',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             $this->handler->updateTarget(
-                $this->handler->loadTarget(1, Rule::STATUS_PUBLISHED),
+                $this->handler->loadTarget(1, Value::STATUS_PUBLISHED),
                 $targetUpdateStruct
             )
         );
@@ -671,11 +672,11 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function testDeleteTarget()
     {
-        $target = $this->handler->loadTarget(2, Rule::STATUS_PUBLISHED);
+        $target = $this->handler->loadTarget(2, Value::STATUS_PUBLISHED);
 
         $this->handler->deleteTarget($target);
 
-        $this->handler->loadTarget(2, Rule::STATUS_PUBLISHED);
+        $this->handler->loadTarget(2, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -695,11 +696,11 @@ class LayoutResolverHandlerTest extends TestCase
                     'ruleId' => 3,
                     'type' => 'condition',
                     'value' => array('param' => 'value'),
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             $this->handler->addCondition(
-                $this->handler->loadRule(3, Rule::STATUS_PUBLISHED),
+                $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
                 $conditionCreateStruct
             )
         );
@@ -721,11 +722,11 @@ class LayoutResolverHandlerTest extends TestCase
                     'ruleId' => 2,
                     'type' => 'route_parameter',
                     'value' => array('new_param' => 'new_value'),
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             $this->handler->updateCondition(
-                $this->handler->loadCondition(1, Rule::STATUS_PUBLISHED),
+                $this->handler->loadCondition(1, Value::STATUS_PUBLISHED),
                 $conditionUpdateStruct
             )
         );
@@ -739,9 +740,9 @@ class LayoutResolverHandlerTest extends TestCase
     public function testDeleteCondition()
     {
         $this->handler->deleteCondition(
-            $this->handler->loadCondition(2, Rule::STATUS_PUBLISHED)
+            $this->handler->loadCondition(2, Value::STATUS_PUBLISHED)
         );
 
-        $this->handler->loadCondition(2, Rule::STATUS_PUBLISHED);
+        $this->handler->loadCondition(2, Value::STATUS_PUBLISHED);
     }
 }

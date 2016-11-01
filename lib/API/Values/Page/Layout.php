@@ -10,21 +10,6 @@ use Countable;
 interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 {
     /**
-     * @const string
-     */
-    const STATUS_DRAFT = 0;
-
-    /**
-     * @const string
-     */
-    const STATUS_PUBLISHED = 1;
-
-    /**
-     * @const string
-     */
-    const STATUS_ARCHIVED = 2;
-
-    /**
      * Returns the layout ID.
      *
      * @return int|string

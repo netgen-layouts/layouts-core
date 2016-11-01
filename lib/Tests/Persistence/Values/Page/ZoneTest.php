@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ class ZoneTest extends TestCase
             array(
                 'identifier' => 'left',
                 'layoutId' => 84,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'linkedLayoutId' => 24,
                 'linkedZoneIdentifier' => 'top',
             )
@@ -33,7 +33,7 @@ class ZoneTest extends TestCase
 
         $this->assertEquals('left', $zone->identifier);
         $this->assertEquals(84, $zone->layoutId);
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $zone->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->status);
         $this->assertEquals(24, $zone->linkedLayoutId);
         $this->assertEquals('top', $zone->linkedZoneIdentifier);
     }

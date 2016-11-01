@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Collection extends ValueObject
+class Collection extends Value
 {
     /**
      * @const int
@@ -17,21 +17,6 @@ class Collection extends ValueObject
     const TYPE_DYNAMIC = 1;
 
     /**
-     * @const int
-     */
-    const STATUS_DRAFT = 0;
-
-    /**
-     * @const int
-     */
-    const STATUS_PUBLISHED = 1;
-
-    /**
-     * @const int
-     */
-    const STATUS_ARCHIVED = 2;
-
-    /**
      * Collection ID.
      *
      * @var int|string
@@ -39,7 +24,7 @@ class Collection extends ValueObject
     public $id;
 
     /**
-     * Collection type. One of Collection::TYPE_* flags.
+     * Collection type. One of self::TYPE_* flags.
      *
      * @var int
      */
@@ -60,7 +45,7 @@ class Collection extends ValueObject
     public $name;
 
     /**
-     * Collection status. One of Collection::STATUS_* flags.
+     * Collection status. One of self::STATUS_* flags.
      *
      * @var int
      */

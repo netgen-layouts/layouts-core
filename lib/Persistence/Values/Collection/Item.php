@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Item extends ValueObject
+class Item extends Value
 {
     /**
      * @const int
@@ -38,7 +38,7 @@ class Item extends ValueObject
     public $position;
 
     /**
-     * Type of the item. One of Item::TYPE_* flags.
+     * Type of the item. One of self::TYPE_* flags.
      *
      * @var int
      */
@@ -59,7 +59,7 @@ class Item extends ValueObject
     public $valueType;
 
     /**
-     * Item status. One of Collection::STATUS_* flags.
+     * Item status. One of self::STATUS_* flags.
      *
      * @var int
      */

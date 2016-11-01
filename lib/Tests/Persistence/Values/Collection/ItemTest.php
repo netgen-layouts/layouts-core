@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +31,7 @@ class ItemTest extends TestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'valueId' => 32,
                 'valueType' => 'ezcontent',
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -41,6 +41,6 @@ class ItemTest extends TestCase
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->type);
         $this->assertEquals(32, $item->valueId);
         $this->assertEquals('ezcontent', $item->valueType);
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $item->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $item->status);
     }
 }

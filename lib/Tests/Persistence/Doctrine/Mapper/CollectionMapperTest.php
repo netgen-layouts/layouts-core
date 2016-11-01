@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -31,14 +32,14 @@ class CollectionMapperTest extends TestCase
                 'type' => Collection::TYPE_DYNAMIC,
                 'shared' => true,
                 'name' => 'My collection',
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'type' => Collection::TYPE_MANUAL,
                 'shared' => false,
                 'name' => null,
-                'status' => Collection::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
 
@@ -49,7 +50,7 @@ class CollectionMapperTest extends TestCase
                     'type' => Collection::TYPE_DYNAMIC,
                     'shared' => true,
                     'name' => 'My collection',
-                    'status' => Collection::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Collection(
@@ -58,7 +59,7 @@ class CollectionMapperTest extends TestCase
                     'type' => Collection::TYPE_MANUAL,
                     'shared' => false,
                     'name' => null,
-                    'status' => Collection::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
         );
@@ -79,7 +80,7 @@ class CollectionMapperTest extends TestCase
                 'type' => Item::TYPE_MANUAL,
                 'value_id' => '32',
                 'value_type' => 'ezcontent',
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
@@ -88,7 +89,7 @@ class CollectionMapperTest extends TestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'value_id' => '42',
                 'value_type' => 'ezcontent',
-                'status' => Collection::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
 
@@ -101,7 +102,7 @@ class CollectionMapperTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'valueId' => '32',
                     'valueType' => 'ezcontent',
-                    'status' => Collection::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Item(
@@ -112,7 +113,7 @@ class CollectionMapperTest extends TestCase
                     'type' => Item::TYPE_OVERRIDE,
                     'valueId' => '42',
                     'valueType' => 'ezcontent',
-                    'status' => Collection::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
         );
@@ -133,7 +134,7 @@ class CollectionMapperTest extends TestCase
                 'identifier' => 'default',
                 'type' => 'ezcontent_search',
                 'parameters' => '{"param":"value"}',
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
@@ -142,7 +143,7 @@ class CollectionMapperTest extends TestCase
                 'identifier' => 'featured',
                 'type' => 'ezcontent_search',
                 'parameters' => '{"param2":"value2"}',
-                'status' => Collection::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
 
@@ -157,7 +158,7 @@ class CollectionMapperTest extends TestCase
                     'parameters' => array(
                         'param' => 'value',
                     ),
-                    'status' => Collection::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Query(
@@ -170,7 +171,7 @@ class CollectionMapperTest extends TestCase
                     'parameters' => array(
                         'param2' => 'value2',
                     ),
-                    'status' => Collection::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
         );

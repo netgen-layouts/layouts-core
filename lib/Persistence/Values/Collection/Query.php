@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Query extends ValueObject
+class Query extends Value
 {
     /**
      * Query ID.
@@ -49,7 +49,7 @@ class Query extends ValueObject
     public $parameters;
 
     /**
-     * Item status. One of Collection::STATUS_* flags.
+     * Item status. One of self::STATUS_* flags.
      *
      * @var int
      */

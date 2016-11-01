@@ -7,6 +7,7 @@ use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
@@ -103,7 +104,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function getRuleCount(Layout $layout)
     {
-        return $this->queryHandler->getRuleCount($layout->id, Rule::STATUS_PUBLISHED);
+        return $this->queryHandler->getRuleCount($layout->id, Value::STATUS_PUBLISHED);
     }
 
     /**

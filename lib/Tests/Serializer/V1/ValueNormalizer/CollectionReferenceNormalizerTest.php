@@ -33,7 +33,7 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'type' => Collection::TYPE_MANUAL,
                 'shared' => false,
                 'name' => null,
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -73,7 +73,7 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'type' => Collection::TYPE_MANUAL,
                 'shared' => false,
                 'name' => null,
-                'status' => Collection::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             )
         );
 

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ class TargetTest extends TestCase
         $target = new Target(
             array(
                 'id' => 42,
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 30,
                 'targetType' => new TargetType('target'),
                 'value' => 32,
@@ -49,7 +49,7 @@ class TargetTest extends TestCase
         );
 
         $this->assertEquals(42, $target->getId());
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $target->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $target->getStatus());
         $this->assertEquals(30, $target->getRuleId());
         $this->assertEquals(new TargetType('target'), $target->getTargetType());
         $this->assertEquals(32, $target->getValue());

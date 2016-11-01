@@ -2,25 +2,10 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Persistence\Values\Value;
 
-class Rule extends ValueObject
+class Rule extends Value
 {
-    /**
-     * @const int
-     */
-    const STATUS_DRAFT = 0;
-
-    /**
-     * @const int
-     */
-    const STATUS_PUBLISHED = 1;
-
-    /**
-     * @const int
-     */
-    const STATUS_ARCHIVED = 2;
-
     /**
      * @var int|string
      */

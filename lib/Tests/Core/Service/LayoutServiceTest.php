@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -83,7 +84,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         foreach ($layouts as $layout) {
             $this->assertInstanceOf(Layout::class, $layout);
             $this->assertFalse($layout->isShared());
-            $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+            $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
         }
     }
 
@@ -101,7 +102,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
             $this->assertInstanceOf(Layout::class, $layout);
             $this->assertFalse($layout->isShared());
 
-            if ($layout->getStatus() === Layout::STATUS_DRAFT) {
+            if ($layout->getStatus() === Value::STATUS_DRAFT) {
                 try {
                     $this->layoutService->loadLayout($layout->getId());
                     $this->fail('Layout in draft status with existing published version loaded.');
@@ -125,7 +126,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         foreach ($layouts as $layout) {
             $this->assertInstanceOf(Layout::class, $layout);
             $this->assertTrue($layout->isShared());
-            $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+            $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
         }
     }
 
@@ -240,7 +241,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
         $this->assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $updatedZone->getLinkedZone()->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedZone->getLinkedZone()->getStatus());
         $this->assertEquals($linkedZone->getLayoutId(), $updatedZone->getLinkedZone()->getLayoutId());
         $this->assertEquals($linkedZone->getIdentifier(), $updatedZone->getLinkedZone()->getIdentifier());
     }
@@ -422,7 +423,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $publishedLayout = $this->layoutService->publishLayout($layout);
 
         $this->assertInstanceOf(Layout::class, $publishedLayout);
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $publishedLayout->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $publishedLayout->getStatus());
 
         try {
             $this->layoutService->loadLayoutDraft($layout->getId());

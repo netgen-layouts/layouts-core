@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use PHPUnit\Framework\TestCase;
 
@@ -74,10 +74,10 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
-            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(1, Value::STATUS_PUBLISHED)
         );
     }
 
@@ -88,7 +88,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testLoadBlockThrowsNotFoundException()
     {
-        $this->blockHandler->loadBlock(999999, Layout::STATUS_PUBLISHED);
+        $this->blockHandler->loadBlock(999999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -97,7 +97,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testBlockExists()
     {
-        $this->assertTrue($this->blockHandler->blockExists(1, Layout::STATUS_PUBLISHED));
+        $this->assertTrue($this->blockHandler->blockExists(1, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -106,7 +106,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExists()
     {
-        $this->assertFalse($this->blockHandler->blockExists(999999, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->blockHandler->blockExists(999999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -115,7 +115,7 @@ class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExistsInStatus()
     {
-        $this->assertFalse($this->blockHandler->blockExists(6, Layout::STATUS_PUBLISHED));
+        $this->assertFalse($this->blockHandler->blockExists(6, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -139,7 +139,7 @@ class BlockHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
                 new Block(
@@ -155,12 +155,12 @@ class BlockHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
-                        'status' => Layout::STATUS_PUBLISHED,
+                        'status' => Value::STATUS_PUBLISHED,
                     )
                 ),
             ),
             $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone(1, Layout::STATUS_PUBLISHED, 'right')
+                $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'right')
             )
         );
     }
@@ -175,16 +175,16 @@ class BlockHandlerTest extends TestCase
             new CollectionReference(
                 array(
                     'blockId' => 1,
-                    'blockStatus' => Layout::STATUS_DRAFT,
+                    'blockStatus' => Value::STATUS_DRAFT,
                     'collectionId' => 1,
-                    'collectionStatus' => Collection::STATUS_DRAFT,
+                    'collectionStatus' => Value::STATUS_DRAFT,
                     'identifier' => 'default',
                     'offset' => 0,
                     'limit' => null,
                 )
             ),
             $this->blockHandler->loadCollectionReference(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
                 'default'
             )
         );
@@ -198,7 +198,7 @@ class BlockHandlerTest extends TestCase
     public function testLoadCollectionReferenceThrowsNotFoundException()
     {
         $this->blockHandler->loadCollectionReference(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
             'non_existing'
         );
     }
@@ -214,9 +214,9 @@ class BlockHandlerTest extends TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 1,
-                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 1,
-                        'collectionStatus' => Collection::STATUS_DRAFT,
+                        'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
                         'offset' => 0,
                         'limit' => null,
@@ -225,9 +225,9 @@ class BlockHandlerTest extends TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 1,
-                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 3,
-                        'collectionStatus' => Collection::STATUS_PUBLISHED,
+                        'collectionStatus' => Value::STATUS_PUBLISHED,
                         'identifier' => 'featured',
                         'offset' => 0,
                         'limit' => null,
@@ -235,7 +235,7 @@ class BlockHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadCollectionReferences(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT)
             )
         );
     }
@@ -268,18 +268,18 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
                 'right',
                 0
             )
         );
 
-        $secondBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
+        $secondBlock = $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
         $this->assertEquals(1, $secondBlock->position);
     }
 
@@ -311,12 +311,12 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
                 'right'
             )
         );
@@ -338,7 +338,7 @@ class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
             'right',
             -5
         );
@@ -360,7 +360,7 @@ class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_PUBLISHED),
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
             'right',
             9999
         );
@@ -394,11 +394,11 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'new',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->updateBlock(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
                 $blockUpdateStruct
             )
         );
@@ -414,18 +414,18 @@ class BlockHandlerTest extends TestCase
             new CollectionReference(
                 array(
                     'blockId' => 1,
-                    'blockStatus' => Layout::STATUS_DRAFT,
+                    'blockStatus' => Value::STATUS_DRAFT,
                     'collectionId' => 2,
-                    'collectionStatus' => Collection::STATUS_PUBLISHED,
+                    'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'default',
                     'offset' => 0,
                     'limit' => null,
                 )
             ),
             $this->blockHandler->updateCollectionReference(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
                 'default',
-                new Collection(array('id' => 2, 'status' => Collection::STATUS_PUBLISHED))
+                new Collection(array('id' => 2, 'status' => Value::STATUS_PUBLISHED))
             )
         );
     }
@@ -438,8 +438,8 @@ class BlockHandlerTest extends TestCase
     public function testCopyBlock()
     {
         $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-            $this->layoutHandler->loadLayout(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'right'
         );
 
@@ -457,7 +457,7 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $copiedBlock
@@ -468,9 +468,9 @@ class BlockHandlerTest extends TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 7,
-                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 6,
-                        'collectionStatus' => Collection::STATUS_DRAFT,
+                        'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
                         'offset' => 0,
                         'limit' => null,
@@ -479,9 +479,9 @@ class BlockHandlerTest extends TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 7,
-                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 3,
-                        'collectionStatus' => Collection::STATUS_PUBLISHED,
+                        'collectionStatus' => Value::STATUS_PUBLISHED,
                         'identifier' => 'featured',
                         'offset' => 0,
                         'limit' => null,
@@ -500,8 +500,8 @@ class BlockHandlerTest extends TestCase
     public function testCopyBlockToDifferentLayoutAndZone()
     {
         $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
-            $this->layoutHandler->loadLayout(2, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(2, Value::STATUS_DRAFT),
             'bottom'
         );
 
@@ -519,7 +519,7 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $copiedBlock
@@ -530,9 +530,9 @@ class BlockHandlerTest extends TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 7,
-                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 6,
-                        'collectionStatus' => Collection::STATUS_DRAFT,
+                        'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
                         'offset' => 0,
                         'limit' => null,
@@ -541,9 +541,9 @@ class BlockHandlerTest extends TestCase
                 new CollectionReference(
                     array(
                         'blockId' => 7,
-                        'blockStatus' => Layout::STATUS_DRAFT,
+                        'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 3,
-                        'collectionStatus' => Collection::STATUS_PUBLISHED,
+                        'collectionStatus' => Value::STATUS_PUBLISHED,
                         'identifier' => 'featured',
                         'offset' => 0,
                         'limit' => null,
@@ -575,16 +575,16 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->moveBlock(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
                 1
             )
         );
 
-        $firstBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
+        $firstBlock = $this->blockHandler->loadBlock(2, Value::STATUS_DRAFT);
         $this->assertEquals(0, $firstBlock->position);
     }
 
@@ -609,16 +609,16 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'grid',
                     'itemViewType' => 'standard',
                     'name' => 'My fourth block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->moveBlock(
-                $this->blockHandler->loadBlock(5, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(5, Value::STATUS_DRAFT),
                 0
             )
         );
 
-        $firstBlock = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
+        $firstBlock = $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
         $this->assertEquals(1, $firstBlock->position);
     }
 
@@ -630,7 +630,7 @@ class BlockHandlerTest extends TestCase
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
     {
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
             -1
         );
     }
@@ -643,7 +643,7 @@ class BlockHandlerTest extends TestCase
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
     {
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
             9999
         );
     }
@@ -669,11 +669,11 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
             $this->blockHandler->moveBlockToZone(
-                $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
                 'bottom',
                 0
             )
@@ -688,7 +688,7 @@ class BlockHandlerTest extends TestCase
     public function testMoveBlockToZoneThrowsBadStateExceptionOnNegativePosition()
     {
         $this->blockHandler->moveBlockToZone(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
             'bottom',
             -1
         );
@@ -702,7 +702,7 @@ class BlockHandlerTest extends TestCase
     public function testMoveBlockToZoneThrowsBadStateExceptionOnTooLargePosition()
     {
         $this->blockHandler->moveBlockToZone(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
             'bottom',
             9999
         );
@@ -715,12 +715,12 @@ class BlockHandlerTest extends TestCase
     public function testCreateBlockStatus()
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT)
         );
 
         $this->blockHandler->createBlockStatus(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_PUBLISHED),
-            Layout::STATUS_DRAFT
+            $this->blockHandler->loadBlock(1, Value::STATUS_PUBLISHED),
+            Value::STATUS_DRAFT
         );
 
         $this->assertEquals(
@@ -737,14 +737,14 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
-                    'status' => Layout::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT)
         );
 
         $collectionReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT)
         );
 
         $this->assertCount(2, $collectionReferences);
@@ -766,28 +766,28 @@ class BlockHandlerTest extends TestCase
     public function testDeleteBlock()
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT)
         );
 
-        $secondBlock = $this->blockHandler->loadBlock(2, Layout::STATUS_DRAFT);
+        $secondBlock = $this->blockHandler->loadBlock(2, Value::STATUS_DRAFT);
         $this->assertEquals(0, $secondBlock->position);
 
         try {
-            $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
             self::fail('Block still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         try {
-            $this->collectionHandler->loadCollection(1, Layout::STATUS_DRAFT);
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
             self::fail('Collection still exists after deleting a block.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         // Verify that shared collection still exists
-        $this->collectionHandler->loadCollection(3, Collection::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -796,8 +796,8 @@ class BlockHandlerTest extends TestCase
      */
     public function testCreateCollectionReference()
     {
-        $block = $this->blockHandler->loadBlock(1, Layout::STATUS_DRAFT);
-        $collection = $this->collectionHandler->loadCollection(2, Collection::STATUS_PUBLISHED);
+        $block = $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
+        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
 
         $this->blockHandler->createCollectionReference($block, $collection, 'new');
 

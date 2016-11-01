@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +31,7 @@ class QueryTest extends TestCase
                 'identifier' => 'my_query',
                 'type' => 'ezcontent_search',
                 'parameters' => array('param' => 'value'),
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -41,6 +41,6 @@ class QueryTest extends TestCase
         $this->assertEquals('my_query', $query->identifier);
         $this->assertEquals('ezcontent_search', $query->type);
         $this->assertEquals(array('param' => 'value'), $query->parameters);
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $query->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $query->status);
     }
 }

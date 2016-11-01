@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
@@ -32,7 +33,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
             array(
                 'identifier' => 'right',
                 'layoutId' => 1,
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'right',
             )
@@ -43,9 +44,9 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIZone::class, $zone);
         $this->assertEquals('right', $zone->getIdentifier());
         $this->assertEquals(1, $zone->getLayoutId());
-        $this->assertEquals(APILayout::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
         $this->assertInstanceOf(APIZone::class, $zone->getLinkedZone());
-        $this->assertEquals(APILayout::STATUS_PUBLISHED, $zone->getLinkedZone()->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getLinkedZone()->getStatus());
         $this->assertEquals(3, $zone->getLinkedZone()->getLayoutId());
         $this->assertEquals('right', $zone->getLinkedZone()->getIdentifier());
 
@@ -72,7 +73,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
                 'name' => 'My layout',
                 'created' => 1447065813,
                 'modified' => 1447065813,
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
             )
         );
@@ -91,7 +92,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
         $this->assertInstanceOf(DateTime::class, $layout->getModified());
         $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
-        $this->assertEquals(APILayout::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
         $this->assertTrue($layout->isShared());
 
         $this->assertNotEmpty($layout->getZones());

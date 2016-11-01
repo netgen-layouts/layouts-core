@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +32,7 @@ class LayoutMapperTest extends TestCase
                 'name' => 'My layout',
                 'created' => 123,
                 'modified' => 456,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
             ),
             array(
@@ -40,7 +41,7 @@ class LayoutMapperTest extends TestCase
                 'name' => 'My other layout',
                 'created' => 789,
                 'modified' => 111,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'shared' => false,
             ),
         );
@@ -53,7 +54,7 @@ class LayoutMapperTest extends TestCase
                     'name' => 'My layout',
                     'created' => 123,
                     'modified' => 456,
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                     'shared' => true,
                 )
             ),
@@ -64,7 +65,7 @@ class LayoutMapperTest extends TestCase
                     'name' => 'My other layout',
                     'created' => 789,
                     'modified' => 111,
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                     'shared' => false,
                 )
             ),
@@ -82,14 +83,14 @@ class LayoutMapperTest extends TestCase
             array(
                 'identifier' => 'left',
                 'layout_id' => 1,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'linked_layout_id' => 3,
                 'linked_zone_identifier' => 'top',
             ),
             array(
                 'identifier' => 'right',
                 'layout_id' => 1,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'linked_layout_id' => null,
                 'linked_zone_identifier' => null,
             ),
@@ -100,7 +101,7 @@ class LayoutMapperTest extends TestCase
                 array(
                     'identifier' => 'left',
                     'layoutId' => 1,
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
                 )
@@ -109,7 +110,7 @@ class LayoutMapperTest extends TestCase
                 array(
                     'identifier' => 'right',
                     'layoutId' => 1,
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
                 )

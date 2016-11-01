@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
@@ -67,7 +68,7 @@ class LayoutTest extends TestCase
                 'name' => 'My layout',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
                 'zones' => array('left' => new Zone(), 'right' => new Zone()),
             )
@@ -78,7 +79,7 @@ class LayoutTest extends TestCase
         $this->assertEquals('My layout', $layout->getName());
         $this->assertEquals($createdDate, $layout->getCreated());
         $this->assertEquals($modifiedDate, $layout->getModified());
-        $this->assertEquals(Layout::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
         $this->assertTrue($layout->isShared());
         $this->assertEquals(
             array('left' => new Zone(), 'right' => new Zone()),

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +27,7 @@ class CollectionTest extends TestCase
                 'type' => Collection::TYPE_DYNAMIC,
                 'shared' => false,
                 'name' => 'My collection',
-                'status' => Collection::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -34,6 +35,6 @@ class CollectionTest extends TestCase
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->type);
         $this->assertFalse($collection->shared);
         $this->assertEquals('My collection', $collection->name);
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $collection->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->status);
     }
 }

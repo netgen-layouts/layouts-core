@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
@@ -287,7 +288,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertEquals(50, $updatedRule->getPriority());
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $updatedRule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->getStatus());
     }
 
     /**
@@ -347,7 +348,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         $this->assertInstanceOf(Rule::class, $publishedRule);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $publishedRule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $publishedRule->getStatus());
         $this->assertTrue($publishedRule->isEnabled());
 
         try {
@@ -372,7 +373,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         $this->assertInstanceOf(Rule::class, $publishedRule);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $publishedRule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $publishedRule->getStatus());
         $this->assertFalse($publishedRule->isEnabled());
 
         try {
@@ -401,7 +402,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         $this->assertInstanceOf(Rule::class, $publishedRule);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $publishedRule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $publishedRule->getStatus());
         $this->assertFalse($publishedRule->isEnabled());
 
         try {
@@ -436,7 +437,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertInstanceOf(Rule::class, $enabledRule);
         $this->assertTrue($enabledRule->isEnabled());
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $enabledRule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $enabledRule->getStatus());
     }
 
     /**
@@ -483,7 +484,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertInstanceOf(Rule::class, $disabledRule);
         $this->assertFalse($disabledRule->isEnabled());
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $disabledRule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $disabledRule->getStatus());
     }
 
     /**

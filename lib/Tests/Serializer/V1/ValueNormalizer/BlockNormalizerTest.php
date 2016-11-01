@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -57,7 +56,7 @@ class BlockNormalizerTest extends TestCase
                 ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'name' => 'My block',
             )
         );

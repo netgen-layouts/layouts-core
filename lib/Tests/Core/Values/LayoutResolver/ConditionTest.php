@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ class ConditionTest extends TestCase
         $condition = new Condition(
             array(
                 'id' => 42,
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 30,
                 'conditionType' => new ConditionType('condition'),
                 'value' => 32,
@@ -49,7 +49,7 @@ class ConditionTest extends TestCase
         );
 
         $this->assertEquals(42, $condition->getId());
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $condition->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $condition->getStatus());
         $this->assertEquals(30, $condition->getRuleId());
         $this->assertEquals(new ConditionType('condition'), $condition->getConditionType());
         $this->assertEquals(32, $condition->getValue());

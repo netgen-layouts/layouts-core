@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Rule;
 
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +27,7 @@ class ConditionTest extends TestCase
                 'ruleId' => 30,
                 'type' => 'condition',
                 'value' => 32,
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -35,6 +35,6 @@ class ConditionTest extends TestCase
         $this->assertEquals(30, $condition->ruleId);
         $this->assertEquals('condition', $condition->type);
         $this->assertEquals(32, $condition->value);
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $condition->status);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $condition->status);
     }
 }

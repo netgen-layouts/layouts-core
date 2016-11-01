@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Doctrine\DBAL\Types\Type;
 
 class LayoutQueryHandler extends QueryHandler
@@ -83,7 +83,7 @@ class LayoutQueryHandler extends QueryHandler
             $query->setParameter('shared', (bool)$shared, Type::BOOLEAN);
         }
 
-        $query->setParameter('status', Layout::STATUS_PUBLISHED, Type::INTEGER);
+        $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('id', 'ASC');

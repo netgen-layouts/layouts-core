@@ -2,8 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\Parameters\ParameterValue;
@@ -42,7 +41,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
-                'status' => APILayout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             )
         );
 
@@ -61,7 +60,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(APILayout::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
 
         $this->assertEquals(
             array(
@@ -96,9 +95,9 @@ abstract class BlockMapperTest extends ServiceTestCase
         $persistenceReference = new CollectionReference(
             array(
                 'blockId' => 1,
-                'blockStatus' => APILayout::STATUS_PUBLISHED,
+                'blockStatus' => Value::STATUS_PUBLISHED,
                 'collectionId' => 2,
-                'collectionStatus' => Collection::STATUS_PUBLISHED,
+                'collectionStatus' => Value::STATUS_PUBLISHED,
                 'identifier' => 'default',
                 'offset' => 5,
                 'limit' => 10,
@@ -110,9 +109,9 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APICollectionReference::class, $reference);
 
         $this->assertEquals(1, $reference->getBlock()->getId());
-        $this->assertEquals(APILayout::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
         $this->assertEquals(2, $reference->getCollection()->getId());
-        $this->assertEquals(Collection::STATUS_PUBLISHED, $reference->getCollection()->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $reference->getCollection()->getStatus());
         $this->assertEquals('default', $reference->getIdentifier());
         $this->assertEquals(5, $reference->getOffset());
         $this->assertEquals(10, $reference->getLimit());

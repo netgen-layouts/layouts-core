@@ -7,7 +7,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
@@ -153,8 +153,8 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('enabled', true, Type::BOOLEAN)
             ->addOrderBy('rd.priority', 'DESC');
 
-        $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'r.status');
-        $this->applyStatusCondition($query, Rule::STATUS_PUBLISHED, 'rt.status');
+        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
+        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'rt.status');
 
         if (!isset($this->targetHandlers[$targetType])) {
             throw new RuntimeException(

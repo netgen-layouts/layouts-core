@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -155,7 +155,7 @@ class PositionHelperTest extends TestCase
                 )
             )
             ->setParameter('id', 2, Type::INTEGER)
-            ->setParameter('status', Collection::STATUS_DRAFT, Type::INTEGER);
+            ->setParameter('status', Value::STATUS_DRAFT, Type::INTEGER);
 
         $query->execute();
 
@@ -188,7 +188,7 @@ class PositionHelperTest extends TestCase
             'column' => 'position',
             'conditions' => array(
                 'collection_id' => 1,
-                'status' => Collection::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
     }
@@ -210,7 +210,7 @@ class PositionHelperTest extends TestCase
                 )
             )
             ->setParameter('collection_id', 1, Type::INTEGER)
-            ->setParameter('status', Collection::STATUS_DRAFT, Type::INTEGER)
+            ->setParameter('status', Value::STATUS_DRAFT, Type::INTEGER)
             ->orderBy('position', 'ASC');
 
         return array_map(

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
@@ -32,7 +33,7 @@ class LayoutResolverMapperTest extends TestCase
                 'enabled' => true,
                 'priority' => 2,
                 'comment' => 'Comment',
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
@@ -40,7 +41,7 @@ class LayoutResolverMapperTest extends TestCase
                 'enabled' => false,
                 'priority' => 3,
                 'comment' => null,
-                'status' => Rule::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
 
@@ -52,7 +53,7 @@ class LayoutResolverMapperTest extends TestCase
                     'enabled' => true,
                     'priority' => 2,
                     'comment' => 'Comment',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Rule(
@@ -62,7 +63,7 @@ class LayoutResolverMapperTest extends TestCase
                     'enabled' => false,
                     'priority' => 3,
                     'comment' => null,
-                    'status' => Rule::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
         );
@@ -81,14 +82,14 @@ class LayoutResolverMapperTest extends TestCase
                 'rule_id' => 1,
                 'type' => 'target',
                 'value' => '32',
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'rule_id' => 2,
                 'type' => 'target2',
                 'value' => '42',
-                'status' => Rule::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
 
@@ -99,7 +100,7 @@ class LayoutResolverMapperTest extends TestCase
                     'ruleId' => 1,
                     'type' => 'target',
                     'value' => '32',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Target(
@@ -108,7 +109,7 @@ class LayoutResolverMapperTest extends TestCase
                     'ruleId' => 2,
                     'type' => 'target2',
                     'value' => '42',
-                    'status' => Rule::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
         );
@@ -127,14 +128,14 @@ class LayoutResolverMapperTest extends TestCase
                 'rule_id' => 1,
                 'type' => 'condition',
                 'value' => '24',
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'rule_id' => 2,
                 'type' => 'condition2',
                 'value' => '{"param":"value"}',
-                'status' => Rule::STATUS_DRAFT,
+                'status' => Value::STATUS_DRAFT,
             ),
         );
 
@@ -145,7 +146,7 @@ class LayoutResolverMapperTest extends TestCase
                     'ruleId' => 1,
                     'type' => 'condition',
                     'value' => '24',
-                    'status' => Rule::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Condition(
@@ -156,7 +157,7 @@ class LayoutResolverMapperTest extends TestCase
                     'value' => array(
                         'param' => 'value',
                     ),
-                    'status' => Rule::STATUS_DRAFT,
+                    'status' => Value::STATUS_DRAFT,
                 )
             ),
         );

@@ -1,8 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values;
+namespace Netgen\BlockManager\Persistence\Values;
 
-interface Value
+use Netgen\BlockManager\ValueObject;
+
+abstract class Value extends ValueObject
 {
     /**
      * @const int

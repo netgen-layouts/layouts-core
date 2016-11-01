@@ -3,10 +3,9 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
 class BlockMapperTest extends TestCase
@@ -37,7 +36,7 @@ class BlockMapperTest extends TestCase
                 'view_type' => 'default',
                 'item_view_type' => 'standard',
                 'name' => 'My block',
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 84,
@@ -49,7 +48,7 @@ class BlockMapperTest extends TestCase
                 'view_type' => 'small',
                 'item_view_type' => 'standard',
                 'name' => 'My other block',
-                'status' => Layout::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
             ),
         );
 
@@ -67,7 +66,7 @@ class BlockMapperTest extends TestCase
                     'viewType' => 'default',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Block(
@@ -83,7 +82,7 @@ class BlockMapperTest extends TestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My other block',
-                    'status' => Layout::STATUS_PUBLISHED,
+                    'status' => Value::STATUS_PUBLISHED,
                 )
             ),
         );
@@ -99,18 +98,18 @@ class BlockMapperTest extends TestCase
         $data = array(
             array(
                 'block_id' => 1,
-                'block_status' => Layout::STATUS_PUBLISHED,
+                'block_status' => Value::STATUS_PUBLISHED,
                 'collection_id' => 42,
-                'collection_status' => Collection::STATUS_PUBLISHED,
+                'collection_status' => Value::STATUS_PUBLISHED,
                 'identifier' => 'default',
                 'start' => 5,
                 'length' => 10,
             ),
             array(
                 'block_id' => 2,
-                'block_status' => Layout::STATUS_PUBLISHED,
+                'block_status' => Value::STATUS_PUBLISHED,
                 'collection_id' => 43,
-                'collection_status' => Collection::STATUS_PUBLISHED,
+                'collection_status' => Value::STATUS_PUBLISHED,
                 'identifier' => 'featured',
                 'start' => 10,
                 'length' => 15,
@@ -121,9 +120,9 @@ class BlockMapperTest extends TestCase
             new CollectionReference(
                 array(
                     'blockId' => 1,
-                    'blockStatus' => Layout::STATUS_PUBLISHED,
+                    'blockStatus' => Value::STATUS_PUBLISHED,
                     'collectionId' => 42,
-                    'collectionStatus' => Collection::STATUS_PUBLISHED,
+                    'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'default',
                     'offset' => 5,
                     'limit' => 10,
@@ -132,9 +131,9 @@ class BlockMapperTest extends TestCase
             new CollectionReference(
                 array(
                     'blockId' => 2,
-                    'blockStatus' => Layout::STATUS_PUBLISHED,
+                    'blockStatus' => Value::STATUS_PUBLISHED,
                     'collectionId' => 43,
-                    'collectionStatus' => Collection::STATUS_PUBLISHED,
+                    'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'featured',
                     'offset' => 10,
                     'limit' => 15,

@@ -6,12 +6,6 @@ use Netgen\BlockManager\API\Values\Value;
 
 interface Rule extends Value
 {
-    const STATUS_DRAFT = 0;
-
-    const STATUS_PUBLISHED = 1;
-
-    const STATUS_ARCHIVED = 2;
-
     /**
      * Returns the rule ID.
      *

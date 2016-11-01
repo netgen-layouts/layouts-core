@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
@@ -32,7 +33,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $persistenceRule = new Rule(
             array(
                 'id' => 3,
-                'status' => APIRule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'layoutId' => 1,
                 'enabled' => true,
                 'priority' => 12,
@@ -46,7 +47,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $this->assertEquals(3, $rule->getId());
         $this->assertInstanceOf(Layout::class, $rule->getLayout());
         $this->assertEquals(1, $rule->getLayout()->getId());
-        $this->assertEquals(APIRule::STATUS_PUBLISHED, $rule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $rule->getStatus());
         $this->assertTrue($rule->isEnabled());
         $this->assertEquals(12, $rule->getPriority());
         $this->assertEquals('Comment', $rule->getComment());
@@ -72,7 +73,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $persistenceTarget = new Target(
             array(
                 'id' => 1,
-                'status' => APIRule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'type' => 'target',
                 'value' => 42,
@@ -88,7 +89,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $this->assertInstanceOf(APITarget::class, $target);
         $this->assertEquals(1, $target->getId());
-        $this->assertEquals(APIRule::STATUS_PUBLISHED, $target->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $target->getStatus());
         $this->assertEquals(42, $target->getRuleId());
         $this->assertEquals(42, $target->getValue());
     }
@@ -101,7 +102,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $persistenceCondition = new Condition(
             array(
                 'id' => 1,
-                'status' => APIRule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'type' => 'condition',
                 'value' => 42,
@@ -117,7 +118,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
 
         $this->assertInstanceOf(APICondition::class, $condition);
         $this->assertEquals(1, $condition->getId());
-        $this->assertEquals(APIRule::STATUS_PUBLISHED, $condition->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $condition->getStatus());
         $this->assertEquals(42, $condition->getRuleId());
         $this->assertEquals(42, $condition->getValue());
     }

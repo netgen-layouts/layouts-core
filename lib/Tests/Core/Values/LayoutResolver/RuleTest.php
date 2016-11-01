@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
@@ -51,7 +52,7 @@ class RuleTest extends TestCase
         $rule = new Rule(
             array(
                 'id' => 42,
-                'status' => Rule::STATUS_PUBLISHED,
+                'status' => Value::STATUS_PUBLISHED,
                 'layout' => new Layout(array('id' => 24)),
                 'priority' => 13,
                 'enabled' => true,
@@ -62,7 +63,7 @@ class RuleTest extends TestCase
         );
 
         $this->assertEquals(42, $rule->getId());
-        $this->assertEquals(Rule::STATUS_PUBLISHED, $rule->getStatus());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $rule->getStatus());
         $this->assertEquals(new Layout(array('id' => 24)), $rule->getLayout());
         $this->assertEquals(13, $rule->getPriority());
         $this->assertTrue($rule->isEnabled());
