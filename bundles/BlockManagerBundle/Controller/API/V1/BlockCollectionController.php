@@ -66,6 +66,18 @@ class BlockCollectionController extends Controller
     }
 
     /**
+     * Loads the collection reference.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
+     */
+    public function load(CollectionReference $collectionReference)
+    {
+        return new VersionedValue($collectionReference, Version::API_V1);
+    }
+
+    /**
      * Loads all block draft collection references.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block

@@ -1,4 +1,4 @@
-ngbm_api_v1_layouts_shard:
+ngbm_api_v1_layouts_shared:
     path: /layouts/shared
     methods: [GET]
     defaults:
