@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -206,8 +207,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param array $parameters
      * @param string $viewContext
      *
-     * @throws \Exception If an error occurred
-     *
      * @return string
      */
     public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = array(), $viewContext = null)
@@ -225,13 +224,13 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 $viewContext
             );
         } catch (Exception $e) {
-            $this->logItemError($item, $e);
+            $errorMessage = sprintf(
+                'Error rendering an item with ID "%s" and type "%s"',
+                $item->getValueId(),
+                $item->getValueType()
+            );
 
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
+            return $this->handleException($e, $errorMessage);
         }
     }
 
@@ -242,8 +241,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param mixed $valueObject
      * @param array $parameters
      * @param string $viewContext
-     *
-     * @throws \Exception If an error occurred
      *
      * @return string
      */
@@ -262,13 +259,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 $viewContext
             );
         } catch (Exception $e) {
-            $this->logValueObjectError($valueObject, $e);
+            $errorMessage = sprintf(
+                'Error rendering a value object of type "%s"',
+                is_object($valueObject) ? get_class($valueObject) : gettype($valueObject)
+            );
 
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
+            return $this->handleException($e, $errorMessage);
         }
     }
 
@@ -326,8 +322,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param array $parameters
      * @param string $viewContext
      *
-     * @throws \Exception If an error occurred
-     *
      * @return string
      */
     protected function renderBlock(Block $block, array $parameters = array(), $viewContext = ViewInterface::CONTEXT_DEFAULT)
@@ -349,13 +343,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
 
             return $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
         } catch (Exception $e) {
-            $this->logBlockError($block, $e);
+            $errorMessage = sprintf(
+                'Error rendering a block with ID "%s"',
+                $block->getId()
+            );
 
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
+            return $this->handleException($e, $errorMessage);
         }
     }
 
@@ -367,8 +360,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Twig_Template $twigTemplate
      * @param string $twigContext
      * @param array $twigBlocks
-     *
-     * @throws \Exception If an error occurred
      *
      * @return string
      */
@@ -383,14 +374,36 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         } catch (Exception $e) {
             ob_end_clean();
 
-            $this->logBlockError($block, $e);
+            $errorMessage = sprintf(
+                'Error rendering a block with ID "%s"',
+                $block->getId()
+            );
 
-            if ($this->debug) {
-                throw $e;
-            }
-
-            return '';
+            return $this->handleException($e, $errorMessage);
         }
+    }
+
+    /**
+     * Handles the exception based on provided debug flag.
+     *
+     * @param \Exception $exception
+     * @param string $errorMessage
+     *
+     * @todo Refactor out to separate service
+     *
+     * @throws \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException
+     *
+     * @return string
+     */
+    protected function handleException(Exception $exception, $errorMessage)
+    {
+        $this->logger->error($errorMessage . ': ' . $exception->getMessage());
+
+        if ($this->debug) {
+            throw new RenderingFailedException($errorMessage, 0, $exception);
+        }
+
+        return '';
     }
 
     /**
@@ -403,65 +416,5 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     protected function isBlockCacheable(Block $block)
     {
         return false;
-    }
-
-    /**
-     * In most cases when rendering a Twig template on frontend
-     * we do not want rendering of the block to crash the page,
-     * hence we log an error.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Exception $exception
-     */
-    protected function logBlockError(Block $block, Exception $exception)
-    {
-        $this->logger->error(
-            sprintf(
-                'Error rendering a block with ID %d: %s',
-                $block->getId(),
-                $exception->getMessage()
-            )
-        );
-    }
-
-    /**
-     * In most cases when rendering a Twig template on frontend
-     * we do not want rendering of the item to crash the page,
-     * hence we log an error.
-     *
-     * @param \Netgen\BlockManager\Item\ItemInterface $item
-     * @param \Exception $exception
-     */
-    protected function logItemError(ItemInterface $item, Exception $exception)
-    {
-        $this->logger->error(
-            sprintf(
-                'Error rendering an item with ID %d and type %s: %s',
-                $item->getValueId(),
-                $item->getValueType(),
-                $exception->getMessage()
-            )
-        );
-    }
-
-    /**
-     * In most cases when rendering a Twig template on frontend
-     * we do not want rendering of the value object to crash the page,
-     * hence we log an error.
-     *
-     * @param mixed $valueObject
-     * @param \Exception $exception
-     */
-    protected function logValueObjectError($valueObject, Exception $exception)
-    {
-        $this->logger->error(
-            sprintf(
-                'Error rendering a value object of type %s: %s',
-                is_object($valueObject) ?
-                    get_class($valueObject) :
-                    gettype($valueObject),
-                $exception->getMessage()
-            )
-        );
     }
 }

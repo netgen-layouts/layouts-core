@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,7 +50,7 @@ class BlockController extends Controller
      * @param array $parameters
      * @param string $context
      *
-     * @throws \Exception If rendering fails
+     * @throws \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException If rendering fails
      *
      * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
      */
@@ -58,12 +59,12 @@ class BlockController extends Controller
         try {
             return $this->buildView($block, $parameters, $context);
         } catch (Exception $e) {
-            $this->logger->error(
-                sprintf('Error rendering a block with ID %d: %s', $block->getId(), $e->getMessage())
-            );
+            $errorMessage = sprintf('Error rendering a block with ID %d', $block->getId());
+
+            $this->logger->error($errorMessage . ': ' . $e->getMessage());
 
             if ($this->debug) {
-                throw $e;
+                throw new RenderingFailedException($errorMessage, 0, $e);
             }
 
             return new Response();

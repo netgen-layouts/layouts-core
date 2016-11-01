@@ -145,7 +145,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logBlockError
-     * @expectedException \Exception
+     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException
      */
     public function testDisplayBlockThrowsExceptionInDebug()
     {
@@ -231,7 +231,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderItem
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logItemError
-     * @expectedException \Exception
+     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException
      */
     public function testRenderItemThrowsExceptionInDebug()
     {
@@ -312,7 +312,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::logValueObjectError
-     * @expectedException \Exception
+     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException
      */
     public function testRenderValueObjectThrowsExceptionInDebug()
     {
@@ -339,7 +339,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
-     * @expectedException \Exception
+     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException
      */
     public function testDisplayZoneThrowsExceptionInDebug()
     {
