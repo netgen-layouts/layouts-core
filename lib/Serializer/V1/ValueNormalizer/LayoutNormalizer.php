@@ -48,9 +48,7 @@ class LayoutNormalizer implements NormalizerInterface
         $data = array(
             'id' => $layout->getId(),
             'type' => $layoutType->getIdentifier(),
-            'published' => $layout->getStatus() === Value::STATUS_PUBLISHED ?
-                true :
-                false,
+            'published' => $layout->getStatus() === Value::STATUS_PUBLISHED,
             'has_published_state' => $this->layoutService->hasPublishedState($layout),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),

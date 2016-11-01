@@ -56,9 +56,7 @@ class BlockNormalizer extends SerializerAwareNormalizer implements NormalizerInt
             'parameters' => $this->serializer->normalize($parameters, $format, $context),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
-            'published' => $block->getStatus() === Value::STATUS_PUBLISHED ?
-                true :
-                false,
+            'published' => $block->getStatus() === Value::STATUS_PUBLISHED,
             'has_published_state' => $this->blockService->hasPublishedState($block),
         );
     }
