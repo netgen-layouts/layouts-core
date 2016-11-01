@@ -50,14 +50,20 @@ class BlockController extends Controller
     }
 
     /**
-     * Loads a block draft.
+     * Loads a block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function view(BlockDraft $block)
+    public function view($blockId, Request $request)
     {
+        $block = $this->loadBlock(
+            $blockId,
+            $request->query->get('published') !== 'true'
+        );
+
         return new View($block, Version::API_V1);
     }
 
@@ -160,5 +166,26 @@ class BlockController extends Controller
         $this->blockService->deleteBlock($block);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Loads either published or draft state of the block.
+     *
+     * @param int|string $blockId
+     * @param bool $loadDraft
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block|\Netgen\BlockManager\API\Values\Page\BlockDraft
+     */
+    protected function loadBlock($blockId, $loadDraft = true)
+    {
+        if ($loadDraft) {
+            return $this->blockService->loadBlockDraft(
+                $blockId
+            );
+        }
+
+        return $this->blockService->loadBlock(
+            $blockId
+        );
     }
 }
