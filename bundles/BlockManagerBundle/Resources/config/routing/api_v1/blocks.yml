@@ -10,6 +10,12 @@ ngbm_api_v1_blocks_create:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:create"
 
+ngbm_api_v1_blocks_update:
+    path: /blocks/{blockId}
+    methods: [PATCH]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.block:update"
+
 ngbm_api_v1_blocks_copy:
     path: /blocks/{blockId}/copy
     methods: [POST]
