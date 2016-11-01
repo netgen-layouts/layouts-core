@@ -106,6 +106,12 @@ class ValidatorTest extends TestCase
             array(null, true, false),
             array('identifier', false, true),
             array('identifier', true, true),
+            array('identifier_1', false, true),
+            array('identifier_2', true, true),
+            array('123identifier', false, false),
+            array('345identifier', true, false),
+            array('an identifier', false, false),
+            array('other identifier', true, false),
             array('', false, false),
             array('', true, false),
         );

@@ -47,6 +47,11 @@ abstract class Validator
         $constraints = array(
             new Constraints\NotBlank(),
             new Constraints\Type(array('type' => 'string')),
+            new Constraints\Regex(
+                array(
+                    'pattern' => '/^[A-Za-z]([A-Za-z0-9_])*$/',
+                )
+            ),
         );
 
         $this->validate($identifier, $constraints, $propertyPath);
