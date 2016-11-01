@@ -673,6 +673,134 @@ class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopy()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/6/copy?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/copy_layout',
+            Response::HTTP_CREATED,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithNonExistingLayout()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/9999/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithInvalidName()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 42,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/6/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithMissingName()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/6/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithExistingName()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My other layout',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/6/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::createDraft
      */
     public function testCreateDraft()
@@ -730,7 +858,7 @@ class LayoutControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            'PATCH',
             '/bm/api/v1/layouts/1?html=false',
             array(),
             array(),
@@ -753,7 +881,7 @@ class LayoutControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            'PATCH',
             '/bm/api/v1/layouts/9999',
             array(),
             array(),
@@ -779,7 +907,7 @@ class LayoutControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            'PATCH',
             '/bm/api/v1/layouts/1',
             array(),
             array(),
@@ -801,7 +929,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(array());
 
         $this->client->request(
-            'POST',
+            'PATCH',
             '/bm/api/v1/layouts/1',
             array(),
             array(),
@@ -827,8 +955,162 @@ class LayoutControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'POST',
+            'PATCH',
             '/bm/api/v1/layouts/1',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     */
+    public function testCopyDraft()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/draft/copy?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/copy_layout_draft',
+            Response::HTTP_CREATED,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     */
+    public function testCopyDraftWithNonExistingLayout()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/9999/draft/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     */
+    public function testCopyDraftWithNonExistingDraft()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/6/draft/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     */
+    public function testCopyDraftWithInvalidName()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 42,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/draft/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     */
+    public function testCopyDraftWithMissingName()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/draft/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     */
+    public function testCopyDraftWithExistingName()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My other layout',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/draft/copy',
             array(),
             array(),
             array(),
@@ -911,6 +1193,47 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->client->request(
             'POST',
             '/bm/api/v1/layouts/9999/publish',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::delete
+     */
+    public function testDelete()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'DELETE',
+            '/bm/api/v1/layouts/1',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::delete
+     */
+    public function testDeleteWithNonExistentLayout()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'DELETE',
+            '/bm/api/v1/layouts/9999',
             array(),
             array(),
             array(),

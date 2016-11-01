@@ -609,7 +609,7 @@ class CollectionControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/items/1/move',
             array(),
             array(),
@@ -628,7 +628,7 @@ class CollectionControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(array());
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/items/9999/move',
             array(),
             array(),
@@ -654,7 +654,7 @@ class CollectionControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/items/1/move',
             array(),
             array(),
@@ -680,7 +680,7 @@ class CollectionControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/items/1/move',
             array(),
             array(),
@@ -702,7 +702,7 @@ class CollectionControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(array());
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/items/1/move',
             array(),
             array(),
@@ -796,7 +796,7 @@ class CollectionControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/queries/2/move',
             array(),
             array(),
@@ -815,7 +815,7 @@ class CollectionControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(array());
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/queries/9999/move',
             array(),
             array(),
@@ -841,7 +841,7 @@ class CollectionControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/queries/2/move',
             array(),
             array(),
@@ -867,7 +867,7 @@ class CollectionControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/queries/2/move',
             array(),
             array(),
@@ -889,7 +889,7 @@ class CollectionControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(array());
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/collections/queries/2/move',
             array(),
             array(),

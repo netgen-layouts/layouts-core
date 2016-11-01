@@ -25,6 +25,20 @@ class BlockControllerTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::view
      */
+    public function testViewInPublishedState()
+    {
+        $this->client->request('GET', '/bm/api/v1/blocks/1?published=true&html=false');
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/blocks/view_published_block',
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::view
+     */
     public function testViewWithNonExistentBlock()
     {
         $this->client->request('GET', '/bm/api/v1/blocks/9999');
@@ -616,7 +630,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -639,7 +653,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -658,7 +672,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(array());
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/9999/move',
             array(),
             array(),
@@ -685,7 +699,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -712,7 +726,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -739,7 +753,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -766,7 +780,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -793,7 +807,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),
@@ -819,7 +833,7 @@ class BlockControllerTest extends JsonApiTestCase
         );
 
         $this->client->request(
-            'PATCH',
+            'POST',
             '/bm/api/v1/blocks/1/move',
             array(),
             array(),

@@ -72,4 +72,22 @@ class LayoutValidator extends Validator
             'name'
         );
     }
+
+    /**
+     * Validates layout name.
+     *
+     * @param string $layoutName
+     *
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
+     */
+    public function validateLayoutName($layoutName)
+    {
+        $this->validate(
+            $layoutName,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+            )
+        );
+    }
 }

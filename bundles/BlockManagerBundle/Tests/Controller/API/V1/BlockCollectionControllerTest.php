@@ -9,6 +9,20 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionReference
+     */
+    public function testLoadCollectionReference()
+    {
+        $this->client->request('GET', '/bm/api/v1/blocks/1/collections/default');
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/block_collections/load_collection_reference',
+            Response::HTTP_OK
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionReferences
      */
     public function testLoadCollectionReferences()
