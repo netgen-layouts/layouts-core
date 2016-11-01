@@ -79,7 +79,7 @@ class BlockController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\Serializer\Values\View
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function editForm(BlockDraft $block, $formName, Request $request)
     {

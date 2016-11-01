@@ -35,7 +35,7 @@ class LayoutController extends Controller
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query does not support the specified form
      *
-     * @return \Netgen\BlockManager\Serializer\Values\View
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\JsonResponse
      */
     public function layoutCreateForm(Request $request)
     {
