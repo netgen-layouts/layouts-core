@@ -170,7 +170,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return bool
      */
-    public function isPublished(Layout $layout)
+    public function hasPublishedState(Layout $layout)
     {
         return $this->layoutHandler->layoutExists($layout->getId(), Layout::STATUS_PUBLISHED);
     }

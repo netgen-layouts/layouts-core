@@ -130,23 +130,23 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::hasPublishedState
      */
-    public function testIsPublished()
+    public function testHasPublishedState()
     {
         $layout = $this->layoutService->loadLayout(1);
 
-        $this->assertTrue($this->layoutService->isPublished($layout));
+        $this->assertTrue($this->layoutService->hasPublishedState($layout));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::isPublished
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::hasPublishedState
      */
-    public function testIsPublishedReturnsFalse()
+    public function testHasPublishedStateReturnsFalse()
     {
         $layout = $this->layoutService->loadLayoutDraft(4);
 
-        $this->assertFalse($this->layoutService->isPublished($layout));
+        $this->assertFalse($this->layoutService->hasPublishedState($layout));
     }
 
     /**

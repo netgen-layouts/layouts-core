@@ -50,7 +50,7 @@ class LayoutNormalizer implements NormalizerInterface
             'published' => $layout->getStatus() === Layout::STATUS_PUBLISHED ?
                 true :
                 false,
-            'has_published_state' => $this->layoutService->isPublished($layout),
+            'has_published_state' => $this->layoutService->hasPublishedState($layout),
             'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'shared' => $layout->isShared(),

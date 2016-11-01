@@ -64,7 +64,7 @@ interface LayoutService
      *
      * @return bool
      */
-    public function isPublished(Layout $layout);
+    public function hasPublishedState(Layout $layout);
 
     /**
      * Loads a zone with specified identifier.

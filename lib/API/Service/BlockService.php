@@ -42,7 +42,7 @@ interface BlockService
      *
      * @return bool
      */
-    public function isPublished(Block $block);
+    public function hasPublishedState(Block $block);
 
     /**
      * Loads the collection reference with specified identifier.

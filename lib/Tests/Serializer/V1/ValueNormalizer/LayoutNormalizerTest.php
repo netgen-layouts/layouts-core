@@ -93,7 +93,7 @@ class LayoutNormalizerTest extends TestCase
 
         $this->layoutServiceMock
             ->expects($this->once())
-            ->method('isPublished')
+            ->method('hasPublishedState')
             ->with($this->equalTo($layout))
             ->will($this->returnValue(true));
 

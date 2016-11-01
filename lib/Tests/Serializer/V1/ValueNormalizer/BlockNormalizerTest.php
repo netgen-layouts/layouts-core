@@ -76,7 +76,7 @@ class BlockNormalizerTest extends TestCase
 
         $this->blockServiceMock
             ->expects($this->once())
-            ->method('isPublished')
+            ->method('hasPublishedState')
             ->with($this->equalTo($block))
             ->will($this->returnValue(true));
 

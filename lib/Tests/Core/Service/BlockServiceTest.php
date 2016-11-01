@@ -89,23 +89,23 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isPublished
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
      */
-    public function testIsPublished()
+    public function testHasPublishedState()
     {
         $block = $this->blockService->loadBlock(1);
 
-        $this->assertTrue($this->blockService->isPublished($block));
+        $this->assertTrue($this->blockService->hasPublishedState($block));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isPublished
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
      */
-    public function testIsPublishedReturnsFalse()
+    public function testHasPublishedStateReturnsFalse()
     {
         $block = $this->blockService->loadBlockDraft(6);
 
-        $this->assertFalse($this->blockService->isPublished($block));
+        $this->assertFalse($this->blockService->hasPublishedState($block));
     }
 
     /**

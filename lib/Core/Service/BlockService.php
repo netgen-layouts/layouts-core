@@ -149,7 +149,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return bool
      */
-    public function isPublished(Block $block)
+    public function hasPublishedState(Block $block)
     {
         return $this->blockHandler->blockExists($block->getId(), Layout::STATUS_PUBLISHED);
     }

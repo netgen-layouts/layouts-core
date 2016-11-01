@@ -59,7 +59,7 @@ class BlockNormalizer extends SerializerAwareNormalizer implements NormalizerInt
             'published' => $block->getStatus() === Layout::STATUS_PUBLISHED ?
                 true :
                 false,
-            'has_published_state' => $this->blockService->isPublished($block),
+            'has_published_state' => $this->blockService->hasPublishedState($block),
         );
     }
 
