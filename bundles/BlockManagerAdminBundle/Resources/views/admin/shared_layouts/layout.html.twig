@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="nl-layout-content" data-id="{{ layout.id }}">
+<div class="nl-layout-content" data-id="{{ layout.id }}" {% if layout.published %}data-published="true"{% endif %}>
     <div class="nl-panel-head">
         <div class="panel-head-title">
 
